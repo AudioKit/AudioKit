@@ -9,18 +9,18 @@
 import AVFoundation
 
 /// Operation-based generator
-public class AKOperationGenerator: AKNode, AKToggleable {
+open class AKOperationGenerator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    private var internalAU: AKOperationGeneratorAudioUnit?
+    fileprivate var internalAU: AKOperationGeneratorAudioUnit?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
     
-    public var sporth: String = "" {
+    open var sporth: String = "" {
         didSet  {
             self.stop()
             self.internalAU?.setSporth(sporth)
@@ -29,7 +29,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     }
 
     /// Parameters for changing internal operations
-    public var parameters: [Double] {
+    open var parameters: [Double] {
         get {
             var result: [Double] = []
             if let floatParameters = internalAU?.parameters as? [NSNumber] {
@@ -54,7 +54,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
             
         let computedParameter = operation(AKOperation.parameters)
         
-        if computedParameter.dynamicType == AKOperation.self {
+        if type(of: computedParameter) == AKOperation.self {
             let monoOperation = computedParameter as! AKOperation
             self.init(sporth: monoOperation.sporth + " dup ")
         } else {
@@ -98,36 +98,36 @@ public class AKOperationGenerator: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKOperationGeneratorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKOperationGenerator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationGeneratorAudioUnit
-            AudioKit.engine.attachNode(self.avAudioNode)
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKOperationGeneratorAudioUnit
+            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setSporth(sporth)
         }
     }
 
     /// Trigger the sound with current parameters
     ///
-    public func trigger(triggerNumber: Int = 0) {
+    open func trigger(_ triggerNumber: Int = 0) {
         self.internalAU!.trigger(Int32(triggerNumber))
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

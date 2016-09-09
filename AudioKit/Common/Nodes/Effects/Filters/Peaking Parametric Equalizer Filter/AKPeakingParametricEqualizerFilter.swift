@@ -16,19 +16,19 @@ import AVFoundation
 ///   - gain: Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
 ///   - q: Q of the filter. sqrt(0.5) is no resonance.
 ///
-public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
+open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKPeakingParametricEqualizerFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var centerFrequencyParameter: AUParameter?
-    private var gainParameter: AUParameter?
-    private var qParameter: AUParameter?
+    fileprivate var centerFrequencyParameter: AUParameter?
+    fileprivate var gainParameter: AUParameter?
+    fileprivate var qParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -38,7 +38,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
     }
 
     /// Center frequency.
-    public var centerFrequency: Double = 1000 {
+    open var centerFrequency: Double = 1000 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -50,7 +50,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
         }
     }
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
-    public var gain: Double = 1.0 {
+    open var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
                 if internalAU!.isSetUp() {
@@ -62,7 +62,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
         }
     }
     /// Q of the filter. sqrt(0.5) is no resonance.
-    public var q: Double = 0.707 {
+    open var q: Double = 0.707 {
         willSet {
             if q != newValue {
                 if internalAU!.isSetUp() {
@@ -75,7 +75,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -108,33 +108,33 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKPeakingParametricEqualizerFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPeakingParametricEqualizerFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPeakingParametricEqualizerFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKPeakingParametricEqualizerFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        centerFrequencyParameter = tree.valueForKey("centerFrequency") as? AUParameter
-        gainParameter            = tree.valueForKey("gain")            as? AUParameter
-        qParameter               = tree.valueForKey("q")               as? AUParameter
+        centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
+        gainParameter            = tree.value(forKey: "gain")            as? AUParameter
+        qParameter               = tree.value(forKey: "q")               as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = Double(value)
                 } else if address == self.gainParameter!.address {
@@ -143,7 +143,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
                     self.q = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.gain = Float(gain)
@@ -153,12 +153,12 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

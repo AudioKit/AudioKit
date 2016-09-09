@@ -19,7 +19,7 @@ extension AKComputedParameter {
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
     ///
     public func distort(
-        pregain pregain: AKParameter = 2.0,
+        pregain: AKParameter = 2.0,
         postgain: AKParameter = 0.5,
         postiveShapeParameter: AKParameter = 0.0,
         negativeShapeParameter: AKParameter = 0.0

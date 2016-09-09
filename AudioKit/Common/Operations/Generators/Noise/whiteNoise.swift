@@ -15,7 +15,7 @@ extension AKOperation {
     /// - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
     ///
     public static func whiteNoise(
-        amplitude amplitude: AKParameter = 1.0
+        amplitude: AKParameter = 1.0
         ) -> AKOperation {
         return AKOperation(module: "noise", inputs: amplitude)
     }

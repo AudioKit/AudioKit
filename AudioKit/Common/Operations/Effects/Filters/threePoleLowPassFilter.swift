@@ -19,7 +19,7 @@ extension AKComputedParameter {
     /// - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
      ///
     public func threePoleLowPassFilter(
-        distortion distortion: AKParameter = 0.5,
+        distortion: AKParameter = 0.5,
         cutoffFrequency: AKParameter = 1500,
         resonance: AKParameter = 0.5
         ) -> AKOperation {

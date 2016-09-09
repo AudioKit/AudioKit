@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Global settings for AudioKit
-@objc public class AKSettings: NSObject {
+@objc open class AKSettings: NSObject {
 
     /// Enum of available AVAudioSession Categories
     public enum SessionCategory: String {
@@ -34,14 +34,14 @@ import AVFoundation
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
     public enum BufferLength: Int {
-        case Shortest = 5
-        case VeryShort = 6
-        case Short = 7
-        case Medium = 8
-        case Long = 9
-        case VeryLong = 10
-        case Huge = 11
-        case Longest = 12
+        case shortest = 5
+        case veryShort = 6
+        case short = 7
+        case medium = 8
+        case long = 9
+        case veryLong = 10
+        case huge = 11
+        case longest = 12
 
         /// The buffer Length expressed as number of samples
         var samplesCount: AVAudioFrameCount {
@@ -55,57 +55,57 @@ import AVFoundation
     }
 
     /// The sample rate in Hertz
-    public static var sampleRate: Double = 44100
+    open static var sampleRate: Double = 44100
 
     /// Number of audio channels: 2 for stereo, 1 for mono
-    public static var numberOfChannels: UInt32 = 2
+    open static var numberOfChannels: UInt32 = 2
 
     /// Whether we should be listening to audio input (microphone)
-    public static var audioInputEnabled: Bool = false
+    open static var audioInputEnabled: Bool = false
 
     /// Whether to allow audio playback to override the mute setting
-    public static var playbackWhileMuted: Bool = false
+    open static var playbackWhileMuted: Bool = false
 
     /// Global audio format AudioKit will default to
-    public static var audioFormat: AVAudioFormat {
+    open static var audioFormat: AVAudioFormat {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
 
     /// Whether to DefaultToSpeaker when audio input is enabled
-    public static var defaultToSpeaker: Bool = false
+    open static var defaultToSpeaker: Bool = false
 
     /// Global default rampTime value
-    public static var rampTime: Double = 0.0002
+    open static var rampTime: Double = 0.0002
 
     /// Allows AudioKit to send Notifications
-    public static var notificationsEnabled: Bool = false
+    open static var notificationsEnabled: Bool = false
 
     /// AudioKit buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
-    public static var bufferLength: BufferLength = .VeryLong
+    open static var bufferLength: BufferLength = .veryLong
 
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
     /// So setting this value may have no effect (depending on the hardware device ?)
-    public static var recordingBufferLength: BufferLength = .VeryLong
+    open static var recordingBufferLength: BufferLength = .veryLong
 
     /// If set to true, Recording will stop after some delay to compensate
     /// latency between time recording is stopped and time it is written to file
     /// If set to false (the default value) , stopping record will be immediate,
     /// even if the last audio frames haven't been recorded to file yet.
-    public static var fixTruncatedRecordings = false
+    open static var fixTruncatedRecordings = false
 
     /// Enable AudioKit AVAudioSession Category Management
-    public static var disableAVAudioSessionCategoryManagement: Bool = false
+    open static var disableAVAudioSessionCategoryManagement: Bool = false
 
     #if !os(OSX)
 
     /// Shortcut for AVAudioSession.sharedInstance()
-    public static let session = AVAudioSession.sharedInstance()
+    open static let session = AVAudioSession.sharedInstance()
 
-    public static func setSessionCategory(
-        category: SessionCategory,
+    open static func setSessionCategory(
+        _ category: SessionCategory,
         withOptions options: AVAudioSessionCategoryOptions? = nil ) throws {
 
         if AKSettings.disableAVAudioSessionCategoryManagement == false {
@@ -114,9 +114,9 @@ import AVFoundation
             // Category
             if options != nil {
                 do {
-                    try session.setCategory(category.rawValue, withOptions: options!)
+                    try session.setCategory(category.rawValue, with: options!)
                 } catch let error as NSError {
-                    print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(category)) with options: \(String(options!))")
+                    print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category)) with options: \(String(describing: options!))")
                     print("AKAsettings Error: \(error))")
                     throw error
                 }
@@ -126,7 +126,7 @@ import AVFoundation
             do {
                 try session.setCategory(category.rawValue)
             } catch let error as NSError {
-                print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(category))")
+                print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category))")
                 print("AKAsettings Error: \(error))")
                 throw error
             }
@@ -166,7 +166,7 @@ import AVFoundation
 
     /// Checks if headphones are plugged
     /// Returns true if headPhones are plugged, otherwise return false
-    static public var headPhonesPlugged: Bool {
+    static open var headPhonesPlugged: Bool {
         let route = session.currentRoute
         var headPhonesFound = false
         if route.outputs.count > 0 {

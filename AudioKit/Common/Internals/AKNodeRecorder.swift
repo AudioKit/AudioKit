@@ -11,33 +11,33 @@ import Foundation
 import AVFoundation
 
 /// Simple audio recorder class
-public class AKNodeRecorder {
+open class AKNodeRecorder {
 
     // MARK: - Properties
 
     // The node we record from
-    private var node: AKNode?
+    fileprivate var node: AKNode?
 
     // The file to record to
-    private var internalAudioFile: AKAudioFile
+    fileprivate var internalAudioFile: AKAudioFile
 
-    private var recording = false
+    fileprivate var recording = false
 
     /// True if we are recording.
-    public var isRecording: Bool {
+    open var isRecording: Bool {
         return recording
     }
 
     /// Duration of recording
-    public var recordedDuration: Double {
+    open var recordedDuration: Double {
         return internalAudioFile.duration
     }
 
     /// Used for fixing recordings being truncated
-    private var recordBufferDuration: Double = 16384 / AKSettings.sampleRate
+    fileprivate var recordBufferDuration: Double = 16384 / AKSettings.sampleRate
 
     /// return the AKAudioFile for reading
-    public var audioFile: AKAudioFile? {
+    open var audioFile: AKAudioFile? {
         do {
             return try AKAudioFile(forReading: internalAudioFile.url)
 
@@ -91,7 +91,7 @@ public class AKNodeRecorder {
     // MARK: - Methods
 
     /// Start recording
-    public func record() throws {
+    open func record() throws {
         if recording {
             print("AKNodeRecorder Warning: already recording !")
             return
@@ -120,7 +120,7 @@ public class AKNodeRecorder {
 
             // Sets AVAudioSession Category to be Play and Record
 
-            if (AKSettings.session != AKSettings.SessionCategory.PlayAndRecord.rawValue) {
+            if (AKSettings.session.category != AKSettings.SessionCategory.PlayAndRecord.rawValue) {
                 do {
                     try AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord)
                 } catch let error as NSError {
@@ -137,12 +137,12 @@ public class AKNodeRecorder {
             recording = true
 
             print("recording")
-            node!.avAudioNode.installTapOnBus(0, bufferSize: recordingBufferLength,
+            node!.avAudioNode.installTap(onBus: 0, bufferSize: recordingBufferLength,
                                               format: internalAudioFile.processingFormat) {
                 (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                 do {
                     self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
-                    try self.internalAudioFile.writeFromBuffer(buffer)
+                    try self.internalAudioFile.write(from: buffer)
                     print("writing ( file duration:  \(self.internalAudioFile.duration) seconds)")
                 } catch let error as NSError {
                     print("Write failed: error -> \(error.localizedDescription)")
@@ -154,7 +154,7 @@ public class AKNodeRecorder {
     }
 
     /// Stop recording
-    public func stop() {
+    open func stop() {
         if !recording {
             print("AKNodeRecorder Warning: Cannot stop recording, already stopped !")
             return
@@ -167,7 +167,7 @@ public class AKNodeRecorder {
                 let delay = UInt32(recordBufferDuration * 1000000)
                 usleep(delay)
             }
-            node!.avAudioNode.removeTapOnBus(0)
+            node!.avAudioNode.removeTap(onBus: 0)
             print("Recording Stopped.")
 
         } else {
@@ -177,7 +177,7 @@ public class AKNodeRecorder {
 
 
     /// Reset the AKAudioFile to clear previous recordings
-    public func reset() throws {
+    open func reset() throws {
 
         // Stop recording
         if recording {
@@ -185,12 +185,12 @@ public class AKNodeRecorder {
         }
 
         // Delete the physical recording file
-        let fileManager = NSFileManager.defaultManager()
+        let fileManager = FileManager.default
         let settings = internalAudioFile.processingFormat.settings
         let url = internalAudioFile.url
 
         do {
-            try fileManager.removeItemAtPath(audioFile!.url.absoluteString!)
+            try fileManager.removeItem(atPath: audioFile!.url.absoluteString)
         } catch let error as NSError {
             print("AKNodeRecorder Error: cannot delete Recording file:  \(audioFile!.fileNamePlusExtension)")
             throw error

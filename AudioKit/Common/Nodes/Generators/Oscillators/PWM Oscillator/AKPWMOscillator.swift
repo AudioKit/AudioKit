@@ -17,21 +17,21 @@ import AVFoundation
 ///   - detuningOffset: Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKPWMOscillator: AKNode, AKToggleable {
+open class AKPWMOscillator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKPWMOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var frequencyParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
-    private var pulseWidthParameter: AUParameter?
-    private var detuningOffsetParameter: AUParameter?
-    private var detuningMultiplierParameter: AUParameter?
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var amplitudeParameter: AUParameter?
+    fileprivate var pulseWidthParameter: AUParameter?
+    fileprivate var detuningOffsetParameter: AUParameter?
+    fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -41,7 +41,7 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     }
 
     /// In cycles per second, or Hz.
-    public var frequency: Double = 440 {
+    open var frequency: Double = 440 {
         willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
@@ -54,7 +54,7 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     }
 
     /// Output amplitude
-    public var amplitude: Double = 1.0 {
+    open var amplitude: Double = 1.0 {
         willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
@@ -67,7 +67,7 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     }
 
     /// Frequency offset in Hz.
-    public var detuningOffset: Double = 0 {
+    open var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
                 if internalAU!.isSetUp() {
@@ -80,7 +80,7 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     }
 
     /// Frequency detuning multiplier
-    public var detuningMultiplier: Double = 1 {
+    open var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU!.isSetUp() {
@@ -94,7 +94,7 @@ public class AKPWMOscillator: AKNode, AKToggleable {
 
 
     /// Duty cycle width (range 0-1).
-    public var pulseWidth: Double = 0.5 {
+    open var pulseWidth: Double = 0.5 {
         willSet {
             if pulseWidth != newValue {
                 if internalAU!.isSetUp() {
@@ -107,7 +107,7 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -153,34 +153,34 @@ public class AKPWMOscillator: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKPWMOscillatorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPWMOscillator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPWMOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPWMOscillatorAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
-        amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
-        pulseWidthParameter         = tree.valueForKey("pulseWidth")         as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
+        frequencyParameter          = tree.value(forKey: "frequency")          as? AUParameter
+        amplitudeParameter          = tree.value(forKey: "amplitude")          as? AUParameter
+        pulseWidthParameter         = tree.value(forKey: "pulseWidth")         as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
@@ -193,7 +193,7 @@ public class AKPWMOscillator: AKNode, AKToggleable {
                     self.detuningMultiplier = Double(value)
                 }
             }
-        }
+        })
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
         internalAU?.pulseWidth = Float(pulseWidth)
@@ -202,12 +202,12 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

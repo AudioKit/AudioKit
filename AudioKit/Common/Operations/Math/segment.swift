@@ -18,7 +18,7 @@ extension AKOperation {
     ///   - duration: Length of time
     ///
     public static func lineSegment(
-        trigger trigger: AKOperation,
+        trigger: AKOperation,
         start: AKParameter,
         end: AKParameter,
         duration: AKParameter
@@ -37,7 +37,7 @@ extension AKOperation {
     ///   - duration: Length of time
     ///
     public static func exponentialSegment(
-        trigger trigger: AKOperation,
+        trigger: AKOperation,
         start: AKParameter,
         end: AKParameter,
         duration: AKParameter

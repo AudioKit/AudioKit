@@ -14,17 +14,17 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
 ///
-public class AKToneFilter: AKNode, AKToggleable {
+open class AKToneFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKToneFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var halfPowerPointParameter: AUParameter?
+    fileprivate var halfPowerPointParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -34,7 +34,7 @@ public class AKToneFilter: AKNode, AKToggleable {
     }
 
     /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-    public var halfPowerPoint: Double = 1000.0 {
+    open var halfPowerPoint: Double = 1000.0 {
         willSet {
             if halfPowerPoint != newValue {
                 if internalAU!.isSetUp() {
@@ -47,7 +47,7 @@ public class AKToneFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -74,36 +74,36 @@ public class AKToneFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKToneFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKToneFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKToneFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKToneFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        halfPowerPointParameter = tree.valueForKey("halfPowerPoint") as? AUParameter
+        halfPowerPointParameter = tree.value(forKey: "halfPowerPoint") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.halfPowerPointParameter!.address {
                     self.halfPowerPoint = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.halfPowerPoint = Float(halfPowerPoint)
     }
@@ -111,12 +111,12 @@ public class AKToneFilter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

@@ -14,17 +14,17 @@ public typealias MIDINoteNumber = Int
 public typealias MIDIVelocity = Int
 public typealias MIDIChannel = Int
 
-extension CollectionType where Index == Int {
+extension Collection where Index == Int {
     /// Return a random element from the array
-    public func randomElement() -> Generator.Element {
-        let offset = Int(arc4random_uniform(UInt32(count)))
-        return self[startIndex.advancedBy(offset)]
+    public func randomElement() -> Iterator.Element {
+        let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
+        return self[startIndex.advanced(by: offset)]
     }
 }
 
 /// Helper function to convert codes for Audio Units
 /// - parameter string: Four character string to convert
-public func fourCC(string: String) -> UInt32 {
+public func fourCC(_ string: String) -> UInt32 {
     let utf8 = string.utf8
     precondition(utf8.count == 4, "Must be a 4 char string")
     var out: UInt32 = 0
@@ -41,7 +41,7 @@ public func fourCC(string: String) -> UInt32 {
 ///   - minimum: Lower bound of randomization
 ///   - maximum: Upper bound of randomization
 ///
-public func random(minimum: Double, _ maximum: Double) -> Double {
+public func random(_ minimum: Double, _ maximum: Double) -> Double {
     let precision = 1000000
     let width = maximum - minimum
 
@@ -61,7 +61,7 @@ extension Double {
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
     public func normalized(
-        minimum minimum: Double,
+        minimum: Double,
                 maximum: Double,
                 taper: Double) -> Double {
 
@@ -81,7 +81,7 @@ extension Double {
     ///   - maximum: Maximum of the source range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func normalize(minimum: Double, maximum: Double, taper: Double) {
+    public mutating func normalize(_ minimum: Double, maximum: Double, taper: Double) {
         self = self.normalized(minimum: minimum, maximum: maximum, taper: taper)
     }
 
@@ -93,7 +93,7 @@ extension Double {
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
     public func denormalized(
-        minimum minimum: Double,
+        minimum: Double,
                 maximum: Double,
                 taper: Double) -> Double {
 
@@ -123,7 +123,7 @@ extension Double {
     ///   - maximum: Maximum of the target range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func denormalize(minimum minimum: Double, maximum: Double, taper: Double) {
+    public mutating func denormalize(minimum: Double, maximum: Double, taper: Double) {
         self = self.denormalized(minimum: minimum, maximum: maximum, taper: taper)
     }
 }
@@ -135,7 +135,7 @@ extension Int {
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func midiNoteToFrequency(aRef: Double = 440.0) -> Double {
+    public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
         return pow(2.0, (Double(self) - 69.0) / 12.0) * aRef
     }
 }
@@ -147,7 +147,7 @@ extension Double {
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func midiNoteToFrequency(aRef: Double = 440.0) -> Double {
+    public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
         return pow(2.0, (self - 69.0) / 12.0) * aRef
     }
 
@@ -159,7 +159,7 @@ extension Int {
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func frequencyToMIDINote(aRef: Double = 440.0) -> Double {
+    public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
         return 69 + 12*log2(Double(self)/aRef)
     }
 }
@@ -171,19 +171,19 @@ extension Double {
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
-    public func frequencyToMIDINote(aRef: Double = 440.0) -> Double {
+    public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
         return 69 + 12*log2(self/aRef)
     }
 
 }
 
-extension Array where Element: IntegerLiteralConvertible {
+extension Array where Element: ExpressibleByIntegerLiteral {
     /// Initialize array with zeroes, ~10x faster than append for array of size 4096
     ///
     /// - parameter count: Number of elements in the array
     ///
 
     public init(zeroes count: Int) {
-        self = [Element](count: count, repeatedValue: 0)
+        self = [Element](repeating: 0, count: count)
     }
 }

@@ -10,44 +10,44 @@ import Foundation
 import AVFoundation
 
 /// Not so simple audio playback class
-public class AKAudioPlayer: AKNode, AKToggleable {
+open class AKAudioPlayer: AKNode, AKToggleable {
 
 
     // MARK: - Private variables
 
-    private var internalAudioFile: AKAudioFile
-    private var internalPlayer = AVAudioPlayerNode()
-    private var audioFileBuffer: AVAudioPCMBuffer?
-    private var totalFrameCount: UInt32 = 0
-    private var startingFrame: UInt32 = 0
-    private var endingFrame: UInt32 = 0
-    private var framesToPlayCount: UInt32 = 0
-    private var lastCurrentTime: Double = 0
-    private var paused = false
-    private var playing = false
+    fileprivate var internalAudioFile: AKAudioFile
+    fileprivate var internalPlayer = AVAudioPlayerNode()
+    fileprivate var audioFileBuffer: AVAudioPCMBuffer?
+    fileprivate var totalFrameCount: UInt32 = 0
+    fileprivate var startingFrame: UInt32 = 0
+    fileprivate var endingFrame: UInt32 = 0
+    fileprivate var framesToPlayCount: UInt32 = 0
+    fileprivate var lastCurrentTime: Double = 0
+    fileprivate var paused = false
+    fileprivate var playing = false
 
 
     // MARK: - Properties
 
     /// Will be triggered when AKAudioPlayer has finished to play.
     /// (will not as long as loop is on)
-    public var completionHandler: AKCallback?
+    open var completionHandler: AKCallback?
 
     /// Boolean indicating whether or not to loop the playback
-    public var looping: Bool = false
+    open var looping: Bool = false
 
     /// return the current played AKAudioFile
-    public var audioFile: AKAudioFile {
+    open var audioFile: AKAudioFile {
         return internalAudioFile
     }
 
     /// Total duration of one loop through of the file
-    public var duration: Double {
+    open var duration: Double {
         return Double(totalFrameCount) / Double(internalAudioFile.sampleRate)
     }
 
     /// Output Volume (Default 1)
-    public var volume: Double = 1.0 {
+    open var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
                 volume = 0
@@ -57,16 +57,16 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Whether or not the audio player is currently started
-    public var isStarted: Bool {
-        return  internalPlayer.playing
+    open var isStarted: Bool {
+        return  internalPlayer.isPlaying
     }
 
 
     /// Current playback time (in seconds)
-    public var currentTime: Double {
+    open var currentTime: Double {
         if playing {
             if let nodeTime = internalPlayer.lastRenderTime,
-                let playerTime = internalPlayer.playerTimeForNodeTime(nodeTime) {
+                let playerTime = internalPlayer.playerTime(forNodeTime: nodeTime) {
                 //return   Double(Double(startingFrame) / sampleRate)  +  Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
                 return Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
             }
@@ -77,7 +77,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
 
     /// Time within the audio file at the current time
-    public var playhead: Double {
+    open var playhead: Double {
 
         let endTime = Double(Double(endingFrame) / internalAudioFile.sampleRate)
         let startTime = Double(Double(startingFrame) / internalAudioFile.sampleRate)
@@ -85,10 +85,10 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         if endTime > startTime {
 
             if looping {
-                return  startTime + currentTime % (endTime - startTime)
+                return  startTime + currentTime.truncatingRemainder(dividingBy: (endTime - startTime))
             } else {
                 if currentTime > endTime {
-                    return (startTime + currentTime) % (endTime - startTime)
+                    return (startTime + currentTime).truncatingRemainder(dividingBy: (endTime - startTime))
                 } else {
                     return (startTime + currentTime)
                 }
@@ -99,7 +99,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Pan (Default Center = 0)
-    public var pan: Double = 0.0 {
+    open var pan: Double = 0.0 {
         didSet {
             if pan < -1 {
                 pan = -1
@@ -113,7 +113,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
     /// sets the start time, If it is playing, player will
     /// restart playing from the start time each time end time is set
-    public var startTime: Double {
+    open var startTime: Double {
         get {
             return Double(startingFrame) / internalAudioFile.sampleRate
 
@@ -135,7 +135,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
     /// sets the end time, If it is playing, player will
     /// restart playing from the start time each time end time is set
-    public var endTime: Double {
+    open var endTime: Double {
         get {
             return Double(endingFrame) / internalAudioFile.sampleRate
 
@@ -196,9 +196,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         self.looping = looping
 
         super.init()
-        AudioKit.engine.attachNode(internalPlayer)
+        AudioKit.engine.attach(internalPlayer)
         let mixer = AVAudioMixerNode()
-        AudioKit.engine.attachNode(mixer)
+        AudioKit.engine.attach(mixer)
         let format = AVAudioFormat(standardFormatWithSampleRate: self.internalAudioFile.sampleRate, channels: self.internalAudioFile.channelCount)
         AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
         self.avAudioNode = mixer
@@ -210,7 +210,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Methods
 
     /// Start playback
-    public func start() {
+    open func start() {
 
         if !playing {
             if audioFileBuffer != nil {
@@ -226,7 +226,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Stop playback
-    public func stop() {
+    open func stop() {
             lastCurrentTime = Double(startTime / internalAudioFile.sampleRate)
             playing = false
             paused = false
@@ -236,7 +236,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Pause playback
-    public func pause() {
+    open func pause() {
         if playing {
             if !paused {
         lastCurrentTime = currentTime
@@ -253,7 +253,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// resets in and out times for playing
-    public func reloadFile() throws {
+    open func reloadFile() throws {
         let wasPlaying  = playing
         if wasPlaying {
             stop()
@@ -278,7 +278,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Replace player's file with a new AKAudioFile file
-    public func replaceFile(file: AKAudioFile) throws {
+    open func replaceFile(_ file: AKAudioFile) throws {
         internalAudioFile = file
         do {
             try reloadFile()
@@ -296,7 +296,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     ///    - time: Time into the file at which to start playing back
     ///    - endTime: Time into the file at which to playing back will stop / Loop
     ///
-    public func playFrom(time: Double, to endTime: Double = 0) {
+    open func playFrom(_ time: Double, to endTime: Double = 0) {
 
         if endTime > 0 {
             self.endTime = endTime
@@ -316,7 +316,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Private Methods
 
-    private func initialize() {
+    fileprivate func initialize() {
 
         audioFileBuffer = nil
         totalFrameCount = UInt32(internalAudioFile.length)
@@ -338,21 +338,21 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    private func scheduleBuffer() {
+    fileprivate func scheduleBuffer() {
         if audioFileBuffer != nil {
             internalPlayer.scheduleBuffer(audioFileBuffer!, completionHandler: internalCompletionHandler)
         }
     }
 
-    private func setPCMBuffer() {
+    fileprivate func setPCMBuffer() {
         if internalAudioFile.samplesCount > 0 {
            internalAudioFile.framePosition = Int64(startingFrame)
             framesToPlayCount = endingFrame - startingFrame
             audioFileBuffer = AVAudioPCMBuffer(
-                PCMFormat: internalAudioFile.processingFormat,
+                pcmFormat: internalAudioFile.processingFormat,
                 frameCapacity: AVAudioFrameCount(totalFrameCount) )
             do {
-                try internalAudioFile.readIntoBuffer(audioFileBuffer!, frameCount: framesToPlayCount)
+                try internalAudioFile.read(into: audioFileBuffer!, frameCount: framesToPlayCount)
             } catch {
                 print("ERROR AKaudioPlayer: Could not read data into buffer.")
                 return
@@ -363,7 +363,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Triggered when the player reaches the end of its playing range
-    private func internalCompletionHandler() {
+    fileprivate func internalCompletionHandler() {
         if playing {
             if looping {
                 scheduleBuffer()

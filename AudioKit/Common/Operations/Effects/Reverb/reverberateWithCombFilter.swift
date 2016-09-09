@@ -21,7 +21,7 @@ extension AKComputedParameter {
     ///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. (Default: 0.1, Minimum: 0.0, Maximum: 1.0)
      ///
     public func reverberateWithCombFilter(
-        reverbDuration reverbDuration: AKParameter = 1.0,
+        reverbDuration: AKParameter = 1.0,
         loopDuration: AKParameter = 0.1
         ) -> AKOperation {
             return AKOperation(module: "comb", inputs: self.toMono(), reverbDuration, loopDuration)

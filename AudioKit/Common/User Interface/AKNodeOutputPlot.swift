@@ -10,18 +10,18 @@ import Foundation
 
 /// Plot the output from any node in an signal processing graph
 @IBDesignable
-public class AKNodeOutputPlot: EZAudioPlot {
+open class AKNodeOutputPlot: EZAudioPlot {
 
-    internal func setupNode(input: AKNode?) {
-        input?.avAudioNode.installTapOnBus(0,
+    internal func setupNode(_ input: AKNode?) {
+        input?.avAudioNode.installTap(onBus: 0,
                                            bufferSize: bufferSize,
                                            format: AudioKit.format) { [weak self] (buffer, time) -> Void in
                                             
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize
                 let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                let tail = buffer.floatChannelData[0]
-                strongSelf.updateBuffer(&tail[offset],
+                let tail = buffer.floatChannelData?[0]
+                strongSelf.updateBuffer(&(tail?[offset])!,
                                         withBufferSize: strongSelf.bufferSize)
             }
         }
@@ -30,9 +30,9 @@ public class AKNodeOutputPlot: EZAudioPlot {
     internal var bufferSize: UInt32 = 1024
 
     /// The node whose output to graph
-    public var node: AKNode? {
+    open var node: AKNode? {
         willSet {
-            node?.avAudioNode.removeTapOnBus(0)
+            node?.avAudioNode.removeTap(onBus: 0)
         }
         didSet {
             setupNode(node)
@@ -40,7 +40,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
     }
 
     deinit {
-        node?.avAudioNode.removeTapOnBus(0)
+        node?.avAudioNode.removeTap(onBus: 0)
     }
 
     /// Required coder-based initialization (for use with Interface Builder)
@@ -61,8 +61,8 @@ public class AKNodeOutputPlot: EZAudioPlot {
     ///
     public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1024) {
         super.init(frame: frame)
-        self.plotType = .Buffer
-        self.backgroundColor = AKColor.whiteColor()
+        self.plotType = .buffer
+        self.backgroundColor = AKColor.white
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
 

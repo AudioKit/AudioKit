@@ -9,19 +9,19 @@
 import AVFoundation
 
 /// Operation-based effect
-public class AKOperationEffect: AKNode, AKToggleable {
+open class AKOperationEffect: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    private var internalAU: AKOperationEffectAudioUnit?
+    fileprivate var internalAU: AKOperationEffectAudioUnit?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
     /// Parameters for changing internal operations
-    public var parameters: [Double] {
+    open var parameters: [Double] {
         get {
             var result: [Double] = []
             if let floatParameters = internalAU?.parameters as? [NSNumber] {
@@ -72,7 +72,7 @@ public class AKOperationEffect: AKNode, AKToggleable {
 
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
         
-        if computedParameter.dynamicType == AKOperation.self {
+        if type(of: computedParameter) == AKOperation.self {
             let monoOperation = computedParameter as! AKOperation
             self.init(input, sporth: monoOperation.sporth + " dup ")
         } else {
@@ -99,19 +99,19 @@ public class AKOperationEffect: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKOperationEffectAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKOperationEffect",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationEffectAudioUnit
-            AudioKit.engine.attachNode(self.avAudioNode)
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKOperationEffectAudioUnit
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU?.setSporth(sporth)
         }
@@ -119,12 +119,12 @@ public class AKOperationEffect: AKNode, AKToggleable {
     
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         internalAU!.stop()
     }
 }
