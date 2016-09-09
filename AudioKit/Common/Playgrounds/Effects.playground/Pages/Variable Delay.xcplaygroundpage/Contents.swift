@@ -1,5 +1,5 @@
 //: ## Variable Delay
-//: ### When you smoothly vary effect parameters, you get completely new kinds of effects.
+//: When you smoothly vary effect parameters, you get completely new kinds of effects.
 import XCPlayground
 import AudioKit
 

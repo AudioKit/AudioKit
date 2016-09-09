@@ -1,5 +1,5 @@
 //: ## Stereo Operation
-//: ### This is an example of building a stereo sound generator.
+//: This is an example of building a stereo sound generator.
 import XCPlayground
 import AudioKit
 

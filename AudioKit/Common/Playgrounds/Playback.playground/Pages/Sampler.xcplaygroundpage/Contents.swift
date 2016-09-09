@@ -1,5 +1,5 @@
 //: ## Sampler
-//: ### Loading a sampler with a reference wav file
+//: Loading a sampler with a reference wav file
 
 import XCPlayground
 import AudioKit

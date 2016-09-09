@@ -3,8 +3,8 @@
 //: ---
 //:
 //: ## Mixing Nodes
-//: ### So, what about connecting multiple sources to the output instead of
-//: ### feeding operations into each other in sequential order? To do that, you'll need a mixer.
+//: So, what about connecting multiple sources to the output instead of
+//: feeding operations into each other in sequential order? To do that, you'll need a mixer.
 import XCPlayground
 import AudioKit
 
@@ -51,22 +51,22 @@ lead.pan   = -0.2
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Mixer")
-                
+
         addSubview(AKButton(title: "Stop All") {
             drums.isPlaying  ? drums.stop()  : drums.play()
             bass.isPlaying   ? bass.stop()   : bass.play()
             guitar.isPlaying ? guitar.stop() : guitar.play()
             lead.isPlaying   ? lead.stop()   : lead.play()
-            
+
             if drums.isPlaying {
                 return "Stop All"
             }
             return "Start All"
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Drums Volume",
             value: drums.volume,
@@ -81,7 +81,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             drums.pan = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Bass Volume",
             value: bass.volume,
@@ -96,7 +96,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             bass.pan = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Guitar Volume",
             value: guitar.volume,
@@ -111,7 +111,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             guitar.pan = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Lead Volume",
             value: lead.volume,

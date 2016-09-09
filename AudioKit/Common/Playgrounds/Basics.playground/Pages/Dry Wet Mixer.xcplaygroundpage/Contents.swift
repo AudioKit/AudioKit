@@ -3,12 +3,12 @@
 //: ---
 //:
 //: ## Dry Wet Mixer
-//: ### It's a very common operation to mix exactly two inputs, one before
-//: ### processing occurs, and one after, and then mixing down to a combination
-//: ### of the two.  This is so common that most of the AudioKit nodes have a
-//: ### dry/wet mix parameter built in.  But, if you are building your own
-//: ### custom effects, or making a long chain of effects, you can use
-//: ### AKDryWetMixer to blend your signals.
+//: It's a very common operation to mix exactly two inputs, one before
+//: processing occurs, and one after, and then mixing down to a combination
+//: of the two.  This is so common that most of the AudioKit nodes have a
+//: dry/wet mix parameter built in.  But, if you are building your own
+//: custom effects, or making a long chain of effects, you can use
+//: AKDryWetMixer to blend your signals.
 import XCPlayground
 import AudioKit
 
@@ -36,14 +36,14 @@ drums.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var balanceLabel: Label?
-    
+
     override func setup() {
         addTitle("Dry Wet Mix")
-        
+
         addSubview(AKBypassButton(node: drums))
-        
+
         addSubview(AKPropertySlider(
             property: "Balance",
             value: mixture.balance,

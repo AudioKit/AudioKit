@@ -1,5 +1,5 @@
 //: ## Plucked String
-//: ### Experimenting with a physical model of a string
+//: Experimenting with a physical model of a string
 import AudioKit
 import XCPlayground
 
