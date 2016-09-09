@@ -1,5 +1,5 @@
 //: ## Drum Synthesizers
-//: ### These can also be hooked up to MIDI or a sequencer.
+//: These can also be hooked up to MIDI or a sequencer.
 import XCPlayground
 import AudioKit
 

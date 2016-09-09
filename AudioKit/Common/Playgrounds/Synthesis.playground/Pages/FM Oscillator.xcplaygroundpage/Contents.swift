@@ -1,5 +1,5 @@
 //: ## FM Oscillator
-//: ### Open the timeline view to use the controls this playground sets up.
+//: Open the timeline view to use the controls this playground sets up.
 //:
 import XCPlayground
 import AudioKit

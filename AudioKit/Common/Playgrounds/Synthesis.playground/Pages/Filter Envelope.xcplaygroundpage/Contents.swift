@@ -1,6 +1,6 @@
 //: ## Filter Envelope
 //:
-//: ### This is a pretty advanced example.
+//: This is a pretty advanced example.
 import XCPlayground
 import AudioKit
 

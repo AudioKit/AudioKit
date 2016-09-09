@@ -1,5 +1,5 @@
 //: ## Simple Reverb
-//: ### This is an implementation of Apple's simplest reverb which only allows you to set presets
+//: This is an implementation of Apple's simplest reverb which only allows you to set presets
 
 import XCPlayground
 import AudioKit

@@ -1,7 +1,7 @@
 //: ## Rolling Output Plot
-//: ###  If you open the Assitant editor and make sure it shows the
-//: ### "Rolling Output Plot.xcplaygroundpage (Timeline) view",
-//: ### you should see a plot of the amplitude peaks scrolling in the view
+//:  If you open the Assitant editor and make sure it shows the
+//: "Rolling Output Plot.xcplaygroundpage (Timeline) view",
+//: you should see a plot of the amplitude peaks scrolling in the view
 import XCPlayground
 import AudioKit
 
@@ -20,10 +20,10 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Playback Speed")
-                
+
         addSubview(AKPropertySlider(
             property: "Rate",
             format: "%0.3f",
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             variSpeed.rate = sliderValue
             })
-        
+
         addSubview(AKRollingOutputPlot.createView())
     }
 }
