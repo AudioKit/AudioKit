@@ -19,7 +19,7 @@ extension AKOperation {
     ///   - lowestFrequency: Sets the initial frequency. This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using. (Default: 110)
     ///
     public static func pluckedString(
-        trigger trigger: AKOperation,
+        trigger: AKOperation,
         frequency: AKParameter = 110,
         amplitude: AKParameter = 0.5,
         lowestFrequency: Double = 110

@@ -44,7 +44,7 @@ public enum AKTableType: String {
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-public struct AKTable: CollectionType {
+public struct AKTable: Collection {
 
     // MARK: - Properties
 
@@ -76,6 +76,16 @@ public struct AKTable: CollectionType {
     public subscript(index: Int) -> Float {
         return values[index]
     }
+    
+    /// Returns the position immediately after the given index.
+    ///
+    /// - Parameter i: A valid index of the collection. `i` must be less than
+    ///   `endIndex`.
+    /// - Returns: The index value immediately after `i`.
+    public func index(after i: Int) -> Int {
+        return i + 1
+    }
+
 
     /// Type of table
     var type: AKTableType

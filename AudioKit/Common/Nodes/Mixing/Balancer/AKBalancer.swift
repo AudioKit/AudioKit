@@ -19,14 +19,14 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - comparator: Audio to match power with
 ///
-public class AKBalancer: AKNode, AKToggleable {
+open class AKBalancer: AKNode, AKToggleable {
 
     // MARK: - Properties
     
     internal var internalAU: AKBalancerAudioUnit?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -49,34 +49,34 @@ public class AKBalancer: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKBalancerAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBalancer",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBalancerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBalancerAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
 
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self.avAudioNode, bus: 1))
-            AudioKit.engine.connect(comparator.avAudioNode, toConnectionPoints: comparator.connectionPoints, fromBus: 0, format: nil)
+            AudioKit.engine.connect(comparator.avAudioNode, to: comparator.connectionPoints, fromBus: 0, format: nil)
         }
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

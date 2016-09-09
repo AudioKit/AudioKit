@@ -14,17 +14,17 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - gain: Boosting multiplier.
 ///
-public class AKBooster: AKNode, AKToggleable {
+open class AKBooster: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKBoosterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var gainParameter: AUParameter?
+    fileprivate var gainParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -33,10 +33,10 @@ public class AKBooster: AKNode, AKToggleable {
         }
     }
     
-    private var lastKnownGain: Double = 1.0
+    fileprivate var lastKnownGain: Double = 1.0
     
     /// Amplification Factor
-    public var gain: Double = 1 {
+    open var gain: Double = 1 {
         willSet {
             if gain != newValue {
                 if internalAU!.isSetUp() {
@@ -50,7 +50,7 @@ public class AKBooster: AKNode, AKToggleable {
 
     
     /// Amplification Factor in db
-    public var dB: Double {
+    open var dB: Double {
         set {
             gain = pow(10.0, Double(newValue / 20))
         }
@@ -60,7 +60,7 @@ public class AKBooster: AKNode, AKToggleable {
     }
     
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -87,50 +87,50 @@ public class AKBooster: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKBoosterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBooster",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBoosterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBoosterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        gainParameter   = tree.valueForKey("gain")   as? AUParameter
+        gainParameter   = tree.value(forKey: "gain")   as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.gainParameter!.address {
                     self.gain = Double(value)
                 }
             }
-        }
+        })
         internalAU?.gain = Float(gain)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         if isStopped {
             gain = lastKnownGain
         }
     }
     
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownGain = gain
             gain = 1

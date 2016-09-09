@@ -15,18 +15,18 @@ import AVFoundation
 /// - parameter frequency: Center frequency of the filter, or frequency position of the peak response.
 /// - parameter bandwidth: Bandwidth of the filter.
 ///
-public class AKResonantFilter: AKNode, AKToggleable {
+open class AKResonantFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKResonantFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var frequencyParameter: AUParameter?
-    private var bandwidthParameter: AUParameter?
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var bandwidthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -36,7 +36,7 @@ public class AKResonantFilter: AKNode, AKToggleable {
     }
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    public var frequency: Double = 4000.0 {
+    open var frequency: Double = 4000.0 {
         willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
@@ -48,7 +48,7 @@ public class AKResonantFilter: AKNode, AKToggleable {
         }
     }
     /// Bandwidth of the filter.
-    public var bandwidth: Double = 1000.0 {
+    open var bandwidth: Double = 1000.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
@@ -61,7 +61,7 @@ public class AKResonantFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -90,39 +90,39 @@ public class AKResonantFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKResonantFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKResonantFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKResonantFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKResonantFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.valueForKey("frequency") as? AUParameter
-        bandwidthParameter = tree.valueForKey("bandwidth") as? AUParameter
+        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
+        bandwidthParameter = tree.value(forKey: "bandwidth") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.bandwidthParameter!.address {
                     self.bandwidth = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.frequency = Float(frequency)
         internalAU?.bandwidth = Float(bandwidth)
@@ -131,12 +131,12 @@ public class AKResonantFilter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

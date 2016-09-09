@@ -6,7 +6,7 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-public class AKPresetLoaderView: UIView {
+open class AKPresetLoaderView: UIView {
     
     var player: AKAudioPlayer?
     var presetOuterPath = UIBezierPath()
@@ -15,18 +15,18 @@ public class AKPresetLoaderView: UIView {
     
     var currentIndex = 0
     var presets = [String]()
-    var callback: String -> ()
+    var callback: (String) -> ()
     var isPresetLoaded = false
     
-    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             isPresetLoaded = false
-            let touchLocation = touch.locationInView(self)
-            if upOuterPath.containsPoint(touchLocation) {
+            let touchLocation = touch.location(in: self)
+            if upOuterPath.contains(touchLocation) {
                 currentIndex -= 1
                 isPresetLoaded = true
             }
-            if downOuterPath.containsPoint(touchLocation) {
+            if downOuterPath.contains(touchLocation) {
                 currentIndex += 1
                 isPresetLoaded = true
             }
@@ -40,7 +40,7 @@ public class AKPresetLoaderView: UIView {
         }
     }
     
-    public init(presets: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60), callback: String -> ()) {
+    public init(presets: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60), callback: @escaping (String) -> ()) {
         self.callback = callback
         self.presets = presets
         super.init(frame: frame)
@@ -50,7 +50,7 @@ public class AKPresetLoaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func drawPresetLoader(presetName presetName: String = "None", isPresetLoaded: Bool = false) {
+    func drawPresetLoader(presetName: String = "None", isPresetLoaded: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -80,16 +80,16 @@ public class AKPresetLoaderView: UIView {
         let presetLabelRect = CGRect(x: 0, y: 0, width: 95, height: 60)
         let presetLabelTextContent = NSString(string: "Preset")
         let presetLabelStyle = NSMutableParagraphStyle()
-        presetLabelStyle.alignment = .Left
+        presetLabelStyle.alignment = .left
         
-        let presetLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(24), NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: presetLabelStyle]
+        let presetLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: presetLabelStyle]
         
-        let presetLabelInset: CGRect = CGRectInset(presetLabelRect, 10, 0)
-        let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRectWithSize(CGSize(width: presetLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: presetLabelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context!)
-        CGContextClipToRect(context!, presetLabelInset)
-        presetLabelTextContent.drawInRect(CGRect(x: presetLabelInset.minX, y: presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2, width: presetLabelInset.width, height: presetLabelTextHeight), withAttributes: presetLabelFontAttributes)
-        CGContextRestoreGState(context!)
+        let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
+        let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(with: CGSize(width: presetLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: presetLabelFontAttributes, context: nil).size.height
+        context!.saveGState()
+        context!.clip(to: presetLabelInset)
+        presetLabelTextContent.draw(in: CGRect(x: presetLabelInset.minX, y: presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2, width: presetLabelInset.width, height: presetLabelTextHeight), withAttributes: presetLabelFontAttributes)
+        context!.restoreGState()
         
         
         
@@ -103,12 +103,12 @@ public class AKPresetLoaderView: UIView {
         
         //// upInner Drawing
         let upInnerPath = UIBezierPath()
-        upInnerPath.moveToPoint(CGPoint(x: 395.75, y: 22.5))
-        upInnerPath.addLineToPoint(CGPoint(x: 425.25, y: 22.5))
-        upInnerPath.addLineToPoint(CGPoint(x: 410.5, y: 7.5))
-        upInnerPath.addLineToPoint(CGPoint(x: 410.5, y: 7.5))
-        upInnerPath.addLineToPoint(CGPoint(x: 395.75, y: 22.5))
-        upInnerPath.closePath()
+        upInnerPath.move(to: CGPoint(x: 395.75, y: 22.5))
+        upInnerPath.addLine(to: CGPoint(x: 425.25, y: 22.5))
+        upInnerPath.addLine(to: CGPoint(x: 410.5, y: 7.5))
+        upInnerPath.addLine(to: CGPoint(x: 410.5, y: 7.5))
+        upInnerPath.addLine(to: CGPoint(x: 395.75, y: 22.5))
+        upInnerPath.close()
         dark.setFill()
         upInnerPath.fill()
         
@@ -124,12 +124,12 @@ public class AKPresetLoaderView: UIView {
         
         //// downInner Drawing
         let downInnerPath = UIBezierPath()
-        downInnerPath.moveToPoint(CGPoint(x: 410.5, y: 52.5))
-        downInnerPath.addLineToPoint(CGPoint(x: 410.5, y: 52.5))
-        downInnerPath.addLineToPoint(CGPoint(x: 425.25, y: 37.5))
-        downInnerPath.addLineToPoint(CGPoint(x: 395.75, y: 37.5))
-        downInnerPath.addLineToPoint(CGPoint(x: 410.5, y: 52.5))
-        downInnerPath.closePath()
+        downInnerPath.move(to: CGPoint(x: 410.5, y: 52.5))
+        downInnerPath.addLine(to: CGPoint(x: 410.5, y: 52.5))
+        downInnerPath.addLine(to: CGPoint(x: 425.25, y: 37.5))
+        downInnerPath.addLine(to: CGPoint(x: 395.75, y: 37.5))
+        downInnerPath.addLine(to: CGPoint(x: 410.5, y: 52.5))
+        downInnerPath.close()
         dark.setFill()
         downInnerPath.fill()
         
@@ -139,19 +139,19 @@ public class AKPresetLoaderView: UIView {
         //// nameLabel Drawing
         let nameLabelRect = CGRect(x: 95, y: 0, width: 345, height: 60)
         let nameLabelStyle = NSMutableParagraphStyle()
-        nameLabelStyle.alignment = .Left
+        nameLabelStyle.alignment = .left
         
-        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(24), NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: nameLabelStyle]
         
-        let nameLabelInset: CGRect = CGRectInset(nameLabelRect, 10, 0)
-        let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRectWithSize(CGSize(width: nameLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nameLabelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context!)
-        CGContextClipToRect(context!, nameLabelInset)
-        NSString(string: presetName).drawInRect(CGRect(x: nameLabelInset.minX, y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, width: nameLabelInset.width, height: nameLabelTextHeight), withAttributes: nameLabelFontAttributes)
-        CGContextRestoreGState(context!)
+        let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
+        let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(with: CGSize(width: nameLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: nameLabelFontAttributes, context: nil).size.height
+        context!.saveGState()
+        context!.clip(to: nameLabelInset)
+        NSString(string: presetName).draw(in: CGRect(x: nameLabelInset.minX, y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, width: nameLabelInset.width, height: nameLabelTextHeight), withAttributes: nameLabelFontAttributes)
+        context!.restoreGState()
     }
     
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         let presetName = isPresetLoaded ? presets[currentIndex] : "None"
         drawPresetLoader(presetName: presetName, isPresetLoaded: isPresetLoaded)
     }

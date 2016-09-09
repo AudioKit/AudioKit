@@ -16,19 +16,19 @@ import AVFoundation
 ///   - mix: Dry/Wet Mix
 ///   - amplitude: Overall level
 ///
-public class AKAutoWah: AKNode, AKToggleable {
+open class AKAutoWah: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKAutoWahAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var wahParameter: AUParameter?
-    private var mixParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
+    fileprivate var wahParameter: AUParameter?
+    fileprivate var mixParameter: AUParameter?
+    fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -38,7 +38,7 @@ public class AKAutoWah: AKNode, AKToggleable {
     }
 
     /// Wah Amount
-    public var wah: Double = 0.0 {
+    open var wah: Double = 0.0 {
         willSet {
             if wah != newValue {
                 if internalAU!.isSetUp() {
@@ -50,7 +50,7 @@ public class AKAutoWah: AKNode, AKToggleable {
         }
     }
     /// Dry/Wet Mix
-    public var mix: Double = 1.0 {
+    open var mix: Double = 1.0 {
         willSet {
             if mix != newValue {
                 if internalAU!.isSetUp() {
@@ -62,7 +62,7 @@ public class AKAutoWah: AKNode, AKToggleable {
         }
     }
     /// Overall level
-    public var amplitude: Double = 0.1 {
+    open var amplitude: Double = 0.1 {
         willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
@@ -75,7 +75,7 @@ public class AKAutoWah: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -108,33 +108,33 @@ public class AKAutoWah: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKAutoWahAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKAutoWah",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAutoWahAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAutoWahAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        wahParameter       = tree.valueForKey("wah")       as? AUParameter
-        mixParameter       = tree.valueForKey("mix")       as? AUParameter
-        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        wahParameter       = tree.value(forKey: "wah")       as? AUParameter
+        mixParameter       = tree.value(forKey: "mix")       as? AUParameter
+        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.wahParameter!.address {
                     self.wah = Double(value)
                 } else if address == self.mixParameter!.address {
@@ -143,7 +143,7 @@ public class AKAutoWah: AKNode, AKToggleable {
                     self.amplitude = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.wah = Float(wah)
         internalAU?.mix = Float(mix)
@@ -153,12 +153,12 @@ public class AKAutoWah: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

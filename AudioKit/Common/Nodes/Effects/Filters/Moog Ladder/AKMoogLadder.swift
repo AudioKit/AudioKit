@@ -19,18 +19,18 @@ import AVFoundation
 ///   - cutoffFrequency: Filter cutoff frequency.
 ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
 ///
-public class AKMoogLadder: AKNode, AKToggleable {
+open class AKMoogLadder: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKMoogLadderAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var cutoffFrequencyParameter: AUParameter?
-    private var resonanceParameter: AUParameter?
+    fileprivate var cutoffFrequencyParameter: AUParameter?
+    fileprivate var resonanceParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -40,7 +40,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
     }
 
     /// Filter cutoff frequency.
-    public var cutoffFrequency: Double = 1000 {
+    open var cutoffFrequency: Double = 1000 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -52,7 +52,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
         }
     }
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    public var resonance: Double = 0.5 {
+    open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
                 if internalAU!.isSetUp() {
@@ -65,7 +65,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -95,39 +95,39 @@ public class AKMoogLadder: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKMoogLadderAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKMoogLadder",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKMoogLadderAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKMoogLadderAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter = tree.valueForKey("cutoffFrequency") as? AUParameter
-        resonanceParameter       = tree.valueForKey("resonance")       as? AUParameter
+        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
+        resonanceParameter       = tree.value(forKey: "resonance")       as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = Double(value)
                 } else if address == self.resonanceParameter!.address {
                     self.resonance = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
         internalAU?.resonance = Float(resonance)
@@ -136,12 +136,12 @@ public class AKMoogLadder: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

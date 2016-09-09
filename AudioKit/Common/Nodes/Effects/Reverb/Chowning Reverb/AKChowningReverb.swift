@@ -18,7 +18,7 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 ///
-public class AKChowningReverb: AKNode, AKToggleable {
+open class AKChowningReverb: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -29,7 +29,7 @@ public class AKChowningReverb: AKNode, AKToggleable {
 
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
     
@@ -51,20 +51,20 @@ public class AKChowningReverb: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKChowningReverbAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKChowningReverb",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKChowningReverbAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKChowningReverbAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
     }
@@ -72,12 +72,12 @@ public class AKChowningReverb: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

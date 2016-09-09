@@ -19,7 +19,7 @@ extension AKComputedParameter {
     ///   - feedback: Feedback gain. A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.  Default 0.95
     ///
     public func stringResonator(
-        frequency frequency: AKParameter = 100.0,
+        frequency: AKParameter = 100.0,
                   feedback: AKParameter = 0.95
         ) -> AKOperation {
         return AKOperation(module: "streson", inputs: self.toMono(), frequency, feedback)

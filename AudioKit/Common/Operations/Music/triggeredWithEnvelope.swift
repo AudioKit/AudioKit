@@ -19,7 +19,7 @@ extension AKOperation {
     ///   - release: Release time, in seconds. (Default: 0.2)
     ///
     public func triggeredWithEnvelope(
-        trigger trigger: AKParameter,
+        trigger: AKParameter,
         attack: AKParameter = 0.1,
         hold: AKParameter = 0.3,
         release: AKParameter = 0.2

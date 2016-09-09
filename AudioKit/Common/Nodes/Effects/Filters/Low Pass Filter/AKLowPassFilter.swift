@@ -15,9 +15,9 @@ import AVFoundation
 ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
 ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
 ///
-public class AKLowPassFilter: AKNode, AKToggleable {
+open class AKLowPassFilter: AKNode, AKToggleable {
 
-    private let cd = AudioComponentDescription(
+    fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
         componentSubType: kAudioUnitSubType_LowPassFilter,
         componentManufacturer: kAudioUnitManufacturer_Apple,
@@ -25,12 +25,12 @@ public class AKLowPassFilter: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
-    private var mixer: AKMixer
+    fileprivate var mixer: AKMixer
 
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-    public var cutoffFrequency: Double = 6900 {
+    open var cutoffFrequency: Double = 6900 {
         didSet {
             if cutoffFrequency < 10 {
                 cutoffFrequency = 10
@@ -39,7 +39,7 @@ public class AKLowPassFilter: AKNode, AKToggleable {
                 cutoffFrequency = 22050
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kLowPassParam_CutoffFrequency,
                 kAudioUnitScope_Global, 0,
                 Float(cutoffFrequency), 0)
@@ -47,7 +47,7 @@ public class AKLowPassFilter: AKNode, AKToggleable {
     }
 
     /// Resonance (dB) ranges from -20 to 40 (Default: 0)
-    public var resonance: Double = 0 {
+    open var resonance: Double = 0 {
         didSet {
             if resonance < -20 {
                 resonance = -20
@@ -56,7 +56,7 @@ public class AKLowPassFilter: AKNode, AKToggleable {
                 resonance = 40
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kLowPassParam_Resonance,
                 kAudioUnitScope_Global, 0,
                 Float(resonance), 0)
@@ -64,7 +64,7 @@ public class AKLowPassFilter: AKNode, AKToggleable {
     }
 
     /// Dry/Wet Mix (Default 100)
-    public var dryWetMix: Double = 100 {
+    open var dryWetMix: Double = 100 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -77,12 +77,12 @@ public class AKLowPassFilter: AKNode, AKToggleable {
         }
     }
 
-    private var lastKnownMix: Double = 100
-    private var inputGain: AKMixer?
-    private var effectGain: AKMixer?
+    fileprivate var lastKnownMix: Double = 100
+    fileprivate var inputGain: AKMixer?
+    fileprivate var effectGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
+    open var isStarted = true
 
     // MARK: - Initialization
 
@@ -111,20 +111,20 @@ public class AKLowPassFilter: AKNode, AKToggleable {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
 
-            AudioKit.engine.attachNode(internalEffect)
+            AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU, kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)
-            AudioUnitSetParameter(internalAU, kLowPassParam_Resonance, kAudioUnitScope_Global, 0, Float(resonance), 0)
+            AudioUnitSetParameter(internalAU!, kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)
+            AudioUnitSetParameter(internalAU!, kLowPassParam_Resonance, kAudioUnitScope_Global, 0, Float(resonance), 0)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -132,7 +132,7 @@ public class AKLowPassFilter: AKNode, AKToggleable {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

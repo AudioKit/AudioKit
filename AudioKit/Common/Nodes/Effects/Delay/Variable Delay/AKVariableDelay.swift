@@ -16,18 +16,18 @@ import AVFoundation
 ///   - feedback: Feedback amount. Should be a value between 0-1.
 ///   - maximumDelayTime: The maximum delay time, in seconds.
 ///
-public class AKVariableDelay: AKNode, AKToggleable {
+open class AKVariableDelay: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKVariableDelayAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var timeParameter: AUParameter?
-    private var feedbackParameter: AUParameter?
+    fileprivate var timeParameter: AUParameter?
+    fileprivate var feedbackParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -37,7 +37,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
     }
 
     /// Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
-    public var time: Double = 1 {
+    open var time: Double = 1 {
         willSet {
             if time != newValue {
                 if internalAU!.isSetUp() {
@@ -49,7 +49,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
         }
     }
     /// Feedback amount. Should be a value between 0-1.
-    public var feedback: Double = 0 {
+    open var feedback: Double = 0 {
         willSet {
             if feedback != newValue {
                 if internalAU!.isSetUp() {
@@ -62,7 +62,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -94,39 +94,39 @@ public class AKVariableDelay: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKVariableDelayAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKVariableDelay",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKVariableDelayAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKVariableDelayAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        timeParameter             = tree.valueForKey("time")             as? AUParameter
-        feedbackParameter         = tree.valueForKey("feedback")         as? AUParameter
+        timeParameter             = tree.value(forKey: "time")             as? AUParameter
+        feedbackParameter         = tree.value(forKey: "feedback")         as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.timeParameter!.address {
                     self.time = Double(value)
                 } else if address == self.feedbackParameter!.address {
                     self.feedback = Double(value)
                 }
             }
-        }
+        })
         internalAU?.time = Float(time)
         internalAU?.feedback = Float(feedback)
     }
@@ -134,12 +134,12 @@ public class AKVariableDelay: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

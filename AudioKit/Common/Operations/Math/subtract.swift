@@ -13,7 +13,7 @@ extension AKOperation {
     ///
     /// - parameter subtrahend: The amount to subtract
     ///
-    public func minus(subtrahend: AKParameter) -> AKOperation {
+    public func minus(_ subtrahend: AKParameter) -> AKOperation {
         return AKOperation(module: "-", inputs: self, subtrahend)
     }
 }

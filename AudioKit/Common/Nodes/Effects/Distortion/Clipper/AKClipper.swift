@@ -15,17 +15,17 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - limit: Threshold / limiting value.
 ///
-public class AKClipper: AKNode, AKToggleable {
+open class AKClipper: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKClipperAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var limitParameter: AUParameter?
+    fileprivate var limitParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -35,7 +35,7 @@ public class AKClipper: AKNode, AKToggleable {
     }
 
     /// Threshold / limiting value.
-    public var limit: Double = 1.0 {
+    open var limit: Double = 1.0 {
         willSet {
             if limit != newValue {
                 if internalAU!.isSetUp() {
@@ -48,7 +48,7 @@ public class AKClipper: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -75,36 +75,36 @@ public class AKClipper: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKClipperAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKClipper",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKClipperAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKClipperAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        limitParameter = tree.valueForKey("limit") as? AUParameter
+        limitParameter = tree.value(forKey: "limit") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.limitParameter!.address {
                     self.limit = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.limit = Float(limit)
     }
@@ -112,12 +112,12 @@ public class AKClipper: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

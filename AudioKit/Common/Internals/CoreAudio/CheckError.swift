@@ -10,7 +10,7 @@
 ///
 /// - parameter error: OSStatus flag
 ///
-public func CheckError(error: OSStatus) {
+public func CheckError(_ error: OSStatus) {
     if error == 0 {return}
     switch error {
     // AudioToolbox

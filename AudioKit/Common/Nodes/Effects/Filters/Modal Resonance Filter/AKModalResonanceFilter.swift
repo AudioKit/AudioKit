@@ -17,18 +17,18 @@ import AVFoundation
 ///   - frequency: Resonant frequency of the filter.
 ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
 ///
-public class AKModalResonanceFilter: AKNode, AKToggleable {
+open class AKModalResonanceFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKModalResonanceFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var frequencyParameter: AUParameter?
-    private var qualityFactorParameter: AUParameter?
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var qualityFactorParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -38,7 +38,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
     }
 
     /// Resonant frequency of the filter.
-    public var frequency: Double = 500.0 {
+    open var frequency: Double = 500.0 {
         willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
@@ -50,7 +50,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
         }
     }
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    public var qualityFactor: Double = 50.0 {
+    open var qualityFactor: Double = 50.0 {
         willSet {
             if qualityFactor != newValue {
                 if internalAU!.isSetUp() {
@@ -63,7 +63,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -93,39 +93,39 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKModalResonanceFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKModalResonanceFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKModalResonanceFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKModalResonanceFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter     = tree.valueForKey("frequency")     as? AUParameter
-        qualityFactorParameter = tree.valueForKey("qualityFactor") as? AUParameter
+        frequencyParameter     = tree.value(forKey: "frequency")     as? AUParameter
+        qualityFactorParameter = tree.value(forKey: "qualityFactor") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.qualityFactorParameter!.address {
                     self.qualityFactor = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.frequency = Float(frequency)
         internalAU?.qualityFactor = Float(qualityFactor)
@@ -134,12 +134,12 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }
