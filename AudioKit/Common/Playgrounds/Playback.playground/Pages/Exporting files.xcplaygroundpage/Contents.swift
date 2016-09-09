@@ -1,5 +1,5 @@
 //: ## Exporting Audio Files
-//: ### AKAudioFiles can be easily converted to major audio formats asynchronously.
+//: AKAudioFiles can be easily converted to major audio formats asynchronously.
 import XCPlayground
 import AudioKit
 

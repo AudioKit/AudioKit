@@ -1,5 +1,5 @@
 //: ## Editing Audio Files
-//: ### Let's have some fun with our drum loop
+//: Let's have some fun with our drum loop
 
 import XCPlayground
 import AudioKit

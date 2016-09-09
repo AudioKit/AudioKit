@@ -1,5 +1,5 @@
 //: ## Morphing Oscillator
-//: ### Oscillator with four different waveforms built in.
+//: Oscillator with four different waveforms built in.
 import XCPlayground
 import AudioKit
 

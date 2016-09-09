@@ -1,5 +1,5 @@
 //: ## Filter Section
-//: ### This playgrounds was the development area for the filter in the Analog Synth X example project.
+//: This playgrounds was the development area for the filter in the Analog Synth X example project.
 import XCPlayground
 import AudioKit
 
