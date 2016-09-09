@@ -1,5 +1,5 @@
 //: ## MultiDelay Example
-//: ### This is similar to the MultiDelay implemented in the Analog Synth X example project.
+//: This is similar to the MultiDelay implemented in the Analog Synth X example project.
 import XCPlayground
 import AudioKit
 

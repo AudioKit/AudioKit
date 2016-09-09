@@ -4,10 +4,10 @@
 //:
 //: ## Metronome
 //:
-//: ### Although AudioKit operations are a somewhat advanced topic, this 
-//: ### is a simple example of creating a metronome with operations.  
-//: ### It's just important that you know that operations that can do very
-//: ### complex synthesis and effect processing is capable in AudioKit.
+//: Although AudioKit operations are a somewhat advanced topic, this
+//: is a simple example of creating a metronome with operations.
+//: It's just important that you know that operations that can do very
+//: complex synthesis and effect processing is capable in AudioKit.
 import AudioKit
 import XCPlayground
 

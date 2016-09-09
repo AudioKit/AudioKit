@@ -1,5 +1,5 @@
 //: ## FM Oscillator Bank
-//: ### Open the timeline view to use the controls this playground sets up.
+//: Open the timeline view to use the controls this playground sets up.
 //:
 
 import XCPlayground
@@ -66,7 +66,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard!.polyphonicMode = false
         keyboard!.delegate = self
         addSubview(keyboard!)
-        
+
         addSubview(AKButton(title: "Go Polyphonic") {
             self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
             if self.keyboard!.polyphonicMode {

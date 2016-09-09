@@ -1,7 +1,7 @@
 //: ## Decimator
-//: ### Decimation is a type of digital distortion like bit crushing,
-//: ### but instead of directly stating what bit depth and sample rate you want,
-//: ### it is done through setting "decimation" and "rounding" parameters.
+//: Decimation is a type of digital distortion like bit crushing,
+//: but instead of directly stating what bit depth and sample rate you want,
+//: it is done through setting "decimation" and "rounding" parameters.
 import XCPlayground
 import AudioKit
 

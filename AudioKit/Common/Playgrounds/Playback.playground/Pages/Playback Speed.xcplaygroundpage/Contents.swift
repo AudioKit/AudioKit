@@ -1,6 +1,6 @@
 //: ## Playback Speed
-//: ### This playground uses the AKVariSpeed node to change the playback speed of a file
-//: ### (which also affects the pitch)
+//: This playground uses the AKVariSpeed node to change the playback speed of a file
+//: (which also affects the pitch)
 //:
 import XCPlayground
 import AudioKit

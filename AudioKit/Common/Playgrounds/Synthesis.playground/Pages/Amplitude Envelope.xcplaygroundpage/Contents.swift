@@ -1,5 +1,5 @@
 //: ## Amplitude Envelope
-//: ### Enveloping an Oscillator with an ADSR envelope
+//: Enveloping an Oscillator with an ADSR envelope
 import XCPlayground
 import AudioKit
 
