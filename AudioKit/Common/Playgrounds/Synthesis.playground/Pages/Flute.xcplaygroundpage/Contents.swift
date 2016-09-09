@@ -1,5 +1,5 @@
 //: ## Flute
-//: ### Physical model of a Flute
+//: Physical model of a Flute
 import AudioKit
 import XCPlayground
 

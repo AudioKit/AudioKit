@@ -1,5 +1,5 @@
 //: ## Sean Costello Reverb
-//: ### This is a great sounding reverb that we just love.
+//: This is a great sounding reverb that we just love.
 import XCPlayground
 import AudioKit
 

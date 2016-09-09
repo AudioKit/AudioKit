@@ -1,5 +1,5 @@
 //: ## Telephone
-//: ### AudioKit is great for sound design. This playground creates canonical telephone sounds.
+//: AudioKit is great for sound design. This playground creates canonical telephone sounds.
 import XCPlayground
 import AudioKit
 
