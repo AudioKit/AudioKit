@@ -14,7 +14,7 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
-//: Here we set up a player to the loop the file's playback
+//: Set up a player to the loop the file's playback
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 

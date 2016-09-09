@@ -1,6 +1,6 @@
 //: ## Node FFT Plot
 //: You can also do spectral analysis of your signal by looking at FFT Plot.
-//: Here we create spikes in the plot by randomly playing an osccilator at a specific frequency.
+//: This playground creates spikes in the plot by playing an oscillator at a specific frequency.
 import XCPlayground
 import AudioKit
 
