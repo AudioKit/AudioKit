@@ -1,5 +1,5 @@
 //: ## Distortion
-//: ### This thing is a beast.
+//: This thing is a beast.
 //:
 import XCPlayground
 import AudioKit

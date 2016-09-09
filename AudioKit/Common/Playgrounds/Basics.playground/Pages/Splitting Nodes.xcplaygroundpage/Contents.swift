@@ -3,9 +3,9 @@
 //: ---
 //:
 //: ## Splitting Nodes
-//: ### All nodes in AudioKit can have multiple destinations, the only
-//: ### caveat is that all of the destinations do have to eventually be mixed
-//: ### back together and none of the parallel signal paths can have any time stretching.
+//: All nodes in AudioKit can have multiple destinations, the only
+//: caveat is that all of the destinations do have to eventually be mixed
+//: back together and none of the parallel signal paths can have any time stretching.
 import XCPlayground
 import AudioKit
 

@@ -10,7 +10,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var highShelfFilter = AKHighShelfFilter(player)
-highShelfFilter.cutOffFrequency = 10000 // Hz
+highShelfFilter.cutoffFrequency = 10000 // Hz
 highShelfFilter.gain = 0 // dB
 
 AudioKit.output = highShelfFilter
@@ -33,10 +33,10 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: highShelfFilter.cutOffFrequency, minimum: 20, maximum: 22050,
+            value: highShelfFilter.cutoffFrequency, minimum: 20, maximum: 22050,
             color: AKColor.greenColor()
         ) { sliderValue in
-            highShelfFilter.cutOffFrequency = sliderValue
+            highShelfFilter.cutoffFrequency = sliderValue
             })
 
         addSubview(AKPropertySlider(
