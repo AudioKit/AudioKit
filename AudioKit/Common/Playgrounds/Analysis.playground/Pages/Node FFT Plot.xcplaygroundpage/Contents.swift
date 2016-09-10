@@ -1,5 +1,5 @@
 //: ## Node FFT Plot
-//: You can also do spectral analysis of your signal by looking at FFT Plot.
+//: An FFT plot displays a signal as relative amplitudes across the frequency spectrum.
 //: This playground creates spikes in the plot by playing an oscillator at a specific frequency.
 import XCPlayground
 import AudioKit

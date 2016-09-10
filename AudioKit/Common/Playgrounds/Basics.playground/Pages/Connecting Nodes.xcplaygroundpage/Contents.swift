@@ -26,7 +26,7 @@ delay.time = 0.1 // seconds
 delay.feedback  = 0.8 // Normalized Value 0 - 1
 delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 
-//: You can continue add more nodes as you wish, and here we add a reverb
+//: Continue adding more nodes as you wish, for example, reverb:
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.Cathedral)
 
