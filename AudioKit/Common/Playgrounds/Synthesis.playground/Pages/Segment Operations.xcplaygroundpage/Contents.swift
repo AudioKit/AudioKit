@@ -1,5 +1,5 @@
 //: ## Segment Operations
-//: You can create segments that vary parameters in operations linearly or exponentially over a certain duration.
+//: Creating segments that vary parameters in operations linearly or exponentially over a certain duration
 import XCPlayground
 import AudioKit
 

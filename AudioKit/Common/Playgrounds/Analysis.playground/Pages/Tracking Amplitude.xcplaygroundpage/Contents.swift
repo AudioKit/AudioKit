@@ -57,7 +57,7 @@ XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 
-//: You can experiment with this playground by changing the volume function to a
+//: Experiment with this playground by changing the volume function to a
 //: phasor or another well-known function to see how well the amplitude tracker
 //: can track.  Also, you could change the sound source from an oscillator to a
 //: noise generator, or any constant sound source (some things like a physical
