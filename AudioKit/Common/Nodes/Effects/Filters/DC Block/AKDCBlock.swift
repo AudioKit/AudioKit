@@ -38,8 +38,8 @@ public class AKDCBlock: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x6463626b /*'dcbk'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("dcbk")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 

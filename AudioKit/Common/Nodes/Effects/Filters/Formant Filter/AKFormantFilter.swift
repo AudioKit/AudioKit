@@ -103,8 +103,8 @@ public class AKFormantFilter: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x666f6669 /*'fofi'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("fofi")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 

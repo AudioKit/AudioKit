@@ -152,8 +152,8 @@ public class AKDrip: AKNode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x64726970 /*'drip'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("drip")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 

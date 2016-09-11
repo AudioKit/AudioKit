@@ -88,8 +88,8 @@ public class AKMoogLadder: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x6d676c64 /*'mgld'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("mgld")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
