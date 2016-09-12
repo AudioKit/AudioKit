@@ -3,8 +3,8 @@
 //: ---
 //:
 //: ## Low-Frequency Oscillation of Parameters
-//: Often times we want rhythmic changing of parameters that varying in a standard way.
-//: This is tradition done with Low-Frequency Oscillators, LFOs.
+//: ### Oftentimes we want rhythmic changing of parameters that varying in a standard way.
+//: ### This is traditionally done with Low-Frequency Oscillators, LFOs.
 import XCPlayground
 import AudioKit
 
