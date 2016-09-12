@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Using Functions
-//: You can encapsualate functionality of operations into functions.
+//: Encapsualating functionality of operations into functions
 import XCPlayground
 import AudioKit
 
