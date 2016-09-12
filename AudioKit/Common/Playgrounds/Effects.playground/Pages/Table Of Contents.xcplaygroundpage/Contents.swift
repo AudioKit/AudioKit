@@ -93,7 +93,7 @@
 //: ### Sporth
 //:
 //: Sporth is a simple but super-powerful stack-based audio processing language
-//: that you can run directly in AudioKit. Here are some examples.
+//: that you can run directly in AudioKit.
 //:
 //: * [Sporth Based Effect](Sporth%20Based%20Effect)
 //:
