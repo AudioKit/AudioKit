@@ -32,7 +32,7 @@ let plot = AKNodeFFTPlot(mixer, frame: CGRect(x: 0, y: 0, width: 500, height: 50
 plot.shouldFill = true
 plot.shouldMirror = false
 plot.shouldCenterYAxis = false
-plot.color = NSColor.purpleColor()
+plot.color = AKColor.purpleColor()
 
 XCPlaygroundPage.currentPage.liveView = plot
 
