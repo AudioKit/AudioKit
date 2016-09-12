@@ -126,7 +126,9 @@ AudioKit was created by the following team whose contributions are fully chronic
 
 ## Contributing Code
 
-We welcome new contributors but we realize it can be daunting to suggest updates as a newcomer.  Here are some resources that we use to develop our coding choices and core philosophies:
+We welcome new contributors but we realize it can be daunting to suggest updates as a newcomer.  Here's what we are currently working on:  [AudioKit Works in Progress](http://audiokit.io/wip/)
+
+Here are some resources that we use to develop our coding choices and core philosophies:
 
 ## Avoid code smell
 

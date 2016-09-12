@@ -89,8 +89,8 @@ open class AKStringResonator: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x73747265 /*'stre'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("stre")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
