@@ -315,7 +315,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static func generateEnvelope(id: Int = 0,
+    static public func generateEnvelope(id: Int = 0,
                                  delay: Double = 0.0,
                                  attack: Double = 0.0,
                                  hold: Double = 0.0,
@@ -475,7 +475,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static func generateZone(id: Int,
+    static public func generateZone(id: Int,
                              rootNote: Int,
                              startNote: Int,
                              endNote: Int,
@@ -648,7 +648,7 @@ public class AKAUPresetBuilder {
         return str
     }
 
-    static func generateLayer(connections: String,
+    static public func generateLayer(connections: String,
                               envelopes: String = "",
                               filter: String = "",
                               lfos: String = "",
@@ -688,7 +688,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static func generateMinimalConnections(layer: Int = 0) -> String {
+    static public func generateMinimalConnections(layer: Int = 0) -> String {
         let layerOffset: Int = 256*layer
         let pitchDest: Int = 816840704+layerOffset
         let envelopeSource: Int = 536870912+layerOffset
