@@ -25,7 +25,7 @@ public class AKLowShelfFilter: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
     private var mixer: AKMixer
 
@@ -39,7 +39,7 @@ public class AKLowShelfFilter: AKNode, AKToggleable {
                 cutoffFrequency = 200
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kAULowShelfParam_CutoffFrequency,
                 kAudioUnitScope_Global, 0,
                 Float(cutoffFrequency), 0)
@@ -56,7 +56,7 @@ public class AKLowShelfFilter: AKNode, AKToggleable {
                 gain = 40
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kAULowShelfParam_Gain,
                 kAudioUnitScope_Global, 0,
                 Float(gain), 0)
@@ -111,14 +111,14 @@ public class AKLowShelfFilter: AKNode, AKToggleable {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
 
-            AudioKit.engine.attachNode(internalEffect)
+            AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU, kAULowShelfParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)
-            AudioUnitSetParameter(internalAU, kAULowShelfParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
+            AudioUnitSetParameter(internalAU!, kAULowShelfParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)
+            AudioUnitSetParameter(internalAU!, kAULowShelfParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
 
     // MARK: - Control

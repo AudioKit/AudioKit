@@ -178,41 +178,41 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
 
         AUAudioUnit.registerSubclass(
             AKMorphingOscillatorBankAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKMorphingOscillatorBank",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMorphingOscillatorBankAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             for i in 0 ..< waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
                 for j in 0 ..< waveformArray[i].size {
-                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
+                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], at: UInt32(j))
                 }
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        attackDurationParameter     = tree.valueForKey("attackDuration")     as? AUParameter
-        decayDurationParameter      = tree.valueForKey("decayDuration")      as? AUParameter
-        sustainLevelParameter       = tree.valueForKey("sustainLevel")       as? AUParameter
-        releaseDurationParameter    = tree.valueForKey("releaseDuration")    as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
+        attackDurationParameter     = tree.value(forKey: "attackDuration")     as? AUParameter
+        decayDurationParameter      = tree.value(forKey: "decayDuration")      as? AUParameter
+        sustainLevelParameter       = tree.value(forKey: "sustainLevel")       as? AUParameter
+        releaseDurationParameter    = tree.value(forKey: "releaseDuration")    as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.attackDurationParameter!.address {
                     self.attackDuration = Double(value)
                 } else if address == self.decayDurationParameter!.address {
@@ -227,7 +227,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
                     self.detuningMultiplier = Double(value)
                 }
             }
-        }
+        })
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)
 
         internalAU?.attackDuration     = Float(attackDuration)
@@ -241,12 +241,12 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     // MARK: - AKPolyphonic
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         self.internalAU!.startNote(Int32(noteNumber), velocity: Int32(velocity))
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         self.internalAU!.stopNote(Int32(noteNumber))
     }
 }

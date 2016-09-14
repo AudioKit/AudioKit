@@ -40,7 +40,7 @@ public class PlaygroundView: AKPlaygroundView {
         })
 
         addLabel("This is the output of the player")
-        let plot = AKNodeOutputPlot(player, frame: CGRect.init(x: 0, y: 0, width: 440, height: 300))
+        let plot = AKNodeOutputPlot(player, frame: CGRect(x: 0, y: 0, width: 440, height: 300))
         plot.plotType = .Rolling
         plot.shouldFill = true
         plot.shouldMirror = true
@@ -48,7 +48,7 @@ public class PlaygroundView: AKPlaygroundView {
         addSubview(plot)
 
         addLabel("This is the output of the delay")
-        let plot2 = AKNodeOutputPlot(delay, frame: CGRect.init(x: 0, y: 0, width: 440, height: 300))
+        let plot2 = AKNodeOutputPlot(delay, frame: CGRect(x: 0, y: 0, width: 440, height: 300))
         plot2.plotType = .Rolling
         plot2.shouldFill = true
         plot2.shouldMirror = true

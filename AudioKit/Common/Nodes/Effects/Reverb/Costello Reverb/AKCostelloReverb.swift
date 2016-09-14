@@ -93,32 +93,32 @@ public class AKCostelloReverb: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKCostelloReverbAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKCostelloReverb",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCostelloReverbAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKCostelloReverbAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        feedbackParameter        = tree.valueForKey("feedback")        as? AUParameter
-        cutoffFrequencyParameter = tree.valueForKey("cutoffFrequency") as? AUParameter
-
-        token = tree.tokenByAddingParameterObserver {
+        feedbackParameter        = tree.value(forKey: "feedback")        as? AUParameter
+        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
+/**
+        token = tree.token {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.feedbackParameter!.address {
                     self.feedback = Double(value)
                 } else if address == self.cutoffFrequencyParameter!.address {
@@ -126,7 +126,7 @@ public class AKCostelloReverb: AKNode, AKToggleable {
                 }
             }
         }
-
+*/
         internalAU?.feedback = Float(feedback)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }

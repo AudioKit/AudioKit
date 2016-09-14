@@ -106,33 +106,33 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKKorgLowPassFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKKorgLowPassFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKKorgLowPassFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKKorgLowPassFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter = tree.valueForKey("cutoffFrequency") as? AUParameter
-        resonanceParameter       = tree.valueForKey("resonance")       as? AUParameter
-        saturationParameter      = tree.valueForKey("saturation")      as? AUParameter
+        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
+        resonanceParameter       = tree.value(forKey: "resonance")       as? AUParameter
+        saturationParameter      = tree.value(forKey: "saturation")      as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = Double(value)
                 } else if address == self.resonanceParameter!.address {
@@ -141,7 +141,7 @@ public class AKKorgLowPassFilter: AKNode, AKToggleable {
                     self.saturation = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
         internalAU?.resonance = Float(resonance)

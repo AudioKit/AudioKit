@@ -27,10 +27,10 @@ public class AKCallbackInstrument: AKMIDIInstrument {
         self.enableMIDI(midi.client, name: "callback midi in")
         callbacks.append(callback)
         avAudioNode = AVAudioMixerNode()
-        AudioKit.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attach(self.avAudioNode)
     }
 
-    private func triggerCallbacks(status: AKMIDIStatus,
+    private func triggerCallbacks(_ status: AKMIDIStatus,
                                   noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity) {
         for callback in callbacks {
@@ -45,10 +45,10 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel
     ///
-    override public func start(noteNumber noteNumber: MIDINoteNumber,
+    override public func start(noteNumber: MIDINoteNumber,
                                           velocity: MIDIVelocity,
                                           channel: MIDIChannel) {
-        triggerCallbacks(.NoteOn, noteNumber: noteNumber, velocity: velocity)
+        triggerCallbacks(.noteOn, noteNumber: noteNumber, velocity: velocity)
     }
 
     /// Will trigger in response to any noteOff Message
@@ -58,7 +58,7 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel
     ///
-    override public func stop(noteNumber noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        triggerCallbacks(.NoteOff, noteNumber: noteNumber, velocity: 0)
+    override public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
+        triggerCallbacks(.noteOff, noteNumber: noteNumber, velocity: 0)
     }
 }

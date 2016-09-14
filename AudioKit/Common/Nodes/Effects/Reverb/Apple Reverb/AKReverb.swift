@@ -47,14 +47,14 @@ public class AKReverb: AKNode, AKToggleable {
         super.init()
 
         self.avAudioNode = reverbAU
-        AudioKit.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attach(self.avAudioNode)
         input.addConnectionPoint(self)
 
         reverbAU.wetDryMix = Float(dryWetMix) * 100.0
     }
 
     /// Load an Apple Factory Preset
-    public func loadFactoryPreset(preset: AVAudioUnitReverbPreset) {
+    public func loadFactoryPreset(_ preset: AVAudioUnitReverbPreset) {
         reverbAU.loadFactoryPreset(preset)
     }
 

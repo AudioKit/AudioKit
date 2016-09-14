@@ -90,39 +90,39 @@ public class AKResonantFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKResonantFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKResonantFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKResonantFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKResonantFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.valueForKey("frequency") as? AUParameter
-        bandwidthParameter = tree.valueForKey("bandwidth") as? AUParameter
+        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
+        bandwidthParameter = tree.value(forKey: "bandwidth") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.bandwidthParameter!.address {
                     self.bandwidth = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.frequency = Float(frequency)
         internalAU?.bandwidth = Float(bandwidth)

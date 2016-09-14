@@ -25,7 +25,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
     private var mixer: AKMixer
 
@@ -39,7 +39,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
                 centerFrequency = 22050
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kBandpassParam_CenterFrequency,
                 kAudioUnitScope_Global, 0,
                 Float(centerFrequency), 0)
@@ -56,7 +56,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
                 bandwidth = 12000
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kBandpassParam_Bandwidth,
                 kAudioUnitScope_Global, 0,
                 Float(bandwidth), 0)
@@ -111,14 +111,14 @@ public class AKBandPassFilter: AKNode, AKToggleable {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
 
-            AudioKit.engine.attachNode(internalEffect)
+            AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
-            AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
+            AudioUnitSetParameter(internalAU!, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
+            AudioUnitSetParameter(internalAU!, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
     }
 
     // MARK: - Control

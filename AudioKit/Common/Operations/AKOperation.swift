@@ -218,7 +218,7 @@ public class AKOperation: AKComputedParameter {
 ///
 /// - parameter parameter: AKComputedParameter to operate on
 ///
-public func abs(parameter: AKOperation) -> AKOperation {
+public func abs(_ parameter: AKOperation) -> AKOperation {
     return parameter.abs()
 }
 
@@ -226,7 +226,7 @@ public func abs(parameter: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func floor(operation: AKOperation) -> AKOperation {
+public func floor(_ operation: AKOperation) -> AKOperation {
     return operation.floor()
 }
 
@@ -234,7 +234,7 @@ public func floor(operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func fract(operation: AKOperation) -> AKOperation {
+public func fract(_ operation: AKOperation) -> AKOperation {
     return operation.fract()
 }
 
@@ -242,7 +242,7 @@ public func fract(operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func log(operation: AKOperation) -> AKOperation {
+public func log(_ operation: AKOperation) -> AKOperation {
     return operation.log()
 }
 
@@ -250,7 +250,7 @@ public func log(operation: AKOperation) -> AKOperation {
 ///
 /// - parmeter operation: AKComputedParameter to operate on
 ///
-public func log10(operation: AKOperation) -> AKOperation {
+public func log10(_ operation: AKOperation) -> AKOperation {
     return operation.log10()
 
 }
@@ -259,6 +259,6 @@ public func log10(operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func round(operation: AKOperation) -> AKOperation {
+public func round(_ operation: AKOperation) -> AKOperation {
     return operation.round()
 }

@@ -24,10 +24,10 @@ import AVFoundation
     }
     
     /// Connect this node to another
-    public func addConnectionPoint(node: AKNode) {
+    public func addConnectionPoint(_ node: AKNode) {
         connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
         AudioKit.engine.connect(avAudioNode,
-            toConnectionPoints: connectionPoints,
+            to: connectionPoints,
             fromBus: 0,
             format: AudioKit.format)
     }
@@ -42,13 +42,13 @@ public protocol AKPolyphonic {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
     ///
-    func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity)
+    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity)
     
     /// Stop a sound corresponding to a MIDI note
     ///
     /// - parameter noteNumber: MIDI Note Number
     ///
-    func stop(noteNumber noteNumber: MIDINoteNumber)
+    func stop(noteNumber: MIDINoteNumber)
 }
 
 /// Bare bones implementation of AKPolyphonic protocol
@@ -60,7 +60,7 @@ public class AKPolyphonicNode: AKNode, AKPolyphonic {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
     ///
-    public func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    public func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         print("Playing note \(noteNumber), with velocity \(velocity), override in subclass")
     }
     
@@ -68,7 +68,7 @@ public class AKPolyphonicNode: AKNode, AKPolyphonic {
     ///
     /// - parameter noteNumber: MIDI Note Number
     ///
-    public func stop(noteNumber noteNumber: MIDINoteNumber) {
+    public func stop(noteNumber: MIDINoteNumber) {
         print("Stopping note \(noteNumber), override in subclass")
     }
 }

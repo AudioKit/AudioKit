@@ -102,7 +102,7 @@ public struct AKDuration: CustomStringConvertible {
 ///
 /// - parameter duration: AKDuration
 ///
-public func ceil(duration: AKDuration) -> AKDuration {
+public func ceil(_ duration: AKDuration) -> AKDuration {
     var copy = duration
     copy.beats = ceil(copy.beats)
     return copy
@@ -113,7 +113,7 @@ public func ceil(duration: AKDuration) -> AKDuration {
 /// - parameter lhs: Starting duration
 /// - parameter rhs: Amount to add
 ///
-public func +=(inout lhs: AKDuration, rhs: AKDuration) {
+public func +=(lhs: inout AKDuration, rhs: AKDuration) {
     lhs.beats = lhs.beats + rhs.beats
 }
 
@@ -122,7 +122,7 @@ public func +=(inout lhs: AKDuration, rhs: AKDuration) {
 /// - parameter lhs: Starting duration
 /// - parameter rhs: Amount to subtract
 ///
-public func -=(inout lhs: AKDuration, rhs: AKDuration) {
+public func -=(lhs: inout AKDuration, rhs: AKDuration) {
     lhs.beats = lhs.beats - rhs.beats
 }
 
@@ -209,6 +209,6 @@ public func -(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
 ///
 public func %(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var copy = lhs
-    copy.beats = lhs.beats % rhs.beats
+    copy.beats = lhs.beats.truncatingRemainder(dividingBy: rhs.beats)
     return copy
 }

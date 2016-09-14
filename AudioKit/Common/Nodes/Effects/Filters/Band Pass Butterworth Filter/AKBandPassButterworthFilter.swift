@@ -92,39 +92,39 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKBandPassButterworthFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBandPassButterworthFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBandPassButterworthFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBandPassButterworthFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        centerFrequencyParameter = tree.valueForKey("centerFrequency") as? AUParameter
-        bandwidthParameter       = tree.valueForKey("bandwidth")       as? AUParameter
+        centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
+        bandwidthParameter       = tree.value(forKey: "bandwidth")       as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = Double(value)
                 } else if address == self.bandwidthParameter!.address {
                     self.bandwidth = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.bandwidth = Float(bandwidth)

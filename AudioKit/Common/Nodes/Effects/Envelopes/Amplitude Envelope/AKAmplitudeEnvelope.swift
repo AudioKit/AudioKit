@@ -125,34 +125,34 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKAmplitudeEnvelopeAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKAmplitudeEnvelope",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAmplitudeEnvelopeAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAmplitudeEnvelopeAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        attackDurationParameter  = tree.valueForKey("attackDuration")  as? AUParameter
-        decayDurationParameter   = tree.valueForKey("decayDuration")   as? AUParameter
-        sustainLevelParameter    = tree.valueForKey("sustainLevel")    as? AUParameter
-        releaseDurationParameter = tree.valueForKey("releaseDuration") as? AUParameter
+        attackDurationParameter  = tree.value(forKey: "attackDuration")  as? AUParameter
+        decayDurationParameter   = tree.value(forKey: "decayDuration")   as? AUParameter
+        sustainLevelParameter    = tree.value(forKey: "sustainLevel")    as? AUParameter
+        releaseDurationParameter = tree.value(forKey: "releaseDuration") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.attackDurationParameter!.address {
                     self.attackDuration = Double(value)
                 } else if address == self.decayDurationParameter!.address {
@@ -163,7 +163,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
                     self.releaseDuration = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)

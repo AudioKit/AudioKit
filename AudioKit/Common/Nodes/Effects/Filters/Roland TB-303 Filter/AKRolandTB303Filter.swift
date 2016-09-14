@@ -125,34 +125,34 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKRolandTB303FilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKRolandTB303Filter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKRolandTB303FilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKRolandTB303FilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter    = tree.valueForKey("cutoffFrequency")    as? AUParameter
-        resonanceParameter          = tree.valueForKey("resonance")          as? AUParameter
-        distortionParameter         = tree.valueForKey("distortion")         as? AUParameter
-        resonanceAsymmetryParameter = tree.valueForKey("resonanceAsymmetry") as? AUParameter
+        cutoffFrequencyParameter    = tree.value(forKey: "cutoffFrequency")    as? AUParameter
+        resonanceParameter          = tree.value(forKey: "resonance")          as? AUParameter
+        distortionParameter         = tree.value(forKey: "distortion")         as? AUParameter
+        resonanceAsymmetryParameter = tree.value(forKey: "resonanceAsymmetry") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = Double(value)
                 } else if address == self.resonanceParameter!.address {
@@ -163,7 +163,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
                     self.resonanceAsymmetry = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
         internalAU?.resonance = Float(resonance)

@@ -34,12 +34,12 @@ public class AKSynthKick: AKMIDIInstrument {
     }
   
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         generator.trigger()
     }
     
     /// Unneeded stop function since the sounds all decay quickly
-    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         // Unneeded
     }
 }
@@ -86,13 +86,13 @@ public class AKSynthSnare: AKMIDIInstrument {
     
     
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         cutoff = (Double(velocity)/127.0 * 1600.0) + 300.0
         generator.trigger()
     }
     
     /// Unneeded stop function since the sounds all decay quickly
-    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         // Unneeded
     }
 

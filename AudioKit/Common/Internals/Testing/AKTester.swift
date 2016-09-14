@@ -50,20 +50,20 @@ public class AKTester: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKTesterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKTester",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTesterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTesterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU?.setSamples(Int32(samples))
         }

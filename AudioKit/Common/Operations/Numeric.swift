@@ -65,3 +65,8 @@ public func /(lhs: Numeric, rhs: Numeric) -> Double {
 public func *(lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() * rhs.value()
 }
+
+
+extension Collection where Iterator.Element : Arithmetic {
+
+}

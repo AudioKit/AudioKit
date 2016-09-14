@@ -40,10 +40,10 @@ public class AKPlaygroundLoop: NSObject {
     /// Callback function for CADisplayLink
     @objc func update() {
         self.internalHandler()
-        self.performSelector(#selector(AKPlaygroundLoop.update),
-                             withObject: nil,
+        self.perform(#selector(AKPlaygroundLoop.update),
+                             with: nil,
                              afterDelay: duration,
-                             inModes: [NSRunLoopCommonModes])
+                             inModes: [RunLoopMode.commonModes])
 
     }
 }

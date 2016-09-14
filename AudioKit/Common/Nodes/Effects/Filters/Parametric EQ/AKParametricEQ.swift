@@ -26,7 +26,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
     private var mixer: AKMixer
 
@@ -40,7 +40,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
                 centerFrequency = 22050
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kParametricEQParam_CenterFreq,
                 kAudioUnitScope_Global, 0,
                 Float(centerFrequency), 0)
@@ -57,7 +57,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
                 q = 20
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kParametricEQParam_Q,
                 kAudioUnitScope_Global, 0,
                 Float(q), 0)
@@ -74,7 +74,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
                 gain = 20
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kParametricEQParam_Gain,
                 kAudioUnitScope_Global, 0,
                 Float(gain), 0)
@@ -132,15 +132,15 @@ public class AKParametricEQ: AKNode, AKToggleable {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
 
-            AudioKit.engine.attachNode(internalEffect)
+            AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
-            AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, Float(q), 0)
-            AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
+            AudioUnitSetParameter(internalAU!, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
+            AudioUnitSetParameter(internalAU!, kParametricEQParam_Q, kAudioUnitScope_Global, 0, Float(q), 0)
+            AudioUnitSetParameter(internalAU!, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
 
     // MARK: - Control

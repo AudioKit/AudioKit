@@ -87,36 +87,36 @@ public class AKBooster: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKBoosterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBooster",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBoosterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBoosterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        gainParameter   = tree.valueForKey("gain")   as? AUParameter
+        gainParameter   = tree.value(forKey: "gain")   as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.gainParameter!.address {
                     self.gain = Double(value)
                 }
             }
-        }
+        })
         internalAU?.gain = Float(gain)
     }
 

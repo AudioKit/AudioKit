@@ -24,9 +24,9 @@ public class AKADSRView: NSView {
     var callback: ADSRCallback
     var currentDragArea = ""
  
-    var lastPoint = CGPointZero
+    var lastPoint = CGPoint.zero
     
-    override public var flipped: Bool {
+    override public var isFlipped: Bool {
         get {
             return true
         }
@@ -37,25 +37,25 @@ public class AKADSRView: NSView {
         }
     }
     
-    override public func mouseDown(theEvent: NSEvent) {
+    override public func mouseDown(with theEvent: NSEvent) {
         
-        let touchLocation = convertPoint(theEvent.locationInWindow, fromView: nil)
-        if decaySustainTouchAreaPath.containsPoint(touchLocation) {
+        let touchLocation = convert(theEvent.locationInWindow, from: nil)
+        if decaySustainTouchAreaPath.contains(touchLocation) {
             currentDragArea = "ds"
         }
-        if attackTouchAreaPath.containsPoint(touchLocation) {
+        if attackTouchAreaPath.contains(touchLocation) {
             currentDragArea = "a"
         }
-        if releaseTouchAreaPath.containsPoint(touchLocation) {
+        if releaseTouchAreaPath.contains(touchLocation) {
             currentDragArea = "r"
         }
         lastPoint = touchLocation
         needsDisplay = true
     }
 
-    override public func mouseDragged(theEvent: NSEvent) {
+    override public func mouseDragged(with theEvent: NSEvent) {
 
-        let touchLocation = convertPoint(theEvent.locationInWindow, fromView: nil)
+        let touchLocation = convert(theEvent.locationInWindow, from: nil)
 
         if currentDragArea != "" {
             if currentDragArea == "ds" {
@@ -94,9 +94,9 @@ public class AKADSRView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func drawCurveCanvas(size size: NSSize = NSMakeSize(440, 151), attackDurationMS: CGFloat = 456, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
+    func drawCurveCanvas(size: NSSize = NSMakeSize(440, 151), attackDurationMS: CGFloat = 456, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
         //// General Declarations
-        let _ = NSGraphicsContext.currentContext()!.CGContext
+        let _ = NSGraphicsContext.current()!.cgContext
 
         //// Color Declarations
         let attackColor     = NSColor(calibratedRed: 0.767, green: 0, blue: 0, alpha: 1)
@@ -134,12 +134,12 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         attackTouchAreaPath = NSBezierPath()
-        attackTouchAreaPath.moveToPoint(NSMakePoint(0, size.height))
-        attackTouchAreaPath.lineToPoint(highPointAxis)
-        attackTouchAreaPath.lineToPoint(highMax)
-        attackTouchAreaPath.lineToPoint(initialMax)
-        attackTouchAreaPath.lineToPoint(NSMakePoint(0, size.height))
-        attackTouchAreaPath.closePath()
+        attackTouchAreaPath.move(to: NSMakePoint(0, size.height))
+        attackTouchAreaPath.line(to: highPointAxis)
+        attackTouchAreaPath.line(to: highMax)
+        attackTouchAreaPath.line(to: initialMax)
+        attackTouchAreaPath.line(to: NSMakePoint(0, size.height))
+        attackTouchAreaPath.close()
         backgroundColor.setFill()
         attackTouchAreaPath.fill()
 
@@ -150,12 +150,12 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         decaySustainTouchAreaPath = NSBezierPath()
-        decaySustainTouchAreaPath.moveToPoint(highPointAxis)
-        decaySustainTouchAreaPath.lineToPoint(releaseAxis)
-        decaySustainTouchAreaPath.lineToPoint(releaseMax)
-        decaySustainTouchAreaPath.lineToPoint(highMax)
-        decaySustainTouchAreaPath.lineToPoint(highPointAxis)
-        decaySustainTouchAreaPath.closePath()
+        decaySustainTouchAreaPath.move(to: highPointAxis)
+        decaySustainTouchAreaPath.line(to: releaseAxis)
+        decaySustainTouchAreaPath.line(to: releaseMax)
+        decaySustainTouchAreaPath.line(to: highMax)
+        decaySustainTouchAreaPath.line(to: highPointAxis)
+        decaySustainTouchAreaPath.close()
         backgroundColor.setFill()
         decaySustainTouchAreaPath.fill()
 
@@ -166,12 +166,12 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         releaseTouchAreaPath = NSBezierPath()
-        releaseTouchAreaPath.moveToPoint(releaseAxis)
-        releaseTouchAreaPath.lineToPoint(endAxes)
-        releaseTouchAreaPath.lineToPoint(endMax)
-        releaseTouchAreaPath.lineToPoint(releaseMax)
-        releaseTouchAreaPath.lineToPoint(releaseAxis)
-        releaseTouchAreaPath.closePath()
+        releaseTouchAreaPath.move(to: releaseAxis)
+        releaseTouchAreaPath.line(to: endAxes)
+        releaseTouchAreaPath.line(to: endMax)
+        releaseTouchAreaPath.line(to: releaseMax)
+        releaseTouchAreaPath.line(to: releaseAxis)
+        releaseTouchAreaPath.close()
         backgroundColor.setFill()
         releaseTouchAreaPath.fill()
 
@@ -182,15 +182,15 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         let releaseAreaPath = NSBezierPath()
-        releaseAreaPath.moveToPoint(releaseAxis)
-        releaseAreaPath.curveToPoint(endPoint,
+        releaseAreaPath.move(to: releaseAxis)
+        releaseAreaPath.curve(to: endPoint,
                                      controlPoint1: releaseAxis,
                                      controlPoint2: endPoint)
-        releaseAreaPath.curveToPoint(releasePoint,
+        releaseAreaPath.curve(to: releasePoint,
                                      controlPoint1: releaseToEndControlPoint,
                                      controlPoint2: releasePoint)
-        releaseAreaPath.lineToPoint(releaseAxis)
-        releaseAreaPath.closePath()
+        releaseAreaPath.line(to: releaseAxis)
+        releaseAreaPath.close()
         releaseColor.setFill()
         releaseAreaPath.fill()
 
@@ -201,12 +201,12 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         let sustainAreaPath = NSBezierPath()
-        sustainAreaPath.moveToPoint(sustainAxis)
-        sustainAreaPath.lineToPoint(releaseAxis)
-        sustainAreaPath.lineToPoint(releasePoint)
-        sustainAreaPath.lineToPoint(sustainPoint)
-        sustainAreaPath.lineToPoint(sustainAxis)
-        sustainAreaPath.closePath()
+        sustainAreaPath.move(to: sustainAxis)
+        sustainAreaPath.line(to: releaseAxis)
+        sustainAreaPath.line(to: releasePoint)
+        sustainAreaPath.line(to: sustainPoint)
+        sustainAreaPath.line(to: sustainAxis)
+        sustainAreaPath.close()
         sustainColor.setFill()
         sustainAreaPath.fill()
 
@@ -217,16 +217,16 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         let decayAreaPath = NSBezierPath()
-        decayAreaPath.moveToPoint(highPointAxis)
-        decayAreaPath.lineToPoint(sustainAxis)
-        decayAreaPath.curveToPoint(sustainPoint,
+        decayAreaPath.move(to: highPointAxis)
+        decayAreaPath.line(to: sustainAxis)
+        decayAreaPath.curve(to: sustainPoint,
                                    controlPoint1: sustainAxis,
                                    controlPoint2: sustainPoint)
-        decayAreaPath.curveToPoint(highPoint,
+        decayAreaPath.curve(to: highPoint,
                                    controlPoint1: highToSustainControlPoint,
                                    controlPoint2: highPoint)
-        decayAreaPath.lineToPoint(highPoint)
-        decayAreaPath.closePath()
+        decayAreaPath.line(to: highPoint)
+        decayAreaPath.close()
         decayColor.setFill()
         decayAreaPath.fill()
 
@@ -237,13 +237,13 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         let attackAreaPath = NSBezierPath()
-        attackAreaPath.moveToPoint(initialPoint)
-        attackAreaPath.lineToPoint(highPointAxis)
-        attackAreaPath.lineToPoint(highPoint)
-        attackAreaPath.curveToPoint(initialPoint,
+        attackAreaPath.move(to: initialPoint)
+        attackAreaPath.line(to: highPointAxis)
+        attackAreaPath.line(to: highPoint)
+        attackAreaPath.curve(to: initialPoint,
                                     controlPoint1: initialToHighControlPoint,
                                     controlPoint2: initialPoint)
-        attackAreaPath.closePath()
+        attackAreaPath.close()
         attackColor.setFill()
         attackAreaPath.fill()
 
@@ -253,18 +253,18 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         let curvePath = NSBezierPath()
-        curvePath.moveToPoint(initialPoint)
-        curvePath.curveToPoint(highPoint,
+        curvePath.move(to: initialPoint)
+        curvePath.curve(to: highPoint,
                                controlPoint1: initialPoint,
                                controlPoint2: initialToHighControlPoint)
-        curvePath.curveToPoint(sustainPoint,
+        curvePath.curve(to: sustainPoint,
                                controlPoint1: highPoint,
                                controlPoint2: highToSustainControlPoint)
-        curvePath.lineToPoint(releasePoint)
-        curvePath.curveToPoint(endPoint,
+        curvePath.line(to: releasePoint)
+        curvePath.curve(to: endPoint,
                                controlPoint1: releasePoint,
                                controlPoint2: releaseToEndControlPoint)
-        NSColor.blackColor().setStroke()
+        NSColor.black.setStroke()
         curvePath.lineWidth = curveStrokeWidth
         curvePath.stroke()
 
@@ -273,7 +273,7 @@ public class AKADSRView: NSView {
 
 
 
-    override public func drawRect(rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         drawCurveCanvas(attackDurationMS: CGFloat(attackDuration * 1000),
                         decayDurationMS: CGFloat(decayDuration * 1000),
                         releaseDurationMS: CGFloat(releaseDuration * 500),

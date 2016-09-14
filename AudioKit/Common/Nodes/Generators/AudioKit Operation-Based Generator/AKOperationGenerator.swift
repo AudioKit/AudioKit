@@ -98,26 +98,26 @@ public class AKOperationGenerator: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKOperationGeneratorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKOperationGenerator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationGeneratorAudioUnit
-            AudioKit.engine.attachNode(self.avAudioNode)
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKOperationGeneratorAudioUnit
+            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setSporth(sporth)
         }
     }
 
     /// Trigger the sound with current parameters
     ///
-    public func trigger(triggerNumber: Int = 0) {
+    public func trigger(_ triggerNumber: Int = 0) {
         self.internalAU!.trigger(Int32(triggerNumber))
     }
 

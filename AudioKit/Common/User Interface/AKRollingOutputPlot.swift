@@ -12,24 +12,25 @@ import Foundation
 @IBDesignable
 public class AKRollingOutputPlot: EZAudioPlot {
     internal func setupNode() {
-        AudioKit.engine.outputNode.installTapOnBus(0,
-                                                   bufferSize: bufferSize,
+        AudioKit.engine.outputNode.installTap(onBus: 0,
+                                              bufferSize: bufferSize,
                                                    format: nil) { [weak self] (buffer, time) -> Void in
 
-            if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize
-                let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                let tail = buffer.floatChannelData[0]
-                strongSelf.updateBuffer(&tail[offset],
-                                        withBufferSize: strongSelf.bufferSize)
-            }
+            guard let strongSelf = self else { return }
+            buffer.frameLength = strongSelf.bufferSize
+            let offset = Int(buffer.frameCapacity - buffer.frameLength)
+            let tail = buffer.floatChannelData?[0]
+            var t: Float? = tail?[offset]
+            strongSelf.updateBuffer(&t!,
+                                    withBufferSize: strongSelf.bufferSize)
+            tail?[offset] = t!
         }
     }
 
     internal var bufferSize: UInt32 = 1024
 
     deinit {
-        AudioKit.engine.outputNode.removeTapOnBus(0)
+        AudioKit.engine.outputNode.removeTap(onBus: 0)
     }
 
     /// Initialize the plot in a frame
@@ -68,14 +69,14 @@ public class AKRollingOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public static func createView(width width: CGFloat = 440, height: CGFloat = 200.0) -> AKView {
+    public static func createView(width: CGFloat = 440, height: CGFloat = 200.0) -> AKView {
 
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKRollingOutputPlot(frame: frame)
 
-        plot.plotType = .Rolling
-        plot.backgroundColor = AKColor.whiteColor()
-        plot.color = AKColor.greenColor()
+        plot.plotType = .rolling
+        plot.backgroundColor = AKColor.white
+        plot.color = AKColor.green
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.shouldCenterYAxis = true

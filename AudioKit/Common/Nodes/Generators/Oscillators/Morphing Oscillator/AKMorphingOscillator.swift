@@ -160,54 +160,57 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKMorphingOscillatorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKMorphingOscillator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMorphingOscillatorAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
 
             for i in 0 ..< waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
                 for j in 0 ..< waveformArray[i].size{
-                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
+                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], at: UInt32(j))
                 }
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
-        amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
-        indexParameter              = tree.valueForKey("index")              as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
-
-        token = tree.tokenByAddingParameterObserver {
+        frequencyParameter          = tree.value(forKey: "frequency")          as? AUParameter
+        amplitudeParameter          = tree.value(forKey: "amplitude")          as? AUParameter
+        indexParameter              = tree.value(forKey: "index")              as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
+        
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
-                if address == self.frequencyParameter!.address {
+            DispatchQueue.main.async {
+                switch address {
+                case self.frequencyParameter!.address:
                     self.frequency = Double(value)
-                } else if address == self.amplitudeParameter!.address {
+                case self.amplitudeParameter!.address:
                     self.amplitude = Double(value)
-                } else if address == self.indexParameter!.address {
+                case self.indexParameter!.address:
                     self.index = Double(value)
-                } else if address == self.detuningOffsetParameter!.address {
+                case self.detuningOffsetParameter!.address:
                     self.detuningOffset = Double(value)
-                } else if address == self.detuningMultiplierParameter!.address {
+                case self.detuningMultiplierParameter!.address:
                     self.detuningMultiplier = Double(value)
+                default:
+                  break
                 }
             }
-        }
+        })
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)

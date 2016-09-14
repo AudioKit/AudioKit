@@ -34,14 +34,14 @@ import AVFoundation
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
     public enum BufferLength: Int {
-        case Shortest = 5
-        case VeryShort = 6
-        case Short = 7
-        case Medium = 8
-        case Long = 9
-        case VeryLong = 10
-        case Huge = 11
-        case Longest = 12
+        case shortest = 5
+        case veryShort = 6
+        case short = 7
+        case medium = 8
+        case long = 9
+        case veryLong = 10
+        case huge = 11
+        case longest = 12
 
         /// The buffer Length expressed as number of samples
         var samplesCount: AVAudioFrameCount {
@@ -82,13 +82,13 @@ import AVFoundation
 
     /// AudioKit buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
-    public static var bufferLength: BufferLength = .VeryLong
+    public static var bufferLength: BufferLength = .veryLong
 
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
     /// So setting this value may have no effect (depending on the hardware device ?)
-    public static var recordingBufferLength: BufferLength = .VeryLong
+    public static var recordingBufferLength: BufferLength = .veryLong
 
     /// If set to true, Recording will stop after some delay to compensate
     /// latency between time recording is stopped and time it is written to file

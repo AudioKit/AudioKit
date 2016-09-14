@@ -115,33 +115,33 @@ public class AKPhaseLockedVocoder: AKNode {
 
         AUAudioUnit.registerSubclass(
             AKPhaseLockedVocoderAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPhaseLockedVocoder",
             version: UInt32.max)
 
         super.init()
 
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPhaseLockedVocoderAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPhaseLockedVocoderAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        positionParameter   = tree.valueForKey("position")   as? AUParameter
-        amplitudeParameter  = tree.valueForKey("amplitude")  as? AUParameter
-        pitchRatioParameter = tree.valueForKey("pitchRatio") as? AUParameter
+        positionParameter   = tree.value(forKey: "position")   as? AUParameter
+        amplitudeParameter  = tree.value(forKey: "amplitude")  as? AUParameter
+        pitchRatioParameter = tree.value(forKey: "pitchRatio") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.positionParameter!.address {
                     self.position = Double(value)
                 } else if address == self.amplitudeParameter!.address {
@@ -150,7 +150,7 @@ public class AKPhaseLockedVocoder: AKNode {
                     self.pitchRatio = Double(value)
                 }
             }
-        }
+        })
         internalAU?.position = Float(position)
         internalAU?.amplitude = Float(amplitude)
         internalAU?.pitchRatio = Float(pitchRatio)
@@ -165,14 +165,14 @@ public class AKPhaseLockedVocoder: AKNode {
             var theFileLengthInFrames: Int64 = 0
             var theFileFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
             var thePropertySize: UInt32 = UInt32(strideofValue(theFileFormat))
-            var extRef: ExtAudioFileRef = nil
-            var theData: UnsafeMutablePointer<CChar> = nil
+            var extRef: ExtAudioFileRef? = nil
+            var theData: UnsafeMutablePointer<CChar>? = nil
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
 
             err = ExtAudioFileOpenURL(self.avAudiofile.url, &extRef)
             if err != 0 { print("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
             // Get the audio data format
-            err = ExtAudioFileGetProperty(extRef, kExtAudioFileProperty_FileDataFormat, &thePropertySize, &theFileFormat)
+            err = ExtAudioFileGetProperty(extRef!, kExtAudioFileProperty_FileDataFormat, &thePropertySize, &theFileFormat)
             if err != 0 { print("ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = \(err)"); break Exit }
             if theFileFormat.mChannelsPerFrame > 2 { print("Unsupported Format, channel count is greater than stereo"); break Exit }
 
@@ -186,17 +186,17 @@ public class AKPhaseLockedVocoder: AKNode {
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
 
             // Set the desired client (output) data format
-            err = ExtAudioFileSetProperty(extRef, kExtAudioFileProperty_ClientDataFormat, UInt32(strideofValue(theOutputFormat)), &theOutputFormat)
+            err = ExtAudioFileSetProperty(extRef!, kExtAudioFileProperty_ClientDataFormat, UInt32(strideofValue(theOutputFormat)), &theOutputFormat)
             if err != 0 { print("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)"); break Exit }
 
             // Get the total frame count
             thePropertySize = UInt32(strideofValue(theFileLengthInFrames))
-            err = ExtAudioFileGetProperty(extRef, kExtAudioFileProperty_FileLengthFrames, &thePropertySize, &theFileLengthInFrames)
+            err = ExtAudioFileGetProperty(extRef!, kExtAudioFileProperty_FileLengthFrames, &thePropertySize, &theFileLengthInFrames)
             if err != 0 { print("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)"); break Exit }
 
             // Read all the data into memory
             let dataSize = UInt32(theFileLengthInFrames) * theOutputFormat.mBytesPerFrame
-            theData = UnsafeMutablePointer.alloc(Int(dataSize))
+            theData = UnsafeMutablePointer.allocate(capacity: Int(dataSize))
             if theData != nil {
                 var theDataBuffer: AudioBufferList = AudioBufferList()
                 theDataBuffer.mNumberBuffers = 1
@@ -206,7 +206,7 @@ public class AKPhaseLockedVocoder: AKNode {
 
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
-                err = ExtAudioFileRead(extRef, &ioNumberFrames, &theDataBuffer)
+                err = ExtAudioFileRead(extRef!, &ioNumberFrames, &theDataBuffer)
                 if err == noErr {
                     // success
                     let data=UnsafeMutablePointer<Float>(theDataBuffer.mBuffers.mData)
@@ -214,7 +214,7 @@ public class AKPhaseLockedVocoder: AKNode {
                     internalAU!.start()
                 } else {
                     // failure
-                    theData.dealloc(Int(dataSize))
+                    theData?.deallocate(capacity: Int(dataSize))
                     theData = nil // make sure to return NULL
                     print("Error = \(err)"); break Exit;
                 }

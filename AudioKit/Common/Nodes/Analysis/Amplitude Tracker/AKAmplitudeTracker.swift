@@ -68,36 +68,36 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKAmplitudeTrackerAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKAmplitudeTracker",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAmplitudeTrackerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAmplitudeTrackerAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        halfPowerPointParameter = tree.valueForKey("halfPowerPoint") as? AUParameter
+        halfPowerPointParameter = tree.value(forKey: "halfPowerPoint") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.halfPowerPointParameter!.address {
                     self.halfPowerPoint = Double(value)
                 }
             }
-        }
+        })
         halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
     }
 

@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public typealias AKCallback = Void -> Void
+public typealias AKCallback = (Void) -> Void
 
 /// Top level AudioKit managing class
 @objc public class AudioKit: NSObject {
@@ -68,7 +68,7 @@ public typealias AKCallback = Void -> Void
     /// The name of the current preferred input device, if available.
     public static var inputDevice: AKDevice? {
         #if os(OSX)
-            if let dev = EZAudioDevice.currentInputDevice() {
+            if let dev = EZAudioDevice.currentInput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
             }
         #else
@@ -80,7 +80,7 @@ public typealias AKCallback = Void -> Void
     }
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
-    public static func setInputDevice(input: AKDevice) throws {
+    public static func setInputDevice(_ input: AKDevice) throws {
         #if os(OSX)
             var address = AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDefaultInputDevice,
@@ -89,7 +89,7 @@ public typealias AKCallback = Void -> Void
             var devid = input.deviceID
             AudioObjectSetPropertyData(
                 AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
+                &address, 0, nil, UInt32(sizeof(AudioDeviceID.self)), &devid)
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for dev in devices {
@@ -102,7 +102,7 @@ public typealias AKCallback = Void -> Void
     }
     
     /// Change the preferred output device, giving it one of the names from the list of available output.
-    public static func setOutputDevice(output: AKDevice) throws {
+    public static func setOutputDevice(_ output: AKDevice) throws {
         #if os(OSX)
             var address = AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDefaultOutputDevice,
@@ -111,7 +111,7 @@ public typealias AKCallback = Void -> Void
             var devid = output.deviceID
             AudioObjectSetPropertyData(
                 AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
+                &address, 0, nil, UInt32(sizeof(AudioDeviceID.self)), &devid)
         #else
             //not available on ios
         #endif
@@ -212,7 +212,7 @@ public typealias AKCallback = Void -> Void
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    public static func test(node node: AKNode, duration: Double) {
+    public static func test(node: AKNode, duration: Double) {
         let samples = Int(duration * AKSettings.sampleRate)
         
         tester = AKTester(node, samples: samples)
@@ -221,7 +221,7 @@ public typealias AKCallback = Void -> Void
         self.engine.pause()
         tester?.play()
         let renderer = AKOfflineRenderer(engine: self.engine)
-        renderer.render(Int32(samples))
+        renderer?.render(Int32(samples))
     }
     
     /// Audition the test to hear what it sounds like
@@ -230,7 +230,7 @@ public typealias AKCallback = Void -> Void
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    public static func auditionTest(node node: AKNode, duration: Double) {
+    public static func auditionTest(node: AKNode, duration: Double) {
         output = node
         start()
         if let playableNode = node as? AKToggleable {
@@ -245,9 +245,9 @@ public typealias AKCallback = Void -> Void
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
-    @objc private static func audioEngineConfigurationChange(notification: NSNotification) -> Void {
+    @objc private static func audioEngineConfigurationChange(_ notification: Notification) -> Void {
 
-        if (shouldBeRunning == true && self.engine.running == false) {
+        if (shouldBeRunning == true && self.engine.isRunning == false) {
             do {
                 try self.engine.start()
             } catch {
@@ -258,16 +258,16 @@ public typealias AKCallback = Void -> Void
     }
 
     // Restarts the engine after audio output has been changed, like headphones plugged in.
-    @objc private static func restartEngineAfterRouteChange(notification: NSNotification) {
+    @objc private static func restartEngineAfterRouteChange(_ notification: Notification) {
         if shouldBeRunning {
             do {
                 try self.engine.start()
                 // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
                 if AKSettings.notificationsEnabled {
-                    NSNotificationCenter.defaultCenter().postNotificationName(
-                        AKNotifications.engineRestartedAfterRouteChange,
+                    NotificationCenter.default.post(
+                        name: Notification.Name(rawValue: AKNotifications.engineRestartedAfterRouteChange),
                         object: nil,
-                        userInfo: notification.userInfo)
+                        userInfo: (notification as NSNotification).userInfo)
 
                 }
             } catch {

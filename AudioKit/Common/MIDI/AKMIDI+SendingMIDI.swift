@@ -26,7 +26,7 @@ extension AKMIDI {
     ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
-    public func openOutput(namedOutput: String = "") {
+    public func openOutput(_ namedOutput: String = "") {
         
         var result = noErr
         
@@ -56,13 +56,13 @@ extension AKMIDI {
     }
     
     /// Send Message with data
-    public func sendMessage(data: [UInt8]) {
+    public func sendMessage(_ data: [UInt8]) {
         var result = noErr
-        let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.alloc(1)
+        let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
         
-        var packet: UnsafeMutablePointer<MIDIPacket> = nil
+        var packet: UnsafeMutablePointer<MIDIPacket>? = nil
         packet = MIDIPacketListInit(packetListPointer)
-        packet = MIDIPacketListAdd(packetListPointer, 1024, packet, 0, data.count, data)
+        packet = MIDIPacketListAdd(packetListPointer, 1024, packet!, 0, data.count, data)
         for endpointName in endpoints.keys {
             if let endpoint = endpoints[endpointName] {
                 result = MIDISend(outputPort, endpoint, packetListPointer)
@@ -76,17 +76,17 @@ extension AKMIDI {
             MIDIReceived(virtualOutput, packetListPointer)
         }
         
-        packetListPointer.destroy()
-        packetListPointer.dealloc(1)//necessary? wish i could do this without the alloc above
+        packetListPointer.deinitialize()
+        packetListPointer.deallocate(capacity: 1)//necessary? wish i could do this without the alloc above
     }
     
     /// Send Messsage from midi event data
-    public func sendEvent(event: AKMIDIEvent) {
+    public func sendEvent(_ event: AKMIDIEvent) {
         sendMessage(event.internalData)
     }
     
     /// Send a Note On Message
-    public func sendNoteOnMessage(noteNumber noteNumber: MIDINoteNumber,
+    public func sendNoteOnMessage(noteNumber: MIDINoteNumber,
                                              velocity: MIDIVelocity,
                                              channel: MIDIChannel = 0) {
         let noteCommand: UInt8 = UInt8(0x90) + UInt8(channel)
@@ -95,7 +95,7 @@ extension AKMIDI {
     }
 
     /// Send a Note Off Message
-    public func sendNoteOffMessage(noteNumber noteNumber: MIDINoteNumber,
+    public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
                                              velocity: MIDIVelocity,
                                              channel: MIDIChannel = 0) {
         let noteCommand: UInt8 = UInt8(0x80) + UInt8(channel)
@@ -104,7 +104,7 @@ extension AKMIDI {
     }
 
     /// Send a Continuous Controller message
-    public func sendControllerMessage(control: Int, value: Int, channel: MIDIChannel = 0) {
+    public func sendControllerMessage(_ control: Int, value: Int, channel: MIDIChannel = 0) {
         let controlCommand: UInt8 = UInt8(0xB0) + UInt8(channel)
         let message: [UInt8] = [controlCommand, UInt8(control), UInt8(value)]
         self.sendMessage(message)

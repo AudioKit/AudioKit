@@ -141,12 +141,12 @@ public class AKNodeRecorder {
             recording = true
 
             print("recording")
-            node!.avAudioNode.installTapOnBus(0, bufferSize: recordingBufferLength,
+            node!.avAudioNode.installTap(onBus: 0, bufferSize: recordingBufferLength,
                                               format: internalAudioFile.processingFormat) {
                 (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                 do {
                     self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
-                    try self.internalAudioFile.writeFromBuffer(buffer)
+                    try self.internalAudioFile.write(from: buffer)
                     print("writing ( file duration:  \(self.internalAudioFile.duration) seconds)")
                 } catch let error as NSError {
                     print("Write failed: error -> \(error.localizedDescription)")
@@ -171,7 +171,7 @@ public class AKNodeRecorder {
                 let delay = UInt32(recordBufferDuration * 1000000)
                 usleep(delay)
             }
-            node!.avAudioNode.removeTapOnBus(0)
+            node!.avAudioNode.removeTap(onBus: 0)
             print("Recording Stopped.")
 
         } else {
@@ -189,12 +189,12 @@ public class AKNodeRecorder {
         }
 
         // Delete the physical recording file
-        let fileManager = NSFileManager.defaultManager()
+        let fileManager = FileManager.default
         let settings = internalAudioFile.processingFormat.settings
         let url = internalAudioFile.url
 
         do {
-            try fileManager.removeItemAtPath(audioFile!.url.absoluteString)
+            try fileManager.removeItem(atPath: audioFile!.url.absoluteString)
         } catch let error as NSError {
             print("AKNodeRecorder Error: cannot delete Recording file:  \(audioFile!.fileNamePlusExtension)")
             throw error

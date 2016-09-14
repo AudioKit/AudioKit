@@ -74,36 +74,36 @@ public class AKPanner: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKPannerAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPanner",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPannerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKPannerAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        panParameter   = tree.valueForKey("pan")   as? AUParameter
+        panParameter   = tree.value(forKey: "pan")   as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.panParameter!.address {
                     self.pan = Double(value)
                 }
             }
-        }
+        })
         internalAU?.pan = Float(pan)
     }
 

@@ -66,35 +66,35 @@ public class AKPinkNoise: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKPinkNoiseAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPinkNoise",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPinkNoiseAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPinkNoiseAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
                 }
             }
-        }
+        })
         internalAU?.amplitude = Float(amplitude)
     }
 

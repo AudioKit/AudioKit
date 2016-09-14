@@ -74,36 +74,36 @@ public class AKToneFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKToneFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKToneFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKToneFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKToneFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        halfPowerPointParameter = tree.valueForKey("halfPowerPoint") as? AUParameter
+        halfPowerPointParameter = tree.value(forKey: "halfPowerPoint") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.halfPowerPointParameter!.address {
                     self.halfPowerPoint = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.halfPowerPoint = Float(halfPowerPoint)
     }

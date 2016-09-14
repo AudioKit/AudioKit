@@ -87,38 +87,38 @@ public class AKFlute: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKFluteAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKFlute",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFluteAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKFluteAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.valueForKey("frequency") as? AUParameter
-        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
+        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
                 }
             }
-        }
+        })
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
     }
@@ -127,7 +127,7 @@ public class AKFlute: AKNode, AKToggleable {
     ///   - frequency: Frequency in Hz
     /// - amplitude amplitude: Volume
     ///
-    public func trigger(frequency frequency: Double, amplitude: Double = 1) {
+    public func trigger(frequency: Double, amplitude: Double = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
         self.internalAU!.start()

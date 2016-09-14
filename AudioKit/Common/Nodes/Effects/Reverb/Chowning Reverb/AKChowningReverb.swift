@@ -51,20 +51,20 @@ public class AKChowningReverb: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKChowningReverbAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKChowningReverb",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKChowningReverbAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKChowningReverbAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
     }

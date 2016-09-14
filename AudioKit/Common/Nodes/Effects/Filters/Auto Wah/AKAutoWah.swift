@@ -108,33 +108,33 @@ public class AKAutoWah: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKAutoWahAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKAutoWah",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAutoWahAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAutoWahAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        wahParameter       = tree.valueForKey("wah")       as? AUParameter
-        mixParameter       = tree.valueForKey("mix")       as? AUParameter
-        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        wahParameter       = tree.value(forKey: "wah")       as? AUParameter
+        mixParameter       = tree.value(forKey: "mix")       as? AUParameter
+        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.wahParameter!.address {
                     self.wah = Double(value)
                 } else if address == self.mixParameter!.address {
@@ -143,7 +143,7 @@ public class AKAutoWah: AKNode, AKToggleable {
                     self.amplitude = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.wah = Float(wah)
         internalAU?.mix = Float(mix)

@@ -95,53 +95,53 @@ public class AKTremolo: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKTremoloAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKTremolo",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTremoloAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTremoloAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU?.setupWaveform(Int32(waveform.size))
             for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
+                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.valueForKey("frequency") as? AUParameter
+        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 }
             }
-        }
+        })
         internalAU?.frequency = Float(frequency)
 
-        depthParameter = tree.valueForKey("depth") as? AUParameter
+        depthParameter = tree.value(forKey: "depth") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.depthParameter!.address {
                     self.depth = Double(value)
                 }
             }
-        }
+        })
         internalAU?.depth = Float(depth)
     }
 

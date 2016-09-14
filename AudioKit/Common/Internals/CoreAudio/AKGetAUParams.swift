@@ -12,7 +12,7 @@ import AVFoundation
 /// Audio from the standard input
 public struct AKGetAUParams {
     
-    private func getAUParams(inputAU: AudioUnit) -> ([AudioUnitParameterInfo]) {
+    private func getAUParams(_ inputAU: AudioUnit) -> ([AudioUnitParameterInfo]) {
         //  Get number of parameters in this unit (size in bytes really):
         var size: UInt32 = 0
         var propertyBool = DarwinBoolean(true)

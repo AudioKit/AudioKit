@@ -222,43 +222,43 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
 
         AUAudioUnit.registerSubclass(
             AKFMOscillatorBankAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKFMOscillatorBank",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKFMOscillatorBankAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
             for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
+                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        carrierMultiplierParameter    = tree.valueForKey("carrierMultiplier")    as? AUParameter
-        modulatingMultiplierParameter = tree.valueForKey("modulatingMultiplier") as? AUParameter
-        modulationIndexParameter      = tree.valueForKey("modulationIndex")      as? AUParameter
+        carrierMultiplierParameter    = tree.value(forKey: "carrierMultiplier")    as? AUParameter
+        modulatingMultiplierParameter = tree.value(forKey: "modulatingMultiplier") as? AUParameter
+        modulationIndexParameter      = tree.value(forKey: "modulationIndex")      as? AUParameter
 
-        attackDurationParameter     = tree.valueForKey("attackDuration")     as? AUParameter
-        decayDurationParameter      = tree.valueForKey("decayDuration")      as? AUParameter
-        sustainLevelParameter       = tree.valueForKey("sustainLevel")       as? AUParameter
-        releaseDurationParameter    = tree.valueForKey("releaseDuration")    as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
+        attackDurationParameter     = tree.value(forKey: "attackDuration")     as? AUParameter
+        decayDurationParameter      = tree.value(forKey: "decayDuration")      as? AUParameter
+        sustainLevelParameter       = tree.value(forKey: "sustainLevel")       as? AUParameter
+        releaseDurationParameter    = tree.value(forKey: "releaseDuration")    as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.carrierMultiplierParameter!.address {
                     self.carrierMultiplier = Double(value)
                 } else if address == self.modulatingMultiplierParameter!.address {
@@ -279,7 +279,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
                     self.detuningMultiplier = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.carrierMultiplier = Float(carrierMultiplier)
         internalAU?.modulatingMultiplier = Float(modulatingMultiplier)
@@ -296,12 +296,12 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
     // MARK: - AKPolyphonic
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         self.internalAU!.startNote(Int32(noteNumber), velocity: Int32(velocity))
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         self.internalAU!.stopNote(Int32(noteNumber))
     }
 }

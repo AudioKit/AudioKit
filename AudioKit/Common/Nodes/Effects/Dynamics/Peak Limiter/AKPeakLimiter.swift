@@ -26,7 +26,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
     private var mixer: AKMixer
 
@@ -40,7 +40,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
                 attackTime = 0.03
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kLimiterParam_AttackTime,
                 kAudioUnitScope_Global, 0,
                 Float(attackTime), 0)
@@ -57,7 +57,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
                 decayTime = 0.06
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kLimiterParam_DecayTime,
                 kAudioUnitScope_Global, 0,
                 Float(decayTime), 0)
@@ -74,7 +74,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
                 preGain = 40
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kLimiterParam_PreGain,
                 kAudioUnitScope_Global, 0,
                 Float(preGain), 0)
@@ -129,15 +129,15 @@ public class AKPeakLimiter: AKNode, AKToggleable {
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
-            AudioKit.engine.attachNode(internalEffect)
+            AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             self.avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)
-            AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime, kAudioUnitScope_Global, 0, Float(decayTime), 0)
-            AudioUnitSetParameter(internalAU, kLimiterParam_PreGain, kAudioUnitScope_Global, 0, Float(preGain), 0)
+            AudioUnitSetParameter(internalAU!, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)
+            AudioUnitSetParameter(internalAU!, kLimiterParam_DecayTime, kAudioUnitScope_Global, 0, Float(decayTime), 0)
+            AudioUnitSetParameter(internalAU!, kLimiterParam_PreGain, kAudioUnitScope_Global, 0, Float(preGain), 0)
     }
 
     // MARK: - Control

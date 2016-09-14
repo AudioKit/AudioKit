@@ -179,36 +179,36 @@ public class AKPWMOscillatorBank: AKPolyphonicNode {
 
         AUAudioUnit.registerSubclass(
             AKPWMOscillatorBankAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPWMOscillatorBank",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPWMOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPWMOscillatorBankAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        pulseWidthParameter         = tree.valueForKey("pulseWidth")         as? AUParameter
-        attackDurationParameter     = tree.valueForKey("attackDuration")     as? AUParameter
-        decayDurationParameter      = tree.valueForKey("decayDuration")      as? AUParameter
-        sustainLevelParameter       = tree.valueForKey("sustainLevel")       as? AUParameter
-        releaseDurationParameter    = tree.valueForKey("releaseDuration")    as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
+        pulseWidthParameter         = tree.value(forKey: "pulseWidth")         as? AUParameter
+        attackDurationParameter     = tree.value(forKey: "attackDuration")     as? AUParameter
+        decayDurationParameter      = tree.value(forKey: "decayDuration")      as? AUParameter
+        sustainLevelParameter       = tree.value(forKey: "sustainLevel")       as? AUParameter
+        releaseDurationParameter    = tree.value(forKey: "releaseDuration")    as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.pulseWidthParameter!.address {
                     self.pulseWidth = Double(value)
                 } else if address == self.attackDurationParameter!.address {
@@ -225,7 +225,7 @@ public class AKPWMOscillatorBank: AKPolyphonicNode {
                     self.detuningMultiplier = Double(value)
                 }
             }
-        }
+        })
         internalAU?.pulseWidth = Float(pulseWidth)
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)
@@ -238,12 +238,12 @@ public class AKPWMOscillatorBank: AKPolyphonicNode {
     // MARK: - AKPolyphonic
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber noteNumber: Int, velocity: MIDIVelocity) {
+    public override func play(noteNumber: Int, velocity: MIDIVelocity) {
         self.internalAU!.startNote(Int32(noteNumber), velocity: Int32(velocity))
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber) {
         self.internalAU!.stopNote(Int32(noteNumber))
     }
 }

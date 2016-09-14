@@ -90,38 +90,38 @@ public class AKMandolin: AKNode {
 
         AUAudioUnit.registerSubclass(
             AKMandolinAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKMandolin",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMandolinAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMandolinAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        detuneParameter   = tree.valueForKey("detune")   as? AUParameter
-        bodySizeParameter = tree.valueForKey("bodySize") as? AUParameter
+        detuneParameter   = tree.value(forKey: "detune")   as? AUParameter
+        bodySizeParameter = tree.value(forKey: "bodySize") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.detuneParameter!.address {
                     self.detune = Double(value)
                 } else if address == self.bodySizeParameter!.address {
                     self.bodySize = Double(value)
                 }
             }
-        }
+        })
         internalAU?.detune = Float(detune)
         internalAU?.bodySize = Float(bodySize)
     }
@@ -133,7 +133,7 @@ public class AKMandolin: AKNode {
     ///   - course2Note: MIDI note number for course 2
     ///   - course3Note: MIDI note number for course 3
     ///   - course4Note: MIDI note number for course 4
-    public func prepareChord(course1Note: MIDINoteNumber,
+    public func prepareChord(_ course1Note: MIDINoteNumber,
                       _ course2Note: MIDINoteNumber,
                       _ course3Note: MIDINoteNumber,
                       _ course4Note: MIDINoteNumber) {
@@ -149,7 +149,7 @@ public class AKMandolin: AKNode {
     ///   - noteNumber: MIDI note number of fretted note
     ///   - course:     Which set of strings to press
     ///
-    public func fret(noteNumber noteNumber: MIDINoteNumber, course: Int) {
+    public func fret(noteNumber: MIDINoteNumber, course: Int) {
         internalAU?.setFrequency(Float(noteNumber.midiNoteToFrequency()), course: Int32(course))
     }
 
@@ -160,7 +160,7 @@ public class AKMandolin: AKNode {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    public func pluck(course course: Int, position: Double, velocity: MIDIVelocity) {
+    public func pluck(course: Int, position: Double, velocity: MIDIVelocity) {
         internalAU?.pluckCourse(Int32(course), position: Float(position), velocity: Int32(velocity))
     }
 
@@ -170,7 +170,7 @@ public class AKMandolin: AKNode {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    public func strum(position: Double, velocity: MIDIVelocity) {
+    public func strum(_ position: Double, velocity: MIDIVelocity) {
         pluck(course: 0, position: position, velocity: velocity)
         pluck(course: 1, position: position, velocity: velocity)
         pluck(course: 2, position: position, velocity: velocity)

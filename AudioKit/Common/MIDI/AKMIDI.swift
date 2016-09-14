@@ -76,12 +76,11 @@ public class AKMIDI {
     // MARK: - Virtual MIDI
     
     /// Create set of virtual MIDI ports
-    public func createVirtualPorts(uniqueId: Int32 = 2000000) {
+    public func createVirtualPorts(_ uniqueId: Int32 = 2000000) {
 
         destroyVirtualPorts()
         
-        var result = noErr
-        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, MyMIDIReadBlock)
+        var result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, MyMIDIReadBlock)
         
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)

@@ -108,33 +108,33 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKThreePoleLowpassFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKThreePoleLowpassFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKThreePoleLowpassFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKThreePoleLowpassFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        distortionParameter      = tree.valueForKey("distortion")      as? AUParameter
-        cutoffFrequencyParameter = tree.valueForKey("cutoffFrequency") as? AUParameter
-        resonanceParameter       = tree.valueForKey("resonance")       as? AUParameter
+        distortionParameter      = tree.value(forKey: "distortion")      as? AUParameter
+        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
+        resonanceParameter       = tree.value(forKey: "resonance")       as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.distortionParameter!.address {
                     self.distortion = Double(value)
                 } else if address == self.cutoffFrequencyParameter!.address {
@@ -143,7 +143,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
                     self.resonance = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.distortion = Float(distortion)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)

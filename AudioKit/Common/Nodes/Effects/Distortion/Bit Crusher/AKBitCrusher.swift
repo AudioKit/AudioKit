@@ -91,39 +91,39 @@ public class AKBitCrusher: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKBitCrusherAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBitCrusher",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBitCrusherAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBitCrusherAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        bitDepthParameter   = tree.valueForKey("bitDepth")   as? AUParameter
-        sampleRateParameter = tree.valueForKey("sampleRate") as? AUParameter
+        bitDepthParameter   = tree.value(forKey: "bitDepth")   as? AUParameter
+        sampleRateParameter = tree.value(forKey: "sampleRate") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.bitDepthParameter!.address {
                     self.bitDepth = Double(value)
                 } else if address == self.sampleRateParameter!.address {
                     self.sampleRate = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.bitDepth = Float(bitDepth)
         internalAU?.sampleRate = Float(sampleRate)

@@ -108,42 +108,45 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKLowShelfParametricEqualizerFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKLowShelfParametricEqualizerFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKLowShelfParametricEqualizerFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKLowShelfParametricEqualizerFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cornerFrequencyParameter = tree.valueForKey("cornerFrequency") as? AUParameter
-        gainParameter            = tree.valueForKey("gain")            as? AUParameter
-        qParameter               = tree.valueForKey("q")               as? AUParameter
+        cornerFrequencyParameter = tree.value(forKey: "cornerFrequency") as? AUParameter
+        gainParameter            = tree.value(forKey: "gain")            as? AUParameter
+        qParameter               = tree.value(forKey: "q")               as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
-                if address == self.cornerFrequencyParameter!.address {
+            DispatchQueue.main.async {
+                switch address {
+                case self.cornerFrequencyParameter!.address:
                     self.cornerFrequency = Double(value)
-                } else if address == self.gainParameter!.address {
+                case self.gainParameter!.address:
                     self.gain = Double(value)
-                } else if address == self.qParameter!.address {
+                case self.qParameter!.address:
                     self.q = Double(value)
+                default:
+                    break
                 }
             }
-        }
+        })
 
         internalAU?.cornerFrequency = Float(cornerFrequency)
         internalAU?.gain = Float(gain)

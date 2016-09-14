@@ -159,36 +159,36 @@ public class AKMetalBar: AKNode {
 
         AUAudioUnit.registerSubclass(
             AKMetalBarAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKMetalBar",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMetalBarAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMetalBarAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        leftBoundaryConditionParameter  = tree.valueForKey("leftBoundaryCondition")  as? AUParameter
-        rightBoundaryConditionParameter = tree.valueForKey("rightBoundaryCondition") as? AUParameter
-        decayDurationParameter          = tree.valueForKey("decayDuration")          as? AUParameter
-        scanSpeedParameter              = tree.valueForKey("scanSpeed")              as? AUParameter
-        positionParameter               = tree.valueForKey("position")               as? AUParameter
-        strikeVelocityParameter         = tree.valueForKey("strikeVelocity")         as? AUParameter
-        strikeWidthParameter            = tree.valueForKey("strikeWidth")            as? AUParameter
+        leftBoundaryConditionParameter  = tree.value(forKey: "leftBoundaryCondition")  as? AUParameter
+        rightBoundaryConditionParameter = tree.value(forKey: "rightBoundaryCondition") as? AUParameter
+        decayDurationParameter          = tree.value(forKey: "decayDuration")          as? AUParameter
+        scanSpeedParameter              = tree.value(forKey: "scanSpeed")              as? AUParameter
+        positionParameter               = tree.value(forKey: "position")               as? AUParameter
+        strikeVelocityParameter         = tree.value(forKey: "strikeVelocity")         as? AUParameter
+        strikeWidthParameter            = tree.value(forKey: "strikeWidth")            as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.leftBoundaryConditionParameter!.address {
                     self.leftBoundaryCondition = Double(value)
                 } else if address == self.rightBoundaryConditionParameter!.address {
@@ -205,7 +205,7 @@ public class AKMetalBar: AKNode {
                     self.strikeWidth = Double(value)
                 }
             }
-        }
+        })
         internalAU?.leftBoundaryCondition = Float(leftBoundaryCondition)
         internalAU?.rightBoundaryCondition = Float(rightBoundaryCondition)
         internalAU?.decayDuration = Float(decayDuration)
