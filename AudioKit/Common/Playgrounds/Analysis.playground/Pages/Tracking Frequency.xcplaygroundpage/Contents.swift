@@ -1,7 +1,7 @@
 //: ## Tracking Frequency
-//: ### Tracking frequency is just as easy as tracking amplitude, and even
-//: ### includes amplitude, but it is more CPU intensive, so if you just need amplitude,
-//: ### use the amplitude tracker.
+//: Tracking frequency is just as easy as tracking amplitude, and even
+//: includes amplitude, but it is more CPU intensive, so if you just need amplitude,
+//: use the amplitude tracker.
 import XCPlayground
 import AudioKit
 
@@ -31,21 +31,21 @@ secondaryOscillator.start()
 //: User Interface
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var trackedAmplitudeSlider: AKPropertySlider?
     var trackedFrequencySlider: AKPropertySlider?
-    
+
     override func setup() {
-        
+
         AKPlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
             self.trackedFrequencySlider?.value = tracker.frequency
             secondaryOscillator.frequency = tracker.frequency
             secondaryOscillator.amplitude = tracker.amplitude
         }
-        
+
         addTitle("Tracking Frequency")
-        
+
         trackedAmplitudeSlider = AKPropertySlider(
             property: "Tracked Amplitude",
             format: "%0.3f",

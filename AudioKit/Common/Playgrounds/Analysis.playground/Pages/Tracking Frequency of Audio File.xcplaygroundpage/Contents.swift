@@ -1,5 +1,5 @@
 //: ## Tracking Frequency of an Audio File
-//: ### Here is a more real-world example of tracking the pitch of an audio stream
+//: A more real-world example of tracking the pitch of an audio stream
 import XCPlayground
 import AudioKit
 
@@ -17,19 +17,19 @@ player.play()
 //: User Interface
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var trackedAmplitudeSlider: AKPropertySlider?
     var trackedFrequencySlider: AKPropertySlider?
-    
+
     override func setup() {
-        
+
         AKPlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
             self.trackedFrequencySlider?.value = tracker.frequency
         }
-        
+
         addTitle("Tracking An Audio File")
-        
+
         trackedAmplitudeSlider = AKPropertySlider(
             property: "Tracked Amplitude",
             format: "%0.3f",
@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider!)
-        
+
         trackedFrequencySlider = AKPropertySlider(
             property: "Tracked Frequency",
             format: "%0.3f",
@@ -49,7 +49,7 @@ class PlaygroundView: AKPlaygroundView {
             // Do nothing, just for display
         }
         addSubview(trackedFrequencySlider!)
-        
+
         addSubview(AKRollingOutputPlot.createView())
     }
 }

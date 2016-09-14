@@ -1,5 +1,5 @@
 //: ## Three-Pole Low Pass Filter
-//: ##
+//:
 import XCPlayground
 import AudioKit
 

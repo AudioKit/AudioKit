@@ -1,5 +1,5 @@
 //: ## Mandolin
-//: ### Physical model of a mandolin
+//: Physical model of a mandolin
 import AudioKit
 import XCPlayground
 

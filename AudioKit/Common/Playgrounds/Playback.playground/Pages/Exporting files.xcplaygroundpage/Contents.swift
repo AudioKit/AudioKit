@@ -1,5 +1,5 @@
 //: ## Exporting Audio Files
-//: ### AKAudioFiles can be easily converted to major audio formats asynchronously.
+//: AKAudioFiles can be easily converted to major audio formats asynchronously.
 import XCPlayground
 import AudioKit
 
@@ -18,7 +18,7 @@ player!.play()
 //: the callBack must be set as an AsyncProcessCallback with a signature set to be :
 // func callback(processedFile: AKAudioFile?, error: NSError?) -> Void
 //: If export failed, "processedFile" will be nil. We can get the error thrown using "error" parameter. If export succeeded, no error will be set (error = nil) and we can get the exported file as an AKAudioFile.
-//: Here, our callBack will print some information and replace the file being played with the exported file.
+//: Our callBack will print some information and replace the file being played with the exported file.
 func callBack(processedFile: AKAudioFile?, error: NSError?){
     print("Export completed !")
 

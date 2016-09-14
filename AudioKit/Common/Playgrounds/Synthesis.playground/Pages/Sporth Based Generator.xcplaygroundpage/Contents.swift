@@ -1,6 +1,6 @@
 //: ## Sporth Based Generator
-//: ### You can create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth).
-//: ### With this playground you can load up a few demonstration sporth patches to try out.
+//: AudioKit nodes can be created using [Sporth](https://github.com/PaulBatchelor/Sporth).
+//: With this playground you can load up a few demonstration sporth patches to try out.
 import XCPlayground
 import AudioKit
 

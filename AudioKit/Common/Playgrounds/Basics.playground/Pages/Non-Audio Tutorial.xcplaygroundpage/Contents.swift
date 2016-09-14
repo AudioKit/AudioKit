@@ -3,21 +3,21 @@
 //: ---
 //:
 //: ## Non-Audio Tutorial
-//: ### In the AudioKit Playgrounds, you'll learn a lot about processing audio,
-//: ### but we won't explain most other basic programming concepts that we'll use.
-//: ### So, here's a mini-tutorial of things that you should probably understand going forward.
+//: In the AudioKit Playgrounds, you'll learn a lot about processing audio,
+//: but we won't explain most other basic programming concepts that we'll use.
+//: So, here's a mini-tutorial of things that you should probably understand going forward.
 //:
 //: You will always see the `import AudioKit` line which brings in all of
 //: AudioKit's functionality to the playground.
 import AudioKit
 //: ALERT: This is also the line that most commonly shows an error "No such module: AudioKit"
 //: This can be because you haven't built the framework yet, in which case pressing Cmd-B or
-//: accessing the "Product" menu and choosing "Build".  If the playgrounds still show an 
+//: accessing the "Product" menu and choosing "Build".  If the playgrounds still show an
 //: error, show the Utilities panel with the icon on the upper right of the window, or
 //: by accessing View menu, Utilities > Show File Inspector, or pressing Cmd-option-1.
 //: From the panel, make sure the "Playground Settings" Platform pull-down menu matches
 //: the operating system you're currently building for.  If that still doesn't work (sigh)
-//: you may need to clean out your build products directory to make sure that no other 
+//: you may need to clean out your build products directory to make sure that no other
 //: versions of AudioKit exist for any OS.
 //:
 //: Another import line you will see in most playgrounds enables `XCPlayground` functions

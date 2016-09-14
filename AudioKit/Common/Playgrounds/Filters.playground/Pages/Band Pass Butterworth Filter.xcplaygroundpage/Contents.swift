@@ -1,9 +1,9 @@
 //: ## Band Pass Butterworth Filter
-//: ### Band-pass filters allow audio above a specified frequency range and
-//: ### bandwidth to pass through to an output. The center frequency is the starting point
-//: ### from where the frequency limit is set. Adjusting the bandwidth sets how far out
-//: ### above and below the center frequency the frequency band should be.
-//: ### Anything above that band should pass through.
+//: Band-pass filters allow audio above a specified frequency range and
+//: bandwidth to pass through to an output. The center frequency is the starting point
+//: from where the frequency limit is set. Adjusting the bandwidth sets how far out
+//: above and below the center frequency the frequency band should be.
+//: Anything above that band should pass through.
 import XCPlayground
 import AudioKit
 

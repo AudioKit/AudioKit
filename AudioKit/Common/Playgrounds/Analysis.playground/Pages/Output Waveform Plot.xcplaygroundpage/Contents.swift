@@ -1,7 +1,7 @@
 //: ## Output Waveform Plot
-//: ### If you open the Assitant editor and make sure it shows the
-//: ### "Output Waveform Plot.xcplaygroundpage (Timeline) view",
-//: ### you should see a plot of the waveform in real time
+//: If you open the Assitant editor and make sure it shows the
+//: "Output Waveform Plot.xcplaygroundpage (Timeline) view",
+//: you should see a plot of the waveform in real time
 import XCPlayground
 import AudioKit
 
@@ -13,10 +13,10 @@ AudioKit.start()
 oscillator.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Output Waveform Plot")
-        
+
         addSubview(AKPropertySlider(
             property: "Frequency",
             format: "%0.2f Hz",
@@ -25,7 +25,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { frequency in
             oscillator.baseFrequency = frequency
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Carrier Multiplier",
             format: "%0.3f",
@@ -34,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Modulating Multiplier",
             format: "%0.3f",
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Modulation Index",
             format: "%0.3f",
@@ -52,8 +52,8 @@ class PlaygroundView: AKPlaygroundView {
         ) { index in
             oscillator.modulationIndex = index
         })
-        
-        
+
+
         addSubview(AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
@@ -63,7 +63,7 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.amplitude = amplitude
         })
 
-        
+
         addSubview(AKOutputWaveformPlot.createView())
     }
 }

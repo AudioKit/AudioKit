@@ -1,5 +1,5 @@
 //: ## Sawtooth Wave Oscillator Operation
-//: ### Maybe the most annoying sound ever. Sorry.
+//: Maybe the most annoying sound ever. Sorry.
 import XCPlayground
 import AudioKit
 

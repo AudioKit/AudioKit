@@ -38,7 +38,7 @@ public class AKAudioFile: AVAudioFile {
         if let path = self.url.path {
             return  AVURLAsset(URL: NSURL(fileURLWithPath: path))
         } else {
-            return AVURLAsset(URL: NSURL(fileURLWithPath: self.url.absoluteString))
+            return AVURLAsset(URL: NSURL(fileURLWithPath: self.url.absoluteString!))
         }
     }()
 

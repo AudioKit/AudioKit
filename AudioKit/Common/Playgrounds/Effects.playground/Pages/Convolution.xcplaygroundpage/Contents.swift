@@ -1,6 +1,6 @@
 //: ## Convolution
-//: ### Allows you to create a large variety of effects, usually reverbs or environments,
-//: ### but it could also be for modeling.
+//: Allows you to create a large variety of effects, usually reverbs or environments,
+//: but it could also be for modeling.
 import XCPlayground
 import AudioKit
 
