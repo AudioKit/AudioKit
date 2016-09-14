@@ -57,10 +57,10 @@ public class AKButton: UIView {
         
         let labelInset: CGRect = CGRectInset(labelRect, 10, 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRectWithSize(CGSize(width: labelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, labelInset)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, labelInset)
         NSString(string: title).drawInRect(CGRect(x: labelInset.minX, y: labelInset.minY + (labelInset.height - labelTextHeight) / 2, width: labelInset.width, height: labelTextHeight), withAttributes: labelFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
         
     }
     

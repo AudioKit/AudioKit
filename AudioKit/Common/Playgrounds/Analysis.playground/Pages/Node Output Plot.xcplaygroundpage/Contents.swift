@@ -1,5 +1,5 @@
 //: ## Node Output Plot
-//: ### What's interesting here is that we're plotting the waveform BEFORE the delay is processed
+//: What's interesting here is that we're plotting the waveform BEFORE the delay is processed
 import XCPlayground
 import AudioKit
 
@@ -22,7 +22,7 @@ player.play()
 public class PlaygroundView: AKPlaygroundView {
     public override func setup() {
         addTitle("Node Output Plots")
-        
+
         addSubview(AKPropertySlider(
             property: "Time",
             value: delay.time,
@@ -30,7 +30,7 @@ public class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             delay.time = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Feedback",
             value: delay.feedback,
@@ -44,7 +44,7 @@ public class PlaygroundView: AKPlaygroundView {
         plot.plotType = .Rolling
         plot.shouldFill = true
         plot.shouldMirror = true
-        plot.color = NSColor.blueColor()
+        plot.color = AKColor.blueColor()
         addSubview(plot)
 
         addLabel("This is the output of the delay")
@@ -52,7 +52,7 @@ public class PlaygroundView: AKPlaygroundView {
         plot2.plotType = .Rolling
         plot2.shouldFill = true
         plot2.shouldMirror = true
-        plot2.color = NSColor.redColor()
+        plot2.color = AKColor.redColor()
         addSubview(plot2)
     }
 }

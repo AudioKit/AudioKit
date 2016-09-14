@@ -86,10 +86,10 @@ public class AKPresetLoaderView: UIView {
         
         let presetLabelInset: CGRect = CGRectInset(presetLabelRect, 10, 0)
         let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRectWithSize(CGSize(width: presetLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: presetLabelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, presetLabelInset)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, presetLabelInset)
         presetLabelTextContent.drawInRect(CGRect(x: presetLabelInset.minX, y: presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2, width: presetLabelInset.width, height: presetLabelTextHeight), withAttributes: presetLabelFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
         
         
         
@@ -145,10 +145,10 @@ public class AKPresetLoaderView: UIView {
         
         let nameLabelInset: CGRect = CGRectInset(nameLabelRect, 10, 0)
         let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRectWithSize(CGSize(width: nameLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nameLabelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, nameLabelInset)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, nameLabelInset)
         NSString(string: presetName).drawInRect(CGRect(x: nameLabelInset.minX, y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, width: nameLabelInset.width, height: nameLabelTextHeight), withAttributes: nameLabelFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
     
     override public func drawRect(rect: CGRect) {

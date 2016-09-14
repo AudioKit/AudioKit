@@ -94,134 +94,134 @@ public class AKTelephoneView: UIView {
 
         //// key 1 Drawing
         key1Rect = CGRect(x: 70, y: 206, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key1Rect)
-        CGContextTranslateCTM(context, key1Rect.origin.x, key1Rect.origin.y)
-        CGContextScaleCTM(context, key1Rect.size.width / 100, key1Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key1Rect.origin.x, key1Rect.origin.y)
+        CGContextScaleCTM(context!, key1Rect.size.width / 100, key1Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "\n", numeral: "1", isPressed: currentKey == "1")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 2 Drawing
         key2Rect = CGRect(x: 179, y: 205, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key2Rect)
-        CGContextTranslateCTM(context, key2Rect.origin.x, key2Rect.origin.y)
-        CGContextScaleCTM(context, key2Rect.size.width / 100, key2Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key2Rect.origin.x, key2Rect.origin.y)
+        CGContextScaleCTM(context!, key2Rect.size.width / 100, key2Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "A B C", numeral: "2", isPressed: currentKey == "2")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 3 Drawing
         key3Rect = CGRect(x: 288, y: 205, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key3Rect)
-        CGContextTranslateCTM(context, key3Rect.origin.x, key3Rect.origin.y)
-        CGContextScaleCTM(context, key3Rect.size.width / 100, key3Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key3Rect.origin.x, key3Rect.origin.y)
+        CGContextScaleCTM(context!, key3Rect.size.width / 100, key3Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "D E F", numeral: "3", isPressed: currentKey == "3")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 4 Drawing
         key4Rect = CGRect(x: 70, y: 302, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key4Rect)
-        CGContextTranslateCTM(context, key4Rect.origin.x, key4Rect.origin.y)
-        CGContextScaleCTM(context, key4Rect.size.width / 100, key4Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key4Rect.origin.x, key4Rect.origin.y)
+        CGContextScaleCTM(context!, key4Rect.size.width / 100, key4Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "G H I", numeral: "4", isPressed: currentKey == "4")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 5 Drawing
         key5Rect = CGRect(x: 179, y: 302, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key5Rect)
-        CGContextTranslateCTM(context, key5Rect.origin.x, key5Rect.origin.y)
-        CGContextScaleCTM(context, key5Rect.size.width / 100, key5Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key5Rect.origin.x, key5Rect.origin.y)
+        CGContextScaleCTM(context!, key5Rect.size.width / 100, key5Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "J K L", numeral: "5", isPressed: currentKey == "5")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 6 Drawing
         key6Rect = CGRect(x: 288, y: 302, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key6Rect)
-        CGContextTranslateCTM(context, key6Rect.origin.x, key6Rect.origin.y)
-        CGContextScaleCTM(context, key6Rect.size.width / 100, key6Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key6Rect.origin.x, key6Rect.origin.y)
+        CGContextScaleCTM(context!, key6Rect.size.width / 100, key6Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "M N O", numeral: "6", isPressed: currentKey == "6")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 7 Drawing
         key7Rect = CGRect(x: 70, y: 397, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key7Rect)
-        CGContextTranslateCTM(context, key7Rect.origin.x, key7Rect.origin.y)
-        CGContextScaleCTM(context, key7Rect.size.width / 100, key7Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key7Rect.origin.x, key7Rect.origin.y)
+        CGContextScaleCTM(context!, key7Rect.size.width / 100, key7Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "P Q R S", numeral: "7", isPressed: currentKey == "7")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 8 Drawing
         key8Rect = CGRect(x: 179, y: 397, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key8Rect)
-        CGContextTranslateCTM(context, key8Rect.origin.x, key8Rect.origin.y)
-        CGContextScaleCTM(context, key8Rect.size.width / 100, key8Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key8Rect.origin.x, key8Rect.origin.y)
+        CGContextScaleCTM(context!, key8Rect.size.width / 100, key8Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "T U V", numeral: "8", isPressed: currentKey == "8")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 9 Drawing
         key9Rect = CGRect(x: 288, y: 397, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key9Rect)
-        CGContextTranslateCTM(context, key9Rect.origin.x, key9Rect.origin.y)
-        CGContextScaleCTM(context, key9Rect.size.width / 100, key9Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key9Rect.origin.x, key9Rect.origin.y)
+        CGContextScaleCTM(context!, key9Rect.size.width / 100, key9Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "W X Y Z", numeral: "9", isPressed: currentKey == "9")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// key 0 Drawing
         key0Rect = CGRect(x: 179, y: 494, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(key0Rect)
-        CGContextTranslateCTM(context, key0Rect.origin.x, key0Rect.origin.y)
-        CGContextScaleCTM(context, key0Rect.size.width / 100, key0Rect.size.height / 100)
+        CGContextTranslateCTM(context!, key0Rect.origin.x, key0Rect.origin.y)
+        CGContextScaleCTM(context!, key0Rect.size.width / 100, key0Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "+", numeral: "0", isPressed: currentKey == "0")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// keyStar Drawing
         keyStarRect = CGRect(x: 70, y: 494, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(keyStarRect)
-        CGContextTranslateCTM(context, keyStarRect.origin.x, keyStarRect.origin.y)
-        CGContextScaleCTM(context, keyStarRect.size.width / 100, keyStarRect.size.height / 100)
+        CGContextTranslateCTM(context!, keyStarRect.origin.x, keyStarRect.origin.y)
+        CGContextScaleCTM(context!, keyStarRect.size.width / 100, keyStarRect.size.height / 100)
 
         AKTelephoneView.drawCenteredKey(numeral: "*", isPressed: currentKey == "*")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// keyHash Drawing
         keyHashRect = CGRect(x: 288, y: 494, width: 82, height: 82)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         UIRectClip(keyHashRect)
-        CGContextTranslateCTM(context, keyHashRect.origin.x, keyHashRect.origin.y)
-        CGContextScaleCTM(context, keyHashRect.size.width / 100, keyHashRect.size.height / 100)
+        CGContextTranslateCTM(context!, keyHashRect.origin.x, keyHashRect.origin.y)
+        CGContextScaleCTM(context!, keyHashRect.size.width / 100, keyHashRect.size.height / 100)
 
         AKTelephoneView.drawCenteredKey(numeral: "#", isPressed: currentKey == "#")
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// CallButton
@@ -269,10 +269,10 @@ public class AKTelephoneView: UIView {
         let busyTextFontAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(UIFont.labelFontSize()), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: busyTextStyle]
 
         let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRectWithSize(CGSize(width: busyTextRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: busyTextFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, busyTextRect)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, busyTextRect)
         busyTextTextContent.drawInRect(CGRect(x: busyTextRect.minX, y: busyTextRect.minY + (busyTextRect.height - busyTextTextHeight) / 2, width: busyTextRect.width, height: busyTextTextHeight), withAttributes: busyTextFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
 
@@ -286,10 +286,10 @@ public class AKTelephoneView: UIView {
         let readoutFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(48), NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: readoutStyle]
 
         let readoutTextHeight: CGFloat = readoutTextContent.boundingRectWithSize(CGSize(width: readoutRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: readoutFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, readoutRect)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, readoutRect)
         readoutTextContent.drawInRect(CGRect(x: readoutRect.minX, y: readoutRect.minY + (readoutRect.height - readoutTextHeight) / 2, width: readoutRect.width, height: readoutTextHeight), withAttributes: readoutFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
     public class func drawKey(text text: String = "A B C", numeral: String = "1", isPressed: Bool = true) {
@@ -323,10 +323,10 @@ public class AKTelephoneView: UIView {
         let lettersFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(11), NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: lettersStyle]
 
         let lettersTextHeight: CGFloat = NSString(string: text).boundingRectWithSize(CGSize(width: lettersRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: lettersFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, lettersRect)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, lettersRect)
         NSString(string: text).drawInRect(CGRect(x: lettersRect.minX, y: lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2, width: lettersRect.width, height: lettersTextHeight), withAttributes: lettersFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// Number Drawing
@@ -337,10 +337,10 @@ public class AKTelephoneView: UIView {
         let numberFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(48), NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRectWithSize(CGSize(width: numberRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: numberFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, numberRect)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, numberRect)
         NSString(string: numeral).drawInRect(CGRect(x: numberRect.minX, y: numberRect.minY + (numberRect.height - numberTextHeight) / 2, width: numberRect.width, height: numberTextHeight), withAttributes: numberFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
     public class func drawCenteredKey(numeral numeral: String = "1", isPressed: Bool = true) {
@@ -374,10 +374,10 @@ public class AKTelephoneView: UIView {
         let numberFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(48), NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRectWithSize(CGSize(width: numberRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: numberFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, numberRect)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, numberRect)
         NSString(string: numeral).drawInRect(CGRect(x: numberRect.minX, y: numberRect.minY + (numberRect.height - numberTextHeight) / 2, width: numberRect.width, height: numberTextHeight), withAttributes: numberFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
 }

@@ -1,5 +1,5 @@
 //: ## Processing Audio File Asynchronously
-//: ### Processing some audio files in background
+//: Processing some audio files in background
 import XCPlayground
 import AudioKit
 

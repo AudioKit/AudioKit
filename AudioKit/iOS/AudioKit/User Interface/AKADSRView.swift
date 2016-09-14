@@ -187,7 +187,7 @@ import UIKit
         let releaseToEndControlPoint  = CGPoint(x: releasePoint.x, y: endPoint.y)
 
         //// attackTouchArea Drawing
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
 
         attackTouchAreaPath = UIBezierPath()
         attackTouchAreaPath.moveToPoint(CGPoint(x: 0, y: size.height))
@@ -199,10 +199,10 @@ import UIKit
         bgColor.setFill()
         attackTouchAreaPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
         //// decaySustainTouchArea Drawing
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
 
         decaySustainTouchAreaPath = UIBezierPath()
         decaySustainTouchAreaPath.moveToPoint(highPointAxis)
@@ -214,11 +214,11 @@ import UIKit
         bgColor.setFill()
         decaySustainTouchAreaPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// releaseTouchArea Drawing
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
 
         releaseTouchAreaPath = UIBezierPath()
         releaseTouchAreaPath.moveToPoint(releaseAxis)
@@ -230,11 +230,11 @@ import UIKit
         bgColor.setFill()
         releaseTouchAreaPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// releaseArea Drawing
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
 
         let releaseAreaPath = UIBezierPath()
         releaseAreaPath.moveToPoint(releaseAxis)
@@ -249,11 +249,11 @@ import UIKit
         releaseColor.setFill()
         releaseAreaPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// sustainArea Drawing
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
 
         let sustainAreaPath = UIBezierPath()
         sustainAreaPath.moveToPoint(sustainAxis)
@@ -265,11 +265,11 @@ import UIKit
         sustainColor.setFill()
         sustainAreaPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// decayArea Drawing
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
 
         let decayAreaPath = UIBezierPath()
         decayAreaPath.moveToPoint(highPointAxis)
@@ -285,11 +285,11 @@ import UIKit
         decayColor.setFill()
         decayAreaPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// attackArea Drawing
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
 
         let attackAreaPath = UIBezierPath()
         attackAreaPath.moveToPoint(initialPoint)
@@ -302,10 +302,10 @@ import UIKit
         attackColor.setFill()
         attackAreaPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
         //// Curve Drawing
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
 
         let curvePath = UIBezierPath()
         curvePath.moveToPoint(initialPoint)
@@ -323,7 +323,7 @@ import UIKit
         curvePath.lineWidth = curveStrokeWidth
         curvePath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
 

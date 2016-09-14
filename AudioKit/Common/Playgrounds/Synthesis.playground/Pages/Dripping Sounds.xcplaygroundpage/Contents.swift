@@ -1,6 +1,6 @@
 //: ## Dripping Sounds
-//: ### Physical model of a water drop letting hitting a pool.
-//: ### What's this good for?  We don't know, but hey it's cool. :)
+//: Physical model of a water drop letting hitting a pool.
+//: What's this good for?  We don't know, but hey it's cool. :)
 import AudioKit
 import XCPlayground
 
@@ -19,11 +19,11 @@ AKPlaygroundLoop(frequency: playRate) {
 }
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
-        
+
         addTitle("Dripping Sounds")
-        
+
         addSubview(AKPropertySlider(
             property: "Intensity",
             value: drip.intensity, maximum: 300,
@@ -31,7 +31,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             drip.intensity = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Damping Factor",
             value: drip.dampingFactor, maximum: 2,

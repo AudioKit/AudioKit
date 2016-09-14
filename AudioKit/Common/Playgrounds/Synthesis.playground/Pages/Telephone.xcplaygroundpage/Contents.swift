@@ -1,5 +1,5 @@
 //: ## Telephone
-//: ### AudioKit is great for sound design. This playground creates canonical telephone sounds.
+//: AudioKit is great for sound design. This playground creates canonical telephone sounds.
 import XCPlayground
 import AudioKit
 
@@ -46,7 +46,7 @@ let busy = AKOperationGenerator() { _ in
 //: ## Key presses
 //: All the digits are also just combinations of sine waves
 //:
-//: Here is the canonical specification of DTMF Tones
+//: The canonical specification of DTMF Tones:
 var keys = [String: [Double]]()
 keys["1"] = [697, 1209]
 keys["2"] = [697, 1336]
