@@ -17,7 +17,7 @@ let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 var drums = try AKAudioPlayer(file: file)
 drums.looping  = true
 
-//: Let's build a chain:
+//: Build an effects chain:
 
 var delay = AKDelay(drums)
 delay.time = 0.1
@@ -25,7 +25,7 @@ delay.feedback = 0.8
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.LargeChamber)
 
-//: Now let's mix the result of those two processors back with the original
+//: Mix the result of those two processors back with the original
 
 let mixture = AKDryWetMixer(drums, reverb, balance: 0.5)
 
