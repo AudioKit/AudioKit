@@ -71,8 +71,10 @@ public class AKAUPresetBuilder {
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
         let filenameKey = "filename"
+        let triggerModeKey = "triggerMode"
         var loadSoundsArr = Array<NSMutableDictionary>()
         var sampleZoneXML = ""
+        var layerXML = ""
         var sampleIDXML = ""
         var sampleIteration = 0
         let sampleNumStart = 268435457
@@ -112,18 +114,39 @@ public class AKAUPresetBuilder {
                 sampleIteration += 1
             }
 
-            let startNote = soundDict.objectForKey(startNoteKey)! as! Int
-            let endNote = soundDict.objectForKey(endNoteKey)! as! Int
+            
+            var startNote = soundDict.objectForKey(startNoteKey) as? Int
+            var endNote = soundDict.objectForKey(endNoteKey) as? Int
             let rootNote = soundDict.objectForKey(rootNoteKey)! as! Int
-            let tempSampleZoneXML: String = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote, endNote: endNote, wavRef: sampleNum)
+            startNote = (startNote == nil ? rootNote : startNote)
+            endNote = (endNote == nil ? rootNote : endNote)
+            let trigModeStr = soundDict.objectForKey(triggerModeKey) as? String
+            let trigMode : SampleTrigMode
+            let loopBool = false //in progress
+            let tempSampleZoneXML: String = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: loopBool)
 
             sampleZoneXML.appendContentsOf(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum")
             loadSoundsArr.append(soundDict)
-        }
-
-        let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
-        let str = AKAUPresetBuilder.buildInstrument(instrumentName, envelopes: envelopesXML, zones: sampleZoneXML, filerefs: sampleIDXML)
+            
+            let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
+            switch trigModeStr {
+            case SampleTrigMode.Hold.rawValue?:
+                trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Hold.rawValue)!
+            default:
+                
+                trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Trig.rawValue)!
+            }
+            if trigMode == .Trig{
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: tempSampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: true)
+                layerXML.appendContentsOf(tempLayerXML)
+            }else if trigMode == .Hold{
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: tempSampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
+                layerXML.appendContentsOf(tempLayerXML)
+            }
+        }//end sounds
+        
+        let str = AKAUPresetBuilder.buildInstrument(instrumentName, layers:layerXML, filerefs: sampleIDXML)
 
         //write to file
         do {
@@ -315,7 +338,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static public func generateEnvelope(id: Int = 0,
+    static func generateEnvelope(id: Int = 0,
                                  delay: Double = 0.0,
                                  attack: Double = 0.0,
                                  hold: Double = 0.0,
@@ -475,7 +498,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static public func generateZone(id: Int,
+    static func generateZone(id: Int,
                              rootNote: Int,
                              startNote: Int,
                              endNote: Int,
@@ -568,7 +591,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static public func generateFileRef(wavRef: Int = 268435457, samplePath: String) -> String {
+    static func generateFileRef(wavRef: Int = 268435457, samplePath: String) -> String {
         var str: String = ""
         str.appendContentsOf("            <key>Sample:\(wavRef)</key>\n")
         str.appendContentsOf("            <string>\(samplePath)</string>\n")
@@ -648,7 +671,7 @@ public class AKAUPresetBuilder {
         return str
     }
 
-    static public func generateLayer(connections: String,
+    static func generateLayer(connections: String,
                               envelopes: String = "",
                               filter: String = "",
                               lfos: String = "",
@@ -688,7 +711,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static public func generateMinimalConnections(layer: Int = 0) -> String {
+    static func generateMinimalConnections(layer: Int = 0) -> String {
         let layerOffset: Int = 256*layer
         let pitchDest: Int = 816840704+layerOffset
         let envelopeSource: Int = 536870912+layerOffset
@@ -1197,6 +1220,12 @@ public class AKAUPresetBuilder {
         return str
     }
 
+}
+
+public enum SampleTrigMode: String {
+    case Hold = "hold"
+    case Trig = "trig"
+    case Loop = "loop"
 }
 /*
  making notes of parameters as I reverse engineer them...
