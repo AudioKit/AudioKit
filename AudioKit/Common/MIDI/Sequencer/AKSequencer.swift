@@ -40,7 +40,8 @@ open class AKSequencer {
             //this won't do anything if not using an AVSeq
             print("AKSequencer ERROR ! avTracks only work if isAVSequencer ")
 
-            return []
+            let tracks = [AVMusicTrack]()
+            return tracks
         }
     }
 
@@ -262,7 +263,7 @@ open class AKSequencer {
 
 // Had to comment out this line and two below to make the synth arpeggiator work.  Doing so brings back the "Invalid beat range or track is empty" error
 //        if !isTempoTrackEmpty {
-            MusicTrackClear(tempoTrack!, 0, length.beats)
+        MusicTrackClear(tempoTrack!, 0, length.beats)
 //        }
         MusicTrackNewExtendedTempoEvent(tempoTrack!, 0, constrainedTempo)
     }
@@ -331,7 +332,7 @@ open class AKSequencer {
         var hasNextEvent: DarwinBoolean = false
 
         MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
-        while(hasNextEvent).boolValue {
+        while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
 
             if eventType != 5 {
@@ -407,7 +408,7 @@ open class AKSequencer {
                 track.destinationAudioUnit = audioUnit
             }
         } else {
-           //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
+            //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
             print("AKSequencer ERROR ! setGlobalAVAudioUnitOutput only work if isAVSequencer ")
         }
     }
@@ -454,7 +455,7 @@ open class AKSequencer {
         MusicSequenceFileLoad(sequence!, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
         if isAVSequencer {
             do {
-               try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
+                try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
             } catch _ {
                 print("failed to load midi into avseq")
             }
@@ -488,6 +489,8 @@ open class AKSequencer {
 
         var newMusicTrack: MusicTrack? = nil
         MusicSequenceNewTrack(sequence!, &newMusicTrack)
+        var count: UInt32 = 0
+        MusicSequenceGetTrackCount(sequence!, &count)
         tracks.append(AKMusicTrack(musicTrack: newMusicTrack!, name: name))
 
         //print("Calling initTracks() from newTrack")

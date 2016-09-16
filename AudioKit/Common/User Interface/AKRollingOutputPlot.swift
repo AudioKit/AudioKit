@@ -16,13 +16,15 @@ open class AKRollingOutputPlot: EZAudioPlot {
                                                    bufferSize: bufferSize,
                                                    format: nil) { [weak self] (buffer, time) -> Void in
 
-            if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize
-                let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                let tail = buffer.floatChannelData?[0]
-                strongSelf.updateBuffer(&(tail?[offset])!,
-                                        withBufferSize: strongSelf.bufferSize)
-            }
+                                                    
+            guard let strongSelf = self else { return }
+            buffer.frameLength = strongSelf.bufferSize
+            let offset = Int(buffer.frameCapacity - buffer.frameLength)
+            let tail = buffer.floatChannelData?[0]
+            var t: Float? = tail?[offset]
+            strongSelf.updateBuffer(&t!,
+                                    withBufferSize: strongSelf.bufferSize)
+            tail?[offset] = t!
         }
     }
 

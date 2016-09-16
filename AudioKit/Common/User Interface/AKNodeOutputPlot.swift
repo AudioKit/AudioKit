@@ -14,16 +14,17 @@ open class AKNodeOutputPlot: EZAudioPlot {
 
     internal func setupNode(_ input: AKNode?) {
         input?.avAudioNode.installTap(onBus: 0,
-                                           bufferSize: bufferSize,
-                                           format: AudioKit.format) { [weak self] (buffer, time) -> Void in
-                                            
-            if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize
-                let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                let tail = buffer.floatChannelData?[0]
-                strongSelf.updateBuffer(&(tail?[offset])!,
-                                        withBufferSize: strongSelf.bufferSize)
-            }
+                                      bufferSize: bufferSize,
+                                      format: AudioKit.format) { [weak self] (buffer, time) -> Void in
+                                        
+            guard let strongSelf = self else { return }
+            buffer.frameLength = strongSelf.bufferSize
+            let offset = Int(buffer.frameCapacity - buffer.frameLength)
+            let tail = buffer.floatChannelData?[0]
+            var t: Float? = tail?[offset]
+            strongSelf.updateBuffer(&t!,
+                                    withBufferSize: strongSelf.bufferSize)
+            tail?[offset] = t!
         }
     }
 
@@ -68,5 +69,4 @@ open class AKNodeOutputPlot: EZAudioPlot {
 
         setupNode(input)
     }
-
 }
