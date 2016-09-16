@@ -9,5 +9,5 @@
 import Foundation
 
 enum Error {
-    case Name, Code
+    case name, code
 }
