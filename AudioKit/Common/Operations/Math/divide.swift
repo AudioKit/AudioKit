@@ -25,7 +25,7 @@ extension AKOperation {
 ///   - denominator: The amount to divide
 ///
 public func /(numerator: AKParameter, denominator: AKParameter) -> AKOperation {
-    return numerator.toMono().denominator(right)
+    return numerator.toMono().dividedBy(denominator)
 }
 
 /// Helper function for Division
