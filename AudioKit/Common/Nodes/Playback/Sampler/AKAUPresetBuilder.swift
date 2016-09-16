@@ -83,7 +83,8 @@ open class AKAUPresetBuilder {
             var soundDict: NSMutableDictionary
             var alreadyLoaded = false
             var sampleNum = 0
-            soundDict = (sound as AnyObject).mutableCopy() as! NSMutableDictionary
+            //soundDict = (sound as AnyObject).mutableCopy() as! NSMutableDictionary
+            soundDict = NSMutableDictionary(dictionary: dict)
             //check if this sample is already loaded
             for loadedSoundDict in loadSoundsArr {
                 let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as! String
