@@ -1,6 +1,6 @@
 //
 //  AKOfflineRenderer.h
-//  AudioKit for iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/4/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
