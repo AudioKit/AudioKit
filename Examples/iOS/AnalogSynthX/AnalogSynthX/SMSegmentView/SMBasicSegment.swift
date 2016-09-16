@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-public class SMBasicSegment : UIView {
-    public internal(set) var index: Int = 0
-    public internal(set) weak var segmentView: SMBasicSegmentView?
+open class SMBasicSegment : UIView {
+    open internal(set) var index: Int = 0
+    open internal(set) weak var segmentView: SMBasicSegmentView?
     
-    public private(set) var isSelected: Bool = false
+    open fileprivate(set) var isSelected: Bool = false
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -24,16 +24,16 @@ public class SMBasicSegment : UIView {
     }
     
     // MARK: Selections
-    internal func setSelected(selected: Bool, inView view: SMBasicSegmentView) {
+    internal func setSelected(_ selected: Bool, inView view: SMBasicSegmentView) {
         self.isSelected = selected
     }
     
-    public func orientationChangedTo(mode: SegmentOrganiseMode){
+    open func orientationChangedTo(_ mode: SegmentOrganiseMode){
         
     }
     
-    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
         if self.isSelected == false{
             self.segmentView?.selectSegmentAtIndex(self.index)
         }
