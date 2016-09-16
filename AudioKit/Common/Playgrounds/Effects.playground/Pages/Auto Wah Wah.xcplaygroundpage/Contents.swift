@@ -37,7 +37,8 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             wah.wah = sliderValue
             })
-    }}
+    }
+}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
