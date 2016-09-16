@@ -20,17 +20,17 @@ class ViewController: NSViewController {
     
     var brain = SporthEditorBrain()
     
-    @IBAction func run(sender: NSButton) {
+    @IBAction func run(_ sender: NSButton) {
         brain.run(display)
     }
     
-    @IBAction func stop(sender: NSButton) {
+    @IBAction func stop(_ sender: NSButton) {
         brain.stop()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = NSApplication.shared().delegate as! AppDelegate
         appDelegate.openControlsWindow(nil)
     }
     
