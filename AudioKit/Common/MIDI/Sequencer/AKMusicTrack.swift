@@ -150,7 +150,7 @@ open class AKMusicTrack {
                 MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
                 
                 if eventType == kMusicEventType_MIDINoteMessage {
-                    let data = UnsafePointer<MIDINoteMessage>(eventData)
+                    let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
                     let channel = data?.pointee.channel
                     let note = data?.pointee.note
                     let velocity = data?.pointee.velocity

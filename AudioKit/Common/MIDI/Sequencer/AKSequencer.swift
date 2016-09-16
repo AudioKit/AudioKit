@@ -311,7 +311,7 @@ open class AKSequencer {
             MusicEventIteratorPreviousEvent(iterator!)
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
             if eventType == kMusicEventType_ExtendedTempo {
-                let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(eventData)
+                let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer((eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self))!)
                 tempoOut = tempoEventPointer.pointee.bpm
             }
         }
