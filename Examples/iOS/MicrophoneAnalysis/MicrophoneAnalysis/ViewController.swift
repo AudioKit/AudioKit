@@ -27,10 +27,10 @@ class ViewController: UIViewController {
     
     func setupPlot() {
         let plot = AKNodeOutputPlot(mic, frame: audioInputPlot.bounds)
-        plot.plotType = .Rolling
+        plot.plotType = .rolling
         plot.shouldFill = true
         plot.shouldMirror = true
-        plot.color = UIColor.blueColor()
+        plot.color = UIColor.blue
         audioInputPlot.addSubview(plot)
     }
     
@@ -43,13 +43,13 @@ class ViewController: UIViewController {
         silence = AKBooster(tracker, gain: 0)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         AudioKit.output = silence
         AudioKit.start()
         setupPlot()
-        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(ViewController.updateUI), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ViewController.updateUI), userInfo: nil, repeats: true)
     }
 
     func updateUI() {
