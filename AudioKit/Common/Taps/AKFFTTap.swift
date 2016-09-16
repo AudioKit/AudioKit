@@ -25,12 +25,13 @@ import Foundation
         super.init()
         fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
         input.avAudioNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) -> Void in
-            if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize
-                let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                let tail = buffer.floatChannelData?[0]
-                strongSelf.fft!.computeFFT(withBuffer: &(tail?[offset])!, withBufferSize: strongSelf.bufferSize)
-            }
+            guard let strongSelf = self else { return }
+            buffer.frameLength = strongSelf.bufferSize
+            let offset = Int(buffer.frameCapacity - buffer.frameLength)
+            let tail = buffer.floatChannelData?[0]
+            var t: Float? = tail?[offset]
+            strongSelf.fft!.computeFFT(withBuffer: &t!, withBufferSize: strongSelf.bufferSize)
+            tail?[offset] = t!
         }
     }
     

@@ -138,7 +138,7 @@ open class AKPhaseLockedVocoder: AKNode {
         amplitudeParameter  = tree.value(forKey: "amplitude")  as? AUParameter
         pitchRatioParameter = tree.value(forKey: "pitchRatio") as? AUParameter
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token(byAddingParameterObserver: {
             address, value in
 
             DispatchQueue.main.async {
@@ -209,7 +209,7 @@ open class AKPhaseLockedVocoder: AKNode {
                 err = ExtAudioFileRead(extRef!, &ioNumberFrames, &theDataBuffer)
                 if err == noErr {
                     // success
-                    let data=UnsafeMutablePointer<Float>(theDataBuffer.mBuffers.mData)
+                    let data = UnsafeMutablePointer<Float>(theDataBuffer.mBuffers.mData)
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
                     internalAU!.start()
                 } else {

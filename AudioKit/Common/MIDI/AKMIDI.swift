@@ -81,7 +81,7 @@ open class AKMIDI {
         destroyVirtualPorts()
         
         var result = noErr
-        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, MyMIDIReadBlock)
+        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, MyMIDIReadBlock as! MIDIReadBlock)
         
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)

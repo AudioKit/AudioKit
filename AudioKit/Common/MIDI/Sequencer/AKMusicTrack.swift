@@ -116,13 +116,11 @@ open class AKMusicTrack {
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
     open func setLength(_ duration: AKDuration) {
-        
         let size: UInt32 = 0
         var len = duration.musicTimeStamp
         var tmpSeq: MusicSequence? = nil
-        var seqPtr: UnsafeMutablePointer<MusicSequence>
         var tmpTrack: MusicTrack? = nil
-        seqPtr = UnsafeMutablePointer<MusicSequence>(tmpSeq!)
+        let seqPtr: UnsafeMutablePointer<MusicSequence?> = UnsafeMutablePointer<MusicSequence?>(tmpSeq!)
         NewMusicSequence(&tmpSeq)
         MusicTrackGetSequence(internalMusicTrack!, seqPtr)
         MusicSequenceNewTrack(tmpSeq!, &tmpTrack)
@@ -148,19 +146,19 @@ open class AKMusicTrack {
             
             MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
             
-            while(hasNextEvent).boolValue {
+            while hasNextEvent.boolValue {
                 MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
                 
                 if eventType == kMusicEventType_MIDINoteMessage {
                     let data = UnsafePointer<MIDINoteMessage>(eventData)
-                    let channel = data.pointee.channel
-                    let note = data.pointee.note
-                    let velocity = data.pointee.velocity
-                    let dur = data.pointee.duration
+                    let channel = data?.pointee.channel
+                    let note = data?.pointee.note
+                    let velocity = data?.pointee.velocity
+                    let dur = data?.pointee.duration
                     
-                    if eventTime + dur > duration.beats {
-                        var newNote = MIDINoteMessage(channel: channel, note: note, velocity: velocity, releaseVelocity: 0, duration: Float32(duration.beats - eventTime))
-                        MusicEventIteratorSetEventInfo(iterator, eventType, &newNote)
+                    if eventTime + dur! > duration.beats {
+                        var newNote = MIDINoteMessage(channel: channel!, note: note!, velocity: velocity!, releaseVelocity: 0, duration: Float32(duration.beats - eventTime))
+                        MusicEventIteratorSetEventInfo(iterator!, eventType, &newNote)
                     }
                 }
                 
@@ -201,7 +199,7 @@ open class AKMusicTrack {
         var hasNextEvent: DarwinBoolean = false
         
         MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
-        while(hasNextEvent).boolValue {
+        while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
             
             if eventType == 5 {
@@ -222,7 +220,7 @@ open class AKMusicTrack {
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
         MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
-        while(hasNextEvent).boolValue {
+        while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
             
             outBool = false
@@ -256,11 +254,11 @@ open class AKMusicTrack {
     ///   - channel: MIDI channel for this note
     ///
     open func add(noteNumber: MIDINoteNumber,
-                               velocity: MIDIVelocity,
-                               position: AKDuration,
-                               duration: AKDuration,
-                               channel: MIDIChannel = 0) {
-
+                  velocity: MIDIVelocity,
+                  position: AKDuration,
+                  duration: AKDuration,
+                  channel: MIDIChannel = 0) {
+        
         var noteMessage = MIDINoteMessage(
             channel: UInt8(channel),
             note: UInt8(noteNumber),
