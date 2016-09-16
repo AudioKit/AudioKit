@@ -11,29 +11,29 @@ import Foundation
 extension AKOperation {
     /// Division of parameters
     ///
-    /// - parameter parameter: The amount to divide
+    /// - parameter denominator: The amount to divide
     ///
-    public func dividedBy(_ parameter: AKParameter) -> AKOperation {
-        return AKOperation(module: "/", inputs: self, parameter)
+    public func dividedBy(denominator: AKParameter) -> AKOperation {
+        return AKOperation(module: "/", inputs: self, denominator)
     }
 }
 
 /// Helper function for Division
 ///
 /// - Parameters:
-///   - left: 1st parameter
-///   - right: 2nd parameter
+///   - numerator: Mono parameter
+///   - denominator: The amount to divide
 ///
-public func /(left: AKParameter, right: AKParameter) -> AKOperation {
-    return left.toMono().dividedBy(right)
+public func /(numerator: AKParameter, denominator: AKParameter) -> AKOperation {
+    return numerator.toMono().dividedBy(denominator)
 }
 
 /// Helper function for Division
 ///
 /// - Parameters:
-///   - left: stereo operation
-///   - right: parameter
+///   - numerator: Stereo operation
+///   - denominator: The amount to divide
 ///
-public func /(left: AKStereoOperation, right: AKParameter) -> AKStereoOperation {
-    return AKStereoOperation(module: "dup rot swap / rot rot / swap", inputs: left, right)
+public func /(numerator: AKStereoOperation, denominator: AKParameter) -> AKStereoOperation {
+    return AKStereoOperation(module: "dup rot swap / rot rot / swap", inputs: numerator, denominator)
 }

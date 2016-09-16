@@ -3537,17 +3537,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C48C6C6E1D3C15F1008EA51B /* drip.c in Sources */,
 				C48C6CE71D3C15F1008EA51B /* drip.c in Sources */,
-				C463028D1C20E7A7009B44D9 /* sineWave.swift in Sources */,
-				C46302921C20E7A7009B44D9 /* subtract.swift in Sources */,
 				C49A0A231D540819007D8ADB /* pitchShift.swift in Sources */,
 				C48C6D071D3C15F2008EA51B /* moogladder.c in Sources */,
+				C463028D1C20E7A7009B44D9 /* sineWave.swift in Sources */,
+				C46302921C20E7A7009B44D9 /* subtract.swift in Sources */,
 				C4AC8BD01C4E2960009EA58E /* AKCompressor.swift in Sources */,
 				C4537FBD1C3A438D00A51738 /* AKEqualizerFilter.swift in Sources */,
 				C48C6C4E1D3C15F1008EA51B /* kiss_fft.c in Sources */,
 				C48C6C531D3C15F1008EA51B /* adsr.c in Sources */,
 				C4537FDB1C3A438D00A51738 /* AKModalResonanceFilterAudioUnit.mm in Sources */,
-				C48C6C6E1D3C15F1008EA51B /* drip.c in Sources */,
 				C48C6CE61D3C15F1008EA51B /* dmetro.c in Sources */,
 				C48C6CD31D3C15F1008EA51B /* basic.c in Sources */,
 				C4A9293A1D1343AE0095E429 /* Mandolin.cpp in Sources */,
@@ -4188,7 +4188,7 @@
 				);
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4215,7 +4215,7 @@
 				);
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
