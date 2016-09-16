@@ -27,11 +27,11 @@ class ViewController: NSViewController {
     
     func setupPlot() {
         let plot = AKNodeOutputPlot(mic, frame: audioInputPlot.bounds)
-        plot.plotType = .Rolling
+        plot.plotType = .rolling
         plot.shouldFill = true
         plot.shouldMirror = true
-        plot.color = NSColor.blueColor()
-        plot.autoresizingMask = .ViewWidthSizable
+        plot.color = NSColor.blue
+        plot.autoresizingMask = .viewWidthSizable
         audioInputPlot.addSubview(plot)
     }
     
@@ -48,10 +48,10 @@ class ViewController: NSViewController {
         AudioKit.output = silence
         AudioKit.start()
         setupPlot()
-        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(ViewController.updateUI), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ViewController.updateUI), userInfo: nil, repeats: true)
     }
 
-    override var representedObject: AnyObject? {
+    override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
