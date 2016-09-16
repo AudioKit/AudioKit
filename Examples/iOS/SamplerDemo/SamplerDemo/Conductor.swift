@@ -53,7 +53,7 @@ class Conductor {
         sequence!.setLength(AKDuration(beats: 4))
     }
     
-    func adjustVolume(volume: Float, instrument: Instrument) {
+    func adjustVolume(_ volume: Float, instrument: Instrument) {
         switch instrument {
         case Instrument.Arpeggio:
             arpeggioVolume?.gain = Double(volume)
@@ -66,7 +66,7 @@ class Conductor {
         }
     }
     
-    func adjustFilterFrequency(frequency: Float) {
+    func adjustFilterFrequency(_ frequency: Float) {
         var value = Double(frequency)
         value.denormalize(minimum: 30.0, maximum: 20000.0, taper: 3.03)
         filter?.cutoffFrequency = value
@@ -84,12 +84,12 @@ class Conductor {
         sequence!.rewind()
     }
     
-    func setLength(length: Double) {
+    func setLength(_ length: Double) {
         sequence!.setLength(AKDuration(beats: length))
         sequence!.rewind()
     }
     
-    func useSound(sound: Sound, synthesizer: Synthesizer) {
+    func useSound(_ sound: Sound, synthesizer: Synthesizer) {
         let soundPath: String?
         switch sound {
         case Sound.Square:
@@ -117,7 +117,7 @@ class Conductor {
         }
     }
     
-    func adjustTempo(tempo: Float) {
+    func adjustTempo(_ tempo: Float) {
         sequence?.rate = Double(tempo)
     }
 }
