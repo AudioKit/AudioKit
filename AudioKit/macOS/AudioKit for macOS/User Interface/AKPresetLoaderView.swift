@@ -15,17 +15,17 @@ public class AKPresetLoaderView: NSView {
 
     var currentIndex = -1
     var presets = [String]()
-    var callback: String -> ()
+    var callback: (String) -> ()
     var isPresetLoaded = false
 
-    override public func mouseDown(theEvent: NSEvent) {
+    override public func mouseDown(with theEvent: NSEvent) {
         isPresetLoaded = false
-        let touchLocation = convertPoint(theEvent.locationInWindow, fromView: nil)
-        if upOuterPath.containsPoint(touchLocation) {
+        let touchLocation = convert(theEvent.locationInWindow, from: nil)
+        if upOuterPath.contains(touchLocation) {
             currentIndex -= 1
             isPresetLoaded = true
         }
-        if downOuterPath.containsPoint(touchLocation) {
+        if downOuterPath.contains(touchLocation) {
             currentIndex += 1
             isPresetLoaded = true
         }
@@ -38,7 +38,7 @@ public class AKPresetLoaderView: NSView {
         }
     }
 
-    public init(presets: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60), callback: String -> ()) {
+    public init(presets: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60), callback: @escaping (String) -> ()) {
         self.callback = callback
         self.presets = presets
         super.init(frame: frame)
@@ -48,9 +48,9 @@ public class AKPresetLoaderView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func drawPresetLoader(presetName presetName: String = "None", isPresetLoaded: Bool = false) {
+    func drawPresetLoader(presetName: String = "None", isPresetLoaded: Bool = false) {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.currentContext()!.graphicsPort, CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
 
         //// Color Declarations
         let red = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1)
@@ -78,16 +78,16 @@ public class AKPresetLoaderView: NSView {
         let presetLabelRect = NSMakeRect(0, 0, 95, 60)
         let presetLabelTextContent = NSString(string: "Preset")
         let presetLabelStyle = NSMutableParagraphStyle()
-        presetLabelStyle.alignment = .Left
+        presetLabelStyle.alignment = .left
 
-        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.blackColor(), NSParagraphStyleAttributeName: presetLabelStyle]
+        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: presetLabelStyle]
 
         let presetLabelInset: CGRect = NSInsetRect(presetLabelRect, 10, 0)
-        let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRectWithSize(NSMakeSize(presetLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: presetLabelFontAttributes).size.height
+        let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(with: NSMakeSize(presetLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: presetLabelFontAttributes).size.height
         let presetLabelTextRect: NSRect = NSMakeRect(presetLabelInset.minX, presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2, presetLabelInset.width, presetLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(presetLabelInset)
-        presetLabelTextContent.drawInRect(NSOffsetRect(presetLabelTextRect, 0, 0), withAttributes: presetLabelFontAttributes)
+        presetLabelTextContent.draw(in: NSOffsetRect(presetLabelTextRect, 0, 0), withAttributes: presetLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
 
 
@@ -102,12 +102,12 @@ public class AKPresetLoaderView: NSView {
 
         //// upInner Drawing
         let upInnerPath = NSBezierPath()
-        upInnerPath.moveToPoint(NSMakePoint(395.75, 37.5))
-        upInnerPath.lineToPoint(NSMakePoint(425.25, 37.5))
-        upInnerPath.lineToPoint(NSMakePoint(410.5, 52.5))
-        upInnerPath.lineToPoint(NSMakePoint(410.5, 52.5))
-        upInnerPath.lineToPoint(NSMakePoint(395.75, 37.5))
-        upInnerPath.closePath()
+        upInnerPath.move(to: NSMakePoint(395.75, 37.5))
+        upInnerPath.line(to: NSMakePoint(425.25, 37.5))
+        upInnerPath.line(to: NSMakePoint(410.5, 52.5))
+        upInnerPath.line(to: NSMakePoint(410.5, 52.5))
+        upInnerPath.line(to: NSMakePoint(395.75, 37.5))
+        upInnerPath.close()
         dark.setFill()
         upInnerPath.fill()
 
@@ -123,12 +123,12 @@ public class AKPresetLoaderView: NSView {
 
         //// downInner Drawing
         let downInnerPath = NSBezierPath()
-        downInnerPath.moveToPoint(NSMakePoint(410.5, 7.5))
-        downInnerPath.lineToPoint(NSMakePoint(410.5, 7.5))
-        downInnerPath.lineToPoint(NSMakePoint(425.25, 22.5))
-        downInnerPath.lineToPoint(NSMakePoint(395.75, 22.5))
-        downInnerPath.lineToPoint(NSMakePoint(410.5, 7.5))
-        downInnerPath.closePath()
+        downInnerPath.move(to: NSMakePoint(410.5, 7.5))
+        downInnerPath.line(to: NSMakePoint(410.5, 7.5))
+        downInnerPath.line(to: NSMakePoint(425.25, 22.5))
+        downInnerPath.line(to: NSMakePoint(395.75, 22.5))
+        downInnerPath.line(to: NSMakePoint(410.5, 7.5))
+        downInnerPath.close()
         dark.setFill()
         downInnerPath.fill()
 
@@ -138,20 +138,20 @@ public class AKPresetLoaderView: NSView {
         //// nameLabel Drawing
         let nameLabelRect = NSMakeRect(95, 0, 345, 60)
         let nameLabelStyle = NSMutableParagraphStyle()
-        nameLabelStyle.alignment = .Left
+        nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.blackColor(), NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: nameLabelStyle]
 
         let nameLabelInset: CGRect = NSInsetRect(nameLabelRect, 10, 0)
-        let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRectWithSize(NSMakeSize(nameLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nameLabelFontAttributes).size.height
+        let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(with: NSMakeSize(nameLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: nameLabelFontAttributes).size.height
         let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX, nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, nameLabelInset.width, nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
-        NSString(string: presetName).drawInRect(NSOffsetRect(nameLabelTextRect, 0, 0), withAttributes: nameLabelFontAttributes)
+        NSString(string: presetName).draw(in: NSOffsetRect(nameLabelTextRect, 0, 0), withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }
 
-    override public func drawRect(rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         let presetName = isPresetLoaded ? presets[currentIndex] : "None"
         drawPresetLoader(presetName: presetName, isPresetLoaded: isPresetLoaded)
     }

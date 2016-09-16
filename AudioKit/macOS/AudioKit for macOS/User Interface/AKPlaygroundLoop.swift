@@ -18,7 +18,7 @@ public class AKPlaygroundLoop: NSObject {
     /// - parameter every: Period, or interval between block executions
     /// - parameter handler: Code block to execute
     ///
-    public init(every dur: Double, handler: ()->()) {
+    public init(every dur: Double, handler: @escaping ()->()) {
         duration = dur
         internalHandler = handler
         super.init()
@@ -30,7 +30,7 @@ public class AKPlaygroundLoop: NSObject {
     /// - parameter frequency: Frequency of block executions in Hz
     /// - parameter handler: Code block to execute
     ///
-    public init(frequency: Double, handler: ()->()) {
+    public init(frequency: Double, handler: @escaping ()->()) {
         duration = 1.0 / frequency
         internalHandler = handler
         super.init()
@@ -40,10 +40,10 @@ public class AKPlaygroundLoop: NSObject {
     /// Callback function for CADisplayLink
     @objc func update() {
         self.internalHandler()
-        self.performSelector(#selector(AKPlaygroundLoop.update),
-                             withObject: nil,
+        self.perform(#selector(AKPlaygroundLoop.update),
+                             with: nil,
                              afterDelay: duration,
-                             inModes: [NSRunLoopCommonModes])
+                             inModes: [RunLoopMode.commonModes])
 
     }
 }

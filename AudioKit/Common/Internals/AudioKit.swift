@@ -42,7 +42,7 @@ public typealias AKCallback = (Void) -> Void
         #if os(OSX)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.inputDevices().map {
-                AKDevice(name: $0.name, deviceID: $0.deviceID)
+                AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
             }
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
@@ -58,7 +58,7 @@ public typealias AKCallback = (Void) -> Void
         #if os(OSX)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.outputDevices().map {
-                AKDevice(name: $0.name, deviceID: $0.deviceID)
+                AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
             }
         #else
             return nil
@@ -68,7 +68,7 @@ public typealias AKCallback = (Void) -> Void
     /// The name of the current preferred input device, if available.
     open static var inputDevice: AKDevice? {
         #if os(OSX)
-            if let dev = EZAudioDevice.currentInputDevice() {
+            if let dev = EZAudioDevice.currentInput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
             }
         #else
@@ -89,7 +89,7 @@ public typealias AKCallback = (Void) -> Void
             var devid = input.deviceID
             AudioObjectSetPropertyData(
                 AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
+                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for dev in devices {
@@ -111,7 +111,7 @@ public typealias AKCallback = (Void) -> Void
             var devid = output.deviceID
             AudioObjectSetPropertyData(
                 AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
+                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
         #else
             //not available on ios
         #endif
