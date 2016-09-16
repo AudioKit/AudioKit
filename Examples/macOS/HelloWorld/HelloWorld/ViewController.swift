@@ -22,7 +22,7 @@ class ViewController: NSViewController {
         AudioKit.start()
     }
     
-    @IBAction func toggleSound(sender: NSButton) {
+    @IBAction func toggleSound(_ sender: NSButton) {
         if oscillator.isPlaying {
             oscillator.stop()
             sender.title = "Play Sine Wave"
