@@ -202,7 +202,7 @@ open class AKPhaseLockedVocoder: AKNode {
                 theDataBuffer.mNumberBuffers = 1
                 theDataBuffer.mBuffers.mDataByteSize = dataSize
                 theDataBuffer.mBuffers.mNumberChannels = theOutputFormat.mChannelsPerFrame
-                theDataBuffer.mBuffers.mData = UnsafeMutablePointer(theData)
+                theDataBuffer.mBuffers.mData = UnsafeMutableRawPointer(theData)
 
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
