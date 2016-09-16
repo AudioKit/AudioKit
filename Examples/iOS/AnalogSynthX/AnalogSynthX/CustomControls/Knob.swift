@@ -43,28 +43,28 @@ class Knob: UIView {
     // Init / Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentMode = .Redraw
+        contentMode = .redraw
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.userInteractionEnabled = true
-        contentMode = .Redraw
+        self.isUserInteractionEnabled = true
+        contentMode = .redraw
     }
 
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
-        contentMode = .ScaleAspectFill
+        contentMode = .scaleAspectFill
         clipsToBounds = true
     }
 
-    class override func requiresConstraintBasedLayout() -> Bool {
+    class override var requiresConstraintBasedLayout : Bool {
         return true
     }
 
     // Helper
-    func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
+    func setPercentagesWithTouchPoint(_ touchPoint: CGPoint) {
         // Knobs assume up or right is increasing, and down or left is decreasing
 
         let horizontalChange = Double(touchPoint.x - lastX) * knobSensitivity
