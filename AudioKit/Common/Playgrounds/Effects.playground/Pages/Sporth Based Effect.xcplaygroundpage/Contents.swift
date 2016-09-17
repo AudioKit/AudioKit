@@ -1,7 +1,7 @@
 //: ## Sporth Based Effect
 //: AudioKit nodes can be creating using [Sporth](https://github.com/PaulBatchelor/Sporth).
 //: This is an example of an effect written in Sporth.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -19,4 +19,4 @@ AudioKit.start()
 
 player.play()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

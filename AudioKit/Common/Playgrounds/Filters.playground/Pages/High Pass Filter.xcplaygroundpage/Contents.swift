@@ -3,7 +3,7 @@
 //: low-frequency components of the audio signal, allowing for the higher frequency
 //: components to "pass through" the filter.
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -37,7 +37,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
             value: highPassFilter.cutoffFrequency, minimum: 20, maximum: 22050,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             highPassFilter.cutoffFrequency = sliderValue
             })
@@ -46,12 +46,12 @@ class PlaygroundView: AKPlaygroundView {
             property: "Resonance",
             format: "%0.1f dB",
             value: highPassFilter.resonance, minimum: -20, maximum: 40,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             highPassFilter.resonance = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

@@ -1,6 +1,6 @@
 //: ## PWM Oscillator Bank
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let osc = AKPWMOscillatorBank(pulseWidth: 0.5)
@@ -18,7 +18,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Pulse Width",
             value: osc.pulseWidth,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { amount in
             osc.pulseWidth = amount
             })
@@ -27,7 +27,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Attack",
             format: "%0.3f s",
             value: osc.attackDuration, maximum: 2,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { duration in
             osc.attackDuration = duration
             })
@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Release",
             format: "%0.3f s",
             value: osc.releaseDuration, maximum: 2,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { duration in
             osc.releaseDuration = duration
             })
@@ -45,7 +45,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Detuning Offset",
             format: "%0.1f Cents",
             value:  osc.releaseDuration, minimum: -100, maximum: 100,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { offset in
             osc.detuningOffset = offset
             })
@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
             value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { multiplier in
             osc.detuningMultiplier = multiplier
             })
@@ -85,5 +85,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 }
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

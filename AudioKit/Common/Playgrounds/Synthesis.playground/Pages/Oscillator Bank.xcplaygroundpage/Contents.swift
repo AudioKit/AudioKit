@@ -1,5 +1,5 @@
 //: ## Oscillator Bank
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let bank = AKOscillatorBank(waveform: AKTable(.Sine),
@@ -20,7 +20,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Attack",
             format: "%0.3f",
             value: bank.attackDuration, maximum: 2,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { duration in
             bank.attackDuration = duration
             })
@@ -29,7 +29,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Decay",
             format: "%0.3f",
             value: bank.decayDuration, maximum: 2,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { duration in
             bank.decayDuration = duration
             })
@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Sustain Level",
             format: "%0.3f",
             value: bank.sustainLevel,
-            color: AKColor.yellowColor()
+            color: AKColor.yellow
         ) { level in
             bank.sustainLevel = level
             })
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Release",
             format: "%0.3f",
             value:  bank.releaseDuration, maximum: 2,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { duration in
             bank.releaseDuration = duration
             })
@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Detuning Offset",
             format: "%0.3f",
             value:  bank.releaseDuration, minimum: -1200, maximum: 1200,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { offset in
             bank.detuningOffset = offset
             })
@@ -65,7 +65,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Detuning Multiplier",
             format: "%0.3f",
             value:  bank.releaseDuration, minimum: 0.5, maximum: 2.0,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { multiplier in
             bank.detuningMultiplier = multiplier
             })
@@ -94,5 +94,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

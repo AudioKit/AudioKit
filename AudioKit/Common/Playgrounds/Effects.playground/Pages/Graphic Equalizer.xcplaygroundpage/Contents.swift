@@ -1,6 +1,6 @@
 //: ## Graphic Equalizer
 //: This playground builds a graphic equalizer from a set of equalizer filters
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -34,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Low",
             value: lowFilter.gain, maximum: 10,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             lowFilter.gain = sliderValue
             })
@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Mid",
             value: midFilter.gain, maximum: 10,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             midFilter.gain = sliderValue
             })
@@ -50,7 +50,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "High",
             value: highFilter.gain, maximum: 10,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { sliderValue in
             highFilter.gain = sliderValue
             })
@@ -59,5 +59,5 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

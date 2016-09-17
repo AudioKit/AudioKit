@@ -1,6 +1,6 @@
 //: ## Modal Resonance Filter Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -20,4 +20,4 @@ AudioKit.output = effect
 AudioKit.start()
 player.play()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

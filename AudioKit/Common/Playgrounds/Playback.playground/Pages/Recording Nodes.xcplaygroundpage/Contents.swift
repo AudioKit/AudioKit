@@ -2,7 +2,7 @@
 //: AKNodeRecorder allows you to record the output of a specific node.
 //: Let's record a sawtooth solo.
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Set up a source to be recorded
@@ -48,7 +48,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addSubview(AKButton(title: "Record", color: AKColor.redColor()) {
+        addSubview(AKButton(title: "Record", color: AKColor.red) {
             if recorder!.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder!.recordedDuration)
                 self.recordLabel!.text = "Stopped. (\(dur) recorded)"
@@ -61,7 +61,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             }})
 
 
-        addSubview(AKButton(title: "Reset Recording", color: AKColor.redColor()) {
+        addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
             self.recordLabel!.text = "Tape Cleared!"
             try? recorder?.reset()
             return "Reset Recording"
@@ -118,5 +118,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

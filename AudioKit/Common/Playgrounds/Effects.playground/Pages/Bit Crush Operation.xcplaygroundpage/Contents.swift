@@ -1,6 +1,6 @@
 //: ## Bit Crush Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -16,11 +16,11 @@ let effect = AKOperationEffect(player) { input, parameters in
     let baseBitDepth = parameters[2]
     let bitDepthVariation = parameters[3]
     let frequency = parameters[4]
-    
+
     let sinusoid = AKOperation.sineWave(frequency: frequency)
     let sampleRate = baseSampleRate + sinusoid * sampleRateVariation
     let bitDepth   = baseBitDepth + sinusoid * bitDepthVariation
-    
+
     return input.bitCrush(bitDepth: bitDepth, sampleRate: sampleRate)
 }
 effect.parameters = [22050, 0, 16, 0, 1]
@@ -30,13 +30,13 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Bit Crush Operation")
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: processingPlaygroundFiles))
-        
+
         addSubview(AKPropertySlider(
             property: "Base Sample Rate",
             format: "%0.1f Hz",
@@ -76,5 +76,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

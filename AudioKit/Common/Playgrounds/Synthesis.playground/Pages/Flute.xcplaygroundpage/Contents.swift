@@ -1,7 +1,7 @@
 //: ## Flute
 //: Physical model of a Flute
 import AudioKit
-import XCPlayground
+import PlaygroundSupport
 
 let playRate = 2.0
 
@@ -25,4 +25,4 @@ AKPlaygroundLoop(frequency: playRate) {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

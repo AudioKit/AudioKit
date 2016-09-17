@@ -1,6 +1,6 @@
 //: ## Three-Pole Low Pass Filter
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
             value: filter.cutoffFrequency, maximum: 5000,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
             })
@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Resonance",
             value: filter.resonance,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             filter.resonance = sliderValue
             })
@@ -49,5 +49,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

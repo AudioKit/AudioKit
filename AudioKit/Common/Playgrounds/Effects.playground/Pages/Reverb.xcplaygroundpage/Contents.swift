@@ -1,7 +1,7 @@
 //: ## Simple Reverb
 //: This is an implementation of Apple's simplest reverb which only allows you to set presets
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Mix",
             value: reverb.dryWetMix,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             reverb.dryWetMix = sliderValue
             })
@@ -76,7 +76,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

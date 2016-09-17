@@ -1,6 +1,6 @@
 //: ## Expander
 //: ##
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -17,10 +17,10 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Expander")
-        
+
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: processingPlaygroundFiles))
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             expander.expansionRatio = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Threshold",
             format: "%0.2f",
@@ -62,9 +62,9 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             expander.masterGain = sliderValue
             })
-        
+
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

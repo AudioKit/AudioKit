@@ -1,6 +1,6 @@
 //: ## AutoWah Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -18,4 +18,4 @@ AudioKit.output = effect
 AudioKit.start()
 player.play()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

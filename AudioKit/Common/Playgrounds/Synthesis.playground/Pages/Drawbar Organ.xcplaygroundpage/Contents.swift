@@ -1,7 +1,7 @@
 //: ## Interactive Drawbar Organ
 //: Open the timeline view to use the controls this playground sets up.
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var oscillator = AKOscillatorBank()
@@ -9,7 +9,7 @@ AudioKit.output = oscillator
 AudioKit.start()
 
 let noteCount = 9
-var amplitudes = Array<Double>(count: noteCount, repeatedValue: 0.1)
+var amplitudes = Array<Double>(repeating: 0.1, count: noteCount)
 var offsets = [-12, 7, 0, 12, 19, 24, 28, 31, 36]
 var names = ["16", "5 1/3", "8", "4", "2 2/3", "2", "1 3/5", "1 1/3", "1"]
 var baseNote = 0
@@ -22,7 +22,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             let slider = AKPropertySlider(
                 property: "Amplitude \(names[i])",
                 value: amplitudes[i],
-                color: AKColor.greenColor()
+                color: AKColor.green
             ) { amp in
                 amplitudes[i] = amp
                 }
@@ -61,5 +61,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

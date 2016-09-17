@@ -1,7 +1,7 @@
 //: ## Editing Audio Files
 //: Let's have some fun with our drum loop
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: First we load the drumloop
@@ -74,4 +74,4 @@ AudioKit.start()
 sequencePlayer!.play()
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

@@ -1,6 +1,6 @@
 //: ## FFT Analysis
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let bundle = NSBundle.mainBundle()
@@ -21,4 +21,4 @@ AKPlaygroundLoop(every: 0.1) {
     let index = fft.fftData.indexOf(max)
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

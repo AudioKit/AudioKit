@@ -4,7 +4,7 @@
 //: from where the frequency limit is set. Adjusting the bandwidth sets how far out
 //: above and below the center frequency the frequency band should be.
 //: Anything above that band should pass through.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Center Frequency",
             format: "%0.1f Hz",
             value: filter.centerFrequency, minimum: 20, maximum: 22050,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             filter.centerFrequency = sliderValue
             })
@@ -48,12 +48,12 @@ class PlaygroundView: AKPlaygroundView {
             property: "Bandwidth",
             format: "%0.1f Hz",
             value: filter.bandwidth, minimum: 100, maximum: 1200,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             filter.bandwidth = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

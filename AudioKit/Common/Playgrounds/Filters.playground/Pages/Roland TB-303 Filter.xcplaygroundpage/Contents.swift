@@ -1,6 +1,6 @@
 //: ## Roland TB-303 Filter
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -27,4 +27,4 @@ AKPlaygroundLoop(every: timeStep) {
     time += timeStep
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

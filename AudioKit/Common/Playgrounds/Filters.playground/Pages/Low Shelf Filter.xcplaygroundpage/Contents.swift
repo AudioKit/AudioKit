@@ -1,6 +1,6 @@
 //: ## Low Shelf Filter
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -34,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
             value: lowShelfFilter.cutoffFrequency, minimum: 10, maximum: 200,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             lowShelfFilter.cutoffFrequency = sliderValue
             })
@@ -43,12 +43,12 @@ class PlaygroundView: AKPlaygroundView {
             property: "Gain",
             format: "%0.1f dB",
             value: lowShelfFilter.gain, minimum: -40, maximum: 40,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             lowShelfFilter.gain = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

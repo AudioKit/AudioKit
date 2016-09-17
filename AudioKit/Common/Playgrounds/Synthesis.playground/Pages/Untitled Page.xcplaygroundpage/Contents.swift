@@ -1,5 +1,5 @@
 import AudioKit
-import XCPlayground
+import PlaygroundSupport
 
 
 var freq = AKSuperDuperParameter(value: 600)
@@ -20,14 +20,14 @@ AudioKit.start()
 oscillator.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var keyboard: AKKeyboardView?
-    
+
     override func setup() {
         addSubview(AKPropertySlider(
             property: "Value",
             value:  Double(oscillator.frequency.value), minimum: 100, maximum: 1200,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             freq.value = sliderValue
             if sliderValue > 1000 {
@@ -39,5 +39,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

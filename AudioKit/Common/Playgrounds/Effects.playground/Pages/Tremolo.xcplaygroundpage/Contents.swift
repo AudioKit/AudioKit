@@ -1,6 +1,6 @@
 //: ## Tremolo
 //: ###
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -30,7 +30,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Frequency",
             format: "%0.3f Hz",
             value: tremolo.frequency, maximum: 20,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             tremolo.frequency = sliderValue
             })
@@ -38,13 +38,13 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Depth",
             value: tremolo.depth,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             tremolo.depth = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 
