@@ -10,7 +10,7 @@ var amp = AKSuperDuperParameter(value: 1)
 freq.setOperation("1 1 sine 500 1000 biscale")
 amp.setOperation("1 1 sine 0 0.1 biscale")
 
-let oscillator = AKSuperOscillator() //waveform: AKTable(.Sine), frequency: 600)
+let oscillator = AKSuperOscillator() //waveform: AKTable(.sine), frequency: 600)
 oscillator.frequency = freq
 oscillator.amplitude = amp
 

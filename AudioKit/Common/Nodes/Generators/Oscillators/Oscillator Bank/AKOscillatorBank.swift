@@ -125,7 +125,7 @@ open class AKOscillatorBank: AKPolyphonicNode {
     
     /// Initialize the oscillator with defaults
     public convenience override init() {
-        self.init(waveform: AKTable(.Sine))
+        self.init(waveform: AKTable(.sine))
     }
 
     /// Initialize this oscillator node

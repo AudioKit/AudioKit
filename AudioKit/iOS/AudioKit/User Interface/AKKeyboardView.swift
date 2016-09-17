@@ -9,8 +9,8 @@
 import UIKit
 
 public protocol AKKeyboardDelegate {
-    func noteOn(_ note: Int)
-    func noteOff(_ note: Int)
+    func noteOn(note: Int)
+    func noteOff(note: Int)
 }
 
 @IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
@@ -33,7 +33,7 @@ public protocol AKKeyboardDelegate {
     open var polyphonicMode = false {
         didSet {
             for note in onKeys {
-                delegate?.noteOff(note)
+                delegate?.noteOff(note: note)
             }
             onKeys.removeAll()
             setNeedsDisplay()
@@ -167,10 +167,10 @@ public protocol AKKeyboardDelegate {
         for note in notes {
             if polyphonicMode && onKeys.contains(note) {
                 onKeys.remove(note)
-                delegate?.noteOff(note)
+                delegate?.noteOff(note: note)
             } else {
                 onKeys.insert(note)
-                delegate?.noteOn(note)
+                delegate?.noteOn(note: note)
             }
         }
         setNeedsDisplay()
@@ -181,7 +181,7 @@ public protocol AKKeyboardDelegate {
             let notes = notesFromTouches(touches)
             for note in notes {
                 onKeys.remove(note)
-                delegate?.noteOff(note)
+                delegate?.noteOff(note: note)
             }
         }
         setNeedsDisplay()
@@ -197,9 +197,9 @@ public protocol AKKeyboardDelegate {
                 let currentNote = onKeys.first
                 onKeys.removeAll()
                 onKeys.insert(note)
-                delegate?.noteOn(note)
+                delegate?.noteOn(note: note)
                 if let currNote = currentNote {
-                    delegate?.noteOff(currNote)
+                    delegate?.noteOff(note: currNote)
                 }
             }
         }

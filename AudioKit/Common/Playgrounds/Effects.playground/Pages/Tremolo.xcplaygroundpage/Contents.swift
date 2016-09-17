@@ -9,7 +9,7 @@ let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var tremolo = AKTremolo(player, waveform: AKTable(.PositiveSine))
+var tremolo = AKTremolo(player, waveform: AKTable(.positiveSine))
 tremolo.depth = 0.5
 tremolo.frequency = 8
 

@@ -4,7 +4,7 @@ import PlaygroundSupport
 import AudioKit
 
 var morph = AKMorphingOscillator(waveformArray:
-    [AKTable(.Sine), AKTable(.Triangle), AKTable(.Sawtooth), AKTable(.Square)])
+    [AKTable(.sine), AKTable(.triangle), AKTable(.sawtooth), AKTable(.square)])
 morph.frequency = 400
 morph.amplitude = 0.1
 morph.index = 0.8

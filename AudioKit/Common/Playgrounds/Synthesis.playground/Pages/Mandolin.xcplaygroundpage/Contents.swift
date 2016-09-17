@@ -82,8 +82,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-PlaygroundPage.current.liveView = PlaygroundView()
-
 AKPlaygroundLoop(frequency: playRate) {
     var note1 = scale.randomElement()
     let octave1 = [2,3,4,5].randomElement() * 12
@@ -107,4 +105,5 @@ AKPlaygroundLoop(frequency: playRate) {
 
 }
 
+PlaygroundPage.current.liveView = PlaygroundView()
 PlaygroundPage.current.needsIndefiniteExecution = true

@@ -81,7 +81,7 @@ open class AKTremolo: AKNode, AKToggleable {
         _ input: AKNode,
         frequency: Double = 10,
         depth: Double = 1.0,
-        waveform: AKTable = AKTable(.PositiveSine)) {
+        waveform: AKTable = AKTable(.positiveSine)) {
 
         self.waveform = waveform
         self.frequency = frequency
