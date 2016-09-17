@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         tempoSlider.callback = adjustTempo
     }
     
-    @IBAction func useSoundForArpeggio(sender: UIButton) {
+    @IBAction func useSoundForArpeggio(_ sender: UIButton) {
         guard let title = sender.currentTitle, let sound = Sound(rawValue: title) else {
             print("Type of sound \(sender.currentTitle) for arpeggio wasn't detected")
             return
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         conductor.useSound(sound, synthesizer: Synthesizer.Arpeggio)
     }
     
-    @IBAction func useSoundForPad(sender: UIButton) {
+    @IBAction func useSoundForPad(_ sender: UIButton) {
         guard let title = sender.currentTitle, let sound = Sound(rawValue: title) else {
             print("Type of sound \(sender.currentTitle) for pad wasn't detected")
             return
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         conductor.useSound(sound, synthesizer: Synthesizer.Pad)
     }
     
-    @IBAction func useSoundForBass(sender: UIButton) {
+    @IBAction func useSoundForBass(_ sender: UIButton) {
         guard let title = sender.currentTitle, let sound = Sound(rawValue: title) else {
             print("Type of sound \(sender.currentTitle) for bass wasn't detected")
             return
@@ -82,7 +82,7 @@ class ViewController: UIViewController {
         conductor.adjustTempo(Float(newValue))
     }
     
-    @IBAction func setLength(sender: UIButton) {
+    @IBAction func setLength(_ sender: UIButton) {
         guard let title = sender.currentTitle, let length = Double(title) else {
             print("Length wasn't detected")
             return
@@ -90,15 +90,15 @@ class ViewController: UIViewController {
         conductor.setLength(length)
     }
     
-    @IBAction func rewindSequence(sender: UIButton) {
+    @IBAction func rewindSequence(_ sender: UIButton) {
         conductor.rewindSequence()
     }
     
-    @IBAction func stopSequence(sender: UIButton) {
+    @IBAction func stopSequence(_ sender: UIButton) {
         conductor.stopSequence()
     }
     
-    @IBAction func playSequence(sender: UIButton) {
+    @IBAction func playSequence(_ sender: UIButton) {
         conductor.playSequence()
     }
 }
