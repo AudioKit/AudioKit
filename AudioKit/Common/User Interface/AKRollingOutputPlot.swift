@@ -13,18 +13,16 @@ import Foundation
 open class AKRollingOutputPlot: EZAudioPlot {
     internal func setupNode() {
         AudioKit.engine.outputNode.installTap(onBus: 0,
-                                                   bufferSize: bufferSize,
-                                                   format: nil) { [weak self] (buffer, time) -> Void in
+                                              bufferSize: bufferSize,
+                                              format: nil) { [weak self] (buffer, time) -> Void in
 
-                                                    
+                                                
             guard let strongSelf = self else { return }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
             let tail = buffer.floatChannelData?[0]
-            var t: Float? = tail?[offset]
-            strongSelf.updateBuffer(&t!,
+            strongSelf.updateBuffer(&tail![offset],
                                     withBufferSize: strongSelf.bufferSize)
-            tail?[offset] = t!
         }
     }
 
