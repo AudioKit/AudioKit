@@ -5,7 +5,7 @@
 //: ## Low-Frequency Oscillation of Parameters
 //: ### Oftentimes we want rhythmic changing of parameters that varying in a standard way.
 //: ### This is traditionally done with Low-Frequency Oscillators, LFOs.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let generator = AKOperationGenerator() { _ in
@@ -31,5 +31,5 @@ AudioKit.start()
 
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
