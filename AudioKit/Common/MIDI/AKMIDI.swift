@@ -81,7 +81,17 @@ open class AKMIDI {
         destroyVirtualPorts()
         
         var result = noErr
-        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, MyMIDIReadBlock as! MIDIReadBlock)
+        
+        let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+            for packet in packetList.pointee {
+                // a coremidi packet may contain multiple midi events
+                for event in packet {
+                    self.handleMidiMessage(event)
+                }
+            }
+        }
+        
+        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, readBlock)
         
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)

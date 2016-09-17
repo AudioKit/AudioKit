@@ -55,8 +55,17 @@ extension AKMIDI {
                 
                 var port = inputPorts[namedInput]!
                 
-                result = MIDIInputPortCreateWithBlock(
-                    client, inputPortName, &port, MyMIDIReadBlock as! MIDIReadBlock)
+                let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+                    for packet in packetList.pointee {
+                        // a coremidi packet may contain multiple midi events
+                        for event in packet {
+                            self.handleMidiMessage(event)
+                        }
+                    }
+                }
+                
+                result = MIDIInputPortCreateWithBlock(client, inputPortName, &port, readBlock)
+                
                 inputPorts[namedInput] = port
                 
                 if result != noErr {
@@ -136,23 +145,5 @@ extension AKMIDI {
         //do something with notification - change _ above to let varname
         //print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
         
-    }
-    
-    internal func MyMIDIReadBlock(
-        _ packetList: UnsafePointer<MIDIPacketList>,
-        srcConnRefCon: UnsafeMutableRawPointer) -> Void {
-        /*
-         //can't yet figure out how to access the port passed via srcConnRefCon
-         //maybe having this port is not that necessary though...
-         let midiPortPointer = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
-         let midiPort = midiPortPointer.memory
-         */
-        
-        for packet in packetList.pointee {
-            // a coremidi packet may contain multiple midi events
-            for event in packet {
-                handleMidiMessage(event)
-            }
-        }
     }
 }
