@@ -1,6 +1,6 @@
 //: ## Tracking Microphone Input
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let mic = AKMicrophone()
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Tracked Amplitude",
             format: "%0.3f",
             value: 0, maximum: 0.8,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             // Do nothing, just for display
         }
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Tracked Frequency",
             format: "%0.3f",
             value: 0, maximum: 2400,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             // Do nothing, just for display
         }
@@ -52,5 +52,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

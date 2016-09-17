@@ -5,7 +5,7 @@
 //: ## Callback Instrument
 //:
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var sequencer = AKSequencer()
@@ -15,7 +15,7 @@ var tempo = 120.0
 var division = 1
 
 var callbacker = AKCallbackInstrument() { status, note, velocity in
-    if status == .NoteOn {
+    if status == .noteOn {
         print("Start Note \(note) at \(sequencer.currentPosition.seconds)")
     }
 }
@@ -50,11 +50,11 @@ class PlaygroundView: AKPlaygroundView {
             sequencer.play()
             return ""
             })
-        addSubview(AKButton(title: "Pause", color: AKColor.redColor()) {
+        addSubview(AKButton(title: "Pause", color: AKColor.red) {
             sequencer.stop()
             return ""
             })
-        addSubview(AKButton(title: "Rewind", color: AKColor.cyanColor()) {
+        addSubview(AKButton(title: "Rewind", color: AKColor.cyan) {
             sequencer.rewind()
             return ""
             })
@@ -62,6 +62,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 sequencer.play()
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -34,6 +34,6 @@ plot.shouldMirror = false
 plot.shouldCenterYAxis = false
 plot.color = AKColor.purple
 
-XCPlaygroundPage.currentPage.liveView = plot
+PlaygroundPage.current.liveView = plot
 
 PlaygroundPage.current.needsIndefiniteExecution = true

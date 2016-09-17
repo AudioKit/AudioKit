@@ -45,29 +45,29 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Cathedral":
-                reverb.loadFactoryPreset(.Cathedral)
+                reverb.loadFactoryPreset(.cathedral)
             case "Large Hall":
-                reverb.loadFactoryPreset(.LargeHall)
+                reverb.loadFactoryPreset(.largeHall)
             case "Large Hall 2":
-                reverb.loadFactoryPreset(.LargeHall2)
+                reverb.loadFactoryPreset(.largeHall2)
             case "Large Room":
-                reverb.loadFactoryPreset(.LargeRoom)
+                reverb.loadFactoryPreset(.largeRoom)
             case "Large Room 2":
-                reverb.loadFactoryPreset(.LargeRoom2)
+                reverb.loadFactoryPreset(.largeRoom2)
             case "Medium Chamber":
-                reverb.loadFactoryPreset(.MediumChamber)
+                reverb.loadFactoryPreset(.mediumChamber)
             case "Medium Hall":
-                reverb.loadFactoryPreset(.MediumHall)
+                reverb.loadFactoryPreset(.mediumHall)
             case "Medium Hall 2":
-                reverb.loadFactoryPreset(.MediumHall2)
+                reverb.loadFactoryPreset(.mediumHall2)
             case "Medium Hall 3":
-                reverb.loadFactoryPreset(.MediumHall3)
+                reverb.loadFactoryPreset(.mediumHall3)
             case "Medium Room":
-                reverb.loadFactoryPreset(.MediumRoom)
+                reverb.loadFactoryPreset(.mediumRoom)
             case "Plate":
-                reverb.loadFactoryPreset(.Plate)
+                reverb.loadFactoryPreset(.plate)
             case "Small Room":
-                reverb.loadFactoryPreset(.SmallRoom)
+                reverb.loadFactoryPreset(.smallRoom)
             default: break
             }}
         )

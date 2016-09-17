@@ -10,10 +10,10 @@ let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main
 
-let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
-let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
+let stairwell = bundle.url(forResource: "Impulse Responses/stairwell", withExtension: "wav")!
+let dish = bundle.url(forResource: "Impulse Responses/dish", withExtension: "wav")!
 
 var stairwellConvolution = AKConvolution.init(player,
                                               impulseResponseFileURL: stairwell,

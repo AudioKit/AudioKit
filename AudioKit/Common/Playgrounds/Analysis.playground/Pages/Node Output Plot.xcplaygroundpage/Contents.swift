@@ -41,7 +41,7 @@ public class PlaygroundView: AKPlaygroundView {
 
         addLabel("This is the output of the player")
         let plot = AKNodeOutputPlot(player, frame: CGRect.init(x: 0, y: 0, width: 440, height: 300))
-        plot.plotType = .Rolling
+        plot.plotType = .rolling
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.color = AKColor.blue
@@ -49,7 +49,7 @@ public class PlaygroundView: AKPlaygroundView {
 
         addLabel("This is the output of the delay")
         let plot2 = AKNodeOutputPlot(delay, frame: CGRect.init(x: 0, y: 0, width: 440, height: 300))
-        plot2.plotType = .Rolling
+        plot2.plotType = .rolling
         plot2.shouldFill = true
         plot2.shouldMirror = true
         plot2.color = AKColor.red
