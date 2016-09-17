@@ -5,7 +5,7 @@ import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 
 let player = try AKAudioPlayer(file: file)

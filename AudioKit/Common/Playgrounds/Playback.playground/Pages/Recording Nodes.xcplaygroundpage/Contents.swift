@@ -17,7 +17,7 @@ let oscMixer = AKMixer(oscillator)
 
 //: Let's add some space to our oscillator
 let reverb = AKReverb(oscMixer)
-reverb.loadFactoryPreset(.LargeHall)
+reverb.loadFactoryPreset(.largeHall)
 reverb.dryWetMix = 0.5
 
 //: Create an AKAudioFile to record to:
@@ -77,7 +77,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             } else {
                 try? player?.reloadFile()
                 // If the tape is not empty, we can play it !...
-                if player?.audioFile.duration > 0 {
+                if player?.audioFile.duration ?? 0 > 0 {
                     self.playLabel!.text = "Playing..."
                     player?.completionHandler = self.callback
                     player?.play()
@@ -94,7 +94,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     func callback() {
         // We use Dispatch_async to refresh UI as callback is invoked from a background thread
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.playLabel!.text = "Finished playing!"
         }
     }

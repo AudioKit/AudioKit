@@ -3,7 +3,7 @@
 import PlaygroundSupport
 import AudioKit
 
-let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
 
 let player = try AKAudioPlayer(file: mixloop) {
     print("completion callBack has been triggered !")

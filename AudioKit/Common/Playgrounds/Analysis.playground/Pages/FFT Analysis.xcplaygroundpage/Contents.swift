@@ -5,7 +5,7 @@ import AudioKit
 
 let bundle = NSBundle.mainBundle()
 
-let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true

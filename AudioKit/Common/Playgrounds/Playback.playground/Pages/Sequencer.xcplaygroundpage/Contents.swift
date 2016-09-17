@@ -57,19 +57,19 @@ class PlaygroundView: AKPlaygroundView {
         })
         addLabel("Or set the tracks individually:")
         button1 = AKButton(title: "Track 1: FM Piano") {
-            self.toggleTrack(1)
+            self.toggleTrack(trackNumber: 1)
             return ""
         }
         button2 = AKButton(title: "Track 2: FM Piano") {
-            self.toggleTrack(2)
+            self.toggleTrack(trackNumber: 2)
             return ""
         }
         button3 = AKButton(title: "Track 3: FM Piano") {
-            self.toggleTrack(3)
+            self.toggleTrack(trackNumber: 3)
             return ""
         }
         button4 = AKButton(title: "Track 4: FM Piano") {
-            self.toggleTrack(4)
+            self.toggleTrack(trackNumber: 4)
             return ""
         }
         addSubview(button1!)
