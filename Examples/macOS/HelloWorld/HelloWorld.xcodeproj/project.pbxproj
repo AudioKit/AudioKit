@@ -54,7 +54,6 @@
 		C4BDE7E01C12FAE600207DA9 = {
 			isa = PBXGroup;
 			children = (
-				C446B3F11D4552C8000AEFCA /* AudioKit.framework */,
 				C4BDE7EB1C12FAE600207DA9 /* HelloWorld */,
 				EA127F541C42123600289567 /* Frameworks */,
 				C4BDE7EA1C12FAE600207DA9 /* Products */,
@@ -84,6 +83,7 @@
 		EA127F541C42123600289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C446B3F11D4552C8000AEFCA /* AudioKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
