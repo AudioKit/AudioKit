@@ -37,20 +37,12 @@ open class AKMusicTrack {
 
     // MARK: - Initialization
 
-    /// Initialize with nothing
-    ///
-    /// - parameter musicTrack: An Apple Music Track
-    ///
-    public init() {
-        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
-    }
-
     /// Initialize with a music track
     ///
     /// - parameter musicTrack: An Apple Music Track
+    /// - parameter name: Name for the track
     ///
-    public convenience init(musicTrack: MusicTrack, name: String = "Unnamed") {
-        self.init()
+    public init(musicTrack: MusicTrack, name: String = "Unnamed") {
         self.name = name
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
@@ -78,8 +70,7 @@ open class AKMusicTrack {
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
-    public convenience init(musicTrack: MusicTrack, sequencer: AKSequencer) {
-        self.init()
+    public init(musicTrack: MusicTrack, sequencer: AKSequencer) {
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
         self.sequencer = sequencer
