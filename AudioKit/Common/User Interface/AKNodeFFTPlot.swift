@@ -21,9 +21,8 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
                 buffer.frameLength = strongSelf.bufferSize
                 let offset = Int(buffer.frameCapacity - buffer.frameLength)
                 let tail = buffer.floatChannelData?[0]
-                var t: Float? = tail?[offset]
-                strongSelf.fft!.computeFFT(withBuffer: &t!, withBufferSize: strongSelf.bufferSize)
-                tail?[offset] = t!
+                strongSelf.fft!.computeFFT(withBuffer: &tail![offset],
+                                           withBufferSize: strongSelf.bufferSize)
             }
         }
     
