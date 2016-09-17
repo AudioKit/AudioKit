@@ -7,5 +7,5 @@
 //
 
 enum Sequence: Int {
-    case Melody = 0, BassDrum, SnareDrum, SnareDrumGhost
+    case melody = 0, bassDrum, snareDrum, snareDrumGhost
 }
