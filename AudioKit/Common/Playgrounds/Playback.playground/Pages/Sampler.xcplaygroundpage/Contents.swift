@@ -15,7 +15,7 @@ delay.dryWetMix = 0.3
 delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
-reverb.loadFactoryPreset(.LargeRoom)
+reverb.loadFactoryPreset(.largeRoom)
 
 var mixer = AKMixer(reverb)
 mixer.volume = 5.0
@@ -27,7 +27,7 @@ AudioKit.start()
 AKPlaygroundLoop(every: pulse) { timer in
     let scale = [0, 2, 4, 5, 7, 9, 11, 12]
     var note = scale.randomElement()
-    let octave = (3...7).randomElement() * 12
+    let octave = [3, 4, 5, 6, 7].randomElement() * 12
     if random(0, 10) < 1.0 { note += 1 }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
     if random(0, 6) > 1.0 { sampler.play(noteNumber: note + octave) }

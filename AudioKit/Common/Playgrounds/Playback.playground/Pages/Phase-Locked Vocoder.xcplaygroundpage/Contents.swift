@@ -4,7 +4,7 @@ import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "poney.mp3",
-                           baseDir: .Resources)
+                           baseDir: .resources)
 let phaseLockedVocoder = AKPhaseLockedVocoder(file: file)
 
 AudioKit.output = phaseLockedVocoder
