@@ -1,6 +1,6 @@
 //: ## Clipper
 //: ##
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -29,12 +29,12 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Limit",
             value: clipper.limit,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             clipper.limit = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

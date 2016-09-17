@@ -1,7 +1,7 @@
 //: ## Oscillator
 //: This oscillator can be loaded with a wavetable of your own design,
 //: or with one of the defaults.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let square = AKTable(.Square, size: 16)
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Amplitude",
             value: currentAmplitude,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { amplitude in
             currentAmplitude = amplitude
             })
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Ramp Time",
             value: currentRampTime,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { time in
             currentRampTime = time
             })
@@ -86,5 +86,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

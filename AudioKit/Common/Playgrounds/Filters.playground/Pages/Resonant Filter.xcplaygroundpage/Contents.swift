@@ -1,6 +1,6 @@
 //: ## Resonant Filter
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try? AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -34,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Frequency",
             format: "%0.1f Hz",
             value: filter.frequency, minimum: 20, maximum: 22050,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             filter.frequency = sliderValue
             })
@@ -43,12 +43,12 @@ class PlaygroundView: AKPlaygroundView {
             property: "Bandwidth",
             format: "%0.1f Hz",
             value: filter.bandwidth, minimum: 100, maximum: 1200,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             filter.bandwidth = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

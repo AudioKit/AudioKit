@@ -1,6 +1,6 @@
 //: ## Low Pass Filter Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Noise Example
@@ -31,4 +31,4 @@ whiteNoise.start()
 player.play()
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

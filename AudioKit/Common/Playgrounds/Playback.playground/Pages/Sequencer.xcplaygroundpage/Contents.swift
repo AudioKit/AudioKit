@@ -1,6 +1,6 @@
 //: ## Sequencer
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Create some samplers, load different sounds, and connect it to a mixer and the output
@@ -48,7 +48,7 @@ class PlaygroundView: AKPlaygroundView {
             sequencer.play()
             return ""
             })
-        addSubview(AKButton(title: "Use Bell As Global Output", color: AKColor.redColor()) {
+        addSubview(AKButton(title: "Use Bell As Global Output", color: AKColor.red) {
             sequencer.stop()
             sequencer.setGlobalAVAudioUnitOutput(bellSampler.samplerUnit)
             self.updateButtons()
@@ -93,11 +93,11 @@ class PlaygroundView: AKPlaygroundView {
         for i in 0 ..< buttons.count {
             if sequencer.avTracks[i + 1].destinationAudioUnit == bellSampler.samplerUnit {
                 buttons[i].title = "Track \(i + 1): Bell"
-                buttons[i].color = AKColor.redColor()
+                buttons[i].color = AKColor.red
 
             } else {
                 buttons[i].title = "Track \(i + 1): FM Piano"
-                buttons[i].color = AKColor.greenColor()
+                buttons[i].color = AKColor.green
             }
         }
         sequencer.play()
@@ -105,5 +105,5 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

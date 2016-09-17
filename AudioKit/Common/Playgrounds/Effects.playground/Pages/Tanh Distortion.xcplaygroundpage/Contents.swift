@@ -1,7 +1,7 @@
 //: ## Tanh Distortion
 //: ##
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Pre-gain",
             value: distortion.pregain, maximum: 10,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.pregain = sliderValue
             })
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Post-gain",
             value: distortion.postgain, maximum: 10,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.postgain = sliderValue
             })
@@ -52,7 +52,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Postive Shape Parameter",
             value: distortion.postiveShapeParameter, minimum: -10, maximum: 10,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.postiveShapeParameter = sliderValue
             })
@@ -60,12 +60,12 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Negative Shape Parameter",
             value: distortion.negativeShapeParameter, minimum: -10, maximum: 10,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.negativeShapeParameter = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

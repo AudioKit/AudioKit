@@ -22,7 +22,7 @@ import AudioKit
 //:
 //: Another import line you will see in most playgrounds enables `XCPlayground` functions
 //: for plotting, keeping the playground alive while audio plays, and more.
-import XCPlayground
+import PlaygroundSupport
 
 //: This main bundle line just helps the playground find the files (such as audio clips)
 //: it will be able to play and process.
@@ -56,11 +56,11 @@ let effect = AKMoogLadder(player)
 //: as Xcode's support for Swift code completion improves.
 let effect2 = AKMoogLadder.init(player)
 
-//: Remember the `import XCPlayground` line above?  Here's one way that is used.
+//: Remember the `import PlaygroundSupport` line above?  Here's one way that is used.
 //: The following line keeps a playground executing even after the last line is
 //: run so that the audio elements that were started have time to play and make
 //: sounds for us to listen to.
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: The other ways we'll keep playgrounds running will by using `sleep` and `usleep`
 //: functions and infinite while loops.
 

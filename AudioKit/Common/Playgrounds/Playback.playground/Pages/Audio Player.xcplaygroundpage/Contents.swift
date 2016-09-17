@@ -1,6 +1,6 @@
 //: ## Audio Player
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
-        
+
         addSubview(AKButton(title: "Disable Looping") {
             player.looping = !player.looping
             if player.looping {
@@ -49,12 +49,12 @@ class PlaygroundView: AKPlaygroundView {
             property: "In Position",
             format: "%0.2f s",
             value: player.startTime, maximum: 3.428,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             player.startTime = sliderValue
         }
         addSubview(inPositionSlider!)
-        
+
         outPositionSlider = AKPropertySlider(
             property: "Out Position",
             format: "%0.2f s",
@@ -63,12 +63,12 @@ class PlaygroundView: AKPlaygroundView {
             player.endTime = sliderValue
         }
         addSubview(outPositionSlider!)
-        
+
         playingPositionSlider = AKPropertySlider(
             property: "Position",
             format: "%0.2f s",
             value: player.playhead, maximum: 3.428,
-            color: AKColor.yellowColor()
+            color: AKColor.yellow
         ) { sliderValue in
             // Can't do player.playhead = sliderValue
         }
@@ -76,5 +76,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

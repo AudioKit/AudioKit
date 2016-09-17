@@ -1,6 +1,6 @@
 //: ## Compressor
 //: ##
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -17,14 +17,14 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Compressor")
-        
+
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: processingPlaygroundFiles))
-        
+
         addSubview(AKBypassButton(node: compressor))
         addSubview(AKPropertySlider(
             property: "Threshold",
@@ -65,5 +65,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

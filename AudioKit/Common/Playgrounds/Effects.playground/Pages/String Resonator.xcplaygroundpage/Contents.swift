@@ -1,6 +1,6 @@
 //: ## String Resonator
 //: ##
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Fundamental Frequency",
             format: "%0.1f Hz",
             value: stringResonator.fundamentalFrequency, maximum: 5000,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             stringResonator.fundamentalFrequency = sliderValue
             })
@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Feedback",
             value: stringResonator.feedback,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             stringResonator.feedback = sliderValue
             })
@@ -49,5 +49,5 @@ class PlaygroundView: AKPlaygroundView {
 
 
 }
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

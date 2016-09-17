@@ -1,6 +1,6 @@
 //: ## Costello Reverb Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -22,7 +22,7 @@ player.play()
 //: User Interface
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Costello Reverb Operation")
         addSubview(AKResourcesAudioFileLoaderView(
@@ -32,5 +32,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

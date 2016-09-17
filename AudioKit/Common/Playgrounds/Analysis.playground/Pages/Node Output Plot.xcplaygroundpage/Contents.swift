@@ -1,6 +1,6 @@
 //: ## Node Output Plot
 //: What's interesting here is that we're plotting the waveform BEFORE the delay is processed
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
@@ -26,7 +26,7 @@ public class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Time",
             value: delay.time,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             delay.time = sliderValue
         })
@@ -34,7 +34,7 @@ public class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Feedback",
             value: delay.feedback,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             delay.feedback = sliderValue
         })
@@ -44,7 +44,7 @@ public class PlaygroundView: AKPlaygroundView {
         plot.plotType = .Rolling
         plot.shouldFill = true
         plot.shouldMirror = true
-        plot.color = AKColor.blueColor()
+        plot.color = AKColor.blue
         addSubview(plot)
 
         addLabel("This is the output of the delay")
@@ -52,11 +52,11 @@ public class PlaygroundView: AKPlaygroundView {
         plot2.plotType = .Rolling
         plot2.shouldFill = true
         plot2.shouldMirror = true
-        plot2.color = AKColor.redColor()
+        plot2.color = AKColor.red
         addSubview(plot2)
     }
 }
 
 
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true

@@ -1,7 +1,7 @@
 //: ## Distortion
 //: This thing is a beast.
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -52,7 +52,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Delay",
             format: "%0.3f ms",
             value: distortion.delay, minimum: 0.1, maximum: 500,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.delay = sliderValue
         }
@@ -61,7 +61,7 @@ class PlaygroundView: AKPlaygroundView {
         decaySlider = AKPropertySlider(
             property: "Decay Rate",
             value: distortion.decay, minimum: 0.1, maximum: 50,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.decay = sliderValue
         }
@@ -70,7 +70,7 @@ class PlaygroundView: AKPlaygroundView {
         delayMixSlider = AKPropertySlider(
             property: "Delay Mix",
             value: distortion.delayMix,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.delayMix = sliderValue
         }
@@ -79,7 +79,7 @@ class PlaygroundView: AKPlaygroundView {
         linearTermSlider = AKPropertySlider(
             property: "Linear Term",
             value: distortion.linearTerm,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.linearTerm = sliderValue
         }
@@ -88,7 +88,7 @@ class PlaygroundView: AKPlaygroundView {
         squaredTermSlider = AKPropertySlider(
             property: "Squared Term",
             value: distortion.squaredTerm,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.squaredTerm = sliderValue
         }
@@ -97,7 +97,7 @@ class PlaygroundView: AKPlaygroundView {
         cubicTermSlider = AKPropertySlider(
             property: "Cubic Term",
             value: distortion.cubicTerm,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.cubicTerm = sliderValue
         }
@@ -106,7 +106,7 @@ class PlaygroundView: AKPlaygroundView {
         polynomialMixSlider = AKPropertySlider(
             property: "Polynomial Mix",
             value: distortion.polynomialMix,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.polynomialMix = sliderValue
         }
@@ -116,7 +116,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Soft Clip Gain",
             format: "%0.3f dB",
             value: distortion.softClipGain, minimum: -80, maximum: 20,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.softClipGain = sliderValue
         }
@@ -125,7 +125,7 @@ class PlaygroundView: AKPlaygroundView {
         finalMixSlider = AKPropertySlider(
             property: "Final Mix",
             value: distortion.finalMix,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             distortion.finalMix = sliderValue
         }
@@ -145,5 +145,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

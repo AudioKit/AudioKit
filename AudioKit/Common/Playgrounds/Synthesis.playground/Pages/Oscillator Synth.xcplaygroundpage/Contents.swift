@@ -1,6 +1,6 @@
 //: ## Oscillator Synth
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Choose the waveform shape here
@@ -27,7 +27,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Amplitude",
             format: "%0.3f",
             value: oscillator.amplitude,
-            color: AKColor.purpleColor()
+            color: AKColor.purple
         ) { amplitude in
             currentAmplitude = amplitude
             })
@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Ramp Time",
             format: "%0.3f s",
             value: oscillator.rampTime, maximum: 1,
-            color: AKColor.orangeColor()
+            color: AKColor.orange
         ) { time in
             currentRampTime = time
             })
@@ -68,5 +68,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

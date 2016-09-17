@@ -1,7 +1,7 @@
 //: ## Delay
 //: Exploring the powerful effect of repeating sounds after
 //: varying length delay times and feedback amounts
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
         timeSlider = AKPropertySlider(
             property: "Time",
             value: delay.time,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             delay.time = sliderValue
             }
@@ -45,7 +45,7 @@ class PlaygroundView: AKPlaygroundView {
         feedbackSlider = AKPropertySlider(
             property: "Feedback",
             value: delay.feedback,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             delay.feedback = sliderValue
         }
@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView {
         lowPassCutoffFrequencySlider = AKPropertySlider(
             property: "Low Pass Cutoff",
             value: delay.lowPassCutoff, maximum: 22050,
-            color: AKColor.magentaColor()
+            color: AKColor.magenta
         ) { sliderValue in
             delay.lowPassCutoff = sliderValue
         }
@@ -63,7 +63,7 @@ class PlaygroundView: AKPlaygroundView {
         dryWetMixSlider = AKPropertySlider(
             property: "Mix",
             value: delay.dryWetMix,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { sliderValue in
             delay.dryWetMix = sliderValue
         }
@@ -94,5 +94,5 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

@@ -1,7 +1,7 @@
 //: ## Sampler
 //: Loading a sampler with a reference wav file
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let pulse = 0.23 // seconds
@@ -34,5 +34,5 @@ AKPlaygroundLoop(every: pulse) { timer in
 }
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
