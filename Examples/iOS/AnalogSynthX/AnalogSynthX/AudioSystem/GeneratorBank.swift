@@ -142,9 +142,9 @@ class GeneratorBank: AKPolyphonicNode {
     var onNotes = Set<Int>()
     
     override init() {
-        let triangle = AKTable(.Triangle)
-        let square   = AKTable(.Square)
-        let sawtooth = AKTable(.Sawtooth)
+        let triangle = AKTable(.triangle)
+        let square   = AKTable(.square)
+        let sawtooth = AKTable(.sawtooth)
         var squareWithHighPWM = AKTable()
         let size = squareWithHighPWM.values.count
         for i in 0..<size {
