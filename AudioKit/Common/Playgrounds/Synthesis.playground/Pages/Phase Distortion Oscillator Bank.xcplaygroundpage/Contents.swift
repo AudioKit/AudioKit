@@ -3,7 +3,7 @@
 import PlaygroundSupport
 import AudioKit
 
-let osc = AKPhaseDistortionOscillatorBank(waveform: AKTable(.Square))
+let osc = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
 
 AudioKit.output = osc
 AudioKit.start()

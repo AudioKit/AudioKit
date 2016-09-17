@@ -3,7 +3,7 @@
 import PlaygroundSupport
 import AudioKit
 
-var oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.Sawtooth))
+var oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.sawtooth))
 oscillator.phaseDistortion = 0.0
 var currentAmplitude = 0.1
 var currentRampTime = 0.0

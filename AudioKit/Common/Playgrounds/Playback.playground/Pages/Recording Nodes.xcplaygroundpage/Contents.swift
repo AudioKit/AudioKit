@@ -6,7 +6,7 @@ import PlaygroundSupport
 import AudioKit
 
 //: Set up a source to be recorded
-var oscillator = AKOscillator(waveform: AKTable(.Sawtooth))
+var oscillator = AKOscillator(waveform: AKTable(.sawtooth))
 var currentAmplitude = 0.1
 var currentRampTime = 0.2
 

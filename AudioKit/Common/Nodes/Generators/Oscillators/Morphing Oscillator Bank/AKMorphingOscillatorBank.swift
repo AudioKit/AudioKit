@@ -134,7 +134,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode {
 
     /// Initialize the oscillator with defaults
     public convenience override init() {
-        self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
+        self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
     }
 
     /// Initialize this oscillator node

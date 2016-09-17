@@ -5,7 +5,7 @@ import AudioKit
 
 //: Choose the waveform shape here
 
-let waveform = AKTable(.Sawtooth) // .Triangle, etc.
+let waveform = AKTable(.sawtooth) // .triangle, etc.
 
 var oscillator = AKOscillator(waveform: waveform)
 

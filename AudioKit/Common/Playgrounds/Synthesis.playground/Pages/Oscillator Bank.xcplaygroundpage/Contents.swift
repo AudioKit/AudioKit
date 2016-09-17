@@ -2,7 +2,7 @@
 import PlaygroundSupport
 import AudioKit
 
-let bank = AKOscillatorBank(waveform: AKTable(.Sine),
+let bank = AKOscillatorBank(waveform: AKTable(.sine),
                             attackDuration: 0.1,
                             releaseDuration: 0.1)
 

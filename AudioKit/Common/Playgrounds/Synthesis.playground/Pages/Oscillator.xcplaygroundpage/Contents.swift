@@ -4,19 +4,19 @@
 import PlaygroundSupport
 import AudioKit
 
-let square = AKTable(.Square, size: 16)
+let square = AKTable(.square, size: 16)
 for value in square.values { value } // Click the eye icon ->
 
-let triangle = AKTable(.Triangle, size: 4096)
+let triangle = AKTable(.triangle, size: 4096)
 for value in triangle.values { value } // Click the eye icon ->
 
-let sine = AKTable(.Sine, size: 4096)
+let sine = AKTable(.sine, size: 4096)
 for value in sine.values { value } // Click the eye icon ->
 
-let sawtooth = AKTable(.Sawtooth, size: 4096)
+let sawtooth = AKTable(.sawtooth, size: 4096)
 for value in sawtooth.values { value } // Click the eye icon ->
 
-var custom = AKTable(.Sine, size: 512)
+var custom = AKTable(.sine, size: 512)
 for i in 0..<custom.values.count {
     custom.values[i] += Float(random(-0.3, 0.3) + Double(i)/2048.0)
 }

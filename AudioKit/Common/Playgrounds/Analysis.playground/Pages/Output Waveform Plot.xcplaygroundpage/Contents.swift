@@ -53,7 +53,6 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.modulationIndex = index
         })
 
-
         addSubview(AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
@@ -62,7 +61,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { amplitude in
             oscillator.amplitude = amplitude
         })
-
 
         addSubview(AKOutputWaveformPlot.createView())
     }

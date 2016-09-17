@@ -4,7 +4,7 @@
 import PlaygroundSupport
 import AudioKit
 
-var oscillator = AKOscillator(waveform: AKTable(.Sine, size: 4096))
+var oscillator = AKOscillator(waveform: AKTable(.sine, size: 4096))
 var mixer = AKMixer(oscillator)
 
 AudioKit.output = mixer
