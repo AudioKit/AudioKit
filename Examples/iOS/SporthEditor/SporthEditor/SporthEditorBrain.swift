@@ -22,7 +22,7 @@ class SporthEditorBrain {
         return Array(knownCodes.keys)
     }
 
-    func run(code: String) {
+    func run(_ code: String) {
         generator?.stop()
         AudioKit.stop()
         generator = AKOperationGenerator() { _ in return AKOperation(code) }
@@ -35,12 +35,12 @@ class SporthEditorBrain {
         generator?.stop()
     }
 
-    func save(name: String, code: String) {
+    func save(_ name: String, code: String) {
         let fileName = name + FileUtilities.fileExtension
         let filePath = FileUtilities.filePath(fileName)
 
         do {
-            try code.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding)
+            try code.write(toFile: filePath, atomically: true, encoding: String.Encoding.utf8)
             knownCodes[name] = code
             NSLog("Saving was completed successfully")
 
