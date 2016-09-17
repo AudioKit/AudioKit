@@ -30,15 +30,15 @@ class VariableDelayViewController: UIViewController {
         }
     }
     
-    @IBAction func updateTime(sender: UISlider) {
+    @IBAction func updateTime(_ sender: UISlider) {
         songProcessor.variableDelay?.time = Double(sender.value)
     }
 
-    @IBAction func updateFeedback(sender: UISlider) {
+    @IBAction func updateFeedback(_ sender: UISlider) {
         songProcessor.variableDelay?.feedback = Double(sender.value)
     }
 
-    @IBAction func updateMix(sender: UISlider) {
+    @IBAction func updateMix(_ sender: UISlider) {
         songProcessor.delayMixer?.balance = Double(sender.value)
     }
     
