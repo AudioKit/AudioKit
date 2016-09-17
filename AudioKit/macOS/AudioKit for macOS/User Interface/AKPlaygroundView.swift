@@ -28,9 +28,7 @@ public class AKLabel: NSTextField {
     }
 }
 
-public class AKPlaygroundView: NSView {
-
-
+open class AKPlaygroundView: NSView {
 
     public var elementHeight: CGFloat = 30
     public var spacing = 25
@@ -45,15 +43,15 @@ public class AKPlaygroundView: NSView {
         self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
     }
 
-    public func setup() {}
+    open func setup() {}
 
-    override public func draw(_ dirtyRect: NSRect) {
+    override open func draw(_ dirtyRect: NSRect) {
         NSColor.white.setFill()
         NSRectFill(dirtyRect)
         super.draw(dirtyRect)
     }
 
-    public func addTitle(text: String) -> NSTextField {
+    public func addTitle(_ text: String) -> NSTextField {
         let newLabel = NSTextField(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.stringValue = text
@@ -66,7 +64,7 @@ public class AKPlaygroundView: NSView {
         return newLabel
     }
 
-    public func addLabel(text: String) -> AKLabel {
+    public func addLabel(_ text: String) -> AKLabel {
         let newLabel = AKLabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.stringValue = text
@@ -78,7 +76,7 @@ public class AKPlaygroundView: NSView {
         return newLabel
     }
 
-    public override func addSubview(_ view: NSView) {
+    open override func addSubview(_ view: NSView) {
         subviews.removeAll()
         potentialSubviews.append(view)
         let reversedSubviews = potentialSubviews.reversed()
