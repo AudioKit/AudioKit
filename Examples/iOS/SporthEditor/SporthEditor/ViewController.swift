@@ -20,7 +20,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     var brain = SporthEditorBrain()
     
-    @IBAction func run(sender: UIButton) {
+    @IBAction func run(_ sender: UIButton) {
         slider1.value = 0.0
         slider2.value = 0.0
         slider3.value = 0.0
@@ -28,7 +28,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         brain.run(codeEditorTextView.text)
     }
     
-    @IBAction func stop(sender: UIButton) {
+    @IBAction func stop(_ sender: UIButton) {
         brain.stop()
     }
     
@@ -38,9 +38,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     func setupUI() {
         do {
-            try brain.save(Constants.File.chat, code: String(contentsOfFile: Constants.Path.chat, encoding: NSUTF8StringEncoding))
-            try brain.save(Constants.File.drone, code: String(contentsOfFile: Constants.Path.drone, encoding: NSUTF8StringEncoding))
-            try brain.save(Constants.File.rhythmic, code: String(contentsOfFile: Constants.Path.rhythmic, encoding: NSUTF8StringEncoding))
+            try brain.save(Constants.File.chat, code: String(contentsOfFile: Constants.Path.chat, encoding: String.Encoding.utf8))
+            try brain.save(Constants.File.drone, code: String(contentsOfFile: Constants.Path.drone, encoding: String.Encoding.utf8))
+            try brain.save(Constants.File.rhythmic, code: String(contentsOfFile: Constants.Path.rhythmic, encoding: String.Encoding.utf8))
             listOfSavedCodes.selectRow(0, inComponent: 1, animated: true)
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
             nameTextField.text = brain.names.first!
@@ -50,51 +50,51 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         }
     }
     
-    func presentAlert(error: Error) {
+    func presentAlert(_ error: Error) {
         let alert = UIAlertController()
         switch error {
-        case .Code:
+        case .code:
             alert.title = Constants.Code.title
             alert.message = Constants.Code.message
-        case .Name:
+        case .name:
             alert.title = Constants.Name.title
             alert.message = Constants.Name.message
         }
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
-    @IBAction func save(sender: UIButton) {
-        guard let name = nameTextField.text where !name.isEmpty else {
-            presentAlert(Error.Name)
+    @IBAction func save(_ sender: UIButton) {
+        guard let name = nameTextField.text , !name.isEmpty else {
+            presentAlert(Error.name)
             return
         }
-        guard let code = codeEditorTextView.text where !code.isEmpty else {
-            presentAlert(Error.Code)
+        guard let code = codeEditorTextView.text , !code.isEmpty else {
+            presentAlert(Error.code)
             return
         }
         brain.save(name, code: code)
         updateUI()
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         // The number of components (or “columns”) that the picker view should display.
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return brain.names.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return brain.names[row]
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         codeEditorTextView.text = brain.knownCodes[brain.names[row]]
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTextField.resignFirstResponder()
         return true
     }
@@ -107,80 +107,80 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         nameTextField.delegate = self
     }
     
-    @IBAction func trigger1(sender: UIButton) {
+    @IBAction func trigger1(_ sender: UIButton) {
         print("triggering 1")
         brain.generator?.trigger(0)
     }
     
-    @IBAction func trigger2(sender: UIButton) {
+    @IBAction func trigger2(_ sender: UIButton) {
         print("triggering 2")
         brain.generator?.trigger(1)
     }
     
-    @IBAction func trigger3(sender: UIButton) {
+    @IBAction func trigger3(_ sender: UIButton) {
         print("triggering 3")
         brain.generator?.trigger(2)
     }
     
-    @IBAction func trigger4(sender: UIButton) {
+    @IBAction func trigger4(_ sender: UIButton) {
         print("triggering 4")
         brain.generator?.trigger(3)
     }
     
-    @IBAction func activateGate1(sender: UIButton) {
+    @IBAction func activateGate1(_ sender: UIButton) {
         brain.generator?.parameters[0] = 1.0
         slider1.value = 1
     }
     
-    @IBAction func deactivateGate1(sender: UIButton) {
+    @IBAction func deactivateGate1(_ sender: UIButton) {
         brain.generator?.parameters[0] = 0.0
         slider1.value = 0
     }
     
-    @IBAction func activateGate2(sender: UIButton) {
+    @IBAction func activateGate2(_ sender: UIButton) {
         brain.generator?.parameters[1] = 1.0
         slider2.value = 1
     }
     
-    @IBAction func deactivateGate2(sender: UIButton) {
+    @IBAction func deactivateGate2(_ sender: UIButton) {
         brain.generator?.parameters[1] = 0.0
         slider2.value = 0
     }
     
-    @IBAction func activateGate3(sender: UIButton) {
+    @IBAction func activateGate3(_ sender: UIButton) {
         brain.generator?.parameters[2] = 1.0
         slider3.value = 1
     }
     
-    @IBAction func deactivateGate3(sender: UIButton) {
+    @IBAction func deactivateGate3(_ sender: UIButton) {
         brain.generator?.parameters[2] = 0.0
         slider3.value = 0
     }
     
-    @IBAction func activateGate4(sender: UIButton) {
+    @IBAction func activateGate4(_ sender: UIButton) {
         brain.generator?.parameters[3] = 1.0
         slider4.value = 1
     }
     
-    @IBAction func deactivateGate4(sender: UIButton) {
+    @IBAction func deactivateGate4(_ sender: UIButton) {
         brain.generator?.parameters[3] = 0.0
         slider4.value = 0
     }
     
     
-    @IBAction func updateParameter1(sender: UISlider) {
+    @IBAction func updateParameter1(_ sender: UISlider) {
         print("value 1 = \(sender.value)")
         brain.generator?.parameters[0] = Double(sender.value)
     }
-    @IBAction func updateParameter2(sender: UISlider) {
+    @IBAction func updateParameter2(_ sender: UISlider) {
         print("value 2 = \(sender.value)")
         brain.generator?.parameters[1] = Double(sender.value)
     }
-    @IBAction func updateParameter3(sender: UISlider) {
+    @IBAction func updateParameter3(_ sender: UISlider) {
         print("value 3 = \(sender.value)")
         brain.generator?.parameters[2] = Double(sender.value)
     }
-    @IBAction func updateParameter4(sender: UISlider) {
+    @IBAction func updateParameter4(_ sender: UISlider) {
         print("value 4 = \(sender.value)")
         brain.generator?.parameters[3] = Double(sender.value)
     }
