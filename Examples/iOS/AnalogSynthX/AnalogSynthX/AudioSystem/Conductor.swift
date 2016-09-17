@@ -50,10 +50,9 @@ class Conductor: AKMIDIListener {
         AudioKit.start()
 
         let midi = AKMIDI()
-// AOP had to comment this out for Xcode8 / Swift 3
-//        midi.createVirtualPorts()
-//        midi.openInput("Session 1")
-//        midi.addListener(self)
+        midi.createVirtualPorts()
+        midi.openInput("Session 1")
+        midi.addListener(self)
     }
     
     // MARK: - AKMIDIListener protocol functions
