@@ -16,8 +16,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
 
         addTitle("ADSR Envelope")
-
-        let adsrView = AKADSRView() {
+        //AKADSRView(node: fmWithADSR) for macOS
+        let adsrView = AKADSRView(node: fmWithADSR) {
             att, dec, sus, rel in
             fmWithADSR.attackDuration = att
             fmWithADSR.decayDuration = dec
@@ -44,12 +44,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     }
 
-    func noteOn(noteNumber: MIDINoteNumber) {
-        fmWithADSR.play(noteNumber: noteNumber, velocity: 80)
+    func noteOn(note: MIDINoteNumber) {
+        fmWithADSR.play(noteNumber: note, velocity: 80)
     }
 
-    func noteOff(noteNumber: MIDINoteNumber) {
-        fmWithADSR.stop(noteNumber: noteNumber)
+    func noteOff(note: MIDINoteNumber) {
+        fmWithADSR.stop(noteNumber: note)
     }
 
 }
