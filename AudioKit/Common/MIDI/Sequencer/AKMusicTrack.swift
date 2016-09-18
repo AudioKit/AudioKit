@@ -107,7 +107,8 @@ open class AKMusicTrack {
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
     open func setLength(_ duration: AKDuration) {
-        return // AOP This never seems to work
+        print("As of Xcode8 / Swift 3, this function doesn't work.")
+        return
         let size: UInt32 = 0
         var len = duration.musicTimeStamp
         var tmpSeq: MusicSequence? = nil
