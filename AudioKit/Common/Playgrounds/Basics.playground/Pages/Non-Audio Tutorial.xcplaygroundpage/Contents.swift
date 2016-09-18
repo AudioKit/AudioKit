@@ -26,7 +26,7 @@ import PlaygroundSupport
 
 //: This main bundle line just helps the playground find the files (such as audio clips)
 //: it will be able to play and process.
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main
 
 //: To reference a file, you use the bundle from about and the `pathForResource`
 //: method that includes the name with the extension given in the `ofType` parameter.
@@ -69,7 +69,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 //: by default because it takes significant power to draw the plots and we don't
 //: want your laptop's fan to fire up and drain your battery unnecessarily
 let plotView = AKOutputWaveformPlot.createView()
-XCPlaygroundPage.currentPage.liveView = plotView
+PlaygroundPage.current.liveView = plotView
 
 //: Now that we are near the bottom of the screen (unless you have a majorly tall monitor!)
 //: we'd like to call your attention to the playground controls on the
