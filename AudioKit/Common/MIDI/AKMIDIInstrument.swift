@@ -30,7 +30,24 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
         var result: OSStatus
-        result = MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn, MyMIDIReadBlock as! MIDIReadBlock)
+        
+        let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+            let packetCount = Int(packetList.pointee.numPackets)
+            let packet = packetList.pointee.packet as MIDIPacket
+            var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.allocate(capacity: 1)
+            packetPointer.initialize(to: packet)
+            for _ in 0 ..< packetCount {
+                let event = AKMIDIEvent(packet: packetPointer.pointee)
+                //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
+                self.handleMIDI(data1: UInt32(event.internalData[0]),
+                                data2: UInt32(event.internalData[1]),
+                                data3: UInt32(event.internalData[2]))
+                packetPointer = MIDIPacketNext(packetPointer)
+            }
+        }
+        
+        result = MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn, readBlock)
+        
         CheckError(result)
     }
 
@@ -102,22 +119,5 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
             stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
         }
-    }
-
-    fileprivate func MyMIDIReadBlock(
-        _ packetList: UnsafePointer<MIDIPacketList>,
-        srcConnRefCon: UnsafeMutableRawPointer) -> Void {
-            let packetCount = Int(packetList.pointee.numPackets)
-            let packet = packetList.pointee.packet as MIDIPacket
-            var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.allocate(capacity: 1)
-            packetPointer.initialize(to: packet)
-            for _ in 0 ..< packetCount {
-                let event = AKMIDIEvent(packet: packetPointer.pointee)
-                //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
-                handleMIDI(data1: UInt32(event.internalData[0]),
-                           data2: UInt32(event.internalData[1]),
-                           data3: UInt32(event.internalData[2]))
-                packetPointer = MIDIPacketNext(packetPointer)
-            }
     }
 }
