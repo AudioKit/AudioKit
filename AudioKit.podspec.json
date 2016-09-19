@@ -1,6 +1,6 @@
 {
     "name": "AudioKit",
-    "version": "3.3",
+    "version": "3.4",
     "authors": {
         "Aurelius Prochazka": "audiokit@audiokit.io"
     },
@@ -12,16 +12,21 @@
     "social_media_url": "http://twitter.com/AudioKitMan",
     "documentation_url": "http://audiokit.io/docs/",
     "source": {
-        "http": "https://github.com/audiokit/AudioKit/releases/download/v3.3/AudioKit.framework.zip"
+        "http": "https://github.com/audiokit/AudioKit/releases/download/v3.4/AudioKit.framework.zip"
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "platforms": {
+        "osx": "10.11",
         "ios": "9.0",
         "tvos": "9.0"
     },
     "frameworks": [
 	"AVFoundation"
     ],
+    "osx": {
+	"public_header_files": "macOS/AudioKit.framework/Versions/A/Headers/*.h",
+        "vendored_frameworks": "macOS/AudioKit.framework"
+    },
     "ios": {
         "source_files": "iOS/AudioKit.framework/Headers/*.h",
         "public_header_files": "iOS/AudioKit.framework/Headers/*.h",
