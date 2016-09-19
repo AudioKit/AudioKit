@@ -1,4 +1,4 @@
-AudioKit V3.3
+AudioKit V3.4
 ===
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
@@ -23,6 +23,10 @@ The third major revision of AudioKit has been completely rewritten to offer the 
 * Many included Xcode Swift playgrounds
 
 and quite a bit more. There are things that version 2 had that are not yet part of version 3, but rather than trying to support version 2, let us know what you need to do, and we'll port it over to version 3 upon request.
+
+### Swift 3
+
+As of AudioKit 3.4, we have moved to support Swift 3 exclusively. You will therefore need to use Xcode 8 (or above) to compile or use AudioKit in your projects. You will additionally need to convert your Swift 2 projects to Swift 3.
 
 ## Key Concepts
 
@@ -108,7 +112,7 @@ github "audiokit/AudioKit"
 If you use CocoaPods, you can also easily get the latest AudioKit binary framework for your project. Use this in your `Podfile`:
 
 ```
-pod 'AudioKit', '~> 3.3'
+pod 'AudioKit', '~> 3.4'
 ```
 
 ## About Us
