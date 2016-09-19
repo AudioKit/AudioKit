@@ -1,19 +1,19 @@
 //: ## Convolution
 //: Allows you to create a large variety of effects, usually reverbs or environments,
 //: but it could also be for modeling.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main
 
-let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
-let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
+let stairwell = bundle.url(forResource: "Impulse Responses/stairwell", withExtension: "wav")!
+let dish = bundle.url(forResource: "Impulse Responses/dish", withExtension: "wav")!
 
 var stairwellConvolution = AKConvolution.init(player,
                                               impulseResponseFileURL: stairwell,
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Dry Audio to Convolved",
             value: dryWetMixer.balance,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             dryWetMixer.balance = sliderValue
             })
@@ -52,12 +52,12 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Stairwell to Dish",
             value: mixer.balance,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { sliderValue in
             mixer.balance = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

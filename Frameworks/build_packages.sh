@@ -19,11 +19,13 @@ then
 fi
 
 # Generate documentation to include in the zip files
-
-jazzy -c --theme apple --source-directory ../AudioKit/iOS/ \
-	--module-version $VERSION \
-	--github-file-prefix https://github.com/audiokit/AudioKit/tree/v$VERSION \
-|| exit 1
+if test "$SKIP_JAZZY" = ""; 
+then
+	jazzy -c --theme apple --source-directory ../AudioKit/iOS/ \
+		--module-version $VERSION \
+		--github-file-prefix https://github.com/audiokit/AudioKit/tree/v$VERSION \
+	|| exit 1
+fi
 
 # Includes the framework and all example projects for the platform
 
@@ -42,7 +44,7 @@ create_package()
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../INSTALL.md .
 	cp -a ../docs/docsets/AudioKit.docset .
-	find . -name .DS_Store -or -name build -exec rm -f {} \;
+	find . -name .DS_Store -or -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..
 	zip -9yr ${DIR}-${VERSION}.zip $DIR
 }

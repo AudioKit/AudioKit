@@ -23,9 +23,7 @@ class SongViewController: UIViewController {
     
     var song: MPMediaItem? {
         didSet {
-            
-            if song!.valueForProperty(MPMediaItemPropertyArtistPersistentID)!.integerValue !=
-                songProcessor.currentSong?.valueForProperty(MPMediaItemPropertyArtistPersistentID)!.integerValue {
+            if song!.persistentID != songProcessor.currentSong?.persistentID  {
                 
                 songProcessor.audioFilePlayer?.stop()
                 songProcessor.isPlaying = false
@@ -41,29 +39,29 @@ class SongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let artwork = songProcessor.currentSong!.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork {
-            albumImageView.image = artwork.imageWithSize(self.view.bounds.size)
+        if let artwork = songProcessor.currentSong!.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork {
+            albumImageView.image = artwork.image(at: self.view.bounds.size)
         }
         
         if songProcessor.isPlaying!  {
-            playButton.setTitle("Pause", forState: .Normal)
+            playButton.setTitle("Pause", for: UIControlState())
         } else {
-            playButton.setTitle("Play", forState: .Normal)
+            playButton.setTitle("Play", for: UIControlState())
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        let docDirs: [NSString] = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    override func viewWillAppear(_ animated: Bool) {
+        let docDirs: [NSString] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [NSString]
         let docDir = docDirs[0]
-        let tmp = docDir.stringByAppendingPathComponent("exported") as NSString
-        exportPath = tmp.stringByAppendingPathExtension("wav")!
+        let tmp = docDir.appendingPathComponent("exported") as NSString
+        exportPath = tmp.appendingPathExtension("wav")!
         
         exporter = SongExporter(exportPath: exportPath)
         print("Exporting song")
         exporter?.exportSong(song!)
     }
     
-    @IBAction func play(sender: UIButton) {
+    @IBAction func play(_ sender: UIButton) {
         
         if exporter?.isReadyToPlay == false {
             print("Not Ready")
@@ -72,12 +70,12 @@ class SongViewController: UIViewController {
         
         if sender.titleLabel!.text == "Play" {
             loadSong()
-            playButton.setTitle("Stop", forState: .Normal)
+            playButton.setTitle("Stop", for: UIControlState())
             songProcessor.audioFilePlayer!.play()
             songProcessor.isPlaying = true
             
         } else {
-            playButton.setTitle("Play", forState: .Normal)
+            playButton.setTitle("Play", for: UIControlState())
             songProcessor.audioFilePlayer!.stop()
             songProcessor.isPlaying = false
         }
@@ -85,15 +83,15 @@ class SongViewController: UIViewController {
     
     func loadSong() {
         
-        if NSFileManager.defaultManager().fileExistsAtPath(exportPath) == false {
+        if FileManager.default.fileExists(atPath: exportPath) == false {
             print("exportPath: \(exportPath)")
             print("File does not exist.")
             return
         }
         
-        playButton.hidden = false
+        playButton.isHidden = false
         
-        songProcessor.audioFile = try? AKAudioFile(readFileName: "exported.wav", baseDir: .Documents)
+        songProcessor.audioFile = try? AKAudioFile(readFileName: "exported.wav", baseDir: .documents)
         
         let _ = try? songProcessor.audioFilePlayer?.replaceFile(songProcessor.audioFile!)
         

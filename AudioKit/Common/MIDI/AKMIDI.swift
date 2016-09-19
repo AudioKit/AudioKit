@@ -20,24 +20,24 @@ import CoreMIDI
 /// ...where someClass conforms to the AKMIDIListener protocol
 ///
 /// You then implement the methods you need from AKMIDIListener and use the data how you need.
-public class AKMIDI {
+open class AKMIDI {
     
     // MARK: - Properties
     
     /// MIDI Client Reference
-    public var client = MIDIClientRef()
+    open var client = MIDIClientRef()
     
     /// Array of MIDI In ports
     internal var inputPorts = [String: MIDIPortRef]()
     
     /// Virtual MIDI Input destination
-    public var virtualInput = MIDIPortRef()
+    open var virtualInput = MIDIPortRef()
 
     /// MIDI Client Name
-    private var clientName: CFString = "MIDI Client"
+    fileprivate var clientName: CFString = "MIDI Client" as CFString
     
     /// MIDI In Port Name
-    internal var inputPortName: CFString = "MIDI In Port"
+    internal var inputPortName: CFString = "MIDI In Port" as CFString
     
     /// MIDI Out Port Reference
     internal var outputPort = MIDIPortRef()
@@ -49,7 +49,7 @@ public class AKMIDI {
     internal var endpoints = [String: MIDIEndpointRef]()
     
     /// MIDI Out Port Name
-    internal var outputPortName: CFString = "MIDI Out Port"
+    internal var outputPortName: CFString = "MIDI Out Port" as CFString
     
     /// Array of all listeners
     internal var listeners = [AKMIDIListener]()
@@ -60,9 +60,9 @@ public class AKMIDI {
     public init() {
 
         #if os(iOS)
-            MIDINetworkSession.defaultSession().enabled = true
-            MIDINetworkSession.defaultSession().connectionPolicy =
-                MIDINetworkConnectionPolicy.Anyone
+            MIDINetworkSession.default().isEnabled = true
+            MIDINetworkSession.default().connectionPolicy =
+                MIDINetworkConnectionPolicy.anyone
         #endif
         var result = noErr
         if client == 0 {
@@ -76,12 +76,22 @@ public class AKMIDI {
     // MARK: - Virtual MIDI
     
     /// Create set of virtual MIDI ports
-    public func createVirtualPorts(uniqueId: Int32 = 2000000) {
+    open func createVirtualPorts(_ uniqueId: Int32 = 2000000) {
 
         destroyVirtualPorts()
         
         var result = noErr
-        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, MyMIDIReadBlock)
+        
+        let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+            for packet in packetList.pointee {
+                // a coremidi packet may contain multiple midi events
+                for event in packet {
+                    self.handleMidiMessage(event)
+                }
+            }
+        }
+        
+        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, readBlock)
         
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)
@@ -99,7 +109,7 @@ public class AKMIDI {
     }
     
     /// Discard all virtual ports
-    public func destroyVirtualPorts() {
+    open func destroyVirtualPorts() {
         if virtualInput != 0 {
             MIDIEndpointDispose(virtualInput)
             virtualInput = 0

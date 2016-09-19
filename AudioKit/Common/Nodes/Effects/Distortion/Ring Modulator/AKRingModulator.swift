@@ -17,11 +17,11 @@ import AVFoundation
 ///   - balance: Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
 ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
 ///
-public class AKRingModulator: AKNode, AKToggleable {
+open class AKRingModulator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    private let cd = AudioComponentDescription(
+    fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
         componentSubType: kAudioUnitSubType_Distortion,
         componentManufacturer: kAudioUnitManufacturer_Apple,
@@ -29,12 +29,12 @@ public class AKRingModulator: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
-    private var lastKnownMix: Double = 1
+    fileprivate var lastKnownMix: Double = 1
 
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    public var frequency1: Double = 100 {
+    open var frequency1: Double = 100 {
         didSet {
             if frequency1 < 0.5 {
                 frequency1 = 0.5
@@ -42,12 +42,12 @@ public class AKRingModulator: AKNode, AKToggleable {
             if frequency1 > 8000 {
                 frequency1 = 8000
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(frequency1), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(frequency1), 0)
         }
     }
 
     /// Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    public var frequency2: Double = 100 {
+    open var frequency2: Double = 100 {
         didSet {
             if frequency2 < 0.5 {
                 frequency2 = 0.5
@@ -55,12 +55,12 @@ public class AKRingModulator: AKNode, AKToggleable {
             if frequency2 > 8000 {
                 frequency2 = 8000
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(frequency2), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(frequency2), 0)
         }
     }
 
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var balance: Double = 0.5 {
+    open var balance: Double = 0.5 {
         didSet {
             if balance < 0 {
                 balance = 0
@@ -68,12 +68,12 @@ public class AKRingModulator: AKNode, AKToggleable {
             if balance > 1 {
                 balance = 1
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
         }
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    public var mix: Double = 100 {
+    open var mix: Double = 100 {
         didSet {
             if mix < 0 {
                 mix = 0
@@ -81,12 +81,12 @@ public class AKRingModulator: AKNode, AKToggleable {
             if mix > 1 {
                 mix = 1
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
+    open var isStarted = true
 
     // MARK: - Initialization
 
@@ -115,24 +115,24 @@ public class AKRingModulator: AKNode, AKToggleable {
 
             super.init()
             avAudioNode = internalEffect
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
 
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)
 
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1,   kAudioUnitScope_Global, 0, Float(frequency1), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2,   kAudioUnitScope_Global, 0, Float(frequency2), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix,       kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq1,   kAudioUnitScope_Global, 0, Float(frequency1), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq2,   kAudioUnitScope_Global, 0, Float(frequency2), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_FinalMix,       kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
 
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         if isStopped {
             mix = lastKnownMix
             isStarted = true
@@ -140,7 +140,7 @@ public class AKRingModulator: AKNode, AKToggleable {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = mix
             mix = 0

@@ -15,18 +15,18 @@ import AVFoundation
 ///   - bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
 ///   - sampleRate: The sample rate of signal output.
 ///
-public class AKBitCrusher: AKNode, AKToggleable {
+open class AKBitCrusher: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKBitCrusherAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var bitDepthParameter: AUParameter?
-    private var sampleRateParameter: AUParameter?
+    fileprivate var bitDepthParameter: AUParameter?
+    fileprivate var sampleRateParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -36,7 +36,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
     }
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    public var bitDepth: Double = 8 {
+    open var bitDepth: Double = 8 {
         willSet {
             if bitDepth != newValue {
                 if internalAU!.isSetUp() {
@@ -48,7 +48,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
         }
     }
     /// The sample rate of signal output.
-    public var sampleRate: Double = 10000 {
+    open var sampleRate: Double = 10000 {
         willSet {
             if sampleRate != newValue {
                 if internalAU!.isSetUp() {
@@ -61,7 +61,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -91,39 +91,39 @@ public class AKBitCrusher: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKBitCrusherAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBitCrusher",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBitCrusherAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBitCrusherAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        bitDepthParameter   = tree.valueForKey("bitDepth")   as? AUParameter
-        sampleRateParameter = tree.valueForKey("sampleRate") as? AUParameter
+        bitDepthParameter   = tree.value(forKey: "bitDepth")   as? AUParameter
+        sampleRateParameter = tree.value(forKey: "sampleRate") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.bitDepthParameter!.address {
                     self.bitDepth = Double(value)
                 } else if address == self.sampleRateParameter!.address {
                     self.sampleRate = Double(value)
                 }
             }
-        }
+        })
 
         internalAU?.bitDepth = Float(bitDepth)
         internalAU?.sampleRate = Float(sampleRate)
@@ -132,12 +132,12 @@ public class AKBitCrusher: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

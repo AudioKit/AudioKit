@@ -4,7 +4,7 @@
 //:
 //: ## Using Functions
 //: Encapsualating functionality of operations into functions
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 func drone(frequency: Double, rate: Double) -> AKOperation {
@@ -15,9 +15,9 @@ func drone(frequency: Double, rate: Double) -> AKOperation {
 
 let generator = AKOperationGenerator() { _ in
 
-    let drone1 = drone(440, rate: 3)
-    let drone2 = drone(330, rate: 5)
-    let drone3 = drone(450, rate: 7)
+    let drone1 = drone(frequency: 440, rate: 3)
+    let drone2 = drone(frequency: 330, rate: 5)
+    let drone3 = drone(frequency: 450, rate: 7)
 
     return (drone1 + drone2 + drone3) / 3
 }
@@ -27,6 +27,5 @@ AudioKit.start()
 
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

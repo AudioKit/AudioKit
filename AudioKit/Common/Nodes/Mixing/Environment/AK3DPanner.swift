@@ -7,26 +7,26 @@
 //
 
 /// 3-D Spatialization of the input
-public class AK3DPanner: AKNode {
-    private let environmentNode = AVAudioEnvironmentNode()
+open class AK3DPanner: AKNode {
+    fileprivate let environmentNode = AVAudioEnvironmentNode()
     
     
     /// Position of sound source along x-axis
-    public var x: Double {
+    open var x: Double {
         willSet {
             environmentNode.listenerPosition.x = Float(-newValue)
         }
     }
     
     /// Position of sound source along y-axis
-    public var y: Double {
+    open var y: Double {
         willSet {
             environmentNode.listenerPosition.y = Float(-newValue)
         }
     }
     
     /// Position of sound source along z-axis
-    public var z: Double {
+    open var z: Double {
         willSet {
             environmentNode.listenerPosition.z = Float(-newValue)
         }
@@ -47,12 +47,12 @@ public class AK3DPanner: AKNode {
         super.init()
 
         self.avAudioNode = environmentNode
-        AudioKit.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attach(self.avAudioNode)
         input.connectionPoints.append(AVAudioConnectionPoint(node: environmentNode, bus: environmentNode.numberOfInputs))
         
         let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
         
-        AudioKit.engine.connect(input.avAudioNode, toConnectionPoints: input.connectionPoints, fromBus: 0, format: format)
+        AudioKit.engine.connect(input.avAudioNode, to: input.connectionPoints, fromBus: 0, format: format)
     }
 
 }

@@ -2,7 +2,7 @@
 //: If you open the Assitant editor and make sure it shows the
 //: "Output Waveform Plot.xcplaygroundpage (Timeline) view",
 //: you should see a plot of the waveform in real time
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var oscillator = AKFMOscillator()
@@ -21,7 +21,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Frequency",
             format: "%0.2f Hz",
             value: oscillator.baseFrequency, maximum: 800,
-            color: AKColor.yellowColor()
+            color: AKColor.yellow
         ) { frequency in
             oscillator.baseFrequency = frequency
         })
@@ -30,7 +30,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Carrier Multiplier",
             format: "%0.3f",
             value: oscillator.carrierMultiplier, maximum: 3,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         })
@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Modulating Multiplier",
             format: "%0.3f",
             value: oscillator.modulatingMultiplier, maximum: 3,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         })
@@ -48,26 +48,24 @@ class PlaygroundView: AKPlaygroundView {
             property: "Modulation Index",
             format: "%0.3f",
             value: oscillator.modulationIndex, maximum: 3,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { index in
             oscillator.modulationIndex = index
         })
-
 
         addSubview(AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
             value: oscillator.amplitude,
-            color: AKColor.purpleColor()
+            color: AKColor.purple
         ) { amplitude in
             oscillator.amplitude = amplitude
         })
-
 
         addSubview(AKOutputWaveformPlot.createView())
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 

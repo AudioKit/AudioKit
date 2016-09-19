@@ -29,12 +29,12 @@ import AVFoundation
 ///   - softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
 ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
 ///
-public class AKDistortion: AKNode, AKToggleable {
+open class AKDistortion: AKNode, AKToggleable {
 
 
     // MARK: - Properties
 
-    private let cd = AudioComponentDescription(
+    fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
         componentSubType: kAudioUnitSubType_Distortion,
         componentManufacturer: kAudioUnitManufacturer_Apple,
@@ -42,12 +42,12 @@ public class AKDistortion: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
-    private var lastKnownMix: Double = 0.5
+    fileprivate var lastKnownMix: Double = 0.5
 
     /// Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
-    public var delay: Double = 0.1 {
+    open var delay: Double = 0.1 {
         didSet {
             if delay < 0.1 {
                 delay = 0.1
@@ -56,7 +56,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 delay = 500
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_Delay,
                 kAudioUnitScope_Global, 0,
                 Float(delay), 0)
@@ -64,7 +64,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
-    public var decay: Double = 1.0 {
+    open var decay: Double = 1.0 {
         didSet {
             if decay < 0.1 {
                 decay = 0.1
@@ -73,7 +73,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 decay = 50
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_Decay,
                 kAudioUnitScope_Global, 0,
                 Float(decay), 0)
@@ -81,7 +81,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Delay Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var delayMix: Double = 0.5 {
+    open var delayMix: Double = 0.5 {
         didSet {
             if delayMix < 0 {
                 delayMix = 0
@@ -90,7 +90,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 delayMix = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_DelayMix,
                 kAudioUnitScope_Global, 0,
                 Float(delayMix) * 100.0, 0)
@@ -98,7 +98,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var decimation: Double = 0.5 {
+    open var decimation: Double = 0.5 {
         didSet {
             if decimation < 0 {
                 decimation = 0
@@ -107,7 +107,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 decimation = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_Decimation,
                 kAudioUnitScope_Global, 0,
                 Float(decimation) * 100.0, 0)
@@ -115,7 +115,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Rounding (Normalized Value) ranges from 0 to 1 (Default: 0.0)
-    public var rounding: Double = 0.0 {
+    open var rounding: Double = 0.0 {
         didSet {
             if rounding < 0 {
                 rounding = 0
@@ -124,7 +124,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 rounding = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_Rounding,
                 kAudioUnitScope_Global, 0,
                 Float(rounding) * 100.0, 0)
@@ -132,7 +132,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Decimation Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var decimationMix: Double = 0.5 {
+    open var decimationMix: Double = 0.5 {
         didSet {
             if decimationMix < 0 {
                 decimationMix = 0
@@ -141,7 +141,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 decimationMix = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_DecimationMix,
                 kAudioUnitScope_Global, 0,
                 Float(decimationMix) * 100.0, 0)
@@ -149,7 +149,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Linear Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var linearTerm: Double = 0.5 {
+    open var linearTerm: Double = 0.5 {
         didSet {
             if linearTerm < 0 {
                 linearTerm = 0
@@ -158,7 +158,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 linearTerm = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_LinearTerm,
                 kAudioUnitScope_Global, 0,
                 Float(linearTerm) * 100.0, 0)
@@ -166,7 +166,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Squared Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var squaredTerm: Double = 0.5 {
+    open var squaredTerm: Double = 0.5 {
         didSet {
             if squaredTerm < 0 {
                 squaredTerm = 0
@@ -175,7 +175,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 squaredTerm = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_SquaredTerm,
                 kAudioUnitScope_Global, 0,
                 Float(squaredTerm) * 100.0, 0)
@@ -183,7 +183,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Cubic Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var cubicTerm: Double = 0.5 {
+    open var cubicTerm: Double = 0.5 {
         didSet {
             if cubicTerm < 0 {
                 cubicTerm = 0
@@ -192,7 +192,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 cubicTerm = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_CubicTerm,
                 kAudioUnitScope_Global, 0,
                 Float(cubicTerm) * 100.0, 0)
@@ -200,7 +200,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Polynomial Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var polynomialMix: Double = 0.5 {
+    open var polynomialMix: Double = 0.5 {
         didSet {
             if polynomialMix < 0 {
                 polynomialMix = 0
@@ -209,7 +209,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 polynomialMix = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_PolynomialMix,
                 kAudioUnitScope_Global, 0,
                 Float(polynomialMix * 100.0), 0)
@@ -217,7 +217,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    public var ringModFreq1: Double = 100 {
+    open var ringModFreq1: Double = 100 {
         didSet {
             if ringModFreq1 < 0.5 {
                 ringModFreq1 = 0.5
@@ -226,7 +226,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 ringModFreq1 = 8000
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_RingModFreq1,
                 kAudioUnitScope_Global, 0,
                 Float(ringModFreq1), 0)
@@ -234,7 +234,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    public var ringModFreq2: Double = 100 {
+    open var ringModFreq2: Double = 100 {
         didSet {
             if ringModFreq2 < 0.5 {
                 ringModFreq2 = 0.5
@@ -243,7 +243,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 ringModFreq2 = 8000
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_RingModFreq2,
                 kAudioUnitScope_Global, 0,
                 Float(ringModFreq2), 0)
@@ -251,7 +251,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var ringModBalance: Double = 0.5 {
+    open var ringModBalance: Double = 0.5 {
         didSet {
             if ringModBalance < 0 {
                 ringModBalance = 0
@@ -260,7 +260,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 ringModBalance = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_RingModBalance,
                 kAudioUnitScope_Global, 0,
                 Float(ringModBalance * 100.0), 0)
@@ -268,7 +268,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Ring Mod Mix (Normalized Value) ranges from 0 to 1 (Default: 0.0)
-    public var ringModMix: Double = 0.0 {
+    open var ringModMix: Double = 0.0 {
         didSet {
             if ringModMix < 0 {
                 ringModMix = 0
@@ -277,7 +277,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 ringModMix = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_RingModMix,
                 kAudioUnitScope_Global, 0,
                 Float(ringModMix * 100.0), 0)
@@ -285,7 +285,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
-    public var softClipGain: Double = -6 {
+    open var softClipGain: Double = -6 {
         didSet {
             if softClipGain < -80 {
                 softClipGain = -80
@@ -294,7 +294,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 softClipGain = 20
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_SoftClipGain,
                 kAudioUnitScope_Global, 0,
                 Float(softClipGain), 0)
@@ -302,7 +302,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var finalMix: Double = 0.5 {
+    open var finalMix: Double = 0.5 {
         didSet {
             if finalMix < 0 {
                 finalMix = 0
@@ -311,7 +311,7 @@ public class AKDistortion: AKNode, AKToggleable {
                 finalMix = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kDistortionParam_FinalMix,
                 kAudioUnitScope_Global, 0,
                 Float(finalMix * 100.0), 0)
@@ -319,7 +319,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
+    open var isStarted = true
 
     // MARK: - Initialization
 
@@ -383,32 +383,32 @@ public class AKDistortion: AKNode, AKToggleable {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
             avAudioNode = internalEffect
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
 
-            AudioUnitSetParameter(internalAU, kDistortionParam_Delay, kAudioUnitScope_Global, 0, Float(delay), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decay, kAudioUnitScope_Global, 0, Float(decay), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_DelayMix, kAudioUnitScope_Global, 0, Float(delayMix) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, Float(decimation) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, Float(rounding) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, Float(decimationMix) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_LinearTerm, kAudioUnitScope_Global, 0, Float(linearTerm) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_SquaredTerm, kAudioUnitScope_Global, 0, Float(squaredTerm) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_CubicTerm, kAudioUnitScope_Global, 0, Float(cubicTerm) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, Float(polynomialMix) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(ringModFreq1), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(ringModFreq2), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(ringModBalance) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, Float(ringModMix) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_SoftClipGain, kAudioUnitScope_Global, 0, Float(softClipGain), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(finalMix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_Delay, kAudioUnitScope_Global, 0, Float(delay), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_Decay, kAudioUnitScope_Global, 0, Float(decay), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_DelayMix, kAudioUnitScope_Global, 0, Float(delayMix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, Float(decimation) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, Float(rounding) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, Float(decimationMix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_LinearTerm, kAudioUnitScope_Global, 0, Float(linearTerm) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_SquaredTerm, kAudioUnitScope_Global, 0, Float(squaredTerm) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_CubicTerm, kAudioUnitScope_Global, 0, Float(cubicTerm) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, Float(polynomialMix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(ringModFreq1), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(ringModFreq2), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(ringModBalance) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, Float(ringModMix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_SoftClipGain, kAudioUnitScope_Global, 0, Float(softClipGain), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(finalMix) * 100.0, 0)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         if isStopped {
             finalMix = lastKnownMix
             isStarted = true
@@ -416,7 +416,7 @@ public class AKDistortion: AKNode, AKToggleable {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = finalMix
             finalMix = 0

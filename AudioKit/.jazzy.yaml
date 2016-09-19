@@ -4,7 +4,7 @@ author_url: http://audiokit.io/
 github_url: https://github.com/audiokit/AudioKit
 min_acl: public
 readme: ../README.md
-swift_version: 2.2
+#swift_version: 3.0
 
 
 custom_categories:

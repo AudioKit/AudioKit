@@ -22,8 +22,8 @@ class ViewController: UIViewController {
         buttons.append(bassButton)
         buttons.append(snareButton)
         for button in buttons {
-            button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-            button.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Disabled)
+            button.setTitleColor(UIColor.white, for: UIControlState())
+            button.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
         }
     }
     
@@ -33,79 +33,79 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    @IBAction func clearMelodySequence(sender: UIButton) {
-        conductor.clear(Sequence.Melody)
-        melodyButton?.enabled = false
+    @IBAction func clearMelodySequence(_ sender: UIButton) {
+        conductor.clear(Sequence.melody)
+        melodyButton?.isEnabled = false
     }
     
-    @IBAction func clearBassDrumSequence(sender: UIButton) {
-        conductor.clear(Sequence.BassDrum)
-        bassButton?.enabled = false
+    @IBAction func clearBassDrumSequence(_ sender: UIButton) {
+        conductor.clear(Sequence.bassDrum)
+        bassButton?.isEnabled = false
     }
     
-    @IBAction func clearSnareDrumSequence(sender: UIButton) {
-        conductor.clear(Sequence.SnareDrum)
-        snareButton?.enabled = false
+    @IBAction func clearSnareDrumSequence(_ sender: UIButton) {
+        conductor.clear(Sequence.snareDrum)
+        snareButton?.isEnabled = false
     }
     
-    @IBAction func clearSnareDrumGhostSequence(sender: UIButton) {
-        conductor.clear(Sequence.SnareDrumGhost)
+    @IBAction func clearSnareDrumGhostSequence(_ sender: UIButton) {
+        conductor.clear(Sequence.snareDrumGhost)
     }
     
-    @IBAction func generateMajorSequence(sender: UIButton) {
+    @IBAction func generateMajorSequence(_ sender: UIButton) {
         conductor.generateNewMelodicSequence(minor: false)
-        melodyButton?.enabled = true
+        melodyButton?.isEnabled = true
     }
     
-    @IBAction func generateMinorSequence(sender: UIButton) {
+    @IBAction func generateMinorSequence(_ sender: UIButton) {
         conductor.generateNewMelodicSequence(minor: true)
-        melodyButton?.enabled = true
+        melodyButton?.isEnabled = true
     }
     
-    @IBAction func generateBassDrumSequence(sender: UIButton) {
+    @IBAction func generateBassDrumSequence(_ sender: UIButton) {
         conductor.generateBassDrumSequence()
-        bassButton?.enabled = true
+        bassButton?.isEnabled = true
     }
     
-    @IBAction func generateBassDrumHalfSequence(sender: UIButton) {
+    @IBAction func generateBassDrumHalfSequence(_ sender: UIButton) {
         conductor.generateBassDrumSequence(2)
-        bassButton?.enabled = true
+        bassButton?.isEnabled = true
     }
     
-    @IBAction func generateBassDrumQuarterSequence(sender: UIButton) {
+    @IBAction func generateBassDrumQuarterSequence(_ sender: UIButton) {
         conductor.generateBassDrumSequence(4)
-        bassButton?.enabled = true
+        bassButton?.isEnabled = true
     }
     
     
-    @IBAction func generateSnareDrumSequence(sender: UIButton) {
+    @IBAction func generateSnareDrumSequence(_ sender: UIButton) {
         conductor.generateSnareDrumSequence()
-        snareButton?.enabled = true
+        snareButton?.isEnabled = true
     }
     
     
-    @IBAction func generateSnareDrumHalfSequence(sender: UIButton) {
+    @IBAction func generateSnareDrumHalfSequence(_ sender: UIButton) {
         conductor.generateSnareDrumSequence(2)
-        snareButton?.enabled = true
+        snareButton?.isEnabled = true
     }
     
-    @IBAction func generateSnareDrumGhostSequence(sender: UIButton) {
+    @IBAction func generateSnareDrumGhostSequence(_ sender: UIButton) {
         conductor.generateSnareDrumGhostSequence()
-        snareButton?.enabled = true
+        snareButton?.isEnabled = true
     }
     
-    @IBAction func decreaseTepmo(sender: UIButton) {
+    @IBAction func decreaseTepmo(_ sender: UIButton) {
         conductor.decreaseTempo()
     }
     
-    @IBAction func increaseTempo(sender: UIButton) {
+    @IBAction func increaseTempo(_ sender: UIButton) {
         conductor.increaseTempo()
     }
     
-    @IBAction func generateSequence(sender: UIButton) {
+    @IBAction func generateSequence(_ sender: UIButton) {
         conductor.generateSequence()
-        melodyButton?.enabled = true
-        bassButton?.enabled = true
-        snareButton?.enabled = true
+        melodyButton?.isEnabled = true
+        bassButton?.isEnabled = true
+        snareButton?.isEnabled = true
     }
 }

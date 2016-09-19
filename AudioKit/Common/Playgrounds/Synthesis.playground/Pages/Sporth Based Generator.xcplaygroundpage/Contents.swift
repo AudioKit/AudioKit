@@ -1,7 +1,7 @@
 //: ## Sporth Based Generator
 //: AudioKit nodes can be created using [Sporth](https://github.com/PaulBatchelor/Sporth).
 //: With this playground you can load up a few demonstration sporth patches to try out.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var generator = AKOperationGenerator(sporth: "")
@@ -79,28 +79,28 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         p0Slider = AKPropertySlider(
             property: "Parameter 0",
             value: generator.parameters[0],
-            color: AKColor.orangeColor()) { sliderValue in
+            color: AKColor.orange) { sliderValue in
                 generator.parameters[0] = sliderValue
             }
         addSubview(p0Slider!)
         p1Slider = AKPropertySlider(
             property: "Parameter 1",
             value: generator.parameters[1],
-        color: AKColor.cyanColor()) { sliderValue in
+        color: AKColor.cyan) { sliderValue in
             generator.parameters[1] = sliderValue
             }
         addSubview(p1Slider!)
         p2Slider = AKPropertySlider(
             property: "Parameter 2",
             value: generator.parameters[2],
-        color: AKColor.magentaColor()) { sliderValue in
+        color: AKColor.magenta) { sliderValue in
             generator.parameters[2] = sliderValue
             }
         addSubview(p2Slider!)
         p3Slider = AKPropertySlider(
             property: "Parameter 3",
         value: generator.parameters[3],
-        color: AKColor.yellowColor()) { sliderValue in
+        color: AKColor.yellow) { sliderValue in
             generator.parameters[3] = sliderValue
             }
         addSubview(p3Slider!)
@@ -126,5 +126,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

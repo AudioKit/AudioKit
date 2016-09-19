@@ -17,23 +17,23 @@ import AVFoundation
 ///   - detuningOffset: Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
+open class AKPhaseDistortionOscillator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKPhaseDistortionOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var waveform: AKTable?
+    fileprivate var waveform: AKTable?
 
-    private var frequencyParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
-    private var phaseDistortionParameter: AUParameter?
-    private var detuningOffsetParameter: AUParameter?
-    private var detuningMultiplierParameter: AUParameter?
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var amplitudeParameter: AUParameter?
+    fileprivate var phaseDistortionParameter: AUParameter?
+    fileprivate var detuningOffsetParameter: AUParameter?
+    fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -43,7 +43,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
     }
 
     /// In cycles per second, or Hz.
-    public var frequency: Double = 440 {
+    open var frequency: Double = 440 {
         willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
@@ -56,7 +56,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
     }
 
     /// Output amplitude
-    public var amplitude: Double = 1.0 {
+    open var amplitude: Double = 1.0 {
         willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
@@ -69,7 +69,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
     }
 
     /// Frequency offset in Hz.
-    public var detuningOffset: Double = 0 {
+    open var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
                 if internalAU!.isSetUp() {
@@ -82,7 +82,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
     }
 
     /// Frequency detuning multiplier
-    public var detuningMultiplier: Double = 1 {
+    open var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU!.isSetUp() {
@@ -96,7 +96,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
 
 
     /// Duty cycle width (range -1 - -1).
-    public var phaseDistortion: Double = 0.0 {
+    open var phaseDistortion: Double = 0.0 {
         willSet {
             if phaseDistortion != newValue {
                 if internalAU!.isSetUp() {
@@ -109,7 +109,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -117,7 +117,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
     
     /// Initialize the oscillator with defaults
     public convenience override init() {
-        self.init(waveform: AKTable(.Sine))
+        self.init(waveform: AKTable(.sine))
     }
 
     /// Initialize this oscillator node
@@ -154,38 +154,38 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKPhaseDistortionOscillatorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPhaseDistortionOscillator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPhaseDistortionOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPhaseDistortionOscillatorAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
             for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
+                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
-        amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
-        phaseDistortionParameter    = tree.valueForKey("phaseDistortion")    as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
+        frequencyParameter          = tree.value(forKey: "frequency")          as? AUParameter
+        amplitudeParameter          = tree.value(forKey: "amplitude")          as? AUParameter
+        phaseDistortionParameter    = tree.value(forKey: "phaseDistortion")    as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
@@ -198,7 +198,7 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
                     self.detuningMultiplier = Double(value)
                 }
             }
-        }
+        })
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
         internalAU?.phaseDistortion = Float(phaseDistortion)
@@ -207,12 +207,12 @@ public class AKPhaseDistortionOscillator: AKNode, AKToggleable {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

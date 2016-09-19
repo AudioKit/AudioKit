@@ -30,15 +30,15 @@ class MultiDelay: AKNode {
         }
     }
 
-    private var leftDelays: [AKDelay] = []
-    private var rightDelays: [AKDelay] = []
-    private var leftBoosters: [AKBooster] = []
-    private var rightBoosters: [AKBooster] = []
-    private var gains = [0.5, 0.25, 0.15]
-    private var leftTimes = [1.0, 2.0, 3.0]
-    private var rightTimes = [1.5, 2.5, 3.5]
+    fileprivate var leftDelays: [AKDelay] = []
+    fileprivate var rightDelays: [AKDelay] = []
+    fileprivate var leftBoosters: [AKBooster] = []
+    fileprivate var rightBoosters: [AKBooster] = []
+    fileprivate var gains = [0.5, 0.25, 0.15]
+    fileprivate var leftTimes = [1.0, 2.0, 3.0]
+    fileprivate var rightTimes = [1.5, 2.5, 3.5]
 
-    func updateDelays(delays: [AKDelay], boosters: [AKBooster], times: [Double], gains: [Double]) {
+    func updateDelays(_ delays: [AKDelay], boosters: [AKBooster], times: [Double], gains: [Double]) {
         for i in 0..<gains.count {
             delays[i].time = times[i]
             boosters[i].gain = gains[i]

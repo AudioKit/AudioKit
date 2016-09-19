@@ -1,11 +1,11 @@
 //: ## Simple Reverb
 //: This is an implementation of Apple's simplest reverb which only allows you to set presets
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Mix",
             value: reverb.dryWetMix,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             reverb.dryWetMix = sliderValue
             })
@@ -45,29 +45,29 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Cathedral":
-                reverb.loadFactoryPreset(.Cathedral)
+                reverb.loadFactoryPreset(.cathedral)
             case "Large Hall":
-                reverb.loadFactoryPreset(.LargeHall)
+                reverb.loadFactoryPreset(.largeHall)
             case "Large Hall 2":
-                reverb.loadFactoryPreset(.LargeHall2)
+                reverb.loadFactoryPreset(.largeHall2)
             case "Large Room":
-                reverb.loadFactoryPreset(.LargeRoom)
+                reverb.loadFactoryPreset(.largeRoom)
             case "Large Room 2":
-                reverb.loadFactoryPreset(.LargeRoom2)
+                reverb.loadFactoryPreset(.largeRoom2)
             case "Medium Chamber":
-                reverb.loadFactoryPreset(.MediumChamber)
+                reverb.loadFactoryPreset(.mediumChamber)
             case "Medium Hall":
-                reverb.loadFactoryPreset(.MediumHall)
+                reverb.loadFactoryPreset(.mediumHall)
             case "Medium Hall 2":
-                reverb.loadFactoryPreset(.MediumHall2)
+                reverb.loadFactoryPreset(.mediumHall2)
             case "Medium Hall 3":
-                reverb.loadFactoryPreset(.MediumHall3)
+                reverb.loadFactoryPreset(.mediumHall3)
             case "Medium Room":
-                reverb.loadFactoryPreset(.MediumRoom)
+                reverb.loadFactoryPreset(.mediumRoom)
             case "Plate":
-                reverb.loadFactoryPreset(.Plate)
+                reverb.loadFactoryPreset(.plate)
             case "Small Room":
-                reverb.loadFactoryPreset(.SmallRoom)
+                reverb.loadFactoryPreset(.smallRoom)
             default: break
             }}
         )
@@ -76,7 +76,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

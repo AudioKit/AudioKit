@@ -9,7 +9,7 @@
 import UIKit
 
 protocol KnobSmallDelegate {
-    func updateKnobValue(value: Double, tag: Int)
+    func updateKnobValue(_ value: Double, tag: Int)
 }
 
 @IBDesignable
@@ -22,19 +22,19 @@ class KnobSmall: Knob {
     var knob120_indicator = UIImage(named: "knob120_indicator")
 
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         drawKnobSmall(knobValue: knobValue)
     }
 
     // MARK: - Set Percentages
-    override func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
+    override func setPercentagesWithTouchPoint(_ touchPoint: CGPoint) {
         super.setPercentagesWithTouchPoint(touchPoint)
         delegate?.updateKnobValue(value, tag: self.tag)
         setNeedsDisplay()
     }
 
     // MARK: - PaintCode generated code
-    func drawKnobSmall(knobValue knobValue: CGFloat = 0.332) {
+    func drawKnobSmall(knobValue: CGFloat = 0.332) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -43,32 +43,32 @@ class KnobSmall: Knob {
 
         //// Picture Drawing
         let picturePath = UIBezierPath(rect: CGRect(x: 5, y: 5, width: 60, height: 60))
-        CGContextSaveGState(context)
+        context?.saveGState()
         picturePath.addClip()
-        knob120_base!.drawInRect(CGRectMake(5, 5, knob120_base!.size.width, knob120_base!.size.height))
-        CGContextRestoreGState(context)
+        knob120_base!.draw(in: CGRect(x: 5, y: 5, width: knob120_base!.size.width, height: knob120_base!.size.height))
+        context?.restoreGState()
 
         //// Indicator Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 35, 35)
-        CGContextRotateCTM(context, -(knobAngle + 120) * CGFloat(M_PI) / 180)
+        context?.saveGState()
+        context?.translateBy(x: 35, y: 35)
+        context?.rotate(by: -(knobAngle + 120) * CGFloat(M_PI) / 180)
 
         let indicatorPath = UIBezierPath(rect: CGRect(x: -30, y: -30, width: 60, height: 60))
-        CGContextSaveGState(context)
+        context?.saveGState()
         indicatorPath.addClip()
-        knob120_indicator!.drawInRect(CGRectMake(-30, -30, knob120_indicator!.size.width, knob120_indicator!.size.height))
-        CGContextRestoreGState(context)
+        knob120_indicator!.draw(in: CGRect(x: -30, y: -30, width: knob120_indicator!.size.width, height: knob120_indicator!.size.height))
+        context?.restoreGState()
 
-        CGContextRestoreGState(context)
+        context?.restoreGState()
     }
 
     // MARK: - Allow knobs to appear in IB
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
-        let bundle = NSBundle(forClass: self.dynamicType)
-        knob120_base = UIImage(named: "knob120_base", inBundle: bundle, compatibleWithTraitCollection: self.traitCollection)!
-        knob120_indicator = UIImage(named: "knob120_indicator", inBundle: bundle, compatibleWithTraitCollection: self.traitCollection)!
+        let bundle = Bundle(for: type(of: self))
+        knob120_base = UIImage(named: "knob120_base", in: bundle, compatibleWith: self.traitCollection)!
+        knob120_indicator = UIImage(named: "knob120_indicator", in: bundle, compatibleWith: self.traitCollection)!
     }
 
 }

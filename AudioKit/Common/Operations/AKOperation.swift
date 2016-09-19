@@ -13,15 +13,15 @@ public protocol AKComputedParameter: AKParameter {}
 
 
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
-public class AKOperation: AKComputedParameter {
+open class AKOperation: AKComputedParameter {
 
     // MARK: - Dependency Management
     
-    private var inputs = [AKParameter]()
+    fileprivate var inputs = [AKParameter]()
 
     internal var savedLocation = -1
     
-    private var dependencies = [AKOperation]()
+    fileprivate var dependencies = [AKOperation]()
     
     internal var recursiveDependencies: [AKOperation] {
         var all = [AKOperation]()
@@ -44,15 +44,15 @@ public class AKOperation: AKComputedParameter {
     
     // MARK: - String Representations
     
-    private var valueText = ""
+    fileprivate var valueText = ""
     internal var setupSporth = ""
-    private var module = ""
+    fileprivate var module = ""
     
     internal var inlineSporth: String {
         if valueText != "" { return valueText }
         var opString = ""
         for input in inputs {
-            if input.dynamicType == AKOperation.self {
+            if type(of: input) == AKOperation.self {
                 if let operation = input as? AKOperation {
                     if operation.savedLocation >= 0 {
                         opString += "\(operation.savedLocation) \"ak\" tget "
@@ -91,25 +91,25 @@ public class AKOperation: AKComputedParameter {
     }
     
     /// Redefining description to return the operation string
-    public var description: String {
+    open var description: String {
         return inlineSporth
     }
     
     // MARK: - Inputs
     
     /// Left input to any stereo operation
-    public static var leftInput = AKOperation("(14 p)")
+    open static var leftInput = AKOperation("(14 p)")
 
     /// Right input to any stereo operation
-    public static var rightInput = AKOperation("(15 p)")
+    open static var rightInput = AKOperation("(15 p)")
     
     /// Dummy trigger
-    public static var trigger = AKOperation("(0 p)")
+    open static var trigger = AKOperation("(0 p)")
     
     // MARK: - Functions
     
     /// An= array of 14 parameters which may be sent to operations
-    public static var parameters: [AKOperation] =
+    open static var parameters: [AKOperation] =
         [AKOperation("(0 p)"),
          AKOperation("(1 p)"),
          AKOperation("(2 p)"),
@@ -127,42 +127,42 @@ public class AKOperation: AKComputedParameter {
     
     
     /// Convert the operation to a mono operation
-    public func toMono() -> AKOperation {
+    open func toMono() -> AKOperation {
         return self
     }
 
     /// Performs absolute value on the operation
-    public func abs() -> AKOperation {
+    open func abs() -> AKOperation {
         return AKOperation(module: "abs", inputs: self)
     }
 
     /// Performs floor calculation on the operation
-    public func floor() -> AKOperation {
+    open func floor() -> AKOperation {
         return AKOperation(module: "floor", inputs: self)
     }
 
     /// Returns the fractional part of the operation (as opposed to the integer part)
-    public func fract() -> AKOperation {
+    open func fract() -> AKOperation {
         return AKOperation(module: "frac", inputs: self)
     }
 
     /// Performs natural logarithm on the operation
-    public func log() -> AKOperation {
+    open func log() -> AKOperation {
         return AKOperation(module: "log", inputs: self)
     }
 
     /// Performs Base 10 logarithm on the operation
-    public func log10() -> AKOperation {
+    open func log10() -> AKOperation {
         return AKOperation(module: "log10", inputs: self)
     }
 
     /// Rounds the operation to the nearest integer
-    public func round() -> AKOperation {
+    open func round() -> AKOperation {
         return AKOperation(module: "round", inputs: self)
     }
 
     /// Returns a frequency for a given midi note number
-    public func midiNoteToFrequency() -> AKOperation {
+    open func midiNoteToFrequency() -> AKOperation {
         return AKOperation(module: "mtof", inputs: self)
     }
 
@@ -203,7 +203,7 @@ public class AKOperation: AKComputedParameter {
         self.inputs = inputs
         
         for input in inputs {
-            if input.dynamicType == AKOperation.self {
+            if type(of: input) == AKOperation.self {
                 if let forcedInput = input as? AKOperation {
                     dependencies.append(forcedInput)
                 }
@@ -218,7 +218,7 @@ public class AKOperation: AKComputedParameter {
 ///
 /// - parameter parameter: AKComputedParameter to operate on
 ///
-public func abs(parameter: AKOperation) -> AKOperation {
+public func abs(_ parameter: AKOperation) -> AKOperation {
     return parameter.abs()
 }
 
@@ -226,7 +226,7 @@ public func abs(parameter: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func floor(operation: AKOperation) -> AKOperation {
+public func floor(_ operation: AKOperation) -> AKOperation {
     return operation.floor()
 }
 
@@ -234,7 +234,7 @@ public func floor(operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func fract(operation: AKOperation) -> AKOperation {
+public func fract(_ operation: AKOperation) -> AKOperation {
     return operation.fract()
 }
 
@@ -242,7 +242,7 @@ public func fract(operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func log(operation: AKOperation) -> AKOperation {
+public func log(_ operation: AKOperation) -> AKOperation {
     return operation.log()
 }
 
@@ -250,7 +250,7 @@ public func log(operation: AKOperation) -> AKOperation {
 ///
 /// - parmeter operation: AKComputedParameter to operate on
 ///
-public func log10(operation: AKOperation) -> AKOperation {
+public func log10(_ operation: AKOperation) -> AKOperation {
     return operation.log10()
 
 }
@@ -259,6 +259,6 @@ public func log10(operation: AKOperation) -> AKOperation {
 ///
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func round(operation: AKOperation) -> AKOperation {
+public func round(_ operation: AKOperation) -> AKOperation {
     return operation.round()
 }

@@ -9,15 +9,15 @@
 import UIKit
 public typealias Label = UILabel
 
-public class AKPlaygroundView: UIView {
+open class AKPlaygroundView: UIView {
     
-    public var elementHeight: CGFloat = 30
-    public var yPosition: Int = 25
-    public var spacing = 25
+    open var elementHeight: CGFloat = 30
+    open var yPosition: Int = 25
+    open var spacing = 25
     
     public override init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         setup()
     }
     
@@ -25,29 +25,29 @@ public class AKPlaygroundView: UIView {
         self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
     }
     
-    public func setup() {}
+    open func setup() {}
     
-    public func addTitle(text: String) -> UILabel {
+    open func addTitle(_ text: String) -> UILabel {
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text
-        newLabel.textAlignment = .Center
-        newLabel.font = UIFont.boldSystemFontOfSize(24)
+        newLabel.textAlignment = .center
+        newLabel.font = UIFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
         
         return newLabel
     }
     
-    public func addLabel(text: String) -> UILabel {
+    open func addLabel(_ text: String) -> UILabel {
         let newLabel = UILabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text
-        newLabel.font = UIFont.systemFontOfSize(18)
+        newLabel.font = UIFont.systemFont(ofSize: 18)
         self.addSubview(newLabel)
         
         return newLabel
     }
     
-    public override func addSubview(view: UIView) {
+    open override func addSubview(_ view: UIView) {
         view.frame.origin.y = CGFloat(yPosition)
         if view.frame.origin.x < 30 {
             view.frame.origin.x = 30

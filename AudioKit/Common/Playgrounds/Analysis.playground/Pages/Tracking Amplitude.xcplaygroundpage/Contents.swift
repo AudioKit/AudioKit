@@ -2,7 +2,7 @@
 //: Determing the amplitude of an audio signal by
 //: outputting the value of a generator node into the AKAmplitudeTracker.
 //: This node is great if you want to build an app that does audio monitoring and analysis.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: First lets set up sound source to track
@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Tracked Amplitude",
             format: "%0.3f",
             value: 0, maximum: 0.55,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             // Do nothing, just for display
             }
@@ -50,11 +50,11 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 
 //: This keeps the playground running so that audio can play for a long time
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 
 //: Experiment with this playground by changing the volume function to a

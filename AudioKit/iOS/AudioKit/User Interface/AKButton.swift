@@ -8,20 +8,20 @@
 
 import Foundation
 
-public class AKButton: UIView {
+open class AKButton: UIView {
     internal var callback: ()->(String)
-    public var title: String {
+    open var title: String {
         didSet {
             setNeedsDisplay()
         }
     }
-    public var color: UIColor {
+    open var color: UIColor {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let newTitle = callback()
         if newTitle != "" { title = newTitle }
     }
@@ -29,7 +29,7 @@ public class AKButton: UIView {
     public init(title: String,
                 color: UIColor = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: ()->(String)) {
+                callback: @escaping ()->(String)) {
         self.title = title
         self.callback = callback
         self.color = color
@@ -51,20 +51,20 @@ public class AKButton: UIView {
         
         let labelRect = CGRect(x: 0, y: 0, width: 440, height: 60)
         let labelStyle = NSMutableParagraphStyle()
-        labelStyle.alignment = .Center
+        labelStyle.alignment = .center
         
-        let labelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(24), NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: labelStyle]
+        let labelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: labelStyle]
         
-        let labelInset: CGRect = CGRectInset(labelRect, 10, 0)
-        let labelTextHeight: CGFloat = NSString(string: title).boundingRectWithSize(CGSize(width: labelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context!)
-        CGContextClipToRect(context!, labelInset)
-        NSString(string: title).drawInRect(CGRect(x: labelInset.minX, y: labelInset.minY + (labelInset.height - labelTextHeight) / 2, width: labelInset.width, height: labelTextHeight), withAttributes: labelFontAttributes)
-        CGContextRestoreGState(context!)
+        let labelInset: CGRect = labelRect.insetBy(dx: 10, dy: 0)
+        let labelTextHeight: CGFloat = NSString(string: title).boundingRect(with: CGSize(width: labelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).size.height
+        context!.saveGState()
+        context!.clip(to: labelInset)
+        NSString(string: title).draw(in: CGRect(x: labelInset.minX, y: labelInset.minY + (labelInset.height - labelTextHeight) / 2, width: labelInset.width, height: labelTextHeight), withAttributes: labelFontAttributes)
+        context!.restoreGState()
         
     }
     
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         drawButton()
     }
 }

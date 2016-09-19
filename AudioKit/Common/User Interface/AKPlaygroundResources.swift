@@ -1,6 +1,6 @@
 //
 //  AKPlaygroundResources.swift
-//  AudioKit for macOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/8/16.
 //  Copyright © 2016 AudioKit. All rights reserved.

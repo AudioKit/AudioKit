@@ -21,24 +21,24 @@ import AVFoundation
 ///   - detuningOffset:     Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKMorphingOscillatorBank: AKPolyphonicNode {
+open class AKMorphingOscillatorBank: AKPolyphonicNode {
 
     // MARK: - Properties
 
     internal var internalAU: AKMorphingOscillatorBankAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var waveformArray = [AKTable]()
+    fileprivate var waveformArray = [AKTable]()
 
-    private var attackDurationParameter:     AUParameter?
-    private var decayDurationParameter:      AUParameter?
-    private var sustainLevelParameter:       AUParameter?
-    private var releaseDurationParameter:    AUParameter?
-    private var detuningOffsetParameter:     AUParameter?
-    private var detuningMultiplierParameter: AUParameter?
+    fileprivate var attackDurationParameter:     AUParameter?
+    fileprivate var decayDurationParameter:      AUParameter?
+    fileprivate var sustainLevelParameter:       AUParameter?
+    fileprivate var releaseDurationParameter:    AUParameter?
+    fileprivate var detuningOffsetParameter:     AUParameter?
+    fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -48,7 +48,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     }
 
     /// Index of the wavetable to use (fractional are okay).
-    public var index: Double = 0.0 {
+    open var index: Double = 0.0 {
         willSet {
             let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
             internalAU?.index = Float(transformedValue)
@@ -56,7 +56,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     }
 
     /// Attack time
-    public var attackDuration: Double = 0.1 {
+    open var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -68,7 +68,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
         }
     }
     /// Decay time
-    public var decayDuration: Double = 0.1 {
+    open var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -80,7 +80,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
         }
     }
     /// Sustain Level
-    public var sustainLevel: Double = 1.0 {
+    open var sustainLevel: Double = 1.0 {
         willSet {
             if sustainLevel != newValue {
                 if internalAU!.isSetUp() {
@@ -92,7 +92,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
         }
     }
     /// Release time
-    public var releaseDuration: Double = 0.1 {
+    open var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -105,7 +105,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     }
 
     /// Frequency offset in Hz.
-    public var detuningOffset: Double = 0 {
+    open var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
                 if internalAU!.isSetUp() {
@@ -118,7 +118,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     }
 
     /// Frequency detuning multiplier
-    public var detuningMultiplier: Double = 1 {
+    open var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU!.isSetUp() {
@@ -134,7 +134,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
 
     /// Initialize the oscillator with defaults
     public convenience override init() {
-        self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
+        self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
     }
 
     /// Initialize this oscillator node
@@ -178,41 +178,41 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
 
         AUAudioUnit.registerSubclass(
             AKMorphingOscillatorBankAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKMorphingOscillatorBank",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMorphingOscillatorBankAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             for i in 0 ..< waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
                 for j in 0 ..< waveformArray[i].size {
-                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
+                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], at: UInt32(j))
                 }
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        attackDurationParameter     = tree.valueForKey("attackDuration")     as? AUParameter
-        decayDurationParameter      = tree.valueForKey("decayDuration")      as? AUParameter
-        sustainLevelParameter       = tree.valueForKey("sustainLevel")       as? AUParameter
-        releaseDurationParameter    = tree.valueForKey("releaseDuration")    as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
+        attackDurationParameter     = tree.value(forKey: "attackDuration")     as? AUParameter
+        decayDurationParameter      = tree.value(forKey: "decayDuration")      as? AUParameter
+        sustainLevelParameter       = tree.value(forKey: "sustainLevel")       as? AUParameter
+        releaseDurationParameter    = tree.value(forKey: "releaseDuration")    as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.attackDurationParameter!.address {
                     self.attackDuration = Double(value)
                 } else if address == self.decayDurationParameter!.address {
@@ -227,7 +227,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
                     self.detuningMultiplier = Double(value)
                 }
             }
-        }
+        })
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)
 
         internalAU?.attackDuration     = Float(attackDuration)
@@ -241,12 +241,12 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     // MARK: - AKPolyphonic
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         self.internalAU!.startNote(Int32(noteNumber), velocity: Int32(velocity))
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+    open override func stop(noteNumber: MIDINoteNumber) {
         self.internalAU!.stopNote(Int32(noteNumber))
     }
 }

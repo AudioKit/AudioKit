@@ -6,12 +6,11 @@
 //: Sometimes you want to ensure that an audio signal that you're processing
 //: remains at a volume similar to where it started.
 //: Such an application is perfect for the AKBalancer node.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: This section prepares the players
-let bundle = NSBundle.mainBundle()
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
 var source = try AKAudioPlayer(file: file)
 source.looping = true
 
@@ -38,7 +37,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

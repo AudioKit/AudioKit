@@ -1,6 +1,6 @@
 //: ## Low Pass Filter Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Noise Example
@@ -13,7 +13,7 @@ let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise, _ in
 
 //: Music Example
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -31,4 +31,4 @@ whiteNoise.start()
 player.play()
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

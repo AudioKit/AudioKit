@@ -13,7 +13,7 @@ extension AKOperation {
     ///
     /// - parameter parameter: The amount to multiply
     ///
-    public func times(parameter: AKParameter) -> AKOperation {
+    public func times(_ parameter: AKParameter) -> AKOperation {
         return AKOperation(module: "*", inputs: self, parameter)
     }
 
@@ -21,7 +21,7 @@ extension AKOperation {
     ///
     /// - parameter parameter: The amount to scale by
     ///
-    public func scaledBy(parameter: AKParameter) -> AKOperation {
+    public func scaledBy(_ parameter: AKParameter) -> AKOperation {
         return self.times(parameter)
     }
 }

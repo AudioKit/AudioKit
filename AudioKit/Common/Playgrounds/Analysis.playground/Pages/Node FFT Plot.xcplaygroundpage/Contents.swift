@@ -1,10 +1,10 @@
 //: ## Node FFT Plot
 //: An FFT plot displays a signal as relative amplitudes across the frequency spectrum.
 //: This playground creates spikes in the plot by playing an oscillator at a specific frequency.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-var oscillator = AKOscillator(waveform: AKTable(.Sine, size: 4096))
+var oscillator = AKOscillator(waveform: AKTable(.sine, size: 4096))
 var mixer = AKMixer(oscillator)
 
 AudioKit.output = mixer
@@ -32,8 +32,8 @@ let plot = AKNodeFFTPlot(mixer, frame: CGRect(x: 0, y: 0, width: 500, height: 50
 plot.shouldFill = true
 plot.shouldMirror = false
 plot.shouldCenterYAxis = false
-plot.color = AKColor.purpleColor()
+plot.color = AKColor.purple
 
-XCPlaygroundPage.currentPage.liveView = plot
+PlaygroundPage.current.liveView = plot
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

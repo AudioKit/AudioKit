@@ -20,9 +20,9 @@ import AVFoundation
 ///   - decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
 ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
 ///
-public class AKReverb2: AKNode, AKToggleable {
+open class AKReverb2: AKNode, AKToggleable {
 
-    private let cd = AudioComponentDescription(
+    fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
         componentSubType: kAudioUnitSubType_Reverb2,
         componentManufacturer: kAudioUnitManufacturer_Apple,
@@ -30,12 +30,12 @@ public class AKReverb2: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
-    private var lastKnownMix: Double = 50
+    fileprivate var lastKnownMix: Double = 50
 
     /// Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
-    public var dryWetMix: Double = 0.5 {
+    open var dryWetMix: Double = 0.5 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -44,7 +44,7 @@ public class AKReverb2: AKNode, AKToggleable {
                 dryWetMix = 1
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kReverb2Param_DryWetMix,
                 kAudioUnitScope_Global, 0,
                 Float(dryWetMix * 100.0), 0)
@@ -52,7 +52,7 @@ public class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Gain (Decibels) ranges from -20 to 20 (Default: 0)
-    public var gain: Double = 0 {
+    open var gain: Double = 0 {
         didSet {
             if gain < -20 {
                 gain = -20
@@ -61,7 +61,7 @@ public class AKReverb2: AKNode, AKToggleable {
                 gain = 20
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kReverb2Param_Gain,
                 kAudioUnitScope_Global, 0,
                 Float(gain), 0)
@@ -69,7 +69,7 @@ public class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
-    public var minDelayTime: Double = 0.008 {
+    open var minDelayTime: Double = 0.008 {
         didSet {
             if minDelayTime < 0.0001 {
                 minDelayTime = 0.0001
@@ -78,7 +78,7 @@ public class AKReverb2: AKNode, AKToggleable {
                 minDelayTime = 1.0
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kReverb2Param_MinDelayTime,
                 kAudioUnitScope_Global, 0,
                 Float(minDelayTime), 0)
@@ -86,7 +86,7 @@ public class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
-    public var maxDelayTime: Double = 0.050 {
+    open var maxDelayTime: Double = 0.050 {
         didSet {
             if maxDelayTime < 0.0001 {
                 maxDelayTime = 0.0001
@@ -95,7 +95,7 @@ public class AKReverb2: AKNode, AKToggleable {
                 maxDelayTime = 1.0
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kReverb2Param_MaxDelayTime,
                 kAudioUnitScope_Global, 0,
                 Float(maxDelayTime), 0)
@@ -103,7 +103,7 @@ public class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
-    public var decayTimeAt0Hz: Double = 1.0 {
+    open var decayTimeAt0Hz: Double = 1.0 {
         didSet {
             if decayTimeAt0Hz < 0.001 {
                 decayTimeAt0Hz = 0.001
@@ -112,7 +112,7 @@ public class AKReverb2: AKNode, AKToggleable {
                 decayTimeAt0Hz = 20.0
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kReverb2Param_DecayTimeAt0Hz,
                 kAudioUnitScope_Global, 0,
                 Float(decayTimeAt0Hz), 0)
@@ -120,7 +120,7 @@ public class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
-    public var decayTimeAtNyquist: Double = 0.5 {
+    open var decayTimeAtNyquist: Double = 0.5 {
         didSet {
             if decayTimeAtNyquist < 0.001 {
                 decayTimeAtNyquist = 0.001
@@ -129,7 +129,7 @@ public class AKReverb2: AKNode, AKToggleable {
                 decayTimeAtNyquist = 20.0
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kReverb2Param_DecayTimeAtNyquist,
                 kAudioUnitScope_Global, 0,
                 Float(decayTimeAtNyquist), 0)
@@ -137,7 +137,7 @@ public class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
-    public var randomizeReflections: Double = 1 {
+    open var randomizeReflections: Double = 1 {
         didSet {
             if randomizeReflections < 1 {
                 randomizeReflections = 1
@@ -146,7 +146,7 @@ public class AKReverb2: AKNode, AKToggleable {
                 randomizeReflections = 1000
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kReverb2Param_RandomizeReflections,
                 kAudioUnitScope_Global, 0,
                 Float(randomizeReflections), 0)
@@ -154,7 +154,7 @@ public class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
+    open var isStarted = true
 
     /// Initialize the reverb2 node
     ///
@@ -190,23 +190,23 @@ public class AKReverb2: AKNode, AKToggleable {
 
             super.init()
             self.avAudioNode = internalEffect
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
 
-            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, Float(dryWetMix * 100.0), 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_MinDelayTime, kAudioUnitScope_Global, 0, Float(minDelayTime), 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_MaxDelayTime, kAudioUnitScope_Global, 0, Float(maxDelayTime), 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, Float(decayTimeAt0Hz), 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, Float(decayTimeAtNyquist), 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, Float(randomizeReflections), 0)
+            AudioUnitSetParameter(internalAU!, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, Float(dryWetMix * 100.0), 0)
+            AudioUnitSetParameter(internalAU!, kReverb2Param_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
+            AudioUnitSetParameter(internalAU!, kReverb2Param_MinDelayTime, kAudioUnitScope_Global, 0, Float(minDelayTime), 0)
+            AudioUnitSetParameter(internalAU!, kReverb2Param_MaxDelayTime, kAudioUnitScope_Global, 0, Float(maxDelayTime), 0)
+            AudioUnitSetParameter(internalAU!, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, Float(decayTimeAt0Hz), 0)
+            AudioUnitSetParameter(internalAU!, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, Float(decayTimeAtNyquist), 0)
+            AudioUnitSetParameter(internalAU!, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, Float(randomizeReflections), 0)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -214,7 +214,7 @@ public class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

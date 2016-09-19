@@ -20,24 +20,24 @@ import AVFoundation
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///   - phase:              Initial phase of waveform, expects a value 0-1
 ///
-public class AKMorphingOscillator: AKNode, AKToggleable {
+open class AKMorphingOscillator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKMorphingOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var waveformArray = [AKTable]()
-    private var phase: Double
+    fileprivate var waveformArray = [AKTable]()
+    fileprivate var phase: Double
 
-    private var frequencyParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
-    private var indexParameter: AUParameter?
-    private var detuningOffsetParameter: AUParameter?
-    private var detuningMultiplierParameter: AUParameter?
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var amplitudeParameter: AUParameter?
+    fileprivate var indexParameter: AUParameter?
+    fileprivate var detuningOffsetParameter: AUParameter?
+    fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -47,7 +47,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
     }
 
     /// In cycles per second, or Hz.
-    public var frequency: Double = 440 {
+    open var frequency: Double = 440 {
         willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
@@ -60,7 +60,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
     }
 
     /// Output Amplitude.
-    public var amplitude: Double = 1 {
+    open var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
@@ -74,7 +74,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
 
 
     /// Index of the wavetable to use (fractional are okay).
-    public var index: Double = 0.0 {
+    open var index: Double = 0.0 {
         willSet {
             let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
 //            if internalAU!.isSetUp() {
@@ -86,7 +86,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
     }
 
     /// Frequency offset in Hz.
-    public var detuningOffset: Double = 0 {
+    open var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
                 if internalAU!.isSetUp() {
@@ -99,7 +99,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
     }
 
     /// Frequency detuning multiplier
-    public var detuningMultiplier: Double = 1 {
+    open var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU!.isSetUp() {
@@ -112,7 +112,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -120,7 +120,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
 
     /// Initialize the oscillator with defaults
     public convenience override init() {
-        self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
+        self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
     }
     
     /// Initialize this Morpher node
@@ -160,41 +160,41 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKMorphingOscillatorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKMorphingOscillator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMorphingOscillatorAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
 
             for i in 0 ..< waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
                 for j in 0 ..< waveformArray[i].size{
-                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
+                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], at: UInt32(j))
                 }
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
-        amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
-        indexParameter              = tree.valueForKey("index")              as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
+        frequencyParameter          = tree.value(forKey: "frequency")          as? AUParameter
+        amplitudeParameter          = tree.value(forKey: "amplitude")          as? AUParameter
+        indexParameter              = tree.value(forKey: "index")              as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
@@ -207,7 +207,7 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
                     self.detuningMultiplier = Double(value)
                 }
             }
-        }
+        })
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)
@@ -216,12 +216,12 @@ public class AKMorphingOscillator: AKNode, AKToggleable {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

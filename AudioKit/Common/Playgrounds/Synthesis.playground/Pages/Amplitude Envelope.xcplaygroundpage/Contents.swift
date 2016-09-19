@@ -1,6 +1,6 @@
 //: ## Amplitude Envelope
 //: Enveloping an Oscillator with an ADSR envelope
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var fmWithADSR = AKOscillatorBank()
@@ -54,5 +54,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
