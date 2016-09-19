@@ -9,15 +9,15 @@
 import Foundation
 
 /// Stereo version of AKComputedParameter
-public class AKStereoOperation: AKComputedParameter {
+open class AKStereoOperation: AKComputedParameter {
 
     // MARK: - Dependency Management
 
-    private var inputs = [AKParameter]()
+    fileprivate var inputs = [AKParameter]()
     
-    private var savedLocation = -1
+    fileprivate var savedLocation = -1
     
-    private var dependencies = [AKOperation]()
+    fileprivate var dependencies = [AKOperation]()
     
     internal var recursiveDependencies: [AKOperation] {
         var all = [AKOperation]()
@@ -40,15 +40,15 @@ public class AKStereoOperation: AKComputedParameter {
     
     // MARK: - String Representations
     
-    private var valueText = ""
-    private var module = ""
+    fileprivate var valueText = ""
+    fileprivate var module = ""
     internal var setupSporth = ""
 
-    private var inlineSporth: String {
+    fileprivate var inlineSporth: String {
         if valueText != "" { return valueText }
         var opString = ""
         for input in inputs {
-            if input.dynamicType == AKOperation.self {
+            if type(of: input) == AKOperation.self {
                 if let operation = input as? AKOperation {
                     if operation.savedLocation >= 0 {
                         opString += "\(operation.savedLocation) \"ak\" tget "
@@ -87,37 +87,37 @@ public class AKStereoOperation: AKComputedParameter {
     }
     
     /// Redefining description to return the operation string
-    public var description: String {
+    open var description: String {
         return inlineSporth
     }
     
     // MARK: - Functions
     
     /// Create a mono signal by dropping the right channel
-    public func toMono() -> AKOperation {
+    open func toMono() -> AKOperation {
         return AKOperation(module: "add", inputs: self)
     }
     
     /// Create a mono signal by dropping the right channel
-    public func left() -> AKOperation {
+    open func left() -> AKOperation {
         return AKOperation(module: "drop", inputs: self)
     }
     
     /// Create a mono signal by dropping the left channel
-    public func right() -> AKOperation {
+    open func right() -> AKOperation {
         return AKOperation(module: "swap drop", inputs: self)
     }
     
     
     /// An operation is requiring a parameter to be stereo, which in this case, it is, so just return self
-    public func toStereo() -> AKStereoOperation {
+    open func toStereo() -> AKStereoOperation {
         return self
     }
     
     // MARK: - Initialization
     
     /// Default stereo input to any operation stack
-    public static var input = AKStereoOperation("((14 p) (15 p))")
+    open static var input = AKStereoOperation("((14 p) (15 p))")
 
     /// Initialize the stereo operation with a Sporth string
     ///
@@ -139,7 +139,7 @@ public class AKStereoOperation: AKComputedParameter {
         self.inputs = inputs
         
         for input in inputs {
-            if input.dynamicType == AKOperation.self {
+            if type(of: input) == AKOperation.self {
                 if let forcedInput = input as? AKOperation {
                     dependencies.append(forcedInput)
                 }

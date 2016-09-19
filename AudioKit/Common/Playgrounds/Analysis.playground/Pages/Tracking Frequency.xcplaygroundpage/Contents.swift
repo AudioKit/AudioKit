@@ -2,7 +2,7 @@
 //: Tracking frequency is just as easy as tracking amplitude, and even
 //: includes amplitude, but it is more CPU intensive, so if you just need amplitude,
 //: use the amplitude tracker.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: First lets set up sound source to track
@@ -50,7 +50,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Tracked Amplitude",
             format: "%0.3f",
             value: 0, maximum: 0.8,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             // Do nothing, just for display
         }
@@ -60,7 +60,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Tracked Frequency",
             format: "%0.3f",
             value: 0, maximum: 2400,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             // Do nothing, just for display
         }
@@ -70,5 +70,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

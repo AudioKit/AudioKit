@@ -30,24 +30,32 @@
 #include "TPCircularBuffer.h"
 #include <mach/mach.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define reportResult(result,operation) (_reportResult((result),(operation),strrchr(__FILE__, '/')+1,__LINE__))
 static inline bool _reportResult(kern_return_t result, const char *operation, const char* file, int line) {
-    if (result != ERR_SUCCESS) {
-        printf("%s:%d: %s: %s\n", file, line, operation, mach_error_string(result)); 
+    if ( result != ERR_SUCCESS ) {
+        printf("%s:%d: %s: %s\n", file, line, operation, mach_error_string(result));
         return false;
     }
     return true;
 }
 
-bool TPCircularBufferInit(TPCircularBuffer *buffer, int length) {
-
+bool _TPCircularBufferInit(TPCircularBuffer *buffer, int32_t length, size_t structSize) {
+    
+    assert(length > 0);
+    
+    if ( structSize != sizeof(TPCircularBuffer) ) {
+        fprintf(stderr, "TPCircularBuffer: Header version mismatch. Check for old versions of TPCircularBuffer in your project\n");
+        abort();
+    }
+    
     // Keep trying until we get our buffer, needed to handle race conditions
     int retries = 3;
-    while ( true) {
-
+    while ( true ) {
+        
         buffer->length = (int32_t)round_page(length);    // We need whole page sizes
-
+        
         // Temporarily allocate twice the length, so we have the contiguous address space to
         // support a second instance of the buffer directly after
         vm_address_t bufferAddress;
@@ -55,8 +63,8 @@ bool TPCircularBufferInit(TPCircularBuffer *buffer, int length) {
                                            &bufferAddress,
                                            buffer->length * 2,
                                            VM_FLAGS_ANYWHERE); // allocate anywhere it'll fit
-        if (result != ERR_SUCCESS) {
-            if (retries-- == 0) {
+        if ( result != ERR_SUCCESS ) {
+            if ( retries-- == 0 ) {
                 reportResult(result, "Buffer allocation");
                 return false;
             }
@@ -68,8 +76,8 @@ bool TPCircularBufferInit(TPCircularBuffer *buffer, int length) {
         result = vm_deallocate(mach_task_self(),
                                bufferAddress + buffer->length,
                                buffer->length);
-        if (result != ERR_SUCCESS) {
-            if (retries-- == 0) {
+        if ( result != ERR_SUCCESS ) {
+            if ( retries-- == 0 ) {
                 reportResult(result, "Buffer deallocation");
                 return false;
             }
@@ -92,8 +100,8 @@ bool TPCircularBufferInit(TPCircularBuffer *buffer, int length) {
                           &cur_prot,         // unused protection struct
                           &max_prot,         // unused protection struct
                           VM_INHERIT_DEFAULT);
-        if (result != ERR_SUCCESS) {
-            if (retries-- == 0) {
+        if ( result != ERR_SUCCESS ) {
+            if ( retries-- == 0 ) {
                 reportResult(result, "Remap buffer memory");
                 return false;
             }
@@ -102,13 +110,13 @@ bool TPCircularBufferInit(TPCircularBuffer *buffer, int length) {
             continue;
         }
         
-        if (virtualAddress != bufferAddress+buffer->length) {
+        if ( virtualAddress != bufferAddress+buffer->length ) {
             // If the memory is not contiguous, clean up both allocated buffers and try again
-            if (retries-- == 0) {
+            if ( retries-- == 0 ) {
                 printf("Couldn't map buffer memory to end of buffer\n");
                 return false;
             }
-
+            
             vm_deallocate(mach_task_self(), virtualAddress, buffer->length);
             vm_deallocate(mach_task_self(), bufferAddress, buffer->length);
             continue;
@@ -117,6 +125,7 @@ bool TPCircularBufferInit(TPCircularBuffer *buffer, int length) {
         buffer->buffer = (void*)bufferAddress;
         buffer->fillCount = 0;
         buffer->head = buffer->tail = 0;
+        buffer->atomic = true;
         
         return true;
     }
@@ -130,7 +139,11 @@ void TPCircularBufferCleanup(TPCircularBuffer *buffer) {
 
 void TPCircularBufferClear(TPCircularBuffer *buffer) {
     int32_t fillCount;
-    if (TPCircularBufferTail(buffer, &fillCount)) {
+    if ( TPCircularBufferTail(buffer, &fillCount) ) {
         TPCircularBufferConsume(buffer, fillCount);
     }
+}
+
+void  TPCircularBufferSetAtomic(TPCircularBuffer *buffer, bool atomic) {
+    buffer->atomic = atomic;
 }

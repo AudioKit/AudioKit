@@ -3,11 +3,11 @@
 //: Apple's Dynamics Processor audio unit. threshold and headRoom (similar to
 //: 'ratio' you might be more familiar with) are specific to the compressor,
 //: expansionRatio and expansionThreshold control the expander.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Threshold",
             format: "%0.2f dB",
             value: effect.threshold, minimum: -40, maximum: 20,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.threshold = sliderValue
             })
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Head Room",
             format: "%0.2f dB",
             value: effect.headRoom, minimum: 0.1, maximum: 40,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.headRoom = sliderValue
             })
@@ -59,7 +59,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Expansion Ratio",
             value: effect.expansionRatio, minimum: 1, maximum: 50,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.expansionRatio = sliderValue
             })
@@ -67,7 +67,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Expansion Threshold",
             value: effect.expansionThreshold, minimum: 1, maximum: 50,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
             })
@@ -76,7 +76,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Attack Time",
             format: "%0.3f s",
             value: effect.attackTime, minimum: 0.0001, maximum: 0.2,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.attackTime = sliderValue
             })
@@ -85,7 +85,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Release Time",
             format: "%0.3f s",
             value: effect.releaseTime, minimum: 0.01, maximum: 3,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.releaseTime = sliderValue
             })
@@ -94,12 +94,12 @@ class PlaygroundView: AKPlaygroundView {
             property: "Master Gain",
             format: "%0.2f dB",
             value: effect.masterGain, minimum: -40, maximum: 40,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.masterGain = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

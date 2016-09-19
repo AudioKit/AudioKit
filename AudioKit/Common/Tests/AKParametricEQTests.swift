@@ -15,6 +15,6 @@ class AKParametricEQTests: AKTestCase {
         let input = AKOscillator()
         output = AKParametricEQ(input)
         input.start()
-        AKTestMD5("ac7682b189b19dd65ada2be93fe9e041")
+        AKTestMD5("4440a371b1f0fb002ede8a5367b78668")
     }
 }

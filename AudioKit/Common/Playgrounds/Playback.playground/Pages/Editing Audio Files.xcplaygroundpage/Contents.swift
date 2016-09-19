@@ -1,12 +1,12 @@
 //: ## Editing Audio Files
 //: Let's have some fun with our drum loop
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: First we load the drumloop
 
-let loop = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let loop = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
 
 //: You may have noticed that the drumloop doesn't loop so well. Let's fix this...
 let fixedLoop = try? loop!.extracted(fromSample: 0, toSample: Int64(3.42 * 44100))
@@ -74,4 +74,4 @@ AudioKit.start()
 sequencePlayer!.play()
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

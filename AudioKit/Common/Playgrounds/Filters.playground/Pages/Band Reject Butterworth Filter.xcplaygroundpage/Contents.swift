@@ -1,9 +1,9 @@
 //: ## Band Reject Butterworth Filter
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Center Frequency",
             format: "%0.1f Hz",
             value: filter.centerFrequency, minimum: 20, maximum: 22050,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             filter.centerFrequency = sliderValue
             })
@@ -42,12 +42,12 @@ class PlaygroundView: AKPlaygroundView {
             property: "Bandwidth",
             format: "%0.1f Hz",
             value: filter.bandwidth, minimum: 100, maximum: 12000,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             filter.bandwidth = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

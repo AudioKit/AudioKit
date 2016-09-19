@@ -11,40 +11,40 @@ import Foundation
 /// Supported default table types
 public enum AKTableType: String {
     /// Standard sine waveform
-    case Sine
+    case sine
 
     /// Standard triangle waveform
-    case Triangle
+    case triangle
 
     /// Standard square waveform
-    case Square
+    case square
 
     /// Standard sawtooth waveform
-    case Sawtooth
+    case sawtooth
 
     /// Reversed sawtooth waveform
-    case ReverseSawtooth
+    case reverseSawtooth
 
     /// Sine wave from 0-1
-    case PositiveSine
+    case positiveSine
 
     /// Triangle waveform from 0-1
-    case PositiveTriangle
+    case positiveTriangle
 
     /// Square waveform from 0-1
-    case PositiveSquare
+    case positiveSquare
 
     /// Sawtooth waveform from 0-1
-    case PositiveSawtooth
+    case positiveSawtooth
 
     /// Reversed sawtooth waveform from 0-1
-    case PositiveReverseSawtooth
+    case positiveReverseSawtooth
 
 
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-public struct AKTable: CollectionType {
+public struct AKTable: Collection {
 
     // MARK: - Properties
 
@@ -76,6 +76,16 @@ public struct AKTable: CollectionType {
     public subscript(index: Int) -> Float {
         return values[index]
     }
+    
+    /// Returns the position immediately after the given index.
+    ///
+    /// - Parameter i: A valid index of the collection. `i` must be less than
+    ///   `endIndex`.
+    /// - Returns: The index value immediately after `i`.
+    public func index(after i: Int) -> Int {
+        return i + 1
+    }
+
 
     /// Type of table
     var type: AKTableType
@@ -88,7 +98,7 @@ public struct AKTable: CollectionType {
     ///   - tableType: AKTableType of teh new table
     ///   - size: Size of the table (multiple of 2)
     ///
-    public init(_ type: AKTableType = .Sine,
+    public init(_ type: AKTableType = .sine,
                   phase: Double = 0,
                   size: Int = 4096) {
         self.type = type
@@ -98,25 +108,25 @@ public struct AKTable: CollectionType {
         self.values = [Float](zeroes: size)
         
         switch type {
-        case .Sine:
+        case .sine:
             self.standardSineWave()
-        case .Sawtooth:
+        case .sawtooth:
             self.standardSawtoothWave()
-        case .Triangle:
+        case .triangle:
             self.standardTriangleWave()
-        case .ReverseSawtooth:
+        case .reverseSawtooth:
             self.standardReverseSawtoothWave()
-        case .Square:
+        case .square:
             self.standardSquareWave()
-        case .PositiveSine:
+        case .positiveSine:
             self.positiveSineWave()
-        case .PositiveSawtooth:
+        case .positiveSawtooth:
             self.positiveSawtoothWave()
-        case .PositiveTriangle:
+        case .positiveTriangle:
             self.positiveTriangleWave()
-        case .PositiveReverseSawtooth:
+        case .positiveReverseSawtooth:
             self.positiveReverseSawtoothWave()
-        case .PositiveSquare:
+        case .positiveSquare:
             self.positiveSquareWave()
         }
     }

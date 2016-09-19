@@ -1,11 +1,11 @@
 //: ## Fatten Effect
 //: This is a cool fattening effect that Matthew Flecher wanted for the
 //: Analog Synth X project, so it was developed here in a playground first.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 
 let player = try AKAudioPlayer(file: file)
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Time",
             format:  "%0.3f s",
             value: fatten.parameters[0],  minimum: 0.03, maximum: 0.1,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { sliderValue in
             fatten.parameters[0] = sliderValue
             })
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Mix",
             value: fatten.parameters[1],
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { sliderValue in
             fatten.parameters[1] = sliderValue
             })
@@ -60,5 +60,5 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
-public class AKWhiteNoise: AKNode, AKToggleable {
+open class AKWhiteNoise: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -20,10 +20,10 @@ public class AKWhiteNoise: AKNode, AKToggleable {
     internal var token: AUParameterObserverToken?
 
 
-    private var amplitudeParameter: AUParameter?
+    fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -33,7 +33,7 @@ public class AKWhiteNoise: AKNode, AKToggleable {
     }
 
     /// Amplitude. (Value between 0-1).
-    public var amplitude: Double = 1 {
+    open var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 amplitudeParameter?.setValue(Float(newValue), originator: token!)
@@ -42,7 +42,7 @@ public class AKWhiteNoise: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -67,45 +67,45 @@ public class AKWhiteNoise: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKWhiteNoiseAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKWhiteNoise",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKWhiteNoiseAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKWhiteNoiseAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
                 }
             }
-        }
+        })
         internalAU?.amplitude = Float(amplitude)
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

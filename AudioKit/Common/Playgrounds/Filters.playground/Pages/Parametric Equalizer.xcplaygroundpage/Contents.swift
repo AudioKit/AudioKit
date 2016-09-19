@@ -5,11 +5,11 @@
 //: much more precise control over the frequency spectrum than other
 //: types of equalizers. Acoustic engineers will also use them to tune a room.
 //: This node may be useful if you're building an app to do audio analysis.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Center Frequency",
             format:  "%0.3f Hz",
             value: parametricEQ.centerFrequency,  maximum: 22050,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             parametricEQ.centerFrequency = sliderValue
             })
@@ -48,7 +48,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Q",
             value: parametricEQ.q,  maximum: 20,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             parametricEQ.q = sliderValue
             })
@@ -57,12 +57,12 @@ class PlaygroundView: AKPlaygroundView {
             property: "Gain",
             format:  "%0.1f dB",
             value: parametricEQ.gain,  minimum: -20, maximum: 20,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { sliderValue in
             parametricEQ.gain = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

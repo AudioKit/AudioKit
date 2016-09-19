@@ -16,12 +16,12 @@ public typealias DeviceID = String
 #endif
 
 /// Wrapper for audio device selection
-@objc public class AKDevice: NSObject {
+@objc open class AKDevice: NSObject {
     /// The human-readable name for the device.
-    public var name: String
+    open var name: String
 
     /// The device identifier.
-    public private(set) var deviceID: DeviceID
+    open fileprivate(set) var deviceID: DeviceID
 
     /// Initialize the device
     ///
@@ -36,7 +36,7 @@ public typealias DeviceID = String
     }
 
     /// Printable device description
-    override public var description: String {
+    override open var description: String {
         return "<Device: \(name) (\(deviceID))>"
     }
 }

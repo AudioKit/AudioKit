@@ -15,9 +15,9 @@ import AVFoundation
 ///   - centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
 ///   - bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
 ///
-public class AKBandPassFilter: AKNode, AKToggleable {
+open class AKBandPassFilter: AKNode, AKToggleable {
 
-    private let cd = AudioComponentDescription(
+    fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
         componentSubType: kAudioUnitSubType_BandPassFilter,
         componentManufacturer: kAudioUnitManufacturer_Apple,
@@ -25,12 +25,12 @@ public class AKBandPassFilter: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
 
-    private var mixer: AKMixer
+    fileprivate var mixer: AKMixer
 
     /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
-    public var centerFrequency: Double = 5000 {
+    open var centerFrequency: Double = 5000 {
         didSet {
             if centerFrequency < 20 {
                 centerFrequency = 20
@@ -39,7 +39,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
                 centerFrequency = 22050
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kBandpassParam_CenterFrequency,
                 kAudioUnitScope_Global, 0,
                 Float(centerFrequency), 0)
@@ -47,7 +47,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
     }
 
     /// Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
-    public var bandwidth: Double = 600 {
+    open var bandwidth: Double = 600 {
         didSet {
             if bandwidth < 100 {
                 bandwidth = 100
@@ -56,7 +56,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
                 bandwidth = 12000
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAU!,
                 kBandpassParam_Bandwidth,
                 kAudioUnitScope_Global, 0,
                 Float(bandwidth), 0)
@@ -64,7 +64,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
     }
 
     /// Dry/Wet Mix (Default 100)
-    public var dryWetMix: Double = 100 {
+    open var dryWetMix: Double = 100 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -77,12 +77,12 @@ public class AKBandPassFilter: AKNode, AKToggleable {
         }
     }
 
-    private var lastKnownMix: Double = 100
-    private var inputGain: AKMixer?
-    private var effectGain: AKMixer?
+    fileprivate var lastKnownMix: Double = 100
+    fileprivate var inputGain: AKMixer?
+    fileprivate var effectGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
+    open var isStarted = true
 
     // MARK: - Initialization
 
@@ -111,20 +111,20 @@ public class AKBandPassFilter: AKNode, AKToggleable {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
 
-            AudioKit.engine.attachNode(internalEffect)
+            AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
-            AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
+            AudioUnitSetParameter(internalAU!, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
+            AudioUnitSetParameter(internalAU!, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -132,7 +132,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

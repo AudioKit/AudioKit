@@ -2,11 +2,11 @@
 //: Decimation is a type of digital distortion like bit crushing,
 //: but instead of directly stating what bit depth and sample rate you want,
 //: it is done through setting "decimation" and "rounding" parameters.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -35,7 +35,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Decimation",
             value: decimator.decimation,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             decimator.decimation = sliderValue
             })
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Rounding",
             value: decimator.rounding,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             decimator.rounding = sliderValue
             })
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Mix",
             value: decimator.mix,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { sliderValue in
             decimator.mix = sliderValue
             })
@@ -59,6 +59,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 

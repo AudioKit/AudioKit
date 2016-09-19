@@ -9,10 +9,10 @@
 //: by connecting nodes together. A node is simply an object that will
 //: take in audio input, process it, and pass the processed audio to
 //: another node, or to the Digital-Analog Converter (speaker).
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
 
 //: Set up a player to the loop the file's playback
 var player = try AKAudioPlayer(file: file)
@@ -28,13 +28,12 @@ delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 
 //: Continue adding more nodes as you wish, for example, reverb:
 let reverb = AKReverb(delay)
-reverb.loadFactoryPreset(.Cathedral)
+reverb.loadFactoryPreset(.cathedral)
 
 AudioKit.output = reverb
 AudioKit.start()
 
 player.play()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

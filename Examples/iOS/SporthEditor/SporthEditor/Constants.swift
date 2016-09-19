@@ -27,13 +27,13 @@ struct Constants {
     
     struct Path {
         static var chat: String {
-            return NSBundle.mainBundle().pathForResource(Constants.File.chat, ofType: FileUtilities.fileExtension)!
+            return Bundle.main.path(forResource: Constants.File.chat, ofType: FileUtilities.fileExtension)!
         }
         static var drone: String {
-            return NSBundle.mainBundle().pathForResource(Constants.File.drone, ofType: FileUtilities.fileExtension)!
+            return Bundle.main.path(forResource: Constants.File.drone, ofType: FileUtilities.fileExtension)!
         }
         static var rhythmic: String {
-            return NSBundle.mainBundle().pathForResource(Constants.File.rhythmic, ofType: FileUtilities.fileExtension)!
+            return Bundle.main.path(forResource: Constants.File.rhythmic, ofType: FileUtilities.fileExtension)!
         }
     }
     

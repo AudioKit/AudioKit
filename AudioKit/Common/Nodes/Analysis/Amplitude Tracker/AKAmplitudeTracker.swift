@@ -15,7 +15,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
 ///
-public class AKAmplitudeTracker: AKNode, AKToggleable {
+open class AKAmplitudeTracker: AKNode, AKToggleable {
 
 
     // MARK: - Properties
@@ -24,10 +24,10 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
     internal var internalAU: AKAmplitudeTrackerAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var halfPowerPointParameter: AUParameter?
+    fileprivate var halfPowerPointParameter: AUParameter?
 
     /// Half-power point (in Hz) of internal lowpass filter.
-    public var halfPowerPoint: Double = 10 {
+    open var halfPowerPoint: Double = 10 {
         willSet {
             if halfPowerPoint != newValue {
                 halfPowerPointParameter?.setValue(Float(newValue), originator: token!)
@@ -36,12 +36,12 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
     /// Detected amplitude
-    public var amplitude: Double {
+    open var amplitude: Double {
         return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
     }
 
@@ -68,48 +68,48 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKAmplitudeTrackerAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKAmplitudeTracker",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAmplitudeTrackerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAmplitudeTrackerAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        halfPowerPointParameter = tree.valueForKey("halfPowerPoint") as? AUParameter
+        halfPowerPointParameter = tree.value(forKey: "halfPowerPoint") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.halfPowerPointParameter!.address {
                     self.halfPowerPoint = Double(value)
                 }
             }
-        }
+        })
         halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         internalAU!.stop()
     }
 }

@@ -17,7 +17,7 @@ class ArtistsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let list = MPMediaQuery.artistsQuery().collections {
+        if let list = MPMediaQuery.artists().collections {
             artistList = list
             tableView.reloadData()
         }
@@ -26,24 +26,24 @@ class ArtistsViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView,
+    override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
         return artistList.count
     }
     
-    override func tableView(tableView: UITableView,
-                            cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "MusicCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) ?? UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
         
         // Configure the cell...
-        let repItem = artistList[indexPath.row].representativeItem!
-        let artistName = repItem.valueForProperty(MPMediaItemPropertyArtist) as! String
+        let repItem = artistList[(indexPath as NSIndexPath).row].representativeItem!
+        let artistName = repItem.value(forProperty: MPMediaItemPropertyArtist) as! String
         cell.textLabel?.text = artistName
         
         return cell
@@ -51,11 +51,11 @@ class ArtistsViewController: UITableViewController {
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "AlbumsSegue" {
             let senderCell = sender as! UITableViewCell
-            let albumsVC = segue.destinationViewController as! AlbumsViewController
+            let albumsVC = segue.destination as! AlbumsViewController
             albumsVC.artistName = senderCell.textLabel?.text
             albumsVC.title = senderCell.textLabel?.text
         }

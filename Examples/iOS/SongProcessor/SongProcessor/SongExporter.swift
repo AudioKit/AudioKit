@@ -20,12 +20,12 @@ class SongExporter {
         self.exportPath = exportPath
     }
     
-    func exportSong(song: MPMediaItem) {
+    func exportSong(_ song: MPMediaItem) {
         
         isReadyToPlay = false
         
-        let url = song.valueForProperty(MPMediaItemPropertyAssetURL) as! NSURL
-        let songAsset = AVURLAsset(URL: url, options: nil)
+        let url = song.value(forProperty: MPMediaItemPropertyAssetURL) as! URL
+        let songAsset = AVURLAsset(url: url, options: nil)
         
         var assetError: NSError?
         
@@ -36,26 +36,26 @@ class SongExporter {
             let assetReaderOutput = AVAssetReaderAudioMixOutput(audioTracks: songAsset.tracks,
                                                                 audioSettings: nil)
             
-            if !assetReader.canAddOutput(assetReaderOutput) {
+            if !assetReader.canAdd(assetReaderOutput) {
                 print("Can't add reader output...die!")
             } else {
-                assetReader.addOutput(assetReaderOutput)
+                assetReader.add(assetReaderOutput)
             }
             
             // If a file already exists at the export path, remove it.
-            if NSFileManager.defaultManager().fileExistsAtPath(exportPath) {
+            if FileManager.default.fileExists(atPath: exportPath) {
                 print("Deleting said file.")
                 do {
-                    try NSFileManager.defaultManager().removeItemAtPath(exportPath)
+                    try FileManager.default.removeItem(atPath: exportPath)
                 } catch _ {
                 }
             }
             
             // Create an asset writer with the export path.
-            let exportURL = NSURL.fileURLWithPath(exportPath)
+            let exportURL = URL(fileURLWithPath: exportPath)
             let assetWriter: AVAssetWriter!
             do {
-                assetWriter = try AVAssetWriter(URL: exportURL, fileType: AVFileTypeCoreAudioFormat)
+                assetWriter = try AVAssetWriter(outputURL: exportURL, fileType: AVFileTypeCoreAudioFormat)
             } catch let error as NSError {
                 assetError = error
                 assetWriter = nil
@@ -69,13 +69,13 @@ class SongExporter {
             // Define the format settings for the asset writer.  Defined in AVAudioSettings.h
             
             // memset(&channelLayout, 0, sizeof(AudioChannelLayout))
-            let outputSettings = [ AVFormatIDKey: NSNumber(unsignedInt: kAudioFormatLinearPCM),
-                                   AVSampleRateKey: NSNumber(float: 44100.0),
-                                   AVNumberOfChannelsKey: NSNumber(unsignedInt: 2),
-                                   AVLinearPCMBitDepthKey: NSNumber(int: 16),
-                                   AVLinearPCMIsNonInterleaved: NSNumber(bool: false),
-                                   AVLinearPCMIsFloatKey: NSNumber(bool: false),
-                                   AVLinearPCMIsBigEndianKey: NSNumber(bool: false)
+            let outputSettings = [ AVFormatIDKey: NSNumber(value: kAudioFormatLinearPCM as UInt32),
+                                   AVSampleRateKey: NSNumber(value: 44100.0 as Float),
+                                   AVNumberOfChannelsKey: NSNumber(value: 2 as UInt32),
+                                   AVLinearPCMBitDepthKey: NSNumber(value: 16 as Int32),
+                                   AVLinearPCMIsNonInterleaved: NSNumber(value: false as Bool),
+                                   AVLinearPCMIsFloatKey: NSNumber(value: false as Bool),
+                                   AVLinearPCMIsBigEndianKey: NSNumber(value: false as Bool)
             ]
             
             // Create a writer input to encode and write samples in this format.
@@ -83,8 +83,8 @@ class SongExporter {
                                                       outputSettings: outputSettings)
             
             // Add the input to the writer.
-            if assetWriter.canAddInput(assetWriterInput) {
-                assetWriter.addInput(assetWriterInput)
+            if assetWriter.canAdd(assetWriterInput) {
+                assetWriter.add(assetWriterInput)
             } else {
                 print("cant add asset writer input...die!")
                 return
@@ -100,25 +100,25 @@ class SongExporter {
             // Set the session start time.
             let soundTrack = songAsset.tracks[0]
             let cmtStartTime: CMTime = CMTimeMake(0, soundTrack.naturalTimeScale)
-            assetWriter.startSessionAtSourceTime(cmtStartTime)
+            assetWriter.startSession(atSourceTime: cmtStartTime)
             
             // Variable to store the converted bytes.
             var convertedByteCount: Int = 0
             var buffers: Float = 0
             
             // Create a queue to which the writing block with be submitted.
-            let mediaInputQueue: dispatch_queue_t = dispatch_queue_create("mediaInputQueue", nil)
+            let mediaInputQueue: DispatchQueue = DispatchQueue(label: "mediaInputQueue", attributes: [])
             
             // Instruct the writer input to invoke a block repeatedly, at its convenience, in
             // order to gather media data for writing to the output.
-            assetWriterInput.requestMediaDataWhenReadyOnQueue(mediaInputQueue, usingBlock: {
+            assetWriterInput.requestMediaDataWhenReady(on: mediaInputQueue, using: {
                 
                 // While the writer input can accept more samples, keep appending its buffers
                 // with buffers read from the reader output.
-                while (assetWriterInput.readyForMoreMediaData) {
+                while (assetWriterInput.isReadyForMoreMediaData) {
                     
                     if let nextBuffer = assetReaderOutput.copyNextSampleBuffer() {
-                        assetWriterInput.appendSampleBuffer(nextBuffer)
+                        assetWriterInput.append(nextBuffer)
                         // Increment byte count.
                         convertedByteCount += CMSampleBufferGetTotalSampleSize(nextBuffer)
                         buffers += 0.0002
@@ -126,7 +126,7 @@ class SongExporter {
                     } else {
                         // All done
                         assetWriterInput.markAsFinished()
-                        assetWriter.finishWritingWithCompletionHandler(){
+                        assetWriter.finishWriting(){
                             self.isReadyToPlay = true
                         }
                         assetReader.cancelReading()

@@ -17,7 +17,7 @@ extension AKComputedParameter {
     ///   - feedback: Feedback amount. (Default: 0.0, Minimum: 0.0, Maximum: 1.0)
     ///
     public func delay(
-        time time: Double = 1.0,
+        time: Double = 1.0,
         feedback: AKParameter = 0.0
         ) -> AKOperation {
             return AKOperation(module: "delay",

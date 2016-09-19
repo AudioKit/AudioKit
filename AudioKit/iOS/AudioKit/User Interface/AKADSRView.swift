@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-@IBDesignable public class AKADSRView: UIView {
+@IBDesignable open class AKADSRView: UIView {
     public typealias ADSRCallback = (Double, Double, Double, Double)->()
 
-    @IBInspectable public var attackDuration: Double  = 0.100
-    @IBInspectable public var decayDuration: Double   = 0.100
-    @IBInspectable public var sustainLevel: Double    = 0.50
-    @IBInspectable public var releaseDuration: Double = 0.100
+    @IBInspectable open var attackDuration: Double  = 0.100
+    @IBInspectable open var decayDuration: Double   = 0.100
+    @IBInspectable open var sustainLevel: Double    = 0.50
+    @IBInspectable open var releaseDuration: Double = 0.100
 
     var attackTime: CGFloat {
         get {
@@ -56,18 +56,18 @@ import UIKit
     var attackTouchAreaPath       = UIBezierPath()
     var releaseTouchAreaPath      = UIBezierPath()
 
-    public var callback: ADSRCallback?
+    open var callback: ADSRCallback?
     var currentDragArea = ""
 
     //// Color Declarations
-    @IBInspectable public var attackColor: UIColor  = UIColor(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
-    @IBInspectable public var decayColor: UIColor   = UIColor(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
-    @IBInspectable public var sustainColor: UIColor = UIColor(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
-    @IBInspectable public var releaseColor: UIColor = UIColor(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
+    @IBInspectable open var attackColor: UIColor  = UIColor(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var decayColor: UIColor   = UIColor(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var sustainColor: UIColor = UIColor(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
+    @IBInspectable open var releaseColor: UIColor = UIColor(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
     let bgColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     
-    @IBInspectable public var curveStrokeWidth: CGFloat = 1
-    @IBInspectable public var curveColor: UIColor = UIColor.blackColor()
+    @IBInspectable open var curveStrokeWidth: CGFloat = 1
+    @IBInspectable open var curveColor: UIColor = UIColor.black
 
 
     var lastPoint = CGPoint.zero
@@ -77,7 +77,7 @@ import UIKit
     public init(callback: ADSRCallback? = nil) {
         self.callback = callback
         super.init(frame: CGRect(x: 0, y: 0, width: 440, height: 150))
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -86,34 +86,34 @@ import UIKit
     
     // MARK: - Storyboard Rendering
     
-    override public func prepareForInterfaceBuilder() {
+    override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
-        contentMode = .ScaleAspectFill
+        contentMode = .scaleAspectFill
         clipsToBounds = true
     }
     
-    override public func intrinsicContentSize() -> CGSize {
+    override open var intrinsicContentSize : CGSize {
         return CGSize(width: 440, height: 150)
     }
     
-    public class override func requiresConstraintBasedLayout() -> Bool {
+    open class override var requiresConstraintBasedLayout : Bool {
         return true
     }
     
     // MARK: - Touch Handling
     
-    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let touchLocation = touch.locationInView(self)
+            let touchLocation = touch.location(in: self)
             
-            if decaySustainTouchAreaPath.containsPoint(touchLocation) {
+            if decaySustainTouchAreaPath.contains(touchLocation) {
                 currentDragArea = "ds"
             }
-            if attackTouchAreaPath.containsPoint(touchLocation) {
+            if attackTouchAreaPath.contains(touchLocation) {
                 currentDragArea = "a"
             }
-            if releaseTouchAreaPath.containsPoint(touchLocation) {
+            if releaseTouchAreaPath.contains(touchLocation) {
                 currentDragArea = "r"
             }
             lastPoint = touchLocation
@@ -121,9 +121,9 @@ import UIKit
         setNeedsDisplay()
     }
     
-    override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let touchLocation = touch.locationInView(self)
+            let touchLocation = touch.location(in: self)
             
             if currentDragArea != "" {
                 if currentDragArea == "ds" {
@@ -158,7 +158,7 @@ import UIKit
     
     // MARK: - Drawing
 
-    func drawCurveCanvas(size size: CGSize = CGSize(width: 440, height: 151), attackDurationMS: CGFloat = 449, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
+    func drawCurveCanvas(size: CGSize = CGSize(width: 440, height: 151), attackDurationMS: CGFloat = 449, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -187,148 +187,148 @@ import UIKit
         let releaseToEndControlPoint  = CGPoint(x: releasePoint.x, y: endPoint.y)
 
         //// attackTouchArea Drawing
-        CGContextSaveGState(context!)
+        context!.saveGState()
 
         attackTouchAreaPath = UIBezierPath()
-        attackTouchAreaPath.moveToPoint(CGPoint(x: 0, y: size.height))
-        attackTouchAreaPath.addLineToPoint(highPointAxis)
-        attackTouchAreaPath.addLineToPoint(highMax)
-        attackTouchAreaPath.addLineToPoint(initialMax)
-        attackTouchAreaPath.addLineToPoint(CGPoint(x: 0, y: size.height))
-        attackTouchAreaPath.closePath()
+        attackTouchAreaPath.move(to: CGPoint(x: 0, y: size.height))
+        attackTouchAreaPath.addLine(to: highPointAxis)
+        attackTouchAreaPath.addLine(to: highMax)
+        attackTouchAreaPath.addLine(to: initialMax)
+        attackTouchAreaPath.addLine(to: CGPoint(x: 0, y: size.height))
+        attackTouchAreaPath.close()
         bgColor.setFill()
         attackTouchAreaPath.fill()
 
-        CGContextRestoreGState(context!)
+        context!.restoreGState()
 
         //// decaySustainTouchArea Drawing
-        CGContextSaveGState(context!)
+        context!.saveGState()
 
         decaySustainTouchAreaPath = UIBezierPath()
-        decaySustainTouchAreaPath.moveToPoint(highPointAxis)
-        decaySustainTouchAreaPath.addLineToPoint(releaseAxis)
-        decaySustainTouchAreaPath.addLineToPoint(releaseMax)
-        decaySustainTouchAreaPath.addLineToPoint(highMax)
-        decaySustainTouchAreaPath.addLineToPoint(highPointAxis)
-        decaySustainTouchAreaPath.closePath()
+        decaySustainTouchAreaPath.move(to: highPointAxis)
+        decaySustainTouchAreaPath.addLine(to: releaseAxis)
+        decaySustainTouchAreaPath.addLine(to: releaseMax)
+        decaySustainTouchAreaPath.addLine(to: highMax)
+        decaySustainTouchAreaPath.addLine(to: highPointAxis)
+        decaySustainTouchAreaPath.close()
         bgColor.setFill()
         decaySustainTouchAreaPath.fill()
 
-        CGContextRestoreGState(context!)
+        context!.restoreGState()
 
 
         //// releaseTouchArea Drawing
-        CGContextSaveGState(context!)
+        context!.saveGState()
 
         releaseTouchAreaPath = UIBezierPath()
-        releaseTouchAreaPath.moveToPoint(releaseAxis)
-        releaseTouchAreaPath.addLineToPoint(endAxes)
-        releaseTouchAreaPath.addLineToPoint(endMax)
-        releaseTouchAreaPath.addLineToPoint(releaseMax)
-        releaseTouchAreaPath.addLineToPoint(releaseAxis)
-        releaseTouchAreaPath.closePath()
+        releaseTouchAreaPath.move(to: releaseAxis)
+        releaseTouchAreaPath.addLine(to: endAxes)
+        releaseTouchAreaPath.addLine(to: endMax)
+        releaseTouchAreaPath.addLine(to: releaseMax)
+        releaseTouchAreaPath.addLine(to: releaseAxis)
+        releaseTouchAreaPath.close()
         bgColor.setFill()
         releaseTouchAreaPath.fill()
 
-        CGContextRestoreGState(context!)
+        context!.restoreGState()
 
 
         //// releaseArea Drawing
-        CGContextSaveGState(context!)
+        context!.saveGState()
 
         let releaseAreaPath = UIBezierPath()
-        releaseAreaPath.moveToPoint(releaseAxis)
-        releaseAreaPath.addCurveToPoint(endPoint,
+        releaseAreaPath.move(to: releaseAxis)
+        releaseAreaPath.addCurve(to: endPoint,
                                         controlPoint1: releaseAxis,
                                         controlPoint2: endPoint)
-        releaseAreaPath.addCurveToPoint(releasePoint,
+        releaseAreaPath.addCurve(to: releasePoint,
                                         controlPoint1: releaseToEndControlPoint,
                                         controlPoint2: releasePoint)
-        releaseAreaPath.addLineToPoint(releaseAxis)
-        releaseAreaPath.closePath()
+        releaseAreaPath.addLine(to: releaseAxis)
+        releaseAreaPath.close()
         releaseColor.setFill()
         releaseAreaPath.fill()
 
-        CGContextRestoreGState(context!)
+        context!.restoreGState()
 
 
         //// sustainArea Drawing
-        CGContextSaveGState(context!)
+        context!.saveGState()
 
         let sustainAreaPath = UIBezierPath()
-        sustainAreaPath.moveToPoint(sustainAxis)
-        sustainAreaPath.addLineToPoint(releaseAxis)
-        sustainAreaPath.addLineToPoint(releasePoint)
-        sustainAreaPath.addLineToPoint(sustainPoint)
-        sustainAreaPath.addLineToPoint(sustainAxis)
-        sustainAreaPath.closePath()
+        sustainAreaPath.move(to: sustainAxis)
+        sustainAreaPath.addLine(to: releaseAxis)
+        sustainAreaPath.addLine(to: releasePoint)
+        sustainAreaPath.addLine(to: sustainPoint)
+        sustainAreaPath.addLine(to: sustainAxis)
+        sustainAreaPath.close()
         sustainColor.setFill()
         sustainAreaPath.fill()
 
-        CGContextRestoreGState(context!)
+        context!.restoreGState()
 
 
         //// decayArea Drawing
-        CGContextSaveGState(context!)
+        context!.saveGState()
 
         let decayAreaPath = UIBezierPath()
-        decayAreaPath.moveToPoint(highPointAxis)
-        decayAreaPath.addLineToPoint(sustainAxis)
-        decayAreaPath.addCurveToPoint(sustainPoint,
+        decayAreaPath.move(to: highPointAxis)
+        decayAreaPath.addLine(to: sustainAxis)
+        decayAreaPath.addCurve(to: sustainPoint,
                                       controlPoint1: sustainAxis,
                                       controlPoint2: sustainPoint)
-        decayAreaPath.addCurveToPoint(highPoint,
+        decayAreaPath.addCurve(to: highPoint,
                                       controlPoint1: highToSustainControlPoint,
                                       controlPoint2: highPoint)
-        decayAreaPath.addLineToPoint(highPoint)
-        decayAreaPath.closePath()
+        decayAreaPath.addLine(to: highPoint)
+        decayAreaPath.close()
         decayColor.setFill()
         decayAreaPath.fill()
 
-        CGContextRestoreGState(context!)
+        context!.restoreGState()
 
 
         //// attackArea Drawing
-        CGContextSaveGState(context!)
+        context!.saveGState()
 
         let attackAreaPath = UIBezierPath()
-        attackAreaPath.moveToPoint(initialPoint)
-        attackAreaPath.addLineToPoint(highPointAxis)
-        attackAreaPath.addLineToPoint(highPoint)
-        attackAreaPath.addCurveToPoint(initialPoint,
+        attackAreaPath.move(to: initialPoint)
+        attackAreaPath.addLine(to: highPointAxis)
+        attackAreaPath.addLine(to: highPoint)
+        attackAreaPath.addCurve(to: initialPoint,
                                        controlPoint1: initialToHighControlPoint,
                                        controlPoint2: initialPoint)
-        attackAreaPath.closePath()
+        attackAreaPath.close()
         attackColor.setFill()
         attackAreaPath.fill()
 
-        CGContextRestoreGState(context!)
+        context!.restoreGState()
 
         //// Curve Drawing
-        CGContextSaveGState(context!)
+        context!.saveGState()
 
         let curvePath = UIBezierPath()
-        curvePath.moveToPoint(initialPoint)
-        curvePath.addCurveToPoint(highPoint,
+        curvePath.move(to: initialPoint)
+        curvePath.addCurve(to: highPoint,
                                   controlPoint1: initialPoint,
                                   controlPoint2: initialToHighControlPoint)
-        curvePath.addCurveToPoint(sustainPoint,
+        curvePath.addCurve(to: sustainPoint,
                                   controlPoint1: highPoint,
                                   controlPoint2: highToSustainControlPoint)
-        curvePath.addLineToPoint(releasePoint)
-        curvePath.addCurveToPoint(endPoint,
+        curvePath.addLine(to: releasePoint)
+        curvePath.addCurve(to: endPoint,
                                   controlPoint1: releasePoint,
                                   controlPoint2: releaseToEndControlPoint)
         curveColor.setStroke()
         curvePath.lineWidth = curveStrokeWidth
         curvePath.stroke()
 
-        CGContextRestoreGState(context!)
+        context!.restoreGState()
     }
 
 
 
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         drawCurveCanvas(size: rect.size, attackDurationMS: attackTime,
                         decayDurationMS: decayTime,
                         releaseDurationMS: releaseTime,

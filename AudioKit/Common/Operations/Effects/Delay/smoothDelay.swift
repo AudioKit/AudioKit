@@ -19,7 +19,7 @@ extension AKComputedParameter {
     ///   - maximumDelayTime: The maximum delay time, in seconds. (Default: 5.0, Minimum: 0.0, Maximum: 10.0)
     ///
     public func smoothDelay(
-        time time: AKParameter = 1.0,
+        time: AKParameter = 1.0,
              samples: AKParameter = 1024,
              feedback: AKParameter = 0.0,
              maximumDelayTime: Double = 5.0

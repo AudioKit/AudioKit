@@ -1,10 +1,10 @@
 //: ## Sean Costello Reverb
 //: This is a great sounding reverb that we just love.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
             value: reverb.cutoffFrequency, maximum: 5000,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             reverb.cutoffFrequency = sliderValue
             }
@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
         feedbackSlider = AKPropertySlider(
             property: "Feedback",
             value: reverb.feedback,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             reverb.feedback = sliderValue
             }
@@ -73,5 +73,5 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

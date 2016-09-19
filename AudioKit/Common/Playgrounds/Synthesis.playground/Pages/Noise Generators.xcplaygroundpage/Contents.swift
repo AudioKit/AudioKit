@@ -1,6 +1,6 @@
 //: ## Pink and White Noise Generators
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var white = AKWhiteNoise(amplitude: 0.1)
@@ -22,7 +22,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Volume",
             format: "%0.2f",
             value: pink.amplitude,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { amplitude in
             pink.amplitude = amplitude
             white.amplitude = amplitude
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "White to Pink Balance",
             format: "%0.2f",
             value: whitePinkMixer.balance,
-            color: AKColor.magentaColor()
+            color: AKColor.magenta
         ) { balance in
             whitePinkMixer.balance = balance
             })
@@ -41,5 +41,5 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

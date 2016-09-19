@@ -15,7 +15,7 @@ public protocol AKKeyboardDelegate {
 
 public class AKKeyboardView: NSView, AKMIDIListener {
 
-    override public var flipped: Bool {
+    override public var isFlipped: Bool {
         get { return true }
     }
 
@@ -37,7 +37,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     public var polyphonicMode = false {
         didSet {
             for note in onKeys {
-                delegate?.noteOff(note)
+                delegate?.noteOff(note: note)
             }
             onKeys.removeAll()
             needsDisplay = true
@@ -51,17 +51,17 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     let topKeyNotes = [0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 11]
     let whiteKeyNotes = [0, 2, 4, 5, 7, 9, 11]
 
-    override public func drawRect(dirtyRect: NSRect) {
+    override public func draw(_ dirtyRect: NSRect) {
         for i in 0 ..< octaveCount {
-            drawOctaveCanvas(i)
+            drawOctaveCanvas(octaveNumber: i)
         }
         let backgroundPath = NSBezierPath(rect: NSMakeRect(size.width * CGFloat(octaveCount), 0, size.width / 7, size.height))
-        NSColor.blackColor().setFill()
+        NSColor.black.setFill()
         backgroundPath.fill()
 
         let lastC = NSBezierPath(rect:
-            CGRect(x: whiteKeyX(0, octaveNumber: octaveCount), y: 1, width: whiteKeySize.width - 2, height: whiteKeySize.height))
-        whiteKeyColor(0, octaveNumber: octaveCount).setFill()
+            CGRect(x: whiteKeyX(n: 0, octaveNumber: octaveCount), y: 1, width: whiteKeySize.width - 2, height: whiteKeySize.height))
+        whiteKeyColor(n: 0, octaveNumber: octaveCount).setFill()
         lastC.fill()
     }
 
@@ -90,7 +90,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     }
 
     func topKeyColor(n: Int, octaveNumber: Int) -> NSColor {
-        if notesWithSharps[topKeyNotes[n]].rangeOfString("#") != nil {
+        if notesWithSharps[topKeyNotes[n]].range(of: "#") != nil {
             return onKeys.contains((firstOctave + octaveNumber) * 12 + topKeyNotes[n]) ? keyOnColor : blackKeyOff
         }
         return topWhiteKeyOff
@@ -100,16 +100,16 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     func drawOctaveCanvas(octaveNumber: Int) {
         //// background Drawing
         let backgroundPath = NSBezierPath(rect: NSMakeRect(0 + size.width * CGFloat(octaveNumber), 0, size.width, size.height))
-        NSColor.blackColor().setFill()
+        NSColor.black.setFill()
         backgroundPath.fill()
 
         var whiteKeysPaths = [NSBezierPath]()
 
         for i in 0 ..< 7 {
             whiteKeysPaths.append(
-                NSBezierPath(rect: NSMakeRect(whiteKeyX(i, octaveNumber: octaveNumber), 1, whiteKeySize.width - 1, whiteKeySize.height))
+                NSBezierPath(rect: NSMakeRect(whiteKeyX(n: i, octaveNumber: octaveNumber), 1, whiteKeySize.width - 1, whiteKeySize.height))
             )
-            whiteKeyColor(i, octaveNumber: octaveNumber).setFill()
+            whiteKeyColor(n: i, octaveNumber: octaveNumber).setFill()
             whiteKeysPaths[i].fill()
         }
 
@@ -117,9 +117,9 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
         for i in 0 ..< 28 {
             topKeyPaths.append(
-                NSBezierPath(rect: NSMakeRect(topKeyX(i, octaveNumber: octaveNumber), 1, topKeySize.width, topKeySize.height))
+                NSBezierPath(rect: NSMakeRect(topKeyX(n: i, octaveNumber: octaveNumber), 1, topKeySize.width, topKeySize.height))
             )
-            topKeyColor(i, octaveNumber: octaveNumber).setFill()
+            topKeyColor(n: i, octaveNumber: octaveNumber).setFill()
             topKeyPaths[i].fill()
         }
     }
@@ -164,40 +164,40 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         return note
     }
 
-    override public func mouseDown(event: NSEvent) {
-        let note = noteFromEvent(event)
+    override public func mouseDown(with event: NSEvent) {
+        let note = noteFromEvent(event: event)
         if polyphonicMode && onKeys.contains(note) {
             onKeys.remove(note)
-            delegate?.noteOff(note)
+            delegate?.noteOff(note: note)
         } else {
             onKeys.insert(note)
-            delegate?.noteOn(note)
+            delegate?.noteOn(note: note)
         }
         needsDisplay = true
     }
 
-    override public func mouseUp(event: NSEvent) {
+    override public func mouseUp(with event: NSEvent) {
         if !polyphonicMode {
-            let note = noteFromEvent(event)
+            let note = noteFromEvent(event: event)
             onKeys.remove(note)
-            delegate?.noteOff(note)
+            delegate?.noteOff(note: note)
         }
         needsDisplay = true
     }
 
 
-    override public func mouseDragged(event: NSEvent) {
+    override public func mouseDragged(with event: NSEvent) {
 
         if polyphonicMode { return } // no response for 'drawing cursor' in polyphonic mode
 
-        let note = noteFromEvent(event)
+        let note = noteFromEvent(event: event)
         if !onKeys.contains(note) {
             let currentNote = onKeys.first
             onKeys.removeAll()
             onKeys.insert(note)
-            delegate?.noteOn(note)
+            delegate?.noteOn(note: note)
             if let currNote = currentNote {
-                delegate?.noteOff(currNote)
+                delegate?.noteOff(note: currNote)
             }
             needsDisplay = true
         }
@@ -206,25 +206,25 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
     // MARK: - MIDI
 
-    public func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        dispatch_async(dispatch_get_main_queue(), {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        DispatchQueue.main.async(execute: {
             self.onKeys.insert(noteNumber)
-            self.delegate?.noteOn(noteNumber)
+            self.delegate?.noteOn(note: noteNumber)
             self.needsDisplay = true
         })
     }
 
-    public func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        dispatch_async(dispatch_get_main_queue(), {
+    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        DispatchQueue.main.async(execute: {
             self.onKeys.remove(noteNumber)
-            self.delegate?.noteOff(noteNumber)
+            self.delegate?.noteOff(note: noteNumber)
             self.needsDisplay = true
         })
     }
     public func receivedMIDIController(controller: Int, value: Int, channel: MIDIChannel) {
-        if controller == Int(AKMIDIControl.DamperOnOff.rawValue) && value == 0 {
+        if controller == Int(AKMIDIControl.damperOnOff.rawValue) && value == 0 {
             for note in onKeys {
-                delegate?.noteOff(note)
+                delegate?.noteOff(note: note)
             }
         }
     }

@@ -1,6 +1,6 @@
 //
 //  AKAudioFile+Utilities.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Laurent Veliscek on 7/4/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -17,7 +17,7 @@ extension AKAudioFile {
     /// Otherwise, returns nil
     /// (useful when sending an AKAudioFile by email)
     public var mimeType: String? {
-        switch self.fileExt.uppercaseString {
+        switch self.fileExt.uppercased() {
         case "WAV":
             return  "audio/wav"
         case "CAF":
@@ -47,17 +47,17 @@ extension AKAudioFile {
     public static func cleanTempDirectory() {
         var deletedFilesCount = 0
         
-        let fileManager = NSFileManager.defaultManager()
+        let fileManager = FileManager.default
         let tempPath =  NSTemporaryDirectory()
         
         do {
-            let fileNames = try fileManager.contentsOfDirectoryAtPath("\(tempPath)")
+            let fileNames = try fileManager.contentsOfDirectory(atPath: "\(tempPath)")
             
             // function for deleting files
-            func deleteFileWithFileName(fileName: String) {
+            func deleteFileWithFileName(_ fileName: String) {
                 let filePathName = "\(tempPath)/\(fileName)"
                 do {
-                    try fileManager.removeItemAtPath(filePathName)
+                    try fileManager.removeItem(atPath: filePathName)
                     print("\"\(fileName)\" deleted.")
                     deletedFilesCount += 1
                 } catch let error as NSError {
@@ -68,7 +68,7 @@ extension AKAudioFile {
             
             // Checks file type (only Audio Files)
             for fileName in fileNames {
-                let fileNameLowerCase = fileName.lowercaseString
+                let fileNameLowerCase = fileName.lowercased()
                 if fileNameLowerCase.hasSuffix(".wav") {
                     deleteFileWithFileName(fileName)
                 }
@@ -112,8 +112,8 @@ extension AKAudioFile {
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
-    static public func silent(samples samples: Int64,
-                                      baseDir: BaseDirectory = .Temp,
+    static public func silent(samples: Int64,
+                                      baseDir: BaseDirectory = .temp,
                                       name: String = "") throws -> AKAudioFile {
         
         if samples < 0 {

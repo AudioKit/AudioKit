@@ -1,10 +1,10 @@
 //: ## Smooth Delay Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -24,35 +24,35 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Smooth Delay Operation")
-        
+
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: processingPlaygroundFiles))
-        
+
         addSubview(AKPropertySlider(
             property: "Time",
             value: effect.parameters[0],
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Feedback",
             value: effect.parameters[1],
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
     }
-    
+
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
