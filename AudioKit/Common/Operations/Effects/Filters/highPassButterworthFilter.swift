@@ -16,7 +16,7 @@ extension AKComputedParameter {
     /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12.0, Maximum: 20000.0)
     ///
     public func highPassButterworthFilter(
-        cutoffFrequency cutoffFrequency: AKParameter = 500
+        cutoffFrequency: AKParameter = 500
         ) -> AKComputedParameter {
         return AKOperation(module: "buthp", inputs: self.toMono(), cutoffFrequency)
     }

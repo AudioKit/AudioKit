@@ -5,11 +5,11 @@
 //: ## Stereo Panning
 //: Panning is a basic operation that is essential to mixing and direction
 //: perception and it couldn't be easier with AKPanner.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Set up the audio player
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -32,5 +32,5 @@ AKPlaygroundLoop(every: timeStep) {
     time += timeStep
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

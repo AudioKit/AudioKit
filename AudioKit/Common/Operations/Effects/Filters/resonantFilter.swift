@@ -17,7 +17,7 @@ extension AKComputedParameter {
     ///   - bandwidth: The bandwidth of the filter (the Hz difference between the upper and lower half-power points; defaults to 1000 Hz).
     ///
     public func resonantFilter(
-        frequency frequency: AKParameter = 4000.0,
+        frequency: AKParameter = 4000.0,
                   bandwidth: AKParameter = 1000.0
         ) -> AKOperation {
         return AKOperation(module: "reson", inputs: self.toMono(), frequency, bandwidth)

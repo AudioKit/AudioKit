@@ -1,6 +1,6 @@
 //: ## Processing Audio File Asynchronously
 //: Processing some audio files in background
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: We begin by cleaning our bedroom... (any audioFiles in the Temp directory are deleted)
@@ -92,4 +92,4 @@ drumloop?.reverseAsynchronously() { reversedFile, error in
 print("Can refresh UI or do anything while processing...")
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

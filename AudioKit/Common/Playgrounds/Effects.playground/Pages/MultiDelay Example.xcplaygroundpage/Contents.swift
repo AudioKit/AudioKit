@@ -1,15 +1,15 @@
 //: ## MultiDelay Example
 //: This is similar to the MultiDelay implemented in the Analog Synth X example project.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
+func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
     zip(times, gains).forEach { (time, gain) -> () in
         let delay = AKVariableDelay(input, time: time)
@@ -41,4 +41,4 @@ AudioKit.start()
 player.play()
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

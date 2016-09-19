@@ -1,6 +1,6 @@
 //: ## FM Oscillator Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let generator = AKOperationGenerator() { _ in
@@ -36,4 +36,4 @@ AudioKit.start()
 
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

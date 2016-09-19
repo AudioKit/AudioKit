@@ -17,33 +17,33 @@ class LoopsViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    private func playNew(loop loop: String) {
-        songProcessor.audioFile = try? AKAudioFile(readFileName: "\(loop)loop.wav", baseDir: .Resources)
+    fileprivate func playNew(loop: String) {
+        songProcessor.audioFile = try? AKAudioFile(readFileName: "\(loop)loop.wav", baseDir: .resources)
         let _ = try? songProcessor.audioFilePlayer?.replaceFile(songProcessor.audioFile!)
         songProcessor.audioFilePlayer?.play()
     }
     
-    @IBAction func playMix(sender: UIButton) {
+    @IBAction func playMix(_ sender: UIButton) {
         playNew(loop: "mix")
     }
 
-    @IBAction func playDrums(sender: UIButton) {
+    @IBAction func playDrums(_ sender: UIButton) {
         playNew(loop: "drum")
     }
 
-    @IBAction func playBass(sender: UIButton) {
+    @IBAction func playBass(_ sender: UIButton) {
         playNew(loop: "bass")
     }
     
-    @IBAction func playGuitar(sender: UIButton) {
+    @IBAction func playGuitar(_ sender: UIButton) {
         playNew(loop: "guitar")
     }
     
-    @IBAction func playLead(sender: UIButton) {
+    @IBAction func playLead(_ sender: UIButton) {
         playNew(loop: "lead")
     }
 
-    @IBAction func stop(sender: UIButton) {
+    @IBAction func stop(_ sender: UIButton) {
         songProcessor.audioFilePlayer?.stop()
     }
     

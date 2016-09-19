@@ -18,13 +18,13 @@ import AVFoundation
 ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
 ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio (Normalized Value) ranges from 0 to 1 (Default: 0.5)
 ///
-public class AKDelay: AKNode, AKToggleable {
+open class AKDelay: AKNode, AKToggleable {
     let delayAU = AVAudioUnitDelay()
 
-    private var lastKnownMix: Double = 0.5
+    fileprivate var lastKnownMix: Double = 0.5
 
     /// Delay time in seconds (Default: 1)
-    public var time: NSTimeInterval = 1 {
+    open var time: TimeInterval = 1 {
         didSet {
             if time < 0 {
                 time = 0
@@ -34,7 +34,7 @@ public class AKDelay: AKNode, AKToggleable {
     }
 
     /// Feedback (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var feedback: Double = 0.5 {
+    open var feedback: Double = 0.5 {
         didSet {
             if feedback < 0 {
                 feedback = 0
@@ -47,7 +47,7 @@ public class AKDelay: AKNode, AKToggleable {
     }
 
     /// Low pass cut-off frequency in Hertz (Default: 15000)
-    public var lowPassCutoff: Double = 15000.00 {
+    open var lowPassCutoff: Double = 15000.00 {
         didSet {
             if lowPassCutoff < 0 {
                 lowPassCutoff = 0
@@ -57,13 +57,13 @@ public class AKDelay: AKNode, AKToggleable {
     }
 
     /// Dry/Wet Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    public var dryWetMix: Double = 0.5 {
+    open var dryWetMix: Double = 0.5 {
         didSet {
             internalSetDryWetMix(dryWetMix)
         }
     }
 
-    internal func internalSetDryWetMix(value: Double) {
+    internal func internalSetDryWetMix(_ value: Double) {
         var newValue = value
         if newValue < 0 {
             newValue = 0
@@ -75,7 +75,7 @@ public class AKDelay: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
+    open var isStarted = true
 
     /// Initialize the delay node
     ///
@@ -93,14 +93,14 @@ public class AKDelay: AKNode, AKToggleable {
         lowPassCutoff: Double = 15000,
         dryWetMix: Double = 0.5) {
 
-            self.time = NSTimeInterval(Double(time))
+            self.time = TimeInterval(Double(time))
             self.feedback = feedback
             self.lowPassCutoff = lowPassCutoff
             self.dryWetMix = dryWetMix
 
             super.init()
             self.avAudioNode = delayAU
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
 
 
@@ -111,7 +111,7 @@ public class AKDelay: AKNode, AKToggleable {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -119,7 +119,7 @@ public class AKDelay: AKNode, AKToggleable {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

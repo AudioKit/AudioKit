@@ -1,6 +1,6 @@
 //: ## PWM Oscillator
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var oscillator = AKPWMOscillator()
@@ -24,7 +24,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Amplitude",
             format: "%0.3f",
             value: currentAmplitude,
-            color: AKColor.purpleColor()
+            color: AKColor.purple
         ) { amplitude in
             currentAmplitude = amplitude
             })
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Pulse Width",
             value: oscillator.pulseWidth,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { amount in
             oscillator.pulseWidth = amount
             })
@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Ramp Time",
             format: "%0.3f s",
             value: currentRampTime, maximum: 2,
-            color: AKColor.orangeColor()
+            color: AKColor.orange
         ) { time in
             currentRampTime = time
             })
@@ -72,5 +72,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

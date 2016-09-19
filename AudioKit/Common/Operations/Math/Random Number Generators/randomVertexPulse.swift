@@ -18,7 +18,7 @@ extension AKOperation {
     ///   - updateFrequency: Frequency to change values. (Default: 3)
     ///
     public static func randomVertexPulse(
-        minimum minimum: AKParameter = 0,
+        minimum: AKParameter = 0,
         maximum: AKParameter = 1,
         updateFrequency: AKParameter = 3
         ) -> AKOperation {

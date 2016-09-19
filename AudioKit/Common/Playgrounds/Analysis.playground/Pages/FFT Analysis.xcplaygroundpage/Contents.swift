@@ -1,11 +1,9 @@
 //: ## FFT Analysis
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-
-let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -17,8 +15,8 @@ let fft = AKFFTTap(player)
 
 
 AKPlaygroundLoop(every: 0.1) {
-    let max = fft.fftData.maxElement()!
-    let index = fft.fftData.indexOf(max)
+    let max = fft.fftData.max()!
+    let index = fft.fftData.index(of: max)
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

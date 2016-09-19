@@ -5,7 +5,7 @@
 //: ## XY Pad
 //:
 import Cocoa
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var oscillator = AKFMOscillator()
@@ -21,36 +21,36 @@ AudioKit.start()
 class TouchView: NSView {
     var (path, currentPath) = (NSBezierPath(), NSBezierPath())
 
-    override func drawRect(dirtyRect: NSRect) {
-        guard let contextPtr = NSGraphicsContext.currentContext()?.graphicsPort else {return}
-        let context = unsafeBitCast(contextPtr, CGContext.self)
-        CGContextClearRect(context, dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        guard let contextPtr = NSGraphicsContext.current()?.graphicsPort else {return}
+        let context = unsafeBitCast(contextPtr, to: CGContext.self)
+        context.clear(dirtyRect)
         path.stroke()
         currentPath.lineWidth = 2.0
         currentPath.stroke()
     }
 
-    override func mouseDown(theEvent: NSEvent) {
+    override func mouseDown(with theEvent: NSEvent) {
         currentPath = NSBezierPath()
-        currentPath.moveToPoint(theEvent.locationInWindow)
+        currentPath.move(to: theEvent.locationInWindow)
         oscillator.start()
-        updateOscillator(theEvent)
+        updateOscillator(with: theEvent)
     }
 
-    override func mouseDragged(theEvent: NSEvent) {
-        currentPath.lineToPoint(theEvent.locationInWindow)
+    override func mouseDragged(with theEvent: NSEvent) {
+        currentPath.line(to: theEvent.locationInWindow)
         needsDisplay = true
-        updateOscillator(theEvent)
+        updateOscillator(with: theEvent)
     }
 
-    override func mouseUp(theEvent: NSEvent) {
-        path.appendBezierPath(currentPath)
+    override func mouseUp(with theEvent: NSEvent) {
+        path.append(currentPath)
         currentPath = NSBezierPath()
         needsDisplay = true
         oscillator.stop()
     }
 
-    func updateOscillator(theEvent: NSEvent) {
+    func updateOscillator(with theEvent: NSEvent) {
         let x = theEvent.locationInWindow.x/self.bounds.width
         let y = theEvent.locationInWindow.y/self.bounds.height
         oscillator.baseFrequency = Double(x * 1000)
@@ -60,11 +60,11 @@ class TouchView: NSView {
 
 let touchView: TouchView = {
     $0.wantsLayer = true
-    $0.layer?.backgroundColor = NSColor.whiteColor().CGColor
+    $0.layer?.backgroundColor = NSColor.white.cgColor
     return $0
 }(TouchView(frame: NSRect(x: 0, y: 0, width: 500, height: 1000)))
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = touchView
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = touchView
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

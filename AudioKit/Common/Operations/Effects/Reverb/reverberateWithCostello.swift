@@ -19,7 +19,7 @@ extension AKComputedParameter {
     ///   - cutoffFrequency: Low-pass cutoff frequency. (Default: 4000, Minimum: 12.0, Maximum: 20000.0)
     ///
     public func reverberateWithCostello(
-        feedback feedback: AKParameter = 0.6,
+        feedback: AKParameter = 0.6,
         cutoffFrequency: AKParameter = 4000
         ) -> AKStereoOperation {
         return AKStereoOperation(module: "revsc",

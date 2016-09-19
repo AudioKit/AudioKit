@@ -5,18 +5,18 @@
 //: rhythmic delay patterns, but they can also be used to create sound
 //: fields of such density that they start to take on some of the qualities
 //: we'd more usually associate with reverb. - Geoff Smith, Sound on Sound
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: In AudioKit, you can create a multitap easily through creating a function
 //: that mixes together several delays and gains.
-func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
+func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
     zip(times, gains).forEach { (time, gain) -> () in
         let delay = AKDelay(input, time: time, feedback: 0.0, dryWetMix: 1)
@@ -29,4 +29,4 @@ AudioKit.output = multitapDelay(player, times: [0.1, 0.2, 0.4], gains: [0.5, 2.0
 AudioKit.start()
 player.play()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

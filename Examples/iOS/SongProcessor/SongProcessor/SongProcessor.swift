@@ -29,7 +29,7 @@ class SongProcessor {
     
     init() {
         audioFile = try? AKAudioFile(readFileName: "mixloop.wav",
-                                     baseDir: .Resources)
+                                     baseDir: .resources)
         audioFilePlayer = try? AKAudioPlayer(file: audioFile!)
         audioFilePlayer?.looping = true
         variableDelay = AKVariableDelay(audioFilePlayer!)

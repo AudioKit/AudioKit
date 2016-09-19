@@ -22,15 +22,15 @@ import AudioKit
 //:
 //: Another import line you will see in most playgrounds enables `XCPlayground` functions
 //: for plotting, keeping the playground alive while audio plays, and more.
-import XCPlayground
+import PlaygroundSupport
 
 //: This main bundle line just helps the playground find the files (such as audio clips)
 //: it will be able to play and process.
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main
 
 //: To reference a file, you use the bundle from about and the `pathForResource`
 //: method that includes the name with the extension given in the `ofType` parameter.
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
 
 //: You are not limited to using the sound files provided with AudioKit, in fact
 //: we encourage you to drag your own sound files to the Resources folder.
@@ -56,11 +56,11 @@ let effect = AKMoogLadder(player)
 //: as Xcode's support for Swift code completion improves.
 let effect2 = AKMoogLadder.init(player)
 
-//: Remember the `import XCPlayground` line above?  Here's one way that is used.
+//: Remember the `import PlaygroundSupport` line above?  Here's one way that is used.
 //: The following line keeps a playground executing even after the last line is
 //: run so that the audio elements that were started have time to play and make
 //: sounds for us to listen to.
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: The other ways we'll keep playgrounds running will by using `sleep` and `usleep`
 //: functions and infinite while loops.
 
@@ -69,7 +69,7 @@ XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: by default because it takes significant power to draw the plots and we don't
 //: want your laptop's fan to fire up and drain your battery unnecessarily
 let plotView = AKOutputWaveformPlot.createView()
-XCPlaygroundPage.currentPage.liveView = plotView
+PlaygroundPage.current.liveView = plotView
 
 //: Now that we are near the bottom of the screen (unless you have a majorly tall monitor!)
 //: we'd like to call your attention to the playground controls on the

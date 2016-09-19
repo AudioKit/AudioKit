@@ -1,6 +1,6 @@
 //: ## Plucked String Operation
 //: Experimenting with a physical model of a string
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let playRate = 2.0
@@ -40,4 +40,4 @@ AKPlaygroundLoop(frequency: playRate) {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

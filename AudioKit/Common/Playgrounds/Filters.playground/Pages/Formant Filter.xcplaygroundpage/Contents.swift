@@ -1,10 +1,10 @@
 //: ## Formant Filter
 //: ##
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Center Frequency",
             format: "%0.1f Hz",
             value: filter.centerFrequency, maximum: 8000,
-            color: AKColor.yellowColor()
+            color: AKColor.yellow
         ) { sliderValue in
             filter.centerFrequency = sliderValue
             })
@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Attack",
             format: "%0.3f s",
             value: filter.attackDuration, maximum: 0.1,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { duration in
             filter.attackDuration = duration
             })
@@ -50,7 +50,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Decay",
             format: "%0.3f s",
             value: filter.decayDuration, maximum: 0.1,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { duration in
             filter.decayDuration = duration
             })
@@ -58,5 +58,5 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

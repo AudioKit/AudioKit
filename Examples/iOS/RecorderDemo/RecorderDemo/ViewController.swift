@@ -48,10 +48,10 @@ class ViewController: UIViewController {
         AKAudioFile.cleanTempDirectory()
         
         // Session settings
-        AKSettings.bufferLength = .Medium
+        AKSettings.bufferLength = .medium
 
         do {
-            try AKSettings.setSessionCategory(.PlayAndRecord, withOptions: .DefaultToSpeaker)
+            try AKSettings.setSessionCategory(.PlayAndRecord, withOptions: .defaultToSpeaker)
         } catch { print("Errored setting category.") }
 
         // Patching
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
     // Must be seipatched on the main queue as completionHandler
     // will be triggered by a background thread
     func playingEnded() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.setupUIForPlaying ()
         }
     }
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
         switch state {
         case .readyToRecord :
             infoLabel.text = "Recording"
-            mainButton.setTitle("Stop", forState: .Normal)
+            mainButton.setTitle("Stop", for: .normal)
             state = .recording
             // microphone will be monitored while recording
             // only if headphones are plugged
@@ -109,14 +109,14 @@ class ViewController: UIViewController {
             } catch { print("Errored reloading.") }
 
             let recordedDuration = player != nil ? player?.audioFile.duration  : 0
-            if recordedDuration > 0 {
+            if recordedDuration! > 0.0 {
                 recorder?.stop()
                 setupUIForPlaying ()
             }
         case .readyToPlay :
             player!.play()
             infoLabel.text = "Playing..."
-            mainButton.setTitle("Stop", forState: .Normal)
+            mainButton.setTitle("Stop", for: .normal)
             state = .playing
         case .playing :
             player?.stop()
@@ -129,40 +129,40 @@ class ViewController: UIViewController {
     }
     
     func setupButtonNames() {
-        resetButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
-        mainButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
-        loopButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
+        resetButton.setTitle(Constants.empty, for: UIControlState.disabled)
+        mainButton.setTitle(Constants.empty, for: UIControlState.disabled)
+        loopButton.setTitle(Constants.empty, for: UIControlState.disabled)
     }
 
     func setupUIForRecording () {
         state = .readyToRecord
         infoLabel.text = "Ready to record"
-        mainButton.setTitle("Record", forState: .Normal)
-        resetButton.enabled = false
-        resetButton.hidden = true
+        mainButton.setTitle("Record", for: .normal)
+        resetButton.isEnabled = false
+        resetButton.isHidden = true
         micBooster?.gain = 0
-        setSliders(false)
+        setSliders(active: false)
     }
 
     func setupUIForPlaying () {
         let recordedDuration =  player != nil ? player?.audioFile.duration  : 0
         infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration!)) seconds"
-        mainButton.setTitle("Play", forState: .Normal)
+        mainButton.setTitle("Play", for: .normal)
         state = .readyToPlay
-        resetButton.hidden = false
-        resetButton.enabled = true
-        setSliders(true)
+        resetButton.isHidden = false
+        resetButton.isEnabled = true
+        setSliders(active: true)
     }
 
     func setSliders(active: Bool) {
-        loopButton.enabled = active
-        moogLadderTitle.enabled = active
-        freqSlider.enabled = active
-        freqSlider.hidden = !active
-        resonSlider.enabled = active
-        resonSlider.hidden = !active
-        freqLabel.enabled = active
-        resonLabel.enabled = active
+        loopButton.isEnabled = active
+        moogLadderTitle.isEnabled = active
+        freqSlider.isEnabled = active
+        freqSlider.isHidden = !active
+        resonSlider.isEnabled = active
+        resonSlider.isHidden = !active
+        freqLabel.isEnabled = active
+        resonLabel.isEnabled = active
         freqLabel.text = active ? "Cutoff Frequency" : Constants.empty
         resonLabel.text = active ? "Resonance" : Constants.empty
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
@@ -172,10 +172,10 @@ class ViewController: UIViewController {
 
         if player!.looping {
             player!.looping = false
-            sender.setTitle("Loop is Off", forState: .Normal)
+            sender.setTitle("Loop is Off", for: .normal)
         } else {
             player!.looping = true
-            sender.setTitle("Loop is On", forState: .Normal)
+            sender.setTitle("Loop is On", for: .normal)
 
         }
 

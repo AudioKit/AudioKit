@@ -1,12 +1,12 @@
 //: ## Reading and Writing Audio Files
 //:
 //: AKAudioFile inherits from AVAudioFile so you can use it just like any AVAudioFile
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 // Let's create an AKaudioFile :
 let akAudioFile = try AKAudioFile(readFileName: "click.wav",
-                                  baseDir: .Resources)
+                                  baseDir: .resources)
 
 // converted in an AVAudioFile
 let avAudioFile = akAudioFile as AVAudioFile
@@ -16,11 +16,11 @@ let akAudioFile2 = try AKAudioFile(forReading: avAudioFile.url)
 
 
 //: The baseDirectory parameter if an enum value from AKAudioFile.BaseDirectory :
-let documentsDir = AKAudioFile.BaseDirectory.Documents
-let resourcesDir = AKAudioFile.BaseDirectory.Resources
-let tempDir = AKAudioFile.BaseDirectory.Temp
+let documentsDir = AKAudioFile.BaseDirectory.documents
+let resourcesDir = AKAudioFile.BaseDirectory.resources
+let tempDir = AKAudioFile.BaseDirectory.temp
 
-//: baseDir is defaulted to be .Resources, so loading an AKAudiofile
+//: baseDir is defaulted to be .resources, so loading an AKAudiofile
 //: from this playground Resources folder can be done like this :
 let drumloop = try AKAudioFile(readFileName: "drumloop.wav")
 
@@ -28,7 +28,7 @@ let drumloop = try AKAudioFile(readFileName: "drumloop.wav")
 //: Notice that an error message is printed in the debug area, and an error is thrown...
 do {
     let nonExistentFile = try AKAudioFile(readFileName: "nonExistent.wav",
-                                          baseDir: .Resources)
+                                          baseDir: .resources)
 } catch let error as NSError {
     print("There's an error: \(error)")
 }
@@ -45,8 +45,7 @@ print("drumloop.duration: \(drumloop.duration)")
 
 //: Then, we can extract from 1 to 2 seconds of drumloop, as an mp4 file that will be
 //: written in documents directory. If the destination file exists, it will be overwritten.
-try drumloop.export(
-    name: "exported", ext: .m4a, baseDir: .Documents,
+try drumloop.export(name: "exported", ext: .m4a, baseDir: .documents,
     fromTime: 1, toTime: 2) { export in
 
         print("myExportCallBack has been triggered. It means that export ended")
@@ -90,4 +89,4 @@ if myWorkingFile != nil && mySecondWorkingFile != nil {
 //: reverse them or extract samples as float arrays. You can even perform audio edits very easily.
 //: Have a look to AKAudioFile Part 2...
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
