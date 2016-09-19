@@ -69,20 +69,20 @@ class Conductor {
         AudioKit.output = pumper
         AudioKit.start()
         
-        sequence.newTrack()
+        let _ = sequence.newTrack()
         sequence.setLength(sequenceLength)
         sequence.tracks[Sequence.melody.rawValue].setMIDIOutput((melodicSound?.midiIn)!)
         generateNewMelodicSequence(minor: false)
         
-        sequence.newTrack()
+        let _ = sequence.newTrack()
         sequence.tracks[Sequence.bassDrum.rawValue].setMIDIOutput(bassDrum.midiIn)
         generateBassDrumSequence()
         
-        sequence.newTrack()
+        let _ = sequence.newTrack()
         sequence.tracks[Sequence.snareDrum.rawValue].setMIDIOutput(snareDrum.midiIn)
         generateSnareDrumSequence()
         
-        sequence.newTrack()
+        let _ = sequence.newTrack()
         sequence.tracks[Sequence.snareDrumGhost.rawValue].setMIDIOutput(snareGhost.midiIn)
         generateSnareDrumGhostSequence()
         
