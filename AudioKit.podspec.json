@@ -24,6 +24,7 @@
 	"AVFoundation"
     ],
     "osx": {
+        "source_files": "macOS/AudioKit.framework/Headers/*.h",
 	"public_header_files": "macOS/AudioKit.framework/Versions/A/Headers/*.h",
         "vendored_frameworks": "macOS/AudioKit.framework"
     },
