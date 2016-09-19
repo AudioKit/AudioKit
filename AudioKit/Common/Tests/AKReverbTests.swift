@@ -23,7 +23,7 @@ class AKReverbTests: AKTestCase {
         let effect = AKReverb(input)
         output = effect
         input.start()
-        effect.loadFactoryPreset(.Cathedral)
+        effect.loadFactoryPreset(.cathedral)
         AKTestMD5("670a8fe1d0216d0678750dab47d2118d")
     }
     
@@ -32,7 +32,7 @@ class AKReverbTests: AKTestCase {
         let effect = AKReverb(input)
         output = effect
         input.start()
-        effect.loadFactoryPreset(.SmallRoom)
+        effect.loadFactoryPreset(.smallRoom)
         AKTestMD5("1bbea0f0f4319e68804196da9f177951")
     }
 

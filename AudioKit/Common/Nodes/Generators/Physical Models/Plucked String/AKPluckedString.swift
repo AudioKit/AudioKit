@@ -15,7 +15,7 @@ import AVFoundation
 ///   - amplitude: Amplitude
 ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
 ///
-public class AKPluckedString: AKNode, AKToggleable {
+open class AKPluckedString: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -23,12 +23,12 @@ public class AKPluckedString: AKNode, AKToggleable {
     internal var token: AUParameterObserverToken?
 
 
-    private var frequencyParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
-    private var lowestFrequency: Double
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var amplitudeParameter: AUParameter?
+    fileprivate var lowestFrequency: Double
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -38,7 +38,7 @@ public class AKPluckedString: AKNode, AKToggleable {
     }
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    public var frequency: Double = 110 {
+    open var frequency: Double = 110 {
         willSet {
             if frequency != newValue {
                 frequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -47,7 +47,7 @@ public class AKPluckedString: AKNode, AKToggleable {
     }
 
     /// Amplitude
-    public var amplitude: Double = 0.5 {
+    open var amplitude: Double = 0.5 {
         willSet {
             if amplitude != newValue {
                 amplitudeParameter?.setValue(Float(newValue), originator: token!)
@@ -56,7 +56,7 @@ public class AKPluckedString: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -93,38 +93,38 @@ public class AKPluckedString: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKPluckedStringAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPluckedString",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPluckedStringAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPluckedStringAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter       = tree.valueForKey("frequency")       as? AUParameter
-        amplitudeParameter       = tree.valueForKey("amplitude")       as? AUParameter
+        frequencyParameter       = tree.value(forKey: "frequency")       as? AUParameter
+        amplitudeParameter       = tree.value(forKey: "amplitude")       as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
                 }
             }
-        }
+        })
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
     }
@@ -133,7 +133,7 @@ public class AKPluckedString: AKNode, AKToggleable {
     ///   - frequency: Frequency in Hz
     /// - amplitude amplitude: Volume
     ///
-    public func trigger(frequency frequency: Double, amplitude: Double = 1) {
+    open func trigger(frequency: Double, amplitude: Double = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
         self.internalAU!.start()
@@ -141,12 +141,12 @@ public class AKPluckedString: AKNode, AKToggleable {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

@@ -19,21 +19,21 @@ public class AKResourcesAudioFileLoaderView: NSView {
     var currentIndex = 0
     var titles = [String]()
     
-    override public func mouseDown(theEvent: NSEvent) {
+    override public func mouseDown(with theEvent: NSEvent) {
         var isFileChanged = false
         let isPlayerPlaying = player!.isPlaying
-        let touchLocation = convertPoint(theEvent.locationInWindow, fromView: nil)
-        if stopOuterPath.containsPoint(touchLocation) {
+        let touchLocation = convert(theEvent.locationInWindow, from: nil)
+        if stopOuterPath.contains(touchLocation) {
             player?.stop()
         }
-        if playOuterPath.containsPoint(touchLocation) {
+        if playOuterPath.contains(touchLocation) {
             player?.play()
         }
-        if upOuterPath.containsPoint(touchLocation) {
+        if upOuterPath.contains(touchLocation) {
             currentIndex -= 1
             isFileChanged = true
         }
-        if downOuterPath.containsPoint(touchLocation) {
+        if downOuterPath.contains(touchLocation) {
             currentIndex += 1
             isFileChanged = true
         }
@@ -43,7 +43,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         if isFileChanged {
             player?.stop()
             let filename = titles[currentIndex]
-            let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .Resources)
+            let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources)
             do {
                 try player?.replaceFile(file!)
             } catch {
@@ -62,9 +62,9 @@ public class AKResourcesAudioFileLoaderView: NSView {
         self.titles = filenames
     }
     
-    func drawAudioFileLoader(sliderColor sliderColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1), fileName: String = "None") {
+    func drawAudioFileLoader(sliderColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1), fileName: String = "None") {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.currentContext()!.graphicsPort, CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
         
         //// Color Declarations
         let backgroundColor = NSColor(calibratedRed: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
@@ -101,9 +101,9 @@ public class AKResourcesAudioFileLoaderView: NSView {
         
         //// playInner Drawing
         let playInnerPath = NSBezierPath()
-        playInnerPath.moveToPoint(NSMakePoint(76.5, 45))
-        playInnerPath.lineToPoint(NSMakePoint(76.5, 15))
-        playInnerPath.lineToPoint(NSMakePoint(106.5, 30))
+        playInnerPath.move(to: NSMakePoint(76.5, 45))
+        playInnerPath.line(to: NSMakePoint(76.5, 15))
+        playInnerPath.line(to: NSMakePoint(106.5, 30))
         dark.setFill()
         playInnerPath.fill()
         
@@ -119,12 +119,12 @@ public class AKResourcesAudioFileLoaderView: NSView {
         
         //// upInner Drawing
         let upInnerPath = NSBezierPath()
-        upInnerPath.moveToPoint(NSMakePoint(395.75, 37.5))
-        upInnerPath.lineToPoint(NSMakePoint(425.25, 37.5))
-        upInnerPath.lineToPoint(NSMakePoint(410.5, 52.5))
-        upInnerPath.lineToPoint(NSMakePoint(410.5, 52.5))
-        upInnerPath.lineToPoint(NSMakePoint(395.75, 37.5))
-        upInnerPath.closePath()
+        upInnerPath.move(to: NSMakePoint(395.75, 37.5))
+        upInnerPath.line(to: NSMakePoint(425.25, 37.5))
+        upInnerPath.line(to: NSMakePoint(410.5, 52.5))
+        upInnerPath.line(to: NSMakePoint(410.5, 52.5))
+        upInnerPath.line(to: NSMakePoint(395.75, 37.5))
+        upInnerPath.close()
         dark.setFill()
         upInnerPath.fill()
         
@@ -140,12 +140,12 @@ public class AKResourcesAudioFileLoaderView: NSView {
         
         //// downInner Drawing
         let downInnerPath = NSBezierPath()
-        downInnerPath.moveToPoint(NSMakePoint(410.5, 7.5))
-        downInnerPath.lineToPoint(NSMakePoint(410.5, 7.5))
-        downInnerPath.lineToPoint(NSMakePoint(425.25, 22.5))
-        downInnerPath.lineToPoint(NSMakePoint(395.75, 22.5))
-        downInnerPath.lineToPoint(NSMakePoint(410.5, 7.5))
-        downInnerPath.closePath()
+        downInnerPath.move(to: NSMakePoint(410.5, 7.5))
+        downInnerPath.line(to: NSMakePoint(410.5, 7.5))
+        downInnerPath.line(to: NSMakePoint(425.25, 22.5))
+        downInnerPath.line(to: NSMakePoint(395.75, 22.5))
+        downInnerPath.line(to: NSMakePoint(410.5, 7.5))
+        downInnerPath.close()
         dark.setFill()
         downInnerPath.fill()
         
@@ -155,21 +155,21 @@ public class AKResourcesAudioFileLoaderView: NSView {
         //// nameLabel Drawing
         let nameLabelRect = NSMakeRect(120, 0, 320, 60)
         let nameLabelStyle = NSMutableParagraphStyle()
-        nameLabelStyle.alignment = .Left
+        nameLabelStyle.alignment = .left
         
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.blackColor(), NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: nameLabelStyle]
         
         let nameLabelInset: CGRect = NSInsetRect(nameLabelRect, 10, 0)
-        let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRectWithSize(NSMakeSize(nameLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nameLabelFontAttributes).size.height
+        let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(with: NSMakeSize(nameLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: nameLabelFontAttributes).size.height
         let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX, nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, nameLabelInset.width, nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
-        NSString(string: fileName).drawInRect(NSOffsetRect(nameLabelTextRect, 0, 0), withAttributes: nameLabelFontAttributes)
+        NSString(string: fileName).draw(in: NSOffsetRect(nameLabelTextRect, 0, 0), withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }
 
     
-    override public func drawRect(rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         drawAudioFileLoader(fileName: titles[currentIndex])
     }
 }

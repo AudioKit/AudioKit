@@ -9,7 +9,7 @@
 //: It's just important that you know that operations that can do very
 //: complex synthesis and effect processing is capable in AudioKit.
 import AudioKit
-import XCPlayground
+import PlaygroundSupport
 
 var currentFrequency = 60.0
 
@@ -40,14 +40,13 @@ class PlaygroundView: AKPlaygroundView {
             property: "Frequency",
             format: "%0.2f BPM",
             value: 60, minimum: 40, maximum: 240,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { frequency in
             generator.parameters[0] = frequency
         })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

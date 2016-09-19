@@ -25,7 +25,7 @@ extension AKAudioFile {
     ///
     /// - returns: An AKAudioFile, or nil if init failed.
     ///
-    public func normalized(baseDir baseDir: BaseDirectory = .Temp,
+    public func normalized(baseDir: BaseDirectory = .temp,
                                    name: String = "",
                                    newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
         
@@ -69,7 +69,7 @@ extension AKAudioFile {
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
-    public func reversed(baseDir baseDir: BaseDirectory = .Temp,
+    public func reversed(baseDir: BaseDirectory = .temp,
                                  name: String = "" ) throws -> AKAudioFile {
         
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
@@ -83,7 +83,7 @@ extension AKAudioFile {
         
         var newArrays: [[Float]] = []
         for array in arrays {
-            newArrays.append(Array(array.reverse()))
+            newArrays.append(Array(array.reversed()))
         }
         outputFile = try AKAudioFile(createFileFromFloats: newArrays,
                                      baseDir: baseDir,
@@ -103,8 +103,8 @@ extension AKAudioFile {
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
-    public func appendedBy(file file: AKAudioFile,
-                                baseDir: BaseDirectory = .Temp,
+    public func appendedBy(file: AKAudioFile,
+                                baseDir: BaseDirectory = .temp,
                                 name: String  = "") throws -> AKAudioFile {
         
         
@@ -143,7 +143,7 @@ extension AKAudioFile {
         // We check that both pcm buffers share the same format
         if appendedBuffer.format != sourceBuffer.format {
             print("ERROR AKAudioFile.append: Couldn't match source file format with appended file format!...")
-            let userInfo: [NSObject : AnyObject] = [
+            let userInfo: [AnyHashable: Any] = [
                 NSLocalizedDescriptionKey : NSLocalizedString(
                     "AKAudioFile append process Error",
                     value: "Couldn't match source file format with appended file format",
@@ -161,7 +161,7 @@ extension AKAudioFile {
         
         // Write the buffer in file
         do {
-            try outputFile.writeFromBuffer(sourceBuffer)
+            try outputFile.write(from: sourceBuffer)
         } catch let error as NSError {
             print( "ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
@@ -169,7 +169,7 @@ extension AKAudioFile {
         
         
         do {
-            try outputFile.writeFromBuffer(appendedBuffer)
+            try outputFile.write(from: appendedBuffer)
         } catch let error as NSError {
             print( "ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
@@ -188,9 +188,9 @@ extension AKAudioFile {
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
-    public func extracted(fromSample fromSample: Int64 = 0,
+    public func extracted(fromSample: Int64 = 0,
                                      toSample: Int64 = 0,
-                                     baseDir: BaseDirectory = .Temp,
+                                     baseDir: BaseDirectory = .temp,
                                      name: String = "") throws -> AKAudioFile {
         
         let fixedFrom = abs(fromSample)

@@ -57,17 +57,17 @@ class Conductor: AKMIDIListener {
     
     // MARK: - AKMIDIListener protocol functions
 
-    func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber,
+    func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                        velocity: MIDIVelocity,
                                        channel: Int) {
         core.play(noteNumber: noteNumber, velocity: velocity)
     }
-    func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber,
+    func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                         velocity: MIDIVelocity,
                                         channel: Int) {
         core.stop(noteNumber: noteNumber)
     }
-    func receivedMIDIPitchWheel(pitchWheelValue: Int, channel: Int) {
+    func receivedMIDIPitchWheel(_ pitchWheelValue: Int, channel: Int) {
         let bendSemi =  (Double(pitchWheelValue - 8192) / 8192.0) * midiBendRange
         core.globalbend = bendSemi
     }

@@ -2,7 +2,7 @@
 //: Open the timeline view to use the controls this playground sets up.
 //:
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let fmBank = AKFMOscillatorBank()
@@ -21,7 +21,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Carrier Multiplier",
             format: "%0.3f",
             value: fmBank.carrierMultiplier, maximum: 2,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { multiplier in
             fmBank.carrierMultiplier = multiplier
             })
@@ -30,7 +30,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Modulating Multiplier",
             format: "%0.3f",
             value: fmBank.modulatingMultiplier, maximum: 2,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { multiplier in
             fmBank.modulatingMultiplier = multiplier
             })
@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Modulation Index",
             format: "%0.3f",
             value: fmBank.modulationIndex, maximum: 20,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { index in
             fmBank.modulationIndex = index
             })
@@ -48,7 +48,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Attack",
             format: "%0.3f",
             value: fmBank.attackDuration, maximum: 2,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { duration in
             fmBank.attackDuration = duration
             })
@@ -57,7 +57,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Release",
             format: "%0.3f",
             value: fmBank.releaseDuration, maximum: 2,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { duration in
             fmBank.releaseDuration = duration
             })
@@ -86,5 +86,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

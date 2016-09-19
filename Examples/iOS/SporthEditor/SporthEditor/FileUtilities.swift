@@ -9,13 +9,13 @@
 import Foundation
 
 struct FileUtilities {
-    static let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
-                                                                       .UserDomainMask, true).first!
+    static let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                                       .userDomainMask, true).first!
     
     static var storageDirectory: String = {
         let directory = "\(documentDirectory)/SporthEditor"
         do {
-            try NSFileManager.defaultManager().createDirectoryAtPath(directory,
+            try FileManager.default.createDirectory(atPath: directory,
                                                                      withIntermediateDirectories: true,
                                                                      attributes: nil)
         } catch {
@@ -24,7 +24,7 @@ struct FileUtilities {
         return directory
     }()
     
-    static func filePath(name: String) -> String {
+    static func filePath(_ name: String) -> String {
         return "\(FileUtilities.storageDirectory)/\(name)"
     }
     

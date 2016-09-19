@@ -1,9 +1,9 @@
 //: ## Tracking Frequency of an Audio File
 //: A more real-world example of tracking the pitch of an audio stream
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -34,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Tracked Amplitude",
             format: "%0.3f",
             value: 0, maximum: 0.55,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             // Do nothing, just for display
         }
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Tracked Frequency",
             format: "%0.3f",
             value: 0, maximum: 1000,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             // Do nothing, just for display
         }
@@ -53,5 +53,5 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKRollingOutputPlot.createView())
     }
 }
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

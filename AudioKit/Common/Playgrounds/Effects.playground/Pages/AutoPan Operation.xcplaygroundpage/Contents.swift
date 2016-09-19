@@ -1,6 +1,6 @@
 //: ## AutoPan Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: This first section sets up parameter naming in such a way
@@ -23,7 +23,7 @@ extension AKOperationEffect {
 //: Use the struct and the extension to refer to the autopan parameters by name
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Speed",
             value: effect.speed, minimum: 0.1, maximum: 25,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { sliderValue in
             effect.speed = sliderValue
             })
@@ -59,12 +59,12 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Depth",
             value: effect.depth,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { sliderValue in
             effect.depth = sliderValue
             })
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

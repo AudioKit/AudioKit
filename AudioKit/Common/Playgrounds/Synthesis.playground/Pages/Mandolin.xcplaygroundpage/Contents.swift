@@ -1,7 +1,7 @@
 //: ## Mandolin
 //: Physical model of a mandolin
 import AudioKit
-import XCPlayground
+import PlaygroundSupport
 
 let playRate = 2.0
 
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Detune",
             format: "%0.2f",
             value: mandolin.detune, minimum: 0.5, maximum: 2,
-            color: AKColor.magentaColor()
+            color: AKColor.magenta
         ) { detune in
             mandolin.detune = detune
         }
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Body Size",
             format: "%0.2f",
             value: mandolin.bodySize, minimum: 0.2, maximum: 3,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Pluck Position",
             format: "%0.2f",
             value: pluckPosition,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { position in
             pluckPosition = position
         })
@@ -82,17 +82,15 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
 AKPlaygroundLoop(frequency: playRate) {
     var note1 = scale.randomElement()
-    let octave1 = (2...5).randomElement() * 12
-    let course1 = (1...4).randomElement()
+    let octave1 = [2,3,4,5].randomElement() * 12
+    let course1 = [1,2,3,4].randomElement()
     if random(0, 10) < 1.0 { note1 += 1 }
 
     var note2 = scale.randomElement()
-    let octave2 = (2...5).randomElement() * 12
-    let course2 = (1...4).randomElement()
+    let octave2 = [2,3,4,5].randomElement() * 12
+    let course2 = [1,2,3,4].randomElement()
     if random(0, 10) < 1.0 { note2 += 1 }
 
 
@@ -107,4 +105,5 @@ AKPlaygroundLoop(frequency: playRate) {
 
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true

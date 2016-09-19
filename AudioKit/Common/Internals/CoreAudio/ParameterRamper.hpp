@@ -13,6 +13,7 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <libkern/OSAtomic.h>
+#import <stdatomic.h>
 
 class ParameterRamper {
     float clampLow, clampHigh;
@@ -20,7 +21,7 @@ class ParameterRamper {
     float _goal;
     float inverseSlope;
     AUAudioFrameCount samplesRemaining;
-    volatile int32_t changeCounter = 0;
+    volatile atomic_int changeCounter = 0;
     int32_t updateCounter = 0;
 
 public:
@@ -50,7 +51,7 @@ public:
     
     void setUIValue(float value) {
         _uiValue = value;
-        OSAtomicIncrement32Barrier(&changeCounter);
+        atomic_fetch_add(&changeCounter, 1);
     }
     
     float getUIValue() const { return _uiValue; }

@@ -1,7 +1,7 @@
 //: ## FM Oscillator
 //: Open the timeline view to use the controls this playground sets up.
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var oscillator = AKFMOscillator()
@@ -68,7 +68,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Frequency",
             format: "%0.2f Hz",
             value: oscillator.baseFrequency, maximum: 800,
-            color: AKColor.yellowColor()
+            color: AKColor.yellow
         ) { frequency in
             oscillator.baseFrequency = frequency
         }
@@ -78,7 +78,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Carrier Multiplier",
             format: "%0.3f",
             value: oscillator.carrierMultiplier, maximum: 20,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         }
@@ -88,7 +88,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Modulating Multiplier",
             format: "%0.3f",
             value: oscillator.modulatingMultiplier, maximum: 20,
-            color: AKColor.greenColor()
+            color: AKColor.green
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         }
@@ -98,7 +98,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Modulation Index",
             format: "%0.3f",
             value: oscillator.modulationIndex, maximum: 100,
-            color: AKColor.cyanColor()
+            color: AKColor.cyan
         ) { index in
             oscillator.modulationIndex = index
         }
@@ -109,7 +109,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Amplitude",
             format: "%0.3f",
             value: oscillator.amplitude,
-            color: AKColor.purpleColor()
+            color: AKColor.purple
         ) { amplitude in
             oscillator.amplitude = amplitude
         }
@@ -119,7 +119,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Ramp Time",
             format: "%0.3f s",
             value: oscillator.rampTime, maximum: 10,
-            color: AKColor.orangeColor()
+            color: AKColor.orange
         ) { time in
             oscillator.rampTime = time
         }
@@ -127,5 +127,5 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

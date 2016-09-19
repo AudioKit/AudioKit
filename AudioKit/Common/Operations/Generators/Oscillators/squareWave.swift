@@ -19,7 +19,7 @@ extension AKOperation {
     ///   - pulseWidth: Duty cycle width (range 0-1). (Default: 0.5, Minimum: 0, Maximum: 1)
     ///
     public static func squareWave(
-        frequency frequency: AKParameter = 440,
+        frequency: AKParameter = 440,
         amplitude: AKParameter = 1.0,
         pulseWidth: AKParameter = 0.5
         ) -> AKOperation {

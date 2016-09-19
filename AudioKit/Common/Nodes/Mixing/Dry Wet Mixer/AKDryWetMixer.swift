@@ -16,11 +16,11 @@ import AVFoundation
 ///   - wet: Wet Input (or just input 2)
 ///   - balance: Balance Point (0 = all dry, 1 = all wet)
 ///
-public class AKDryWetMixer: AKNode {
-    private let mixer = AKMixer()
+open class AKDryWetMixer: AKNode {
+    fileprivate let mixer = AKMixer()
 
     /// Balance (Default 0.5)
-    public var balance: Double = 0.5 {
+    open var balance: Double = 0.5 {
         didSet {
             if balance < 0 {
                 balance = 0
@@ -33,11 +33,11 @@ public class AKDryWetMixer: AKNode {
         }
     }
 
-    private var dryGain: AKMixer?
-    private var wetGain: AKMixer?
+    fileprivate var dryGain: AKMixer?
+    fileprivate var wetGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
+    open var isStarted = true
 
     /// Initialize this dry wet mixer node
     ///

@@ -36,14 +36,14 @@ class MoogLadderViewController: UIViewController {
         }
     }
     
-    @IBAction func updateCutoff(sender: UISlider) {
+    @IBAction func updateCutoff(_ sender: UISlider) {
         songProcessor.moogLadder?.cutoffFrequency = Double(sender.value)
     }
     
-    @IBAction func updateResonance(sender: UISlider) {
+    @IBAction func updateResonance(_ sender: UISlider) {
         songProcessor.moogLadder?.resonance = Double(sender.value)
     }
-    @IBAction func updateMix(sender: UISlider) {
+    @IBAction func updateMix(_ sender: UISlider) {
         songProcessor.filterMixer?.balance = Double(sender.value)
     }
 }

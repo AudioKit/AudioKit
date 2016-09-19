@@ -28,9 +28,7 @@ public class AKLabel: NSTextField {
     }
 }
 
-public class AKPlaygroundView: NSView {
-
-
+open class AKPlaygroundView: NSView {
 
     public var elementHeight: CGFloat = 30
     public var spacing = 25
@@ -45,43 +43,43 @@ public class AKPlaygroundView: NSView {
         self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
     }
 
-    public func setup() {}
+    open func setup() {}
 
-    override public func drawRect(dirtyRect: NSRect) {
-        NSColor.whiteColor().setFill()
+    override open func draw(_ dirtyRect: NSRect) {
+        NSColor.white.setFill()
         NSRectFill(dirtyRect)
-        super.drawRect(dirtyRect)
+        super.draw(dirtyRect)
     }
 
-    public func addTitle(text: String) -> NSTextField {
+    public func addTitle(_ text: String) -> NSTextField {
         let newLabel = NSTextField(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.stringValue = text
-        newLabel.editable = false
+        newLabel.isEditable = false
         newLabel.drawsBackground = false
-        newLabel.bezeled = false
+        newLabel.isBezeled = false
         newLabel.alignment = NSCenterTextAlignment
-        newLabel.font = NSFont.boldSystemFontOfSize(24)
+        newLabel.font = NSFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
         return newLabel
     }
 
-    public func addLabel(text: String) -> AKLabel {
+    public func addLabel(_ text: String) -> AKLabel {
         let newLabel = AKLabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.stringValue = text
-        newLabel.editable = false
+        newLabel.isEditable = false
         newLabel.drawsBackground = false
-        newLabel.bezeled = false
-        newLabel.font = NSFont.systemFontOfSize(18)
+        newLabel.isBezeled = false
+        newLabel.font = NSFont.systemFont(ofSize: 18)
         self.addSubview(newLabel)
         return newLabel
     }
 
-    public override func addSubview(view: NSView) {
+    open override func addSubview(_ view: NSView) {
         subviews.removeAll()
         potentialSubviews.append(view)
-        let reversedSubviews = potentialSubviews.reverse()
+        let reversedSubviews = potentialSubviews.reversed()
         var yPosition = spacing
         for view in reversedSubviews {
             if view.frame.origin.x < 30 {

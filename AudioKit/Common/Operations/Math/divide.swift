@@ -13,7 +13,7 @@ extension AKOperation {
     ///
     /// - parameter denominator: The amount to divide
     ///
-    public func dividedBy(denominator: AKParameter) -> AKOperation {
+    public func dividedBy(_ denominator: AKParameter) -> AKOperation {
         return AKOperation(module: "/", inputs: self, denominator)
     }
 }

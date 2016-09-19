@@ -1,7 +1,7 @@
 //: ## Pedestrians
 //: A British crossing signal implemented with AudioKit, an example from
 //: Andy Farnell's excellent book "Designing Sound"
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let generator = AKOperationGenerator() { _ in
@@ -26,4 +26,4 @@ AudioKit.start()
 //: Activate the signal
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Kick Drum Synthesizer Instrument
-public class AKSynthKick: AKMIDIInstrument {
+open class AKSynthKick: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
     var filter: AKMoogLadder
@@ -34,18 +34,18 @@ public class AKSynthKick: AKMIDIInstrument {
     }
   
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         generator.trigger()
     }
     
     /// Unneeded stop function since the sounds all decay quickly
-    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+    open override func stop(noteNumber: MIDINoteNumber) {
         // Unneeded
     }
 }
 
 /// Snare Drum Synthesizer Instrument
-public class AKSynthSnare: AKMIDIInstrument {
+open class AKSynthSnare: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
     var filter: AKMoogLadder
@@ -86,13 +86,13 @@ public class AKSynthSnare: AKMIDIInstrument {
     
     
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         cutoff = (Double(velocity)/127.0 * 1600.0) + 300.0
         generator.trigger()
     }
     
     /// Unneeded stop function since the sounds all decay quickly
-    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+    open override func stop(noteNumber: MIDINoteNumber) {
         // Unneeded
     }
 

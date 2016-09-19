@@ -35,7 +35,7 @@ extension Double {
     }
     
     // return random number in range
-    public static func random(min min: Double, max: Double) -> Double {
+    public static func random(min: Double, max: Double) -> Double {
         return Double.random() * (max - min) + min
     }
     
@@ -49,12 +49,12 @@ extension Double {
     // *********************************************************
     
     // Linear scale 0.0 to 1.0 to any range
-    public static func scaleRange(value: Double, rangeMin: Double, rangeMax: Double) -> Double {
+    public static func scaleRange(_ value: Double, rangeMin: Double, rangeMax: Double) -> Double {
         return ((rangeMax - rangeMin) * (value - 0.0) / (1.0 - 0.0)) + rangeMin
     }
     
     // Logarithmically scale 0.0 to 1.0 to any range
-    public static func scaleRangeLog(value: Double, rangeMin: Double, rangeMax: Double) -> Double {
+    public static func scaleRangeLog(_ value: Double, rangeMin: Double, rangeMax: Double) -> Double {
         let scale = (log(rangeMax) - log(rangeMin))
         return exp(log(rangeMin) + (scale * value))
     }

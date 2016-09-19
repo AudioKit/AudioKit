@@ -18,7 +18,7 @@ extension AKOperation {
     ///   - amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 1.0)
     ///
     public static func sawtooth(
-        frequency frequency: AKParameter = 440,
+        frequency: AKParameter = 440,
         amplitude: AKParameter = 0.5,
         phase: AKParameter = 0
         ) -> AKOperation {
@@ -35,7 +35,7 @@ extension AKOperation {
     ///   - amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 1.0)
     ///
     public static func reverseSawtooth(
-        frequency frequency: AKParameter = 440,
+        frequency: AKParameter = 440,
         amplitude: AKParameter = 0.5,
         phase: AKParameter = 0
         ) -> AKOperation {

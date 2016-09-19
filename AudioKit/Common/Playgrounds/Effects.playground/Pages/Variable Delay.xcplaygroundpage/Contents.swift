@@ -1,10 +1,10 @@
 //: ## Variable Delay
 //: When you smoothly vary effect parameters, you get completely new kinds of effects.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .Resources)
+                           baseDir: .resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -31,4 +31,4 @@ AKPlaygroundLoop(every: timeStep) {
     time += timeStep
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true

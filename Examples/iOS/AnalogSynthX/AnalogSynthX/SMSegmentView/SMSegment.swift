@@ -7,37 +7,37 @@
 
 import UIKit
 
-public class SMSegment: SMBasicSegment {
+open class SMSegment: SMBasicSegment {
     
     // UI Elements
-    override public var frame: CGRect {
+    override open var frame: CGRect {
         didSet {
             self.resetContentFrame()
         }
     }
     
-    public var verticalMargin: CGFloat = 5.0 {
+    open var verticalMargin: CGFloat = 5.0 {
         didSet {
             self.resetContentFrame()
         }
     }
         
     // Segment Colour
-    public var onSelectionColour: UIColor = UIColor.darkGrayColor() {
+    open var onSelectionColour: UIColor = UIColor.darkGray {
         didSet {
             if self.isSelected == true {
                 self.backgroundColor = self.onSelectionColour
             }
         }
     }
-    public var offSelectionColour: UIColor = UIColor.whiteColor() {
+    open var offSelectionColour: UIColor = UIColor.white {
         didSet {
             if self.isSelected == false {
                 self.backgroundColor = self.offSelectionColour
             }
         }
     }
-    private var willOnSelectionColour: UIColor! {
+    fileprivate var willOnSelectionColour: UIColor! {
         get {
             var hue: CGFloat = 0.0
             var saturation: CGFloat = 0.0
@@ -49,12 +49,12 @@ public class SMSegment: SMBasicSegment {
     }
     
     // Segment Title Text & Colour & Font
-    public var title: String? {
+    open var title: String? {
         didSet {
             self.label.text = self.title
             
             if let titleText = self.label.text as NSString? {
-                self.labelWidth = titleText.boundingRectWithSize(CGSize(width: self.frame.size.width, height: self.frame.size.height), options:NSStringDrawingOptions.UsesLineFragmentOrigin , attributes: [NSFontAttributeName: self.label.font], context: nil).size.width
+                self.labelWidth = titleText.boundingRect(with: CGSize(width: self.frame.size.width, height: self.frame.size.height), options:NSStringDrawingOptions.usesLineFragmentOrigin , attributes: [NSFontAttributeName: self.label.font], context: nil).size.width
             }
             else {
                 self.labelWidth = 0.0
@@ -63,26 +63,26 @@ public class SMSegment: SMBasicSegment {
             self.resetContentFrame()
         }
     }
-    public var onSelectionTextColour: UIColor = UIColor.whiteColor() {
+    open var onSelectionTextColour: UIColor = UIColor.white {
         didSet {
             if self.isSelected == true {
                 self.label.textColor = self.onSelectionTextColour
             }
         }
     }
-    public var offSelectionTextColour: UIColor = UIColor.darkGrayColor() {
+    open var offSelectionTextColour: UIColor = UIColor.darkGray {
         didSet {
             if self.isSelected == false {
                 self.label.textColor = self.offSelectionTextColour
             }
         }
     }
-    public var titleFont: UIFont = UIFont.systemFontOfSize(17.0) {
+    open var titleFont: UIFont = UIFont.systemFont(ofSize: 17.0) {
         didSet {
             self.label.font = self.titleFont
             
             if let titleText = self.label.text as NSString? {
-                self.labelWidth = titleText.boundingRectWithSize(CGSize(width: self.frame.size.width + 1.0, height: self.frame.size.height), options:NSStringDrawingOptions.UsesLineFragmentOrigin , attributes: [NSFontAttributeName: self.label.font], context: nil).size.width
+                self.labelWidth = titleText.boundingRect(with: CGSize(width: self.frame.size.width + 1.0, height: self.frame.size.height), options:NSStringDrawingOptions.usesLineFragmentOrigin , attributes: [NSFontAttributeName: self.label.font], context: nil).size.width
             }
             else {
                 self.labelWidth = 0.0
@@ -93,7 +93,7 @@ public class SMSegment: SMBasicSegment {
     }
     
     // Segment Image
-    public var onSelectionImage: UIImage? {
+    open var onSelectionImage: UIImage? {
         didSet {
             if self.onSelectionImage != nil {
                 self.resetContentFrame()
@@ -103,7 +103,7 @@ public class SMSegment: SMBasicSegment {
             }
         }
     }
-    public var offSelectionImage: UIImage? {
+    open var offSelectionImage: UIImage? {
         didSet {
             if self.offSelectionImage != nil {
                 self.resetContentFrame()
@@ -115,9 +115,9 @@ public class SMSegment: SMBasicSegment {
     }
     
    
-    private var imageView: UIImageView = UIImageView()
-    private var label: UILabel = UILabel()
-    private var labelWidth: CGFloat = 0.0
+    fileprivate var imageView: UIImageView = UIImageView()
+    fileprivate var label: UILabel = UILabel()
+    fileprivate var labelWidth: CGFloat = 0.0
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -132,7 +132,7 @@ public class SMSegment: SMBasicSegment {
         self.offSelectionTextColour = offSelectionTextColour
         self.titleFont = titleFont
         
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         self.setupUIElements()
     }
     
@@ -142,10 +142,10 @@ public class SMSegment: SMBasicSegment {
         
         self.backgroundColor = self.offSelectionColour
         
-        self.imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        self.imageView.contentMode = UIViewContentMode.scaleAspectFit
         self.addSubview(self.imageView)
         
-        self.label.textAlignment = NSTextAlignment.Center
+        self.label.textAlignment = NSTextAlignment.center
         self.label.font = self.titleFont
         self.label.textColor = self.offSelectionTextColour
         self.addSubview(self.label)
@@ -153,10 +153,10 @@ public class SMSegment: SMBasicSegment {
     
     
     // MARK: Update Frame
-    private func resetContentFrame() {
+    fileprivate func resetContentFrame() {
         
         var distanceBetween: CGFloat = 0.0
-        var imageViewFrame = CGRectMake(0.0, self.verticalMargin, 0.0, self.frame.size.height - self.verticalMargin*2)
+        var imageViewFrame = CGRect(x: 0.0, y: self.verticalMargin, width: 0.0, height: self.frame.size.height - self.verticalMargin*2)
         
         if self.onSelectionImage != nil || self.offSelectionImage != nil {
             // Set imageView as a square
@@ -175,11 +175,11 @@ public class SMSegment: SMBasicSegment {
         
         self.imageView.frame = imageViewFrame
         
-        self.label.frame = CGRectMake(imageViewFrame.origin.x + imageViewFrame.size.width + distanceBetween, self.verticalMargin, self.labelWidth, self.frame.size.height - self.verticalMargin * 2)
+        self.label.frame = CGRect(x: imageViewFrame.origin.x + imageViewFrame.size.width + distanceBetween, y: self.verticalMargin, width: self.labelWidth, height: self.frame.size.height - self.verticalMargin * 2)
     }
     
     // MARK: Selections
-    override public func setSelected(selected: Bool, inView view: SMBasicSegmentView) {
+    override open func setSelected(_ selected: Bool, inView view: SMBasicSegmentView) {
         super.setSelected(selected, inView: view)
         if selected {
             self.backgroundColor = self.onSelectionColour
@@ -194,8 +194,8 @@ public class SMSegment: SMBasicSegment {
     }
     
     // MARK: Handle touch
-    override public  func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override open  func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         
         if self.isSelected == false {
             self.backgroundColor = self.willOnSelectionColour

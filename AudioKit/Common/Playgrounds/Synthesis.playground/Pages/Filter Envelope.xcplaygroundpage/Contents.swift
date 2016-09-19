@@ -1,7 +1,7 @@
 //: ## Filter Envelope
 //:
 //: This is a pretty advanced example.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 enum SynthParameter: Int {
@@ -72,7 +72,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
             value: synth.cutoff, maximum: 5000,
-            color: AKColor.redColor()
+            color: AKColor.red
         ) { frequency in
             synth.cutoff = frequency
         })
@@ -93,5 +93,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()

@@ -30,92 +30,92 @@
 ///
 public enum AKMIDIControl: UInt8 {
     /// Modulation Control
-    case ModulationWheel = 1
+    case modulationWheel = 1
     /// Breath Control (in MIDI Saxophones for example)
-    case BreathControl = 2
+    case breathControl = 2
     /// Foot Control
-    case FootControl = 4
+    case footControl = 4
     /// Portamento effect
-    case Portamento = 5
+    case portamento = 5
     /// Data Entry
-    case DataEntry = 6
+    case dataEntry = 6
     /// Volume (Overall)
-    case MainVolume = 7
+    case mainVolume = 7
     /// Balance
-    case Balance = 8
+    case balance = 8
     /// Stereo Panning
-    case Pan = 10
+    case pan = 10
     /// Expression Pedal
-    case Expression = 11
+    case expression = 11
     
     /// Least Significant Byte
-    case LSB               = 32 // Combine with above constants to get the LSB
+    case lsb               = 32 // Combine with above constants to get the LSB
     
     /// Damper Pedal, also known as Hold or Sustain
-    case DamperOnOff       = 64
+    case damperOnOff       = 64
     /// Portamento Toggle
-    case PortamentoOnOff   = 65
+    case portamentoOnOff   = 65
     /// Sustenuto Toggle
-    case SustenutoOnOff    = 66
+    case sustenutoOnOff    = 66
     /// Soft Pedal Toggle
-    case SoftPedalOnOff    = 67
+    case softPedalOnOff    = 67
     
     /// Data Entry Addition
-    case DataEntryPlus     = 96
+    case dataEntryPlus     = 96
     /// Data Entry Subtraction
-    case DataEntryMinus    = 97
+    case dataEntryMinus    = 97
     
     /// Enable local control
-    case LocalControlOnOff = 122
+    case localControlOnOff = 122
     /// MIDI Panic
-    case AllNotesOff       = 123
+    case allNotesOff       = 123
     
     // Unnamed CC values: (Must be a better way)
     
     /// Continuous Controller Number 0
-    case CC0  = 0
+    case cc0  = 0
     /// Continuous Controller Number 3
-    case CC3  = 3
+    case cc3  = 3
     /// Continuous Controller Number 9
-    case CC9  = 9
+    case cc9  = 9
     /// Continuous Controller Number 12
-    case CC12 = 12
+    case cc12 = 12
     /// Continuous Controller Number 13
-    case CC13 = 13
+    case cc13 = 13
     /// Continuous Controller Number 14
-    case CC14 = 14
+    case cc14 = 14
     /// Continuous Controller Number 15
-    case CC15 = 15
+    case cc15 = 15
     /// Continuous Controller Number 16
-    case CC16 = 16
+    case cc16 = 16
     /// Continuous Controller Number 17
-    case CC17 = 17
+    case cc17 = 17
     /// Continuous Controller Number 18
-    case CC18 = 18
+    case cc18 = 18
     /// Continuous Controller Number 19
-    case CC19 = 19
+    case cc19 = 19
     /// Continuous Controller Number 20
-    case CC20 = 20
+    case cc20 = 20
     /// Continuous Controller Number 21
-    case CC21 = 21
+    case cc21 = 21
     /// Continuous Controller Number 22
-    case CC22 = 22
+    case cc22 = 22
     /// Continuous Controller Number 23
-    case CC23 = 23
+    case cc23 = 23
     /// Continuous Controller Number 24
-    case CC24 = 24
+    case cc24 = 24
     /// Continuous Controller Number 25
-    case CC25 = 25
+    case cc25 = 25
     /// Continuous Controller Number 26
-    case CC26 = 26
+    case cc26 = 26
     /// Continuous Controller Number 27
-    case CC27 = 27
+    case cc27 = 27
     /// Continuous Controller Number 28
-    case CC28 = 28
+    case cc28 = 28
     /// Continuous Controller Number 29
-    case CC29 = 29
+    case cc29 = 29
     /// Continuous Controller Number 30
-    case CC30 = 30
+    case cc30 = 30
     /// Continuous Controller Number 31
-    case CC31 = 31
+    case cc31 = 31
 }
