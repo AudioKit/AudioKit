@@ -81,12 +81,12 @@ open class AKAUPresetBuilder {
 
         //iterate over the sounds
         for i in 0 ..< dict.count {
-            let sound = dict.allValues[i]
+            let sound = dict.allValues[i] as! NSMutableDictionary
             var soundDict: NSMutableDictionary
             var alreadyLoaded = false
             var sampleNum = 0
             //soundDict = (sound as AnyObject).mutableCopy() as! NSMutableDictionary
-            soundDict = NSMutableDictionary(dictionary: dict)
+            soundDict = NSMutableDictionary(dictionary: sound)
             //check if this sample is already loaded
             for loadedSoundDict in loadSoundsArr {
                 let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as! String
@@ -134,7 +134,6 @@ open class AKAUPresetBuilder {
             case SampleTrigMode.Hold.rawValue?:
                 trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Hold.rawValue)!
             default:
-                
                 trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Trig.rawValue)!
             }
             if trigMode == .Trig{
