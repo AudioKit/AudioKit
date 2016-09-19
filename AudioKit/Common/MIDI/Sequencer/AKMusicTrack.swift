@@ -107,16 +107,11 @@ open class AKMusicTrack {
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
     open func setLength(_ duration: AKDuration) {
-        print("As of Xcode8 / Swift 3, this function doesn't work.")
-        return
         let size: UInt32 = 0
         var len = duration.musicTimeStamp
         var tmpSeq: MusicSequence? = nil
-        var seqPtr: UnsafeMutablePointer<MusicSequence?>
         var tmpTrack: MusicTrack? = nil
         NewMusicSequence(&tmpSeq)
-        seqPtr = UnsafeMutablePointer<MusicSequence?>(tmpSeq!)
-        MusicTrackGetSequence(internalMusicTrack!, seqPtr)
         MusicSequenceNewTrack(tmpSeq!, &tmpTrack)
         MusicTrackSetProperty(tmpTrack!, kSequenceTrackProperty_TrackLength, &len, size)
         
