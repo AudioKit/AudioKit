@@ -42,9 +42,9 @@ extension Double: Numeric {
 }
 
 /// Equality
-public func ==(lhs: Numeric, rhs: Numeric) -> Bool {
-    return lhs.value() == rhs.value()
-}
+//public func ==(lhs: Numeric, rhs: Numeric) -> Bool {
+//    return lhs.value() == rhs.value()
+//}
 
 /// Addition
 public func +(lhs: Numeric, rhs: Numeric) -> Double {
