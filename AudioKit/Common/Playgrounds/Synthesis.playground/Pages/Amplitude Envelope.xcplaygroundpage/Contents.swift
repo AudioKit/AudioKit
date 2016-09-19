@@ -44,12 +44,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     }
 
-    func noteOn(noteNumber: MIDINoteNumber) {
-        fmWithADSR.play(noteNumber: noteNumber, velocity: 80)
+    func noteOn(note: MIDINoteNumber) {
+        fmWithADSR.play(noteNumber: note, velocity: 80)
     }
 
-    func noteOff(noteNumber: MIDINoteNumber) {
-        fmWithADSR.stop(noteNumber: noteNumber)
+    func noteOff(note: MIDINoteNumber) {
+        fmWithADSR.stop(noteNumber: note)
     }
 
 }
