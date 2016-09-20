@@ -123,7 +123,12 @@ open class AKAUPresetBuilder {
             let trigModeStr = soundDict.object(forKey: triggerModeKey) as? String
             let trigMode : SampleTrigMode
             let loopBool = false //in progress
-            let tempSampleZoneXML: String = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: loopBool)
+            let tempSampleZoneXML: String = AKAUPresetBuilder.generateZone(i,
+                                                                           rootNote: rootNote,
+                                                                           startNote: startNote!,
+                                                                           endNote: endNote!,
+                                                                           wavRef: sampleNum,
+                                                                           loopEnabled: loopBool)
 
             sampleZoneXML.append(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum" as NSCopying)
@@ -136,14 +141,24 @@ open class AKAUPresetBuilder {
             default:
                 trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Trig.rawValue)!
             }
-            if trigMode == .Trig{
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: tempSampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: true)
+            if trigMode == .Trig {
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1),
+                                                                   envelopes: envelopesXML,
+                                                                   zones: tempSampleZoneXML,
+                                                                   layer: i+1,
+                                                                   numVoices: 1,
+                                                                   ignoreNoteOff: true)
                 layerXML.append(tempLayerXML)
-            }else if trigMode == .Hold{
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: tempSampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
+            } else if trigMode == .Hold {
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1),
+                                                                   envelopes: envelopesXML,
+                                                                   zones: tempSampleZoneXML,
+                                                                   layer: i+1,
+                                                                   numVoices: 1,
+                                                                   ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
             }
-        }//end sounds
+        }
         
         let str = AKAUPresetBuilder.buildInstrument(instrumentName, filerefs: sampleIDXML, layers:layerXML)
 
@@ -224,7 +239,6 @@ open class AKAUPresetBuilder {
             presetXML.append(generateOscillator())
             presetXML.append(openZones())
             presetXML.append(zones)
-            //presetXML.appendContentsOf(generateZone(<#T##id: Int##Int#>, rootNote: <#T##Int#>, startNote: <#T##Int#>, endNote: <#T##Int#>, wavRef: <#T##Int#>))
             presetXML.append(closeZones())
             presetXML.append(closeLayer())
         } else {
@@ -237,7 +251,6 @@ open class AKAUPresetBuilder {
         presetXML.append(genDataBlob())
         presetXML.append(openFileRefs())
         presetXML.append(filerefs)
-        //presetXML.appendContentsOf(generateFileRef(<#T##wavRef: Int##Int#>, samplePath: <#T##String#>))
         presetXML.append(closeFileRefs())
         presetXML.append(generateFineTune())
         presetXML.append(generateGain())
