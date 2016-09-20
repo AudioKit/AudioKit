@@ -15,19 +15,19 @@ import AVFoundation
     /// Enum of available AVAudioSession Categories
     public enum SessionCategory: String {
         // Audio silenced by silent switch and screen lock - audio is mixable
-        case Ambient = "AVAudioSessionCategoryAmbient"
+        case ambient = "AVAudioSessionCategoryAmbient"
         // Audio is silenced by silent switch and screen lock - audio is non mixable
-        case SoloAmbient = "AVAudioSessionCategorySoloAmbient"
+        case soloAmbient = "AVAudioSessionCategorySoloAmbient"
         // Audio is not silenced by silent switch and screen lock - audio is non mixable
-        case Playback = "AVAudioSessionCategoryPlayback"
+        case playback = "AVAudioSessionCategoryPlayback"
         // Silences playback audio
-        case Record = "AVAudioSessionCategoryRecord"
+        case record = "AVAudioSessionCategoryRecord"
         // Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
-        case PlayAndRecord = "AVAudioSessionCategoryPlayAndRecord"
+        case playAndRecord = "AVAudioSessionCategoryPlayAndRecord"
         // Disables playback and recording
-        case AudioProcessing = "AVAudioSessionCategoryAudioProcessing"
+        case audioProcessing = "AVAudioSessionCategoryAudioProcessing"
         // Use to multi-route audio. May be used on input, output, or both.
-        case MultiRoute = "AVAudioSessionCategoryMultiRoute"
+        case multiRoute = "AVAudioSessionCategoryMultiRoute"
     }
 
     /// Enum of available buffer lengths
@@ -104,9 +104,8 @@ import AVFoundation
     /// Shortcut for AVAudioSession.sharedInstance()
     open static let session = AVAudioSession.sharedInstance()
 
-    open static func setSessionCategory(
-        _ category: SessionCategory,
-        withOptions options: AVAudioSessionCategoryOptions? = nil ) throws {
+    open static func setSession(category: SessionCategory,
+                                with options: AVAudioSessionCategoryOptions? = nil ) throws {
 
         if AKSettings.disableAVAudioSessionCategoryManagement == false {
 
