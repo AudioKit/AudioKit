@@ -110,9 +110,8 @@ class ViewController: UIViewController {
         bassButton?.isEnabled = true
         snareButton?.isEnabled = true
     }
-    
+
     func updateTempoLabel() {
-        let tempoText = "Tempo"
-        tempoLabel.text = (tempoText) + "\r\n" + "\(conductor.currentTempo)"
+        tempoLabel.text = "Tempo \n" + "\(Int(conductor.currentTempo))"
     }
 }
