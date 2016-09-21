@@ -53,7 +53,7 @@
                                                     <action selector="clearSnareDrumSequence:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2j2-8W-MJH"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tempo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23B-EA-bcJ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tempo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23B-EA-bcJ">
                                                 <color key="backgroundColor" red="0.8901960784313725" green="0.44705882352941173" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -206,6 +206,7 @@
                         <outlet property="bassButton" destination="Fcc-Z7-Euf" id="Shz-9W-QH5"/>
                         <outlet property="melodyButton" destination="FwP-wS-7xg" id="40T-0X-SDl"/>
                         <outlet property="snareButton" destination="Vg5-hn-IA9" id="6lQ-MS-5DK"/>
+                        <outlet property="tempoLabel" destination="23B-EA-bcJ" id="Ojx-kg-YWW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
