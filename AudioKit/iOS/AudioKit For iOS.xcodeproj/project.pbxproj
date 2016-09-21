@@ -3492,7 +3492,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */;
+			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4163,6 +4163,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "AudioKit-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4228,7 +4229,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */ = {
+		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F35061C057E03000E937C /* Debug */,

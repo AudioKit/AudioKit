@@ -90,7 +90,7 @@ class Conductor {
         sequence.setTempo(100)
         sequence.play()
     }
-    
+
     func generateNewMelodicSequence(_ stepSize: Float = 1/8, minor: Bool = false, clear: Bool = true) {
         if (clear) { sequence.tracks[Sequence.melody.rawValue].clear() }
         sequence.setLength(sequenceLength)
@@ -117,7 +117,7 @@ class Conductor {
         }
         sequence.setLength(sequenceLength)
     }
-    
+
     func generateBassDrumSequence(_ stepSize: Float = 1, clear: Bool = true) {
         if (clear) { sequence.tracks[Sequence.bassDrum.rawValue].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats)/stepSize)
