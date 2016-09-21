@@ -90,6 +90,7 @@ class Conductor {
         sequence.setTempo(100)
         sequence.play()
     }
+    
     func generateNewMelodicSequence(_ stepSize: Float = 1/8, minor: Bool = false, clear: Bool = true) {
         if (clear) { sequence.tracks[Sequence.melody.rawValue].clear() }
         sequence.setLength(sequenceLength)
