@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet var melodyButton: UIButton!
     @IBOutlet var bassButton: UIButton!
     @IBOutlet var snareButton: UIButton!
+    @IBOutlet var tempoLabel: UILabel!
     
     let conductor = Conductor()
     
@@ -25,6 +26,7 @@ class ViewController: UIViewController {
             button.setTitleColor(UIColor.white, for: UIControlState())
             button.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
         }
+        updateTempoLabel()
     }
     
     override func viewDidLoad() {
@@ -77,12 +79,10 @@ class ViewController: UIViewController {
         bassButton?.isEnabled = true
     }
     
-    
     @IBAction func generateSnareDrumSequence(_ sender: UIButton) {
         conductor.generateSnareDrumSequence()
         snareButton?.isEnabled = true
     }
-    
     
     @IBAction func generateSnareDrumHalfSequence(_ sender: UIButton) {
         conductor.generateSnareDrumSequence(2)
@@ -96,10 +96,12 @@ class ViewController: UIViewController {
     
     @IBAction func decreaseTepmo(_ sender: UIButton) {
         conductor.decreaseTempo()
+        updateTempoLabel()
     }
     
     @IBAction func increaseTempo(_ sender: UIButton) {
         conductor.increaseTempo()
+        updateTempoLabel()
     }
     
     @IBAction func generateSequence(_ sender: UIButton) {
@@ -107,5 +109,10 @@ class ViewController: UIViewController {
         melodyButton?.isEnabled = true
         bassButton?.isEnabled = true
         snareButton?.isEnabled = true
+    }
+    
+    func updateTempoLabel() {
+        let tempoText = "Tempo"
+        tempoLabel.text = (tempoText) + "\r\n" + "\(conductor.currentTempo)"
     }
 }
