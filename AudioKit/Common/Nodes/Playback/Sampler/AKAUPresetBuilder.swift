@@ -122,8 +122,6 @@ open class AKAUPresetBuilder {
             endNote = (endNote == nil ? rootNote : endNote)
             let trigModeStr = soundDict.object(forKey: triggerModeKey) as? String
             let trigMode : SampleTrigMode
-            let loopBool = false //in progress
-            sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: loopBool)
 
             //sampleZoneXML.append(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum" as NSCopying)
@@ -144,12 +142,15 @@ open class AKAUPresetBuilder {
             }
             switch trigMode {
             case  .Hold:
+                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
             case .Loop:
+                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: true)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
             default: //.Trig and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: true)
                 layerXML.append(tempLayerXML)
                 
