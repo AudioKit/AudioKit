@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet var bassButton: UIButton!
     @IBOutlet var snareButton: UIButton!
     @IBOutlet var tempoLabel: UILabel!
+    @IBOutlet var tempoSlider: AKPropertySlider!
     
     let conductor = Conductor()
     
@@ -26,13 +27,16 @@ class ViewController: UIViewController {
             button.setTitleColor(UIColor.white, for: UIControlState())
             button.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
         }
-        updateTempoLabel()
+        tempoSlider.callback = updateTempo
+        tempoSlider.minimum = 40
+        tempoSlider.maximum = 200
+        tempoSlider.value  = 110
+        tempoSlider.format = "%0.1f BPM"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     @IBAction func clearMelodySequence(_ sender: UIButton) {
@@ -94,16 +98,6 @@ class ViewController: UIViewController {
         snareButton?.isEnabled = true
     }
     
-    @IBAction func decreaseTepmo(_ sender: UIButton) {
-        conductor.decreaseTempo()
-        updateTempoLabel()
-    }
-    
-    @IBAction func increaseTempo(_ sender: UIButton) {
-        conductor.increaseTempo()
-        updateTempoLabel()
-    }
-    
     @IBAction func generateSequence(_ sender: UIButton) {
         conductor.generateSequence()
         melodyButton?.isEnabled = true
@@ -111,7 +105,7 @@ class ViewController: UIViewController {
         snareButton?.isEnabled = true
     }
 
-    func updateTempoLabel() {
-        tempoLabel.text = "Tempo \n" + "\(Int(conductor.currentTempo))"
+    func updateTempo(value: Double) {
+        conductor.currentTempo = value
     }
 }
