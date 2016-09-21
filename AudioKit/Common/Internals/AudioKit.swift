@@ -159,7 +159,7 @@ public typealias AKCallback = (Void) -> Void
                 #else
                     // tvOS
 
-                    try AKSettings.setSessionCategory(.playAndRecord)
+                    try AKSettings.setSession(category: .playAndRecord)
 
                 #endif
 
