@@ -25,7 +25,11 @@ class Conductor {
     var mixer = AKMixer()
     var pumper: AKCompressor?
     
-    var currentTempo = 110.0
+    var currentTempo = 110.0 {
+        didSet {
+            sequence.setTempo(currentTempo)
+        }
+    }
     
     let scale1: [Int] = [0, 2, 4, 7, 9]
     let scale2: [Int] = [0, 3, 5, 7, 10]
@@ -175,13 +179,13 @@ class Conductor {
         sequence.tracks[typeOfSequence.rawValue].clear()
     }
     
-    func increaseTempo() {
-        currentTempo += 1.0
-        sequence.setTempo(currentTempo)
-    }
-    
-    func decreaseTempo() {
-        currentTempo -= 1.0
-        sequence.setTempo(currentTempo)
-    }
+//    func increaseTempo() {
+//        currentTempo += 1.0
+//        sequence.setTempo(currentTempo)
+//    }
+//    
+//    func decreaseTempo() {
+//        currentTempo -= 1.0
+//        sequence.setTempo(currentTempo)
+//    }
 }
