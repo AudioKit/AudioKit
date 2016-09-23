@@ -14,7 +14,6 @@ let avAudioFile = akAudioFile as AVAudioFile
 // converted back into an AKAudioFile
 let akAudioFile2 = try AKAudioFile(forReading: avAudioFile.url)
 
-
 //: The baseDirectory parameter if an enum value from AKAudioFile.BaseDirectory :
 let documentsDir = AKAudioFile.BaseDirectory.documents
 let resourcesDir = AKAudioFile.BaseDirectory.resources
@@ -45,20 +44,16 @@ print("drumloop.duration: \(drumloop.duration)")
 
 //: Then, we can extract from 1 to 2 seconds of drumloop, as an mp4 file that will be
 //: written in documents directory. If the destination file exists, it will be overwritten.
-try drumloop.export(name: "exported", ext: .m4a, baseDir: .documents,
-    fromTime: 1, toTime: 2) { export in
-
+try drumloop.exportAsynchronously(name: "exported.m4a", baseDir: .documents, exportFormat: .m4a, fromSample: 44100, toSample: 2 * 44100) { exportedFile, error in
         print("myExportCallBack has been triggered. It means that export ended")
-        if export.succeeded {
+        if error == nil {
             print("Export succeeded")
-            // we get the resulting AKAudioFile
-            let exportedfile = export.audioFile
 
             // If it is valid, we can play it :
-            if exportedfile != nil {
+            if exportedFile != nil {
 
-                print(exportedfile?.fileNamePlusExtension)
-                let player = try? AKAudioPlayer(file: exportedfile!)
+                print(exportedFile?.fileNamePlusExtension)
+                let player = try? AKAudioPlayer(file: exportedFile!)
                 AudioKit.output = player
                 AudioKit.start()
                 player!.play()
