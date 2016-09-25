@@ -1,3 +1,6 @@
+#ifndef SOUNDPIPE_H
+#define SOUNDPIPE_H
+
 #include <stdint.h>
 #include <stdio.h>
 
@@ -9,10 +12,6 @@
 #define SP_NOT_OK 0
 
 #define SP_RANDMAX 2147483648
-
-#ifndef SOUNDPIPE_H
-#define SOUNDPIPE_H
-#endif
 
 typedef unsigned long sp_frame;
 
@@ -1602,3 +1601,4 @@ int sp_padsynth_ifft(int N, SPFLOAT *freq_amp,
         SPFLOAT *freq_phase, SPFLOAT *smp); 
 
 int sp_padsynth_normalize(int N, SPFLOAT *smp);
+#endif
