@@ -57,6 +57,7 @@ open class AKPresetLoaderView: UIView {
         //// Color Declarations
         let red = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
         let gray = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
+        let darkgray = UIColor(red: 0.735, green: 0.742, blue: 0.736, alpha: 1.000)
         let green = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
         let dark = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
         
@@ -65,7 +66,7 @@ open class AKPresetLoaderView: UIView {
         
         //// background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
-        gray.setFill()
+        darkgray.setFill()
         backgroundPath.fill()
         
         
