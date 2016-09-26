@@ -31,9 +31,14 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                            "kLtz",
                            "Simple Keyboard"]
         addSubview(AKPresetLoaderView(presets: sporthFiles) { filename in
-            let filePath = NSBundle.mainBundle().pathForResource(filename, ofType: "sp")
-            let contentData = NSFileManager.defaultManager().contentsAtPath(filePath!)
-            let sporth = NSString(data: contentData!, encoding: NSUTF8StringEncoding) as? String
+            let filePath = Bundle.main.path(forResource: filename, ofType: "sp")
+            //let filePath = Bundle.main.path(filename, ofType: "sp")
+            let contentData = FileManager.default.contents(atPath: filePath!)
+            //let contentData = FileManager.defaultManager().contentsAtPath(filePath!)
+            
+            let sporth = String(data: contentData!, encoding: .utf8)
+            //let sporth = NSString(data: contentData!, encoding: String.Encoding.utf8) as? String
+                
             Swift.print("\n\n\n\n\n\n\(sporth!)")
             generator.sporth = sporth!
 
@@ -41,32 +46,33 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             let sliders = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
             // Reset UI Eleements
-            self.keyboard?.hidden = true
+            self.keyboard?.isHidden = true
             for i in 0 ..< 4 {
-                sliders[i]?.hidden = true
+                sliders[i]?.isHidden = true
                 sliders[i]?.property = "Parameter \(i)"
                 sliders[i]?.value = 0.0
             }
 
             // Process the comments in the file to customize the UI
-            search: for  line in sporth!.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
+            search: for line in sporth!.components(separatedBy: NSCharacterSet.newlines)
+            //search: for  line in sporth!.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
             {
-                if line.containsString("# Uses Keyboard") {
-                    self.keyboard?.hidden = false
+                if line.contains("# Uses Keyboard") {
+                    self.keyboard?.isHidden = false
                     break search
                 }
 
                 for i in 0 ..< 4 {
                     let pattern = "# p\(i): ([.0-9]+)[ ]+([^\n]+)"
-                    let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators)
-
-                    let value = regex.stringByReplacingMatchesInString(line, options: NSMatchingOptions.ReportCompletion, range: NSRange(location:0,
+                    let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)
+  
+                    let value = regex.stringByReplacingMatches(in: line, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(location:0,
                         length: line.characters.count ), withTemplate: "$1")
-                    let title = regex.stringByReplacingMatchesInString(line, options: NSMatchingOptions.ReportCompletion, range: NSRange(location:0,
+                    let title = regex.stringByReplacingMatches(in: line, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(location:0,
                         length: line.characters.count ), withTemplate: "$2")
                     if title != line {
                         generator.parameters[i] = Double(value)!
-                        sliders[i]?.hidden = false
+                        sliders[i]?.isHidden = false
                         sliders[i]?.property = title
                         sliders[i]?.value = Double(value)!
                     }

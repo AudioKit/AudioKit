@@ -161,7 +161,7 @@ open class AKAUPresetBuilder {
                 layerXML.append(tempLayerXML)
                 
             }
-        }//end sounds
+        }
         
         let str = AKAUPresetBuilder.buildInstrument(instrumentName, filerefs: sampleIDXML, layers:layerXML)
 
@@ -242,7 +242,6 @@ open class AKAUPresetBuilder {
             presetXML.append(generateOscillator())
             presetXML.append(openZones())
             presetXML.append(zones)
-            //presetXML.appendContentsOf(generateZone(<#T##id: Int##Int#>, rootNote: <#T##Int#>, startNote: <#T##Int#>, endNote: <#T##Int#>, wavRef: <#T##Int#>))
             presetXML.append(closeZones())
             presetXML.append(closeLayer())
         } else {
@@ -255,7 +254,6 @@ open class AKAUPresetBuilder {
         presetXML.append(genDataBlob())
         presetXML.append(openFileRefs())
         presetXML.append(filerefs)
-        //presetXML.appendContentsOf(generateFileRef(<#T##wavRef: Int##Int#>, samplePath: <#T##String#>))
         presetXML.append(closeFileRefs())
         presetXML.append(generateFineTune())
         presetXML.append(generateGain())

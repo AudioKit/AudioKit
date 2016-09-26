@@ -172,7 +172,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     /// - Parameters:
     ///   - file: the AKAudioFile to play
-    ///   - looping : will loop play if set to true, or stop when play ends, so it can trig the completionHandler callBack. Default is false (non looping)
+    ///   - looping : will loop play if set to true, or stop when play ends, so it can trig the completionHandler callback. Default is false (non looping)
     ///   - completionHandler : AKCallback that will be triggered when the player end playing (useful for refreshing UI so we're not playing anymore, we stopped playing...
     ///
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be catched as it is a throwing init.
