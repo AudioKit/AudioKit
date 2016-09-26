@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         AKSettings.bufferLength = .medium
 
         do {
-            try AKSettings.setSessionCategory(.PlayAndRecord, withOptions: .defaultToSpeaker)
+            try AKSettings.setSession(category: .playAndRecord, with: .defaultToSpeaker)
         } catch { print("Errored setting category.") }
 
         // Patching
