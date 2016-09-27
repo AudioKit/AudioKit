@@ -211,7 +211,6 @@ open class AKMusicTrack {
         MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
-            print(kMusicEventType_Meta)
             if eventType == kMusicEventType_MIDINoteMessage {
                 let convertedData = eventData?.load(as: MIDINoteMessage.self)
                 
