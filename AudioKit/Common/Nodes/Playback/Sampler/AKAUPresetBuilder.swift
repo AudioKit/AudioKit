@@ -130,19 +130,19 @@ open class AKAUPresetBuilder {
             let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
             switch trigModeStr {
                 case SampleTriggerMode.Loop.rawValue?:
-                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Loop.rawValue)!
+                    trigMode = SampleTriggerMode.Loop
                     break
                 case SampleTriggerMode.Trigger.rawValue?:
-                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Trigger.rawValue)!
+                    trigMode = SampleTriggerMode.Trigger
                     break
                 case SampleTriggerMode.Hold.rawValue?:
-                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Hold.rawValue)!
+                    trigMode = SampleTriggerMode.Hold
                     break
                 case SampleTriggerMode.Repeat.rawValue?:
-                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Repeat.rawValue)!
+                    trigMode = SampleTriggerMode.Repeat
                     break
                 default:
-                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Trigger.rawValue)!
+                    trigMode = SampleTriggerMode.Trigger
             }
             switch trigMode {
             case  .Hold:
