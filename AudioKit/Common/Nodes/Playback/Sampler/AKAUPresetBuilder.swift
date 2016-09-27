@@ -121,7 +121,7 @@ open class AKAUPresetBuilder {
             startNote = (startNote == nil ? rootNote : startNote)
             endNote = (endNote == nil ? rootNote : endNote)
             let trigModeStr = soundDict.object(forKey: triggerModeKey) as? String
-            let trigMode : SampleTrigMode
+            let trigMode : SampleTriggerMode
 
             //sampleZoneXML.append(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum" as NSCopying)
@@ -129,35 +129,45 @@ open class AKAUPresetBuilder {
             
             let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
             switch trigModeStr {
-                case SampleTrigMode.Loop.rawValue?:
-                    trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Loop.rawValue)!
+                case SampleTriggerMode.Loop.rawValue?:
+                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Loop.rawValue)!
                     break
-                case SampleTrigMode.Trig.rawValue?:
-                    trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Trig.rawValue)!
+                case SampleTriggerMode.Trigger.rawValue?:
+                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Trigger.rawValue)!
                     break
-                case SampleTrigMode.Hold.rawValue?:
-                    trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Hold.rawValue)!
+                case SampleTriggerMode.Hold.rawValue?:
+                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Hold.rawValue)!
                     break
-                case SampleTrigMode.Repeat.rawValue?:
-                    trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Repeat.rawValue)!
+                case SampleTriggerMode.Repeat.rawValue?:
+                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Repeat.rawValue)!
                     break
                 default:
-                    trigMode = SampleTrigMode.init(rawValue: SampleTrigMode.Trig.rawValue)!
+                    trigMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.Trigger.rawValue)!
             }
             switch trigMode {
             case  .Hold:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!,
+                                                               wavRef: sampleNum, loopEnabled: false)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1),
+                                                                   envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1,
+                                                                   numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
                 break
             case .Loop:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: true)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!,
+                                                               wavRef: sampleNum, loopEnabled: true)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1),
+                                                                   envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1,
+                                                                   numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
                 break
-            default: //.Trig and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
-                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: true)
+            default:
+                //.Trigger and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!,
+                                                               wavRef: sampleNum, loopEnabled: false)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1),
+                                                                   envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1,
+                                                                   numVoices: 1, ignoreNoteOff: true)
                 layerXML.append(tempLayerXML)
                 
             }
@@ -1237,9 +1247,9 @@ open class AKAUPresetBuilder {
 
 }
 
-public enum SampleTrigMode: String {
+public enum SampleTriggerMode: String {
     case Hold = "hold"
-    case Trig = "trig"
+    case Trigger = "trigger"
     case Loop = "loop"
     case Repeat = "repeat"
 }
