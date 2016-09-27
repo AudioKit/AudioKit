@@ -88,6 +88,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.orange) { sliderValue in
                 generator.parameters[0] = sliderValue
             }
+        p0Slider?.isHidden = true
         addSubview(p0Slider!)
         p1Slider = AKPropertySlider(
             property: "Parameter 1",
@@ -95,6 +96,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         color: AKColor.cyan) { sliderValue in
             generator.parameters[1] = sliderValue
             }
+        p1Slider?.isHidden = true
         addSubview(p1Slider!)
         p2Slider = AKPropertySlider(
             property: "Parameter 2",
@@ -102,6 +104,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         color: AKColor.magenta) { sliderValue in
             generator.parameters[2] = sliderValue
             }
+        p2Slider?.isHidden = true
         addSubview(p2Slider!)
         p3Slider = AKPropertySlider(
             property: "Parameter 3",
@@ -109,11 +112,13 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         color: AKColor.yellow) { sliderValue in
             generator.parameters[3] = sliderValue
             }
+        p3Slider?.isHidden = true
         addSubview(p3Slider!)
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard!.polyphonicMode = false
         keyboard!.delegate = self
+        keyboard!.isHidden = true
         addSubview(keyboard!)
     }
 
