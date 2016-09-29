@@ -10,7 +10,7 @@ import Foundation
 
 /// Builds presets for Apple sampler to read from
 open class AKAUPresetBuilder {
-
+    
     fileprivate var presetXML = ""
     fileprivate var layers = [String]()
     fileprivate var connections = [String]()
@@ -19,7 +19,7 @@ open class AKAUPresetBuilder {
     fileprivate var zones = [String]()
     fileprivate var fileRefs = [String]()
     fileprivate var filters = [String]()
-
+    
     /// Create preset with the given components
     ///
     /// - Parameters:
@@ -38,7 +38,7 @@ open class AKAUPresetBuilder {
          lfos: String = "***LFOS***\n",
          zones: String = "***ZONES***\n",
          filerefs: String = "***FILEREFS***\n") {
-        presetXML = AKAUPresetBuilder.buildInstrument(name,
+        presetXML = AKAUPresetBuilder.buildInstrument(name: name,
                                                       connections: connections,
                                                       envelopes: envelopes,
                                                       filter: filter,
@@ -46,7 +46,7 @@ open class AKAUPresetBuilder {
                                                       zones: zones,
                                                       filerefs: filerefs)
     }
-
+    
     /// Create an AUPreset from a collection of dictionaries.
     /// dict is a collection of other dictionaries that have the format like this:
     ///   - ***Key:Value***
@@ -62,11 +62,11 @@ open class AKAUPresetBuilder {
     ///   - attack:         Attack time in seconds
     ///   - release:        Release time in seconds
     ///
-    static open func createAUPresetFromDict(_ dict: NSDictionary,
-                                              path: String,
-                                              instrumentName: String,
-                                              attack: Double? = 0,
-                                              release: Double? = 0) {
+    static open func createAUPreset(dict: NSDictionary,
+                                    path: String,
+                                    instrumentName: String,
+                                    attack: Double? = 0,
+                                    release: Double? = 0) {
         let rootNoteKey = "rootnote"
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
@@ -78,7 +78,7 @@ open class AKAUPresetBuilder {
         var sampleIDXML = ""
         var sampleIteration = 0
         let sampleNumStart = 268435457
-
+        
         //iterate over the sounds
         for i in 0 ..< dict.count {
             let sound = dict.allValues[i] as! NSMutableDictionary
@@ -96,7 +96,7 @@ open class AKAUPresetBuilder {
                     sampleNum = loadedSoundDict.object(forKey: "sampleNum") as! Int
                 }
             }
-
+            
             if (sound as AnyObject).object(forKey: startNoteKey) == nil || (sound as AnyObject).object(forKey: endNoteKey) == nil {
                 soundDict.setObject((sound as AnyObject).object(forKey: rootNoteKey)!, forKey: startNoteKey as NSCopying)
                 soundDict.setObject((sound as AnyObject).object(forKey: rootNoteKey)!, forKey: endNoteKey as NSCopying)
@@ -106,12 +106,12 @@ open class AKAUPresetBuilder {
             } else {
                 soundDict.setObject((sound as AnyObject).object(forKey: rootNoteKey)!, forKey: rootNoteKey as NSCopying)
             }
-
+            
             if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
-                let idXML = AKAUPresetBuilder.generateFileRef(sampleNum, samplePath: (sound as AnyObject).object(forKey: "filename")! as! String)
+                let idXML = AKAUPresetBuilder.generateFileRef(wavRef: sampleNum, samplePath: (sound as AnyObject).object(forKey: "filename")! as! String)
                 sampleIDXML.append(idXML)
-
+                
                 sampleIteration += 1
             }
             
@@ -122,49 +122,49 @@ open class AKAUPresetBuilder {
             endNote = (endNote == nil ? rootNote : endNote)
             let triggerModeStr = soundDict.object(forKey: triggerModeKey) as? String
             let triggerMode : SampleTriggerMode
-
+            
             //sampleZoneXML.append(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum" as NSCopying)
             loadSoundsArr.append(soundDict)
             
-            let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
+            let envelopesXML = AKAUPresetBuilder.generateEnvelope(id: 0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
             switch triggerModeStr {
-                case SampleTriggerMode.loop.rawValue?:
-                    triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.loop.rawValue)!
-                    break
-                case SampleTriggerMode.trigger.rawValue?:
-                    triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.trigger.rawValue)!
-                    break
-                case SampleTriggerMode.hold.rawValue?:
-                    triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.hold.rawValue)!
-                    break
-                case SampleTriggerMode.repeat.rawValue?:
-                    triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.repeat.rawValue)!
-                    break
-                default:
-                    triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.trigger.rawValue)!
+            case SampleTriggerMode.loop.rawValue?:
+                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.loop.rawValue)!
+                break
+            case SampleTriggerMode.trigger.rawValue?:
+                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.trigger.rawValue)!
+                break
+            case SampleTriggerMode.hold.rawValue?:
+                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.hold.rawValue)!
+                break
+            case SampleTriggerMode.repeat.rawValue?:
+                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.repeat.rawValue)!
+                break
+            default:
+                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.trigger.rawValue)!
             }
             switch triggerMode {
             case  .hold:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
                 break
             case .loop:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: true)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: true)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
                 break
             default: //.Trig and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
-                sampleZoneXML = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(AKAUPresetBuilder.generateMinimalConnections(i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: true)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: true)
                 layerXML.append(tempLayerXML)
                 
             }
         }
         
-        let str = AKAUPresetBuilder.buildInstrument(instrumentName, filerefs: sampleIDXML, layers:layerXML)
-
+        let str = AKAUPresetBuilder.buildInstrument(name: instrumentName, filerefs: sampleIDXML, layers:layerXML)
+        
         //write to file
         do {
             //print("Writing to \(path)")
@@ -174,8 +174,8 @@ open class AKAUPresetBuilder {
             print(error)
         }
     }
-
-    /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that into createAUPresetFromDict
+    
+    /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that into createAUPreset
     ///
     /// - Parameters:
     ///   - rootNote:  Note at which the sample playback is unchanged
@@ -184,11 +184,11 @@ open class AKAUPresetBuilder {
     ///   - endNote:   Last note in range
     ///
     open static func generateDictionary(
-        _ rootNote: Int,
+        rootNote: Int,
         filename: String,
         startNote: Int,
         endNote: Int) -> NSMutableDictionary {
-
+        
         let rootNoteKey = "rootnote"
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
@@ -197,11 +197,11 @@ open class AKAUPresetBuilder {
         let keys = [rootNoteKey, startNoteKey, endNoteKey, filenameKey]
         return NSMutableDictionary.init(objects: defaultObjects, forKeys: keys as [NSCopying])
     }
-
+    
     static func spaces(_ count: Int) -> String {
         return String(repeating: String((" " as Character)), count: count)
     }
-
+    
     /// Build the instrument file
     ///
     /// - Parameters:
@@ -214,18 +214,18 @@ open class AKAUPresetBuilder {
     ///   - filerefs:    File references XML
     ///   - layers:      Combined xml
     ///
-    static open func buildInstrument(_ name: String = "Coded Instrument Name",
-                                       connections: String = "",
-                                       envelopes: String = "",
-                                       filter: String = "",
-                                       lfos: String = "",
-                                       zones: String = "***ZONES***\n",
-                                       filerefs: String = "***FILEREFS***\n",
-                                       layers: String = "") -> String {
+    static open func buildInstrument(name: String = "Coded Instrument Name",
+                                     connections: String = "",
+                                     envelopes: String = "",
+                                     filter: String = "",
+                                     lfos: String = "",
+                                     zones: String = "***ZONES***\n",
+                                     filerefs: String = "***FILEREFS***\n",
+                                     layers: String = "") -> String {
         var presetXML = openPreset()
         presetXML.append(openInstrument())
         presetXML.append(openLayers())
-
+        
         if layers == "" {
             presetXML.append(openLayer())
             presetXML.append(openConnections())
@@ -247,7 +247,7 @@ open class AKAUPresetBuilder {
         } else {
             presetXML.append(layers)
         }
-
+        
         presetXML.append(closeLayers())
         presetXML.append(closeInstrument())
         presetXML.append(genCoarseTune())
@@ -258,7 +258,7 @@ open class AKAUPresetBuilder {
         presetXML.append(generateFineTune())
         presetXML.append(generateGain())
         presetXML.append(generateManufacturer())
-        presetXML.append(generateInstrumentName(name))
+        presetXML.append(generateInstrument(name: name))
         presetXML.append(generateOutput())
         presetXML.append(generatePan())
         presetXML.append(generateTypeAndSubType())
@@ -291,7 +291,7 @@ open class AKAUPresetBuilder {
         str.append("            <array>\n")
         return str
     }
-
+    
     static func openLayer() -> String {
         var str = ""
         str.append("\(spaces(16))<dict>\n")
@@ -312,12 +312,12 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func generateConnectionDict(_ id: Int,
-                                              source: Int,
-                                              destination: Int,
-                                              scale: Int,
-                                              transform: Int = 1,
-                                              invert: Bool = false) -> String {
+    static func generateConnectionDict(id: Int,
+                                       source: Int,
+                                       destination: Int,
+                                       scale: Int,
+                                       transform: Int = 1,
+                                       invert: Bool = false) -> String {
         var str = ""
         str.append("\(spaces(34))<dict>\n")
         str.append("\(spaces(34))    <key>ID</key>\n")
@@ -353,7 +353,7 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func generateEnvelope(_ id: Int = 0,
+    static func generateEnvelope(id: Int = 0,
                                  delay: Double = 0.0,
                                  attack: Double = 0.0,
                                  hold: Double = 0.0,
@@ -433,7 +433,7 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func generateFilter(_ cutoffHz: Double = 20000.0, resonanceDb: Double = 0.0) -> String {
+    static func generateFilter(cutoffHz: Double = 20000.0, resonanceDb: Double = 0.0) -> String {
         var str = ""
         str.append("                    <key>Filters</key>\n")
         str.append("                    <dict>\n")
@@ -465,7 +465,7 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func generateLFO(_ id: Int = 0,
+    static func generateLFO(id: Int = 0,
                             delay: Double = 0.0,
                             rate: Double = 3.0,
                             waveform: Int = 0) -> String {
@@ -513,7 +513,7 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func generateZone(_ id: Int,
+    static func generateZone(id: Int,
                              rootNote: Int,
                              startNote: Int,
                              endNote: Int,
@@ -547,7 +547,7 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func layerIgnoreNoteOff(_ ignore: Bool = false) -> String {
+    static func layerIgnoreNoteOff(ignore: Bool = false) -> String {
         var str = ""
         if ignore {
             str.append("        <key>trigger mode</key>\n")
@@ -556,10 +556,10 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func layerSetVoiceCount(_ count: Int = 16) -> String {
+    static func layerSet(voiceCount: Int = 16) -> String {
         var str = ""
         str.append("        <key>voice count</key>\n")
-        str.append("        <integer>\(count)</integer>\n")
+        str.append("        <integer>\(voiceCount)</integer>\n")
         return str
     }
     
@@ -575,7 +575,7 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func closeInstrument(_ name: String = "Code Generated Instrument") -> String {
+    static func closeInstrument(name: String = "Code Generated Instrument") -> String {
         var str: String = ""
         str.append("            <key>name</key>\n")
         str.append("            <string>\(name)</string>\n")
@@ -606,7 +606,7 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func generateFileRef(_ wavRef: Int = 268435457, samplePath: String) -> String {
+    static func generateFileRef(wavRef: Int = 268435457, samplePath: String) -> String {
         var str: String = ""
         str.append("            <key>Sample:\(wavRef)</key>\n")
         str.append("            <string>\(samplePath)</string>\n")
@@ -640,7 +640,7 @@ open class AKAUPresetBuilder {
         return str
     }
     
-    static func generateInstrumentName(_ name: String = "Coded Instrument Name") -> String {
+    static func generateInstrument(name: String = "Coded Instrument Name") -> String {
         var str: String = ""
         str.append("        <key>name</key>\n")
         str.append("        <string>\(name)</string>\n")
@@ -685,8 +685,8 @@ open class AKAUPresetBuilder {
         str.append("</plist>\n")
         return str
     }
-
-    static func generateLayer(_ connections: String,
+    
+    static func generateLayer(connections: String,
                               envelopes: String = "",
                               filter: String = "",
                               lfos: String = "",
@@ -697,7 +697,7 @@ open class AKAUPresetBuilder {
         var str = ""
         str.append(openLayer())
         str.append(openConnections())
-        str.append((connections == "" ? generateMinimalConnections(layer) : connections))
+        str.append((connections == "" ? generateMinimalConnections(layer: layer) : connections))
         str.append(closeConnections())
         str.append(openEnvelopes())
         str.append((envelopes == "" ? generateEnvelope() : envelopes))
@@ -711,30 +711,30 @@ open class AKAUPresetBuilder {
         str.append(openZones())
         str.append(zones)
         str.append(closeZones())
-        str.append(layerIgnoreNoteOff(ignoreNoteOff))
-        str.append(layerSetVoiceCount(numVoices))
+        str.append(layerIgnoreNoteOff(ignore: ignoreNoteOff))
+        str.append(generateVoiceCount(numVoices))
         str.append(closeLayer())
         return str
     }
     
-    static func generateLayers(_ connections: [String], envelopes: [String], filters: [String], lfos: [String], zones: [String]) -> String {
+    static func generateLayers(connections: [String], envelopes: [String], filters: [String], lfos: [String], zones: [String]) -> String {
         //make sure all arrays are same size
         var str = ""
         for i in 0..<connections.count {
-            str.append(AKAUPresetBuilder.generateLayer(connections[i], envelopes: envelopes[i], filter: filters[i], lfos: lfos[i], zones: zones[i], layer: i))
+            str.append(AKAUPresetBuilder.generateLayer(connections: connections[i], envelopes: envelopes[i], filter: filters[i], lfos: lfos[i], zones: zones[i], layer: i))
         }
         return str
     }
     
-    static func generateMinimalConnections(_ layer: Int = 0) -> String {
+    static func generateMinimalConnections(layer: Int = 0) -> String {
         let layerOffset: Int = 256*layer
         let pitchDest: Int = 816840704+layerOffset
         let envelopeSource: Int = 536870912+layerOffset
         let gainDest: Int = 1343225856+layerOffset
         var str = ""
-        str.append(generateConnectionDict(0, source: 300, destination: pitchDest, scale: 12800, transform: 1, invert: false)) //keynum->pitch
-        str.append(generateConnectionDict(1, source: envelopeSource, destination: gainDest, scale: -96, transform: 1, invert: true)) //envelope->amp
-        str.append(generateConnectionDict(2, source: 301, destination: gainDest, scale: -96, transform: 2, invert: true))
+        str.append(generateConnectionDict(id: 0, source: 300, destination: pitchDest, scale: 12800, transform: 1, invert: false)) //keynum->pitch
+        str.append(generateConnectionDict(id: 1, source: envelopeSource, destination: gainDest, scale: -96, transform: 1, invert: true)) //envelope->amp
+        str.append(generateConnectionDict(id: 2, source: 301, destination: gainDest, scale: -96, transform: 2, invert: true))
         return str
     }
     
@@ -894,7 +894,7 @@ open class AKAUPresetBuilder {
         str.append("                        </dict>\n")
         return str
     }
-
+    
     static func genFULLXML() -> String {
         var str: String
         str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -1234,7 +1234,7 @@ open class AKAUPresetBuilder {
         str.append("</plist>\n")
         return str
     }
-
+    
 }
 
 public enum SampleTriggerMode: String {
@@ -1249,15 +1249,15 @@ public enum SampleTriggerMode: String {
  destinations:
  1343225856 = amp gain
  818937856 = samplestart factor
-
+ 
  816840704 = layer1pitch
  816840960 = layer2pitch (+256)
  816841216 = layer3pitch (+256)
-
+ 
  1343225856 = layer1gain
  1343226112 = layer2gain (+256)
  1343226368 = layer3gain (+256)
-
+ 
  sources:
  300 = keynumber
  301 = keyvelocity
@@ -1265,5 +1265,5 @@ public enum SampleTriggerMode: String {
  536871168 = layer2envelope (+256)536871424
  268435456 = layer1LFO1
  268435457 = layer1LFO2
-
+ 
  */
