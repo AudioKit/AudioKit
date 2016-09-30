@@ -25,17 +25,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var freqLabel: UILabel!
     @IBOutlet weak var resonLabel: UILabel!
     @IBOutlet weak var mainButton: UIButton!
-
+    @IBOutlet weak var frequencySlider: AKPropertySlider!
+    
     @IBOutlet weak var loopButton: UIButton!
-    @IBOutlet weak var freqSlider: UISlider!
+    @IBOutlet weak var freqSlider: AKPropertySlider!
     @IBOutlet weak var moogLadderTitle: UILabel!
     @IBOutlet weak var resonSlider: UISlider!
-
+  
     enum State {
         case readyToRecord
         case recording
         case readyToPlay
         case playing
+        
     }
 
     override func viewDidLoad() {
@@ -158,8 +160,14 @@ class ViewController: UIViewController {
     func setSliders(active: Bool) {
         loopButton.isEnabled = active
         moogLadderTitle.isEnabled = active
-        freqSlider.isEnabled = active
-        freqSlider.isHidden = !active
+        frequencySlider.callback = updateTempo
+        frequencySlider.property = "Frequency"
+        frequencySlider.minimum = 40
+        frequencySlider.maximum = 200
+        frequencySlider.value  = moogLadder!.cutoffFrequency
+
+        //freqSlider.isEnabled = active
+        //freqSlider.isHidden = !active
         resonSlider.isEnabled = active
         resonSlider.isHidden = !active
         freqLabel.isEnabled = active
@@ -199,6 +207,10 @@ class ViewController: UIViewController {
     @IBAction func freqSliderChanged(sender: UISlider) {
         moogLadder?.cutoffFrequency = Double(sender.value)
         freqLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder!.cutoffFrequency))"
+    }
+    
+    func updateTempo(value: Double) {
+        moogLadder!.cutoffFrequency = value
     }
 
     override func didReceiveMemoryWarning() {
