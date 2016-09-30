@@ -69,21 +69,16 @@
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3KD-TX-7qI">
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p52-OE-9Do">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ArQ-cE-fUw">
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cutoff Frequency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCQ-k0-25p">
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u4F-x6-8jb" customClass="AKPropertySlider" customModule="AudioKit">
-                                                        <frame key="frameInset" minY="8" width="375" height="92"/>
+                                                        <frame key="frameInset" width="375" height="108"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.8461551802412508" green="0.53146726222515783" blue="0.40274570839982327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="property" value="Frequency"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                                <real key="value" value="0.5"/>
+                                                                <integer key="value" value="300"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
                                                                 <color key="value" red="0.95223861932754517" green="0.60029435157775879" blue="0.44777637720108032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -94,14 +89,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.95223861932754517" green="0.60029435157775879" blue="0.44777637720108032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="dCQ-k0-25p" secondAttribute="trailing" constant="20" symbolic="YES" id="U9Z-89-bb2"/>
-                                                    <constraint firstItem="dCQ-k0-25p" firstAttribute="top" secondItem="p52-OE-9Do" secondAttribute="top" constant="8" id="qqE-in-VaF"/>
-                                                    <constraint firstItem="dCQ-k0-25p" firstAttribute="leading" secondItem="p52-OE-9Do" secondAttribute="leading" constant="20" symbolic="YES" id="ya1-Sd-tQC"/>
-                                                </constraints>
+                                                <color key="backgroundColor" red="0.95223861929999998" green="0.6002943516" blue="0.44777637720000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" red="0.95223861929999998" green="0.6002943516" blue="0.44777637720000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oS9-nn-npA">
                                         <subviews>
@@ -117,6 +108,23 @@
                                                             <action selector="resonSliderChangedWithSender:" destination="BYZ-38-t0r" eventType="valueChanged" id="N0T-jx-0fb"/>
                                                         </connections>
                                                     </slider>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfz-yM-zwh" customClass="AKPropertySlider" customModule="AudioKit">
+                                                        <frame key="frameInset" minY="-10" width="375" height="118"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.95532089471817017" green="0.66845095157623291" blue="0.43169769644737244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="property" value="Resonance"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                                <color key="value" red="0.95532089471817017" green="0.66845095157623291" blue="0.43169769644737244" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.96078431372549022" green="0.6705882352941176" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -143,7 +151,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="freqLabel" destination="dCQ-k0-25p" id="9bn-Ol-dNM"/>
                         <outlet property="frequencySlider" destination="u4F-x6-8jb" id="Yie-hs-q4Q"/>
                         <outlet property="infoLabel" destination="chg-Xl-bKS" id="DGZ-iF-mlS"/>
                         <outlet property="loopButton" destination="3mv-Q4-wQx" id="iMS-gz-FLN"/>
@@ -152,11 +159,12 @@
                         <outlet property="resetButton" destination="Vys-ow-YgK" id="Yub-Eg-HLJ"/>
                         <outlet property="resonLabel" destination="uwi-Vg-D8v" id="6kb-YY-mgq"/>
                         <outlet property="resonSlider" destination="osx-to-7If" id="Mnn-wR-wWp"/>
+                        <outlet property="resonanceSlider" destination="hfz-yM-zwh" id="LMB-Ri-RWU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-52" y="213"/>
+            <point key="canvasLocation" x="-52" y="212.74362818590706"/>
         </scene>
     </scenes>
 </document>
