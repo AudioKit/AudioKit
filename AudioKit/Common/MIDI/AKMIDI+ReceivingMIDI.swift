@@ -109,32 +109,32 @@ extension AKMIDI {
         for listener in listeners {
             let type = event.status
             switch type {
-            case AKMIDIStatus.controllerChange:
+            case .controllerChange:
                 listener.receivedMIDIController(Int(event.internalData[1]),
                                                 value: Int(event.internalData[2]),
                                                 channel: MIDIChannel(event.channel))
-            case AKMIDIStatus.channelAftertouch:
+            case .channelAftertouch:
                 listener.receivedMIDIAfterTouch(Int(event.internalData[1]),
                                                 channel: MIDIChannel(event.channel))
-            case AKMIDIStatus.noteOn:
+            case .noteOn:
                 listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.internalData[1]),
                                             velocity: MIDIVelocity(event.internalData[2]),
                                             channel: MIDIChannel(event.channel))
-            case AKMIDIStatus.noteOff:
+            case .noteOff:
                 listener.receivedMIDINoteOff(noteNumber: MIDINoteNumber(event.internalData[1]),
                                              velocity: MIDIVelocity(event.internalData[2]),
                                              channel: MIDIChannel(event.channel))
-            case AKMIDIStatus.pitchWheel:
+            case .pitchWheel:
                 listener.receivedMIDIPitchWheel(Int(event.data),
                                                 channel: MIDIChannel(event.channel))
-            case AKMIDIStatus.polyphonicAftertouch:
+            case .polyphonicAftertouch:
                 listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),
                                                 pressure: Int(event.internalData[2]),
                                                 channel: MIDIChannel(event.channel))
-            case AKMIDIStatus.programChange:
+            case .programChange:
                 listener.receivedMIDIProgramChange(Int(event.internalData[1]),
                                                    channel: MIDIChannel(event.channel))
-            case AKMIDIStatus.systemCommand:
+            case .systemCommand:
                 listener.receivedMIDISystemCommand(event.internalData)
             }
         }
