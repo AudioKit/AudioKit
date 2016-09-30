@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var tape: AKAudioFile?
     var micBooster: AKBooster?
     var moogLadder: AKMoogLadder?
+    var delay: AKDelay?
 
     var state = State.readyToRecord
 
