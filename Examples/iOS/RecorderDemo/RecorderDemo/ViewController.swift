@@ -22,7 +22,6 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var resonLabel: UILabel!
     @IBOutlet weak var mainButton: UIButton!
     @IBOutlet weak var frequencySlider: AKPropertySlider!
     
@@ -30,7 +29,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var loopButton: UIButton!
     @IBOutlet weak var moogLadderTitle: UILabel!
-    @IBOutlet weak var resonSlider: UISlider!
   
     enum State {
         case readyToRecord
@@ -161,18 +159,11 @@ class ViewController: UIViewController {
         loopButton.isEnabled = active
         moogLadderTitle.isEnabled = active
         frequencySlider.callback = updateFrequency
-        //frequencySlider.property = "Frequency"
-        frequencySlider.minimum = 100
-        frequencySlider.maximum = 800
         frequencySlider.isHidden = !active
-        //frequencySlider.format = "%0.1f BPM"
-        //frequencySlider.value  = moogLadder!.cutoffFrequency
-
-        //freqSlider.isEnabled = active
-        //freqSlider.isHidden = !active
-        resonSlider.isEnabled = active
-        resonSlider.isHidden = !active
-        resonLabel.text = active ? "Resonance" : Constants.empty
+        resonanceSlider.callback = updateReson
+        resonanceSlider.isHidden = !active
+        //frequencySlider.minimum = 100
+        frequencySlider.maximum = 800
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
 
@@ -217,7 +208,7 @@ class ViewController: UIViewController {
     func updateReson(value: Double) {
         moogLadder?.resonance = value
         resonanceSlider.property = "Resonance"
-        resonanceSlider.format = "%0.0f"
+        resonanceSlider.format = "%0.3f"
     }
 
     override func didReceiveMemoryWarning() {

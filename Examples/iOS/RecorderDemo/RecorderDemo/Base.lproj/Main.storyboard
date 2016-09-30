@@ -98,16 +98,6 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHI-vx-jqU">
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resonance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwi-Vg-D8v">
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="osx-to-7If">
-                                                        <connections>
-                                                            <action selector="resonSliderChangedWithSender:" destination="BYZ-38-t0r" eventType="valueChanged" id="N0T-jx-0fb"/>
-                                                        </connections>
-                                                    </slider>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfz-yM-zwh" customClass="AKPropertySlider" customModule="AudioKit">
                                                         <frame key="frameInset" minY="-10" width="375" height="118"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -127,15 +117,6 @@
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.96078431372549022" green="0.6705882352941176" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="osx-to-7If" secondAttribute="bottom" constant="8" id="Ax1-TW-gbN"/>
-                                                    <constraint firstItem="uwi-Vg-D8v" firstAttribute="top" secondItem="hHI-vx-jqU" secondAttribute="top" constant="8" id="PmV-pE-KAg"/>
-                                                    <constraint firstAttribute="trailing" secondItem="uwi-Vg-D8v" secondAttribute="trailing" constant="20" symbolic="YES" id="XWZ-ZV-xcN"/>
-                                                    <constraint firstAttribute="trailing" secondItem="osx-to-7If" secondAttribute="trailing" constant="20" symbolic="YES" id="jiw-na-72Y"/>
-                                                    <constraint firstItem="osx-to-7If" firstAttribute="leading" secondItem="hHI-vx-jqU" secondAttribute="leading" constant="20" symbolic="YES" id="pOK-ZF-m1z"/>
-                                                    <constraint firstItem="uwi-Vg-D8v" firstAttribute="leading" secondItem="hHI-vx-jqU" secondAttribute="leading" constant="20" symbolic="YES" id="rLx-4S-wn1"/>
-                                                    <constraint firstItem="osx-to-7If" firstAttribute="top" secondItem="uwi-Vg-D8v" secondAttribute="bottom" constant="8" symbolic="YES" id="tRJ-E7-AOG"/>
-                                                </constraints>
                                             </view>
                                         </subviews>
                                     </stackView>
@@ -157,8 +138,6 @@
                         <outlet property="mainButton" destination="39X-bk-Sha" id="ulE-Od-pFi"/>
                         <outlet property="moogLadderTitle" destination="2d8-rp-3wR" id="Z4K-xn-F5C"/>
                         <outlet property="resetButton" destination="Vys-ow-YgK" id="Yub-Eg-HLJ"/>
-                        <outlet property="resonLabel" destination="uwi-Vg-D8v" id="6kb-YY-mgq"/>
-                        <outlet property="resonSlider" destination="osx-to-7If" id="Mnn-wR-wWp"/>
                         <outlet property="resonanceSlider" destination="hfz-yM-zwh" id="LMB-Ri-RWU"/>
                     </connections>
                 </viewController>
