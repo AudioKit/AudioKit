@@ -5,33 +5,33 @@ import PlaygroundSupport
 import AudioKit
 
 enum SynthParameter: Int {
-    case Frequency, Cutoff, Gate
+    case frequency, cutoff, gate
 }
 
 struct Synth {
     static var frequency: AKOperation {
-        return AKOperation.parameters[SynthParameter.Frequency.rawValue]
+        return AKOperation.parameters[SynthParameter.frequency.rawValue]
     }
     static var cutoff: AKOperation {
-        return AKOperation.parameters[SynthParameter.Cutoff.rawValue]
+        return AKOperation.parameters[SynthParameter.cutoff.rawValue]
     }
     static var gate: AKOperation {
-        return AKOperation.parameters[SynthParameter.Gate.rawValue]
+        return AKOperation.parameters[SynthParameter.gate.rawValue]
     }
 }
 
 extension AKOperationGenerator {
     var frequency: Double {
-        get { return self.parameters[SynthParameter.Frequency.rawValue] }
-        set(newValue) { self.parameters[SynthParameter.Frequency.rawValue] = newValue }
+        get { return self.parameters[SynthParameter.frequency.rawValue] }
+        set(newValue) { self.parameters[SynthParameter.frequency.rawValue] = newValue }
     }
     var cutoff: Double {
-        get { return self.parameters[SynthParameter.Cutoff.rawValue] }
-        set(newValue) { self.parameters[SynthParameter.Cutoff.rawValue] = newValue }
+        get { return self.parameters[SynthParameter.cutoff.rawValue] }
+        set(newValue) { self.parameters[SynthParameter.cutoff.rawValue] = newValue }
     }
     var gate: Double {
-        get { return self.parameters[SynthParameter.Gate.rawValue] }
-        set(newValue) { self.parameters[SynthParameter.Gate.rawValue] = newValue }
+        get { return self.parameters[SynthParameter.gate.rawValue] }
+        set(newValue) { self.parameters[SynthParameter.gate.rawValue] = newValue }
     }
 }
 
