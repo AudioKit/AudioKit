@@ -85,6 +85,7 @@ class ViewController: UIViewController {
             self.setupUIForPlaying ()
         }
     }
+    
 
     @IBAction func mainButtonTouched(sender: UIButton) {
         switch state {
