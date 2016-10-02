@@ -117,7 +117,7 @@ open class AKDrip: AKNode {
     // MARK: - Initialization
 
     /// Initialize the drip with defaults
-    convenience override init() {
+    public convenience override init() {
         self.init(intensity: 10)
     }
 
