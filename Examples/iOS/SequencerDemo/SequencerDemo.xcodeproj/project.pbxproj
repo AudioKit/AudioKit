@@ -16,6 +16,8 @@
 		78ADAA291D2569810095C0C7 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA281D2569810095C0C7 /* Sequence.swift */; };
 		78C61D541D26A68C00D5B296 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C61D531D26A68C00D5B296 /* AudioKit.framework */; };
 		78C61D551D26A68C00D5B296 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 78C61D531D26A68C00D5B296 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4E5E24F1D9E1A9F00FEF9DD /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E5E24E1D9E1A9F00FEF9DD /* AudioKit.framework */; };
+		C4E5E2501D9E1A9F00FEF9DD /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4E5E24E1D9E1A9F00FEF9DD /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C4E5E2501D9E1A9F00FEF9DD /* AudioKit.framework in Embed Frameworks */,
 				78C61D551D26A68C00D5B296 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -43,6 +46,7 @@
 		78ADAA261D2564210095C0C7 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		78ADAA281D2569810095C0C7 /* Sequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		78C61D531D26A68C00D5B296 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C4E5E24E1D9E1A9F00FEF9DD /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4E5E24F1D9E1A9F00FEF9DD /* AudioKit.framework in Frameworks */,
 				78C61D541D26A68C00D5B296 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,6 +65,7 @@
 		78ADA9F81D255FB90095C0C7 = {
 			isa = PBXGroup;
 			children = (
+				C4E5E24E1D9E1A9F00FEF9DD /* AudioKit.framework */,
 				78C61D561D26A70500D5B296 /* Frameworks */,
 				78ADAA031D255FB90095C0C7 /* SequencerDemo */,
 				78ADAA021D255FB90095C0C7 /* Products */,

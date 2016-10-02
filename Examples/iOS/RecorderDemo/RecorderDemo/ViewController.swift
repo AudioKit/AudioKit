@@ -17,25 +17,26 @@ class ViewController: UIViewController {
     var tape: AKAudioFile?
     var micBooster: AKBooster?
     var moogLadder: AKMoogLadder?
+    var delay: AKDelay?
 
     var state = State.readyToRecord
 
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var freqLabel: UILabel!
-    @IBOutlet weak var resonLabel: UILabel!
     @IBOutlet weak var mainButton: UIButton!
-
+    @IBOutlet weak var frequencySlider: AKPropertySlider!
+    
+    @IBOutlet weak var resonanceSlider: AKPropertySlider!
+    
     @IBOutlet weak var loopButton: UIButton!
-    @IBOutlet weak var freqSlider: UISlider!
     @IBOutlet weak var moogLadderTitle: UILabel!
-    @IBOutlet weak var resonSlider: UISlider!
-
+  
     enum State {
         case readyToRecord
         case recording
         case readyToPlay
         case playing
+        
     }
 
     override func viewDidLoad() {
@@ -85,6 +86,7 @@ class ViewController: UIViewController {
             self.setupUIForPlaying ()
         }
     }
+    
 
     @IBAction func mainButtonTouched(sender: UIButton) {
         switch state {
@@ -157,14 +159,12 @@ class ViewController: UIViewController {
     func setSliders(active: Bool) {
         loopButton.isEnabled = active
         moogLadderTitle.isEnabled = active
-        freqSlider.isEnabled = active
-        freqSlider.isHidden = !active
-        resonSlider.isEnabled = active
-        resonSlider.isHidden = !active
-        freqLabel.isEnabled = active
-        resonLabel.isEnabled = active
-        freqLabel.text = active ? "Cutoff Frequency" : Constants.empty
-        resonLabel.text = active ? "Resonance" : Constants.empty
+        frequencySlider.callback = updateFrequency
+        frequencySlider.isHidden = !active
+        resonanceSlider.callback = updateReson
+        resonanceSlider.isHidden = !active
+        //frequencySlider.minimum = 100
+        frequencySlider.maximum = 800
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
 
@@ -189,7 +189,7 @@ class ViewController: UIViewController {
         //try? player?.replaceFile((recorder?.audioFile)!)
         setupUIForRecording()
     }
-
+/*
     @IBAction func resonSliderChanged(sender: UISlider) {
         moogLadder?.resonance = Double(sender.value)
         resonLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder!.resonance))"
@@ -198,6 +198,18 @@ class ViewController: UIViewController {
     @IBAction func freqSliderChanged(sender: UISlider) {
         moogLadder?.cutoffFrequency = Double(sender.value)
         freqLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder!.cutoffFrequency))"
+    }
+    */
+    func updateFrequency(value: Double) {
+        moogLadder!.cutoffFrequency = value
+        frequencySlider.property = "Frequency"
+        frequencySlider.format = "%0.0f"
+    }
+    
+    func updateReson(value: Double) {
+        moogLadder?.resonance = value
+        resonanceSlider.property = "Resonance"
+        resonanceSlider.format = "%0.3f"
     }
 
     override func didReceiveMemoryWarning() {
