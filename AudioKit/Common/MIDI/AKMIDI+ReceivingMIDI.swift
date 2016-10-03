@@ -136,6 +136,8 @@ extension AKMIDI {
                                                    channel: MIDIChannel(event.channel))
             case .systemCommand:
                 listener.receivedMIDISystemCommand(event.internalData)
+            default:
+                break
             }
         }
     }
