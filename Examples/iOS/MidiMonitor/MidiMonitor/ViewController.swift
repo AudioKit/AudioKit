@@ -17,7 +17,7 @@ class ViewController: UIViewController, AKMIDIListener {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        midi.openInput("Session 1")
+        midi.openInput()
         midi.addListener(self)
     }
     
