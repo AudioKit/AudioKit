@@ -157,8 +157,7 @@ class ViewController: UIViewController {
         frequencySlider.isHidden = !active
         resonanceSlider.callback = updateReson
         resonanceSlider.isHidden = !active
-        //frequencySlider.minimum = 100
-        frequencySlider.maximum = 1000
+        frequencySlider.maximum = 2000
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
     
