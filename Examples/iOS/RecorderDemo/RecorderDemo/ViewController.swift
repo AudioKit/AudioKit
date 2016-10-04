@@ -146,6 +146,8 @@ class ViewController: UIViewController {
         resetButton.isHidden = false
         resetButton.isEnabled = true
         setSliders(active: true)
+        frequencySlider.value = (moogLadder?.cutoffFrequency)!
+        resonanceSlider.value = (moogLadder?.resonance)!
     }
     
     func setSliders(active: Bool) {
@@ -156,7 +158,7 @@ class ViewController: UIViewController {
         resonanceSlider.callback = updateReson
         resonanceSlider.isHidden = !active
         //frequencySlider.minimum = 100
-        frequencySlider.maximum = 800
+        frequencySlider.maximum = 1000
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
     
