@@ -74,12 +74,12 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-Jb-A4X" customClass="AKPropertySlider" customModule="AudioKit">
                                                         <color key="backgroundColor" red="0.95223861932754517" green="0.60029435157775879" blue="0.44777637720108032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="property" value=""/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="property" value="Frequency"/>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
                                                                 <color key="value" red="0.84599064086294418" green="0.53136391558737928" blue="0.40266739235328336" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                                <real key="value" value="0.5"/>
+                                                                <integer key="value" value="0"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                                 <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -111,9 +111,9 @@
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                                 <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="property" value=""/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="property" value="Resonance"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                                <real key="value" value="0.5"/>
+                                                                <integer key="value" value="0"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
