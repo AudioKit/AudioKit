@@ -71,22 +71,29 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p52-OE-9Do">
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-Jb-A4X" customClass="AKPropertySlider" customModule="AudioKit">
-                                                        <frame key="frameInset" minX="67" width="240" height="128"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-Jb-A4X" customClass="AKPropertySlider" customModule="AudioKit">
                                                         <color key="backgroundColor" red="0.95223861932754517" green="0.60029435157775879" blue="0.44777637720108032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="property" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="slidercolor">
-                                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="property" value=""/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                                <color key="value" red="0.84599064086294418" green="0.53136391558737928" blue="0.40266739235328336" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="value">
                                                                 <real key="value" value="0.5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.59999999999999998" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="XHS-Jb-A4X" secondAttribute="bottom" id="VmI-L6-ZZF"/>
+                                                    <constraint firstItem="XHS-Jb-A4X" firstAttribute="leading" secondItem="p52-OE-9Do" secondAttribute="leading" id="mJ4-qO-VUM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="XHS-Jb-A4X" secondAttribute="trailing" id="sxd-dI-1fK"/>
+                                                    <constraint firstItem="XHS-Jb-A4X" firstAttribute="top" secondItem="p52-OE-9Do" secondAttribute="top" id="xS4-jd-8um"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95223861932754517" green="0.60029435157775879" blue="0.44777637720108032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -95,13 +102,11 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHI-vx-jqU">
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H1W-4C-cmC" customClass="AKPropertySlider" customModule="AudioKit">
-                                                        <frame key="frameInset" width="375" height="108"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1W-4C-cmC" customClass="AKPropertySlider" customModule="AudioKit">
                                                         <color key="backgroundColor" red="0.90007048845291138" green="0.62913995981216431" blue="0.40531009435653687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
-                                                                <color key="value" red="0.81128150224685669" green="0.40698850154876709" blue="0.27613958716392517" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="value" red="0.79747689708235303" green="0.56115238746497687" blue="0.36739377423484609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                                 <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -114,6 +119,12 @@
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.95925313234329224" green="0.67242276668548584" blue="0.43136900663375854" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="H1W-4C-cmC" firstAttribute="leading" secondItem="hHI-vx-jqU" secondAttribute="leading" id="HVh-5c-kEY"/>
+                                                    <constraint firstItem="H1W-4C-cmC" firstAttribute="top" secondItem="hHI-vx-jqU" secondAttribute="top" id="O9f-MY-Qti"/>
+                                                    <constraint firstAttribute="trailing" secondItem="H1W-4C-cmC" secondAttribute="trailing" id="fAo-W2-Lxh"/>
+                                                    <constraint firstAttribute="bottom" secondItem="H1W-4C-cmC" secondAttribute="bottom" id="pGw-5s-oYc"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                     </stackView>
