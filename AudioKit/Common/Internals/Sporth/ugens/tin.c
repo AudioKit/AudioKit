@@ -45,7 +45,7 @@ int sporth_tin(sporth_stack *stack, void *ud)
             sp_tin_destroy(&tin);
             break;
         default:
-            fprintf(stderr, "tin: Uknown mode!\n");
+            fprintf(stderr, "tin: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

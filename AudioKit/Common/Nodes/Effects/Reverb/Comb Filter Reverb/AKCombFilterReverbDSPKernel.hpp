@@ -39,6 +39,8 @@ public:
         sp_comb_create(&comb);
         sp_comb_init(sp, comb, internalLoopDuration);
         comb->revtime = 1.0;
+
+        reverbDurationRamper.init();
     }
 
     void start() {
@@ -56,11 +58,12 @@ public:
 
     void reset() {
         resetted = true;
+        reverbDurationRamper.reset();
     }
 
-    void setReverbDuration(float revtime) {
-        reverbDuration = revtime;
-        reverbDurationRamper.setImmediate(revtime);
+    void setReverbDuration(float value) {
+        reverbDuration = clamp(value, 0.0f, 10.0f);
+        reverbDurationRamper.setImmediate(reverbDuration);
     }
     
     void setLoopDuration(float duration) {
@@ -70,7 +73,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case reverbDurationAddress:
-                reverbDurationRamper.setUIValue(clamp(value, (float)0.0, (float)10.0));
+                reverbDurationRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
         }
@@ -88,7 +91,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case reverbDurationAddress:
-                reverbDurationRamper.startRamp(clamp(value, (float)0.0, (float)10.0), duration);
+                reverbDurationRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
         }
@@ -124,7 +127,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

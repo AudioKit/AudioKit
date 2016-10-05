@@ -9,12 +9,13 @@
 import Foundation
 
 extension AKOperation {
-    
+
     /// Line Segment to change values over time
     ///
-    /// - parameter start: Starting value
-    /// - parameter end: Ending value
-    /// - parameter duration: Length of time
+    /// - Parameters:
+    ///   - start: Starting value
+    ///   - end: Ending value
+    ///   - duration: Length of time
     ///
     public static func lineSegment(
         trigger: AKOperation,
@@ -22,17 +23,18 @@ extension AKOperation {
         end: AKParameter,
         duration: AKParameter
         ) -> AKOperation {
-            return AKOperation("(\(trigger) \(start) \(duration) \(end) line)")
+        return AKOperation(module: "line", inputs: trigger, start, duration, end)
     }
 }
 
 extension AKOperation {
-    
+
     /// Exponential Segment to change values over time
     ///
-    /// - parameter start: Starting value
-    /// - parameter end: Ending value
-    /// - parameter duration: Length of time
+    /// - Parameters:
+    ///   - start: Starting value
+    ///   - end: Ending value
+    ///   - duration: Length of time
     ///
     public static func exponentialSegment(
         trigger: AKOperation,
@@ -40,6 +42,6 @@ extension AKOperation {
         end: AKParameter,
         duration: AKParameter
         ) -> AKOperation {
-            return AKOperation("(\(trigger) \(start) \(duration) \(end) expon)")
+        return AKOperation(module: "expon" , inputs: trigger, start, duration, end)
     }
 }

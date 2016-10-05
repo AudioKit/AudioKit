@@ -55,7 +55,7 @@ int sporth_moogladder(sporth_stack *stack, void *ud)
             sp_moogladder_destroy(&moogladder);
             break;
         default:
-            fprintf(stderr, "moogladder: Uknown mode!\n");
+            fprintf(stderr, "moogladder: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

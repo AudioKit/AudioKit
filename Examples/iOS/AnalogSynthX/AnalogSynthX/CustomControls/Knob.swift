@@ -40,7 +40,31 @@ class Knob: UIView {
     var lastX: CGFloat = 0
     var lastY: CGFloat = 0
 
-    func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
+    // Init / Lifecycle
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentMode = .redraw
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.isUserInteractionEnabled = true
+        contentMode = .redraw
+    }
+
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+
+        contentMode = .scaleAspectFill
+        clipsToBounds = true
+    }
+
+    class override var requiresConstraintBasedLayout : Bool {
+        return true
+    }
+
+    // Helper
+    func setPercentagesWithTouchPoint(_ touchPoint: CGPoint) {
         // Knobs assume up or right is increasing, and down or left is decreasing
 
         let horizontalChange = Double(touchPoint.x - lastX) * knobSensitivity
@@ -52,4 +76,6 @@ class Knob: UIView {
         lastX = touchPoint.x
         lastY = touchPoint.y
     }
+
+
 }

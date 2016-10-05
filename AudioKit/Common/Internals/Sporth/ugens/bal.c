@@ -39,11 +39,6 @@ int sporth_bal(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for bal\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             sig = sporth_stack_pop_float(stack);
             comp = sporth_stack_pop_float(stack);
             bal = pd->last->ud;
@@ -55,7 +50,7 @@ int sporth_bal(sporth_stack *stack, void *ud)
             sp_bal_destroy(&bal);
             break;
         default:
-            fprintf(stderr, "bal: Uknown mode!\n");
+            fprintf(stderr, "bal: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

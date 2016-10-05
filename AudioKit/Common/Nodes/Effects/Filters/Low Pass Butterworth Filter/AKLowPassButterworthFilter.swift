@@ -11,20 +11,21 @@ import AVFoundation
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-/// - parameter input: Input node to process
-/// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
+/// - Parameters:
+///   - input: Input node to process
+///   - cutoffFrequency: Cutoff frequency. (in Hertz)
 ///
-public class AKLowPassButterworthFilter: AKNode, AKToggleable {
+open class AKLowPassButterworthFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKLowPassButterworthFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var cutoffFrequencyParameter: AUParameter?
+    fileprivate var cutoffFrequencyParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -34,7 +35,7 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
     }
 
     /// Cutoff frequency. (in Hertz)
-    public var cutoffFrequency: Double = 1000 {
+    open var cutoffFrequency: Double = 1000.0 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -47,7 +48,7 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -55,66 +56,68 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
     ///
     public init(
         _ input: AKNode,
-        cutoffFrequency: Double = 1000) {
+        cutoffFrequency: Double = 1000.0) {
 
         self.cutoffFrequency = cutoffFrequency
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x62746c70 /*'btlp'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("btlp")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKLowPassButterworthFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKLowPassButterworthFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKLowPassButterworthFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKLowPassButterworthFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter = tree.valueForKey("cutoffFrequency") as? AUParameter
+        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = Double(value)
                 }
             }
-        }
+        })
+
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

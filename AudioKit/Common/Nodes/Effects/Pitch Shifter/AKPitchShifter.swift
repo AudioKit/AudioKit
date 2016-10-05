@@ -10,25 +10,26 @@ import AVFoundation
 
 /// Faust-based pitch shfiter
 ///
-/// - parameter input: Input node to process
-/// - parameter shift: Pitch shift (in semitones)
-/// - parameter windowSize: Window size (in samples)
-/// - parameter crossfade: Crossfade (in samples)
+/// - Parameters:
+///   - input: Input node to process
+///   - shift: Pitch shift (in semitones)
+///   - windowSize: Window size (in samples)
+///   - crossfade: Crossfade (in samples)
 ///
-public class AKPitchShifter: AKNode, AKToggleable {
+open class AKPitchShifter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKPitchShifterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var shiftParameter: AUParameter?
-    private var windowSizeParameter: AUParameter?
-    private var crossfadeParameter: AUParameter?
+    fileprivate var shiftParameter: AUParameter?
+    fileprivate var windowSizeParameter: AUParameter?
+    fileprivate var crossfadeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+    open var rampTime: Double = AKSettings.rampTime {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -37,8 +38,8 @@ public class AKPitchShifter: AKNode, AKToggleable {
     }
 
     /// Pitch shift (in semitones)
-    public var shift: Double = 0 {
-        willSet(newValue) {
+    open var shift: Double = 0 {
+        willSet {
             if shift != newValue {
                 if internalAU!.isSetUp() {
                     shiftParameter?.setValue(Float(newValue), originator: token!)
@@ -49,8 +50,8 @@ public class AKPitchShifter: AKNode, AKToggleable {
         }
     }
     /// Window size (in samples)
-    public var windowSize: Double = 1024 {
-        willSet(newValue) {
+    open var windowSize: Double = 1024 {
+        willSet {
             if windowSize != newValue {
                 if internalAU!.isSetUp() {
                     windowSizeParameter?.setValue(Float(newValue), originator: token!)
@@ -61,8 +62,8 @@ public class AKPitchShifter: AKNode, AKToggleable {
         }
     }
     /// Crossfade (in samples)
-    public var crossfade: Double = 512 {
-        willSet(newValue) {
+    open var crossfade: Double = 512 {
+        willSet {
             if crossfade != newValue {
                 if internalAU!.isSetUp() {
                     crossfadeParameter?.setValue(Float(newValue), originator: token!)
@@ -74,7 +75,7 @@ public class AKPitchShifter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -82,16 +83,17 @@ public class AKPitchShifter: AKNode, AKToggleable {
 
     /// Initialize this pitchshifter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter shift: Pitch shift (in semitones)
-    /// - parameter windowSize: Window size (in samples)
-    /// - parameter crossfade: Crossfade (in samples)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - shift: Pitch shift (in semitones)
+    ///   - windowSize: Window size (in samples)
+    ///   - crossfade: Crossfade (in samples)
     ///
     public init(
         _ input: AKNode,
         shift: Double = 0,
-        windowSize: Double = 1024.0,
-        crossfade: Double = 512.0) {
+        windowSize: Double = 1024,
+        crossfade: Double = 512) {
 
         self.shift = shift
         self.windowSize = windowSize
@@ -99,40 +101,40 @@ public class AKPitchShifter: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x70736866 /*'pshf'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("pshf")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKPitchShifterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPitchShifter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPitchShifterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKPitchShifterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        shiftParameter      = tree.valueForKey("shift")      as? AUParameter
-        windowSizeParameter = tree.valueForKey("windowSize") as? AUParameter
-        crossfadeParameter  = tree.valueForKey("crossfade")  as? AUParameter
+        shiftParameter      = tree.value(forKey: "shift")      as? AUParameter
+        windowSizeParameter = tree.value(forKey: "windowSize") as? AUParameter
+        crossfadeParameter  = tree.value(forKey: "crossfade")  as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.shiftParameter!.address {
                     self.shift = Double(value)
                 } else if address == self.windowSizeParameter!.address {
@@ -141,7 +143,8 @@ public class AKPitchShifter: AKNode, AKToggleable {
                     self.crossfade = Double(value)
                 }
             }
-        }
+        })
+
         internalAU?.shift = Float(shift)
         internalAU?.windowSize = Float(windowSize)
         internalAU?.crossfade = Float(crossfade)
@@ -150,12 +153,12 @@ public class AKPitchShifter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

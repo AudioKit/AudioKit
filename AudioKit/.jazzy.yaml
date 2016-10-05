@@ -4,13 +4,14 @@ author_url: http://audiokit.io/
 github_url: https://github.com/audiokit/AudioKit
 min_acl: public
 readme: ../README.md
-swift_version: 2.2
+#swift_version: 3.0
 
 
 custom_categories:
   - name: AudioKit Core
     children:
     - AudioKit
+    - AKAudioFile
     - AKDevice
     - AKMicrophoneRecorder
     - AKNodeRecorder
@@ -19,19 +20,6 @@ custom_categories:
     - AKTableType
     - AKTester
 
-  - name: Instruments
-    children:
-    - AKCallbackInstrument
-    - AKPolyphonicInstrument
-    - AKVoice
-    - AKFMSynth
-    - AKNoiseGenerator
-    - AKPWMSynth
-    - AKSawtoothSynth
-    - AKSynthKick
-    - AKSynthSnare
-    - AKWavetableSynth
-
   - name: MIDI
     children:
     - AKMIDI
@@ -39,19 +27,27 @@ custom_categories:
     - AKMIDIControl
     - AKMIDIInstrument
     - AKMIDIListener
+    - AKMIDINode
     - AKMIDISampler
     - AKMIDIStatus
     - AKMIDISystemCommand
-    - AKMusicTrack
     - MIDIPacket
     - MIDIPacketList
     - MIDIPacketListGenerator
+    - AKCallbackInstrument
+
+  - name: Sequencer
+    children:
+    - AKSequencer
+    - AKDuration
+    - AKMusicTrack
 
   - name: Nodes
     children:
     - AKNode
+    - AKPolyphonic
+    - AKPolyphonicNode
     - AKToggleable
-    - AKOperationEffect
     - AKOperationGenerator
 
   - name: Analysis Nodes
@@ -80,6 +76,11 @@ custom_categories:
     - AKExpander
     - AKPeakLimiter
 
+  - name: Effects Nodes
+    children:
+    - AKOperationEffect
+    - AKPitchShifter
+
   - name: Envelopes
     children:
     - AKAmplitudeEnvelope
@@ -99,6 +100,7 @@ custom_categories:
     - AKHighPassFilter
     - AKHighShelfFilter
     - AKHighShelfParametricEqualizerFilter
+    - AKKorgLowPassFilter
     - AKLowPassButterworthFilter
     - AKLowPassFilter
     - AKLowShelfFilter
@@ -107,6 +109,7 @@ custom_categories:
     - AKMoogLadder
     - AKParametricEQ
     - AKPeakingParametricEqualizerFilter
+    - AKResonantFilter
     - AKRolandTB303Filter
     - AKStringResonator
     - AKThreePoleLowpassFilter
@@ -130,17 +133,25 @@ custom_categories:
   - name: Oscillator Nodes
     children:
     - AKFMOscillator
+    - AKFMOscillatorBank
     - AKMorphingOscillator
+    - AKMorphingOscillatorBank
     - AKOscillator
-    - AKSawtoothOscillator
-    - AKSquareWaveOscillator
-    - AKTriangleOscillator
+    - AKOscillatorBank
+    - AKPhaseDistortionOscillator
+    - AKPhaseDistortionOscillatorBank
+    - AKPWMOscillator
+    - AKPWMOscillatorBank
 
   - name: Physical Models
     children:
     - AKDrip
+    - AKFlute
+    - AKMandolin
     - AKMetalBar
     - AKPluckedString
+    - AKSynthKick
+    - AKSynthSnare
 
   - name: Input Node
     children:
@@ -170,14 +181,12 @@ custom_categories:
     - AKComputedParameter
     - AKOperation
     - AKStereoOperation
+    - Numeric
 
-  - name: Function Operations
+  - name: Math
     children:
-    - "*(_:_:)"
-    - "+(_:_:)"
-    - "-(_:_:)"
-    - "/(_:_:)"
     - abs(_:)
+    - ceil(_:)
     - floor(_:)
     - fract(_:)
     - log(_:)
@@ -186,6 +195,19 @@ custom_categories:
     - min(_:_:)
     - mixer(_:_:balance:)
     - round(_:)
+    - "*(_:_:)"
+    - "+(_:_:)"
+    - "-(_:_:)"
+    - "/(_:_:)"
+    - "==(_:_:)"
+    - "!=(_:_:)"
+    - "<(_:_:)"
+    - "<=(_:_:)"
+    - ">(_:_:)"
+    - ">=(_:_:)"
+    - "%(_:_:)"
+    - "+=(_:_:)"
+    - "-=(_:_:)"
 
   - name: Random Number Generators
     children:
@@ -204,4 +226,16 @@ custom_categories:
     - AKAmplitudeTap
     - AKFFTTap
 
-
+  - name: UI Elements
+    children:
+    - AKADSRView
+    - AKButton
+    - AKBypassButton
+    - AKKeyboardView
+    - AKNotifications
+    - AKPlaygroundLoop
+    - AKPlaygroundView
+    - AKPresetLoaderView
+    - AKPropertySlider
+    - AKResourcesAudioFileLoaderView
+    - AKTelephoneView

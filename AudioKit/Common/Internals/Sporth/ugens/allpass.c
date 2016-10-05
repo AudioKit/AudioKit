@@ -55,7 +55,7 @@ int sporth_allpass(sporth_stack *stack, void *ud)
             sp_allpass_destroy(&allpass);
             break;
         default:
-            fprintf(stderr, "allpass: Uknown mode!\n");
+            fprintf(stderr, "allpass: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

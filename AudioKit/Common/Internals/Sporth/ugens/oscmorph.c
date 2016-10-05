@@ -31,11 +31,12 @@ static int search_for_ft(plumber_data *pd, sporth_oscmorph *om)
     return PLUMBER_OK;
 }
 
+/*TODO: remove */
 static void free_strings(sporth_oscmorph *om)
 {
     int n;
     for(n = 0; n < om->nft; n++) {
-        free(om->ftname[n]);
+
     }
 }
 
@@ -124,13 +125,13 @@ int sporth_oscmorph4(sporth_stack *stack, void *ud)
             free(oscmorph);
             break;
         default:
-            fprintf(stderr, "oscmorph: Uknown mode!\n");
+            fprintf(stderr, "oscmorph: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;
 }
 
-
+/*TODO: remove malloc from here */
 int sporth_oscmorph2(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
@@ -200,7 +201,7 @@ int sporth_oscmorph2(sporth_stack *stack, void *ud)
             free(oscmorph);
             break;
         default:
-            fprintf(stderr, "oscmorph2: Uknown mode!\n");
+            fprintf(stderr, "oscmorph2: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

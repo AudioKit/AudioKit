@@ -39,6 +39,8 @@ public:
         sp_clip_create(&clip);
         sp_clip_init(sp, clip);
         clip->lim = 1.0;
+
+        limitRamper.init();
     }
 
     void start() {
@@ -56,18 +58,19 @@ public:
 
     void reset() {
         resetted = true;
+        limitRamper.reset();
     }
 
-    void setLimit(float lim) {
-        limit = lim;
-        limitRamper.setImmediate(lim);
+    void setLimit(float value) {
+        limit = clamp(value, 0.0f, 1.0f);
+        limitRamper.setImmediate(limit);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case limitAddress:
-                limitRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
+                limitRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
         }
@@ -85,7 +88,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case limitAddress:
-                limitRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
+                limitRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
         }
@@ -108,7 +111,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_clip_compute(sp, clip, in, out);
                 } else {
@@ -121,7 +124,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

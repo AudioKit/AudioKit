@@ -41,6 +41,9 @@ public:
         sp_revsc_init(sp, revsc);
         revsc->feedback = 0.6;
         revsc->lpfreq = 4000;
+
+        feedbackRamper.init();
+        cutoffFrequencyRamper.init();
     }
 
     void start() {
@@ -58,27 +61,29 @@ public:
 
     void reset() {
         resetted = true;
+        feedbackRamper.reset();
+        cutoffFrequencyRamper.reset();
     }
 
-    void setFeedback(float feedback) {
-        feedback = feedback;
+    void setFeedback(float value) {
+        feedback = clamp(value, 0.0f, 1.0f);
         feedbackRamper.setImmediate(feedback);
     }
 
-    void setCutoffFrequency(float lpfreq) {
-        cutoffFrequency = lpfreq;
-        cutoffFrequencyRamper.setImmediate(lpfreq);
+    void setCutoffFrequency(float value) {
+        cutoffFrequency = clamp(value, 12.0f, 20000.0f);
+        cutoffFrequencyRamper.setImmediate(cutoffFrequency);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case feedbackAddress:
-                feedbackRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
+                feedbackRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                cutoffFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
         }
@@ -99,11 +104,11 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case feedbackAddress:
-                feedbackRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
+                feedbackRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                cutoffFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
         }
@@ -125,31 +130,29 @@ public:
             cutoffFrequency = cutoffFrequencyRamper.getAndStep();
             revsc->lpfreq = (float)cutoffFrequency;
 
-            if (!started) {
-                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-                return;
-            }
-            
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+
                 if (channel < 2) {
                     tmpin[channel] = in;
                     tmpout[channel] = out;
                 }
             }
-            sp_revsc_compute(sp, revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
-
+            if (started) {
+                sp_revsc_compute(sp, revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            } else {
+                tmpout[0] = tmpin[0];
+                tmpout[1] = tmpin[1];
+            }
         }
     }
 
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

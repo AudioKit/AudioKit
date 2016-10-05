@@ -39,8 +39,11 @@ public:
         sp->nchan = channels;
         sp_butbr_create(&butbr);
         sp_butbr_init(sp, butbr);
-        butbr->freq = 3000;
-        butbr->bw = 2000;
+        butbr->freq = 3000.0;
+        butbr->bw = 2000.0;
+
+        centerFrequencyRamper.init();
+        bandwidthRamper.init();
     }
 
     void start() {
@@ -58,27 +61,29 @@ public:
 
     void reset() {
         resetted = true;
+        centerFrequencyRamper.reset();
+        bandwidthRamper.reset();
     }
 
-    void setCenterFrequency(float freq) {
-        centerFrequency = freq;
-        centerFrequencyRamper.setImmediate(freq);
+    void setCenterFrequency(float value) {
+        centerFrequency = clamp(value, 12.0f, 20000.0f);
+        centerFrequencyRamper.setImmediate(centerFrequency);
     }
 
-    void setBandwidth(float bw) {
-        bandwidth = bw;
-        bandwidthRamper.setImmediate(bw);
+    void setBandwidth(float value) {
+        bandwidth = clamp(value, 0.0f, 20000.0f);
+        bandwidthRamper.setImmediate(bandwidth);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                centerFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
             case bandwidthAddress:
-                bandwidthRamper.setUIValue(clamp(value, (float)0.0, (float)20000.0));
+                bandwidthRamper.setUIValue(clamp(value, 0.0f, 20000.0f));
                 break;
 
         }
@@ -99,11 +104,11 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                centerFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
             case bandwidthAddress:
-                bandwidthRamper.startRamp(clamp(value, (float)0.0, (float)20000.0), duration);
+                bandwidthRamper.startRamp(clamp(value, 0.0f, 20000.0f), duration);
                 break;
 
         }
@@ -128,7 +133,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_butbr_compute(sp, butbr, in, out);
                 } else {
@@ -141,7 +146,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -151,14 +155,14 @@ private:
     sp_data *sp;
     sp_butbr *butbr;
 
-    float centerFrequency = 3000;
-    float bandwidth = 2000;
+    float centerFrequency = 3000.0;
+    float bandwidth = 2000.0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper centerFrequencyRamper = 3000;
-    ParameterRamper bandwidthRamper = 2000;
+    ParameterRamper centerFrequencyRamper = 3000.0;
+    ParameterRamper bandwidthRamper = 2000.0;
 };
 
 #endif /* AKBandRejectButterworthFilterDSPKernel_hpp */

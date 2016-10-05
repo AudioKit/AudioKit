@@ -71,24 +71,24 @@ public:
         resetted = true;
     }
 
-    void setFrequency(float freq) {
-        frequency = freq;
+    void setFrequency(float value) {
+        frequency = clamp(value, (float)0, (float)20000);
         frequencyRamper.setImmediate(frequency);
     }
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
+    void setAmplitude(float value) {
+        amplitude = clamp(value, (float)0, (float)10);
         amplitudeRamper.setImmediate(amplitude);
     }
 
-    void setDetuningOffset(float detuneOffset) {
-        detuningOffset = detuneOffset;
-        detuningOffsetRamper.setImmediate(detuneOffset);
+    void setDetuningOffset(float value) {
+        detuningOffset = clamp(value, (float)-1000, (float)1000);
+        detuningOffsetRamper.setImmediate(detuningOffset);
     }
 
-    void setDetuningMultiplier(float detuneScale) {
-        detuningMultiplier = detuneScale;
-        detuningMultiplierRamper.setImmediate(detuneScale);
+    void setDetuningMultiplier(float value) {
+        detuningMultiplier = clamp(value, (float)0.5, (float)2.0);
+        detuningMultiplierRamper.setImmediate(detuningMultiplier);
     }
 
 
@@ -107,7 +107,7 @@ public:
                 break;
 
             case detuningMultiplierAddress:
-                detuningMultiplierRamper.setUIValue(clamp(value, (float)0.9, (float)1.11));
+                detuningMultiplierRamper.setUIValue(clamp(value, (float)0.5, (float)2.0));
                 break;
 
         }
@@ -146,7 +146,7 @@ public:
                 break;
 
             case detuningMultiplierAddress:
-                detuningMultiplierRamper.startRamp(clamp(value, (float)0.9, (float)1.11), duration);
+                detuningMultiplierRamper.startRamp(clamp(value, (float)0.5, (float)2.0), duration);
                 break;
 
         }

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "sporth.h"
+#include "h/sporth.h"
 
 #define LENGTH(x) ((int)(sizeof(x) / sizeof *(x)))
 
@@ -31,7 +31,7 @@ int sporth_exec(sporth_data *sporth, const char *keyword)
         return SPORTH_NOTOK;
     }
 #ifdef DEBUG_MODE
-   fprintf(stderr,"Executing function \"%s\"\n", keyword);
+   fprintf(stderr,"Executing function \"%s\" (id %d)\n", keyword, id);
 #endif
    return sporth->flist[id].func(&sporth->stack, sporth->flist[id].ud);
 }

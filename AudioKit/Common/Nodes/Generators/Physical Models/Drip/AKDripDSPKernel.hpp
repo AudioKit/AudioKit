@@ -51,6 +51,14 @@ public:
         drip->freq1 = 600;
         drip->freq2 = 750;
         drip->amp = 0.3;
+
+        intensityRamper.init();
+        dampingFactorRamper.init();
+        energyReturnRamper.init();
+        mainResonantFrequencyRamper.init();
+        firstResonantFrequencyRamper.init();
+        secondResonantFrequencyRamper.init();
+        amplitudeRamper.init();
     }
 
     void start() {
@@ -68,41 +76,48 @@ public:
 
     void reset() {
         resetted = true;
+        intensityRamper.reset();
+        dampingFactorRamper.reset();
+        energyReturnRamper.reset();
+        mainResonantFrequencyRamper.reset();
+        firstResonantFrequencyRamper.reset();
+        secondResonantFrequencyRamper.reset();
+        amplitudeRamper.reset();
     }
 
-    void setIntensity(float num_tubes) {
-        intensity = num_tubes;
-        intensityRamper.setImmediate(num_tubes);
+    void setIntensity(float value) {
+        intensity = clamp(value, 0.0f, 100.0f);
+        intensityRamper.setImmediate(intensity);
     }
 
-    void setDampingFactor(float damp) {
-        dampingFactor = damp;
-        dampingFactorRamper.setImmediate(damp);
+    void setDampingFactor(float value) {
+        dampingFactor = clamp(value, 0.0f, 2.0f);
+        dampingFactorRamper.setImmediate(dampingFactor);
     }
 
-    void setEnergyReturn(float shake_max) {
-        energyReturn = shake_max;
-        energyReturnRamper.setImmediate(shake_max);
+    void setEnergyReturn(float value) {
+        energyReturn = clamp(value, 0.0f, 100.0f);
+        energyReturnRamper.setImmediate(energyReturn);
     }
 
-    void setMainResonantFrequency(float freq) {
-        mainResonantFrequency = freq;
-        mainResonantFrequencyRamper.setImmediate(freq);
+    void setMainResonantFrequency(float value) {
+        mainResonantFrequency = clamp(value, 0.0f, 22000.0f);
+        mainResonantFrequencyRamper.setImmediate(mainResonantFrequency);
     }
 
-    void setFirstResonantFrequency(float freq1) {
-        firstResonantFrequency = freq1;
-        firstResonantFrequencyRamper.setImmediate(freq1);
+    void setFirstResonantFrequency(float value) {
+        firstResonantFrequency = clamp(value, 0.0f, 22000.0f);
+        firstResonantFrequencyRamper.setImmediate(firstResonantFrequency);
     }
 
-    void setSecondResonantFrequency(float freq2) {
-        secondResonantFrequency = freq2;
-        secondResonantFrequencyRamper.setImmediate(freq2);
+    void setSecondResonantFrequency(float value) {
+        secondResonantFrequency = clamp(value, 0.0f, 22000.0f);
+        secondResonantFrequencyRamper.setImmediate(secondResonantFrequency);
     }
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
-        amplitudeRamper.setImmediate(amp);
+    void setAmplitude(float value) {
+        amplitude = clamp(value, 0.0f, 1.0f);
+        amplitudeRamper.setImmediate(amplitude);
     }
 
     void trigger() {
@@ -112,31 +127,31 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case intensityAddress:
-                intensityRamper.setUIValue(clamp(value, (float)0, (float)100));
+                intensityRamper.setUIValue(clamp(value, 0.0f, 100.0f));
                 break;
 
             case dampingFactorAddress:
-                dampingFactorRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
+                dampingFactorRamper.setUIValue(clamp(value, 0.0f, 2.0f));
                 break;
 
             case energyReturnAddress:
-                energyReturnRamper.setUIValue(clamp(value, (float)0, (float)100));
+                energyReturnRamper.setUIValue(clamp(value, 0.0f, 100.0f));
                 break;
 
             case mainResonantFrequencyAddress:
-                mainResonantFrequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
+                mainResonantFrequencyRamper.setUIValue(clamp(value, 0.0f, 22000.0f));
                 break;
 
             case firstResonantFrequencyAddress:
-                firstResonantFrequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
+                firstResonantFrequencyRamper.setUIValue(clamp(value, 0.0f, 22000.0f));
                 break;
 
             case secondResonantFrequencyAddress:
-                secondResonantFrequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
+                secondResonantFrequencyRamper.setUIValue(clamp(value, 0.0f, 22000.0f));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
         }
@@ -172,31 +187,31 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case intensityAddress:
-                intensityRamper.startRamp(clamp(value, (float)0, (float)100), duration);
+                intensityRamper.startRamp(clamp(value, 0.0f, 100.0f), duration);
                 break;
 
             case dampingFactorAddress:
-                dampingFactorRamper.startRamp(clamp(value, (float)0.0, (float)2.0), duration);
+                dampingFactorRamper.startRamp(clamp(value, 0.0f, 2.0f), duration);
                 break;
 
             case energyReturnAddress:
-                energyReturnRamper.startRamp(clamp(value, (float)0, (float)100), duration);
+                energyReturnRamper.startRamp(clamp(value, 0.0f, 100.0f), duration);
                 break;
 
             case mainResonantFrequencyAddress:
-                mainResonantFrequencyRamper.startRamp(clamp(value, (float)0, (float)22000), duration);
+                mainResonantFrequencyRamper.startRamp(clamp(value, 0.0f, 22000.0f), duration);
                 break;
 
             case firstResonantFrequencyAddress:
-                firstResonantFrequencyRamper.startRamp(clamp(value, (float)0, (float)22000), duration);
+                firstResonantFrequencyRamper.startRamp(clamp(value, 0.0f, 22000.0f), duration);
                 break;
 
             case secondResonantFrequencyAddress:
-                secondResonantFrequencyRamper.startRamp(clamp(value, (float)0, (float)22000), duration);
+                secondResonantFrequencyRamper.startRamp(clamp(value, 0.0f, 22000.0f), duration);
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.startRamp(clamp(value, (float)0, (float)1), duration);
+                amplitudeRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
         }

@@ -23,27 +23,27 @@
 ///
 public enum AKMIDISystemCommand: UInt8 {
     /// Trivial Case of None
-    case None = 0
+    case none = 0
     /// System Exclusive
-    case Sysex = 240
+    case sysex = 240
     /// Song Position
-    case SongPosition = 242
+    case songPosition = 242
     /// Song Selection
-    case SongSelect = 243
+    case songSelect = 243
     /// Request Tune
-    case TuneRequest = 246
+    case tuneRequest = 246
     /// End System Exclusive
-    case SysexEnd = 247
+    case sysexEnd = 247
     /// Clock
-    case Clock = 248
+    case clock = 248
     /// Start
-    case Start = 250
+    case start = 250
     /// Continue
-    case Continue = 251
+    case `continue` = 251
     /// Stop
-    case Stop = 252
+    case stop = 252
     /// Active Sensing
-    case ActiveSensing = 254
+    case activeSensing = 254
     /// System Reset
-    case SysReset = 255
+    case sysReset = 255
 }

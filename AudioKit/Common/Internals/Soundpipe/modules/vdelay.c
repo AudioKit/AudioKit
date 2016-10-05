@@ -47,8 +47,9 @@ int sp_vdelay_compute(sp_data *sp, sp_vdelay *p, SPFLOAT *in, SPFLOAT *out)
     int32_t v0, v1, v2, v3;
     SPFLOAT fv1;
     indx = p->left;
+    SPFLOAT *buf = (SPFLOAT *)p->buf.ptr;
 
-    sp_auxdata_setbuf(&p->buf, indx, in);
+    buf[indx] = *in;
 
     fv1 = del * (-1.0 * sp->sr);
     v1 = (int32_t)fv1;
@@ -70,8 +71,8 @@ int sp_vdelay_compute(sp_data *sp, sp_vdelay *p, SPFLOAT *in, SPFLOAT *out)
     v2 = (v1 == (int32_t)(maxd - 1UL) ? 0L : v1 + 1L);
 
     if (maxd<4) {
-        sp_auxdata_getbuf(&p->buf, v1, &b1);
-        sp_auxdata_getbuf(&p->buf, v2, &b2);
+        b1 = buf[v1];
+        b2 = buf[v2];
         *out = b1 + fv1 * (b2 - b1);
     } else {
         v0 = (v1==0 ? maxd-1 : v1-1);
@@ -83,10 +84,10 @@ int sp_vdelay_compute(sp_data *sp, sp_vdelay *p, SPFLOAT *in, SPFLOAT *out)
             y = fv1;
             y++; w = (y *= 0.5); w--;
             x = 3.0 * z; y -= x; w -= z; x -= fv1;
-            sp_auxdata_getbuf(&p->buf, v0, &b0);
-            sp_auxdata_getbuf(&p->buf, v1, &b1);
-            sp_auxdata_getbuf(&p->buf, v2, &b2);
-            sp_auxdata_getbuf(&p->buf, v3, &b3);
+            b0 = buf[v0];
+            b1 = buf[v1];
+            b2 = buf[v2];
+            b3 = buf[v3];
             *out = (w*b0 + x*b1 + y*b2 + z*b3)
             * fv1 + b1;
         }

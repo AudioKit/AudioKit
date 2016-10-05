@@ -56,7 +56,7 @@ int sporth_streson(sporth_stack *stack, void *ud)
             sp_streson_destroy(&streson);
             break;
         default:
-            fprintf(stderr, "streson: Uknown mode!\n");
+            fprintf(stderr, "streson: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -14,15 +14,14 @@ extension AKComputedParameter {
     /// can be created using  passing an impulse through a combination of modal
     /// filters.
     ///
-    /// - returns: AKComputedParameter
-    /// - parameter input: Input audio signal
-    /// - parameter frequency: Resonant frequency of the filter. (Default: 500.0, Minimum: 12.0, Maximum: 20000.0)
-    /// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency. (Default: 50.0, Minimum: 0.0, Maximum: 100.0)
-     ///
+    /// - Parameters:
+    ///   - frequency: Resonant frequency of the filter. (Default: 500.0, Minimum: 12.0, Maximum: 20000.0)
+    ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency. (Default: 50.0, Minimum: 0.0, Maximum: 100.0)
+    ///
     public func modalResonanceFilter(
-        frequency frequency: AKParameter = 500.0,
+        frequency: AKParameter = 500.0,
         qualityFactor: AKParameter = 50.0
         ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(frequency) \(qualityFactor) mode)")
+            return AKOperation(module: "mode", inputs: self.toMono(), frequency, qualityFactor)
     }
 }

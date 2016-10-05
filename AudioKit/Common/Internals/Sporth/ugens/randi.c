@@ -56,7 +56,7 @@ int sporth_randi(sporth_stack *stack, void *ud)
             sp_randi_destroy(&randi);
             break;
         default:
-            fprintf(stderr, "randi: Uknown mode!\n");
+            fprintf(stderr, "randi: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

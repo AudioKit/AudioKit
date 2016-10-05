@@ -11,22 +11,23 @@ import AVFoundation
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-/// - parameter input: Input node to process
-/// - parameter centerFrequency: Center frequency. (in Hertz)
-/// - parameter bandwidth: Bandwidth. (in Hertz)
+/// - Parameters:
+///   - input: Input node to process
+///   - centerFrequency: Center frequency. (in Hertz)
+///   - bandwidth: Bandwidth. (in Hertz)
 ///
-public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
+open class AKBandRejectButterworthFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKBandRejectButterworthFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var centerFrequencyParameter: AUParameter?
-    private var bandwidthParameter: AUParameter?
+    fileprivate var centerFrequencyParameter: AUParameter?
+    fileprivate var bandwidthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -36,7 +37,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
     }
 
     /// Center frequency. (in Hertz)
-    public var centerFrequency: Double = 3000 {
+    open var centerFrequency: Double = 3000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -48,7 +49,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
         }
     }
     /// Bandwidth. (in Hertz)
-    public var bandwidth: Double = 2000 {
+    open var bandwidth: Double = 2000.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
@@ -61,7 +62,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -69,60 +70,62 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter centerFrequency: Center frequency. (in Hertz)
-    /// - parameter bandwidth: Bandwidth. (in Hertz)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - centerFrequency: Center frequency. (in Hertz)
+    ///   - bandwidth: Bandwidth. (in Hertz)
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 3000,
-        bandwidth: Double = 2000) {
+        centerFrequency: Double = 3000.0,
+        bandwidth: Double = 2000.0) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x62746272 /*'btbr'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("btbr")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKBandRejectButterworthFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBandRejectButterworthFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBandRejectButterworthFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBandRejectButterworthFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        centerFrequencyParameter = tree.valueForKey("centerFrequency") as? AUParameter
-        bandwidthParameter       = tree.valueForKey("bandwidth")       as? AUParameter
+        centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
+        bandwidthParameter       = tree.value(forKey: "bandwidth")       as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = Double(value)
                 } else if address == self.bandwidthParameter!.address {
                     self.bandwidth = Double(value)
                 }
             }
-        }
+        })
+
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.bandwidth = Float(bandwidth)
     }
@@ -130,12 +133,12 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

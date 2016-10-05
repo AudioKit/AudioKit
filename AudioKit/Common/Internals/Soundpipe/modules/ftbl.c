@@ -71,30 +71,64 @@ int sp_gen_sine(sp_data *sp, sp_ftbl *ft)
 
 #ifndef NO_LIBSNDFILE
 /*TODO: add error checking, make tests */
-//int sp_gen_file(sp_data *sp, sp_ftbl *ft, const char *filename)
-//{
-//    SF_INFO info;
-//    info.format = 0;
-//    SNDFILE *snd = sf_open(filename, SFM_READ, &info);
-//    sf_readf_float(snd, ft->tbl, ft->size);
-//    sf_close(snd);
-//    return SP_OK;
-//}
-//
-//int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename)
-//{
-//    *ft = malloc(sizeof(sp_ftbl));
-//    sp_ftbl *ftp = *ft;
-//    SF_INFO info;
-//    info.format = 0;
-//    SNDFILE *snd = sf_open(filename, SFM_READ, &info);
-//    size_t size = info.frames * info.channels;
-//    ftp->size = size;
-//    ftp->tbl = malloc(sizeof(SPFLOAT) * (size + 1));
-//    sf_readf_float(snd, ftp->tbl, ftp->size);
-//    sf_close(snd);
-//    return SP_OK;
-//}
+int sp_gen_file(sp_data *sp, sp_ftbl *ft, const char *filename)
+{
+    SF_INFO info;
+    info.format = 0;
+    SNDFILE *snd = sf_open(filename, SFM_READ, &info);
+    sf_readf_float(snd, ft->tbl, ft->size);
+    sf_close(snd);
+    return SP_OK;
+}
+
+int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename)
+{
+    *ft = malloc(sizeof(sp_ftbl));
+    sp_ftbl *ftp = *ft;
+    SF_INFO info;
+    info.format = 0;
+    SNDFILE *snd = sf_open(filename, SFM_READ, &info);
+    if(snd == NULL) {
+        return SP_NOT_OK;
+    }
+    size_t size = info.frames * info.channels;
+
+    ftp->size = size;
+    ftp->sicvt = 1.0 * SP_FT_MAXLEN / sp->sr;
+    ftp->tbl = malloc(sizeof(SPFLOAT) * (size + 1));
+    ftp->lobits = log2(SP_FT_MAXLEN / size);
+    ftp->lomask = (2^ftp->lobits) - 1;
+    ftp->lodiv = 1.0 / pow(2, ftp->lobits);
+
+    sf_readf_float(snd, ftp->tbl, ftp->size);
+    sf_close(snd);
+    return SP_OK;
+}
+#endif
+
+#ifdef USE_SPA
+int sp_ftbl_loadspa(sp_data *sp, sp_ftbl **ft, const char *filename)
+{
+    *ft = malloc(sizeof(sp_ftbl));
+    sp_ftbl *ftp = *ft;
+
+    sp_audio spa;
+
+    spa_open(sp, &spa, filename, SPA_READ);
+
+    size_t size = spa.header.len;
+
+    ftp->size = size;
+    ftp->sicvt = 1.0 * SP_FT_MAXLEN / sp->sr;
+    ftp->tbl = malloc(sizeof(SPFLOAT) * (size + 1));
+    ftp->lobits = log2(SP_FT_MAXLEN / size);
+    ftp->lomask = (2^ftp->lobits) - 1;
+    ftp->lodiv = 1.0 / pow(2, ftp->lobits);
+
+    spa_read_buf(sp, &spa, ftp->tbl, ftp->size);
+    spa_close(&spa);
+    return SP_OK;
+}
 #endif
 
 /* port of GEN10 from Csound */
@@ -271,7 +305,8 @@ int sp_gen_gauss(sp_data *sp, sp_ftbl *ft, SPFLOAT scale, uint32_t seed)
     return SP_OK;
 }
 
-int sp_gen_sinecomp(sp_data *sp, sp_ftbl *ft, const char *argstring)
+/* based off of GEN 19 */
+int sp_gen_composite(sp_data *sp, sp_ftbl *ft, const char *argstring)
 {
     SPFLOAT phs, inc, amp, dc, tpdlen = 2 * M_PI/ (SPFLOAT) ft->size;
     int i, n;

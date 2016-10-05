@@ -40,7 +40,6 @@ int sp_pareq_init(sp_data *sp, sp_pareq *p)
 
     p->xnm1 = p->xnm2 = p->ynm1 = p->ynm2 = 0.0;
     p->prv_fc = p->prv_v = p->prv_q = -1.0;
-    p->imode = (int) p->mode;
     p->tpidsr = (2 * M_PI) / sp->sr;
     return SP_OK;
 }
@@ -53,7 +52,7 @@ int sp_pareq_compute(sp_data *sp, sp_pareq *p, SPFLOAT *in, SPFLOAT *out)
     if (p->fc != p->prv_fc || p->v != p->prv_v || p->q != p->prv_q) {
         SPFLOAT omega = (SPFLOAT)(p->tpidsr * p->fc), k, kk, vkk, vk, vkdq, a0;
         p->prv_fc = p->fc; p->prv_v = p->v; p->prv_q = p->q;
-        switch (p->imode) {
+        switch ((int)p->mode) {
             /* Low Shelf */
             case 1: 
                 sq = sqrt(2.0 * (SPFLOAT) p->prv_v);

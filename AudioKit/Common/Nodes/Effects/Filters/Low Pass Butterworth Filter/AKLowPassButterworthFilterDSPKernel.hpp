@@ -38,7 +38,9 @@ public:
         sp->nchan = channels;
         sp_butlp_create(&butlp);
         sp_butlp_init(sp, butlp);
-        butlp->freq = 1000;
+        butlp->freq = 1000.0;
+
+        cutoffFrequencyRamper.init();
     }
 
     void start() {
@@ -56,18 +58,19 @@ public:
 
     void reset() {
         resetted = true;
+        cutoffFrequencyRamper.reset();
     }
 
-    void setCutoffFrequency(float freq) {
-        cutoffFrequency = freq;
-        cutoffFrequencyRamper.setImmediate(freq);
+    void setCutoffFrequency(float value) {
+        cutoffFrequency = clamp(value, 12.0f, 20000.0f);
+        cutoffFrequencyRamper.setImmediate(cutoffFrequency);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                cutoffFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
         }
@@ -85,7 +88,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                cutoffFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
         }
@@ -121,7 +124,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -131,12 +133,12 @@ private:
     sp_data *sp;
     sp_butlp *butlp;
 
-    float cutoffFrequency = 1000;
+    float cutoffFrequency = 1000.0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper cutoffFrequencyRamper = 1000;
+    ParameterRamper cutoffFrequencyRamper = 1000.0;
 };
 
 #endif /* AKLowPassButterworthFilterDSPKernel_hpp */

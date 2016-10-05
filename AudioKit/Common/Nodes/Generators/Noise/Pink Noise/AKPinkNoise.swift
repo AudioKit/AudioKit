@@ -12,18 +12,17 @@ import AVFoundation
 ///
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
-public class AKPinkNoise: AKVoice {
+open class AKPinkNoise: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKPinkNoiseAudioUnit?
     internal var token: AUParameterObserverToken?
 
-
-    private var amplitudeParameter: AUParameter?
+    fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -33,7 +32,7 @@ public class AKPinkNoise: AKVoice {
     }
 
     /// Amplitude. (Value between 0-1).
-    public var amplitude: Double = 1 {
+    open var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 amplitudeParameter?.setValue(Float(newValue), originator: token!)
@@ -42,7 +41,7 @@ public class AKPinkNoise: AKVoice {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -52,66 +51,58 @@ public class AKPinkNoise: AKVoice {
     ///
     /// - parameter amplitude: Amplitude. (Value between 0-1).
     ///
-    public init(
-        amplitude: Double = 1) {
-
+    public init(amplitude: Double = 1) {
 
         self.amplitude = amplitude
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x70696e6b /*'pink'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("pink")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKPinkNoiseAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPinkNoise",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPinkNoiseAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPinkNoiseAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
                 }
             }
-        }
+        })
         internalAU?.amplitude = Float(amplitude)
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKPinkNoise(amplitude: self.amplitude)
-        return copy
-    }
-
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

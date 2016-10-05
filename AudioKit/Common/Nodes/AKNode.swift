@@ -10,10 +10,10 @@ import Foundation
 import AVFoundation
 
 /// Parent class for all nodes in AudioKit
-@objc public class AKNode: NSObject {
+@objc open class AKNode: NSObject {
     
     /// The internal AVAudioEngine AVAudioNode
-    public var avAudioNode: AVAudioNode
+    open var avAudioNode: AVAudioNode
     
     /// An array of all connections
     internal var connectionPoints = [AVAudioConnectionPoint]()
@@ -24,14 +24,55 @@ import AVFoundation
     }
     
     /// Connect this node to another
-    public func addConnectionPoint(node: AKNode) {
+    open func addConnectionPoint(_ node: AKNode) {
         connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
         AudioKit.engine.connect(avAudioNode,
-            toConnectionPoints: connectionPoints,
+            to: connectionPoints,
             fromBus: 0,
             format: AudioKit.format)
     }
 }
+
+/// Protocol for responding to play and stop of MIDI notes
+public protocol AKPolyphonic {
+    
+    /// Play a sound corresponding to a MIDI note
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity:   MIDI Velocity
+    ///
+    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity)
+    
+    /// Stop a sound corresponding to a MIDI note
+    ///
+    /// - parameter noteNumber: MIDI Note Number
+    ///
+    func stop(noteNumber: MIDINoteNumber)
+}
+
+/// Bare bones implementation of AKPolyphonic protocol
+open class AKPolyphonicNode: AKNode, AKPolyphonic {
+    
+    /// Play a sound corresponding to a MIDI note
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity:   MIDI Velocity
+    ///
+    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+        print("Playing note \(noteNumber), with velocity \(velocity), override in subclass")
+    }
+    
+    /// Stop a sound corresponding to a MIDI note
+    ///
+    /// - parameter noteNumber: MIDI Note Number
+    ///
+    open func stop(noteNumber: MIDINoteNumber) {
+        print("Stopping note \(noteNumber), override in subclass")
+    }
+}
+
 
 /// Protocol for dictating that a node can be in a started or stopped state
 public protocol AKToggleable {

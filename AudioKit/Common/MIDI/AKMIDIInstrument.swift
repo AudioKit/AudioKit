@@ -9,94 +9,115 @@
 import AVFoundation
 import CoreAudio
 
-/// A version of AKInstrument specifically targeted to instruments that 
+/// A version of AKInstrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-public class AKMIDIInstrument: AKNode, AKMIDIListener {
+open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
 
     // MARK: - Properties
-    
+
     /// MIDI Input
-    public var midiIn = MIDIEndpointRef()
-    
+    open var midiIn = MIDIEndpointRef()
+
     /// Name of the instrument
-    public var name = "AKMIDIInstrument"
-    
-    internal var internalInstrument: AKPolyphonicInstrument?
-    
-    // MARK: - Initialization
-    
-    /// Initialize the MIDI instrument
-    ///
-    /// - parameter instrument: A polyphonic instrument that will be triggered via MIDI
-    ///
-    public init(instrument: AKPolyphonicInstrument) {
-        internalInstrument = instrument
-        super.init()
-        avAudioNode = (internalInstrument?.avAudioNode)!
-    }
-    
+    open var name = "AKMIDIInstrument"
+
     /// Enable MIDI input from a given MIDI client
     /// This is not in the init function because it must be called AFTER you start audiokit
     ///
-    /// - parameter midiClient: A refernce to the midi client
-    /// - parameter name: Name to connect with
+    /// - Parameters:
+    ///   - midiClient: A refernce to the midi client
+    ///   - name: Name to connect with
     ///
-    public func enableMIDI(midiClient: MIDIClientRef, name: String) {
+    open func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
         var result: OSStatus
-        result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
+        
+        let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+            let packetCount = Int(packetList.pointee.numPackets)
+            let packet = packetList.pointee.packet as MIDIPacket
+            var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.allocate(capacity: 1)
+            packetPointer.initialize(to: packet)
+            for _ in 0 ..< packetCount {
+                let event = AKMIDIEvent(packet: packetPointer.pointee)
+                //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
+                self.handleMIDI(data1: UInt32(event.internalData[0]),
+                                data2: UInt32(event.internalData[1]),
+                                data3: UInt32(event.internalData[2]))
+                packetPointer = MIDIPacketNext(packetPointer)
+            }
+        }
+        
+        result = MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn, readBlock)
+        
         CheckError(result)
     }
-    
+
     // MARK: - Handling MIDI Data
-    
-    // Send MIDI data to the audio unit
-    func handleMIDI(data1: UInt32, data2: UInt32, data3: UInt32) {
-        let status = data1 >> 4
-        let channel = data1 & 0xF
-        if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
-            startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
-        } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
-            stopNote(Int(data2), onChannel: Int(channel))
+
+    /// Handle MIDI commands that come in externally
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI velocity
+    ///   - channel:    MIDI channel
+    ///
+    open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
+                                   velocity: MIDIVelocity,
+                                   channel: MIDIChannel) {
+        if velocity > 0 {
+            start(noteNumber: noteNumber, velocity: velocity, channel: channel)
+        } else {
+            stop(noteNumber: noteNumber, channel: channel)
         }
     }
     
     /// Handle MIDI commands that come in externally
     ///
-    /// - parameter note: MIDI Note number
-    /// - parameter velocity: MIDI velocity
-    /// - parameter channel: MIDI channel
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI velocity
+    ///   - channel:    MIDI channel
     ///
-    public func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
-        if velocity > 0 {
-            startNote(note, withVelocity: velocity, onChannel: channel)
-        } else {
-            stopNote(note, onChannel: channel)
-        }
+    open func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        stop(noteNumber: noteNumber, channel: channel)
     }
+    
     // MARK: - MIDI Note Start/Stop
-    
+
     /// Start a note
-    public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
-        internalInstrument!.playNote(note, velocity: velocity)
+    ///
+    /// - Parameters:
+    ///   - noteNumber: Note number to play
+    ///   - velocity:   Velocity at which to play the note (0 - 127)
+    ///   - channel:    Channel on which to play the note
+    ///
+    open func start(noteNumber: MIDINoteNumber,
+                                 velocity: MIDIVelocity,
+                                 channel: MIDIChannel) {
+        play(noteNumber: noteNumber, velocity: velocity)
     }
-    
+
     /// Stop a note
-    public func stopNote(note: Int, onChannel channel: Int) {
-        internalInstrument!.stopNote(note)
+    ///
+    /// - Parameters:
+    ///   - noteNumber: Note number to stop
+    ///   - channel:    Channel on which to stop the note
+    ///
+    open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
+        // OVerride in subclass
     }
     
-    private func MyMIDIReadBlock(
-        packetList: UnsafePointer<MIDIPacketList>,
-        srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
-            let packetCount = Int(packetList.memory.numPackets)
-            let packet = packetList.memory.packet as MIDIPacket
-            var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
-            packetPointer.initialize(packet)
-            for _ in 0 ..< packetCount {
-                let event = AKMIDIEvent(packet: packetPointer.memory)
-                //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
-                handleMIDI(UInt32(event.internalData[0]), data2: UInt32(event.internalData[1]), data3: UInt32(event.internalData[2]))
-                packetPointer = MIDIPacketNext(packetPointer)
-            }
+    // MARK: - Private functions
+    
+    // Send MIDI data to the audio unit
+    func handleMIDI(data1: UInt32, data2: UInt32, data3: UInt32) {
+        let status = data1 >> 4
+        let channel = data1 & 0xF
+        if(Int(status) == AKMIDIStatus.noteOn.rawValue && data3 > 0) {
+            start(noteNumber: MIDINoteNumber(data2),
+                  velocity: MIDIVelocity(data3),
+                  channel: MIDIChannel(channel))
+        } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
+            stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
+        }
     }
 }

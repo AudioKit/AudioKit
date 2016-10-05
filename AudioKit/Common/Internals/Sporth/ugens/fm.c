@@ -22,7 +22,7 @@ int sporth_fm(sporth_stack *stack, void *ud)
            fprintf(stderr,"creating FM function... \n");
 #endif
             fm = malloc(sizeof(sporth_fm_d));
-            sp_ftbl_create(pd->sp, &fm->ft, 4096);
+            sp_ftbl_create(pd->sp, &fm->ft, 8192);
             sp_fosc_create(&fm->osc);
             plumber_add_ugen(pd, SPORTH_FM, fm);
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {

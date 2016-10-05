@@ -10,33 +10,36 @@ import Foundation
 
 /// Plot the output from any node in an signal processing graph
 @IBDesignable
-public class AKNodeOutputPlot: EZAudioPlot {
+open class AKNodeOutputPlot: EZAudioPlot {
 
-    internal func setupNode(input: AKNode?) {
-        input?.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) -> Void in
-            if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize
-                let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                let tail = buffer.floatChannelData[0]
-                strongSelf.updateBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize)
-            }
+    internal func setupNode(_ input: AKNode?) {
+        input?.avAudioNode.installTap(onBus: 0,
+                                      bufferSize: bufferSize,
+                                      format: AudioKit.format) { [weak self] (buffer, time) -> Void in
+                                        
+            guard let strongSelf = self else { return }
+            buffer.frameLength = strongSelf.bufferSize
+            let offset = Int(buffer.frameCapacity - buffer.frameLength)
+            let tail = buffer.floatChannelData?[0]
+            strongSelf.updateBuffer(&tail![offset],
+                                    withBufferSize: strongSelf.bufferSize)
         }
     }
-    
+
     internal var bufferSize: UInt32 = 1024
-    
+
     /// The node whose output to graph
-    public var node: AKNode? {
+    open var node: AKNode? {
         willSet {
-            node?.avAudioNode.removeTapOnBus(0)
+            node?.avAudioNode.removeTap(onBus: 0)
         }
         didSet {
             setupNode(node)
         }
     }
-    
+
     deinit {
-        node?.avAudioNode.removeTapOnBus(0)
+        node?.avAudioNode.removeTap(onBus: 0)
     }
 
     /// Required coder-based initialization (for use with Interface Builder)
@@ -50,18 +53,18 @@ public class AKNodeOutputPlot: EZAudioPlot {
 
     /// Initialize the plot with the output from a given node and optional plot size
     ///
-    /// - parameter input: AKNode from which to get the plot data
-    /// - parameter width: Width of the view
-    /// - parameter height: Height of the view
+    /// - Parameters:
+    ///   - input: AKNode from which to get the plot data
+    ///   - width: Width of the view
+    ///   - height: Height of the view
     ///
     public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1024) {
         super.init(frame: frame)
-        self.plotType = .Buffer
-        self.backgroundColor = AKColor.whiteColor()
+        self.plotType = .buffer
+        self.backgroundColor = AKColor.white
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
-        
+
         setupNode(input)
     }
-    
 }

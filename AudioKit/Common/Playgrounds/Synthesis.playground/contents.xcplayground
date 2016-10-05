@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
+    <pages>
+        <page name='Table Of Contents'/>
+        <page name='Amplitude Envelope'/>
+        <page name='Drawbar Organ'/>
+        <page name='Dripping Sounds'/>
+        <page name='Drum Synthesizers'/>
+        <page name='Filter Envelope'/>
+        <page name='Flute'/>
+        <page name='FM Oscillator'/>
+        <page name='FM Oscillator Bank'/>
+        <page name='FM Oscillator Operation'/>
+        <page name='Mandolin'/>
+        <page name='Morphing Oscillator'/>
+        <page name='Morphing Oscillator Bank'/>
+        <page name='Noise Generators'/>
+        <page name='Noise Operations'/>
+        <page name='Oscillator'/>
+        <page name='Oscillator Synth'/>
+        <page name='Oscillator Bank'/>
+        <page name='Pedestrians'/>
+        <page name='Phase Distortion Oscillator'/>
+        <page name='Phase Distortion Oscillator Bank'/>
+        <page name='Phasor Operation'/>
+        <page name='Plucked String'/>
+        <page name='Plucked String Operation'/>
+        <page name='PWM Oscillator'/>
+        <page name='PWM Oscillator Bank'/>
+        <page name='Sawtooth Wave Oscillator Operation'/>
+        <page name='Segment Operations'/>
+        <page name='Sporth Based Generator'/>
+        <page name='Telephone'/>
+    </pages>
+</playground>

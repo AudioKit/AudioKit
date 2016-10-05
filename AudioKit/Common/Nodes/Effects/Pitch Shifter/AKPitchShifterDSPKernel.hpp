@@ -41,8 +41,12 @@ public:
         sp_pshift_create(&pshift);
         sp_pshift_init(sp, pshift);
         *pshift->shift = 0;
-        *pshift->window = 1024.0;
-        *pshift->xfade = 512.0;
+        *pshift->window = 1024;
+        *pshift->xfade = 512;
+
+        shiftRamper.init();
+        windowSizeRamper.init();
+        crossfadeRamper.init();
     }
 
     void start() {
@@ -60,36 +64,39 @@ public:
 
     void reset() {
         resetted = true;
+        shiftRamper.reset();
+        windowSizeRamper.reset();
+        crossfadeRamper.reset();
     }
 
-    void setShift(float shift) {
-        shift = shift;
+    void setShift(float value) {
+        shift = clamp(value, -24.0f, 24.0f);
         shiftRamper.setImmediate(shift);
     }
 
-    void setWindowSize(float window) {
-        windowSize = window;
-        windowSizeRamper.setImmediate(window);
+    void setWindowSize(float value) {
+        windowSize = clamp(value, 0.0f, 10000.0f);
+        windowSizeRamper.setImmediate(windowSize);
     }
 
-    void setCrossfade(float xfade) {
-        crossfade = xfade;
-        crossfadeRamper.setImmediate(xfade);
+    void setCrossfade(float value) {
+        crossfade = clamp(value, 0.0f, 10000.0f);
+        crossfadeRamper.setImmediate(crossfade);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case shiftAddress:
-                shiftRamper.setUIValue(clamp(value, (float)-2400.0, (float)2400.0));
+                shiftRamper.setUIValue(clamp(value, -24.0f, 24.0f));
                 break;
 
             case windowSizeAddress:
-                windowSizeRamper.setUIValue(clamp(value, (float)0.0, (float)10000.0));
+                windowSizeRamper.setUIValue(clamp(value, 0.0f, 10000.0f));
                 break;
 
             case crossfadeAddress:
-                crossfadeRamper.setUIValue(clamp(value, (float)0.0, (float)10000.0));
+                crossfadeRamper.setUIValue(clamp(value, 0.0f, 10000.0f));
                 break;
 
         }
@@ -113,15 +120,15 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case shiftAddress:
-                shiftRamper.startRamp(clamp(value, (float)-2400.0, (float)2400.0), duration);
+                shiftRamper.startRamp(clamp(value, -24.0f, 24.0f), duration);
                 break;
 
             case windowSizeAddress:
-                windowSizeRamper.startRamp(clamp(value, (float)0.0, (float)10000.0), duration);
+                windowSizeRamper.startRamp(clamp(value, 0.0f, 10000.0f), duration);
                 break;
 
             case crossfadeAddress:
-                crossfadeRamper.startRamp(clamp(value, (float)0.0, (float)10000.0), duration);
+                crossfadeRamper.startRamp(clamp(value, 0.0f, 10000.0f), duration);
                 break;
 
         }
@@ -133,28 +140,27 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        // For each sample.
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
 
             shift = shiftRamper.getAndStep();
-            *pshift->shift = (float)shift / 100.0; // Dividing to get semitones
+            *pshift->shift = (float)shift;
             windowSize = windowSizeRamper.getAndStep();
             *pshift->window = (float)windowSize;
             crossfade = crossfadeRamper.getAndStep();
             *pshift->xfade = (float)crossfade;
 
-            if (!started) {
-                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-                return;
-            }
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                sp_pshift_compute(sp, pshift, in, out);
+                if (started) {
+                    sp_pshift_compute(sp, pshift, in, out);
+                } else {
+                    *out = *in;
+                }
             }
         }
     }
@@ -162,7 +168,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -173,15 +178,15 @@ private:
     sp_pshift *pshift;
 
     float shift = 0;
-    float windowSize = 1000.0;
-    float crossfade = 10.0;
+    float windowSize = 1024;
+    float crossfade = 512;
 
 public:
     bool started = true;
     bool resetted = false;
     ParameterRamper shiftRamper = 0;
-    ParameterRamper windowSizeRamper = 1000.0;
-    ParameterRamper crossfadeRamper = 10.0;
+    ParameterRamper windowSizeRamper = 1024;
+    ParameterRamper crossfadeRamper = 512;
 };
 
 #endif /* AKPitchShifterDSPKernel_hpp */

@@ -11,27 +11,28 @@ import AVFoundation
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
-/// - parameter frequency: Frequency in cycles per second
-/// - parameter amplitude: Output Amplitude.
-/// - parameter detuningOffset: Frequency offset in Hz.
-/// - parameter detuningMultiplier: Frequency detuning multiplier
+/// - Parameters:
+///   - frequency: Frequency in cycles per second
+///   - amplitude: Output Amplitude.
+///   - detuningOffset: Frequency offset in Hz.
+///   - detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKOscillator: AKVoice {
+open class AKOscillator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var waveform: AKTable?
+    fileprivate var waveform: AKTable?
 
-    private var frequencyParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
-    private var detuningOffsetParameter: AUParameter?
-    private var detuningMultiplierParameter: AUParameter?
-    
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var amplitudeParameter: AUParameter?
+    fileprivate var detuningOffsetParameter: AUParameter?
+    fileprivate var detuningMultiplierParameter: AUParameter?
+
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -39,9 +40,9 @@ public class AKOscillator: AKVoice {
             }
         }
     }
-    
+
     /// In cycles per second, or Hz.
-    public var frequency: Double = 440 {
+    open var frequency: Double = 440 {
         willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
@@ -54,7 +55,7 @@ public class AKOscillator: AKVoice {
     }
 
     /// Output Amplitude.
-    public var amplitude: Double = 1 {
+    open var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
@@ -67,7 +68,7 @@ public class AKOscillator: AKVoice {
     }
 
     /// Frequency offset in Hz.
-    public var detuningOffset: Double = 0 {
+    open var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
                 if internalAU!.isSetUp() {
@@ -80,7 +81,7 @@ public class AKOscillator: AKVoice {
     }
 
     /// Frequency detuning multiplier
-    public var detuningMultiplier: Double = 1 {
+    open var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU!.isSetUp() {
@@ -93,24 +94,25 @@ public class AKOscillator: AKVoice {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
-    override public convenience init() {
-        self.init(waveform: AKTable(.Sine))
+    public convenience override init() {
+        self.init(waveform: AKTable(.sine))
     }
-
+    
     /// Initialize this oscillator node
     ///
-    /// - parameter waveform:  The waveform of oscillation
-    /// - parameter frequency: Frequency in cycles per second
-    /// - parameter amplitude: Output Amplitude.
-    /// - parameter detuningOffset: Frequency offset in Hz.
-    /// - parameter detuningMultiplier: Frequency detuning multiplier
+    /// - Parameters:
+    ///   - waveform:  The waveform of oscillation
+    ///   - frequency: Frequency in cycles per second
+    ///   - amplitude: Output Amplitude.
+    ///   - detuningOffset: Frequency offset in Hz.
+    ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
         waveform: AKTable,
@@ -128,44 +130,44 @@ public class AKOscillator: AKVoice {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x6f73636c /*'oscl'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("oscl")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKOscillatorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKOscillator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKOscillatorAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
             for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
+                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
-        amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
-        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
+        frequencyParameter          = tree.value(forKey: "frequency")          as? AUParameter
+        amplitudeParameter          = tree.value(forKey: "amplitude")          as? AUParameter
+        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
@@ -176,7 +178,7 @@ public class AKOscillator: AKVoice {
                     self.detuningMultiplier = Double(value)
                 }
             }
-        }
+        })
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
         internalAU?.detuningOffset = Float(detuningOffset)
@@ -184,19 +186,13 @@ public class AKOscillator: AKVoice {
 
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
-        return copy
-    }
-
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

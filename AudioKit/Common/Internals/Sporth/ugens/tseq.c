@@ -12,10 +12,6 @@ int sporth_tseq(sporth_stack *stack, void *ud)
     sp_ftbl *ft;
     sp_tseq *tseq;
 
-    if(pd->mode == PLUMBER_DESTROY) {
-fprintf(stderr, "WE IZ DESTROYING TSEQ!!!!\n");
-    }
-
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
@@ -35,7 +31,6 @@ fprintf(stderr, "WE IZ DESTROYING TSEQ!!!!\n");
             trig = sporth_stack_pop_float(stack);
 
             sporth_stack_push_float(stack, 0.0);
-            free(ftname);
 
             break;
         case PLUMBER_INIT:
@@ -49,7 +44,6 @@ fprintf(stderr, "WE IZ DESTROYING TSEQ!!!!\n");
 #endif
 
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
-                free(ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -57,7 +51,6 @@ fprintf(stderr, "WE IZ DESTROYING TSEQ!!!!\n");
             tseq = pd->last->ud;
             sp_tseq_init(pd->sp, tseq, ft);
             sporth_stack_push_float(stack, 0.0);
-            free(ftname);
             break;
 
         case PLUMBER_COMPUTE:

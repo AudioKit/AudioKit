@@ -55,7 +55,7 @@ int sporth_delay(sporth_stack *stack, void *ud)
             sp_delay_destroy(&delay);
             break;
         default:
-            fprintf(stderr, "delay: Uknown mode!\n");
+            fprintf(stderr, "delay: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;
