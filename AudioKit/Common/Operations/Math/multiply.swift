@@ -11,30 +11,49 @@ import Foundation
 extension AKOperation {
     /// Multiplication of parameters
     ///
-    /// - returns: AKOperation
     /// - parameter parameter: The amount to multiply
     ///
-    public func times(parameter: AKParameter) -> AKOperation {
-        return AKOperation("(\(self) \(parameter) *)")
+    public func times(_ parameter: AKParameter) -> AKOperation {
+        return AKOperation(module: "*", inputs: self, parameter)
     }
 
     /// Offsetting by way of multiplication
     ///
-    /// - returns: AKOperation
     /// - parameter parameter: The amount to scale by
     ///
-    public func scaledBy(parameter: AKParameter) -> AKOperation {
+    public func scaledBy(_ parameter: AKParameter) -> AKOperation {
         return self.times(parameter)
     }
 }
 
 /// Helper function for Multiplication
 ///
-/// - returns: AKOperation
-/// - left: 1st parameter
-/// - right: 2nd parameter
+/// - Parameters:
+///   - left: 1st parameter
+///   - right: 2nd parameter
 ///
 public func *(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().times(right)
+}
+
+/// Helper function for Multiplication
+///
+/// - Parameters:
+///   - left: stereo operation
+///   - right: parameter
+///
+public func *(left: AKStereoOperation, right: AKParameter) -> AKStereoOperation {
+    return AKStereoOperation(module: "dup rot mul rot rot mul swap", inputs: left, right)
+}
+
+
+/// Helper function for Multiplication
+///
+/// - Parameters:
+///   - left: parameter
+///   - right: stereo operation
+///
+public func *(left: AKParameter, right: AKStereoOperation) -> AKStereoOperation {
+    return AKStereoOperation(module: "rot dup rot mul rot rot mul swap", inputs: left, right)
 }
 

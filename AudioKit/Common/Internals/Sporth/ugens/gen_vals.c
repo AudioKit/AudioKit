@@ -16,7 +16,7 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
             plumber_add_ugen(pd, SPORTH_GEN_VALS, NULL);
 
             if(sporth_check_args(stack, "ss") != SPORTH_OK) {
-               fprintf(stderr,"Init: not enough arguments for gen_vals\n");
+                fprintf(stderr,"Init: not enough arguments for gen_vals\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -39,15 +39,11 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
 
             plumber_ftmap_add(pd, str, ft);
 
-            free(args);
-            free(str);
             break;
 
         case PLUMBER_INIT:
             args = sporth_stack_pop_string(stack);
             str = sporth_stack_pop_string(stack);
-            free(str);
-            free(args);
             break;
 
         case PLUMBER_COMPUTE:

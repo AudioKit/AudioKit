@@ -8,14 +8,16 @@ PROJECT_NAME=AudioKit
 CONFIGURATION=Release
 BUILD_DIR="$PWD/build"
 VERSION=`cat ../VERSION`
-PLATFORMS=${PLATFORMS:-"iOS OSX tvOS"}
+PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
 if test "$TRAVIS" = true;
 then
 	echo "Travis detected, build #$TRAVIS_BUILD_NUMBER"
 	ACTIVE_ARCH=YES
+	XCSUFFIX="-travis"
 else
 	ACTIVE_ARCH=NO
+	XCSUFFIX=""
 fi
 
 if which xcpretty > /dev/null 2>&1;
@@ -28,12 +30,12 @@ fi
 # Provide 3 arguments: platform (iOS or tvOS), simulator os, native os
 create_universal_framework()
 {
-	PROJECT="../AudioKit/$1/AudioKit For $1.xcodeproj"
+	PROJECT="../AudioKit/$1/AudioKit for $1.xcodeproj"
 	DIR="AudioKit-$1"
 	OUTPUT="$DIR/${PROJECT_NAME}.framework"
 	rm -rf "$OUTPUT"
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" -xcconfig simulator.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY || exit 2
+	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY || exit 2
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "$OUTPUT"
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM" "$DIR"
 	cp -v fix-framework.sh "$OUTPUT/"
@@ -51,7 +53,7 @@ create_universal_framework()
 	fi
 }
 
-create_osx_framework()
+create_macos_framework()
 {
 	PROJECT="../AudioKit/$1/AudioKit For $1.xcodeproj"
 	DIR="AudioKit-$1"
@@ -60,7 +62,7 @@ create_osx_framework()
 	mkdir -p "$DIR"
 	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY || exit 2
 	cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework" "$OUTPUT"
-	cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM" "$OUTPUT"
+	cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM" "$DIR"
 }
 
 echo "Building frameworks for platforms: $PLATFORMS"
@@ -70,7 +72,7 @@ for os in $PLATFORMS; do
 		create_universal_framework iOS iphonesimulator iphoneos
 	elif test $os = 'tvOS'; then
 		create_universal_framework tvOS appletvsimulator appletvos
-	elif test $os = 'OSX'; then
-		create_osx_framework OSX macosx
+	elif test $os = 'macOS'; then
+		create_macos_framework macOS macosx
 	fi
 done

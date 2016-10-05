@@ -1,31 +1,32 @@
 //
-//  AKEnvironmentNode.swift
-//  AudioKit For iOS
+//  AK3DPanner.swift
+//  AudioKit
 //
-//  Created by Aurelius Prochazka on 6/5/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-public class AK3DPanner: AKNode {
-    private let environmentNode = AVAudioEnvironmentNode()
+/// 3-D Spatialization of the input
+open class AK3DPanner: AKNode {
+    fileprivate let environmentNode = AVAudioEnvironmentNode()
     
     
     /// Position of sound source along x-axis
-    public var x: Double {
+    open var x: Double {
         willSet {
             environmentNode.listenerPosition.x = Float(-newValue)
         }
     }
     
     /// Position of sound source along y-axis
-    public var y: Double {
+    open var y: Double {
         willSet {
             environmentNode.listenerPosition.y = Float(-newValue)
         }
     }
     
     /// Position of sound source along z-axis
-    public var z: Double {
+    open var z: Double {
         willSet {
             environmentNode.listenerPosition.z = Float(-newValue)
         }
@@ -33,10 +34,11 @@ public class AK3DPanner: AKNode {
     
     /// Initialize the panner node
     ///
-    /// - parameter input: Node to pan in 3D Space
-    /// - parameter x:     x-axis location in meters
-    /// - parameter y:     y-axis location in meters
-    /// - parameter z:     z-axis location in meters
+    /// - Parameters:
+    ///   - input: Node to pan in 3D Space
+    ///   - x:     x-axis location in meters
+    ///   - y:     y-axis location in meters
+    ///   - z:     z-axis location in meters
     ///
     public init(_ input: AKNode, x: Double = 0, y: Double = 0, z: Double = 0) {
         self.x = x
@@ -45,12 +47,12 @@ public class AK3DPanner: AKNode {
         super.init()
 
         self.avAudioNode = environmentNode
-        AudioKit.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attach(self.avAudioNode)
         input.connectionPoints.append(AVAudioConnectionPoint(node: environmentNode, bus: environmentNode.numberOfInputs))
         
         let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
         
-        AudioKit.engine.connect(input.avAudioNode, toConnectionPoints: input.connectionPoints, fromBus: 0, format: format)
+        AudioKit.engine.connect(input.avAudioNode, to: input.connectionPoints, fromBus: 0, format: format)
     }
 
 }

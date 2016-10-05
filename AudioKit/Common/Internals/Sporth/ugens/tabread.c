@@ -39,9 +39,8 @@ int sporth_tabread(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
 
-            sp_tabread_init(pd->sp, tabread, ft);
+            sp_tabread_init(pd->sp, tabread, ft, mode);
             sporth_stack_push_float(stack, 0);
-            free(ftname);
             break;
         case PLUMBER_INIT:
 
@@ -56,7 +55,6 @@ int sporth_tabread(sporth_stack *stack, void *ud)
             tabread = pd->last->ud;
 
             sporth_stack_push_float(stack, 0);
-            free(ftname);
             break;
         case PLUMBER_COMPUTE:
             wrap = sporth_stack_pop_float(stack);
@@ -76,7 +74,7 @@ int sporth_tabread(sporth_stack *stack, void *ud)
             sp_tabread_destroy(&tabread);
             break;
         default:
-            fprintf(stderr, "tabread: Uknown mode!\n");
+            fprintf(stderr, "tabread: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

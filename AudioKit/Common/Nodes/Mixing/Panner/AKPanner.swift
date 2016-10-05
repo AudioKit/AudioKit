@@ -10,20 +10,21 @@ import AVFoundation
 
 /// Stereo Panner
 ///
-/// - parameter input: Input node to process
-/// - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
+/// - Parameters:
+///   - input: Input node to process
+///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
 ///
-public class AKPanner: AKNode, AKToggleable {
+open class AKPanner: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKPannerAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var panParameter: AUParameter?
+    fileprivate var panParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -33,7 +34,7 @@ public class AKPanner: AKNode, AKToggleable {
     }
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
-    public var pan: Double = 0 {
+    open var pan: Double = 0 {
         willSet {
             if pan != newValue {
                 if internalAU!.isSetUp() {
@@ -46,7 +47,7 @@ public class AKPanner: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -54,8 +55,9 @@ public class AKPanner: AKNode, AKToggleable {
 
     /// Initialize this panner node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
     public init(
         _ input: AKNode,
@@ -65,55 +67,55 @@ public class AKPanner: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x70616e32 /*'pan2'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("pan2")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKPannerAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPanner",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPannerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKPannerAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        panParameter   = tree.valueForKey("pan")   as? AUParameter
+        panParameter   = tree.value(forKey: "pan")   as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.panParameter!.address {
                     self.pan = Double(value)
                 }
             }
-        }
+        })
         internalAU?.pan = Float(pan)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

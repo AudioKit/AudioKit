@@ -57,7 +57,7 @@ int sporth_randh(sporth_stack *stack, void *ud)
             sp_randh_destroy(&randh);
             break;
         default:
-            fprintf(stderr, "randh: Uknown mode!\n");
+            fprintf(stderr, "randh: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

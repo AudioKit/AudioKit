@@ -30,7 +30,6 @@ int sporth_conv(sporth_stack *stack, void *ud)
             iPartLen = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
             sporth_stack_push_float(stack, 0);
-            free(ftname);
             break;
         case PLUMBER_INIT:
 
@@ -51,7 +50,6 @@ int sporth_conv(sporth_stack *stack, void *ud)
             sp_conv_init(pd->sp, conv, ft, iPartLen);
             sporth_stack_push_float(stack, 0);
 
-            free(ftname);
             break;
         case PLUMBER_COMPUTE:
             sporth_stack_pop_float(stack);
@@ -65,7 +63,7 @@ int sporth_conv(sporth_stack *stack, void *ud)
             sp_conv_destroy(&conv);
             break;
         default:
-            fprintf(stderr, "conv: Uknown mode!\n");
+            fprintf(stderr, "conv: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -54,7 +54,7 @@ int sporth_pan2(sporth_stack *stack, void *ud)
             sp_pan2_destroy(&pan2);
             break;
         default:
-            fprintf(stderr, "pan2: Uknown mode!\n");
+            fprintf(stderr, "pan2: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

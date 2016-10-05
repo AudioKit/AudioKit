@@ -60,7 +60,7 @@ int sporth_autowah(sporth_stack *stack, void *ud)
             sp_autowah_destroy(&autowah);
             break;
         default:
-            fprintf(stderr, "autowah: Uknown mode!\n");
+            fprintf(stderr, "autowah: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

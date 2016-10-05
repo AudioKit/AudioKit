@@ -10,26 +10,27 @@ import AVFoundation
 
 /// Distortion using a modified hyperbolic tangent function.
 ///
-/// - parameter input: Input node to process
-/// - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-/// - parameter postgain: Gain applied after waveshaping
-/// - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
-/// - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part.
+/// - Parameters:
+///   - input: Input node to process
+///   - pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
+///   - postgain: Gain applied after waveshaping
+///   - postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
+///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
 ///
-public class AKTanhDistortion: AKNode, AKToggleable {
+open class AKTanhDistortion: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKTanhDistortionAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var pregainParameter: AUParameter?
-    private var postgainParameter: AUParameter?
-    private var postiveShapeParameterParameter: AUParameter?
-    private var negativeShapeParameterParameter: AUParameter?
+    fileprivate var pregainParameter: AUParameter?
+    fileprivate var postgainParameter: AUParameter?
+    fileprivate var postiveShapeParameterParameter: AUParameter?
+    fileprivate var negativeShapeParameterParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -39,7 +40,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     }
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    public var pregain: Double = 2.0 {
+    open var pregain: Double = 2.0 {
         willSet {
             if pregain != newValue {
                 if internalAU!.isSetUp() {
@@ -51,7 +52,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
         }
     }
     /// Gain applied after waveshaping
-    public var postgain: Double = 0.5 {
+    open var postgain: Double = 0.5 {
         willSet {
             if postgain != newValue {
                 if internalAU!.isSetUp() {
@@ -63,7 +64,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
         }
     }
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    public var postiveShapeParameter: Double = 0.0 {
+    open var postiveShapeParameter: Double = 0.0 {
         willSet {
             if postiveShapeParameter != newValue {
                 if internalAU!.isSetUp() {
@@ -75,7 +76,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
         }
     }
     /// Like the positive shape parameter, only for the negative part.
-    public var negativeShapeParameter: Double = 0.0 {
+    open var negativeShapeParameter: Double = 0.0 {
         willSet {
             if negativeShapeParameter != newValue {
                 if internalAU!.isSetUp() {
@@ -88,7 +89,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -96,11 +97,12 @@ public class AKTanhDistortion: AKNode, AKToggleable {
 
     /// Initialize this distortion node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    /// - parameter postgain: Gain applied after waveshaping
-    /// - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    /// - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
+    ///   - postgain: Gain applied after waveshaping
+    ///   - postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
+    ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     public init(
         _ input: AKNode,
@@ -116,41 +118,41 @@ public class AKTanhDistortion: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x64697374 /*'dist'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("dist")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKTanhDistortionAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKTanhDistortion",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTanhDistortionAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTanhDistortionAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        pregainParameter                = tree.valueForKey("pregain")                as? AUParameter
-        postgainParameter               = tree.valueForKey("postgain")               as? AUParameter
-        postiveShapeParameterParameter  = tree.valueForKey("postiveShapeParameter")  as? AUParameter
-        negativeShapeParameterParameter = tree.valueForKey("negativeShapeParameter") as? AUParameter
+        pregainParameter                = tree.value(forKey: "pregain")                as? AUParameter
+        postgainParameter               = tree.value(forKey: "postgain")               as? AUParameter
+        postiveShapeParameterParameter  = tree.value(forKey: "postiveShapeParameter")  as? AUParameter
+        negativeShapeParameterParameter = tree.value(forKey: "negativeShapeParameter") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.pregainParameter!.address {
                     self.pregain = Double(value)
                 } else if address == self.postgainParameter!.address {
@@ -161,7 +163,8 @@ public class AKTanhDistortion: AKNode, AKToggleable {
                     self.negativeShapeParameter = Double(value)
                 }
             }
-        }
+        })
+
         internalAU?.pregain = Float(pregain)
         internalAU?.postgain = Float(postgain)
         internalAU?.postiveShapeParameter = Float(postiveShapeParameter)
@@ -171,12 +174,12 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

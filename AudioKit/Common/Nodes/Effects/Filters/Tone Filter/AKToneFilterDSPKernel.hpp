@@ -38,7 +38,9 @@ public:
         sp->nchan = channels;
         sp_tone_create(&tone);
         sp_tone_init(sp, tone);
-        tone->hp = 1000;
+        tone->hp = 1000.0;
+
+        halfPowerPointRamper.init();
     }
 
     void start() {
@@ -56,18 +58,19 @@ public:
 
     void reset() {
         resetted = true;
+        halfPowerPointRamper.reset();
     }
 
-    void setHalfPowerPoint(float hp) {
-        halfPowerPoint = hp;
-        halfPowerPointRamper.setImmediate(hp);
+    void setHalfPowerPoint(float value) {
+        halfPowerPoint = clamp(value, 12.0f, 20000.0f);
+        halfPowerPointRamper.setImmediate(halfPowerPoint);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case halfPowerPointAddress:
-                halfPowerPointRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                halfPowerPointRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
         }
@@ -85,7 +88,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case halfPowerPointAddress:
-                halfPowerPointRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                halfPowerPointRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
         }
@@ -97,7 +100,7 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
@@ -121,7 +124,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -131,12 +133,12 @@ private:
     sp_data *sp;
     sp_tone *tone;
 
-    float halfPowerPoint = 1000;
+    float halfPowerPoint = 1000.0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper halfPowerPointRamper = 1000;
+    ParameterRamper halfPowerPointRamper = 1000.0;
 };
 
 #endif /* AKToneFilterDSPKernel_hpp */

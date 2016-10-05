@@ -8,15 +8,15 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// Panner
     ///
-    /// - returns: AKStereoOperation
-    /// - parameter input: Input audio signal
-    /// - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center. (Default: 0, Minimum: , Maximum: )
-     ///
-    public func pan(pan: AKParameter = 0) -> AKStereoOperation {
-        return AKStereoOperation("(\(self.toMono()) \(pan) pan)")
+    /// - Parameters:
+    ///   - input: Input audio signal
+    ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center. (Default: 0, Minimum: -1, Maximum: 1)
+    ///
+    public func pan(_ pan: AKParameter = 0) -> AKStereoOperation {
+        return AKStereoOperation(module: "pan", inputs: self.toMono(), pan)
     }
 }

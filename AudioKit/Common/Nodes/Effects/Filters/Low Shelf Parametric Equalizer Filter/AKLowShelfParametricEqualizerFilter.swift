@@ -10,24 +10,25 @@ import AVFoundation
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-/// - parameter input: Input node to process
-/// - parameter cornerFrequency: Corner frequency.
-/// - parameter gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-/// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
+/// - Parameters:
+///   - input: Input node to process
+///   - cornerFrequency: Corner frequency.
+///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+///   - q: Q of the filter. sqrt(0.5) is no resonance.
 ///
-public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
+open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKLowShelfParametricEqualizerFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var cornerFrequencyParameter: AUParameter?
-    private var gainParameter: AUParameter?
-    private var qParameter: AUParameter?
+    fileprivate var cornerFrequencyParameter: AUParameter?
+    fileprivate var gainParameter: AUParameter?
+    fileprivate var qParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -37,7 +38,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
     }
 
     /// Corner frequency.
-    public var cornerFrequency: Double = 1000 {
+    open var cornerFrequency: Double = 1000 {
         willSet {
             if cornerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -49,7 +50,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
         }
     }
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    public var gain: Double = 1.0 {
+    open var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
                 if internalAU!.isSetUp() {
@@ -61,7 +62,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
         }
     }
     /// Q of the filter. sqrt(0.5) is no resonance.
-    public var q: Double = 0.707 {
+    open var q: Double = 0.707 {
         willSet {
             if q != newValue {
                 if internalAU!.isSetUp() {
@@ -74,7 +75,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -82,10 +83,11 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
     /// Initialize this equalizer node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter cornerFrequency: Corner frequency.
-    /// - parameter gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    /// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - cornerFrequency: Corner frequency.
+    ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+    ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
         _ input: AKNode,
@@ -99,40 +101,40 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x70657131 /*'peq1'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("peq1")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKLowShelfParametricEqualizerFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKLowShelfParametricEqualizerFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKLowShelfParametricEqualizerFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKLowShelfParametricEqualizerFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cornerFrequencyParameter = tree.valueForKey("cornerFrequency") as? AUParameter
-        gainParameter            = tree.valueForKey("gain")            as? AUParameter
-        qParameter               = tree.valueForKey("q")               as? AUParameter
+        cornerFrequencyParameter = tree.value(forKey: "cornerFrequency") as? AUParameter
+        gainParameter            = tree.value(forKey: "gain")            as? AUParameter
+        qParameter               = tree.value(forKey: "q")               as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.cornerFrequencyParameter!.address {
                     self.cornerFrequency = Double(value)
                 } else if address == self.gainParameter!.address {
@@ -141,7 +143,8 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
                     self.q = Double(value)
                 }
             }
-        }
+        })
+
         internalAU?.cornerFrequency = Float(cornerFrequency)
         internalAU?.gain = Float(gain)
         internalAU?.q = Float(q)
@@ -150,12 +153,12 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

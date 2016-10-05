@@ -43,12 +43,14 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKEqualizerFilterAudioUnit.h"
 #import "AKHighPassButterworthFilterAudioUnit.h"
 #import "AKHighShelfParametricEqualizerFilterAudioUnit.h"
+#import "AKKorgLowPassFilterAudioUnit.h"
 #import "AKLowPassButterworthFilterAudioUnit.h"
 #import "AKLowShelfParametricEqualizerFilterAudioUnit.h"
 #import "AKModalResonanceFilterAudioUnit.h"
 #import "AKMoogLadderAudioUnit.h"
 #import "AKPeakingParametricEqualizerFilterAudioUnit.h"
 #import "AKFormantFilterAudioUnit.h"
+#import "AKResonantFilterAudioUnit.h"
 #import "AKRolandTB303FilterAudioUnit.h"
 #import "AKStringResonatorAudioUnit.h"
 #import "AKThreePoleLowpassFilterAudioUnit.h"
@@ -73,25 +75,33 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Generators / Oscillators
 #import "AKFMOscillatorAudioUnit.h"
+#import "AKFMOscillatorBankAudioUnit.h"
 #import "AKMorphingOscillatorAudioUnit.h"
+#import "AKMorphingOscillatorBankAudioUnit.h"
 #import "AKOscillatorAudioUnit.h"
-#import "AKSawtoothOscillatorAudioUnit.h"
-#import "AKSquareWaveOscillatorAudioUnit.h"
-#import "AKTriangleOscillatorAudioUnit.h"
+#import "AKOscillatorBankAudioUnit.h"
+#import "AKPhaseDistortionOscillatorAudioUnit.h"
+#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
+#import "AKPWMOscillatorAudioUnit.h"
+#import "AKPWMOscillatorBankAudioUnit.h"
 
 // Generators / Physical Models
 #import "AKDripAudioUnit.h"
+#import "AKFluteAudioUnit.h"
+#import "AKMandolinAudioUnit.h"
 #import "AKMetalBarAudioUnit.h"
 #import "AKPluckedStringAudioUnit.h"
 
 // Mixing
 #import "AKBalancerAudioUnit.h"
+#import "AKBoosterAudioUnit.h"
 #import "AKPannerAudioUnit.h"
 
 // Playback
 #import "AKPhaseLockedVocoderAudioUnit.h"
 
 // Testing
+#import "AKOfflineRenderer.h"
 #import "AKTesterAudioUnit.h"
 
 // Plots

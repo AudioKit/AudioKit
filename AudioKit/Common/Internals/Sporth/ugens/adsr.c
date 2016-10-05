@@ -25,6 +25,11 @@ int sporth_adsr(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+            rel = sporth_stack_pop_float(stack);
+            sus = sporth_stack_pop_float(stack);
+            dec = sporth_stack_pop_float(stack);
+            atk = sporth_stack_pop_float(stack);
+            gate = sporth_stack_pop_float(stack);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
@@ -61,7 +66,7 @@ int sporth_adsr(sporth_stack *stack, void *ud)
             sp_adsr_destroy(&adsr);
             break;
         default:
-            fprintf(stderr, "adsr: Uknown mode!\n");
+            fprintf(stderr, "adsr: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -57,7 +57,7 @@ int sporth_expon(sporth_stack *stack, void *ud)
             sp_expon_destroy(&expon);
             break;
         default:
-            fprintf(stderr, "expon: Uknown mode!\n");
+            fprintf(stderr, "expon: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

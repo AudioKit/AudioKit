@@ -43,6 +43,10 @@ public:
         fofilt->freq = 1000;
         fofilt->atk = 0.007;
         fofilt->dec = 0.04;
+
+        centerFrequencyRamper.init();
+        attackDurationRamper.init();
+        decayDurationRamper.init();
     }
 
     void start() {
@@ -60,36 +64,39 @@ public:
 
     void reset() {
         resetted = true;
+        centerFrequencyRamper.reset();
+        attackDurationRamper.reset();
+        decayDurationRamper.reset();
     }
 
-    void setCenterFrequency(float freq) {
-        centerFrequency = freq;
-        centerFrequencyRamper.setImmediate(freq);
+    void setCenterFrequency(float value) {
+        centerFrequency = clamp(value, 12.0f, 20000.0f);
+        centerFrequencyRamper.setImmediate(centerFrequency);
     }
 
-    void setAttackDuration(float atk) {
-        attackDuration = atk;
-        attackDurationRamper.setImmediate(atk);
+    void setAttackDuration(float value) {
+        attackDuration = clamp(value, 0.0f, 0.1f);
+        attackDurationRamper.setImmediate(attackDuration);
     }
 
-    void setDecayDuration(float dec) {
-        decayDuration = dec;
-        decayDurationRamper.setImmediate(dec);
+    void setDecayDuration(float value) {
+        decayDuration = clamp(value, 0.0f, 0.1f);
+        decayDurationRamper.setImmediate(decayDuration);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                centerFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
             case attackDurationAddress:
-                attackDurationRamper.setUIValue(clamp(value, (float)0.0, (float)0.1));
+                attackDurationRamper.setUIValue(clamp(value, 0.0f, 0.1f));
                 break;
 
             case decayDurationAddress:
-                decayDurationRamper.setUIValue(clamp(value, (float)0.0, (float)0.1));
+                decayDurationRamper.setUIValue(clamp(value, 0.0f, 0.1f));
                 break;
 
         }
@@ -113,15 +120,15 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                centerFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
             case attackDurationAddress:
-                attackDurationRamper.startRamp(clamp(value, (float)0.0, (float)0.1), duration);
+                attackDurationRamper.startRamp(clamp(value, 0.0f, 0.1f), duration);
                 break;
 
             case decayDurationAddress:
-                decayDurationRamper.startRamp(clamp(value, (float)0.0, (float)0.1), duration);
+                decayDurationRamper.startRamp(clamp(value, 0.0f, 0.1f), duration);
                 break;
 
         }
@@ -148,7 +155,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_fofilt_compute(sp, fofilt, in, out);
                 } else {
@@ -161,7 +168,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

@@ -9,108 +9,125 @@
 import AVFoundation
 
 /// Operation-based generator
-public class AKOperationGenerator: AKNode, AKToggleable {
+open class AKOperationGenerator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    private var internalAU: AKOperationGeneratorAudioUnit?
+    fileprivate var internalAU: AKOperationGeneratorAudioUnit?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
+    }
+    
+    open var sporth: String = "" {
+        didSet  {
+            self.stop()
+            self.internalAU?.setSporth(sporth)
+            self.start()
+        }
     }
 
     /// Parameters for changing internal operations
-    public var parameters: [Double] = [] {
-        didSet {
-            internalAU?.setParameters(parameters)
+    open var parameters: [Double] {
+        get {
+            var result: [Double] = []
+            if let floatParameters = internalAU?.parameters as? [NSNumber] {
+                for number in floatParameters {
+                    result.append(number.doubleValue)
+                }
+            }
+            return result
+        }
+        set {
+            internalAU?.parameters = newValue
         }
     }
 
     // MARK: - Initializers
-
-    /// Initialize the generator with an operation and indicate whether it responds to a trigger
+    
+    /// Initialize with a mono or stereo operation
     ///
-    /// - parameter operation: AKOperation stack to use
+    /// - parameter operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(operation: AKOperation) {
-        let operationString = "\(operation) dup"
-        self.init(operationString)
+    public convenience init(operation: ([AKOperation])->AKComputedParameter) {
+            
+        let computedParameter = operation(AKOperation.parameters)
+        
+        if type(of: computedParameter) == AKOperation.self {
+            let monoOperation = computedParameter as! AKOperation
+            self.init(sporth: monoOperation.sporth + " dup ")
+        } else {
+            let stereoOperation = computedParameter as! AKStereoOperation
+            self.init(sporth: stereoOperation.sporth + " swap ")
+        }
     }
 
-    /// Initialize the generator with a stereo operation and indicate whether it responds to a trigger
+    /// Initialize the generator for stereo (2 channels)
     ///
-    /// - parameter stereoOperation: AKStereoOperation stack to use
+    /// - Parameters:
+    ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
+    ///   - operations:       Array of operations [left, right]
     ///
-    public convenience init(stereoOperation: AKStereoOperation) {
-        let operationString = "\(stereoOperation) swap"
-        self.init(operationString)
+    public convenience init(numberOfChannels: Int, operations: ([AKOperation])->[AKOperation]) {
+        
+        let computedParameters = operations(AKOperation.parameters)
+        let left = computedParameters[0]
+        
+        if numberOfChannels == 2 {
+            let right = computedParameters[1]
+            self.init(sporth: "\(right.sporth) \(left.sporth)")
+        } else {
+            self.init(sporth: "\(left.sporth)")
+        }
     }
 
-    /// Initialize the generator with a two mono operations for the left and right channel and indicate whether it responds to a trigger
-    ///
-    /// - parameter left: AKOperation to be heard from the left output
-    /// - parameter right: AKOperation to be heard from the right output
-    ///
-    public convenience init(left: AKOperation, right: AKOperation) {
-        let operationString = "\(right) \(left)"
-        self.init(operationString)
-    }
-
+    
     /// Initialize this generator node with a generic sporth stack and a triggering flag
     ///
     /// - parameter sporth: String of valid Sporth code
     ///
-    public init(_ sporth: String) {
+    public init(sporth: String) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x63737467 /*'cstg'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("cstg")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKOperationGeneratorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKOperationGenerator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationGeneratorAudioUnit
-            AudioKit.engine.attachNode(self.avAudioNode)
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKOperationGeneratorAudioUnit
+            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setSporth(sporth)
         }
     }
-    
+
     /// Trigger the sound with current parameters
     ///
-    public func trigger() {
-        self.internalAU!.trigger(self.parameters)
-    }
-    
-
-    /// Trigger the sound with a set of parameters
-    /// - parameter parameters: An array of doubles to use as parameters
-    ///
-    public func trigger(parameters: [Double]) {
-        self.parameters = parameters
-        self.internalAU!.trigger(parameters)
+    open func trigger(_ triggerNumber: Int = 0) {
+        self.internalAU!.trigger(Int32(triggerNumber))
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

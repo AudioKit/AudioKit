@@ -51,7 +51,7 @@ int sporth_blsaw(sporth_stack *stack, void *ud)
             sp_blsaw_destroy(&blsaw);
             break;
         default:
-            fprintf(stderr, "blsaw: Uknown mode!\n");
+            fprintf(stderr, "blsaw: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

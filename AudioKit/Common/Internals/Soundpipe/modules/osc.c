@@ -53,7 +53,7 @@ int sp_osc_compute(sp_data *sp, sp_osc *osc, SPFLOAT *in, SPFLOAT *out)
     phs = osc->lphs;
     ft = osc->tbl->tbl;
     
-    if(sp->k) osc->inc = (int32_t)lrintf(cps * sicvt);
+    osc->inc = (int32_t)lrintf(cps * sicvt);
 
     fract = ((phs) & ftp->lomask) * ftp->lodiv;
     ftab = ft + (phs >> lobits);

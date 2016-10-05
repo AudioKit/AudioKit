@@ -78,7 +78,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
-        // Create a parameter object for the attackDuration.
+    // Create a parameter object for the attackDuration.
     AUParameter *attackDurationAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"attackDuration"
                                               name:@"Attack time"
@@ -162,16 +162,38 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKAmplitudeEnvelopeDSPKernel *blockKernel = &_kernel;
+    __block AKAmplitudeEnvelopeDSPKernel *envelopeKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        envelopeKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return envelopeKernel->getParameter(param.address);
+    };
+
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+
+        switch (param.address) {
+            case attackDurationAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case decayDurationAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case sustainLevelAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case releaseDurationAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            default:
+                return @"?";
+        }
     };
 
     self.maximumFramesToRender = 512;
@@ -233,14 +255,6 @@
     _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKAmplitudeEnvelopeDSPKernel *blockKernel = &_kernel;
-
-    // Go back to setting parameters instead of scheduling them.
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {

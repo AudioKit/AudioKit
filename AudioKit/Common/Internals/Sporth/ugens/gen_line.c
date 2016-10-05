@@ -14,6 +14,9 @@ int sporth_gen_line(sporth_stack *stack, void *ud)
 
     switch(pd->mode){
         case PLUMBER_CREATE:
+#ifdef DEBUG_MODE
+            fprintf(stderr, "gen_line: create mode\n");
+#endif
             plumber_add_ugen(pd, SPORTH_GEN_LINE, NULL);
             if(sporth_check_args(stack, "sfs") != SPORTH_OK) {
                 fprintf(stderr, "Init: not enough arguments for gen_line\n");
@@ -32,8 +35,6 @@ int sporth_gen_line(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             plumber_ftmap_add(pd, str, ft);
-            free(str);
-            free(args);
             break;
 
         case PLUMBER_INIT:
@@ -41,12 +42,10 @@ int sporth_gen_line(sporth_stack *stack, void *ud)
             args = sporth_stack_pop_string(stack);
             size = (int)sporth_stack_pop_float(stack);
             str = sporth_stack_pop_string(stack);
-            free(str);
-            free(args);
             break;
 
         case PLUMBER_COMPUTE:
-            size = (int)sporth_stack_pop_float(stack);
+            sporth_stack_pop_float(stack);
             break;
 
         case PLUMBER_DESTROY:

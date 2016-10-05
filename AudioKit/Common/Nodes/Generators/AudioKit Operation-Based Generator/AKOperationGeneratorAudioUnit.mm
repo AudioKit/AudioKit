@@ -35,16 +35,20 @@
     _kernel.setSporth((char*)[sporth UTF8String]);
 }
 
-- (void)trigger:(NSArray *)parameters {
-    float params[10] = {0,0,0,0,0,0,0,0,0,0};
-    for (int i = 0; i < parameters.count; i++) {
-        params[i] =[parameters[i] floatValue];
+- (void)trigger:(int)trigger {
+    _kernel.trigger(trigger);
+}
+
+- (NSArray *)parameters {
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:14];
+    for (int i = 0; i < 14; i++) {
+        [temp setObject:[NSNumber numberWithFloat:_kernel.parameters[i]] atIndexedSubscript:i];
     }
-    _kernel.trigger(params);
+    return [NSArray arrayWithArray:temp];
 }
 
 - (void)setParameters:(NSArray *)parameters {
-    float params[10] = {0,0,0,0,0,0,0,0,0,0};
+    float params[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     for (int i = 0; i < parameters.count; i++) {
         params[i] =[parameters[i] floatValue];
     }
@@ -98,16 +102,16 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKOperationGeneratorDSPKernel *blockKernel = &_kernel;
+    __block AKOperationGeneratorDSPKernel *generatorKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        generatorKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return generatorKernel->getParameter(param.address);
     };
 
     self.maximumFramesToRender = 512;
@@ -151,14 +155,6 @@
     _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKOperationGeneratorDSPKernel *blockKernel = &_kernel;
-
-    // Go back to setting parameters instead of scheduling them.
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {

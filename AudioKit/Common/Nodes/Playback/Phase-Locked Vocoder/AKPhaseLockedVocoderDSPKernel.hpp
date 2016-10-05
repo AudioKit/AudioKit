@@ -40,6 +40,9 @@ public:
         sp->nchan = channels;
         sp_mincer_create(&mincer);
 
+        positionRamper.init();
+        amplitudeRamper.init();
+        pitchRatioRamper.init();
     }
 
     void start() {
@@ -67,36 +70,39 @@ public:
 
     void reset() {
         resetted = true;
+        positionRamper.reset();
+        amplitudeRamper.reset();
+        pitchRatioRamper.reset();
     }
 
-    void setPosition(float time) {
-        position = time;
-        positionRamper.setImmediate(time);
+    void setPosition(float value) {
+        position = clamp(value, 0.0f, 1.0f);
+        positionRamper.setImmediate(position);
     }
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
-        amplitudeRamper.setImmediate(amp);
+    void setAmplitude(float value) {
+        amplitude = clamp(value, 0.0f, 1.0f);
+        amplitudeRamper.setImmediate(amplitude);
     }
 
-    void setPitchRatio(float pitch) {
-        pitchRatio = pitch;
-        pitchRatioRamper.setImmediate(pitch);
+    void setPitchRatio(float value) {
+        pitchRatio = clamp(value, 0.0f, 1000.0f);
+        pitchRatioRamper.setImmediate(pitchRatio);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case positionAddress:
-                positionRamper.setUIValue(clamp(value, (float)0, (float)1000000));
+                positionRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
             case pitchRatioAddress:
-                pitchRatioRamper.setUIValue(clamp(value, (float)-1000, (float)1000));
+                pitchRatioRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
 
         }
@@ -120,15 +126,15 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case positionAddress:
-                positionRamper.startRamp(clamp(value, (float)0, (float)1000000), duration);
+                positionRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.startRamp(clamp(value, (float)0, (float)1), duration);
+                amplitudeRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
             case pitchRatioAddress:
-                pitchRatioRamper.startRamp(value, duration);
+                pitchRatioRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
 
         }
@@ -169,7 +175,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

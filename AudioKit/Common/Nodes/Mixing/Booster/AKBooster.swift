@@ -3,68 +3,137 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
 import AVFoundation
 
-/// AudioKit version of Apple's Mixer Node
-public class AKBooster: AKNode, AKToggleable {
-    private let mixer = AVAudioMixerNode()
+/// Stereo Booster
+///
+/// - Parameters:
+///   - input: Input node to process
+///   - gain: Boosting multiplier.
+///
+open class AKBooster: AKNode, AKToggleable {
 
-    
-    /// Amplification Factor
-    public var gain: Double = 1.0 {
-        didSet {
-            mixer.outputVolume = Float(gain)
+    // MARK: - Properties
+
+    internal var internalAU: AKBoosterAudioUnit?
+    internal var token: AUParameterObserverToken?
+
+    fileprivate var gainParameter: AUParameter?
+
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    open var rampTime: Double = AKSettings.rampTime {
+        willSet {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
         }
     }
     
+    fileprivate var lastKnownGain: Double = 1.0
+    
+    /// Amplification Factor
+    open var gain: Double = 1 {
+        willSet {
+            if gain != newValue {
+                if internalAU!.isSetUp() {
+                    gainParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.gain = Float(newValue)
+                }
+            }
+        }
+    }
+
+    
     /// Amplification Factor in db
-    public var dB: Double {
+    open var dB: Double {
         set {
-            gain  = pow(10.0, Double(newValue / 20))
+            gain = pow(10.0, Double(newValue / 20))
         }
         get {
             return 20.0 * log10(gain)
         }
     }
     
-    private var lastKnownGain: Double = 1.0
-    
-    /// Tells whether or not the booster is actually changing the volume of its source.
-    public var isStarted: Bool {
-        return gain != 1.0
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    open var isStarted: Bool {
+        return internalAU!.isPlaying()
     }
-    
-    /// Initialize this amplification node
+
+    // MARK: - Initialization
+
+    /// Initialize this gainner node
     ///
-    /// - parameter input: AKNode whose output will be amplified
-    /// - parameter gain: Amplification factor (Default: 1, Minimum: 0)
+    /// - Parameters:
+    ///   - input: AKNode whose output will be amplified
+    ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: AKNode, gain: Double = 1.0) {
-            
+    public init(
+        _ input: AKNode,
+        gain: Double = 0) {
+
+        self.gain = gain
+
+        var description = AudioComponentDescription()
+        description.componentType         = kAudioUnitType_Effect
+        description.componentSubType      = fourCC("gain")
+        description.componentManufacturer = fourCC("AuKt")
+        description.componentFlags        = 0
+        description.componentFlagsMask    = 0
+
+        AUAudioUnit.registerSubclass(
+            AKBoosterAudioUnit.self,
+            as: description,
+            name: "Local AKBooster",
+            version: UInt32.max)
+
         super.init()
-        self.avAudioNode = mixer
-        AudioKit.engine.attachNode(self.avAudioNode)
-        input.addConnectionPoint(self)
-            
-        mixer.outputVolume = Float(gain)
+        AVAudioUnit.instantiate(with: description, options: []) {
+            avAudioUnit, error in
+
+            guard let avAudioUnitEffect = avAudioUnit else { return }
+
+            self.avAudioNode = avAudioUnitEffect
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBoosterAudioUnit
+
+            AudioKit.engine.attach(self.avAudioNode)
+            input.addConnectionPoint(self)
+        }
+
+        guard let tree = internalAU?.parameterTree else { return }
+
+        gainParameter   = tree.value(forKey: "gain")   as? AUParameter
+
+        token = tree.token (byAddingParameterObserver: {
+            address, value in
+
+            DispatchQueue.main.async {
+                if address == self.gainParameter!.address {
+                    self.gain = Double(value)
+                }
+            }
+        })
+        internalAU?.gain = Float(gain)
     }
-    
+
+    // MARK: - Control
+
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         if isStopped {
             gain = lastKnownGain
         }
     }
     
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownGain = gain
-            gain = 0
+            gain = 1
         }
     }
 }

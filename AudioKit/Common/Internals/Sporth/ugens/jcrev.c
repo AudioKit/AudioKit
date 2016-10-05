@@ -45,7 +45,7 @@ int sporth_jcrev(sporth_stack *stack, void *ud)
             sp_jcrev_destroy(&jcrev);
             break;
         default:
-            fprintf(stderr, "jcrev: Uknown mode!\n");
+            fprintf(stderr, "jcrev: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

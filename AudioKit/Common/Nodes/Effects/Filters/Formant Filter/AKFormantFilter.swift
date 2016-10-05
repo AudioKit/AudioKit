@@ -12,24 +12,25 @@ import AVFoundation
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-/// - parameter input: Input node to process
-/// - parameter centerFrequency: Center frequency.
-/// - parameter attackDuration: Impulse response attack time (in seconds).
-/// - parameter decayDuration: Impulse reponse decay time (in seconds)
+/// - Parameters:
+///   - input: Input node to process
+///   - centerFrequency: Center frequency.
+///   - attackDuration: Impulse response attack time (in seconds).
+///   - decayDuration: Impulse reponse decay time (in seconds)
 ///
-public class AKFormantFilter: AKNode, AKToggleable {
+open class AKFormantFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKFormantFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var centerFrequencyParameter: AUParameter?
-    private var attackDurationParameter: AUParameter?
-    private var decayDurationParameter: AUParameter?
+    fileprivate var centerFrequencyParameter: AUParameter?
+    fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var decayDurationParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -39,7 +40,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
     }
 
     /// Center frequency.
-    public var centerFrequency: Double = 1000 {
+    open var centerFrequency: Double = 1000 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -51,7 +52,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
         }
     }
     /// Impulse response attack time (in seconds).
-    public var attackDuration: Double = 0.007 {
+    open var attackDuration: Double = 0.007 {
         willSet {
             if attackDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -63,7 +64,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
         }
     }
     /// Impulse reponse decay time (in seconds)
-    public var decayDuration: Double = 0.04 {
+    open var decayDuration: Double = 0.04 {
         willSet {
             if decayDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -76,7 +77,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -84,10 +85,11 @@ public class AKFormantFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter centerFrequency: Center frequency.
-    /// - parameter attackDuration: Impulse response attack time (in seconds).
-    /// - parameter decayDuration: Impulse reponse decay time (in seconds)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - centerFrequency: Center frequency.
+    ///   - attackDuration: Impulse response attack time (in seconds).
+    ///   - decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
         _ input: AKNode,
@@ -101,40 +103,40 @@ public class AKFormantFilter: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x666f6669 /*'fofi'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("fofi")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKFormantFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKFormantFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFormantFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKFormantFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        centerFrequencyParameter = tree.valueForKey("centerFrequency") as? AUParameter
-        attackDurationParameter  = tree.valueForKey("attackDuration")  as? AUParameter
-        decayDurationParameter   = tree.valueForKey("decayDuration")   as? AUParameter
+        centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
+        attackDurationParameter  = tree.value(forKey: "attackDuration")  as? AUParameter
+        decayDurationParameter   = tree.value(forKey: "decayDuration")   as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = Double(value)
                 } else if address == self.attackDurationParameter!.address {
@@ -143,7 +145,8 @@ public class AKFormantFilter: AKNode, AKToggleable {
                     self.decayDuration = Double(value)
                 }
             }
-        }
+        })
+
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)
@@ -152,12 +155,12 @@ public class AKFormantFilter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

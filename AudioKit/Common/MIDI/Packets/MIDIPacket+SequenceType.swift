@@ -18,13 +18,13 @@
  // message is a Message
  }
  */
-extension MIDIPacket: SequenceType {
+extension MIDIPacket: Sequence {
     /// Generate a midi packet
-    public func generate() -> AnyGenerator<AKMIDIEvent> {
+    public func makeIterator() -> AnyIterator<AKMIDIEvent> {
         let generator = generatorForTuple(self.data)
         var index: UInt16 = 0
         
-        return AnyGenerator {
+        return AnyIterator {
             if index >= self.length {
                 return nil
             }
@@ -40,44 +40,51 @@ extension MIDIPacket: SequenceType {
                 var data1: UInt8 = 0
                 var data2: UInt8 = 0
                 var mstat = AKMIDIEvent.statusFromValue(status)
+                
                 switch  mstat {
-                case .NoteOff,
-                .NoteOn,
-                .PolyphonicAftertouch,
-                .ControllerChange,
-                .PitchWheel:
+                    
+                case .noteOff, .noteOn, .polyphonicAftertouch, .controllerChange, .pitchWheel:
                     data1 = pop(); data2 = pop()
                     
-                case .ProgramChange,
-                .ChannelAftertouch:
+                case .programChange, .channelAftertouch:
                     data1 = pop()
                     
-                case .SystemCommand: break
+                case .systemCommand:
+                    break
                 }
                 
-                if mstat == .NoteOn && data2 == 0 {
+                if mstat == .noteOn && data2 == 0 {
                     // turn noteOn with velocity 0 to noteOff
-                    mstat = .NoteOff
+                    mstat = .noteOff
                 }
                 
-                let chan = (status & 0xF)
+                let chan = status & 0xF
                 return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
+                
             } else if status == 0xF0 {
                 // sysex - guaranteed by coremidi to be the entire packet
                 index = self.length
                 return AKMIDIEvent(packet: self)
+                
             } else {
                 let cmd = AKMIDISystemCommand(rawValue: status)!
                 var data1: UInt8 = 0
                 var data2: UInt8 = 0
+                
                 switch  cmd {
-                case .Sysex: break
-                case .SongPosition:
+                    
+                case .sysex:
+                    break
+                    
+                case .songPosition:
                     data1 = pop()
                     data2 = pop()
-                case .SongSelect:
+                    
+                case .songSelect:
                     data1 = pop()
-                default: break
+                    
+                default:
+                    break
                 }
                 
                 return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
@@ -92,7 +99,7 @@ typealias AKRawMIDIPacket = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UI
 
 
 /// The returned generator will enumerate each value of the provided tuple.
-func generatorForTuple(tuple: AKRawMIDIPacket) -> AnyGenerator<Any> {
+func generatorForTuple(_ tuple: AKRawMIDIPacket) -> AnyIterator<Any> {
     let children = Mirror(reflecting: tuple).children
-    return AnyGenerator(children.generate().lazy.map { $0.value }.generate())
+    return AnyIterator(children.makeIterator().lazy.map { $0.value }.makeIterator())
 }

@@ -10,24 +10,25 @@ import AVFoundation
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
 ///
-/// - parameter input: Input node to process
-/// - parameter distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-/// - parameter cutoffFrequency: Filter cutoff frequency in Hertz.
-/// - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+/// - Parameters:
+///   - input: Input node to process
+///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+///   - cutoffFrequency: Filter cutoff frequency in Hertz.
+///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
 ///
-public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
+open class AKThreePoleLowpassFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
     internal var internalAU: AKThreePoleLowpassFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var distortionParameter: AUParameter?
-    private var cutoffFrequencyParameter: AUParameter?
-    private var resonanceParameter: AUParameter?
+    fileprivate var distortionParameter: AUParameter?
+    fileprivate var cutoffFrequencyParameter: AUParameter?
+    fileprivate var resonanceParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -37,7 +38,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     }
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-    public var distortion: Double = 0.5 {
+    open var distortion: Double = 0.5 {
         willSet {
             if distortion != newValue {
                 if internalAU!.isSetUp() {
@@ -49,7 +50,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
         }
     }
     /// Filter cutoff frequency in Hertz.
-    public var cutoffFrequency: Double = 1500 {
+    open var cutoffFrequency: Double = 1500 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -61,7 +62,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
         }
     }
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
-    public var resonance: Double = 0.5 {
+    open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
                 if internalAU!.isSetUp() {
@@ -74,7 +75,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -82,10 +83,11 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-    /// - parameter cutoffFrequency: Filter cutoff frequency in Hertz.
-    /// - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    ///   - cutoffFrequency: Filter cutoff frequency in Hertz.
+    ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     ///
     public init(
         _ input: AKNode,
@@ -99,40 +101,40 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x6c703138 /*'lp18'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("lp18")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKThreePoleLowpassFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKThreePoleLowpassFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKThreePoleLowpassFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKThreePoleLowpassFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        distortionParameter      = tree.valueForKey("distortion")      as? AUParameter
-        cutoffFrequencyParameter = tree.valueForKey("cutoffFrequency") as? AUParameter
-        resonanceParameter       = tree.valueForKey("resonance")       as? AUParameter
+        distortionParameter      = tree.value(forKey: "distortion")      as? AUParameter
+        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
+        resonanceParameter       = tree.value(forKey: "resonance")       as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.distortionParameter!.address {
                     self.distortion = Double(value)
                 } else if address == self.cutoffFrequencyParameter!.address {
@@ -141,7 +143,8 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
                     self.resonance = Double(value)
                 }
             }
-        }
+        })
+
         internalAU?.distortion = Float(distortion)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
         internalAU?.resonance = Float(resonance)
@@ -150,12 +153,12 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

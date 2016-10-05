@@ -12,18 +12,18 @@ extension AKOperation {
 
     /// Trigger based linear AHD envelope generator
     ///
-    /// - returns: AKOperation
-    /// - parameter trigger: A triggering operation such as a metronome
-    /// - parameter attack: Attack time, in seconds. (Default: 0.1)
-    /// - parameter hold: Hold time, in seconds. (Default: 0.3)
-    /// - parameter release: Release time, in seconds. (Default: 0.2)
-     ///
+    /// - Parameters:
+    ///   - trigger: A triggering operation such as a metronome
+    ///   - attack: Attack time, in seconds. (Default: 0.1)
+    ///   - hold: Hold time, in seconds. (Default: 0.3)
+    ///   - release: Release time, in seconds. (Default: 0.2)
+    ///
     public func triggeredWithEnvelope(
         trigger: AKParameter,
         attack: AKParameter = 0.1,
         hold: AKParameter = 0.3,
         release: AKParameter = 0.2
         ) -> AKOperation {
-            return AKOperation("((\(trigger) \(attack) \(hold) \(release) tenv) \(self.toMono()) *)")
+        return AKOperation(module: "tenv *", inputs: self, trigger, attack, hold, release)
     }
 }

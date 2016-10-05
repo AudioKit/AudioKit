@@ -8,19 +8,20 @@
 
 import AVFoundation
 
-/// 
 ///
-/// - parameter leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-/// - parameter rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-/// - parameter decayDuration: 30db decay time (in seconds).
-/// - parameter scanSpeed: Speed of scanning the output location.
-/// - parameter position: Position along bar that strike occurs.
-/// - parameter strikeVelocity: Normalized strike velocity
-/// - parameter strikeWidth: Spatial width of strike.
-/// - parameter stiffness: Dimensionless stiffness parameter
-/// - parameter highFrequencyDamping: High-frequency loss parameter. Keep this small
 ///
-public class AKMetalBar: AKNode {
+/// - Parameters:
+///   - leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
+///   - rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
+///   - decayDuration: 30db decay time (in seconds).
+///   - scanSpeed: Speed of scanning the output location.
+///   - position: Position along bar that strike occurs.
+///   - strikeVelocity: Normalized strike velocity
+///   - strikeWidth: Spatial width of strike.
+///   - stiffness: Dimensionless stiffness parameter
+///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
+///
+open class AKMetalBar: AKNode {
 
     // MARK: - Properties
 
@@ -28,16 +29,16 @@ public class AKMetalBar: AKNode {
     internal var token: AUParameterObserverToken?
 
 
-    private var leftBoundaryConditionParameter: AUParameter?
-    private var rightBoundaryConditionParameter: AUParameter?
-    private var decayDurationParameter: AUParameter?
-    private var scanSpeedParameter: AUParameter?
-    private var positionParameter: AUParameter?
-    private var strikeVelocityParameter: AUParameter?
-    private var strikeWidthParameter: AUParameter?
+    fileprivate var leftBoundaryConditionParameter: AUParameter?
+    fileprivate var rightBoundaryConditionParameter: AUParameter?
+    fileprivate var decayDurationParameter: AUParameter?
+    fileprivate var scanSpeedParameter: AUParameter?
+    fileprivate var positionParameter: AUParameter?
+    fileprivate var strikeVelocityParameter: AUParameter?
+    fileprivate var strikeWidthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    public var rampTime: Double = AKSettings.rampTime {
+    open var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
@@ -47,7 +48,7 @@ public class AKMetalBar: AKNode {
     }
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    public var leftBoundaryCondition: Double = 1 {
+    open var leftBoundaryCondition: Double = 1 {
         willSet {
             if leftBoundaryCondition != newValue {
                 leftBoundaryConditionParameter?.setValue(Float(newValue), originator: token!)
@@ -56,7 +57,7 @@ public class AKMetalBar: AKNode {
     }
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    public var rightBoundaryCondition: Double = 1 {
+    open var rightBoundaryCondition: Double = 1 {
         willSet {
             if rightBoundaryCondition != newValue {
                 rightBoundaryConditionParameter?.setValue(Float(newValue), originator: token!)
@@ -65,7 +66,7 @@ public class AKMetalBar: AKNode {
     }
 
     /// 30db decay time (in seconds).
-    public var decayDuration: Double = 3 {
+    open var decayDuration: Double = 3 {
         willSet {
             if decayDuration != newValue {
                 decayDurationParameter?.setValue(Float(newValue), originator: token!)
@@ -74,7 +75,7 @@ public class AKMetalBar: AKNode {
     }
 
     /// Speed of scanning the output location.
-    public var scanSpeed: Double = 0.25 {
+    open var scanSpeed: Double = 0.25 {
         willSet {
             if scanSpeed != newValue {
                 scanSpeedParameter?.setValue(Float(newValue), originator: token!)
@@ -83,7 +84,7 @@ public class AKMetalBar: AKNode {
     }
 
     /// Position along bar that strike occurs.
-    public var position: Double = 0.2 {
+    open var position: Double = 0.2 {
         willSet {
             if position != newValue {
                 positionParameter?.setValue(Float(newValue), originator: token!)
@@ -92,7 +93,7 @@ public class AKMetalBar: AKNode {
     }
 
     /// Normalized strike velocity
-    public var strikeVelocity: Double = 500 {
+    open var strikeVelocity: Double = 500 {
         willSet {
             if strikeVelocity != newValue {
                 strikeVelocityParameter?.setValue(Float(newValue), originator: token!)
@@ -101,7 +102,7 @@ public class AKMetalBar: AKNode {
     }
 
     /// Spatial width of strike.
-    public var strikeWidth: Double = 0.05 {
+    open var strikeWidth: Double = 0.05 {
         willSet {
             if strikeWidth != newValue {
                 strikeWidthParameter?.setValue(Float(newValue), originator: token!)
@@ -110,7 +111,7 @@ public class AKMetalBar: AKNode {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -118,15 +119,16 @@ public class AKMetalBar: AKNode {
 
     /// Initialize this Bar node
     ///
-    /// - parameter leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    /// - parameter rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    /// - parameter decayDuration: 30db decay time (in seconds).
-    /// - parameter scanSpeed: Speed of scanning the output location.
-    /// - parameter position: Position along bar that strike occurs.
-    /// - parameter strikeVelocity: Normalized strike velocity
-    /// - parameter strikeWidth: Spatial width of strike.
-    /// - parameter stiffness: Dimensionless stiffness parameter
-    /// - parameter highFrequencyDamping: High-frequency loss parameter. Keep this small
+    /// - Parameters:
+    ///   - leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
+    ///   - rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
+    ///   - decayDuration: 30db decay time (in seconds).
+    ///   - scanSpeed: Speed of scanning the output location.
+    ///   - position: Position along bar that strike occurs.
+    ///   - strikeVelocity: Normalized strike velocity
+    ///   - strikeWidth: Spatial width of strike.
+    ///   - stiffness: Dimensionless stiffness parameter
+    ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
     ///
     public init(
         leftBoundaryCondition: Double = 1,
@@ -150,43 +152,43 @@ public class AKMetalBar: AKNode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x6d626172 /*'mbar'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("mbar")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKMetalBarAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKMetalBar",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMetalBarAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMetalBarAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        leftBoundaryConditionParameter  = tree.valueForKey("leftBoundaryCondition")  as? AUParameter
-        rightBoundaryConditionParameter = tree.valueForKey("rightBoundaryCondition") as? AUParameter
-        decayDurationParameter          = tree.valueForKey("decayDuration")          as? AUParameter
-        scanSpeedParameter              = tree.valueForKey("scanSpeed")              as? AUParameter
-        positionParameter               = tree.valueForKey("position")               as? AUParameter
-        strikeVelocityParameter         = tree.valueForKey("strikeVelocity")         as? AUParameter
-        strikeWidthParameter            = tree.valueForKey("strikeWidth")            as? AUParameter
+        leftBoundaryConditionParameter  = tree.value(forKey: "leftBoundaryCondition")  as? AUParameter
+        rightBoundaryConditionParameter = tree.value(forKey: "rightBoundaryCondition") as? AUParameter
+        decayDurationParameter          = tree.value(forKey: "decayDuration")          as? AUParameter
+        scanSpeedParameter              = tree.value(forKey: "scanSpeed")              as? AUParameter
+        positionParameter               = tree.value(forKey: "position")               as? AUParameter
+        strikeVelocityParameter         = tree.value(forKey: "strikeVelocity")         as? AUParameter
+        strikeWidthParameter            = tree.value(forKey: "strikeWidth")            as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token (byAddingParameterObserver: {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.leftBoundaryConditionParameter!.address {
                     self.leftBoundaryCondition = Double(value)
                 } else if address == self.rightBoundaryConditionParameter!.address {
@@ -203,7 +205,7 @@ public class AKMetalBar: AKNode {
                     self.strikeWidth = Double(value)
                 }
             }
-        }
+        })
         internalAU?.leftBoundaryCondition = Float(leftBoundaryCondition)
         internalAU?.rightBoundaryCondition = Float(rightBoundaryCondition)
         internalAU?.decayDuration = Float(decayDuration)
@@ -212,23 +214,23 @@ public class AKMetalBar: AKNode {
         internalAU?.strikeVelocity = Float(strikeVelocity)
         internalAU?.strikeWidth = Float(strikeWidth)
     }
-    
+
     // MARK: - Control
-    
+
     /// Trigger the sound with an optional set of parameters
     ///
-    public func trigger() {
+    open func trigger() {
         self.internalAU!.start()
         self.internalAU!.trigger()
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

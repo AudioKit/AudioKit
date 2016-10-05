@@ -7,7 +7,6 @@
  * Original Author(s): Victor Lazzarini
  * Year: 2001
  * Location: Opcodes/newfils.c
- *
  */
 
 #include <stdint.h>

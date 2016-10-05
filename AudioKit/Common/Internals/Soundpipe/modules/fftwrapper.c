@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include "soundpipe.h"
 #include "kiss_fftr.h"
 
@@ -32,8 +33,10 @@ void FFTwrapper_create(FFTwrapper **fw, int fftsize)
 #else
     fwp->fft = kiss_fftr_alloc(fftsize, 0, NULL, NULL);
     fwp->ifft = kiss_fftr_alloc(fftsize, 1, NULL, NULL);
-    fwp->tmp1 = KISS_FFT_MALLOC(sizeof(SPFLOAT) * fftsize);
-    fwp->tmp2 = KISS_FFT_MALLOC(sizeof(SPFLOAT) * fftsize);
+    fwp->tmp1 = KISS_FFT_MALLOC(sizeof(kiss_fft_cpx) * fftsize);
+    fwp->tmp2 = KISS_FFT_MALLOC(sizeof(kiss_fft_cpx) * fftsize);
+    memset(fwp->tmp1, 0, sizeof(kiss_fft_cpx) * fftsize);
+    memset(fwp->tmp2, 0, sizeof(kiss_fft_cpx) * fftsize);
 #endif
 
 }

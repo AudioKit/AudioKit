@@ -10,23 +10,25 @@ import Foundation
 
 /// Wrapper class for plotting audio from the final mix in a waveform plot
 @IBDesignable
-public class AKOutputWaveformPlot: EZAudioPlot {
+open class AKOutputWaveformPlot: EZAudioPlot {
     internal func setupNode() {
-        AudioKit.engine.outputNode.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
-            if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize
-                let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                let tail = buffer.floatChannelData[0]
-                strongSelf.updateBuffer(&tail[offset],
-                    withBufferSize: strongSelf.bufferSize)
-            }
+        AudioKit.engine.outputNode.installTap(onBus: 0,
+                                              bufferSize: bufferSize,
+                                              format: nil) { [weak self] (buffer, time) -> Void in
+
+            guard let strongSelf = self else { return }
+            buffer.frameLength = strongSelf.bufferSize
+            let offset = Int(buffer.frameCapacity - buffer.frameLength)
+            let tail = buffer.floatChannelData?[0]
+            strongSelf.updateBuffer(&tail![offset],
+                                    withBufferSize: strongSelf.bufferSize)
         }
     }
 
     internal var bufferSize: UInt32 = 1024
-    
+
     deinit {
-        AudioKit.engine.outputNode.removeTapOnBus(0)
+        AudioKit.engine.outputNode.removeTap(onBus: 0)
     }
 
     /// Initialize the plot in a frame
@@ -37,11 +39,12 @@ public class AKOutputWaveformPlot: EZAudioPlot {
         super.init(frame: frame)
         setupNode()
     }
-    
+
     /// Initialize the plot in a frame with a different buffer size
     ///
-    /// - parameter frame: CGRect in which to draw the plot
-    /// - parameter bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
+    /// - Parameters:
+    ///   - frame: CGRect in which to draw the plot
+    ///   - bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
     ///
     public init(frame: CGRect, bufferSize: Int) {
         super.init(frame: frame)
@@ -57,22 +60,22 @@ public class AKOutputWaveformPlot: EZAudioPlot {
         super.init(coder: aDecoder)
         setupNode()
     }
-    
+
     /// Create a View with the plot (usually for playgrounds)
     ///
-    /// - returns: AKView
-    /// - parameter width: Width of the view
-    /// - parameter height: Height of the view
+    /// - Parameters:
+    ///   - width: Width of the view
+    ///   - height: Height of the view
     ///
-    public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
+    open static func createView(width: CGFloat = 440, height: CGFloat = 200.0) -> AKView {
 
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKOutputWaveformPlot(frame: frame)
-        
-        plot.plotType = .Buffer
-        plot.backgroundColor = AKColor.whiteColor()
+
+        plot.plotType = .buffer
+        plot.backgroundColor = AKColor.white
         plot.shouldCenterYAxis = true
-        
+
         let containerView = AKView(frame: frame)
         containerView.addSubview(plot)
         return containerView

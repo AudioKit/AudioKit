@@ -11,10 +11,13 @@ import UIKit
 class WaveformSegmentedView: SMSegmentView {
 
     func setOscColors() {
-        separatorColour = UIColor.clearColor()
+        separatorColour = UIColor.clear
         separatorWidth = 0.5
-        segmentOnSelectionColour = UIColor(red: 34.0/255.0, green: 34.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-        segmentOffSelectionColour = UIColor.clearColor()
+        segmentOnSelectionColour = UIColor(red: 34.0/255.0,
+                                           green: 34.0/255.0,
+                                           blue: 34.0/255.0,
+                                           alpha: 1.0)
+        segmentOffSelectionColour = UIColor.clear
         segmentVerticalMargin = CGFloat(10.0)
     }
 

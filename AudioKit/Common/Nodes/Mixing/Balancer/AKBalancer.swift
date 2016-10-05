@@ -8,25 +8,25 @@
 
 import AVFoundation
 
-/// This operation outputs a version of the audio source, amplitude-modified so
+/// This node outputs a version of the audio source, amplitude-modified so
 /// that its rms power is equal to that of the comparator audio source. Thus a
 /// signal that has suffered loss of power (eg., in passing through a filter
 /// bank) can be restored by matching it with, for instance, its own source. It
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-/// - parameter input: Input node to process
-/// - parameter comparator: Audio to match power with
+/// - Parameters:
+///   - input: Input node to process
+///   - comparator: Audio to match power with
 ///
-public class AKBalancer: AKNode, AKToggleable {
+open class AKBalancer: AKNode, AKToggleable {
 
     // MARK: - Properties
-
-
-    internal var internalAU: AKBalancerAudioUnit?
     
+    internal var internalAU: AKBalancerAudioUnit?
+
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -34,48 +34,49 @@ public class AKBalancer: AKNode, AKToggleable {
 
     /// Initialize this balance node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter comparator: Audio to match power with
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - comparator: Audio to match power with
     ///
     public init( _ input: AKNode, comparator: AKNode) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Mixer
-        description.componentSubType      = 0x626c6e63 /*'blnc'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentSubType      = fourCC("blnc")
+        description.componentManufacturer = fourCC("AuKt")
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKBalancerAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBalancer",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBalancerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBalancerAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
-            
+
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self.avAudioNode, bus: 1))
-            AudioKit.engine.connect(comparator.avAudioNode, toConnectionPoints: comparator.connectionPoints, fromBus: 0, format: nil)
+            AudioKit.engine.connect(comparator.avAudioNode, to: comparator.connectionPoints, fromBus: 0, format: nil)
         }
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    open func start() {
         self.internalAU!.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+    open func stop() {
         self.internalAU!.stop()
     }
 }

@@ -41,6 +41,9 @@ public:
         sp_streson_init(sp, streson);
         streson->freq = 100;
         streson->fdbgain = 0.95;
+
+        fundamentalFrequencyRamper.init();
+        feedbackRamper.init();
     }
 
     void start() {
@@ -58,27 +61,29 @@ public:
 
     void reset() {
         resetted = true;
+        fundamentalFrequencyRamper.reset();
+        feedbackRamper.reset();
     }
 
-    void setFundamentalFrequency(float freq) {
-        fundamentalFrequency = freq;
-        fundamentalFrequencyRamper.setImmediate(freq);
+    void setFundamentalFrequency(float value) {
+        fundamentalFrequency = clamp(value, 12.0f, 10000.0f);
+        fundamentalFrequencyRamper.setImmediate(fundamentalFrequency);
     }
 
-    void setFeedback(float fdbgain) {
-        feedback = fdbgain;
-        feedbackRamper.setImmediate(fdbgain);
+    void setFeedback(float value) {
+        feedback = clamp(value, 0.0f, 1.0f);
+        feedbackRamper.setImmediate(feedback);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case fundamentalFrequencyAddress:
-                fundamentalFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)10000.0));
+                fundamentalFrequencyRamper.setUIValue(clamp(value, 12.0f, 10000.0f));
                 break;
 
             case feedbackAddress:
-                feedbackRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
+                feedbackRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
         }
@@ -99,11 +104,11 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case fundamentalFrequencyAddress:
-                fundamentalFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)10000.0), duration);
+                fundamentalFrequencyRamper.startRamp(clamp(value, 12.0f, 10000.0f), duration);
                 break;
 
             case feedbackAddress:
-                feedbackRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
+                feedbackRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
         }
@@ -141,7 +146,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

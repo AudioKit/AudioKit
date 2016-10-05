@@ -12,7 +12,7 @@ import AudioKit
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet var outputTextView: UITextView!
     var midi = AKMIDI()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -21,64 +21,70 @@ class ViewController: UIViewController, AKMIDIListener {
         midi.addListener(self)
     }
     
-    func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
+    func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
+                            velocity: MIDIVelocity,
+                            channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("noteOn: \(note) velocity: \(velocity) ")
+        newString.append("noteOn: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
     
-    func receivedMIDINoteOff(note: Int, velocity: Int, channel: Int) {
+    func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
+                             velocity: MIDIVelocity,
+                             channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("noteOff: \(note) velocity: \(velocity) ")
+        newString.append("noteOff: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
     
-    func receivedMIDIController(controller: Int, value: Int, channel: Int) {
+    func receivedMIDIController(_ controller: Int, value: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("controller: \(controller) value: \(value) ")
+        newString.append("controller: \(controller) value: \(value) ")
         updateText(newString)
     }
     
-    func receivedMIDIAftertouchOnNote(note: Int, pressure: Int, channel: Int) {
+    func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+                                pressure: Int,
+                                channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("midiAftertouchOnNote: \(note) pressure: \(pressure) ")
+        newString.append("midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
         updateText(newString)
     }
-
-    func receivedMIDIAfterTouch(pressure: Int, channel: Int) {
+    
+    func receivedMIDIAfterTouch(_ pressure: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("midiAfterTouch pressure: \(pressure) ")
+        newString.append("midiAfterTouch pressure: \(pressure) ")
         updateText(newString)
     }
-
-    func receivedMIDIPitchWheel(pitchWheelValue: Int, channel: Int) {
+    
+    func receivedMIDIPitchWheel(_ pitchWheelValue: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("midiPitchWheel: \(pitchWheelValue) ")
+        newString.append("midiPitchWheel: \(pitchWheelValue) ")
         updateText(newString)
     }
-
-    func receivedMIDIProgramChange(program: Int, channel: Int) {
+    
+    func receivedMIDIProgramChange(_ program: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("programChange: \(program) ")
+        newString.append("programChange: \(program) ")
         updateText(newString)
     }
-
-    func receivedMIDISystemCommand(data: [UInt8]) {
+    
+    func receivedMIDISystemCommand(_ data: [UInt8]) {
         print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
         var newString = "MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!) \n"
         for i in 0 ..< data.count {
-            newString.appendContentsOf("\(data[i]) ")
+            newString.append("\(data[i]) ")
         }
         updateText(newString)
     }
-    func updateText(input: String) {
-        dispatch_async(dispatch_get_main_queue(), {
-           self.outputTextView.text = "\(input)\n\(self.outputTextView.text)"
+    func updateText(_ input: String) {
+        DispatchQueue.main.async(execute: {
+            self.outputTextView.text = "\(input)\n\(self.outputTextView.text!)"
         })
     }
-
-    @IBAction func clearText(sender: AnyObject) {
-        dispatch_async(dispatch_get_main_queue(), {
+    
+    @IBAction func clearText(_ sender: AnyObject) {
+        DispatchQueue.main.async(execute: {
             self.outputTextView.text = ""
         })
     }

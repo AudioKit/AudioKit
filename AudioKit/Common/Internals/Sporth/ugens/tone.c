@@ -49,7 +49,7 @@ int sporth_tone(sporth_stack *stack, void *ud)
             sp_tone_destroy(&tone);
             break;
         default:
-            fprintf(stderr, "tone: Uknown mode!\n");
+            fprintf(stderr, "tone: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

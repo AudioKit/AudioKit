@@ -41,6 +41,9 @@ public:
         sp_bitcrush_init(sp, bitcrush);
         bitcrush->bitdepth = 8;
         bitcrush->srate = 10000;
+
+        bitDepthRamper.init();
+        sampleRateRamper.init();
     }
 
     void start() {
@@ -58,27 +61,29 @@ public:
 
     void reset() {
         resetted = true;
+        bitDepthRamper.reset();
+        sampleRateRamper.reset();
     }
 
-    void setBitDepth(float bitdepth) {
-        bitDepth = bitdepth;
-        bitDepthRamper.setImmediate(bitdepth);
+    void setBitDepth(float value) {
+        bitDepth = clamp(value, 1.0f, 24.0f);
+        bitDepthRamper.setImmediate(bitDepth);
     }
 
-    void setSampleRate(float srate) {
-        sampleRate = srate;
-        sampleRateRamper.setImmediate(srate);
+    void setSampleRate(float value) {
+        sampleRate = clamp(value, 1.0f, 20000.0f);
+        sampleRateRamper.setImmediate(sampleRate);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case bitDepthAddress:
-                bitDepthRamper.setUIValue(clamp(value, (float)1, (float)24));
+                bitDepthRamper.setUIValue(clamp(value, 1.f, 24.f));
                 break;
 
             case sampleRateAddress:
-                sampleRateRamper.setUIValue(clamp(value, (float)0.0, (float)20000.0));
+                sampleRateRamper.setUIValue(clamp(value, 1.0f, 20000.0f));
                 break;
 
         }
@@ -99,11 +104,11 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case bitDepthAddress:
-                bitDepthRamper.startRamp(clamp(value, (float)1, (float)24), duration);
+                bitDepthRamper.startRamp(clamp(value, 1.f, 24.f), duration);
                 break;
 
             case sampleRateAddress:
-                sampleRateRamper.startRamp(clamp(value, (float)0.0, (float)20000.0), duration);
+                sampleRateRamper.startRamp(clamp(value, 1.0f, 20000.0f), duration);
                 break;
 
         }
@@ -128,7 +133,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_bitcrush_compute(sp, bitcrush, in, out);
                 } else {
@@ -141,7 +146,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float globalSampleRate = AKSettings.sampleRate;
 

@@ -12,9 +12,9 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKOperationGeneratorAudioUnit : AUAudioUnit
+@property (nonatomic) NSArray *parameters;
 - (void)setSporth:(NSString *)sporth;
-- (void)trigger:(NSArray *)parameters;
-- (void)setParameters:(NSArray *)parameters;
+- (void)trigger:(int)trigger;
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;

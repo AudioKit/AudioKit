@@ -14,11 +14,11 @@ extension AKOperation {
     /// Useful for smoothing out low-resolution signals and applying glissando to
     /// filters.
     ///
-    /// - returns: AKOperation
-    /// - parameter input: Input audio signal
-    /// - parameter halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: , Maximum: )
-     ///
+    /// - Parameters:
+    ///   - input: Input audio signal
+    ///   - halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: , Maximum: )
+    ///
     public func portamento(halfDuration: AKParameter = 0.02) -> AKOperation {
-        return AKOperation("(\(self) \(halfDuration) port)")
+        return AKOperation(module: "port", inputs: self, halfDuration)
     }
 }

@@ -50,7 +50,7 @@ int sporth_atone(sporth_stack *stack, void *ud)
             sp_atone_destroy(&atone);
             break;
         default:
-            fprintf(stderr, "atone: Uknown mode!\n");
+            fprintf(stderr, "atone: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -18,11 +18,7 @@ extension AKComputedParameter {
     /// three series allpass units, followed by four parallel comb filters, and two
     /// decorrelation delay lines in parallel at the output.
     ///
-    /// - returns: AKComputedParameter
-    /// - parameter input: Input audio signal
-     ///
-    public func reverberateWithChowning(
-        ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) jcrev)")
+    public func reverberateWithChowning() -> AKOperation {
+        return AKOperation(module: "jcrev", inputs: self.toMono())
     }
 }

@@ -41,6 +41,10 @@ public:
         sp->nchan = channels;
         sp_adsr_create(&adsr);
 
+        attackDurationRamper.init();
+        decayDurationRamper.init();
+        sustainLevelRamper.init();
+        releaseDurationRamper.init();
     }
 
     void start() {
@@ -70,45 +74,49 @@ public:
         adsr->sus = 1.0;
         adsr->rel = 0.1;
         resetted = true;
+        attackDurationRamper.reset();
+        decayDurationRamper.reset();
+        sustainLevelRamper.reset();
+        releaseDurationRamper.reset();
     }
 
-    void setAttackDuration(float atk) {
-        attackDuration = atk;
-        attackDurationRamper.setImmediate(atk);
+    void setAttackDuration(float value) {
+        attackDuration = clamp(value, 0.0f, 99.0f);
+        attackDurationRamper.setImmediate(attackDuration);
     }
 
-    void setDecayDuration(float dec) {
-        decayDuration = dec;
-        decayDurationRamper.setImmediate(dec);
+    void setDecayDuration(float value) {
+        decayDuration = clamp(value, 0.0f, 99.0f);
+        decayDurationRamper.setImmediate(decayDuration);
     }
 
-    void setSustainLevel(float sus) {
-        sustainLevel = sus;
-        sustainLevelRamper.setImmediate(sus);
+    void setSustainLevel(float value) {
+        sustainLevel = clamp(value, 0.0f, 99.0f);
+        sustainLevelRamper.setImmediate(sustainLevel);
     }
 
-    void setReleaseDuration(float rel) {
-        releaseDuration = rel;
-        releaseDurationRamper.setImmediate(rel);
+    void setReleaseDuration(float value) {
+        releaseDuration = clamp(value, 0.0f, 99.0f);
+        releaseDurationRamper.setImmediate(releaseDuration);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case attackDurationAddress:
-                attackDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
+                attackDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
                 break;
 
             case decayDurationAddress:
-                decayDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
+                decayDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
                 break;
 
             case sustainLevelAddress:
-                sustainLevelRamper.setUIValue(clamp(value, (float)0, (float)99));
+                sustainLevelRamper.setUIValue(clamp(value, 0.0f, 99.0f));
                 break;
 
             case releaseDurationAddress:
-                releaseDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
+                releaseDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
                 break;
 
         }
@@ -135,19 +143,19 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case attackDurationAddress:
-                attackDurationRamper.startRamp(clamp(value, (float)0, (float)99), duration);
+                attackDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
                 break;
 
             case decayDurationAddress:
-                decayDurationRamper.startRamp(clamp(value, (float)0, (float)99), duration);
+                decayDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
                 break;
 
             case sustainLevelAddress:
-                sustainLevelRamper.startRamp(clamp(value, (float)0, (float)99), duration);
+                sustainLevelRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
                 break;
 
             case releaseDurationAddress:
-                releaseDurationRamper.startRamp(clamp(value, (float)0, (float)99), duration);
+                releaseDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
                 break;
 
         }
@@ -186,7 +194,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
     float internalGate = 0;
@@ -204,7 +211,7 @@ private:
     float releaseDuration = 0.1;
 
 public:
-    bool started = false;
+    bool started = true;
     bool resetted = false;
     ParameterRamper attackDurationRamper = 0.1;
     ParameterRamper decayDurationRamper = 0.1;

@@ -65,7 +65,7 @@ int sporth_dist(sporth_stack *stack, void *ud)
             sp_dist_destroy(&dist);
             break;
         default:
-            fprintf(stderr, "dist: Uknown mode!\n");
+            fprintf(stderr, "dist: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

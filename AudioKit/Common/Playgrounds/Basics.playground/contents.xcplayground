@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='rendered' last-migration='0800'>
+    <pages>
+        <page name='Table Of Contents'/>
+        <page name='Introduction and Hello World'/>
+        <page name='Non-Audio Tutorial'/>
+        <page name='Connecting Nodes'/>
+        <page name='Mixing Nodes'/>
+        <page name='Splitting Nodes'/>
+        <page name='Dry Wet Mixer'/>
+        <page name='Balancing Nodes'/>
+        <page name='Stereo Panning'/>
+        <page name='Parameter Ramp Time'/>
+        <page name='Metronome'/>
+        <page name='Low-Frequency Oscillating of Parameters'/>
+        <page name='Using Functions'/>
+        <page name='Using Functions Part 2'/>
+        <page name='Stereo Operation'/>
+    </pages>
+</playground>
