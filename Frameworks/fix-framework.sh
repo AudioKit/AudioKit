@@ -12,7 +12,6 @@ if [ "$ACTION" == "install" ]; then
 	find "$framework/BCSymbolMaps" -name \*.bcsymbolmap -type f -exec mv {} "$CONFIGURATION_BUILD_DIR" \;
 	lipo -remove i386 -output "$binary" "$binary"
 	lipo -remove x86_64 -output "$binary" "$binary"
-	plutil -remove CFBundleSupportedPlatforms "$framework/Info.plist"
 	rm -f "$framework/fix-framework.sh"
 fi
 
