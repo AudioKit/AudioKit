@@ -69,10 +69,11 @@ open class AKResourcesAudioFileLoaderView: UIView {
         let backgroundColor = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
         let color = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
         let dark = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+        let darkgray = UIColor(red: 0.735, green: 0.742, blue: 0.736, alpha: 1.000)
         
         //// background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
-        backgroundColor.setFill()
+        darkgray.setFill()
         backgroundPath.fill()
         
         

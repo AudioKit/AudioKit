@@ -199,6 +199,31 @@ open class AKMusicTrack {
         }
     }
     
+    open func clearNote(_ note:MIDINoteNumber){
+        var iterator: MusicEventIterator? = nil
+        NewMusicEventIterator(internalMusicTrack!, &iterator)
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafeRawPointer? = nil
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        
+        MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
+        while hasNextEvent.boolValue {
+            MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
+            print(kMusicEventType_Meta)
+            if eventType == kMusicEventType_MIDINoteMessage {
+                let convertedData = eventData?.load(as: MIDINoteMessage.self)
+                
+                if convertedData!.note == UInt8(note){
+                    MusicEventIteratorDeleteEvent(iterator!)
+                }
+            }
+            MusicEventIteratorNextEvent(iterator!)
+            MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
+        }
+    }
+    
     open var isEmpty : Bool{
         var outBool = true
         var iterator: MusicEventIterator? = nil
@@ -271,6 +296,30 @@ open class AKMusicTrack {
         MusicTrackNewMIDIChannelEvent(internalMusicTrack!, position.musicTimeStamp, &controlMessage)
     }
 
+    /// Add Sysex message to sequence
+    ///
+    /// - Parameters:
+    ///   - data: The midi data in UInt8 byte array - standard sysex start and end messages are added automatically
+    ///   - position: Where in the sequence to start the note (expressed in beats)
+    ///
+    open func addSysex(_ data: [UInt8], position: AKDuration){
+        var midiData = MIDIRawData()
+        midiData.length = UInt32(data.count)
+        
+        withUnsafeMutablePointer(to: &midiData.data, {
+            ptr in
+            for i in 0 ..< data.count {
+                ptr[i] = data[i]
+            }
+        })
+        
+        let result = MusicTrackNewMIDIRawDataEvent(internalMusicTrack!, position.musicTimeStamp, &midiData)
+        if result != 0 {
+            print("Unable to insert raw midi data")
+        }
+        
+    }
+    
     /// Set the MIDI Ouput
     ///
     /// - parameter endpoint: MIDI Endpoint Port

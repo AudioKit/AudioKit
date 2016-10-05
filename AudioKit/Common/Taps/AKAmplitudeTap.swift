@@ -26,8 +26,6 @@ open class AKAmplitudeTap {
             for i in 0 ..< Int(self.bufferSize) {
                 sum += pow(Float((buffer.floatChannelData?.pointee[i])!), 2)
             }
-            
-//            print(NSString(format:"%0.5f",sqrt(sum/Float(self.bufferSize))))
         }
     }
 }

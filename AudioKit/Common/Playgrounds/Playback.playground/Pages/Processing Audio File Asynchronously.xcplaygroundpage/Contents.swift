@@ -17,36 +17,36 @@ AudioKit.start()
 player!.start()
 //: While the piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory that will handle any process in background
 //: We define a call back that will be invoked when an async process has been completed. Notice that the process can have succeeded or failed. if processedFile is different from nil, process succeeded, so you can get the processed file. If processedFile is nil, process failed, but you can get the process thrown error :
-func callBack(processedFile: AKAudioFile?, error: NSError?) {
+func callback(processedFile: AKAudioFile?, error: NSError?) {
 
     // Each time our process is triggered, it will display some info about AKAudioFile Process Factory status :
-    print("callBack Async process completed !")
-    print("callBack -> How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
-    print("callBack -> How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
-    print("callBack -> How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
+    print("callback Async process completed !")
+    print("callback -> How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+    print("callback -> How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+    print("callback -> How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
     // Now we handle the file (and the error if any occured.)
     if processedFile != nil {
         // We print its duration:
-        print("callBack -> processed: \(processedFile!.duration)")
+        print("callback -> processed: \(processedFile!.duration)")
         // We replace the actual played file with the processed file
         try? player?.replaceFile(processedFile!)
-        print("callBack -> Replaced player's file !")
+        print("callback -> Replaced player's file !")
     } else {
-        print("callBack -> error: \(error)")
+        print("callback -> error: \(error)")
     }
 }
 
 //: Let's process our piano asynchronously. First, we reverse the piano so it will play backward...
 
-piano?.reverseAsynchronously(completionHandler: callBack)
+piano?.reverseAsynchronously(completionHandler: callback)
 
 print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
 print("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
 //: Now we lower the piano level by normalizing it to a max level set at - 6 dB
-piano?.normalizeAsynchronously(newMaxLevel: 0, completionHandler: callBack)
+piano?.normalizeAsynchronously(newMaxLevel: 0, completionHandler: callback)
 
 print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
@@ -56,7 +56,7 @@ print("How many async process have been completed: \(AKAudioFile.completedAsyncP
 
 //: Now, extract one second from piano...
 
-piano?.extractAsynchronously(fromSample: 100000, toSample: 144100, completionHandler: callBack)
+piano?.extractAsynchronously(fromSample: 100000, toSample: 144100, completionHandler: callback)
 
 print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")

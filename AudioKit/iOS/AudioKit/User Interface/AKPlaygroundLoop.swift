@@ -26,7 +26,7 @@ open class AKPlaygroundLoop {
         internalHandler = handler
         let displayLink = CADisplayLink(target: self, selector: #selector(update))
         if #available(iOS 10.0, *) {
-            displayLink.preferredFramesPerSecond = 1
+            displayLink.preferredFramesPerSecond = 60
         }
         displayLink.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
     }
@@ -41,7 +41,7 @@ open class AKPlaygroundLoop {
         internalHandler = handler
         let displayLink = CADisplayLink(target: self, selector: #selector(update))
         if #available(iOS 10.0, *) {
-            displayLink.preferredFramesPerSecond = 1
+            displayLink.preferredFramesPerSecond = 60
         }
         displayLink.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
     }

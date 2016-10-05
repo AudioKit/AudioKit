@@ -19,6 +19,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet var slider4: UISlider!
     
     var brain = SporthEditorBrain()
+    var sporthDictionary = [String: URL]()
     
     @IBAction func run(_ sender: UIButton) {
         slider1.value = 0.0
@@ -37,16 +38,37 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func setupUI() {
+        
         do {
             try brain.save(Constants.File.chat, code: String(contentsOfFile: Constants.Path.chat, encoding: String.Encoding.utf8))
             try brain.save(Constants.File.drone, code: String(contentsOfFile: Constants.Path.drone, encoding: String.Encoding.utf8))
             try brain.save(Constants.File.rhythmic, code: String(contentsOfFile: Constants.Path.rhythmic, encoding: String.Encoding.utf8))
+            
             listOfSavedCodes.selectRow(0, inComponent: 1, animated: true)
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
             nameTextField.text = brain.names.first!
             
         } catch {
             NSLog(Constants.Error.Loading)
+        }
+    }
+    
+    func getSporthFiles() {
+        
+        sporthDictionary["bones"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/bones/bones.sp")
+        sporthDictionary["crystalline"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/crystalline/crystalline.sp")
+        sporthDictionary["distant_intelligence"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/distant_intelligence/distant_intelligence.sp")
+        sporthDictionary["hello"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/hello/hello.sp")
+        sporthDictionary["kLtz"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/kLtz/kLtz.sp")
+        sporthDictionary["scheale"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/scheale/scheale.sp")
+        
+        for item in sporthDictionary {
+            do {
+                let urlContents = try String(contentsOf: item.value)
+                brain.knownCodes[item.key] = urlContents
+            } catch {
+                print ("error")
+            }
         }
     }
     
@@ -87,11 +109,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
         return brain.names[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         codeEditorTextView.text = brain.knownCodes[brain.names[row]]
+        nameTextField.text = brain.names[row]
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -101,6 +125,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getSporthFiles()
         setupUI()
         listOfSavedCodes.dataSource = self
         listOfSavedCodes.delegate = self
@@ -166,7 +191,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         brain.generator?.parameters[3] = 0.0
         slider4.value = 0
     }
-    
     
     @IBAction func updateParameter1(_ sender: UISlider) {
         print("value 1 = \(sender.value)")
