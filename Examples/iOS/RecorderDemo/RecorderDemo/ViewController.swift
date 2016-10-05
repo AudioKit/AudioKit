@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         AKSettings.bufferLength = .medium
 
         do {
-            try AKSettings.setSessionCategory(.PlayAndRecord, withOptions: .defaultToSpeaker)
+//            try AKSettings.setSession(category: .playAndRecord, with: .defaultToSpeaker)
         } catch { print("Errored setting category.") }
 
         // Patching
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         }
     }
 
-    @IBAction func mainButtonTouched(sender: UIButton) {
+    @IBAction func mainButtonTouched(_ sender: UIButton) {
         switch state {
         case .readyToRecord :
             infoLabel.text = "Recording"
@@ -168,7 +168,7 @@ class ViewController: UIViewController {
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
 
-    @IBAction func loopButtonTouched(sender: UIButton) {
+    @IBAction func loopButtonTouched(_ sender: UIButton) {
 
         if player!.looping {
             player!.looping = false
@@ -180,7 +180,7 @@ class ViewController: UIViewController {
         }
 
     }
-    @IBAction func resetButtonTouched(sender: UIButton) {
+    @IBAction func resetButtonTouched(_ sender: UIButton) {
         player!.stop()
         do {
             try recorder?.reset()
@@ -190,12 +190,12 @@ class ViewController: UIViewController {
         setupUIForRecording()
     }
 
-    @IBAction func resonSliderChanged(sender: UISlider) {
+    @IBAction func resonSliderChanged(_ sender: UISlider) {
         moogLadder?.resonance = Double(sender.value)
         resonLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder!.resonance))"
     }
 
-    @IBAction func freqSliderChanged(sender: UISlider) {
+    @IBAction func freqSliderChanged(_ sender: UISlider) {
         moogLadder?.cutoffFrequency = Double(sender.value)
         freqLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder!.cutoffFrequency))"
     }
