@@ -45,13 +45,13 @@ class ViewController: UIViewController {
             let fftData = self.fft.fftData
             let count = 250
 
-            let lowMax = fftData[0 ... (count / 2) - 1].maxElement() ?? 0
-            let hiMax = fftData[count / 2 ... count - 1].maxElement() ?? 0
-            let hiMin = fftData[count / 2 ... count - 1].minElement() ?? 0
+            let lowMax = fftData[0 ... (count / 2) - 1].max() ?? 0
+            let hiMax = fftData[count / 2 ... count - 1].max() ?? 0
+            let hiMin = fftData[count / 2 ... count - 1].min() ?? 0
 
-            let lowMaxIndex = fftData.indexOf(lowMax) ?? 0
-            let hiMaxIndex = fftData.indexOf(hiMax) ?? 0
-            let hiMinIndex = fftData.indexOf(hiMin) ?? 0
+            let lowMaxIndex = fftData.index(of: lowMax) ?? 0
+            let hiMaxIndex = fftData.index(of: hiMax) ?? 0
+            let hiMinIndex = fftData.index(of: hiMin) ?? 0
 
             self.amplitude = Float(self.amplitudeTracker.amplitude * 25)
 
@@ -62,9 +62,9 @@ class ViewController: UIViewController {
 
         // ----
 
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
 
-        let numParticles = ParticleCount.TwoMillion
+        let numParticles = ParticleCount.twoMillion
 
         if view.frame.height < view.frame.width {
             particleLab = ParticleLab(width: UInt(view.frame.width),
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
 
         view.addSubview(particleLab)
 
-        statusLabel.textColor = UIColor.darkGrayColor()
+        statusLabel.textColor = UIColor.darkGray
         statusLabel.text = "AudioKit Particles"
 
         view.addSubview(statusLabel)
@@ -104,13 +104,13 @@ class ViewController: UIViewController {
 
         let radiusLow = 0.1 + (lowMaxIndex / 256)
 
-        particleLab.setGravityWellProperties(gravityWell: .One,
+        particleLab.setGravityWellProperties(gravityWell: .one,
             normalisedPositionX: 0.5 + radiusLow * sin(gravityWellAngle),
             normalisedPositionY: 0.5 + radiusLow * cos(gravityWellAngle),
             mass: (lowMaxIndex * amplitude),
             spin: -(lowMaxIndex * amplitude))
 
-        particleLab.setGravityWellProperties(gravityWell: .Four,
+        particleLab.setGravityWellProperties(gravityWell: .four,
             normalisedPositionX: 0.5 + radiusLow * sin((gravityWellAngle + floatPi)),
             normalisedPositionY: 0.5 + radiusLow * cos((gravityWellAngle + floatPi)),
             mass: (lowMaxIndex * amplitude),
@@ -118,15 +118,15 @@ class ViewController: UIViewController {
 
         let radiusHi = 0.1 + (0.25 + (hiMaxIndex / 1024))
 
-        particleLab.setGravityWellProperties(gravityWell: .Two,
-            normalisedPositionX: particleLab.getGravityWellNormalisedPosition(gravityWell: .One).x + (radiusHi * sin(gravityWellAngle * 3)),
-            normalisedPositionY: particleLab.getGravityWellNormalisedPosition(gravityWell: .One).y + (radiusHi * cos(gravityWellAngle * 3)),
+        particleLab.setGravityWellProperties(gravityWell: .two,
+            normalisedPositionX: particleLab.getGravityWellNormalisedPosition(gravityWell: .one).x + (radiusHi * sin(gravityWellAngle * 3)),
+            normalisedPositionY: particleLab.getGravityWellNormalisedPosition(gravityWell: .one).y + (radiusHi * cos(gravityWellAngle * 3)),
             mass: (hiMaxIndex * amplitude),
             spin: (hiMinIndex * amplitude))
 
-        particleLab.setGravityWellProperties(gravityWell: .Three,
-            normalisedPositionX: particleLab.getGravityWellNormalisedPosition(gravityWell: .Four).x + (radiusHi * sin((gravityWellAngle + floatPi) * 3)),
-            normalisedPositionY: particleLab.getGravityWellNormalisedPosition(gravityWell: .Four).y + (radiusHi * cos((gravityWellAngle + floatPi) * 3)),
+        particleLab.setGravityWellProperties(gravityWell: .three,
+            normalisedPositionX: particleLab.getGravityWellNormalisedPosition(gravityWell: .four).x + (radiusHi * sin((gravityWellAngle + floatPi) * 3)),
+            normalisedPositionY: particleLab.getGravityWellNormalisedPosition(gravityWell: .four).y + (radiusHi * cos((gravityWellAngle + floatPi) * 3)),
             mass: (hiMaxIndex * amplitude),
             spin: (hiMinIndex * amplitude))
     }
@@ -135,16 +135,16 @@ class ViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         statusLabel.frame = CGRect(x: 5,
-            y: view.frame.height - statusLabel.intrinsicContentSize().height,
+            y: view.frame.height - statusLabel.intrinsicContentSize.height,
             width: view.frame.width,
-            height: statusLabel.intrinsicContentSize().height)
+            height: statusLabel.intrinsicContentSize.height)
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Landscape
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.landscape
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 
@@ -155,7 +155,7 @@ extension ViewController: ParticleLabDelegate {
         // handle metal unavailable here
     }
 
-    func particleLabDidUpdate(status: String) {
+    func particleLabDidUpdate(_ status: String) {
         statusLabel.text = status
 
         particleLab.resetGravityWells()
