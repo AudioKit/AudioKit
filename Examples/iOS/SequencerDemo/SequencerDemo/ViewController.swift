@@ -37,6 +37,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        conductor.setupTracks()
     }
     
     @IBAction func clearMelodySequence(_ sender: UIButton) {
