@@ -21,11 +21,11 @@
                                 <rect key="frame" x="0.0" y="86" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G4F-RO-RPb" id="Vxv-fW-RJe">
-                                    <frame key="frameInset" width="342" height="43.5"/>
+                                    <frame key="frameInset" width="342" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Album Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YKA-bv-eRP">
-                                            <frame key="frameInset" minX="15" width="325" height="43.5"/>
+                                            <frame key="frameInset" minX="15" width="325" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -62,11 +62,11 @@
                                 <rect key="frame" x="0.0" y="86" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JIN-1F-3Cu" id="rgn-aj-iXc">
-                                    <frame key="frameInset" width="342" height="43.5"/>
+                                    <frame key="frameInset" width="342" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Artist Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tqm-cX-TdV">
-                                            <frame key="frameInset" minX="15" width="325" height="43.5"/>
+                                            <frame key="frameInset" minX="15" width="325" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -104,18 +104,18 @@
                                 <rect key="frame" x="0.0" y="86" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N5j-uM-eJa" id="0mT-Oi-OsE">
-                                    <frame key="frameInset" width="342" height="43.5"/>
+                                    <frame key="frameInset" width="342" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JiZ-hF-1Y5">
-                                            <frame key="frameInset" minX="15" minY="12" width="33.5" height="20.5"/>
+                                            <frame key="frameInset" minX="15" minY="11" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="T8i-kd-4sj">
-                                            <frame key="frameInset" minX="296" minY="12" width="44" height="20.5"/>
+                                            <frame key="frameInset" minX="296" minY="11" width="44" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -205,49 +205,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OIm-Wg-vkA">
-                                <connections>
-                                    <action selector="updateFeedback:" destination="FbE-82-9xF" eventType="valueChanged" id="k75-qX-AoF"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feedback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l2w-dQ-ihk">
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mix" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmJ-vi-Ent">
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Kua-vB-ijH">
-                                <connections>
-                                    <action selector="updateMix:" destination="FbE-82-9xF" eventType="valueChanged" id="blQ-m8-umV"/>
-                                </connections>
-                            </slider>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pcn-7E-Vdd" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.37143704300000002" green="0.70446354150000001" blue="0.61085367199999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="Yne-Bj-dQt"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="YtO-bO-YjA"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Mix"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.26095715019999999" green="0.5" blue="0.43840177419999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5MI-Dj-uWZ" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.58762145040000002" green="0.86256819959999997" blue="0.67709666489999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="2cJ-cC-DK2"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="6HF-hY-tVc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Feedback"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.49299604609999997" green="0.72509512409999999" blue="0.5702453529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="OIm-Wg-vkA" firstAttribute="top" secondItem="l2w-dQ-ihk" secondAttribute="bottom" constant="20" id="1bf-ne-2au"/>
-                            <constraint firstAttribute="centerX" secondItem="l2w-dQ-ihk" secondAttribute="centerX" id="2g1-mi-KXH"/>
-                            <constraint firstItem="Kua-vB-ijH" firstAttribute="top" secondItem="kmJ-vi-Ent" secondAttribute="bottom" constant="24" id="3mt-wH-RMc"/>
-                            <constraint firstAttribute="centerX" secondItem="Kua-vB-ijH" secondAttribute="centerX" id="6AT-ee-Mjr"/>
-                            <constraint firstAttribute="centerX" secondItem="kmJ-vi-Ent" secondAttribute="centerX" constant="-2" id="FIO-Ty-0uC"/>
-                            <constraint firstItem="OIm-Wg-vkA" firstAttribute="width" secondItem="9Cq-cz-d5i" secondAttribute="width" multiplier="0.9" id="GD7-Xb-5aI"/>
-                            <constraint firstItem="OIm-Wg-vkA" firstAttribute="centerY" secondItem="9Cq-cz-d5i" secondAttribute="bottom" multiplier="0.3" id="Sut-Vf-jLL"/>
-                            <constraint firstAttribute="centerX" secondItem="OIm-Wg-vkA" secondAttribute="centerX" id="a9x-nZ-AIV"/>
-                            <constraint firstItem="Kua-vB-ijH" firstAttribute="width" secondItem="9Cq-cz-d5i" secondAttribute="width" multiplier="0.9" id="jAO-Z3-E8a"/>
-                            <constraint firstItem="Kua-vB-ijH" firstAttribute="centerY" secondItem="9Cq-cz-d5i" secondAttribute="bottom" multiplier="0.6" id="oKQ-tF-JEK"/>
+                            <constraint firstAttribute="trailing" secondItem="Pcn-7E-Vdd" secondAttribute="trailing" id="GGh-ST-WpW"/>
+                            <constraint firstAttribute="trailing" secondItem="5MI-Dj-uWZ" secondAttribute="trailing" id="Yj6-hS-YWL"/>
+                            <constraint firstItem="Pcn-7E-Vdd" firstAttribute="leading" secondItem="9Cq-cz-d5i" secondAttribute="leading" id="d66-lJ-eVX"/>
+                            <constraint firstItem="5MI-Dj-uWZ" firstAttribute="top" secondItem="hfA-nH-f7z" secondAttribute="bottom" constant="55" id="dLV-ye-nR6"/>
+                            <constraint firstItem="Pcn-7E-Vdd" firstAttribute="top" secondItem="5MI-Dj-uWZ" secondAttribute="bottom" constant="76" id="iC9-wq-oJE"/>
+                            <constraint firstItem="5MI-Dj-uWZ" firstAttribute="leading" secondItem="9Cq-cz-d5i" secondAttribute="leading" id="sFN-aa-5iZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Costello Reverb" id="9xW-32-VcU"/>
                     <connections>
-                        <outlet property="feedbackSlider" destination="OIm-Wg-vkA" id="xpj-Yj-nBF"/>
-                        <outlet property="mixSlider" destination="Kua-vB-ijH" id="RFZ-ns-z7T"/>
+                        <outlet property="feedbackSlider" destination="5MI-Dj-uWZ" id="M3L-2i-rdT"/>
+                        <outlet property="mixSlider" destination="Pcn-7E-Vdd" id="yyg-kD-U1X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="che-2U-d1g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3" y="1283"/>
+            <point key="canvasLocation" x="-161" y="689"/>
         </scene>
         <!--Variable Delay-->
         <scene sceneID="64h-4u-zMr">
@@ -261,93 +276,83 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wT3-FT-qcv">
-                                <connections>
-                                    <action selector="updateTime:" destination="VxO-Ca-APD" eventType="valueChanged" id="yEu-RK-1Cr"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mix" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDS-Ny-YVi">
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qtx-gz-SvD">
-                                <connections>
-                                    <action selector="updateMix:" destination="VxO-Ca-APD" eventType="valueChanged" id="jcj-Zc-Gwg"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hc3-6o-Krb">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOT-aS-uEY" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.37143704295158386" green="0.70446354150772095" blue="0.61085367202758789" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="0zN-He-RbQ"/>
-                                    <constraint firstAttribute="height" constant="36" id="Tvx-2B-g5y"/>
+                                    <constraint firstAttribute="height" constant="90" id="FjI-tx-jJV"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Tvx-2B-g5y"/>
-                                    </mask>
-                                </variation>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ehX-W7-uFY">
-                                <connections>
-                                    <action selector="updateFeedback:" destination="VxO-Ca-APD" eventType="valueChanged" id="n5B-So-jNo"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feedback" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcC-xJ-jte">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Feedback"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.26095715019143906" green="0.5" blue="0.43840177416356813" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJL-Au-EKL" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.58762145042419434" green="0.862568199634552" blue="0.6770966649055481" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="Bco-i9-WMA"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="ORv-wg-zcB"/>
+                                    <constraint firstAttribute="height" constant="90" id="AYE-1S-gtF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Time"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.49299604607654235" green="0.72509512411156285" blue="0.57024535293642231" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eyc-bB-H27" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.33556698619459041" green="0.34387830906214434" blue="0.71088274511589011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="hpC-cc-wak"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Mix"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.2531801164150238" green="0.25881332159042358" blue="0.53295999765396118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="hcC-xJ-jte" firstAttribute="leading" secondItem="EDS-Ny-YVi" secondAttribute="leading" id="37h-jQ-QO6"/>
-                            <constraint firstItem="hcC-xJ-jte" firstAttribute="top" secondItem="wT3-FT-qcv" secondAttribute="bottom" constant="53" id="41K-mr-EsE"/>
-                            <constraint firstItem="hcC-xJ-jte" firstAttribute="centerY" secondItem="hc3-6o-Krb" secondAttribute="centerY" id="9Uo-IT-bPM"/>
-                            <constraint firstItem="ehX-W7-uFY" firstAttribute="top" secondItem="hcC-xJ-jte" secondAttribute="bottom" constant="20" id="D1i-Ks-UFT"/>
-                            <constraint firstAttribute="centerX" secondItem="wT3-FT-qcv" secondAttribute="centerX" id="FNb-c6-GBx"/>
-                            <constraint firstItem="hc3-6o-Krb" firstAttribute="centerX" secondItem="zfi-mq-NTg" secondAttribute="centerX" id="IHe-P2-NKc"/>
-                            <constraint firstItem="qtx-gz-SvD" firstAttribute="width" secondItem="wT3-FT-qcv" secondAttribute="width" id="J4S-Ri-6ql"/>
-                            <constraint firstItem="ehX-W7-uFY" firstAttribute="top" secondItem="hcC-xJ-jte" secondAttribute="bottom" constant="21" id="NOG-LD-rfo"/>
-                            <constraint firstItem="qtx-gz-SvD" firstAttribute="top" secondItem="EDS-Ny-YVi" secondAttribute="bottom" constant="24" id="T2E-i1-tc8"/>
-                            <constraint firstItem="wT3-FT-qcv" firstAttribute="width" secondItem="zfi-mq-NTg" secondAttribute="width" multiplier="0.9" id="Tik-RX-KAl"/>
-                            <constraint firstItem="EDS-Ny-YVi" firstAttribute="top" secondItem="wT3-FT-qcv" secondAttribute="bottom" constant="89" id="ZfT-pI-fUa"/>
-                            <constraint firstAttribute="centerX" secondItem="qtx-gz-SvD" secondAttribute="centerX" constant="-10" id="anz-YZ-LC8"/>
-                            <constraint firstItem="EDS-Ny-YVi" firstAttribute="top" secondItem="ehX-W7-uFY" secondAttribute="bottom" constant="46" id="bPR-Nl-WrU"/>
-                            <constraint firstItem="wT3-FT-qcv" firstAttribute="top" secondItem="hc3-6o-Krb" secondAttribute="bottom" constant="20" id="gzA-3s-xny"/>
-                            <constraint firstItem="hcC-xJ-jte" firstAttribute="width" secondItem="hc3-6o-Krb" secondAttribute="width" id="hdp-uc-fJX"/>
-                            <constraint firstItem="hc3-6o-Krb" firstAttribute="top" secondItem="iTY-U7-Lvc" secondAttribute="bottom" constant="53" id="ice-jB-AEC"/>
-                            <constraint firstItem="qtx-gz-SvD" firstAttribute="top" secondItem="EDS-Ny-YVi" secondAttribute="bottom" constant="24" id="k1h-bp-mee"/>
-                            <constraint firstAttribute="centerX" secondItem="EDS-Ny-YVi" secondAttribute="centerX" id="mVl-jT-dGx"/>
-                            <constraint firstItem="ehX-W7-uFY" firstAttribute="centerX" secondItem="hcC-xJ-jte" secondAttribute="centerX" id="nPS-rc-8YY"/>
-                            <constraint firstAttribute="width" secondItem="EDS-Ny-YVi" secondAttribute="width" id="oSr-Z3-J68"/>
-                            <constraint firstItem="hc3-6o-Krb" firstAttribute="width" secondItem="zfi-mq-NTg" secondAttribute="width" id="qA7-dh-I5C"/>
-                            <constraint firstItem="hcC-xJ-jte" firstAttribute="height" secondItem="hc3-6o-Krb" secondAttribute="height" id="svr-zs-75Q"/>
-                            <constraint firstItem="ehX-W7-uFY" firstAttribute="width" secondItem="wT3-FT-qcv" secondAttribute="width" id="waF-Dr-QJQ"/>
+                            <constraint firstItem="kOT-aS-uEY" firstAttribute="top" secondItem="TJL-Au-EKL" secondAttribute="bottom" constant="76" id="5k6-DK-IDP"/>
+                            <constraint firstItem="Eyc-bB-H27" firstAttribute="leading" secondItem="zfi-mq-NTg" secondAttribute="leading" id="9Qq-Vh-UR3"/>
+                            <constraint firstAttribute="trailing" secondItem="Eyc-bB-H27" secondAttribute="trailing" id="NXI-D3-z6d"/>
+                            <constraint firstItem="kOT-aS-uEY" firstAttribute="leading" secondItem="zfi-mq-NTg" secondAttribute="leading" id="Zcu-Vs-D7h"/>
+                            <constraint firstItem="Eyc-bB-H27" firstAttribute="top" secondItem="kOT-aS-uEY" secondAttribute="bottom" constant="76" id="eoK-CR-L8g"/>
+                            <constraint firstAttribute="trailing" secondItem="TJL-Au-EKL" secondAttribute="trailing" id="j4R-GI-AVg"/>
+                            <constraint firstItem="TJL-Au-EKL" firstAttribute="leading" secondItem="zfi-mq-NTg" secondAttribute="leading" id="o0A-HF-cXJ"/>
+                            <constraint firstAttribute="trailing" secondItem="kOT-aS-uEY" secondAttribute="trailing" id="oC0-pr-QPq"/>
+                            <constraint firstItem="TJL-Au-EKL" firstAttribute="top" secondItem="iTY-U7-Lvc" secondAttribute="bottom" constant="55" id="rS4-XE-OmW"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="9Uo-IT-bPM"/>
-                                <exclude reference="NOG-LD-rfo"/>
-                                <exclude reference="ZfT-pI-fUa"/>
-                                <exclude reference="k1h-bp-mee"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="feedbackSlider" destination="ehX-W7-uFY" id="5j1-YT-sjc"/>
-                        <outlet property="mixSlider" destination="qtx-gz-SvD" id="QFx-5J-gZL"/>
-                        <outlet property="timeSlider" destination="wT3-FT-qcv" id="m3N-k0-Hlw"/>
+                        <outlet property="feedbackSlider" destination="kOT-aS-uEY" id="cyz-Pe-2K1"/>
+                        <outlet property="mixSlider" destination="Eyc-bB-H27" id="3vm-rZ-LhR"/>
+                        <outlet property="timeSlider" destination="TJL-Au-EKL" id="S5w-dh-hL5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tze-NZ-jSQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-22" y="-197"/>
+            <point key="canvasLocation" x="-23.199999999999999" y="-197.45127436281859"/>
         </scene>
         <!--Moog Ladder-->
         <scene sceneID="snE-73-Smh">
@@ -426,7 +431,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8m-6m-Txg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-22" y="597"/>
+            <point key="canvasLocation" x="-1465" y="626"/>
         </scene>
         <!--Songs-->
         <scene sceneID="TFm-Nv-lgi">
@@ -521,6 +526,7 @@
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="d5t-ON-uZr">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
