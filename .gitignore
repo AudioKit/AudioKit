@@ -12,6 +12,10 @@ project.xcworkspace/
 xcuserdata/
 xcodebuild
 
+# Cocoapods
+Pods/
+Podfile.lock
+
 # osx noise
 .DS_Store
 profile
