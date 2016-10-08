@@ -18,6 +18,7 @@ public protocol AKKeyboardDelegate {
     @IBInspectable open var octaveCount: Int = 2
     @IBInspectable open var firstOctave: Int = 4
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
+    @IBInspectable open var polyphonicButton: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
     @IBInspectable open var  whiteKeyOff: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     @IBInspectable open var  blackKeyOff: UIColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
