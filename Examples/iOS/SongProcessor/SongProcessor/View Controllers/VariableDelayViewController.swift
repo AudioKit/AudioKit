@@ -31,6 +31,7 @@ class VariableDelayViewController: UIViewController {
         if let balance = songProcessor.delayMixer?.balance {
             mixSlider.value = balance
         }
+        
         timeSlider.callback = updateTime
         feedbackSlider.callback = updateFeedback
         mixSlider.callback = updateMix
@@ -47,19 +48,5 @@ class VariableDelayViewController: UIViewController {
     func updateMix(value: Double) {
        songProcessor.delayMixer?.balance = value
     }
-    
-    /*
-    @IBAction func updateTime(_ sender: UISlider) {
-        songProcessor.variableDelay?.time = Double(sender.value)
-    }
-
-    @IBAction func updateFeedback(_ sender: UISlider) {
-        songProcessor.variableDelay?.feedback = Double(sender.value)
-    }
-
-    @IBAction func updateMix(_ sender: UISlider) {
-        songProcessor.delayMixer?.balance = Double(sender.value)
-    }
- */
     
 }

@@ -455,7 +455,7 @@
         <!--Effects-->
         <scene sceneID="y0w-2k-pWc">
             <objects>
-                <viewController id="PZU-sN-OZv" sceneMemberID="viewController">
+                <viewController id="PZU-sN-OZv" customClass="EffectsViewController" customModule="SongProcessor" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8SK-dA-Fi2"/>
                         <viewControllerLayoutGuide type="bottom" id="fEe-G6-ZUT"/>
@@ -497,27 +497,53 @@
                                     <segue destination="FbE-82-9xF" kind="show" id="d6K-WB-83g"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5c3-d1-Ouk" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.33887624740600586" green="0.34637537598609924" blue="0.70782500505447388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="Pyc-A6-et7"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Volume"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.26453978187672944" green="0.27109190299991648" blue="0.56041498141845469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="cdy-Fo-35J" secondAttribute="width" id="03W-Ic-agb"/>
                             <constraint firstItem="gXI-bJ-hiR" firstAttribute="width" secondItem="cdy-Fo-35J" secondAttribute="width" id="5r6-4j-vaq"/>
+                            <constraint firstItem="5c3-d1-Ouk" firstAttribute="centerX" secondItem="QxG-WJ-ND8" secondAttribute="centerX" id="DrE-7c-23E"/>
+                            <constraint firstItem="5c3-d1-Ouk" firstAttribute="top" secondItem="QxG-WJ-ND8" secondAttribute="bottom" constant="100" id="EMS-Gt-3RT"/>
                             <constraint firstItem="cdy-Fo-35J" firstAttribute="top" secondItem="8SK-dA-Fi2" secondAttribute="bottom" constant="8" id="GWi-gA-2gR"/>
+                            <constraint firstItem="5c3-d1-Ouk" firstAttribute="trailing" secondItem="dP5-ci-Fv2" secondAttribute="trailingMargin" constant="16" id="Hw2-Kp-Su7"/>
                             <constraint firstItem="gXI-bJ-hiR" firstAttribute="centerX" secondItem="cdy-Fo-35J" secondAttribute="centerX" id="KVF-64-53C"/>
+                            <constraint firstItem="5c3-d1-Ouk" firstAttribute="leading" secondItem="dP5-ci-Fv2" secondAttribute="leadingMargin" constant="-16" id="Pya-9c-LzL"/>
                             <constraint firstItem="gXI-bJ-hiR" firstAttribute="height" secondItem="cdy-Fo-35J" secondAttribute="height" id="QMd-ZG-edE"/>
                             <constraint firstAttribute="centerX" secondItem="cdy-Fo-35J" secondAttribute="centerX" id="TUV-nK-ZII"/>
                             <constraint firstItem="gXI-bJ-hiR" firstAttribute="width" secondItem="QxG-WJ-ND8" secondAttribute="width" id="Zpx-01-isd"/>
                             <constraint firstItem="QxG-WJ-ND8" firstAttribute="top" secondItem="gXI-bJ-hiR" secondAttribute="bottom" id="a5b-G2-w0Z"/>
                             <constraint firstItem="gXI-bJ-hiR" firstAttribute="top" secondItem="cdy-Fo-35J" secondAttribute="bottom" id="jaG-7g-gzp"/>
                             <constraint firstItem="gXI-bJ-hiR" firstAttribute="centerX" secondItem="QxG-WJ-ND8" secondAttribute="centerX" id="o8x-79-DRl"/>
+                            <constraint firstItem="5c3-d1-Ouk" firstAttribute="top" secondItem="QxG-WJ-ND8" secondAttribute="bottom" constant="100" id="rJX-qz-JsX"/>
                             <constraint firstItem="gXI-bJ-hiR" firstAttribute="height" secondItem="QxG-WJ-ND8" secondAttribute="height" id="xt0-6y-ekU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Effects" id="Zva-5K-YkC"/>
+                    <connections>
+                        <outlet property="volumeSlider" destination="5c3-d1-Ouk" id="DjJ-D2-ybh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mx4-rf-4Sw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-816" y="-197"/>
+            <point key="canvasLocation" x="-816.79999999999995" y="-197.45127436281859"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yUX-BV-u0k">
