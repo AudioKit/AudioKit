@@ -37,14 +37,5 @@ class CostelloReverbViewController: UIViewController {
     func updateMix(value: Double) {
         songProcessor.reverbMixer?.balance = value
     }
-    
-    /*
-    @IBAction func updateFeedback(_ sender: UISlider) {
-        songProcessor.reverb?.feedback = Double(sender.value)
-    }
-    
-    @IBAction func updateMix(_ sender: UISlider) {
-        songProcessor.reverbMixer?.balance = Double(sender.value)
-    }
- */
+
 }
