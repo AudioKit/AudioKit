@@ -11,9 +11,9 @@ import AudioKit
 
 class MoogLadderViewController: UIViewController {
     
-    @IBOutlet weak var cutoffFrequncySlider: UISlider!
-    @IBOutlet weak var resonanceSlider: UISlider!
-    @IBOutlet weak var mixSlider: UISlider!
+    @IBOutlet weak var cutoffFrequncySlider: AKPropertySlider!
+    @IBOutlet weak var resonanceSlider: AKPropertySlider!
+    @IBOutlet weak var mixSlider: AKPropertySlider!
     
     let songProcessor = SongProcessor.sharedInstance
     
@@ -21,30 +21,35 @@ class MoogLadderViewController: UIViewController {
         super.viewDidLoad()
         
         
-        cutoffFrequncySlider.minimumValue = 12.0
-        cutoffFrequncySlider.maximumValue = 10000.0
+        cutoffFrequncySlider.minimum = 12.0
+        cutoffFrequncySlider.maximum = 10000.0
         
         if let freq = songProcessor.moogLadder?.cutoffFrequency {
-            cutoffFrequncySlider.value = Float(freq)
+            cutoffFrequncySlider.value = freq
         }
         
         if let res = songProcessor.moogLadder?.resonance {
-            resonanceSlider.value = Float(res)
+            resonanceSlider.value = res
         }
         
         if let balance = songProcessor.filterMixer?.balance {
-            mixSlider.value = Float(balance)
+            mixSlider.value = balance
         }
+        
+        cutoffFrequncySlider.callback = updateCutoffFrequncy
+        resonanceSlider.callback = updateResonance
+        mixSlider.callback = updateMix
     }
     
-    @IBAction func updateCutoff(_ sender: UISlider) {
-        songProcessor.moogLadder?.cutoffFrequency = Double(sender.value)
+    func updateCutoffFrequncy(value: Double) {
+        songProcessor.moogLadder?.cutoffFrequency = value
     }
     
-    @IBAction func updateResonance(_ sender: UISlider) {
-        songProcessor.moogLadder?.resonance = Double(sender.value)
+    func updateResonance(value: Double) {
+        songProcessor.moogLadder?.resonance = value
     }
-    @IBAction func updateMix(_ sender: UISlider) {
-        songProcessor.filterMixer?.balance = Double(sender.value)
+    
+    func updateMix(value: Double) {
+        songProcessor.filterMixer?.balance  = value
     }
 }
