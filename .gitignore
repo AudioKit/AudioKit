@@ -1,5 +1,6 @@
 # xcode noise
 build/
+DerivedData/
 *.pyc
 *~.nib/
 *.pbxuser
