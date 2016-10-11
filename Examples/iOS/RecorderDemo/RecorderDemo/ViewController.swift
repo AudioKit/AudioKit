@@ -181,16 +181,7 @@ class ViewController: UIViewController {
         //try? player?.replaceFile((recorder?.audioFile)!)
         setupUIForRecording()
     }
-    /*
-     @IBAction func resonSliderChanged(sender: UISlider) {
-     moogLadder?.resonance = Double(sender.value)
-     resonLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder!.resonance))"
-     }
-     @IBAction func freqSliderChanged(sender: UISlider) {
-     moogLadder?.cutoffFrequency = Double(sender.value)
-     freqLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder!.cutoffFrequency))"
-     }
-     */
+
     func updateFrequency(value: Double) {
         moogLadder!.cutoffFrequency = value
         frequencySlider.property = "Frequency"
