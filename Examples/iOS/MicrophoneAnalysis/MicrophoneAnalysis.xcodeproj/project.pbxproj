@@ -124,7 +124,6 @@
 				TargetAttributes = {
 					789CA9B11D0A01F500D6EFF1 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = W22K9JG3J6;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -287,7 +286,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -302,7 +301,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

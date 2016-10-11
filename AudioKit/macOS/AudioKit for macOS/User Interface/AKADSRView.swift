@@ -11,7 +11,6 @@ public typealias ADSRCallback = (Double, Double, Double, Double)->()
 
 public class AKADSRView: NSView {
 
-    var node: AKNode
     public var attackDuration = 0.1
     public var decayDuration = 0.1
     public var sustainLevel = 0.1
@@ -84,8 +83,7 @@ public class AKADSRView: NSView {
     }
 
 
-    public init(node: AKNode, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150), callback: @escaping ADSRCallback) {
-        self.node = node
+    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150), callback: @escaping ADSRCallback) {
         self.callback = callback
         super.init(frame: frame)
     }

@@ -25,7 +25,11 @@ class Conductor {
     var mixer = AKMixer()
     var pumper: AKCompressor?
     
-    var currentTempo = 110.0
+    var currentTempo = 110.0 {
+        didSet {
+            sequence.setTempo(currentTempo)
+        }
+    }
     
     let scale1: [Int] = [0, 2, 4, 7, 9]
     let scale2: [Int] = [0, 3, 5, 7, 10]
@@ -68,10 +72,12 @@ class Conductor {
         
         AudioKit.output = pumper
         AudioKit.start()
-        
+    }
+    
+    func setupTracks() {
         let _ = sequence.newTrack()
         sequence.setLength(sequenceLength)
-        sequence.tracks[Sequence.melody.rawValue].setMIDIOutput((melodicSound?.midiIn)!)
+        sequence.tracks[Sequence.melody.rawValue].setMIDIOutput(melodicSound!.midiIn)
         generateNewMelodicSequence(minor: false)
         
         let _ = sequence.newTrack()
@@ -90,6 +96,7 @@ class Conductor {
         sequence.setTempo(100)
         sequence.play()
     }
+
     func generateNewMelodicSequence(_ stepSize: Float = 1/8, minor: Bool = false, clear: Bool = true) {
         if (clear) { sequence.tracks[Sequence.melody.rawValue].clear() }
         sequence.setLength(sequenceLength)
@@ -116,7 +123,7 @@ class Conductor {
         }
         sequence.setLength(sequenceLength)
     }
-    
+
     func generateBassDrumSequence(_ stepSize: Float = 1, clear: Bool = true) {
         if (clear) { sequence.tracks[Sequence.bassDrum.rawValue].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats)/stepSize)
@@ -174,13 +181,13 @@ class Conductor {
         sequence.tracks[typeOfSequence.rawValue].clear()
     }
     
-    func increaseTempo() {
-        currentTempo += 1.0
-        sequence.setTempo(currentTempo)
-    }
-    
-    func decreaseTempo() {
-        currentTempo -= 1.0
-        sequence.setTempo(currentTempo)
-    }
+//    func increaseTempo() {
+//        currentTempo += 1.0
+//        sequence.setTempo(currentTempo)
+//    }
+//    
+//    func decreaseTempo() {
+//        currentTempo -= 1.0
+//        sequence.setTempo(currentTempo)
+//    }
 }

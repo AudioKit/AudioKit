@@ -1,9 +1,11 @@
 // Xcode settings for building frameworks suitable for distribution
 // Simulator slices do not need Bitcode
 
-ENABLE_BITCODE = NO
+ENABLE_BITCODE = YES
 IPHONEOS_DEPLOYMENT_TARGET = 9.0
 
+// ARCHS = x86_64
 ONLY_ACTIVE_ARCH = NO
+
 CODE_SIGNING_REQUIRED = NO
 CODE_SIGN_IDENTITY =

@@ -193,3 +193,9 @@ int plumber_create_var(plumber_data *pd, char *name, SPFLOAT **var)
     *var = ptr;
     return PLUMBER_OK;
 }
+
+int plumber_set_var(plumber_data *pd, char *name, SPFLOAT **var)
+{
+    plumber_ftmap_add_userdata(pd, name, var);
+    return PLUMBER_OK;
+}
