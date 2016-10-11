@@ -94,6 +94,12 @@ public protocol AKKeyboardDelegate {
     // MARK: - Drawing
     
     override open func draw(_ rect: CGRect) {
+        
+        let width = Int(self.frame.width)
+        let height = Int(self.frame.height)
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        
+        
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(i)
         }
@@ -110,6 +116,11 @@ public protocol AKKeyboardDelegate {
     }
     
     func drawOctaveCanvas(_ octaveNumber: Int) {
+        
+        let width = Int(self.frame.width)
+        let height = Int(self.frame.height)
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        
         //// background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: 0 + oneOctaveSize.width * CGFloat(octaveNumber), y: 0, width: oneOctaveSize.width, height: oneOctaveSize.height))
         UIColor.black.setFill()
