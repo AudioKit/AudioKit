@@ -36,7 +36,7 @@
 		78D63E311D0FCDA300C53875 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78D63E341D0FCDA300C53875 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		78D63E361D0FCDA300C53875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C446B4091D455764000AEFCA /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C446B4091D455764000AEFCA /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +76,7 @@
 				78D63E311D0FCDA300C53875 /* Assets.xcassets */,
 				78D63E331D0FCDA300C53875 /* Main.storyboard */,
 				78D63E361D0FCDA300C53875 /* Info.plist */,
+				C446B4091D455764000AEFCA /* AudioKit.framework */,
 			);
 			path = MicrophoneAnalysis;
 			sourceTree = "<group>";
@@ -83,7 +84,6 @@
 		78D63E471D0FCF6700C53875 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C446B4091D455764000AEFCA /* AudioKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
