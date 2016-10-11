@@ -51,6 +51,9 @@ extension MIDIPacket: Sequence {
                     
                 case .systemCommand:
                     break
+                    
+                default:
+                    break
                 }
                 
                 if mstat == .noteOn && data2 == 0 {

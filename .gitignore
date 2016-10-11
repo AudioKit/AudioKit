@@ -1,5 +1,6 @@
 # xcode noise
 build/
+DerivedData/
 *.pyc
 *~.nib/
 *.pbxuser
@@ -11,6 +12,10 @@ build/
 project.xcworkspace/
 xcuserdata/
 xcodebuild
+
+# Cocoapods
+Pods/
+Podfile.lock
 
 # osx noise
 .DS_Store
