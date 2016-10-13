@@ -22,7 +22,7 @@ extension SynthViewController {
         guard let url = URL(string: url) else {
             return
         }
-        UIApplication.shared.openURL(url)
+        UIApplication.shared.open(url)
     }
 
     func cutoffFreqFromValue(_ value: Double) -> Double {

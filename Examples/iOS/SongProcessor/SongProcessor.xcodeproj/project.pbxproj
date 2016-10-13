@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C42C1F001D23B0550020D550 /* SongExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1EFF1D23B0550020D550 /* SongExporter.swift */; };
-		C474B4F41D8CC1EA00A33E67 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C474B4F31D8CC1EA00A33E67 /* AudioToolbox.framework */; };
 		C47AC62F1D5E70350005E485 /* mixloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C47AC62E1D5E70350005E485 /* mixloop.wav */; };
+		C4981E171DACC8CB007C8E7A /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4981E151DACC8BF007C8E7A /* AudioKit.framework */; };
+		C4981E181DACC8CB007C8E7A /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4981E151DACC8BF007C8E7A /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C49A09F31D50A4FA007D8ADB /* bassloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09EF1D50A4FA007D8ADB /* bassloop.wav */; };
 		C49A09F41D50A4FA007D8ADB /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F01D50A4FA007D8ADB /* drumloop.wav */; };
 		C49A09F51D50A4FA007D8ADB /* guitarloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F11D50A4FA007D8ADB /* guitarloop.wav */; };
@@ -27,18 +28,18 @@
 		C4CB57751D1AFC7300479598 /* SongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57741D1AFC7300479598 /* SongsViewController.swift */; };
 		C4CB57771D1AFC8200479598 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57761D1AFC8200479598 /* SongViewController.swift */; };
 		C4CB57841D1AFCFE00479598 /* SongProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57831D1AFCFE00479598 /* SongProcessor.swift */; };
-		C4CB57951D1B190600479598 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CB57931D1B18F700479598 /* AudioKit.framework */; };
-		C4CB57961D1B190600479598 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4CB57931D1B18F700479598 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4D4449E1DA9231B009B6AF6 /* EffectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4449D1DA9231B009B6AF6 /* EffectsViewController.swift */; };
+		C4D444BA1DAAB223009B6AF6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D444B91DAAB223009B6AF6 /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C4CB57921D1AFE1F00479598 /* Embed Frameworks */ = {
+		C4D444B71DAAB218009B6AF6 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C4CB57961D1B190600479598 /* AudioKit.framework in Embed Frameworks */,
+				C4981E181DACC8CB007C8E7A /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,8 +49,8 @@
 /* Begin PBXFileReference section */
 		C42C1EFF1D23B0550020D550 /* SongExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongExporter.swift; sourceTree = "<group>"; };
 		C474B4F11D8CC1E900A33E67 /* SongProcessor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SongProcessor.entitlements; sourceTree = "<group>"; };
-		C474B4F31D8CC1EA00A33E67 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C47AC62E1D5E70350005E485 /* mixloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = mixloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/mixloop.wav; sourceTree = "<group>"; };
+		C4981E151DACC8BF007C8E7A /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C49A09EF1D50A4FA007D8ADB /* bassloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bassloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/bassloop.wav; sourceTree = "<group>"; };
 		C49A09F01D50A4FA007D8ADB /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/drumloop.wav; sourceTree = "<group>"; };
 		C49A09F11D50A4FA007D8ADB /* guitarloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = guitarloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/guitarloop.wav; sourceTree = "<group>"; };
@@ -69,7 +70,8 @@
 		C4CB57741D1AFC7300479598 /* SongsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongsViewController.swift; path = "View Controllers/iTunes Library Access/SongsViewController.swift"; sourceTree = "<group>"; };
 		C4CB57761D1AFC8200479598 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongViewController.swift; path = "View Controllers/iTunes Library Access/SongViewController.swift"; sourceTree = "<group>"; };
 		C4CB57831D1AFCFE00479598 /* SongProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongProcessor.swift; sourceTree = "<group>"; };
-		C4CB57931D1B18F700479598 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C4D4449D1DA9231B009B6AF6 /* EffectsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EffectsViewController.swift; path = "View Controllers/EffectsViewController.swift"; sourceTree = "<group>"; };
+		C4D444B91DAAB223009B6AF6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,29 +79,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4CB57951D1B190600479598 /* AudioKit.framework in Frameworks */,
-				C474B4F41D8CC1EA00A33E67 /* AudioToolbox.framework in Frameworks */,
+				C4981E171DACC8CB007C8E7A /* AudioKit.framework in Frameworks */,
+				C4D444BA1DAAB223009B6AF6 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C474B4F21D8CC1EA00A33E67 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C474B4F31D8CC1EA00A33E67 /* AudioToolbox.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		C4CB57471D1AFB1500479598 = {
 			isa = PBXGroup;
 			children = (
-				C4CB57931D1B18F700479598 /* AudioKit.framework */,
+				C4981E151DACC8BF007C8E7A /* AudioKit.framework */,
 				C4CB57521D1AFB1500479598 /* SongProcessor */,
 				C4CB57511D1AFB1500479598 /* Products */,
-				C474B4F21D8CC1EA00A33E67 /* Frameworks */,
+				C4D444B81DAAB223009B6AF6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +125,7 @@
 		C4CB57681D1AFB9500479598 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4D4449D1DA9231B009B6AF6 /* EffectsViewController.swift */,
 				C4CB576F1D1AFC1700479598 /* iTunes Library Access */,
 				C4CB57661D1AFB8F00479598 /* LoopsViewController.swift */,
 				C4CB57691D1AFBCB00479598 /* MoogLadderViewController.swift */,
@@ -163,6 +158,14 @@
 			name = Loops;
 			sourceTree = "<group>";
 		};
+		C4D444B81DAAB223009B6AF6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4D444B91DAAB223009B6AF6 /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -173,7 +176,7 @@
 				C4CB574C1D1AFB1500479598 /* Sources */,
 				C4CB574D1D1AFB1500479598 /* Frameworks */,
 				C4CB574E1D1AFB1500479598 /* Resources */,
-				C4CB57921D1AFE1F00479598 /* Embed Frameworks */,
+				C4D444B71DAAB218009B6AF6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,7 +200,7 @@
 					C4CB574F1D1AFB1500479598 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -255,6 +258,7 @@
 				C4CB57841D1AFCFE00479598 /* SongProcessor.swift in Sources */,
 				C4CB57751D1AFC7300479598 /* SongsViewController.swift in Sources */,
 				C4CB57671D1AFB8F00479598 /* LoopsViewController.swift in Sources */,
+				C4D4449E1DA9231B009B6AF6 /* EffectsViewController.swift in Sources */,
 				C4CB576E1D1AFC0300479598 /* VariableDelayViewController.swift in Sources */,
 				C4CB576A1D1AFBCB00479598 /* MoogLadderViewController.swift in Sources */,
 				C4CB57541D1AFB1500479598 /* AppDelegate.swift in Sources */,
@@ -379,17 +383,22 @@
 		C4CB57631D1AFB1500479598 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = SongProcessor/SongProcessor.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"../../../Frameworks/AudioKit-iOS",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SongProcessor/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SongProcessor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -397,14 +406,17 @@
 		C4CB57641D1AFB1500479598 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = SongProcessor/SongProcessor.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"../../../Frameworks/AudioKit-iOS",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SongProcessor/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SongProcessor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
