@@ -72,10 +72,12 @@ class Conductor {
         
         AudioKit.output = pumper
         AudioKit.start()
-        
+    }
+    
+    func setupTracks() {
         let _ = sequence.newTrack()
         sequence.setLength(sequenceLength)
-        sequence.tracks[Sequence.melody.rawValue].setMIDIOutput((melodicSound?.midiIn)!)
+        sequence.tracks[Sequence.melody.rawValue].setMIDIOutput(melodicSound!.midiIn)
         generateNewMelodicSequence(minor: false)
         
         let _ = sequence.newTrack()

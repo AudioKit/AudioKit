@@ -23,6 +23,7 @@ class SongProcessor {
     var filterMixer: AKDryWetMixer?
     var reverb: AKCostelloReverb?
     var reverbMixer: AKDryWetMixer?
+    var playerBooster: AKBooster?
     
     var currentSong: MPMediaItem?
     var isPlaying: Bool?
@@ -39,7 +40,8 @@ class SongProcessor {
         filterMixer = AKDryWetMixer(delayMixer!, moogLadder!, balance: 0)
         reverb = AKCostelloReverb(filterMixer!)
         reverbMixer = AKDryWetMixer(filterMixer!, reverb!, balance: 0)
-        AudioKit.output = reverbMixer
+        playerBooster = AKBooster(reverbMixer!, gain: 0.5)
+        AudioKit.output = playerBooster
         AudioKit.start()
     }
     

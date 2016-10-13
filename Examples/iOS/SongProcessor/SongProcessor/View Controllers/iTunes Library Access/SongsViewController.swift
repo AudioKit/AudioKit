@@ -63,7 +63,7 @@ class SongsViewController: UITableViewController {
         let seconds = ((song.value(forProperty: MPMediaItemPropertyPlaybackDuration)! as AnyObject).floatValue).truncatingRemainder(dividingBy: 60)
         
         cell.textLabel?.text = songTitle
-        cell.detailTextLabel?.text = String(format: "%d:%02d", minutes, seconds)
+        cell.detailTextLabel?.text = String(format: "%.0f:%02.0f", minutes, seconds)
         
         return cell
     }

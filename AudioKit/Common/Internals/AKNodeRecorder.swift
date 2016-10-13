@@ -11,7 +11,7 @@ import Foundation
 import AVFoundation
 
 /// Simple audio recorder class
-open class AKNodeRecorder {
+@objc open class AKNodeRecorder: NSObject {
 
     // MARK: - Properties
 

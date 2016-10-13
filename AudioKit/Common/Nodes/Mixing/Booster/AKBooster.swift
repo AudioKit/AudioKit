@@ -74,7 +74,7 @@ open class AKBooster: AKNode, AKToggleable {
     ///
     public init(
         _ input: AKNode,
-        gain: Double = 0) {
+        gain: Double = 1) {
 
         self.gain = gain
 
