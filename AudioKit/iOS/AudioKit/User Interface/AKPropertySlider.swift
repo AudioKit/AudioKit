@@ -8,8 +8,10 @@
 
 import Foundation
 
+/// Simple slider interface for AudioKit properties
 @IBDesignable open class AKPropertySlider: UIView {
     
+    /// Current value of the slider
     @IBInspectable open var value: Double = 0 {
         didSet {
             setNeedsDisplay()
