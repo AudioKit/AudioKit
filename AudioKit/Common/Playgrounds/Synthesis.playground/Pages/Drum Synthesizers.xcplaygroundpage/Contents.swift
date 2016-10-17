@@ -12,7 +12,7 @@ var reverb = AKReverb(mix)
 
 AudioKit.output = reverb
 AudioKit.start()
-reverb.loadFactoryPreset(.MediumRoom)
+reverb.loadFactoryPreset(.mediumRoom)
 
 //: Generate a cheap electro beat
 var counter = 0
@@ -20,7 +20,7 @@ AKPlaygroundLoop(frequency: 4.44) {
 
     let onFirstBeat = counter == 0
     let everyOtherBeat = counter % 4 == 2
-    let randomHit = (0...3).randomElement() == 0
+    let randomHit = [0,1,2,3].randomElement() == 0
 
     if onFirstBeat || randomHit {
         kick.play(noteNumber:60, velocity: 100)
@@ -28,8 +28,8 @@ AKPlaygroundLoop(frequency: 4.44) {
     }
 
     if everyOtherBeat {
-        let velocity = (1...100).randomElement()
-        snare.play(noteNumber:60, velocity: velocity)
+        let velocity = (0..<127).randomElement()
+        snare.play(noteNumber:60, velocity: velocity * 12)
         snare.stop(noteNumber:60)
     }
     counter += 1
