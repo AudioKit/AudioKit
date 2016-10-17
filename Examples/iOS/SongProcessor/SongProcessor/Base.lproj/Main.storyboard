@@ -314,6 +314,7 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                         <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="format" value="%0.3f Semitones"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -327,6 +328,7 @@
                             <constraint firstItem="0HI-5N-MIN" firstAttribute="leading" secondItem="u8R-sk-Ik1" secondAttribute="leading" id="x0A-WY-iov"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Pitch Shifter" id="VPD-hj-0JE"/>
                     <connections>
                         <outlet property="mixSlider" destination="0HI-5N-MIN" id="ZZd-3T-jb4"/>
                         <outlet property="pitchSlider" destination="gqL-kD-oCX" id="wve-8T-m5L"/>

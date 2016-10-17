@@ -19,6 +19,9 @@ class PitchShifterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pitchSlider.minimum = -24
+        pitchSlider.maximum = 24
+        
         if let pitch = songProcessor.pitchShifter?.shift {
             pitchSlider.value = pitch
         }
