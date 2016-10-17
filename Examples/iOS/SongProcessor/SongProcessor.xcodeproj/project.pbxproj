@@ -30,6 +30,7 @@
 		C4CB57841D1AFCFE00479598 /* SongProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57831D1AFCFE00479598 /* SongProcessor.swift */; };
 		C4D4449E1DA9231B009B6AF6 /* EffectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4449D1DA9231B009B6AF6 /* EffectsViewController.swift */; };
 		C4D444BA1DAAB223009B6AF6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D444B91DAAB223009B6AF6 /* AudioToolbox.framework */; };
+		C4FB84BA1DB563D800B68B3D /* PitchShifterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FB84B91DB563D800B68B3D /* PitchShifterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,6 +73,7 @@
 		C4CB57831D1AFCFE00479598 /* SongProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongProcessor.swift; sourceTree = "<group>"; };
 		C4D4449D1DA9231B009B6AF6 /* EffectsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EffectsViewController.swift; path = "View Controllers/EffectsViewController.swift"; sourceTree = "<group>"; };
 		C4D444B91DAAB223009B6AF6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C4FB84B91DB563D800B68B3D /* PitchShifterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PitchShifterViewController.swift; path = "View Controllers/PitchShifterViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				C4CB57691D1AFBCB00479598 /* MoogLadderViewController.swift */,
 				C4CB576B1D1AFBEB00479598 /* CostelloReverbViewController.swift */,
 				C4CB576D1D1AFC0300479598 /* VariableDelayViewController.swift */,
+				C4FB84B91DB563D800B68B3D /* PitchShifterViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4FB84BA1DB563D800B68B3D /* PitchShifterViewController.swift in Sources */,
 				C4CB57711D1AFC5200479598 /* AlbumsViewController.swift in Sources */,
 				C42C1F001D23B0550020D550 /* SongExporter.swift in Sources */,
 				C4CB57841D1AFCFE00479598 /* SongProcessor.swift in Sources */,
