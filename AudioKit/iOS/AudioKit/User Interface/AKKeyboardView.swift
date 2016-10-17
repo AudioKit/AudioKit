@@ -18,6 +18,7 @@ public protocol AKKeyboardDelegate {
     @IBInspectable open var octaveCount: Int = 2
     @IBInspectable open var firstOctave: Int = 4
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
+    @IBInspectable open var polyphonicButton: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
     @IBInspectable open var  whiteKeyOff: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     @IBInspectable open var  blackKeyOff: UIColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -94,6 +95,12 @@ public protocol AKKeyboardDelegate {
     // MARK: - Drawing
     
     override open func draw(_ rect: CGRect) {
+        
+        let width = Int(self.frame.width)
+        let height = Int(self.frame.height)
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        
+        
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(i)
         }
@@ -110,6 +117,11 @@ public protocol AKKeyboardDelegate {
     }
     
     func drawOctaveCanvas(_ octaveNumber: Int) {
+        
+        let width = Int(self.frame.width)
+        let height = Int(self.frame.height)
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        
         //// background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: 0 + oneOctaveSize.width * CGFloat(octaveNumber), y: 0, width: oneOctaveSize.width, height: oneOctaveSize.height))
         UIColor.black.setFill()
