@@ -338,6 +338,102 @@
             </objects>
             <point key="canvasLocation" x="425" y="627"/>
         </scene>
+        <!--Bit Crusher-->
+        <scene sceneID="Erp-Ui-LfL">
+            <objects>
+                <viewController id="8mn-zR-LTO" customClass="BitCrusherViewController" customModule="SongProcessor" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Nw-oM-Stb"/>
+                        <viewControllerLayoutGuide type="bottom" id="eo1-c5-OBT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bGJ-Lz-du3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYu-AE-gG8" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.58762145040000002" green="0.86256819959999997" blue="0.67709666489999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="eFf-dg-FXs"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="r7O-QF-FlZ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Bit Depth"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.49299604609999997" green="0.72509512409999999" blue="0.5702453529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gwb-Nf-wja" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.37143704300000002" green="0.70446354150000001" blue="0.61085367199999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="5Z2-Lc-mkT"/>
+                                    <constraint firstAttribute="height" constant="90" id="Et1-8d-aji"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Sample Rate"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.26095715019999999" green="0.5" blue="0.43840177419999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="format" value="%0.1f Hz"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jau-0A-8uu" customClass="AKPropertySlider" customModule="AudioKit">
+                                <color key="backgroundColor" red="0.33556698619999997" green="0.3438783091" blue="0.71088274510000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="Z3O-T0-Hum"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="ouk-HU-ZPT"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Mix"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.25318011639999999" green="0.25881332159999998" blue="0.53295999770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Gwb-Nf-wja" firstAttribute="leading" secondItem="bGJ-Lz-du3" secondAttribute="leading" id="KKg-Ah-EtG"/>
+                            <constraint firstAttribute="trailing" secondItem="BYu-AE-gG8" secondAttribute="trailing" id="TAD-t0-B5R"/>
+                            <constraint firstItem="jau-0A-8uu" firstAttribute="leading" secondItem="bGJ-Lz-du3" secondAttribute="leading" id="bcE-Sz-b2J"/>
+                            <constraint firstAttribute="trailing" secondItem="jau-0A-8uu" secondAttribute="trailing" id="eec-wU-bTK"/>
+                            <constraint firstAttribute="trailing" secondItem="Gwb-Nf-wja" secondAttribute="trailing" id="gYt-fN-kKO"/>
+                            <constraint firstItem="Gwb-Nf-wja" firstAttribute="top" secondItem="BYu-AE-gG8" secondAttribute="bottom" constant="76" id="l0C-mW-elF"/>
+                            <constraint firstItem="BYu-AE-gG8" firstAttribute="top" secondItem="6Nw-oM-Stb" secondAttribute="bottom" constant="55" id="mbV-cU-idP"/>
+                            <constraint firstItem="BYu-AE-gG8" firstAttribute="leading" secondItem="bGJ-Lz-du3" secondAttribute="leading" id="qDX-Z5-kYk"/>
+                            <constraint firstItem="Gwb-Nf-wja" firstAttribute="top" secondItem="BYu-AE-gG8" secondAttribute="bottom" constant="76" id="vuz-Y5-0NK"/>
+                            <constraint firstItem="jau-0A-8uu" firstAttribute="top" secondItem="Gwb-Nf-wja" secondAttribute="bottom" constant="76" id="x6F-ey-Lz3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Bit Crusher" id="Idf-Jd-QHK"/>
+                    <connections>
+                        <outlet property="bitDepthSlider" destination="BYu-AE-gG8" id="yJJ-rR-5sT"/>
+                        <outlet property="mixSlider" destination="jau-0A-8uu" id="m3G-c1-mnx"/>
+                        <outlet property="sampleRateSlider" destination="Gwb-Nf-wja" id="jhs-Vk-YyU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pam-2Q-5ny" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1170" y="627"/>
+        </scene>
         <!--Variable Delay-->
         <scene sceneID="64h-4u-zMr">
             <objects>
@@ -612,6 +708,19 @@
                                 </state>
                                 <connections>
                                     <segue destination="pBP-rr-VSV" kind="show" id="pIE-E5-Yje"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWS-Pq-g6h">
+                                <frame key="frameInset" minY="262" width="375" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.37143704300000002" green="0.70446354150000001" blue="0.61085367199999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="Bit Crusher">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="8mn-zR-LTO" kind="show" id="o1I-D6-7Am"/>
                                 </connections>
                             </button>
                         </subviews>
