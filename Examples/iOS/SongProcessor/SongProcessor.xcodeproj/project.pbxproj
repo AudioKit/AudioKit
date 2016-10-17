@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40244491DB56A0500617B38 /* BitCrusherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40244481DB56A0500617B38 /* BitCrusherViewController.swift */; };
 		C42C1F001D23B0550020D550 /* SongExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1EFF1D23B0550020D550 /* SongExporter.swift */; };
 		C47AC62F1D5E70350005E485 /* mixloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C47AC62E1D5E70350005E485 /* mixloop.wav */; };
 		C4981E171DACC8CB007C8E7A /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4981E151DACC8BF007C8E7A /* AudioKit.framework */; };
@@ -48,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C40244481DB56A0500617B38 /* BitCrusherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BitCrusherViewController.swift; path = "View Controllers/BitCrusherViewController.swift"; sourceTree = "<group>"; };
 		C42C1EFF1D23B0550020D550 /* SongExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongExporter.swift; sourceTree = "<group>"; };
 		C474B4F11D8CC1E900A33E67 /* SongProcessor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SongProcessor.entitlements; sourceTree = "<group>"; };
 		C47AC62E1D5E70350005E485 /* mixloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = mixloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/mixloop.wav; sourceTree = "<group>"; };
@@ -89,6 +91,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C402444A1DB56A2400617B38 /* Effect Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C4CB57691D1AFBCB00479598 /* MoogLadderViewController.swift */,
+				C4CB576B1D1AFBEB00479598 /* CostelloReverbViewController.swift */,
+				C4CB576D1D1AFC0300479598 /* VariableDelayViewController.swift */,
+				C4FB84B91DB563D800B68B3D /* PitchShifterViewController.swift */,
+				C40244481DB56A0500617B38 /* BitCrusherViewController.swift */,
+			);
+			name = "Effect Controllers";
+			sourceTree = "<group>";
+		};
 		C4CB57471D1AFB1500479598 = {
 			isa = PBXGroup;
 			children = (
@@ -127,13 +141,10 @@
 		C4CB57681D1AFB9500479598 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C402444A1DB56A2400617B38 /* Effect Controllers */,
 				C4D4449D1DA9231B009B6AF6 /* EffectsViewController.swift */,
 				C4CB576F1D1AFC1700479598 /* iTunes Library Access */,
 				C4CB57661D1AFB8F00479598 /* LoopsViewController.swift */,
-				C4CB57691D1AFBCB00479598 /* MoogLadderViewController.swift */,
-				C4CB576B1D1AFBEB00479598 /* CostelloReverbViewController.swift */,
-				C4CB576D1D1AFC0300479598 /* VariableDelayViewController.swift */,
-				C4FB84B91DB563D800B68B3D /* PitchShifterViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -263,6 +274,7 @@
 				C4CB57751D1AFC7300479598 /* SongsViewController.swift in Sources */,
 				C4CB57671D1AFB8F00479598 /* LoopsViewController.swift in Sources */,
 				C4D4449E1DA9231B009B6AF6 /* EffectsViewController.swift in Sources */,
+				C40244491DB56A0500617B38 /* BitCrusherViewController.swift in Sources */,
 				C4CB576E1D1AFC0300479598 /* VariableDelayViewController.swift in Sources */,
 				C4CB576A1D1AFBCB00479598 /* MoogLadderViewController.swift in Sources */,
 				C4CB57541D1AFB1500479598 /* AppDelegate.swift in Sources */,

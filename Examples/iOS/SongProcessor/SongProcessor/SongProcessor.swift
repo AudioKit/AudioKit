@@ -25,6 +25,8 @@ class SongProcessor {
     var reverbMixer: AKDryWetMixer?
     var pitchShifter: AKPitchShifter?
     var pitchMixer: AKDryWetMixer?
+    var bitCrusher: AKBitCrusher?
+    var bitCrushMixer: AKDryWetMixer?
     var playerBooster: AKBooster?
     
     var currentSong: MPMediaItem?
@@ -37,15 +39,13 @@ class SongProcessor {
         audioFilePlayer?.looping = true
         
         startVariableDelay()
-
         startMoogLadder()
-        
         startCostelloReverb()
-        
         startPitchShifting()
+        startBitCrushing()
         
         //Booster for Volume
-        playerBooster = AKBooster(pitchMixer!, gain: 0.5)
+        playerBooster = AKBooster(bitCrushMixer!, gain: 0.5)
         
         AudioKit.output = playerBooster
         AudioKit.start()
@@ -71,6 +71,13 @@ class SongProcessor {
     func startPitchShifting() {
         pitchShifter = AKPitchShifter(reverbMixer!)
         pitchMixer = AKDryWetMixer(reverbMixer!, pitchShifter!, balance: 0)
+    }
+    
+    func startBitCrushing() {
+        bitCrusher = AKBitCrusher(pitchMixer!)
+        bitCrusher?.bitDepth = 16
+        bitCrusher?.sampleRate = 3333
+        bitCrushMixer = AKDryWetMixer(pitchMixer!, bitCrusher!, balance: 0)
     }
     
 }
