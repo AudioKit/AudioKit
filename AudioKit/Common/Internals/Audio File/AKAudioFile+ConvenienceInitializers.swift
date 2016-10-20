@@ -22,7 +22,6 @@ extension AKAudioFile {
                                          baseDir: BaseDirectory = .resources) throws {
         
         let filePath: String
-        let fileNameWithExtension = name
         
         switch baseDir {
         case .temp:
