@@ -100,7 +100,7 @@ class SongViewController: UIViewController {
         
         songProcessor.audioFile = try? AKAudioFile(readFileName: "exported.wav", baseDir: .documents)
         
-        let _ = try? songProcessor.audioFilePlayer?.replaceFile(songProcessor.audioFile!)
+        let _ = try? songProcessor.audioFilePlayer?.replace(file: songProcessor.audioFile!)
         
     }
     
