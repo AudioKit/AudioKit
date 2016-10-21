@@ -64,7 +64,7 @@ class Audiobus {
                 let manufacturer = fourCC(component["manufacturer"] as! String)
                 
                 if type == kAudioUnitType_RemoteInstrument ||
-                    type == kAudioUnitType_MusicDevice {
+                    type == kAudioUnitType_RemoteGenerator {
                     self.controller.addSenderPort(
                         ABSenderPort(
                             name: name,
