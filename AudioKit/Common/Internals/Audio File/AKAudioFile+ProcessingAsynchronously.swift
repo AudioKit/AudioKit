@@ -125,11 +125,10 @@ extension AKAudioFile {
     ///   - newMaxLevel: max level targeted as a Float value (default if 0 dB)
     ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
     ///
-    public func normalizeAsynchronously(
-        _ baseDir: BaseDirectory = .temp,
-        name: String = "",
-        newMaxLevel: Float = 0.0,
-        completionHandler: @escaping AsyncProcessCallback) {
+    public func normalizeAsynchronously(baseDir: BaseDirectory = .temp,
+                                        name: String = "",
+                                        newMaxLevel: Float = 0.0,
+                                        completionHandler: @escaping AsyncProcessCallback) {
 
         ProcessFactory.sharedInstance.queueNormalizeAsyncProcess(sourceFile: self,
                                                                  baseDir: baseDir,
@@ -166,8 +165,8 @@ extension AKAudioFile {
     ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func reverseAsynchronously(baseDir: BaseDirectory = .temp,
-                                              name: String = "",
-                                              completionHandler: @escaping AsyncProcessCallback) {
+                                      name: String = "",
+                                      completionHandler: @escaping AsyncProcessCallback) {
 
         ProcessFactory.sharedInstance.queueReverseAsyncProcess(
             sourceFile: self,
@@ -206,9 +205,9 @@ extension AKAudioFile {
     ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func appendAsynchronously(file: AKAudioFile,
-                                          baseDir: BaseDirectory = .temp,
-                                          name: String = "",
-                                          completionHandler: @escaping AsyncProcessCallback) {
+                                     baseDir: BaseDirectory = .temp,
+                                     name: String = "",
+                                     completionHandler: @escaping AsyncProcessCallback) {
 
         ProcessFactory.sharedInstance.queueAppendAsyncProcess(
             sourceFile: self,
@@ -250,10 +249,10 @@ extension AKAudioFile {
     ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func extractAsynchronously(fromSample: Int64 = 0,
-                                                 toSample: Int64 = 0,
-                                                 baseDir: BaseDirectory = .temp,
-                                                 name: String = "",
-                                                 completionHandler: @escaping AsyncProcessCallback) {
+                                      toSample: Int64 = 0,
+                                      baseDir: BaseDirectory = .temp,
+                                      name: String = "",
+                                      completionHandler: @escaping AsyncProcessCallback) {
 
         ProcessFactory.sharedInstance.queueExtractAsyncProcess(
             sourceFile: self,
@@ -290,14 +289,14 @@ extension AKAudioFile {
     ///   - toSample: end range time in samples
     ///   - callback: AsyncProcessCallback function that will be triggered when export completed.
     ///
-    public func exportAsynchronously (name: String,
-                                           baseDir: BaseDirectory,
-                                           exportFormat: ExportFormat,
-                                           fromSample: Int64 = 0,
-                                           toSample: Int64 = 0,
-                                           callback: @escaping AsyncProcessCallback) {
+    public func exportAsynchronously(name: String,
+                                     baseDir: BaseDirectory,
+                                     exportFormat: ExportFormat,
+                                     fromSample: Int64 = 0,
+                                     toSample: Int64 = 0,
+                                     callback: @escaping AsyncProcessCallback) {
         let fromFileExt = fileExt.lowercased()
-
+        
         // Only mp4, m4a, .wav, .aif can be exported...
         guard ExportFormat.arrayOfStrings.contains(fromFileExt) else {
             print( "ERROR: AKAudioFile \".\(fromFileExt)\" is not supported for export!...")
@@ -329,11 +328,7 @@ extension AKAudioFile {
             }
         }
 
-
-
-        let assetUrl = url
-        let asset  = AVURLAsset(url: assetUrl)
-
+        let asset = AVURLAsset(url: url)
         if let internalExportSession = AVAssetExportSession(asset: asset, presetName: avExportPreset) {
             print("internalExportSession session created")
 
@@ -485,9 +480,9 @@ extension AKAudioFile {
 
         // Append Reverse Process
         fileprivate func queueReverseAsyncProcess(sourceFile: AKAudioFile,
-                                                         baseDir: BaseDirectory,
-                                                         name: String,
-                                                         completionHandler: @escaping AsyncProcessCallback) {
+                                                  baseDir: BaseDirectory,
+                                                  name: String,
+                                                  completionHandler: @escaping AsyncProcessCallback) {
 
 
             let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
@@ -534,10 +529,10 @@ extension AKAudioFile {
 
         // Append Append Process
         fileprivate func queueAppendAsyncProcess(sourceFile: AKAudioFile,
-                                                        appendedFile: AKAudioFile,
-                                                        baseDir: BaseDirectory,
-                                                        name: String,
-                                                        completionHandler: @escaping AsyncProcessCallback) {
+                                                 appendedFile: AKAudioFile,
+                                                 baseDir: BaseDirectory,
+                                                 name: String,
+                                                 completionHandler: @escaping AsyncProcessCallback) {
 
 
             let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
@@ -584,11 +579,11 @@ extension AKAudioFile {
 
         // Queue extract Process
         fileprivate func queueExtractAsyncProcess(sourceFile: AKAudioFile,
-                                                         fromSample: Int64 = 0,
-                                                         toSample: Int64 = 0,
-                                                         baseDir: BaseDirectory,
-                                                         name: String,
-                                                         completionHandler: @escaping AsyncProcessCallback) {
+                                                  fromSample: Int64 = 0,
+                                                  toSample: Int64 = 0,
+                                                  baseDir: BaseDirectory,
+                                                  name: String,
+                                                  completionHandler: @escaping AsyncProcessCallback) {
 
 
             let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
@@ -653,10 +648,10 @@ extension AKAudioFile {
         fileprivate var avAssetExportSession: AVAssetExportSession
         fileprivate var idStamp: Int
         fileprivate var callback: AsyncProcessCallback
-
-
-        fileprivate init (AVAssetExportSession avAssetExportSession: AVAssetExportSession,
-                                           callback: @escaping AsyncProcessCallback) {
+        
+        
+        fileprivate init(AVAssetExportSession avAssetExportSession: AVAssetExportSession,
+                         callback: @escaping AsyncProcessCallback) {
             self.avAssetExportSession = avAssetExportSession
             self.callback = callback
             self.idStamp = ExportFactory.lastExportSessionIdStamp
