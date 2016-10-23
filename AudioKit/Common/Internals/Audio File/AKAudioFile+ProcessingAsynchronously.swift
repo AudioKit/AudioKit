@@ -308,7 +308,7 @@ extension AKAudioFile {
 
         // Compressed formats cannot be exported to PCM
         let fromFileFormatIsCompressed = (fromFileExt == "m4a" || fromFileExt == "mp4")
-        let outFileFormatIsCompressed  = (exportFormat == .mp4 || exportFormat == .m4a )
+        let outFileFormatIsCompressed  = (exportFormat == .m4a || exportFormat == .mp4 )
 
         // set avExportPreset
         var avExportPreset: String = ""
@@ -476,19 +476,15 @@ extension AKAudioFile {
             }
         }
 
-
-
         // Append Reverse Process
         fileprivate func queueReverseAsyncProcess(sourceFile: AKAudioFile,
                                                   baseDir: BaseDirectory,
                                                   name: String,
                                                   completionHandler: @escaping AsyncProcessCallback) {
 
-
             let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
             ProcessFactory.sharedInstance.lastProcessIdStamp += 1
             ProcessFactory.sharedInstance.processArray.append(processIdStamp)
-
 
             ProcessFactory.sharedInstance.processQueue.async {
                 print("AKAudioFile.ProcessFactory beginning Reversing file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processIdStamp))")
@@ -525,15 +521,12 @@ extension AKAudioFile {
             }
         }
 
-
-
         // Append Append Process
         fileprivate func queueAppendAsyncProcess(sourceFile: AKAudioFile,
                                                  appendedFile: AKAudioFile,
                                                  baseDir: BaseDirectory,
                                                  name: String,
                                                  completionHandler: @escaping AsyncProcessCallback) {
-
 
             let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
             ProcessFactory.sharedInstance.lastProcessIdStamp += 1
@@ -576,7 +569,6 @@ extension AKAudioFile {
             }
         }
 
-
         // Queue extract Process
         fileprivate func queueExtractAsyncProcess(sourceFile: AKAudioFile,
                                                   fromSample: Int64 = 0,
@@ -589,7 +581,6 @@ extension AKAudioFile {
             let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
             ProcessFactory.sharedInstance.lastProcessIdStamp += 1
             ProcessFactory.sharedInstance.processArray.append(processIdStamp)
-
 
             ProcessFactory.sharedInstance.processQueue.async {
                 print("AKAudioFile.ProcessFactory beginning Extracting from file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processIdStamp))")
@@ -628,9 +619,6 @@ extension AKAudioFile {
             }
         }
 
-
-
-
         fileprivate var queuedProcessCount: Int {
             return processArray.count
         }
@@ -638,7 +626,6 @@ extension AKAudioFile {
         fileprivate var scheduledProcessesCount: Int {
             return lastProcessIdStamp
         }
-
     }
 
     // MARK: - ExportFactory Private classes
@@ -658,7 +645,6 @@ extension AKAudioFile {
             ExportFactory.lastExportSessionIdStamp += 1
         }
     }
-
 
     // Export Factory is a singleton that handles Export Sessions serially
     fileprivate class ExportFactory {
@@ -710,7 +696,7 @@ extension AKAudioFile {
                     print("ExportFactory: All exports have been completed")
                 }
             } else {
-                print("ExportFactory: Error : sessionId:\(currentExportProcessId) doesn't exist !!")
+                print("ExportFactory: Error : sessionId:\(currentExportProcessId) doesn't exist!")
             }
         }
 
@@ -724,7 +710,7 @@ extension AKAudioFile {
                 print("ExportFactory: exporting session #\(session.idStamp)")
                 exportSessionsArray[currentExportProcessId]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
             } else {
-                print("ExportFactory: is busy !")
+                print("ExportFactory: is busy!")
                 print("ExportFactory: Queuing session #\(session.idStamp)")
             }
         }
