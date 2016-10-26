@@ -342,6 +342,10 @@ extension AKAudioFile {
                 print( "ERROR AKAudioFile export: cannot create a file in applications resources!...")
                 callback(nil,
                          NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
+            // Save in same directory as original file
+            case .custom:
+                let defaultBase: URL = url.deletingLastPathComponent()
+                filePath = defaultBase.path +  "/" + name + "." + String( describing: exportFormat )
             }
 
             let nsurl = URL(string: filePath)
