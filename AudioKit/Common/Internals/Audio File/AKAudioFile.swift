@@ -19,6 +19,7 @@ open class AKAudioFile: AVAudioFile {
     /// - Temp:      Temp Directory
     /// - Documents: Documents Directory
     /// - Resources: Resources Directory (Shouldn't be used for writing / recording files)
+    /// - Same: The same directory as the input file. This is mainly for OS X projects.
     ///
     public enum BaseDirectory {
         /// Temporary directory
@@ -29,6 +30,9 @@ open class AKAudioFile: AVAudioFile {
         
         /// Resources directory
         case resources
+        
+        /// Same directory as the input file
+        case custom
     }
     
     // MARK: - private vars
