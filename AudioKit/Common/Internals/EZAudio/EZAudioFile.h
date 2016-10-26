@@ -337,6 +337,12 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
  */
 @property (nonatomic, copy, readonly) NSURL *url;
 
+/**
+ The AudioFileID for this file
+ @return An AudioFileID that subclasses can use to derive more information about this audio file.
+ */
+@property (readonly) AudioFileID audioFileID;
+
 //------------------------------------------------------------------------------
 #pragma mark - Helpers
 //------------------------------------------------------------------------------
