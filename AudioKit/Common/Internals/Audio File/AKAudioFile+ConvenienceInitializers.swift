@@ -38,6 +38,9 @@ extension AKAudioFile {
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist, userInfo: nil)
             }
             filePath = path!
+        case .custom:
+            print( "ERROR AKAudioFile: custom creation directory not implemented yet")
+            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             
         }
         let fileUrl = URL(fileURLWithPath: filePath)
@@ -99,6 +102,9 @@ extension AKAudioFile {
             case .resources:
 
                 print( "ERROR AKAudioFile: cannot create a file in applications resources")
+                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
+            case .custom:
+                print( "ERROR AKAudioFile: custom creation directory not implemented yet")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
             
