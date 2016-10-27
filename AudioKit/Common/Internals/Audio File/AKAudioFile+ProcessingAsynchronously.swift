@@ -333,11 +333,20 @@ extension AKAudioFile {
             print("internalExportSession session created")
 
             var filePath: String = ""
+            var fileName = name
+            
+            let fileExt = String(describing: exportFormat)
+            
+            // only add the file extension if it isn't already there
+            if !fileName.hasSuffix(fileExt) {
+                fileName = fileName + "." + fileExt
+            }
+            
             switch baseDir {
             case .temp:
-                filePath = (NSTemporaryDirectory() as String) + name + "." + String(describing: exportFormat)
+                filePath = (NSTemporaryDirectory() as String) + fileName
             case .documents:
-                filePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) + "/" + name + "." + String(describing: exportFormat)
+                filePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) + "/" + fileName
             case .resources:
                 print( "ERROR AKAudioFile export: cannot create a file in applications resources!...")
                 callback(nil,
@@ -345,7 +354,7 @@ extension AKAudioFile {
             // Save in same directory as original file
             case .custom:
                 let defaultBase: URL = url.deletingLastPathComponent()
-                filePath = defaultBase.path +  "/" + name + "." + String( describing: exportFormat )
+                filePath = defaultBase.path +  "/" + fileName
             }
 
             let nsurl = URL(string: filePath)
