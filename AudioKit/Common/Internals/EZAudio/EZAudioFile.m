@@ -634,11 +634,7 @@ typedef struct
                             operation:"Failed to get the markers list"];
         
     } else {
-        // zero these out because they might have garbage in it when uninitialized
-        markers->mNumberMarkers = 0;
-        markers->mMarkers[0].mFramePosition = 0;
-        markers->mMarkers[0].mName = NULL;
-        markers->mSMPTE_TimeType = 0;
+        return NULL;
     }
     
     NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
