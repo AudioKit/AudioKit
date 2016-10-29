@@ -30,6 +30,8 @@
 #import "EZAudio.h"
 #import "EZAudioFloatConverter.h"
 #import "EZAudioFloatData.h"
+#import "EZAudioFileMarker.h"
+
 #include <pthread.h>
 
 // constants
@@ -602,6 +604,65 @@ typedef struct
     
     // cast to NSDictionary
     return (__bridge NSDictionary*)metadata;
+}
+
+//------------------------------------------------------------------------------
+
+- (NSArray *)markers
+{
+    // get size of markers property (dictionary)
+    UInt32          propSize;
+    UInt32          writable;
+    
+    [EZAudioUtilities checkResult:AudioFileGetPropertyInfo( self.audioFileID,
+                                                           kAudioFilePropertyMarkerList,
+                                                           &propSize,
+                                                           &writable)
+                        operation:"Failed to get the size of the marker list"];
+    
+    size_t length = NumBytesToNumAudioFileMarkers( propSize );
+    
+    // allocate enough space for the markers.
+    AudioFileMarkerList markers[ length ];
+    
+    if ( length > 0 ) {
+        // pull marker list
+        [EZAudioUtilities checkResult:AudioFileGetProperty( self.audioFileID,
+                                                           kAudioFilePropertyMarkerList,
+                                                           &propSize,
+                                                           &markers)
+                            operation:"Failed to get the markers list"];
+        
+    } else {
+        // zero these out because they might have garbage in it when uninitialized
+        markers->mNumberMarkers = 0;
+        markers->mMarkers[0].mFramePosition = 0;
+        markers->mMarkers[0].mName = NULL;
+        markers->mSMPTE_TimeType = 0;
+    }
+    
+    NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
+    
+    // the native C structs aren't so friendly with Swift, so we'll load up an array instead
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:markers->mNumberMarkers];
+    
+    int i;
+    for (i=0; i < markers->mNumberMarkers; i++) {
+        EZAudioFileMarker *afm = [[EZAudioFileMarker alloc] init];
+        
+        afm.framePosition = [[NSNumber alloc] initWithDouble:(markers->mMarkers[i].mFramePosition)];
+        afm.markerID = [[NSNumber alloc] initWithInt:(markers->mMarkers[i].mMarkerID)];
+        afm.type = [[NSNumber alloc] initWithInt:(markers->mMarkers[i].mType)];
+        afm.name = (__bridge NSString *)(markers->mMarkers[i].mName);
+        
+        NSLog(@"%@\n", afm.name );
+        
+        [array addObject:afm];
+    }
+    // cast to an immutable one
+    NSArray *nmArray = [array copy];
+    
+    return nmArray;
 }
 
 //------------------------------------------------------------------------------
