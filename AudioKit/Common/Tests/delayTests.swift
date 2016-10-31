@@ -23,7 +23,7 @@ class delayTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.delay(time: 0.1, feedback: 0.9)
         }
-        AKTestMD5("c57504a0a875df490adc57482825c084")
+        AKTestMD5("c26b72e6fd0e4a96edf1d8dbbbd05895")
     }
     
 }

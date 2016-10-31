@@ -15,6 +15,6 @@ class AKEqualizerFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKEqualizerFilter(input)
         input.start()
-        AKTestMD5("36ab560e2df34c8ec3946eabf5d4fccb")
+        AKTestMD5("6c24d57088b7f1208a8d308b1fe7b1ce")
     }
 }
