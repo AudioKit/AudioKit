@@ -306,6 +306,14 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 //------------------------------------------------------------------------------
 
 /**
+ A list of markers associated with the audio file. These are typically embedded within WAVE or AIFF files only.
+ @return A NSArray containing the markers in the file. Will be NULL if no markers.
+ */
+@property (readonly) NSArray *markers;
+
+//------------------------------------------------------------------------------
+
+/**
  Provides the total duration of the audio file in seconds.
  @deprecated This property is deprecated starting in version 0.3.0.
  @note Please use `duration` property instead.

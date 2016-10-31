@@ -13,6 +13,8 @@
 		8D0E46581D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E46561D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift */; };
 		8D0E46591D3827970000CCF8 /* AKAudioFile+Peripherals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E46571D3827970000CCF8 /* AKAudioFile+Peripherals.swift */; };
 		8D6C6C531D421EBB008BFA4A /* AKAudioFile+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6C6C521D421EBB008BFA4A /* AKAudioFile+Utilities.swift */; };
+		B1F47ABB1DC54DCA00706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47AB91DC54DCA00706A2F /* EZAudioFileMarker.h */; };
+		B1F47ABC1DC54DCA00706A2F /* EZAudioFileMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F47ABA1DC54DCA00706A2F /* EZAudioFileMarker.m */; };
 		C40716381D21160C00665C02 /* ADSR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40716371D21160C00665C02 /* ADSR.cpp */; };
 		C407163A1D21162900665C02 /* Twang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40716391D21162900665C02 /* Twang.cpp */; };
 		C407163C1D21164E00665C02 /* Fir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C407163B1D21164E00665C02 /* Fir.cpp */; };
@@ -722,6 +724,8 @@
 		8D0E46561D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+ProcessingAsynchronously.swift"; sourceTree = "<group>"; };
 		8D0E46571D3827970000CCF8 /* AKAudioFile+Peripherals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Peripherals.swift"; sourceTree = "<group>"; };
 		8D6C6C521D421EBB008BFA4A /* AKAudioFile+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Utilities.swift"; sourceTree = "<group>"; };
+		B1F47AB91DC54DCA00706A2F /* EZAudioFileMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFileMarker.h; sourceTree = "<group>"; };
+		B1F47ABA1DC54DCA00706A2F /* EZAudioFileMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFileMarker.m; sourceTree = "<group>"; };
 		C40716371D21160C00665C02 /* ADSR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADSR.cpp; sourceTree = "<group>"; };
 		C40716391D21162900665C02 /* Twang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Twang.cpp; sourceTree = "<group>"; };
 		C407163B1D21164E00665C02 /* Fir.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fir.cpp; sourceTree = "<group>"; };
@@ -1535,6 +1539,8 @@
 				C40C41351C40E3A5009D870B /* EZAudioFFT.m */,
 				C40C41361C40E3A5009D870B /* EZAudioFile.h */,
 				C40C41371C40E3A5009D870B /* EZAudioFile.m */,
+				B1F47AB91DC54DCA00706A2F /* EZAudioFileMarker.h */,
+				B1F47ABA1DC54DCA00706A2F /* EZAudioFileMarker.m */,
 				C40C41381C40E3A5009D870B /* EZAudioFloatConverter.h */,
 				C40C41391C40E3A5009D870B /* EZAudioFloatConverter.m */,
 				C40C413A1C40E3A5009D870B /* EZAudioFloatData.h */,
@@ -3332,6 +3338,7 @@
 				C48C6C4F1D3C15F1008EA51B /* kiss_fft.h in Headers */,
 				C49D69721D1F1DE300BF018A /* AKMorphingOscillatorBankAudioUnit.h in Headers */,
 				C40718061D2119BF00665C02 /* SineWave.h in Headers */,
+				B1F47ABB1DC54DCA00706A2F /* EZAudioFileMarker.h in Headers */,
 				C42F35041C057E03000E937C /* AudioKit.h in Headers */,
 				C40C415C1C40E3A5009D870B /* EZAudioPlayer.h in Headers */,
 				C4537FDE1C3A438D00A51738 /* AKMoogLadderAudioUnit.h in Headers */,
@@ -3918,6 +3925,7 @@
 				C40C416C1C40E3A5009D870B /* TPCircularBuffer.c in Sources */,
 				C48C6D161D3C15F2008EA51B /* pshift.c in Sources */,
 				C48C6D3A1D3C15F2008EA51B /* zeros.c in Sources */,
+				B1F47ABC1DC54DCA00706A2F /* EZAudioFileMarker.m in Sources */,
 				C48C6CF11D3C15F2008EA51B /* gbuzz.c in Sources */,
 				C48C6D351D3C15F2008EA51B /* tseq.c in Sources */,
 				C4FF7CB01D9F7F0B001BB82C /* AudioUnit+Helpers.swift in Sources */,
