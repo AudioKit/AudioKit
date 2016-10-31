@@ -23,7 +23,7 @@ class highPassButterworthFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.highPassButterworthFilter()
         }
-        AKTestMD5("88af264d780b4945599f9664dc00d9b7")
+        AKTestMD5("b6f3fdaae15541ed47dd19c2f76335ba")
     }
 
 }
