@@ -15,6 +15,6 @@ class AKHighShelfFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKHighShelfFilter(input)
         input.start()
-        AKTestMD5("221e422c2ced547a391a18900ef08516")
+        AKTestMD5("30e9a7639b3af4f8159e307bf48a2844")
     }
 }

@@ -15,6 +15,6 @@ class AKHighPassButterworthFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKHighPassButterworthFilter(input)
         input.start()
-        AKTestMD5("4e36cdb628bf41c49e4e792d6566f485")
+        AKTestMD5("6b64e7b172b12b9722a6374ac9fe9663")
     }
 }

@@ -15,6 +15,6 @@ class AKLowPassFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKLowPassFilter(input)
         input.start()
-        AKTestMD5("bebc673a689cb7018fb0bb0b48de5f67")
+        AKTestMD5("29e845d8432f07261d09f7e5edc29445")
     }
 }

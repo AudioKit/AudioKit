@@ -23,7 +23,7 @@ class autoWahTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.autoWah()
         }
-        AKTestMD5("59420725134546d8c20ad4498a0a2616")
+        AKTestMD5("b1c90acd05dee35b6451311a2728b943")
     }
 
 }

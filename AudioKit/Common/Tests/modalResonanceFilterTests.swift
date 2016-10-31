@@ -23,7 +23,7 @@ class modalResonanceFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.modalResonanceFilter()
         }
-        AKTestMD5("5d4da2e4c1f9a3bf080bace025ce296a")
+        AKTestMD5("ab262d09590e6c7e9f9861489af21f4e")
     }
 
 }
