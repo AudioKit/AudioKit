@@ -139,14 +139,14 @@ import AVFoundation
             let recordingBufferLength: AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
             recording = true
             
-            print("recording")
+            print("AKNodeRecorder: recording")
             node!.avAudioNode.installTap(onBus: 0, bufferSize: recordingBufferLength,
                                          format: internalAudioFile.processingFormat) {
                                             (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                                             do {
                                                 self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
                                                 try self.internalAudioFile.write(from: buffer)
-                                                print("writing ( file duration:  \(self.internalAudioFile.duration) seconds)")
+                                                print("AKNodeRecorder writing (file duration: \(self.internalAudioFile.duration) seconds)")
                                                 
                                                 // allow an optional timed stop
                                                 if self.durationToRecord != 0 && self.internalAudioFile.duration >= self.durationToRecord {
@@ -177,7 +177,7 @@ import AVFoundation
                 usleep(delay)
             }
             node!.avAudioNode.removeTap(onBus: 0)
-            print("Recording Stopped.")
+            print("AKNodeRecorder: Recording Stopped.")
             
         } else {
             print("AKNodeRecorder Error: input node is not available")
