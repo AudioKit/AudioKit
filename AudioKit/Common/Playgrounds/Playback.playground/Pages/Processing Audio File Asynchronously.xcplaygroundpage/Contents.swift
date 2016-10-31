@@ -30,7 +30,7 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
         // We print its duration:
         print("callback -> processed: \(processedFile!.duration)")
         // We replace the actual played file with the processed file
-        try? player?.replaceFile(processedFile!)
+        try? player?.replace(file: processedFile!)
         print("callback -> Replaced player's file !")
     } else {
         print("callback -> error: \(error)")
@@ -78,7 +78,7 @@ drumloop?.reverseAsynchronously() { reversedFile, error in
         reversedFile!.appendAsynchronously(file: drumloop!) { appendedFile, error in
             if appendedFile != nil {
                 print("Original drum loop has been appended to the reversed loop, so we can play the resulting file.")
-                try? player?.replaceFile(appendedFile!)
+                try? player?.replace(file: appendedFile!)
             } else {
                 print("error: \(error)")
             }
