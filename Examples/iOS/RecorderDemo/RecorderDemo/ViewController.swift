@@ -53,9 +53,10 @@ class ViewController: UIViewController {
         
         // Will set the level of microphone monitoring
         micBooster!.gain = 0
-        recorder = try? AKNodeRecorder(node: micMixer)
-        tape = recorder?.audioFile
-        player = tape?.player
+        tape = try? AKAudioFile(writeIn: .documents, name: "Exported", settings: [:])
+        recorder = try? AKNodeRecorder(node: micMixer, file: tape!)
+        player = try? AKAudioPlayer(file: tape!)
+        //player = tape?.player
         player?.looping = true
         player?.completionHandler = playingEnded
         
@@ -104,6 +105,13 @@ class ViewController: UIViewController {
             let recordedDuration = player != nil ? player?.audioFile.duration  : 0
             if recordedDuration! > 0.0 {
                 recorder?.stop()
+                player?.audioFile.exportAsynchronously(name: "TempTestFile.m4a", baseDir: .documents, exportFormat: .m4a) {_, error in
+                    if error != nil {
+                        print("Export Failed \(error)")
+                    } else {
+                        print("Export succeeded")
+                    }
+                }
                 setupUIForPlaying ()
             }
         case .readyToPlay :
@@ -181,16 +189,7 @@ class ViewController: UIViewController {
         //try? player?.replaceFile((recorder?.audioFile)!)
         setupUIForRecording()
     }
-    /*
-     @IBAction func resonSliderChanged(sender: UISlider) {
-     moogLadder?.resonance = Double(sender.value)
-     resonLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder!.resonance))"
-     }
-     @IBAction func freqSliderChanged(sender: UISlider) {
-     moogLadder?.cutoffFrequency = Double(sender.value)
-     freqLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder!.cutoffFrequency))"
-     }
-     */
+
     func updateFrequency(value: Double) {
         moogLadder!.cutoffFrequency = value
         frequencySlider.property = "Frequency"

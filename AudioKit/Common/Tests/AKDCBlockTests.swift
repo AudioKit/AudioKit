@@ -15,6 +15,6 @@ class AKDCBlockTests: AKTestCase {
         let input = AKOscillator()
         output = AKDCBlock(input)
         input.start()
-        AKTestMD5("29e0b1829e1ed98ab5bf60921f961380")
+        AKTestMD5("4b16ff791e9ab20f9692010ea814ddd1")
     }
 }

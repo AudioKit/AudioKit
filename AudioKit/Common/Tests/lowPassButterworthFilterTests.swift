@@ -23,7 +23,7 @@ class lowPassButterworthFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.lowPassButterworthFilter()
         }
-        AKTestMD5("9f8bed0d6eef69e8761fc9f90ab0ae69")
+        AKTestMD5("0b7049bfd0ed0a4862ca8c48f5be0cf3")
     }
 
 }

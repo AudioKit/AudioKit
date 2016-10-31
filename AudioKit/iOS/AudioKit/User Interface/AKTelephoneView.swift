@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /// This is primarily for the telephone page in the Synthesis playground
 open class AKTelephoneView: UIView {
     

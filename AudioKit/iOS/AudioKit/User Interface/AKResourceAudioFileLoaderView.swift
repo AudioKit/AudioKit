@@ -44,7 +44,7 @@ open class AKResourcesAudioFileLoaderView: UIView {
                 let filename = titles[currentIndex]
                 let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources)
                 do {
-                    try player?.replaceFile(file!)
+                    try player?.replace(file: file!)
                 } catch {
                     print("Could not replace file")
                 }

@@ -27,7 +27,7 @@ class AKVariableDelayTests: AKTestCase {
         let input = AKOscillator()
         output = AKVariableDelay(input, time: 0.1234, feedback: 0.95)
         input.start()
-        AKTestMD5("9fe86f1214b9565512ac96c049884247")
+        AKTestMD5("0f1ceccfe3fdf76dffd588771b9baf6f")
     }
     
     func testParametersSetAfterInit() {
@@ -37,7 +37,7 @@ class AKVariableDelayTests: AKTestCase {
         effect.feedback = 0.95
         output = effect
         input.start()
-        AKTestMD5("9fe86f1214b9565512ac96c049884247")
+        AKTestMD5("0f1ceccfe3fdf76dffd588771b9baf6f")
     }
 
 

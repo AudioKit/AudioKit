@@ -33,8 +33,7 @@ class SongExporter {
             let assetReader = try AVAssetReader(asset: songAsset)
             
             // Create an asset reader ouput and add it to the reader.
-            let assetReaderOutput = AVAssetReaderAudioMixOutput(audioTracks: songAsset.tracks,
-                                                                audioSettings: nil)
+            let assetReaderOutput = AVAssetReaderAudioMixOutput(audioTracks: songAsset.tracks,audioSettings: nil)
             
             if !assetReader.canAdd(assetReaderOutput) {
                 print("Can't add reader output...die!")

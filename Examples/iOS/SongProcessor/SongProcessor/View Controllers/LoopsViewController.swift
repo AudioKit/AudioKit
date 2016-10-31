@@ -19,7 +19,7 @@ class LoopsViewController: UIViewController {
     
     fileprivate func playNew(loop: String) {
         songProcessor.audioFile = try? AKAudioFile(readFileName: "\(loop)loop.wav", baseDir: .resources)
-        let _ = try? songProcessor.audioFilePlayer?.replaceFile(songProcessor.audioFile!)
+        let _ = try? songProcessor.audioFilePlayer?.replace(file: songProcessor.audioFile!)
         songProcessor.audioFilePlayer?.play()
     }
     
