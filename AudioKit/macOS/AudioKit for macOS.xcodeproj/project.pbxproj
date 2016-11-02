@@ -716,6 +716,9 @@
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
 		C4E120AE1D4DF39B00CD3572 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AD1D4DF39B00CD3572 /* AKButton.swift */; };
 		C4E120B01D4DF96E00CD3572 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */; };
+		C4F8C8191DCA8959001F38F2 /* scrambler.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8171DCA8959001F38F2 /* scrambler.c */; };
+		C4F8C81A1DCA8959001F38F2 /* slice.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8181DCA8959001F38F2 /* slice.c */; };
+		C4F8C81C1DCA8968001F38F2 /* incr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C81B1DCA8968001F38F2 /* incr.c */; };
 		C4F8D0921D59516400D85987 /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */; };
 /* End PBXBuildFile section */
 
@@ -1451,6 +1454,9 @@
 		C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
 		C4E120AD1D4DF39B00CD3572 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
+		C4F8C8171DCA8959001F38F2 /* scrambler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scrambler.c; sourceTree = "<group>"; };
+		C4F8C8181DCA8959001F38F2 /* slice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = slice.c; sourceTree = "<group>"; };
+		C4F8C81B1DCA8968001F38F2 /* incr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = incr.c; sourceTree = "<group>"; };
 		C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1752,6 +1758,7 @@
 				C456632A1D448D7D00D26565 /* gbuzz.c */,
 				C456632B1D448D7D00D26565 /* hilbert.c */,
 				C456632C1D448D7D00D26565 /* in.c */,
+				C4F8C81B1DCA8968001F38F2 /* incr.c */,
 				C456632D1D448D7D00D26565 /* jcrev.c */,
 				C456632E1D448D7D00D26565 /* jitter.c */,
 				C456632F1D448D7D00D26565 /* line.c */,
@@ -1794,7 +1801,9 @@
 				C45663521D448D7D00D26565 /* rpt.c */,
 				C45663531D448D7D00D26565 /* samphold.c */,
 				C45663541D448D7D00D26565 /* scale.c */,
+				C4F8C8171DCA8959001F38F2 /* scrambler.c */,
 				C45663551D448D7D00D26565 /* sdelay.c */,
+				C4F8C8181DCA8959001F38F2 /* slice.c */,
 				C45789721D50125F00F28F67 /* smoothdelay.c */,
 				C45663561D448D7D00D26565 /* streson.c */,
 				C45663571D448D7D00D26565 /* switch.c */,
@@ -3834,8 +3843,10 @@
 				C45666E01D448D7E00D26565 /* bar.c in Sources */,
 				C456676B1D448D7E00D26565 /* dcblock.c in Sources */,
 				C456698C1D448D7E00D26565 /* AKPWMOscillatorBankAudioUnit.mm in Sources */,
+				C4F8C81C1DCA8968001F38F2 /* incr.c in Sources */,
 				C456692A1D448D7E00D26565 /* AKStringResonator.swift in Sources */,
 				C456671D1D448D7E00D26565 /* port.c in Sources */,
+				C4F8C81A1DCA8959001F38F2 /* slice.c in Sources */,
 				C456670C1D448D7E00D26565 /* mincer.c in Sources */,
 				C47E640A1D4D7F5D0044B028 /* AKResourceAudioFileLoaderView.swift in Sources */,
 				C45666F51D448D7E00D26565 /* dmetro.c in Sources */,
@@ -4028,6 +4039,7 @@
 				C456677C1D448D7E00D26565 /* gen_line.c in Sources */,
 				C456673B1D448D7E00D26565 /* timer.c in Sources */,
 				C45667441D448D7E00D26565 /* waveset.c in Sources */,
+				C4F8C8191DCA8959001F38F2 /* scrambler.c in Sources */,
 				C45669421D448D7E00D26565 /* AKChowningReverbAudioUnit.mm in Sources */,
 				C45668E11D448D7E00D26565 /* AKAmplitudeEnvelopeAudioUnit.mm in Sources */,
 				C45667901D448D7E00D26565 /* noise.c in Sources */,

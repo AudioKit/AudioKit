@@ -32,30 +32,46 @@ int sp_ftbl_destroy(sp_ftbl **ft)
     return SP_OK;
 }
 
+/* TODO: handle spaces at beginning of string */
+static char * tokenize(char **next, int *size)
+{
+    if(*size <= 0) return NULL;
+    char *token = *next;
+    char *str = *next;
+
+    char *peak = str + 1;
+
+    while((*size)--) {
+        if(*str == ' ') {
+            *str = 0;
+            if(*peak != ' ') break;
+        }
+        str = str + 1;
+        peak = str + 1;
+    }
+    *next = peak;
+    return token;
+}
+
 int sp_gen_vals(sp_data *sp, sp_ftbl *ft, const char *string)
 {
-    char *str1 = NULL, *token = NULL, *t;
-    char *saveptr1 = NULL;
-    int j;
-    char *d;
-    d = malloc(sizeof(char) + 1);
-    d[0] = ' ';
-    d[1] = 0;
-    t = malloc(sizeof(char) * (strlen(string) + 1));
-    strcpy(t, string);
-    for (j = 0, str1 = t; ; j++, str1 = NULL) {
-        token = strtok_r(str1, d, &saveptr1);
-        if (token == NULL)
-            break;
+    int size = (int)strlen(string);
+    char *str = malloc(sizeof(char) * size + 1);
+    strcpy(str, string);
+    char *out; 
+    char *ptr = str;
+    int j = 0;
+    while(size > 0) {
+        out = tokenize(&str, &size);
         if(ft->size < j + 1){
             ft->tbl = realloc(ft->tbl, sizeof(SPFLOAT) * (ft->size + 2));
             ft->size++;
         }
-        ft->tbl[j] = atof(token);
+        ft->tbl[j] = atof(out);
+        j++;
     }
-
-    free(t);
-    free(d);
+   
+    free(ptr); 
     return SP_OK;
 }
 
@@ -74,9 +90,14 @@ int sp_gen_sine(sp_data *sp, sp_ftbl *ft)
 int sp_gen_file(sp_data *sp, sp_ftbl *ft, const char *filename)
 {
     SF_INFO info;
+    memset(&info, 0, sizeof(SF_INFO));
     info.format = 0;
     SNDFILE *snd = sf_open(filename, SFM_READ, &info);
+#ifdef USE_DOUBLE
+    sf_readf_double(snd, ft->tbl, ft->size);
+#else
     sf_readf_float(snd, ft->tbl, ft->size);
+#endif
     sf_close(snd);
     return SP_OK;
 }
@@ -86,6 +107,7 @@ int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename)
     *ft = malloc(sizeof(sp_ftbl));
     sp_ftbl *ftp = *ft;
     SF_INFO info;
+    memset(&info, 0, sizeof(SF_INFO));
     info.format = 0;
     SNDFILE *snd = sf_open(filename, SFM_READ, &info);
     if(snd == NULL) {
@@ -100,7 +122,11 @@ int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename)
     ftp->lomask = (2^ftp->lobits) - 1;
     ftp->lodiv = 1.0 / pow(2, ftp->lobits);
 
+#ifdef USE_DOUBLE
+    sf_readf_double(snd, ftp->tbl, ftp->size);
+#else
     sf_readf_float(snd, ftp->tbl, ftp->size);
+#endif
     sf_close(snd);
     return SP_OK;
 }
@@ -327,6 +353,29 @@ int sp_gen_composite(sp_data *sp, sp_ftbl *ft, const char *argstring)
         }
     }
 
+    sp_ftbl_destroy(&args);
+    return SP_OK;
+}
+
+int sp_gen_rand(sp_data *sp, sp_ftbl *ft, const char *argstring)
+{
+    sp_ftbl *args;
+    sp_ftbl_create(sp, &args, 1);
+    sp_gen_vals(sp, args, argstring);
+    int n, pos = 0, i, size = 0;
+
+    for(n = 0; n < args->size; n += 2) {
+        size = round(ft->size * args->tbl[n + 1]);
+        for(i = 0; i < size; i++) {
+            if(pos < ft->size) {
+                ft->tbl[pos] = args->tbl[n];
+                pos++;
+            }
+        }
+    }
+    if(pos <= ft->size) {
+        ft->size = pos;
+    }
     sp_ftbl_destroy(&args);
     return SP_OK;
 }
