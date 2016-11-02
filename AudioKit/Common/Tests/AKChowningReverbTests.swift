@@ -15,6 +15,6 @@ class AKChowningReverbTests: AKTestCase {
         let input = AKOscillator()
         output = AKChowningReverb(input)
         input.start()
-        AKTestMD5("1189b85f351b279ff2988e249686a26b")
+        AKTestMD5("970a995fcbd64d23b7c2e539603850f6")
     }
 }

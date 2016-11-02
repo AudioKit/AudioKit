@@ -46,8 +46,13 @@ class SongViewController: UIViewController {
         if songProcessor.isPlaying!  {
             playButton.setTitle("Pause", for: UIControlState())
         } else {
+            if exporter?.isReadyToPlay == false {
+                playButton.setTitle("Loading", for: UIControlState())
+            }
             playButton.setTitle("Play", for: UIControlState())
+            
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,12 +67,14 @@ class SongViewController: UIViewController {
     }
     
     @IBAction func play(_ sender: UIButton) {
-        
+        /*
         if exporter?.isReadyToPlay == false {
             print("Not Ready")
-            return
+            playButton.setTitle("Loading", for: UIControlState())
+        } else {
+            playButton.setTitle("Play", for: UIControlState())
         }
-        
+        */
         if sender.titleLabel!.text == "Play" {
             loadSong()
             playButton.setTitle("Stop", for: UIControlState())
@@ -93,7 +100,7 @@ class SongViewController: UIViewController {
         
         songProcessor.audioFile = try? AKAudioFile(readFileName: "exported.wav", baseDir: .documents)
         
-        let _ = try? songProcessor.audioFilePlayer?.replaceFile(songProcessor.audioFile!)
+        let _ = try? songProcessor.audioFilePlayer?.replace(file: songProcessor.audioFile!)
         
     }
     

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0810"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,7 +17,7 @@
                BlueprintIdentifier = "C42F34FF1C057E03000E937C"
                BuildableName = "AudioKit.framework"
                BlueprintName = "AudioKit"
-               ReferencedContainer = "container:AudioKit for iOS.xcodeproj">
+               ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -48,7 +48,7 @@
             BlueprintIdentifier = "C42F34FF1C057E03000E937C"
             BuildableName = "AudioKit.framework"
             BlueprintName = "AudioKit"
-            ReferencedContainer = "container:AudioKit for iOS.xcodeproj">
+            ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,7 +66,7 @@
             BlueprintIdentifier = "C42F34FF1C057E03000E937C"
             BuildableName = "AudioKit.framework"
             BlueprintName = "AudioKit"
-            ReferencedContainer = "container:AudioKit for iOS.xcodeproj">
+            ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

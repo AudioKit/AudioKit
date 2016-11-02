@@ -15,6 +15,6 @@ class AKTremoloTests: AKTestCase {
         let input = AKOscillator()
         output = AKTremolo(input)
         input.start()
-        AKTestMD5("aebe2f176b405950e82844ea213cae3a")
+        AKTestMD5("818247cd8c1dee732a22633878ec81d4")
     }
 }

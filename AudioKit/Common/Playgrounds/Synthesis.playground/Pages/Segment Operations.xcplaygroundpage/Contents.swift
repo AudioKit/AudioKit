@@ -31,7 +31,7 @@ var delay = AKDelay(generator)
 delay.time = 0.125
 delay.feedback = 0.8
 var reverb = AKReverb(delay)
-reverb.loadFactoryPreset(.LargeHall)
+reverb.loadFactoryPreset(.largeHall)
 
 AudioKit.output = reverb
 AudioKit.start()

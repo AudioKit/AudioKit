@@ -15,6 +15,6 @@ class AKClipperTests: AKTestCase {
         let input = AKOscillator()
         output = AKClipper(input)
         input.start()
-        AKTestMD5("ddb51d47536626c47f8f5254c4733953")
+        AKTestMD5("c29feeb240b68c3230dade9346c5b2cd")
     }
 }

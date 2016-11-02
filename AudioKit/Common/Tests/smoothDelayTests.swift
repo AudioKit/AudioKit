@@ -23,7 +23,7 @@ class smoothDelayTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.smoothDelay(time: 0.1, maximumDelayTime: 0.1)
         }
-        AKTestMD5("6ed22f8d4248c827f3ecb8b0e0e654de")
+        AKTestMD5("b8a3a30855ff5365fb5fd6b6cb48cfe3")
     }
 
 }

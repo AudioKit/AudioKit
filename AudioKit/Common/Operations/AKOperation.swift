@@ -72,21 +72,25 @@ open class AKOperation: AKComputedParameter {
     /// Final sporth string when this operation is the last operation in the stack
     internal var sporth: String {
         let rd = recursiveDependencies
-        var str = "\"ak\" \""
-        for _ in rd {
-            str += "0 "
-        }
-        str += "\" gen_vals \n"
-        
-        var counter = 0
-        for op in rd {
-            op.savedLocation = counter
-            str += "\(op.setupSporth) \n"
-            str += "\(op.inlineSporth) \(op.savedLocation) \"ak\" tset\n"
-            counter += 1
+        var str = ""
+        if rd.count > 0 {
+            str = "\"ak\" \""
+            for _ in rd {
+                str += "0 "
+            }
+            str += "\" gen_vals \n"
+
+            var counter = 0
+            for op in rd {
+                op.savedLocation = counter
+                str += "\(op.setupSporth) \n"
+                str += "\(op.inlineSporth) \(op.savedLocation) \"ak\" tset\n"
+                counter += 1
+            }
         }
         str += "\(setupSporth) \n"
         str += "\(inlineSporth) \n"
+        
         return str
     }
     
@@ -98,32 +102,32 @@ open class AKOperation: AKComputedParameter {
     // MARK: - Inputs
     
     /// Left input to any stereo operation
-    open static var leftInput = AKOperation("(14 p)")
+    open static var leftInput = AKOperation("(14 p) ")
 
     /// Right input to any stereo operation
-    open static var rightInput = AKOperation("(15 p)")
+    open static var rightInput = AKOperation("(15 p) ")
     
     /// Dummy trigger
-    open static var trigger = AKOperation("(0 p)")
+    open static var trigger = AKOperation("(0 p) ")
     
     // MARK: - Functions
     
     /// An= array of 14 parameters which may be sent to operations
     open static var parameters: [AKOperation] =
-        [AKOperation("(0 p)"),
-         AKOperation("(1 p)"),
-         AKOperation("(2 p)"),
-         AKOperation("(3 p)"),
-         AKOperation("(4 p)"),
-         AKOperation("(5 p)"),
-         AKOperation("(6 p)"),
-         AKOperation("(7 p)"),
-         AKOperation("(8 p)"),
-         AKOperation("(9 p)"),
-         AKOperation("(10 p)"),
-         AKOperation("(11 p)"),
-         AKOperation("(12 p)"),
-         AKOperation("(13 p)")]
+        [AKOperation("(0 p) "),
+         AKOperation("(1 p) "),
+         AKOperation("(2 p) "),
+         AKOperation("(3 p) "),
+         AKOperation("(4 p) "),
+         AKOperation("(5 p) "),
+         AKOperation("(6 p) "),
+         AKOperation("(7 p) "),
+         AKOperation("(8 p) "),
+         AKOperation("(9 p) "),
+         AKOperation("(10 p) "),
+         AKOperation("(11 p) "),
+         AKOperation("(12 p) "),
+         AKOperation("(13 p) ")]
     
     
     /// Convert the operation to a mono operation
