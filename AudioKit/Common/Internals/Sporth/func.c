@@ -67,6 +67,8 @@ int sporth_check_args(sporth_stack *stack, const char *args)
                     return SPORTH_NOTOK;
                 }
                 break;
+            case 'n':
+                break;
         }
         pos++;
     }

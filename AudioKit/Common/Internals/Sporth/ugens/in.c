@@ -10,6 +10,7 @@ int sporth_in(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             sp_in_create(&data);
             plumber_add_ugen(pd, SPORTH_IN, data);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
             data = pd->last->ud;
