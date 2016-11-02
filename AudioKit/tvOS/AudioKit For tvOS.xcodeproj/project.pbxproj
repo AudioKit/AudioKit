@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		524B77BA1CC4B060001D82D1 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524B77B91CC4B060001D82D1 /* AKNotifications.swift */; };
+		B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47ABD1DC54E0F00706A2F /* EZAudioFileMarker.h */; };
+		B1F47AC01DC54E0F00706A2F /* EZAudioFileMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F47ABE1DC54E0F00706A2F /* EZAudioFileMarker.m */; };
 		C40718281D211AB400665C02 /* ADSR.h in Headers */ = {isa = PBXBuildFile; fileRef = C407181B1D211AB400665C02 /* ADSR.h */; };
 		C40718291D211AB400665C02 /* DelayA.h in Headers */ = {isa = PBXBuildFile; fileRef = C407181C1D211AB400665C02 /* DelayA.h */; };
 		C407182A1D211AB400665C02 /* DelayL.h in Headers */ = {isa = PBXBuildFile; fileRef = C407181D1D211AB400665C02 /* DelayL.h */; };
@@ -679,6 +681,8 @@
 
 /* Begin PBXFileReference section */
 		524B77B91CC4B060001D82D1 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
+		B1F47ABD1DC54E0F00706A2F /* EZAudioFileMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFileMarker.h; sourceTree = "<group>"; };
+		B1F47ABE1DC54E0F00706A2F /* EZAudioFileMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFileMarker.m; sourceTree = "<group>"; };
 		C407181B1D211AB400665C02 /* ADSR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSR.h; sourceTree = "<group>"; };
 		C407181C1D211AB400665C02 /* DelayA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayA.h; sourceTree = "<group>"; };
 		C407181D1D211AB400665C02 /* DelayL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayL.h; sourceTree = "<group>"; };
@@ -1411,6 +1415,8 @@
 				C40C41F21C40E5C2009D870B /* EZAudioFFT.m */,
 				C40C41F31C40E5C2009D870B /* EZAudioFile.h */,
 				C40C41F41C40E5C2009D870B /* EZAudioFile.m */,
+				B1F47ABD1DC54E0F00706A2F /* EZAudioFileMarker.h */,
+				B1F47ABE1DC54E0F00706A2F /* EZAudioFileMarker.m */,
 				C40C41F51C40E5C2009D870B /* EZAudioFloatConverter.h */,
 				C40C41F61C40E5C2009D870B /* EZAudioFloatConverter.m */,
 				C40C41F71C40E5C2009D870B /* EZAudioFloatData.h */,
@@ -3115,6 +3121,7 @@
 				C48C6ACE1D3C1574008EA51B /* test.h in Headers */,
 				C40C42861C41BF00009D870B /* AKPluckedStringDSPKernel.hpp in Headers */,
 				C48C6AD21D3C1574008EA51B /* ugens.h in Headers */,
+				B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */,
 				C45381C01C3A5CBD00A51738 /* AKFormantFilterAudioUnit.h in Headers */,
 				C453821A1C3A5CBD00A51738 /* AKOscillatorDSPKernel.hpp in Headers */,
 				C45381F11C3A5CBD00A51738 /* AKToneComplementFilterAudioUnit.h in Headers */,
@@ -3436,6 +3443,7 @@
 				C48C6B291D3C1574008EA51B /* rpt.c in Sources */,
 				C4ABF5371C82AEC00078EE8E /* AKMetalBar.swift in Sources */,
 				C4E3769F1D1357D900FDB70D /* Fir.cpp in Sources */,
+				B1F47AC01DC54E0F00706A2F /* EZAudioFileMarker.m in Sources */,
 				C48C6B151D3C1574008EA51B /* oscmorph.c in Sources */,
 				C4E376861D1357D900FDB70D /* ADSR.cpp in Sources */,
 				C48C6A921D3C1574008EA51B /* noise.c in Sources */,

@@ -30,7 +30,7 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
         // Print the exported file's duration
         print("Exported File Duration: \(converted.duration) seconds")
         // Replace the file being played
-        try? player!.replaceFile(converted)
+        try? player!.replace(file: converted)
     }
     else {
         // An error occured. So, print the Error
@@ -39,10 +39,10 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
 }
 
 //: Next export the mixloop into a compressed .mp4 file :
-mixloop.exportAsynchronously(name: "test", baseDir: .documents,exportFormat: .mp4, callback: callback)
+mixloop.exportAsynchronously(name: "test", baseDir: .documents, exportFormat: .mp4, callback: callback)
 
 //: Convert the file to .WAV format, and this time, set a range for the export
-mixloop.exportAsynchronously(name: "test2", baseDir: .documents,exportFormat: .wav,  fromSample: 10000, toSample: 20000, callback: callback)
+mixloop.exportAsynchronously(name: "test2", baseDir: .documents, exportFormat: .wav,  fromSample: 10000, toSample: 20000, callback: callback)
 
 /// Use another file to convert to .aif.
 let drumloop = try AKAudioFile(readFileName: "drumloop.wav")

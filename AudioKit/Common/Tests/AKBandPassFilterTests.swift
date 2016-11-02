@@ -15,6 +15,6 @@ class AKBandPassFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKBandPassFilter(input)
         input.start()
-        AKTestMD5("fa2134fd6781f471aaaf243805448b52")
+        AKTestMD5("06ee573cd31f145a9f540b74e2c3ff95")
     }
 }

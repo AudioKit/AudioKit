@@ -211,7 +211,7 @@ private:
     float releaseDuration = 0.1;
 
 public:
-    bool started = true;
+    bool started = false;
     bool resetted = false;
     ParameterRamper attackDurationRamper = 0.1;
     ParameterRamper decayDurationRamper = 0.1;
