@@ -16,7 +16,6 @@ static void process(sp_data *sp, void *udata){
         fprintf(stderr, "Recompiling!\n");
         plumber_recompile_string(&ud->pd, pd->str);
         pd->recompile = 0;
-        free(pd->str);
     }
     
     plumber_compute(pd, PLUMBER_COMPUTE);

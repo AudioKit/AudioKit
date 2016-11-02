@@ -28,6 +28,7 @@ int sporth_pshift(sporth_stack *stack, void *ud)
             window = sporth_stack_pop_float(stack);
             shift = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sp_pshift_init(pd->sp, pshift);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
@@ -40,8 +41,6 @@ int sporth_pshift(sporth_stack *stack, void *ud)
             window = sporth_stack_pop_float(stack);
             shift = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
-            pshift = pd->last->ud;
-            sp_pshift_init(pd->sp, pshift);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:

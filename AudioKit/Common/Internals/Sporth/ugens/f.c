@@ -10,60 +10,47 @@ typedef struct {
 int sporth_f(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    unsigned int fnum;
-    sporth_func_d *fd;
+    sporth_fload_d *fexec;
+    sporth_fload_d *fload;
     switch(pd->mode) {
         case PLUMBER_CREATE:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "aux (f)unction: creating\n");
-#endif
-            fd = malloc(sizeof(sporth_func_d));
-           if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for aux (f)unction\n");
+            fexec = malloc(sizeof(sporth_fload_d));
+            plumber_add_ugen(pd, SPORTH_FEXEC, fexec);
+            if(sporth_check_args(stack, "s") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for fclose\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            plumber_add_ugen(pd, SPORTH_F, fd);
+            fexec->name = sporth_stack_pop_string(stack);
+           
+            if(plumber_ftmap_search_userdata(pd, fexec->name, (void *)&fload) == PLUMBER_NOTOK) {
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+
+            fexec->fun = fload->fun;
+            fexec->fun(pd, stack, &fexec->ud);
+            fexec->ud = fload->ud;
             break;
+
         case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "aux (f)unction: initialising\n");
-#endif
-            fnum = (int)sporth_stack_pop_float(stack);
-
-            if(fnum > 16) {
-                fprintf(stderr, "Invalid function number %d\n", fnum);
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
-
-            fd = pd->last->ud;
-            fd->fun = pd->f[fnum];
-
-            pd->mode = PLUMBER_CREATE;
-            fd->fun(stack, ud);
-
-            pd->mode = PLUMBER_INIT;
-            fd->fun(stack, ud);
-
+            fexec = pd->last->ud;
+            fexec->name = sporth_stack_pop_string(stack);
+            fexec->fun(pd, stack, &fexec->ud);
             break;
 
         case PLUMBER_COMPUTE:
-            fnum = (int)sporth_stack_pop_float(stack);
-            fd = pd->last->ud;
-            fd->fun(stack, ud);
+            fexec = pd->last->ud;
+            fexec->fun(pd, stack, &fexec->ud);
             break;
 
         case PLUMBER_DESTROY:
-            fd = pd->last->ud;
-            fd->fun(stack, ud);
-            free(fd);
+            fexec = pd->last->ud;
+            fexec->fun(pd, stack, &fexec->ud);
+            free(fexec);
             break;
-        default:
-            fprintf(stderr, "aux (f)unction: unknown mode!\n");
-            break;
+
+        default: break;
     }
     return PLUMBER_OK;
 }
@@ -72,6 +59,7 @@ int sporth_fload(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     sporth_fload_d *fload;
+    char buf[512];
     switch(pd->mode) {
         case PLUMBER_CREATE:
 
@@ -87,8 +75,16 @@ int sporth_fload(sporth_stack *stack, void *ud)
             }
             fload->filename= sporth_stack_pop_string(stack);
             fload->name = sporth_stack_pop_string(stack);
-           
-            fload->handle = dlopen(fload->filename, RTLD_NOW);
+          
+            if(getenv("SPORTH_PLUGIN_PATH") != NULL && 
+                fload->filename[0] != '.') {
+                sprintf(buf, "%s/%s", 
+                        getenv("SPORTH_PLUGIN_PATH"),
+                        fload->filename);
+                fload->handle = dlopen(buf, RTLD_NOW);
+            } else {
+                fload->handle = dlopen(fload->filename, RTLD_NOW);
+            }
             if(fload->handle == NULL) {
                 fprintf(stderr, "Error loading %s: %s\n", fload->name, dlerror());
                 return PLUMBER_NOTOK;
