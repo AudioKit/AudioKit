@@ -423,7 +423,7 @@ open class AKSequencer {
             return isPlayingBool.boolValue
         }
     }
-
+    
     /// Current Time
     open var currentPosition: AKDuration {
         if isAVSequencer {
@@ -434,6 +434,10 @@ open class AKSequencer {
             let duration = AKDuration(beats: currentTime)
             return duration
         }
+    }
+    /// Current Time relative to sequencer length
+    open var currentRelativePosition: AKDuration {
+        return currentPosition % length
     }
 
     /// Track count
