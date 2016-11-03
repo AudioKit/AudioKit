@@ -129,33 +129,35 @@ open class AKAUPresetBuilder {
             
             let envelopesXML = AKAUPresetBuilder.generateEnvelope(id: 0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
             switch triggerModeStr {
-            case SampleTriggerMode.loop.rawValue?:
-                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.loop.rawValue)!
-                break
-            case SampleTriggerMode.trigger.rawValue?:
-                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.trigger.rawValue)!
-                break
-            case SampleTriggerMode.hold.rawValue?:
-                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.hold.rawValue)!
-                break
-            case SampleTriggerMode.repeat.rawValue?:
-                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.repeat.rawValue)!
-                break
-            default:
-                triggerMode = SampleTriggerMode.init(rawValue: SampleTriggerMode.trigger.rawValue)!
+                case SampleTriggerMode.Loop.rawValue?:
+                    triggerMode = SampleTriggerMode.Loop
+                    break
+                case SampleTriggerMode.Trigger.rawValue?:
+                    triggerMode = SampleTriggerMode.Trigger
+                    break
+                case SampleTriggerMode.Hold.rawValue?:
+                    triggerMode = SampleTriggerMode.Hold
+                    break
+                case SampleTriggerMode.Repeat.rawValue?:
+                    triggerMode = SampleTriggerMode.Repeat
+                    break
+                default:
+                    triggerMode = SampleTriggerMode.Trigger
             }
             switch triggerMode {
-            case  .hold:
+            case  .Hold:
                 sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
                 break
-            case .loop:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: true)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
+            case .Loop:
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!,
+                                                               wavRef: sampleNum, loopEnabled: true)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
                 break
-            default: //.Trig and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
+            default:
+                //.Trigger and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
                 sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: true)
                 layerXML.append(tempLayerXML)
@@ -1238,10 +1240,10 @@ open class AKAUPresetBuilder {
 }
 
 public enum SampleTriggerMode: String {
-    case hold = "hold"
-    case trigger = "trigger"
-    case loop = "loop"
-    case `repeat` = "repeat"
+    case Hold = "hold"
+    case Trigger = "trigger"
+    case Loop = "loop"
+    case Repeat = "repeat"
 }
 /*
  making notes of parameters as I reverse engineer them...
