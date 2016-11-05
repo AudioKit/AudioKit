@@ -112,6 +112,9 @@
 		C41863771C23FE6600A06E41 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863741C23FE6600A06E41 /* jitter.swift */; };
 		C41863781C23FE6600A06E41 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863751C23FE6600A06E41 /* randomNumberPulse.swift */; };
 		C41863791C23FE6600A06E41 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863761C23FE6600A06E41 /* randomVertexPulse.swift */; };
+		C4198D581DCD98F900D7C13F /* increment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4198D571DCD98F900D7C13F /* increment.swift */; };
+		C4198D5A1DCD9BB700D7C13F /* save.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4198D591DCD9BB700D7C13F /* save.swift */; };
+		C4198D5C1DCD9C4300D7C13F /* count.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4198D5B1DCD9C4300D7C13F /* count.swift */; };
 		C421DCDF1D39650000E15879 /* AKPhaseDistortionOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C421DCDB1D39650000E15879 /* AKPhaseDistortionOscillator.swift */; };
 		C421DCE01D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C421DCDC1D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C421DCE11D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C421DCDD1D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.mm */; };
@@ -843,6 +846,9 @@
 		C41863741C23FE6600A06E41 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C41863751C23FE6600A06E41 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
 		C41863761C23FE6600A06E41 /* randomVertexPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomVertexPulse.swift; sourceTree = "<group>"; };
+		C4198D571DCD98F900D7C13F /* increment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = increment.swift; sourceTree = "<group>"; };
+		C4198D591DCD9BB700D7C13F /* save.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = save.swift; sourceTree = "<group>"; };
+		C4198D5B1DCD9C4300D7C13F /* count.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = count.swift; sourceTree = "<group>"; };
 		C421DCDB1D39650000E15879 /* AKPhaseDistortionOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhaseDistortionOscillator.swift; sourceTree = "<group>"; };
 		C421DCDC1D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhaseDistortionOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C421DCDD1D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaseDistortionOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -2542,7 +2548,10 @@
 			children = (
 				C41863731C23FE6600A06E41 /* Random Number Generators */,
 				C463027A1C20E7A7009B44D9 /* add.swift */,
+				C4198D5B1DCD9C4300D7C13F /* count.swift */,
 				C463027B1C20E7A7009B44D9 /* divide.swift */,
+				C4198D571DCD98F900D7C13F /* increment.swift */,
+				C4198D591DCD9BB700D7C13F /* save.swift */,
 				C44B596C1C4B04BF0008507F /* segment.swift */,
 				C4E751A61C2354EE00688A1B /* max.swift */,
 				C4E751A81C23557F00688A1B /* min.swift */,
@@ -3837,6 +3846,7 @@
 				C43622CD1CCDC70B00DB41DE /* AKMIDISampler.swift in Sources */,
 				C4F8C9061DCA8CE4001F38F2 /* prop.c in Sources */,
 				C47A626A1D4D6E25001980B7 /* AKBypassButton.swift in Sources */,
+				C4198D5C1DCD9C4300D7C13F /* count.swift in Sources */,
 				C40C41211C40E2E1009D870B /* AudioKitHelpers.swift in Sources */,
 				C4537FC91C3A438D00A51738 /* AKHighPassFilter.swift in Sources */,
 				C46302821C20E7A7009B44D9 /* clip.swift in Sources */,
@@ -3886,6 +3896,7 @@
 				C48C6C961D3C15F1008EA51B /* posc3.c in Sources */,
 				C4F8C90D1DCA8CE4001F38F2 /* render.c in Sources */,
 				C4F8C9351DCA8CE4001F38F2 /* wpkorg35.c in Sources */,
+				C4198D581DCD98F900D7C13F /* increment.swift in Sources */,
 				C4F8C8BF1DCA8CE4001F38F2 /* butlp.c in Sources */,
 				C48C6C5C1D3C15F1008EA51B /* bitcrush.c in Sources */,
 				C48C6C931D3C15F1008EA51B /* pitchamdf.c in Sources */,
@@ -3939,6 +3950,7 @@
 				C4F8C8BC1DCA8CE4001F38F2 /* butbp.c in Sources */,
 				C48C6C771D3C15F1008EA51B /* fold.c in Sources */,
 				C4F8C8D71DCA8CE4001F38F2 /* gbuzz.c in Sources */,
+				C4198D5A1DCD9BB700D7C13F /* save.swift in Sources */,
 				C48C6C941D3C15F1008EA51B /* pluck.c in Sources */,
 				C48C6CB41D3C15F1008EA51B /* tin.c in Sources */,
 				C48C6C831D3C15F1008EA51B /* metro.c in Sources */,
