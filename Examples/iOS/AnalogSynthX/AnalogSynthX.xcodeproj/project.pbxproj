@@ -31,11 +31,15 @@
 		C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */; };
 		C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */; };
 		C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */; };
+		C44760611DCD642600628666 /* Audiobus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44760601DCD642600628666 /* Audiobus.swift */; };
+		C44760651DCD64A800628666 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C44760641DCD64A800628666 /* Audiobus.txt */; };
+		C44760681DCD65ED00628666 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44760671DCD65ED00628666 /* AudioToolbox.framework */; };
 		C49D697A1D1F2CB000BF018A /* GeneratorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D69791D1F2CB000BF018A /* GeneratorBank.swift */; };
 		C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED211C43AA8E0041965F /* Conductor.swift */; };
 		C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED281C43ADA10041965F /* FilterSection.swift */; };
 		C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */; };
 		C4E8ED2D1C43B2540041965F /* Fatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2C1C43B2540041965F /* Fatten.swift */; };
+		D2A6182F1E2C00FF7F5D2205 /* Pods_AnalogSynthX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */; };
 		EAF0A5B71C4F943E00F37994 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0A5B61C4F943E00F37994 /* AudioKit.framework */; };
 		EAF0A5B81C4F943E00F37994 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0A5B61C4F943E00F37994 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -64,6 +68,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnalogSynthX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		894A16D4E1FB8A3B4DDBEDAF /* Pods-AnalogSynthX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalogSynthX.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalogSynthX/Pods-AnalogSynthX.release.xcconfig"; sourceTree = "<group>"; };
 		940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+UIHelpers.swift"; sourceTree = "<group>"; };
 		940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformSegmentedView.swift; sourceTree = "<group>"; };
 		941771111C4C908000855BDA /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -85,11 +91,17 @@
 		94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+Delegates.swift"; sourceTree = "<group>"; };
 		94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		94FBB4811C44868000E14C86 /* VerticalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
+		AF75A6912F14504847F31345 /* Pods-AnalogSynthX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalogSynthX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnalogSynthX/Pods-AnalogSynthX.debug.xcconfig"; sourceTree = "<group>"; };
 		C42FFBF61C3DDAAC00823BD4 /* AnalogSynthX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalogSynthX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42FFBFE1C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42FFC051C3DDAAC00823BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C44760601DCD642600628666 /* Audiobus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audiobus.swift; sourceTree = "<group>"; };
+		C44760641DCD64A800628666 /* Audiobus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Audiobus.txt; path = AnalogSynthX/Audiobus.txt; sourceTree = SOURCE_ROOT; };
+		C44760661DCD65EC00628666 /* AnalogSynthX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnalogSynthX.entitlements; sourceTree = "<group>"; };
+		C44760671DCD65ED00628666 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C447606A1DCD675400628666 /* AnalogSynthX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalogSynthX-Bridging-Header.h"; sourceTree = "<group>"; };
 		C49D69791D1F2CB000BF018A /* GeneratorBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeneratorBank.swift; path = AudioSystem/GeneratorBank.swift; sourceTree = "<group>"; };
 		C4E8ED211C43AA8E0041965F /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conductor.swift; path = AudioSystem/Conductor.swift; sourceTree = "<group>"; };
 		C4E8ED281C43ADA10041965F /* FilterSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterSection.swift; path = AudioSystem/FilterSection.swift; sourceTree = "<group>"; };
@@ -104,12 +116,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF0A5B71C4F943E00F37994 /* AudioKit.framework in Frameworks */,
+				D2A6182F1E2C00FF7F5D2205 /* Pods_AnalogSynthX.framework in Frameworks */,
+				C44760681DCD65ED00628666 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		857372549B43C46D7EB6DAE7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AF75A6912F14504847F31345 /* Pods-AnalogSynthX.debug.xcconfig */,
+				894A16D4E1FB8A3B4DDBEDAF /* Pods-AnalogSynthX.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		949B1C1D1C431E5400BFFA10 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +246,7 @@
 				C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */,
 				C42FFC051C3DDAAC00823BD4 /* Info.plist */,
 				949B1C321C431E5400BFFA10 /* Extensions */,
+				C447606A1DCD675400628666 /* AnalogSynthX-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -233,6 +257,7 @@
 				C42FFBF81C3DDAAC00823BD4 /* AnalogSynthX */,
 				EA127F471C42097600289567 /* Frameworks */,
 				C42FFBF71C3DDAAC00823BD4 /* Products */,
+				857372549B43C46D7EB6DAE7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,6 +272,8 @@
 		C42FFBF81C3DDAAC00823BD4 /* AnalogSynthX */ = {
 			isa = PBXGroup;
 			children = (
+				C44760661DCD65EC00628666 /* AnalogSynthX.entitlements */,
+				C447605F1DCD642600628666 /* Audiobus */,
 				C4E8ED251C43AD650041965F /* AudioSystem */,
 				94B798911C4AA6B30020727B /* AudioProcessors */,
 				949B1C1D1C431E5400BFFA10 /* CustomControls */,
@@ -257,6 +284,16 @@
 				94F234F01C43FC0200072159 /* Libraries */,
 			);
 			path = AnalogSynthX;
+			sourceTree = "<group>";
+		};
+		C447605F1DCD642600628666 /* Audiobus */ = {
+			isa = PBXGroup;
+			children = (
+				C44760601DCD642600628666 /* Audiobus.swift */,
+				C44760641DCD64A800628666 /* Audiobus.txt */,
+			);
+			name = Audiobus;
+			path = ../../../../AudioKit/iOS/Audiobus;
 			sourceTree = "<group>";
 		};
 		C4E8ED251C43AD650041965F /* AudioSystem */ = {
@@ -271,7 +308,9 @@
 		EA127F471C42097600289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C44760671DCD65ED00628666 /* AudioToolbox.framework */,
 				EAF0A5B61C4F943E00F37994 /* AudioKit.framework */,
+				11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */,
 			);
 			name = Frameworks;
 			path = AnalogSynthX;
@@ -284,11 +323,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C42FFC081C3DDAAC00823BD4 /* Build configuration list for PBXNativeTarget "AnalogSynthX" */;
 			buildPhases = (
+				78596E510FCCA3E53AC80F15 /* [CP] Check Pods Manifest.lock */,
 				C42FFBF21C3DDAAC00823BD4 /* Sources */,
 				C42FFBF31C3DDAAC00823BD4 /* Frameworks */,
 				C42FFBF41C3DDAAC00823BD4 /* Resources */,
 				EA127F461C42094300289567 /* Embed Frameworks */,
 				C4E8ED011C4357040041965F /* CopyFiles */,
+				6552E47DD63DC400F3DFEFB6 /* [CP] Embed Pods Frameworks */,
+				AD6E69E3684A2E442EFC96C1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -311,9 +353,13 @@
 				TargetAttributes = {
 					C42FFBF51C3DDAAC00823BD4 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
+						DevelopmentTeam = W22K9JG3J6;
+						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
 								enabled = 1;
 							};
 						};
@@ -345,10 +391,59 @@
 			files = (
 				C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */,
 				C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */,
+				C44760651DCD64A800628666 /* Audiobus.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6552E47DD63DC400F3DFEFB6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnalogSynthX/Pods-AnalogSynthX-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78596E510FCCA3E53AC80F15 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AD6E69E3684A2E442EFC96C1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnalogSynthX/Pods-AnalogSynthX-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C42FFBF21C3DDAAC00823BD4 /* Sources */ = {
@@ -372,6 +467,7 @@
 				941771121C4C908000855BDA /* CGFloat+Extensions.swift in Sources */,
 				949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */,
 				940D15131C49A9E200C88CA6 /* SynthVC+UIHelpers.swift in Sources */,
+				C44760611DCD642600628666 /* Audiobus.swift in Sources */,
 				940D15171C49AC5400C88CA6 /* WaveformSegmentedView.swift in Sources */,
 				C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */,
 				949B1C4B1C431E5400BFFA10 /* KnobMedium.swift in Sources */,
@@ -490,17 +586,21 @@
 		};
 		C42FFC091C3DDAAC00823BD4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF75A6912F14504847F31345 /* Pods-AnalogSynthX.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = AnalogSynthX/AnalogSynthX.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W22K9JG3J6;
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
 				PRODUCT_NAME = AnalogSynthX;
+				SWIFT_OBJC_BRIDGING_HEADER = "AnalogSynthX/AnalogSynthX-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -508,17 +608,21 @@
 		};
 		C42FFC0A1C3DDAAC00823BD4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 894A16D4E1FB8A3B4DDBEDAF /* Pods-AnalogSynthX.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = AnalogSynthX/AnalogSynthX.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W22K9JG3J6;
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
 				PRODUCT_NAME = AnalogSynthX;
+				SWIFT_OBJC_BRIDGING_HEADER = "AnalogSynthX/AnalogSynthX-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
