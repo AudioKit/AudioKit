@@ -353,7 +353,6 @@
 				TargetAttributes = {
 					C42FFBF51C3DDAAC00823BD4 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = W22K9JG3J6;
 						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -593,7 +592,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AnalogSynthX/AnalogSynthX.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -615,7 +614,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AnalogSynthX/AnalogSynthX.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
