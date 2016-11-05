@@ -10,6 +10,11 @@ cd Frameworks
 ./build_frameworks.sh || exit 1
 cd ..
 
+# Get Audiobus
+cd Examples/iOS/AnalogSynthX
+pod install
+cd ../../..
+
 echo "Skipping iOS Unit Tests"
 # xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty -c || exit 3
 
