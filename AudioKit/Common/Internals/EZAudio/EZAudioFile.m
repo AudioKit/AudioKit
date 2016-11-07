@@ -637,7 +637,7 @@ typedef struct
         return NULL;
     }
     
-    NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
+    //NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
     
     // the native C structs aren't so friendly with Swift, so we'll load up an array instead
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:markers->mNumberMarkers];
