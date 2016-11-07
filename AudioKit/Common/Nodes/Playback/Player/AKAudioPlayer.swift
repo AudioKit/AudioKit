@@ -36,6 +36,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Boolean indicating whether or not to loop the playback
     open var looping: Bool = false
     
+    
     /// return the current played AKAudioFile
     open var audioFile: AKAudioFile {
         return internalAudioFile
@@ -65,6 +66,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open var isStarted: Bool {
         return  internalPlayer.isPlaying
     }
+    
     
     /// Current playback time (in seconds)
     open var currentTime: Double {
@@ -119,26 +121,37 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open var startTime: Double {
         get {
             return Double(startingFrame) / internalAudioFile.sampleRate
+            
         }
         set {
+            //let wasPlaying = playing
+            
             // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
             if newValue == internalStartTime {
                 //print("startTime is the same, so returning: \(newValue)")
                 return
+                
             } else if newValue > Double(endingFrame) / internalAudioFile.sampleRate && endingFrame > 0 {
                 print("ERROR: AKAudioPlayer cannot set a startTime bigger than the endTime: \(Double(endingFrame) / internalAudioFile.sampleRate) seconds")
+                
             } else {
                 startingFrame = UInt32(newValue * internalAudioFile.sampleRate)
                 
-                print("AKAudioPlayer.startTime = \(newValue), startingFrame: \(startingFrame)")
+                Swift.print("AKAudioPlayer.startTime = \(newValue), startingFrame: \(startingFrame)")
                 
                 // now update the buffer
                 updatePCMBuffer()
+                //stop()
                 
-                // remember this value for ease of checking redundant calls later
+                // remember this value for ease of checking redundancy later
                 internalStartTime = newValue
             }
+            // RF: I don't think this is a good idea. There are many cases where you don't want it to restart on you without
+            //explicitly meaning to.
+            //            if wasPlaying {
+            //                play()
+            //            }
         }
     }
     
@@ -147,9 +160,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open var endTime: Double {
         get {
             return Double(endingFrame) / internalAudioFile.sampleRate
+            
         }
         set {
-            // since setting endTime will fill the buffer again, we only want to do this if the
+            //let wasPlaying = playing
+            
+            // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
             if newValue == internalEndTime {
                 //print("endTime is the same, so returning: \(newValue)")
@@ -164,18 +180,27 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             } else {
                 endingFrame = UInt32(newValue * internalAudioFile.sampleRate)
                 
-                print("AKAudioPlayer.endTime = \(newValue), endingFrame: \(endingFrame)")
+                Swift.print("AKAudioPlayer.endTime = \(newValue), endingFrame: \(endingFrame)")
                 
                 // now update the buffer
                 updatePCMBuffer()
+                //stop()
                 
                 // remember this value for ease of checking redundancy later
                 internalEndTime = newValue
             }
+            //            if wasPlaying {
+            //                play()
+            //            }
         }
     }
     
+    /// Sets the time in the future when playback will commence. For immediately playback, leave it 0.
+    open var scheduledTime: Double = 0
+    
+    
     // MARK: - Initialization
+    
     
     /// Initialize the audio player
     ///
@@ -222,6 +247,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
         self.avAudioNode = mixer
         internalPlayer.volume = 1.0
+        
         initialize()
     }
     
@@ -232,11 +258,15 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         
         if !playing {
             if audioFileBuffer != nil {
+                // schedule it at some point in the future / or immediately if 0
+                scheduleBuffer( secondsToAVAudioTime(scheduledTime) )
+                
                 playing = true
                 paused = false
                 internalPlayer.play()
+                
             } else {
-                print("AKAudioPlayer Warning: cannot play an empty file!...")
+                print("AKAudioPlayer Warning: cannot play an empty buffer!...")
             }
         } else {
             print("AKAudioPlayer Warning: already playing!...")
@@ -255,6 +285,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         playing = false
         paused = false
         internalPlayer.stop()
+        
+        //updatePCMBuffer()
+        
+        //if you pre-schedule the buffer it's not possible to schedule it in the future
+        //scheduleBuffer()
     }
     
     /// Pause playback
@@ -310,11 +345,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         print("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
     }
-    
-    open func play() {
-        play( from: 0 )
-    }
-    
+
     /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time to play (in seconds).
     ///
     ///  - Parameters:
@@ -333,12 +364,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         
         if endingFrame > startingFrame {
             stop()
-            
-            // schedule it at some point in the future / or immediately if 0
-            scheduleBuffer( secondsToAVAudioTime(scheduledTime) )
-            
+            self.scheduledTime = scheduledTime
             start()
-            
         } else {
             print("ERROR AKaudioPlayer:  cannot play, \(internalAudioFile.fileNamePlusExtension) is empty or segment is too short!")
         }
@@ -352,10 +379,20 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         totalFrameCount = UInt32(internalAudioFile.length)
         startingFrame = 0
         endingFrame = totalFrameCount
-
+        
+        // RF: Actually, this is incorrect. The audio will be played correctly now.
+        // Warning if file's samplerate don't match with AKSettings.samplesRate
+        //        if internalAudioFile.sampleRate != AKSettings.sampleRate {
+        //            print("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" has a different sample rate from AudioKit's Settings !")
+        //            print("Audio will be played at a bad pitch/speed, in / out time will not be set properly !")
+        //        }
+        
         if internalAudioFile.length > 0 {
-            // prefill the buffer
             updatePCMBuffer()
+            
+            // Setting this here doesn't make sense to me, if you pre-schedule the
+            // buffer it's not possible to schedule it in the future
+            //scheduleBuffer()
             
         } else {
             print("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" is an empty file")
@@ -364,25 +401,20 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     
     fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
         let sampleTime = AVAudioFramePosition(time * internalAudioFile.sampleRate)
-        let avTime = AVAudioTime(hostTime: mach_absolute_time(), sampleTime: sampleTime,
-                                 atRate: internalAudioFile.sampleRate)
-        return avTime
+        return AVAudioTime(hostTime: mach_absolute_time(), sampleTime: sampleTime, atRate: internalAudioFile.sampleRate)
     }
     
-    /// scheduleBuffer either now or at a future time
     fileprivate func scheduleBuffer(_ atTime: AVAudioTime? = nil) {
         if audioFileBuffer != nil {
-            internalPlayer.scheduleBuffer(audioFileBuffer!, at: atTime, options: .interrupts,
-                                          completionHandler: internalCompletionHandler)
+            //internalPlayer.scheduleBuffer(audioFileBuffer!, completionHandler: internalCompletionHandler)
+            internalPlayer.scheduleBuffer(audioFileBuffer!, at: atTime, options: .interrupts, completionHandler: internalCompletionHandler)
             
-            // if scheduling in the future, we can prepare the player in advance so it's ready to roll
             if atTime != nil {
                 internalPlayer.prepare(withFrameCount: framesToPlayCount)
             }
         }
     }
     
-    /// reads from the audio file into audioFileBuffer
     fileprivate func updatePCMBuffer() {
         if internalAudioFile.samplesCount > 0 {
             internalAudioFile.framePosition = Int64(startingFrame)
