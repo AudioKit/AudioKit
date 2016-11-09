@@ -13,29 +13,12 @@
 		C4EDA1071DA969CF008C1827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA1051DA969CF008C1827 /* Main.storyboard */; };
 		C4EDA1091DA969CF008C1827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA1081DA969CF008C1827 /* Assets.xcassets */; };
 		C4EDA10C1DA969CF008C1827 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA10A1DA969CF008C1827 /* LaunchScreen.storyboard */; };
-		C4EDA11B1DA96EE7008C1827 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4EDA1181DA96E2F008C1827 /* AudioKit.framework */; };
-		C4EDA11C1DA96EE7008C1827 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4EDA1181DA96E2F008C1827 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4EDA1231DA96F26008C1827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4EDA1221DA96F26008C1827 /* AudioToolbox.framework */; };
 		C4EDA1291DA9A1C2008C1827 /* Audiobus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1281DA9A1C2008C1827 /* Audiobus.swift */; };
 		C4EDA12B1DA9A3D7008C1827 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA12A1DA9A3D7008C1827 /* Audiobus.txt */; };
+		C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */; };
+		C4F3ADC71DD3B448009AF0BE /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C4EDA1171DA96E2F008C1827 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4EDA1131DA96E2F008C1827 /* AudioKit For iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F35001C057E03000E937C;
-			remoteInfo = AudioKit;
-		};
-		C4EDA11D1DA96EE7008C1827 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4EDA1131DA96E2F008C1827 /* AudioKit For iOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C42F34FF1C057E03000E937C;
-			remoteInfo = AudioKit;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C4EDA11F1DA96EE7008C1827 /* Embed Frameworks */ = {
@@ -44,7 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C4EDA11C1DA96EE7008C1827 /* AudioKit.framework in Embed Frameworks */,
+				C4F3ADC71DD3B448009AF0BE /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,12 +43,12 @@
 		C4EDA1081DA969CF008C1827 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4EDA10B1DA969CF008C1827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4EDA10D1DA969CF008C1827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4EDA1131DA96E2F008C1827 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		C4EDA1201DA96F26008C1827 /* FilterEffects.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FilterEffects.entitlements; sourceTree = "<group>"; };
 		C4EDA1221DA96F26008C1827 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C4EDA1251DA99F65008C1827 /* FilterEffects-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FilterEffects-BridgingHeader.h"; sourceTree = "<group>"; };
 		C4EDA1281DA9A1C2008C1827 /* Audiobus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Audiobus.swift; path = ../../../../AudioKit/iOS/Audiobus/Audiobus.swift; sourceTree = "<group>"; };
 		C4EDA12A1DA9A3D7008C1827 /* Audiobus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Audiobus.txt; sourceTree = "<group>"; };
+		C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		CC61B7F5557A1A87795829BE /* Pods-FilterEffects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterEffects.release.xcconfig"; path = "Pods/Target Support Files/Pods-FilterEffects/Pods-FilterEffects.release.xcconfig"; sourceTree = "<group>"; };
 		FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FilterEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -75,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4EDA11B1DA96EE7008C1827 /* AudioKit.framework in Frameworks */,
+				C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */,
 				C4EDA1231DA96F26008C1827 /* AudioToolbox.framework in Frameworks */,
 				68BB9CD8D8D7356D0B2C19DB /* Pods_FilterEffects.framework in Frameworks */,
 			);
@@ -96,7 +79,6 @@
 		C4EDA0F51DA969CF008C1827 = {
 			isa = PBXGroup;
 			children = (
-				C4EDA1131DA96E2F008C1827 /* AudioKit For iOS.xcodeproj */,
 				C4EDA1001DA969CF008C1827 /* FilterEffects */,
 				C4EDA0FF1DA969CF008C1827 /* Products */,
 				C4EDA1211DA96F26008C1827 /* Frameworks */,
@@ -129,17 +111,10 @@
 			path = FilterEffects;
 			sourceTree = "<group>";
 		};
-		C4EDA1141DA96E2F008C1827 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C4EDA1181DA96E2F008C1827 /* AudioKit.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C4EDA1211DA96F26008C1827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */,
 				C4EDA1221DA96F26008C1827 /* AudioToolbox.framework */,
 				FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */,
 			);
@@ -164,7 +139,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C4EDA11E1DA96EE7008C1827 /* PBXTargetDependency */,
 			);
 			name = FilterEffects;
 			productName = FilterEffects;
@@ -207,28 +181,12 @@
 			mainGroup = C4EDA0F51DA969CF008C1827;
 			productRefGroup = C4EDA0FF1DA969CF008C1827 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C4EDA1141DA96E2F008C1827 /* Products */;
-					ProjectRef = C4EDA1131DA96E2F008C1827 /* AudioKit For iOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C4EDA0FD1DA969CF008C1827 /* FilterEffects */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C4EDA1181DA96E2F008C1827 /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = C4EDA1171DA96E2F008C1827 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C4EDA0FC1DA969CF008C1827 /* Resources */ = {
@@ -304,14 +262,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C4EDA11E1DA96EE7008C1827 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioKit;
-			targetProxy = C4EDA11D1DA96EE7008C1827 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C4EDA1051DA969CF008C1827 /* Main.storyboard */ = {
@@ -435,8 +385,9 @@
 				CODE_SIGN_ENTITLEMENTS = FilterEffects/FilterEffects.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = W22K9JG3J6;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = FilterEffects/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FilterEffects;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -454,8 +405,9 @@
 				CODE_SIGN_ENTITLEMENTS = FilterEffects/FilterEffects.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = W22K9JG3J6;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = FilterEffects/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FilterEffects;
 				PRODUCT_NAME = "$(TARGET_NAME)";
