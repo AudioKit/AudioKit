@@ -14,7 +14,7 @@
 #include <math.h>
 #include "soundpipe.h"
 
-//#define lrintf(x) lrintf(x)
+/* #define lrintf(x) lrintf(x) */
 
 int sp_pitchamdf_create(sp_pitchamdf **p)
 {

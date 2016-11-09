@@ -8,11 +8,13 @@
 
 import UIKit
 
+/// Delegate for keyboard events
 public protocol AKKeyboardDelegate {
-    func noteOn(note: Int)
-    func noteOff(note: Int)
+    func noteOn(note: MIDINoteNumber)
+    func noteOff(note: MIDINoteNumber)
 }
 
+/// Clickable keyboard mainly used for AudioKit playgrounds
 @IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
 
     @IBInspectable open var octaveCount: Int = 2
@@ -29,7 +31,6 @@ public protocol AKKeyboardDelegate {
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
-    
     
     open var polyphonicMode = false {
         didSet {

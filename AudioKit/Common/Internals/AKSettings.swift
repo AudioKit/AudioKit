@@ -106,11 +106,9 @@ import AVFoundation
 
     open static func setSession(category: SessionCategory,
                                 with options: AVAudioSessionCategoryOptions? = nil ) throws {
-
+        
         if AKSettings.disableAVAudioSessionCategoryManagement == false {
-
-            // print( "ask for category: \(category.rawValue)")
-            // Category
+            
             if options != nil {
                 do {
                     try session.setCategory(category.rawValue, with: options!)
@@ -119,15 +117,16 @@ import AVFoundation
                     print("AKAsettings Error: \(error))")
                     throw error
                 }
-            }
-        } else {
-
-            do {
-                try session.setCategory(category.rawValue)
-            } catch let error as NSError {
-                print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category))")
-                print("AKAsettings Error: \(error))")
-                throw error
+                
+            } else {
+                
+                do {
+                    try session.setCategory(category.rawValue)
+                } catch let error as NSError {
+                    print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category))")
+                    print("AKAsettings Error: \(error))")
+                    throw error
+                }
             }
         }
 

@@ -23,7 +23,7 @@ class stringResonatorTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.stringResonator()
         }
-        AKTestMD5("0e835e1fcc9417b7418c2fea96121505")
+        AKTestMD5("379aebd3f28898747c360de25a9e42c7")
     }
 
 }

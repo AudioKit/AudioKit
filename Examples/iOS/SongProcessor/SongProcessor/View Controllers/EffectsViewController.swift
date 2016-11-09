@@ -17,6 +17,8 @@ class EffectsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        volumeSlider.maximum = 10.0
 
         if let volume = songProcessor.playerBooster?.gain {
             volumeSlider.value = volume

@@ -128,10 +128,10 @@ public:
                     if (internalTrigger == 1) {
                         flute->noteOn(frequency, amplitude);
                     }
+                    *out = flute->tick();
                 } else {
                     *out = 0.0;
                 }
-                *out = flute->tick();
             }
         }
         if (internalTrigger == 1) {

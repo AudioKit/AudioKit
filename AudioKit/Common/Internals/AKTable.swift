@@ -160,7 +160,7 @@ public struct AKTable: Collection {
     mutating func standardSawtoothWave() {
         let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = -1.0 + 2.0 * Float((i + phaseOffset) % count) / Float(count)
+            values[i] = Float(-1.0 + 2.0 * Float((i + phaseOffset) % count) / Float(count))
         }
     }
 
@@ -168,7 +168,7 @@ public struct AKTable: Collection {
     mutating func standardReverseSawtoothWave() {
         let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = 1.0 - 2.0 * Float((i + phaseOffset) % count) / Float(count)
+            values[i] = Float(1.0 - 2.0 * Float((i + phaseOffset) % count) / Float(count))
         }
     }
 
@@ -176,7 +176,7 @@ public struct AKTable: Collection {
     mutating func standardSineWave() {
         let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count))
+            values[i] = Float(sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count)))
         }
     }
 
@@ -217,7 +217,7 @@ public struct AKTable: Collection {
     mutating func positiveReverseSawtoothWave() {
         let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = 1.0 - Float((i + phaseOffset) % count) / Float(count)
+            values[i] = Float(1.0) - Float((i + phaseOffset) % count) / Float(count)
         }
     }
 
@@ -225,7 +225,7 @@ public struct AKTable: Collection {
     mutating func positiveSineWave() {
         let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = 0.5 + 0.5 * sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count))
+            values[i] = Float(0.5 + 0.5 * sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count)))
         }
     }
 }

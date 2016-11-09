@@ -13,11 +13,11 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
     
     func testDefault() {
         output = AKPhaseDistortionOscillator()
-        AKTestMD5("148e8066d40116f7d820c808b3cd20b5")
+        AKTestMD5("9bb6df5a3b0bd5587b19e6acf8f6943d")
     }
     
     func testParametersSetOnInit() {
-        output = AKPhaseDistortionOscillator(waveform: AKTable(.Square),
+        output = AKPhaseDistortionOscillator(waveform: AKTable(.square),
                                              frequency: 1234,
                                              amplitude: 0.5,
                                              phaseDistortion: 1.234,
@@ -27,7 +27,7 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
     }
     
     func testParametersSetAfterInit() {
-        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.Square))
+        let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square))
         oscillator.frequency          = 1234
         oscillator.amplitude          = 0.5
         oscillator.phaseDistortion    = 1.234

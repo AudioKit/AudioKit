@@ -23,6 +23,7 @@ int sp_tenvx_init(sp_data *sp, sp_tenvx *p)
     p->a_a = p->b_a = 0;
     p->a_r = p->b_r = 0;
     p->y = 0;
+    p->count = (uint32_t) (p->hold * sp->sr);
     return SP_OK;
 }
 
