@@ -19,7 +19,7 @@ class AKMorphingOscillatorTests: AKTestCase {
     
     func testParametersSetOnInit() {
         output = AKMorphingOscillator(
-            waveformArray: [AKTable(.Sine), AKTable(.Triangle), AKTable(.Sawtooth), AKTable(.Square)],
+            waveformArray: [AKTable(.sine), AKTable(.triangle), AKTable(.sawtooth), AKTable(.square)],
             frequency: 1234,
             amplitude: 0.5,
             index: 1.234,
@@ -30,7 +30,7 @@ class AKMorphingOscillatorTests: AKTestCase {
     }
     
     func testParametersSetAfterInit() {
-        let oscillator = AKMorphingOscillator(waveformArray: [AKTable(.Sine), AKTable(.Triangle), AKTable(.Sawtooth), AKTable(.Square)])
+        let oscillator = AKMorphingOscillator(waveformArray: [AKTable(.sine), AKTable(.triangle), AKTable(.sawtooth), AKTable(.square)])
         oscillator.frequency          = 1234
         oscillator.amplitude          = 0.5
         oscillator.index              = 1.234

@@ -23,7 +23,7 @@ class reverberateWithFlatFrequencyResponseTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.reverberateWithFlatFrequencyResponse()
         }
-        AKTestMD5("cc67d104a3c890199cb5c21cd4c019de")
+        AKTestMD5("c4d24a25085c972e54a290ba7367ef18")
     }
 
 }

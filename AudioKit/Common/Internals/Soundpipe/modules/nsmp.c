@@ -7,6 +7,9 @@
 int nano_dict_add(nano_dict *dict, const char *name)
 {
     nano_entry *entry = malloc(sizeof(nano_entry));
+    entry->size = 0;
+    entry->speed = 1;
+    entry->pos = 0;
     strcpy(entry->name, name);
     dict->last->next = entry;
     dict->last = entry;
@@ -19,7 +22,7 @@ int nano_ini_handler(void *user, const char *section, const char *name,
 {
     nanosamp *ss = user;
     nano_dict *dict = &ss->dict;
-    const char *entry_name = dict->last->name; 
+    const char *entry_name = dict->last->name;
 
     if(dict->init) {
         nano_dict_add(dict, section);
@@ -95,7 +98,7 @@ int nano_select(nanosamp *smp, const char *keyword)
             break;
         } else {
             entry = entry->next;
-        } 
+        }
     }
 
     if(smp->selected == 1) return SP_OK;
@@ -103,25 +106,25 @@ int nano_select(nanosamp *smp, const char *keyword)
 }
 
 
-int nano_compute(sp_data *sp, nanosamp *smp, float *out)
+int nano_compute(sp_data *sp, nanosamp *smp, SPFLOAT *out)
 {
     if(!smp->selected) {
         *out = 0;
-        return SP_NOT_OK; 
+        return SP_NOT_OK;
     }
-    
+
     if(smp->curpos < (SPFLOAT)smp->sample->size) {
-        SPFLOAT x1, x2, frac, tmp;
-        uint32_t index;
+        SPFLOAT x1 = 0 , x2 = 0, frac = 0, tmp = 0;
+        uint32_t index = 0;
         SPFLOAT *tbl = smp->ft->tbl;
-        tmp = (smp->curpos + (SPFLOAT)smp->sample->pos);
-        index = (uint32_t)floorf(tmp);
+        tmp = (smp->curpos + smp->sample->pos);
+        index = floorf(tmp);
         frac = fabs(tmp - index);
 
         if(index >= smp->ft->size) {
             index = (uint32_t)smp->ft->size - 1;
         }
-        
+
         x1 = tbl[index];
         x2 = tbl[index + 1];
         *out = x1 + (x2 - x1) * frac;
@@ -165,7 +168,7 @@ int nano_create_index(nanosamp *smp)
     int i;
     nano_entry *entry, *next;
     entry = dict->root.next;
-    
+
     for(i = 0; i < dict->nval; i++) {
         next = entry->next;
         smp->index[i] = entry;
@@ -212,7 +215,7 @@ int sp_nsmp_init(sp_data *sp, sp_nsmp *p, sp_ftbl *ft, int sr, const char *ini)
 int sp_nsmp_compute(sp_data *sp, sp_nsmp *p, SPFLOAT *trig, SPFLOAT *out)
 {
     if (*trig != 0) {
-       p->triggered = 1; 
+       p->triggered = 1;
        nano_select_from_index(p->smp, p->index);
     }
 

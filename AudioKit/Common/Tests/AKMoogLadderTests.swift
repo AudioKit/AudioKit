@@ -15,6 +15,6 @@ class AKMoogLadderTests: AKTestCase {
         let input = AKOscillator()
         output = AKMoogLadder(input)
         input.start()
-        AKTestMD5("ef06eaa675482639297c84b83712111a")
+        AKTestMD5("abe11090068d5b9eb05a3d0e94d381e8")
     }
 }

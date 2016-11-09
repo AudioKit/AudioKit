@@ -82,7 +82,7 @@ char * sporth_tokenizer(char *str,
                 }
                 break;
             case COMMENT:
-                //*pos = *pos + 1;
+                /* *pos = *pos + 1; */
                 switch(c) {
                     case '\n':
                         mode = SPACE;

@@ -23,7 +23,7 @@ class moogLadderFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.moogLadderFilter()
         }
-        AKTestMD5("1476d5ec2c7f4e9df5d5a70a4fe95a8e")
+        AKTestMD5("18c3f7355cdddd7e521089f4dce0f75e")
     }
 
 }

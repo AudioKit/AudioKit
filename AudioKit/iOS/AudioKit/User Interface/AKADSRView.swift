@@ -9,14 +9,25 @@
 import Foundation
 import UIKit
 
+/// A click and draggable view of an ADSR Envelope (Atttack, Decay, Sustain, Release)
 @IBDesignable open class AKADSRView: UIView {
+    
+    /// Type of function to call when values of the ADSR have changed
     public typealias ADSRCallback = (Double, Double, Double, Double)->()
 
+    /// Attack time in seconds, Default: 0.1
     @IBInspectable open var attackDuration: Double  = 0.100
+    
+    /// Decay time in seconds, Default: 0.1
     @IBInspectable open var decayDuration: Double   = 0.100
+    
+    /// Sustain Level (0-1), Default: 0.5
     @IBInspectable open var sustainLevel: Double    = 0.50
+    
+    /// Release time in seconds, Default: 0.1
     @IBInspectable open var releaseDuration: Double = 0.100
 
+    /// Attack time in milliseconds
     var attackTime: CGFloat {
         get {
             return CGFloat(attackDuration * 1000.0)
@@ -25,6 +36,8 @@ import UIKit
             attackDuration = Double(newValue / 1000.0)
         }
     }
+    
+    /// Decay time in milliseconds
     var decayTime: CGFloat {
         get {
             return CGFloat(decayDuration * 1000.0)
@@ -34,6 +47,7 @@ import UIKit
         }
     }
     
+    /// Sustain level as a percentage 0% - 100%
     var sustainPercent: CGFloat {
         get {
             return CGFloat(sustainLevel * 100.0)
@@ -43,6 +57,7 @@ import UIKit
         }
     }
 
+    /// Release time in milliseconds
     var releaseTime: CGFloat {
         get {
             return CGFloat(releaseDuration * 1000.0)
@@ -52,12 +67,13 @@ import UIKit
         }
     }
 
-    var decaySustainTouchAreaPath = UIBezierPath()
-    var attackTouchAreaPath       = UIBezierPath()
-    var releaseTouchAreaPath      = UIBezierPath()
+    private var decaySustainTouchAreaPath = UIBezierPath()
+    private var attackTouchAreaPath       = UIBezierPath()
+    private var releaseTouchAreaPath      = UIBezierPath()
 
+    /// Function to call when the values of the ADSR changes
     open var callback: ADSRCallback?
-    var currentDragArea = ""
+    private var currentDragArea = ""
 
     //// Color Declarations
     @IBInspectable open var attackColor: UIColor  = UIColor(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -325,8 +341,6 @@ import UIKit
 
         context!.restoreGState()
     }
-
-
 
     override open func draw(_ rect: CGRect) {
         drawCurveCanvas(size: rect.size, attackDurationMS: attackTime,

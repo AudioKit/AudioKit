@@ -65,8 +65,6 @@ int sp_wpkorg35_init(sp_data *sp, sp_wpkorg35 *p)
     p->lpf2_z = 0;
     p->hpf_z = 0;
 
-    /* update filters */
-    update(sp, p);
 
     /* initialize LPF1 */
 
@@ -80,6 +78,9 @@ int sp_wpkorg35_init(sp_data *sp, sp_wpkorg35 *p)
     p->lpf2_z = 0.0;
 
     p->nonlinear = 0;
+
+    /* update filters */
+    update(sp, p);
     return SP_OK;
 }
 

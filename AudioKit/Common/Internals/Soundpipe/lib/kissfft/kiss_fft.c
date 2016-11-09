@@ -250,13 +250,13 @@ void kf_work(
     const kiss_fft_cpx * Fout_end = Fout + p*m;
 
 #ifdef _OPENMP
-    // use openmp extensions at the 
-    // top-level (not recursive)
+    /* use openmp extensions at the */
+    /* top-level (not recursive) */
     if (fstride==1 && p<=5)
     {
         int k;
 
-        // execute the p different work units in different threads
+        /* execute the p different work units in different threads */
 #       pragma omp parallel for
         for (k=0;k<p;++k) 
             kf_work( Fout +k*m, f+ fstride*in_stride*k,fstride*p,in_stride,factors,st);
@@ -280,10 +280,11 @@ void kf_work(
         }while(++Fout != Fout_end );
     }else{
         do{
-            // recursive call:
-            // DFT of size m*p performed by doing
-            // p instances of smaller DFTs of size m, 
-            // each one takes a decimated version of the input
+            /* recursive call:
+             * DFT of size m*p performed by doing
+             * p instances of smaller DFTs of size m, 
+             * each one takes a decimated version of the input
+             */
             kf_work( Fout , f, fstride*p, in_stride, factors,st);
             f += fstride*in_stride;
         }while( (Fout += m) != Fout_end );
@@ -291,7 +292,7 @@ void kf_work(
 
     Fout=Fout_beg;
 
-    // recombine the p smaller DFTs 
+    /* recombine the p smaller DFTs  */
     switch (p) {
         case 2: kf_bfly2(Fout,fstride,st,m); break;
         case 3: kf_bfly3(Fout,fstride,st,m); break; 
@@ -371,8 +372,8 @@ kiss_fft_cfg kiss_fft_alloc(int nfft,int inverse_fft,void * mem,size_t * lenmem 
 void kiss_fft_stride(kiss_fft_cfg st,const kiss_fft_cpx *fin,kiss_fft_cpx *fout,int in_stride)
 {
     if (fin == fout) {
-        //NOTE: this is not really an in-place FFT algorithm.
-        //It just performs an out-of-place FFT into a temp buffer
+        /* NOTE: this is not really an in-place FFT algorithm. */
+        /* It just performs an out-of-place FFT into a temp buffer */
         kiss_fft_cpx * tmpbuf = (kiss_fft_cpx*)KISS_FFT_TMP_ALLOC( sizeof(kiss_fft_cpx)*st->nfft);
         kf_work(tmpbuf,fin,1,in_stride, st->factors,st);
         memcpy(fout,tmpbuf,sizeof(kiss_fft_cpx)*st->nfft);
@@ -390,7 +391,7 @@ void kiss_fft(kiss_fft_cfg cfg,const kiss_fft_cpx *fin,kiss_fft_cpx *fout)
 
 void kiss_fft_cleanup(void)
 {
-    // nothing needed any more
+    /* nothing needed any more */
 }
 
 int kiss_fft_next_fast_size(int n)

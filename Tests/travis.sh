@@ -10,6 +10,11 @@ cd Frameworks
 ./build_frameworks.sh || exit 1
 cd ..
 
+# Get Audiobus
+cd Examples/iOS/AnalogSynthX
+pod install
+cd ../../..
+
 echo "Skipping iOS Unit Tests"
 # xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty -c || exit 3
 
@@ -26,7 +31,7 @@ xcodebuild -project Examples/tvOS/HelloWorld/HelloWorld.xcodeproj -sdk appletvsi
 echo "Building More Advanced Examples"
 
 echo "Building iOS AnalogSynthX"
-xcodebuild -project Examples/iOS/AnalogSynthX/AnalogSynthX.xcodeproj -sdk iphonesimulator -scheme AnalogSynthX -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 7
+xcodebuild -workspace Examples/iOS/AnalogSynthX/AnalogSynthX.xcworkspace -sdk iphonesimulator -scheme AnalogSynthX -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 7
 
 echo "Building iOS HelloObjectiveC"
 xcodebuild -project Examples/iOS/HelloObjectiveC/HelloObjectiveC.xcodeproj -sdk iphonesimulator -scheme HelloObjectiveC -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 8
@@ -64,3 +69,8 @@ xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj  -scheme 
 echo "Skipping AudioKitParticles - requires hardware"
 #xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16
 
+echo "Building iOS Sender Synth"
+xcodebuild -workspace Examples/iOS/SenderSynth/SenderSynth.xcworkspace -sdk iphonesimulator -scheme SenderSynth -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 18
+
+echo "Building iOS Filter Effects"
+xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 19

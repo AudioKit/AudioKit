@@ -23,7 +23,7 @@ class lowPassFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.lowPassFilter()
         }
-        AKTestMD5("f20b9a6825c23016c8e17927314cd8e8")
+        AKTestMD5("a404ccb887c98999cb155cf28c2bb9a5")
     }
 
 }
