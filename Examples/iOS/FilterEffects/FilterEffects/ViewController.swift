@@ -11,7 +11,6 @@ import AudioKit
 
 class ViewController: UIViewController {
 
-    var filter: AKMoogLadder?
     var delay: AKVariableDelay?
     var delayMixer: AKDryWetMixer?
     var reverb: AKCostelloReverb?
@@ -21,11 +20,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        filter = AKMoogLadder(AKMicrophone())
+        let input = AKStereoInput()
         
-        delay = AKVariableDelay(filter!)
+        delay = AKVariableDelay(input)
         delay?.rampTime = 0.5 // Allows for some cool effects
-        delayMixer = AKDryWetMixer(filter!, delay!)
+        delayMixer = AKDryWetMixer(input, delay!)
         
         reverb = AKCostelloReverb(delayMixer!)
         reverbMixer = AKDryWetMixer(delayMixer!, reverb!)
@@ -46,22 +45,6 @@ class ViewController: UIViewController {
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 10
-        
-        stackView.addArrangedSubview(AKPropertySlider(
-            property: "Cutoff Frequency",
-            format: "%0.1f Hz",
-            value: self.filter!.cutoffFrequency, minimum: 1, maximum: 2000,
-            color: UIColor.orange) { sliderValue in
-                self.filter?.cutoffFrequency = sliderValue
-        })
-
-        stackView.addArrangedSubview(AKPropertySlider(
-            property: "Resonance",
-            format: "%0.2f",
-            value: self.filter!.resonance, minimum: 0, maximum: 0.99,
-            color: UIColor.orange) { sliderValue in
-                self.filter?.resonance = sliderValue
-        })
         
         stackView.addArrangedSubview(AKPropertySlider(
             property: "Delay Time",
