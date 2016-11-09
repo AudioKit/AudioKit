@@ -38,11 +38,6 @@ int sporth_switch(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for switch\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             input_2 = sporth_stack_pop_float(stack);
             input_1 = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);

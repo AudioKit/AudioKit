@@ -2,6 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AudioComponents</key>
+	<array>
+		<dict>
+			<key>manufacturer</key>
+			<string>AuKt</string>
+			<key>name</key>
+			<string>AudioKit: Sender</string>
+			<key>subtype</key>
+			<string>sndx</string>
+			<key>type</key>
+			<string>auri</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -49,6 +64,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
@@ -60,21 +77,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>AudioComponents</key>
-	<array>
-		<dict>
-			<key>manufacturer</key>
-			<string>AuKt</string>
-			<key>subtype</key>
-			<string>sndx</string>
-			<key>version</key>
-			<integer>1</integer>
-			<key>type</key>
-			<string>auri</string>
-			<key>name</key>
-			<string>AudioKit: Sender</string>
-		</dict>
 	</array>
 </dict>
 </plist>

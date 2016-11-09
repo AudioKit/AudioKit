@@ -23,7 +23,7 @@
 
 #define MPIDSR -M_PI/sp->sr
 
-static inline SPFLOAT intpow1(SPFLOAT x, int32_t n)
+static SPFLOAT intpow1(SPFLOAT x, int32_t n)
 {
     SPFLOAT ans = 1.0;
     while (n!=0) {

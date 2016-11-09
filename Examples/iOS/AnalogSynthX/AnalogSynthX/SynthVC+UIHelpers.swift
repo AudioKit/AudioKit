@@ -22,7 +22,11 @@ extension SynthViewController {
         guard let url = URL(string: url) else {
             return
         }
-        UIApplication.shared.open(url)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     func cutoffFreqFromValue(_ value: Double) -> Double {

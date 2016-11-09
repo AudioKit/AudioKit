@@ -36,6 +36,7 @@ int sporth_gen_sporth(sporth_stack *stack, void *ud)
             plumber_init(&my_pd);
             sp_create(&sp);
             sp->sr = pd->sp->sr;
+            sp_srand(sp, pd->seed);
             my_pd.sp = sp;
             my_pd.sp->len = size;
             if(plumber_open_file(&my_pd, filename) == PLUMBER_OK) {
