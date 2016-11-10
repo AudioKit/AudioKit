@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         AKSettings.bufferLength = .medium
         
         do {
-            try AKSettings.setSession(category: .playAndRecord)
+            try AKSettings.setSession(category: .playAndRecord, with: .defaultToSpeaker)
         } catch { print("Errored setting category.") }
         
         // Patching
@@ -121,7 +121,7 @@ class ViewController: UIViewController {
             state = .playing
         case .playing :
             player?.stop()
-            setupUIForPlaying ()
+            setupUIForPlaying()
         }
     }
     
@@ -162,7 +162,7 @@ class ViewController: UIViewController {
         moogLadderTitle.isEnabled = active
         frequencySlider.callback = updateFrequency
         frequencySlider.isHidden = !active
-        resonanceSlider.callback = updateReson
+        resonanceSlider.callback = updateResonance
         resonanceSlider.isHidden = !active
         frequencySlider.maximum = 2000
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
@@ -196,7 +196,7 @@ class ViewController: UIViewController {
         frequencySlider.format = "%0.0f"
     }
     
-    func updateReson(value: Double) {
+    func updateResonance(value: Double) {
         moogLadder?.resonance = value
         resonanceSlider.property = "Resonance"
         resonanceSlider.format = "%0.3f"
