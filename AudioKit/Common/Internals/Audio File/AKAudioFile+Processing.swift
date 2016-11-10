@@ -26,8 +26,8 @@ extension AKAudioFile {
     /// - returns: An AKAudioFile, or nil if init failed.
     ///
     public func normalized(baseDir: BaseDirectory = .temp,
-                                   name: String = "",
-                                   newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
+                           name: String = "",
+                           newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
         
         let level = self.maxLevel
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
@@ -70,7 +70,7 @@ extension AKAudioFile {
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
     public func reversed(baseDir: BaseDirectory = .temp,
-                                 name: String = "" ) throws -> AKAudioFile {
+                         name: String = "" ) throws -> AKAudioFile {
         
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
         
@@ -104,8 +104,8 @@ extension AKAudioFile {
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
     public func appendedBy(file: AKAudioFile,
-                                baseDir: BaseDirectory = .temp,
-                                name: String  = "") throws -> AKAudioFile {
+                           baseDir: BaseDirectory = .temp,
+                           name: String  = "") throws -> AKAudioFile {
         
         
         var sourceBuffer = self.pcmBuffer
@@ -189,9 +189,9 @@ extension AKAudioFile {
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
     public func extracted(fromSample: Int64 = 0,
-                                     toSample: Int64 = 0,
-                                     baseDir: BaseDirectory = .temp,
-                                     name: String = "") throws -> AKAudioFile {
+                          toSample: Int64 = 0,
+                          baseDir: BaseDirectory = .temp,
+                          name: String = "") throws -> AKAudioFile {
         
         let fixedFrom = abs(fromSample)
         let fixedTo: Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample, Int64(self.samplesCount))
@@ -213,6 +213,4 @@ extension AKAudioFile {
         let newFile = try AKAudioFile(createFileFromFloats: newArrays, baseDir: baseDir, name: name)
         return try AKAudioFile(forReading: newFile.url)
     }
-    
-    
 }
