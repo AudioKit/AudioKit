@@ -19,7 +19,7 @@ extension AKAudioFile {
     /// - returns: An initialized AKAudioFile for reading, or nil if init failed
     ///
     public convenience init(readFileName name: String,
-                                         baseDir: BaseDirectory = .resources) throws {
+                            baseDir: BaseDirectory = .resources) throws {
         
         let filePath: String
         
@@ -81,8 +81,8 @@ extension AKAudioFile {
     ///   - interleaved: Bool (Whether to use an interleaved processing format.)
     ///
     public convenience init(writeIn baseDir: BaseDirectory = .temp,
-                                    name: String = "",
-                                    settings: [String : Any] = AKSettings.audioFormat.settings)
+                            name: String = "",
+                            settings: [String : Any] = AKSettings.audioFormat.settings)
         throws {
             
             let fileNameWithExtension: String
@@ -152,8 +152,8 @@ extension AKAudioFile {
     /// - Returns: a .caf AKAudioFile set to AudioKit settings (32 bits float @ 44100 Hz)
     ///
     public convenience init(createFileFromFloats floatsArrays: [[Float]],
-                                                 baseDir: BaseDirectory = .temp,
-                                                 name: String = "") throws {
+                            baseDir: BaseDirectory = .temp,
+                            name: String = "") throws {
         
         let channelCount = floatsArrays.count
         var fixedSettings = AKSettings.audioFormat.settings
@@ -202,8 +202,8 @@ extension AKAudioFile {
     /// - Returns: a .caf AKAudioFile set to AudioKit settings (32 bits float @ 44100 Hz)
     ///
     public convenience init(fromAVAudioPCMBuffer buffer: AVAudioPCMBuffer,
-                                                 baseDir: BaseDirectory = .temp,
-                                                 name: String = "") throws {
+                            baseDir: BaseDirectory = .temp,
+                            name: String = "") throws {
         
         try self.init(writeIn: baseDir,
                       name: name)
