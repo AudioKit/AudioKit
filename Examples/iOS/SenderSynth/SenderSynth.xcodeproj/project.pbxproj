@@ -16,16 +16,17 @@
 		C4EDA0E91DA88F2E008C1827 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4EDA0E81DA88F2E008C1827 /* AudioToolbox.framework */; };
 		C4EDA0F01DA8C36A008C1827 /* Audiobus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA0EF1DA8C36A008C1827 /* Audiobus.swift */; };
 		C4EDA0F21DA8C91A008C1827 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA0F11DA8C91A008C1827 /* Audiobus.txt */; };
-		C4F3ADC51DD3B346009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */; };
+		C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C4C5F8121DA8788800C1017F /* Embed Frameworks */ = {
+		C4F3ADE51DD43073009AF0BE /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C4F3ADE41DD43073009AF0BE /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4F3ADC51DD3B346009AF0BE /* AudioKit.framework in Frameworks */,
+				C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */,
 				5AA8FAB1B31D46B6F51CB8EB /* Pods_SenderSynth.framework in Frameworks */,
 				C4EDA0E91DA88F2E008C1827 /* AudioToolbox.framework in Frameworks */,
 			);
@@ -130,9 +131,9 @@
 				C4C5F7EF1DA8759500C1017F /* Sources */,
 				C4C5F7F01DA8759500C1017F /* Frameworks */,
 				C4C5F7F11DA8759500C1017F /* Resources */,
-				C4C5F8121DA8788800C1017F /* Embed Frameworks */,
 				F083F1A98EBA596A8767F9EC /* [CP] Embed Pods Frameworks */,
 				CDE4F30D5FAB5F17FC37A0AC /* [CP] Copy Pods Resources */,
+				C4F3ADE51DD43073009AF0BE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -380,10 +381,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8DABD8232B53FA839B3DB3C5 /* Pods-SenderSynth.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SenderSynth/SenderSynth.entitlements;
 				DEVELOPMENT_TEAM = W22K9JG3J6;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = SenderSynth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -398,10 +399,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AC7914936EA0C8434A4118FA /* Pods-SenderSynth.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SenderSynth/SenderSynth.entitlements;
 				DEVELOPMENT_TEAM = W22K9JG3J6;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = SenderSynth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
