@@ -44,12 +44,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
     open var threshold: Double = -20 {
         didSet {
-            if threshold < -40 {
-                threshold = -40
-            }
-            if threshold > 20 {
-                threshold = 20
-            }
+            threshold = (-40...20).clamp(threshold)
+
             AudioUnitSetParameter(
                 internalAU!,
                 kDynamicsProcessorParam_Threshold,
@@ -61,12 +57,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
     open var headRoom: Double = 5 {
         didSet {
-            if headRoom < 0.1 {
-                headRoom = 0.1
-            }
-            if headRoom > 40.0 {
-                headRoom = 40.0
-            }
+            headRoom = (0.1...40).clamp(headRoom)
+
             AudioUnitSetParameter(
                 internalAU!,
                 kDynamicsProcessorParam_HeadRoom,
@@ -78,12 +70,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
     open var expansionRatio: Double = 2 {
         didSet {
-            if expansionRatio < 1 {
-                expansionRatio = 1
-            }
-            if expansionRatio > 50.0 {
-                expansionRatio = 50.0
-            }
+            expansionRatio = (1...50).clamp(expansionRatio)
+
             AudioUnitSetParameter(
                 internalAU!,
                 kDynamicsProcessorParam_ExpansionRatio,
@@ -95,12 +83,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
     open var expansionThreshold: Double = 2 {
         didSet {
-            if expansionThreshold < 1 {
-                expansionThreshold = 1
-            }
-            if expansionThreshold > 50.0 {
-                expansionThreshold = 50.0
-            }
+            expansionThreshold = (1...50).clamp(expansionThreshold)
+
             AudioUnitSetParameter(
                 internalAU!,
                 kDynamicsProcessorParam_ExpansionThreshold,
@@ -112,12 +96,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
     open var attackTime: Double = 0.001 {
         didSet {
-            if attackTime < 0.0001 {
-                attackTime = 0.0001
-            }
-            if attackTime > 0.2 {
-                attackTime = 0.2
-            }
+            attackTime = (0.0001...0.2).clamp(attackTime)
+
             AudioUnitSetParameter(
                 internalAU!,
                 kDynamicsProcessorParam_AttackTime,
@@ -129,12 +109,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
     open var releaseTime: Double = 0.05 {
         didSet {
-            if releaseTime < 0.01 {
-                releaseTime = 0.01
-            }
-            if releaseTime > 3 {
-                releaseTime = 3
-            }
+            releaseTime = (0.01...3).clamp(releaseTime)
+
             AudioUnitSetParameter(
                 internalAU!,
                 kDynamicsProcessorParam_ReleaseTime,
@@ -146,12 +122,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Master Gain (dB) ranges from -40 to 40 (Default: 0)
     open var masterGain: Double = 0 {
         didSet {
-            if masterGain < -40 {
-                masterGain = -40
-            }
-            if masterGain > 40 {
-                masterGain = 40
-            }
+            masterGain = (-40...40).clamp(masterGain)
+
             AudioUnitSetParameter(
                 internalAU!,
                 kDynamicsProcessorParam_MasterGain,
@@ -181,12 +153,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Dry/Wet Mix (Default 100)
     open var dryWetMix: Double = 100 {
         didSet {
-            if dryWetMix < 0 {
-                dryWetMix = 0
-            }
-            if dryWetMix > 100 {
-                dryWetMix = 100
-            }
+            dryWetMix = (0...100).clamp(dryWetMix)
+
             inputGain?.volume = 1 - dryWetMix / 100
             effectGain?.volume = dryWetMix / 100
         }

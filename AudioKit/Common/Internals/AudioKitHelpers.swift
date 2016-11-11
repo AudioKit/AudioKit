@@ -173,16 +173,25 @@ extension Double {
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
         return 69 + 12*log2(self/aRef)
     }
-
 }
 
-extension Array where Element: ExpressibleByIntegerLiteral {
-    /// Initialize array with zeroes, ~10x faster than append for array of size 4096
-    ///
-    /// - parameter count: Number of elements in the array
-    ///
+extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntegerLiteral {
+	/// Initialize array with zeroes, ~10x faster than append for array of size 4096
+	///
+	/// - parameter count: Number of elements in the array
+	///
 
     public init(zeroes count: Int) {
-        self = [Element](repeating: 0, count: count)
+        self.init(repeating: 0, count: count)
+    }
+}
+
+extension ClosedRange {
+    /// Clamp value to the range
+    ///
+    /// - parameter value: Value to clamp
+    ///
+    public func clamp(_ value: Bound) -> Bound {
+        return min(max(value, lowerBound), upperBound)
     }
 }
