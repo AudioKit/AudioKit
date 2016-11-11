@@ -18,7 +18,7 @@ import AVFoundation
 ///   - attackDuration: Impulse response attack time (in seconds).
 ///   - decayDuration: Impulse reponse decay time (in seconds)
 ///
-open class AKFormantFilter: AKNode, AKToggleable {
+open class AKFormantFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

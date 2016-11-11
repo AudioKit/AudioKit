@@ -15,7 +15,7 @@ import AVFoundation
 ///   - centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
 ///   - bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
 ///
-open class AKBandPassFilter: AKNode, AKToggleable {
+open class AKBandPassFilter: AKNode, AKPlayable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,

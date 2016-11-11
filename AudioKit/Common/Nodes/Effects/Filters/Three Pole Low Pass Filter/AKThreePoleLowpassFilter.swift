@@ -16,7 +16,7 @@ import AVFoundation
 ///   - cutoffFrequency: Filter cutoff frequency in Hertz.
 ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
 ///
-open class AKThreePoleLowpassFilter: AKNode, AKToggleable {
+open class AKThreePoleLowpassFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

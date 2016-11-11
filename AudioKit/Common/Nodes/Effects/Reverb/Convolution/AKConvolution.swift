@@ -16,7 +16,7 @@ import AVFoundation
 ///   - impulseResponseFileURL: Location of the imulseResponse audio File
 ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.
 ///
-open class AKConvolution: AKNode, AKToggleable {
+open class AKConvolution: AKNode, AKPlayable {
 
     // MARK: - Properties
 

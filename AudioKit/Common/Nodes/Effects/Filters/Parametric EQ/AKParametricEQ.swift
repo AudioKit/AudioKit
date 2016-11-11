@@ -16,7 +16,7 @@ import AVFoundation
 ///   - q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
 ///   - gain: Gain (dB) ranges from -20 to 20 (Default: 0)
 ///
-open class AKParametricEQ: AKNode, AKToggleable {
+open class AKParametricEQ: AKNode, AKPlayable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,

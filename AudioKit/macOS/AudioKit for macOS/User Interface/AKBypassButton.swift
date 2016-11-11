@@ -8,7 +8,7 @@
 
 public class AKBypassButton: NSView {
     
-    var node: AKToggleable
+    var node: AKPlayable
     var bypassOuterPath = NSBezierPath()
     var processOuterPath = NSBezierPath()
     
@@ -24,7 +24,7 @@ public class AKBypassButton: NSView {
         needsDisplay = true
     }
     
-    public init(node: AKToggleable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
+    public init(node: AKPlayable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.node = node
         super.init(frame: frame)
     }

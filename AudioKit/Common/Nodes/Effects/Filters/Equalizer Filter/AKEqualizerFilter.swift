@@ -19,7 +19,7 @@ import AVFoundation
 ///   - bandwidth: The peak/notch bandwidth in Hertz
 ///   - gain: The peak/notch gain
 ///
-open class AKEqualizerFilter: AKNode, AKToggleable {
+open class AKEqualizerFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

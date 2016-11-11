@@ -14,7 +14,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
 ///
-open class AKVariSpeed: AKNode, AKToggleable {
+open class AKVariSpeed: AKNode, AKPlayable {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 

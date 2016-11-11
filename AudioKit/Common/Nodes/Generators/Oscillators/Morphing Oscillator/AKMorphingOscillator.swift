@@ -20,7 +20,7 @@ import AVFoundation
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///   - phase:              Initial phase of waveform, expects a value 0-1
 ///
-open class AKMorphingOscillator: AKNode, AKToggleable {
+open class AKMorphingOscillator: AKNode, AKPlayable {
 
     // MARK: - Properties
 

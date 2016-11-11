@@ -13,7 +13,7 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 ///
-open class AKDCBlock: AKNode, AKToggleable {
+open class AKDCBlock: AKNode, AKPlayable {
 
     // MARK: - Properties
 

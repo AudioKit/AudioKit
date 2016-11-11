@@ -16,7 +16,7 @@ import AVFoundation
 ///   - windowSize: Window size (in samples)
 ///   - crossfade: Crossfade (in samples)
 ///
-open class AKPitchShifter: AKNode, AKToggleable {
+open class AKPitchShifter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

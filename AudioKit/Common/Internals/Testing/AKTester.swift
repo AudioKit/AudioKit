@@ -9,12 +9,12 @@
 import AVFoundation
 
 /// Testing node
-open class AKTester: AKNode, AKToggleable {
+open class AKTester: AKNode, AKPlayable {
 
     // MARK: - Properties
 
     fileprivate var internalAU: AKTesterAudioUnit?
-    fileprivate var testedNode: AKToggleable?
+    fileprivate var testedNode: AKPlayable?
     fileprivate var token: AUParameterObserverToken?
     var totalSamples = 0
 
@@ -38,7 +38,7 @@ open class AKTester: AKNode, AKToggleable {
     ///
     public init(_ input: AKNode, samples: Int) {
 
-        testedNode = input as? AKToggleable
+        testedNode = input as? AKPlayable
         totalSamples = samples
 
         var description = AudioComponentDescription()

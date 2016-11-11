@@ -17,7 +17,7 @@ import AVFoundation
 ///   - sustainLevel: Sustain Level
 ///   - releaseDuration: Release time
 ///
-open class AKAmplitudeEnvelope: AKNode, AKToggleable {
+open class AKAmplitudeEnvelope: AKNode, AKPlayable {
 
     // MARK: - Properties
 

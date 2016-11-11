@@ -17,7 +17,7 @@ import AVFoundation
 ///   - balance: Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
 ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
 ///
-open class AKRingModulator: AKNode, AKToggleable {
+open class AKRingModulator: AKNode, AKPlayable {
 
     // MARK: - Properties
 

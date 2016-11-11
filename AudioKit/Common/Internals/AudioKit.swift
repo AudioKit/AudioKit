@@ -232,7 +232,7 @@ public typealias AKCallback = (Void) -> Void
     open static func auditionTest(node: AKNode, duration: Double) {
         output = node
         start()
-        if let playableNode = node as? AKToggleable {
+        if let playableNode = node as? AKPlayable {
             playableNode.play()
         }
         usleep(UInt32(duration * 1000000))

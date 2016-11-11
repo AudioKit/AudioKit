@@ -15,7 +15,7 @@ import AVFoundation
 ///   - input: AKNode to reverberate
 ///   - dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
 ///
-open class AKReverb: AKNode, AKToggleable {
+open class AKReverb: AKNode, AKPlayable {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     fileprivate var lastKnownMix: Double = 0.5

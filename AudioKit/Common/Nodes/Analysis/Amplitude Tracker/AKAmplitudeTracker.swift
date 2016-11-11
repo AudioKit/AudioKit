@@ -15,7 +15,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
 ///
-open class AKAmplitudeTracker: AKNode, AKToggleable {
+open class AKAmplitudeTracker: AKNode, AKPlayable {
 
 
     // MARK: - Properties

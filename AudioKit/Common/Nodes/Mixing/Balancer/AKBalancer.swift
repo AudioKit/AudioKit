@@ -19,7 +19,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - comparator: Audio to match power with
 ///
-open class AKBalancer: AKNode, AKToggleable {
+open class AKBalancer: AKNode, AKPlayable {
 
     // MARK: - Properties
     

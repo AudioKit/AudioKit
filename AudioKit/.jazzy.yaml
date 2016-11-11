@@ -47,7 +47,7 @@ custom_categories:
     - AKNode
     - AKPolyphonic
     - AKPolyphonicNode
-    - AKToggleable
+    - AKPlayable
     - AKOperationGenerator
 
   - name: Analysis Nodes

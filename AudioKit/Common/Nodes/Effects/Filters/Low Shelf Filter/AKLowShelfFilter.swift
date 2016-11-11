@@ -15,7 +15,7 @@ import AVFoundation
 ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
 ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
-open class AKLowShelfFilter: AKNode, AKToggleable {
+open class AKLowShelfFilter: AKNode, AKPlayable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,

@@ -15,7 +15,7 @@ import AVFoundation
 ///   - bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
 ///   - sampleRate: The sample rate of signal output.
 ///
-open class AKBitCrusher: AKNode, AKToggleable {
+open class AKBitCrusher: AKNode, AKPlayable {
 
     // MARK: - Properties
 

@@ -14,7 +14,7 @@ import AVFoundation
 ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
 ///   - amplitude: Amplitude
 ///
-open class AKFlute: AKNode, AKToggleable {
+open class AKFlute: AKNode, AKPlayable {
 
     // MARK: - Properties
 

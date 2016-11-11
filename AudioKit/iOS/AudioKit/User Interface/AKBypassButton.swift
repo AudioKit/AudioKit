@@ -10,7 +10,7 @@
 /// primarily used for playgrounds, but potentially useful in your own code.
 open class AKBypassButton: UIView {
 
-    var node: AKToggleable
+    var node: AKPlayable
     var bypassOuterPath = UIBezierPath()
     var processOuterPath = UIBezierPath()
 
@@ -31,10 +31,10 @@ open class AKBypassButton: UIView {
     /// Instatiate the button with a node and a size
     ///
     /// - Parameters:
-    ///   - node:  Toggleable node that will be affected
+    ///   - node:  Playable node that will be affected
     ///   - frame: bounds of the button
     ///
-    public init(node: AKToggleable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
+    public init(node: AKPlayable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.node = node
         super.init(frame: frame)
     }

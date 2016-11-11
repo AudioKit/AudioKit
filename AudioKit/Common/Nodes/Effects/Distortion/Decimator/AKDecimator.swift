@@ -16,7 +16,7 @@ import AVFoundation
 ///   - rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
 ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
 ///
-open class AKDecimator: AKNode, AKToggleable {
+open class AKDecimator: AKNode, AKPlayable {
 
     // MARK: - Properties
 

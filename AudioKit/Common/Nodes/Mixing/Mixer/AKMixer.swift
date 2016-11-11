@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// AudioKit version of Apple's Mixer Node
-open class AKMixer: AKNode, AKToggleable {
+open class AKMixer: AKNode, AKPlayable {
     fileprivate let mixerAU = AVAudioMixerNode()
     
     /// Output Volume (Default 1)

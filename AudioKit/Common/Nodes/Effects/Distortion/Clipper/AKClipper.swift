@@ -15,7 +15,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - limit: Threshold / limiting value.
 ///
-open class AKClipper: AKNode, AKToggleable {
+open class AKClipper: AKNode, AKPlayable {
 
     // MARK: - Properties
 

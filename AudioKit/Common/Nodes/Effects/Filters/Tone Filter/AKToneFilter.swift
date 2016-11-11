@@ -14,7 +14,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
 ///
-open class AKToneFilter: AKNode, AKToggleable {
+open class AKToneFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 
