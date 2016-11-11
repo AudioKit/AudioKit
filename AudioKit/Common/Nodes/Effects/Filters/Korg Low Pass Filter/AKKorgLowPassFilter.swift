@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter resonance: Filter resonance (should be between 0-2)
 /// - parameter saturation: Filter saturation.
 ///
-open class AKKorgLowPassFilter: AKNode, AKToggleable {
+open class AKKorgLowPassFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

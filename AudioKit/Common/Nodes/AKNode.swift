@@ -75,7 +75,7 @@ open class AKPolyphonicNode: AKNode, AKPolyphonic {
 
 
 /// Protocol for dictating that a node can be in a started or stopped state
-public protocol AKToggleable {
+public protocol AKPlayable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
     
@@ -86,8 +86,8 @@ public protocol AKToggleable {
     func stop()
 }
 
-/// Default functions for nodes that conform to AKToggleable
-public extension AKToggleable {
+/// Default functions for nodes that conform to AKPlayable
+public extension AKPlayable {
     
     /// Synonym for isStarted that may make more sense with musical instruments
     public var isPlaying: Bool {

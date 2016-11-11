@@ -14,7 +14,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
 ///
-open class AKToneComplementFilter: AKNode, AKToggleable {
+open class AKToneComplementFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

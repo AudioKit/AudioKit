@@ -16,7 +16,7 @@ import AVFoundation
 ///   - centerFrequency: Center frequency. (in Hertz)
 ///   - bandwidth: Bandwidth. (in Hertz)
 ///
-open class AKBandPassButterworthFilter: AKNode, AKToggleable {
+open class AKBandPassButterworthFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

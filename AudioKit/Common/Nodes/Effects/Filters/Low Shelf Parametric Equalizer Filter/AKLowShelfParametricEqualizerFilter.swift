@@ -16,7 +16,7 @@ import AVFoundation
 ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
 ///   - q: Q of the filter. sqrt(0.5) is no resonance.
 ///
-open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
+open class AKLowShelfParametricEqualizerFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

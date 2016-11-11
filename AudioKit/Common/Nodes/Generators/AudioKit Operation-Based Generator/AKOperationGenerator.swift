@@ -9,7 +9,7 @@
 import AVFoundation
 
 /// Operation-based generator
-open class AKOperationGenerator: AKNode, AKToggleable {
+open class AKOperationGenerator: AKNode, AKPlayable {
 
     // MARK: - Properties
 

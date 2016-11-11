@@ -17,7 +17,7 @@ import AVFoundation
 ///   - detuningOffset: Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
-open class AKPhaseDistortionOscillator: AKNode, AKToggleable {
+open class AKPhaseDistortionOscillator: AKNode, AKPlayable {
 
     // MARK: - Properties
 

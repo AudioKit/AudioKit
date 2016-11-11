@@ -14,7 +14,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
 ///
-open class AKPanner: AKNode, AKToggleable {
+open class AKPanner: AKNode, AKPlayable {
 
     // MARK: - Properties
 

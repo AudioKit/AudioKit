@@ -19,7 +19,7 @@ import AVFoundation
 ///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
 ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
 ///
-open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
+open class AKFlatFrequencyResponseReverb: AKNode, AKPlayable {
 
     // MARK: - Properties
 

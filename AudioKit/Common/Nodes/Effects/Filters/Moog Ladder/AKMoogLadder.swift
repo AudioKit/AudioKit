@@ -19,7 +19,7 @@ import AVFoundation
 ///   - cutoffFrequency: Filter cutoff frequency.
 ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
 ///
-open class AKMoogLadder: AKNode, AKToggleable {
+open class AKMoogLadder: AKNode, AKPlayable {
 
     // MARK: - Properties
 

@@ -15,7 +15,7 @@ import AVFoundation
 ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
 ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
 ///
-open class AKHighPassFilter: AKNode, AKToggleable {
+open class AKHighPassFilter: AKNode, AKPlayable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,

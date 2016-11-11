@@ -16,7 +16,7 @@ import AVFoundation
 ///   - feedback: Feedback amount. Should be a value between 0-1.
 ///   - maximumDelayTime: The maximum delay time, in seconds.
 ///
-open class AKVariableDelay: AKNode, AKToggleable {
+open class AKVariableDelay: AKNode, AKPlayable {
 
     // MARK: - Properties
 

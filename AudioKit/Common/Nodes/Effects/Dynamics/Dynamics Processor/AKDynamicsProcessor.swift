@@ -23,7 +23,7 @@ import AVFoundation
 ///   - inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
 ///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
 ///
-open class AKDynamicsProcessor: AKNode, AKToggleable {
+open class AKDynamicsProcessor: AKNode, AKPlayable {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,

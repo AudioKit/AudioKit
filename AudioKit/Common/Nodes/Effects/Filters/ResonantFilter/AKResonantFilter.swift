@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter frequency: Center frequency of the filter, or frequency position of the peak response.
 /// - parameter bandwidth: Bandwidth of the filter.
 ///
-open class AKResonantFilter: AKNode, AKToggleable {
+open class AKResonantFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

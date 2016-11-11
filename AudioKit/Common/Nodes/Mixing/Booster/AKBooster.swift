@@ -14,7 +14,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - gain: Boosting multiplier.
 ///
-open class AKBooster: AKNode, AKToggleable {
+open class AKBooster: AKNode, AKPlayable {
 
     // MARK: - Properties
 

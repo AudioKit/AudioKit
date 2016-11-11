@@ -18,7 +18,7 @@ import AVFoundation
 ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
 ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio (Normalized Value) ranges from 0 to 1 (Default: 0.5)
 ///
-open class AKDelay: AKNode, AKToggleable {
+open class AKDelay: AKNode, AKPlayable {
     let delayAU = AVAudioUnitDelay()
 
     fileprivate var lastKnownMix: Double = 0.5

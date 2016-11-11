@@ -15,7 +15,7 @@ import AVFoundation
 ///   - frequency: Frequency (Hz)
 ///   - depth: Depth
 ///
-open class AKTremolo: AKNode, AKToggleable {
+open class AKTremolo: AKNode, AKPlayable {
 
     // MARK: - Properties
 

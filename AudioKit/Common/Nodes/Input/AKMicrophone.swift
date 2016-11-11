@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Audio from the standard input
-open class AKMicrophone: AKNode, AKToggleable {
+open class AKMicrophone: AKNode, AKPlayable {
     
     internal let mixer = AVAudioMixerNode()
     

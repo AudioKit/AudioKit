@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
-open class AKWhiteNoise: AKNode, AKToggleable {
+open class AKWhiteNoise: AKNode, AKPlayable {
 
     // MARK: - Properties
 

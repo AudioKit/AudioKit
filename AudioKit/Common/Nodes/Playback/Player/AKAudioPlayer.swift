@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Not so simple audio playback class
-open class AKAudioPlayer: AKNode, AKToggleable {
+open class AKAudioPlayer: AKNode, AKPlayable {
     
     // MARK: - Private variables
     

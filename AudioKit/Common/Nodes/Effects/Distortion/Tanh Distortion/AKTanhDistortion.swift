@@ -17,7 +17,7 @@ import AVFoundation
 ///   - postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
 ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
 ///
-open class AKTanhDistortion: AKNode, AKToggleable {
+open class AKTanhDistortion: AKNode, AKPlayable {
 
     // MARK: - Properties
 

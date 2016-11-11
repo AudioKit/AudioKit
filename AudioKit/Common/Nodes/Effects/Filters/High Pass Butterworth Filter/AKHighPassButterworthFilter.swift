@@ -15,7 +15,7 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
 ///
-open class AKHighPassButterworthFilter: AKNode, AKToggleable {
+open class AKHighPassButterworthFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

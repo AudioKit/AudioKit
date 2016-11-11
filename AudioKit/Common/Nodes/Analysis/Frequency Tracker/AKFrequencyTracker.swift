@@ -15,7 +15,7 @@ import AVFoundation
 ///   - hopSize: Hop size.
 ///   - peakCount: Number of peaks.
 ///
-open class AKFrequencyTracker: AKNode, AKToggleable {
+open class AKFrequencyTracker: AKNode, AKPlayable {
 
     // MARK: - Properties
 

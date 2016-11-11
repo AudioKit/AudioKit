@@ -17,7 +17,7 @@ import AVFoundation
 ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
 ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
 ///
-open class AKRolandTB303Filter: AKNode, AKToggleable {
+open class AKRolandTB303Filter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

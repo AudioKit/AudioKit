@@ -9,7 +9,7 @@
 import AVFoundation
 
 /// Operation-based effect
-open class AKOperationEffect: AKNode, AKToggleable {
+open class AKOperationEffect: AKNode, AKPlayable {
 
     // MARK: - Properties
 

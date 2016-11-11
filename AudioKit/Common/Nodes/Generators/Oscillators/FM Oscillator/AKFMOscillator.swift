@@ -18,7 +18,7 @@ import AVFoundation
 ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
 ///   - amplitude: Output Amplitude.
 ///
-open class AKFMOscillator: AKNode, AKToggleable {
+open class AKFMOscillator: AKNode, AKPlayable {
 
     // MARK: - Properties
 

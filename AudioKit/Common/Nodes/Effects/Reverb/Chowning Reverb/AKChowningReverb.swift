@@ -18,7 +18,7 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 ///
-open class AKChowningReverb: AKNode, AKToggleable {
+open class AKChowningReverb: AKNode, AKPlayable {
 
     // MARK: - Properties
 

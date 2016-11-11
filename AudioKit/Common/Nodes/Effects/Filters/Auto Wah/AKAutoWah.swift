@@ -16,7 +16,7 @@ import AVFoundation
 ///   - mix: Dry/Wet Mix
 ///   - amplitude: Overall level
 ///
-open class AKAutoWah: AKNode, AKToggleable {
+open class AKAutoWah: AKNode, AKPlayable {
 
     // MARK: - Properties
 

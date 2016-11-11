@@ -17,7 +17,7 @@ import AVFoundation
 ///   - frequency: Resonant frequency of the filter.
 ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
 ///
-open class AKModalResonanceFilter: AKNode, AKToggleable {
+open class AKModalResonanceFilter: AKNode, AKPlayable {
 
     // MARK: - Properties
 

@@ -29,7 +29,7 @@ import AVFoundation
 ///   - softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
 ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
 ///
-open class AKDistortion: AKNode, AKToggleable {
+open class AKDistortion: AKNode, AKPlayable {
 
 
     // MARK: - Properties
