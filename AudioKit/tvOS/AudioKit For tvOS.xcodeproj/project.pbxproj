@@ -29,7 +29,6 @@
 		C40BB0951C4717C2004C138D /* AKCombFilterReverbDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40BB0911C4717C2004C138D /* AKCombFilterReverbDSPKernel.hpp */; };
 		C40C42111C40E5C2009D870B /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41E21C40E5C2009D870B /* AKTable.swift */; };
 		C40C42121C40E5C2009D870B /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41E31C40E5C2009D870B /* AudioKitHelpers.swift */; };
-		C40C42161C40E5C2009D870B /* AKGetAUParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41E81C40E5C2009D870B /* AKGetAUParams.swift */; };
 		C40C42181C40E5C2009D870B /* EZAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41EB1C40E5C2009D870B /* EZAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C42191C40E5C2009D870B /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41EC1C40E5C2009D870B /* EZAudio.m */; };
 		C40C421A1C40E5C2009D870B /* EZAudioDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41ED1C40E5C2009D870B /* EZAudioDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -722,7 +721,6 @@
 		C40BB0911C4717C2004C138D /* AKCombFilterReverbDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCombFilterReverbDSPKernel.hpp; sourceTree = "<group>"; };
 		C40C41E21C40E5C2009D870B /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C40C41E31C40E5C2009D870B /* AudioKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitHelpers.swift; sourceTree = "<group>"; };
-		C40C41E81C40E5C2009D870B /* AKGetAUParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKGetAUParams.swift; sourceTree = "<group>"; };
 		C40C41EB1C40E5C2009D870B /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
 		C40C41EC1C40E5C2009D870B /* EZAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudio.m; sourceTree = "<group>"; };
 		C40C41ED1C40E5C2009D870B /* EZAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioDevice.h; sourceTree = "<group>"; };
@@ -1433,7 +1431,6 @@
 		C40C41E41C40E5C2009D870B /* CoreAudio */ = {
 			isa = PBXGroup;
 			children = (
-				C40C41E81C40E5C2009D870B /* AKGetAUParams.swift */,
 				C4A6628C1CCB146A00A38B90 /* BufferedAudioBus.hpp */,
 				C4A6628D1CCB146A00A38B90 /* DSPKernel.hpp */,
 				C4A6628E1CCB146A00A38B90 /* DSPKernel.mm */,
@@ -3455,7 +3452,6 @@
 				C4F8CB041DCA928B001F38F2 /* maygate.c in Sources */,
 				C46809811CEED72800ADFC05 /* AKPitchShifter.swift in Sources */,
 				C4F8CB1D1DCA928B001F38F2 /* ptrack.c in Sources */,
-				C40C42161C40E5C2009D870B /* AKGetAUParams.swift in Sources */,
 				C4E376961D1357D900FDB70D /* DelayL.cpp in Sources */,
 				C4F8CAE61DCA928B001F38F2 /* eqfil.c in Sources */,
 				C45381881C3A5CBD00A51738 /* AKFrequencyTracker.swift in Sources */,
