@@ -127,9 +127,9 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        distortionParameter      = tree.value(forKey: "distortion")      as? AUParameter
-        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
-        resonanceParameter       = tree.value(forKey: "resonance")       as? AUParameter
+        distortionParameter      = tree["distortion"]
+        cutoffFrequencyParameter = tree["cutoffFrequency"]
+        resonanceParameter       = tree["resonance"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

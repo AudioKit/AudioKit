@@ -87,7 +87,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        halfPowerPointParameter = tree.value(forKey: "halfPowerPoint") as? AUParameter
+        halfPowerPointParameter = tree["halfPowerPoint"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

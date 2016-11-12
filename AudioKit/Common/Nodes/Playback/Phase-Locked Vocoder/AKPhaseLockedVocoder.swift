@@ -134,9 +134,9 @@ open class AKPhaseLockedVocoder: AKNode {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        positionParameter   = tree.value(forKey: "position")   as? AUParameter
-        amplitudeParameter  = tree.value(forKey: "amplitude")  as? AUParameter
-        pitchRatioParameter = tree.value(forKey: "pitchRatio") as? AUParameter
+        positionParameter   = tree["position"]
+        amplitudeParameter  = tree["amplitude"]
+        pitchRatioParameter = tree["pitchRatio"]
 
         token = tree.token(byAddingParameterObserver: {
             address, value in
