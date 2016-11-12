@@ -105,8 +105,8 @@ open class AKFlute: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
-        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
+        frequencyParameter = tree["frequency"]
+        amplitudeParameter = tree["amplitude"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

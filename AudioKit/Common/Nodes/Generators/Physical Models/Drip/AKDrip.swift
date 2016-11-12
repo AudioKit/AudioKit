@@ -177,13 +177,13 @@ open class AKDrip: AKNode {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        intensityParameter               = tree.value(forKey: "intensity")               as? AUParameter
-        dampingFactorParameter           = tree.value(forKey: "dampingFactor")           as? AUParameter
-        energyReturnParameter            = tree.value(forKey: "energyReturn")            as? AUParameter
-        mainResonantFrequencyParameter   = tree.value(forKey: "mainResonantFrequency")   as? AUParameter
-        firstResonantFrequencyParameter  = tree.value(forKey: "firstResonantFrequency")  as? AUParameter
-        secondResonantFrequencyParameter = tree.value(forKey: "secondResonantFrequency") as? AUParameter
-        amplitudeParameter               = tree.value(forKey: "amplitude")               as? AUParameter
+        intensityParameter               = tree["intensity"]
+        dampingFactorParameter           = tree["dampingFactor"]
+        energyReturnParameter            = tree["energyReturn"]
+        mainResonantFrequencyParameter   = tree["mainResonantFrequency"]
+        firstResonantFrequencyParameter  = tree["firstResonantFrequency"]
+        secondResonantFrequencyParameter = tree["secondResonantFrequency"]
+        amplitudeParameter               = tree["amplitude"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
