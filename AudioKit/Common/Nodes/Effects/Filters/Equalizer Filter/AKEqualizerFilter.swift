@@ -102,12 +102,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable {
         self.bandwidth = bandwidth
         self.gain = gain
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("eqfl")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "eqfl")
 
         AUAudioUnit.registerSubclass(
             AKEqualizerFilterAudioUnit.self,

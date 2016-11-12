@@ -65,12 +65,7 @@ open class AKToneFilter: AKNode, AKToggleable {
 
         self.halfPowerPoint = halfPowerPoint
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("tone")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "tone")
 
         AUAudioUnit.registerSubclass(
             AKToneFilterAudioUnit.self,

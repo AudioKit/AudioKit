@@ -66,12 +66,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable {
 
         self.cutoffFrequency = cutoffFrequency
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("bthp")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "bthp")
 
         AUAudioUnit.registerSubclass(
             AKHighPassButterworthFilterAudioUnit.self,

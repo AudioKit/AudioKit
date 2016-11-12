@@ -144,12 +144,7 @@ open class AKPWMOscillator: AKNode, AKToggleable {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("pwmo")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "pwmo")
 
         AUAudioUnit.registerSubclass(
             AKPWMOscillatorAudioUnit.self,

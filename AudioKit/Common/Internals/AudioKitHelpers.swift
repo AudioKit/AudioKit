@@ -201,3 +201,31 @@ extension AUParameterTree {
         return value(forKey: key) as? AUParameter
     }
 }
+
+extension AudioComponentDescription {
+    internal init(type: OSType, subType: OSType) {
+        self.init(componentType: type,
+                  componentSubType: subType,
+                  componentManufacturer: fourCC("AuKt"),
+                  componentFlags: 0,
+                  componentFlagsMask: 0)
+    }
+
+
+    internal init(effect subType: OSType) {
+        self.init(type: kAudioUnitType_Effect, subType: subType)
+    }
+
+    internal init(effect subType: String) {
+        self.init(effect: fourCC(subType))
+    }
+
+    internal init(mixer subType: String) {
+        self.init(type: kAudioUnitType_Mixer, subType: fourCC(subType))
+    }
+
+    internal init(generator subType: String) {
+        self.init(type: kAudioUnitType_Generator, subType: fourCC(subType))
+    }
+}
+

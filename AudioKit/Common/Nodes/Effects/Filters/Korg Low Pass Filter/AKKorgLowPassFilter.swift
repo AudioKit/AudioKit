@@ -97,12 +97,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable {
         self.resonance = resonance
         self.saturation = saturation
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("klpf")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "klpf")
 
         AUAudioUnit.registerSubclass(
             AKKorgLowPassFilterAudioUnit.self,
