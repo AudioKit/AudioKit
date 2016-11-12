@@ -99,12 +99,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
         self.gain = gain
         self.q = q
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("peq2")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "peq2")
 
         AUAudioUnit.registerSubclass(
             AKHighShelfParametricEqualizerFilterAudioUnit.self,

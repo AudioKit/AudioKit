@@ -99,12 +99,7 @@ open class AKAutoWah: AKNode, AKToggleable {
         self.mix = mix
         self.amplitude = amplitude
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("awah")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "awah")
 
         AUAudioUnit.registerSubclass(
             AKAutoWahAudioUnit.self,

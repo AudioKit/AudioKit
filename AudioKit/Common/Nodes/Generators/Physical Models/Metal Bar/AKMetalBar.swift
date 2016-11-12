@@ -150,12 +150,7 @@ open class AKMetalBar: AKNode {
         self.strikeVelocity = strikeVelocity
         self.strikeWidth = strikeWidth
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("mbar")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "mbar")
 
         AUAudioUnit.registerSubclass(
             AKMetalBarAudioUnit.self,

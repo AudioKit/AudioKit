@@ -86,12 +86,7 @@ open class AKMoogLadder: AKNode, AKToggleable {
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("mgld")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "mgld")
 
         AUAudioUnit.registerSubclass(
             AKMoogLadderAudioUnit.self,

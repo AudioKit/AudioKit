@@ -90,12 +90,7 @@ open class AKOperationEffect: AKNode, AKToggleable {
     ///
     public init(_ input: AKNode, sporth: String) {
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("cstm")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "cstm")
 
         AUAudioUnit.registerSubclass(
             AKOperationEffectAudioUnit.self,

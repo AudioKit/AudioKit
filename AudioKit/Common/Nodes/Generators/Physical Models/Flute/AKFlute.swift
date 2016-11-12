@@ -78,12 +78,7 @@ open class AKFlute: AKNode, AKToggleable {
         self.frequency = frequency
         self.amplitude = amplitude
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("flut")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "flut")
 
         AUAudioUnit.registerSubclass(
             AKFluteAudioUnit.self,

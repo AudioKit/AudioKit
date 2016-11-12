@@ -21,12 +21,7 @@ open class AKRingModulator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    fileprivate let cd = AudioComponentDescription(
-        componentType: kAudioUnitType_Effect,
-        componentSubType: kAudioUnitSubType_Distortion,
-        componentManufacturer: kAudioUnitManufacturer_Apple,
-        componentFlags: 0,
-        componentFlagsMask: 0)
+    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_Distortion)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil

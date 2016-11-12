@@ -86,12 +86,7 @@ open class AKTremolo: AKNode, AKToggleable {
         self.waveform = waveform
         self.frequency = frequency
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("trem")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "trem")
 
         AUAudioUnit.registerSubclass(
             AKTremoloAudioUnit.self,

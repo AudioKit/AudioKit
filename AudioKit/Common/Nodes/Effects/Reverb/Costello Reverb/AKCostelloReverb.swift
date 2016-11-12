@@ -84,12 +84,7 @@ open class AKCostelloReverb: AKNode, AKToggleable {
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("rvsc")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "rvsc")
 
         AUAudioUnit.registerSubclass(
             AKCostelloReverbAudioUnit.self,

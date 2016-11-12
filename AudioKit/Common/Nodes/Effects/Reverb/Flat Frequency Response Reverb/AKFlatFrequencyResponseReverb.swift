@@ -72,12 +72,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
         self.reverbDuration = reverbDuration
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("alps")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "alps")
 
         AUAudioUnit.registerSubclass(
             AKFlatFrequencyResponseReverbAudioUnit.self,

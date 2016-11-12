@@ -84,12 +84,7 @@ open class AKPluckedString: AKNode, AKToggleable {
         self.amplitude = amplitude
         self.lowestFrequency = lowestFrequency
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("pluk")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "pluk")
 
         AUAudioUnit.registerSubclass(
             AKPluckedStringAudioUnit.self,
