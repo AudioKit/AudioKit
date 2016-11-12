@@ -14,7 +14,7 @@ open class AKRollingOutputPlot: EZAudioPlot {
     internal func setupNode() {
         AudioKit.engine.outputNode.installTap(onBus: 0,
                                               bufferSize: bufferSize,
-                                              format: nil) { [weak self] (buffer, time) -> Void in
+                                              format: nil) { [weak self] (buffer, time) in
 
                                                 
             guard let strongSelf = self else { return }
@@ -24,6 +24,12 @@ open class AKRollingOutputPlot: EZAudioPlot {
             strongSelf.updateBuffer(&tail![offset],
                                     withBufferSize: strongSelf.bufferSize)
         }
+    }
+    
+    /// Useful to reconnect after connecting to Audiobus or IAA
+    public func reconnect() {
+        AudioKit.engine.outputNode.removeTap(onBus: 0)
+        setupNode()
     }
 
     internal var bufferSize: UInt32 = 1024
