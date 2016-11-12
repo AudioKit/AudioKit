@@ -6,22 +6,41 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
+internal struct MIDISources: Collection {
+    typealias Index = Int
+
+    init() { }
+
+    var startIndex: Index {
+        return 0
+    }
+
+    var endIndex: Index {
+        return MIDIGetNumberOfSources()
+    }
+
+    subscript (index: Index) -> MIDIEndpointRef {
+      return MIDIGetSource(index)
+    }
+
+    func index(after index: Index) -> Index {
+      return index + 1
+    }
+}
+
+fileprivate func GetMIDIObjectProperty(ref: MIDIObjectRef, property: CFString) -> String {
+    var string: Unmanaged<CFString>? = nil
+    MIDIObjectGetStringProperty(ref, property, &string)
+    return (string?.takeRetainedValue())! as String
+}
+
 extension AKMIDI {
     
     /// Array of input names
     public var inputNames: [String] {
-        var nameArray = [String]()
-        let sourceCount = MIDIGetNumberOfSources()
-        
-        for i in 0 ..< sourceCount {
-            let source = MIDIGetSource(i)
-            var inputName: Unmanaged<CFString>?
-            inputName = nil
-            MIDIObjectGetStringProperty(source, kMIDIPropertyName, &inputName)
-            let inputNameStr = (inputName?.takeRetainedValue())! as String
-            nameArray.append(inputNameStr)
+        return MIDISources().map { source in
+            GetMIDIObjectProperty(ref: source, property: kMIDIPropertyName)
         }
-        return nameArray
     }
     
     /// Add a listener to the listeners
@@ -39,16 +58,13 @@ extension AKMIDI {
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
     public func openInput(_ namedInput: String = "") {
-        var result = noErr
-        
         let sourceCount = MIDIGetNumberOfSources()
         
         for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
-            var tempName: Unmanaged<CFString>? = nil
-            
-            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &tempName)
-            let inputNameStr = (tempName?.takeRetainedValue())! as String
+
+            let inputNameStr = GetMIDIObjectProperty(ref: src, property: kMIDIPropertyName)
+
             if namedInput.isEmpty || namedInput == inputNameStr {
                 
                 inputPorts[namedInput] = MIDIPortRef()
@@ -64,7 +80,7 @@ extension AKMIDI {
                     }
                 }
                 
-                result = MIDIInputPortCreateWithBlock(client, inputPortName, &port, readBlock)
+                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port, readBlock)
                 
                 inputPorts[namedInput] = port
                 
