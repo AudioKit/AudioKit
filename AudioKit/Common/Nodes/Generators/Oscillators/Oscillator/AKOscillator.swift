@@ -159,10 +159,10 @@ open class AKOscillator: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree.value(forKey: "frequency")          as? AUParameter
-        amplitudeParameter          = tree.value(forKey: "amplitude")          as? AUParameter
-        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
+        frequencyParameter          = tree["frequency"]
+        amplitudeParameter          = tree["amplitude"]
+        detuningOffsetParameter     = tree["detuningOffset"]
+        detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

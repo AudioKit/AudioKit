@@ -244,16 +244,16 @@ open class AKFMOscillatorBank: AKPolyphonicNode {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        carrierMultiplierParameter    = tree.value(forKey: "carrierMultiplier")    as? AUParameter
-        modulatingMultiplierParameter = tree.value(forKey: "modulatingMultiplier") as? AUParameter
-        modulationIndexParameter      = tree.value(forKey: "modulationIndex")      as? AUParameter
+        carrierMultiplierParameter    = tree["carrierMultiplier"]
+        modulatingMultiplierParameter = tree["modulatingMultiplier"]
+        modulationIndexParameter      = tree["modulationIndex"]
 
-        attackDurationParameter     = tree.value(forKey: "attackDuration")     as? AUParameter
-        decayDurationParameter      = tree.value(forKey: "decayDuration")      as? AUParameter
-        sustainLevelParameter       = tree.value(forKey: "sustainLevel")       as? AUParameter
-        releaseDurationParameter    = tree.value(forKey: "releaseDuration")    as? AUParameter
-        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
+        attackDurationParameter     = tree["attackDuration"]
+        decayDurationParameter      = tree["decayDuration"]
+        sustainLevelParameter       = tree["sustainLevel"]
+        releaseDurationParameter    = tree["releaseDuration"]
+        detuningOffsetParameter     = tree["detuningOffset"]
+        detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

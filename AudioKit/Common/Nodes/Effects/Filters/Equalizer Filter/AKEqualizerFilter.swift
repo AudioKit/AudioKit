@@ -130,9 +130,9 @@ open class AKEqualizerFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
-        bandwidthParameter       = tree.value(forKey: "bandwidth")       as? AUParameter
-        gainParameter            = tree.value(forKey: "gain")            as? AUParameter
+        centerFrequencyParameter = tree["centerFrequency"]
+        bandwidthParameter       = tree["bandwidth"]
+        gainParameter            = tree["gain"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

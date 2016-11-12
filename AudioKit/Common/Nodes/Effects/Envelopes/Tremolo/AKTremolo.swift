@@ -118,7 +118,7 @@ open class AKTremolo: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
+        frequencyParameter = tree["frequency"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
@@ -131,7 +131,7 @@ open class AKTremolo: AKNode, AKToggleable {
         })
         internalAU?.frequency = Float(frequency)
 
-        depthParameter = tree.value(forKey: "depth") as? AUParameter
+        depthParameter = tree["depth"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

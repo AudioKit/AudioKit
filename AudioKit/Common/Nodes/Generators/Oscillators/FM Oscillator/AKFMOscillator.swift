@@ -177,11 +177,11 @@ open class AKFMOscillator: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        baseFrequencyParameter        = tree.value(forKey: "baseFrequency")        as? AUParameter
-        carrierMultiplierParameter    = tree.value(forKey: "carrierMultiplier")    as? AUParameter
-        modulatingMultiplierParameter = tree.value(forKey: "modulatingMultiplier") as? AUParameter
-        modulationIndexParameter      = tree.value(forKey: "modulationIndex")      as? AUParameter
-        amplitudeParameter            = tree.value(forKey: "amplitude")            as? AUParameter
+        baseFrequencyParameter        = tree["baseFrequency"]
+        carrierMultiplierParameter    = tree["carrierMultiplier"]
+        modulatingMultiplierParameter = tree["modulatingMultiplier"]
+        modulationIndexParameter      = tree["modulationIndex"]
+        amplitudeParameter            = tree["amplitude"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
