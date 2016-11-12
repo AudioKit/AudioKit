@@ -30,7 +30,7 @@
 #define M_PI		3.14159265358979323846	
 #endif 
 
-static inline int my_random(sp_data *sp, int max)
+static int my_random(sp_data *sp, int max)
 {                      
     return (sp_rand(sp) % (max + 1));
 }

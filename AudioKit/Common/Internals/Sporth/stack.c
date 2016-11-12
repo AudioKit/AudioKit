@@ -31,7 +31,7 @@ int sporth_stack_push_float(sporth_stack *stack, float val)
 {
     if(stack->error > 0) return SPORTH_NOTOK;
 
-    if(stack->pos <= SPORTH_STACK_SIZE) {
+    if(stack->pos < SPORTH_STACK_SIZE) {
         stack->pos++;
         stack->stack[stack->pos - 1].fval = val;
         stack->stack[stack->pos - 1].type = SPORTH_FLOAT;
@@ -52,7 +52,7 @@ int sporth_stack_push_string(sporth_stack *stack, char **str)
     if(stack->error > 0) return SPORTH_NOTOK;
 
     sporth_stack_val *pstack;
-    if(stack->pos <= SPORTH_STACK_SIZE) {
+    if(stack->pos < SPORTH_STACK_SIZE) {
         stack->pos++;
         pstack = &stack->stack[stack->pos - 1];
         pstack->sval = *str;
@@ -90,6 +90,12 @@ float sporth_stack_pop_float(sporth_stack *stack)
 
     stack->pos--;
     return pstack->fval;
+}
+
+/*TODO use this function inside sporth stack functions*/
+sporth_stack_val * sporth_stack_get_last(sporth_stack *stack)
+{
+    return &stack->stack[stack->pos - 1];
 }
 
 char * sporth_stack_pop_string(sporth_stack *stack)

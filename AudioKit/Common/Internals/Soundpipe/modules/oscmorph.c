@@ -45,7 +45,7 @@ int sp_oscmorph_compute(sp_data *sp, sp_oscmorph *osc, SPFLOAT *in, SPFLOAT *out
     int32_t phs, lobits;
     SPFLOAT sicvt = osc->tbl[0]->sicvt;
 
-    // Use only the fractional part of the position or 1
+    /* Use only the fractional part of the position or 1 */
     if (osc->wtpos > 1.0) {
         osc->wtpos -= (int)osc->wtpos;
     }

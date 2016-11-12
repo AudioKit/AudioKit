@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <signal.h>
 
 #include "plumber.h"
 
@@ -38,40 +39,6 @@ enum {
     DRIVER_NULL
 };
 
-int sporth_f_default(sporth_stack *stack, void *ud)
-{
-    plumber_data *pd = ud;
-    switch(pd->mode) {
-        case PLUMBER_CREATE:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "Default user function in create mode.\n");
-#endif
-
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "Default user function in init mode.\n");
-#endif
-            break;
-
-        case PLUMBER_COMPUTE:
-            break;
-
-        case PLUMBER_DESTROY:
-#ifdef DEBUG_MODE
-            fprintf(stderr, "Default user function in destroy mode.\n");
-#endif
-            break;
-
-        default:
-            fprintf(stderr, "aux (f)unction: unknown mode!\n");
-            break;
-    }
-    return PLUMBER_OK;
-}
-
 int plumbing_init(plumbing *pipes)
 {
     pipes->tick = 1;
@@ -97,7 +64,6 @@ int plumber_init(plumber_data *plumb)
     plumb->recompile = 0;
     int pos;
     for(pos = 0; pos < 16; pos++) plumb->p[pos] = 0;
-    for(pos = 0; pos < 16; pos++) plumb->f[pos] = sporth_f_default;
     plumb->showprog = 0;
     return PLUMBER_OK;
 }
@@ -112,7 +78,14 @@ int plumbing_compute(plumber_data *plumb, plumbing *pipes, int mode)
     sporth_data *sporth = &plumb->sporth;
     /* swap out the current plumbing */
     plumbing *prev = plumb->pipes;
+    /* save top level next pipe */
+    plumber_pipe *top_next = plumb->next;
+
     plumb->pipes = pipes;
+
+    /* save temp */
+    plumbing *tmp = plumb->tmp;
+
     if(mode == PLUMBER_DESTROY) {
         sporth_stack_init(&plumb->sporth.stack);
     }
@@ -126,7 +99,8 @@ int plumbing_compute(plumber_data *plumb, plumbing *pipes, int mode)
                 break;
             case SPORTH_STRING:
                 sval = pipe->ud;
-                if(mode == PLUMBER_INIT) sporth_stack_push_string(&sporth->stack, &sval);
+                if(mode == PLUMBER_INIT) 
+                    sporth_stack_push_string(&sporth->stack, &sval);
                 break;
             default:
                 plumb->last = pipe;
@@ -138,6 +112,10 @@ int plumbing_compute(plumber_data *plumb, plumbing *pipes, int mode)
     }
     /* re-swap the main pipes */
     plumb->pipes = prev;
+    /* restore top level next pipe */
+    plumb->next = top_next;
+    /* restore temp */
+    plumb->tmp = tmp;
     return PLUMBER_OK;
 }
 
@@ -203,6 +181,11 @@ void plumbing_write_code(plumber_data *plumb, plumbing *pipes, FILE *fp)
 
         pipe = next;
     }
+}
+
+void plumber_write_code(plumber_data *plumb, FILE *fp)
+{
+    plumbing_write_code(plumb, plumb->pipes, fp);
 }
 
 int plumbing_destroy(plumbing *pipes)
@@ -390,6 +373,11 @@ int plumbing_parse(plumber_data *plumb, plumbing *pipes)
     uint32_t pos = 0, len = 0;
     int err = PLUMBER_OK;
     plumb->mode = PLUMBER_CREATE;
+
+    /* save top level tmp variable. */
+    plumbing *top_tmp = plumb->tmp;
+    plumb->tmp = pipes;
+
     while((read = getline(&line, &length, fp)) != -1 && err == PLUMBER_OK) {
         pos = 0;
         len = 0;
@@ -402,6 +390,9 @@ int plumbing_parse(plumber_data *plumb, plumbing *pipes)
         }
     }
     free(line);
+
+    /* restore tmp */
+    plumb->tmp = top_tmp;
     return err;
 
 }
@@ -415,6 +406,11 @@ int plumbing_parse_string(plumber_data *plumb, plumbing *pipes, char *str)
     pos = 0;
     len = 0;
     plumb->mode = PLUMBER_CREATE;
+
+    /* save top level tmp variable. */
+    plumbing *top_tmp = plumb->tmp;
+    plumb->tmp = pipes;
+
     while(pos < size) {
         out = sporth_tokenizer(str, size, &pos);
         len = (unsigned int)strlen(out);
@@ -422,6 +418,9 @@ int plumbing_parse_string(plumber_data *plumb, plumbing *pipes, char *str)
         free(out);
         if(err == PLUMBER_NOTOK) break;
     }
+
+    /* restore tmp */
+    plumb->tmp = top_tmp;
     return err;
 }
 
@@ -433,9 +432,9 @@ int plumber_parse(plumber_data *plumb)
 plumbing *plumbing_choose(plumber_data *plumb, 
         plumbing *main, plumbing *alt, int *current_pipe)
 {
-    plumbing *newpipes;
+    plumbing *newpipes = NULL;
 
-    if(plumb->current_pipe == 0) {
+    if(*current_pipe == 0) {
 #ifdef DEBUG_MODE
         fprintf(stderr, "compiling to alt\n");
 #endif
@@ -444,12 +443,12 @@ plumbing *plumbing_choose(plumber_data *plumb,
         plumb->ftmap = plumb->ft2;
         plumb->ftnew = plumb->ft2;
         plumb->ftold = plumb->ft1;
-    } else {
+    } else if(*current_pipe == 1) {
 #ifdef DEBUG_MODE
         fprintf(stderr, "compiling to main\n");
 #endif
         newpipes = main;
-        *current_pipe = 0;
+        *current_pipe = 0; 
         plumb->ftmap = plumb->ft1;
         plumb->ftnew = plumb->ft1;
         plumb->ftold = plumb->ft2;
@@ -489,8 +488,8 @@ int plumber_reparse(plumber_data *plumb)
 
 int plumber_reparse_string(plumber_data *plumb, char *str) 
 {
-    if(plumbing_parse_string(plumb, plumb->tmp, str) == PLUMBER_OK) {
-        plumbing_compute(plumb, plumb->tmp, PLUMBER_INIT);
+    plumbing *pipes = plumb->tmp;
+    if(plumbing_parse_string(plumb, pipes, str) == PLUMBER_OK) {
 #ifdef DEBUG_MODE
         fprintf(stderr, "Successful parse...\n");
         fprintf(stderr, "at stack position %d\n",
@@ -498,7 +497,9 @@ int plumber_reparse_string(plumber_data *plumb, char *str)
         fprintf(stderr, "%d errors\n",
                 plumb->sporth.stack.error);
 #endif
+        plumb->tmp = pipes;
     } else {
+        plumb->tmp = pipes;
         return PLUMBER_NOTOK;
     }
     return PLUMBER_OK;
@@ -537,6 +538,7 @@ int plumber_swap(plumber_data *plumb, int error)
         plumb->ftmap = plumb->ftnew;
         plumb->pipes = plumb->tmp;
         plumb->sp->pos = 0;
+        plumbing_compute(plumb, plumb->pipes, PLUMBER_INIT);
     }
     return PLUMBER_OK;
 }
@@ -560,6 +562,29 @@ int plumber_recompile_string(plumber_data *plumb, char *str)
     /* file pointer needs to be NULL for reinit to work with strings */
     plumb->fp = NULL;
     plumber_reinit(plumb);
+    error = plumber_reparse_string(plumb, str);
+    plumber_swap(plumb, error);
+    return PLUMBER_OK;
+}
+
+/* This version of plumber_recompile_string includes a callback function,
+ * to be called after it is reinitialized, but before the string
+ * is parsed. Useful for adding global ftables.
+ */
+int plumber_recompile_string_v2(plumber_data *plumb, 
+        char *str, 
+        void *ud,
+        int (*callback)(plumber_data *, void *))
+{
+
+    int error;
+#ifdef DEBUG_MODE
+    fprintf(stderr, "** Attempting to compile string '%s' **\n", str);
+#endif
+    /* file pointer needs to be NULL for reinit to work with strings */
+    plumb->fp = NULL;
+    plumber_reinit(plumb);
+    callback(plumb, ud);
     error = plumber_reparse_string(plumb, str);
     plumber_swap(plumb, error);
     return PLUMBER_OK;
@@ -611,7 +636,7 @@ int plumber_ftmap_add(plumber_data *plumb, const char *str, sp_ftbl *ft)
     entry->nftbl++;
     plumber_ftbl *new = malloc(sizeof(plumber_ftbl));
     new->ud = (void *)ft;
-    new->type = 1;
+    new->type = PTYPE_TABLE;
     new->to_delete = plumb->delete_ft;
     new->name = malloc(sizeof(char) * strlen(str) + 1);
     strcpy(new->name, str);
@@ -634,7 +659,7 @@ int plumber_ftmap_add_userdata(plumber_data *plumb, const char *str, void *ud)
 #endif
     plumber_ftbl *new = malloc(sizeof(plumber_ftbl));
     new->ud = ud;
-    new->type = 0;
+    new->type = PTYPE_USERDATA;
     new->to_delete = plumb->delete_ft;
     new->name = malloc(sizeof(char) * strlen(str) + 1);
     strcpy(new->name, str);
@@ -643,15 +668,46 @@ int plumber_ftmap_add_userdata(plumber_data *plumb, const char *str, void *ud)
     return PLUMBER_OK;
 }
 
+int plumber_ftmap_add_function(plumber_data *plumb, 
+        const char *str, plumber_dyn_func f, void *ud)
+{
+    sporth_fload_d *fd = malloc(sizeof(sporth_func_d));
+    fd->fun = f;
+    fd->ud = ud;
+    return plumber_ftmap_add_userdata(plumb, str, (void *)fd);
+}
+
 int plumber_ftmap_search(plumber_data *plumb, const char *str, sp_ftbl **ft)
 {
-    void *ud;
-    int rc = plumber_ftmap_search_userdata(plumb, str, &ud);
-    *ft = (sp_ftbl *)ud;
-    return rc;
+    plumber_ftbl *ftbl;
+    if(plumber_search(plumb, str, &ftbl) != PLUMBER_OK) {
+        return PLUMBER_NOTOK;
+    } else if(ftbl->type != PTYPE_TABLE) {
+        fprintf(stderr, "Error: value '%s' is not of type ftable\n", str);
+        return PLUMBER_NOTOK;
+    } else {
+        *ft = (sp_ftbl *)ftbl->ud;
+        return PLUMBER_OK;
+    }
 }
 
 int plumber_ftmap_search_userdata(plumber_data *plumb, const char *str, void **ud)
+{
+    plumber_ftbl *ftbl;
+
+    if(plumber_search(plumb, str, &ftbl) != PLUMBER_OK) {
+        return PLUMBER_NOTOK;
+    } else if(ftbl->type != PTYPE_USERDATA) {
+        fprintf(stderr, "Error: value '%s' is not of type userdata\n", str);
+        return PLUMBER_NOTOK;
+    } else {
+        *ud = ftbl->ud;
+        return PLUMBER_OK;
+    }
+
+}
+
+int plumber_search(plumber_data *plumb, const char *str, plumber_ftbl **ft)
 {
     uint32_t pos = sporth_hash(str);
 
@@ -659,17 +715,10 @@ int plumber_ftmap_search_userdata(plumber_data *plumb, const char *str, void **u
     plumber_ftentry *entry = &plumb->ftmap[pos];
     plumber_ftbl *ftbl = entry->root.next;
     plumber_ftbl *next;
-#ifdef DEBUG_MODE
-    fprintf(stderr, "ftmap_search: looking at %d ftbls in position %d\n", 
-            entry->nftbl, pos);
-#endif
     for(n = 0; n < entry->nftbl; n++) {
         next = ftbl->next;
-#ifdef DEBUG_MODE
-    fprintf(stderr, "ftmap_search: comparing %s with %s\n", str, ftbl->name);
-#endif
         if(!strcmp(str, ftbl->name)){
-            *ud = ftbl->ud;
+            *ft = ftbl;
             return PLUMBER_OK;
         }
         ftbl = next;
@@ -684,6 +733,20 @@ int plumber_ftmap_delete(plumber_data *plumb, char mode)
     return PLUMBER_OK;
 }
 
+void plumber_ftmap_dump(plumber_ftentry *ft)
+{
+    uint32_t i, k;
+    plumber_ftbl *cur, *next;
+    for(i = 0; i < 256; i ++) {
+        cur = ft[i].root.next;
+        for(k = 0; k < ft[i].nftbl; k++) {
+            next = cur->next;
+            printf("%s\n", cur->name);
+            cur = next; 
+        }
+    }
+}
+
 int plumber_ftmap_destroy(plumber_data *plumb)
 {
     int pos, n;
@@ -694,7 +757,8 @@ int plumber_ftmap_destroy(plumber_data *plumb)
             next = ftbl->next;
             free(ftbl->name);
             if(ftbl->to_delete) {
-                if(ftbl->type == 1) sp_ftbl_destroy((sp_ftbl **)&ftbl->ud);
+                if(ftbl->type == PTYPE_TABLE) 
+                    sp_ftbl_destroy((sp_ftbl **)&ftbl->ud);
                 else free(ftbl->ud);
             }
             free(ftbl);
@@ -750,9 +814,13 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
     argc--;
     int driver = DRIVER_FILE;
     int nullfile = 0;
+    int write_code = 0;
     int i;
     int rc;
+#ifdef BUILD_JACK
     int port = 6449;
+#endif
+
     while(argc > 0 && argv[0][0] == '-') {
         switch(argv[0][1]) {
             case 'd':
@@ -845,11 +913,25 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
                 nullfile = 1;
                 break;
             case 'p':
+#ifdef BUILD_JACK
                 argv++;
                 if(--argc) { 
                     port = atoi(argv[0]);
                 } else {
                     fprintf(stderr, "Please specify a port number for jack\n");
+                    exit(1);
+                }
+#endif
+                break;
+            case 'w':
+                write_code = 1;
+                break;
+            case 's':
+                argv++;
+                if(--argc) { 
+                    pd->seed = (uint32_t)atol(argv[0]);
+                } else {
+                    fprintf(stderr, "Seed needs an argument.\n");
                     exit(1);
                 }
                 break;
@@ -899,6 +981,10 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
         rc = PLUMBER_OK;
     } else {
         rc  = plumber_parse(pd);
+    }
+    if(write_code) {
+        plumbing_write_code(pd, pd->pipes, stdout);
+        fflush(stdout);
     }
 
     if(rc == PLUMBER_OK){
@@ -952,12 +1038,22 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
     sp_destroy(&sp);
 }
 
+static volatile int running = 1;
+
+void plumber_interrupt(int dummy)
+{
+    fprintf(stderr, "Cleaning up...\n");
+    running = 0;
+}
+
 int plumber_process_null(sp_data *sp, void *ud, void (*callback)(sp_data *, void *))
 {
     if(sp->len == 0) {
-        while(1) {
+        signal(SIGINT, plumber_interrupt);
+        while(running) {
             callback(sp, ud);
             sp->len--;
+//            usleep(100);
         }
     } else {
         while(sp->len > 0) {
@@ -989,4 +1085,10 @@ int plumber_argtbl_destroy(plumber_data *plumb, plumber_argtbl **at)
     free(atp->tbl);
     free(atp);
     return PLUMBER_OK;
+}
+
+int plumber_get_userdata(plumber_data *plumb, const char *name, plumber_ptr **p)
+{
+    plumber_ptr *pp = *p;
+    return plumber_ftmap_search_userdata(plumb, name, &pp->ud);
 }

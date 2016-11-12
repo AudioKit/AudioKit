@@ -31,7 +31,7 @@ int sp_tenv2_init(sp_data *sp, sp_tenv2 *p)
 
 int sp_tenv2_compute(sp_data *sp, sp_tenv2 *p, SPFLOAT *in, SPFLOAT *out)
 {
-    if(*in) {
+    if(*in != 0) {
         if(p->state == T_INIT || p->state == T_OFF) {
             p->state = T_ON;
             p->timer = (uint32_t)(sp->sr * p->atk);
