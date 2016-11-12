@@ -15,7 +15,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     internal func setupNode(_ input: AKNode?) {
         input?.avAudioNode.installTap(onBus: 0,
                                       bufferSize: bufferSize,
-                                      format: AudioKit.format) { [weak self] (buffer, time) in
+                                      format: nil) { [weak self] (buffer, time) in
                                         
             guard let strongSelf = self else { return }
             buffer.frameLength = strongSelf.bufferSize
