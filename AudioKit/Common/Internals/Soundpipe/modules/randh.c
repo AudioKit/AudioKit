@@ -28,7 +28,13 @@ int sp_randh_compute(sp_data *sp, sp_randh *p, SPFLOAT *in, SPFLOAT *out)
 {
     if(p->counter == 0) {
         p->val = p->min + ((SPFLOAT) sp_rand(sp) / SP_RANDMAX) * (p->max - p->min);
-        p->dur =(sp->sr / p->freq);
+        
+        if(p->freq == 0) {
+            p->dur = 1;
+        } else {
+            p->dur = (sp->sr / p->freq) + 1; 
+        }
+
         *out = p->val;
     } else {
         *out = p->val;

@@ -48,11 +48,12 @@ int sp_hilbert_init(sp_data *sp, sp_hilbert *p)
 
 int sp_hilbert_compute(sp_data *sp, sp_hilbert *p, SPFLOAT *in, SPFLOAT *out1, SPFLOAT *out2)
 {
-    SPFLOAT xn1, yn1, xn2, yn2;
+    SPFLOAT xn1 = 0;
+    SPFLOAT yn1 = 0; 
+    SPFLOAT xn2 = 0;
+    SPFLOAT yn2 = 0;
     SPFLOAT *coef;
     int j;
-    yn1 = 0;
-    yn2 = 0;
 
     coef = p->coef;
 

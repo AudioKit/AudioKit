@@ -70,7 +70,7 @@ static void multiply_fft_buffers(SPFLOAT *outBuf, SPFLOAT *ringBuf,
     } while (--nPartitions);
 }
 
-static inline int buf_bytes_alloc(int nChannels, int partSize, int nPartitions)
+static int buf_bytes_alloc(int nChannels, int partSize, int nPartitions)
 {
     int nSmps;
 
