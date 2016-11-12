@@ -106,7 +106,7 @@ open class AKBooster: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        gainParameter   = tree.value(forKey: "gain")   as? AUParameter
+        gainParameter   = tree["gain"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

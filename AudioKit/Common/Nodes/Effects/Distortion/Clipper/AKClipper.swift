@@ -94,7 +94,7 @@ open class AKClipper: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        limitParameter = tree.value(forKey: "limit") as? AUParameter
+        limitParameter = tree["limit"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

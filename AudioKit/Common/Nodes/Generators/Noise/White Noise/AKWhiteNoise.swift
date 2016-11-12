@@ -85,7 +85,7 @@ open class AKWhiteNoise: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
+        amplitudeParameter = tree["amplitude"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

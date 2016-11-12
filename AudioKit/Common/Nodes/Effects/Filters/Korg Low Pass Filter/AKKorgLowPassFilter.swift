@@ -125,9 +125,9 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
-        resonanceParameter       = tree.value(forKey: "resonance")       as? AUParameter
-        saturationParameter      = tree.value(forKey: "saturation")      as? AUParameter
+        cutoffFrequencyParameter = tree["cutoffFrequency"]
+        resonanceParameter       = tree["resonance"]
+        saturationParameter      = tree["saturation"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

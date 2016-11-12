@@ -94,7 +94,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
+        cutoffFrequencyParameter = tree["cutoffFrequency"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

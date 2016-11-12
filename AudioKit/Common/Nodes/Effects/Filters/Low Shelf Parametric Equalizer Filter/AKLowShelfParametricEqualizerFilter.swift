@@ -127,9 +127,9 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cornerFrequencyParameter = tree.value(forKey: "cornerFrequency") as? AUParameter
-        gainParameter            = tree.value(forKey: "gain")            as? AUParameter
-        qParameter               = tree.value(forKey: "q")               as? AUParameter
+        cornerFrequencyParameter = tree["cornerFrequency"]
+        gainParameter            = tree["gain"]
+        qParameter               = tree["q"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
