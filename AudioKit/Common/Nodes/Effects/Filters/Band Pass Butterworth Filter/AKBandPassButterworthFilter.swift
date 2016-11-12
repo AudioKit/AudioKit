@@ -83,12 +83,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable {
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("btbp")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "btbp")
 
         AUAudioUnit.registerSubclass(
             AKBandPassButterworthFilterAudioUnit.self,

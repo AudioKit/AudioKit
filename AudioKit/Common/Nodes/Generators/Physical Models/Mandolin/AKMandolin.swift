@@ -81,12 +81,7 @@ open class AKMandolin: AKNode {
         self.detune = detune
         self.bodySize = bodySize
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("mand")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "mand")
 
         AUAudioUnit.registerSubclass(
             AKMandolinAudioUnit.self,

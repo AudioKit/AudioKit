@@ -82,12 +82,7 @@ open class AKBitCrusher: AKNode, AKToggleable {
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("btcr")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "btcr")
 
         AUAudioUnit.registerSubclass(
             AKBitCrusherAudioUnit.self,

@@ -66,12 +66,7 @@ open class AKClipper: AKNode, AKToggleable {
 
         self.limit = limit
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("clip")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "clip")
 
         AUAudioUnit.registerSubclass(
             AKClipperAudioUnit.self,

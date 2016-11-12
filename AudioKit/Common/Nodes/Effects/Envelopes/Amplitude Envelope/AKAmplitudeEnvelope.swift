@@ -116,12 +116,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable {
         self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("adsr")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "adsr")
 
         AUAudioUnit.registerSubclass(
             AKAmplitudeEnvelopeAudioUnit.self,

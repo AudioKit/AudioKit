@@ -146,12 +146,7 @@ open class AKFMOscillator: AKNode, AKToggleable {
         self.modulationIndex = modulationIndex
         self.amplitude = amplitude
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("fosc")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "fosc")
 
         AUAudioUnit.registerSubclass(
             AKFMOscillatorAudioUnit.self,

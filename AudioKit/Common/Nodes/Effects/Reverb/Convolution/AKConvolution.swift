@@ -48,12 +48,7 @@ open class AKConvolution: AKNode, AKToggleable {
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("conv")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "conv")
 
         AUAudioUnit.registerSubclass(
             AKConvolutionAudioUnit.self,
