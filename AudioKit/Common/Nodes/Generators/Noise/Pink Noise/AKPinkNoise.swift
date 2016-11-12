@@ -55,12 +55,7 @@ open class AKPinkNoise: AKNode, AKToggleable {
 
         self.amplitude = amplitude
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("pink")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "pink")
 
         AUAudioUnit.registerSubclass(
             AKPinkNoiseAudioUnit.self,

@@ -41,12 +41,7 @@ open class AKTester: AKNode, AKToggleable {
         testedNode = input as? AKToggleable
         totalSamples = samples
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("tstr")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "tstr")
 
         AUAudioUnit.registerSubclass(
             AKTesterAudioUnit.self,

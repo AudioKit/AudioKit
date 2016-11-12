@@ -145,12 +145,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("phdo")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "phdo")
 
         AUAudioUnit.registerSubclass(
             AKPhaseDistortionOscillatorAudioUnit.self,

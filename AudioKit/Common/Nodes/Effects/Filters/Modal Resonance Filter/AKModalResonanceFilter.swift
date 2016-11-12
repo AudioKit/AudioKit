@@ -84,12 +84,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable {
         self.frequency = frequency
         self.qualityFactor = qualityFactor
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("modf")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "modf")
 
         AUAudioUnit.registerSubclass(
             AKModalResonanceFilterAudioUnit.self,

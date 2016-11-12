@@ -87,12 +87,7 @@ open class AKStringResonator: AKNode, AKToggleable {
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("stre")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "stre")
 
         AUAudioUnit.registerSubclass(
             AKStringResonatorAudioUnit.self,

@@ -106,12 +106,7 @@ open class AKPhaseLockedVocoder: AKNode {
         self.pitchRatio = pitchRatio
         self.avAudiofile = file
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("minc")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "minc")
 
         AUAudioUnit.registerSubclass(
             AKPhaseLockedVocoderAudioUnit.self,

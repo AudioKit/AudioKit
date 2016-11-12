@@ -25,12 +25,7 @@ import AVFoundation
 ///
 open class AKDynamicsProcessor: AKNode, AKToggleable {
 
-    fileprivate let cd = AudioComponentDescription(
-        componentType: kAudioUnitType_Effect,
-        componentSubType: kAudioUnitSubType_DynamicsProcessor,
-        componentManufacturer: kAudioUnitManufacturer_Apple,
-        componentFlags: 0,
-        componentFlagsMask: 0)
+    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_DynamicsProcessor)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil

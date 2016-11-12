@@ -150,12 +150,7 @@ open class AKDrip: AKNode {
         self.secondResonantFrequency = secondResonantFrequency
         self.amplitude = amplitude
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("drip")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "drip")
 
         AUAudioUnit.registerSubclass(
             AKDripAudioUnit.self,
