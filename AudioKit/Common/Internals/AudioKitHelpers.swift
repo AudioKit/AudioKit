@@ -211,7 +211,6 @@ extension AudioComponentDescription {
                   componentFlagsMask: 0)
     }
 
-
     internal init(effect subType: OSType) {
         self.init(type: kAudioUnitType_Effect, subType: subType)
     }
