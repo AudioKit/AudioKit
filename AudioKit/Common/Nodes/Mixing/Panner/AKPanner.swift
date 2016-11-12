@@ -93,7 +93,7 @@ open class AKPanner: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        panParameter   = tree.value(forKey: "pan")   as? AUParameter
+        panParameter   = tree["pan"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

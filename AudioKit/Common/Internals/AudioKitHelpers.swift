@@ -195,3 +195,9 @@ extension ClosedRange {
         return min(max(value, lowerBound), upperBound)
     }
 }
+
+extension AUParameterTree {
+    internal subscript (key: String) -> AUParameter? {
+        return value(forKey: key) as? AUParameter
+    }
+}

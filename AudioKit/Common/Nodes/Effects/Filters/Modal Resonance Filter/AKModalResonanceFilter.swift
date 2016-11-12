@@ -112,8 +112,8 @@ open class AKModalResonanceFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter     = tree.value(forKey: "frequency")     as? AUParameter
-        qualityFactorParameter = tree.value(forKey: "qualityFactor") as? AUParameter
+        frequencyParameter     = tree["frequency"]
+        qualityFactorParameter = tree["qualityFactor"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

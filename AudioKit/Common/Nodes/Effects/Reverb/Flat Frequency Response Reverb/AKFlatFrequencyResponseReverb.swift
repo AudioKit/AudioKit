@@ -101,7 +101,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        reverbDurationParameter = tree.value(forKey: "reverbDuration") as? AUParameter
+        reverbDurationParameter = tree["reverbDuration"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

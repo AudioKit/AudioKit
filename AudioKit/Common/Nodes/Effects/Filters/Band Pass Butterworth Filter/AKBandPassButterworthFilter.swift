@@ -111,8 +111,8 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
-        bandwidthParameter       = tree.value(forKey: "bandwidth")       as? AUParameter
+        centerFrequencyParameter = tree["centerFrequency"]
+        bandwidthParameter       = tree["bandwidth"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

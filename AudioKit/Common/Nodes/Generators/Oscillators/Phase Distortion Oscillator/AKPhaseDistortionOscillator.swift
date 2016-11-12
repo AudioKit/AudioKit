@@ -176,11 +176,11 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree.value(forKey: "frequency")          as? AUParameter
-        amplitudeParameter          = tree.value(forKey: "amplitude")          as? AUParameter
-        phaseDistortionParameter    = tree.value(forKey: "phaseDistortion")    as? AUParameter
-        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
+        frequencyParameter          = tree["frequency"]
+        amplitudeParameter          = tree["amplitude"]
+        phaseDistortionParameter    = tree["phaseDistortion"]
+        detuningOffsetParameter     = tree["detuningOffset"]
+        detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

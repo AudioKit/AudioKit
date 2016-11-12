@@ -208,14 +208,14 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        phaseDistortionParameter    = tree.value(forKey: "phaseDistortion")    as? AUParameter
+        phaseDistortionParameter    = tree["phaseDistortion"]
 
-        attackDurationParameter     = tree.value(forKey: "attackDuration")     as? AUParameter
-        decayDurationParameter      = tree.value(forKey: "decayDuration")      as? AUParameter
-        sustainLevelParameter       = tree.value(forKey: "sustainLevel")       as? AUParameter
-        releaseDurationParameter    = tree.value(forKey: "releaseDuration")    as? AUParameter
-        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
+        attackDurationParameter     = tree["attackDuration"]
+        decayDurationParameter      = tree["decayDuration"]
+        sustainLevelParameter       = tree["sustainLevel"]
+        releaseDurationParameter    = tree["releaseDuration"]
+        detuningOffsetParameter     = tree["detuningOffset"]
+        detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

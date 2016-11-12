@@ -108,8 +108,8 @@ open class AKMandolin: AKNode {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        detuneParameter   = tree.value(forKey: "detune")   as? AUParameter
-        bodySizeParameter = tree.value(forKey: "bodySize") as? AUParameter
+        detuneParameter   = tree["detune"]
+        bodySizeParameter = tree["bodySize"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
