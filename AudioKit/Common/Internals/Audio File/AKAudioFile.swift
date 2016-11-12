@@ -245,8 +245,8 @@ open class AKAudioFile: AVAudioFile {
     /// - returns: An initialized AKAudioFile object for reading, or nil if init failed.
     ///
     public override init(forReading fileURL: URL,
-                                    commonFormat format: AVAudioCommonFormat,
-                                                 interleaved: Bool) throws {
+                         commonFormat format: AVAudioCommonFormat,
+                         interleaved: Bool) throws {
         
         try super.init(forReading: fileURL, commonFormat: format, interleaved: interleaved)
     }

@@ -53,10 +53,8 @@ class ViewController: UIViewController {
         
         // Will set the level of microphone monitoring
         micBooster!.gain = 0
-        tape = try? AKAudioFile(writeIn: .documents, name: "Exported", settings: [:])
-        recorder = try? AKNodeRecorder(node: micMixer, file: tape!)
-        player = try? AKAudioPlayer(file: tape!)
-        //player = tape?.player
+        recorder = try? AKNodeRecorder(node: micMixer)
+        player = try? AKAudioPlayer(file: (recorder?.audioFile)!)
         player?.looping = true
         player?.completionHandler = playingEnded
         
