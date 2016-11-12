@@ -65,12 +65,7 @@ open class AKPanner: AKNode, AKToggleable {
 
         self.pan = pan
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("pan2")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "pan2")
 
         AUAudioUnit.registerSubclass(
             AKPannerAudioUnit.self,

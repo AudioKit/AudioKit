@@ -85,12 +85,7 @@ open class AKVariableDelay: AKNode, AKToggleable {
         self.time = time
         self.feedback = feedback
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("vdla")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "vdla")
 
         AUAudioUnit.registerSubclass(
             AKVariableDelayAudioUnit.self,

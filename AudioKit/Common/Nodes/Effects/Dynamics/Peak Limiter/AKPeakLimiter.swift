@@ -18,12 +18,7 @@ import AVFoundation
 ///
 open class AKPeakLimiter: AKNode, AKToggleable {
 
-    fileprivate let cd = AudioComponentDescription(
-        componentType: kAudioUnitType_Effect,
-        componentSubType: kAudioUnitSubType_PeakLimiter,
-        componentManufacturer: kAudioUnitManufacturer_Apple,
-        componentFlags: 0,
-        componentFlagsMask: 0)
+    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_PeakLimiter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil

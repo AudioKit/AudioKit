@@ -99,12 +99,7 @@ open class AKPitchShifter: AKNode, AKToggleable {
         self.windowSize = windowSize
         self.crossfade = crossfade
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("pshf")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "pshf")
 
         AUAudioUnit.registerSubclass(
             AKPitchShifterAudioUnit.self,

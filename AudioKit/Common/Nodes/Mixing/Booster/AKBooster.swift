@@ -78,12 +78,7 @@ open class AKBooster: AKNode, AKToggleable {
 
         self.gain = gain
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("gain")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "gain")
 
         AUAudioUnit.registerSubclass(
             AKBoosterAudioUnit.self,
