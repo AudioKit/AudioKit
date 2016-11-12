@@ -144,10 +144,10 @@ open class AKTanhDistortion: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        pregainParameter                = tree.value(forKey: "pregain")                as? AUParameter
-        postgainParameter               = tree.value(forKey: "postgain")               as? AUParameter
-        postiveShapeParameterParameter  = tree.value(forKey: "postiveShapeParameter")  as? AUParameter
-        negativeShapeParameterParameter = tree.value(forKey: "negativeShapeParameter") as? AUParameter
+        pregainParameter                = tree["pregain"]
+        postgainParameter               = tree["postgain"]
+        postiveShapeParameterParameter  = tree["postiveShapeParameter"]
+        negativeShapeParameterParameter = tree["negativeShapeParameter"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

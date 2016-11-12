@@ -114,8 +114,8 @@ open class AKMoogLadder: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
-        resonanceParameter       = tree.value(forKey: "resonance")       as? AUParameter
+        cutoffFrequencyParameter = tree["cutoffFrequency"]
+        resonanceParameter       = tree["resonance"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
