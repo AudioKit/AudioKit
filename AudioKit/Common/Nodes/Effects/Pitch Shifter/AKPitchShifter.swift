@@ -127,9 +127,9 @@ open class AKPitchShifter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        shiftParameter      = tree.value(forKey: "shift")      as? AUParameter
-        windowSizeParameter = tree.value(forKey: "windowSize") as? AUParameter
-        crossfadeParameter  = tree.value(forKey: "crossfade")  as? AUParameter
+        shiftParameter      = tree["shift"]
+        windowSizeParameter = tree["windowSize"]
+        crossfadeParameter  = tree["crossfade"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

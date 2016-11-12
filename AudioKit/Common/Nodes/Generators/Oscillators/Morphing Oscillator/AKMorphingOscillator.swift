@@ -185,11 +185,11 @@ open class AKMorphingOscillator: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree.value(forKey: "frequency")          as? AUParameter
-        amplitudeParameter          = tree.value(forKey: "amplitude")          as? AUParameter
-        indexParameter              = tree.value(forKey: "index")              as? AUParameter
-        detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
-        detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
+        frequencyParameter          = tree["frequency"]
+        amplitudeParameter          = tree["amplitude"]
+        indexParameter              = tree["index"]
+        detuningOffsetParameter     = tree["detuningOffset"]
+        detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

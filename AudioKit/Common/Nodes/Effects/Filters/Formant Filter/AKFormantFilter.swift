@@ -129,9 +129,9 @@ open class AKFormantFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
-        attackDurationParameter  = tree.value(forKey: "attackDuration")  as? AUParameter
-        decayDurationParameter   = tree.value(forKey: "decayDuration")   as? AUParameter
+        centerFrequencyParameter = tree["centerFrequency"]
+        attackDurationParameter  = tree["attackDuration"]
+        decayDurationParameter   = tree["decayDuration"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
