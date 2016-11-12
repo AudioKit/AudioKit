@@ -110,8 +110,8 @@ open class AKBitCrusher: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        bitDepthParameter   = tree.value(forKey: "bitDepth")   as? AUParameter
-        sampleRateParameter = tree.value(forKey: "sampleRate") as? AUParameter
+        bitDepthParameter   = tree["bitDepth"]
+        sampleRateParameter = tree["sampleRate"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

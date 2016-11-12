@@ -177,13 +177,13 @@ open class AKMetalBar: AKNode {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        leftBoundaryConditionParameter  = tree.value(forKey: "leftBoundaryCondition")  as? AUParameter
-        rightBoundaryConditionParameter = tree.value(forKey: "rightBoundaryCondition") as? AUParameter
-        decayDurationParameter          = tree.value(forKey: "decayDuration")          as? AUParameter
-        scanSpeedParameter              = tree.value(forKey: "scanSpeed")              as? AUParameter
-        positionParameter               = tree.value(forKey: "position")               as? AUParameter
-        strikeVelocityParameter         = tree.value(forKey: "strikeVelocity")         as? AUParameter
-        strikeWidthParameter            = tree.value(forKey: "strikeWidth")            as? AUParameter
+        leftBoundaryConditionParameter  = tree["leftBoundaryCondition"]
+        rightBoundaryConditionParameter = tree["rightBoundaryCondition"]
+        decayDurationParameter          = tree["decayDuration"]
+        scanSpeedParameter              = tree["scanSpeed"]
+        positionParameter               = tree["position"]
+        strikeVelocityParameter         = tree["strikeVelocity"]
+        strikeWidthParameter            = tree["strikeWidth"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

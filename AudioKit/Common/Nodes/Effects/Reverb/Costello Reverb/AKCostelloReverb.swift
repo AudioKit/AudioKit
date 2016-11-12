@@ -112,8 +112,8 @@ open class AKCostelloReverb: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        feedbackParameter        = tree.value(forKey: "feedback")        as? AUParameter
-        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
+        feedbackParameter        = tree["feedback"]
+        cutoffFrequencyParameter = tree["cutoffFrequency"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

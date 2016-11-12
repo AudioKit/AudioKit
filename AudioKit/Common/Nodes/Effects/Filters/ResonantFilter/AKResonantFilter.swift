@@ -109,8 +109,8 @@ open class AKResonantFilter: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
-        bandwidthParameter = tree.value(forKey: "bandwidth") as? AUParameter
+        frequencyParameter = tree["frequency"]
+        bandwidthParameter = tree["bandwidth"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
