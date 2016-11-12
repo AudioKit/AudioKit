@@ -145,12 +145,10 @@ class Audiobus {
     }
     
     private func updateConnections() {
-        if (UIApplication.shared.applicationState == .background) {
-            if (isConnected) {
-                // Put code in here that starts your audio as necessary
-            } else {
-                // Put code in here that stops your audio as necessary
-            }
+        if (isConnected) {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "IAAConnected"), object: nil)
+        } else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "IAADisconnected"), object: nil)
         }
     }
     
@@ -159,7 +157,7 @@ class Audiobus {
 private extension ABAudiobusController {
     
     var isConnectedToAudiobus: Bool {
-        return connected == true || memberOfActiveAudiobusSession == true
+        return connected && memberOfActiveAudiobusSession
     }
     
     func isConnectedToAudiobus(portOfType type: ABPortType) -> Bool {
