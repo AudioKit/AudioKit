@@ -108,6 +108,13 @@ class SynthViewController: UIViewController {
 
         // Greeting
         statusLabel.text = String.randomGreeting()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePlot), name: NSNotification.Name(rawValue: "IAAConnected"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePlot), name: NSNotification.Name(rawValue: "IAADisconnected"), object: nil)
+    }
+    
+    @objc func updatePlot() {
+        audioPlot.reconnect()
     }
 
     // *********************************************************
@@ -707,3 +714,5 @@ extension SynthViewController: SMSegmentViewDelegate {
         }
     }
 }
+
+
