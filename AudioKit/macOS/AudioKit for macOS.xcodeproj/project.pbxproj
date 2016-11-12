@@ -34,7 +34,6 @@
 		C45666A61D448D7E00D26565 /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662C31D448D7D00D26565 /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C45666A71D448D7E00D26565 /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662C41D448D7D00D26565 /* AudioKit.swift */; };
 		C45666A81D448D7E00D26565 /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662C51D448D7D00D26565 /* AudioKitHelpers.swift */; };
-		C45666A91D448D7E00D26565 /* AKGetAUParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662C71D448D7D00D26565 /* AKGetAUParams.swift */; };
 		C45666AA1D448D7E00D26565 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45662C81D448D7D00D26565 /* BufferedAudioBus.hpp */; };
 		C45666AB1D448D7E00D26565 /* CheckError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662C91D448D7D00D26565 /* CheckError.swift */; };
 		C45666AC1D448D7E00D26565 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45662CA1D448D7D00D26565 /* DSPKernel.hpp */; };
@@ -784,7 +783,6 @@
 		C45662C31D448D7D00D26565 /* AudioKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
 		C45662C41D448D7D00D26565 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		C45662C51D448D7D00D26565 /* AudioKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitHelpers.swift; sourceTree = "<group>"; };
-		C45662C71D448D7D00D26565 /* AKGetAUParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKGetAUParams.swift; sourceTree = "<group>"; };
 		C45662C81D448D7D00D26565 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
 		C45662C91D448D7D00D26565 /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
 		C45662CA1D448D7D00D26565 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
@@ -1632,7 +1630,6 @@
 		C45662C61D448D7D00D26565 /* CoreAudio */ = {
 			isa = PBXGroup;
 			children = (
-				C45662C71D448D7D00D26565 /* AKGetAUParams.swift */,
 				C45662C81D448D7D00D26565 /* BufferedAudioBus.hpp */,
 				C45662C91D448D7D00D26565 /* CheckError.swift */,
 				C45662CA1D448D7D00D26565 /* DSPKernel.hpp */,
@@ -3960,7 +3957,6 @@
 				C4F8CA021DCA9256001F38F2 /* osc.c in Sources */,
 				C45666BC1D448D7E00D26565 /* EZAudioFloatData.m in Sources */,
 				C4F8CA051DCA9256001F38F2 /* pan.c in Sources */,
-				C45666A91D448D7E00D26565 /* AKGetAUParams.swift in Sources */,
 				C45669EC1D448D7E00D26565 /* periodicTrigger.swift in Sources */,
 				C4F8CA011DCA9256001F38F2 /* nsmp.c in Sources */,
 				C4F8C9C61DCA9255001F38F2 /* bitcrush.c in Sources */,

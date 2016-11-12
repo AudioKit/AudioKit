@@ -89,12 +89,7 @@ open class AKOperationGenerator: AKNode, AKToggleable {
     ///
     public init(sporth: String) {
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("cstg")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "cstg")
 
         AUAudioUnit.registerSubclass(
             AKOperationGeneratorAudioUnit.self,

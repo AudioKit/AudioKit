@@ -72,12 +72,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable {
 
         self.reverbDuration = reverbDuration
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("comb")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "comb")
 
         AUAudioUnit.registerSubclass(
             AKCombFilterReverbAudioUnit.self,

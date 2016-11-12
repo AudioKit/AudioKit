@@ -40,12 +40,7 @@ open class AKBalancer: AKNode, AKToggleable {
     ///
     public init( _ input: AKNode, comparator: AKNode) {
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Mixer
-        description.componentSubType      = fourCC("blnc")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(mixer: "blnc")
 
         AUAudioUnit.registerSubclass(
             AKBalancerAudioUnit.self,

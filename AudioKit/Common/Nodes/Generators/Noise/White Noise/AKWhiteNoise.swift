@@ -58,12 +58,7 @@ open class AKWhiteNoise: AKNode, AKToggleable {
 
         self.amplitude = amplitude
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("wnoz")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(generator: "wnoz")
 
         AUAudioUnit.registerSubclass(
             AKWhiteNoiseAudioUnit.self,

@@ -50,13 +50,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable {
         hopSize: Double = 512,
         peakCount: Double = 20) {
 
-
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("ptrk")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "ptrk")
 
         AUAudioUnit.registerSubclass(
             AKFrequencyTrackerAudioUnit.self,

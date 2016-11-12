@@ -34,14 +34,7 @@ open class AKDCBlock: AKNode, AKToggleable {
     /// - parameter input: Input node to process
     ///
     public init( _ input: AKNode) {
-
-
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("dcbk")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "dcbk")
 
         AUAudioUnit.registerSubclass(
             AKDCBlockAudioUnit.self,

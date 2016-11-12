@@ -40,14 +40,7 @@ open class AKChowningReverb: AKNode, AKToggleable {
     /// - parameter input: Input node to process
     ///
     public init(_ input: AKNode) {
-
-
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("jcrv")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "jcrv")
 
         AUAudioUnit.registerSubclass(
             AKChowningReverbAudioUnit.self,

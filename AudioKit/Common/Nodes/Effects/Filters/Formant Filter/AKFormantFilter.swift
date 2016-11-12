@@ -101,12 +101,7 @@ open class AKFormantFilter: AKNode, AKToggleable {
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("fofi")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "fofi")
 
         AUAudioUnit.registerSubclass(
             AKFormantFilterAudioUnit.self,

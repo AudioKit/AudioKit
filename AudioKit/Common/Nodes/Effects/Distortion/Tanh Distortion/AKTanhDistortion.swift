@@ -116,12 +116,7 @@ open class AKTanhDistortion: AKNode, AKToggleable {
         self.postiveShapeParameter = postiveShapeParameter
         self.negativeShapeParameter = negativeShapeParameter
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = fourCC("dist")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
+        let description = AudioComponentDescription(effect: "dist")
 
         AUAudioUnit.registerSubclass(
             AKTanhDistortionAudioUnit.self,
