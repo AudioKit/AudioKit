@@ -21,12 +21,7 @@ open class AKVariSpeed: AKNode, AKToggleable {
     /// Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
     open var rate : Double = 1.0 {
         didSet {
-            if rate < 0.25 {
-                rate = 0.25
-            }
-            if rate > 4.0 {
-                rate = 4.0
-            }
+            rate = (0.25...4).clamp(rate)
             variSpeedAU.rate = Float(rate)
         }
     }

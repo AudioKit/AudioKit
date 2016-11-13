@@ -31,12 +31,7 @@ open class AKRingModulator: AKNode, AKToggleable {
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     open var frequency1: Double = 100 {
         didSet {
-            if frequency1 < 0.5 {
-                frequency1 = 0.5
-            }
-            if frequency1 > 8000 {
-                frequency1 = 8000
-            }
+            frequency1 = (0.5...8000).clamp(frequency1)
             AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(frequency1), 0)
         }
     }
@@ -44,12 +39,7 @@ open class AKRingModulator: AKNode, AKToggleable {
     /// Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     open var frequency2: Double = 100 {
         didSet {
-            if frequency2 < 0.5 {
-                frequency2 = 0.5
-            }
-            if frequency2 > 8000 {
-                frequency2 = 8000
-            }
+            frequency2 = (0.5...8000).clamp(frequency2)
             AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(frequency2), 0)
         }
     }
@@ -57,25 +47,15 @@ open class AKRingModulator: AKNode, AKToggleable {
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     open var balance: Double = 0.5 {
         didSet {
-            if balance < 0 {
-                balance = 0
-            }
-            if balance > 1 {
-                balance = 1
-            }
+            balance = (0...1).clamp(balance)
             AudioUnitSetParameter(internalAU!, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
         }
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    open var mix: Double = 100 {
+    open var mix: Double = 1 {
         didSet {
-            if mix < 0 {
-                mix = 0
-            }
-            if mix > 1 {
-                mix = 1
-            }
+            mix = (0...1).clamp(mix)
             AudioUnitSetParameter(internalAU!, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
         }
     }

@@ -30,12 +30,7 @@ open class AKDecimator: AKNode, AKToggleable {
     /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     open var decimation: Double = 0.5 {
         didSet {
-            if decimation < 0 {
-                decimation = 0
-            }
-            if decimation > 1 {
-                decimation = 1
-            }
+            decimation = (0...1).clamp(decimation)
             AudioUnitSetParameter(
                 internalAU!,
                 kDistortionParam_Decimation,
@@ -47,12 +42,7 @@ open class AKDecimator: AKNode, AKToggleable {
     /// Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
     open var rounding: Double = 0 {
         didSet {
-            if rounding < 0 {
-                rounding = 0
-            }
-            if rounding > 1 {
-                rounding = 1
-            }
+            rounding = (0...1).clamp(rounding)
             AudioUnitSetParameter(
                 internalAU!,
                 kDistortionParam_Rounding,
@@ -64,12 +54,7 @@ open class AKDecimator: AKNode, AKToggleable {
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     open var mix: Double = 1 {
         didSet {
-            if mix < 0 {
-                mix = 0
-            }
-            if mix > 1 {
-                mix = 1
-            }
+            mix = (0...1).clamp(mix)
             AudioUnitSetParameter(
                 internalAU!,
                 kDistortionParam_FinalMix,

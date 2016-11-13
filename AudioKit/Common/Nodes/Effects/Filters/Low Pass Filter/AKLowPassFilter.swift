@@ -27,12 +27,7 @@ open class AKLowPassFilter: AKNode, AKToggleable {
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
     open var cutoffFrequency: Double = 6900 {
         didSet {
-            if cutoffFrequency < 10 {
-                cutoffFrequency = 10
-            }
-            if cutoffFrequency > 22050 {
-                cutoffFrequency = 22050
-            }
+            cutoffFrequency = (10...22050).clamp(cutoffFrequency)
             AudioUnitSetParameter(
                 internalAU!,
                 kLowPassParam_CutoffFrequency,
@@ -44,12 +39,7 @@ open class AKLowPassFilter: AKNode, AKToggleable {
     /// Resonance (dB) ranges from -20 to 40 (Default: 0)
     open var resonance: Double = 0 {
         didSet {
-            if resonance < -20 {
-                resonance = -20
-            }
-            if resonance > 40 {
-                resonance = 40
-            }
+            resonance = (-20...40).clamp(resonance)
             AudioUnitSetParameter(
                 internalAU!,
                 kLowPassParam_Resonance,
@@ -61,12 +51,7 @@ open class AKLowPassFilter: AKNode, AKToggleable {
     /// Dry/Wet Mix (Default 100)
     open var dryWetMix: Double = 100 {
         didSet {
-            if dryWetMix < 0 {
-                dryWetMix = 0
-            }
-            if dryWetMix > 100 {
-                dryWetMix = 100
-            }
+            dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
             effectGain?.volume = dryWetMix / 100
         }
