@@ -28,12 +28,7 @@ open class AKPeakLimiter: AKNode, AKToggleable {
     /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
     open var attackTime: Double = 0.012 {
         didSet {
-            if attackTime < 0.001 {
-                attackTime = 0.001
-            }
-            if attackTime > 0.03 {
-                attackTime = 0.03
-            }
+            attackTime = (0.001...0.03).clamp(attackTime)
             AudioUnitSetParameter(
                 internalAU!,
                 kLimiterParam_AttackTime,
@@ -45,12 +40,7 @@ open class AKPeakLimiter: AKNode, AKToggleable {
     /// Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     open var decayTime: Double = 0.024 {
         didSet {
-            if decayTime < 0.001 {
-                decayTime = 0.001
-            }
-            if decayTime > 0.06 {
-                decayTime = 0.06
-            }
+            decayTime = (0.001...0.06).clamp(decayTime)
             AudioUnitSetParameter(
                 internalAU!,
                 kLimiterParam_DecayTime,
@@ -62,12 +52,7 @@ open class AKPeakLimiter: AKNode, AKToggleable {
     /// Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     open var preGain: Double = 0 {
         didSet {
-            if preGain < -40 {
-                preGain = -40
-            }
-            if preGain > 40 {
-                preGain = 40
-            }
+            preGain = (-40...40).clamp(preGain)
             AudioUnitSetParameter(
                 internalAU!,
                 kLimiterParam_PreGain,
@@ -79,12 +64,7 @@ open class AKPeakLimiter: AKNode, AKToggleable {
     /// Dry/Wet Mix (Default 100)
     open var dryWetMix: Double = 100 {
         didSet {
-            if dryWetMix < 0 {
-                dryWetMix = 0
-            }
-            if dryWetMix > 100 {
-                dryWetMix = 100
-            }
+            dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
             effectGain?.volume = dryWetMix / 100
         }

@@ -23,12 +23,7 @@ open class AKTimePitch: AKNode, AKToggleable {
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
     open var rate: Double = 1.0 {
         didSet {
-            if rate < 0.03125 {
-                rate = 0.03125
-            }
-            if rate > 32.0 {
-                rate = 32.0
-            }
+            rate = (0.03125...32).clamp(rate)
             timePitchAU.rate = Float(rate)
         }
     }
@@ -41,12 +36,7 @@ open class AKTimePitch: AKNode, AKToggleable {
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
     open var pitch: Double = 1.0 {
         didSet {
-            if pitch < -2400 {
-                pitch = -2400
-            }
-            if pitch > 2400 {
-                pitch = 2400
-            }
+            pitch = (-2400...2400).clamp(pitch)
             timePitchAU.pitch = Float(pitch)
         }
     }
@@ -54,12 +44,7 @@ open class AKTimePitch: AKNode, AKToggleable {
     /// Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     open var overlap: Double = 8.0 {
         didSet {
-            if overlap < 3.0 {
-                overlap = 3.0
-            }
-            if overlap > 32.0 {
-                overlap = 32.0
-            }
+            overlap = (3...32).clamp(overlap)
             timePitchAU.overlap = Float(overlap)
         }
     }
