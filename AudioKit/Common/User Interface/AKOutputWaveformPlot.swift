@@ -14,8 +14,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
     internal func setupNode() {
         AudioKit.engine.outputNode.installTap(onBus: 0,
                                               bufferSize: bufferSize,
-                                              format: nil) { [weak self] (buffer, time) -> Void in
-
+                                              format: nil) { [weak self] (buffer, time) in
             guard let strongSelf = self else { return }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
@@ -25,6 +24,17 @@ open class AKOutputWaveformPlot: EZAudioPlot {
         }
     }
 
+    // Useful to reconnect after connecting to Audiobus or IAA
+    @objc func reconnect() {
+        AudioKit.engine.outputNode.removeTap(onBus: 0)
+        setupNode()
+    }
+    
+    func setupReconnection() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reconnect), name: NSNotification.Name(rawValue: "IAAConnected"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reconnect), name: NSNotification.Name(rawValue: "IAADisconnected"), object: nil)
+    }
+    
     internal var bufferSize: UInt32 = 1024
 
     deinit {
@@ -38,6 +48,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         setupNode()
+        setupReconnection()
     }
 
     /// Initialize the plot in a frame with a different buffer size
@@ -50,6 +61,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
         super.init(frame: frame)
         self.bufferSize = UInt32(bufferSize)
         setupNode()
+        setupReconnection()
     }
 
     /// Required coder-based initialization (for use with Interface Builder)
@@ -59,6 +71,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupNode()
+        setupReconnection()
     }
 
     /// Create a View with the plot (usually for playgrounds)

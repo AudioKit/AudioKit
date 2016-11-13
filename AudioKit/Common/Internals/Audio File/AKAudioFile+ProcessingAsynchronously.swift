@@ -211,7 +211,7 @@ extension AKAudioFile {
 
         ProcessFactory.sharedInstance.queueAppendAsyncProcess(
             sourceFile: self,
-            appendedFile:file,
+            appendedFile: file,
             baseDir: baseDir,
             name: name,
             completionHandler: completionHandler

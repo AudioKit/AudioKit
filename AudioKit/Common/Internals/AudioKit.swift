@@ -141,7 +141,8 @@ public typealias AKCallback = (Void) -> Void
 
                 #if os(iOS)
                     if AKSettings.defaultToSpeaker {
-                        try AKSettings.setSession(category: .playAndRecord,                                                           with: .mixWithOthers)
+                        try AKSettings.setSession(category: .playAndRecord,
+                                                  with: .defaultToSpeaker)
 
                         // listen to AVAudioEngineConfigurationChangeNotification
                         // and restart the engine if it is stopped.
@@ -153,7 +154,8 @@ public typealias AKCallback = (Void) -> Void
 
                     } else {
 
-                        try AKSettings.setSession(category: .playAndRecord)
+                        try AKSettings.setSession(category: .playAndRecord,
+                                                  with: .mixWithOthers)
 
                     }
                 #else
@@ -165,7 +167,7 @@ public typealias AKCallback = (Void) -> Void
 
                 } else if AKSettings.playbackWhileMuted {
 
-                try AKSettings.setSession(category: .playback)
+                    try AKSettings.setSession(category: .playback)
 
                 } else {
                     try AKSettings.setSession(category: .ambient)

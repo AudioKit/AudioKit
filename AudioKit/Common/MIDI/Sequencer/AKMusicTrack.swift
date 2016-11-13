@@ -191,7 +191,7 @@ open class AKMusicTrack {
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
             
-            if eventType == 5 {
+            if eventType == kMusicEventType_Meta {
                 MusicEventIteratorDeleteEvent(iterator!)
             }
             MusicEventIteratorNextEvent(iterator!)
@@ -211,7 +211,6 @@ open class AKMusicTrack {
         MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
-            print(kMusicEventType_Meta)
             if eventType == kMusicEventType_MIDINoteMessage {
                 let convertedData = eventData?.load(as: MIDINoteMessage.self)
                 
@@ -318,6 +317,14 @@ open class AKMusicTrack {
             print("Unable to insert raw midi data")
         }
         
+    }
+    
+    /// Copy this track to another track
+    ///
+    /// - parameter musicTrack: Destination track to copy this track to
+    ///
+    open func copyAndMergeTo(musicTrack:AKMusicTrack){
+        MusicTrackMerge(internalMusicTrack!, 0.0, length, musicTrack.internalMusicTrack!, 0.0)
     }
     
     /// Set the MIDI Ouput

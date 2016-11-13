@@ -591,7 +591,6 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         case ControlTag.noiseMix.rawValue:
             statusLabel.text = "Noise Amt: \(noiseMixKnob.knobValue.percentageString)"
             conductor.core.noiseMixer.volume = value
-            print(value)
 
         // LFO
         case ControlTag.lfoAmt.rawValue:
@@ -644,7 +643,6 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         case ControlTag.masterVol.rawValue:
             statusLabel.text = "Master Vol: \(masterVolKnob.knobValue.percentageString)"
             conductor.masterVolume.volume = value
-            print(value)
 
         default:
             break
@@ -709,3 +707,5 @@ extension SynthViewController: SMSegmentViewDelegate {
         }
     }
 }
+
+

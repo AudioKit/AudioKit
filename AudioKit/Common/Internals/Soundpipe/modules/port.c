@@ -56,3 +56,9 @@ int sp_port_compute(sp_data *sp, sp_port *p, SPFLOAT *in, SPFLOAT *out)
     *out = p->yt1 = p->c1 * *in + p->c2 * p->yt1;
     return SP_OK;
 }
+
+int sp_port_reset(sp_data *sp, sp_port *p, SPFLOAT *in)
+{
+    p->yt1 = *in;
+    return SP_OK;
+}
