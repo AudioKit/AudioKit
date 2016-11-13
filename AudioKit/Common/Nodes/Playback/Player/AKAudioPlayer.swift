@@ -55,9 +55,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Output Volume (Default 1)
     open var volume: Double = 1.0 {
         didSet {
-            if volume < 0 {
-                volume = 0
-            }
+            volume = max(volume, 0)
             internalPlayer.volume = Float(volume)
         }
     }
@@ -106,12 +104,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Pan (Default Center = 0)
     open var pan: Double = 0.0 {
         didSet {
-            if pan < -1 {
-                pan = -1
-            }
-            if pan > 1 {
-                pan = 1
-            }
+            pan = (-1...1).clamp(pan)
             internalPlayer.pan = Float(pan)
         }
     }

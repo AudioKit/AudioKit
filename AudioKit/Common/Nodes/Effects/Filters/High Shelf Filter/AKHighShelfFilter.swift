@@ -27,12 +27,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable {
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
     open var cutoffFrequency: Double = 10000 {
         didSet {
-            if cutoffFrequency < 10000 {
-                cutoffFrequency = 10000
-            }
-            if cutoffFrequency > 22050 {
-                cutoffFrequency = 22050
-            }
+            cutoffFrequency = (10000...22050).clamp(cutoffFrequency)
             AudioUnitSetParameter(
                 internalAU!,
                 kHighShelfParam_CutOffFrequency,
@@ -44,12 +39,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable {
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
     open var gain: Double = 0 {
         didSet {
-            if gain < -40 {
-                gain = -40
-            }
-            if gain > 40 {
-                gain = 40
-            }
+            gain = (-40...40).clamp(gain)
             AudioUnitSetParameter(
                 internalAU!,
                 kHighShelfParam_Gain,
@@ -61,12 +51,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable {
     /// Dry/Wet Mix (Default 100)
     open var dryWetMix: Double = 100 {
         didSet {
-            if dryWetMix < 0 {
-                dryWetMix = 0
-            }
-            if dryWetMix > 100 {
-                dryWetMix = 100
-            }
+            dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
             effectGain?.volume = dryWetMix / 100
         }
