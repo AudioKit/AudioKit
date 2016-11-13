@@ -38,9 +38,7 @@ extension AKMIDI {
     
     /// Array of input names
     public var inputNames: [String] {
-        return MIDISources().map { source in
-            GetMIDIObjectStringProperty(ref: source, property: kMIDIPropertyName)
-        }
+        return MIDISources().names
     }
     
     /// Add a listener to the listeners
@@ -98,13 +96,10 @@ extension AKMIDI {
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
     public func closeInput(_ namedInput: String = "") {
-        var result = noErr
-        
-        for key in inputPorts.keys {
+        for (key, endpoint) in inputPorts {
             if namedInput.isEmpty || key == namedInput {
-                if let port = inputPorts[key], let endpoint = endpoints[key] {
-                    
-                    result = MIDIPortDisconnectSource(port, endpoint)
+                if let port = inputPorts[key] {
+                    let result = MIDIPortDisconnectSource(port, endpoint)
                     if result == noErr {
                         endpoints.removeValue(forKey: namedInput)
                         inputPorts.removeValue(forKey: namedInput)
