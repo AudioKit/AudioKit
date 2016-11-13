@@ -6,33 +6,45 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
+internal struct MIDIDestinations: Collection {
+    typealias Index = Int
+
+    init() { }
+
+    var startIndex: Index {
+        return 0
+    }
+
+    var endIndex: Index {
+        return MIDIGetNumberOfDestinations()
+    }
+
+    subscript (index: Index) -> MIDIEndpointRef {
+      return MIDIGetDestination(index)
+    }
+
+    func index(after index: Index) -> Index {
+      return index + 1
+    }
+}
+
 extension AKMIDI {
     /// Array of destination names
     public var destinationNames: [String] {
-        var nameArray = [String]()
-        let outputCount = MIDIGetNumberOfDestinations()
-        for i in 0 ..< outputCount {
-            let destination = MIDIGetDestination(i)
-            var endpointName: Unmanaged<CFString>?
-            endpointName = nil
-            MIDIObjectGetStringProperty(destination, kMIDIPropertyName, &endpointName)
-            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
-            nameArray.append(endpointNameStr)
+        return MIDIDestinations().map { destination in
+            GetMIDIObjectStringProperty(ref: destination, property: kMIDIPropertyName)
         }
-        return nameArray
     }
+
 
     /// Open a MIDI Output Port
     ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openOutput(_ namedOutput: String = "") {
-
-        var result = noErr
-
         let outputCount = MIDIGetNumberOfDestinations()
         var foundDest = false
-        result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
+        let result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
 
         if result != noErr {
             print("Error creating MIDI output port : \(result)")
@@ -40,13 +52,11 @@ extension AKMIDI {
 
         for i in 0 ..< outputCount {
             let src = MIDIGetDestination(i)
-            var endpointName: Unmanaged<CFString>? = nil
+            let endpointName = GetMIDIObjectStringProperty(ref: src, property: kMIDIPropertyName)
 
-            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
-            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
-            if namedOutput.isEmpty || namedOutput == endpointNameStr {
-                print("Found destination at \(endpointNameStr)")
-                endpoints[endpointNameStr] = MIDIGetDestination(i)
+            if namedOutput.isEmpty || namedOutput == endpointName {
+                print("Found destination at \(endpointName)")
+                endpoints[endpointName] = MIDIGetDestination(i)
                 foundDest = true
             }
         }
