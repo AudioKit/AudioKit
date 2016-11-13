@@ -23,12 +23,7 @@ open class AKReverb: AKNode, AKToggleable {
     /// Dry/Wet Mix (Default 0.5)
     open var dryWetMix: Double = 0.5 {
         didSet {
-            if dryWetMix < 0 {
-                dryWetMix = 0
-            }
-            if dryWetMix > 1 {
-                dryWetMix = 1
-            }
+            dryWetMix = (0...1).clamp(dryWetMix)
             reverbAU.wetDryMix = Float(dryWetMix) * 100
         }
     }

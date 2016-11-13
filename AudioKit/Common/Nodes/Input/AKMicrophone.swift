@@ -17,9 +17,7 @@ open class AKMicrophone: AKNode, AKToggleable {
     /// Output Volume (Default 1)
     open var volume: Double = 1.0 {
         didSet {
-            if volume < 0 {
-                volume = 0
-            }
+            volume = max(volume, 0)
             mixer.outputVolume = Float(volume)
         }
     }
