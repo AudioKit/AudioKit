@@ -30,27 +30,19 @@ open class AKMIDISampler: AKSampler {
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
-        var result: OSStatus
-        
-        
-        let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
-            let packetCount = Int(packetList.pointee.numPackets)
-            let packet = packetList.pointee.packet as MIDIPacket
-            var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.allocate(capacity: 1)
-            packetPointer.initialize(to: packet)
-            
-            for _ in 0 ..< packetCount {
-                let event = AKMIDIEvent(packet: packetPointer.pointee)
-                //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
-                self.handleMIDI(data1: UInt32(event.internalData[0]),
-                                data2: UInt32(event.internalData[1]),
-                                data3: UInt32(event.internalData[2]))
-                packetPointer = MIDIPacketNext(packetPointer)
+        CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) {
+            packetList, _ in
+            for e in packetList.pointee {
+                let event = AKMIDIEvent(packet: e)
+                self.handle(event: event)
             }
-        }
-        
-        result = MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn, readBlock)
-        CheckError(result)
+        })
+    }
+
+    private func handle(event: AKMIDIEvent) {
+        self.handleMIDI(data1: UInt32(event.internalData[0]),
+                        data2: UInt32(event.internalData[1]),
+                        data3: UInt32(event.internalData[2]))
     }
     
     // MARK: - Handling MIDI Data
