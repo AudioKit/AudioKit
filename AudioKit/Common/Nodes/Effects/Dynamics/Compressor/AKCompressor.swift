@@ -103,7 +103,7 @@ open class AKCompressor: AKNode, AKToggleable {
     /// Master Gain (dB) ranges from -40 to 40 (Default: 0)
     open var masterGain: Double = 0 {
         didSet {
-            masterGain = (-40...(-40)).clamp(masterGain)
+            masterGain = (-40...40).clamp(masterGain)
             AudioUnitSetParameter(
                 internalAU!,
                 kDynamicsProcessorParam_MasterGain,
