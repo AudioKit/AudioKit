@@ -55,21 +55,15 @@ extension AKMIDI {
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
-    public func openInput(_ namedInput: String = "") {
-        let sourceCount = MIDIGetNumberOfSources()
-        
-        for i in 0 ..< sourceCount {
-            let src = MIDIGetSource(i)
-
-            let inputNameStr = GetMIDIObjectStringProperty(ref: src, property: kMIDIPropertyName)
-
-            if namedInput.isEmpty || namedInput == inputNameStr {
-                
+    public func openInput(_ namedInput: String = "") {        
+        for (name, src) in zip(inputNames, MIDISources()) {
+            if namedInput.isEmpty || namedInput == name {
                 inputPorts[namedInput] = MIDIPortRef()
                 
                 var port = inputPorts[namedInput]!
-                
-                let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+
+                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) {
+                  packetList, _ in
                     for packet in packetList.pointee {
                         // a coremidi packet may contain multiple midi events
                         for event in packet {
@@ -77,8 +71,6 @@ extension AKMIDI {
                         }
                     }
                 }
-                
-                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port, readBlock)
                 
                 inputPorts[namedInput] = port
                 
