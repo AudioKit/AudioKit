@@ -28,13 +28,19 @@ internal struct MIDIDestinations: Collection {
     }
 }
 
+extension Collection where Iterator.Element == MIDIEndpointRef {
+    var names: [String] {
+        return map {
+            GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName)
+        }
+    }
+}
+
 extension AKMIDI {
     /// Array of destination names
     public var destinationNames: [String] {
-        return MIDIDestinations().map { destination in
-            GetMIDIObjectStringProperty(ref: destination, property: kMIDIPropertyName)
-        }
-    }
+        return MIDIDestinations().names
+  }
 
 
     /// Open a MIDI Output Port
@@ -42,21 +48,16 @@ extension AKMIDI {
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openOutput(_ namedOutput: String = "") {
-        let outputCount = MIDIGetNumberOfDestinations()
         var foundDest = false
         let result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
 
         if result != noErr {
             print("Error creating MIDI output port : \(result)")
         }
-
-        for i in 0 ..< outputCount {
-            let src = MIDIGetDestination(i)
-            let endpointName = GetMIDIObjectStringProperty(ref: src, property: kMIDIPropertyName)
-
-            if namedOutput.isEmpty || namedOutput == endpointName {
-                print("Found destination at \(endpointName)")
-                endpoints[endpointName] = MIDIGetDestination(i)
+        for (name, endpoint) in zip(destinationNames, MIDIDestinations()) {
+            if namedOutput.isEmpty || namedOutput == name {
+                print("Found destination at \(name)")
+                endpoints[name] = endpoint
                 foundDest = true
             }
         }
@@ -67,18 +68,15 @@ extension AKMIDI {
 
     /// Send Message with data
     public func sendMessage(_ data: [UInt8]) {
-        var result = noErr
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
         var packet: UnsafeMutablePointer<MIDIPacket>? = nil
         packet = MIDIPacketListInit(packetListPointer)
         packet = MIDIPacketListAdd(packetListPointer, 1024, packet!, 0, data.count, data)
-        for endpointName in endpoints.keys {
-            if let endpoint = endpoints[endpointName] {
-                result = MIDISend(outputPort, endpoint, packetListPointer)
-                if result != noErr {
-                    print("error sending midi : \(result)")
-                }
+        for endpoint in endpoints.values {
+            let result = MIDISend(outputPort, endpoint, packetListPointer)
+            if result != noErr {
+                print("error sending midi : \(result)")
             }
         }
 

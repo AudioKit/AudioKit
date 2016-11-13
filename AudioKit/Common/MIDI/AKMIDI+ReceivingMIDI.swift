@@ -38,9 +38,7 @@ extension AKMIDI {
     
     /// Array of input names
     public var inputNames: [String] {
-        return MIDISources().map { source in
-            GetMIDIObjectStringProperty(ref: source, property: kMIDIPropertyName)
-        }
+        return MIDISources().names
     }
     
     /// Add a listener to the listeners
@@ -57,21 +55,15 @@ extension AKMIDI {
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
-    public func openInput(_ namedInput: String = "") {
-        let sourceCount = MIDIGetNumberOfSources()
-        
-        for i in 0 ..< sourceCount {
-            let src = MIDIGetSource(i)
-
-            let inputNameStr = GetMIDIObjectStringProperty(ref: src, property: kMIDIPropertyName)
-
-            if namedInput.isEmpty || namedInput == inputNameStr {
-                
+    public func openInput(_ namedInput: String = "") {        
+        for (name, src) in zip(inputNames, MIDISources()) {
+            if namedInput.isEmpty || namedInput == name {
                 inputPorts[namedInput] = MIDIPortRef()
                 
                 var port = inputPorts[namedInput]!
-                
-                let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+
+                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) {
+                  packetList, _ in
                     for packet in packetList.pointee {
                         // a coremidi packet may contain multiple midi events
                         for event in packet {
@@ -79,8 +71,6 @@ extension AKMIDI {
                         }
                     }
                 }
-                
-                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port, readBlock)
                 
                 inputPorts[namedInput] = port
                 
@@ -98,13 +88,10 @@ extension AKMIDI {
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
     public func closeInput(_ namedInput: String = "") {
-        var result = noErr
-        
-        for key in inputPorts.keys {
+        for (key, endpoint) in inputPorts {
             if namedInput.isEmpty || key == namedInput {
-                if let port = inputPorts[key], let endpoint = endpoints[key] {
-                    
-                    result = MIDIPortDisconnectSource(port, endpoint)
+                if let port = inputPorts[key] {
+                    let result = MIDIPortDisconnectSource(port, endpoint)
                     if result == noErr {
                         endpoints.removeValue(forKey: namedInput)
                         inputPorts.removeValue(forKey: namedInput)

@@ -11,9 +11,8 @@ import Foundation
 /// A computed parameter differs from a regular parameter in that it only exists within an operation (unlike float, doubles, and ints which have a value outside of an operation)
 public protocol AKComputedParameter: AKParameter {}
 
-
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
-open class AKOperation: AKComputedParameter {
+open class AKOperation: AKComputedParameter, Hashable {
 
     // MARK: - Dependency Management
     
@@ -22,24 +21,15 @@ open class AKOperation: AKComputedParameter {
     internal var savedLocation = -1
     
     fileprivate var dependencies = [AKOperation]()
-    
-    internal var recursiveDependencies: [AKOperation] {
-        var all = [AKOperation]()
-        var uniq = [AKOperation]()
-        var added = Set<String>()
-        for dep in dependencies {
-            all += dep.recursiveDependencies
-            all.append(dep)
-        }
-        
-        for elem in all {
-            if !added.contains(elem.inlineSporth) {
-                uniq.append(elem)
-                added.insert(elem.inlineSporth)
-            }
-        }
 
-        return uniq
+    internal var recursiveDependencies: [AKOperation] {
+        return dependencies.flatMap {
+            $0.recursiveDependencies
+        }.unique
+    }
+
+    open var hashValue: Int {
+        return inlineSporth.hashValue
     }
     
     // MARK: - String Representations
@@ -63,7 +53,6 @@ open class AKOperation: AKComputedParameter {
             } else {
                 opString  += "\(input) "
             }
-            
         }
         opString  += "\(module) "
         return opString
@@ -265,4 +254,8 @@ public func log10(_ operation: AKOperation) -> AKOperation {
 ///
 public func round(_ operation: AKOperation) -> AKOperation {
     return operation.round()
+}
+
+public func ==(lhs: AKOperation, rhs: AKOperation) -> Bool {
+    return lhs.inlineSporth == rhs.inlineSporth
 }
