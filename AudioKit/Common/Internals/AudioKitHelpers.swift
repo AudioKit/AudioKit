@@ -228,3 +228,12 @@ extension AudioComponentDescription {
     }
 }
 
+extension Sequence where Iterator.Element: Hashable {
+    internal var unique: [Iterator.Element] {
+        var s: Set<Iterator.Element> = []
+        return flatMap {
+            s.insert($0).inserted ? $0 : nil
+        }
+    }
+}
+

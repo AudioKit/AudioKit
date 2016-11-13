@@ -18,24 +18,11 @@ open class AKStereoOperation: AKComputedParameter {
     fileprivate var savedLocation = -1
     
     fileprivate var dependencies = [AKOperation]()
-    
+
     internal var recursiveDependencies: [AKOperation] {
-        var all = [AKOperation]()
-        var uniq = [AKOperation]()
-        var added = Set<String>()
-        for dep in dependencies {
-            all += dep.recursiveDependencies
-            all.append(dep)
-        }
-        
-        for elem in all {
-            if !added.contains(elem.inlineSporth) {
-                uniq.append(elem)
-                added.insert(elem.inlineSporth)
-            }
-        }
-        
-        return uniq
+        return dependencies.flatMap {
+            $0.recursiveDependencies
+        }.unique
     }
     
     // MARK: - String Representations
@@ -59,7 +46,6 @@ open class AKStereoOperation: AKComputedParameter {
             } else {
                 opString  += "\(input) "
             }
-            
         }
         opString  += "\(module) "
         return opString
