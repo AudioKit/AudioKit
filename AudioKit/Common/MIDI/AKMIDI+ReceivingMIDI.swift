@@ -28,7 +28,7 @@ internal struct MIDISources: Collection {
     }
 }
 
-fileprivate func GetMIDIObjectProperty(ref: MIDIObjectRef, property: CFString) -> String {
+internal func GetMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
     var string: Unmanaged<CFString>? = nil
     MIDIObjectGetStringProperty(ref, property, &string)
     return (string?.takeRetainedValue())! as String
@@ -39,7 +39,7 @@ extension AKMIDI {
     /// Array of input names
     public var inputNames: [String] {
         return MIDISources().map { source in
-            GetMIDIObjectProperty(ref: source, property: kMIDIPropertyName)
+            GetMIDIObjectStringProperty(ref: source, property: kMIDIPropertyName)
         }
     }
     
@@ -63,7 +63,7 @@ extension AKMIDI {
         for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
 
-            let inputNameStr = GetMIDIObjectProperty(ref: src, property: kMIDIPropertyName)
+            let inputNameStr = GetMIDIObjectStringProperty(ref: src, property: kMIDIPropertyName)
 
             if namedInput.isEmpty || namedInput == inputNameStr {
                 
