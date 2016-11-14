@@ -10,12 +10,13 @@ import AVFoundation
 
 /// Testing node
 open class AKTester: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKTesterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "tstr")
 
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKTesterAudioUnit?
+    fileprivate var internalAU: AKAudioUnitType?
     fileprivate var testedNode: AKToggleable?
     fileprivate var token: AUParameterObserverToken?
     var totalSamples = 0
@@ -43,7 +44,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
         testedNode = input as? AKToggleable
         totalSamples = samples
 
-        _Self.register(AKTesterAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -52,7 +53,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTesterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

@@ -16,11 +16,12 @@ import AVFoundation
 ///   - peakCount: Number of peaks.
 ///
 open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKFrequencyTrackerAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "ptrk")
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKFrequencyTrackerAudioUnit?
+    fileprivate var internalAU: AKAudioUnitType?
     fileprivate var token: AUParameterObserverToken?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -51,7 +52,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
         hopSize: Double = 512,
         peakCount: Double = 20) {
 
-        _Self.register(AKFrequencyTrackerAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -60,7 +61,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKFrequencyTrackerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

@@ -16,11 +16,12 @@ import AVFoundation
 ///   - depth: Depth
 ///
 open class AKTremolo: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKTremoloAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
     // MARK: - Properties
 
-    internal var internalAU: AKTremoloAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
@@ -87,7 +88,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
         self.waveform = waveform
         self.frequency = frequency
 
-        _Self.register(AKTremoloAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -96,13 +97,13 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTremoloAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
-            self.internalAU?.setupWaveform(Int32(waveform.size))
-            for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
+            self.internalAU?.setupWaveform(Int32(waveform.count))
+            for (i, sample) in waveform.enumerated() {
+                self.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 

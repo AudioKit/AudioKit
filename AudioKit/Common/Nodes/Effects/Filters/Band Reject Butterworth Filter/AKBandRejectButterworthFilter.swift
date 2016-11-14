@@ -17,11 +17,12 @@ import AVFoundation
 ///   - bandwidth: Bandwidth. (in Hertz)
 ///
 open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKBandRejectButterworthFilterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "btbr")
 
     // MARK: - Properties
 
-    internal var internalAU: AKBandRejectButterworthFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
@@ -84,7 +85,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
 
-        _Self.register(AKBandRejectButterworthFilterAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -93,7 +94,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBandRejectButterworthFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

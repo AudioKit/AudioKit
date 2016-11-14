@@ -18,11 +18,12 @@ import AVFoundation
 ///   - releaseDuration: Release time
 ///
 open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
     // MARK: - Properties
 
-    internal var internalAU: AKAmplitudeEnvelopeAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var attackDurationParameter: AUParameter?
@@ -117,7 +118,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
         self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
 
-        _Self.register(AKAmplitudeEnvelopeAudioUnit.self)
+        _Self.register()
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
@@ -125,7 +126,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAmplitudeEnvelopeAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

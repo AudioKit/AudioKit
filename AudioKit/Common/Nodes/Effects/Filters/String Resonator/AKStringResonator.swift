@@ -21,11 +21,12 @@ import AVFoundation
 ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
 ///
 open class AKStringResonator: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKStringResonatorAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
     // MARK: - Properties
 
-    internal var internalAU: AKStringResonatorAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var fundamentalFrequencyParameter: AUParameter?
@@ -88,7 +89,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback
 
-        _Self.register(AKStringResonatorAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -97,7 +98,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKStringResonatorAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

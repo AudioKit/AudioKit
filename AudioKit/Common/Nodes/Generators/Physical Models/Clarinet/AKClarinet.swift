@@ -14,11 +14,12 @@ import AVFoundation
 ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
 ///   - amplitude: Amplitude
 ///
-open class AKClarinet: AKNode, AKToggleable {
-
+open class AKClarinet: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "flut")
+    public typealias AKAudioUnitType = AKClarinetAudioUnit
     // MARK: - Properties
 
-    internal var internalAU: AKClarinetAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
@@ -77,35 +78,24 @@ open class AKClarinet: AKNode, AKToggleable {
         self.frequency = frequency
         self.amplitude = amplitude
 
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = fourCC("flut")
-        description.componentManufacturer = fourCC("AuKt")
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
-
-        AUAudioUnit.registerSubclass(
-            AKClarinetAudioUnit.self,
-            as: description,
-            name: "Local AKClarinet",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKClarinetAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
-        amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
+        frequencyParameter = tree["frequency"]
+        amplitudeParameter = tree["amplitude"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

@@ -17,11 +17,12 @@ import AVFoundation
 ///   - q: Q of the filter. sqrt(0.5) is no resonance.
 ///
 open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKPeakingParametricEqualizerFilterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "peq0")
 
     // MARK: - Properties
 
-    internal var internalAU: AKPeakingParametricEqualizerFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
@@ -100,7 +101,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         self.gain = gain
         self.q = q
 
-        _Self.register(AKPeakingParametricEqualizerFilterAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -109,7 +110,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKPeakingParametricEqualizerFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

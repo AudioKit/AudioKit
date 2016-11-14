@@ -29,12 +29,11 @@ import AVFoundation
 ///   - softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
 ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
 ///
-open class AKDistortion: AKNode, AKToggleable {
-
+open class AKDistortion: AKNode, AKToggleable, AUComponent {
 
     // MARK: - Properties
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_Distortion)
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -294,8 +293,8 @@ open class AKDistortion: AKNode, AKToggleable {
             self.ringModMix = ringModMix
             self.softClipGain = softClipGain
             self.finalMix = finalMix
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
             avAudioNode = internalEffect
             AudioKit.engine.attach(self.avAudioNode)

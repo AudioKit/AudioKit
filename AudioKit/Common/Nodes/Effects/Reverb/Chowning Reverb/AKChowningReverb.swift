@@ -19,12 +19,13 @@ import AVFoundation
 /// - parameter input: Input node to process
 ///
 open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKChowningReverbAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
     // MARK: - Properties
 
 
-    internal var internalAU: AKChowningReverbAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
 
@@ -41,7 +42,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     /// - parameter input: Input node to process
     ///
     public init(_ input: AKNode) {
-        _Self.register(AKChowningReverbAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -50,7 +51,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKChowningReverbAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

@@ -8,18 +8,22 @@
 
 import Foundation
 
-protocol AKComponent: class {
+protocol AUComponent: class {
     associatedtype _Self = Self
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
+protocol AKComponent: AUComponent {
+    associatedtype AKAudioUnitType: AnyObject
+}
+
 extension AKComponent {
-    static func register(_ type: AnyClass) {
-        AUAudioUnit.registerSubclass(type,
+    static func register() {
+        AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
                                      as: Self.ComponentDescription,
                                      name: "Local \(Self.self)",
-            version: UInt32.max)
-    }    
+                                     version: UInt32.max)
+    }
 }
 
 extension AUParameterTree {
@@ -36,7 +40,15 @@ extension AudioComponentDescription {
                   componentFlags: 0,
                   componentFlagsMask: 0)
     }
-    
+
+    internal init(appleEffect subType: OSType) {
+        self.init(componentType: kAudioUnitType_Effect,
+                  componentSubType: subType,
+                  componentManufacturer: kAudioUnitManufacturer_Apple,
+                  componentFlags: 0,
+                  componentFlagsMask: 0)
+    }
+
     internal init(effect subType: OSType) {
         self.init(type: kAudioUnitType_Effect, subType: subType)
     }
@@ -53,3 +65,4 @@ extension AudioComponentDescription {
         self.init(type: kAudioUnitType_Generator, subType: fourCC(subType))
     }
 }
+

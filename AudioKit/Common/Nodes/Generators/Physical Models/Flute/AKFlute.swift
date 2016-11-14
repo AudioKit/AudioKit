@@ -15,11 +15,12 @@ import AVFoundation
 ///   - amplitude: Amplitude
 ///
 open class AKFlute: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKFluteAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "flut")
 
     // MARK: - Properties
 
-    internal var internalAU: AKFluteAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
@@ -79,7 +80,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
         self.frequency = frequency
         self.amplitude = amplitude
 
-        _Self.register(AKFluteAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -88,7 +89,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKFluteAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

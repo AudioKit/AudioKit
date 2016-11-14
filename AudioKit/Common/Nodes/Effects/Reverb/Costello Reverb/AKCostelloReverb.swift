@@ -18,11 +18,12 @@ import AVFoundation
 ///   - cutoffFrequency: Low-pass cutoff frequency.
 ///
 open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKCostelloReverbAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
     // MARK: - Properties
 
-    internal var internalAU: AKCostelloReverbAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var feedbackParameter: AUParameter?
@@ -85,7 +86,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
 
-        _Self.register(AKCostelloReverbAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -94,7 +95,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKCostelloReverbAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

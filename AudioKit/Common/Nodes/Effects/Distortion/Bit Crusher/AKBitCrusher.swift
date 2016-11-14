@@ -16,11 +16,13 @@ import AVFoundation
 ///   - sampleRate: The sample rate of signal output.
 ///
 open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKBitCrusherAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "btcr")
+
 
     // MARK: - Properties
 
-    internal var internalAU: AKBitCrusherAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var bitDepthParameter: AUParameter?
@@ -83,7 +85,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate
 
-        _Self.register(AKBitCrusherAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -92,7 +94,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBitCrusherAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

@@ -19,11 +19,12 @@ import AVFoundation
 ///   - pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
 ///
 open class AKPhaseLockedVocoder: AKNode, AKComponent {
+    public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "minc")
 
     // MARK: - Properties
 
-    internal var internalAU: AKPhaseLockedVocoderAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var positionParameter: AUParameter?
@@ -107,7 +108,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         self.pitchRatio = pitchRatio
         self.avAudiofile = file
 
-        _Self.register(AKPhaseLockedVocoderAudioUnit.self)
+        _Self.register()
 
         super.init()
 
@@ -117,7 +118,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPhaseLockedVocoderAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

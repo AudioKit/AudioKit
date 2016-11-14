@@ -22,11 +22,12 @@ import AVFoundation
 ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
 ///
 open class AKMetalBar: AKNode, AKComponent {
+    public typealias AKAudioUnitType = AKMetalBarAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 
     // MARK: - Properties
 
-    internal var internalAU: AKMetalBarAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
 
@@ -151,7 +152,7 @@ open class AKMetalBar: AKNode, AKComponent {
         self.strikeVelocity = strikeVelocity
         self.strikeWidth = strikeWidth
 
-        _Self.register(AKMetalBarAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -160,7 +161,7 @@ open class AKMetalBar: AKNode, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMetalBarAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

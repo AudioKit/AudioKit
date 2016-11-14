@@ -15,9 +15,8 @@ import AVFoundation
 ///   - centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
 ///   - bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
 ///
-open class AKBandPassFilter: AKNode, AKToggleable {
-
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_BandPassFilter)
+open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -88,7 +87,7 @@ open class AKBandPassFilter: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
 
             AudioKit.engine.attach(internalEffect)
