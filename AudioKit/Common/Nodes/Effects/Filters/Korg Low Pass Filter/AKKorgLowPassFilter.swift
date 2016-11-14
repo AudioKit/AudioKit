@@ -98,7 +98,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         self.resonance = resonance
         self.saturation = saturation
 
-        _Self.register()
+        _Self.register(AKKorgLowPassFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

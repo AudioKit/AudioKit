@@ -59,7 +59,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
 
         self.halfPowerPoint = halfPowerPoint
 
-        _Self.register()
+        _Self.register(AKAmplitudeTrackerAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

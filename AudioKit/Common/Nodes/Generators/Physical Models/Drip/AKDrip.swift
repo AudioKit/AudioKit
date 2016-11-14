@@ -150,7 +150,7 @@ open class AKDrip: AKNode, AKComponent {
         self.secondResonantFrequency = secondResonantFrequency
         self.amplitude = amplitude
 
-        _Self.register()
+        _Self.register(AKDripAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

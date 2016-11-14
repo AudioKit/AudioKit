@@ -117,7 +117,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         self.distortion = distortion
         self.resonanceAsymmetry = resonanceAsymmetry
 
-        _Self.register()
+        _Self.register(AKRolandTB303FilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

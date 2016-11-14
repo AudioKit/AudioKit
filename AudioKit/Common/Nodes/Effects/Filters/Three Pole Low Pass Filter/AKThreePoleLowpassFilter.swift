@@ -100,7 +100,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
 
-        _Self.register()
+        _Self.register(AKThreePoleLowpassFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

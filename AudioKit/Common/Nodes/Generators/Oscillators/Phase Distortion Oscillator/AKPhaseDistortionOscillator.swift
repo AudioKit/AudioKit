@@ -146,7 +146,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        _Self.register()
+        _Self.register(AKPhaseDistortionOscillatorAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

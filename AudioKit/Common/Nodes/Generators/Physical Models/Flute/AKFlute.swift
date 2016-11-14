@@ -79,7 +79,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
         self.frequency = frequency
         self.amplitude = amplitude
 
-        _Self.register()
+        _Self.register(AKFluteAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

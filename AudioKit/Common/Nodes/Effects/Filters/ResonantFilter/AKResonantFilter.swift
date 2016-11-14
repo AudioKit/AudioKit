@@ -82,7 +82,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
         self.frequency = frequency
         self.bandwidth = bandwidth
 
-        _Self.register()
+        _Self.register(AKResonantFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

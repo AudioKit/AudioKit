@@ -83,7 +83,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate
 
-        _Self.register()
+        _Self.register(AKBitCrusherAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

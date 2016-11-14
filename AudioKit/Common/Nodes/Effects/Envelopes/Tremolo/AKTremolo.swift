@@ -87,7 +87,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
         self.waveform = waveform
         self.frequency = frequency
 
-        _Self.register()
+        _Self.register(AKTremoloAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

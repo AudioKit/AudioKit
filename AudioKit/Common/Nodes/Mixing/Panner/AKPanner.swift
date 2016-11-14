@@ -66,7 +66,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
 
         self.pan = pan
 
-        _Self.register()
+        _Self.register(AKPannerAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

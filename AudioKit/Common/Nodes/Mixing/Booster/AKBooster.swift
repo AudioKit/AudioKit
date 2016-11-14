@@ -79,7 +79,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
 
         self.gain = gain
 
-        _Self.register()
+        _Self.register(AKBoosterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

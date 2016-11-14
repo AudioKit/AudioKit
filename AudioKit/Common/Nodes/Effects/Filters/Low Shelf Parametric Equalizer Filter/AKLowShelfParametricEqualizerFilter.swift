@@ -100,7 +100,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         self.gain = gain
         self.q = q
 
-        _Self.register()
+        _Self.register(AKLowShelfParametricEqualizerFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

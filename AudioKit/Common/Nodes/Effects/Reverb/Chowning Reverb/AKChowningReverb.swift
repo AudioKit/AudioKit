@@ -41,7 +41,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     /// - parameter input: Input node to process
     ///
     public init(_ input: AKNode) {
-        _Self.register()
+        _Self.register(AKChowningReverbAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

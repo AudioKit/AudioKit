@@ -82,7 +82,7 @@ open class AKMandolin: AKNode, AKComponent {
         self.detune = detune
         self.bodySize = bodySize
 
-        _Self.register()
+        _Self.register(AKMandolinAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

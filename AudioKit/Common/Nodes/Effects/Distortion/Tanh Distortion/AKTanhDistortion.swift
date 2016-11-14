@@ -117,7 +117,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         self.postiveShapeParameter = postiveShapeParameter
         self.negativeShapeParameter = negativeShapeParameter
 
-        _Self.register()
+        _Self.register(AKTanhDistortionAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

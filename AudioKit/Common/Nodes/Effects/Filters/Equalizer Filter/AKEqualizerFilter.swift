@@ -103,7 +103,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
         self.bandwidth = bandwidth
         self.gain = gain
 
-        _Self.register()
+        _Self.register(AKEqualizerFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

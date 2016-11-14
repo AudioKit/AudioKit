@@ -100,7 +100,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
         self.mix = mix
         self.amplitude = amplitude
 
-        _Self.register()
+        _Self.register(AKAutoWahAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

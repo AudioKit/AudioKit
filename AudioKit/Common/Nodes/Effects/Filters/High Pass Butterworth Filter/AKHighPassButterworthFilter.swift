@@ -68,7 +68,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent {
 
         self.cutoffFrequency = cutoffFrequency
 
-        _Self.register()
+        _Self.register(AKHighPassButterworthFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

@@ -85,7 +85,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         self.amplitude = amplitude
         self.lowestFrequency = lowestFrequency
 
-        _Self.register()
+        _Self.register(AKPluckedStringAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

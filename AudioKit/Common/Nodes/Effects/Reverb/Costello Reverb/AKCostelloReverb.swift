@@ -85,7 +85,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
 
-        _Self.register()
+        _Self.register(AKCostelloReverbAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

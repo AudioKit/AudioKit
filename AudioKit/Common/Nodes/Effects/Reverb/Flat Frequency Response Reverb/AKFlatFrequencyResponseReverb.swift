@@ -73,7 +73,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
 
         self.reverbDuration = reverbDuration
 
-        _Self.register()
+        _Self.register(AKFlatFrequencyResponseReverbAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

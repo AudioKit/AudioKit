@@ -147,7 +147,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         self.modulationIndex = modulationIndex
         self.amplitude = amplitude
 
-        _Self.register()
+        _Self.register(AKFMOscillatorAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

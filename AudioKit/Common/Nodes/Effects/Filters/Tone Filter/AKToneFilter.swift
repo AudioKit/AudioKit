@@ -66,7 +66,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent {
 
         self.halfPowerPoint = halfPowerPoint
 
-        _Self.register()
+        _Self.register(AKToneFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
