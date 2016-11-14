@@ -17,11 +17,12 @@ import AVFoundation
 ///   - q: Q of the filter. sqrt(0.5) is no resonance.
 ///
 open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "peq1")
 
     // MARK: - Properties
 
-    internal var internalAU: AKLowShelfParametricEqualizerFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var cornerFrequencyParameter: AUParameter?
@@ -109,7 +110,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKLowShelfParametricEqualizerFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

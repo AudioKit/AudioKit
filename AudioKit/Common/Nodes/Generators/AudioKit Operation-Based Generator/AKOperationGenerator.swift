@@ -10,11 +10,12 @@ import AVFoundation
 
 /// Operation-based generator
 open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKOperationGeneratorAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "cstg")
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKOperationGeneratorAudioUnit?
+    fileprivate var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
@@ -99,7 +100,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKOperationGeneratorAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
             AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setSporth(sporth)
         }

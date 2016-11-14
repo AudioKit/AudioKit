@@ -21,11 +21,12 @@ import AVFoundation
 ///   - phase:              Initial phase of waveform, expects a value 0-1
 ///
 open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
     // MARK: - Properties
 
-    internal var internalAU: AKMorphingOscillatorAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveformArray = [AKTable]()
@@ -161,7 +162,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMorphingOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
 

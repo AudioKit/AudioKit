@@ -17,11 +17,12 @@ import AVFoundation
 ///   - maximumDelayTime: The maximum delay time, in seconds.
 ///
 open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKVariableDelayAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
     // MARK: - Properties
 
-    internal var internalAU: AKVariableDelayAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var timeParameter: AUParameter?
@@ -94,7 +95,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKVariableDelayAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

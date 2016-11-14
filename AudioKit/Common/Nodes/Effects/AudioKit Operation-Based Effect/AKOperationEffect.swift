@@ -10,11 +10,12 @@ import AVFoundation
 
 /// Operation-based effect
 open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKOperationEffectAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "cstm")
 
     // MARK: - Properties
 
-    fileprivate var internalAU: AKOperationEffectAudioUnit?
+    fileprivate var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
@@ -100,7 +101,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKOperationEffectAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU?.setSporth(sporth)

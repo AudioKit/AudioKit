@@ -18,11 +18,12 @@ import AVFoundation
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
 open class AKOscillator: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKOscillatorAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
     // MARK: - Properties
 
-    internal var internalAU: AKOscillatorAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
@@ -138,7 +139,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.count))

@@ -14,11 +14,12 @@ import AVFoundation
 /// - parameter input: Input node to process
 ///
 open class AKDCBlock: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKDCBlockAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
 
     // MARK: - Properties
 
-    internal var internalAU: AKDCBlockAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
 
@@ -44,7 +45,7 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKDCBlockAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

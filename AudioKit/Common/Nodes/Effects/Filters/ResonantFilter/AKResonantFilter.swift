@@ -16,11 +16,12 @@ import AVFoundation
 /// - parameter bandwidth: Bandwidth of the filter.
 ///
 open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKResonantFilterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
     // MARK: - Properties
 
-    internal var internalAU: AKResonantFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
@@ -91,7 +92,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKResonantFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

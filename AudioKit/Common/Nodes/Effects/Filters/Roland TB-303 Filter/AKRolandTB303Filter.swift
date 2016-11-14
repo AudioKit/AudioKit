@@ -18,11 +18,12 @@ import AVFoundation
 ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
 ///
 open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKRolandTB303FilterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
     // MARK: - Properties
 
-    internal var internalAU: AKRolandTB303FilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
@@ -126,7 +127,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKRolandTB303FilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

@@ -20,11 +20,12 @@ import AVFoundation
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
 open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
+    public typealias AKAudioUnitType = AKPWMOscillatorBankAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "pwmb")
 
     // MARK: - Properties
 
-    internal var internalAU: AKPWMOscillatorBankAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var pulseWidthParameter: AUParameter?
@@ -180,7 +181,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPWMOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

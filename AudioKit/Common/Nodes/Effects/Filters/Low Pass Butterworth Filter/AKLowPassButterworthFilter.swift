@@ -16,11 +16,12 @@ import AVFoundation
 ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
 ///
 open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKLowPassButterworthFilterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "btlp")
 
     // MARK: - Properties
 
-    internal var internalAU: AKLowPassButterworthFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
@@ -76,7 +77,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKLowPassButterworthFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

@@ -16,9 +16,9 @@ import AVFoundation
 ///   - decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
 ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
-open class AKPeakLimiter: AKNode, AKToggleable {
+open class AKPeakLimiter: AKNode, AKToggleable, AUComponent {
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_PeakLimiter)
+    static let ComponentDescription = AudioComponentDescription(effect: kAudioUnitSubType_PeakLimiter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -102,7 +102,7 @@ open class AKPeakLimiter: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
             AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit

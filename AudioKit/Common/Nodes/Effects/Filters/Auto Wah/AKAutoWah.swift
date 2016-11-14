@@ -17,11 +17,12 @@ import AVFoundation
 ///   - amplitude: Overall level
 ///
 open class AKAutoWah: AKNode, AKToggleable, AKComponent {
+  public typealias AKAudioUnitType = AKAutoWahAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
     // MARK: - Properties
 
-    internal var internalAU: AKAutoWahAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var wahParameter: AUParameter?
@@ -109,7 +110,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAutoWahAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

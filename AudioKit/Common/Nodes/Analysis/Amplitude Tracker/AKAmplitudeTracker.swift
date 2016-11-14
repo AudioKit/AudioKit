@@ -16,12 +16,13 @@ import AVFoundation
 ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
 ///
 open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKAmplitudeTrackerAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
 
     // MARK: - Properties
 
 
-    internal var internalAU: AKAmplitudeTrackerAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
@@ -68,7 +69,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAmplitudeTrackerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
