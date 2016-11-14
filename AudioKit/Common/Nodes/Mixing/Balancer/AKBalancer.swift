@@ -19,7 +19,8 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - comparator: Audio to match power with
 ///
-open class AKBalancer: AKNode, AKToggleable {
+open class AKBalancer: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
     // MARK: - Properties
     
@@ -39,17 +40,9 @@ open class AKBalancer: AKNode, AKToggleable {
     ///   - comparator: Audio to match power with
     ///
     public init( _ input: AKNode, comparator: AKNode) {
-
-        let description = AudioComponentDescription(mixer: "blnc")
-
-        AUAudioUnit.registerSubclass(
-            AKBalancerAudioUnit.self,
-            as: description,
-            name: "Local AKBalancer",
-            version: UInt32.max)
-
+        _Self.register()
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

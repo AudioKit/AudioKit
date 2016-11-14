@@ -17,7 +17,8 @@ import AVFoundation
 ///   - detuningOffset: Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
-open class AKOscillator: AKNode, AKToggleable {
+open class AKOscillator: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
     // MARK: - Properties
 
@@ -128,16 +129,10 @@ open class AKOscillator: AKNode, AKToggleable {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        let description = AudioComponentDescription(generator: "oscl")
-
-        AUAudioUnit.registerSubclass(
-            AKOscillatorAudioUnit.self,
-            as: description,
-            name: "Local AKOscillator",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

@@ -15,8 +15,8 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
 ///
-open class AKAmplitudeTracker: AKNode, AKToggleable {
-
+open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
 
     // MARK: - Properties
 
@@ -59,16 +59,10 @@ open class AKAmplitudeTracker: AKNode, AKToggleable {
 
         self.halfPowerPoint = halfPowerPoint
 
-        let description = AudioComponentDescription(effect: "rmsq")
-
-        AUAudioUnit.registerSubclass(
-            AKAmplitudeTrackerAudioUnit.self,
-            as: description,
-            name: "Local AKAmplitudeTracker",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

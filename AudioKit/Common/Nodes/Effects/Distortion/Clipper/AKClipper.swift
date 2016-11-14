@@ -15,7 +15,8 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - limit: Threshold / limiting value.
 ///
-open class AKClipper: AKNode, AKToggleable {
+open class AKClipper: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
     // MARK: - Properties
 
@@ -66,16 +67,10 @@ open class AKClipper: AKNode, AKToggleable {
 
         self.limit = limit
 
-        let description = AudioComponentDescription(effect: "clip")
-
-        AUAudioUnit.registerSubclass(
-            AKClipperAudioUnit.self,
-            as: description,
-            name: "Local AKClipper",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

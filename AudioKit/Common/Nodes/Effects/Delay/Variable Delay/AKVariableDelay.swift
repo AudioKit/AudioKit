@@ -16,7 +16,8 @@ import AVFoundation
 ///   - feedback: Feedback amount. Should be a value between 0-1.
 ///   - maximumDelayTime: The maximum delay time, in seconds.
 ///
-open class AKVariableDelay: AKNode, AKToggleable {
+open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
     // MARK: - Properties
 
@@ -85,16 +86,9 @@ open class AKVariableDelay: AKNode, AKToggleable {
         self.time = time
         self.feedback = feedback
 
-        let description = AudioComponentDescription(effect: "vdla")
-
-        AUAudioUnit.registerSubclass(
-            AKVariableDelayAudioUnit.self,
-            as: description,
-            name: "Local AKVariableDelay",
-            version: UInt32.max)
-
+        _Self.register()
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

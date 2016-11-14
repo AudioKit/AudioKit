@@ -14,7 +14,8 @@ import AVFoundation
 ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
 ///   - amplitude: Amplitude
 ///
-open class AKFlute: AKNode, AKToggleable {
+open class AKFlute: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "flut")
 
     // MARK: - Properties
 
@@ -78,16 +79,10 @@ open class AKFlute: AKNode, AKToggleable {
         self.frequency = frequency
         self.amplitude = amplitude
 
-        let description = AudioComponentDescription(generator: "flut")
-
-        AUAudioUnit.registerSubclass(
-            AKFluteAudioUnit.self,
-            as: description,
-            name: "Local AKFlute",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

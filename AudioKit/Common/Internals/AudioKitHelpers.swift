@@ -237,3 +237,16 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
+protocol AKComponent: class {
+    associatedtype _Self = Self
+    static var ComponentDescription: AudioComponentDescription { get }
+}
+
+extension AKComponent {
+    static func register() {
+        AUAudioUnit.registerSubclass(Self.self,
+                                    as: Self.ComponentDescription,
+                                    name: "Local \(Self.self)",
+                                    version: UInt32.max)
+  }
+}

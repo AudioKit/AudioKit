@@ -14,7 +14,8 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - gain: Boosting multiplier.
 ///
-open class AKBooster: AKNode, AKToggleable {
+open class AKBooster: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "gain")
 
     // MARK: - Properties
 
@@ -78,16 +79,10 @@ open class AKBooster: AKNode, AKToggleable {
 
         self.gain = gain
 
-        let description = AudioComponentDescription(effect: "gain")
-
-        AUAudioUnit.registerSubclass(
-            AKBoosterAudioUnit.self,
-            as: description,
-            name: "Local AKBooster",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
