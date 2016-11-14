@@ -159,7 +159,7 @@ extension Int {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12*log2(Double(self)/aRef)
+        return 69 + 12 * log2(Double(self)/aRef)
     }
 }
 
@@ -171,7 +171,7 @@ extension Double {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12*log2(self/aRef)
+        return 69 + 12 * log2(self/aRef)
     }
 }
 
@@ -204,4 +204,32 @@ extension Sequence where Iterator.Element: Hashable {
         }
     }
 }
+
+internal func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> Double {
+    var val: AudioUnitParameterValue = 0
+    AudioUnitGetParameter(unit, param, kAudioUnitScope_Global, 0, &val)
+    return Double(val)
+}
+
+internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: Double) {
+    AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
+}
+
+internal struct AUWrapper {
+    let au: AudioUnit
+
+    init(au: AudioUnit) {
+        self.au = au
+    }
+
+    subscript (param: AudioUnitParameterID) -> Double {
+        get {
+            return AudioUnitGetParameter(au, param: param)
+        }
+        set {
+            AudioUnitSetParameter(au, param: param, to: newValue)
+        }
+    }
+}
+
 
