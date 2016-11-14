@@ -107,3 +107,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Plots
 #import "EZAudio.h"
+
+// Protocols
+#import "AKAudioUnitType.h"

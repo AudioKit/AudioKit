@@ -608,6 +608,7 @@
 		C49A0ABD1D548253007D8ADB /* AKOfflineRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0AB91D5481D7007D8ADB /* AKOfflineRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49A0AF51D548402007D8ADB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F36CC1C0582E6000E937C /* AudioKit.framework */; };
 		C49A0B001D54841A007D8ADB /* AKOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */; };
+		C4A114EB1DDA6FE300C970A5 /* AKAudioUnitType.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A114EA1DDA6FD700C970A5 /* AKAudioUnitType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4BA6E861DD99794002254EB /* AKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA6E851DD99794002254EB /* AKComponent.swift */; };
 		C4DABC461D4EF6C500A8942F /* AKTelephoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */; };
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
@@ -1374,6 +1375,7 @@
 		C49A0AF41D548402007D8ADB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscillatorTests.swift; path = ../../Common/Tests/AKOscillatorTests.swift; sourceTree = "<group>"; };
 		C4A0855C1D4F1DB100514F8A /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playback.playground; path = ../../../Common/Playgrounds/Playback.playground; sourceTree = "<group>"; };
+		C4A114EA1DDA6FD700C970A5 /* AKAudioUnitType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKAudioUnitType.h; sourceTree = "<group>"; };
 		C4BA6E851DD99794002254EB /* AKComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKComponent.swift; sourceTree = "<group>"; };
 		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4DABC471D4F065D00A8942F /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Analysis.playground; path = ../../../Common/Playgrounds/Analysis.playground; sourceTree = "<group>"; };
@@ -1618,6 +1620,7 @@
 		C45662B41D448D7D00D26565 /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				C4A114EA1DDA6FD700C970A5 /* AKAudioUnitType.h */,
 				C4BA6E851DD99794002254EB /* AKComponent.swift */,
 				C45662B51D448D7D00D26565 /* AKDevice.swift */,
 				C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */,
@@ -3547,6 +3550,7 @@
 				C45669451D448D7E00D26565 /* AKCombFilterReverbAudioUnit.h in Headers */,
 				C45669621D448D7E00D26565 /* AKWhiteNoiseAudioUnit.h in Headers */,
 				C45666CB1D448D7E00D26565 /* EZRecorder.h in Headers */,
+				C4A114EB1DDA6FE300C970A5 /* AKAudioUnitType.h in Headers */,
 				C45668C21D448D7E00D26565 /* AKOperationEffectAudioUnit.h in Headers */,
 				C47AC6161D5D49430005E485 /* AKBoosterAudioUnit.h in Headers */,
 				C49A0A431D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.h in Headers */,
