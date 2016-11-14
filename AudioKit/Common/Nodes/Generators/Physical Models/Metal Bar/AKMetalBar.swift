@@ -21,7 +21,8 @@ import AVFoundation
 ///   - stiffness: Dimensionless stiffness parameter
 ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
 ///
-open class AKMetalBar: AKNode {
+open class AKMetalBar: AKNode, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 
     // MARK: - Properties
 
@@ -150,16 +151,10 @@ open class AKMetalBar: AKNode {
         self.strikeVelocity = strikeVelocity
         self.strikeWidth = strikeWidth
 
-        let description = AudioComponentDescription(generator: "mbar")
-
-        AUAudioUnit.registerSubclass(
-            AKMetalBarAudioUnit.self,
-            as: description,
-            name: "Local AKMetalBar",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

@@ -16,7 +16,9 @@ import AVFoundation
 ///   - windowSize: Window size (in samples)
 ///   - crossfade: Crossfade (in samples)
 ///
-open class AKPitchShifter: AKNode, AKToggleable {
+open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "pshf")
+
 
     // MARK: - Properties
 
@@ -99,16 +101,10 @@ open class AKPitchShifter: AKNode, AKToggleable {
         self.windowSize = windowSize
         self.crossfade = crossfade
 
-        let description = AudioComponentDescription(effect: "pshf")
-
-        AUAudioUnit.registerSubclass(
-            AKPitchShifterAudioUnit.self,
-            as: description,
-            name: "Local AKPitchShifter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

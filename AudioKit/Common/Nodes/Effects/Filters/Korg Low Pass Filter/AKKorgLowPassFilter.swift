@@ -15,7 +15,8 @@ import AVFoundation
 /// - parameter resonance: Filter resonance (should be between 0-2)
 /// - parameter saturation: Filter saturation.
 ///
-open class AKKorgLowPassFilter: AKNode, AKToggleable {
+open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
     // MARK: - Properties
 
@@ -97,16 +98,10 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable {
         self.resonance = resonance
         self.saturation = saturation
 
-        let description = AudioComponentDescription(effect: "klpf")
-
-        AUAudioUnit.registerSubclass(
-            AKKorgLowPassFilterAudioUnit.self,
-            as: description,
-            name: "Local AKKorgLowPassFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

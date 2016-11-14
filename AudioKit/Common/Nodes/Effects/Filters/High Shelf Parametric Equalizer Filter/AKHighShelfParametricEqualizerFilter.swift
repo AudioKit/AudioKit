@@ -16,7 +16,8 @@ import AVFoundation
 ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
 ///   - q: Q of the filter. sqrt(0.5) is no resonance.
 ///
-open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
+open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "peq2")
 
     // MARK: - Properties
 
@@ -99,16 +100,10 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
         self.gain = gain
         self.q = q
 
-        let description = AudioComponentDescription(effect: "peq2")
-
-        AUAudioUnit.registerSubclass(
-            AKHighShelfParametricEqualizerFilterAudioUnit.self,
-            as: description,
-            name: "Local AKHighShelfParametricEqualizerFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

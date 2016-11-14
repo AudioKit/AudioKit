@@ -9,7 +9,8 @@
 import AVFoundation
 
 /// Operation-based generator
-open class AKOperationGenerator: AKNode, AKToggleable {
+open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "cstg")
 
     // MARK: - Properties
 
@@ -89,16 +90,10 @@ open class AKOperationGenerator: AKNode, AKToggleable {
     ///
     public init(sporth: String) {
 
-        let description = AudioComponentDescription(generator: "cstg")
-
-        AUAudioUnit.registerSubclass(
-            AKOperationGeneratorAudioUnit.self,
-            as: description,
-            name: "Local AKOperationGenerator",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

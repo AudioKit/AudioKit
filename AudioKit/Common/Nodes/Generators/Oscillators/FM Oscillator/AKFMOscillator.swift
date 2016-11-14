@@ -18,7 +18,8 @@ import AVFoundation
 ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
 ///   - amplitude: Output Amplitude.
 ///
-open class AKFMOscillator: AKNode, AKToggleable {
+open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
     // MARK: - Properties
 
@@ -146,16 +147,10 @@ open class AKFMOscillator: AKNode, AKToggleable {
         self.modulationIndex = modulationIndex
         self.amplitude = amplitude
 
-        let description = AudioComponentDescription(generator: "fosc")
-
-        AUAudioUnit.registerSubclass(
-            AKFMOscillatorAudioUnit.self,
-            as: description,
-            name: "Local AKFMOscillator",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

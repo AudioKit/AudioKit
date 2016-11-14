@@ -21,7 +21,8 @@ import AVFoundation
 ///   - detuningOffset:     Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
-open class AKMorphingOscillatorBank: AKPolyphonicNode {
+open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "morb")
 
     // MARK: - Properties
 
@@ -169,16 +170,10 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        let description = AudioComponentDescription(generator: "morb")
-
-        AUAudioUnit.registerSubclass(
-            AKMorphingOscillatorBankAudioUnit.self,
-            as: description,
-            name: "Local AKMorphingOscillatorBank",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

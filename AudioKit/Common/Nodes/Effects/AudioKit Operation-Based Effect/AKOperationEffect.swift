@@ -9,7 +9,8 @@
 import AVFoundation
 
 /// Operation-based effect
-open class AKOperationEffect: AKNode, AKToggleable {
+open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "cstm")
 
     // MARK: - Properties
 
@@ -90,16 +91,10 @@ open class AKOperationEffect: AKNode, AKToggleable {
     ///
     public init(_ input: AKNode, sporth: String) {
 
-        let description = AudioComponentDescription(effect: "cstm")
-
-        AUAudioUnit.registerSubclass(
-            AKOperationEffectAudioUnit.self,
-            as: description,
-            name: "Local AKOperationEffect",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

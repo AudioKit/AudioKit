@@ -18,7 +18,8 @@ import AVFoundation
 ///   - amplitude: Amplitude.
 ///   - pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
 ///
-open class AKPhaseLockedVocoder: AKNode {
+open class AKPhaseLockedVocoder: AKNode, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "minc")
 
     // MARK: - Properties
 
@@ -106,17 +107,11 @@ open class AKPhaseLockedVocoder: AKNode {
         self.pitchRatio = pitchRatio
         self.avAudiofile = file
 
-        let description = AudioComponentDescription(generator: "minc")
-
-        AUAudioUnit.registerSubclass(
-            AKPhaseLockedVocoderAudioUnit.self,
-            as: description,
-            name: "Local AKPhaseLockedVocoder",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
 
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

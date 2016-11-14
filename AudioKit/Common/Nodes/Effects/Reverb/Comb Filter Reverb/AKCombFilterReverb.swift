@@ -19,7 +19,8 @@ import AVFoundation
 ///   - reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
 ///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
 ///
-open class AKCombFilterReverb: AKNode, AKToggleable {
+open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
     // MARK: - Properties
 
@@ -71,17 +72,10 @@ open class AKCombFilterReverb: AKNode, AKToggleable {
         loopDuration: Double = 0.1) {
 
         self.reverbDuration = reverbDuration
-
-        let description = AudioComponentDescription(effect: "comb")
-
-        AUAudioUnit.registerSubclass(
-            AKCombFilterReverbAudioUnit.self,
-            as: description,
-            name: "Local AKCombFilterReverb",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

@@ -12,7 +12,8 @@ import AVFoundation
 ///
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
-open class AKPinkNoise: AKNode, AKToggleable {
+open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "pink")
 
     // MARK: - Properties
 
@@ -55,16 +56,10 @@ open class AKPinkNoise: AKNode, AKToggleable {
 
         self.amplitude = amplitude
 
-        let description = AudioComponentDescription(generator: "pink")
-
-        AUAudioUnit.registerSubclass(
-            AKPinkNoiseAudioUnit.self,
-            as: description,
-            name: "Local AKPinkNoise",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
