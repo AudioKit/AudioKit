@@ -293,9 +293,7 @@ open class AKDistortion: AKNode, AKToggleable, AUComponent {
             self.ringModMix = ringModMix
             self.softClipGain = softClipGain
             self.finalMix = finalMix
-//            let cd = AudioComponentDescription(effect: kAudioUnitSubType_Distortion)
-//            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
 
             super.init()
             avAudioNode = internalEffect
