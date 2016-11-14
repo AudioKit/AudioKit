@@ -19,11 +19,12 @@ import AVFoundation
 ///   - amplitude: Output Amplitude.
 ///
 open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
     // MARK: - Properties
 
-    internal var internalAU: AKFMOscillatorAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
@@ -156,7 +157,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKFMOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.count))

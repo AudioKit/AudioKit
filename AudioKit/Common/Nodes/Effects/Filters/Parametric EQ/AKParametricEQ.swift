@@ -16,9 +16,9 @@ import AVFoundation
 ///   - q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
 ///   - gain: Gain (dB) ranges from -20 to 20 (Default: 0)
 ///
-open class AKParametricEQ: AKNode, AKToggleable {
+open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_ParametricEQ)
+    static let ComponentDescription = AudioComponentDescription(effect: kAudioUnitSubType_ParametricEQ)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -104,7 +104,7 @@ open class AKParametricEQ: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
 
             AudioKit.engine.attach(internalEffect)

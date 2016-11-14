@@ -16,11 +16,12 @@ import AVFoundation
 ///   - depth: Depth
 ///
 open class AKTremolo: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKTremoloAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
     // MARK: - Properties
 
-    internal var internalAU: AKTremoloAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
@@ -96,7 +97,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTremoloAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

@@ -15,11 +15,12 @@ import AVFoundation
 ///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
 ///
 open class AKMandolin: AKNode, AKComponent {
+    public typealias AKAudioUnitType = AKMandolinAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "mand")
 
     // MARK: - Properties
 
-    internal var internalAU: AKMandolinAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var detuneParameter: AUParameter?
@@ -91,7 +92,7 @@ open class AKMandolin: AKNode, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMandolinAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

@@ -15,9 +15,9 @@ import AVFoundation
 ///   - cutOffFrequency: Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
 ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
-open class AKHighShelfFilter: AKNode, AKToggleable {
+open class AKHighShelfFilter: AKNode, AKToggleable, AUComponent {
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_HighShelfFilter)
+    static let ComponentDescription = AudioComponentDescription(effect: kAudioUnitSubType_HighShelfFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -88,7 +88,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
 
             AudioKit.engine.attach(internalEffect)

@@ -13,11 +13,12 @@ import AVFoundation
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
 open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKWhiteNoiseAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "wnoz")
 
     // MARK: - Properties
 
-    internal var internalAU: AKWhiteNoiseAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
 
@@ -67,7 +68,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKWhiteNoiseAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

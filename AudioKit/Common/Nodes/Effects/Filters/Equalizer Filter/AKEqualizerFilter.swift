@@ -20,11 +20,12 @@ import AVFoundation
 ///   - gain: The peak/notch gain
 ///
 open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
     // MARK: - Properties
 
-    internal var internalAU: AKEqualizerFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
@@ -112,7 +113,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKEqualizerFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

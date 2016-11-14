@@ -17,12 +17,13 @@ import AVFoundation
 ///   - crossfade: Crossfade (in samples)
 ///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKPitchShifterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
 
     // MARK: - Properties
 
-    internal var internalAU: AKPitchShifterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var shiftParameter: AUParameter?
@@ -110,7 +111,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKPitchShifterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

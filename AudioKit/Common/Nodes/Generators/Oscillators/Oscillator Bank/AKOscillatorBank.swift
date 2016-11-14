@@ -21,11 +21,12 @@ import AVFoundation
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
 open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
+    public typealias AKAudioUnitType = AKOscillatorBankAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "oscb")
 
     // MARK: - Properties
 
-    internal var internalAU: AKOscillatorBankAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
@@ -167,7 +168,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.count))

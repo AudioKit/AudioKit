@@ -1,5 +1,5 @@
 //
-//  AKFlute.swift
+//  AKClarinet.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -8,16 +8,15 @@
 
 import AVFoundation
 
-/// STK Flutee
+/// STK Clarinet
 ///
 /// - Parameters:
 ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
 ///   - amplitude: Amplitude
 ///
-open class AKFlute: AKNode, AKToggleable, AKComponent {
-    public typealias AKAudioUnitType = AKFluteAudioUnit
+open class AKClarinet: AKNode, AKToggleable, AKComponent {
     static let ComponentDescription = AudioComponentDescription(generator: "flut")
-
+    public typealias AKAudioUnitType = AKClarinetAudioUnit
     // MARK: - Properties
 
     internal var internalAU: AKAudioUnitType?
@@ -66,7 +65,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
         self.init(frequency: 110)
     }
 
-    /// Initialize the STK Flute model
+    /// Initialize the STK Clarinet model
     ///
     /// - Parameters:
     ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
@@ -75,7 +74,6 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     public init(
         frequency: Double = 440,
         amplitude: Double = 0.5) {
-
 
         self.frequency = frequency
         self.amplitude = amplitude

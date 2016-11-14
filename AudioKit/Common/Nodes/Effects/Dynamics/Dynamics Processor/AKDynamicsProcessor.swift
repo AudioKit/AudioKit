@@ -23,9 +23,9 @@ import AVFoundation
 ///   - inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
 ///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
 ///
-open class AKDynamicsProcessor: AKNode, AKToggleable {
+open class AKDynamicsProcessor: AKNode, AKToggleable, AUComponent {
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_DynamicsProcessor)
+    static let ComponentDescription = AudioComponentDescription(effect: kAudioUnitSubType_DynamicsProcessor)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -205,7 +205,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)

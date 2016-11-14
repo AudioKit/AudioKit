@@ -17,12 +17,13 @@ import AVFoundation
 ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.
 ///
 open class AKConvolution: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKConvolutionAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
     // MARK: - Properties
 
 
-    internal var internalAU: AKConvolutionAudioUnit?
+    internal var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
@@ -58,7 +59,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKConvolutionAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

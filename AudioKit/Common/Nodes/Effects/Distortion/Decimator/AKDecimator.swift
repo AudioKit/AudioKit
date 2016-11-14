@@ -16,11 +16,11 @@ import AVFoundation
 ///   - rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
 ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
 ///
-open class AKDecimator: AKNode, AKToggleable {
+open class AKDecimator: AKNode, AKToggleable, AUComponent {
 
     // MARK: - Properties
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_Distortion)
+    static let ComponentDescription = AudioComponentDescription(effect: kAudioUnitSubType_Distortion)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -86,7 +86,7 @@ open class AKDecimator: AKNode, AKToggleable {
             self.rounding = rounding
             self.mix = mix
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
 
             avAudioNode = internalEffect
