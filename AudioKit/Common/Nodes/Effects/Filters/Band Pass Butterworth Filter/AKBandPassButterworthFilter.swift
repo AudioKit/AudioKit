@@ -16,7 +16,8 @@ import AVFoundation
 ///   - centerFrequency: Center frequency. (in Hertz)
 ///   - bandwidth: Bandwidth. (in Hertz)
 ///
-open class AKBandPassButterworthFilter: AKNode, AKToggleable {
+open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "btbp")
 
     // MARK: - Properties
 
@@ -83,16 +84,10 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable {
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
 
-        let description = AudioComponentDescription(effect: "btbp")
-
-        AUAudioUnit.registerSubclass(
-            AKBandPassButterworthFilterAudioUnit.self,
-            as: description,
-            name: "Local AKBandPassButterworthFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

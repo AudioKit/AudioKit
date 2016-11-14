@@ -15,7 +15,8 @@ import AVFoundation
 ///   - frequency: Frequency (Hz)
 ///   - depth: Depth
 ///
-open class AKTremolo: AKNode, AKToggleable {
+open class AKTremolo: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
     // MARK: - Properties
 
@@ -86,16 +87,10 @@ open class AKTremolo: AKNode, AKToggleable {
         self.waveform = waveform
         self.frequency = frequency
 
-        let description = AudioComponentDescription(effect: "trem")
-
-        AUAudioUnit.registerSubclass(
-            AKTremoloAudioUnit.self,
-            as: description,
-            name: "Local AKTremolo",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

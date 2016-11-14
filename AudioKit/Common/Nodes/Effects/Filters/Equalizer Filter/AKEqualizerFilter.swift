@@ -19,7 +19,8 @@ import AVFoundation
 ///   - bandwidth: The peak/notch bandwidth in Hertz
 ///   - gain: The peak/notch gain
 ///
-open class AKEqualizerFilter: AKNode, AKToggleable {
+open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
     // MARK: - Properties
 
@@ -102,16 +103,10 @@ open class AKEqualizerFilter: AKNode, AKToggleable {
         self.bandwidth = bandwidth
         self.gain = gain
 
-        let description = AudioComponentDescription(effect: "eqfl")
-
-        AUAudioUnit.registerSubclass(
-            AKEqualizerFilterAudioUnit.self,
-            as: description,
-            name: "Local AKEqualizerFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

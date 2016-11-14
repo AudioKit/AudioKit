@@ -20,7 +20,8 @@ import AVFoundation
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///   - phase:              Initial phase of waveform, expects a value 0-1
 ///
-open class AKMorphingOscillator: AKNode, AKToggleable {
+open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
     // MARK: - Properties
 
@@ -151,16 +152,10 @@ open class AKMorphingOscillator: AKNode, AKToggleable {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        let description = AudioComponentDescription(generator: "morf")
-
-        AUAudioUnit.registerSubclass(
-            AKMorphingOscillatorAudioUnit.self,
-            as: description,
-            name: "Local AKMorphingOscillator",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

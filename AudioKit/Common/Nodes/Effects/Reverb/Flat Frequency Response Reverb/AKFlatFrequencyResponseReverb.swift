@@ -19,7 +19,8 @@ import AVFoundation
 ///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
 ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
 ///
-open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
+open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
     // MARK: - Properties
 
@@ -72,16 +73,10 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
         self.reverbDuration = reverbDuration
 
-        let description = AudioComponentDescription(effect: "alps")
-
-        AUAudioUnit.registerSubclass(
-            AKFlatFrequencyResponseReverbAudioUnit.self,
-            as: description,
-            name: "Local AKFlatFrequencyResponseReverb",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

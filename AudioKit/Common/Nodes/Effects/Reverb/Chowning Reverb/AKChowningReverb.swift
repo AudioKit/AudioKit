@@ -18,7 +18,8 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 ///
-open class AKChowningReverb: AKNode, AKToggleable {
+open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
     // MARK: - Properties
 
@@ -40,16 +41,10 @@ open class AKChowningReverb: AKNode, AKToggleable {
     /// - parameter input: Input node to process
     ///
     public init(_ input: AKNode) {
-        let description = AudioComponentDescription(effect: "jcrv")
-
-        AUAudioUnit.registerSubclass(
-            AKChowningReverbAudioUnit.self,
-            as: description,
-            name: "Local AKChowningReverb",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
