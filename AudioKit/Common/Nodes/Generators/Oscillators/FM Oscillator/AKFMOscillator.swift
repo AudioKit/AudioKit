@@ -159,9 +159,9 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
             self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKFMOscillatorAudioUnit
 
             AudioKit.engine.attach(self.avAudioNode)
-            self.internalAU?.setupWaveform(Int32(waveform.size))
-            for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
+            self.internalAU?.setupWaveform(Int32(waveform.count))
+            for (i, sample) in waveform.enumerated() {
+                self.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 

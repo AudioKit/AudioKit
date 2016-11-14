@@ -165,10 +165,10 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
 
             AudioKit.engine.attach(self.avAudioNode)
 
-            for i in 0 ..< waveformArray.count {
-                self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
-                for j in 0 ..< waveformArray[i].size{
-                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], at: UInt32(j))
+            for (i, waveform) in waveformArray.enumerated() {
+                self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveform.count))
+                for (j, sample) in waveform.enumerated() {
+                    self.internalAU?.setWaveform(UInt32(i), withValue: sample, at: UInt32(j))
                 }
             }
         }

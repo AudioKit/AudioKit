@@ -231,8 +231,8 @@ extension AudioComponentDescription {
 extension Sequence where Iterator.Element: Hashable {
     internal var unique: [Iterator.Element] {
         var s: Set<Iterator.Element> = []
-        return flatMap {
-            s.insert($0).inserted ? $0 : nil
+        return filter {
+            s.insert($0).inserted
         }
     }
 }
@@ -245,8 +245,8 @@ protocol AKComponent: class {
 extension AKComponent {
     static func register() {
         AUAudioUnit.registerSubclass(Self.self,
-                                    as: Self.ComponentDescription,
-                                    name: "Local \(Self.self)",
-                                    version: UInt32.max)
-  }
+                                     as: Self.ComponentDescription,
+                                     name: "Local \(Self.self)",
+                                     version: UInt32.max)
+    }
 }
