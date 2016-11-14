@@ -3,15 +3,23 @@
 import PlaygroundSupport
 import AudioKit
 
+
+dump(inputs)
+
 let mic = AKMicrophone()
-let tracker = AKFrequencyTracker.init(mic, hopSize: 200, peakCount: 2000)
+
+//: Set the microphone device if you need to
+let inputs = AudioKit.availableInputs!
+try AudioKit.setInputDevice(inputs[0])
+try mic.setDevice(inputs[0])
+
+let tracker = AKFrequencyTracker(mic, hopSize: 200, peakCount: 2000)
 let silence = AKBooster(tracker, gain: 0)
 
 //: The frequency tracker passes its input to the output,
 //: so we can insert into the signal chain at the bottom
 AudioKit.output = silence
 AudioKit.start()
-
 
 //: User Interface
 
