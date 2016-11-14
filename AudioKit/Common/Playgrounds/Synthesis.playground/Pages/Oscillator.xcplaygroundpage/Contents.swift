@@ -24,7 +24,7 @@ for value in custom { value } // Click the eye icon ->
 
 //: Try changing the table to triangle, square, sine, or sawtooth.
 //: This will change the shape of the oscillator's waveform.
-var oscillator = AKOscillator(waveform: sine)
+var oscillator = AKOscillator(waveform: custom)
 AudioKit.output = oscillator
 AudioKit.start()
 

@@ -144,7 +144,8 @@ class GeneratorBank: AKPolyphonicNode {
     override init() {
         let triangle = AKTable(.triangle)
         let square   = AKTable(.square)
-
+        let sawtooth = AKTable(.sawtooth)
+        
         var squareWithHighPWM = AKTable()
         let count = squareWithHighPWM.count
         for i in squareWithHighPWM.indices {
