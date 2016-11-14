@@ -42,7 +42,11 @@ open class AKMicrophone: AKNode, AKToggleable {
                                      UInt32(MemoryLayout<DeviceID>.size))
             }
         #else
-            AudioKit.setInputDevice(device)
+            do {
+                try AudioKit.setInputDevice(device)
+            } catch {
+                print("Could not set input device")
+            }
         #endif
     }
     
