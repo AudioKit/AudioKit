@@ -144,14 +144,14 @@ class GeneratorBank: AKPolyphonicNode {
     override init() {
         let triangle = AKTable(.triangle)
         let square   = AKTable(.square)
-        let sawtooth = AKTable(.sawtooth)
+
         var squareWithHighPWM = AKTable()
-        let size = squareWithHighPWM.values.count
-        for i in 0..<size {
-            if i < size / 8 {
-                squareWithHighPWM.values[i] = -1.0
+        let count = squareWithHighPWM.count
+        for i in squareWithHighPWM.indices {
+            if i < count / 8 {
+                squareWithHighPWM[i] = -1.0
             } else {
-                squareWithHighPWM.values[i] = 1.0
+                squareWithHighPWM[i] = 1.0
             }
         }
         vco1 = AKMorphingOscillatorBank(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
