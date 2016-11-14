@@ -16,7 +16,7 @@ import AVFoundation
 ///   - bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
 ///
 open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
-    static let ComponentDescription = AudioComponentDescription(effect: kAudioUnitSubType_BandPassFilter)
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil

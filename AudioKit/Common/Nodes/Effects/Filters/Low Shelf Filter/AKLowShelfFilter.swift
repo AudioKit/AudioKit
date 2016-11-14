@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKLowShelfFilter: AKNode, AKToggleable, AUComponent {
 
-    static let ComponentDescription = AudioComponentDescription(effect: kAudioUnitSubType_LowShelfFilter)
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil

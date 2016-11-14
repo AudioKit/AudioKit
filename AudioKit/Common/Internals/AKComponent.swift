@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol AUComponent: class {
     associatedtype _Self = Self
     static var ComponentDescription: AudioComponentDescription { get }
@@ -41,7 +40,15 @@ extension AudioComponentDescription {
                   componentFlags: 0,
                   componentFlagsMask: 0)
     }
-    
+
+    internal init(appleEffect subType: OSType) {
+        self.init(componentType: kAudioUnitType_Effect,
+                  componentSubType: subType,
+                  componentManufacturer: kAudioUnitManufacturer_Apple,
+                  componentFlags: 0,
+                  componentFlagsMask: 0)
+    }
+
     internal init(effect subType: OSType) {
         self.init(type: kAudioUnitType_Effect, subType: subType)
     }
