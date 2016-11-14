@@ -49,7 +49,7 @@ public struct AKTable: Collection {
     // MARK: - Properties
 
     /// Values stored in the table
-    public var values = [Float]()
+    private var values = [Float]()
 
     /// Number of values stored in the table
     var phase: Double {
@@ -57,9 +57,6 @@ public struct AKTable: Collection {
             phase = (0...1).clamp(phase)
         }
     }
-    
-    /// Number of values stored in the table
-    var size = 4096
 
     public var startIndex: Int {
         return values.startIndex
@@ -96,12 +93,11 @@ public struct AKTable: Collection {
     ///
     public init(_ type: AKTableType = .sine,
                   phase: Double = 0,
-                  size: Int = 4096) {
+                  count: Int = 4096) {
         self.type = type
         self.phase = phase
-        self.size = size
         
-        self.values = [Float](zeroes: size)
+        self.values = [Float](zeroes: count)
         
         switch type {
         case .sine:
