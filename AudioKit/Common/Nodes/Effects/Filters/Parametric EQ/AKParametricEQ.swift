@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
 
-    static let ComponentDescription = AudioComponentDescription(effect: kAudioUnitSubType_ParametricEQ)
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
