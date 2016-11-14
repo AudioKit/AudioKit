@@ -21,11 +21,12 @@ import AVFoundation
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
 open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
+    public typealias AKAudioUnitType = AKPhaseDistortionOscillatorBankAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "phdb")
 
     // MARK: - Properties
 
-    internal var internalAU: AKPhaseDistortionOscillatorBankAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
@@ -178,7 +179,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        _Self.register(AKPhaseDistortionOscillatorBankAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -187,12 +188,12 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKPhaseDistortionOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
-            self.internalAU?.setupWaveform(Int32(waveform.size))
-            for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
+            self.internalAU?.setupWaveform(Int32(waveform.count))
+            for (i, sample) in waveform.enumerated() {
+                self.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 

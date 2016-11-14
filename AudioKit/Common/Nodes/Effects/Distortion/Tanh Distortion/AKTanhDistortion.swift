@@ -18,11 +18,12 @@ import AVFoundation
 ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
 ///
 open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
     // MARK: - Properties
 
-    internal var internalAU: AKTanhDistortionAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var pregainParameter: AUParameter?
@@ -117,7 +118,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         self.postiveShapeParameter = postiveShapeParameter
         self.negativeShapeParameter = negativeShapeParameter
 
-        _Self.register(AKTanhDistortionAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -126,7 +127,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTanhDistortionAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

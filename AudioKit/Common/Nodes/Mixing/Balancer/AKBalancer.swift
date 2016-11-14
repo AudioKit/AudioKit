@@ -20,11 +20,12 @@ import AVFoundation
 ///   - comparator: Audio to match power with
 ///
 open class AKBalancer: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKBalancerAudioUnit
     static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
     // MARK: - Properties
     
-    internal var internalAU: AKBalancerAudioUnit?
+    internal var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
@@ -40,7 +41,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
     ///   - comparator: Audio to match power with
     ///
     public init( _ input: AKNode, comparator: AKNode) {
-        _Self.register(AKBalancerAudioUnit.self)
+        _Self.register()
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
@@ -48,7 +49,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBalancerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

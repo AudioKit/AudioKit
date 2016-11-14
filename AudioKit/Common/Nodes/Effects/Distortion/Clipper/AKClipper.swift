@@ -16,11 +16,12 @@ import AVFoundation
 ///   - limit: Threshold / limiting value.
 ///
 open class AKClipper: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKClipperAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
     // MARK: - Properties
 
-    internal var internalAU: AKClipperAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var limitParameter: AUParameter?
@@ -67,7 +68,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
 
         self.limit = limit
 
-        _Self.register(AKClipperAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -76,7 +77,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKClipperAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

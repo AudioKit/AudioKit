@@ -15,9 +15,9 @@ import AVFoundation
 ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
 ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
 ///
-open class AKHighPassFilter: AKNode, AKToggleable {
+open class AKHighPassFilter: AKNode, AKToggleable, AUComponent {
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_HighPassFilter)
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -88,7 +88,7 @@ open class AKHighPassFilter: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
 
             AudioKit.engine.attach(internalEffect)

@@ -20,11 +20,12 @@ import AVFoundation
 ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
 ///
 open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKMoogLadderAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
     // MARK: - Properties
 
-    internal var internalAU: AKMoogLadderAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
@@ -87,7 +88,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
 
-        _Self.register(AKMoogLadderAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -96,7 +97,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKMoogLadderAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

@@ -21,11 +21,12 @@ import AVFoundation
 ///   - amplitude: Amplitude.
 ///
 open class AKDrip: AKNode, AKComponent {
+    public typealias AKAudioUnitType = AKDripAudioUnit
     static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
     // MARK: - Properties
 
-    internal var internalAU: AKDripAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
 
@@ -150,7 +151,7 @@ open class AKDrip: AKNode, AKComponent {
         self.secondResonantFrequency = secondResonantFrequency
         self.amplitude = amplitude
 
-        _Self.register(AKDripAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -159,7 +160,7 @@ open class AKDrip: AKNode, AKComponent {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKDripAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

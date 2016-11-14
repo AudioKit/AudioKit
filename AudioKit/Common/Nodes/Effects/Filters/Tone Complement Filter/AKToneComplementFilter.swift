@@ -15,11 +15,12 @@ import AVFoundation
 ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
 ///
 open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKToneComplementFilterAudioUnit
     static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
     // MARK: - Properties
 
-    internal var internalAU: AKToneComplementFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
@@ -66,7 +67,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
 
         self.halfPowerPoint = halfPowerPoint
 
-        _Self.register(AKToneComplementFilterAudioUnit.self)
+        _Self.register()
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
@@ -75,7 +76,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKToneComplementFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
