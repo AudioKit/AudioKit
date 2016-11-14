@@ -15,7 +15,8 @@ import AVFoundation
 ///   - amplitude: Amplitude
 ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
 ///
-open class AKPluckedString: AKNode, AKToggleable {
+open class AKPluckedString: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 
     // MARK: - Properties
 
@@ -84,16 +85,10 @@ open class AKPluckedString: AKNode, AKToggleable {
         self.amplitude = amplitude
         self.lowestFrequency = lowestFrequency
 
-        let description = AudioComponentDescription(generator: "pluk")
-
-        AUAudioUnit.registerSubclass(
-            AKPluckedStringAudioUnit.self,
-            as: description,
-            name: "Local AKPluckedString",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

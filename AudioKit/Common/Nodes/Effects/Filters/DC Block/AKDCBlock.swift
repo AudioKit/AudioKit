@@ -13,7 +13,8 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 ///
-open class AKDCBlock: AKNode, AKToggleable {
+open class AKDCBlock: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
 
     // MARK: - Properties
 
@@ -34,16 +35,10 @@ open class AKDCBlock: AKNode, AKToggleable {
     /// - parameter input: Input node to process
     ///
     public init( _ input: AKNode) {
-        let description = AudioComponentDescription(effect: "dcbk")
-
-        AUAudioUnit.registerSubclass(
-            AKDCBlockAudioUnit.self,
-            as: description,
-            name: "Local AKDCBlock",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

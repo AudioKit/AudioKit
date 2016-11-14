@@ -17,7 +17,8 @@ import AVFoundation
 ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
 ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
 ///
-open class AKRolandTB303Filter: AKNode, AKToggleable {
+open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
     // MARK: - Properties
 
@@ -116,16 +117,10 @@ open class AKRolandTB303Filter: AKNode, AKToggleable {
         self.distortion = distortion
         self.resonanceAsymmetry = resonanceAsymmetry
 
-        let description = AudioComponentDescription(effect: "tb3f")
-
-        AUAudioUnit.registerSubclass(
-            AKRolandTB303FilterAudioUnit.self,
-            as: description,
-            name: "Local AKRolandTB303Filter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

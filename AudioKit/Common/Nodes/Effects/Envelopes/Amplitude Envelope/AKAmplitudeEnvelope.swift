@@ -17,7 +17,8 @@ import AVFoundation
 ///   - sustainLevel: Sustain Level
 ///   - releaseDuration: Release time
 ///
-open class AKAmplitudeEnvelope: AKNode, AKToggleable {
+open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
     // MARK: - Properties
 
@@ -116,16 +117,9 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable {
         self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
 
-        let description = AudioComponentDescription(effect: "adsr")
-
-        AUAudioUnit.registerSubclass(
-            AKAmplitudeEnvelopeAudioUnit.self,
-            as: description,
-            name: "Local AKAmplitudeEnvelope",
-            version: UInt32.max)
-
+        _Self.register()
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

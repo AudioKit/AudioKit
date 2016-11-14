@@ -16,7 +16,8 @@ import AVFoundation
 ///   - mix: Dry/Wet Mix
 ///   - amplitude: Overall level
 ///
-open class AKAutoWah: AKNode, AKToggleable {
+open class AKAutoWah: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
     // MARK: - Properties
 
@@ -99,16 +100,10 @@ open class AKAutoWah: AKNode, AKToggleable {
         self.mix = mix
         self.amplitude = amplitude
 
-        let description = AudioComponentDescription(effect: "awah")
-
-        AUAudioUnit.registerSubclass(
-            AKAutoWahAudioUnit.self,
-            as: description,
-            name: "Local AKAutoWah",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

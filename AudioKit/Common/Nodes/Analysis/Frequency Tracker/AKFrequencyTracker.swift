@@ -15,7 +15,8 @@ import AVFoundation
 ///   - hopSize: Hop size.
 ///   - peakCount: Number of peaks.
 ///
-open class AKFrequencyTracker: AKNode, AKToggleable {
+open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "ptrk")
 
     // MARK: - Properties
 
@@ -50,16 +51,10 @@ open class AKFrequencyTracker: AKNode, AKToggleable {
         hopSize: Double = 512,
         peakCount: Double = 20) {
 
-        let description = AudioComponentDescription(effect: "ptrk")
-
-        AUAudioUnit.registerSubclass(
-            AKFrequencyTrackerAudioUnit.self,
-            as: description,
-            name: "Local AKFrequencyTracker",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }

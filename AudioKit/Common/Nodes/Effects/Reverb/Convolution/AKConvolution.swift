@@ -16,7 +16,8 @@ import AVFoundation
 ///   - impulseResponseFileURL: Location of the imulseResponse audio File
 ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.
 ///
-open class AKConvolution: AKNode, AKToggleable {
+open class AKConvolution: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
     // MARK: - Properties
 
@@ -48,16 +49,10 @@ open class AKConvolution: AKNode, AKToggleable {
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
 
-        let description = AudioComponentDescription(effect: "conv")
-
-        AUAudioUnit.registerSubclass(
-            AKConvolutionAudioUnit.self,
-            as: description,
-            name: "Local AKConvolution",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }

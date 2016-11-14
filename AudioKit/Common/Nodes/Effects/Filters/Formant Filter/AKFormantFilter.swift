@@ -18,7 +18,8 @@ import AVFoundation
 ///   - attackDuration: Impulse response attack time (in seconds).
 ///   - decayDuration: Impulse reponse decay time (in seconds)
 ///
-open class AKFormantFilter: AKNode, AKToggleable {
+open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
+    static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
     // MARK: - Properties
 
@@ -101,16 +102,10 @@ open class AKFormantFilter: AKNode, AKToggleable {
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
 
-        let description = AudioComponentDescription(effect: "fofi")
-
-        AUAudioUnit.registerSubclass(
-            AKFormantFilterAudioUnit.self,
-            as: description,
-            name: "Local AKFormantFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
