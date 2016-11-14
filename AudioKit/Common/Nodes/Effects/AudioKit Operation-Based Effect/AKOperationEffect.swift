@@ -91,7 +91,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///
     public init(_ input: AKNode, sporth: String) {
 
-        _Self.register()
+        _Self.register(AKOperationEffectAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

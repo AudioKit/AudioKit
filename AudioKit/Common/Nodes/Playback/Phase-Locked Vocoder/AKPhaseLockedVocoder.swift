@@ -107,7 +107,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         self.pitchRatio = pitchRatio
         self.avAudiofile = file
 
-        _Self.register()
+        _Self.register(AKPhaseLockedVocoderAudioUnit.self)
 
         super.init()
 

@@ -56,7 +56,7 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
 
         self.amplitude = amplitude
 
-        _Self.register()
+        _Self.register(AKPinkNoiseAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

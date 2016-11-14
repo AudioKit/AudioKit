@@ -49,7 +49,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
 
-        _Self.register()
+        _Self.register(AKConvolutionAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

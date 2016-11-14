@@ -86,7 +86,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
         self.time = time
         self.feedback = feedback
 
-        _Self.register()
+        _Self.register(AKVariableDelayAudioUnit.self)
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in

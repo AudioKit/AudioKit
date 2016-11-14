@@ -178,7 +178,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        _Self.register()
+        _Self.register(AKPhaseDistortionOscillatorBankAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

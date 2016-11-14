@@ -608,6 +608,7 @@
 		C49A0ABD1D548253007D8ADB /* AKOfflineRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0AB91D5481D7007D8ADB /* AKOfflineRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49A0AF51D548402007D8ADB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F36CC1C0582E6000E937C /* AudioKit.framework */; };
 		C49A0B001D54841A007D8ADB /* AKOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */; };
+		C4BA6E861DD99794002254EB /* AKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA6E851DD99794002254EB /* AKComponent.swift */; };
 		C4DABC461D4EF6C500A8942F /* AKTelephoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */; };
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
 		C4E120AE1D4DF39B00CD3572 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AD1D4DF39B00CD3572 /* AKButton.swift */; };
@@ -1373,6 +1374,7 @@
 		C49A0AF41D548402007D8ADB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscillatorTests.swift; path = ../../Common/Tests/AKOscillatorTests.swift; sourceTree = "<group>"; };
 		C4A0855C1D4F1DB100514F8A /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playback.playground; path = ../../../Common/Playgrounds/Playback.playground; sourceTree = "<group>"; };
+		C4BA6E851DD99794002254EB /* AKComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKComponent.swift; sourceTree = "<group>"; };
 		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4DABC471D4F065D00A8942F /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Analysis.playground; path = ../../../Common/Playgrounds/Analysis.playground; sourceTree = "<group>"; };
 		C4DABC491D4F0C9A00A8942F /* Basics.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Basics.playground; path = ../../../Common/Playgrounds/Basics.playground; sourceTree = "<group>"; };
@@ -1616,6 +1618,7 @@
 		C45662B41D448D7D00D26565 /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				C4BA6E851DD99794002254EB /* AKComponent.swift */,
 				C45662B51D448D7D00D26565 /* AKDevice.swift */,
 				C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */,
 				C45662B71D448D7D00D26565 /* AKNotifications.swift */,
@@ -3667,7 +3670,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C42F36CB1C0582E6000E937C = {
@@ -3785,6 +3788,7 @@
 				C45666F21D448D7E00D26565 /* dcblock.c in Sources */,
 				C47E640C1D4D895F0044B028 /* AKBypassButton.swift in Sources */,
 				C4F8CA401DCA9256001F38F2 /* writecode.c in Sources */,
+				C4BA6E861DD99794002254EB /* AKComponent.swift in Sources */,
 				C45666C01D448D7E00D26565 /* EZAudioPlot.m in Sources */,
 				C45666EF1D448D7E00D26565 /* conv.c in Sources */,
 				C456670D1D448D7E00D26565 /* mode.c in Sources */,
@@ -4398,6 +4402,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

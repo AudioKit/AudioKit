@@ -43,7 +43,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
         testedNode = input as? AKToggleable
         totalSamples = samples
 
-        _Self.register()
+        _Self.register(AKTesterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

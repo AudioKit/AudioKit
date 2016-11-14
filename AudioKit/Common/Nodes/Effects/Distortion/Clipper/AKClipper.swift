@@ -67,7 +67,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
 
         self.limit = limit
 
-        _Self.register()
+        _Self.register(AKClipperAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

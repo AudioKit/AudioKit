@@ -84,7 +84,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
 
-        _Self.register()
+        _Self.register(AKBandPassButterworthFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

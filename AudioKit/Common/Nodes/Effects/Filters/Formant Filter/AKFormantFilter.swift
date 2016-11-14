@@ -102,7 +102,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
 
-        _Self.register()
+        _Self.register(AKFormantFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

@@ -170,7 +170,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        _Self.register()
+        _Self.register(AKMorphingOscillatorBankAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

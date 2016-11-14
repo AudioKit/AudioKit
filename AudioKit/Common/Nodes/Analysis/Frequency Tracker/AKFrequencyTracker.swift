@@ -51,7 +51,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
         hopSize: Double = 512,
         peakCount: Double = 20) {
 
-        _Self.register()
+        _Self.register(AKFrequencyTrackerAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

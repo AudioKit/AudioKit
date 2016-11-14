@@ -117,7 +117,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
         self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
 
-        _Self.register()
+        _Self.register(AKAmplitudeEnvelopeAudioUnit.self)
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in

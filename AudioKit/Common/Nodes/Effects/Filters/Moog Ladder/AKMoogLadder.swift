@@ -87,7 +87,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
 
-        _Self.register()
+        _Self.register(AKMoogLadderAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

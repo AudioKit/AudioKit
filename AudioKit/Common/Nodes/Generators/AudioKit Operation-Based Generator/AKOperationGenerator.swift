@@ -90,7 +90,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     ///
     public init(sporth: String) {
 
-        _Self.register()
+        _Self.register(AKOperationGeneratorAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

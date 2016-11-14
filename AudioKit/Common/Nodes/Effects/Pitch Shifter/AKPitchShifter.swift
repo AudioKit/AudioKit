@@ -101,7 +101,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         self.windowSize = windowSize
         self.crossfade = crossfade
 
-        _Self.register()
+        _Self.register(AKPitchShifterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {

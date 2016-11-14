@@ -40,7 +40,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
     ///   - comparator: Audio to match power with
     ///
     public init( _ input: AKNode, comparator: AKNode) {
-        _Self.register()
+        _Self.register(AKBalancerAudioUnit.self)
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in

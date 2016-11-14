@@ -244,6 +244,7 @@
 		C453821A1C3A5CBD00A51738 /* AKOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45381661C3A5CBD00A51738 /* AKOscillatorDSPKernel.hpp */; };
 		C453822F1C3A5CBD00A51738 /* AKMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45381821C3A5CBD00A51738 /* AKMixer.swift */; };
 		C45464021C6978240087394B /* AKVariSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45464011C6978240087394B /* AKVariSpeed.swift */; };
+		C46402441DD99E8B005542E2 /* AKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46402431DD99E8B005542E2 /* AKComponent.swift */; };
 		C46781AA1C1C277B0000BF29 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781A81C1C277B0000BF29 /* AKNodeFFTPlot.swift */; };
 		C46781AB1C1C277B0000BF29 /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781A91C1C277B0000BF29 /* AKNodeOutputPlot.swift */; };
 		C46809811CEED72800ADFC05 /* AKPitchShifter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468097D1CEED72800ADFC05 /* AKPitchShifter.swift */; };
@@ -949,6 +950,7 @@
 		C45381661C3A5CBD00A51738 /* AKOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
 		C45381821C3A5CBD00A51738 /* AKMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixer.swift; sourceTree = "<group>"; };
 		C45464011C6978240087394B /* AKVariSpeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariSpeed.swift; sourceTree = "<group>"; };
+		C46402431DD99E8B005542E2 /* AKComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKComponent.swift; sourceTree = "<group>"; };
 		C46781A81C1C277B0000BF29 /* AKNodeFFTPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeFFTPlot.swift; sourceTree = "<group>"; };
 		C46781A91C1C277B0000BF29 /* AKNodeOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeOutputPlot.swift; sourceTree = "<group>"; };
 		C468097D1CEED72800ADFC05 /* AKPitchShifter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPitchShifter.swift; sourceTree = "<group>"; };
@@ -2846,6 +2848,7 @@
 				EA6949EE1C5AE1EA0035B5DF /* AudioKit.swift */,
 				C4FE01641CED2DD40062B3A3 /* AKNodeRecorder.swift */,
 				524B77B91CC4B060001D82D1 /* AKNotifications.swift */,
+				C46402431DD99E8B005542E2 /* AKComponent.swift */,
 				EAF9C9881C69A4FC00C10CCE /* AKDevice.swift */,
 				C40C41E21C40E5C2009D870B /* AKTable.swift */,
 				C40C41E31C40E5C2009D870B /* AudioKitHelpers.swift */,
@@ -3556,6 +3559,7 @@
 				C40C42311C40E5C2009D870B /* EZOutput.m in Sources */,
 				C48444F91C370329007BE794 /* square.swift in Sources */,
 				C48C6AA61D3C1574008EA51B /* randh.c in Sources */,
+				C46402441DD99E8B005542E2 /* AKComponent.swift in Sources */,
 				C4F8CB201DCA928B001F38F2 /* randi.c in Sources */,
 				C48C6AAF1D3C1574008EA51B /* samphold.c in Sources */,
 				C4F8CB081DCA928B001F38F2 /* mode.c in Sources */,

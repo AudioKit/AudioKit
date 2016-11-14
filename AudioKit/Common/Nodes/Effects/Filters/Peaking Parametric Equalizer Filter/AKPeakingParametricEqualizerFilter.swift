@@ -100,7 +100,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         self.gain = gain
         self.q = q
 
-        _Self.register()
+        _Self.register(AKPeakingParametricEqualizerFilterAudioUnit.self)
 
         super.init()
         AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
