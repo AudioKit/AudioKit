@@ -22,6 +22,30 @@ open class AKMicrophone: AKNode, AKToggleable {
         }
     }
     
+    /// Set the actual microphone device
+    public func setDevice(_ device: AKDevice) throws {
+        dump(device)
+        
+        #if os(OSX)
+            var id = device.deviceID
+            var currentID = device.deviceID
+            var size: UInt32 = 0
+            let _ = AudioUnitGetProperty(AudioKit.engine.inputNode!.audioUnit!,
+                                         kAudioOutputUnitProperty_CurrentDevice,
+                                         kAudioUnitScope_Global,
+                                         0, &currentID, &size)
+            if currentID != id {
+                AudioUnitSetProperty(AudioKit.engine.inputNode!.audioUnit!,
+                                     kAudioOutputUnitProperty_CurrentDevice,
+                                     kAudioUnitScope_Global, 0,
+                                     &id,
+                                     UInt32(MemoryLayout<DeviceID>.size))
+            }
+        #else
+            AudioKit.setInputDevice(device)
+        #endif
+    }
+    
     fileprivate var lastKnownVolume: Double = 1.0
     
     /// Determine if the microphone is currently on.
