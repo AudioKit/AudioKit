@@ -13,7 +13,7 @@ public typealias AKCallback = (Void) -> Void
 
 extension AVAudioEngine {
     open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
-        self.connect(node1, to: node2, format: AudioKit.format)
+        connect(node1, to: node2, format: AudioKit.format)
     }
 }
 
