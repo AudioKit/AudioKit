@@ -12,7 +12,7 @@ import Foundation
 public protocol AKComputedParameter: AKParameter {}
 
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
-open class AKOperation: AKComputedParameter, Hashable {
+open class AKOperation: AKComputedParameter {
 
     // MARK: - Dependency Management
     
@@ -21,15 +21,24 @@ open class AKOperation: AKComputedParameter, Hashable {
     internal var savedLocation = -1
     
     fileprivate var dependencies = [AKOperation]()
-
+    
     internal var recursiveDependencies: [AKOperation] {
-        return dependencies.flatMap {
-            $0.recursiveDependencies
-        }.unique
-    }
+        var all = [AKOperation]()
+        var uniq = [AKOperation]()
+        var added = Set<String>()
+        for dep in dependencies {
+            all += dep.recursiveDependencies
+            all.append(dep)
+        }
+        
+        for elem in all {
+            if !added.contains(elem.inlineSporth) {
+                uniq.append(elem)
+                added.insert(elem.inlineSporth)
+            }
+        }
 
-    open var hashValue: Int {
-        return inlineSporth.hashValue
+        return uniq
     }
     
     // MARK: - String Representations
@@ -254,8 +263,4 @@ public func log10(_ operation: AKOperation) -> AKOperation {
 ///
 public func round(_ operation: AKOperation) -> AKOperation {
     return operation.round()
-}
-
-public func ==(lhs: AKOperation, rhs: AKOperation) -> Bool {
-    return lhs.inlineSporth == rhs.inlineSporth
 }

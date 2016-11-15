@@ -418,7 +418,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             do {
                 try internalAudioFile.read(into: audioFileBuffer!, frameCount: framesToPlayCount)
                 
-                print("AKAudioPlayer.updatePCMBuffer() \(audioFileBuffer!.frameLength)")
+                // print("AKAudioPlayer.updatePCMBuffer() \(audioFileBuffer!.frameLength)")
             } catch {
                 print("ERROR AKaudioPlayer: Could not read data into buffer.")
                 return
