@@ -17,7 +17,7 @@ class AKFMOscillatorTests: AKTestCase {
     }
     
     func testSquareWave() {
-        output = AKFMOscillator(waveform: AKTable(.square, size: 4096))
+        output = AKFMOscillator(waveform: AKTable(.square, count: 4096))
         AKTestMD5("c6b194d7bf925ade38c3a1d5333326f8")
     }
     

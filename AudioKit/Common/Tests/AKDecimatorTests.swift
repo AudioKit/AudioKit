@@ -15,6 +15,6 @@ class AKDecimatorTests: AKTestCase {
         let input = AKOscillator()
         output = AKDecimator(input)
         input.start()
-        AKTestMD5("06415139391aca488441c521aea09726")
+        AKTestMD5("6b8ce6b9f8ca2a948c46467cfb4a7327")
     }
 }
