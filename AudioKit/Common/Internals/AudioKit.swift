@@ -11,6 +11,12 @@ import AVFoundation
 
 public typealias AKCallback = (Void) -> Void
 
+extension AVAudioEngine {
+    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
+        self.connect(node1, to: node2, format: AudioKit.format)
+    }
+}
+
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
@@ -29,9 +35,7 @@ public typealias AKCallback = (Void) -> Void
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
-            engine.connect(output!.avAudioNode,
-                           to: engine.outputNode,
-                           format: AudioKit.format)
+            engine.connect(output!.avAudioNode, to: engine.outputNode)
         }
     }
     

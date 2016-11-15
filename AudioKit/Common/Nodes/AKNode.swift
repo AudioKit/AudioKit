@@ -27,9 +27,9 @@ import AVFoundation
     open func addConnectionPoint(_ node: AKNode) {
         connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
         AudioKit.engine.connect(avAudioNode,
-            to: connectionPoints,
-            fromBus: 0,
-            format: AudioKit.format)
+                                to: connectionPoints,
+                                fromBus: 0,
+                                format: AudioKit.format)
     }
 }
 
