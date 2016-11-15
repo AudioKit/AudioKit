@@ -1597,7 +1597,7 @@
 				C45662C51D448D7D00D26565 /* AudioKitHelpers.swift */,
 				C45662C61D448D7D00D26565 /* CoreAudio */,
 				C45662CD1D448D7D00D26565 /* EZAudio */,
-				C45662EE1D448D7D00D26565 /* LIbraries */,
+				C45662EE1D448D7D00D26565 /* Libraries */,
 				C45662EF1D448D7D00D26565 /* Soundpipe */,
 				C45663741D448D7E00D26565 /* Sporth */,
 				C45663EF1D448D7E00D26565 /* STK */,
@@ -1680,10 +1680,11 @@
 			path = EZAudio;
 			sourceTree = "<group>";
 		};
-		C45662EE1D448D7D00D26565 /* LIbraries */ = {
+		C45662EE1D448D7D00D26565 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
 			);
+			name = Libraries;
 			path = LIbraries;
 			sourceTree = "<group>";
 		};
