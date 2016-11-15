@@ -21,11 +21,13 @@ import AVFoundation
 ///   - detuningOffset:     Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
-open class AKMorphingOscillatorBank: AKPolyphonicNode {
+open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
+    public typealias AKAudioUnitType = AKMorphingOscillatorBankAudioUnit
+    static let ComponentDescription = AudioComponentDescription(generator: "morb")
 
     // MARK: - Properties
 
-    internal var internalAU: AKMorphingOscillatorBankAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveformArray = [AKTable]()
@@ -169,28 +171,22 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        let description = AudioComponentDescription(generator: "morb")
-
-        AUAudioUnit.registerSubclass(
-            AKMorphingOscillatorBankAudioUnit.self,
-            as: description,
-            name: "Local AKMorphingOscillatorBank",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKMorphingOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
-            for i in 0 ..< waveformArray.count {
-                self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
-                for j in 0 ..< waveformArray[i].size {
-                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], at: UInt32(j))
+            for (i, waveform) in waveformArray.enumerated() {
+                self.internalAU?.setupWaveform(UInt32(i), size: Int32(UInt32(waveform.count)))
+                for (j, sample) in waveform.enumerated() {
+                    self.internalAU?.setWaveform(UInt32(i), withValue: sample, at: UInt32(j))
                 }
             }
         }

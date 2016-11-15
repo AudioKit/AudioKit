@@ -132,7 +132,7 @@ public typealias AKCallback = (Void) -> Void
 
                 NotificationCenter.default.addObserver(
                     self,
-                    selector: #selector(AudioKit.restartEngineAfterRouteChange(_:)),
+                    selector: #selector(restartEngineAfterRouteChange),
                     name: NSNotification.Name.AVAudioSessionRouteChange,
                     object: nil)
             #endif
@@ -148,7 +148,7 @@ public typealias AKCallback = (Void) -> Void
                         // and restart the engine if it is stopped.
                         NotificationCenter.default.addObserver(
                             self,
-                            selector: #selector(AudioKit.audioEngineConfigurationChange(_:)),
+                            selector: #selector(audioEngineConfigurationChange),
                             name: NSNotification.Name.AVAudioEngineConfigurationChange,
                             object: engine)
 
@@ -248,7 +248,7 @@ public typealias AKCallback = (Void) -> Void
     // and restart the audio engine if it stops and should be playing
     @objc fileprivate static func audioEngineConfigurationChange(_ notification: Notification) -> Void {
 
-        if (shouldBeRunning == true && self.engine.isRunning == false) {
+        if shouldBeRunning && !engine.isRunning {
             do {
                 try self.engine.start()
             } catch {

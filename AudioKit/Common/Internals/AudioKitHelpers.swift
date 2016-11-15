@@ -159,7 +159,7 @@ extension Int {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12*log2(Double(self)/aRef)
+        return 69 + 12 * log2(Double(self)/aRef)
     }
 }
 
@@ -171,7 +171,7 @@ extension Double {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12*log2(self/aRef)
+        return 69 + 12 * log2(self/aRef)
     }
 }
 
@@ -196,35 +196,40 @@ extension ClosedRange {
     }
 }
 
-extension AUParameterTree {
-    internal subscript (key: String) -> AUParameter? {
-        return value(forKey: key) as? AUParameter
+extension Sequence where Iterator.Element: Hashable {
+    internal var unique: [Iterator.Element] {
+        var s: Set<Iterator.Element> = []
+        return filter {
+            s.insert($0).inserted
+        }
     }
 }
 
-extension AudioComponentDescription {
-    internal init(type: OSType, subType: OSType) {
-        self.init(componentType: type,
-                  componentSubType: subType,
-                  componentManufacturer: fourCC("AuKt"),
-                  componentFlags: 0,
-                  componentFlagsMask: 0)
+internal func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> Double {
+    var val: AudioUnitParameterValue = 0
+    AudioUnitGetParameter(unit, param, kAudioUnitScope_Global, 0, &val)
+    return Double(val)
+}
+
+internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: Double) {
+    AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
+}
+
+internal struct AUWrapper {
+    let au: AudioUnit
+
+    init(au: AudioUnit) {
+        self.au = au
     }
 
-    internal init(effect subType: OSType) {
-        self.init(type: kAudioUnitType_Effect, subType: subType)
-    }
-
-    internal init(effect subType: String) {
-        self.init(effect: fourCC(subType))
-    }
-
-    internal init(mixer subType: String) {
-        self.init(type: kAudioUnitType_Mixer, subType: fourCC(subType))
-    }
-
-    internal init(generator subType: String) {
-        self.init(type: kAudioUnitType_Generator, subType: fourCC(subType))
+    subscript (param: AudioUnitParameterID) -> Double {
+        get {
+            return AudioUnitGetParameter(au, param: param)
+        }
+        set {
+            AudioUnitSetParameter(au, param: param, to: newValue)
+        }
     }
 }
+
 

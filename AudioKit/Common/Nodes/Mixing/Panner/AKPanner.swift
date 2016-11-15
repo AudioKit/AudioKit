@@ -14,11 +14,13 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
 ///
-open class AKPanner: AKNode, AKToggleable {
+open class AKPanner: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKPannerAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
     // MARK: - Properties
 
-    internal var internalAU: AKPannerAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var panParameter: AUParameter?
@@ -65,22 +67,16 @@ open class AKPanner: AKNode, AKToggleable {
 
         self.pan = pan
 
-        let description = AudioComponentDescription(effect: "pan2")
-
-        AUAudioUnit.registerSubclass(
-            AKPannerAudioUnit.self,
-            as: description,
-            name: "Local AKPanner",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKPannerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

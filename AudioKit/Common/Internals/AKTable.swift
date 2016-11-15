@@ -44,37 +44,36 @@ public enum AKTableType: String {
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-public struct AKTable: Collection {
+public struct AKTable: MutableCollection {
 
     // MARK: - Properties
 
     /// Values stored in the table
-    public var values = [Float]()
+    private var content = [Float]()
 
-    /// Number of values stored in the table
-    var phase: Double {
+    public var phase: Double {
         didSet {
-            if phase > 1.0 {
-                phase = 1.0
-            } else if phase < 0.0 {
-                phase = 0.0
-            }
+            phase = (0...1).clamp(phase)
         }
     }
-    
-    /// Number of values stored in the table
-    var size = 4096
 
     public var startIndex: Int {
-        return values.startIndex
+        return content.startIndex
     }
 
     public var endIndex: Int {
-        return values.endIndex
+        return content.endIndex
     }
 
     public subscript(index: Int) -> Float {
-        return values[index]
+        get {
+            return content[index]
+        }
+        set {
+            return content[index] = newValue
+        }
+
+
     }
     
     /// Returns the position immediately after the given index.
@@ -100,12 +99,11 @@ public struct AKTable: Collection {
     ///
     public init(_ type: AKTableType = .sine,
                   phase: Double = 0,
-                  size: Int = 4096) {
+                  count: Int = 4096) {
         self.type = type
         self.phase = phase
-        self.size = size
         
-        self.values = [Float](zeroes: size)
+        self.content = [Float](zeroes: count)
         
         switch type {
         case .sine:
@@ -131,52 +129,51 @@ public struct AKTable: Collection {
         }
     }
 
+    public var phaseOffset: Int {
+        return Int(phase * count)
+    }
+
     /// Instantiate the table as a triangle wave
     mutating func standardTriangleWave() {
         let slope = Float(4.0) / Float(count)
-        let phaseOffset = Int(phase * count)
         for i in indices {
             if (i + phaseOffset) % count < count / 2 {
-                values[i] = slope * Float((i + phaseOffset) % count) - 1.0
+                content[i] = slope * Float((i + phaseOffset) % count) - 1.0
             } else {
-                values[i] = slope * Float((-i - phaseOffset) % count) + 3.0
+                content[i] = slope * Float((-i - phaseOffset) % count) + 3.0
             }
         }
     }
 
     /// Instantiate the table as a square wave
     mutating func standardSquareWave() {
-        let phaseOffset = Int(phase * count)
         for i in indices {
             if (i + phaseOffset) % count < count / 2 {
-                values[i] = -1.0
+                content[i] = -1.0
             } else {
-                values[i] = 1.0
+                content[i] = 1.0
             }
         }
     }
 
     /// Instantiate the table as a sawtooth wave
     mutating func standardSawtoothWave() {
-        let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = Float(-1.0 + 2.0 * Float((i + phaseOffset) % count) / Float(count))
+            content[i] = Float(-1.0 + 2.0 * Float((i + phaseOffset) % count) / Float(count))
         }
     }
 
     /// Instantiate the table as a reverse sawtooth wave
     mutating func standardReverseSawtoothWave() {
-        let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = Float(1.0 - 2.0 * Float((i + phaseOffset) % count) / Float(count))
+            content[i] = Float(1.0 - 2.0 * Float((i + phaseOffset) % count) / Float(count))
         }
     }
 
     /// Instantiate the table as a sine wave
     mutating func standardSineWave() {
-        let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = Float(sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count)))
         }
     }
 
@@ -184,48 +181,43 @@ public struct AKTable: Collection {
     mutating func positiveTriangleWave() {
         let slope = Float(2.0) / Float(count)
         for i in indices {
-            let phaseOffset = Int(phase * count)
             if (i + phaseOffset) % count < count / 2 {
-                values[i] = slope * Float((i + phaseOffset) % count)
+                content[i] = slope * Float((i + phaseOffset) % count)
             } else {
-                values[i] = slope * Float((-i - phaseOffset) % count) + 2.0
+                content[i] = slope * Float((-i - phaseOffset) % count) + 2.0
             }
         }
     }
 
     /// Instantiate the table as a square wave
     mutating func positiveSquareWave() {
-        let phaseOffset = Int(phase * count)
         for i in indices {
             if (i + phaseOffset) % count < count / 2 {
-                values[i] = 0.0
+                content[i] = 0.0
             } else {
-                values[i] = 1.0
+                content[i] = 1.0
             }
         }
     }
 
     /// Instantiate the table as a sawtooth wave
     mutating func positiveSawtoothWave() {
-        let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = Float((i + phaseOffset) % count) / Float(count)
+            content[i] = Float((i + phaseOffset) % count) / Float(count)
         }
     }
 
     /// Instantiate the table as a reverse sawtooth wave
     mutating func positiveReverseSawtoothWave() {
-        let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = Float(1.0) - Float((i + phaseOffset) % count) / Float(count)
+            content[i] = Float(1.0) - Float((i + phaseOffset) % count) / Float(count)
         }
     }
 
     /// Instantiate the table as a sine wave
     mutating func positiveSineWave() {
-        let phaseOffset = Int(phase * count)
         for i in indices {
-            values[i] = Float(0.5 + 0.5 * sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(0.5 + 0.5 * sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count)))
         }
     }
 }

@@ -107,7 +107,7 @@ import AVFoundation
     open static func setSession(category: SessionCategory,
                                 with options: AVAudioSessionCategoryOptions? = nil ) throws {
         
-        if AKSettings.disableAVAudioSessionCategoryManagement == false {
+        if !AKSettings.disableAVAudioSessionCategoryManagement {
             
             if options != nil {
                 do {

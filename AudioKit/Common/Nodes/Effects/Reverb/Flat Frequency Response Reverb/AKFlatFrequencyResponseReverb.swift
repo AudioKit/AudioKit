@@ -19,11 +19,13 @@ import AVFoundation
 ///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
 ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
 ///
-open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
+open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKFlatFrequencyResponseReverbAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
     // MARK: - Properties
 
-    internal var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var reverbDurationParameter: AUParameter?
@@ -72,22 +74,16 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
         self.reverbDuration = reverbDuration
 
-        let description = AudioComponentDescription(effect: "alps")
-
-        AUAudioUnit.registerSubclass(
-            AKFlatFrequencyResponseReverbAudioUnit.self,
-            as: description,
-            name: "Local AKFlatFrequencyResponseReverb",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

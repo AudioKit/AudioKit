@@ -15,11 +15,14 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
 ///
-open class AKHighPassButterworthFilter: AKNode, AKToggleable {
+open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKHighPassButterworthFilterAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "bthp")
+
 
     // MARK: - Properties
 
-    internal var internalAU: AKHighPassButterworthFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
@@ -66,22 +69,16 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable {
 
         self.cutoffFrequency = cutoffFrequency
 
-        let description = AudioComponentDescription(effect: "bthp")
-
-        AUAudioUnit.registerSubclass(
-            AKHighPassButterworthFilterAudioUnit.self,
-            as: description,
-            name: "Local AKHighPassButterworthFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKHighPassButterworthFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

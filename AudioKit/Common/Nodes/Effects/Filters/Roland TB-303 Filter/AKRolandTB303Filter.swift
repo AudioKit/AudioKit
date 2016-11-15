@@ -17,11 +17,13 @@ import AVFoundation
 ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
 ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
 ///
-open class AKRolandTB303Filter: AKNode, AKToggleable {
+open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKRolandTB303FilterAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
     // MARK: - Properties
 
-    internal var internalAU: AKRolandTB303FilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
@@ -116,22 +118,16 @@ open class AKRolandTB303Filter: AKNode, AKToggleable {
         self.distortion = distortion
         self.resonanceAsymmetry = resonanceAsymmetry
 
-        let description = AudioComponentDescription(effect: "tb3f")
-
-        AUAudioUnit.registerSubclass(
-            AKRolandTB303FilterAudioUnit.self,
-            as: description,
-            name: "Local AKRolandTB303Filter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKRolandTB303FilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

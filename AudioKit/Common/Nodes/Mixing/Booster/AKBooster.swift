@@ -14,11 +14,13 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - gain: Boosting multiplier.
 ///
-open class AKBooster: AKNode, AKToggleable {
+open class AKBooster: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKBoosterAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "gain")
 
     // MARK: - Properties
 
-    internal var internalAU: AKBoosterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var gainParameter: AUParameter?
@@ -78,22 +80,16 @@ open class AKBooster: AKNode, AKToggleable {
 
         self.gain = gain
 
-        let description = AudioComponentDescription(effect: "gain")
-
-        AUAudioUnit.registerSubclass(
-            AKBoosterAudioUnit.self,
-            as: description,
-            name: "Local AKBooster",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBoosterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

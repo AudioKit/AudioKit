@@ -91,6 +91,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKMandolinAudioUnit.h"
 #import "AKMetalBarAudioUnit.h"
 #import "AKPluckedStringAudioUnit.h"
+#import "AKClarinetAudioUnit.h"
 
 // Mixing
 #import "AKBalancerAudioUnit.h"
@@ -106,3 +107,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Plots
 #import "EZAudio.h"
+
+// Protocols
+#import "AKAudioUnitType.h"

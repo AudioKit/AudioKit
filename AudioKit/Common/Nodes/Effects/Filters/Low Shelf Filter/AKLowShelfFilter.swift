@@ -15,9 +15,9 @@ import AVFoundation
 ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
 ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
-open class AKLowShelfFilter: AKNode, AKToggleable {
+open class AKLowShelfFilter: AKNode, AKToggleable, AUComponent {
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_LowShelfFilter)
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -27,12 +27,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable {
     /// Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
     open var cutoffFrequency: Double = 80 {
         didSet {
-            if cutoffFrequency < 10 {
-                cutoffFrequency = 10
-            }
-            if cutoffFrequency > 200 {
-                cutoffFrequency = 200
-            }
+            cutoffFrequency = (10...200).clamp(cutoffFrequency)
             AudioUnitSetParameter(
                 internalAU!,
                 kAULowShelfParam_CutoffFrequency,
@@ -44,12 +39,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable {
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
     open var gain: Double = 0 {
         didSet {
-            if gain < -40 {
-                gain = -40
-            }
-            if gain > 40 {
-                gain = 40
-            }
+            gain = (-40...40).clamp(gain)
             AudioUnitSetParameter(
                 internalAU!,
                 kAULowShelfParam_Gain,
@@ -61,12 +51,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable {
     /// Dry/Wet Mix (Default 100)
     open var dryWetMix: Double = 100 {
         didSet {
-            if dryWetMix < 0 {
-                dryWetMix = 0
-            }
-            if dryWetMix > 100 {
-                dryWetMix = 100
-            }
+            dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
             effectGain?.volume = dryWetMix / 100
         }
@@ -103,7 +88,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
 
             AudioKit.engine.attach(internalEffect)

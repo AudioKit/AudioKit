@@ -16,9 +16,9 @@ import AVFoundation
 ///   - q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
 ///   - gain: Gain (dB) ranges from -20 to 20 (Default: 0)
 ///
-open class AKParametricEQ: AKNode, AKToggleable {
+open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
 
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_ParametricEQ)
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -28,12 +28,7 @@ open class AKParametricEQ: AKNode, AKToggleable {
     /// Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
     open var centerFrequency: Double = 2000 {
         didSet {
-            if centerFrequency < 20 {
-                centerFrequency = 20
-            }
-            if centerFrequency > 22050 {
-                centerFrequency = 22050
-            }
+            centerFrequency = (20...22050).clamp(centerFrequency)
             AudioUnitSetParameter(
                 internalAU!,
                 kParametricEQParam_CenterFreq,
@@ -45,12 +40,7 @@ open class AKParametricEQ: AKNode, AKToggleable {
     /// Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
     open var q: Double = 1.0 {
         didSet {
-            if q < 0.1 {
-                q = 0.1
-            }
-            if q > 20 {
-                q = 20
-            }
+            q = (0.1...20).clamp(q)
             AudioUnitSetParameter(
                 internalAU!,
                 kParametricEQParam_Q,
@@ -62,12 +52,7 @@ open class AKParametricEQ: AKNode, AKToggleable {
     /// Gain (dB) ranges from -20 to 20 (Default: 0)
     open var gain: Double = 0 {
         didSet {
-            if gain < -20 {
-                gain = -20
-            }
-            if gain > 20 {
-                gain = 20
-            }
+            gain = (-20...20).clamp(gain)
             AudioUnitSetParameter(
                 internalAU!,
                 kParametricEQParam_Gain,
@@ -79,12 +64,7 @@ open class AKParametricEQ: AKNode, AKToggleable {
     /// Dry/Wet Mix (Default 100)
     open var dryWetMix: Double = 100 {
         didSet {
-            if dryWetMix < 0 {
-                dryWetMix = 0
-            }
-            if dryWetMix > 100 {
-                dryWetMix = 100
-            }
+            dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
             effectGain?.volume = dryWetMix / 100
         }
@@ -124,7 +104,7 @@ open class AKParametricEQ: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
 
             AudioKit.engine.attach(internalEffect)

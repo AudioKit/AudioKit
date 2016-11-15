@@ -15,9 +15,8 @@ import AVFoundation
 ///   - centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
 ///   - bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
 ///
-open class AKBandPassFilter: AKNode, AKToggleable {
-
-    fileprivate let cd = AudioComponentDescription(effect: kAudioUnitSubType_BandPassFilter)
+open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
+    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -27,12 +26,7 @@ open class AKBandPassFilter: AKNode, AKToggleable {
     /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
     open var centerFrequency: Double = 5000 {
         didSet {
-            if centerFrequency < 20 {
-                centerFrequency = 20
-            }
-            if centerFrequency > 22050 {
-                centerFrequency = 22050
-            }
+            centerFrequency = (20...22050).clamp(centerFrequency)
             AudioUnitSetParameter(
                 internalAU!,
                 kBandpassParam_CenterFrequency,
@@ -44,12 +38,7 @@ open class AKBandPassFilter: AKNode, AKToggleable {
     /// Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     open var bandwidth: Double = 600 {
         didSet {
-            if bandwidth < 100 {
-                bandwidth = 100
-            }
-            if bandwidth > 12000 {
-                bandwidth = 12000
-            }
+            bandwidth = (100...12000).clamp(bandwidth)
             AudioUnitSetParameter(
                 internalAU!,
                 kBandpassParam_Bandwidth,
@@ -61,12 +50,7 @@ open class AKBandPassFilter: AKNode, AKToggleable {
     /// Dry/Wet Mix (Default 100)
     open var dryWetMix: Double = 100 {
         didSet {
-            if dryWetMix < 0 {
-                dryWetMix = 0
-            }
-            if dryWetMix > 100 {
-                dryWetMix = 100
-            }
+            dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
             effectGain?.volume = dryWetMix / 100
         }
@@ -103,7 +87,7 @@ open class AKBandPassFilter: AKNode, AKToggleable {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             super.init()
 
             AudioKit.engine.attach(internalEffect)

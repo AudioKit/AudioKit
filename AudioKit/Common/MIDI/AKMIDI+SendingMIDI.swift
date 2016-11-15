@@ -6,47 +6,58 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
+internal struct MIDIDestinations: Collection {
+    typealias Index = Int
+
+    init() { }
+
+    var startIndex: Index {
+        return 0
+    }
+
+    var endIndex: Index {
+        return MIDIGetNumberOfDestinations()
+    }
+
+    subscript (index: Index) -> MIDIEndpointRef {
+      return MIDIGetDestination(index)
+    }
+
+    func index(after index: Index) -> Index {
+      return index + 1
+    }
+}
+
+extension Collection where Iterator.Element == MIDIEndpointRef {
+    var names: [String] {
+        return map {
+            GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName)
+        }
+    }
+}
+
 extension AKMIDI {
     /// Array of destination names
     public var destinationNames: [String] {
-        var nameArray = [String]()
-        let outputCount = MIDIGetNumberOfDestinations()
-        for i in 0 ..< outputCount {
-            let destination = MIDIGetDestination(i)
-            var endpointName: Unmanaged<CFString>?
-            endpointName = nil
-            MIDIObjectGetStringProperty(destination, kMIDIPropertyName, &endpointName)
-            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
-            nameArray.append(endpointNameStr)
-        }
-        return nameArray
-    }
+        return MIDIDestinations().names
+  }
+
 
     /// Open a MIDI Output Port
     ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openOutput(_ namedOutput: String = "") {
-
-        var result = noErr
-
-        let outputCount = MIDIGetNumberOfDestinations()
         var foundDest = false
-        result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
+        let result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
 
         if result != noErr {
             print("Error creating MIDI output port : \(result)")
         }
-
-        for i in 0 ..< outputCount {
-            let src = MIDIGetDestination(i)
-            var endpointName: Unmanaged<CFString>? = nil
-
-            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
-            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
-            if namedOutput.isEmpty || namedOutput == endpointNameStr {
-                print("Found destination at \(endpointNameStr)")
-                endpoints[endpointNameStr] = MIDIGetDestination(i)
+        for (name, endpoint) in zip(destinationNames, MIDIDestinations()) {
+            if namedOutput.isEmpty || namedOutput == name {
+                print("Found destination at \(name)")
+                endpoints[name] = endpoint
                 foundDest = true
             }
         }
@@ -57,18 +68,15 @@ extension AKMIDI {
 
     /// Send Message with data
     public func sendMessage(_ data: [UInt8]) {
-        var result = noErr
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
         var packet: UnsafeMutablePointer<MIDIPacket>? = nil
         packet = MIDIPacketListInit(packetListPointer)
         packet = MIDIPacketListAdd(packetListPointer, 1024, packet!, 0, data.count, data)
-        for endpointName in endpoints.keys {
-            if let endpoint = endpoints[endpointName] {
-                result = MIDISend(outputPort, endpoint, packetListPointer)
-                if result != noErr {
-                    print("error sending midi : \(result)")
-                }
+        for endpoint in endpoints.values {
+            let result = MIDISend(outputPort, endpoint, packetListPointer)
+            if result != noErr {
+                print("error sending midi : \(result)")
             }
         }
 

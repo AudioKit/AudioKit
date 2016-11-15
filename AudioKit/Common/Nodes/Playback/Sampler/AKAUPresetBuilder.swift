@@ -131,16 +131,12 @@ open class AKAUPresetBuilder {
             switch triggerModeStr {
                 case SampleTriggerMode.Loop.rawValue?:
                     triggerMode = SampleTriggerMode.Loop
-                    break
                 case SampleTriggerMode.Trigger.rawValue?:
                     triggerMode = SampleTriggerMode.Trigger
-                    break
                 case SampleTriggerMode.Hold.rawValue?:
                     triggerMode = SampleTriggerMode.Hold
-                    break
                 case SampleTriggerMode.Repeat.rawValue?:
                     triggerMode = SampleTriggerMode.Repeat
-                    break
                 default:
                     triggerMode = SampleTriggerMode.Trigger
             }
@@ -149,13 +145,11 @@ open class AKAUPresetBuilder {
                 sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
-                break
             case .Loop:
                 sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!,
                                                                wavRef: sampleNum, loopEnabled: true)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
-                break
             default:
                 //.Trigger and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
                 sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
