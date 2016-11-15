@@ -22,11 +22,13 @@ import AVFoundation
 ///   - detuningOffset:       Frequency offset in Hz.
 ///   - detuningMultiplier:   Frequency detuning multiplier
 ///
-open class AKFMOscillatorBank: AKPolyphonicNode {
+open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
+    public typealias AKAudioUnitType = AKFMOscillatorBankAudioUnit
+    static let ComponentDescription = AudioComponentDescription(generator: "fmob")
 
     // MARK: - Properties
 
-    internal var internalAU: AKFMOscillatorBankAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
@@ -213,27 +215,21 @@ open class AKFMOscillatorBank: AKPolyphonicNode {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        let description = AudioComponentDescription(generator: "fmob")
-
-        AUAudioUnit.registerSubclass(
-            AKFMOscillatorBankAudioUnit.self,
-            as: description,
-            name: "Local AKFMOscillatorBank",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKFMOscillatorBankAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
-            self.internalAU?.setupWaveform(Int32(waveform.size))
-            for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
+            self.internalAU?.setupWaveform(Int32(waveform.count))
+            for (i, sample) in waveform.enumerated() {
+                self.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 

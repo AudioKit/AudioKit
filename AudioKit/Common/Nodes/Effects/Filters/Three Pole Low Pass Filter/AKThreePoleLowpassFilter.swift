@@ -16,11 +16,13 @@ import AVFoundation
 ///   - cutoffFrequency: Filter cutoff frequency in Hertz.
 ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
 ///
-open class AKThreePoleLowpassFilter: AKNode, AKToggleable {
+open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKThreePoleLowpassFilterAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
     // MARK: - Properties
 
-    internal var internalAU: AKThreePoleLowpassFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var distortionParameter: AUParameter?
@@ -99,22 +101,16 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable {
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
 
-        let description = AudioComponentDescription(effect: "lp18")
-
-        AUAudioUnit.registerSubclass(
-            AKThreePoleLowpassFilterAudioUnit.self,
-            as: description,
-            name: "Local AKThreePoleLowpassFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKThreePoleLowpassFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

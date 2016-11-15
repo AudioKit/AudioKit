@@ -17,11 +17,13 @@ import AVFoundation
 ///   - postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
 ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
 ///
-open class AKTanhDistortion: AKNode, AKToggleable {
+open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
     // MARK: - Properties
 
-    internal var internalAU: AKTanhDistortionAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var pregainParameter: AUParameter?
@@ -116,22 +118,16 @@ open class AKTanhDistortion: AKNode, AKToggleable {
         self.postiveShapeParameter = postiveShapeParameter
         self.negativeShapeParameter = negativeShapeParameter
 
-        let description = AudioComponentDescription(effect: "dist")
-
-        AUAudioUnit.registerSubclass(
-            AKTanhDistortionAudioUnit.self,
-            as: description,
-            name: "Local AKTanhDistortion",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTanhDistortionAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

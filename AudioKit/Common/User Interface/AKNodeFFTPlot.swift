@@ -16,7 +16,9 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         if fft == nil {
             fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
         }
-        input?.avAudioNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) in
+        input?.avAudioNode.installTap(onBus: 0,
+                                      bufferSize: bufferSize,
+                                      format: nil) { [weak self] (buffer, time) in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize
                 let offset = Int(buffer.frameCapacity - buffer.frameLength)

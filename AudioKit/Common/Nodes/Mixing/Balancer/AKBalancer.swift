@@ -19,11 +19,13 @@ import AVFoundation
 ///   - input: Input node to process
 ///   - comparator: Audio to match power with
 ///
-open class AKBalancer: AKNode, AKToggleable {
+open class AKBalancer: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKBalancerAudioUnit
+    static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
     // MARK: - Properties
     
-    internal var internalAU: AKBalancerAudioUnit?
+    internal var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
@@ -39,23 +41,15 @@ open class AKBalancer: AKNode, AKToggleable {
     ///   - comparator: Audio to match power with
     ///
     public init( _ input: AKNode, comparator: AKNode) {
-
-        let description = AudioComponentDescription(mixer: "blnc")
-
-        AUAudioUnit.registerSubclass(
-            AKBalancerAudioUnit.self,
-            as: description,
-            name: "Local AKBalancer",
-            version: UInt32.max)
-
+        _Self.register()
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBalancerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

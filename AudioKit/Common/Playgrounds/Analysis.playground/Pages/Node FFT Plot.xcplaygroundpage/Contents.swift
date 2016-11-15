@@ -4,10 +4,9 @@
 import PlaygroundSupport
 import AudioKit
 
-var oscillator = AKOscillator(waveform: AKTable(.sine, size: 4096))
-var mixer = AKMixer(oscillator)
+var oscillator = AKOscillator(waveform: AKTable(.sine, count: 4096))
 
-AudioKit.output = mixer
+AudioKit.output = oscillator
 AudioKit.start()
 
 oscillator.start()
@@ -28,7 +27,7 @@ AKPlaygroundLoop(frequency: 10) {
     oscillator.amplitude = 0.2
 }
 
-let plot = AKNodeFFTPlot(mixer, frame: CGRect(x: 0, y: 0, width: 500, height: 500))
+let plot = AKNodeFFTPlot(oscillator, frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 plot.shouldFill = true
 plot.shouldMirror = false
 plot.shouldCenterYAxis = false

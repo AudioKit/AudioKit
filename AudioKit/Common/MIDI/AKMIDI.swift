@@ -77,12 +77,9 @@ open class AKMIDI {
     
     /// Create set of virtual MIDI ports
     open func createVirtualPorts(_ uniqueId: Int32 = 2000000) {
-
         destroyVirtualPorts()
-        
-        var result = noErr
-        
-        let readBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+
+        var result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput) { packetList, srcConnRefCon in
             for packet in packetList.pointee {
                 // a coremidi packet may contain multiple midi events
                 for event in packet {
@@ -90,8 +87,6 @@ open class AKMIDI {
                 }
             }
         }
-        
-        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, readBlock)
         
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)
@@ -115,9 +110,9 @@ open class AKMIDI {
             virtualInput = 0
         }
 
-        if virtualInput != 0 {
+        if virtualOutput != 0 {
             MIDIEndpointDispose(virtualOutput)
-            virtualInput = 0
+            virtualOutput = 0
         }
     }
 }

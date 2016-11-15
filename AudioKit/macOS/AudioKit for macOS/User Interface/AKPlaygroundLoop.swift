@@ -37,13 +37,13 @@ public class AKPlaygroundLoop: NSObject {
         update()
     }
 
-    /// Callback function for CADisplayLink
+    /// Callback function
     @objc func update() {
         self.internalHandler()
-        self.perform(#selector(AKPlaygroundLoop.update),
-                             with: nil,
-                             afterDelay: duration,
-                             inModes: [RunLoopMode.commonModes])
+        self.perform(#selector(update),
+                     with: nil,
+                     afterDelay: duration,
+                     inModes: [RunLoopMode.commonModes])
 
     }
 }

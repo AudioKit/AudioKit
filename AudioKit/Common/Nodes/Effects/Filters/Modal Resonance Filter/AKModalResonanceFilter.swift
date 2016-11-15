@@ -17,11 +17,13 @@ import AVFoundation
 ///   - frequency: Resonant frequency of the filter.
 ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
 ///
-open class AKModalResonanceFilter: AKNode, AKToggleable {
+open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKModalResonanceFilterAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "modf")
 
     // MARK: - Properties
 
-    internal var internalAU: AKModalResonanceFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
@@ -84,22 +86,16 @@ open class AKModalResonanceFilter: AKNode, AKToggleable {
         self.frequency = frequency
         self.qualityFactor = qualityFactor
 
-        let description = AudioComponentDescription(effect: "modf")
-
-        AUAudioUnit.registerSubclass(
-            AKModalResonanceFilterAudioUnit.self,
-            as: description,
-            name: "Local AKModalResonanceFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKModalResonanceFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

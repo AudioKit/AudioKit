@@ -16,11 +16,13 @@ import AVFoundation
 ///   - centerFrequency: Center frequency. (in Hertz)
 ///   - bandwidth: Bandwidth. (in Hertz)
 ///
-open class AKBandPassButterworthFilter: AKNode, AKToggleable {
+open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKBandPassButterworthFilterAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "btbp")
 
     // MARK: - Properties
 
-    internal var internalAU: AKBandPassButterworthFilterAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
@@ -83,22 +85,16 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable {
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
 
-        let description = AudioComponentDescription(effect: "btbp")
-
-        AUAudioUnit.registerSubclass(
-            AKBandPassButterworthFilterAudioUnit.self,
-            as: description,
-            name: "Local AKBandPassButterworthFilter",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBandPassButterworthFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

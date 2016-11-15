@@ -4,27 +4,27 @@
 import PlaygroundSupport
 import AudioKit
 
-let square = AKTable(.square, size: 16)
-for value in square.values { value } // Click the eye icon ->
+let square = AKTable(.square, count: 16)
+for value in square { value } // Click the eye icon ->
 
-let triangle = AKTable(.triangle, size: 4096)
-for value in triangle.values { value } // Click the eye icon ->
+let triangle = AKTable(.triangle, count: 4096)
+for value in triangle { value } // Click the eye icon ->
 
-let sine = AKTable(.sine, size: 4096)
-for value in sine.values { value } // Click the eye icon ->
+let sine = AKTable(.sine, count: 4096)
+for value in sine { value } // Click the eye icon ->
 
-let sawtooth = AKTable(.sawtooth, size: 4096)
-for value in sawtooth.values { value } // Click the eye icon ->
+let sawtooth = AKTable(.sawtooth, count: 4096)
+for value in sawtooth { value } // Click the eye icon ->
 
-var custom = AKTable(.sine, size: 512)
-for i in 0..<custom.values.count {
-    custom.values[i] += Float(random(-0.3, 0.3) + Double(i)/2048.0)
+var custom = AKTable(.sine, count: 512)
+for i in custom.indices {
+    custom[i] += Float(random(-0.3, 0.3) + Double(i)/2048.0)
 }
-for value in custom.values { value } // Click the eye icon ->
+for value in custom { value } // Click the eye icon ->
 
 //: Try changing the table to triangle, square, sine, or sawtooth.
 //: This will change the shape of the oscillator's waveform.
-var oscillator = AKOscillator(waveform: sine)
+var oscillator = AKOscillator(waveform: custom)
 AudioKit.output = oscillator
 AudioKit.start()
 

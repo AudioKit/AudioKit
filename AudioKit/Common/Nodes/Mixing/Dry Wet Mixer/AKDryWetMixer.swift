@@ -22,12 +22,7 @@ open class AKDryWetMixer: AKNode {
     /// Balance (Default 0.5)
     open var balance: Double = 0.5 {
         didSet {
-            if balance < 0 {
-                balance = 0
-            }
-            if balance > 1 {
-                balance = 1
-            }
+            balance = (0...1).clamp(balance)
             dryGain?.volume = 1 - balance
             wetGain?.volume = balance
         }

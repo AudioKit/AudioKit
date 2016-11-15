@@ -18,7 +18,7 @@ open class AKStereoOperation: AKComputedParameter {
     fileprivate var savedLocation = -1
     
     fileprivate var dependencies = [AKOperation]()
-    
+
     internal var recursiveDependencies: [AKOperation] {
         var all = [AKOperation]()
         var uniq = [AKOperation]()
@@ -59,7 +59,6 @@ open class AKStereoOperation: AKComputedParameter {
             } else {
                 opString  += "\(input) "
             }
-            
         }
         opString  += "\(module) "
         return opString

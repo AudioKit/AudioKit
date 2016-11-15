@@ -16,12 +16,14 @@ import AVFoundation
 ///   - impulseResponseFileURL: Location of the imulseResponse audio File
 ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.
 ///
-open class AKConvolution: AKNode, AKToggleable {
+open class AKConvolution: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKConvolutionAudioUnit
+    static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
     // MARK: - Properties
 
 
-    internal var internalAU: AKConvolutionAudioUnit?
+    internal var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
@@ -48,22 +50,16 @@ open class AKConvolution: AKNode, AKToggleable {
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
 
-        let description = AudioComponentDescription(effect: "conv")
-
-        AUAudioUnit.registerSubclass(
-            AKConvolutionAudioUnit.self,
-            as: description,
-            name: "Local AKConvolution",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKConvolutionAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

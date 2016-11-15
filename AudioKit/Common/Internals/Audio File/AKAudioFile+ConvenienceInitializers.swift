@@ -118,7 +118,7 @@ extension AKAudioFile {
             let directoryPath = nsurl!.deletingLastPathComponent()
             
             let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: (directoryPath.absoluteString)) == false {
+            if !fileManager.fileExists(atPath: (directoryPath.absoluteString)) {
                 print( "ERROR AKAudioFile: directory \"\(directoryPath)\" doesn't exist")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
@@ -126,7 +126,7 @@ extension AKAudioFile {
             // AVLinearPCMIsNonInterleaved cannot be set to false (ignored but throw a warning)
             var  fixedSettings =  settings
             
-            fixedSettings[ AVLinearPCMIsNonInterleaved] =  NSNumber(value: false as Bool)
+            fixedSettings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
             
             do {
                 try self.init(forWriting: nsurl!, settings: fixedSettings)

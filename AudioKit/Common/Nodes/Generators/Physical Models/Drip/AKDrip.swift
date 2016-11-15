@@ -20,11 +20,13 @@ import AVFoundation
 ///   - secondResonantFrequency: The second resonant frequency.
 ///   - amplitude: Amplitude.
 ///
-open class AKDrip: AKNode {
+open class AKDrip: AKNode, AKComponent {
+    public typealias AKAudioUnitType = AKDripAudioUnit
+    static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
     // MARK: - Properties
 
-    internal var internalAU: AKDripAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
 
@@ -141,7 +143,6 @@ open class AKDrip: AKNode {
         secondResonantFrequency: Double = 750,
         amplitude: Double = 0.3) {
 
-
         self.intensity = intensity
         self.dampingFactor = dampingFactor
         self.energyReturn = energyReturn
@@ -150,22 +151,16 @@ open class AKDrip: AKNode {
         self.secondResonantFrequency = secondResonantFrequency
         self.amplitude = amplitude
 
-        let description = AudioComponentDescription(generator: "drip")
-
-        AUAudioUnit.registerSubclass(
-            AKDripAudioUnit.self,
-            as: description,
-            name: "Local AKDrip",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKDripAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

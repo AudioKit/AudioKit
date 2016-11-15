@@ -18,11 +18,13 @@ import AVFoundation
 ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
 ///   - amplitude: Output Amplitude.
 ///
-open class AKFMOscillator: AKNode, AKToggleable {
+open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
+    static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
     // MARK: - Properties
 
-    internal var internalAU: AKFMOscillatorAudioUnit?
+    internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
@@ -146,27 +148,21 @@ open class AKFMOscillator: AKNode, AKToggleable {
         self.modulationIndex = modulationIndex
         self.amplitude = amplitude
 
-        let description = AudioComponentDescription(generator: "fosc")
-
-        AUAudioUnit.registerSubclass(
-            AKFMOscillatorAudioUnit.self,
-            as: description,
-            name: "Local AKFMOscillator",
-            version: UInt32.max)
+        _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: description, options: []) {
+        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKFMOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
-            self.internalAU?.setupWaveform(Int32(waveform.size))
-            for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
+            self.internalAU?.setupWaveform(Int32(waveform.count))
+            for (i, sample) in waveform.enumerated() {
+                self.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 
