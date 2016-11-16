@@ -16,10 +16,10 @@ public typealias MIDIChannel = Int
 
 extension Collection where IndexDistance == Int {
     /// Return a random element from the collection
-	public func randomElement() -> Iterator.Element {
-		let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
-		return self[index(startIndex, offsetBy: offset)]
-	}
+    public func randomElement() -> Iterator.Element {
+        let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
+        return self[index(startIndex, offsetBy: offset)]
+    }
 }
 
 /// Helper function to convert codes for Audio Units
