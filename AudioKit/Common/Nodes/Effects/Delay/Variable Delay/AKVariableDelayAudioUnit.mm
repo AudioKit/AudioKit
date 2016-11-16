@@ -20,8 +20,6 @@
 @property AUAudioUnitBusArray *inputBusArray;
 @property AUAudioUnitBusArray *outputBusArray;
 
-@property (nonatomic, readwrite) AUParameterTree *parameterTree;
-
 @end
 
 @implementation AKVariableDelayAudioUnit {
@@ -38,7 +36,6 @@
 - (void)setFeedback:(float)feedback {
     _kernel.setFeedback(feedback);
 }
-
 
 - (void)start {
     _kernel.start();
