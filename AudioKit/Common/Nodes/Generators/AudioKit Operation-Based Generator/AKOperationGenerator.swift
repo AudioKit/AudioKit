@@ -22,6 +22,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         return internalAU!.isPlaying()
     }
     
+    /// Sporth language snippet
     open var sporth: String = "" {
         didSet  {
             self.stop()

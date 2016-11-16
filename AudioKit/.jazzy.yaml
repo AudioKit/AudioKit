@@ -232,6 +232,7 @@ custom_categories:
     - AKButton
     - AKBypassButton
     - AKKeyboardView
+    - AKKeyboardDelegate
     - AKNotifications
     - AKPlaygroundLoop
     - AKPlaygroundView
