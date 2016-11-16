@@ -20,7 +20,7 @@
 @property AUAudioUnitBusArray *inputBusArray;
 @property AUAudioUnitBusArray *outputBusArray;
 
-@property (nonatomic, readwrite) AUParameterTree *parameterTree;
+
 
 @end
 
