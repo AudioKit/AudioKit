@@ -145,6 +145,7 @@ custom_categories:
 
   - name: Physical Models
     children:
+    - AKClarinet
     - AKDrip
     - AKFlute
     - AKMandolin
@@ -156,6 +157,7 @@ custom_categories:
   - name: Input Node
     children:
     - AKMicrophone
+    - AKStereoInput
 
   - name: Mixing Nodes
     children:
