@@ -108,14 +108,12 @@ extension AVAudioEngine {
     /// Change the preferred output device, giving it one of the names from the list of available output.
     open static func setOutputDevice(_ output: AKDevice) throws {
         #if os(OSX)
-            var address = AudioObjectPropertyAddress(
-                mSelector: kAudioHardwarePropertyDefaultOutputDevice,
-                mScope: kAudioObjectPropertyScopeGlobal,
-                mElement: kAudioObjectPropertyElementMaster)
-            var devid = output.deviceID
-            AudioObjectSetPropertyData(
-                AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
+            var id = output.deviceID
+            AudioUnitSetProperty(AudioKit.engine.outputNode.audioUnit!,
+                                 kAudioOutputUnitProperty_CurrentDevice,
+                                 kAudioUnitScope_Global, 0,
+                                 &id,
+                                 UInt32(MemoryLayout<DeviceID>.size))
         #else
             //not available on ios
         #endif

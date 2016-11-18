@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='macos' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
+        <page name='Clarinet'/>
         <page name='Drawbar Organ'/>
         <page name='Dripping Sounds'/>
         <page name='Drum Synthesizers'/>
@@ -31,6 +32,5 @@
         <page name='Segment Operations'/>
         <page name='Sporth Based Generator'/>
         <page name='Telephone'/>
-        <page name='Clarinet'/>
     </pages>
 </playground>
