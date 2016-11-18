@@ -3,9 +3,6 @@
 import PlaygroundSupport
 import AudioKit
 
-
-dump(inputs)
-
 let mic = AKMicrophone()
 
 //: Set the microphone device if you need to
