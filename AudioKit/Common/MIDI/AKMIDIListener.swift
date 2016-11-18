@@ -88,6 +88,9 @@ public protocol AKMIDIListener {
     /// - parameter data: Array of integers
     ///
     func receivedMIDISystemCommand(_ data: [UInt8])
+    
+    /// MIDI Setup has changed
+    func receivedMIDISetupChange()
 }
 
 /// Default listener functions
@@ -180,4 +183,10 @@ public extension AKMIDIListener {
     func receivedMIDISystemCommand(_ data: [UInt8]) {
         print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
     }
+    
+    /// MIDI Setup has changed
+    func receivedMIDISetupChange() {
+        print("MIDI Setup Has Changed.")
+    }
+    
 }
