@@ -3,7 +3,7 @@
 import PlaygroundSupport
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "poney.mp3",
+let file = try AKAudioFile(readFileName: "guitarloop.wav",
                            baseDir: .resources)
 let phaseLockedVocoder = AKPhaseLockedVocoder(file: file)
 
@@ -15,12 +15,27 @@ phaseLockedVocoder.pitchRatio = 1
 
 var timeStep = 0.1
 
-AKPlaygroundLoop(every: timeStep) {
-    phaseLockedVocoder.position
-    phaseLockedVocoder.pitchRatio = [0.75, 0.85, 1.1, 1.2].randomElement()
-    phaseLockedVocoder.position = phaseLockedVocoder.position + timeStep
-    if phaseLockedVocoder.position > 3.4 && timeStep > 0 { timeStep = -random(0.05, 0.3) }
-    if phaseLockedVocoder.position < 0.01 && timeStep < 0 { timeStep = random(0.1, 0.3) }
+class PlaygroundView: AKPlaygroundView {
+    
+    // UI Elements we'll need to be able to access
+    var playingPositionSlider: AKPropertySlider?
+    
+    override func setup() {
+        
+        addTitle("Phsae Locked Vocoder")
+        
+        
+        playingPositionSlider = AKPropertySlider(
+            property: "Position",
+            format: "%0.2f s",
+            value: phaseLockedVocoder.position, maximum: 3.428,
+            color: AKColor.yellow
+        ) { sliderValue in
+            phaseLockedVocoder.position = sliderValue
+        }
+        addSubview(playingPositionSlider!)
+    }
 }
 
 PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
