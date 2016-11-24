@@ -587,6 +587,7 @@
 		C45669F51D448D7E00D26565 /* AKRollingOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666981D448D7E00D26565 /* AKRollingOutputPlot.swift */; };
 		C45669F61D448D7E00D26565 /* AKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666991D448D7E00D26565 /* AKView.swift */; };
 		C45789731D50125F00F28F67 /* smoothdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C45789721D50125F00F28F67 /* smoothdelay.c */; };
+		C459EEA81DE6AF9000C0F494 /* getline.c in Sources */ = {isa = PBXBuildFile; fileRef = C459EEA71DE6AF9000C0F494 /* getline.c */; };
 		C47AC6151D5D49430005E485 /* AKBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AC6111D5D49430005E485 /* AKBooster.swift */; };
 		C47AC6161D5D49430005E485 /* AKBoosterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C47AC6121D5D49430005E485 /* AKBoosterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47AC6171D5D49430005E485 /* AKBoosterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47AC6131D5D49430005E485 /* AKBoosterAudioUnit.mm */; };
@@ -1351,6 +1352,7 @@
 		C45666981D448D7E00D26565 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
 		C45666991D448D7E00D26565 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
 		C45789721D50125F00F28F67 /* smoothdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smoothdelay.c; sourceTree = "<group>"; };
+		C459EEA71DE6AF9000C0F494 /* getline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = getline.c; sourceTree = "<group>"; };
 		C47AC6111D5D49430005E485 /* AKBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKBooster.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C47AC6121D5D49430005E485 /* AKBoosterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBoosterAudioUnit.h; sourceTree = "<group>"; };
 		C47AC6131D5D49430005E485 /* AKBoosterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterAudioUnit.mm; sourceTree = "<group>"; };
@@ -1928,6 +1930,7 @@
 				C456637D1D448D7E00D26565 /* sporth.c */,
 				C456637E1D448D7E00D26565 /* stack.c */,
 				C456637F1D448D7E00D26565 /* ugens */,
+				C459EEA51DE6AF9000C0F494 /* util */,
 			);
 			path = Sporth;
 			sourceTree = "<group>";
@@ -3426,6 +3429,22 @@
 			path = "../Common/User Interface";
 			sourceTree = "<group>";
 		};
+		C459EEA51DE6AF9000C0F494 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				C459EEA61DE6AF9000C0F494 /* getline */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		C459EEA61DE6AF9000C0F494 /* getline */ = {
+			isa = PBXGroup;
+			children = (
+				C459EEA71DE6AF9000C0F494 /* getline.c */,
+			);
+			path = getline;
+			sourceTree = "<group>";
+		};
 		C49A0A3D1D543B34007D8ADB /* Korg Low Pass Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -3947,6 +3966,7 @@
 				C45668AD1D448D7E00D26565 /* AKMIDINode.swift in Sources */,
 				C45666E91D448D7E00D26565 /* butbr.c in Sources */,
 				C4F8C9E11DCA9256001F38F2 /* fof.c in Sources */,
+				C459EEA81DE6AF9000C0F494 /* getline.c in Sources */,
 				C45667DE1D448D7E00D26565 /* Flute.cpp in Sources */,
 				C4F8CA3E1DCA9256001F38F2 /* waveset.c in Sources */,
 				C45667201D448D7E00D26565 /* prop.c in Sources */,

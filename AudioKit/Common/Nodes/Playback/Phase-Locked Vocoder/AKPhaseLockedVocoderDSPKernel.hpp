@@ -76,7 +76,7 @@ public:
     }
 
     void setPosition(float value) {
-        position = clamp(value, 0.0f, 1.0f);
+        position = value;
         positionRamper.setImmediate(position);
     }
 
@@ -94,7 +94,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case positionAddress:
-                positionRamper.setUIValue(clamp(value, 0.0f, 1.0f));
+                positionRamper.setUIValue(value);
                 break;
 
             case amplitudeAddress:
@@ -126,7 +126,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case positionAddress:
-                positionRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
+                positionRamper.startRamp(value, duration);
                 break;
 
             case amplitudeAddress:
