@@ -7,25 +7,24 @@
 //
 
 import UIKit
+import AudioKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate {
     @IBOutlet var codeEditorTextView: UITextView!
-    @IBOutlet var nameTextField: UITextField!
-    @IBOutlet var listOfSavedCodes: UIPickerView!
+    @IBOutlet weak var keyboard: AKKeyboardView!
+    @IBOutlet weak var status: UILabel!
     
-    @IBOutlet var slider1: UISlider!
-    @IBOutlet var slider2: UISlider!
-    @IBOutlet var slider3: UISlider!
-    @IBOutlet var slider4: UISlider!
+    @IBOutlet var slider1: AKPropertySlider!
+    @IBOutlet var slider2: AKPropertySlider!
+    @IBOutlet var slider3: AKPropertySlider!
+    @IBOutlet var slider4: AKPropertySlider!
     
     var brain = SporthEditorBrain()
     var sporthDictionary = [String: URL]()
+    var currentMIDINote: MIDINoteNumber = 0
+    var sliders: [AKPropertySlider] = []
     
     @IBAction func run(_ sender: UIButton) {
-        slider1.value = 0.0
-        slider2.value = 0.0
-        slider3.value = 0.0
-        slider4.value = 0.0
         brain.run(codeEditorTextView.text)
     }
     
@@ -33,34 +32,54 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         brain.stop()
     }
     
-    func updateUI() {
-        listOfSavedCodes.reloadAllComponents()
+    @IBAction func decreasePatch(_ sender: Any) {
+        if brain.currentIndex > 0 {
+            brain.currentIndex -= 1
+        }
+        didChangePatch()
     }
-    
+    @IBAction func increasePatch(_ sender: Any) {
+        if brain.currentIndex < brain.names.count - 1 {
+            brain.currentIndex += 1
+        }
+        didChangePatch()
+    }
+
     func setupUI() {
         
         do {
             try brain.save(Constants.File.chat, code: String(contentsOfFile: Constants.Path.chat, encoding: String.Encoding.utf8))
             try brain.save(Constants.File.drone, code: String(contentsOfFile: Constants.Path.drone, encoding: String.Encoding.utf8))
             try brain.save(Constants.File.rhythmic, code: String(contentsOfFile: Constants.Path.rhythmic, encoding: String.Encoding.utf8))
+            try brain.save(Constants.File.simpleKeyboard, code: String(contentsOfFile: Constants.Path.simpleKeyboard, encoding: String.Encoding.utf8))
+            try brain.save(Constants.File.betterKeyboard, code: String(contentsOfFile: Constants.Path.betterKeyboard, encoding: String.Encoding.utf8))
             
-            listOfSavedCodes.selectRow(0, inComponent: 1, animated: true)
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
-            nameTextField.text = brain.names.first!
+            status.text = brain.names.first!
             
+            codeEditorTextView.autocorrectionType = .no
+            codeEditorTextView.autocapitalizationType = .none
+            keyboard.delegate = self
         } catch {
             NSLog(Constants.Error.Loading)
         }
+
+        updateContextAwareCotrols()
     }
     
     func getSporthFiles() {
-        
-        sporthDictionary["bones"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/bones/bones.sp")
-        sporthDictionary["crystalline"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/crystalline/crystalline.sp")
-        sporthDictionary["distant_intelligence"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/distant_intelligence/distant_intelligence.sp")
-        sporthDictionary["hello"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/hello/hello.sp")
-        sporthDictionary["kLtz"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/kLtz/kLtz.sp")
-        sporthDictionary["scheale"] = URL(string: "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/scheale/scheale.sp")
+        let baseURL = "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/"
+        let keysURL = URL(string: "\(baseURL)ready.txt")
+        var urlContents = ""
+        do {
+            urlContents = try String(contentsOf: keysURL!)
+        } catch {
+            print ("error")
+        }
+
+        for key in urlContents.components(separatedBy: NSCharacterSet.newlines) {
+            sporthDictionary[key] = URL(string: "\(baseURL)\(key)/\(key).sp")
+        }
         
         for item in sporthDictionary {
             do {
@@ -87,7 +106,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
 
     @IBAction func save(_ sender: UIButton) {
-        guard let name = nameTextField.text , !name.isEmpty else {
+        guard let name = status.text , !name.isEmpty else {
             presentAlert(Error.name)
             return
         }
@@ -96,117 +115,93 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             return
         }
         brain.save(name, code: code)
-        updateUI()
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        // The number of components (or “columns”) that the picker view should display.
-        return 1
+    @IBOutlet weak var slidersStackView: UIStackView!
+    func updateContextAwareCotrols() {
+        let sporth = brain.knownCodes[brain.names[brain.currentIndex]]!
+        slidersStackView.isHidden = true
+        keyboard.isHidden = true
+        var currentControl = 0
+        search: for line in sporth.components(separatedBy: NSCharacterSet.newlines) {
+            if sporth.contains("5 p") {
+                keyboard.isHidden = false
+            }
+            
+            var pattern = "# default ([.0-9]+)"
+            var regex = try! NSRegularExpression(pattern: pattern,
+                                                 options: .dotMatchesLineSeparators)
+            
+            let value = regex.stringByReplacingMatches(in: line,
+                                                       options: .reportCompletion,
+                                                       range: NSRange(location: 0,
+                                                                      length: line.characters.count),
+                                                       withTemplate: "$1")
+            
+            
+            pattern = "##: - Control ([1-4]): ([^\n]+)"
+            regex = try! NSRegularExpression(pattern: pattern,
+                                             options: .dotMatchesLineSeparators)
+            
+            let currentControlText = regex.stringByReplacingMatches(in: line,
+                                                            options: .reportCompletion,
+                                                            range: NSRange(location: 0,
+                                                                           length: line.characters.count),
+                                                            withTemplate: "$1")
+            
+            title = regex.stringByReplacingMatches(in: line,
+                                                   options: .reportCompletion,
+                                                   range: NSRange(location: 0,
+                                                                  length: line.characters.count),
+                                                   withTemplate: "$2")
+            
+            if title != line {
+                currentControl = Int(currentControlText)! - 1
+                slidersStackView.isHidden = false
+                sliders[currentControl].isHidden = false
+                sliders[currentControl].property = title!
+            }
+            if value != line {
+                brain.generator?.parameters[currentControl] = Double(value)!
+                sliders[currentControl].value = Double(value)!
+            }
+        }
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return brain.names.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func didChangePatch() {
+        let sporth = brain.knownCodes[brain.names[brain.currentIndex]]
+        codeEditorTextView.text = sporth
         
-        return brain.names[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        codeEditorTextView.text = brain.knownCodes[brain.names[row]]
-        nameTextField.text = brain.names[row]
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        nameTextField.resignFirstResponder()
-        return true
+        status.text = brain.names[brain.currentIndex]
+        updateContextAwareCotrols()
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getSporthFiles()
+        sliders = [slider1, slider2, slider3, slider4]
         setupUI()
-        listOfSavedCodes.dataSource = self
-        listOfSavedCodes.delegate = self
-        nameTextField.delegate = self
+        for i in 0..<4 {
+            sliders[i].callback = { value in self.brain.generator?.parameters[i] = Double(value) }
+        }
+        }
+    
+    // MARK: -  Keyboard Delegate
+    
+    func noteOn(note: MIDINoteNumber) {
+        status.text = "Note Pressed: \(note)"
+        currentMIDINote = note
+        brain.generator?.parameters[4] = 1
+        brain.generator?.parameters[5] = Double(note)
+        
     }
     
-    @IBAction func trigger1(_ sender: UIButton) {
-        print("triggering 1")
-        brain.generator?.trigger(0)
-    }
-    
-    @IBAction func trigger2(_ sender: UIButton) {
-        print("triggering 2")
-        brain.generator?.trigger(1)
-    }
-    
-    @IBAction func trigger3(_ sender: UIButton) {
-        print("triggering 3")
-        brain.generator?.trigger(2)
-    }
-    
-    @IBAction func trigger4(_ sender: UIButton) {
-        print("triggering 4")
-        brain.generator?.trigger(3)
-    }
-    
-    @IBAction func activateGate1(_ sender: UIButton) {
-        brain.generator?.parameters[0] = 1.0
-        slider1.value = 1
-    }
-    
-    @IBAction func deactivateGate1(_ sender: UIButton) {
-        brain.generator?.parameters[0] = 0.0
-        slider1.value = 0
-    }
-    
-    @IBAction func activateGate2(_ sender: UIButton) {
-        brain.generator?.parameters[1] = 1.0
-        slider2.value = 1
-    }
-    
-    @IBAction func deactivateGate2(_ sender: UIButton) {
-        brain.generator?.parameters[1] = 0.0
-        slider2.value = 0
-    }
-    
-    @IBAction func activateGate3(_ sender: UIButton) {
-        brain.generator?.parameters[2] = 1.0
-        slider3.value = 1
-    }
-    
-    @IBAction func deactivateGate3(_ sender: UIButton) {
-        brain.generator?.parameters[2] = 0.0
-        slider3.value = 0
-    }
-    
-    @IBAction func activateGate4(_ sender: UIButton) {
-        brain.generator?.parameters[3] = 1.0
-        slider4.value = 1
-    }
-    
-    @IBAction func deactivateGate4(_ sender: UIButton) {
-        brain.generator?.parameters[3] = 0.0
-        slider4.value = 0
-    }
-    
-    @IBAction func updateParameter1(_ sender: UISlider) {
-        print("value 1 = \(sender.value)")
-        brain.generator?.parameters[0] = Double(sender.value)
-    }
-    @IBAction func updateParameter2(_ sender: UISlider) {
-        print("value 2 = \(sender.value)")
-        brain.generator?.parameters[1] = Double(sender.value)
-    }
-    @IBAction func updateParameter3(_ sender: UISlider) {
-        print("value 3 = \(sender.value)")
-        brain.generator?.parameters[2] = Double(sender.value)
-    }
-    @IBAction func updateParameter4(_ sender: UISlider) {
-        print("value 4 = \(sender.value)")
-        brain.generator?.parameters[3] = Double(sender.value)
+    func noteOff(note: MIDINoteNumber) {
+        if currentMIDINote == note {
+            status.text = brain.names[brain.currentIndex]
+            brain.generator?.parameters[4] = 0
+        }
     }
 
 }

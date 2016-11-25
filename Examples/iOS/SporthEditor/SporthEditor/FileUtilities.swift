@@ -16,8 +16,8 @@ struct FileUtilities {
         let directory = "\(documentDirectory)/SporthEditor"
         do {
             try FileManager.default.createDirectory(atPath: directory,
-                                                                     withIntermediateDirectories: true,
-                                                                     attributes: nil)
+                                                    withIntermediateDirectories: true,
+                                                    attributes: nil)
         } catch {
             NSLog("\(Constants.Error.Creation) \(directory)")
         }

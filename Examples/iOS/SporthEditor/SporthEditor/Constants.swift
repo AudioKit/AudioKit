@@ -23,6 +23,7 @@ struct Constants {
         static let chat = "Chatting Robot"
         static let drone = "Drone"
         static let rhythmic = "Rhythmic"
+        static let simpleKeyboard = "Simple Keyboard"
     }
     
     struct Path {
@@ -34,6 +35,9 @@ struct Constants {
         }
         static var rhythmic: String {
             return Bundle.main.path(forResource: Constants.File.rhythmic, ofType: FileUtilities.fileExtension)!
+        }
+        static var simpleKeyboard: String {
+            return Bundle.main.path(forResource: Constants.File.simpleKeyboard, ofType: FileUtilities.fileExtension)!
         }
     }
     
