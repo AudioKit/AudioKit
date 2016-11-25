@@ -106,12 +106,13 @@ public protocol AKKeyboardDelegate {
             drawOctaveCanvas(i)
         }
         
-        let backgroundPath = UIBezierPath(rect: CGRect(x: oneOctaveSize.width * CGFloat(octaveCount), y: 0, width: oneOctaveSize.width / 7.0, height: oneOctaveSize.height))
+        let tempWidth = CGFloat(width) - CGFloat((octaveCount * 7) - 1) * whiteKeySize.width - 1
+        let backgroundPath = UIBezierPath(rect: CGRect(x: oneOctaveSize.width * CGFloat(octaveCount), y: 0, width: tempWidth, height: oneOctaveSize.height))
         UIColor.black.setFill()
         backgroundPath.fill()
         
         let lastC = UIBezierPath(rect:
-            CGRect(x: whiteKeyX(0, octaveNumber: octaveCount), y: 1, width: whiteKeySize.width - 2, height: whiteKeySize.height))
+            CGRect(x: whiteKeyX(0, octaveNumber: octaveCount), y: 1, width: tempWidth, height: whiteKeySize.height))
         whiteKeyColor(0, octaveNumber: octaveCount).setFill()
         lastC.fill()
         
@@ -170,7 +171,7 @@ public protocol AKKeyboardDelegate {
                 let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
                 note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
             }
-            if note != 0 { notes.append(note) }
+            if note >= 0 { notes.append(note) }
         }
         return notes
     }
