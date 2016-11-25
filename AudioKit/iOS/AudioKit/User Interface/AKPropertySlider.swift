@@ -21,6 +21,7 @@ import Foundation
     @IBInspectable open var maximum: Double = 1
     @IBInspectable open var property: String = "Property"
     @IBInspectable open var format: String = "%0.3f"
+    @IBInspectable open var bgColor: UIColor = UIColor.clear
     @IBInspectable open var sliderColor: UIColor = UIColor.red
     @IBInspectable open var textColor: UIColor = UIColor.black
     @IBInspectable open var fontSize: CGFloat = 24
@@ -122,7 +123,6 @@ import Foundation
 
         //// sliderArea Drawing
         let sliderAreaPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: width, height: height))
-        let bgColor = self.backgroundColor ?? UIColor(colorLiteralRed: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         bgColor.setFill()
         sliderAreaPath.fill()
 
