@@ -23,7 +23,6 @@
 		C485C63F1D337759007D1BFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C485C63E1D337759007D1BFD /* Assets.xcassets */; };
 		C485C6421D337759007D1BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C485C6401D337759007D1BFD /* LaunchScreen.storyboard */; };
 		C4C059981DE7E46F00C3699A /* Simple Keyboard.sp in Resources */ = {isa = PBXBuildFile; fileRef = C4C059971DE7E46F00C3699A /* Simple Keyboard.sp */; };
-		C4C0599C1DE80BDA00C3699A /* Better Keyboard.sp in Resources */ = {isa = PBXBuildFile; fileRef = C4C0599B1DE80BDA00C3699A /* Better Keyboard.sp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +74,6 @@
 		C485C6411D337759007D1BFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C485C6431D337759007D1BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4C059971DE7E46F00C3699A /* Simple Keyboard.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Simple Keyboard.sp"; sourceTree = "<group>"; };
-		C4C0599B1DE80BDA00C3699A /* Better Keyboard.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Better Keyboard.sp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +94,6 @@
 				783F1E781D353DB900DD1B58 /* Chatting Robot.sp */,
 				C4C059971DE7E46F00C3699A /* Simple Keyboard.sp */,
 				783F1E791D353DB900DD1B58 /* Drone.sp */,
-				C4C0599B1DE80BDA00C3699A /* Better Keyboard.sp */,
 				C40ACAE51D38AA43003A7431 /* Rhythmic.sp */,
 			);
 			name = "Preloaded files";
@@ -243,7 +240,6 @@
 			files = (
 				783F1E7A1D353DB900DD1B58 /* Chatting Robot.sp in Resources */,
 				783F1E7B1D353DB900DD1B58 /* Drone.sp in Resources */,
-				C4C0599C1DE80BDA00C3699A /* Better Keyboard.sp in Resources */,
 				C4C059981DE7E46F00C3699A /* Simple Keyboard.sp in Resources */,
 				C485C6421D337759007D1BFD /* LaunchScreen.storyboard in Resources */,
 				C485C63F1D337759007D1BFD /* Assets.xcassets in Resources */,
