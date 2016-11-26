@@ -12,9 +12,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKFormantFilterAudioUnit : AUAudioUnit
-@property (nonatomic) float centerFrequency;
-@property (nonatomic) float attackDuration;
-@property (nonatomic) float decayDuration;
+@property (nonatomic) float x;
+@property (nonatomic) float y;
 
 - (void)start;
 - (void)stop;
