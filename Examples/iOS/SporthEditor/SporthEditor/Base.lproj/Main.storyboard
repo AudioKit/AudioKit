@@ -35,7 +35,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="358" height="44"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYn-Jm-ewa" userLabel="Run Button" customClass="RoundedButton" customModule="SporthEditor" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="174" height="44"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="358" height="44"/>
                                                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
                                                         <state key="normal" title="Run"/>
@@ -44,18 +44,6 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="run" destination="fK6-aW-d0K" eventType="touchUpInside" id="iDg-iW-R4W"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVN-WC-U5s" userLabel="Stop Button" customClass="RoundedButton" customModule="SporthEditor" customModuleProvider="target">
-                                                        <rect key="frame" x="184" y="0.0" width="174" height="44"/>
-                                                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
-                                                        <state key="normal" title="Stop"/>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" red="0.90196078430000004" green="0.53333333329999999" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="stop" destination="fK6-aW-d0K" eventType="touchUpInside" id="aUS-5E-nCh"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -254,6 +242,7 @@
                     <connections>
                         <outlet property="codeEditorTextView" destination="KRV-Kj-ufW" id="ZLJ-PT-YR7"/>
                         <outlet property="keyboard" destination="Bh2-Lf-k29" id="vzv-bz-4zi"/>
+                        <outlet property="runButton" destination="aYn-Jm-ewa" id="8ki-5p-WEc"/>
                         <outlet property="slider1" destination="s5c-hy-qek" id="ybZ-gV-vWJ"/>
                         <outlet property="slider2" destination="cSD-1a-JTN" id="Pc6-4M-wB9"/>
                         <outlet property="slider3" destination="0bo-1W-eO1" id="T0s-6D-rNI"/>
