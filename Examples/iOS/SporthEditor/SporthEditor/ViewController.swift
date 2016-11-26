@@ -26,6 +26,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     
     @IBAction func run(_ sender: UIButton) {
         brain.run(codeEditorTextView.text)
+        updateContextAwareCotrols()
     }
     
     @IBAction func stop(_ sender: UIButton) {
@@ -120,6 +121,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     func updateContextAwareCotrols() {
         let sporth = brain.knownCodes[brain.names[brain.currentIndex]]!
         slidersStackView.isHidden = true
+        sliders.forEach { $0.isHidden = true }
         keyboard.isHidden = true
         var currentControl = 0
         search: for line in sporth.components(separatedBy: NSCharacterSet.newlines) {
