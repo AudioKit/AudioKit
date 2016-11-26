@@ -52,7 +52,6 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
             try brain.save(Constants.File.drone, code: String(contentsOfFile: Constants.Path.drone, encoding: String.Encoding.utf8))
             try brain.save(Constants.File.rhythmic, code: String(contentsOfFile: Constants.Path.rhythmic, encoding: String.Encoding.utf8))
             try brain.save(Constants.File.simpleKeyboard, code: String(contentsOfFile: Constants.Path.simpleKeyboard, encoding: String.Encoding.utf8))
-            try brain.save(Constants.File.betterKeyboard, code: String(contentsOfFile: Constants.Path.betterKeyboard, encoding: String.Encoding.utf8))
             
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
             status.text = brain.names.first!
