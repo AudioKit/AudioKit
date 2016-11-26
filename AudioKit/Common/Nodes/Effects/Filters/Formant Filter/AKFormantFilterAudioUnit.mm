@@ -30,14 +30,12 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setCenterFrequency:(float)centerFrequency {
-    _kernel.setCenterFrequency(centerFrequency);
+- (void)setX:(float)x {
+    _kernel.setX(x);
 }
-- (void)setAttackDuration:(float)attackDuration {
-    _kernel.setAttackDuration(attackDuration);
-}
-- (void)setDecayDuration:(float)decayDuration {
-    _kernel.setDecayDuration(decayDuration);
+
+- (void)setY:(float)y {
+    _kernel.setY(y);
 }
 
 
@@ -73,38 +71,25 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
-        // Create a parameter object for the centerFrequency.
-    AUParameter *centerFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"centerFrequency"
-                                              name:@"Center Frequency (Hz)"
-                                           address:centerFrequencyAddress
-                                               min:12.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
+    AUParameter *xAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"x"
+                                              name:@"x Position"
+                                           address:xAddress
+                                               min:0.0
+                                               max:1.0
+                                              unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the attackDuration.
-    AUParameter *attackDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"attackDuration"
-                                              name:@"Impulse response attack time (Seconds)"
-                                           address:attackDurationAddress
+
+    AUParameter *yAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"y"
+                                              name:@"y Position"
+                                           address:yAddress
                                                min:0.0
-                                               max:0.1
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the decayDuration.
-    AUParameter *decayDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"decayDuration"
-                                              name:@"Impulse reponse decay time (Seconds)"
-                                           address:decayDurationAddress
-                                               min:0.0
-                                               max:0.1
-                                              unit:kAudioUnitParameterUnit_Seconds
+                                               max:1.0
+                                              unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
@@ -112,21 +97,18 @@
 
 
     // Initialize the parameter values.
-    centerFrequencyAUParameter.value = 1000;
-    attackDurationAUParameter.value = 0.007;
-    decayDurationAUParameter.value = 0.04;
+    xAUParameter.value = 0;
+    yAUParameter.value = 0;
 
     _rampTime = AKSettings.rampTime;
 
-    _kernel.setParameter(centerFrequencyAddress, centerFrequencyAUParameter.value);
-    _kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value);
-    _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value);
+    _kernel.setParameter(xAddress, xAUParameter.value);
+    _kernel.setParameter(yAddress,  yAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        centerFrequencyAUParameter,
-        attackDurationAUParameter,
-        decayDurationAUParameter
+        xAUParameter,
+        yAUParameter
     ]];
 
     // Create the input and output busses.
@@ -159,13 +141,10 @@
         AUValue value = valuePtr == nil ? param.value : *valuePtr;
 
         switch (param.address) {
-            case centerFrequencyAddress:
+            case xAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
 
-            case attackDurationAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
-            case decayDurationAddress:
+            case yAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
 
             default:
