@@ -23,19 +23,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="preset_background" translatesAutoresizingMaskIntoConstraints="NO" id="k28-x3-4fa">
-                                <rect key="frame" x="342" y="496" width="682" height="31"/>
+                                <rect key="frame" x="368" y="20" width="774" height="44"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0mV-yf-JQJ">
-                                <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                                <rect key="frame" x="0.0" y="20" width="1346" height="1004"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Vu3-m1-n87" userLabel="Header Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="1366" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1346" height="44"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pz2-fU-SSy" userLabel="Run Stop Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="358" height="44"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYn-Jm-ewa" userLabel="Run Button" customClass="RoundedButton" customModule="SporthEditor" customModuleProvider="target">
-                                                        <rect key="frame" x="128" y="6" width="102" height="31"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="174" height="44"/>
                                                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
                                                         <state key="normal" title="Run"/>
@@ -43,11 +43,11 @@
                                                             <color key="titleColor" red="0.90196078430000004" green="0.53333333329999999" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="run:" destination="fK6-aW-d0K" eventType="touchUpInside" id="8IO-JX-fhH"/>
+                                                            <action selector="run" destination="fK6-aW-d0K" eventType="touchUpInside" id="iDg-iW-R4W"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVN-WC-U5s" userLabel="Stop Button" customClass="RoundedButton" customModule="SporthEditor" customModuleProvider="target">
-                                                        <rect key="frame" x="128" y="6" width="102" height="31"/>
+                                                        <rect key="frame" x="184" y="0.0" width="174" height="44"/>
                                                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
                                                         <state key="normal" title="Stop"/>
@@ -55,7 +55,7 @@
                                                             <color key="titleColor" red="0.90196078430000004" green="0.53333333329999999" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="stop:" destination="fK6-aW-d0K" eventType="touchUpInside" id="eDK-UY-nG0"/>
+                                                            <action selector="stop" destination="fK6-aW-d0K" eventType="touchUpInside" id="aUS-5E-nCh"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -64,10 +64,10 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFJ-sc-rPq">
-                                                <rect key="frame" x="583" y="-56" width="200" height="110"/>
+                                                <rect key="frame" x="368" y="0.0" width="774" height="44"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZ6-ha-Gcf" userLabel="Prev Button">
-                                                        <rect key="frame" x="85" y="41" width="30" height="28"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="gql-oP-Q9s"/>
                                                         </constraints>
@@ -77,13 +77,13 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDI-xf-BlS" userLabel="Status Lbl">
-                                                        <rect key="frame" x="-211" y="39" width="621" height="31"/>
+                                                        <rect key="frame" x="30" y="0.0" width="714" height="44"/>
                                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
                                                         <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="top" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FeD-th-gYu" userLabel="Next Button">
-                                                        <rect key="frame" x="85" y="41" width="30" height="28"/>
+                                                        <rect key="frame" x="744" y="0.0" width="30" height="44"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="YxU-Wd-RNp"/>
                                                         </constraints>
@@ -95,7 +95,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hmr-J4-iwK" userLabel="Save Button" customClass="RoundedButton" customModule="SporthEditor" customModuleProvider="target">
-                                                <rect key="frame" x="661" y="6" width="43" height="31"/>
+                                                <rect key="frame" x="1152" y="0.0" width="43" height="44"/>
                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="43" id="sfD-8I-ozd"/>
@@ -110,7 +110,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qv0-v7-ceT" userLabel="Settings Button" customClass="RoundedButton" customModule="SporthEditor" customModuleProvider="target">
-                                                <rect key="frame" x="612" y="6" width="141" height="31"/>
+                                                <rect key="frame" x="1205" y="0.0" width="141" height="44"/>
                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="141" id="w8G-aj-oCM"/>
@@ -124,7 +124,7 @@
                                         </constraints>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="code editor area" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KRV-Kj-ufW">
-                                        <rect key="frame" x="0.0" y="44" width="1366" height="540"/>
+                                        <rect key="frame" x="0.0" y="44" width="1346" height="540"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="540" id="nfH-Eq-eJ3"/>
@@ -134,13 +134,13 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="C3Q-IM-xzM" userLabel="Sliders and Output">
-                                        <rect key="frame" x="0.0" y="584" width="1366" height="240"/>
+                                        <rect key="frame" x="0.0" y="584" width="1346" height="220"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="eY2-EF-YMa" userLabel="Sliders Stack View">
-                                                <rect key="frame" x="0.0" y="0.0" width="683" height="240"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="668" height="220"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5c-hy-qek" customClass="AKPropertySlider" customModule="AudioKit">
-                                                        <rect key="frame" x="0.0" y="0.0" width="683" height="60"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="668" height="52"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
@@ -152,7 +152,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSD-1a-JTN" customClass="AKPropertySlider" customModule="AudioKit">
-                                                        <rect key="frame" x="0.0" y="60" width="683" height="60"/>
+                                                        <rect key="frame" x="0.0" y="56" width="668" height="52"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
@@ -164,7 +164,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bo-1W-eO1" customClass="AKPropertySlider" customModule="AudioKit">
-                                                        <rect key="frame" x="0.0" y="120" width="683" height="60"/>
+                                                        <rect key="frame" x="0.0" y="112" width="668" height="52"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
@@ -176,7 +176,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIB-wC-0B6" customClass="AKPropertySlider" customModule="AudioKit">
-                                                        <rect key="frame" x="0.0" y="180" width="683" height="60"/>
+                                                        <rect key="frame" x="0.0" y="168" width="668" height="52"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
@@ -191,7 +191,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tps-4D-kDx" customClass="AKOutputWaveformPlot" customModule="AudioKit">
-                                                <rect key="frame" x="683" y="0.0" width="683" height="240"/>
+                                                <rect key="frame" x="678" y="0.0" width="668" height="220"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <accessibilityTraits key="traits" notEnabled="YES"/>
@@ -216,7 +216,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bh2-Lf-k29" customClass="AKKeyboardView" customModule="AudioKit">
-                                        <rect key="frame" x="0.0" y="824" width="1366" height="200"/>
+                                        <rect key="frame" x="0.0" y="804" width="1346" height="200"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="200" id="VTS-e2-B12"/>
