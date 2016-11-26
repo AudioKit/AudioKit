@@ -24,12 +24,12 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     var currentMIDINote: MIDINoteNumber = 0
     var sliders: [AKPropertySlider] = []
     
-    @IBAction func run(_ sender: UIButton) {
+    @IBAction func run() {
         brain.run(codeEditorTextView.text)
         updateContextAwareCotrols()
     }
     
-    @IBAction func stop(_ sender: UIButton) {
+    @IBAction func stop() {
         brain.stop()
     }
     
@@ -49,9 +49,6 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     func setupUI() {
         
         do {
-            try brain.save(Constants.File.chat, code: String(contentsOfFile: Constants.Path.chat, encoding: String.Encoding.utf8))
-            try brain.save(Constants.File.drone, code: String(contentsOfFile: Constants.Path.drone, encoding: String.Encoding.utf8))
-            try brain.save(Constants.File.rhythmic, code: String(contentsOfFile: Constants.Path.rhythmic, encoding: String.Encoding.utf8))
             try brain.save(Constants.File.simpleKeyboard, code: String(contentsOfFile: Constants.Path.simpleKeyboard, encoding: String.Encoding.utf8))
             
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
@@ -170,6 +167,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     }
     
     func didChangePatch() {
+        stop()
         let sporth = brain.knownCodes[brain.names[brain.currentIndex]]
         codeEditorTextView.text = sporth
         
