@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     @IBOutlet var codeEditorTextView: UITextView!
     @IBOutlet weak var keyboard: AKKeyboardView!
     @IBOutlet weak var status: UILabel!
+    @IBOutlet weak var runButton: RoundedButton!
     
     @IBOutlet var slider1: AKPropertySlider!
     @IBOutlet var slider2: AKPropertySlider!
@@ -25,12 +26,20 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     var sliders: [AKPropertySlider] = []
     
     @IBAction func run() {
-        brain.run(codeEditorTextView.text)
-        updateContextAwareCotrols()
-    }
-    
-    @IBAction func stop() {
-        brain.stop()
+        if let started = brain.generator?.isStarted {
+            if started {
+                brain.stop()
+                runButton.setTitle("Run", for: .normal)
+            } else {
+                brain.run(codeEditorTextView.text)
+                updateContextAwareCotrols()
+                runButton.setTitle("Stop", for: .normal)
+            }
+        } else {
+            brain.run(codeEditorTextView.text)
+            updateContextAwareCotrols()
+            runButton.setTitle("Stop", for: .normal)
+        }
     }
     
     @IBAction func decreasePatch(_ sender: Any) {
@@ -167,7 +176,9 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     }
     
     func didChangePatch() {
-        stop()
+        brain.stop()
+        runButton.setTitle("Run", for: .normal)
+
         let sporth = brain.knownCodes[brain.names[brain.currentIndex]]
         codeEditorTextView.text = sporth
         

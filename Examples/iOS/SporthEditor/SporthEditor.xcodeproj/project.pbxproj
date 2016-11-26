@@ -138,9 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				783F1E7C1D353DCF00DD1B58 /* Preloaded files */,
+				C459EEC61DE6BFC200C0F494 /* UI Elements */,
 				78FFF9971D36A59A009B2E07 /* Supporting Files */,
 				783F1E761D35333D00DD1B58 /* SporthEditorBrain.swift */,
-				C459EEC61DE6BFC200C0F494 /* UI Elements */,
 				C485C6391D337759007D1BFD /* ViewController.swift */,
 				C485C63B1D337759007D1BFD /* Main.storyboard */,
 				783F1E701D340B3300DD1B58 /* FileUtilities.swift */,
