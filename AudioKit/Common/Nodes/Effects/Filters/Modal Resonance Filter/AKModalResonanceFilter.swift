@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKModalResonanceFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "modf")
+    public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 
     // MARK: - Properties
 

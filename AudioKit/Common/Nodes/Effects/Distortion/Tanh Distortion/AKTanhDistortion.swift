@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "dist")
+    public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
     // MARK: - Properties
 

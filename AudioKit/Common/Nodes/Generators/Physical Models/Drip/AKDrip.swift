@@ -22,7 +22,7 @@ import AVFoundation
 ///
 open class AKDrip: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKDripAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "drip")
+    public static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
     // MARK: - Properties
 

@@ -11,7 +11,7 @@ import AVFoundation
 /// Testing node
 open class AKTester: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKTesterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "tstr")
+    public static let ComponentDescription = AudioComponentDescription(effect: "tstr")
 
 
     // MARK: - Properties

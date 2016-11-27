@@ -16,7 +16,7 @@ import AVFoundation
 ///
 open class AKBooster: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBoosterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "gain")
+    public static let ComponentDescription = AudioComponentDescription(effect: "gain")
 
     // MARK: - Properties
 
