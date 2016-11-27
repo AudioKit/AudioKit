@@ -89,6 +89,8 @@
 		C42FFBDB1C3D039C00823BD4 /* AKPannerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBCB1C3D039C00823BD4 /* AKPannerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42FFBDC1C3D039C00823BD4 /* AKPannerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBCC1C3D039C00823BD4 /* AKPannerAudioUnit.mm */; };
 		C42FFBDD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBCD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp */; };
+		C43101D51DEA9B3C00DD7076 /* growl.c in Sources */ = {isa = PBXBuildFile; fileRef = C43101D31DEA9B3C00DD7076 /* growl.c */; };
+		C43101D61DEA9B3C00DD7076 /* growl.h in Headers */ = {isa = PBXBuildFile; fileRef = C43101D41DEA9B3C00DD7076 /* growl.h */; };
 		C4362F141C2F5FCD00D17352 /* reverberateWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F131C2F5FCD00D17352 /* reverberateWithCostello.swift */; };
 		C4362F161C2F5FD500D17352 /* variableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F151C2F5FD500D17352 /* variableDelay.swift */; };
 		C43E42A01D066DD30066BF7A /* AK3DPanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43E429F1D066DD30066BF7A /* AK3DPanner.swift */; };
@@ -797,6 +799,8 @@
 		C42FFBCB1C3D039C00823BD4 /* AKPannerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPannerAudioUnit.h; sourceTree = "<group>"; };
 		C42FFBCC1C3D039C00823BD4 /* AKPannerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPannerAudioUnit.mm; sourceTree = "<group>"; };
 		C42FFBCD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPannerDSPKernel.hpp; sourceTree = "<group>"; };
+		C43101D31DEA9B3C00DD7076 /* growl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = growl.c; sourceTree = "<group>"; };
+		C43101D41DEA9B3C00DD7076 /* growl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = growl.h; sourceTree = "<group>"; };
 		C4362F131C2F5FCD00D17352 /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
 		C4362F151C2F5FD500D17352 /* variableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = variableDelay.swift; sourceTree = "<group>"; };
 		C43E429F1D066DD30066BF7A /* AK3DPanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AK3DPanner.swift; sourceTree = "<group>"; };
@@ -1601,6 +1605,15 @@
 			path = Panner;
 			sourceTree = "<group>";
 		};
+		C43101D21DEA9B3C00DD7076 /* growl */ = {
+			isa = PBXGroup;
+			children = (
+				C43101D31DEA9B3C00DD7076 /* growl.c */,
+				C43101D41DEA9B3C00DD7076 /* growl.h */,
+			);
+			path = growl;
+			sourceTree = "<group>";
+		};
 		C43E429E1D066DD30066BF7A /* Environment */ = {
 			isa = PBXGroup;
 			children = (
@@ -2330,6 +2343,7 @@
 		C48C69521D3C1573008EA51B /* Soundpipe */ = {
 			isa = PBXGroup;
 			children = (
+				C43101D21DEA9B3C00DD7076 /* growl */,
 				C48C69531D3C1573008EA51B /* lib */,
 				C48C69641D3C1573008EA51B /* modules */,
 				C48C69D11D3C1574008EA51B /* soundpipe.h */,
@@ -3309,6 +3323,7 @@
 				C40C42371C40E5C2009D870B /* TPCircularBuffer.h in Headers */,
 				C45381E91C3A5CBD00A51738 /* AKStringResonatorAudioUnit.h in Headers */,
 				C45381A11C3A5CBD00A51738 /* AKTanhDistortionAudioUnit.h in Headers */,
+				C43101D61DEA9B3C00DD7076 /* growl.h in Headers */,
 				C45381F51C3A5CBD00A51738 /* AKToneFilterAudioUnit.h in Headers */,
 				C45381E11C3A5CBD00A51738 /* AKPeakingParametricEqualizerFilterAudioUnit.h in Headers */,
 				C453818B1C3A5CBD00A51738 /* AKFrequencyTrackerDSPKernel.hpp in Headers */,
@@ -3568,6 +3583,7 @@
 				C48C6AC81D3C1574008EA51B /* wpkorg35.c in Sources */,
 				C48C6AC01D3C1574008EA51B /* tone.c in Sources */,
 				C45381971C3A5CBD00A51738 /* AKBitCrusherAudioUnit.mm in Sources */,
+				C43101D51DEA9B3C00DD7076 /* growl.c in Sources */,
 				C4E752441C23888700688A1B /* reverberateWithChowning.swift in Sources */,
 				C4F8CAD21DCA928A001F38F2 /* blsaw.c in Sources */,
 				C48C6AB81D3C1574008EA51B /* tdiv.c in Sources */,

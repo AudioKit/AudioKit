@@ -25,6 +25,8 @@
 		C42899A01D55488900B941B5 /* tgate.c in Sources */ = {isa = PBXBuildFile; fileRef = C428999F1D55488900B941B5 /* tgate.c */; };
 		C42899A21D55496A00B941B5 /* nsmp.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899A11D55496A00B941B5 /* nsmp.c */; };
 		C42899A41D55498500B941B5 /* peaklim.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899A31D55498500B941B5 /* peaklim.c */; };
+		C43101D01DEA9B0700DD7076 /* growl.c in Sources */ = {isa = PBXBuildFile; fileRef = C43101CE1DEA9B0700DD7076 /* growl.c */; };
+		C43101D11DEA9B0700DD7076 /* growl.h in Headers */ = {isa = PBXBuildFile; fileRef = C43101CF1DEA9B0700DD7076 /* growl.h */; };
 		C446B3E21D4544EF000AEFCA /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */; };
 		C446B3E41D4544EF000AEFCA /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */; };
 		C45231031DCDC21900A4F0DC /* count.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45231001DCDC21900A4F0DC /* count.swift */; };
@@ -786,6 +788,8 @@
 		C42899C61D56839B00B941B5 /* Effects.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Effects.playground; path = ../../../Common/Playgrounds/Effects.playground; sourceTree = "<group>"; };
 		C42899C71D5683A000B941B5 /* Filters.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Filters.playground; path = ../../../Common/Playgrounds/Filters.playground; sourceTree = "<group>"; };
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C43101CE1DEA9B0700DD7076 /* growl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = growl.c; sourceTree = "<group>"; };
+		C43101CF1DEA9B0700DD7076 /* growl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = growl.h; sourceTree = "<group>"; };
 		C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = macOSDevelopment.playground; sourceTree = "<group>"; };
 		C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
@@ -1573,6 +1577,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C43101CD1DEA9B0700DD7076 /* growl */ = {
+			isa = PBXGroup;
+			children = (
+				C43101CE1DEA9B0700DD7076 /* growl.c */,
+				C43101CF1DEA9B0700DD7076 /* growl.h */,
+			);
+			path = growl;
+			sourceTree = "<group>";
+		};
 		C446B3D51D45447A000AEFCA /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -1729,6 +1742,7 @@
 		C45662EF1D448D7D00D26565 /* Soundpipe */ = {
 			isa = PBXGroup;
 			children = (
+				C43101CD1DEA9B0700DD7076 /* growl */,
 				C45662F01D448D7D00D26565 /* lib */,
 				C45663011D448D7D00D26565 /* modules */,
 				C456636E1D448D7E00D26565 /* soundpipe.h */,
@@ -3473,6 +3487,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C43101D11DEA9B0700DD7076 /* growl.h in Headers */,
 				C456697F1D448D7E00D26565 /* AKPhaseDistortionOscillatorAudioUnit.h in Headers */,
 				C456674D1D448D7E00D26565 /* plumber.h in Headers */,
 				C45666C11D448D7E00D26565 /* EZAudioPlotGL.h in Headers */,
@@ -3973,6 +3988,7 @@
 				C45667281D448D7E00D26565 /* reverse.c in Sources */,
 				C456670E1D448D7E00D26565 /* moogladder.c in Sources */,
 				C456670B1D448D7E00D26565 /* metro.c in Sources */,
+				C43101D01DEA9B0700DD7076 /* growl.c in Sources */,
 				C45666EC1D448D7E00D26565 /* clip.c in Sources */,
 				C456692E1D448D7E00D26565 /* AKThreePoleLowpassFilter.swift in Sources */,
 				C45666E01D448D7E00D26565 /* bar.c in Sources */,
