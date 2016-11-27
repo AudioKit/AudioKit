@@ -22,7 +22,7 @@ import AVFoundation
 ///
 open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "morf")
+    public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
     // MARK: - Properties
 

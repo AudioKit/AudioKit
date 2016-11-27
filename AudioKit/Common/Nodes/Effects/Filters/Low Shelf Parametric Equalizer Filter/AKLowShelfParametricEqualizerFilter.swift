@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "peq1")
+    public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
 
     // MARK: - Properties
 

@@ -22,7 +22,7 @@ import AVFoundation
 ///
 open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorBankAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "oscb")
+    public static let ComponentDescription = AudioComponentDescription(generator: "oscb")
 
     // MARK: - Properties
 

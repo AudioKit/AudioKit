@@ -21,7 +21,7 @@ import AVFoundation
 ///
 open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKCombFilterReverbAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "comb")
+    public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
     // MARK: - Properties
 

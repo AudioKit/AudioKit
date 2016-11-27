@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPluckedStringAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "pluk")
+    public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 
     // MARK: - Properties
 

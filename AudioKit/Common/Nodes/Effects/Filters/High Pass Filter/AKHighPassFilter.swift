@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKHighPassFilter: AKNode, AKToggleable, AUComponent {
 
-    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
+    public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil

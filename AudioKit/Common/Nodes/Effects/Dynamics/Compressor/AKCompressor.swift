@@ -22,7 +22,7 @@ import AVFoundation
 ///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
 ///
 open class AKCompressor: AKNode, AKToggleable, AUComponent {
-    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
+    public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var au: AUWrapper

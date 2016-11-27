@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKVariableDelayAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "vdla")
+    public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
     // MARK: - Properties
 

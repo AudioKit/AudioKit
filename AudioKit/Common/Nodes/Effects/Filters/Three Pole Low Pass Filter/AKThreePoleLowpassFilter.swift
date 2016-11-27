@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKThreePoleLowpassFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "lp18")
+    public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
     // MARK: - Properties
 

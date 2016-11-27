@@ -14,7 +14,7 @@ import AVFoundation
 ///
 open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKWhiteNoiseAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "wnoz")
+    public static let ComponentDescription = AudioComponentDescription(generator: "wnoz")
 
     // MARK: - Properties
 

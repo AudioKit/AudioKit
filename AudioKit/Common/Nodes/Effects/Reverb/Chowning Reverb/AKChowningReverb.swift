@@ -20,7 +20,7 @@ import AVFoundation
 ///
 open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKChowningReverbAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
+    public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
     // MARK: - Properties
 
