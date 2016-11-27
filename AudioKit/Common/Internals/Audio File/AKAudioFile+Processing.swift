@@ -46,7 +46,7 @@ extension AKAudioFile {
         
         let gainFactor = Float( pow(10.0, newMaxLevel/10.0) / pow(10.0, level / 10.0))
         
-        let arrays = self.arraysOfFloats
+        let arrays = self.floatChannelData ?? [[]]
         
         var newArrays: [[Float]] = []
         for array in arrays {
@@ -79,7 +79,7 @@ extension AKAudioFile {
         }
         
         
-        let arrays = self.arraysOfFloats
+        let arrays = self.floatChannelData ?? [[]]
         
         var newArrays: [[Float]] = []
         for array in arrays {
@@ -201,7 +201,7 @@ extension AKAudioFile {
         }
         
         
-        let arrays = self.arraysOfFloats
+        let arrays = self.floatChannelData ?? [[]]
         
         var newArrays: [[Float]] = []
         

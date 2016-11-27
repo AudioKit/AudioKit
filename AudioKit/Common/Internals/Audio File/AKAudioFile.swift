@@ -155,27 +155,37 @@ open class AKAudioFile: AVAudioFile {
         }
     }
 
-    /// returns audio data as an Array of float Arrays
+    // Make our types Human Friendly™
+    public typealias FloatChannelData = Array<Array<Float>>
+
+    /// Returns audio data as an `Array` of `Float` Arrays.
+    ///
     /// If stereo:
-    ///     - arraysOfFloats[0] will contain an Array of left channel samples as Floats
-    ///     - arraysOfFloats[1] will contains an Array of right channel samples as Floats
-    open lazy var arraysOfFloats: [[Float]] = {
-        var arrays: [[Float]] = []
-
-        if self.samplesCount > 0 {
-            let buf = self.pcmBuffer
-
-            for channel in 0..<self.channelCount {
-                let floatArray = Array(UnsafeBufferPointer(start: buf.floatChannelData?[Int(channel)], count:Int(buf.frameLength)))
-                arrays.append(floatArray)
-            }
-        } else {
-            print("Warning AKAudioFile arraysOfFloats: self.samplesCount = 0")
+    /// - `floatChannelData?[0]` will contain an Array of left channel samples as `Float`
+    /// - `floatChannelData?[1]` will contains an Array of right channel samples as `Float`
+    open lazy var floatChannelData: FloatChannelData? = {
+        // Do we have PCM channel data?
+        guard let pcmFloatChannelData = self.pcmBuffer.floatChannelData else {
+            return nil
         }
 
-        return arrays
-    }()
+        let channelCount = Int(self.pcmBuffer.format.channelCount)
+        let frameLength  = Int(self.pcmBuffer.frameLength)
+        let stride       = self.pcmBuffer.stride
 
+        // Preallocate our Array so we're not constantly thrashing while resizing as we append.
+        var result = Array(repeating: Array<Float>(repeating: 0.0, count: frameLength), count: channelCount)
+
+        // Loop across our channels...
+        for channel in 0..<channelCount {
+            // Make sure we go through all of the frames...
+            for sampleIndex in 0..<frameLength {
+                result[channel][sampleIndex] = pcmFloatChannelData[channel][sampleIndex * stride]
+            }
+        }
+
+        return result
+    }()
 
     /// returns audio data as an AVAudioPCMBuffer
     open lazy var pcmBuffer: AVAudioPCMBuffer = {
