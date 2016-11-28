@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKTremolo: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKTremoloAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "trem")
+    public static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
     // MARK: - Properties
 

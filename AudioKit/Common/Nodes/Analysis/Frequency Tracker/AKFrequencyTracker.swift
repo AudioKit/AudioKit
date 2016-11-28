@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFrequencyTrackerAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "ptrk")
+    public static let ComponentDescription = AudioComponentDescription(effect: "ptrk")
 
     // MARK: - Properties
 

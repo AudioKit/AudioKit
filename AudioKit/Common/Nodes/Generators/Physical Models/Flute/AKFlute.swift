@@ -16,7 +16,7 @@ import AVFoundation
 ///
 open class AKFlute: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFluteAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "flut")
+    public static let ComponentDescription = AudioComponentDescription(generator: "flut")
 
     // MARK: - Properties
 

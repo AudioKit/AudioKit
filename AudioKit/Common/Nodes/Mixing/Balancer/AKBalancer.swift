@@ -21,7 +21,7 @@ import AVFoundation
 ///
 open class AKBalancer: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBalancerAudioUnit
-    static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
+    public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
     // MARK: - Properties
     

@@ -15,7 +15,7 @@ import AVFoundation
 ///
 open class AKDCBlock: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKDCBlockAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
+    public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
 
     // MARK: - Properties
 
