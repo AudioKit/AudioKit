@@ -9,15 +9,11 @@
 #ifndef AKVariableDelayAudioUnit_h
 #define AKVariableDelayAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKVariableDelayAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKVariableDelayAudioUnit : AKAudioUnit
 @property (nonatomic) float time;
 @property (nonatomic) float feedback;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKVariableDelayAudioUnit_h */

@@ -565,6 +565,8 @@
 		C4B192D31C3B637900C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4B192CF1C3B637900C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */; };
 		C4B73B501D4C961E007EB274 /* mixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B73B4F1D4C961E007EB274 /* mixer.swift */; };
 		C4BA6E881DD99C23002254EB /* AKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA6E871DD99C23002254EB /* AKComponent.swift */; };
+		C4BEAA121DEC3A9800186C50 /* AKAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BEAA101DEC3A9800186C50 /* AKAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4BEAA131DEC3A9800186C50 /* AKAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */; };
 		C4C136EF1C2F94710026FD7A /* AKParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C136EE1C2F94710026FD7A /* AKParameter.swift */; };
 		C4C136F11C2F94A00026FD7A /* AKStereoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C136F01C2F94A00026FD7A /* AKStereoOperation.swift */; };
 		C4CC34121D1DF4D30066DDCC /* AKMIDINode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC34111D1DF4D30066DDCC /* AKMIDINode.swift */; };
@@ -1322,6 +1324,8 @@
 		C4B192CF1C3B637900C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKAmplitudeEnvelopeDSPKernel.hpp; sourceTree = "<group>"; };
 		C4B73B4F1D4C961E007EB274 /* mixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mixer.swift; sourceTree = "<group>"; };
 		C4BA6E871DD99C23002254EB /* AKComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKComponent.swift; sourceTree = "<group>"; };
+		C4BEAA101DEC3A9800186C50 /* AKAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnit.h; sourceTree = "<group>"; };
+		C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioUnit.mm; sourceTree = "<group>"; };
 		C4C136EE1C2F94710026FD7A /* AKParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameter.swift; sourceTree = "<group>"; };
 		C4C136F01C2F94A00026FD7A /* AKStereoOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoOperation.swift; sourceTree = "<group>"; };
 		C4CC34111D1DF4D30066DDCC /* AKMIDINode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDINode.swift; sourceTree = "<group>"; };
@@ -1594,6 +1598,8 @@
 		C40C41221C40E344009D870B /* CoreAudio */ = {
 			isa = PBXGroup;
 			children = (
+				C4BEAA101DEC3A9800186C50 /* AKAudioUnit.h */,
+				C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */,
 				C40C41231C40E344009D870B /* BufferedAudioBus.hpp */,
 				C48DB7921CD5373000D1EC13 /* CheckError.swift */,
 				C40C41241C40E344009D870B /* DSPKernel.hpp */,
@@ -3485,6 +3491,7 @@
 				C4537FB21C3A438D00A51738 /* AKBandRejectButterworthFilterAudioUnit.h in Headers */,
 				C48C6C4F1D3C15F1008EA51B /* kiss_fft.h in Headers */,
 				C49D69721D1F1DE300BF018A /* AKMorphingOscillatorBankAudioUnit.h in Headers */,
+				C4BEAA121DEC3A9800186C50 /* AKAudioUnit.h in Headers */,
 				C40718061D2119BF00665C02 /* SineWave.h in Headers */,
 				B1F47ABB1DC54DCA00706A2F /* EZAudioFileMarker.h in Headers */,
 				C42F35041C057E03000E937C /* AudioKit.h in Headers */,
@@ -4013,6 +4020,7 @@
 				C487B6081DD9234F00C56B59 /* Clarinet.cpp in Sources */,
 				C48C6C751D3C15F1008EA51B /* fofilt.c in Sources */,
 				C48C6C811D3C15F1008EA51B /* lpf18.c in Sources */,
+				C4BEAA131DEC3A9800186C50 /* AKAudioUnit.mm in Sources */,
 				C42899B21D55ACAA00B941B5 /* nsmp.c in Sources */,
 				C48C6C8A1D3C15F1008EA51B /* padsynth.c in Sources */,
 				C48C6C9F1D3C15F1008EA51B /* reson.c in Sources */,
