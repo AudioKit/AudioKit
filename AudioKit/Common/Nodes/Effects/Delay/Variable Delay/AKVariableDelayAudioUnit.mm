@@ -14,14 +14,6 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKVariableDelayAudioUnit()
-
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
-
-@end
-
 @implementation AKVariableDelayAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKVariableDelayDSPKernel _kernel;
@@ -99,8 +91,6 @@
     timeAUParameter.value = 1;
     feedbackAUParameter.value = 0;
 
-    _rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(timeAddress,             timeAUParameter.value);
     _kernel.setParameter(feedbackAddress,         feedbackAUParameter.value);
 
@@ -109,18 +99,6 @@
         timeAUParameter,
         feedbackAUParameter
     ]];
-
-    // Create the input and output busses.
-    _inputBus.init(defaultFormat, 8);
-    _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
-
-    // Create the input and output bus arrays.
-    _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeInput
-                                                              busses: @[_inputBus.bus]];
-    _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeOutput
-                                                              busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
     __block AKVariableDelayDSPKernel *delayKernel = &_kernel;
@@ -158,34 +136,12 @@
 
 #pragma mark - AUAudioUnit Overrides
 
-- (AUAudioUnitBusArray *)inputBusses {
-    return _inputBusArray;
-}
-- (AUAudioUnitBusArray *)outputBusses {
-    return _outputBusArray;
-}
-
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
     }
-    if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
-        if (outError) {
-            *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
-                                            code:kAudioUnitErr_FailedInitialization
-                                        userInfo:nil];
-        }
-        // Notify superclass that initialization was not successful
-        self.renderResourcesAllocated = NO;
-
-        return NO;
-    }
-    _inputBus.allocateRenderResources(self.maximumFramesToRender);
-
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
-
-    [self setUpParameterRamp];
 
     return YES;
 }
@@ -198,7 +154,7 @@
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
     // Ramp over rampTime in seconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(self.rampTime * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
@@ -208,8 +164,6 @@
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
     _kernel.destroy();
-
-    _inputBus.deallocateRenderResources();
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {
