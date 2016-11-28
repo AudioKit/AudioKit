@@ -91,6 +91,8 @@
     timeAUParameter.value = 1;
     feedbackAUParameter.value = 0;
 
+    self.rampTime = AKSettings.rampTime;
+
     _kernel.setParameter(timeAddress,             timeAUParameter.value);
     _kernel.setParameter(feedbackAddress,         feedbackAUParameter.value);
 
@@ -99,6 +101,18 @@
         timeAUParameter,
         feedbackAUParameter
     ]];
+
+    // Create the input and output busses.
+    _inputBus.init(defaultFormat, 8);
+    self.outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
+    
+    // Create the input and output bus arrays.
+    self.inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                 busType:AUAudioUnitBusTypeInput
+                                                                  busses: @[_inputBus.bus]];
+    self.outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                 busType:AUAudioUnitBusTypeOutput
+                                                                  busses: @[self.outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
     __block AKVariableDelayDSPKernel *delayKernel = &_kernel;
@@ -119,8 +133,6 @@
 
         switch (param.address) {
             case timeAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case feedbackAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
 
@@ -140,30 +152,31 @@
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
     }
+    if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
+        if (outError) {
+            *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
+                                            code:kAudioUnitErr_FailedInitialization
+                                        userInfo:nil];
+        }
+        // Notify superclass that initialization was not successful
+        self.renderResourcesAllocated = NO;
+
+        return NO;
+    }
+    _inputBus.allocateRenderResources(self.maximumFramesToRender);
+
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
     return YES;
 }
 
-- (void)setUpParameterRamp {
-    /*
-     While rendering, we want to schedule all parameter changes. Setting them
-     off the render thread is not thread safe.
-     */
-    __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
-    // Ramp over rampTime in seconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(self.rampTime * self.outputBus.format.sampleRate);
-
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
-    };
-}
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
     _kernel.destroy();
+
+    _inputBus.deallocateRenderResources();
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {
