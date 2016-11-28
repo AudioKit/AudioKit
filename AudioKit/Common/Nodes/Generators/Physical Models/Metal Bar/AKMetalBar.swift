@@ -23,7 +23,7 @@ import AVFoundation
 ///
 open class AKMetalBar: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKMetalBarAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "mbar")
+    public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 
     // MARK: - Properties
 

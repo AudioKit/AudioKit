@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPeakingParametricEqualizerFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "peq0")
+    public static let ComponentDescription = AudioComponentDescription(effect: "peq0")
 
     // MARK: - Properties
 

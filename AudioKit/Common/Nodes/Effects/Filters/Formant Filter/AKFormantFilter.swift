@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "fofi")
+    public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
     // MARK: - Properties
 

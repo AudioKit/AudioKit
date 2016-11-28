@@ -21,7 +21,7 @@ import AVFoundation
 ///
 open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorBankAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "pwmb")
+    public static let ComponentDescription = AudioComponentDescription(generator: "pwmb")
 
     // MARK: - Properties
 

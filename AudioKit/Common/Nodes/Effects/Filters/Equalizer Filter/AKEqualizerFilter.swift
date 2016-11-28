@@ -21,7 +21,7 @@ import AVFoundation
 ///
 open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
+    public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
     // MARK: - Properties
 

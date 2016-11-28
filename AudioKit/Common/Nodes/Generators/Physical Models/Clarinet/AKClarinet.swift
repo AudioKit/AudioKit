@@ -15,7 +15,7 @@ import AVFoundation
 ///   - amplitude: Amplitude
 ///
 open class AKClarinet: AKNode, AKToggleable, AKComponent {
-    static let ComponentDescription = AudioComponentDescription(generator: "flut")
+    public static let ComponentDescription = AudioComponentDescription(generator: "flut")
     public typealias AKAudioUnitType = AKClarinetAudioUnit
     // MARK: - Properties
 

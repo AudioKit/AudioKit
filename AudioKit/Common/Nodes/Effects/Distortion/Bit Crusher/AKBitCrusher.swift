@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBitCrusherAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "btcr")
+    public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
 
     // MARK: - Properties

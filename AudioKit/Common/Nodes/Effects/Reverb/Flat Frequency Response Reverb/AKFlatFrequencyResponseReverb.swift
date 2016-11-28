@@ -21,7 +21,7 @@ import AVFoundation
 ///
 open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFlatFrequencyResponseReverbAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "alps")
+    public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
     // MARK: - Properties
 

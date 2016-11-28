@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "pwmo")
+    public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")
 
     // MARK: - Properties
 
