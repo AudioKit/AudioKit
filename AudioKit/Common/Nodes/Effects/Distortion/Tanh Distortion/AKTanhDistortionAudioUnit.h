@@ -10,18 +10,14 @@
 #define AKTanhDistortionAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKTanhDistortionAudioUnit : AUAudioUnit
+@interface AKTanhDistortionAudioUnit : AUAudioUnit<AKAudioUnitType>
+
 @property (nonatomic) float pregain;
 @property (nonatomic) float postgain;
 @property (nonatomic) float postiveShapeParameter;
 @property (nonatomic) float negativeShapeParameter;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

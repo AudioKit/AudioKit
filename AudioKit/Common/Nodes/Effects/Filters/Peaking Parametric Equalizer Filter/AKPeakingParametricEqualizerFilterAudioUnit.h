@@ -10,17 +10,12 @@
 #define AKPeakingParametricEqualizerFilterAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKPeakingParametricEqualizerFilterAudioUnit : AUAudioUnit
+@interface AKPeakingParametricEqualizerFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float centerFrequency;
 @property (nonatomic) float gain;
 @property (nonatomic) float q;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

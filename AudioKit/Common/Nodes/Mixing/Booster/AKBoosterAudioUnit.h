@@ -10,15 +10,10 @@
 #define AKBoosterAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKBoosterAudioUnit : AUAudioUnit
+@interface AKBoosterAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float gain;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

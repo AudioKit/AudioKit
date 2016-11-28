@@ -10,17 +10,12 @@
 #define AKKorgLowPassFilterAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKKorgLowPassFilterAudioUnit : AUAudioUnit
+@interface AKKorgLowPassFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float cutoffFrequency;
 @property (nonatomic) float resonance;
 @property (nonatomic) float saturation;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

@@ -10,15 +10,11 @@
 #define AKCombFilterReverbAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKCombFilterReverbAudioUnit : AUAudioUnit
+@interface AKCombFilterReverbAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float reverbDuration;
 - (void)setLoopDuration:(float)duration;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

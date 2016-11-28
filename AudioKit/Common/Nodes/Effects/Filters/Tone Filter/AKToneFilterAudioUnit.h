@@ -10,15 +10,10 @@
 #define AKToneFilterAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKToneFilterAudioUnit : AUAudioUnit
+@interface AKToneFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float halfPowerPoint;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 
