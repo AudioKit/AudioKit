@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKCostelloReverbAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
+    public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
     // MARK: - Properties
 

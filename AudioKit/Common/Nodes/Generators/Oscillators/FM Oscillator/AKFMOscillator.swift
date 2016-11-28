@@ -20,7 +20,7 @@ import AVFoundation
 ///
 open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "fosc")
+    public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
     // MARK: - Properties
 

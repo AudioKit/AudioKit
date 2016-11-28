@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKHighPassButterworthFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "bthp")
+    public static let ComponentDescription = AudioComponentDescription(effect: "bthp")
 
 
     // MARK: - Properties

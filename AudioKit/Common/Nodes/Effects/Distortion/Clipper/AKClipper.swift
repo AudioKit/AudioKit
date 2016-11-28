@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKClipper: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKClipperAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "clip")
+    public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
     // MARK: - Properties
 

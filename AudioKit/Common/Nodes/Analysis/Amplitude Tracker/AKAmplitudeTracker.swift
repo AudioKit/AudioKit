@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKAmplitudeTrackerAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
+    public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
 
     // MARK: - Properties
 
