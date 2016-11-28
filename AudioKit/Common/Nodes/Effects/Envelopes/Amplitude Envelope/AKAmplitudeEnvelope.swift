@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "adsr")
+    public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
     // MARK: - Properties
 

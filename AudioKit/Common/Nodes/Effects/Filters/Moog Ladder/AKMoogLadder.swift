@@ -21,7 +21,7 @@ import AVFoundation
 ///
 open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKMoogLadderAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "mgld")
+    public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
     // MARK: - Properties
 

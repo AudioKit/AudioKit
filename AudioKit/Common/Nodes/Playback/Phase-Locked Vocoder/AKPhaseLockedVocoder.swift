@@ -20,7 +20,7 @@ import AVFoundation
 ///
 open class AKPhaseLockedVocoder: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "minc")
+    public static let ComponentDescription = AudioComponentDescription(generator: "minc")
 
     // MARK: - Properties
 

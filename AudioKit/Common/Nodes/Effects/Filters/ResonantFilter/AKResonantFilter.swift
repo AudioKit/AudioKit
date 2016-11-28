@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKResonantFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "resn")
+    public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
     // MARK: - Properties
 

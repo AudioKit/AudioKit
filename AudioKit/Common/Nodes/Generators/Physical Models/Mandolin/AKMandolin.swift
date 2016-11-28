@@ -16,7 +16,7 @@ import AVFoundation
 ///
 open class AKMandolin: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKMandolinAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "mand")
+    public static let ComponentDescription = AudioComponentDescription(generator: "mand")
 
     // MARK: - Properties
 

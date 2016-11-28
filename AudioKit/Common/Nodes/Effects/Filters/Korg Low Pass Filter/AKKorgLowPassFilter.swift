@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKKorgLowPassFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "klpf")
+    public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
     // MARK: - Properties
 

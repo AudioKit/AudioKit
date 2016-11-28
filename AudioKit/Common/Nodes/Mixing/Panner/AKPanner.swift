@@ -16,7 +16,7 @@ import AVFoundation
 ///
 open class AKPanner: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPannerAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "pan2")
+    public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
     // MARK: - Properties
 

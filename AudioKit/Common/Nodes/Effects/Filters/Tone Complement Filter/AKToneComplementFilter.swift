@@ -16,7 +16,7 @@ import AVFoundation
 ///
 open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKToneComplementFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "aton")
+    public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
     // MARK: - Properties
 

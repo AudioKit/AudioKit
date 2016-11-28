@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKConvolution: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKConvolutionAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "conv")
+    public static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
     // MARK: - Properties
 

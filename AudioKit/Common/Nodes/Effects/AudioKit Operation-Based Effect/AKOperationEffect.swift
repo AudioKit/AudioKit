@@ -11,7 +11,7 @@ import AVFoundation
 /// Operation-based effect
 open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOperationEffectAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "cstm")
+    public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
 
     // MARK: - Properties
 
