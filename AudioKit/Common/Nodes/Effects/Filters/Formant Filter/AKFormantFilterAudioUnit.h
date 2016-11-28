@@ -10,16 +10,11 @@
 #define AKFormantFilterAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKFormantFilterAudioUnit : AUAudioUnit
+@interface AKFormantFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float x;
 @property (nonatomic) float y;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

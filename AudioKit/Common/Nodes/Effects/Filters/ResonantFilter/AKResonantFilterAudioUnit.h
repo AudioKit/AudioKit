@@ -10,16 +10,11 @@
 #define AKResonantFilterAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKResonantFilterAudioUnit : AUAudioUnit
+@interface AKResonantFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float frequency;
 @property (nonatomic) float bandwidth;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

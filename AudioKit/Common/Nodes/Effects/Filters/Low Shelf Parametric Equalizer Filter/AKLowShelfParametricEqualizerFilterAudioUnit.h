@@ -10,17 +10,12 @@
 #define AKLowShelfParametricEqualizerFilterAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKLowShelfParametricEqualizerFilterAudioUnit : AUAudioUnit
+@interface AKLowShelfParametricEqualizerFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float cornerFrequency;
 @property (nonatomic) float gain;
 @property (nonatomic) float q;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

@@ -10,17 +10,12 @@
 #define AKAutoWahAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKAutoWahAudioUnit : AUAudioUnit
+@interface AKAutoWahAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float wah;
 @property (nonatomic) float mix;
 @property (nonatomic) float amplitude;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

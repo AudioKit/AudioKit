@@ -10,16 +10,11 @@
 #define AKMoogLadderAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKMoogLadderAudioUnit : AUAudioUnit
+@interface AKMoogLadderAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float cutoffFrequency;
 @property (nonatomic) float resonance;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 
