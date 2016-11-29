@@ -14,14 +14,6 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKBitCrusherAudioUnit()
-
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
-
-@end
-
 @implementation AKBitCrusherAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKBitCrusherDSPKernel _kernel;
@@ -100,7 +92,7 @@
     bitDepthAUParameter.value = 8;
     sampleRateAUParameter.value = 10000;
 
-    _rampTime = AKSettings.rampTime;
+    self.rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(bitDepthAddress,   bitDepthAUParameter.value);
     _kernel.setParameter(sampleRateAddress, sampleRateAUParameter.value);
@@ -113,16 +105,16 @@
 
     // Create the input and output busses.
     _inputBus.init(defaultFormat, 8);
-    _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
+    self.outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
 
     // Create the input and output bus arrays.
-    _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeInput
-                                                              busses: @[_inputBus.bus]];
-    _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeOutput
-                                                              busses: @[_outputBus]];
-
+    self.inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                 busType:AUAudioUnitBusTypeInput
+                                                                  busses:@[_inputBus.bus]];
+    self.outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                 busType:AUAudioUnitBusTypeOutput
+                                                                  busses:@[self.outputBus]];
+    
     // Make a local pointer to the kernel to avoid capturing self.
     __block AKBitCrusherDSPKernel *bitcrusherKernel = &_kernel;
 
@@ -159,13 +151,6 @@
 
 #pragma mark - AUAudioUnit Overrides
 
-- (AUAudioUnitBusArray *)inputBusses {
-    return _inputBusArray;
-}
-- (AUAudioUnitBusArray *)outputBusses {
-    return _outputBusArray;
-}
-
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
@@ -189,21 +174,6 @@
     [self setUpParameterRamp];
 
     return YES;
-}
-
-- (void)setUpParameterRamp {
-    /*
-     While rendering, we want to schedule all parameter changes. Setting them
-     off the render thread is not thread safe.
-     */
-    __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
-    // Ramp over rampTime in seconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
-    };
 }
 
 - (void)deallocateRenderResources {
