@@ -9,15 +9,10 @@
 #ifndef AKClipperAudioUnit_h
 #define AKClipperAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKClipperAudioUnit : AUAudioUnit<AKAudioUnitType>
-
+@interface AKClipperAudioUnit : AKAudioUnit
 @property (nonatomic) float limit;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKClipperAudioUnit_h */
