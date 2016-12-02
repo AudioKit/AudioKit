@@ -9,16 +9,12 @@
 #ifndef AKPitchShifterAudioUnit_h
 #define AKPitchShifterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKPitchShifterAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKPitchShifterAudioUnit : AKAudioUnit
 @property (nonatomic) float shift;
 @property (nonatomic) float windowSize;
 @property (nonatomic) float crossfade;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKPitchShifterAudioUnit_h */
