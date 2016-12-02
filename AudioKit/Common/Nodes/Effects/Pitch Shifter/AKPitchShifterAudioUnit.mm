@@ -108,7 +108,7 @@
     windowSizeAUParameter.value = 1024;
     crossfadeAUParameter.value = 512;
 
-    _rampTime = AKSettings.rampTime;
+    self.rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(shiftAddress,      shiftAUParameter.value);
     _kernel.setParameter(windowSizeAddress, windowSizeAUParameter.value);
