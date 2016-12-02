@@ -106,7 +106,6 @@ public struct AKMIDIEvent {
                 //voodoo
                 let mirrorData = Mirror(reflecting: packet.data)
                 var i = 0
-                print(mirrorData.children.count)
                 for (_, value) in mirrorData.children {
                     internalData.append(UInt8(value as! UInt8))
                     i += 1
