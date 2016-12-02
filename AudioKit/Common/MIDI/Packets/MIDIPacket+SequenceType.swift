@@ -65,6 +65,7 @@ extension MIDIPacket: Sequence {
                         index = self.length
                         return AKMIDIEvent(packet: self)
                     case .songPosition:
+                        //the remaining event generators need to be tested and tweaked to the specific messages
                         data1 = pop()
                         data2 = pop()
                         
