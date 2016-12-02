@@ -8,11 +8,10 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface AKAudioUnit : AUAudioUnit
-
+@interface AKAudioUnit : AUAudioUnit 
 @property AUAudioUnitBus *outputBus;
 @property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
+@property AVAudioFormat *defaultFormat;
 
 - (void)start;
 - (void)stop;

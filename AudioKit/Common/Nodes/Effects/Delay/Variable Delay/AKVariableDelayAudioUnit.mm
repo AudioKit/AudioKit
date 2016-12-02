@@ -17,7 +17,6 @@
 @implementation AKVariableDelayAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKVariableDelayDSPKernel _kernel;
-
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
@@ -45,23 +44,16 @@
     return _kernel.resetted;
 }
 
-- (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
-                                     options:(AudioComponentInstantiationOptions)options
-                                       error:(NSError **)outError {
-    self = [super initWithComponentDescription:componentDescription options:options error:outError];
-
-    if (self == nil) {
-        return nil;
-    }
-
+- (void)createParameters {
+    
     // Initialize a default format for the busses.
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                  channels:AKSettings.numberOfChannels];
-
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                        channels:AKSettings.numberOfChannels];
+    
     // Create a DSP kernel to handle the signal processing.
-    _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
-
-        // Create a parameter object for the time.
+    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    
+    // Create a parameter object for the time.
     AUParameter *timeAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"time"
                                               name:@"Delay time (Seconds)"
@@ -73,6 +65,7 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
+    
     // Create a parameter object for the feedback.
     AUParameter *feedbackAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"feedback"
@@ -85,65 +78,55 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-
-
+    
+    
     // Initialize the parameter values.
     timeAUParameter.value = 1;
     feedbackAUParameter.value = 0;
-
+    
     self.rampTime = AKSettings.rampTime;
-
+    
     _kernel.setParameter(timeAddress,             timeAUParameter.value);
     _kernel.setParameter(feedbackAddress,         feedbackAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        timeAUParameter,
-        feedbackAUParameter
-    ]];
+                                                               timeAUParameter,
+                                                               feedbackAUParameter
+                                                               ]];
 
-    // Create the input and output busses.
-    _inputBus.init(defaultFormat, 8);
-    self.outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
     
-    // Create the input and output bus arrays.
-    self.inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                 busType:AUAudioUnitBusTypeInput
-                                                                  busses: @[_inputBus.bus]];
-    self.outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                 busType:AUAudioUnitBusTypeOutput
-                                                                  busses: @[self.outputBus]];
-
     // Make a local pointer to the kernel to avoid capturing self.
     __block AKVariableDelayDSPKernel *delayKernel = &_kernel;
-
+    
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         delayKernel->setParameter(param.address, value);
     };
-
+    
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
         return delayKernel->getParameter(param.address);
     };
-
+    
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
         AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
+        
         switch (param.address) {
             case timeAddress:
             case feedbackAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
+                
             default:
                 return @"?";
         }
     };
-
-    self.maximumFramesToRender = 512;
-
-    return self;
+    
+    _inputBus.init(self.defaultFormat, 8);
+    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                busType:AUAudioUnitBusTypeInput
+                                                                 busses:@[_inputBus.bus]];
 }
 
 #pragma mark - AUAudioUnit Overrides
@@ -152,6 +135,7 @@
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
     }
+    
     if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
         if (outError) {
             *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
@@ -160,9 +144,10 @@
         }
         // Notify superclass that initialization was not successful
         self.renderResourcesAllocated = NO;
-
+        
         return NO;
     }
+    
     _inputBus.allocateRenderResources(self.maximumFramesToRender);
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
@@ -175,7 +160,6 @@
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
     _kernel.destroy();
-
     _inputBus.deallocateRenderResources();
 }
 
