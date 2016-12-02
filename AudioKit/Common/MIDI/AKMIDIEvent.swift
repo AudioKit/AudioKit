@@ -28,7 +28,7 @@ public struct AKMIDIEvent {
     // MARK: - Properties
     
     /// Internal data - defaults to 3 bytes
-    var internalData = [UInt8](zeroes: 3)
+    var internalData = [UInt8](zeroes: 128)
     
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
@@ -104,9 +104,9 @@ public struct AKMIDIEvent {
                 internalData = [] //reset internalData
                 
                 //voodoo
-                let mirrorData = Mirror(reflecting: data)
+                let mirrorData = Mirror(reflecting: packet.data)
                 var i = 0
-                
+                print(mirrorData.children.count)
                 for (_, value) in mirrorData.children {
                     internalData.append(UInt8(value as! UInt8))
                     i += 1
@@ -180,6 +180,7 @@ public struct AKMIDIEvent {
         
         switch command {
         case .sysex:
+            print("sysex")
             break
         case .songPosition:
             internalData[1] = byte1.lower7bits()
