@@ -9,17 +9,13 @@
 #ifndef AKAmplitudeEnvelopeAudioUnit_h
 #define AKAmplitudeEnvelopeAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKAmplitudeEnvelopeAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKAmplitudeEnvelopeAudioUnit : AKAudioUnit
 @property (nonatomic) float attackDuration;
 @property (nonatomic) float decayDuration;
 @property (nonatomic) float sustainLevel;
 @property (nonatomic) float releaseDuration;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKAmplitudeEnvelopeAudioUnit_h */
