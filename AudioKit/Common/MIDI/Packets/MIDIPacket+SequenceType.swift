@@ -34,7 +34,6 @@ extension MIDIPacket: Sequence {
                 index += 1
                 return generator.next() as! UInt8
             }
-            
             let status = pop()
             if AKMIDIEvent.isStatusByte(status) {
                 var data1: UInt8 = 0
@@ -68,7 +67,10 @@ extension MIDIPacket: Sequence {
                 // sysex - guaranteed by coremidi to be the entire packet
                 index = self.length
                 return AKMIDIEvent(packet: self)
-                
+            } else if status == 0x00 {
+                // nothing - getting these messages after a sysex message is sent. 
+                // First it gets correct status (240), then it gets another message with status 0
+                return nil
             } else {
                 let cmd = AKMIDISystemCommand(rawValue: status)!
                 var data1: UInt8 = 0
