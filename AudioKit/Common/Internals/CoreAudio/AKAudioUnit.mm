@@ -1,5 +1,5 @@
 //
-//  AKAudioUnit.m
+//  AKAudioUnit.mm
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 11/28/16.
@@ -9,7 +9,9 @@
 #import "AKAudioUnit.h"
 #import <AVFoundation/AVFoundation.h>
 
-@implementation AKAudioUnit
+@implementation AKAudioUnit {
+    AUAudioUnitBusArray *_outputBusArray;
+}
 
 @synthesize parameterTree = _parameterTree;
 @synthesize rampTime = _rampTime;
@@ -22,6 +24,7 @@
     return NO;
 }
 
+- (void)createParameters {}
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
@@ -31,7 +34,19 @@
     if (self == nil) {
         return nil;
     }
-        
+    
+    // Initialize a default format for the busses.
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100
+                                                                        channels:2];
+    
+    [self createParameters];
+    
+    // Create the output busses.
+    self.outputBus = [[AUAudioUnitBus alloc] initWithFormat:self.defaultFormat error:nil];
+    _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                             busType:AUAudioUnitBusTypeOutput
+                                                              busses: @[self.outputBus]];
+    
     self.maximumFramesToRender = 512;
     
     return self;
@@ -46,7 +61,6 @@
     return _outputBusArray;
 }
 
-
 #pragma mark - AUAudioUnit Overrides
 
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
@@ -58,7 +72,6 @@
     
     return YES;
 }
-
 
 - (void)setUpParameterRamp {
     /*
@@ -74,6 +87,5 @@
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
 }
-
 
 @end

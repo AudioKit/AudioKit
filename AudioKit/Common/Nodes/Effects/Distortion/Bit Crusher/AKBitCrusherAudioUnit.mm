@@ -46,16 +46,8 @@
     return _kernel.resetted;
 }
 
-- (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
-                                     options:(AudioComponentInstantiationOptions)options
-                                       error:(NSError **)outError {
-    self = [super initWithComponentDescription:componentDescription options:options error:outError];
-
-    if (self == nil) {
-        return nil;
-    }
-
-    // Initialize a default format for the busses.
+- (void)createParameters {
+    
     AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
                                                                                   channels:AKSettings.numberOfChannels];
 
@@ -103,18 +95,6 @@
         sampleRateAUParameter
     ]];
 
-    // Create the input and output busses.
-    _inputBus.init(defaultFormat, 8);
-    self.outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
-
-    // Create the input and output bus arrays.
-    self.inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                 busType:AUAudioUnitBusTypeInput
-                                                                  busses:@[_inputBus.bus]];
-    self.outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                 busType:AUAudioUnitBusTypeOutput
-                                                                  busses:@[self.outputBus]];
-    
     // Make a local pointer to the kernel to avoid capturing self.
     __block AKBitCrusherDSPKernel *bitcrusherKernel = &_kernel;
 
@@ -144,9 +124,10 @@
         }
     };
 
-    self.maximumFramesToRender = 512;
-
-    return self;
+    _inputBus.init(defaultFormat, 8);
+    self.inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                 busType:AUAudioUnitBusTypeInput
+                                                                  busses:@[_inputBus.bus]];
 }
 
 #pragma mark - AUAudioUnit Overrides
@@ -171,15 +152,12 @@
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
-    [self setUpParameterRamp];
-
     return YES;
 }
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
     _kernel.destroy();
-
     _inputBus.deallocateRenderResources();
 }
 
