@@ -66,7 +66,12 @@ extension AKMIDI {
                   packetList, _ in
                     for packet in packetList.pointee {
                         // a coremidi packet may contain multiple midi events
+                        print("packet is \(packet)")
+                        if packet.data.0 == AKMIDISystemCommand.sysex.rawValue {
+                            print("is sysex")
+                        }
                         for event in packet {
+                            print("event is \(event)")
                             self.handleMidiMessage(event)
                         }
                     }
