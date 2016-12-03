@@ -9,16 +9,12 @@
 #ifndef AKAutoWahAudioUnit_h
 #define AKAutoWahAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKAutoWahAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKAutoWahAudioUnit : AKAudioUnit
 @property (nonatomic) float wah;
 @property (nonatomic) float mix;
 @property (nonatomic) float amplitude;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKAutoWahAudioUnit_h */
