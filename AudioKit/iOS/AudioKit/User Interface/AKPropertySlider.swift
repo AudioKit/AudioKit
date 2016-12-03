@@ -21,7 +21,7 @@ import Foundation
     @IBInspectable open var maximum: Double = 1
     @IBInspectable open var property: String = "Property"
     @IBInspectable open var format: String = "%0.3f"
-    @IBInspectable open var bgColor: UIColor = UIColor.clear
+    @IBInspectable open var bgColor: UIColor = UIColor.white
     @IBInspectable open var sliderColor: UIColor = UIColor.red
     @IBInspectable open var textColor: UIColor = UIColor.black
     @IBInspectable open var fontSize: CGFloat = 24
