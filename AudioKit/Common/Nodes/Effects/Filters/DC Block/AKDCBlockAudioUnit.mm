@@ -14,22 +14,12 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKDCBlockAudioUnit()
-
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
-
-@end
-
 @implementation AKDCBlockAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKDCBlockDSPKernel _kernel;
-
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
-
 
 
 - (void)start {
@@ -48,41 +38,25 @@
     return _kernel.resetted;
 }
 
-- (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
-                                     options:(AudioComponentInstantiationOptions)options
-                                       error:(NSError **)outError {
-    self = [super initWithComponentDescription:componentDescription options:options error:outError];
-
-    if (self == nil) {
-        return nil;
-    }
+- (void)createParameters {
 
     // Initialize a default format for the busses.
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                  channels:AKSettings.numberOfChannels];
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                        channels:AKSettings.numberOfChannels];
 
     // Create a DSP kernel to handle the signal processing.
-    _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
+    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
     
 
     // Initialize the parameter values.
 
+    self.rampTime = AKSettings.rampTime;
+
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
     ]];
-
-    // Create the input and output busses.
-    _inputBus.init(defaultFormat, 8);
-    _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
-
-    // Create the input and output bus arrays.
-    _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeInput
-                                                              busses: @[_inputBus.bus]];
-    _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeOutput
-                                                              busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
     __block AKDCBlockDSPKernel *filterKernel = &_kernel;
@@ -97,19 +71,13 @@
         return filterKernel->getParameter(param.address);
     };
 
-    self.maximumFramesToRender = 512;
-
-    return self;
+    _inputBus.init(self.defaultFormat, 8);
+    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                busType:AUAudioUnitBusTypeInput
+                                                                 busses:@[_inputBus.bus]];
 }
 
 #pragma mark - AUAudioUnit Overrides
-
-- (AUAudioUnitBusArray *)inputBusses {
-    return _inputBusArray;
-}
-- (AUAudioUnitBusArray *)outputBusses {
-    return _outputBusArray;
-}
 
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
     if (![super allocateRenderResourcesAndReturnError:outError]) {
@@ -138,7 +106,6 @@
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
     _kernel.destroy();
-
     _inputBus.deallocateRenderResources();
 }
 
