@@ -9,16 +9,12 @@
 #ifndef AKThreePoleLowpassFilterAudioUnit_h
 #define AKThreePoleLowpassFilterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKThreePoleLowpassFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKThreePoleLowpassFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float distortion;
 @property (nonatomic) float cutoffFrequency;
 @property (nonatomic) float resonance;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKThreePoleLowpassFilterAudioUnit_h */

@@ -14,18 +14,9 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKToneComplementFilterAudioUnit()
-
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
-
-@end
-
 @implementation AKToneComplementFilterAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKToneComplementFilterDSPKernel _kernel;
-
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
@@ -33,7 +24,6 @@
 - (void)setHalfPowerPoint:(float)halfPowerPoint {
     _kernel.setHalfPowerPoint(halfPowerPoint);
 }
-
 
 - (void)start {
     _kernel.start();
@@ -51,21 +41,14 @@
     return _kernel.resetted;
 }
 
-- (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
-                                     options:(AudioComponentInstantiationOptions)options
-                                       error:(NSError **)outError {
-    self = [super initWithComponentDescription:componentDescription options:options error:outError];
-
-    if (self == nil) {
-        return nil;
-    }
+- (void)createParameters {
 
     // Initialize a default format for the busses.
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                  channels:AKSettings.numberOfChannels];
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                        channels:AKSettings.numberOfChannels];
 
     // Create a DSP kernel to handle the signal processing.
-    _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
+    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
         // Create a parameter object for the halfPowerPoint.
     AUParameter *halfPowerPointAUParameter =
@@ -84,7 +67,7 @@
     // Initialize the parameter values.
     halfPowerPointAUParameter.value = 1000.0;
 
-    _rampTime = AKSettings.rampTime;
+    self.rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(halfPowerPointAddress, halfPowerPointAUParameter.value);
 
@@ -92,18 +75,6 @@
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         halfPowerPointAUParameter
     ]];
-
-    // Create the input and output busses.
-    _inputBus.init(defaultFormat, 8);
-    _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
-
-    // Create the input and output bus arrays.
-    _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeInput
-                                                              busses: @[_inputBus.bus]];
-    _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeOutput
-                                                              busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
     __block AKToneComplementFilterDSPKernel *filterKernel = &_kernel;
@@ -131,19 +102,13 @@
         }
     };
 
-    self.maximumFramesToRender = 512;
-
-    return self;
+    _inputBus.init(self.defaultFormat, 8);
+    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
+                                                                busType:AUAudioUnitBusTypeInput
+                                                                 busses:@[_inputBus.bus]];
 }
 
 #pragma mark - AUAudioUnit Overrides
-
-- (AUAudioUnitBusArray *)inputBusses {
-    return _inputBusArray;
-}
-- (AUAudioUnitBusArray *)outputBusses {
-    return _outputBusArray;
-}
 
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
     if (![super allocateRenderResourcesAndReturnError:outError]) {
@@ -165,30 +130,13 @@
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
-    [self setUpParameterRamp];
-
     return YES;
 }
 
-- (void)setUpParameterRamp {
-    /*
-     While rendering, we want to schedule all parameter changes. Setting them
-     off the render thread is not thread safe.
-     */
-    __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
-    // Ramp over rampTime in seconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
-    };
-}
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
     _kernel.destroy();
-
     _inputBus.deallocateRenderResources();
 }
 

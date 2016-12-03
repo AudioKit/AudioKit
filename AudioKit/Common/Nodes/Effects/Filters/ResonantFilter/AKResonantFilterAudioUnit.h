@@ -9,15 +9,11 @@
 #ifndef AKResonantFilterAudioUnit_h
 #define AKResonantFilterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKResonantFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKResonantFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float bandwidth;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKResonantFilterAudioUnit_h */

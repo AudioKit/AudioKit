@@ -9,14 +9,10 @@
 #ifndef AKLowPassButterworthFilterAudioUnit_h
 #define AKLowPassButterworthFilterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKLowPassButterworthFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKLowPassButterworthFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float cutoffFrequency;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKLowPassButterworthFilterAudioUnit_h */

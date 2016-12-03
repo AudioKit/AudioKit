@@ -9,14 +9,10 @@
 #ifndef AKToneFilterAudioUnit_h
 #define AKToneFilterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKToneFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKToneFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float halfPowerPoint;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKToneFilterAudioUnit_h */
