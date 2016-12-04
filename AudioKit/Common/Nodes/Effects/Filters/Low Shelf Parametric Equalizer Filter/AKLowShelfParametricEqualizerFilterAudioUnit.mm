@@ -49,12 +49,7 @@
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(LowShelfParametricEqualizerFilter)
 
     // Create a parameter object for the cornerFrequency.
     AUParameter *cornerFrequencyAUParameter =
@@ -99,8 +94,6 @@
     gainAUParameter.value = 1.0;
     qAUParameter.value = 0.707;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(cornerFrequencyAddress, cornerFrequencyAUParameter.value);
     _kernel.setParameter(gainAddress,            gainAUParameter.value);
     _kernel.setParameter(qAddress,               qAUParameter.value);
@@ -111,19 +104,6 @@
         gainAUParameter,
         qAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKLowShelfParametricEqualizerFilterDSPKernel *equalizerKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        equalizerKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return equalizerKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -144,10 +124,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(LowShelfParametricEqualizerFilter)
 }
 
 AUAudioUnitOverrides(LowShelfParametricEqualizerFilter);

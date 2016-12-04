@@ -23,6 +23,24 @@
 
 @end
 
+#define standardSetup(str) \
+    self.rampTime = AKSettings.rampTime; \
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
+                                                                        channels:AKSettings.numberOfChannels]; \
+    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
+    _inputBus.init(self.defaultFormat, 8); \
+    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self \
+                                                                busType:AUAudioUnitBusTypeInput \
+                                                                 busses:@[_inputBus.bus]];
+#define parameterTreeBlock(str) \
+    __block AK##str##DSPKernel *blockKernel = &_kernel; \
+    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) { \
+        blockKernel->setParameter(param.address, value); \
+    }; \
+    self.parameterTree.implementorValueProvider = ^(AUParameter *param) { \
+        return blockKernel->getParameter(param.address); \
+    };
+
 #define AUAudioUnitOverrides(str) \
 \
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError { \

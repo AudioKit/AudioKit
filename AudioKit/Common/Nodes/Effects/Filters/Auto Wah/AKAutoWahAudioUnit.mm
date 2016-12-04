@@ -49,12 +49,7 @@
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(AutoWah)
 
     // Create a parameter object for the wah.
     AUParameter *wahAUParameter =
@@ -93,13 +88,10 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
-
     // Initialize the parameter values.
     wahAUParameter.value = 0.0;
     mixAUParameter.value = 1.0;
     amplitudeAUParameter.value = 0.1;
-
-    self.rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(wahAddress,       wahAUParameter.value);
     _kernel.setParameter(mixAddress,       mixAUParameter.value);
@@ -111,19 +103,6 @@
         mixAUParameter,
         amplitudeAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKAutoWahDSPKernel *autoWahKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        autoWahKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return autoWahKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -143,11 +122,7 @@
                 return @"?";
         }
     };
-
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(AutoWah)
 }
 
 AUAudioUnitOverrides(AutoWah);

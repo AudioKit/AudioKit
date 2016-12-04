@@ -54,12 +54,7 @@
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(AmplitudeEnvelope)
 
     // Create a parameter object for the attackDuration.
     AUParameter *attackDurationAUParameter =
@@ -117,8 +112,6 @@
     sustainLevelAUParameter.value = 1.0;
     releaseDurationAUParameter.value = 0.1;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value);
     _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value);
     _kernel.setParameter(sustainLevelAddress,    sustainLevelAUParameter.value);
@@ -132,21 +125,8 @@
         releaseDurationAUParameter
     ]];
 
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKAmplitudeEnvelopeDSPKernel *envelopeKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        envelopeKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return envelopeKernel->getParameter(param.address);
-    };
-
     // A function to provide string representations of parameter values.
-    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+    self.parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
         AUValue value = valuePtr == nil ? param.value : *valuePtr;
 
         switch (param.address) {
@@ -166,11 +146,8 @@
                 return @"?";
         }
     };
-    
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                 busType:AUAudioUnitBusTypeInput
-                                                                  busses:@[_inputBus.bus]];
+
+	parameterTreeBlock(AmplitudeEnvelope)
 }
 
 AUAudioUnitOverrides(AmplitudeEnvelope);

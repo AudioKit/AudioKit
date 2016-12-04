@@ -56,13 +56,8 @@
 
 - (void)createParameters {
 
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-    
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(PWMOscillatorBank)
 
-    
     AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;
 
     // Create a parameter object for the pulseWidth.
@@ -156,9 +151,8 @@
     decayDurationAUParameter.value = 0.1;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
-    
-    self.rampTime = AKSettings.rampTime;
-    
+
+
     _kernel.setParameter(pulseWidthAddress,         pulseWidthAUParameter.value);
     _kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value);
     _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value);
@@ -178,23 +172,7 @@
         detuningMultiplierAUParameter
     ]];
 
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKPWMOscillatorBankDSPKernel *oscillatorKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        oscillatorKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return oscillatorKernel->getParameter(param.address);
-    };
-
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(PWMOscillatorBank)
 }
 
 AUAudioUnitGeneratorOverrides(PWMOscillatorBank)

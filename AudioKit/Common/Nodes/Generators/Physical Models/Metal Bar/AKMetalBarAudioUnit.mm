@@ -65,11 +65,7 @@
 
 - (void)createParameters {
 
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-    
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(MetalBar)
 
     // Create a parameter object for the leftBoundaryCondition.
     AUParameter *leftBoundaryConditionAUParameter =
@@ -166,7 +162,6 @@
     strikeVelocityAUParameter.value = 500;
     strikeWidthAUParameter.value = 0.05;
 
-    self.rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(leftBoundaryConditionAddress,  leftBoundaryConditionAUParameter.value);
     _kernel.setParameter(rightBoundaryConditionAddress, rightBoundaryConditionAUParameter.value);
@@ -186,24 +181,7 @@
         strikeVelocityAUParameter,
         strikeWidthAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKMetalBarDSPKernel *blockKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
-    };
-
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(MetalBar)
 }
 
 AUAudioUnitGeneratorOverrides(MetalBar)

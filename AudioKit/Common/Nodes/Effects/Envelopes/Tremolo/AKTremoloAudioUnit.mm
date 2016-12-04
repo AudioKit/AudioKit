@@ -54,11 +54,8 @@
 }
 
 - (void)createParameters {
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-    
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+
+    standardSetup(Tremolo)
 
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter =
@@ -72,7 +69,7 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    
+
     // Create a parameter object for the depth.
     AUParameter *depthAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"depth"
@@ -92,8 +89,6 @@
     // Initialize the parameter values.
     depthAUParameter.value = 1.0;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
     _kernel.setParameter(depthAddress, depthAUParameter.value);
 
@@ -102,19 +97,6 @@
         frequencyAUParameter,
         depthAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKTremoloDSPKernel *tremoloKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        tremoloKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return tremoloKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -129,11 +111,7 @@
                 return @"?";
         }
     };
-
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                 busType:AUAudioUnitBusTypeInput
-                                                                  busses:@[_inputBus.bus]];
+	parameterTreeBlock(Tremolo)
 }
 
 AUAudioUnitOverrides(Tremolo);

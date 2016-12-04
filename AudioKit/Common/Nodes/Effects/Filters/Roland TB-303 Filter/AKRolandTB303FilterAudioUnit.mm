@@ -52,12 +52,7 @@
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(RolandTB303Filter)
 
     // Create a parameter object for the cutoffFrequency.
     AUParameter *cutoffFrequencyAUParameter =
@@ -115,8 +110,6 @@
     distortionAUParameter.value = 2.0;
     resonanceAsymmetryAUParameter.value = 0.5;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(cutoffFrequencyAddress,    cutoffFrequencyAUParameter.value);
     _kernel.setParameter(resonanceAddress,          resonanceAUParameter.value);
     _kernel.setParameter(distortionAddress,         distortionAUParameter.value);
@@ -129,19 +122,6 @@
         distortionAUParameter,
         resonanceAsymmetryAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKRolandTB303FilterDSPKernel *filterKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        filterKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return filterKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -165,10 +145,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(RolandTB303Filter)
 }
 
 AUAudioUnitOverrides(RolandTB303Filter);

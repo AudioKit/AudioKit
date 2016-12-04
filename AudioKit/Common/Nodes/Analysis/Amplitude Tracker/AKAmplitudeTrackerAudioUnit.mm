@@ -39,11 +39,7 @@
 
 - (void)createParameters {
 
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-    
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(AmplitudeTracker)
 
     // Create a parameter object for the halfPowerPoint.
     AUParameter *halfPowerPointAUParameter =
@@ -67,24 +63,8 @@
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         halfPowerPointAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKAmplitudeTrackerDSPKernel *trackerKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        trackerKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return trackerKernel->getParameter(param.address);
-    };
-
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+    
+    parameterTreeBlock(AmplitudeTracker)
 }
 
 AUAudioUnitOverrides(AmplitudeTracker)
