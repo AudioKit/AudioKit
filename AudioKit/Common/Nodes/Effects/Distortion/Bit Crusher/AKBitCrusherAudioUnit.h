@@ -9,20 +9,11 @@
 #ifndef AKBitCrusherAudioUnit_h
 #define AKBitCrusherAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKBitCrusherAudioUnit : AUAudioUnit
+@interface AKBitCrusherAudioUnit : AKAudioUnit
 @property (nonatomic) float bitDepth;
 @property (nonatomic) float sampleRate;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKBitCrusherAudioUnit_h */

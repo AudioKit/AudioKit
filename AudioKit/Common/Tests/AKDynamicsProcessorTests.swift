@@ -15,6 +15,6 @@ class AKDynamicsProcessorTests: AKTestCase {
         let input = AKOscillator()
         output = AKDynamicsProcessor(input)
         input.start()
-        AKTestMD5("7394f7fa840b20c1cd0f50eebec28b2e")
+        AKTestMD5("5b720d99c298fcecd93a0a982e3cf8e1")
     }
 }

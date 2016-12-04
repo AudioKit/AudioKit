@@ -22,7 +22,7 @@ import AVFoundation
 ///
 open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorBankAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "phdb")
+    public static let ComponentDescription = AudioComponentDescription(generator: "phdb")
 
     // MARK: - Properties
 

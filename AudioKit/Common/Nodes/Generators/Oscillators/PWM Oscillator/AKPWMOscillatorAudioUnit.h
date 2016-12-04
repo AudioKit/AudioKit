@@ -10,19 +10,14 @@
 #define AKPWMOscillatorAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKPWMOscillatorAudioUnit : AUAudioUnit
+@interface AKPWMOscillatorAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 @property (nonatomic) float pulseWidth;
 @property (nonatomic) float detuningOffset;
 @property (nonatomic) float detuningMultiplier;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

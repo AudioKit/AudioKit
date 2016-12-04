@@ -14,22 +14,20 @@ import AVFoundation
 ///
 /// - Parameters:
 ///   - input: Input node to process
-///   - centerFrequency: Center frequency.
-///   - attackDuration: Impulse response attack time (in seconds).
-///   - decayDuration: Impulse reponse decay time (in seconds)
+///   - x: x Position
+///   - y: y Position
 ///
 open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "fofi")
+    public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
     // MARK: - Properties
 
     internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
-    fileprivate var centerFrequencyParameter: AUParameter?
-    fileprivate var attackDurationParameter: AUParameter?
-    fileprivate var decayDurationParameter: AUParameter?
+    fileprivate var xParameter: AUParameter?
+    fileprivate var yParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
@@ -42,37 +40,25 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency.
-    open var centerFrequency: Double = 1000 {
+    open var x: Double = 0 {
         willSet {
-            if centerFrequency != newValue {
+            if x != newValue {
                 if internalAU!.isSetUp() {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                    xParameter?.setValue(Float(newValue), originator: token!)
                 } else {
-                    internalAU?.centerFrequency = Float(newValue)
+                    internalAU?.x = Float(newValue)
                 }
             }
         }
     }
     /// Impulse response attack time (in seconds).
-    open var attackDuration: Double = 0.007 {
+    open var y: Double = 0 {
         willSet {
-            if attackDuration != newValue {
+            if y != newValue {
                 if internalAU!.isSetUp() {
-                    attackDurationParameter?.setValue(Float(newValue), originator: token!)
+                    yParameter?.setValue(Float(newValue), originator: token!)
                 } else {
-                    internalAU?.attackDuration = Float(newValue)
-                }
-            }
-        }
-    }
-    /// Impulse reponse decay time (in seconds)
-    open var decayDuration: Double = 0.04 {
-        willSet {
-            if decayDuration != newValue {
-                if internalAU!.isSetUp() {
-                    decayDurationParameter?.setValue(Float(newValue), originator: token!)
-                } else {
-                    internalAU?.decayDuration = Float(newValue)
+                    internalAU?.y = Float(newValue)
                 }
             }
         }
@@ -95,13 +81,11 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 1000,
-        attackDuration: Double = 0.007,
-        decayDuration: Double = 0.04) {
+        x: Double = 0,
+        y: Double = 0) {
 
-        self.centerFrequency = centerFrequency
-        self.attackDuration = attackDuration
-        self.decayDuration = decayDuration
+        self.x = x
+        self.y = y
 
         _Self.register()
 
@@ -120,27 +104,23 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        centerFrequencyParameter = tree["centerFrequency"]
-        attackDurationParameter  = tree["attackDuration"]
-        decayDurationParameter   = tree["decayDuration"]
+        xParameter = tree["x"]
+        yParameter  = tree["y"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.centerFrequencyParameter!.address {
-                    self.centerFrequency = Double(value)
-                } else if address == self.attackDurationParameter!.address {
-                    self.attackDuration = Double(value)
-                } else if address == self.decayDurationParameter!.address {
-                    self.decayDuration = Double(value)
+                if address == self.xParameter!.address {
+                    self.x = Double(value)
+                } else if address == self.yParameter!.address {
+                    self.y = Double(value)
                 }
             }
         })
 
-        internalAU?.centerFrequency = Float(centerFrequency)
-        internalAU?.attackDuration = Float(attackDuration)
-        internalAU?.decayDuration = Float(decayDuration)
+        internalAU?.x = Float(x)
+        internalAU?.y = Float(y)
     }
 
     // MARK: - Control

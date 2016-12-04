@@ -9,16 +9,11 @@
 #ifndef AKConvolutionAudioUnit_h
 #define AKConvolutionAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKConvolutionAudioUnit : AUAudioUnit
-
+@interface AKConvolutionAudioUnit : AKAudioUnit
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size;
 - (void)setPartitionLength:(int)partitionLength;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
 @end
 
 #endif /* AKConvolutionAudioUnit_h */

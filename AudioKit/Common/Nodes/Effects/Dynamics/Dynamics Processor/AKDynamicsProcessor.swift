@@ -25,7 +25,7 @@ import AVFoundation
 ///
 open class AKDynamicsProcessor: AKNode, AKToggleable, AUComponent {
 
-    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
+    public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     internal var internalEffect = AVAudioUnitEffect()
 
@@ -168,8 +168,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUComponent {
 
             au = AUWrapper(au: internalEffect.audioUnit)
 
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
+            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
 
             super.init()
             avAudioNode = mixer.avAudioNode

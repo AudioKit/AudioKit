@@ -11,6 +11,12 @@ import AVFoundation
 
 public typealias AKCallback = (Void) -> Void
 
+extension AVAudioEngine {
+    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
+        connect(node1, to: node2, format: AudioKit.format)
+    }
+}
+
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
@@ -29,9 +35,7 @@ public typealias AKCallback = (Void) -> Void
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
-            engine.connect(output!.avAudioNode,
-                           to: engine.outputNode,
-                           format: AudioKit.format)
+            engine.connect(output!.avAudioNode, to: engine.outputNode)
         }
     }
     
@@ -104,14 +108,12 @@ public typealias AKCallback = (Void) -> Void
     /// Change the preferred output device, giving it one of the names from the list of available output.
     open static func setOutputDevice(_ output: AKDevice) throws {
         #if os(OSX)
-            var address = AudioObjectPropertyAddress(
-                mSelector: kAudioHardwarePropertyDefaultOutputDevice,
-                mScope: kAudioObjectPropertyScopeGlobal,
-                mElement: kAudioObjectPropertyElementMaster)
-            var devid = output.deviceID
-            AudioObjectSetPropertyData(
-                AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
+            var id = output.deviceID
+            AudioUnitSetProperty(AudioKit.engine.outputNode.audioUnit!,
+                                 kAudioOutputUnitProperty_CurrentDevice,
+                                 kAudioUnitScope_Global, 0,
+                                 &id,
+                                 UInt32(MemoryLayout<DeviceID>.size))
         #else
             //not available on ios
         #endif

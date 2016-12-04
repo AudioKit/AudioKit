@@ -9,12 +9,9 @@
 #ifndef AKDCBlockAudioUnit_h
 #define AKDCBlockAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKDCBlockAudioUnit : AUAudioUnit
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
+@interface AKDCBlockAudioUnit : AKAudioUnit
 @end
 
 #endif /* AKDCBlockAudioUnit_h */

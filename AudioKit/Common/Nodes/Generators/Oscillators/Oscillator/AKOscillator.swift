@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "oscl")
+    public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
     // MARK: - Properties
 

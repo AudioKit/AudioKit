@@ -10,8 +10,9 @@
 #define AKDripAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKDripAudioUnit : AUAudioUnit
+@interface AKDripAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float intensity;
 @property (nonatomic) float dampingFactor;
 @property (nonatomic) float energyReturn;
@@ -21,11 +22,6 @@
 @property (nonatomic) float amplitude;
 
 - (void)trigger;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

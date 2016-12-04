@@ -24,8 +24,6 @@ open class AKMicrophone: AKNode, AKToggleable {
     
     /// Set the actual microphone device
     public func setDevice(_ device: AKDevice) throws {
-        dump(device)
-        
         #if os(OSX)
             var id = device.deviceID
             var currentID = device.deviceID

@@ -10,8 +10,9 @@
 #define AKMetalBarAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKMetalBarAudioUnit : AUAudioUnit
+@interface AKMetalBarAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float leftBoundaryCondition;
 @property (nonatomic) float rightBoundaryCondition;
 @property (nonatomic) float decayDuration;
@@ -21,11 +22,6 @@
 @property (nonatomic) float strikeWidth;
 
 - (void)trigger;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 
