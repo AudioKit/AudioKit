@@ -26,21 +26,7 @@
 }
 
 
-- (void)start {
-    _kernel.start();
-}
-
-- (void)stop {
-    _kernel.stop();
-}
-
-- (BOOL)isPlaying {
-    return _kernel.started;
-}
-
-- (BOOL)isSetUp {
-    return _kernel.resetted;
-}
+standardKernelPassthroughs()
 
 - (void)createParameters {
 

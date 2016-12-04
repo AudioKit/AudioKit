@@ -23,6 +23,12 @@
 
 @end
 
+#define standardKernelPassthroughs() \
+- (void)start { _kernel.start(); } \
+- (void)stop { _kernel.stop(); } \
+- (BOOL)isPlaying { return _kernel.started; } \
+- (BOOL)isSetUp { return _kernel.resetted; }
+
 #define standardSetup(str) \
     self.rampTime = AKSettings.rampTime; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
