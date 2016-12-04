@@ -53,11 +53,7 @@
 
 - (void)createParameters {
 
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-    
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(PhaseLockedVocoder)
 
     // Create a parameter object for the position.
     AUParameter *positionAUParameter =
@@ -102,8 +98,6 @@
     amplitudeAUParameter.value = 1;
     pitchRatioAUParameter.value = 1;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(positionAddress,   positionAUParameter.value);
     _kernel.setParameter(amplitudeAddress,  amplitudeAUParameter.value);
     _kernel.setParameter(pitchRatioAddress, pitchRatioAUParameter.value);
@@ -114,19 +108,6 @@
         amplitudeAUParameter,
         pitchRatioAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKPhaseLockedVocoderDSPKernel *vocoderKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        vocoderKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return vocoderKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -147,10 +128,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(PhaseLockedVocoder)
 }
 
 AUAudioUnitGeneratorOverrides(PhaseLockedVocoder)

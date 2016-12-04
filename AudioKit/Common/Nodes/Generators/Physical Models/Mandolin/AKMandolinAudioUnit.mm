@@ -45,11 +45,7 @@
 
 - (void)createParameters {
 
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-    
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(Mandolin)
 
     // Create a parameter object for the detune.
     AUParameter *detuneAUParameter =
@@ -79,9 +75,8 @@
     // Initialize the parameter values.
     detuneAUParameter.value = 1.0;
     bodySizeAUParameter.value = 1.0;
-    
-    self.rampTime = AKSettings.rampTime;
-    
+
+
     _kernel.setParameter(detuneAddress,        detuneAUParameter.value);
     _kernel.setParameter(bodySizeAddress,      bodySizeAUParameter.value);
 
@@ -91,23 +86,7 @@
         bodySizeAUParameter
     ]];
 
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKMandolinDSPKernel *mandolinKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        mandolinKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return mandolinKernel->getParameter(param.address);
-    };
-
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(Mandolin)
 }
 
 AUAudioUnitGeneratorOverrides(Mandolin)

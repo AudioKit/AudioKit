@@ -43,11 +43,7 @@
 
 - (void)createParameters {
 
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-    
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(WhiteNoise)
 
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter =
@@ -66,22 +62,7 @@
     // Initialize the parameter values.
     amplitudeAUParameter.value = 1;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(amplitudeAddress, amplitudeAUParameter.value);
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKWhiteNoiseDSPKernel *noiseKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        noiseKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return noiseKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -96,10 +77,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(WhiteNoise)
 }
 
 AUAudioUnitGeneratorOverrides(WhiteNoise)

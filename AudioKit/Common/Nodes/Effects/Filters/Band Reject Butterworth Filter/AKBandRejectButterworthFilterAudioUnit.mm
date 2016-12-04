@@ -46,12 +46,7 @@
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+    standardSetup(BandRejectButterworthFilter);
 
     // Create a parameter object for the centerFrequency.
     AUParameter *centerFrequencyAUParameter =
@@ -83,8 +78,6 @@
     centerFrequencyAUParameter.value = 3000.0;
     bandwidthAUParameter.value = 2000.0;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(centerFrequencyAddress, centerFrequencyAUParameter.value);
     _kernel.setParameter(bandwidthAddress,       bandwidthAUParameter.value);
 
@@ -93,19 +86,6 @@
         centerFrequencyAUParameter,
         bandwidthAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKBandRejectButterworthFilterDSPKernel *filterKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        filterKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return filterKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -123,10 +103,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(BandRejectButterworthFilter)
 }
 
 AUAudioUnitOverrides(BandRejectButterworthFilter);

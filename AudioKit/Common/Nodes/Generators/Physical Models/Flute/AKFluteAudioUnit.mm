@@ -51,12 +51,8 @@
 }
 
 - (void)createParameters {
-    
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-    
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+
+    standardSetup(Flute)
 
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter =
@@ -88,7 +84,6 @@
     frequencyAUParameter.value = 110;
     amplitudeAUParameter.value = 0.5;
 
-    self.rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(frequencyAddress,       frequencyAUParameter.value);
     _kernel.setParameter(amplitudeAddress,       amplitudeAUParameter.value);
@@ -98,24 +93,7 @@
         frequencyAUParameter,
         amplitudeAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKFluteDSPKernel *blockKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
-    };
-
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(Flute)
 }
 
 AUAudioUnitGeneratorOverrides(Flute)
