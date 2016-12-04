@@ -9,14 +9,10 @@
 #ifndef AKPannerAudioUnit_h
 #define AKPannerAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKPannerAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKPannerAudioUnit : AKAudioUnit
 @property (nonatomic) float pan;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKPannerAudioUnit_h */

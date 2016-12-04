@@ -54,7 +54,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
-        // Create a parameter object for the reverbDuration.
+    // Create a parameter object for the reverbDuration.
     AUParameter *reverbDurationAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"reverbDuration"
                                               name:@"Reverb Duration (Seconds)"

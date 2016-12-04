@@ -48,13 +48,13 @@
 
 - (void)createParameters {
     
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                  channels:AKSettings.numberOfChannels];
-
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                        channels:AKSettings.numberOfChannels];
+    
     // Create a DSP kernel to handle the signal processing.
-    _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
+    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
-        // Create a parameter object for the bitDepth.
+    // Create a parameter object for the bitDepth.
     AUParameter *bitDepthAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"bitDepth"
                                               name:@"Bit Depth"
@@ -124,7 +124,7 @@
         }
     };
 
-    _inputBus.init(defaultFormat, 8);
+    _inputBus.init(self.defaultFormat, 8);
     self.inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                                  busType:AUAudioUnitBusTypeInput
                                                                   busses:@[_inputBus.bus]];

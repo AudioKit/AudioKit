@@ -9,15 +9,12 @@
 #ifndef AKOperationGeneratorAudioUnit_h
 #define AKOperationGeneratorAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKOperationGeneratorAudioUnit : AUAudioUnit
+@interface AKOperationGeneratorAudioUnit : AKAudioUnit
 @property (nonatomic) NSArray *parameters;
 - (void)setSporth:(NSString *)sporth;
 - (void)trigger:(int)trigger;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
 @end
 
 #endif /* AKOperationGeneratorAudioUnit_h */

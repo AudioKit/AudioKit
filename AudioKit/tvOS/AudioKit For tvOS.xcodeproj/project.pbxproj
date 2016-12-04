@@ -455,7 +455,6 @@
 		C49F29351D1626B9000A2D2F /* AKFluteAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49F29311D1626B9000A2D2F /* AKFluteAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49F29361D1626B9000A2D2F /* AKFluteAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49F29321D1626B9000A2D2F /* AKFluteAudioUnit.mm */; };
 		C49F29371D1626B9000A2D2F /* AKFluteDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49F29331D1626B9000A2D2F /* AKFluteDSPKernel.hpp */; };
-		C4A114EF1DDA729200C970A5 /* AKAudioUnitType.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A114EE1DDA729200C970A5 /* AKAudioUnitType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4A662901CCB146A00A38B90 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A6628C1CCB146A00A38B90 /* BufferedAudioBus.hpp */; };
 		C4A662911CCB146A00A38B90 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A6628D1CCB146A00A38B90 /* DSPKernel.hpp */; };
 		C4A662921CCB146A00A38B90 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A6628E1CCB146A00A38B90 /* DSPKernel.mm */; };
@@ -1170,7 +1169,6 @@
 		C49F29311D1626B9000A2D2F /* AKFluteAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFluteAudioUnit.h; sourceTree = "<group>"; };
 		C49F29321D1626B9000A2D2F /* AKFluteAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFluteAudioUnit.mm; sourceTree = "<group>"; };
 		C49F29331D1626B9000A2D2F /* AKFluteDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFluteDSPKernel.hpp; sourceTree = "<group>"; };
-		C4A114EE1DDA729200C970A5 /* AKAudioUnitType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnitType.h; sourceTree = "<group>"; };
 		C4A6628C1CCB146A00A38B90 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
 		C4A6628D1CCB146A00A38B90 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
 		C4A6628E1CCB146A00A38B90 /* DSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKernel.mm; sourceTree = "<group>"; };
@@ -2885,7 +2883,6 @@
 			children = (
 				C4BDE83E1C12FFBC00207DA9 /* Info.plist */,
 				C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */,
-				C4A114EE1DDA729200C970A5 /* AKAudioUnitType.h */,
 				EA6949E81C5A2F610035B5DF /* AKSettings.swift */,
 				EA6949EE1C5AE1EA0035B5DF /* AudioKit.swift */,
 				C4FE01641CED2DD40062B3A3 /* AKNodeRecorder.swift */,
@@ -3288,7 +3285,6 @@
 				C45381A71C3A5CBD00A51738 /* AKAutoWahAudioUnit.h in Headers */,
 				C4ABF53A1C82AEC00078EE8E /* AKMetalBarDSPKernel.hpp in Headers */,
 				C45382051C3A5CBD00A51738 /* AKFlatFrequencyResponseReverbDSPKernel.hpp in Headers */,
-				C4A114EF1DDA729200C970A5 /* AKAudioUnitType.h in Headers */,
 				C45382141C3A5CBD00A51738 /* AKFMOscillatorAudioUnit.h in Headers */,
 				C45381981C3A5CBD00A51738 /* AKBitCrusherDSPKernel.hpp in Headers */,
 				C48C6AD11D3C1574008EA51B /* sporth.h in Headers */,

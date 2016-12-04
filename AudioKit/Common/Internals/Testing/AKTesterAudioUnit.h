@@ -9,14 +9,13 @@
 #ifndef AKTesterAudioUnit_h
 #define AKTesterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKTesterAudioUnit : AUAudioUnit
+@interface AKTesterAudioUnit : AKAudioUnit
 - (void)setSamples:(int)samples;
 - (NSString *)getMD5;
 - (int)getSamples;
-- (void)start;
-- (void)stop;
+
 @end
 
 #endif /* AKTesterAudioUnit_h */
