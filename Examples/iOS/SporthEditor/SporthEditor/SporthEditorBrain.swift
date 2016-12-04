@@ -14,10 +14,8 @@ class SporthEditorBrain {
     var generator: AKOperationGenerator?
     var knownCodes = [String : String]()
 
-    var rows: Int {
-        return knownCodes.count
-    }
-
+    var currentIndex = 0
+    
     var names: [String] {
         return Array(knownCodes.keys)
     }

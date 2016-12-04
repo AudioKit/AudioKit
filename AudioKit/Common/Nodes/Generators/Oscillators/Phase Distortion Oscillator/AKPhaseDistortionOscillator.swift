@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "phdo")
+    public static let ComponentDescription = AudioComponentDescription(generator: "phdo")
 
     // MARK: - Properties
 

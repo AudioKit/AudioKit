@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKAutoWah: AKNode, AKToggleable, AKComponent {
   public typealias AKAudioUnitType = AKAutoWahAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "awah")
+    public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
     // MARK: - Properties
 

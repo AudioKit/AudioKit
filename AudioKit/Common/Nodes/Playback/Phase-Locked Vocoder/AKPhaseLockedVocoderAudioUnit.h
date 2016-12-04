@@ -10,18 +10,14 @@
 #define AKPhaseLockedVocoderAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKPhaseLockedVocoderAudioUnit : AUAudioUnit
+@interface AKPhaseLockedVocoderAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float position;
 @property (nonatomic) float amplitude;
 @property (nonatomic) float pitchRatio;
 
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

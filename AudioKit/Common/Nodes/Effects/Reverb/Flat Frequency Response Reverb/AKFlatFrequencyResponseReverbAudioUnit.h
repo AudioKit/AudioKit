@@ -9,20 +9,11 @@
 #ifndef AKFlatFrequencyResponseReverbAudioUnit_h
 #define AKFlatFrequencyResponseReverbAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKFlatFrequencyResponseReverbAudioUnit : AUAudioUnit
+@interface AKFlatFrequencyResponseReverbAudioUnit : AKAudioUnit
 @property (nonatomic) float reverbDuration;
 - (void)setLoopDuration:(float)duration;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKFlatFrequencyResponseReverbAudioUnit_h */

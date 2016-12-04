@@ -11,17 +11,33 @@
 		783F1E731D35299500DD1B58 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E721D35299500DD1B58 /* Error.swift */; };
 		783F1E751D352B4F00DD1B58 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E741D352B4F00DD1B58 /* Constants.swift */; };
 		783F1E771D35333D00DD1B58 /* SporthEditorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E761D35333D00DD1B58 /* SporthEditorBrain.swift */; };
-		783F1E7A1D353DB900DD1B58 /* Chatting Robot.sp in Resources */ = {isa = PBXBuildFile; fileRef = 783F1E781D353DB900DD1B58 /* Chatting Robot.sp */; };
-		783F1E7B1D353DB900DD1B58 /* Drone.sp in Resources */ = {isa = PBXBuildFile; fileRef = 783F1E791D353DB900DD1B58 /* Drone.sp */; };
-		78FFF99C1D36A91A009B2E07 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78FFF99B1D36A91A009B2E07 /* AudioKit.framework */; };
-		78FFF99D1D36A91A009B2E07 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 78FFF99B1D36A91A009B2E07 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C40ACAE61D38AA43003A7431 /* Rhythmic.sp in Resources */ = {isa = PBXBuildFile; fileRef = C40ACAE51D38AA43003A7431 /* Rhythmic.sp */; };
+		C459EEB91DE6BB1300C0F494 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C459EEB61DE6B95700C0F494 /* AudioKit.framework */; };
+		C459EEBA1DE6BB1300C0F494 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C459EEB61DE6B95700C0F494 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C459EEBF1DE6BB8F00C0F494 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C459EEBE1DE6BB8F00C0F494 /* RoundedButton.swift */; };
 		C485C6381D337759007D1BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C485C6371D337759007D1BFD /* AppDelegate.swift */; };
 		C485C63A1D337759007D1BFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C485C6391D337759007D1BFD /* ViewController.swift */; };
 		C485C63D1D337759007D1BFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C485C63B1D337759007D1BFD /* Main.storyboard */; };
 		C485C63F1D337759007D1BFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C485C63E1D337759007D1BFD /* Assets.xcassets */; };
 		C485C6421D337759007D1BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C485C6401D337759007D1BFD /* LaunchScreen.storyboard */; };
+		C4C059981DE7E46F00C3699A /* Simple Keyboard.sp in Resources */ = {isa = PBXBuildFile; fileRef = C4C059971DE7E46F00C3699A /* Simple Keyboard.sp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C459EEB51DE6B95700C0F494 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C459EEB11DE6B95700C0F494 /* AudioKit For iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C42F35001C057E03000E937C;
+			remoteInfo = AudioKit;
+		};
+		C459EEBB1DE6BB1300C0F494 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C459EEB11DE6B95700C0F494 /* AudioKit For iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C42F34FF1C057E03000E937C;
+			remoteInfo = AudioKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		78FFF99E1D36A91A009B2E07 /* Embed Frameworks */ = {
@@ -30,7 +46,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				78FFF99D1D36A91A009B2E07 /* AudioKit.framework in Embed Frameworks */,
+				C459EEBA1DE6BB1300C0F494 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,10 +58,8 @@
 		783F1E721D35299500DD1B58 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		783F1E741D352B4F00DD1B58 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		783F1E761D35333D00DD1B58 /* SporthEditorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SporthEditorBrain.swift; sourceTree = "<group>"; };
-		783F1E781D353DB900DD1B58 /* Chatting Robot.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Chatting Robot.sp"; sourceTree = "<group>"; };
-		783F1E791D353DB900DD1B58 /* Drone.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Drone.sp; sourceTree = "<group>"; };
-		78FFF99B1D36A91A009B2E07 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		C40ACAE51D38AA43003A7431 /* Rhythmic.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rhythmic.sp; sourceTree = "<group>"; };
+		C459EEB11DE6B95700C0F494 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
+		C459EEBE1DE6BB8F00C0F494 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C485C6341D337759007D1BFD /* SporthEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SporthEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C485C6371D337759007D1BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C485C6391D337759007D1BFD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +67,7 @@
 		C485C63E1D337759007D1BFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C485C6411D337759007D1BFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C485C6431D337759007D1BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4C059971DE7E46F00C3699A /* Simple Keyboard.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Simple Keyboard.sp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78FFF99C1D36A91A009B2E07 /* AudioKit.framework in Frameworks */,
+				C459EEB91DE6BB1300C0F494 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,9 +85,7 @@
 		783F1E7C1D353DCF00DD1B58 /* Preloaded files */ = {
 			isa = PBXGroup;
 			children = (
-				783F1E781D353DB900DD1B58 /* Chatting Robot.sp */,
-				783F1E791D353DB900DD1B58 /* Drone.sp */,
-				C40ACAE51D38AA43003A7431 /* Rhythmic.sp */,
+				C4C059971DE7E46F00C3699A /* Simple Keyboard.sp */,
 			);
 			name = "Preloaded files";
 			sourceTree = "<group>";
@@ -88,10 +101,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C459EEB21DE6B95700C0F494 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C459EEB61DE6B95700C0F494 /* AudioKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C459EEC61DE6BFC200C0F494 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				C459EEBE1DE6BB8F00C0F494 /* RoundedButton.swift */,
+			);
+			name = "UI Elements";
+			sourceTree = "<group>";
+		};
 		C485C62B1D337759007D1BFD = {
 			isa = PBXGroup;
 			children = (
-				78FFF99B1D36A91A009B2E07 /* AudioKit.framework */,
+				C459EEB11DE6B95700C0F494 /* AudioKit For iOS.xcodeproj */,
 				C485C6361D337759007D1BFD /* SporthEditor */,
 				C485C6351D337759007D1BFD /* Products */,
 			);
@@ -109,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				783F1E7C1D353DCF00DD1B58 /* Preloaded files */,
+				C459EEC61DE6BFC200C0F494 /* UI Elements */,
 				78FFF9971D36A59A009B2E07 /* Supporting Files */,
 				783F1E761D35333D00DD1B58 /* SporthEditorBrain.swift */,
 				C485C6391D337759007D1BFD /* ViewController.swift */,
@@ -135,6 +165,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C459EEBC1DE6BB1300C0F494 /* PBXTargetDependency */,
 			);
 			name = SporthEditor;
 			productName = SporthEditor;
@@ -153,6 +184,7 @@
 				TargetAttributes = {
 					C485C6331D337759007D1BFD = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = W22K9JG3J6;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -169,6 +201,12 @@
 			mainGroup = C485C62B1D337759007D1BFD;
 			productRefGroup = C485C6351D337759007D1BFD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C459EEB21DE6B95700C0F494 /* Products */;
+					ProjectRef = C459EEB11DE6B95700C0F494 /* AudioKit For iOS.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C485C6331D337759007D1BFD /* SporthEditor */,
@@ -176,17 +214,25 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		C459EEB61DE6B95700C0F494 /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = C459EEB51DE6B95700C0F494 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		C485C6321D337759007D1BFD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				783F1E7A1D353DB900DD1B58 /* Chatting Robot.sp in Resources */,
-				783F1E7B1D353DB900DD1B58 /* Drone.sp in Resources */,
+				C4C059981DE7E46F00C3699A /* Simple Keyboard.sp in Resources */,
 				C485C6421D337759007D1BFD /* LaunchScreen.storyboard in Resources */,
 				C485C63F1D337759007D1BFD /* Assets.xcassets in Resources */,
 				C485C63D1D337759007D1BFD /* Main.storyboard in Resources */,
-				C40ACAE61D38AA43003A7431 /* Rhythmic.sp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,12 +247,21 @@
 				C485C63A1D337759007D1BFD /* ViewController.swift in Sources */,
 				783F1E731D35299500DD1B58 /* Error.swift in Sources */,
 				783F1E771D35333D00DD1B58 /* SporthEditorBrain.swift in Sources */,
+				C459EEBF1DE6BB8F00C0F494 /* RoundedButton.swift in Sources */,
 				C485C6381D337759007D1BFD /* AppDelegate.swift in Sources */,
 				783F1E711D340B3300DD1B58 /* FileUtilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C459EEBC1DE6BB1300C0F494 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AudioKit;
+			targetProxy = C459EEBB1DE6BB1300C0F494 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C485C63B1D337759007D1BFD /* Main.storyboard */ = {
@@ -321,10 +376,11 @@
 		C485C6471D337759007D1BFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W22K9JG3J6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"../../../Frameworks/AudioKit-iOS",
 					"$(inherited)",
@@ -343,10 +399,11 @@
 		C485C6481D337759007D1BFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W22K9JG3J6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"../../../Frameworks/AudioKit-iOS",
 					"$(inherited)",

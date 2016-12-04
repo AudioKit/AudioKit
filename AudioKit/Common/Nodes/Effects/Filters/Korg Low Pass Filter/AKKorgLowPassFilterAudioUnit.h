@@ -9,21 +9,12 @@
 #ifndef AKKorgLowPassFilterAudioUnit_h
 #define AKKorgLowPassFilterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKKorgLowPassFilterAudioUnit : AUAudioUnit
+@interface AKKorgLowPassFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float cutoffFrequency;
 @property (nonatomic) float resonance;
 @property (nonatomic) float saturation;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKKorgLowPassFilterAudioUnit_h */

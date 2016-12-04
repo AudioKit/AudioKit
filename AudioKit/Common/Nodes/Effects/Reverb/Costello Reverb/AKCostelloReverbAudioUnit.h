@@ -9,20 +9,11 @@
 #ifndef AKCostelloReverbAudioUnit_h
 #define AKCostelloReverbAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKCostelloReverbAudioUnit : AUAudioUnit
+@interface AKCostelloReverbAudioUnit : AKAudioUnit
 @property (nonatomic) float feedback;
 @property (nonatomic) float cutoffFrequency;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKCostelloReverbAudioUnit_h */

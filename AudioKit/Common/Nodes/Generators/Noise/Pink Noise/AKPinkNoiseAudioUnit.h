@@ -10,15 +10,10 @@
 #define AKPinkNoiseAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnitType.h"
 
-@interface AKPinkNoiseAudioUnit : AUAudioUnit
+@interface AKPinkNoiseAudioUnit : AUAudioUnit<AKAudioUnitType>
 @property (nonatomic) float amplitude;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

@@ -3,17 +3,14 @@
 import PlaygroundSupport
 import AudioKit
 
-let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
-                           baseDir: .resources)
+let osc = AKPWMOscillator(frequency: 220)
+osc.pulseWidth = 0.1
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
-
-var filter = AKFormantFilter(player)
+var filter = AKFormantFilter(osc)
 
 AudioKit.output = filter
 AudioKit.start()
-player.play()
+osc.play()
 
 //: User Interface Set up
 
@@ -22,38 +19,23 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Formant Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: filtersPlaygroundFiles))
-
-        addSubview(AKBypassButton(node: filter))
-
         addSubview(AKPropertySlider(
-            property: "Center Frequency",
-            format: "%0.1f Hz",
-            value: filter.centerFrequency, maximum: 8000,
+            property: "x",
+            format: "%0.3f",
+            value: filter.x,
             color: AKColor.yellow
         ) { sliderValue in
-            filter.centerFrequency = sliderValue
+            filter.x = sliderValue
             })
 
         addSubview(AKPropertySlider(
-            property: "Attack",
-            format: "%0.3f s",
-            value: filter.attackDuration, maximum: 0.1,
+            property: "y",
+            format: "%0.3f",
+            value: filter.y,
             color: AKColor.green
-        ) { duration in
-            filter.attackDuration = duration
-            })
-
-        addSubview(AKPropertySlider(
-            property: "Decay",
-            format: "%0.3f s",
-            value: filter.decayDuration, maximum: 0.1,
-            color: AKColor.cyan
-        ) { duration in
-            filter.decayDuration = duration
-            })
+        ) { sliderValue in
+            filter.y = sliderValue
+        })
     }
 }
 

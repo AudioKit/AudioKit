@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBandRejectButterworthFilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "btbr")
+    public static let ComponentDescription = AudioComponentDescription(effect: "btbr")
 
     // MARK: - Properties
 

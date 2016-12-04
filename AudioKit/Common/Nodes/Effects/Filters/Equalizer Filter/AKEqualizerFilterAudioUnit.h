@@ -9,21 +9,12 @@
 #ifndef AKEqualizerFilterAudioUnit_h
 #define AKEqualizerFilterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKEqualizerFilterAudioUnit : AUAudioUnit
+@interface AKEqualizerFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float centerFrequency;
 @property (nonatomic) float bandwidth;
 @property (nonatomic) float gain;
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKEqualizerFilterAudioUnit_h */

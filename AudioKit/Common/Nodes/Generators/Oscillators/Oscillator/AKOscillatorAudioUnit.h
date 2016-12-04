@@ -20,10 +20,6 @@
 
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
 
 @property double rampTime;
 

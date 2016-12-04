@@ -19,6 +19,8 @@ import CoreAudio
 open class AKSampler: AKNode {
 
     // MARK: - Properties
+    
+    /// Internal audio unit
     open var internalAU: AUAudioUnit?
 
     fileprivate var token: AUParameterObserverToken?

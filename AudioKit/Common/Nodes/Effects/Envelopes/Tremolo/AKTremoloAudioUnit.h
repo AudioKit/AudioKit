@@ -9,21 +9,14 @@
 #ifndef AKTremoloAudioUnit_h
 #define AKTremoloAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKTremoloAudioUnit : AUAudioUnit
+@interface AKTremoloAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float depth;
 
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
 
 @end
 

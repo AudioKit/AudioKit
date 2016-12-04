@@ -20,7 +20,7 @@ open class AKDecimator: AKNode, AKToggleable, AUComponent {
 
     // MARK: - Properties
 
-    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
+    public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil

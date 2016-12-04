@@ -22,7 +22,7 @@ import AVFoundation
 ///
 open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKStringResonatorAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "stre")
+    public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
     // MARK: - Properties
 

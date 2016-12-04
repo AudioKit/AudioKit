@@ -1,4 +1,7 @@
+#include <math.h>
 #include "plumber.h"
+
+int plumber_set_var(plumber_data *pd, char *name, SPFLOAT *var);
 
 int sporth_p(sporth_stack *stack, void *ud)
 {
@@ -90,5 +93,41 @@ int sporth_pset(sporth_stack *stack, void *ud)
             fprintf(stderr, "pset: unknown mode!\n");
             break;
     }
+    return PLUMBER_OK;
+}
+
+int sporth_palias(sporth_stack *stack, void *ud)
+{
+    plumber_data *pd = ud;
+    char *name;
+    int id;
+    SPFLOAT *foo;
+
+    switch(pd->mode) {
+        case PLUMBER_CREATE:
+            plumber_add_ugen(pd, SPORTH_PALIAS, NULL);
+            if(sporth_check_args(stack, "sf") != SPORTH_OK) {
+                fprintf(stderr,"palias: Not enough arguments\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            id = floor(sporth_stack_pop_float(stack));
+            name = sporth_stack_pop_string(stack);
+            foo = &pd->p[id];
+            plumber_ftmap_delete(pd, 0);
+            plumber_set_var(pd, name, foo);
+            plumber_ftmap_delete(pd, 1);
+            break;
+        case PLUMBER_INIT:
+            sporth_stack_pop_float(stack);
+            sporth_stack_pop_string(stack);
+            break;
+        case PLUMBER_COMPUTE:
+            sporth_stack_pop_float(stack);
+            break;
+        default:
+            break;
+    }
+
     return PLUMBER_OK;
 }

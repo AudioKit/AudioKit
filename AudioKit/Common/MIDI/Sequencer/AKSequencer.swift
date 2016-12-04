@@ -563,11 +563,12 @@ open class AKSequencer {
         }
     }
     
-    open func nearestQuantisedPosition(quantisationInBeats: Double)->AKDuration{
+    /// Nearest time of quantized beat
+    open func nearestQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         let noteOnTimeRel = currentRelativePosition.beats
-        let quantisationPositions = getQuantisationPositions(quantisationInBeats: quantisationInBeats)
-        let lastSpot = quantisationPositions[0]
-        let nextSpot = quantisationPositions[1]
+        let quantizationPositions = getQuantizationPositions(quantizationInBeats: quantizationInBeats)
+        let lastSpot = quantizationPositions[0]
+        let nextSpot = quantizationPositions[1]
         let diffToLastSpot = AKDuration(beats: noteOnTimeRel) - lastSpot
         let diffToNextSpot = nextSpot - AKDuration(beats: noteOnTimeRel)
         let optimisedQuantTime = (diffToLastSpot < diffToNextSpot ? lastSpot : nextSpot)
@@ -575,22 +576,30 @@ open class AKSequencer {
         //print("nearest \(optimisedQuantTime.beats)")
         return optimisedQuantTime
     }
-    open func previousQuantisedPosition(quantisationInBeats: Double)->AKDuration{
-        return getQuantisationPositions(quantisationInBeats: quantisationInBeats)[0]
+    
+    /// The last quantized beat
+    open func previousQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
+        return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[0]
     }
-    open func nextQuantisedPosition(quantisationInBeats: Double)->AKDuration{
-        return getQuantisationPositions(quantisationInBeats: quantisationInBeats)[1]
+    
+    /// Next quantized beat
+    open func nextQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
+        return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[1]
     }
-    func getQuantisationPositions(quantisationInBeats: Double) -> [AKDuration] {
+    
+    /// An array of all quantization points
+    func getQuantizationPositions(quantizationInBeats: Double) -> [AKDuration] {
         let noteOnTimeRel = currentRelativePosition.beats
-        let lastSpot = AKDuration(beats: modTime(noteOnTimeRel - (noteOnTimeRel.truncatingRemainder(dividingBy: quantisationInBeats))))
-        let nextSpot = AKDuration(beats: modTime(lastSpot.beats + quantisationInBeats))
-        var quantisationPositions:[AKDuration] = Array()
-        quantisationPositions.append(lastSpot)
-        quantisationPositions.append(nextSpot)
-        return quantisationPositions
+        let lastSpot = AKDuration(beats: modTime(noteOnTimeRel - (noteOnTimeRel.truncatingRemainder(dividingBy: quantizationInBeats))))
+        let nextSpot = AKDuration(beats: modTime(lastSpot.beats + quantizationInBeats))
+        var quantizationPositions:[AKDuration] = Array()
+        quantizationPositions.append(lastSpot)
+        quantizationPositions.append(nextSpot)
+        return quantizationPositions
     }
-    func modTime(_ time:Double) -> Double{
+    
+    /// Time modulus
+    func modTime(_ time: Double) -> Double {
         return time.truncatingRemainder(dividingBy: length.beats)
     }
 }

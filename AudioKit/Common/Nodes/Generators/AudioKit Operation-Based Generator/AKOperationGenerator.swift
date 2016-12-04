@@ -11,7 +11,7 @@ import AVFoundation
 /// Operation-based generator
 open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOperationGeneratorAudioUnit
-    static let ComponentDescription = AudioComponentDescription(generator: "cstg")
+    public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
 
     // MARK: - Properties
 
@@ -22,6 +22,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         return internalAU!.isPlaying()
     }
     
+    /// Sporth language snippet
     open var sporth: String = "" {
         didSet  {
             self.stop()

@@ -3,6 +3,7 @@
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
+        <page name='Clarinet'/>
         <page name='Drawbar Organ'/>
         <page name='Dripping Sounds'/>
         <page name='Drum Synthesizers'/>
@@ -31,6 +32,5 @@
         <page name='Segment Operations'/>
         <page name='Sporth Based Generator'/>
         <page name='Telephone'/>
-        <page name='Clarinet'/>
     </pages>
 </playground>

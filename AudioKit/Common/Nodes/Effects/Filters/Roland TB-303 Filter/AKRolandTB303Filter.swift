@@ -19,7 +19,7 @@ import AVFoundation
 ///
 open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKRolandTB303FilterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
+    public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
     // MARK: - Properties
 

@@ -17,10 +17,7 @@
 @interface AKPWMOscillatorAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
-
 @property AUAudioUnitBusArray *outputBusArray;
-
-@property (nonatomic, readwrite) AUParameterTree *parameterTree;
 
 @end
 

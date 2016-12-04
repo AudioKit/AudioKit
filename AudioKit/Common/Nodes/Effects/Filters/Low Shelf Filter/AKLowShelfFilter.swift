@@ -17,7 +17,7 @@ import AVFoundation
 ///
 open class AKLowShelfFilter: AKNode, AKToggleable, AUComponent {
 
-    static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
+    public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU: AudioUnit? = nil
@@ -93,8 +93,8 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUComponent {
 
             AudioKit.engine.attach(internalEffect)
             internalAU = internalEffect.audioUnit
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
+            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
             avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU!, kAULowShelfParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)

@@ -18,7 +18,7 @@ import AVFoundation
 ///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
-    static let ComponentDescription = AudioComponentDescription(effect: "pshf")
+    public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
 
     // MARK: - Properties
