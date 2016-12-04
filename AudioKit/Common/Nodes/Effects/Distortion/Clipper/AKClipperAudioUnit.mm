@@ -50,7 +50,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
-        // Create a parameter object for the limit.
+    // Create a parameter object for the limit.
     AUParameter *limitAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"limit"
                                               name:@"Threshold"

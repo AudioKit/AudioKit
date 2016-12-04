@@ -53,7 +53,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
-        // Create a parameter object for the centerFrequency.
+    // Create a parameter object for the centerFrequency.
     AUParameter *centerFrequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"centerFrequency"
                                               name:@"Center Frequency (Hz)"

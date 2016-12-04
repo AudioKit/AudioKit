@@ -53,7 +53,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
-        // Create a parameter object for the fundamentalFrequency.
+    // Create a parameter object for the fundamentalFrequency.
     AUParameter *fundamentalFrequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"fundamentalFrequency"
                                               name:@"Fundamental Frequency (Hz)"

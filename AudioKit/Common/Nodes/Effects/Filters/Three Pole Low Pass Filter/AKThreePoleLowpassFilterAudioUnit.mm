@@ -56,7 +56,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
-        // Create a parameter object for the distortion.
+    // Create a parameter object for the distortion.
     AUParameter *distortionAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"distortion"
                                               name:@"Distortion (%)"

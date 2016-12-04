@@ -9,13 +9,10 @@
 #ifndef AKAmplitudeTrackerAudioUnit_h
 #define AKAmplitudeTrackerAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKAmplitudeTrackerAudioUnit : AUAudioUnit
+@interface AKAmplitudeTrackerAudioUnit : AKAudioUnit
 - (float)getAmplitude;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
 @end
 
 #endif /* AKAmplitudeTrackerAudioUnit_h */

@@ -9,22 +9,15 @@
 #ifndef AKMandolinAudioUnit_h
 #define AKMandolinAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKMandolinAudioUnit : AUAudioUnit
+@interface AKMandolinAudioUnit : AKAudioUnit
 @property (nonatomic) float detune;
 @property (nonatomic) float bodySize;
 
 - (void)setFrequency:(float)frequency course:(int)course;
 - (void)pluckCourse:(int)course position:(float)position velocity:(int)velocity;
 - (void)muteCourse:(int)course;
-
-//- (void)startNote:(int)note velocity:(int)velocity;
-//- (void)stopNote:(int)note;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
 
 @end
 

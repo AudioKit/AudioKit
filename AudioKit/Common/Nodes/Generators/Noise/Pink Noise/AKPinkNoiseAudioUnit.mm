@@ -50,7 +50,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
 
-        // Create a parameter object for the amplitude.
+    // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"amplitude"
                                               name:@"Amplitude"

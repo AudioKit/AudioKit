@@ -9,10 +9,9 @@
 #ifndef AKPhaseDistortionOscillatorAudioUnit_h
 #define AKPhaseDistortionOscillatorAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKPhaseDistortionOscillatorAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKPhaseDistortionOscillatorAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 @property (nonatomic) float phaseDistortion;
@@ -21,8 +20,6 @@
 
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
-
-@property double rampTime;
 
 @end
 
