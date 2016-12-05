@@ -122,6 +122,7 @@ public struct AKMIDIEvent {
                 }
             }
         }
+        internalData = Array(internalData.prefix(Int(length!)))
     }
     
     /// Initialize the MIDI Event from a status message
@@ -159,6 +160,7 @@ public struct AKMIDIEvent {
         default:
             length = 3
         }
+        internalData = Array(internalData.prefix(Int(length!)))
     }
     
     /// Initialize the MIDI Event from a system command message
@@ -191,6 +193,7 @@ public struct AKMIDIEvent {
         default:
             length = 1
         }
+        internalData = Array(internalData.prefix(Int(length!)))
     }
     
     // MARK: - Utility constructors for common MIDI events
