@@ -159,6 +159,7 @@ public struct AKMIDIEvent {
         default:
             length = 3
         }
+        internalData = Array(internalData.prefix(Int(length!)))
     }
     
     /// Initialize the MIDI Event from a system command message
