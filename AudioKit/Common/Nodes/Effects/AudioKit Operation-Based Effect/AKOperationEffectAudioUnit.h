@@ -9,14 +9,11 @@
 #ifndef AKOperationEffectAudioUnit_h
 #define AKOperationEffectAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKOperationEffectAudioUnit : AUAudioUnit
+@interface AKOperationEffectAudioUnit : AKAudioUnit
 @property (nonatomic) NSArray *parameters;
 - (void)setSporth:(NSString *)sporth;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
 @end
 
 #endif /* AKOperationEffectAudioUnit_h */

@@ -14,17 +14,9 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKFMOscillatorAudioUnit()
-
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *outputBusArray;
-
-@end
-
 @implementation AKFMOscillatorAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKFMOscillatorDSPKernel _kernel;
-
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
@@ -52,39 +44,13 @@
     _kernel.setWaveformValue(index, value);
 }
 
-- (void)start {
-    _kernel.start();
-}
+standardKernelPassthroughs()
 
-- (void)stop {
-    _kernel.stop();
-}
+- (void)createParameters {
 
-- (BOOL)isPlaying {
-    return _kernel.started;
-}
+    standardSetup(FMOscillator)
 
-- (BOOL)isSetUp {
-    return _kernel.resetted;
-}
-
-- (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
-                                     options:(AudioComponentInstantiationOptions)options
-                                       error:(NSError **)outError {
-    self = [super initWithComponentDescription:componentDescription options:options error:outError];
-
-    if (self == nil) {
-        return nil;
-    }
-
-    // Initialize a default format for the busses.
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                  channels:AKSettings.numberOfChannels];
-
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
-
-        // Create a parameter object for the baseFrequency.
+    // Create a parameter object for the baseFrequency.
     AUParameter *baseFrequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"baseFrequency"
                                               name:@"Base Frequency (Hz)"
@@ -153,7 +119,6 @@
     modulationIndexAUParameter.value = 1;
     amplitudeAUParameter.value = 1;
 
-    _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(baseFrequencyAddress,        baseFrequencyAUParameter.value);
     _kernel.setParameter(carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
@@ -169,28 +134,6 @@
         modulationIndexAUParameter,
         amplitudeAUParameter
     ]];
-
-    // Create the input and output busses.
-    _inputBus.init(defaultFormat, 8);
-    _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
-
-    // Create the output bus array.
-    _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeOutput
-                                                              busses: @[_outputBus]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKFMOscillatorDSPKernel *oscillatorKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        oscillatorKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return oscillatorKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -217,92 +160,10 @@
         }
     };
 
-    self.maximumFramesToRender = 512;
-
-    return self;
+	parameterTreeBlock(FMOscillator)
 }
 
-#pragma mark - AUAudioUnit Overrides
-
-- (AUAudioUnitBusArray *)outputBusses {
-    return _outputBusArray;
-}
-
-- (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
-    if (![super allocateRenderResourcesAndReturnError:outError]) {
-        return NO;
-    }
-    _inputBus.allocateRenderResources(self.maximumFramesToRender);
-
-    _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
-    _kernel.reset();
-
-    [self setUpParameterRamp];
-
-    return YES;
-}
-
-- (void)setUpParameterRamp {
-    /*
-     While rendering, we want to schedule all parameter changes. Setting them
-     off the render thread is not thread safe.
-     */
-    __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
-    // Ramp over rampTime in seconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
-    };
-}
-
-- (void)deallocateRenderResources {
-    [super deallocateRenderResources];
-    _kernel.destroy();
-
-    _inputBus.deallocateRenderResources();
-}
-
-- (AUInternalRenderBlock)internalRenderBlock {
-    /*
-     Capture in locals to avoid ObjC member lookups. If "self" is captured in
-     render, we're doing it wrong.
-     */
-    __block AKFMOscillatorDSPKernel *state = &_kernel;
-    __block BufferedInputBus *input = &_inputBus;
-
-    return ^AUAudioUnitStatus(
-                              AudioUnitRenderActionFlags *actionFlags,
-                              const AudioTimeStamp       *timestamp,
-                              AVAudioFrameCount           frameCount,
-                              NSInteger                   outputBusNumber,
-                              AudioBufferList            *outputData,
-                              const AURenderEvent        *realtimeEventListHead,
-                              AURenderPullInputBlock      pullInputBlock) {
-
-        AudioBufferList *inAudioBufferList = input->mutableAudioBufferList;
-
-        /*
-         If the caller passed non-nil output pointers, use those. Otherwise,
-         process in-place in the input buffer. If your algorithm cannot process
-         in-place, then you will need to preallocate an output buffer and use
-         it here.
-         */
-        AudioBufferList *outAudioBufferList = outputData;
-        if (outAudioBufferList->mBuffers[0].mData == nullptr) {
-            for (UInt32 i = 0; i < outAudioBufferList->mNumberBuffers; ++i) {
-                outAudioBufferList->mBuffers[i].mData = inAudioBufferList->mBuffers[i].mData;
-            }
-        }
-
-        state->setBuffer(outAudioBufferList);
-        state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
-
-        return noErr;
-    };
-}
-
+AUAudioUnitGeneratorOverrides(FMOscillator)
 
 @end
 

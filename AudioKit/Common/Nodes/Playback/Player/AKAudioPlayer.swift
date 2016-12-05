@@ -272,8 +272,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             return
         }
         
-        print("AKAudioPlayer.stop()")
-        
         lastCurrentTime = Double(startTime / internalAudioFile.sampleRate)
         playing = false
         paused = false

@@ -9,16 +9,13 @@
 #ifndef AKPluckedStringAudioUnit_h
 #define AKPluckedStringAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKPluckedStringAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKPluckedStringAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
-
-@property double rampTime;
 
 @end
 

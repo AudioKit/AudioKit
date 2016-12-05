@@ -9,10 +9,9 @@
 #ifndef AKFMOscillatorAudioUnit_h
 #define AKFMOscillatorAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKFMOscillatorAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKFMOscillatorAudioUnit : AKAudioUnit
 @property (nonatomic) float baseFrequency;
 @property (nonatomic) float carrierMultiplier;
 @property (nonatomic) float modulatingMultiplier;
@@ -21,8 +20,6 @@
 
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
-
-@property double rampTime;
 
 @end
 

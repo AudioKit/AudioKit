@@ -123,6 +123,7 @@ private:
 
 public:
     bool started = true;
+    bool resetted = true;
 };
 
 #endif /* AKConvolutionDSPKernel_hpp */

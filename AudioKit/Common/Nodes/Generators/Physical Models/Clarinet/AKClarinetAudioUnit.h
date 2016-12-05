@@ -9,16 +9,13 @@
 #ifndef AKClarinetAudioUnit_h
 #define AKClarinetAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKClarinetAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKClarinetAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
-
-@property double rampTime;
 
 @end
 

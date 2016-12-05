@@ -9,15 +9,11 @@
 #ifndef AKMoogLadderAudioUnit_h
 #define AKMoogLadderAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKMoogLadderAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKMoogLadderAudioUnit : AKAudioUnit
 @property (nonatomic) float cutoffFrequency;
 @property (nonatomic) float resonance;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKMoogLadderAudioUnit_h */
