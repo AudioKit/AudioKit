@@ -9,15 +9,11 @@
 #ifndef AKFormantFilterAudioUnit_h
 #define AKFormantFilterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKFormantFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKFormantFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float x;
 @property (nonatomic) float y;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKFormantFilterAudioUnit_h */

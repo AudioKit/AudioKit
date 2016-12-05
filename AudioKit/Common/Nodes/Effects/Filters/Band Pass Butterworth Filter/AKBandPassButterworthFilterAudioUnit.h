@@ -9,15 +9,11 @@
 #ifndef AKBandPassButterworthFilterAudioUnit_h
 #define AKBandPassButterworthFilterAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKBandPassButterworthFilterAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKBandPassButterworthFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float centerFrequency;
 @property (nonatomic) float bandwidth;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKBandPassButterworthFilterAudioUnit_h */

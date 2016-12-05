@@ -9,14 +9,10 @@
 #ifndef AKPinkNoiseAudioUnit_h
 #define AKPinkNoiseAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKPinkNoiseAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKPinkNoiseAudioUnit : AKAudioUnit
 @property (nonatomic) float amplitude;
-
-@property double rampTime;
-
 @end
 
 #endif /* AKPinkNoiseAudioUnit_h */

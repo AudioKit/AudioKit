@@ -9,16 +9,13 @@
 #ifndef AKFluteAudioUnit_h
 #define AKFluteAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKFluteAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKFluteAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
-
-@property double rampTime;
 
 @end
 

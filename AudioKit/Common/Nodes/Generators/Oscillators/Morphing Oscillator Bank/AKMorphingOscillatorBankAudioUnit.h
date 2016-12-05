@@ -9,9 +9,9 @@
 #ifndef AKMorphingOscillatorBankAudioUnit_h
 #define AKMorphingOscillatorBankAudioUnit_h
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKMorphingOscillatorBankAudioUnit : AUAudioUnit
+@interface AKMorphingOscillatorBankAudioUnit : AKAudioUnit
 
 @property (nonatomic) float index;
 
@@ -26,10 +26,6 @@
 - (void)setWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index;
 - (void)startNote:(int)note velocity:(int)velocity;
 - (void)stopNote:(int)note;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
 
 @end
 
