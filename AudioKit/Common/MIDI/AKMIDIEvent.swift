@@ -125,6 +125,53 @@ public struct AKMIDIEvent {
         internalData = Array(internalData.prefix(Int(length!)))
     }
     
+    public static func generateFrom(bluetoothData:[UInt8])->[AKMIDIEvent]{
+        //1st byte timestamp coarse will always be > 128
+        //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysex
+        //3nd < 128 running message - timestamp
+        //status byte determines length of message
+        var midiEvents:[AKMIDIEvent] = []
+        if bluetoothData.count > 1 {
+            var rawEvents: [[UInt8]] = []
+            print("new packet \(bluetoothData)")
+            if bluetoothData[1] < 128 {
+                //continuation of sysex from previous packet - handle separately 
+                //(probably needs a whole bluetooth midi class so we can see the previous packets)
+            }else{
+                var rawEvent: [UInt8] = []
+                var lastStatus: UInt8 = 0
+                var messageJustFinished = false
+                for byte in bluetoothData.dropFirst().dropFirst(){ //drops first two bytes as these are timestamp bytes
+                    if byte >= 128 {
+                        //if we have a new status byte or if rawEvent is a real event
+                        
+                        if messageJustFinished && byte == 128 {
+                            messageJustFinished = false
+                            continue
+                        }
+                        lastStatus = byte
+                    }else{
+                        if rawEvent.isEmpty {
+                            rawEvent.append(lastStatus)
+                        }
+                    }
+                    rawEvent.append(byte) //set the status byte
+                    if (rawEvent.count == 3 && lastStatus != AKMIDISystemCommand.sysex.rawValue){
+                        //end of message
+                        messageJustFinished = true
+                        if !rawEvent.isEmpty {
+                            rawEvents.append(rawEvent)
+                        }
+                        rawEvent = [] //init raw Event
+                    }
+                }
+            }
+            print(rawEvents)
+        }//end bluetoothData.count > 0
+        
+        return midiEvents
+    }
+    
     /// Initialize the MIDI Event from a status message
     ///
     /// - Parameters:
