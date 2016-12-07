@@ -57,6 +57,17 @@ public struct AKMIDIEvent {
         return 0
     }
     
+    func statusFrom(rawByte:UInt8)->AKMIDIStatus?{
+        return AKMIDIStatus(rawValue: Int(rawByte >> 4))
+    }
+    func channelFrom(rawByte:UInt8)->Int{
+        let status = rawByte >> 4
+        if status < 16 {
+            return Int(rawByte.lowbit())
+        }
+        return 0
+    }
+    
     var data1: UInt8 {
         return internalData[1]
     }
@@ -89,11 +100,11 @@ public struct AKMIDIEvent {
     ///
     init(packet: MIDIPacket) {
         if packet.data.0 < 0xF0 {
-            let status = AKMIDIStatus(rawValue: Int(packet.data.0) >> 4)
-            let channel = UInt8(packet.data.0.lowbit())
+            let status = statusFrom(rawByte: packet.data.0)
+            let channel = UInt8(channelFrom(rawByte: packet.data.0))
             
-            if let statusExists = status {
-                fillData(status: statusExists,
+            if status != nil {
+                fillData(status: status!,
                          channel: channel,
                          byte1: packet.data.1,
                          byte2: packet.data.2)
@@ -125,7 +136,7 @@ public struct AKMIDIEvent {
         internalData = Array(internalData.prefix(Int(length!)))
     }
     
-    public static func generateFrom(bluetoothData:[UInt8])->[AKMIDIEvent]{
+    public static func generateFrom(bluetoothData:[UInt8])-> [AKMIDIEvent] {
         //1st byte timestamp coarse will always be > 128
         //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysex
         //3nd < 128 running message - timestamp
@@ -133,7 +144,6 @@ public struct AKMIDIEvent {
         var midiEvents:[AKMIDIEvent] = []
         if bluetoothData.count > 1 {
             var rawEvents: [[UInt8]] = []
-            print("new packet \(bluetoothData)")
             if bluetoothData[1] < 128 {
                 //continuation of sysex from previous packet - handle separately 
                 //(probably needs a whole bluetooth midi class so we can see the previous packets)
@@ -145,7 +155,7 @@ public struct AKMIDIEvent {
                     if byte >= 128 {
                         //if we have a new status byte or if rawEvent is a real event
                         
-                        if messageJustFinished && byte == 128 {
+                        if messageJustFinished && byte >= 128 {
                             messageJustFinished = false
                             continue
                         }
@@ -166,10 +176,34 @@ public struct AKMIDIEvent {
                     }
                 }
             }
-            print(rawEvents)
+            for event in rawEvents{
+                midiEvents.append(AKMIDIEvent(data: event))
+            }
         }//end bluetoothData.count > 0
         
         return midiEvents
+    }
+    
+    /// Initialize the MIDI Event from a raw UInt8 packet (ie. from Bluetooth)
+    ///
+    /// - Parameters:
+    ///   - data:  [UInt8] bluetooth packet
+    ///
+    init(data: [UInt8]) {
+        if let status = statusFrom(rawByte: data[0]){
+            //is regular midi status
+            let channel = channelFrom(rawByte: data[0])
+            fillData(status: status, channel: UInt8(channel), byte1: data[1], byte2: data[2])
+        }else if let command = AKMIDISystemCommand(rawValue: data[0]){
+            //is sys command
+            if command == .sysex{
+                for byte in data{
+                    internalData.append(byte)
+                }
+            }else{
+                fillData(command: command, byte1: data[1], byte2: data[2])
+            }
+        }
     }
     
     /// Initialize the MIDI Event from a status message
