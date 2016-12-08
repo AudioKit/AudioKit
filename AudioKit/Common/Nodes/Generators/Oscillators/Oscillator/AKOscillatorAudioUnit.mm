@@ -9,7 +9,6 @@
 #import "AKOscillatorAudioUnit.h"
 #import "AKOscillatorDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

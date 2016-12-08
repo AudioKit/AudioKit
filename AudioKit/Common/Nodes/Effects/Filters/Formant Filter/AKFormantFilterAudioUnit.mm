@@ -9,7 +9,6 @@
 #import "AKFormantFilterAudioUnit.h"
 #import "AKFormantFilterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

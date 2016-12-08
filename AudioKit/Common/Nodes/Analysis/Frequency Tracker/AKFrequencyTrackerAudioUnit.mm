@@ -9,7 +9,6 @@
 #import "AKFrequencyTrackerAudioUnit.h"
 #import "AKFrequencyTrackerDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

@@ -9,7 +9,6 @@
 #import "AKAutoWahAudioUnit.h"
 #import "AKAutoWahDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

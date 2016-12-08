@@ -9,7 +9,6 @@
 #import "AKFMOscillatorAudioUnit.h"
 #import "AKFMOscillatorDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

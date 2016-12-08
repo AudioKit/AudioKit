@@ -9,7 +9,6 @@
 #import "AKRolandTB303FilterAudioUnit.h"
 #import "AKRolandTB303FilterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
