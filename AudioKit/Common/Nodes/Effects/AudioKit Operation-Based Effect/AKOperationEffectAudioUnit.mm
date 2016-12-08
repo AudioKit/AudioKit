@@ -9,7 +9,6 @@
 #import "AKOperationEffectAudioUnit.h"
 #import "AKOperationEffectDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
