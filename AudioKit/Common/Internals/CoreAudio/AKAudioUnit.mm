@@ -24,6 +24,16 @@
     return NO;
 }
 
+-(double)rampTime {
+    return _rampTime;
+}
+
+-(void)setRampTime:(double)rampTime {
+    if (_rampTime == rampTime) { return; }
+    _rampTime = rampTime;
+    [self setUpParameterRamp];
+}
+
 - (void)createParameters {}
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
