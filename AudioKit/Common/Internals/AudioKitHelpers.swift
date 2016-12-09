@@ -135,7 +135,7 @@ extension Int {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
-        return pow(2.0, (Double(self) - 69.0) / 12.0) * aRef
+        return pow(2.0, (Double(self) - 57.0) / 12.0) * aRef
     }
 }
 
@@ -147,7 +147,7 @@ extension Double {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
-        return pow(2.0, (self - 69.0) / 12.0) * aRef
+        return pow(2.0, (self - 57.0) / 12.0) * aRef
     }
 
 }
@@ -159,7 +159,7 @@ extension Int {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12 * log2(Double(self)/aRef)
+        return 57 + 12 * log2(Double(self)/aRef)
     }
 }
 
@@ -171,7 +171,7 @@ extension Double {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12 * log2(self/aRef)
+        return 57 + 12 * log2(self/aRef)
     }
 }
 
