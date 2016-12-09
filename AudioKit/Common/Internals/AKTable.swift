@@ -67,6 +67,10 @@ public struct AKTable: MutableCollection {
         return content.endIndex
     }
 
+    public var count: IndexDistance {
+        return content.count
+    }
+
     public subscript(index: Index) -> Element {
         get {
             return content[index]
