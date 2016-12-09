@@ -235,7 +235,7 @@ extension AKTable: RandomAccessCollection  {
     }
 
     @inline(__always)
-    public func index(_ i: Index, offsetBy n: Index) -> Index {
+    public func index(_ i: Index, offsetBy n: IndexDistance) -> Index {
         return i + n
     }
 
