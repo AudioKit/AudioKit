@@ -24,7 +24,9 @@
     return NO;
 }
 
-- (void)createParameters {}
+- (void)createParameters {
+    // Define in subclass
+}
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
