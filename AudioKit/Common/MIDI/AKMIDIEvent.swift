@@ -80,10 +80,9 @@ public struct AKMIDIEvent {
     }
     
     var bytes: Data {
-        return Data(bytes: UnsafePointer<UInt8>([internalData[0], internalData[1], internalData[2]] as [UInt8]),
-                    count: 3)
+        return Data(bytes: internalData.prefix(3))
     }
-    
+
     static fileprivate let statusBit: UInt8 = 0b10000000
     
     // MARK: - Initialization
