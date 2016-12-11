@@ -334,6 +334,7 @@
 		C48444E71C36FB2C007BE794 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444E61C36FB2C007BE794 /* triangle.swift */; };
 		C48444E91C36FD7F007BE794 /* square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444E81C36FD7F007BE794 /* square.swift */; };
 		C48444EB1C36FE14007BE794 /* sawtooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444EA1C36FE14007BE794 /* sawtooth.swift */; };
+		C486B3321DFD395F009A25C4 /* MultitouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486B3311DFD395F009A25C4 /* MultitouchGestureRecognizer.swift */; };
 		C487B5FA1DD9229900C56B59 /* AKClarinet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F61DD9229900C56B59 /* AKClarinet.swift */; };
 		C487B5FB1DD9229900C56B59 /* AKClarinetAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C487B5F71DD9229900C56B59 /* AKClarinetAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C487B5FC1DD9229900C56B59 /* AKClarinetAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F81DD9229900C56B59 /* AKClarinetAudioUnit.mm */; };
@@ -1087,6 +1088,7 @@
 		C48444E61C36FB2C007BE794 /* triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangle.swift; sourceTree = "<group>"; };
 		C48444E81C36FD7F007BE794 /* square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = square.swift; sourceTree = "<group>"; };
 		C48444EA1C36FE14007BE794 /* sawtooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sawtooth.swift; sourceTree = "<group>"; };
+		C486B3311DFD395F009A25C4 /* MultitouchGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultitouchGestureRecognizer.swift; sourceTree = "<group>"; };
 		C487B5F61DD9229900C56B59 /* AKClarinet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKClarinet.swift; sourceTree = "<group>"; };
 		C487B5F71DD9229900C56B59 /* AKClarinetAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKClarinetAudioUnit.h; sourceTree = "<group>"; };
 		C487B5F81DD9229900C56B59 /* AKClarinetAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKClarinetAudioUnit.mm; sourceTree = "<group>"; };
@@ -1994,6 +1996,7 @@
 		C446B3E61D454AB6000AEFCA /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C486B3311DFD395F009A25C4 /* MultitouchGestureRecognizer.swift */,
 				C47A62691D4D6E25001980B7 /* AKBypassButton.swift */,
 				C49A09FC1D529742007D8ADB /* AKADSRView.swift */,
 				C4E120AB1D4DBD6300CD3572 /* AKButton.swift */,
@@ -3946,6 +3949,7 @@
 				C483F63B1D65502E00374B2A /* trackedAmplitude.swift in Sources */,
 				C493520B1C3CBA6C00A28D7F /* AKBalancer.swift in Sources */,
 				C49E9DF71D2B1F9100E5E8BF /* AKMusicTrack.swift in Sources */,
+				C486B3321DFD395F009A25C4 /* MultitouchGestureRecognizer.swift in Sources */,
 				C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */,
 				C47AE4E61D39FA8E0091118F /* AKDrumSynths.swift in Sources */,
 				E4630B4A1D2BC78600437E75 /* AKCostelloReverbPresets.swift in Sources */,
