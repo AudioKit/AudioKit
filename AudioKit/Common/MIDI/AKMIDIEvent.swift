@@ -19,7 +19,12 @@ extension UInt8 {
     func lowbit() -> UInt8 {
         return self & 0xF
     }
-    
+}
+
+extension MIDIPacket {
+    var isSysex: Bool {
+        return data.0 == AKMIDISystemCommand.sysex.rawValue
+    }
 }
 
 /// A container for the values that define a MIDI event
@@ -66,7 +71,7 @@ public struct AKMIDIEvent {
     }
     
     var data: UInt16 {
-        if internalData.count < 2{
+        if internalData.count < 2 {
             return 0
         }
         let x = UInt16(internalData[1])
@@ -99,16 +104,14 @@ public struct AKMIDIEvent {
                          byte2: packet.data.2)
             }
         } else {
-            
-            if isSysex(packet) {
+        
+            if packet.isSysex {
                 internalData = [] //reset internalData
                 
                 //voodoo
                 let mirrorData = Mirror(reflecting: packet.data)
-                var i = 0
                 for (_, value) in mirrorData.children {
                     internalData.append(UInt8(value as! UInt8))
-                    i += 1
                     if value as! UInt8 == 247 {
                         break
                     }
@@ -284,9 +287,4 @@ public struct AKMIDIEvent {
                            byte1: controller,
                            byte2: value)
     }
-    
-    fileprivate func isSysex(_ packet: MIDIPacket) -> Bool {
-        return packet.data.0 == AKMIDISystemCommand.sysex.rawValue
-    }
-    
 }
