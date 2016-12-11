@@ -45,7 +45,7 @@ public struct AKMIDIEvent {
     // MARK: - Properties
     
     /// Internal data - defaults to 3 bytes
-    var internalData = [UInt8](zeroes: 128)
+    private(set) var internalData = [UInt8](zeroes: 128)
     
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
