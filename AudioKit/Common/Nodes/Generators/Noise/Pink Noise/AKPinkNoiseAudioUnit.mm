@@ -9,7 +9,6 @@
 #import "AKPinkNoiseAudioUnit.h"
 #import "AKPinkNoiseDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

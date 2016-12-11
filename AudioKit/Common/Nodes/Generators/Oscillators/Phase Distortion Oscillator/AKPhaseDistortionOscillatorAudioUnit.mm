@@ -9,7 +9,6 @@
 #import "AKPhaseDistortionOscillatorAudioUnit.h"
 #import "AKPhaseDistortionOscillatorDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
