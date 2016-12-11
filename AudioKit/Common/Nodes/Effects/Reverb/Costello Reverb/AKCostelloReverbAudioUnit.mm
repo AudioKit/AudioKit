@@ -9,7 +9,6 @@
 #import "AKCostelloReverbAudioUnit.h"
 #import "AKCostelloReverbDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

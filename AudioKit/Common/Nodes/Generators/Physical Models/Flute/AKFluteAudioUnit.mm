@@ -9,7 +9,6 @@
 #import "AKFluteAudioUnit.h"
 #import "AKFluteDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

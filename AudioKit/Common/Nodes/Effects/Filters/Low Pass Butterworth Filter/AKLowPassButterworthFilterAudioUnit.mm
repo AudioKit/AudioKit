@@ -9,7 +9,6 @@
 #import "AKLowPassButterworthFilterAudioUnit.h"
 #import "AKLowPassButterworthFilterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
