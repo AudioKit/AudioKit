@@ -25,6 +25,18 @@ extension MIDIPacket {
     var isSysex: Bool {
         return data.0 == AKMIDISystemCommand.sysex.rawValue
     }
+
+    var status: AKMIDIStatus? {
+        return AKMIDIStatus(rawValue: Int(data.0) >> 4)
+    }
+
+    var channel: UInt8 {
+        return data.0.lowbit()
+    }
+
+    var command: AKMIDISystemCommand? {
+        return AKMIDISystemCommand(rawValue: data.0)
+    }
 }
 
 /// A container for the values that define a MIDI event
@@ -33,7 +45,7 @@ public struct AKMIDIEvent {
     // MARK: - Properties
     
     /// Internal data - defaults to 3 bytes
-    var internalData = [UInt8](zeroes: 128)
+    private(set) var internalData = [UInt8](zeroes: 128)
     
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
@@ -80,10 +92,9 @@ public struct AKMIDIEvent {
     }
     
     var bytes: Data {
-        return Data(bytes: UnsafePointer<UInt8>([internalData[0], internalData[1], internalData[2]] as [UInt8]),
-                    count: 3)
+        return Data(bytes: internalData.prefix(3))
     }
-    
+
     static fileprivate let statusBit: UInt8 = 0b10000000
     
     // MARK: - Initialization
@@ -94,12 +105,9 @@ public struct AKMIDIEvent {
     ///
     init(packet: MIDIPacket) {
         if packet.data.0 < 0xF0 {
-            let status = AKMIDIStatus(rawValue: Int(packet.data.0) >> 4)
-            let channel = UInt8(packet.data.0.lowbit())
-            
-            if let statusExists = status {
-                fillData(status: statusExists,
-                         channel: channel,
+            if let status = packet.status {
+                fillData(status: status,
+                         channel: packet.channel,
                          byte1: packet.data.1,
                          byte2: packet.data.2)
             }
@@ -118,7 +126,7 @@ public struct AKMIDIEvent {
                 }
                 
             } else {
-                if let cmd = AKMIDISystemCommand(rawValue: packet.data.0) {
+                if let cmd = packet.command {
                     fillData(command: cmd, byte1: packet.data.1, byte2: packet.data.2)
                 } else {
                     print("AKMIDISystemCommand failure due to bad data - need to investigate")
