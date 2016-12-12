@@ -148,13 +148,10 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
-
-            guard let avAudioUnitGenerator = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.count))
