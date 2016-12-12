@@ -12,9 +12,9 @@
 #import "AKAudioUnit.h"
 
 @interface AKTesterAudioUnit : AKAudioUnit
-- (void)setSamples:(int)samples;
-- (NSString *)getMD5;
-- (int)getSamples;
+
+@property (readonly) NSString* md5;
+@property int samples;
 
 @end
 
