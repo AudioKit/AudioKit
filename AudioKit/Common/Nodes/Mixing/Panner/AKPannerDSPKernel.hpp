@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPannerDSPKernel_hpp
-#define AKPannerDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -149,4 +148,3 @@ public:
     ParameterRamper panRamper = 0;
 };
 
-#endif /* AKPannerDSPKernel_hpp */

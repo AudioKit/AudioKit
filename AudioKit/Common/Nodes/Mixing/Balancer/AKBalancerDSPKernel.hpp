@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKBalancerDSPKernel_hpp
-#define AKBalancerDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -115,4 +114,3 @@ public:
     bool started = true;
 };
 
-#endif /* AKBalancerDSPKernel_hpp */

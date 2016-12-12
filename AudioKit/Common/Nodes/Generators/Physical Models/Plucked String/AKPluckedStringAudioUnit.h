@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPluckedStringAudioUnit_h
-#define AKPluckedStringAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -19,4 +18,3 @@
 
 @end
 
-#endif /* AKPluckedStringAudioUnit_h */

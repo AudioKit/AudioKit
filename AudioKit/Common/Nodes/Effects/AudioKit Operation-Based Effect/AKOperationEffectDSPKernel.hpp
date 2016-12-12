@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKOperationEffectDSPKernel_hpp
-#define AKOperationEffectDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -144,4 +143,3 @@ public:
     bool started = true;
 };
 
-#endif /* AKOperationEffectDSPKernel_hpp */

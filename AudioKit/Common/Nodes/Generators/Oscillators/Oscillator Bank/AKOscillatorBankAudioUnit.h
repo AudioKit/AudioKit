@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKOscillatorBankAudioUnit_h
-#define AKOscillatorBankAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -26,4 +25,3 @@
 
 @end
 
-#endif /* AKOscillatorBankAudioUnit_h */

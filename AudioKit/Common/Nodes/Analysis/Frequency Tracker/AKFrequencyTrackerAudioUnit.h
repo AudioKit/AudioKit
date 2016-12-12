@@ -6,14 +6,11 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFrequencyTrackerAudioUnit_h
-#define AKFrequencyTrackerAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
 @interface AKFrequencyTrackerAudioUnit : AKAudioUnit
-- (float)getAmplitude;
-- (float)getFrequency;
+@property (readonly) float amplitude;
+@property (readonly) float frequency;
 @end
-
-#endif /* AKFrequencyTrackerAudioUnit_h */

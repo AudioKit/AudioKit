@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKOperationGeneratorAudioUnit_h
-#define AKOperationGeneratorAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKOperationGeneratorAudioUnit : AKAudioUnit
@@ -17,4 +15,3 @@
 - (void)trigger:(int)trigger;
 @end
 
-#endif /* AKOperationGeneratorAudioUnit_h */
