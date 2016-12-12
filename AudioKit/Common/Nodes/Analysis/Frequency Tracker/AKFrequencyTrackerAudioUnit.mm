@@ -32,10 +32,10 @@
     return _kernel.started;
 }
 
-- (float)getAmplitude {
+- (float)amplitude {
     return _kernel.trackedAmplitude;
 }
-- (float)getFrequency {
+- (float)frequency {
     return _kernel.trackedFrequency;
 }
 

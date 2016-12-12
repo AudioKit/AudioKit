@@ -21,7 +21,6 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
@@ -43,7 +42,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
 
     /// Detected amplitude
     open var amplitude: Double {
-        return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
+        return Double(self.internalAU!.amplitude) / sqrt(2.0) * 2.0
     }
 
     // MARK: - Initialization

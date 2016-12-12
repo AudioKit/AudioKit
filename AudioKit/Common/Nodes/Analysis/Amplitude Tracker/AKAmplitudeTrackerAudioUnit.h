@@ -12,7 +12,7 @@
 #import "AKAudioUnit.h"
 
 @interface AKAmplitudeTrackerAudioUnit : AKAudioUnit
-- (float)getAmplitude;
+@property (readonly) float amplitude;
 @end
 
 #endif /* AKAmplitudeTrackerAudioUnit_h */
