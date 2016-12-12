@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKTremoloDSPKernel_hpp
-#define AKTremoloDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -175,4 +174,3 @@ public:
     ParameterRamper depthRamper = 10.0;
 };
 
-#endif /* AKTremoloDSPKernel_hpp */

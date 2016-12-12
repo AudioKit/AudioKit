@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMetalBarAudioUnit_h
-#define AKMetalBarAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -24,4 +23,4 @@
 
 @end
 
-#endif /* AKMetalBarAudioUnit_h */
+

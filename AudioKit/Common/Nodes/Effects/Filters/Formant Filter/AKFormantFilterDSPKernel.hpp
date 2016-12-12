@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFormantFilterDSPKernel_hpp
-#define AKFormantFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -167,4 +166,3 @@ public:
     ParameterRamper yRamper = 0;
 };
 
-#endif /* AKFormantFilterDSPKernel_hpp */

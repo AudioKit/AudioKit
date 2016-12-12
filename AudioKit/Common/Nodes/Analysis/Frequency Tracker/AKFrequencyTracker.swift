@@ -31,12 +31,12 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
 
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
     open var amplitude: Double {
-        return Double(self.internalAU!.getAmplitude()) / 2.0 // Stereo Hack
+        return Double(self.internalAU!.amplitude) / 2.0 // Stereo Hack
     }
 
     /// Detected frequency
     open var frequency: Double {
-        return Double(self.internalAU!.getFrequency()) * 2.0 // Stereo Hack
+        return Double(self.internalAU!.frequency) * 2.0 // Stereo Hack
     }
 
     // MARK: - Initialization

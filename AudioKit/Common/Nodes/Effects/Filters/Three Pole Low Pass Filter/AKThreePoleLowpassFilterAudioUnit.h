@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKThreePoleLowpassFilterAudioUnit_h
-#define AKThreePoleLowpassFilterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKThreePoleLowpassFilterAudioUnit : AKAudioUnit
@@ -17,4 +15,3 @@
 @property (nonatomic) float resonance;
 @end
 
-#endif /* AKThreePoleLowpassFilterAudioUnit_h */

@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKAmplitudeTrackerDSPKernel_hpp
-#define AKAmplitudeTrackerDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -131,5 +130,3 @@ public:
     bool started = true;
     float trackedAmplitude = 0.0;
 };
-
-#endif /* AKAmplitudeTrackerDSPKernel_hpp */

@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKHighPassButterworthFilterDSPKernel_hpp
-#define AKHighPassButterworthFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -141,4 +140,3 @@ public:
     ParameterRamper cutoffFrequencyRamper = 500.0;
 };
 
-#endif /* AKHighPassButterworthFilterDSPKernel_hpp */

@@ -6,16 +6,13 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKTesterAudioUnit_h
-#define AKTesterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKTesterAudioUnit : AKAudioUnit
-- (void)setSamples:(int)samples;
-- (NSString *)getMD5;
-- (int)getSamples;
+
+@property (readonly) NSString* md5;
+@property int samples;
 
 @end
 
-#endif /* AKTesterAudioUnit_h */
