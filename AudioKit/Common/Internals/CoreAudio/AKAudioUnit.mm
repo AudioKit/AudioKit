@@ -99,3 +99,31 @@
 }
 
 @end
+
+//
+// Not currently achievable in Swift because you cannot set self in a class constructor
+//
+
+@implementation AUParameter(Ext)
+
+-(instancetype)init:(NSString *)identifier
+               name:(NSString *)name
+            address:(AUParameterAddress)address
+                min:(AUValue)min
+                max:(AUValue)max
+               unit:(AudioUnitParameterUnit)unit
+           unitName:(NSString *)unitName {
+
+    return self = [AUParameterTree createParameterWithIdentifier:identifier
+                                                            name:name
+                                                         address:address
+                                                             min:min
+                                                             max:max
+                                                            unit:unit
+                                                        unitName:unitName
+                                                           flags:0
+                                                    valueStrings:nil
+                                             dependentParameters:nil];
+
+}
+@end

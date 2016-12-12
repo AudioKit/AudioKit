@@ -16,9 +16,13 @@ public typealias MIDIChannel = Int
 
 extension Collection where Index == Int {
     /// Return a random element from the array
-    public func randomElement() -> Iterator.Element {
+    public var randomIndex: Index {
         let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
-        return self[startIndex.advanced(by: offset)]
+        return startIndex.advanced(by: offset)
+    }
+
+    public func randomElement() -> Iterator.Element {
+        return self[randomIndex]
     }
 }
 
