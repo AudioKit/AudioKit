@@ -12,8 +12,8 @@
 #import "AKAudioUnit.h"
 
 @interface AKFrequencyTrackerAudioUnit : AKAudioUnit
-- (float)getAmplitude;
-- (float)getFrequency;
+@property (readonly) float amplitude;
+@property (readonly) float frequency;
 @end
 
 #endif /* AKFrequencyTrackerAudioUnit_h */
