@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKDripAudioUnit_h
-#define AKDripAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKDripAudioUnit : AKAudioUnit
@@ -24,4 +22,4 @@
 
 @end
 
-#endif /* AKDripAudioUnit_h */
+

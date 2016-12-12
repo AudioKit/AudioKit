@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKAmplitudeEnvelopeDSPKernel_hpp
-#define AKAmplitudeEnvelopeDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -219,4 +218,3 @@ public:
     ParameterRamper releaseDurationRamper = 0.1;
 };
 
-#endif /* AKAmplitudeEnvelopeDSPKernel_hpp */

@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPWMOscillatorBankAudioUnit_h
-#define AKPWMOscillatorBankAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -25,4 +24,3 @@
 
 @end
 
-#endif /* AKPWMOscillatorBankAudioUnit_h */

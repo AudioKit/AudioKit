@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKBalancerAudioUnit_h
-#define AKBalancerAudioUnit_h
-
+#pragma once
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKBalancerAudioUnit : AUAudioUnit
@@ -17,4 +15,3 @@
 - (BOOL)isPlaying;
 @end
 
-#endif /* AKBalancerAudioUnit_h */

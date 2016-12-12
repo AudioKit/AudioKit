@@ -6,8 +6,7 @@
 	</samplecode>
  */
 
-#ifndef ParameterRamper_h
-#define ParameterRamper_h
+#pragma once
 
 // N.B. This is C++.
 
@@ -122,4 +121,3 @@ public:
     }
 };
 
-#endif /* ParameterRamper_h */

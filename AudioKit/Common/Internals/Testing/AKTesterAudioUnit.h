@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKTesterAudioUnit_h
-#define AKTesterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKTesterAudioUnit : AKAudioUnit
@@ -18,4 +16,3 @@
 
 @end
 
-#endif /* AKTesterAudioUnit_h */

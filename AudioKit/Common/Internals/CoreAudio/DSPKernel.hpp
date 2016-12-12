@@ -6,8 +6,7 @@
 	</samplecode>
  */
 
-#ifndef DSPKernel_h
-#define DSPKernel_h
+#pragma once
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <algorithm>
@@ -33,4 +32,3 @@ private:
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const*& event);
 };
 
-#endif /* DSPKernel_h */

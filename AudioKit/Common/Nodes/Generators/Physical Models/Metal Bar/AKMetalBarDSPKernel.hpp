@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMetalBarDSPKernel_hpp
-#define AKMetalBarDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -274,4 +273,3 @@ public:
     ParameterRamper strikeWidthRamper = 0.05;
 };
 
-#endif /* AKMetalBarDSPKernel_hpp */

@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMorphingOscillatorBankAudioUnit_h
-#define AKMorphingOscillatorBankAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKMorphingOscillatorBankAudioUnit : AKAudioUnit
@@ -29,4 +27,3 @@
 
 @end
 
-#endif /* AKMorphingOscillatorBankAudioUnit_h */

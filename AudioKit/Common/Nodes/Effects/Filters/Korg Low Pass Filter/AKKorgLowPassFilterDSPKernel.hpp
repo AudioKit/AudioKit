@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKKorgLowPassFilterDSPKernel_hpp
-#define AKKorgLowPassFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -189,4 +188,3 @@ public:
     ParameterRamper saturationRamper = 0.0;
 };
 
-#endif /* AKKorgLowPassFilterDSPKernel_hpp */

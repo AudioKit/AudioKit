@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKAutoWahDSPKernel_hpp
-#define AKAutoWahDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -188,5 +187,3 @@ public:
     ParameterRamper mixRamper = 1.0;
     ParameterRamper amplitudeRamper = 0.1;
 };
-
-#endif /* AKAutoWahDSPKernel_hpp */

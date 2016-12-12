@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKVariableDelayDSPKernel_hpp
-#define AKVariableDelayDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -181,4 +180,3 @@ public:
     ParameterRamper feedbackRamper = 0;
 };
 
-#endif /* AKVariableDelayDSPKernel_hpp */

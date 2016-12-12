@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKClarinetAudioUnit_h
-#define AKClarinetAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKClarinetAudioUnit : AKAudioUnit
@@ -19,4 +17,3 @@
 
 @end
 
-#endif /* AKClarinetAudioUnit_h */
