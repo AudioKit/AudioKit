@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPitchShifterDSPKernel_hpp
-#define AKPitchShifterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -189,4 +188,3 @@ public:
     ParameterRamper crossfadeRamper = 512;
 };
 
-#endif /* AKPitchShifterDSPKernel_hpp */

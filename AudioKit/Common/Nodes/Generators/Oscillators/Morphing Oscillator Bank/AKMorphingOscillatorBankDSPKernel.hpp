@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMorphingOscillatorBankDSPKernel_hpp
-#define AKMorphingOscillatorBankDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -433,4 +432,4 @@ public:
     ParameterRamper detuningMultiplierRamper = 1;
 };
 
-#endif /* AKMorphingOscillatorBankDSPKernel_hpp */
+

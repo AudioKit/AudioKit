@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKResonantFilterDSPKernel_hpp
-#define AKResonantFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -165,4 +164,3 @@ public:
     ParameterRamper bandwidthRamper = 1000.0;
 };
 
-#endif /* AKResonantFilterDSPKernel_hpp */

@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPeakingParametricEqualizerFilterDSPKernel_hpp
-#define AKPeakingParametricEqualizerFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -190,4 +189,3 @@ public:
     ParameterRamper qRamper = 0.707;
 };
 
-#endif /* AKPeakingParametricEqualizerFilterDSPKernel_hpp */

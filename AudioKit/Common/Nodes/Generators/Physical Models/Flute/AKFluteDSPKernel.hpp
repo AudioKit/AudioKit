@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFluteDSPKernel_hpp
-#define AKFluteDSPKernel_hpp
-
+#pragma once
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -161,4 +159,4 @@ public:
     ParameterRamper amplitudeRamper = 0.5;
 };
 
-#endif /* AKFluteDSPKernel_hpp */
+

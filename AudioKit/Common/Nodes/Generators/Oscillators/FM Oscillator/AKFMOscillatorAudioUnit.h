@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFMOscillatorAudioUnit_h
-#define AKFMOscillatorAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKFMOscillatorAudioUnit : AKAudioUnit
@@ -23,4 +21,3 @@
 
 @end
 
-#endif /* AKFMOscillatorAudioUnit_h */

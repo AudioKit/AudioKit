@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPhaseLockedVocoderAudioUnit_h
-#define AKPhaseLockedVocoderAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKPhaseLockedVocoderAudioUnit : AKAudioUnit
@@ -20,4 +18,4 @@
 
 @end
 
-#endif /* AKPhaseLockedVocoderAudioUnit_h */
+

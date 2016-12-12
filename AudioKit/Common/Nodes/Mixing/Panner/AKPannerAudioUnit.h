@@ -6,13 +6,10 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPannerAudioUnit_h
-#define AKPannerAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKPannerAudioUnit : AKAudioUnit
 @property (nonatomic) float pan;
 @end
 
-#endif /* AKPannerAudioUnit_h */
