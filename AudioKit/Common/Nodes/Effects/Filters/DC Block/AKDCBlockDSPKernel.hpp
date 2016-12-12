@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKDCBlockDSPKernel_hpp
-#define AKDCBlockDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -115,4 +114,3 @@ public:
     bool resetted = false;
 };
 
-#endif /* AKDCBlockDSPKernel_hpp */

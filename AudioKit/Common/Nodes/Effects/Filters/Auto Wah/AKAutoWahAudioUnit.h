@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKAutoWahAudioUnit_h
-#define AKAutoWahAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKAutoWahAudioUnit : AKAudioUnit
@@ -17,4 +15,4 @@
 @property (nonatomic) float amplitude;
 @end
 
-#endif /* AKAutoWahAudioUnit_h */
+

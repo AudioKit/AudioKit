@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKRolandTB303FilterDSPKernel_hpp
-#define AKRolandTB303FilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -213,4 +212,4 @@ public:
     ParameterRamper resonanceAsymmetryRamper = 0.5;
 };
 
-#endif /* AKRolandTB303FilterDSPKernel_hpp */
+

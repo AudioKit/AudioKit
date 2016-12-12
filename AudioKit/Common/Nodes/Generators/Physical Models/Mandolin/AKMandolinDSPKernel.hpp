@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMandolinDSPKernel_hpp
-#define AKMandolinDSPKernel_hpp
-
+#pragma once
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -184,4 +182,4 @@ public:
     ParameterRamper bodySizeRamper = 1;
 };
 
-#endif /* AKMandolinDSPKernel_hpp */
+

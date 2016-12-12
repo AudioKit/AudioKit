@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKClipperDSPKernel_hpp
-#define AKClipperDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -141,4 +140,3 @@ public:
     ParameterRamper limitRamper = 1.0;
 };
 
-#endif /* AKClipperDSPKernel_hpp */

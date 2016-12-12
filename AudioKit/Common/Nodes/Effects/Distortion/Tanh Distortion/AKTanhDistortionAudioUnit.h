@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKTanhDistortionAudioUnit_h
-#define AKTanhDistortionAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -18,4 +17,3 @@
 @property (nonatomic) float negativeShapeParameter;
 @end
 
-#endif /* AKTanhDistortionAudioUnit_h */

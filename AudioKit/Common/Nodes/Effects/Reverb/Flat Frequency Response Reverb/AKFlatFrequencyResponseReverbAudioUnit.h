@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFlatFrequencyResponseReverbAudioUnit_h
-#define AKFlatFrequencyResponseReverbAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKFlatFrequencyResponseReverbAudioUnit : AKAudioUnit
@@ -16,4 +14,3 @@
 - (void)setLoopDuration:(float)duration;
 @end
 
-#endif /* AKFlatFrequencyResponseReverbAudioUnit_h */

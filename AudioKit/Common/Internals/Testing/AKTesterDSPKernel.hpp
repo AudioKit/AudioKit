@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKTesterDSPKernel_hpp
-#define AKTesterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -125,4 +124,4 @@ public:
     bool started = true;
 };
 
-#endif /* AKTesterDSPKernel_hpp */
+

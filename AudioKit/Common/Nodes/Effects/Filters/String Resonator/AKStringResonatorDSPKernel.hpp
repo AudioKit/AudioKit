@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKStringResonatorDSPKernel_hpp
-#define AKStringResonatorDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -165,4 +164,3 @@ public:
     ParameterRamper feedbackRamper = 0.95;
 };
 
-#endif /* AKStringResonatorDSPKernel_hpp */
