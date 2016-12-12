@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKBoosterDSPKernel_hpp
-#define AKBoosterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -125,4 +124,3 @@ public:
     ParameterRamper gainRamper = 0;
 };
 
-#endif /* AKBoosterDSPKernel_hpp */

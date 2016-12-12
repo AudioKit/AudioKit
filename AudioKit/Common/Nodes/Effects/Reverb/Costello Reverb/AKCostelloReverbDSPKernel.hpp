@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKCostelloReverbDSPKernel_hpp
-#define AKCostelloReverbDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -172,4 +171,3 @@ public:
     ParameterRamper cutoffFrequencyRamper = 4000;
 };
 
-#endif /* AKCostelloReverbDSPKernel_hpp */

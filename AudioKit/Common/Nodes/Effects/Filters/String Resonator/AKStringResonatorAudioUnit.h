@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKStringResonatorAudioUnit_h
-#define AKStringResonatorAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKStringResonatorAudioUnit : AKAudioUnit
@@ -16,4 +14,3 @@
 @property (nonatomic) float feedback;
 @end
 
-#endif /* AKStringResonatorAudioUnit_h */

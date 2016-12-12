@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKToneFilterDSPKernel_hpp
-#define AKToneFilterDSPKernel_hpp
-
+#pragma once
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -141,4 +139,3 @@ public:
     ParameterRamper halfPowerPointRamper = 1000.0;
 };
 
-#endif /* AKToneFilterDSPKernel_hpp */

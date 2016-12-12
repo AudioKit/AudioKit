@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFlatFrequencyResponseReverbDSPKernel_hpp
-#define AKFlatFrequencyResponseReverbDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -144,5 +143,3 @@ public:
     bool resetted = false;
     ParameterRamper reverbDurationRamper = 0.5;
 };
-
-#endif /* AKFlatFrequencyResponseReverbDSPKernel_hpp */

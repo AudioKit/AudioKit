@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKOperationEffectAudioUnit_h
-#define AKOperationEffectAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -16,4 +15,3 @@
 - (void)setSporth:(NSString *)sporth;
 @end
 
-#endif /* AKOperationEffectAudioUnit_h */

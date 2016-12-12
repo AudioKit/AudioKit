@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFMOscillatorBankAudioUnit_h
-#define AKFMOscillatorBankAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -30,5 +29,3 @@
 - (void)stopNote:(int)note;
 
 @end
-
-#endif /* AKFMOscillatorBankAudioUnit_h */

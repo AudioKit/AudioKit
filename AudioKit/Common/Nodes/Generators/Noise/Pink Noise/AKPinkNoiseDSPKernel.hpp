@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPinkNoiseDSPKernel_hpp
-#define AKPinkNoiseDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -141,4 +140,3 @@ public:
     ParameterRamper amplitudeRamper = 1;
 };
 
-#endif /* AKPinkNoiseDSPKernel_hpp */

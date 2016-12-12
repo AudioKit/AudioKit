@@ -6,13 +6,10 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKToneFilterAudioUnit_h
-#define AKToneFilterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKToneFilterAudioUnit : AKAudioUnit
 @property (nonatomic) float halfPowerPoint;
 @end
 
-#endif /* AKToneFilterAudioUnit_h */

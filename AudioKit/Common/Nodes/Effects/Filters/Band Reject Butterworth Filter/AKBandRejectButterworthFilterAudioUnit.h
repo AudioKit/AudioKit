@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKBandRejectButterworthFilterAudioUnit_h
-#define AKBandRejectButterworthFilterAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -16,4 +15,3 @@
 @property (nonatomic) float bandwidth;
 @end
 
-#endif /* AKBandRejectButterworthFilterAudioUnit_h */

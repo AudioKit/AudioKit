@@ -6,14 +6,10 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMoogLadderAudioUnit_h
-#define AKMoogLadderAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKMoogLadderAudioUnit : AKAudioUnit
 @property (nonatomic) float cutoffFrequency;
 @property (nonatomic) float resonance;
 @end
-
-#endif /* AKMoogLadderAudioUnit_h */

@@ -6,13 +6,11 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKWhiteNoiseAudioUnit_h
-#define AKWhiteNoiseAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKWhiteNoiseAudioUnit : AKAudioUnit
 @property (nonatomic) float amplitude;
 @end
 
-#endif /* AKWhiteNoiseAudioUnit_h */
+
