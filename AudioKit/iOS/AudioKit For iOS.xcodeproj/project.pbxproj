@@ -283,7 +283,6 @@
 		C45380921C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C453808A1C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C45380931C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C453808B1C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.mm */; };
 		C45380941C3A5C0C00A51738 /* AKWhiteNoiseDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C453808C1C3A5C0C00A51738 /* AKWhiteNoiseDSPKernel.hpp */; };
-		C459EEA41DE6AD4300C0F494 /* getline.c in Sources */ = {isa = PBXBuildFile; fileRef = C459EEA31DE6AD4300C0F494 /* getline.c */; };
 		C46302801C20E7A7009B44D9 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302661C20E7A7009B44D9 /* delay.swift */; };
 		C46302811C20E7A7009B44D9 /* bitcrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302681C20E7A7009B44D9 /* bitcrush.swift */; };
 		C46302821C20E7A7009B44D9 /* clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302691C20E7A7009B44D9 /* clip.swift */; };
@@ -335,6 +334,7 @@
 		C48444E91C36FD7F007BE794 /* square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444E81C36FD7F007BE794 /* square.swift */; };
 		C48444EB1C36FE14007BE794 /* sawtooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444EA1C36FE14007BE794 /* sawtooth.swift */; };
 		C486B3321DFD395F009A25C4 /* MultitouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486B3311DFD395F009A25C4 /* MultitouchGestureRecognizer.swift */; };
+		C486B3361DFE2A14009A25C4 /* gen_eval.c in Sources */ = {isa = PBXBuildFile; fileRef = C486B3351DFE2A14009A25C4 /* gen_eval.c */; };
 		C487B5FA1DD9229900C56B59 /* AKClarinet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F61DD9229900C56B59 /* AKClarinet.swift */; };
 		C487B5FB1DD9229900C56B59 /* AKClarinetAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C487B5F71DD9229900C56B59 /* AKClarinetAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C487B5FC1DD9229900C56B59 /* AKClarinetAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C487B5F81DD9229900C56B59 /* AKClarinetAudioUnit.mm */; };
@@ -1037,7 +1037,6 @@
 		C453808A1C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWhiteNoiseAudioUnit.h; sourceTree = "<group>"; };
 		C453808B1C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKWhiteNoiseAudioUnit.mm; sourceTree = "<group>"; };
 		C453808C1C3A5C0C00A51738 /* AKWhiteNoiseDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKWhiteNoiseDSPKernel.hpp; sourceTree = "<group>"; };
-		C459EEA31DE6AD4300C0F494 /* getline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = getline.c; path = util/getline/getline.c; sourceTree = "<group>"; };
 		C46302661C20E7A7009B44D9 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		C46302681C20E7A7009B44D9 /* bitcrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bitcrush.swift; sourceTree = "<group>"; };
 		C46302691C20E7A7009B44D9 /* clip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clip.swift; sourceTree = "<group>"; };
@@ -1089,6 +1088,7 @@
 		C48444E81C36FD7F007BE794 /* square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = square.swift; sourceTree = "<group>"; };
 		C48444EA1C36FE14007BE794 /* sawtooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sawtooth.swift; sourceTree = "<group>"; };
 		C486B3311DFD395F009A25C4 /* MultitouchGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultitouchGestureRecognizer.swift; sourceTree = "<group>"; };
+		C486B3351DFE2A14009A25C4 /* gen_eval.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gen_eval.c; sourceTree = "<group>"; };
 		C487B5F61DD9229900C56B59 /* AKClarinet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKClarinet.swift; sourceTree = "<group>"; };
 		C487B5F71DD9229900C56B59 /* AKClarinetAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKClarinetAudioUnit.h; sourceTree = "<group>"; };
 		C487B5F81DD9229900C56B59 /* AKClarinetAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKClarinetAudioUnit.mm; sourceTree = "<group>"; };
@@ -2504,22 +2504,6 @@
 			path = "White Noise";
 			sourceTree = "<group>";
 		};
-		C459EEA11DE6ACE900C0F494 /* util */ = {
-			isa = PBXGroup;
-			children = (
-				C459EEA21DE6ACF300C0F494 /* getline */,
-			);
-			name = util;
-			sourceTree = "<group>";
-		};
-		C459EEA21DE6ACF300C0F494 /* getline */ = {
-			isa = PBXGroup;
-			children = (
-				C459EEA31DE6AD4300C0F494 /* getline.c */,
-			);
-			name = getline;
-			sourceTree = "<group>";
-		};
 		C46302641C20E7A7009B44D9 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
@@ -2955,7 +2939,6 @@
 		C48C6BCC1D3C15F1008EA51B /* Sporth */ = {
 			isa = PBXGroup;
 			children = (
-				C459EEA11DE6ACE900C0F494 /* util */,
 				C48C6BCD1D3C15F1008EA51B /* func.c */,
 				C48C6BCE1D3C15F1008EA51B /* h */,
 				C48C6BD21D3C15F1008EA51B /* hash.c */,
@@ -3022,6 +3005,7 @@
 				C4F8C84B1DCA8CE3001F38F2 /* ftsum.c */,
 				C4F8C84C1DCA8CE3001F38F2 /* gbuzz.c */,
 				C4F8C84D1DCA8CE3001F38F2 /* gen_composite.c */,
+				C486B3351DFE2A14009A25C4 /* gen_eval.c */,
 				C4F8C84E1DCA8CE3001F38F2 /* gen_file.c */,
 				C4F8C84F1DCA8CE3001F38F2 /* gen_line.c */,
 				C4F8C8501DCA8CE3001F38F2 /* gen_padsynth.c */,
@@ -3922,6 +3906,7 @@
 				C4537FDD1C3A438D00A51738 /* AKMoogLadder.swift in Sources */,
 				EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */,
 				C4F8C8F81DCA8CE4001F38F2 /* pan.c in Sources */,
+				C486B3361DFE2A14009A25C4 /* gen_eval.c in Sources */,
 				C4F8C8D11DCA8CE4001F38F2 /* f.c in Sources */,
 				C4F8D0941D5951C100D85987 /* AKPlaygroundResources.swift in Sources */,
 				C40C426F1C41B22A009D870B /* AKPluckedString.swift in Sources */,
@@ -4093,7 +4078,6 @@
 				C4F8C9271DCA8CE4001F38F2 /* thresh.c in Sources */,
 				C42899B01D55AC9000B941B5 /* tgate.c in Sources */,
 				C48C6C921D3C15F1008EA51B /* pinknoise.c in Sources */,
-				C459EEA41DE6AD4300C0F494 /* getline.c in Sources */,
 				C4F8C9261DCA8CE4001F38F2 /* tgate.c in Sources */,
 				C40C416C1C40E3A5009D870B /* TPCircularBuffer.c in Sources */,
 				B1F47ABC1DC54DCA00706A2F /* EZAudioFileMarker.m in Sources */,
