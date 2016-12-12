@@ -22,6 +22,16 @@
 
 @end
 
+@interface AUParameter(Ext)
+-(instancetype)init:(NSString *)identifier
+               name:(NSString *)name
+            address:(AUParameterAddress)address
+                min:(AUValue)min
+                max:(AUValue)max
+               unit:(AudioUnitParameterUnit)unit
+           unitName:(NSString *)unitName;
+@end
+
 #define standardKernelPassthroughs() \
 - (void)start { _kernel.start(); } \
 - (void)stop { _kernel.stop(); } \
