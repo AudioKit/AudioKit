@@ -9,6 +9,27 @@
 import Foundation
 import AVFoundation
 
+
+extension AVAudioNode {
+
+    var inputConnectionPoint: AVAudioConnectionPoint? {
+        return AudioKit.engine.inputConnectionPoint(for: self,
+                                                    inputBus: 0)
+    }
+
+    var outputConnectionPoints: [AVAudioConnectionPoint] {
+        get {
+            return AudioKit.engine.outputConnectionPoints(for: self, outputBus: 0)
+        }
+        set {
+            AudioKit.engine.connect(self,
+                                    to: newValue,
+                                    fromBus: 0,
+                                    format: AudioKit.format)
+        }
+    }
+}
+
 /// Parent class for all nodes in AudioKit
 @objc open class AKNode: NSObject {
     
