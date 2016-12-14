@@ -11,7 +11,7 @@ binary="$framework/AudioKit"
 if [ "$ACTION" == "install" ]; then
 	find "$framework/BCSymbolMaps" -name \*.bcsymbolmap -type f -exec mv {} "$CONFIGURATION_BUILD_DIR" \;
 
-	BYNARY_INFO=`lipo -info AudioKit`;
+	BYNARY_INFO=`lipo -info "$binary"`;
 	
 	if (`echo $BYNARY_INFO | grep i386`); then
 	    # Binary has i386
