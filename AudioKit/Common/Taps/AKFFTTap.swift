@@ -15,7 +15,7 @@ import Foundation
     internal var fft: EZAudioFFT?
     
     /// Array of FFT data
-    open var fftData = [Double](zeroes: 1024)
+    open var fftData = [Double](zeroes: 512)
     
     /// Initialze the FFT calculation on a given node
     ///
@@ -37,7 +37,7 @@ import Foundation
     /// Callback function for FFT computation
     @objc open func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>, bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
-            for i in 0..<1024 {
+            for i in 0..<512 {
                 self.fftData[i] = Double(fftData[i])
             }
         }
