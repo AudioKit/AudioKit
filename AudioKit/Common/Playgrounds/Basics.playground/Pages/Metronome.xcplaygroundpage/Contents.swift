@@ -14,10 +14,13 @@ import PlaygroundSupport
 var currentFrequency = 60.0
 
 let generator = AKOperationGenerator() { parameters in
-    let beep = AKOperation.sineWave(frequency: 480)
-
+    
     let metronome = AKOperation.metronome(frequency: parameters[0] / 60)
 
+    let count = metronome.count(maximum: 4, looping: true)
+    
+    let beep = AKOperation.sineWave(frequency: 480 * (2 - (count / 4 + 0.49).round()))
+    
     let beeps = beep.triggeredWithEnvelope(
         trigger: metronome,
         attack: 0.01, hold: 0, release: 0.05)
