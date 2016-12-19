@@ -1,27 +1,27 @@
 //
-//  AKBoosterAudioUnit.mm
+//  AKStereoFieldLimiterAudioUnit.mm
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKBoosterAudioUnit.h"
-#import "AKBoosterDSPKernel.hpp"
+#import "AKStereoFieldLimiterAudioUnit.h"
+#import "AKStereoFieldLimiterDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@implementation AKBoosterAudioUnit {
+@implementation AKStereoFieldLimiterAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKBoosterDSPKernel _kernel;
+    AKStereoFieldLimiterDSPKernel _kernel;
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setGain:(float)gain {
-    _kernel.setGain(gain);
+- (void)setamount:(float)amount {
+    _kernel.setamount(amount);
 }
 
 
@@ -29,13 +29,13 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(Booster)
+    standardSetup(StereoFieldLimiter)
 
-    // Create a parameter object for the gain.
-    AUParameter *gainAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"gain"
-                                              name:@"Boosting amount."
-                                           address:gainAddress
+    // Create a parameter object for the amount.
+    AUParameter *amountAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"amount"
+                                              name:@"Amount of limit"
+                                           address:amountAddress
                                                min:0
                                                max:1
                                               unit:kAudioUnitParameterUnit_Generic
@@ -46,13 +46,13 @@ standardKernelPassthroughs()
 
 
     // Initialize the parameter values.
-    gainAUParameter.value = 0;
+    amountAUParameter.value = 0;
 
-    _kernel.setParameter(gainAddress, gainAUParameter.value);
+    _kernel.setParameter(amountAddress, amountAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        gainAUParameter
+        amountAUParameter
     ]];
 
     // A function to provide string representations of parameter values.
@@ -60,17 +60,17 @@ standardKernelPassthroughs()
         AUValue value = valuePtr == nil ? param.value : *valuePtr;
 
         switch (param.address) {
-            case gainAddress:
+            case amountAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
 
             default:
                 return @"?";
         }
     };
-    parameterTreeBlock(Booster)
+    parameterTreeBlock(StereoFieldLimiter)
 }
 
-AUAudioUnitOverrides(Booster)
+AUAudioUnitOverrides(StereoFieldLimiter)
 
 @end
 
