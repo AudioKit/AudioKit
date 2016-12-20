@@ -9,7 +9,6 @@
 #import "AKTremoloAudioUnit.h"
 #import "AKTremoloDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

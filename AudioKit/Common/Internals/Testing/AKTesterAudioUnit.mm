@@ -9,7 +9,6 @@
 #import "AKTesterAudioUnit.h"
 #import "AKTesterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -21,16 +20,16 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (int)samples {
+    return _kernel.getSamples();
+}
+
 - (void)setSamples:(int)samples {
     _kernel.setSamples(samples);
 }
 
-- (NSString *)getMD5 {
+- (NSString *)md5 {
     return _kernel.getMD5();
-}
-
-- (int)getSamples {
-    return _kernel.getSamples();
 }
 
 - (void)start {

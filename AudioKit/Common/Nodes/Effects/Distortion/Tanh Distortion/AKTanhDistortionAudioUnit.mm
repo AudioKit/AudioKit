@@ -9,7 +9,6 @@
 #import "AKTanhDistortionAudioUnit.h"
 #import "AKTanhDistortionDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

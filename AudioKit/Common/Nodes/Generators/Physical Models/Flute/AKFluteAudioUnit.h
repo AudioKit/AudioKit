@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFluteAudioUnit_h
-#define AKFluteAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKFluteAudioUnit : AKAudioUnit
@@ -18,5 +16,3 @@
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
 
 @end
-
-#endif /* AKFluteAudioUnit_h */

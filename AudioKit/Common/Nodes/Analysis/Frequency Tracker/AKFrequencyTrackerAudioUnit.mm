@@ -9,7 +9,6 @@
 #import "AKFrequencyTrackerAudioUnit.h"
 #import "AKFrequencyTrackerDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -33,10 +32,10 @@
     return _kernel.started;
 }
 
-- (float)getAmplitude {
+- (float)amplitude {
     return _kernel.trackedAmplitude;
 }
-- (float)getFrequency {
+- (float)frequency {
     return _kernel.trackedFrequency;
 }
 

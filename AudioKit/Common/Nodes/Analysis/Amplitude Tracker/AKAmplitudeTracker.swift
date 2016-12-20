@@ -21,7 +21,6 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKAudioUnitType?
     internal var token: AUParameterObserverToken?
 
@@ -43,7 +42,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
 
     /// Detected amplitude
     open var amplitude: Double {
-        return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
+        return Double(self.internalAU!.amplitude) / sqrt(2.0) * 2.0
     }
 
     // MARK: - Initialization
@@ -63,13 +62,11 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

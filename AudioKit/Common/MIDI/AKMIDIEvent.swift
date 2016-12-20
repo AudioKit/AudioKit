@@ -19,7 +19,24 @@ extension UInt8 {
     func lowbit() -> UInt8 {
         return self & 0xF
     }
-    
+}
+
+extension MIDIPacket {
+    var isSysex: Bool {
+        return data.0 == AKMIDISystemCommand.sysex.rawValue
+    }
+
+    var status: AKMIDIStatus? {
+        return AKMIDIStatus(rawValue: Int(data.0) >> 4)
+    }
+
+    var channel: UInt8 {
+        return data.0.lowbit()
+    }
+
+    var command: AKMIDISystemCommand? {
+        return AKMIDISystemCommand(rawValue: data.0)
+    }
 }
 
 /// A container for the values that define a MIDI event
@@ -28,13 +45,13 @@ public struct AKMIDIEvent {
     // MARK: - Properties
     
     /// Internal data - defaults to 3 bytes
-    var internalData = [UInt8](zeroes: 128)
+    private(set) var internalData = [UInt8](zeroes: 128)
     
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
     
     /// Status
-    public var status: AKMIDIStatus {
+    var status: AKMIDIStatus {
         let status = internalData[0] >> 4
         return AKMIDIStatus(rawValue: Int(status))!
     }
@@ -49,7 +66,7 @@ public struct AKMIDIEvent {
     }
     
     /// MIDI Channel
-    public var channel: UInt8 {
+    var channel: UInt8 {
         let status = internalData[0] >> 4
         if status < 16 {
             return internalData[0].lowbit()
@@ -57,27 +74,16 @@ public struct AKMIDIEvent {
         return 0
     }
     
-    func statusFrom(rawByte:UInt8)->AKMIDIStatus?{
-        return AKMIDIStatus(rawValue: Int(rawByte >> 4))
-    }
-    func channelFrom(rawByte:UInt8)->Int{
-        let status = rawByte >> 4
-        if status < 16 {
-            return Int(rawByte.lowbit())
-        }
-        return 0
-    }
-    
-    public var data1: UInt8 {
+    var data1: UInt8 {
         return internalData[1]
     }
     
-    public var data2: UInt8 {
+    var data2: UInt8 {
         return internalData[2]
     }
     
     var data: UInt16 {
-        if internalData.count < 2{
+        if internalData.count < 2 {
             return 0
         }
         let x = UInt16(internalData[1])
@@ -86,10 +92,9 @@ public struct AKMIDIEvent {
     }
     
     var bytes: Data {
-        return Data(bytes: UnsafePointer<UInt8>([internalData[0], internalData[1], internalData[2]] as [UInt8]),
-                    count: 3)
+        return Data(bytes: internalData.prefix(3))
     }
-    
+
     static fileprivate let statusBit: UInt8 = 0b10000000
     
     // MARK: - Initialization
@@ -100,33 +105,28 @@ public struct AKMIDIEvent {
     ///
     init(packet: MIDIPacket) {
         if packet.data.0 < 0xF0 {
-            let status = statusFrom(rawByte: packet.data.0)
-            let channel = UInt8(channelFrom(rawByte: packet.data.0))
-            
-            if status != nil {
-                fillData(status: status!,
-                         channel: channel,
+            if let status = packet.status {
+                fillData(status: status,
+                         channel: packet.channel,
                          byte1: packet.data.1,
                          byte2: packet.data.2)
             }
         } else {
-            
-            if isSysex(packet) {
+        
+            if packet.isSysex {
                 internalData = [] //reset internalData
                 
                 //voodoo
                 let mirrorData = Mirror(reflecting: packet.data)
-                var i = 0
                 for (_, value) in mirrorData.children {
                     internalData.append(UInt8(value as! UInt8))
-                    i += 1
                     if value as! UInt8 == 247 {
                         break
                     }
                 }
                 
             } else {
-                if let cmd = AKMIDISystemCommand(rawValue: packet.data.0) {
+                if let cmd = packet.command {
                     fillData(command: cmd, byte1: packet.data.1, byte2: packet.data.2)
                 } else {
                     print("AKMIDISystemCommand failure due to bad data - need to investigate")
@@ -134,79 +134,6 @@ public struct AKMIDIEvent {
             }
         }
         internalData = Array(internalData.prefix(Int(length!)))
-    }
-    
-    public static func generateFrom(bluetoothData:[UInt8])-> [AKMIDIEvent] {
-        //1st byte timestamp coarse will always be > 128
-        //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysex
-        //3nd < 128 running message - timestamp
-        //status byte determines length of message
-        
-        var midiEvents:[AKMIDIEvent] = []
-        if bluetoothData.count > 1 {
-            var rawEvents: [[UInt8]] = []
-            if bluetoothData[1] < 128 {
-                //continuation of sysex from previous packet - handle separately 
-                //(probably needs a whole bluetooth midi class so we can see the previous packets)
-            }else{
-                var rawEvent: [UInt8] = []
-                var lastStatus: UInt8 = 0
-                var messageJustFinished = false
-                for byte in bluetoothData.dropFirst().dropFirst(){ //drops first two bytes as these are timestamp bytes
-                    if byte >= 128 {
-                        //if we have a new status byte or if rawEvent is a real event
-                        
-                        if messageJustFinished && byte >= 128 {
-                            messageJustFinished = false
-                            continue
-                        }
-                        lastStatus = byte
-                    }else{
-                        if rawEvent.isEmpty {
-                            rawEvent.append(lastStatus)
-                        }
-                    }
-                    rawEvent.append(byte) //set the status byte
-                    if (rawEvent.count == 3 && lastStatus != AKMIDISystemCommand.sysex.rawValue)
-                        || byte == AKMIDISystemCommand.sysexEnd.rawValue{
-                        //end of message
-                        messageJustFinished = true
-                        if !rawEvent.isEmpty {
-                            rawEvents.append(rawEvent)
-                        }
-                        rawEvent = [] //init raw Event
-                    }
-                }
-            }
-            for event in rawEvents{
-                midiEvents.append(AKMIDIEvent(data: event))
-            }
-        }//end bluetoothData.count > 0
-        return midiEvents
-    }
-    
-    /// Initialize the MIDI Event from a raw UInt8 packet (ie. from Bluetooth)
-    ///
-    /// - Parameters:
-    ///   - data:  [UInt8] bluetooth packet
-    ///
-    init(data: [UInt8]) {
-        if let command = AKMIDISystemCommand(rawValue: data[0]){
-            internalData = []
-            //is sys command
-            if command == .sysex{
-                for byte in data{
-                    internalData.append(byte)
-                }
-                length = UInt8(internalData.count)
-            }else{
-                fillData(command: command, byte1: data[1], byte2: data[2])
-            }
-        }else if let status = statusFrom(rawByte: data[0]){
-            //is regular midi status
-            let channel = channelFrom(rawByte: data[0])
-            fillData(status: status, channel: UInt8(channel), byte1: data[1], byte2: data[2])
-        }
     }
     
     /// Initialize the MIDI Event from a status message
@@ -368,9 +295,4 @@ public struct AKMIDIEvent {
                            byte1: controller,
                            byte2: value)
     }
-    
-    fileprivate func isSysex(_ packet: MIDIPacket) -> Bool {
-        return packet.data.0 == AKMIDISystemCommand.sysex.rawValue
-    }
-    
 }

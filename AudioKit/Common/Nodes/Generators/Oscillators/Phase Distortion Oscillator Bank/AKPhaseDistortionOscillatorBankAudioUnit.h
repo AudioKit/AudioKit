@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPhaseDistortionOscillatorBankAudioUnit_h
-#define AKPhaseDistortionOscillatorBankAudioUnit_h
+#pragma once
 
 #import "AKAudioUnit.h"
 
@@ -29,4 +28,3 @@
 
 @end
 
-#endif /* AKPhaseDistortionOscillatorBankAudioUnit_h */

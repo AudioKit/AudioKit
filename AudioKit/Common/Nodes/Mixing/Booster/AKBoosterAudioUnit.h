@@ -6,13 +6,11 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKBoosterAudioUnit_h
-#define AKBoosterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKBoosterAudioUnit : AKAudioUnit
 @property (nonatomic) float gain;
 @end
 
-#endif /* AKBoosterAudioUnit_h */
+

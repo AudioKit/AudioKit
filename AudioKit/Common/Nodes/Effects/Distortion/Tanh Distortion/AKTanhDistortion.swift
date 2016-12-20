@@ -34,10 +34,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -121,13 +118,11 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
@@ -135,9 +130,9 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        pregainParameter                = tree["pregain"]
-        postgainParameter               = tree["postgain"]
-        postiveShapeParameterParameter  = tree["postiveShapeParameter"]
+        pregainParameter = tree["pregain"]
+        postgainParameter = tree["postgain"]
+        postiveShapeParameterParameter = tree["postiveShapeParameter"]
         negativeShapeParameterParameter = tree["negativeShapeParameter"]
 
         token = tree.token (byAddingParameterObserver: {

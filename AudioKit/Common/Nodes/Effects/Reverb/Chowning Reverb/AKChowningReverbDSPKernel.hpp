@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKChowningReverbDSPKernel_hpp
-#define AKChowningReverbDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -111,4 +110,3 @@ public:
     bool resetted = true;
 };
 
-#endif /* AKChowningReverbDSPKernel_hpp */

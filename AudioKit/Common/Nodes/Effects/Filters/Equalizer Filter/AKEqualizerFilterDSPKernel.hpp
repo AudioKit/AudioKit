@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKEqualizerFilterDSPKernel_hpp
-#define AKEqualizerFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -189,4 +188,3 @@ public:
     ParameterRamper gainRamper = 10.0;
 };
 
-#endif /* AKEqualizerFilterDSPKernel_hpp */

@@ -5,9 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
-
-#ifndef AKLowPassButterworthFilterDSPKernel_hpp
-#define AKLowPassButterworthFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -141,4 +139,3 @@ public:
     ParameterRamper cutoffFrequencyRamper = 1000.0;
 };
 
-#endif /* AKLowPassButterworthFilterDSPKernel_hpp */

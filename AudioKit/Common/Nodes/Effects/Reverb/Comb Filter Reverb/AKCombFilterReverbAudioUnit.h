@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKCombFilterReverbAudioUnit_h
-#define AKCombFilterReverbAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKCombFilterReverbAudioUnit : AKAudioUnit
@@ -16,4 +14,3 @@
 - (void)setLoopDuration:(float)duration;
 @end
 
-#endif /* AKCombFilterReverbAudioUnit_h */

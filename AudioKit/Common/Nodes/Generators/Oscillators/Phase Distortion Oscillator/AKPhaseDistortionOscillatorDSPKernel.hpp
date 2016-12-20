@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPhaseDistortionOscillatorDSPKernel_hpp
-#define AKPhaseDistortionOscillatorDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -262,4 +261,3 @@ public:
     ParameterRamper detuningMultiplierRamper = 1;
 };
 
-#endif /* AKPhaseDistortionOscillatorDSPKernel_hpp */

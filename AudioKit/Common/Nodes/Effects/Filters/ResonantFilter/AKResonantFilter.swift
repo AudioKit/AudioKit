@@ -30,10 +30,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -86,13 +83,11 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

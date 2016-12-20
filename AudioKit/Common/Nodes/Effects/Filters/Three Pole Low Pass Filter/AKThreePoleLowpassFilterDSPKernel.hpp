@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKThreePoleLowpassFilterDSPKernel_hpp
-#define AKThreePoleLowpassFilterDSPKernel_hpp
-
+#pragma once
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -189,4 +187,3 @@ public:
     ParameterRamper resonanceRamper = 0.5;
 };
 
-#endif /* AKThreePoleLowpassFilterDSPKernel_hpp */

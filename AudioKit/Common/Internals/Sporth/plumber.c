@@ -378,7 +378,7 @@ int plumbing_parse(plumber_data *plumb, plumbing *pipes)
     plumbing *top_tmp = plumb->tmp;
     plumb->tmp = pipes;
 
-    while((read = getline(&line, &length, fp)) != -1 && err == PLUMBER_OK) {
+    while((read = sporth_getline(&line, &length, fp)) != -1 && err == PLUMBER_OK) {
         pos = 0;
         len = 0;
         while(pos < read - 1) {
@@ -671,7 +671,7 @@ int plumber_ftmap_add_userdata(plumber_data *plumb, const char *str, void *ud)
 int plumber_ftmap_add_function(plumber_data *plumb, 
         const char *str, plumber_dyn_func f, void *ud)
 {
-    sporth_fload_d *fd = malloc(sizeof(sporth_func_d));
+    sporth_fload_d *fd = malloc(sizeof(sporth_fload_d));
     fd->fun = f;
     fd->ud = ud;
     return plumber_ftmap_add_userdata(plumb, str, (void *)fd);
@@ -1072,10 +1072,13 @@ plumbing * plumber_get_pipes(plumber_data *plumb)
 
 int plumber_argtbl_create(plumber_data *plumb, plumber_argtbl **at, uint32_t size)
 {
+    uint32_t i;
     plumber_argtbl *atp = malloc(sizeof(plumber_argtbl));
     atp->size = size;
     atp->tbl = malloc(sizeof(SPFLOAT *) * size);
     *at = atp;
+    /* initialize with p[0] so it doesn't segfault as easily */
+    for(i = 0; i < size; i++) atp->tbl[i] = &plumb->p[0];
     return PLUMBER_OK;
 }
 

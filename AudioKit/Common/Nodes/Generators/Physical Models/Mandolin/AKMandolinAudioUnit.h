@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMandolinAudioUnit_h
-#define AKMandolinAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKMandolinAudioUnit : AKAudioUnit
@@ -21,4 +19,3 @@
 
 @end
 
-#endif /* AKMandolinAudioUnit_h */
