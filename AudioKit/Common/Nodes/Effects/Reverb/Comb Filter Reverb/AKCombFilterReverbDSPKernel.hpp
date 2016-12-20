@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKCombFilterReverbDSPKernel_hpp
-#define AKCombFilterReverbDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -145,4 +144,3 @@ public:
     ParameterRamper reverbDurationRamper = 1.0;
 };
 
-#endif /* AKCombFilterReverbDSPKernel_hpp */

@@ -86,7 +86,7 @@ void Mandolin :: setPluckPosition( StkFloat position )
 void Mandolin :: setDetune( StkFloat detune )
 {
   if ( detune <= 0.0 ) {
-    oStream_ << "Mandolin::setDeturn: parameter is less than or equal to zero!";
+    oStream_ << "Mandolin::setDetune: parameter is less than or equal to zero!";
     handleError( StkError::WARNING ); return;
   }
 

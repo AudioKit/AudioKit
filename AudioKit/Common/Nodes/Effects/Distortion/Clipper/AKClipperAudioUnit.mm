@@ -9,7 +9,6 @@
 #import "AKClipperAudioUnit.h"
 #import "AKClipperDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

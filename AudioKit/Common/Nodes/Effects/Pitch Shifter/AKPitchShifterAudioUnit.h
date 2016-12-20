@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPitchShifterAudioUnit_h
-#define AKPitchShifterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKPitchShifterAudioUnit : AKAudioUnit
@@ -17,4 +15,3 @@
 @property (nonatomic) float crossfade;
 @end
 
-#endif /* AKPitchShifterAudioUnit_h */

@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKModalResonanceFilterDSPKernel_hpp
-#define AKModalResonanceFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -165,4 +164,3 @@ public:
     ParameterRamper qualityFactorRamper = 50.0;
 };
 
-#endif /* AKModalResonanceFilterDSPKernel_hpp */

@@ -9,7 +9,6 @@
 #import "AKBoosterAudioUnit.h"
 #import "AKBoosterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -35,9 +34,9 @@ standardKernelPassthroughs()
     // Create a parameter object for the gain.
     AUParameter *gainAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"gain"
-                                              name:@"Boosting. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center."
+                                              name:@"Boosting amount."
                                            address:gainAddress
-                                               min:-1
+                                               min:0
                                                max:1
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil

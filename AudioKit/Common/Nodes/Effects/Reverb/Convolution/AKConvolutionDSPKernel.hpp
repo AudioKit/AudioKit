@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKConvolutionDSPKernel_hpp
-#define AKConvolutionDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -126,4 +125,3 @@ public:
     bool resetted = true;
 };
 
-#endif /* AKConvolutionDSPKernel_hpp */

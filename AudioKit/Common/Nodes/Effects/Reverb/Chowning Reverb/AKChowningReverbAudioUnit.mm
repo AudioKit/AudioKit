@@ -9,7 +9,6 @@
 #import "AKChowningReverbAudioUnit.h"
 #import "AKChowningReverbDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

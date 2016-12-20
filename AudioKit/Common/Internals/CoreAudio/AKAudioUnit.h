@@ -16,11 +16,20 @@
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
-- (void)setUpParameterRamp;
 - (BOOL)isSetUp;
 
 @property double rampTime;
 
+@end
+
+@interface AUParameter(Ext)
+-(instancetype)init:(NSString *)identifier
+               name:(NSString *)name
+            address:(AUParameterAddress)address
+                min:(AUValue)min
+                max:(AUValue)max
+               unit:(AudioUnitParameterUnit)unit
+           unitName:(NSString *)unitName;
 @end
 
 #define standardKernelPassthroughs() \

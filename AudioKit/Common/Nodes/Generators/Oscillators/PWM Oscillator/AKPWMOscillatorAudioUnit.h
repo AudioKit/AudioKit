@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPWMOscillatorAudioUnit_h
-#define AKPWMOscillatorAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKPWMOscillatorAudioUnit : AKAudioUnit
@@ -19,4 +17,4 @@
 @property (nonatomic) float detuningMultiplier;
 @end
 
-#endif /* AKPWMOscillatorAudioUnit_h */
+

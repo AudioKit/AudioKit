@@ -9,7 +9,6 @@
 #import "AKConvolutionAudioUnit.h"
 #import "AKConvolutionDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

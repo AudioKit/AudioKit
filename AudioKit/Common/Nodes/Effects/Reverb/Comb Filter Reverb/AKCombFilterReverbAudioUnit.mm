@@ -9,7 +9,6 @@
 #import "AKCombFilterReverbAudioUnit.h"
 #import "AKCombFilterReverbDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

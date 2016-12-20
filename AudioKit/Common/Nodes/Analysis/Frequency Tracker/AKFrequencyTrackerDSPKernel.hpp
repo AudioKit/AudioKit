@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKFrequencyTrackerDSPKernel_hpp
-#define AKFrequencyTrackerDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -120,4 +119,3 @@ public:
     bool started = true;
 };
 
-#endif /* AKFrequencyTrackerDSPKernel_hpp */
