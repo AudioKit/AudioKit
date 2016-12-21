@@ -295,4 +295,14 @@ public struct AKMIDIEvent {
                            byte1: controller,
                            byte2: value)
     }
+    
+    static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent]{
+        var outEvents: [AKMIDIEvent] = Array()
+        
+        for packet in packetListPointer.pointee {
+            // a coremidi packet may contain multiple midi events
+            outEvents.append(AKMIDIEvent(packet: packet))
+        }
+        return outEvents
+    }
 }
