@@ -85,6 +85,12 @@ public struct AKMIDIEvent {
         return 0
     }
     
+    public var noteNumber: MIDINoteNumber? {
+        if status == .noteOn || status == .noteOff {
+            return MIDINoteNumber(internalData[1])
+        }
+        return nil
+    }
     public var data1: UInt8 {
         return internalData[1]
     }
