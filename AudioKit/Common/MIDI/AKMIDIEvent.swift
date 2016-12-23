@@ -57,7 +57,7 @@ public struct AKMIDIEvent {
     }
     
     /// System Command
-    var command: AKMIDISystemCommand {
+    public var command: AKMIDISystemCommand {
         let status = internalData[0] >> 4
         if status < 15 {
             return .none
