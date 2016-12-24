@@ -44,8 +44,8 @@ public struct AKMIDIEvent {
     
     // MARK: - Properties
     
-    /// Internal data - defaults to 3 bytes
-    private(set) var internalData = [UInt8](zeroes: 128)
+    /// Internal data
+    public var internalData = [UInt8](zeroes: 128)
     
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
@@ -66,12 +66,12 @@ public struct AKMIDIEvent {
     }
     
     /// MIDI Channel
-    public var channel: UInt8 {
+    public var channel: UInt8? {
         let status = internalData[0] >> 4
         if status < 16 {
             return internalData[0].lowbit()
         }
-        return 0
+        return nil
     }
     
     func statusFrom(rawByte:UInt8)->AKMIDIStatus?{

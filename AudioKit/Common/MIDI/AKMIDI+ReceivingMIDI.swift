@@ -110,33 +110,34 @@ extension AKMIDI {
     
     internal func handleMidiMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
+            guard let eventChannel = event.channel else { return }
             let type = event.status
             switch type {
             case .controllerChange:
                 listener.receivedMIDIController(Int(event.internalData[1]),
                                                 value: Int(event.internalData[2]),
-                                                channel: MIDIChannel(event.channel))
+                                                channel: MIDIChannel(eventChannel))
             case .channelAftertouch:
                 listener.receivedMIDIAfterTouch(Int(event.internalData[1]),
-                                                channel: MIDIChannel(event.channel))
+                                                channel: MIDIChannel(eventChannel))
             case .noteOn:
                 listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.internalData[1]),
                                             velocity: MIDIVelocity(event.internalData[2]),
-                                            channel: MIDIChannel(event.channel))
+                                            channel: MIDIChannel(eventChannel))
             case .noteOff:
                 listener.receivedMIDINoteOff(noteNumber: MIDINoteNumber(event.internalData[1]),
                                              velocity: MIDIVelocity(event.internalData[2]),
-                                             channel: MIDIChannel(event.channel))
+                                             channel: MIDIChannel(eventChannel))
             case .pitchWheel:
                 listener.receivedMIDIPitchWheel(Int(event.data),
-                                                channel: MIDIChannel(event.channel))
+                                                channel: MIDIChannel(eventChannel))
             case .polyphonicAftertouch:
                 listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),
                                                 pressure: Int(event.internalData[2]),
-                                                channel: MIDIChannel(event.channel))
+                                                channel: MIDIChannel(eventChannel))
             case .programChange:
                 listener.receivedMIDIProgramChange(Int(event.internalData[1]),
-                                                   channel: MIDIChannel(event.channel))
+                                                   channel: MIDIChannel(eventChannel))
             case .systemCommand:
                 listener.receivedMIDISystemCommand(event.internalData)
             default:
