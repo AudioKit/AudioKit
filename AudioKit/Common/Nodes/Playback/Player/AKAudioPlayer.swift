@@ -398,7 +398,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     fileprivate func scheduleBuffer(_ atTime: AVAudioTime? = nil) {
         if audioFileBuffer != nil {
             //internalPlayer.scheduleBuffer(audioFileBuffer!, completionHandler: internalCompletionHandler)
-            internalPlayer.scheduleBuffer(audioFileBuffer!, at: atTime, options: .interrupts, completionHandler: internalCompletionHandler)
+            internalPlayer.scheduleBuffer(audioFileBuffer!,
+                                          at: atTime,
+                                          options: .interrupts,
+                                          completionHandler: internalCompletionHandler)
             
             if atTime != nil {
                 internalPlayer.prepare(withFrameCount: framesToPlayCount)
