@@ -371,20 +371,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         startingFrame = 0
         endingFrame = totalFrameCount
         
-        // RF: Actually, this is incorrect. The audio will be played correctly now.
-        // Warning if file's samplerate don't match with AKSettings.samplesRate
-        //        if internalAudioFile.sampleRate != AKSettings.sampleRate {
-        //            print("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" has a different sample rate from AudioKit's Settings !")
-        //            print("Audio will be played at a bad pitch/speed, in / out time will not be set properly !")
-        //        }
-        
         if internalAudioFile.length > 0 {
             updatePCMBuffer()
-            
-            // Setting this here doesn't make sense to me, if you pre-schedule the
-            // buffer it's not possible to schedule it in the future
-            //scheduleBuffer()
-            
         } else {
             print("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" is an empty file")
         }
