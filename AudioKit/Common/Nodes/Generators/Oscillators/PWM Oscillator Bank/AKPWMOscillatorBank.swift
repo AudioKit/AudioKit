@@ -10,15 +10,6 @@ import AVFoundation
 
 /// Pulse-Width Modulating Oscillator Bank
 ///
-/// - Parameters:
-///   - pulseWidth: Duty cycle width (range 0-1).
-///   - attackDuration: Attack time
-///   - decayDuration: Decay time
-///   - sustainLevel: Sustain Level
-///   - releaseDuration: Release time
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///
 open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorBankAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "pwmb")

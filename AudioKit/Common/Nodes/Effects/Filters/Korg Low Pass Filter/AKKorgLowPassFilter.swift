@@ -8,12 +8,7 @@
 
 import AVFoundation
 
-/// Analogue model of the Korg 35 Lowpass Filter
-///
-/// - parameter input: Input node to process
-/// - parameter cutoffFrequency: Filter cutoff
-/// - parameter resonance: Filter resonance (should be between 0-2)
-/// - parameter saturation: Filter saturation.
+/// Analog model of the Korg 35 Lowpass Filter
 ///
 open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKKorgLowPassFilterAudioUnit

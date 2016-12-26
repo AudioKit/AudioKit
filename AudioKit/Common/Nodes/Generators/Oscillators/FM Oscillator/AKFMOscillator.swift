@@ -10,14 +10,6 @@ import AVFoundation
 
 /// Classic FM Synthesis audio generation.
 ///
-/// - Parameters:
-///   - waveform: Shape of the oscillation
-///   - baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
-///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
-///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
-///   - amplitude: Output Amplitude.
-///
 open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")

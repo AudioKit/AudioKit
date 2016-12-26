@@ -10,11 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
-///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
-///
 open class AKLowShelfFilter: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)

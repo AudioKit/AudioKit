@@ -12,12 +12,6 @@ import AVFoundation
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-/// - Parameters:
-///   - audioFileURL: Location of the audio file to use.
-///   - position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-///   - amplitude: Amplitude.
-///   - pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
-///
 open class AKPhaseLockedVocoder: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "minc")

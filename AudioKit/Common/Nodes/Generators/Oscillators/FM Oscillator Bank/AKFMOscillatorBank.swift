@@ -10,18 +10,6 @@ import AVFoundation
 
 /// Frequency Modulation Polyphonic Oscillator
 ///
-/// - Parameters:
-///   - waveform:             The waveform of oscillation
-///   - carrierMultiplier:    This multiplied by the baseFrequency gives the carrier frequency.
-///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
-///   - modulationIndex:      This multiplied by the modulating frequency gives the modulation amplitude.
-///   - attackDuration:       Attack time
-///   - decayDuration:        Decay time
-///   - sustainLevel:         Sustain Level
-///   - releaseDuration:      Release time
-///   - detuningOffset:       Frequency offset in Hz.
-///   - detuningMultiplier:   Frequency detuning multiplier
-///
 open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorBankAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "fmob")

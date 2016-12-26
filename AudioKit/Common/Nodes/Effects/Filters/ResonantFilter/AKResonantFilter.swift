@@ -11,10 +11,6 @@ import AVFoundation
 /// The output for reson appears to be very hot, so take caution when using this
 /// module.
 ///
-/// - parameter input: Input node to process
-/// - parameter frequency: Center frequency of the filter, or frequency position of the peak response.
-/// - parameter bandwidth: Bandwidth of the filter.
-///
 open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKResonantFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")

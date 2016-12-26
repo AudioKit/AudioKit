@@ -10,12 +10,6 @@ import AVFoundation
 
 /// An automatic wah effect, ported from Guitarix via Faust.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - wah: Wah Amount
-///   - mix: Dry/Wet Mix
-///   - amplitude: Overall level
-///
 open class AKAutoWah: AKNode, AKToggleable, AKComponent {
   public typealias AKAudioUnitType = AKAutoWahAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")

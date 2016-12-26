@@ -11,11 +11,6 @@ import AVFoundation
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - centerFrequency: Center frequency. (in Hertz)
-///   - bandwidth: Bandwidth. (in Hertz)
-///
 open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBandPassButterworthFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "btbp")

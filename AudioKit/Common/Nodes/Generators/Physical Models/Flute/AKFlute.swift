@@ -10,10 +10,6 @@ import AVFoundation
 
 /// STK Flutee
 ///
-/// - Parameters:
-///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-///   - amplitude: Amplitude
-///
 open class AKFlute: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFluteAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "flut")
