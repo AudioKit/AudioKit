@@ -12,11 +12,6 @@ import AVFoundation
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - x: x Position
-///   - y: y Position
-///
 open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")

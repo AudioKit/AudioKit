@@ -11,12 +11,6 @@ import AVFoundation
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
-/// - Parameters:
-///   - frequency: Frequency in cycles per second
-///   - amplitude: Output Amplitude.
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///
 open class AKOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")

@@ -15,10 +15,6 @@ import AVFoundation
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - comparator: Audio to match power with
-///
 open class AKBalancer: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBalancerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")

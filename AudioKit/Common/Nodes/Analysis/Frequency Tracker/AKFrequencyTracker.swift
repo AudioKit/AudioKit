@@ -10,11 +10,6 @@ import AVFoundation
 
 /// This is based on an algorithm originally created by Miller Puckette.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - hopSize: Hop size.
-///   - peakCount: Number of peaks.
-///
 open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFrequencyTrackerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "ptrk")

@@ -13,12 +13,6 @@ import AVFoundation
 /// a peak at the center frequency with a width dependent on bandwidth. If gain
 /// is less than 1, a notch is formed around the center frequency.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - centerFrequency: Center frequency in Hertz
-///   - bandwidth: The peak/notch bandwidth in Hertz
-///   - gain: The peak/notch gain
-///
 open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")

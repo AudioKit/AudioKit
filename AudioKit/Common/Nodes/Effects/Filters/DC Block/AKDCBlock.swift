@@ -11,8 +11,6 @@ import AVFoundation
 /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1]) 
 /// Based on work by Perry Cook.
 ///
-/// - parameter input: Input node to process
-///
 open class AKDCBlock: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKDCBlockAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")

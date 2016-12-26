@@ -10,10 +10,6 @@ import AVFoundation
 
 /// Stereo Panner
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
-///
 open class AKPanner: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPannerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")

@@ -10,12 +10,6 @@ import AVFoundation
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - cornerFrequency: Corner frequency.
-///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-///   - q: Q of the filter. sqrt(0.5) is no resonance.
-///
 open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")

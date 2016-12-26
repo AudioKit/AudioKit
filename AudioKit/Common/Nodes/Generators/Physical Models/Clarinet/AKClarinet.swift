@@ -10,10 +10,6 @@ import AVFoundation
 
 /// STK Clarinet
 ///
-/// - Parameters:
-///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-///   - amplitude: Amplitude
-///
 open class AKClarinet: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(generator: "flut")
     public typealias AKAudioUnitType = AKClarinetAudioUnit

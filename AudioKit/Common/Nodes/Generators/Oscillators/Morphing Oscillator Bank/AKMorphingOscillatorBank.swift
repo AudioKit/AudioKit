@@ -11,16 +11,6 @@ import AVFoundation
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-/// - Parameters:
-///   - waveform:           The waveform of oscillation
-///   - index:              Index of the wavetable to use (fractional are okay).
-///   - attackDuration:     Attack time
-///   - decayDuration:      Decay time
-///   - sustainLevel:       Sustain Level
-///   - releaseDuration:    Release time
-///   - detuningOffset:     Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///
 open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorBankAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "morb")

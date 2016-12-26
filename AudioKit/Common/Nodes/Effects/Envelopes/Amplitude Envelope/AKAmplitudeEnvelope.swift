@@ -10,13 +10,6 @@ import AVFoundation
 
 /// Triggerable classic ADSR envelope
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - attackDuration: Attack time
-///   - decayDuration: Decay time
-///   - sustainLevel: Sustain Level
-///   - releaseDuration: Release time
-///
 open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")

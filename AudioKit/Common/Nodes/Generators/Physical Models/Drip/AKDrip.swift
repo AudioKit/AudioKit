@@ -11,15 +11,6 @@ import AVFoundation
 /// Physical model of the sound of dripping water. When triggered, it will
 /// produce a droplet of water.
 ///
-/// - Parameters:
-///   - intensity: The intensity of the dripping sound.
-///   - dampingFactor: The damping factor. Maximum value is 2.0.
-///   - energyReturn: The amount of energy to add back into the system.
-///   - mainResonantFrequency: Main resonant frequency.
-///   - firstResonantFrequency: The first resonant frequency.
-///   - secondResonantFrequency: The second resonant frequency.
-///   - amplitude: Amplitude.
-///
 open class AKDrip: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKDripAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
