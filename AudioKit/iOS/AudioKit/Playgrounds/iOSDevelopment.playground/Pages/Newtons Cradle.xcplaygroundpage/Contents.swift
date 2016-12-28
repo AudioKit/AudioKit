@@ -85,7 +85,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
         itemBehavior = UIDynamicItemBehavior(items: [])
         
         super.init(frame: CGRect(x: 0, y: 0, width: 480, height: 320))
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
         
         animator = UIDynamicAnimator(referenceView: self)
         animator?.addBehavior(collisionBehavior)
@@ -272,7 +272,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
             
             CGContextMoveToPoint(context, anchorPoint.x, anchorPoint.y)
             CGContextAddLineToPoint(context, ball.center.x, ball.center.y)
-            CGContextSetStrokeColorWithColor(context, UIColor.darkGrayColor().CGColor)
+            CGContextSetStrokeColorWithColor(context, UIColor.darkGray.CGColor)
             CGContextSetLineWidth(context, 4.0)
             CGContextStrokePath(context)
             
@@ -284,7 +284,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
                                            width: attachmentDotWidth,
                                            height: attachmentDotWidth)
             
-            CGContextSetFillColorWithColor(context, UIColor.darkGrayColor().CGColor)
+            CGContextSetFillColorWithColor(context, UIColor.darkGray.CGColor)
             CGContextFillEllipseInRect(context, attachmentDotRect)
         }
         
