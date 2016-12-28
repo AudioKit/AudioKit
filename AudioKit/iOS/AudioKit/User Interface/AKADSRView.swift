@@ -83,7 +83,7 @@ import UIKit
     let bgColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
-    @IBInspectable open var curveColor: UIColor = UIColor.black
+    @IBInspectable open var curveColor: UIColor = .black
 
 
     var lastPoint = CGPoint.zero
@@ -93,7 +93,7 @@ import UIKit
     public init(callback: ADSRCallback? = nil) {
         self.callback = callback
         super.init(frame: CGRect(x: 0, y: 0, width: 440, height: 150))
-        backgroundColor = UIColor.white
+        backgroundColor = .white
     }
 
     required public init?(coder aDecoder: NSCoder) {

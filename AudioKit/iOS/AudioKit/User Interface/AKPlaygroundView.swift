@@ -17,7 +17,7 @@ open class AKPlaygroundView: UIView {
     
     public override init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = .white
         setup()
     }
     
