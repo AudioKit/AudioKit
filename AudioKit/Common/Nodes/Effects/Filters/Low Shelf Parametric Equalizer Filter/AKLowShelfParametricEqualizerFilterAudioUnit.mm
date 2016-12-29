@@ -9,7 +9,6 @@
 #import "AKLowShelfParametricEqualizerFilterAudioUnit.h"
 #import "AKLowShelfParametricEqualizerFilterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -31,32 +30,13 @@
     _kernel.setQ(q);
 }
 
-- (void)start {
-    _kernel.start();
-}
-
-- (void)stop {
-    _kernel.stop();
-}
-
-- (BOOL)isPlaying {
-    return _kernel.started;
-}
-
-- (BOOL)isSetUp {
-    return _kernel.resetted;
-}
+standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
+    standardSetup(LowShelfParametricEqualizerFilter)
 
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
-
-        // Create a parameter object for the cornerFrequency.
+    // Create a parameter object for the cornerFrequency.
     AUParameter *cornerFrequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"cornerFrequency"
                                               name:@"Corner Frequency (Hz)"
@@ -99,8 +79,6 @@
     gainAUParameter.value = 1.0;
     qAUParameter.value = 0.707;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(cornerFrequencyAddress, cornerFrequencyAUParameter.value);
     _kernel.setParameter(gainAddress,            gainAUParameter.value);
     _kernel.setParameter(qAddress,               qAUParameter.value);
@@ -111,19 +89,6 @@
         gainAUParameter,
         qAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKLowShelfParametricEqualizerFilterDSPKernel *equalizerKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        equalizerKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return equalizerKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -144,10 +109,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(LowShelfParametricEqualizerFilter)
 }
 
 AUAudioUnitOverrides(LowShelfParametricEqualizerFilter);

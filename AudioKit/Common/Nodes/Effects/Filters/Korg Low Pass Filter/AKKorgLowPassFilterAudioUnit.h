@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKKorgLowPassFilterAudioUnit_h
-#define AKKorgLowPassFilterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKKorgLowPassFilterAudioUnit : AKAudioUnit
@@ -17,4 +15,3 @@
 @property (nonatomic) float saturation;
 @end
 
-#endif /* AKKorgLowPassFilterAudioUnit_h */

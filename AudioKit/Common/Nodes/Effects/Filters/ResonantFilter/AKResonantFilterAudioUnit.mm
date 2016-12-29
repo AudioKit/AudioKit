@@ -9,7 +9,6 @@
 #import "AKResonantFilterAudioUnit.h"
 #import "AKResonantFilterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -28,32 +27,13 @@
     _kernel.setBandwidth(bandwidth);
 }
 
-- (void)start {
-    _kernel.start();
-}
-
-- (void)stop {
-    _kernel.stop();
-}
-
-- (BOOL)isPlaying {
-    return _kernel.started;
-}
-
-- (BOOL)isSetUp {
-    return _kernel.resetted;
-}
+standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
+    standardSetup(ResonantFilter)
 
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
-
-        // Create a parameter object for the frequency.
+    // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"frequency"
                                               name:@"Center frequency of the filter, or frequency position of the peak response."
@@ -83,8 +63,6 @@
     frequencyAUParameter.value = 4000.0;
     bandwidthAUParameter.value = 1000.0;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
     _kernel.setParameter(bandwidthAddress, bandwidthAUParameter.value);
 
@@ -93,19 +71,6 @@
         frequencyAUParameter,
         bandwidthAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKResonantFilterDSPKernel *filterKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        filterKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return filterKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -123,10 +88,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(ResonantFilter)
 }
 
 AUAudioUnitOverrides(ResonantFilter);

@@ -7,7 +7,7 @@
 import PlaygroundSupport
 import AudioKit
 
-func instrument(noteNumber: Int, rate: Double, amplitude: Double) -> AKOperation {
+func instrument(noteNumber: MIDINoteNumber, rate: Double, amplitude: Double) -> AKOperation {
     let metro = AKOperation.metronome(frequency: 82.0 / (60.0 * rate))
     let frequency = noteNumber.midiNoteToFrequency()
     return AKOperation.fmOscillator(baseFrequency: frequency, amplitude: amplitude)

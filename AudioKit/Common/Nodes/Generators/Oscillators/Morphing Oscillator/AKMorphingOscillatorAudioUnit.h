@@ -6,13 +6,11 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMorphingOscillatorAudioUnit_h
-#define AKMorphingOscillatorAudioUnit_h
+#pragma once
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKMorphingOscillatorAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKMorphingOscillatorAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 @property (nonatomic) float index;
@@ -22,8 +20,5 @@
 - (void)setupWaveform:(UInt32)waveform size:(int)size;
 - (void)setWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index;
 
-@property double rampTime;
-
 @end
 
-#endif /* AKMorphingOscillatorAudioUnit_h */

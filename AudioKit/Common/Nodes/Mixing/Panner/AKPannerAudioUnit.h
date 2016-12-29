@@ -6,17 +6,10 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPannerAudioUnit_h
-#define AKPannerAudioUnit_h
+#pragma once
+#import "AKAudioUnit.h"
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
-
-@interface AKPannerAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKPannerAudioUnit : AKAudioUnit
 @property (nonatomic) float pan;
-
-@property double rampTime;
-
 @end
 
-#endif /* AKPannerAudioUnit_h */

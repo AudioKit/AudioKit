@@ -10,25 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - delay: Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
-///   - decay: Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
-///   - delayMix: Delay Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - decimation: Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0.0)
-///   - decimationMix: Decimation Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - linearTerm: Linear Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - squaredTerm: Squared Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - cubicTerm: Cubic Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - polynomialMix: Polynomial Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - ringModFreq1: Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-///   - ringModFreq2: Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-///   - ringModBalance: Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - ringModMix: Ring Mod Mix (Normalized Value) ranges from 0 to 1 (Default: 0.0)
-///   - softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
-///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///
 open class AKDistortion: AKNode, AKToggleable, AUComponent {
 
     // MARK: - Properties

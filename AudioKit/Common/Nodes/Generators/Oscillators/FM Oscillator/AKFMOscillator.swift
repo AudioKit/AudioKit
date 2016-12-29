@@ -10,14 +10,6 @@ import AVFoundation
 
 /// Classic FM Synthesis audio generation.
 ///
-/// - Parameters:
-///   - waveform: Shape of the oscillation
-///   - baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
-///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
-///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
-///   - amplitude: Output Amplitude.
-///
 open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
@@ -38,10 +30,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -151,13 +140,10 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
-
-            guard let avAudioUnitGenerator = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.count))

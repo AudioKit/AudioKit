@@ -10,12 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - centerFrequency: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
-///   - q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
-///   - gain: Gain (dB) ranges from -20 to 20 (Default: 0)
-///
 open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ)

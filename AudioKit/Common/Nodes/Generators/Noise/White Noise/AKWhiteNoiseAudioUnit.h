@@ -6,17 +6,11 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKWhiteNoiseAudioUnit_h
-#define AKWhiteNoiseAudioUnit_h
+#pragma once
+#import "AKAudioUnit.h"
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
-
-@interface AKWhiteNoiseAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKWhiteNoiseAudioUnit : AKAudioUnit
 @property (nonatomic) float amplitude;
-
-@property double rampTime;
-
 @end
 
-#endif /* AKWhiteNoiseAudioUnit_h */
+

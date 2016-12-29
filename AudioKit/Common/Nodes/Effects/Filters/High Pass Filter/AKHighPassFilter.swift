@@ -10,11 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
-///
 open class AKHighPassFilter: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)

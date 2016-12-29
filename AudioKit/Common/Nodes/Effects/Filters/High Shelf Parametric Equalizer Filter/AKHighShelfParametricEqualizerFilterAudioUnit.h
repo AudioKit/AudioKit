@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKHighShelfParametricEqualizerFilterAudioUnit_h
-#define AKHighShelfParametricEqualizerFilterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKHighShelfParametricEqualizerFilterAudioUnit : AKAudioUnit
@@ -17,4 +15,3 @@
 @property (nonatomic) float q;
 @end
 
-#endif /* AKHighShelfParametricEqualizerFilterAudioUnit_h */

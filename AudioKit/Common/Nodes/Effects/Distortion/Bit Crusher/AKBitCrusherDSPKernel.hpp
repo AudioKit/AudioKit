@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKBitCrusherDSPKernel_hpp
-#define AKBitCrusherDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -165,4 +164,3 @@ public:
     ParameterRamper sampleRateRamper = 10000;
 };
 
-#endif /* AKBitCrusherDSPKernel_hpp */

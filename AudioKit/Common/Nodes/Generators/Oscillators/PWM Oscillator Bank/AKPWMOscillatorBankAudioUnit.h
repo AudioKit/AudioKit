@@ -6,12 +6,11 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPWMOscillatorBankAudioUnit_h
-#define AKPWMOscillatorBankAudioUnit_h
+#pragma once
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKPWMOscillatorBankAudioUnit : AUAudioUnit
+@interface AKPWMOscillatorBankAudioUnit : AKAudioUnit
 @property (nonatomic) float pulseWidth;
 @property (nonatomic) float attackDuration;
 @property (nonatomic) float decayDuration;
@@ -22,11 +21,6 @@
 
 - (void)startNote:(int)note velocity:(int)velocity;
 - (void)stopNote:(int)note;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
 
 @end
 
-#endif /* AKPWMOscillatorBankAudioUnit_h */

@@ -10,11 +10,6 @@ import AVFoundation
 
 /// This will digitally degrade a signal.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-///   - sampleRate: The sample rate of signal output.
-///
 open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBitCrusherAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
@@ -31,10 +26,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 

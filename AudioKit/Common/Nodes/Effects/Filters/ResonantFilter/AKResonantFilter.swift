@@ -11,10 +11,6 @@ import AVFoundation
 /// The output for reson appears to be very hot, so take caution when using this
 /// module.
 ///
-/// - parameter input: Input node to process
-/// - parameter frequency: Center frequency of the filter, or frequency position of the peak response.
-/// - parameter bandwidth: Bandwidth of the filter.
-///
 open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKResonantFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
@@ -30,10 +26,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -86,13 +79,11 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

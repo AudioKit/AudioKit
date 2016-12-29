@@ -10,13 +10,6 @@ import AVFoundation
 
 /// Phase Distortion Oscillator
 ///
-/// - Parameters:
-///   - frequency: In cycles per second, or Hz.
-///   - amplitude: Output amplitude
-///   - phaseDistortion: Duty cycle width (range 0-1).
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///
 open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "phdo")
@@ -37,10 +30,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -150,13 +140,11 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitGenerator = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.count))

@@ -11,10 +11,6 @@ import AVFoundation
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - limit: Threshold / limiting value.
-///
 open class AKClipper: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKClipperAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
@@ -29,10 +25,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 

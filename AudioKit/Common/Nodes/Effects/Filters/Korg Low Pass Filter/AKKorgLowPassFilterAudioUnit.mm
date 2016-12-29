@@ -9,7 +9,6 @@
 #import "AKKorgLowPassFilterAudioUnit.h"
 #import "AKKorgLowPassFilterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -31,32 +30,13 @@
     _kernel.setSaturation(saturation);
 }
 
-- (void)start {
-    _kernel.start();
-}
-
-- (void)stop {
-    _kernel.stop();
-}
-
-- (BOOL)isPlaying {
-    return _kernel.started;
-}
-
-- (BOOL)isSetUp {
-    return _kernel.resetted;
-}
+standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
+    standardSetup(KorgLowPassFilter)
 
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
-
-        // Create a parameter object for the cutoffFrequency.
+    // Create a parameter object for the cutoffFrequency.
     AUParameter *cutoffFrequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"cutoffFrequency"
                                               name:@"Filter cutoff"
@@ -99,7 +79,6 @@
     resonanceAUParameter.value = 1.0;
     saturationAUParameter.value = 0.0;
 
-    self.rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
     _kernel.setParameter(resonanceAddress,       resonanceAUParameter.value);
@@ -111,19 +90,6 @@
         resonanceAUParameter,
         saturationAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKKorgLowPassFilterDSPKernel *filterKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        filterKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return filterKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -144,10 +110,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(KorgLowPassFilter)
 }
 
 AUAudioUnitOverrides(KorgLowPassFilter);

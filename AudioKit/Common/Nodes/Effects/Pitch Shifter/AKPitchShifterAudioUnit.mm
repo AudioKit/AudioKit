@@ -9,7 +9,6 @@
 #import "AKPitchShifterAudioUnit.h"
 #import "AKPitchShifterDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -31,32 +30,13 @@
     _kernel.setCrossfade(crossfade);
 }
 
-- (void)start {
-    _kernel.start();
-}
-
-- (void)stop {
-    _kernel.stop();
-}
-
-- (BOOL)isPlaying {
-    return _kernel.started;
-}
-
-- (BOOL)isSetUp {
-    return _kernel.resetted;
-}
+standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
+    standardSetup(PitchShifter)
 
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
-
-        // Create a parameter object for the shift.
+    // Create a parameter object for the shift.
     AUParameter *shiftAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"shift"
                                               name:@"Pitch shift (in semitones)"
@@ -99,8 +79,6 @@
     windowSizeAUParameter.value = 1024;
     crossfadeAUParameter.value = 512;
 
-    self.rampTime = AKSettings.rampTime;
-
     _kernel.setParameter(shiftAddress,      shiftAUParameter.value);
     _kernel.setParameter(windowSizeAddress, windowSizeAUParameter.value);
     _kernel.setParameter(crossfadeAddress,  crossfadeAUParameter.value);
@@ -111,19 +89,6 @@
         windowSizeAUParameter,
         crossfadeAUParameter
     ]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKPitchShifterDSPKernel *pitchshifterKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        pitchshifterKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return pitchshifterKernel->getParameter(param.address);
-    };
 
     // A function to provide string representations of parameter values.
     _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
@@ -144,10 +109,7 @@
         }
     };
 
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(PitchShifter)
 }
 
 AUAudioUnitOverrides(PitchShifter);

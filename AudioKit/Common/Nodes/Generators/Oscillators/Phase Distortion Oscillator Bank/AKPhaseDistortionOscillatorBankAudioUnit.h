@@ -6,12 +6,11 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPhaseDistortionOscillatorBankAudioUnit_h
-#define AKPhaseDistortionOscillatorBankAudioUnit_h
+#pragma once
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKPhaseDistortionOscillatorBankAudioUnit : AUAudioUnit
+@interface AKPhaseDistortionOscillatorBankAudioUnit : AKAudioUnit
 
 @property (nonatomic) float phaseDistortion;
 
@@ -26,11 +25,6 @@
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
 - (void)startNote:(int)note velocity:(int)velocity;
 - (void)stopNote:(int)note;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
 
 @end
 
-#endif /* AKPhaseDistortionOscillatorBankAudioUnit_h */

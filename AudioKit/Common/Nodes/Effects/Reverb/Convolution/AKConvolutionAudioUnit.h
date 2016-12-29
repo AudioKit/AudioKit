@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKConvolutionAudioUnit_h
-#define AKConvolutionAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKConvolutionAudioUnit : AKAudioUnit
@@ -16,4 +14,3 @@
 - (void)setPartitionLength:(int)partitionLength;
 @end
 
-#endif /* AKConvolutionAudioUnit_h */
