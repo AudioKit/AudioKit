@@ -6,12 +6,11 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKOscillatorBankAudioUnit_h
-#define AKOscillatorBankAudioUnit_h
+#pragma once
 
-#import <AudioToolbox/AudioToolbox.h>
+#import "AKAudioUnit.h"
 
-@interface AKOscillatorBankAudioUnit : AUAudioUnit
+@interface AKOscillatorBankAudioUnit : AKAudioUnit
 @property (nonatomic) float attackDuration;
 @property (nonatomic) float decayDuration;
 @property (nonatomic) float sustainLevel;
@@ -23,11 +22,6 @@
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
 - (void)startNote:(int)note velocity:(int)velocity;
 - (void)stopNote:(int)note;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
 
 @end
 
-#endif /* AKOscillatorBankAudioUnit_h */

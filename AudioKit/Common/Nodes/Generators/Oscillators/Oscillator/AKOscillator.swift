@@ -11,12 +11,6 @@ import AVFoundation
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
-/// - Parameters:
-///   - frequency: Frequency in cycles per second
-///   - amplitude: Output Amplitude.
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///
 open class AKOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
@@ -36,10 +30,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -133,13 +124,11 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitGenerator = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.count))

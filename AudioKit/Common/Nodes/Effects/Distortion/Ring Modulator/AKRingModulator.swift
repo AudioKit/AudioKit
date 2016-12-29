@@ -10,13 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - frequency1: Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-///   - frequency2: Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-///   - balance: Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-///
 open class AKRingModulator: AKNode, AKToggleable, AUComponent {
 
     // MARK: - Properties

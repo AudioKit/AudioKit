@@ -6,20 +6,15 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPluckedStringAudioUnit_h
-#define AKPluckedStringAudioUnit_h
+#pragma once
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
+#import "AKAudioUnit.h"
 
-@interface AKPluckedStringAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKPluckedStringAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
 
-@property double rampTime;
-
 @end
 
-#endif /* AKPluckedStringAudioUnit_h */

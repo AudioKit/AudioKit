@@ -12,11 +12,6 @@ import AVFoundation
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - x: x Position
-///   - y: y Position
-///
 open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
@@ -32,10 +27,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -90,13 +82,11 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

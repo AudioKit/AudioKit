@@ -10,11 +10,6 @@ import AVFoundation
 
 /// Karplus-Strong plucked string instrument.
 ///
-/// - Parameters:
-///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-///   - amplitude: Amplitude
-///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
-///
 open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPluckedStringAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
@@ -32,10 +27,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -89,13 +81,11 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitGenerator = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

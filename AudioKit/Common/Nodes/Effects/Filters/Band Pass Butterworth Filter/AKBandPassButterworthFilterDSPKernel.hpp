@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKBandPassButterworthFilterDSPKernel_hpp
-#define AKBandPassButterworthFilterDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -165,4 +164,3 @@ public:
     ParameterRamper bandwidthRamper = 100.0;
 };
 
-#endif /* AKBandPassButterworthFilterDSPKernel_hpp */

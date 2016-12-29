@@ -9,7 +9,6 @@
 #import "AKConvolutionAudioUnit.h"
 #import "AKConvolutionDSPKernel.hpp"
 
-#import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -28,59 +27,15 @@
 - (void)setPartitionLength:(int)partitionLength {
     _kernel.setPartitionLength(partitionLength);
 }
-- (void)start {
-    _kernel.start();
-}
-
-- (void)stop {
-    _kernel.stop();
-}
-
-- (BOOL)isPlaying {
-    return _kernel.started;
-}
-
-- (BOOL)isSetUp {
-    return _kernel.resetted;
-}
+standardKernelPassthroughs()
 
 - (void)createParameters {
-
-    // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
-
-    // Create a DSP kernel to handle the signal processing.
-    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
-
-    
-
-    // Initialize the parameter values.
-
-    self.rampTime = AKSettings.rampTime;
-
+    standardSetup(Convolution)
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
-    ]];
+    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
 
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKConvolutionDSPKernel *convolutionKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        convolutionKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return convolutionKernel->getParameter(param.address);
-    };
-
-    _inputBus.init(self.defaultFormat, 8);
-    self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                                busType:AUAudioUnitBusTypeInput
-                                                                 busses:@[_inputBus.bus]];
+	parameterTreeBlock(Convolution)
 }
 
 AUAudioUnitOverrides(Convolution);

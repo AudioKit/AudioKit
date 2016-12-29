@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPhaseLockedVocoderDSPKernel_hpp
-#define AKPhaseLockedVocoderDSPKernel_hpp
-
+#pragma once
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -140,7 +138,7 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList *outBufferList) {
+    void setBuffer(AudioBufferList *outBufferList) {
         outBufferListPtr = outBufferList;
     }
 
@@ -197,4 +195,4 @@ public:
     ParameterRamper pitchRatioRamper = 1;
 };
 
-#endif /* AKPhaseLockedVocoderDSPKernel_hpp */
+

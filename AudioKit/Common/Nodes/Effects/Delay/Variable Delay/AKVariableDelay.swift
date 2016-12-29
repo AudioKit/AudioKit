@@ -10,12 +10,6 @@ import AVFoundation
 
 /// A delay line with cubic interpolation.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
-///   - feedback: Feedback amount. Should be a value between 0-1.
-///   - maximumDelayTime: The maximum delay time, in seconds.
-///
 open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKVariableDelayAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
@@ -31,10 +25,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -89,13 +80,11 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
 
         _Self.register()
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

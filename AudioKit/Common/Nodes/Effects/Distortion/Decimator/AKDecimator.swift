@@ -10,12 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - decimation: Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-///   - rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
-///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-///
 open class AKDecimator: AKNode, AKToggleable, AUComponent {
 
     // MARK: - Properties

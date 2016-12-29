@@ -6,8 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMetalBarDSPKernel_hpp
-#define AKMetalBarDSPKernel_hpp
+#pragma once
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -202,8 +201,7 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
+    void setBuffer(AudioBufferList *outBufferList) {
         outBufferListPtr = outBufferList;
     }
 
@@ -250,7 +248,6 @@ private:
     float sampleRate = AKSettings.sampleRate;
     float internalTrigger = 0;
 
-    AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
@@ -276,4 +273,3 @@ public:
     ParameterRamper strikeWidthRamper = 0.05;
 };
 
-#endif /* AKMetalBarDSPKernel_hpp */

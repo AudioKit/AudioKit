@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPeakingParametricEqualizerFilterAudioUnit_h
-#define AKPeakingParametricEqualizerFilterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKPeakingParametricEqualizerFilterAudioUnit : AKAudioUnit
@@ -16,5 +14,3 @@
 @property (nonatomic) float gain;
 @property (nonatomic) float q;
 @end
-
-#endif /* AKPeakingParametricEqualizerFilterAudioUnit_h */

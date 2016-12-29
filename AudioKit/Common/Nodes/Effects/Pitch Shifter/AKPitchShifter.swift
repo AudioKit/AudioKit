@@ -10,12 +10,6 @@ import AVFoundation
 
 /// Faust-based pitch shfiter
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - shift: Pitch shift (in semitones)
-///   - windowSize: Window size (in samples)
-///   - crossfade: Crossfade (in samples)
-///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
@@ -33,10 +27,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -105,13 +96,11 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

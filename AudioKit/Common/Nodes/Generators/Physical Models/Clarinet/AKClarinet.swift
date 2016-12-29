@@ -10,10 +10,6 @@ import AVFoundation
 
 /// STK Clarinet
 ///
-/// - Parameters:
-///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-///   - amplitude: Amplitude
-///
 open class AKClarinet: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(generator: "flut")
     public typealias AKAudioUnitType = AKClarinetAudioUnit
@@ -28,10 +24,7 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -81,13 +74,11 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitGenerator = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
         }

@@ -6,20 +6,14 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKClarinetAudioUnit_h
-#define AKClarinetAudioUnit_h
+#pragma once
+#import "AKAudioUnit.h"
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
-
-@interface AKClarinetAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKClarinetAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
 
-@property double rampTime;
-
 @end
 
-#endif /* AKClarinetAudioUnit_h */

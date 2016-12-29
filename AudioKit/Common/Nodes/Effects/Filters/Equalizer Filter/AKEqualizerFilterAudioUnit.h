@@ -6,9 +6,7 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKEqualizerFilterAudioUnit_h
-#define AKEqualizerFilterAudioUnit_h
-
+#pragma once
 #import "AKAudioUnit.h"
 
 @interface AKEqualizerFilterAudioUnit : AKAudioUnit
@@ -17,4 +15,4 @@
 @property (nonatomic) float gain;
 @end
 
-#endif /* AKEqualizerFilterAudioUnit_h */
+

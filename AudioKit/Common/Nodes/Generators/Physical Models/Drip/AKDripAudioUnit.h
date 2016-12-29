@@ -6,13 +6,10 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKDripAudioUnit_h
-#define AKDripAudioUnit_h
+#pragma once
+#import "AKAudioUnit.h"
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
-
-@interface AKDripAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKDripAudioUnit : AKAudioUnit
 @property (nonatomic) float intensity;
 @property (nonatomic) float dampingFactor;
 @property (nonatomic) float energyReturn;
@@ -23,8 +20,6 @@
 
 - (void)trigger;
 
-@property double rampTime;
-
 @end
 
-#endif /* AKDripAudioUnit_h */
+

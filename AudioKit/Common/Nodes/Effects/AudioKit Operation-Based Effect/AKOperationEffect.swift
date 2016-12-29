@@ -25,13 +25,9 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     /// Parameters for changing internal operations
     open var parameters: [Double] {
         get {
-            var result: [Double] = []
-            if let floatParameters = internalAU?.parameters as? [NSNumber] {
-                for number in floatParameters {
-                    result.append(number.doubleValue)
-                }
-            }
-            return result
+            return (internalAU?.parameters as? [NSNumber]).flatMap {
+                $0.flatMap { $0.doubleValue }
+            } ?? []
         }
         set {
             internalAU?.parameters = newValue
@@ -95,13 +91,12 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU?.setSporth(sporth)

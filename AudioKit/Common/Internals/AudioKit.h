@@ -97,6 +97,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKBalancerAudioUnit.h"
 #import "AKBoosterAudioUnit.h"
 #import "AKPannerAudioUnit.h"
+#import "AKStereoFieldLimiterAudioUnit.h"
 
 // Playback
 #import "AKPhaseLockedVocoderAudioUnit.h"
@@ -107,6 +108,3 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Plots
 #import "EZAudio.h"
-
-// Protocols
-#import "AKAudioUnitType.h"

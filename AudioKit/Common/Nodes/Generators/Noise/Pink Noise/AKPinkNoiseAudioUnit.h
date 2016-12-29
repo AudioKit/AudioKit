@@ -6,17 +6,10 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPinkNoiseAudioUnit_h
-#define AKPinkNoiseAudioUnit_h
+#pragma once
+#import "AKAudioUnit.h"
 
-#import <AudioToolbox/AudioToolbox.h>
-#import "AKAudioUnitType.h"
-
-@interface AKPinkNoiseAudioUnit : AUAudioUnit<AKAudioUnitType>
+@interface AKPinkNoiseAudioUnit : AKAudioUnit
 @property (nonatomic) float amplitude;
-
-@property double rampTime;
-
 @end
 
-#endif /* AKPinkNoiseAudioUnit_h */

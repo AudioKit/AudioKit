@@ -12,11 +12,6 @@ import AVFoundation
 /// modeling scattering junction of 8 lossless waveguides of equal
 /// characteristic impedance.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
-///   - cutoffFrequency: Low-pass cutoff frequency.
-///
 open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKCostelloReverbAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
@@ -32,10 +27,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-            if rampTime != newValue {
-                internalAU?.rampTime = newValue
-                internalAU?.setUpParameterRamp()
-            }
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -89,13 +81,11 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

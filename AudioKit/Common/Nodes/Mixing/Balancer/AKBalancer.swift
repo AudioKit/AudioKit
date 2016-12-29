@@ -15,10 +15,6 @@ import AVFoundation
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - comparator: Audio to match power with
-///
 open class AKBalancer: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBalancerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
@@ -43,13 +39,11 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
     public init( _ input: AKNode, comparator: AKNode) {
         _Self.register()
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            avAudioUnit in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)

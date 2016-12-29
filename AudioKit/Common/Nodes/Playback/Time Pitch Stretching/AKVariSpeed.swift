@@ -9,11 +9,7 @@
 import AVFoundation
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
-///
-/// - Parameters:
-///   - input: Input node to process
-///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
-///
+/// 
 open class AKVariSpeed: AKNode, AKToggleable {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()

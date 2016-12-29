@@ -6,12 +6,10 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMorphingOscillatorBankAudioUnit_h
-#define AKMorphingOscillatorBankAudioUnit_h
+#pragma once
+#import "AKAudioUnit.h"
 
-#import <AudioToolbox/AudioToolbox.h>
-
-@interface AKMorphingOscillatorBankAudioUnit : AUAudioUnit
+@interface AKMorphingOscillatorBankAudioUnit : AKAudioUnit
 
 @property (nonatomic) float index;
 
@@ -26,11 +24,6 @@
 - (void)setWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index;
 - (void)startNote:(int)note velocity:(int)velocity;
 - (void)stopNote:(int)note;
-- (void)setUpParameterRamp;
-- (BOOL)isSetUp;
-
-@property double rampTime;
 
 @end
 
-#endif /* AKMorphingOscillatorBankAudioUnit_h */
