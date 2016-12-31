@@ -11,15 +11,6 @@ import AVFoundation
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-/// - Parameters:
-///   - waveformArray:      An array of exactly four waveforms
-///   - frequency:          Frequency (in Hz)
-///   - amplitude:          Amplitude (typically a value between 0 and 1).
-///   - index:              Index of the wavetable to use (fractional are okay).
-///   - detuningOffset:     Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///   - phase:              Initial phase of waveform, expects a value 0-1
-///
 open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")

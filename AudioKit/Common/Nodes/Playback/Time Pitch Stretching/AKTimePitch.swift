@@ -10,12 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - rate: Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
-///   - pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
-///   - overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
-///
 open class AKTimePitch: AKNode, AKToggleable {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()

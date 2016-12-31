@@ -14,11 +14,6 @@ import AVFoundation
 /// for a signal to decay to 1/1000, or 60dB down from its original amplitude).
 /// Output from a comb filter will appear only after loopDuration seconds.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
-///
 open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKCombFilterReverbAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")

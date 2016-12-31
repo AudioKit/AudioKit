@@ -11,10 +11,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-/// - Parameters:
-///   - input: AKNode to reverberate
-///   - dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
-///
 open class AKReverb: AKNode, AKToggleable {
     fileprivate let reverbAU = AVAudioUnitReverb()
 

@@ -10,10 +10,6 @@ import AVFoundation
 
 /// A first-order recursive low-pass filter with variable frequency response.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-///
 open class AKToneFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKToneFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")

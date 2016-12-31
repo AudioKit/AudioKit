@@ -12,11 +12,6 @@ import AVFoundation
 /// can be created using  passing an impulse through a combination of modal
 /// filters.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - frequency: Resonant frequency of the filter.
-///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
-///
 open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKModalResonanceFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")

@@ -10,11 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
-///   - bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
-///
 open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
 

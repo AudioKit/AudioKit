@@ -10,12 +10,6 @@ import AVFoundation
 
 /// Faust-based pitch shfiter
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - shift: Pitch shift (in semitones)
-///   - windowSize: Window size (in samples)
-///   - crossfade: Crossfade (in samples)
-///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")

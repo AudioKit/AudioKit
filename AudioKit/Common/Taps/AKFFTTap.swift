@@ -11,7 +11,7 @@ import Foundation
 /// FFT Calculation for any node
 @objc open class AKFFTTap: NSObject, EZAudioFFTDelegate {
     
-    internal let bufferSize: UInt32 = 512
+    internal let bufferSize: UInt32 = 1024
     internal var fft: EZAudioFFT?
     
     /// Array of FFT data
@@ -37,7 +37,7 @@ import Foundation
     /// Callback function for FFT computation
     @objc open func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>, bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
-            for i in 0...511 {
+            for i in 0..<512 {
                 self.fftData[i] = Double(fftData[i])
             }
         }

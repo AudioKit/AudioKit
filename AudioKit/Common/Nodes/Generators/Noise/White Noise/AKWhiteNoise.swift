@@ -10,8 +10,6 @@ import AVFoundation
 
 /// White noise generator
 ///
-/// - parameter amplitude: Amplitude. (Value between 0-1).
-///
 open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKWhiteNoiseAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "wnoz")

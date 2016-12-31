@@ -8,18 +8,7 @@
 
 import AVFoundation
 
-///
-///
-/// - Parameters:
-///   - leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-///   - rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-///   - decayDuration: 30db decay time (in seconds).
-///   - scanSpeed: Speed of scanning the output location.
-///   - position: Position along bar that strike occurs.
-///   - strikeVelocity: Normalized strike velocity
-///   - strikeWidth: Spatial width of strike.
-///   - stiffness: Dimensionless stiffness parameter
-///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
+/// Metal Bar Physical Model
 ///
 open class AKMetalBar: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKMetalBarAudioUnit
