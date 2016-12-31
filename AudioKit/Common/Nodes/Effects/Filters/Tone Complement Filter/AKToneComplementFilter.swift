@@ -10,10 +10,6 @@ import AVFoundation
 
 /// A complement to the AKLowPassFilter.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
-///
 open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKToneComplementFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")

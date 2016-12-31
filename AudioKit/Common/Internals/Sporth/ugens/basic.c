@@ -276,44 +276,6 @@ int sporth_swap(sporth_stack *stack, void *ud)
     return PLUMBER_OK;
 }
 
-int sporth_constant(sporth_stack *stack, void *ud)
-{
-    plumber_data *pd = ud;
-
-    float val;
-
-    switch(pd->mode){
-        case PLUMBER_CREATE:
-            plumber_add_ugen(pd, SPORTH_CONSTANT, NULL);
-            if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
-            val = sporth_stack_pop_float(stack);
-            sporth_stack_push_float(stack, val);
-            break;
-        case PLUMBER_INIT:
-            val = sporth_stack_pop_float(stack);
-            sporth_stack_push_float(stack, val);
-            break;
-        case PLUMBER_COMPUTE:
-            if(pd->sp->pos == 0) {
-                val = sporth_stack_pop_float(stack);
-            } else {
-                val = sporth_stack_pop_float(stack);
-                sporth_stack_pop_float(stack);
-            }
-            sporth_stack_push_float(stack, val);
-            break;
-        case PLUMBER_DESTROY:
-            break;
-        default:
-          fprintf(stderr,"Error: Unknown mode!");
-           break;
-    }
-    return PLUMBER_OK;
-}
-
 typedef struct {
     sp_osc *osc;
     sp_ftbl *ft;
@@ -1391,10 +1353,12 @@ int sporth_limit(sporth_stack *stack, void *ud)
     }
     return PLUMBER_OK;
 }
+
 typedef struct {
     SPFLOAT pval;
     SPFLOAT out;
 } inv_d;
+
 int sporth_inv(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;

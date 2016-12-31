@@ -10,11 +10,6 @@ import AVFoundation
 
 /// Table-lookup tremolo with linear interpolation
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - frequency: Frequency (Hz)
-///   - depth: Depth
-///
 open class AKTremolo: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKTremoloAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")

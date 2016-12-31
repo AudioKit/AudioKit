@@ -10,13 +10,6 @@ import AVFoundation
 
 /// Pulse-Width Modulating Oscillator
 ///
-/// - Parameters:
-///   - frequency: In cycles per second, or Hz.
-///   - amplitude: Output amplitude
-///   - pulseWidth: Duty cycle width (range 0-1).
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///
 open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")

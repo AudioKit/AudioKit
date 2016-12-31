@@ -10,8 +10,6 @@ import AVFoundation
 
 /// Faust-based pink noise generator
 ///
-/// - parameter amplitude: Amplitude. (Value between 0-1).
-///
 open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPinkNoiseAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "pink")

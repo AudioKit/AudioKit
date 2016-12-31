@@ -10,10 +10,6 @@ import AVFoundation
 
 /// Stereo Booster
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - gain: Boosting multiplier.
-///
 open class AKBooster: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBoosterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "gain")

@@ -11,11 +11,6 @@ import AVFoundation
 /// This module will perform partitioned convolution on an input signal using an
 /// audio file as an impulse response.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - impulseResponseFileURL: Location of the imulseResponse audio File
-///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.
-///
 open class AKConvolution: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKConvolutionAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")

@@ -14,11 +14,6 @@ import AVFoundation
 /// Napoli). This implementation is probably a more accurate digital
 /// representation of the original analogue filter.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - cutoffFrequency: Filter cutoff frequency.
-///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-///
 open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKMoogLadderAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")

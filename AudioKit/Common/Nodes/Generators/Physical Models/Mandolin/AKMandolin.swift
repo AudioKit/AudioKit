@@ -10,10 +10,6 @@ import AVFoundation
 
 /// Physical model of a 4 course mandolin
 ///
-/// - Parameters:
-///   - detune:   Detuning of second string in the course (1=Unison (deault), 2=Octave)
-///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
-///
 open class AKMandolin: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKMandolinAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "mand")

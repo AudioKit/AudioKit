@@ -10,16 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to  (Default: 0.5)
-///   - gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
-///   - minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
-///   - maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
-///   - decayTimeAt0Hz: Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
-///   - decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
-///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
-///
 open class AKReverb2: AKNode, AKToggleable {
 
     fileprivate let cd = AudioComponentDescription(

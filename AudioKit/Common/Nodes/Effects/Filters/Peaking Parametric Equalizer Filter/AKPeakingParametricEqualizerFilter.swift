@@ -10,12 +10,6 @@ import AVFoundation
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - centerFrequency: Center frequency.
-///   - gain: Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
-///   - q: Q of the filter. sqrt(0.5) is no resonance.
-///
 open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPeakingParametricEqualizerFilterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")

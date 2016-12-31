@@ -10,16 +10,6 @@ import AVFoundation
 
 /// Phase Distortion Oscillator Bank
 ///
-/// - Parameters:
-///   - waveform:  The waveform of oscillation
-///   - phaseDistortion: Duty cycle width (range 0-1).
-///   - attackDuration: Attack time
-///   - decayDuration: Decay time
-///   - sustainLevel: Sustain Level
-///   - releaseDuration: Release time
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///
 open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorBankAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "phdb")

@@ -11,10 +11,6 @@ import AVFoundation
 /// Performs a "root-mean-square" on a signal to get overall amplitude of a
 /// signal. The output signal looks similar to that of a classic VU meter.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
-///
 open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKAmplitudeTrackerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")

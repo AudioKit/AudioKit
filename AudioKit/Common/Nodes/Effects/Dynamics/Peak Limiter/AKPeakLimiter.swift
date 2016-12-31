@@ -10,12 +10,6 @@ import AVFoundation
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-///   - decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
-///
 open class AKPeakLimiter: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)

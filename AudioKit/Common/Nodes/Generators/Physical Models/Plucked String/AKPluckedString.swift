@@ -10,11 +10,6 @@ import AVFoundation
 
 /// Karplus-Strong plucked string instrument.
 ///
-/// - Parameters:
-///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-///   - amplitude: Amplitude
-///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
-///
 open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPluckedStringAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")

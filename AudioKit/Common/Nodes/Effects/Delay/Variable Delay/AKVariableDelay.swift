@@ -10,12 +10,6 @@ import AVFoundation
 
 /// A delay line with cubic interpolation.
 ///
-/// - Parameters:
-///   - input: Input node to process
-///   - time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
-///   - feedback: Feedback amount. Should be a value between 0-1.
-///   - maximumDelayTime: The maximum delay time, in seconds.
-///
 open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKVariableDelayAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")

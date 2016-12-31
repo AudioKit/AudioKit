@@ -10,13 +10,6 @@ import AVFoundation
 
 /// Phase Distortion Oscillator
 ///
-/// - Parameters:
-///   - frequency: In cycles per second, or Hz.
-///   - amplitude: Output amplitude
-///   - phaseDistortion: Duty cycle width (range 0-1).
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
-///
 open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "phdo")
