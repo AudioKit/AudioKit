@@ -101,7 +101,6 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 

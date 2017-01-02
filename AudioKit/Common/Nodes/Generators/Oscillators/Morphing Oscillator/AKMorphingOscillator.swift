@@ -149,8 +149,6 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit .auAudioUnit as? AKAudioUnitType
 
-            AudioKit.engine.attach(self.avAudioNode)
-
             for (i, waveform) in waveformArray.enumerated() {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveform.count))
                 for (j, sample) in waveform.enumerated() {
