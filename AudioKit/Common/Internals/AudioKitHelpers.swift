@@ -28,6 +28,7 @@ extension Collection where Index == Int {
 
 /// Helper function to convert codes for Audio Units
 /// - parameter string: Four character string to convert
+///
 public func fourCC(_ string: String) -> UInt32 {
     let utf8 = string.utf8
     precondition(utf8.count == 4, "Must be a 4 char string")
@@ -37,6 +38,16 @@ public func fourCC(_ string: String) -> UInt32 {
         out |= UInt32(char)
     }
     return out
+}
+
+/// Wrapper for printing out status messages to the console, 
+/// eventually it could be expanded with log levels
+/// - parameter string: Message to print
+///
+public func AKLog(_ string: String) {
+    if !AKSettings.disableLogging {
+        print(string)
+    }
 }
 
 /// Random double between bounds

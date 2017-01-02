@@ -195,7 +195,7 @@ open class AKAudioFile: AVAudioFile {
         do {
             try self.read(into: buffer)
         } catch let error as NSError {
-            print("error cannot readIntBuffer, Error: \(error)")
+            AKLog("error cannot readIntBuffer, Error: \(error)")
         }
 
         return buffer
