@@ -31,7 +31,7 @@ public struct AKDuration: CustomStringConvertible {
             if doubleSamples <= Double(Int.max) {
                 return Int(doubleSamples)
             } else {
-                print("Warning: Samples exceeds the maximum number.")
+                AKLog("Warning: Samples exceeds the maximum number.")
                 return Int.max
             }
         }

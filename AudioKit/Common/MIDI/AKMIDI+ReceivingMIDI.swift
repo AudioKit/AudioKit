@@ -75,7 +75,7 @@ extension AKMIDI {
                 inputPorts[namedInput] = port
                 
                 if result != noErr {
-                    print("Error creating midiInPort : \(result)")
+                    AKLog("Error creating midiInPort : \(result)")
                 }
                 MIDIPortConnectSource(port, src, nil)
                 endpoints[namedInput] = src
@@ -96,7 +96,7 @@ extension AKMIDI {
                         endpoints.removeValue(forKey: namedInput)
                         inputPorts.removeValue(forKey: namedInput)
                     } else {
-                        print("Error closing midiInPort : \(result)")
+                        AKLog("Error closing midiInPort : \(result)")
                     }
                 }
             }

@@ -74,11 +74,11 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
 
             err = ExtAudioFileOpenURL(self.impulseResponseFileURL, &extRef)
-            if err != 0 { print("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
+            if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
             // Get the audio data format
             err = ExtAudioFileGetProperty(extRef!, kExtAudioFileProperty_FileDataFormat, &thePropertySize, &theFileFormat)
-            if err != 0 { print("ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = \(err)"); break Exit }
-            if theFileFormat.mChannelsPerFrame > 2 { print("Unsupported Format, channel count is greater than stereo"); break Exit }
+            if err != 0 { AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = \(err)"); break Exit }
+            if theFileFormat.mChannelsPerFrame > 2 { AKLog("Unsupported Format, channel count is greater than stereo"); break Exit }
 
             theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
@@ -91,12 +91,12 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
 
             // Set the desired client (output) data format
             err = ExtAudioFileSetProperty(extRef!, kExtAudioFileProperty_ClientDataFormat, UInt32(MemoryLayout.stride(ofValue: theOutputFormat)), &theOutputFormat)
-            if err != 0 { print("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)"); break Exit }
+            if err != 0 { AKLog("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)"); break Exit }
 
             // Get the total frame count
             thePropertySize = UInt32(MemoryLayout.stride(ofValue: theFileLengthInFrames))
             err = ExtAudioFileGetProperty(extRef!, kExtAudioFileProperty_FileLengthFrames, &thePropertySize, &theFileLengthInFrames)
-            if err != 0 { print("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)"); break Exit }
+            if err != 0 { AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)"); break Exit }
 
             // Read all the data into memory
             let dataSize = UInt32(theFileLengthInFrames) * theOutputFormat.mBytesPerFrame
@@ -120,7 +120,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
                     theData = nil // make sure to return NULL
-                    print("Error = \(err)"); break Exit;
+                    AKLog("Error = \(err)"); break Exit;
                 }
             }
         }

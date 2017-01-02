@@ -43,7 +43,7 @@ open class AKMicrophone: AKNode, AKToggleable {
             do {
                 try AudioKit.setInputDevice(device)
             } catch {
-                print("Could not set input device")
+                AKLog("Could not set input device")
             }
         #endif
     }
