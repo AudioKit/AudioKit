@@ -25,11 +25,11 @@ public extension AKMoogLadder {
     
     /// Print out current values in case you want to save it as a preset
     public func printCurrentValuesAsPreset() {
-        print("public func presetSomeNewMoogLadderFilter() {")
-        print("    cutoffFrequency = \(String(format: "%0.3f", cutoffFrequency))")
-        print("    resonance = \(String(format: "%0.3f", resonance))")
-        print("    ramp time = \(String(format: "%0.3f", rampTime))")
-        print("}\n")
+        AKLog("public func presetSomeNewMoogLadderFilter() {")
+        AKLog("    cutoffFrequency = \(String(format: "%0.3f", cutoffFrequency))")
+        AKLog("    resonance = \(String(format: "%0.3f", resonance))")
+        AKLog("    ramp time = \(String(format: "%0.3f", rampTime))")
+        AKLog("}\n")
     }
 
 }

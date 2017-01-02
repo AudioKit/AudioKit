@@ -52,17 +52,17 @@ extension AKMIDI {
         let result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
 
         if result != noErr {
-            print("Error creating MIDI output port : \(result)")
+            AKLog("Error creating MIDI output port : \(result)")
         }
         for (name, endpoint) in zip(destinationNames, MIDIDestinations()) {
             if namedOutput.isEmpty || namedOutput == name {
-                print("Found destination at \(name)")
+                AKLog("Found destination at \(name)")
                 endpoints[name] = endpoint
                 foundDest = true
             }
         }
         if !foundDest {
-            print("no midi destination found named \"\(namedOutput)\"")
+            AKLog("no midi destination found named \"\(namedOutput)\"")
         }
     }
 
@@ -76,7 +76,7 @@ extension AKMIDI {
         for endpoint in endpoints.values {
             let result = MIDISend(outputPort, endpoint, packetListPointer)
             if result != noErr {
-                print("error sending midi : \(result)")
+                AKLog("error sending midi : \(result)")
             }
         }
 

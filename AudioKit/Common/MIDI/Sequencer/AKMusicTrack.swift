@@ -62,7 +62,7 @@ open class AKMusicTrack {
 
         let result = MusicTrackNewMetaEvent(internalMusicTrack!, MusicTimeStamp(0), &metaEvent)
         if result != 0 {
-            print("Unable to name Track")
+            AKLog("Unable to name Track")
         }
     }
 
@@ -237,8 +237,8 @@ open class AKMusicTrack {
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
             
             outBool = false
-            //print("time is \(eventTime) - type is \(eventType)")
-            //print("data is \(eventData)")
+            //AKLog("time is \(eventTime) - type is \(eventType)")
+            //AKLog("data is \(eventData)")
             MusicEventIteratorNextEvent(iterator!)
             MusicEventIteratorHasCurrentEvent(iterator!, &hasNextEvent)
         }
@@ -314,7 +314,7 @@ open class AKMusicTrack {
         
         let result = MusicTrackNewMIDIRawDataEvent(internalMusicTrack!, position.musicTimeStamp, &midiData)
         if result != 0 {
-            print("Unable to insert raw midi data")
+            AKLog("Unable to insert raw midi data")
         }
         
     }

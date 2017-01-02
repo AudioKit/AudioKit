@@ -146,7 +146,7 @@ public struct AKMIDIEvent {
                 if let cmd = packet.command {
                     fillData(command: cmd, byte1: packet.data.1, byte2: packet.data.2)
                 } else {
-                    print("AKMIDISystemCommand failure due to bad data - need to investigate")
+                    AKLog("AKMIDISystemCommand failure due to bad data - need to investigate")
                 }
             }
         }
@@ -282,7 +282,7 @@ public struct AKMIDIEvent {
         
         switch command {
         case .sysex:
-            print("sysex")
+            AKLog("sysex")
             break
         case .songPosition:
             internalData[1] = byte1.lower7bits()

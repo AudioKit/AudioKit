@@ -68,7 +68,7 @@ open class AKMIDI {
         if client == 0 {
             result = MIDIClientCreateWithBlock(clientName, &client, MyMIDINotifyBlock)
             if result != noErr {
-                print("Error creating midi client : \(result)")
+                AKLog("Error creating midi client : \(result)")
             }
         }
     }
@@ -91,7 +91,7 @@ open class AKMIDI {
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)
         } else {
-            print("Error creatervirt dest: \(clientName) -- \(virtualInput)")
+            AKLog("Error creatervirt dest: \(clientName) -- \(virtualInput)")
         }
         
         
@@ -99,7 +99,7 @@ open class AKMIDI {
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId + 1)
         } else {
-            print("Error creating virtual source: \(clientName) -- \(virtualOutput)")
+            AKLog("Error creating virtual source: \(clientName) -- \(virtualOutput)")
         }
     }
     
