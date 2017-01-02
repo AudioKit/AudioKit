@@ -26,10 +26,10 @@ public extension AKCostelloReverb {
     
     /// Print out current values in case you want to save it as a preset
     public func printCurrentValuesAsPreset() {
-        print("public func presetSomeNewReverb() {")
-        print("    cutoffFrequency = \(String(format: "%0.3f", cutoffFrequency))")
-        print("    feedback = \(String(format: "%0.3f", feedback))")
-        print("}\n")
+        AKLog("public func presetSomeNewReverb() {")
+        AKLog("    cutoffFrequency = \(String(format: "%0.3f", cutoffFrequency))")
+        AKLog("    feedback = \(String(format: "%0.3f", feedback))")
+        AKLog("}\n")
     }
 
 }

@@ -38,7 +38,7 @@ open class AKSequencer {
             return avSequencer.tracks
         } else {
             //this won't do anything if not using an AVSeq
-            print("AKSequencer ERROR ! avTracks only work if isAVSequencer ")
+            AKLog("AKSequencer ERROR ! avTracks only work if isAVSequencer ")
 
             let tracks = [AVMusicTrack]()
             return tracks
@@ -106,9 +106,9 @@ open class AKSequencer {
 
         do {
             try avSequencer.load(from: data, options: options)
-            print("should have loaded new sequence data")
+            AKLog("should have loaded new sequence data")
         } catch {
-            print("cannot load from data \(error)")
+            AKLog("cannot load from data \(error)")
             return
         }
     }
@@ -172,7 +172,7 @@ open class AKSequencer {
     ///
     open func setLoopInfo(_ duration: AKDuration, numberOfLoops: Int) {
         if isAVSequencer {
-            print("AKSequencer ERROR ! setLoopInfo only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR ! setLoopInfo only work if not isAVSequencer ")
 
             //nothing yet
         } else {
@@ -232,7 +232,7 @@ open class AKSequencer {
             if isAVSequencer {
                 return Double(avSequencer.rate)
             } else {
-                print("AKSequencer ERROR ! rate only work if isAVSequencer ")
+                AKLog("AKSequencer ERROR ! rate only work if isAVSequencer ")
                 return nil
             }
         }
@@ -240,7 +240,7 @@ open class AKSequencer {
             if isAVSequencer {
                 avSequencer.rate = Float(newValue!)
             } else {
-                print("AKSequencer ERROR ! rate only work if isAVSequencer ")
+                AKLog("AKSequencer ERROR ! rate only work if isAVSequencer ")
             }
         }
     }
@@ -276,7 +276,7 @@ open class AKSequencer {
     ///
     open func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
         if isAVSequencer {
-            print("AKSequencer ERROR ! addTempoEventAt only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR ! addTempoEventAt only work if not isAVSequencer ")
             return
         }
 
@@ -376,7 +376,7 @@ open class AKSequencer {
             do {
                 try avSequencer.start()
             } catch _ {
-                print("could not start avSeq")
+                AKLog("could not start avSeq")
             }
         } else {
             MusicPlayerStart(musicPlayer!)
@@ -409,7 +409,7 @@ open class AKSequencer {
             }
         } else {
             //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
-            print("AKSequencer ERROR ! setGlobalAVAudioUnitOutput only work if isAVSequencer ")
+            AKLog("AKSequencer ERROR ! setGlobalAVAudioUnitOutput only work if isAVSequencer ")
         }
     }
 
@@ -461,7 +461,7 @@ open class AKSequencer {
             do {
                 try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
             } catch _ {
-                print("failed to load midi into avseq")
+                AKLog("failed to load midi into avseq")
             }
         }
         initTracks()
@@ -487,7 +487,7 @@ open class AKSequencer {
     /// Get a new track
     open func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
         if isAVSequencer {
-            print("AKSequencer ERROR ! newTrack only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR ! newTrack only work if not isAVSequencer ")
             return nil
         }
 
@@ -497,7 +497,7 @@ open class AKSequencer {
         MusicSequenceGetTrackCount(sequence!, &count)
         tracks.append(AKMusicTrack(musicTrack: newMusicTrack!, name: name))
 
-        //print("Calling initTracks() from newTrack")
+        //AKLog("Calling initTracks() from newTrack")
         //initTracks()
         return tracks.last!
     }
@@ -510,7 +510,7 @@ open class AKSequencer {
     ///
     open func clearRange(start: AKDuration, duration: AKDuration) {
         if isAVSequencer {
-            print("AKSequencer ERROR ! clearRange only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR ! clearRange only work if not isAVSequencer ")
             return
         }
 
@@ -533,7 +533,7 @@ open class AKSequencer {
         var data: Unmanaged<CFData>?
         status = MusicSequenceFileCreateData(sequence!, .midiType, .eraseFile, 480, &data)
         if status != noErr {
-            print("error creating MusicSequence Data")
+            AKLog("error creating MusicSequence Data")
             return nil
         }
         let ns: Data = data!.takeUnretainedValue() as Data
@@ -544,7 +544,7 @@ open class AKSequencer {
     /// Print sequence to console
     open func debug() {
         if isAVSequencer {
-            print("No debug information available for AVAudioEngine's sequencer.")
+            AKLog("No debug information available for AVAudioEngine's sequencer.")
         } else {
             CAShow(sequencePointer)
         }
@@ -572,8 +572,8 @@ open class AKSequencer {
         let diffToLastSpot = AKDuration(beats: noteOnTimeRel) - lastSpot
         let diffToNextSpot = nextSpot - AKDuration(beats: noteOnTimeRel)
         let optimisedQuantTime = (diffToLastSpot < diffToNextSpot ? lastSpot : nextSpot)
-        //print("last \(lastSpot.beats) - curr \(currentRelativePosition.beats) - next \(nextSpot.beats)")
-        //print("nearest \(optimisedQuantTime.beats)")
+        //AKLog("last \(lastSpot.beats) - curr \(currentRelativePosition.beats) - next \(nextSpot.beats)")
+        //AKLog("nearest \(optimisedQuantTime.beats)")
         return optimisedQuantTime
     }
     
