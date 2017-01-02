@@ -64,9 +64,9 @@ open class AKMIDI {
             MIDINetworkSession.default().connectionPolicy =
                 MIDINetworkConnectionPolicy.anyone
         #endif
-        var result = noErr
+
         if client == 0 {
-            result = MIDIClientCreateWithBlock(clientName, &client, MyMIDINotifyBlock)
+            let result = MIDIClientCreateWithBlock(clientName, &client, MyMIDINotifyBlock)
             if result != noErr {
                 AKLog("Error creating midi client : \(result)")
             }
@@ -79,7 +79,7 @@ open class AKMIDI {
     open func createVirtualPorts(_ uniqueId: Int32 = 2000000) {
         destroyVirtualPorts()
 
-        var result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput) { packetList, srcConnRefCon in
+        var result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput) { packetList, _ in
             for packet in packetList.pointee {
                 // a coremidi packet may contain multiple midi events
                 for event in packet {
