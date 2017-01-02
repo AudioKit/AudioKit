@@ -189,12 +189,12 @@ extension Double {
 }
 
 extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntegerLiteral {
-	/// Initialize array with zeroes, ~10x faster than append for array of size 4096
+	/// Initialize array with zeros, ~10x faster than append for array of size 4096
 	///
 	/// - parameter count: Number of elements in the array
 	///
 
-    public init(zeroes count: Int) {
+    public init(zeros count: Int) {
         self.init(repeating: 0, count: count)
     }
 }
