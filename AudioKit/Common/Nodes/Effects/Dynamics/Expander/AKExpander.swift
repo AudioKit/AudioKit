@@ -15,24 +15,19 @@ open class AKExpander: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
-    internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit? = nil
+    private var internalEffect = AVAudioUnitEffect()
+    private var au: AUWrapper
+    private var mixer: AKMixer
 
-    fileprivate var mixer: AKMixer
-
-    fileprivate var internalCompressionAmount:AudioUnitParameterValue = 0.0
-    fileprivate var internalInputAmplitude:AudioUnitParameterValue = 0.0
-    fileprivate var internalOutputAmplitude:AudioUnitParameterValue = 0.0
+    private var internalCompressionAmount:AudioUnitParameterValue = 0.0
+    private var internalInputAmplitude:AudioUnitParameterValue = 0.0
+    private var internalOutputAmplitude:AudioUnitParameterValue = 0.0
 
     /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
     open var expansionRatio: Double = 2 {
         didSet {
             expansionRatio = (1...50).clamp(expansionRatio)
-            AudioUnitSetParameter(
-                internalAU!,
-                kDynamicsProcessorParam_ExpansionRatio,
-                kAudioUnitScope_Global, 0,
-                Float(expansionRatio), 0)
+            au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
         }
     }
 
@@ -40,11 +35,7 @@ open class AKExpander: AKNode, AKToggleable, AUComponent {
     open var expansionThreshold: Double = 2 {
         didSet {
             expansionThreshold = (1...50).clamp(expansionThreshold)
-            AudioUnitSetParameter(
-                internalAU!,
-                kDynamicsProcessorParam_ExpansionThreshold,
-                kAudioUnitScope_Global, 0,
-                Float(expansionThreshold), 0)
+            au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
         }
     }
 
@@ -52,11 +43,7 @@ open class AKExpander: AKNode, AKToggleable, AUComponent {
     open var attackTime: Double = 0.001 {
         didSet {
             attackTime = (0.0001...0.2).clamp(attackTime)
-            AudioUnitSetParameter(
-                internalAU!,
-                kDynamicsProcessorParam_AttackTime,
-                kAudioUnitScope_Global, 0,
-                Float(attackTime), 0)
+            au[kDynamicsProcessorParam_AttackTime] = attackTime
         }
     }
 
@@ -64,11 +51,7 @@ open class AKExpander: AKNode, AKToggleable, AUComponent {
     open var releaseTime: Double = 0.05 {
         didSet {
             releaseTime = (0.01...3).clamp(releaseTime)
-            AudioUnitSetParameter(
-                internalAU!,
-                kDynamicsProcessorParam_ReleaseTime,
-                kAudioUnitScope_Global, 0,
-                Float(releaseTime), 0)
+            au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
         }
     }
 
@@ -76,30 +59,23 @@ open class AKExpander: AKNode, AKToggleable, AUComponent {
     open var masterGain: Double = 0 {
         didSet {
             masterGain = (-40...40).clamp(masterGain)
-            AudioUnitSetParameter(
-                internalAU!,
-                kDynamicsProcessorParam_MasterGain,
-                kAudioUnitScope_Global, 0,
-                Float(masterGain), 0)
+            au[kDynamicsProcessorParam_MasterGain] = masterGain
         }
     }
 
     /// Compression Amount (dB) read only
     open var compressionAmount: Double {
-        AudioUnitGetParameter(internalAU!, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalCompressionAmount)
-        return Double(internalCompressionAmount)
+        return au[kDynamicsProcessorParam_CompressionAmount]
     }
 
     /// Input Amplitude (dB) read only
-    open var inputAmplitude:Double {
-        AudioUnitGetParameter(internalAU!, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalInputAmplitude)
-        return Double(internalInputAmplitude)
+    open var inputAmplitude: Double {
+        return au[kDynamicsProcessorParam_InputAmplitude]
     }
 
     /// Output Amplitude (dB) read only
     open var outputAmplitude: Double {
-        AudioUnitGetParameter(internalAU!, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalOutputAmplitude)
-        return Double(internalOutputAmplitude)
+        return au[kDynamicsProcessorParam_OutputAmplitude]
     }
 
     /// Dry/Wet Mix (Default 100)
@@ -111,9 +87,9 @@ open class AKExpander: AKNode, AKToggleable, AUComponent {
         }
     }
 
-    fileprivate var lastKnownMix: Double = 100
-    fileprivate var inputGain: AKMixer?
-    fileprivate var effectGain: AKMixer?
+    private var lastKnownMix: Double = 100
+    private var inputGain: AKMixer?
+    private var effectGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted = true
@@ -156,18 +132,19 @@ open class AKExpander: AKNode, AKToggleable, AUComponent {
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             AudioKit.engine.attach(internalEffect)
-            internalAU = internalEffect.audioUnit
+            au = AUWrapper(au: internalEffect.audioUnit)
+
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
 
             super.init()
             avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU!, kDynamicsProcessorParam_ExpansionRatio, kAudioUnitScope_Global, 0, Float(expansionRatio), 0)
-            AudioUnitSetParameter(internalAU!, kDynamicsProcessorParam_ExpansionThreshold, kAudioUnitScope_Global, 0, Float(expansionThreshold), 0)
-            AudioUnitSetParameter(internalAU!, kDynamicsProcessorParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)
-            AudioUnitSetParameter(internalAU!, kDynamicsProcessorParam_ReleaseTime, kAudioUnitScope_Global, 0, Float(releaseTime), 0)
-            AudioUnitSetParameter(internalAU!, kDynamicsProcessorParam_MasterGain, kAudioUnitScope_Global, 0, Float(masterGain), 0)
+            au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
+            au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
+            au[kDynamicsProcessorParam_AttackTime] = attackTime
+            au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
+            au[kDynamicsProcessorParam_MasterGain] = masterGain
     }
 
     /// Function to start, play, or activate the node, all do the same thing
