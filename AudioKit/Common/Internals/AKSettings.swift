@@ -169,17 +169,9 @@ import AVFoundation
     /// Checks if headphones are plugged
     /// Returns true if headPhones are plugged, otherwise return false
     static open var headPhonesPlugged: Bool {
-        let route = session.currentRoute
-        var headPhonesFound = false
-        if route.outputs.count > 0 {
-            for description in route.outputs {
-                if description.portType == AVAudioSessionPortHeadphones {
-                    headPhonesFound = true
-                    break
-                }
-            }
+        return session.currentRoute.outputs.contains {
+            $0.portType == AVAudioSessionPortHeadphones
         }
-        return headPhonesFound
     }
     
     #endif
