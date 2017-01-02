@@ -20,8 +20,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
     // MARK: - Properties
-    
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {

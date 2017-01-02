@@ -16,7 +16,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?

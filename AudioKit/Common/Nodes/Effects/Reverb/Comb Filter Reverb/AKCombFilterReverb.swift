@@ -20,7 +20,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var reverbDurationParameter: AUParameter?

@@ -15,7 +15,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
     // MARK: - Properties
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var wahParameter: AUParameter?
