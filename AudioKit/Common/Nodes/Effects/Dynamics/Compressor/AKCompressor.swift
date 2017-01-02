@@ -13,8 +13,8 @@ import AVFoundation
 open class AKCompressor: AKNode, AKToggleable, AUComponent {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
-    internal var internalEffect = AVAudioUnitEffect()
-    internal var au: AUWrapper
+    private var internalEffect = AVAudioUnitEffect()
+    private var au: AUWrapper
 
     fileprivate var mixer: AKMixer
 
