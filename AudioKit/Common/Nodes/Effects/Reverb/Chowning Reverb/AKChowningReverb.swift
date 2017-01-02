@@ -21,7 +21,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
     // MARK: - Properties
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     /// Tells whether the node is processing (ie. started, playing, or active)

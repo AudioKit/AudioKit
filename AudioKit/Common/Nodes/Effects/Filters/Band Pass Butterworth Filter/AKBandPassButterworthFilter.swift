@@ -16,7 +16,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(effect: "btbp")
 
     // MARK: - Properties
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?

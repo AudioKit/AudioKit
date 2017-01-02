@@ -17,7 +17,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var waveformArray = [AKTable]()

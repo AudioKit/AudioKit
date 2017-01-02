@@ -15,7 +15,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
     // MARK: - Properties
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var attackDurationParameter: AUParameter?

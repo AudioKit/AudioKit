@@ -16,7 +16,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    internal var internalAU: AKAudioUnitType?
+    private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
