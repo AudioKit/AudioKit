@@ -17,7 +17,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     // MARK: - Properties
 
     internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
+    private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var gainParameter: AUParameter?

@@ -18,9 +18,7 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
-
-
+    private var token: AUParameterObserverToken?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {

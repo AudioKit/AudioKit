@@ -17,7 +17,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
+    private var token: AUParameterObserverToken?
 
     fileprivate var pregainParameter: AUParameter?
     fileprivate var postgainParameter: AUParameter?

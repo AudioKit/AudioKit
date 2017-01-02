@@ -16,9 +16,8 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
 
     // MARK: - Properties
-
     internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
+    private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
 

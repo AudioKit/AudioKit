@@ -19,7 +19,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
+    private var token: AUParameterObserverToken?
 
     fileprivate var feedbackParameter: AUParameter?
     fileprivate var cutoffFrequencyParameter: AUParameter?

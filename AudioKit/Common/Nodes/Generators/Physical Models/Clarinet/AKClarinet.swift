@@ -16,7 +16,7 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
+    private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
