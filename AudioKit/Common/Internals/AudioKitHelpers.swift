@@ -14,15 +14,12 @@ public typealias MIDINoteNumber = Int
 public typealias MIDIVelocity = Int
 public typealias MIDIChannel = Int
 
-extension Collection where Index == Int {
-    /// Return a random element from the array
-    public var randomIndex: Index {
-        let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
-        return startIndex.advanced(by: offset)
-    }
 
+extension Collection where IndexDistance == Int {
+    /// Return a random element from the collection
     public func randomElement() -> Iterator.Element {
-        return self[randomIndex]
+        let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
+        return self[index(startIndex, offsetBy: offset)]
     }
 }
 
