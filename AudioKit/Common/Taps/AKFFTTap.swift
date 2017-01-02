@@ -15,7 +15,7 @@ import Foundation
     internal var fft: EZAudioFFT?
     
     /// Array of FFT data
-    open var fftData = [Double](zeroes: 512)
+    open var fftData = [Double](zeros: 512)
     
     /// Initialze the FFT calculation on a given node
     ///
