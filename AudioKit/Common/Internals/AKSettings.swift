@@ -45,7 +45,7 @@ import AVFoundation
 
         /// The buffer Length expressed as number of samples
         var samplesCount: AVAudioFrameCount {
-            return AVAudioFrameCount(pow(2.0, Double(self.rawValue)))
+            return AVAudioFrameCount(pow(2.0, Double(rawValue)))
         }
 
         /// The buffer Length expressed as a duration in seconds
@@ -100,7 +100,7 @@ import AVFoundation
     open static var disableAVAudioSessionCategoryManagement: Bool = false
     
     /// Turn off AudioKit logging
-    open static var disableLogging: Bool = false
+    open static var enableLogging: Bool = true
 
     #if !os(OSX)
 
@@ -169,17 +169,9 @@ import AVFoundation
     /// Checks if headphones are plugged
     /// Returns true if headPhones are plugged, otherwise return false
     static open var headPhonesPlugged: Bool {
-        let route = session.currentRoute
-        var headPhonesFound = false
-        if route.outputs.count > 0 {
-            for description in route.outputs {
-                if description.portType == AVAudioSessionPortHeadphones {
-                    headPhonesFound = true
-                    break
-                }
-            }
+        return session.currentRoute.outputs.contains {
+            $0.portType == AVAudioSessionPortHeadphones
         }
-        return headPhonesFound
     }
     
     #endif

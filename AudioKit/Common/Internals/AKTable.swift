@@ -106,7 +106,7 @@ public struct AKTable: MutableCollection {
         self.type = type
         self.phase = phase
 
-        self.content = [Element](zeroes: count)
+        self.content = [Element](zeros: count)
 
         switch type {
         case .sine:

@@ -18,8 +18,8 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
+    private var internalAU: AKAudioUnitType?
+    private var token: AUParameterObserverToken?
 
     fileprivate var xParameter: AUParameter?
     fileprivate var yParameter: AUParameter?

@@ -14,7 +14,7 @@ open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit? = nil
+    private var au: AUWrapper
 
     fileprivate var mixer: AKMixer
 
@@ -22,11 +22,7 @@ open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
     open var centerFrequency: Double = 5000 {
         didSet {
             centerFrequency = (20...22050).clamp(centerFrequency)
-            AudioUnitSetParameter(
-                internalAU!,
-                kBandpassParam_CenterFrequency,
-                kAudioUnitScope_Global, 0,
-                Float(centerFrequency), 0)
+            au[kBandpassParam_CenterFrequency] = centerFrequency
         }
     }
 
@@ -34,11 +30,7 @@ open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
     open var bandwidth: Double = 600 {
         didSet {
             bandwidth = (100...12000).clamp(bandwidth)
-            AudioUnitSetParameter(
-                internalAU!,
-                kBandpassParam_Bandwidth,
-                kAudioUnitScope_Global, 0,
-                Float(bandwidth), 0)
+            au[kBandpassParam_Bandwidth] = bandwidth
         }
     }
 
@@ -51,9 +43,9 @@ open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
         }
     }
 
-    fileprivate var lastKnownMix: Double = 100
-    fileprivate var inputGain: AKMixer?
-    fileprivate var effectGain: AKMixer?
+    private var lastKnownMix: Double = 100
+    private var inputGain: AKMixer?
+    private var effectGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted = true
@@ -83,16 +75,17 @@ open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
             effectGain!.volume = 1
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            super.init()
+            au = AUWrapper(au: internalEffect.audioUnit)
 
-            AudioKit.engine.attach(internalEffect)
-            internalAU = internalEffect.audioUnit
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
+            super.init()
             avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU!, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
-            AudioUnitSetParameter(internalAU!, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
+            AudioKit.engine.attach(internalEffect)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
+            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
+
+            au[kBandpassParam_CenterFrequency] = centerFrequency
+            au[kBandpassParam_Bandwidth] = bandwidth
     }
 
     // MARK: - Control
