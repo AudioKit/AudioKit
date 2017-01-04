@@ -47,12 +47,9 @@ standardKernelPassthroughs()
     standardSetup(Oscillator)
 
     // Create a parameter object for the frequency.
-    AUParameter *frequencyAUParameter = [AUParameter parameter:@"frequency"
+    AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Frequency (Hz)"
-                                                       address:frequencyAddress
-                                                           min:0
-                                                           max:20000
-                                                          unit:kAudioUnitParameterUnit_Hertz];
+                                                       address:frequencyAddress];
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                                           name:@"Amplitude"
