@@ -43,31 +43,20 @@ standardKernelPassthroughs()
     standardSetup(Tremolo)
 
     // Create a parameter object for the frequency.
-    AUParameter *frequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"frequency"
-                                              name:@"Frequency (Hz)"
-                                           address:frequencyAddress
-                                               min:0.0
-                                               max:100.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *frequencyAUParameter = [AUParameter parameter:@"frequency"
+                                                          name:@"Frequency (Hz)"
+                                                       address:frequencyAddress
+                                                           min:0.0
+                                                           max:100.0
+                                                          unit:kAudioUnitParameterUnit_Hertz];
 
     // Create a parameter object for the depth.
-    AUParameter *depthAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"depth"
-                                              name:@"Depth"
-                                           address:depthAddress
-                                               min:0.0
-                                               max:2.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *depthAUParameter = [AUParameter parameter:@"depth"
+                                                      name:@"Depth"
+                                                   address:depthAddress
+                                                       min:0.0
+                                                       max:2.0
+                                                      unit:kAudioUnitParameterUnit_Hertz];
 
     // Initialize the parameter values.
     frequencyAUParameter.value = 10.0;
@@ -89,7 +78,6 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case frequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
             case depthAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
             default:

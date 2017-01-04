@@ -42,54 +42,33 @@ standardKernelPassthroughs()
     standardSetup(AmplitudeEnvelope)
 
     // Create a parameter object for the attackDuration.
-    AUParameter *attackDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"attackDuration"
-                                              name:@"Attack time"
-                                           address:attackDurationAddress
-                                               min:0
-                                               max:99
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *attackDurationAUParameter = [AUParameter parameter:@"attackDuration"
+                                                               name:@"Attack time"
+                                                            address:attackDurationAddress
+                                                                min:0
+                                                                max:99
+                                                               unit:kAudioUnitParameterUnit_Seconds];
     // Create a parameter object for the decayDuration.
-    AUParameter *decayDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"decayDuration"
-                                              name:@"Decay time"
-                                           address:decayDurationAddress
-                                               min:0
-                                               max:99
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the sustainLevel.
-    AUParameter *sustainLevelAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"sustainLevel"
-                                              name:@"Sustain Level"
-                                           address:sustainLevelAddress
-                                               min:0
-                                               max:99
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *decayDurationAUParameter = [AUParameter parameter:@"decayDuration"
+                                                              name:@"Decay time"
+                                                           address:decayDurationAddress
+                                                               min:0
+                                                               max:99
+                                                              unit:kAudioUnitParameterUnit_Seconds];
+  // Create a parameter object for the sustainLevel.
+    AUParameter *sustainLevelAUParameter = [AUParameter parameter:@"sustainLevel"
+                                                             name:@"Sustain Level"
+                                                          address:sustainLevelAddress
+                                                              min:0
+                                                              max:99
+                                                             unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the releaseDuration.
-    AUParameter *releaseDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"releaseDuration"
-                                              name:@"Release time"
-                                           address:releaseDurationAddress
-                                               min:0
-                                               max:99
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *releaseDurationAUParameter = [AUParameter parameter:@"releaseDuration"
+                                                                name:@"Release time"
+                                                             address:releaseDurationAddress
+                                                                 min:0
+                                                                 max:99
+                                                                unit:kAudioUnitParameterUnit_Seconds];
 
     // Initialize the parameter values.
     attackDurationAUParameter.value = 0.1;
@@ -116,14 +95,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case attackDurationAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case decayDurationAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case sustainLevelAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case releaseDurationAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
 
