@@ -38,9 +38,12 @@ standardKernelPassthroughs()
                                                                 name:@"Center Frequency (Hz)"
                                                              address:centerFrequencyAddress];
     // Create a parameter object for the bandwidth.
-    AUParameter *bandwidthAUParameter = [AUParameter frequency:@"bandwidth"
+    AUParameter *bandwidthAUParameter = [AUParameter parameter:@"bandwidth"
                                                           name:@"Bandwidth (Hz)"
-                                                       address:bandwidthAddress];
+                                                       address:bandwidthAddress
+                                                           min:0.0
+                                                           max:20000.0
+                                                          unit:kAudioUnitParameterUnit_Hertz];
 
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 3000.0;
