@@ -34,30 +34,19 @@ standardKernelPassthroughs()
     standardSetup(CostelloReverb)
 
     // Create a parameter object for the feedback.
-    AUParameter *feedbackAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"feedback"
-                                              name:@"Feedback (%)"
-                                           address:feedbackAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
+                                                         name:@"Feedback (%)"
+                                                      address:feedbackAddress
+                                                          min:0.0
+                                                          max:1.0
+                                                         unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the cutoffFrequency.
-    AUParameter *cutoffFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"cutoffFrequency"
-                                              name:@"Cutoff Frequency (Hz)"
-                                           address:cutoffFrequencyAddress
-                                               min:12.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
+                                                                name:@"Cutoff Frequency (Hz)"
+                                                             address:cutoffFrequencyAddress
+                                                                 min:12.0
+                                                                 max:20000.0
+                                                                unit:kAudioUnitParameterUnit_Hertz];
 
     // Initialize the parameter values.
     feedbackAUParameter.value = 0.6;
@@ -78,11 +67,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case feedbackAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case cutoffFrequencyAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

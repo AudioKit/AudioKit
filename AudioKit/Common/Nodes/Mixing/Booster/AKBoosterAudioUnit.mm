@@ -32,18 +32,12 @@ standardKernelPassthroughs()
     standardSetup(Booster)
 
     // Create a parameter object for the gain.
-    AUParameter *gainAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"gain"
-                                              name:@"Boosting amount."
-                                           address:gainAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *gainAUParameter = [AUParameter parameter:@"gain"
+                                                     name:@"Boosting amount."
+                                                  address:gainAddress
+                                                      min:0
+                                                      max:1
+                                                     unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     gainAUParameter.value = 0;

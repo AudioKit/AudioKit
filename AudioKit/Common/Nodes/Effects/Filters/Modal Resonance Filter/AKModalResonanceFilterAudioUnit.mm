@@ -79,11 +79,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case frequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case qualityFactorAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

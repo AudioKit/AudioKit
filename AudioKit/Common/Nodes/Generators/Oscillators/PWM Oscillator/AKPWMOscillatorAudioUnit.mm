@@ -132,20 +132,11 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case frequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case amplitudeAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case pulseWidthAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case detuningOffsetAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case detuningMultiplierAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

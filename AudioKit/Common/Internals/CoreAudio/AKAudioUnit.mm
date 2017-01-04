@@ -111,8 +111,7 @@
             address:(AUParameterAddress)address
                 min:(AUValue)min
                 max:(AUValue)max
-               unit:(AudioUnitParameterUnit)unit
-           unitName:(NSString *)unitName {
+               unit:(AudioUnitParameterUnit)unit {
 
     return self = [AUParameterTree createParameterWithIdentifier:identifier
                                                             name:name
@@ -120,10 +119,23 @@
                                                              min:min
                                                              max:max
                                                             unit:unit
-                                                        unitName:unitName
+                                                        unitName:nil
                                                            flags:0
                                                     valueStrings:nil
                                              dependentParameters:nil];
+}
 
++(instancetype)parameter:(NSString *)identifier
+                    name:(NSString *)name
+                 address:(AUParameterAddress)address
+                     min:(AUValue)min
+                     max:(AUValue)max
+                    unit:(AudioUnitParameterUnit)unit {
+    return [[AUParameter alloc] init:identifier
+                                name:name
+                             address:address
+                                 min:min
+                                 max:max
+                                unit:unit];
 }
 @end
