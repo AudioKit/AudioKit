@@ -53,90 +53,58 @@ standardKernelPassthroughs()
     standardSetup(Drip)
 
     // Create a parameter object for the intensity.
-    AUParameter *intensityAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"intensity"
-                                              name:@"The intensity of the dripping sounds."
-                                           address:intensityAddress
-                                               min:0
-                                               max:100
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *intensityAUParameter = [AUParameter parameter:@"intensity"
+                                                          name:@"The intensity of the dripping sounds."
+                                                       address:intensityAddress
+                                                           min:0
+                                                           max:100
+                                                          unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the dampingFactor.
-    AUParameter *dampingFactorAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"dampingFactor"
-                                              name:@"The damping factor. Maximum value is 2.0."
-                                           address:dampingFactorAddress
-                                               min:0.0
-                                               max:2.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the energyReturn.
-    AUParameter *energyReturnAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"energyReturn"
-                                              name:@"The amount of energy to add back into the system."
-                                           address:energyReturnAddress
-                                               min:0
-                                               max:100
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the mainResonantFrequency.
-    AUParameter *mainResonantFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"mainResonantFrequency"
-                                              name:@"Main resonant frequency."
-                                           address:mainResonantFrequencyAddress
-                                               min:0
-                                               max:22000
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the firstResonantFrequency.
-    AUParameter *firstResonantFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"firstResonantFrequency"
-                                              name:@"The first resonant frequency."
-                                           address:firstResonantFrequencyAddress
-                                               min:0
-                                               max:22000
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the secondResonantFrequency.
-    AUParameter *secondResonantFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"secondResonantFrequency"
-                                              name:@"The second resonant frequency."
-                                           address:secondResonantFrequencyAddress
-                                               min:0
-                                               max:22000
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the amplitude.
-    AUParameter *amplitudeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amplitude"
-                                              name:@"Amplitude."
-                                           address:amplitudeAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *dampingFactorAUParameter = [AUParameter parameter:@"dampingFactor"
+                                                              name:@"The damping factor. Maximum value is 2.0."
+                                                           address:dampingFactorAddress
+                                                               min:0.0
+                                                               max:2.0
+                                                              unit:kAudioUnitParameterUnit_Generic];
 
+    // Create a parameter object for the energyReturn.
+    AUParameter *energyReturnAUParameter = [AUParameter parameter:@"energyReturn"
+                                                             name:@"The amount of energy to add back into the system."
+                                                          address:energyReturnAddress
+                                                              min:0
+                                                              max:100
+                                                             unit:kAudioUnitParameterUnit_Generic];
+
+    // Create a parameter object for the mainResonantFrequency.
+    AUParameter *mainResonantFrequencyAUParameter = [AUParameter parameter:@"mainResonantFrequency"
+                                                                      name:@"Main resonant frequency."
+                                                                   address:mainResonantFrequencyAddress
+                                                                       min:0
+                                                                       max:22000
+                                                                      unit:kAudioUnitParameterUnit_Hertz];
+
+    // Create a parameter object for the firstResonantFrequency.
+    AUParameter *firstResonantFrequencyAUParameter = [AUParameter parameter:@"firstResonantFrequency"
+                                                                       name:@"The first resonant frequency."
+                                                                    address:firstResonantFrequencyAddress
+                                                                        min:0
+                                                                        max:22000
+                                                                       unit:kAudioUnitParameterUnit_Hertz];
+
+    // Create a parameter object for the secondResonantFrequency.
+    AUParameter *secondResonantFrequencyAUParameter = [AUParameter parameter:@"secondResonantFrequency"
+                                                                        name:@"The second resonant frequency."
+                                                                     address:secondResonantFrequencyAddress
+                                                                         min:0
+                                                                         max:22000
+                                                                        unit:kAudioUnitParameterUnit_Hertz];
+    // Create a parameter object for the amplitude.
+    AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
+                                                          name:@"Amplitude."
+                                                       address:amplitudeAddress
+                                                           min:0
+                                                           max:1
+                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     intensityAUParameter.value = 10;
