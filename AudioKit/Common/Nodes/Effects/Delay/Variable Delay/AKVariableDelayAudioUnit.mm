@@ -34,31 +34,20 @@ standardKernelPassthroughs()
     standardSetup(VariableDelay)
 
     // Create a parameter object for the time.
-    AUParameter *timeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"time"
-                                              name:@"Delay time (Seconds)"
-                                           address:timeAddress
-                                               min:0
-                                               max:10
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *timeAUParameter = [AUParameter parameter:@"time"
+                                                     name:@"Delay time (Seconds)"
+                                                  address:timeAddress
+                                                      min:0
+                                                      max:10
+                                                     unit:kAudioUnitParameterUnit_Seconds];
 
     // Create a parameter object for the feedback.
-    AUParameter *feedbackAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"feedback"
-                                              name:@"Feedback (%)"
-                                           address:feedbackAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
+                                                         name:@"Feedback (%)"
+                                                      address:feedbackAddress
+                                                          min:0
+                                                          max:1
+                                                         unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     timeAUParameter.value = 1;

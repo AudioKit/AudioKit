@@ -114,17 +114,10 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case cutoffFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case resonanceAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case distortionAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case resonanceAsymmetryAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }
