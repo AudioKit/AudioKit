@@ -36,10 +36,10 @@ standardKernelPassthroughs()
     // Create a parameter object for the fundamentalFrequency.
     AUParameter *fundamentalFrequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"fundamentalFrequency"
-                                              name:@"Fundamental Frequency (Hz)"
-                                           address:fundamentalFrequencyAddress
-                                               min:12.0
-                                               max:10000.0
+                                                                   name:@"Fundamental Frequency (Hz)"
+                                                                address:fundamentalFrequencyAddress
+                                                                    min:12.0
+                                                                    max:10000.0
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0

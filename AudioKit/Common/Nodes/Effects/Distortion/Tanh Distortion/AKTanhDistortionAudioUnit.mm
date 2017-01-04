@@ -42,54 +42,33 @@ standardKernelPassthroughs()
     standardSetup(TanhDistortion)
 
     // Create a parameter object for the pregain.
-    AUParameter *pregainAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"pregain"
-                                              name:@"Pregain"
-                                           address:pregainAddress
-                                               min:0.0
-                                               max:10.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *pregainAUParameter = [AUParameter parameter:@"pregain"
+                                                        name:@"Pregain"
+                                                     address:pregainAddress
+                                                         min:0.0
+                                                         max:10.0
+                                                        unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the postgain.
-    AUParameter *postgainAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"postgain"
-                                              name:@"Postgain"
-                                           address:postgainAddress
-                                               min:0.0
-                                               max:10.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *postgainAUParameter = [AUParameter parameter:@"postgain"
+                                                         name:@"Postgain"
+                                                      address:postgainAddress
+                                                          min:0.0
+                                                          max:10.0
+                                                         unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the postiveShapeParameter.
-    AUParameter *postiveShapeParameterAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"postiveShapeParameter"
-                                              name:@"Positive Shape Parameter"
-                                           address:postiveShapeParameterAddress
-                                               min:-10.0
-                                               max:10.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *postiveShapeParameterAUParameter = [AUParameter parameter:@"postiveShapeParameter"
+                                                                      name:@"Positive Shape Parameter"
+                                                                   address:postiveShapeParameterAddress
+                                                                       min:-10.0
+                                                                       max:10.0
+                                                                      unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the negativeShapeParameter.
-    AUParameter *negativeShapeParameterAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"negativeShapeParameter"
-                                              name:@"Negative Shape Parameter"
-                                           address:negativeShapeParameterAddress
-                                               min:-10.0
-                                               max:10.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *negativeShapeParameterAUParameter = [AUParameter parameter:@"negativeShapeParameter"
+                                                                       name:@"Negative Shape Parameter"
+                                                                    address:negativeShapeParameterAddress
+                                                                        min:-10.0
+                                                                        max:10.0
+                                                                       unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     pregainAUParameter.value = 2.0;
