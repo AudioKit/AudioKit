@@ -34,12 +34,9 @@ standardKernelPassthroughs()
     standardSetup(BandPassButterworthFilter)
 
     // Create a parameter object for the centerFrequency.
-    AUParameter *centerFrequencyAUParameter = [AUParameter parameter:@"centerFrequency"
+    AUParameter *centerFrequencyAUParameter = [AUParameter frequency:@"centerFrequency"
                                                                 name:@"Center Frequency (Hz)"
-                                                             address:centerFrequencyAddress
-                                                                 min:12.0
-                                                                 max:20000.0
-                                                                unit:kAudioUnitParameterUnit_Hertz];
+                                                             address:centerFrequencyAddress];
     // Create a parameter object for the bandwidth.
     AUParameter *bandwidthAUParameter = [AUParameter parameter:@"bandwidth"
                                                           name:@"Bandwidth (Hz)"

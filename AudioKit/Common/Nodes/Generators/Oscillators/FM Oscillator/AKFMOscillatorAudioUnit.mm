@@ -50,12 +50,9 @@ standardKernelPassthroughs()
     standardSetup(FMOscillator)
 
     // Create a parameter object for the baseFrequency.
-    AUParameter *baseFrequencyAUParameter = [AUParameter parameter:@"baseFrequency"
+    AUParameter *baseFrequencyAUParameter = [AUParameter frequency:@"baseFrequency"
                                                               name:@"Base Frequency (Hz)"
-                                                           address:baseFrequencyAddress
-                                                               min:0.0
-                                                               max:20000.0
-                                                              unit:kAudioUnitParameterUnit_Hertz];
+                                                           address:baseFrequencyAddress];
     // Create a parameter object for the carrierMultiplier.
     AUParameter *carrierMultiplierAUParameter = [AUParameter parameter:@"carrierMultiplier"
                                                                   name:@"Carrier Multiplier"
