@@ -83,7 +83,7 @@ open class AKMIDI {
             for packet in packetList.pointee {
                 // a coremidi packet may contain multiple midi events
                 for event in packet {
-                    self.handleMidiMessage(event)
+                    self.handleMIDIMessage(event)
                 }
             }
         }
