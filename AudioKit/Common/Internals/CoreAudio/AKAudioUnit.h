@@ -36,6 +36,11 @@
                      min:(AUValue)min
                      max:(AUValue)max
                     unit:(AudioUnitParameterUnit)unit;
+
++(instancetype)frequency:(NSString *)identifier
+                    name:(NSString *)name
+                 address:(AUParameterAddress)address;
+
 @end
 
 #define standardKernelPassthroughs() \

@@ -40,54 +40,30 @@ standardKernelPassthroughs()
     standardSetup(RolandTB303Filter)
 
     // Create a parameter object for the cutoffFrequency.
-    AUParameter *cutoffFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"cutoffFrequency"
-                                              name:@"Cutoff Frequency (Hz)"
-                                           address:cutoffFrequencyAddress
-                                               min:12.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the resonance.
-    AUParameter *resonanceAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"resonance"
-                                              name:@"Resonance"
-                                           address:resonanceAddress
-                                               min:0.0
-                                               max:2.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *cutoffFrequencyAUParameter = [AUParameter frequency:@"cutoffFrequency"
+                                                                name:@"Cutoff Frequency (Hz)"
+                                                             address:cutoffFrequencyAddress];
+  // Create a parameter object for the resonance.
+    AUParameter *resonanceAUParameter = [AUParameter parameter:@"resonance"
+                                                          name:@"Resonance"
+                                                       address:resonanceAddress
+                                                           min:0.0
+                                                           max:2.0
+                                                          unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the distortion.
-    AUParameter *distortionAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"distortion"
-                                              name:@"Distortion"
-                                           address:distortionAddress
-                                               min:0.0
-                                               max:4.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *distortionAUParameter = [AUParameter parameter:@"distortion"
+                                                           name:@"Distortion"
+                                                        address:distortionAddress
+                                                            min:0.0
+                                                            max:4.0
+                                                           unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the resonanceAsymmetry.
-    AUParameter *resonanceAsymmetryAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"resonanceAsymmetry"
-                                              name:@"Resonance Asymmetry"
-                                           address:resonanceAsymmetryAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *resonanceAsymmetryAUParameter = [AUParameter parameter:@"resonanceAsymmetry"
+                                                                   name:@"Resonance Asymmetry"
+                                                                address:resonanceAsymmetryAddress
+                                                                    min:0.0
+                                                                    max:1.0
+                                                                   unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 500;
