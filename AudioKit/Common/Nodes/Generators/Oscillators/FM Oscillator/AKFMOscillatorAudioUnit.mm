@@ -50,66 +50,40 @@ standardKernelPassthroughs()
     standardSetup(FMOscillator)
 
     // Create a parameter object for the baseFrequency.
-    AUParameter *baseFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"baseFrequency"
-                                              name:@"Base Frequency (Hz)"
-                                           address:baseFrequencyAddress
-                                               min:0.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *baseFrequencyAUParameter = [AUParameter parameter:@"baseFrequency"
+                                                              name:@"Base Frequency (Hz)"
+                                                           address:baseFrequencyAddress
+                                                               min:0.0
+                                                               max:20000.0
+                                                              unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the carrierMultiplier.
-    AUParameter *carrierMultiplierAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"carrierMultiplier"
-                                              name:@"Carrier Multiplier"
-                                           address:carrierMultiplierAddress
-                                               min:0.0
-                                               max:1000.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *carrierMultiplierAUParameter = [AUParameter parameter:@"carrierMultiplier"
+                                                                  name:@"Carrier Multiplier"
+                                                               address:carrierMultiplierAddress
+                                                                   min:0.0
+                                                                   max:1000.0
+                                                                  unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the modulatingMultiplier.
-    AUParameter *modulatingMultiplierAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"modulatingMultiplier"
-                                              name:@"Modulating Multiplier"
-                                           address:modulatingMultiplierAddress
-                                               min:0.0
-                                               max:1000.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *modulatingMultiplierAUParameter = [AUParameter parameter:@"modulatingMultiplier"
+                                                                     name:@"Modulating Multiplier"
+                                                                  address:modulatingMultiplierAddress
+                                                                      min:0.0
+                                                                      max:1000.0
+                                                                     unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the modulationIndex.
-    AUParameter *modulationIndexAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"modulationIndex"
-                                              name:@"Modulation Index"
-                                           address:modulationIndexAddress
-                                               min:0.0
-                                               max:1000.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *modulationIndexAUParameter = [AUParameter parameter:@"modulationIndex"
+                                                                name:@"Modulation Index"
+                                                             address:modulationIndexAddress
+                                                                 min:0.0
+                                                                 max:1000.0
+                                                                unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the amplitude.
-    AUParameter *amplitudeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amplitude"
-                                              name:@"Amplitude"
-                                           address:amplitudeAddress
-                                               min:0.0
-                                               max:10.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
+                                                          name:@"Amplitude"
+                                                       address:amplitudeAddress
+                                                           min:0.0
+                                                           max:10.0
+                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     baseFrequencyAUParameter.value = 440;

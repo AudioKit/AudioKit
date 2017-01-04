@@ -37,42 +37,26 @@ standardKernelPassthroughs()
     standardSetup(KorgLowPassFilter)
 
     // Create a parameter object for the cutoffFrequency.
-    AUParameter *cutoffFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"cutoffFrequency"
-                                              name:@"Filter cutoff"
-                                           address:cutoffFrequencyAddress
-                                               min:0.0
-                                               max:22050.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+  AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
+                                                              name:@"Filter cutoff"
+                                                           address:cutoffFrequencyAddress
+                                                               min:0.0
+                                                               max:22050.0
+                                                              unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the resonance.
-    AUParameter *resonanceAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"resonance"
-                                              name:@"Filter resonance (should be between 0-2)"
-                                           address:resonanceAddress
-                                               min:0.0
-                                               max:2.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *resonanceAUParameter = [AUParameter parameter:@"resonance"
+                                                          name:@"Filter resonance (should be between 0-2)"
+                                                       address:resonanceAddress
+                                                           min:0.0
+                                                           max:2.0
+                                                          unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the saturation.
-    AUParameter *saturationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"saturation"
-                                              name:@"Filter saturation."
-                                           address:saturationAddress
-                                               min:0.0
-                                               max:10.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *saturationAUParameter = [AUParameter parameter:@"saturation"
+                                                           name:@"Filter saturation."
+                                                        address:saturationAddress
+                                                            min:0.0
+                                                            max:10.0
+                                                           unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 1000.0;

@@ -35,18 +35,12 @@ standardKernelPassthroughs()
     standardSetup(FlatFrequencyResponseReverb)
 
     // Create a parameter object for the reverbDuration.
-    AUParameter *reverbDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"reverbDuration"
-                                              name:@"Reverb Duration (Seconds)"
-                                           address:reverbDurationAddress
-                                               min:0
-                                               max:10
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *reverbDurationAUParameter = [AUParameter parameter:@"reverbDuration"
+                                                               name:@"Reverb Duration (Seconds)"
+                                                            address:reverbDurationAddress
+                                                                min:0
+                                                                max:10
+                                                               unit:kAudioUnitParameterUnit_Seconds];
 
     // Initialize the parameter values.
     reverbDurationAUParameter.value = 0.5;

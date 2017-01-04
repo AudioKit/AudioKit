@@ -37,42 +37,27 @@ standardKernelPassthroughs()
     standardSetup(EqualizerFilter)
 
     // Create a parameter object for the centerFrequency.
-    AUParameter *centerFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"centerFrequency"
-                                              name:@"Center Frequency (Hz)"
-                                           address:centerFrequencyAddress
-                                               min:12.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the bandwidth.
-    AUParameter *bandwidthAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"bandwidth"
-                                              name:@"Bandwidth (Hz)"
-                                           address:bandwidthAddress
-                                               min:0.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the gain.
-    AUParameter *gainAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"gain"
-                                              name:@"Gain (%)"
-                                           address:gainAddress
-                                               min:-100.0
-                                               max:100.0
-                                              unit:kAudioUnitParameterUnit_Percent
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *centerFrequencyAUParameter = [AUParameter parameter:@"centerFrequency"
+                                                                name:@"Center Frequency (Hz)"
+                                                             address:centerFrequencyAddress
+                                                                 min:12.0
+                                                                 max:20000.0
+                                                                unit:kAudioUnitParameterUnit_Hertz];
 
+    // Create a parameter object for the bandwidth.
+    AUParameter *bandwidthAUParameter = [AUParameter parameter:@"bandwidth"
+                                                          name:@"Bandwidth (Hz)"
+                                                       address:bandwidthAddress
+                                                           min:0.0
+                                                           max:20000.0
+                                                          unit:kAudioUnitParameterUnit_Hertz];
+    // Create a parameter object for the gain.
+    AUParameter *gainAUParameter = [AUParameter parameter:@"gain"
+                                                     name:@"Gain (%)"
+                                                  address:gainAddress
+                                                      min:-100.0
+                                                      max:100.0
+                                                     unit:kAudioUnitParameterUnit_Percent];
 
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 1000.0;
