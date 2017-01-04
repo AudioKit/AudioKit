@@ -40,12 +40,9 @@ standardKernelPassthroughs()
     standardSetup(PluckedString)
 
     // Create a parameter object for the frequency.
-    AUParameter *frequencyAUParameter = [AUParameter parameter:@"frequency"
+    AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that."
-                                                       address:frequencyAddress
-                                                           min:0
-                                                           max:22000
-                                                          unit:kAudioUnitParameterUnit_Hertz];
+                                                       address:frequencyAddress];
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                                           name:@"Amplitude"
