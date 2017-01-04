@@ -44,12 +44,9 @@ standardKernelPassthroughs()
                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Create a parameter object for the sampleRate.
-    AUParameter *sampleRateAUParameter = [AUParameter parameter:@"sampleRate"
+    AUParameter *sampleRateAUParameter = [AUParameter frequency:@"sampleRate"
                                                            name:@"Sample Rate (Hz)"
-                                                        address:sampleRateAddress
-                                                            min:1.0
-                                                            max:20000.0
-                                                           unit:kAudioUnitParameterUnit_Hertz];
+                                                        address:sampleRateAddress];
 
     // Initialize the parameter values.
     bitDepthAUParameter.value = 8;
