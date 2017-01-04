@@ -34,30 +34,16 @@ standardKernelPassthroughs()
     standardSetup(ResonantFilter)
 
     // Create a parameter object for the frequency.
-    AUParameter *frequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"frequency"
-                                              name:@"Center frequency of the filter, or frequency position of the peak response."
-                                           address:frequencyAddress
-                                               min:100.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
+                                                          name:@"Center frequency of the filter, or frequency position of the peak response."
+                                                       address:frequencyAddress];
     // Create a parameter object for the bandwidth.
-    AUParameter *bandwidthAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"bandwidth"
-                                              name:@"Bandwidth of the filter."
-                                           address:bandwidthAddress
-                                               min:0.0
-                                               max:10000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *bandwidthAUParameter = [AUParameter parameter:@"bandwidth"
+                                                          name:@"Bandwidth of the filter."
+                                                       address:bandwidthAddress
+                                                           min:0.0
+                                                           max:10000.0
+                                                          unit:kAudioUnitParameterUnit_Hertz];
 
     // Initialize the parameter values.
     frequencyAUParameter.value = 4000.0;
