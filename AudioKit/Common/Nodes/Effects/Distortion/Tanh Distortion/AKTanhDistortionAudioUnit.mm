@@ -116,17 +116,10 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case pregainAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case postgainAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case postiveShapeParameterAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case negativeShapeParameterAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

@@ -78,11 +78,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case feedbackAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case cutoffFrequencyAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

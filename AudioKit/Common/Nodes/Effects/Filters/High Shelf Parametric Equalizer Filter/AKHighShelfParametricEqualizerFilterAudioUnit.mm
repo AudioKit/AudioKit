@@ -96,14 +96,9 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case centerFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case gainAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case qAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

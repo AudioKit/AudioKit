@@ -173,26 +173,13 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case intensityAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case dampingFactorAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case energyReturnAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case mainResonantFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case firstResonantFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case secondResonantFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case amplitudeAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

@@ -140,20 +140,11 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case baseFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case carrierMultiplierAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case modulatingMultiplierAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case modulationIndexAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case amplitudeAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }
