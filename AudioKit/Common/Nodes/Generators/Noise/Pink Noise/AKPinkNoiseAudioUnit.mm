@@ -31,18 +31,12 @@ standardKernelPassthroughs()
     standardSetup(PinkNoise)
 
     // Create a parameter object for the amplitude.
-    AUParameter *amplitudeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amplitude"
-                                              name:@"Amplitude"
-                                           address:amplitudeAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
+                                                          name:@"Amplitude"
+                                                       address:amplitudeAddress
+                                                           min:0.0
+                                                           max:1.0
+                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     amplitudeAUParameter.value = 1;

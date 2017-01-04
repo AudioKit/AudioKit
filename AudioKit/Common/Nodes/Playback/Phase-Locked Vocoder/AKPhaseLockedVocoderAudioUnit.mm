@@ -41,42 +41,27 @@ standardKernelPassthroughs()
     standardSetup(PhaseLockedVocoder)
 
     // Create a parameter object for the position.
-    AUParameter *positionAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"position"
+    AUParameter *positionAUParameter = [AUParameter parameter:@"position"
                                               name:@"Position in time. When non-changing it will do a spectral freeze of a the current point in time."
                                            address:positionAddress
                                                min:0
                                                max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+                                              unit:kAudioUnitParameterUnit_Generic];
+
     // Create a parameter object for the amplitude.
-    AUParameter *amplitudeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amplitude"
+    AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                               name:@"Amplitude."
                                            address:amplitudeAddress
                                                min:0
                                                max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+                                              unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the pitchRatio.
-    AUParameter *pitchRatioAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"pitchRatio"
+    AUParameter *pitchRatioAUParameter = [AUParameter parameter:@"pitchRatio"
                                               name:@"Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc."
                                            address:pitchRatioAddress
                                                min:0
                                                max:1000
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+                                              unit:kAudioUnitParameterUnit_Hertz];
 
     // Initialize the parameter values.
     positionAUParameter.value = 0;
