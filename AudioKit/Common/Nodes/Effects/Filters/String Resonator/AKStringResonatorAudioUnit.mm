@@ -34,12 +34,12 @@ standardKernelPassthroughs()
     standardSetup(StringResonator)
 
     // Create a parameter object for the fundamentalFrequency.
-  AUParameter *fundamentalFrequencyAUParameter = [AUParameter parameter:@"fundamentalFrequency"
-                                                                   name:@"Fundamental Frequency (Hz)"
-                                                                address:fundamentalFrequencyAddress
-                                                                    min:12.0
-                                                                    max:10000.0
-                                                                   unit:kAudioUnitParameterUnit_Hertz];
+    AUParameter *fundamentalFrequencyAUParameter = [AUParameter parameter:@"fundamentalFrequency"
+                                                                     name:@"Fundamental Frequency (Hz)"
+                                                                  address:fundamentalFrequencyAddress
+                                                                      min:12.0
+                                                                      max:10000.0
+                                                                     unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the feedback.
     AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
                                                          name:@"Feedback (%)"
@@ -51,7 +51,6 @@ standardKernelPassthroughs()
     // Initialize the parameter values.
     fundamentalFrequencyAUParameter.value = 100;
     feedbackAUParameter.value = 0.95;
-
 
     _kernel.setParameter(fundamentalFrequencyAddress, fundamentalFrequencyAUParameter.value);
     _kernel.setParameter(feedbackAddress,             feedbackAUParameter.value);
