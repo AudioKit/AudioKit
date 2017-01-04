@@ -35,30 +35,19 @@ standardKernelPassthroughs()
     
     standardSetup(FormantFilter)
 
-    AUParameter *xAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"x"
-                                              name:@"x Position"
-                                           address:xAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *xAUParameter = [AUParameter parameter:@"x"
+                                                  name:@"x Position"
+                                               address:xAddress
+                                                   min:0.0
+                                                   max:1.0
+                                                  unit:kAudioUnitParameterUnit_Generic];
 
-    AUParameter *yAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"y"
-                                              name:@"y Position"
-                                           address:yAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *yAUParameter = [AUParameter parameter:@"y"
+                                                  name:@"y Position"
+                                               address:yAddress
+                                                   min:0.0
+                                                   max:1.0
+                                                  unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     xAUParameter.value = 0;
