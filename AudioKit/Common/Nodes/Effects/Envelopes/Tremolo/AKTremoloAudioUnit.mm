@@ -89,7 +89,6 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case frequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
             case depthAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
             default:

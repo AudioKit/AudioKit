@@ -79,11 +79,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case fundamentalFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case feedbackAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

@@ -116,14 +116,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case attackDurationAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case decayDurationAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case sustainLevelAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case releaseDurationAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
 

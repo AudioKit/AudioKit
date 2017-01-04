@@ -100,14 +100,9 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case positionAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case amplitudeAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case pitchRatioAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

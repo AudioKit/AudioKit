@@ -96,14 +96,9 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case shiftAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case windowSizeAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case crossfadeAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

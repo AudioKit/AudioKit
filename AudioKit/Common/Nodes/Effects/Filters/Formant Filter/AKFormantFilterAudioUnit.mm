@@ -79,11 +79,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case xAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case yAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

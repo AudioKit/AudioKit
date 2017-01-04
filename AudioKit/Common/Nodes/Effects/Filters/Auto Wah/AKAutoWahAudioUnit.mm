@@ -95,14 +95,9 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case wahAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case mixAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case amplitudeAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

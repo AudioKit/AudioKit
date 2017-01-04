@@ -80,11 +80,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case bitDepthAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case sampleRateAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

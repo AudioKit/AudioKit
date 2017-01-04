@@ -79,11 +79,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case centerFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case bandwidthAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }
