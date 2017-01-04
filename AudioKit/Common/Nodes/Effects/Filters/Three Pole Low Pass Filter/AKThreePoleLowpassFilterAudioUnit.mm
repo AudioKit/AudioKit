@@ -37,42 +37,26 @@ standardKernelPassthroughs()
     standardSetup(ThreePoleLowpassFilter)
 
     // Create a parameter object for the distortion.
-    AUParameter *distortionAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"distortion"
-                                              name:@"Distortion (%)"
-                                           address:distortionAddress
-                                               min:0.0
-                                               max:2.0
-                                              unit:kAudioUnitParameterUnit_Percent
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *distortionAUParameter = [AUParameter parameter:@"distortion"
+                                                           name:@"Distortion (%)"
+                                                        address:distortionAddress
+                                                            min:0.0
+                                                            max:2.0
+                                                           unit:kAudioUnitParameterUnit_Percent];
     // Create a parameter object for the cutoffFrequency.
-    AUParameter *cutoffFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"cutoffFrequency"
-                                              name:@"Cutoff Frequency (Hz)"
-                                           address:cutoffFrequencyAddress
-                                               min:12.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
+                                                                name:@"Cutoff Frequency (Hz)"
+                                                             address:cutoffFrequencyAddress
+                                                                 min:12.0
+                                                                 max:20000.0
+                                                                unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the resonance.
-    AUParameter *resonanceAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"resonance"
-                                              name:@"Resonance (%)"
-                                           address:resonanceAddress
-                                               min:0.0
-                                               max:2.0
-                                              unit:kAudioUnitParameterUnit_Percent
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *resonanceAUParameter = [AUParameter parameter:@"resonance"
+                                                          name:@"Resonance (%)"
+                                                       address:resonanceAddress
+                                                           min:0.0
+                                                           max:2.0
+                                                          unit:kAudioUnitParameterUnit_Percent];
 
     // Initialize the parameter values.
     distortionAUParameter.value = 0.5;
