@@ -53,89 +53,55 @@ standardKernelPassthroughs()
     standardSetup(MetalBar)
 
     // Create a parameter object for the leftBoundaryCondition.
-    AUParameter *leftBoundaryConditionAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"leftBoundaryCondition"
-                                              name:@"Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free"
-                                           address:leftBoundaryConditionAddress
-                                               min:1
-                                               max:3
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *leftBoundaryConditionAUParameter = [AUParameter parameter:@"leftBoundaryCondition"
+                                                                      name:@"Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free"
+                                                                   address:leftBoundaryConditionAddress
+                                                                       min:1
+                                                                       max:3
+                                                                      unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the rightBoundaryCondition.
-    AUParameter *rightBoundaryConditionAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"rightBoundaryCondition"
-                                              name:@"Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free"
-                                           address:rightBoundaryConditionAddress
-                                               min:1
-                                               max:3
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *rightBoundaryConditionAUParameter = [AUParameter parameter:@"rightBoundaryCondition"
+                                                                       name:@"Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free"
+                                                                    address:rightBoundaryConditionAddress
+                                                                        min:1
+                                                                        max:3
+                                                                       unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the decayDuration.
-    AUParameter *decayDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"decayDuration"
-                                              name:@"30db decay time (in seconds)."
-                                           address:decayDurationAddress
-                                               min:0
-                                               max:10
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *decayDurationAUParameter = [AUParameter parameter:@"decayDuration"
+                                                              name:@"30db decay time (in seconds)."
+                                                           address:decayDurationAddress
+                                                               min:0
+                                                               max:10
+                                                              unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the scanSpeed.
     AUParameter *scanSpeedAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"scanSpeed"
+    [AUParameter parameter:@"scanSpeed"
                                               name:@"Speed of scanning the output location."
                                            address:scanSpeedAddress
                                                min:0
                                                max:100
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+                                              unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the position.
-    AUParameter *positionAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"position"
-                                              name:@"Position along bar that strike occurs."
-                                           address:positionAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *positionAUParameter = [AUParameter parameter:@"position"
+                                                         name:@"Position along bar that strike occurs."
+                                                      address:positionAddress
+                                                          min:0
+                                                          max:1
+                                                         unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the strikeVelocity.
-    AUParameter *strikeVelocityAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"strikeVelocity"
-                                              name:@"Normalized strike velocity"
-                                           address:strikeVelocityAddress
-                                               min:0
-                                               max:1000
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *strikeVelocityAUParameter = [AUParameter parameter:@"strikeVelocity"
+                                                               name:@"Normalized strike velocity"
+                                                            address:strikeVelocityAddress
+                                                                min:0
+                                                                max:1000
+                                                               unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the strikeWidth.
-    AUParameter *strikeWidthAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"strikeWidth"
-                                              name:@"Spatial width of strike."
-                                           address:strikeWidthAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *strikeWidthAUParameter = [AUParameter parameter:@"strikeWidth"
+                                                            name:@"Spatial width of strike."
+                                                         address:strikeWidthAddress
+                                                             min:0
+                                                             max:1
+                                                            unit:kAudioUnitParameterUnit_Generic];
 
 
     // Initialize the parameter values.
