@@ -43,9 +43,9 @@ extension AKAudioFile {
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             
         }
-        let fileUrl = URL(fileURLWithPath: filePath)
+        let fileURL = URL(fileURLWithPath: filePath)
         do {
-            try self.init(forReading: fileUrl)
+            try self.init(forReading: fileURL)
         } catch let error as NSError {
             AKLog("Error: AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile")
             AKLog(error.localizedDescription)
