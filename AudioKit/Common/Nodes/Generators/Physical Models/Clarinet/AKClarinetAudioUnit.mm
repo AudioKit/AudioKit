@@ -41,30 +41,16 @@ standardKernelPassthroughs()
     standardSetup(Clarinet)
 
     // Create a parameter object for the frequency.
-    AUParameter *frequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"frequency"
-                                              name:@"Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that."
-                                           address:frequencyAddress
-                                               min:0
-                                               max:22000
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
+                                                          name:@"Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that."
+                                                       address:frequencyAddress];
     // Create a parameter object for the amplitude.
-    AUParameter *amplitudeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amplitude"
-                                              name:@"Amplitude"
-                                           address:amplitudeAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
+                                                          name:@"Amplitude"
+                                                       address:amplitudeAddress
+                                                           min:0
+                                                           max:1
+                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     frequencyAUParameter.value = 110;

@@ -34,30 +34,16 @@ standardKernelPassthroughs()
     standardSetup(ModalResonanceFilter)
 
     // Create a parameter object for the frequency.
-    AUParameter *frequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"frequency"
-                                              name:@"Resonant Frequency (Hz)"
-                                           address:frequencyAddress
-                                               min:12.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
+                                                          name:@"Resonant Frequency (Hz)"
+                                                       address:frequencyAddress];
     // Create a parameter object for the qualityFactor.
-    AUParameter *qualityFactorAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"qualityFactor"
-                                              name:@"Quality Factor"
-                                           address:qualityFactorAddress
-                                               min:0.0
-                                               max:100.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *qualityFactorAUParameter = [AUParameter parameter:@"qualityFactor"
+                                                              name:@"Quality Factor"
+                                                           address:qualityFactorAddress
+                                                               min:0.0
+                                                               max:100.0
+                                                              unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     frequencyAUParameter.value = 500.0;
@@ -79,11 +65,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case frequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case qualityFactorAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

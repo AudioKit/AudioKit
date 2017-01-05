@@ -31,18 +31,12 @@ standardKernelPassthroughs()
     standardSetup(Clipper)
 
     // Create a parameter object for the limit.
-    AUParameter *limitAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"limit"
-                                              name:@"Threshold"
-                                           address:limitAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *limitAUParameter = [AUParameter parameter:@"limit"
+                                                      name:@"Threshold"
+                                                   address:limitAddress
+                                                       min:0.0
+                                                       max:1.0
+                                                      unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     limitAUParameter.value = 1.0;
@@ -61,7 +55,6 @@ standardKernelPassthroughs()
         switch (param.address) {
             case limitAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

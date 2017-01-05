@@ -37,41 +37,26 @@ standardKernelPassthroughs()
     standardSetup(AutoWah)
 
     // Create a parameter object for the wah.
-    AUParameter *wahAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"wah"
-                                              name:@"Wah Amount"
-                                           address:wahAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *wahAUParameter = [AUParameter parameter:@"wah"
+                                                    name:@"Wah Amount"
+                                                 address:wahAddress
+                                                     min:0.0
+                                                     max:1.0
+                                                    unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the mix.
-    AUParameter *mixAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"mix"
-                                              name:@"Dry/Wet Mix"
-                                           address:mixAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Percent
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *mixAUParameter = [AUParameter parameter:@"mix"
+                                                    name:@"Dry/Wet Mix"
+                                                 address:mixAddress
+                                                     min:0.0
+                                                     max:1.0
+                                                    unit:kAudioUnitParameterUnit_Percent];
     // Create a parameter object for the amplitude.
-    AUParameter *amplitudeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amplitude"
-                                              name:@"Overall level"
-                                           address:amplitudeAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
+                                                          name:@"Overall level"
+                                                       address:amplitudeAddress
+                                                           min:0.0
+                                                           max:1.0
+                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     wahAUParameter.value = 0.0;
@@ -95,14 +80,9 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case wahAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case mixAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case amplitudeAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

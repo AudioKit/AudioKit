@@ -431,7 +431,7 @@ extension AKAudioFile {
     // private process factory
     fileprivate class ProcessFactory {
         fileprivate var processArray = [Int]()
-        fileprivate var lastProcessIdStamp: Int = 0
+        fileprivate var lastProcessID: Int = 0
 
         // Singleton
         static let sharedInstance = ProcessFactory()
@@ -448,13 +448,13 @@ extension AKAudioFile {
                                                            completionHandler: @escaping AsyncProcessCallback ) {
 
 
-            let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
-            ProcessFactory.sharedInstance.lastProcessIdStamp += 1
-            ProcessFactory.sharedInstance.processArray.append(processIdStamp)
+            let processID = ProcessFactory.sharedInstance.lastProcessID
+            ProcessFactory.sharedInstance.lastProcessID += 1
+            ProcessFactory.sharedInstance.processArray.append(processID)
 
 
             ProcessFactory.sharedInstance.processQueue.async {
-                AKLog("AKAudioFile.ProcessFactory beginning Normalizing file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processIdStamp))")
+                AKLog("AKAudioFile.ProcessFactory beginning Normalizing file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processID))")
                 var processedFile: AKAudioFile?
                 var processError: NSError?
                 do {
@@ -495,12 +495,12 @@ extension AKAudioFile {
                                                   name: String,
                                                   completionHandler: @escaping AsyncProcessCallback) {
 
-            let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
-            ProcessFactory.sharedInstance.lastProcessIdStamp += 1
-            ProcessFactory.sharedInstance.processArray.append(processIdStamp)
+            let processID = ProcessFactory.sharedInstance.lastProcessID
+            ProcessFactory.sharedInstance.lastProcessID += 1
+            ProcessFactory.sharedInstance.processArray.append(processID)
 
             ProcessFactory.sharedInstance.processQueue.async {
-                AKLog("AKAudioFile.ProcessFactory beginning Reversing file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processIdStamp))")
+                AKLog("AKAudioFile.ProcessFactory beginning Reversing file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processID))")
                 var processedFile: AKAudioFile?
                 var processError: NSError?
                 do {
@@ -541,13 +541,13 @@ extension AKAudioFile {
                                                  name: String,
                                                  completionHandler: @escaping AsyncProcessCallback) {
 
-            let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
-            ProcessFactory.sharedInstance.lastProcessIdStamp += 1
-            ProcessFactory.sharedInstance.processArray.append(processIdStamp)
+            let processID = ProcessFactory.sharedInstance.lastProcessID
+            ProcessFactory.sharedInstance.lastProcessID += 1
+            ProcessFactory.sharedInstance.processArray.append(processID)
 
 
             ProcessFactory.sharedInstance.processQueue.async {
-                AKLog("AKAudioFile.ProcessFactory beginning Appending file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processIdStamp))")
+                AKLog("AKAudioFile.ProcessFactory beginning Appending file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processID))")
                 var processedFile: AKAudioFile?
                 var processError: NSError?
                 do {
@@ -591,12 +591,12 @@ extension AKAudioFile {
                                                   completionHandler: @escaping AsyncProcessCallback) {
 
 
-            let processIdStamp = ProcessFactory.sharedInstance.lastProcessIdStamp
-            ProcessFactory.sharedInstance.lastProcessIdStamp += 1
-            ProcessFactory.sharedInstance.processArray.append(processIdStamp)
+            let processID = ProcessFactory.sharedInstance.lastProcessID
+            ProcessFactory.sharedInstance.lastProcessID += 1
+            ProcessFactory.sharedInstance.processArray.append(processID)
 
             ProcessFactory.sharedInstance.processQueue.async {
-                AKLog("AKAudioFile.ProcessFactory beginning Extracting from file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processIdStamp))")
+                AKLog("AKAudioFile.ProcessFactory beginning Extracting from file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processID))")
                 var processedFile: AKAudioFile?
                 var processError: NSError?
                 do {
@@ -637,7 +637,7 @@ extension AKAudioFile {
         }
 
         fileprivate var scheduledProcessesCount: Int {
-            return lastProcessIdStamp
+            return lastProcessID
         }
     }
 
@@ -646,7 +646,7 @@ extension AKAudioFile {
     // private ExportSession wraps an AVAssetExportSession with an id and the completion callback
     fileprivate class ExportSession {
         fileprivate var avAssetExportSession: AVAssetExportSession
-        fileprivate var idStamp: Int
+        fileprivate var id: Int
         fileprivate var callback: AsyncProcessCallback
         
         
@@ -654,18 +654,18 @@ extension AKAudioFile {
                          callback: @escaping AsyncProcessCallback) {
             self.avAssetExportSession = avAssetExportSession
             self.callback = callback
-            self.idStamp = ExportFactory.lastExportSessionIdStamp
-            ExportFactory.lastExportSessionIdStamp += 1
+            self.id = ExportFactory.lastExportSessionID
+            ExportFactory.lastExportSessionID += 1
         }
     }
 
     // Export Factory is a singleton that handles Export Sessions serially
     fileprivate class ExportFactory {
 
-        fileprivate static var exportSessionsArray = [Int:ExportSession]()
-        fileprivate static var lastExportSessionIdStamp: Int = 0
+        fileprivate static var exportSessionsArray = [Int: ExportSession]()
+        fileprivate static var lastExportSessionID: Int = 0
         fileprivate static var isExporting = false
-        fileprivate static var currentExportProcessId: Int = 0
+        fileprivate static var currentExportProcessID: Int = 0
 
 
         // Singleton
@@ -673,22 +673,22 @@ extension AKAudioFile {
 
         fileprivate static func completionHandler() {
 
-            if let session = exportSessionsArray[currentExportProcessId] {
+            if let session = exportSessionsArray[currentExportProcessID] {
                 switch session.avAssetExportSession.status {
                 case  AVAssetExportSessionStatus.failed:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
                 case AVAssetExportSessionStatus.cancelled:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
                 default :
-                    if  let outputUrl = session.avAssetExportSession.outputURL {
+                    if  let outputURL = session.avAssetExportSession.outputURL {
                         do {
-                            let audiofile = try AKAudioFile(forReading: outputUrl)
+                            let audiofile = try AKAudioFile(forReading: outputURL)
                             session.callback(audiofile, nil)
                         } catch let error as NSError {
                             session.callback(nil, error)
                         }
                     } else {
-                        AKLog("ERROR AKAudioFile export: outputUrl is nil!...")
+                        AKLog("ERROR AKAudioFile export: outputURL is nil!...")
                         session.callback(nil,
                                          NSError(
                                             domain: NSURLErrorDomain,
@@ -696,35 +696,35 @@ extension AKAudioFile {
                                             userInfo: nil))
                     }
                 }
-                AKLog("ExportFactory: session #\(session.idStamp) Completed")
-                exportSessionsArray.removeValue(forKey: currentExportProcessId)
+                AKLog("ExportFactory: session #\(session.id) Completed")
+                exportSessionsArray.removeValue(forKey: currentExportProcessID)
                 if exportSessionsArray.isEmpty == false {
-                    //currentExportProcessId = exportSessionsArray.first!.0
-                    currentExportProcessId += 1
-                    AKLog("ExportFactory: exporting session #\(currentExportProcessId)")
-                    exportSessionsArray[currentExportProcessId]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
+                    //currentExportProcessID = exportSessionsArray.first!.0
+                    currentExportProcessID += 1
+                    AKLog("ExportFactory: exporting session #\(currentExportProcessID)")
+                    exportSessionsArray[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
 
                 } else {
                     isExporting = false
                     AKLog("ExportFactory: All exports have been completed")
                 }
             } else {
-                AKLog("ExportFactory: Error : sessionId:\(currentExportProcessId) doesn't exist!")
+                AKLog("ExportFactory: Error : sessionId:\(currentExportProcessID) doesn't exist!")
             }
         }
 
         // Append the exportSession to the ExportFactory Export Queue
         fileprivate static func queueExportSession(session: ExportSession) {
-            exportSessionsArray[session.idStamp] = session
+            exportSessionsArray[session.id] = session
 
             if !isExporting {
                 isExporting = true
-                currentExportProcessId = session.idStamp
-                AKLog("ExportFactory: exporting session #\(session.idStamp)")
-                exportSessionsArray[currentExportProcessId]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
+                currentExportProcessID = session.id
+                AKLog("ExportFactory: exporting session #\(session.id)")
+                exportSessionsArray[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
             } else {
                 AKLog("ExportFactory: is busy!")
-                AKLog("ExportFactory: Queuing session #\(session.idStamp)")
+                AKLog("ExportFactory: Queuing session #\(session.id)")
             }
         }
     }

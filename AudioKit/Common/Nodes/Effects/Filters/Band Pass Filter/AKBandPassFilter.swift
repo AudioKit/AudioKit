@@ -13,7 +13,7 @@ import AVFoundation
 open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
 
-    internal var internalEffect = AVAudioUnitEffect()
+    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
 
     fileprivate var mixer: AKMixer

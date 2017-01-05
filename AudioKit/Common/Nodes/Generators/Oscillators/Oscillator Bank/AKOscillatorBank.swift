@@ -156,7 +156,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
                 self.internalAU?.setWaveformValue(sample, at: UInt32(i))
