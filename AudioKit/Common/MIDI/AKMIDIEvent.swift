@@ -248,13 +248,16 @@ public struct AKMIDIEvent {
         
         switch status {
         case .controllerChange:
+            length = 3
+            /*
+            //this code was causing problems with our midi parser. Even though the last byte of a cc might be undefined, it is probably worth leaving in, as they still come in as 3-byte values, and someone might actually be using this 3rd byte for a custom application.
             if byte1 < AKMIDIControl.dataEntryPlus.rawValue ||
                 byte1 == AKMIDIControl.localControlOnOff.rawValue {
                 
-                length = 3
             } else {
                 length = 2
             }
+             */
         case .channelAftertouch: break
         case .programChange:
             length = 2
