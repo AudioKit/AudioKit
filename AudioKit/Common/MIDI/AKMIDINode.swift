@@ -21,7 +21,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     /// Name of the instrument
     open var name = "AKMIDINode"
 
-    internal var internalNode: AKPolyphonicNode
+    private var internalNode: AKPolyphonicNode
 
     // MARK: - Initialization
 

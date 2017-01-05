@@ -254,7 +254,10 @@ extension AVAudioUnit {
     class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> ()) {
         AVAudioUnit.instantiate(with: component, options: []) {
             au, err in
-            au.map(callback)
+            au.map {
+                AudioKit.engine.attach($0)
+                callback($0)
+            }
         }
     }
 }

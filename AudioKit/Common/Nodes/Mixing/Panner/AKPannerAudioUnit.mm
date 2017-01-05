@@ -31,19 +31,12 @@ standardKernelPassthroughs()
     standardSetup(Panner)
 
     // Create a parameter object for the pan.
-    AUParameter *panAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"pan"
-                                              name:@"Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center."
-                                           address:panAddress
-                                               min:-1
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
-
+    AUParameter *panAUParameter = [AUParameter parameter:@"pan"
+                                                    name:@"Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center."
+                                                 address:panAddress
+                                                     min:-1
+                                                     max:1
+                                                    unit:kAudioUnitParameterUnit_Generic];
     // Initialize the parameter values.
     panAUParameter.value = 0;
 

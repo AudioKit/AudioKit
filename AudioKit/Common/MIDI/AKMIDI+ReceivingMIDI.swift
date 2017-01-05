@@ -67,7 +67,7 @@ extension AKMIDI {
                     for packet in packetList.pointee {
                         // a coremidi packet may contain multiple midi events
                         for event in packet {
-                            self.handleMidiMessage(event)
+                            self.handleMIDIMessage(event)
                         }
                     }
                 }
@@ -108,7 +108,7 @@ extension AKMIDI {
         closeInput()
     }
     
-    internal func handleMidiMessage(_ event: AKMIDIEvent) {
+    internal func handleMIDIMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
             guard let eventChannel = event.channel else { return }
             let type = event.status
