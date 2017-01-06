@@ -45,7 +45,7 @@ public struct AKMIDIEvent {
     // MARK: - Properties
     
     /// Internal data
-    public var internalData = [UInt8](zeroes: 128)
+    public var internalData = [UInt8](zeros: 128)
     
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
@@ -146,7 +146,7 @@ public struct AKMIDIEvent {
                 if let cmd = packet.command {
                     fillData(command: cmd, byte1: packet.data.1, byte2: packet.data.2)
                 } else {
-                    print("AKMIDISystemCommand failure due to bad data - need to investigate")
+                    AKLog("AKMIDISystemCommand failure due to bad data - need to investigate")
                 }
             }
         }
@@ -248,13 +248,7 @@ public struct AKMIDIEvent {
         
         switch status {
         case .controllerChange:
-            if byte1 < AKMIDIControl.dataEntryPlus.rawValue ||
-                byte1 == AKMIDIControl.localControlOnOff.rawValue {
-                
-                length = 3
-            } else {
-                length = 2
-            }
+            length = 3
         case .channelAftertouch: break
         case .programChange:
             length = 2
@@ -282,7 +276,7 @@ public struct AKMIDIEvent {
         
         switch command {
         case .sysex:
-            print("sysex")
+            AKLog("sysex")
             break
         case .songPosition:
             internalData[1] = byte1.lower7bits()

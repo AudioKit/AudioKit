@@ -45,7 +45,7 @@ import AVFoundation
 
         /// The buffer Length expressed as number of samples
         var samplesCount: AVAudioFrameCount {
-            return AVAudioFrameCount(pow(2.0, Double(self.rawValue)))
+            return AVAudioFrameCount(pow(2.0, Double(rawValue)))
         }
 
         /// The buffer Length expressed as a duration in seconds
@@ -98,6 +98,9 @@ import AVFoundation
 
     /// Enable AudioKit AVAudioSession Category Management
     open static var disableAVAudioSessionCategoryManagement: Bool = false
+    
+    /// Turn off AudioKit logging
+    open static var enableLogging: Bool = true
 
     #if !os(OSX)
 
@@ -114,8 +117,8 @@ import AVFoundation
                 do {
                     try session.setCategory(category.rawValue, with: options!)
                 } catch let error as NSError {
-                    print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category)) with options: \(String(describing: options!))")
-                    print("AKAsettings Error: \(error))")
+                    AKLog("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category)) with options: \(String(describing: options!))")
+                    AKLog("AKAsettings Error: \(error))")
                     throw error
                 }
                 
@@ -124,8 +127,8 @@ import AVFoundation
                 do {
                     try session.setCategory(category.rawValue)
                 } catch let error as NSError {
-                    print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category))")
-                    print("AKAsettings Error: \(error))")
+                    AKLog("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category))")
+                    AKLog("AKAsettings Error: \(error))")
                     throw error
                 }
             }
@@ -136,8 +139,8 @@ import AVFoundation
         do {
             try session.setPreferredIOBufferDuration(bufferLength.duration)
         } catch let error as NSError {
-            print("AKAsettings Error: Cannot set Preferred IOBufferDuration to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
-            print("AKAsettings Error: \(error))")
+            AKLog("AKAsettings Error: Cannot set Preferred IOBufferDuration to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
+            AKLog("AKAsettings Error: \(error))")
             throw error
         }
 
@@ -145,8 +148,8 @@ import AVFoundation
         do {
             try session.setActive(true)
         } catch let error as NSError {
-            print("AKAsettings Error: Cannot set AVAudioSession.setActive to true")
-            print("AKAsettings Error: \(error))")
+            AKLog("AKAsettings Error: Cannot set AVAudioSession.setActive to true")
+            AKLog("AKAsettings Error: \(error))")
             throw error
         }
 
@@ -154,29 +157,21 @@ import AVFoundation
         // FOR DEBUG !
         // (setting the AVAudioSession can be non effective under certain circonstances even if there's no error thrown.)
         // You may uncomment the next 'print' lines for debugging :
-        // print("AKSettings: asked for: \(category.rawValue)")
-        // print("AKSettings: Session.category is set to: \(session.category)")
+        // AKLog("AKSettings: asked for: \(category.rawValue)")
+        // AKLog("AKSettings: Session.category is set to: \(session.category)")
 
         if options != nil {
-            // print("AKSettings: asked for options: \(options!)")
-            // print("AKSettings: Session.category is set to: \(session.categoryOptions)")
+            // AKLog("AKSettings: asked for options: \(options!)")
+            // AKLog("AKSettings: Session.category is set to: \(session.categoryOptions)")
         }
     }
 
     /// Checks if headphones are plugged
     /// Returns true if headPhones are plugged, otherwise return false
     static open var headPhonesPlugged: Bool {
-        let route = session.currentRoute
-        var headPhonesFound = false
-        if route.outputs.count > 0 {
-            for description in route.outputs {
-                if description.portType == AVAudioSessionPortHeadphones {
-                    headPhonesFound = true
-                    break
-                }
-            }
+        return session.currentRoute.outputs.contains {
+            $0.portType == AVAudioSessionPortHeadphones
         }
-        return headPhonesFound
     }
     
     #endif

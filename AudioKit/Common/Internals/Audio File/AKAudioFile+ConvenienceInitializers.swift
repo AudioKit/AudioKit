@@ -34,21 +34,21 @@ extension AKAudioFile {
             }
             let path = resourcePath(name)
             if path == nil {
-                print("ERROR: AKAudioFile cannot find \"\(name)\" in resources")
+                AKLog("ERROR: AKAudioFile cannot find \"\(name)\" in resources")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist, userInfo: nil)
             }
             filePath = path!
         case .custom:
-            print( "ERROR AKAudioFile: custom creation directory not implemented yet")
+            AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             
         }
-        let fileUrl = URL(fileURLWithPath: filePath)
+        let fileURL = URL(fileURLWithPath: filePath)
         do {
-            try self.init(forReading: fileUrl)
+            try self.init(forReading: fileURL)
         } catch let error as NSError {
-            print("Error: AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile")
-            print(error.localizedDescription)
+            AKLog("Error: AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile")
+            AKLog(error.localizedDescription)
             throw error
         }
         
@@ -101,16 +101,16 @@ extension AKAudioFile {
                 filePath =  (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) + "/" + fileNameWithExtension
             case .resources:
 
-                print( "ERROR AKAudioFile: cannot create a file in applications resources")
+                AKLog("ERROR AKAudioFile: cannot create a file in applications resources")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             case .custom:
-                print( "ERROR AKAudioFile: custom creation directory not implemented yet")
+                AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
             
             let nsurl = URL(string: filePath)
             guard nsurl != nil else {
-                print( "ERROR AKAudioFile: directory \"\(filePath)\" isn't valid")
+                AKLog("ERROR AKAudioFile: directory \"\(filePath)\" isn't valid")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
             
@@ -119,7 +119,7 @@ extension AKAudioFile {
             
             let fileManager = FileManager.default
             if !fileManager.fileExists(atPath: (directoryPath.absoluteString)) {
-                print( "ERROR AKAudioFile: directory \"\(directoryPath)\" doesn't exist")
+                AKLog("ERROR AKAudioFile: directory \"\(directoryPath)\" doesn't exist")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
             
@@ -131,8 +131,8 @@ extension AKAudioFile {
             do {
                 try self.init(forWriting: nsurl!, settings: fixedSettings)
             } catch let error as NSError {
-                print( "ERROR AKAudioFile: Couldn't create an AKAudioFile...")
-                print( "Error: \(error)")
+                AKLog("ERROR AKAudioFile: Couldn't create an AKAudioFile...")
+                AKLog("Error: \(error)")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
     }
@@ -185,7 +185,7 @@ extension AKAudioFile {
         do {
             try self.write(from: buffer)
         } catch let error as NSError {
-            print( "ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
+            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
         
@@ -212,7 +212,7 @@ extension AKAudioFile {
         do {
             try self.write(from: buffer)
         } catch let error as NSError {
-            print( "ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
+            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
         

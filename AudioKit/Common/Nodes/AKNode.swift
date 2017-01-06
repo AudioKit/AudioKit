@@ -61,7 +61,7 @@ open class AKPolyphonicNode: AKNode, AKPolyphonic {
     ///   - velocity:   MIDI Velocity
     ///
     open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
-        print("Playing note \(noteNumber), with velocity \(velocity), override in subclass")
+        AKLog("Playing note \(noteNumber), with velocity \(velocity), override in subclass")
     }
     
     /// Stop a sound corresponding to a MIDI note
@@ -69,7 +69,7 @@ open class AKPolyphonicNode: AKNode, AKPolyphonic {
     /// - parameter noteNumber: MIDI Note Number
     ///
     open func stop(noteNumber: MIDINoteNumber) {
-        print("Stopping note \(noteNumber), override in subclass")
+        AKLog("Stopping note \(noteNumber), override in subclass")
     }
 }
 

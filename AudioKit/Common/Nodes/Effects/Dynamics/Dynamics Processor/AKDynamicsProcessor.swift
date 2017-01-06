@@ -14,9 +14,9 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
-    internal var internalEffect = AVAudioUnitEffect()
+    private var internalEffect = AVAudioUnitEffect()
 
-    internal var au: AUWrapper
+    private var au: AUWrapper
     fileprivate var mixer: AKMixer
 
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)

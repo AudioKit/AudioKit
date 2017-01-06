@@ -32,17 +32,12 @@ standardKernelPassthroughs()
     standardSetup(StereoFieldLimiter)
 
     // Create a parameter object for the amount.
-    AUParameter *amountAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amount"
-                                              name:@"Amount of limit"
-                                           address:amountAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *amountAUParameter = [AUParameter parameter:@"amount"
+                                                       name:@"Amount of limit"
+                                                    address:amountAddress
+                                                        min:0
+                                                        max:1
+                                                       unit:kAudioUnitParameterUnit_Generic];
 
 
     // Initialize the parameter values.

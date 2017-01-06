@@ -46,7 +46,7 @@ open class AKResourcesAudioFileLoaderView: UIView {
                 do {
                     try player?.replace(file: file!)
                 } catch {
-                    print("Could not replace file")
+                    AKLog("Could not replace file")
                 }
                 if isPlayerPlaying { player?.play() }
                 setNeedsDisplay()

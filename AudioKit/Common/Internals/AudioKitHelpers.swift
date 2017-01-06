@@ -14,11 +14,12 @@ public typealias MIDINoteNumber = Int
 public typealias MIDIVelocity = Int
 public typealias MIDIChannel = Int
 
-extension Collection where Index == Int {
-    /// Return a random element from the array
+
+extension Collection where IndexDistance == Int {
+    /// Return a random element from the collection
     public var randomIndex: Index {
         let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
-        return startIndex.advanced(by: offset)
+        return index(startIndex, offsetBy: offset)
     }
 
     public func randomElement() -> Iterator.Element {
@@ -28,6 +29,7 @@ extension Collection where Index == Int {
 
 /// Helper function to convert codes for Audio Units
 /// - parameter string: Four character string to convert
+///
 public func fourCC(_ string: String) -> UInt32 {
     let utf8 = string.utf8
     precondition(utf8.count == 4, "Must be a 4 char string")
@@ -37,6 +39,17 @@ public func fourCC(_ string: String) -> UInt32 {
         out |= UInt32(char)
     }
     return out
+}
+
+/// Wrapper for printing out status messages to the console, 
+/// eventually it could be expanded with log levels
+/// - parameter string: Message to print
+///
+@inline(__always)
+public func AKLog(_ string: String) {
+    if AKSettings.enableLogging {
+        print(string)
+    }
 }
 
 /// Random double between bounds
@@ -180,12 +193,12 @@ extension Double {
 }
 
 extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntegerLiteral {
-	/// Initialize array with zeroes, ~10x faster than append for array of size 4096
+	/// Initialize array with zeros, ~10x faster than append for array of size 4096
 	///
 	/// - parameter count: Number of elements in the array
 	///
 
-    public init(zeroes count: Int) {
+    public init(zeros count: Int) {
         self.init(repeating: 0, count: count)
     }
 }
@@ -241,7 +254,10 @@ extension AVAudioUnit {
     class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> ()) {
         AVAudioUnit.instantiate(with: component, options: []) {
             au, err in
-            au.map(callback)
+            au.map {
+                AudioKit.engine.attach($0)
+                callback($0)
+            }
         }
     }
 }

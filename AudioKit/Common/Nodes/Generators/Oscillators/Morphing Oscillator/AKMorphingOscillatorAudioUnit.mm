@@ -51,66 +51,38 @@ standardKernelPassthroughs()
     standardSetup(MorphingOscillator)
 
     // Create a parameter object for the frequency.
-    AUParameter *frequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"frequency"
-                                              name:@"Frequency (in Hz)"
-                                           address:frequencyAddress
-                                               min:0.0
-                                               max:22050.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
+                                                          name:@"Frequency (in Hz)"
+                                                       address:frequencyAddress];
     // Create a parameter object for the amplitude.
-    AUParameter *amplitudeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amplitude"
-                                              name:@"Amplitude (typically a value between 0 and 1)."
-                                           address:amplitudeAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
+                                                          name:@"Amplitude (typically a value between 0 and 1)."
+                                                       address:amplitudeAddress
+                                                           min:0.0
+                                                           max:1.0
+                                                          unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the index.
-    AUParameter *indexAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"index"
-                                              name:@"Index of the wavetable to use (fractional are okay)."
-                                           address:indexAddress
-                                               min:0.0
-                                               max:1000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *indexAUParameter = [AUParameter parameter:@"index"
+                                                      name:@"Index of the wavetable to use (fractional are okay)."
+                                                   address:indexAddress
+                                                       min:0.0
+                                                       max:1000.0
+                                                      unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the detuningOffset.
-    AUParameter *detuningOffsetAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"detuningOffset"
-                                              name:@"Frequency offset (Hz)"
-                                           address:detuningOffsetAddress
-                                               min:-1000.0
-                                               max:1000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the detuningMultiplier.
-    AUParameter *detuningMultiplierAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"detuningMultiplier"
-                                              name:@"Frequency detuning multiplier"
-                                           address:detuningMultiplierAddress
-                                               min:0.5
-                                               max:2.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *detuningOffsetAUParameter = [AUParameter parameter:@"detuningOffset"
+                                                               name:@"Frequency offset (Hz)"
+                                                            address:detuningOffsetAddress
+                                                                min:-1000.0
+                                                                max:1000.0
+                                                               unit:kAudioUnitParameterUnit_Hertz];
 
+    // Create a parameter object for the detuningMultiplier.
+    AUParameter *detuningMultiplierAUParameter = [AUParameter parameter:@"detuningMultiplier"
+                                                                   name:@"Frequency detuning multiplier"
+                                                                address:detuningMultiplierAddress
+                                                                    min:0.5
+                                                                    max:2.0
+                                                                   unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     frequencyAUParameter.value = 440;
@@ -141,20 +113,11 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case frequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case amplitudeAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case indexAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case detuningOffsetAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case detuningMultiplierAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

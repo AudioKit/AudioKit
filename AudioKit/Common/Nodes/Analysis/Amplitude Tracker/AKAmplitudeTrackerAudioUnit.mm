@@ -41,17 +41,12 @@
     standardSetup(AmplitudeTracker)
 
     // Create a parameter object for the halfPowerPoint.
-    AUParameter *halfPowerPointAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"halfPowerPoint"
-                                              name:@"Half-power point (Hz)"
-                                           address:halfPowerPointAddress
-                                               min:0
-                                               max:20000
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *halfPowerPointAUParameter = [AUParameter parameter:@"halfPowerPoint"
+                                                               name:@"Half-power point (Hz)"
+                                                            address:halfPowerPointAddress
+                                                                min:0
+                                                                max:20000
+                                                               unit:kAudioUnitParameterUnit_Hertz];
 
     // Initialize the parameter values.
     halfPowerPointAUParameter.value = 10;

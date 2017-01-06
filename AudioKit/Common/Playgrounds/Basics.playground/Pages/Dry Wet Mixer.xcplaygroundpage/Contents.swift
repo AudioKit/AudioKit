@@ -3,9 +3,9 @@
 //: ---
 //:
 //: ## Dry Wet Mixer
-//: It's a very common operation to mix exactly two inputs, one before
-//: processing occurs, and one after, and then mixing down to a combination
-//: of the two.  This is so common that most of the AudioKit nodes have a
+//: It's very common to mix exactly two inputs, one before
+//: processing occurs, and one after, resulting in a combination
+//: of the two.  This is so common that many of the AudioKit nodes have a
 //: dry/wet mix parameter built in.  But, if you are building your own
 //: custom effects, or making a long chain of effects, you can use
 //: AKDryWetMixer to blend your signals.

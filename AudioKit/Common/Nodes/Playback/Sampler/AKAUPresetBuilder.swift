@@ -163,11 +163,11 @@ open class AKAUPresetBuilder {
         
         //write to file
         do {
-            //print("Writing to \(path)")
+            //AKLog("Writing to \(path)")
             try str.write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
         } catch let error as NSError {
-            print("Could not write to \(path)")
-            print(error)
+            AKLog("Could not write to \(path)")
+            AKLog("\(error)")
         }
     }
     
