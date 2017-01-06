@@ -101,7 +101,6 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setSporth(sporth)
         }
     }

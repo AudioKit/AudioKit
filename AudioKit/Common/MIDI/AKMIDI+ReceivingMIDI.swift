@@ -67,7 +67,7 @@ extension AKMIDI {
                     for packet in packetList.pointee {
                         // a coremidi packet may contain multiple midi events
                         for event in packet {
-                            self.handleMidiMessage(event)
+                            self.handleMIDIMessage(event)
                         }
                     }
                 }
@@ -75,7 +75,7 @@ extension AKMIDI {
                 inputPorts[namedInput] = port
                 
                 if result != noErr {
-                    print("Error creating midiInPort : \(result)")
+                    AKLog("Error creating midiInPort : \(result)")
                 }
                 MIDIPortConnectSource(port, src, nil)
                 endpoints[namedInput] = src
@@ -96,7 +96,7 @@ extension AKMIDI {
                         endpoints.removeValue(forKey: namedInput)
                         inputPorts.removeValue(forKey: namedInput)
                     } else {
-                        print("Error closing midiInPort : \(result)")
+                        AKLog("Error closing midiInPort : \(result)")
                     }
                 }
             }
@@ -108,7 +108,7 @@ extension AKMIDI {
         closeInput()
     }
     
-    internal func handleMidiMessage(_ event: AKMIDIEvent) {
+    internal func handleMIDIMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
             guard let eventChannel = event.channel else { return }
             let type = event.status

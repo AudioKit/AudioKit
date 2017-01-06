@@ -60,7 +60,7 @@ open class AKSampler: AKNode {
         do {
             try samplerUnit.loadAudioFiles(at: [url])
         } catch {
-            print("Error loading wav file at the given file location.")
+            AKLog("Error loading wav file at the given file location.")
         }
     }
 
@@ -80,7 +80,7 @@ open class AKSampler: AKNode {
         do {
             try samplerUnit.loadAudioFiles(at: [file.url])
         } catch let error as NSError {
-            print("AKSampler Error loading \"\(file.fileNamePlusExtension)\" !...")
+            AKLog("AKSampler Error loading \"\(file.fileNamePlusExtension)\" !...")
             throw error
         }
     }
@@ -101,7 +101,7 @@ open class AKSampler: AKNode {
         do {
             try samplerUnit.loadAudioFiles(at: urls)
         } catch let error as NSError {
-            print("AKSampler Error loading audioFiles !...")
+            AKLog("AKSampler Error loading audioFiles !...")
             throw error
         }
     }
@@ -117,7 +117,7 @@ open class AKSampler: AKNode {
                 bankMSB: UInt8(type),
                 bankLSB: UInt8(kAUSampler_DefaultBankLSB))
         } catch {
-            print("Error loading SoundFont.")
+            AKLog("Error loading SoundFont.")
         }
     }
 
@@ -150,19 +150,19 @@ open class AKSampler: AKNode {
         do {
             try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
         } catch {
-            print("Error loading file at given file path.")
+            AKLog("Error loading file at given file path.")
         }
     }
 
     internal func loadInstrument(_ file: String, type: String) {
-        //print("filename is \(file)")
+        //AKLog("filename is \(file)")
         guard let url = Bundle.main.url(forResource: file, withExtension: type) else {
                 fatalError("file not found.")
         }
         do {
             try samplerUnit.loadInstrument(at: url)
         } catch {
-            print("Error loading instrument.")
+            AKLog("Error loading instrument.")
         }
     }
 

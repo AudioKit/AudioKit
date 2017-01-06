@@ -43,10 +43,10 @@ public extension AKMandolin {
     
     /// Print out current values in case you want to save it as a preset
     public func printCurrentValuesAsPreset() {
-        print("public func presetSomeNewMandolin() {")
-        print("    detune = \(String(format: "%0.3f", detune))")
-        print("    bodySize = \(String(format: "%0.3f", bodySize))")
-        print("}\n")
+        AKLog("public func presetSomeNewMandolin() {")
+        AKLog("    detune = \(String(format: "%0.3f", detune))")
+        AKLog("    bodySize = \(String(format: "%0.3f", bodySize))")
+        AKLog("}\n")
     }
 
 }

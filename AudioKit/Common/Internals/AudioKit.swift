@@ -199,7 +199,7 @@ extension AVAudioEngine {
         do {
             try AVAudioSession.sharedInstance().setActive(false)
         } catch {
-            print("couldn't stop session \(error)")
+            AKLog("couldn't stop session \(error)")
         }
         #endif
     }
@@ -254,7 +254,7 @@ extension AVAudioEngine {
             do {
                 try self.engine.start()
             } catch {
-                print("couldn't start engine after configuration change \(error)")
+                AKLog("couldn't start engine after configuration change \(error)")
             }
         }
 
@@ -274,7 +274,7 @@ extension AVAudioEngine {
 
                 }
             } catch {
-                print("error restarting engine after route change")
+                AKLog("error restarting engine after route change")
             }
         }
     }

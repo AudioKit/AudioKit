@@ -37,42 +37,26 @@ standardKernelPassthroughs()
     standardSetup(HighShelfParametricEqualizerFilter)
 
     // Create a parameter object for the centerFrequency.
-    AUParameter *centerFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"centerFrequency"
-                                              name:@"Corner Frequency (Hz)"
-                                           address:centerFrequencyAddress
-                                               min:12.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+  AUParameter *centerFrequencyAUParameter = [AUParameter parameter:@"centerFrequency"
+                                                              name:@"Corner Frequency (Hz)"
+                                                           address:centerFrequencyAddress
+                                                               min:12.0
+                                                               max:20000.0
+                                                              unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the gain.
-    AUParameter *gainAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"gain"
-                                              name:@"Gain"
-                                           address:gainAddress
-                                               min:0.0
-                                               max:10.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *gainAUParameter = [AUParameter parameter:@"gain"
+                                                     name:@"Gain"
+                                                  address:gainAddress
+                                                      min:0.0
+                                                      max:10.0
+                                                     unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the q.
-    AUParameter *qAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"q"
-                                              name:@"Q"
-                                           address:qAddress
-                                               min:0.0
-                                               max:2.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *qAUParameter = [AUParameter parameter:@"q"
+                                                  name:@"Q"
+                                               address:qAddress
+                                                   min:0.0
+                                                   max:2.0
+                                                  unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 1000;
@@ -96,14 +80,9 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case centerFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case gainAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case qAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

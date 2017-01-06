@@ -17,8 +17,8 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - Properties
 
-    internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
+    private var internalAU: AKAudioUnitType?
+    private var token: AUParameterObserverToken?
 
     fileprivate var waveformArray = [AKTable]()
 
@@ -166,7 +166,6 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            AudioKit.engine.attach(self.avAudioNode)
             for (i, waveform) in waveformArray.enumerated() {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(UInt32(waveform.count)))
                 for (j, sample) in waveform.enumerated() {

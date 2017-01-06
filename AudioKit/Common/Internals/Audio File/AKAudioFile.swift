@@ -115,7 +115,7 @@ open class AKAudioFile: AVAudioFile {
         }
     }
 
-    /// the directory path as a NSURL object
+    /// the directory path as a URL object
     open var directoryPath: URL {
         get {
             return self.url.deletingLastPathComponent()
@@ -195,7 +195,7 @@ open class AKAudioFile: AVAudioFile {
         do {
             try self.read(into: buffer)
         } catch let error as NSError {
-            print("error cannot readIntBuffer, Error: \(error)")
+            AKLog("error cannot readIntBuffer, Error: \(error)")
         }
 
         return buffer
@@ -236,7 +236,7 @@ open class AKAudioFile: AVAudioFile {
     
     /// Initialize the audio file
     ///
-    /// - parameter fileURL: NSURL of the file
+    /// - parameter fileURL: URL of the file
     ///
     /// - returns: An initialized AKAudioFile object for reading, or nil if init failed.
     ///
@@ -248,7 +248,7 @@ open class AKAudioFile: AVAudioFile {
     /// Initialize the audio file
     ///
     /// - Parameters:
-    ///   - fileURL:     NSURL of the file
+    ///   - fileURL:     URL of the file
     ///   - format:      The processing commonFormat to use when reading from the file.
     ///   - interleaved: Whether to use an interleaved processing format.
     ///
@@ -274,7 +274,7 @@ open class AKAudioFile: AVAudioFile {
     /// So it's better to use .caf (or .aif) files for recording purpose.
     ///
     /// - Parameters:
-    ///   - fileURL:     NSURL of the file.
+    ///   - fileURL:     URL of the file.
     ///   - settings:    The format of the file to create.
     ///   - format:      The processing commonFormat to use when writing.
     ///   - interleaved: Whether to use an interleaved processing format.
@@ -295,7 +295,7 @@ open class AKAudioFile: AVAudioFile {
     /// Super.init inherited from AVAudioFile superclass
     ///
     /// - Parameters:
-    ///   - fileURL: NSURL of the file.
+    ///   - fileURL: URL of the file.
     ///   - settings: The settings of the file to create.
     ///
     /// - Returns: An initialized AKAudioFile for writing, or nil if init failed.

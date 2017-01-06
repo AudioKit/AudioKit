@@ -34,31 +34,16 @@ standardKernelPassthroughs()
     standardSetup(BandPassButterworthFilter)
 
     // Create a parameter object for the centerFrequency.
-    AUParameter *centerFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"centerFrequency"
-                                              name:@"Center Frequency (Hz)"
-                                           address:centerFrequencyAddress
-                                               min:12.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *centerFrequencyAUParameter = [AUParameter frequency:@"centerFrequency"
+                                                                name:@"Center Frequency (Hz)"
+                                                             address:centerFrequencyAddress];
     // Create a parameter object for the bandwidth.
-    AUParameter *bandwidthAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"bandwidth"
-                                              name:@"Bandwidth (Hz)"
-                                           address:bandwidthAddress
-                                               min:0.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
-
+    AUParameter *bandwidthAUParameter = [AUParameter parameter:@"bandwidth"
+                                                          name:@"Bandwidth (Hz)"
+                                                       address:bandwidthAddress
+                                                           min:0.0
+                                                           max:20000.0
+                                                          unit:kAudioUnitParameterUnit_Hertz];
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 2000.0;
     bandwidthAUParameter.value = 100.0;
@@ -79,11 +64,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case centerFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case bandwidthAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

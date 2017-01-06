@@ -36,30 +36,17 @@ standardKernelPassthroughs()
     standardSetup(BitCrusher)
 
     // Create a parameter object for the bitDepth.
-    AUParameter *bitDepthAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"bitDepth"
-                                              name:@"Bit Depth"
-                                           address:bitDepthAddress
-                                               min:1
-                                               max:24
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the sampleRate.
-    AUParameter *sampleRateAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"sampleRate"
-                                              name:@"Sample Rate (Hz)"
-                                           address:sampleRateAddress
-                                               min:1.0
-                                               max:20000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *bitDepthAUParameter = [AUParameter parameter:@"bitDepth"
+                                                         name:@"Bit Depth"
+                                                      address:bitDepthAddress
+                                                          min:1
+                                                          max:24
+                                                         unit:kAudioUnitParameterUnit_Generic];
 
+    // Create a parameter object for the sampleRate.
+    AUParameter *sampleRateAUParameter = [AUParameter frequency:@"sampleRate"
+                                                           name:@"Sample Rate (Hz)"
+                                                        address:sampleRateAddress];
 
     // Initialize the parameter values.
     bitDepthAUParameter.value = 8;
@@ -80,11 +67,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case bitDepthAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case sampleRateAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

@@ -16,8 +16,8 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    internal var internalAU: AKAudioUnitType?
-    internal var token: AUParameterObserverToken?
+    private var internalAU: AKAudioUnitType?
+    private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
 
@@ -68,8 +68,6 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent {
 
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 

@@ -58,11 +58,11 @@ extension AKAudioFile {
                 let filePathName = "\(tempPath)/\(fileName)"
                 do {
                     try fileManager.removeItem(atPath: filePathName)
-                    print("\"\(fileName)\" deleted.")
+                    AKLog("\"\(fileName)\" deleted.")
                     deletedFilesCount += 1
                 } catch let error as NSError {
-                    print("Couldn't delete \(fileName) from Temp Directory")
-                    print("Error: \(error)")
+                    AKLog("Couldn't delete \(fileName) from Temp Directory")
+                    AKLog("Error: \(error)")
                 }
             }
             
@@ -88,16 +88,16 @@ extension AKAudioFile {
             
             // print report
             switch deletedFilesCount {
-            case 0: print("AKAudioFile.cleanTempDirectory: No file deleted.")
-            case 1: print("AKAudioFile.cleanTempDirectory: \(deletedFilesCount) File deleted.")
-            default: print("AKAudioFile.cleanTempDirectory: \(deletedFilesCount) Files deleted.")
+            case 0: AKLog("AKAudioFile.cleanTempDirectory: No file deleted.")
+            case 1: AKLog("AKAudioFile.cleanTempDirectory: \(deletedFilesCount) File deleted.")
+            default: AKLog("AKAudioFile.cleanTempDirectory: \(deletedFilesCount) Files deleted.")
                 
             }
             
             
         } catch let error as NSError {
-            print("Couldn't access Temp Directory")
-            print("Error: \(error)")
+            AKLog("Couldn't access Temp Directory")
+            AKLog("Error: \(error)")
         }
     }
     
@@ -117,7 +117,7 @@ extension AKAudioFile {
                               name: String = "") throws -> AKAudioFile {
         
         if samples < 0 {
-            print( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count !")
+            AKLog( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count !")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
         } else if samples == 0 {
             let emptyFile = try AKAudioFile(writeIn: baseDir, name: name)
@@ -125,7 +125,7 @@ extension AKAudioFile {
             return try AKAudioFile(forReading: emptyFile.url)
         }
         
-        let array = [Float](zeroes:Int(samples))
+        let array = [Float](zeros: Int(samples))
         let silentFile = try AKAudioFile(createFileFromFloats: [array, array], baseDir: baseDir, name: name)
         
         return try AKAudioFile(forReading: silentFile.url)

@@ -47,29 +47,19 @@
     standardSetup(Mandolin)
 
     // Create a parameter object for the detune.
-    AUParameter *detuneAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"detune"
-                                              name:@"Detune"
-                                           address:detuneAddress
-                                               min:0.0001
-                                               max:100.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *detuneAUParameter = [AUParameter parameter:@"detune"
+                                                       name:@"Detune"
+                                                    address:detuneAddress
+                                                        min:0.0001
+                                                        max:100.0
+                                                       unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the body size.
-    AUParameter *bodySizeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"bodySize"
-                                              name:@"Body size"
-                                           address:bodySizeAddress
-                                               min:0
-                                               max:10
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *bodySizeAUParameter = [AUParameter parameter:@"bodySize"
+                                                         name:@"Body size"
+                                                      address:bodySizeAddress
+                                                          min:0
+                                                          max:10
+                                                         unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     detuneAUParameter.value = 1.0;

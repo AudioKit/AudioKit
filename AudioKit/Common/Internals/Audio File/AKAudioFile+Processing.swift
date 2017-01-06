@@ -33,12 +33,12 @@ extension AKAudioFile {
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
         
         if self.samplesCount == 0 {
-            print( "WARNING AKAudioFile: cannot normalize an empty file")
+            AKLog("WARNING AKAudioFile: cannot normalize an empty file")
             return try AKAudioFile(forReading: outputFile.url)
         }
         
         if level == FLT_MIN {
-            print( "WARNING AKAudioFile: cannot normalize a silent file")
+            AKLog("WARNING AKAudioFile: cannot normalize a silent file")
             return try AKAudioFile(forReading: outputFile.url)
         }
         
@@ -113,36 +113,36 @@ extension AKAudioFile {
         
         
         if self.fileFormat != file.fileFormat {
-            print("WARNING AKAudioFile.append: appended file should be of same format as source file!")
-            print("WARNING AKAudioFile.append: trying to fix by converting files...")
+            AKLog("WARNING AKAudioFile.append: appended file should be of same format as source file!")
+            AKLog("WARNING AKAudioFile.append: trying to fix by converting files...")
             // We use extract method to get a .CAF file with the right format for appending
             // So sourceFile and appended File formats should match
             do {
                 // First, we convert the source file to .CAF using extract()
                 let convertedFile = try self.extracted()
                 sourceBuffer = convertedFile.pcmBuffer
-                print("AKAudioFile.append: source file has been successfully converted")
+                AKLog("AKAudioFile.append: source file has been successfully converted")
                 
                 if convertedFile.fileFormat != file.fileFormat {
                     do {
                         // If still don't match we convert the appended file to .CAF using extract()
                         let convertedAppendFile = try file.extracted()
                         appendedBuffer = convertedAppendFile.pcmBuffer
-                        print("AKAudioFile.append: appended file has been successfully converted")
+                        AKLog("AKAudioFile.append: appended file has been successfully converted")
                     } catch let error as NSError {
-                        print("ERROR AKAudioFile.append: cannot set append file format match source file format!...")
+                        AKLog("ERROR AKAudioFile.append: cannot set append file format match source file format!...")
                         throw error
                     }
                 }
             } catch let error as NSError {
-                print( "ERROR AKAudioFile: Cannot convert sourceFile to .CAF!")
+                AKLog("ERROR AKAudioFile: Cannot convert sourceFile to .CAF!")
                 throw error
             }
         }
         
         // We check that both pcm buffers share the same format
         if appendedBuffer.format != sourceBuffer.format {
-            print("ERROR AKAudioFile.append: Couldn't match source file format with appended file format!...")
+            AKLog("ERROR AKAudioFile.append: Couldn't match source file format with appended file format!...")
             let userInfo: [AnyHashable: Any] = [
                 NSLocalizedDescriptionKey : NSLocalizedString(
                     "AKAudioFile append process Error",
@@ -163,7 +163,7 @@ extension AKAudioFile {
         do {
             try outputFile.write(from: sourceBuffer)
         } catch let error as NSError {
-            print( "ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
+            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
         
@@ -171,7 +171,7 @@ extension AKAudioFile {
         do {
             try outputFile.write(from: appendedBuffer)
         } catch let error as NSError {
-            print( "ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
+            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
         
@@ -196,7 +196,7 @@ extension AKAudioFile {
         let fixedFrom = abs(fromSample)
         let fixedTo: Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample, Int64(self.samplesCount))
         if fixedTo <= fixedFrom {
-            print( "ERROR AKAudioFile: cannot extract, from must be less than to !")
+            AKLog("ERROR AKAudioFile: cannot extract, from must be less than to !")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
         }
         

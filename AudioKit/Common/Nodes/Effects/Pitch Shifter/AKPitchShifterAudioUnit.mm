@@ -37,43 +37,26 @@ standardKernelPassthroughs()
     standardSetup(PitchShifter)
 
     // Create a parameter object for the shift.
-    AUParameter *shiftAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"shift"
-                                              name:@"Pitch shift (in semitones)"
-                                           address:shiftAddress
-                                               min:-24.0
-                                               max:24.0
-                                              unit:kAudioUnitParameterUnit_RelativeSemiTones
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *shiftAUParameter = [AUParameter parameter:@"shift"
+                                                      name:@"Pitch shift (in semitones)"
+                                                   address:shiftAddress
+                                                       min:-24.0
+                                                       max:24.0
+                                                      unit:kAudioUnitParameterUnit_RelativeSemiTones];
     // Create a parameter object for the windowSize.
-    AUParameter *windowSizeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"windowSize"
-                                              name:@"Window size (in samples)"
-                                           address:windowSizeAddress
-                                               min:0.0
-                                               max:10000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *windowSizeAUParameter = [AUParameter parameter:@"windowSize"
+                                                           name:@"Window size (in samples)"
+                                                        address:windowSizeAddress
+                                                            min:0.0
+                                                            max:10000.0
+                                                           unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the crossfade.
-    AUParameter *crossfadeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"crossfade"
-                                              name:@"Crossfade (in samples)"
-                                           address:crossfadeAddress
-                                               min:0.0
-                                               max:10000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
-
+    AUParameter *crossfadeAUParameter = [AUParameter parameter:@"crossfade"
+                                                          name:@"Crossfade (in samples)"
+                                                       address:crossfadeAddress
+                                                           min:0.0
+                                                           max:10000.0
+                                                          unit:kAudioUnitParameterUnit_Hertz];
     // Initialize the parameter values.
     shiftAUParameter.value = 0;
     windowSizeAUParameter.value = 1024;
@@ -96,14 +79,9 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case shiftAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case windowSizeAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case crossfadeAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }

@@ -34,35 +34,23 @@ standardKernelPassthroughs()
     standardSetup(StringResonator)
 
     // Create a parameter object for the fundamentalFrequency.
-    AUParameter *fundamentalFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"fundamentalFrequency"
-                                              name:@"Fundamental Frequency (Hz)"
-                                           address:fundamentalFrequencyAddress
-                                               min:12.0
-                                               max:10000.0
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    AUParameter *fundamentalFrequencyAUParameter = [AUParameter parameter:@"fundamentalFrequency"
+                                                                     name:@"Fundamental Frequency (Hz)"
+                                                                  address:fundamentalFrequencyAddress
+                                                                      min:12.0
+                                                                      max:10000.0
+                                                                     unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the feedback.
-    AUParameter *feedbackAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"feedback"
-                                              name:@"Feedback (%)"
-                                           address:feedbackAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
+                                                         name:@"Feedback (%)"
+                                                      address:feedbackAddress
+                                                          min:0.0
+                                                          max:1.0
+                                                         unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     fundamentalFrequencyAUParameter.value = 100;
     feedbackAUParameter.value = 0.95;
-
 
     _kernel.setParameter(fundamentalFrequencyAddress, fundamentalFrequencyAUParameter.value);
     _kernel.setParameter(feedbackAddress,             feedbackAUParameter.value);
@@ -79,11 +67,8 @@ standardKernelPassthroughs()
 
         switch (param.address) {
             case fundamentalFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
             case feedbackAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
             default:
                 return @"?";
         }
