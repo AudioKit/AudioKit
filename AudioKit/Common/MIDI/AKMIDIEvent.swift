@@ -248,13 +248,7 @@ public struct AKMIDIEvent {
         
         switch status {
         case .controllerChange:
-            if byte1 < AKMIDIControl.dataEntryPlus.rawValue ||
-                byte1 == AKMIDIControl.localControlOnOff.rawValue {
-                
-                length = 3
-            } else {
-                length = 2
-            }
+            length = 3
         case .channelAftertouch: break
         case .programChange:
             length = 2
