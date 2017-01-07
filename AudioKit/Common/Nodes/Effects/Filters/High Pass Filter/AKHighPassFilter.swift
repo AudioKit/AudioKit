@@ -14,7 +14,6 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var mixer: AKMixer
     private var au: AUWrapper
 
@@ -74,7 +73,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUComponent {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
 
             au = AUWrapper(au: internalEffect.audioUnit)
             super.init()

@@ -14,7 +14,6 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
     private var mixer: AKMixer
 
@@ -74,7 +73,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUComponent {
         effectGain = AKMixer(input)
         effectGain!.volume = 1
 
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+        let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
         au = AUWrapper(au: internalEffect.audioUnit)
 
         super.init()
