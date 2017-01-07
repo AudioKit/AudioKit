@@ -15,7 +15,6 @@ open class AKRingModulator: AKNode, AKToggleable, AUComponent {
     // MARK: - Properties
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
-
     private var au: AUWrapper
     private var lastKnownMix: Double = 1
 
@@ -82,7 +81,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUComponent {
 
             super.init()
             avAudioNode = internalEffect
-            AudioKit.engine.attach(avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
 
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
