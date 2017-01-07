@@ -13,7 +13,6 @@ import AVFoundation
 open class AKCompressor: AKNode, AKToggleable, AUComponent {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
 
     fileprivate var mixer: AKMixer
@@ -120,7 +119,7 @@ open class AKCompressor: AKNode, AKToggleable, AUComponent {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             AudioKit.engine.attach(internalEffect)
             au = AUWrapper(au: internalEffect.audioUnit)
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)

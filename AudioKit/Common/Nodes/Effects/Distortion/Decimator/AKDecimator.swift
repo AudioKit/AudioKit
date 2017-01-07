@@ -16,7 +16,6 @@ open class AKDecimator: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
 
     fileprivate var lastKnownMix: Double = 1
@@ -68,6 +67,7 @@ open class AKDecimator: AKNode, AKToggleable, AUComponent {
             self.rounding = rounding
             self.mix = mix
 
+            let
             internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             au = AUWrapper(au: internalEffect.audioUnit)
 
