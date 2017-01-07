@@ -9,6 +9,87 @@
 import Foundation
 import AVFoundation
 
+extension AVAudioCommonFormat: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .pcmFormatFloat32 :
+            return "PCMFormatFloat32"
+        case .pcmFormatFloat64:
+            return "PCMFormatFloat64"
+        case .pcmFormatInt16:
+            return "PCMFormatInt16"
+        case .pcmFormatInt32:
+            return "PCMFormatInt32"
+        default :
+            return "OtherFormat"
+        }
+    }
+}
+
+extension AVAudioFile {
+
+    // MARK: - Public Properties
+
+    /// The number of samples can be accessed by .length property,
+    /// but samplesCount has a less ambiguous meaning
+    open var samplesCount: Int64 {
+        return length
+    }
+
+    /// strange that sampleRate is a Double and not an Integer !...
+    open var sampleRate: Double {
+        return fileFormat.sampleRate
+    }
+    /// Number of channels, 1 for mono, 2 for stereo...
+    open var channelCount: UInt32 {
+        return fileFormat.channelCount
+    }
+
+    /// Duration in seconds
+    open var duration: Double {
+        return Double(samplesCount) / (sampleRate)
+    }
+
+    /// true if Audio Samples are interleaved
+    open var interleaved: Bool {
+        return fileFormat.isInterleaved
+    }
+
+    /// true only if file format is "deinterleaved native-endian float (AVAudioPCMFormatFloat32)"
+    open var standard: Bool {
+        return fileFormat.isStandard
+    }
+
+    /// Human-readable version of common format
+    open var commonFormatString: String {
+        return "\(fileFormat.commonFormat)"
+    }
+
+    /// the directory path as a URL object
+    open var directoryPath: URL {
+        return url.deletingLastPathComponent()
+    }
+
+    /// the file name with extension as a String
+    open var fileNamePlusExtension: String {
+        return url.lastPathComponent
+    }
+
+    /// the file name without extension as a String
+    open var fileName: String {
+        return url.deletingPathExtension().lastPathComponent
+    }
+
+    /// the file extension as a String (without ".")
+    open var fileExt: String {
+        return url.pathExtension
+    }
+
+    override open var description: String {
+        return super.description + "\n" + String(describing: fileFormat)
+    }
+}
+
 /// Audio file, inherits from AVAudioFile and adds functionality
 open class AKAudioFile: AVAudioFile {
 
@@ -43,120 +124,13 @@ open class AKAudioFile: AVAudioFile {
     }()
 
 
-    // MARK: - Public Properties
-
-    /// The number of samples can be accessed by .length property,
-    /// but samplesCount has a less ambiguous meaning
-    open var samplesCount: Int64 {
-        get {
-            return self.length
-        }
-    }
-
-    /// strange that sampleRate is a Double and not an Integer !...
-    open var sampleRate: Double {
-        get {
-            return self.fileFormat.sampleRate
-        }
-    }
-    /// Number of channels, 1 for mono, 2 for stereo...
-    open var channelCount: UInt32 {
-        get {
-            return self.fileFormat.channelCount
-        }
-    }
-
-    /// Duration in seconds
-    open var duration: Double {
-        get {
-            return Double(samplesCount) / (sampleRate)
-        }
-    }
-
-    /// true if Audio Samples are interleaved
-    open var interleaved: Bool {
-        get {
-            return self.fileFormat.isInterleaved
-        }
-    }
-
-    /// true only if file format is "deinterleaved native-endian float (AVAudioPCMFormatFloat32)"
-    open var standard: Bool {
-        get {
-            return self.fileFormat.isStandard
-        }
-    }
-
-    /*  commonFormatString translates commonFormat in an human readable string.
-     enum AVAudioCommonFormat : UInt {
-     case OtherFormat
-     case PCMFormatFloat32
-     case PCMFormatFloat64
-     case PCMFormatInt16
-     case PCMFormatInt32
-     }  */
-
-    /// Human-readable version of common format
-    open var commonFormatString: String {
-        get {
-
-            switch self.fileFormat.commonFormat.rawValue {
-            case 1 :
-                return "PCMFormatFloat32"
-            case 2:
-                return "PCMFormatFloat64"
-            case 3 :
-                return "PCMFormatInt16"
-            case 4:
-                return "PCMFormatInt32"
-            default :
-                return "OtherFormat"
-            }
-        }
-    }
-
-    /// the directory path as a URL object
-    open var directoryPath: URL {
-        get {
-            return self.url.deletingLastPathComponent()
-        }
-    }
-
-    /// the file name with extension as a String
-    open var fileNamePlusExtension: String {
-        get {
-            return self.url.lastPathComponent
-        }
-    }
-
-    /// the file name without extension as a String
-    open var fileName: String {
-        get {
-            return (self.url.deletingPathExtension().lastPathComponent)
-        }
-    }
-
-    /// the file extension as a String (without ".")
-    open var fileExt: String {
-        get {
-            return (self.url.pathExtension)
-        }
-    }
-
     /// Returns an AVAsset from the AKAudioFile
     open var avAsset: AVURLAsset {
         return internalAVAsset
     }
 
-    /// As The description doesn't provide so much informations, appended the fileFormat.
-    override open var description: String {
-        get {
-            return super.description + "\n" + String(describing: self.fileFormat)
-        }
-    }
-
     // Make our types Human Friendly™
-    public typealias FloatChannelData = Array<Array<Float>>
+    public typealias FloatChannelData = [[Float]]
 
     /// Returns audio data as an `Array` of `Float` Arrays.
     ///
@@ -170,11 +144,11 @@ open class AKAudioFile: AVAudioFile {
         }
 
         let channelCount = Int(self.pcmBuffer.format.channelCount)
-        let frameLength  = Int(self.pcmBuffer.frameLength)
-        let stride       = self.pcmBuffer.stride
+        let frameLength = Int(self.pcmBuffer.frameLength)
+        let stride  = self.pcmBuffer.stride
 
         // Preallocate our Array so we're not constantly thrashing while resizing as we append.
-        var result = Array(repeating: Array<Float>(repeating: 0.0, count: frameLength), count: channelCount)
+        var result = Array(repeating: [Float](zeros: frameLength), count: channelCount)
 
         // Loop across our channels...
         for channel in 0..<channelCount {
@@ -190,7 +164,8 @@ open class AKAudioFile: AVAudioFile {
     /// returns audio data as an AVAudioPCMBuffer
     open lazy var pcmBuffer: AVAudioPCMBuffer = {
 
-        let buffer =  AVAudioPCMBuffer(pcmFormat: self.processingFormat, frameCapacity: (AVAudioFrameCount( self.length)))
+        let buffer = AVAudioPCMBuffer(pcmFormat: self.processingFormat,
+                                      frameCapacity: AVAudioFrameCount(self.length))
 
         do {
             try self.read(into: buffer)
@@ -230,7 +205,7 @@ open class AKAudioFile: AVAudioFile {
         if maxLev == 0 {
             return FLT_MIN
         } else {
-            return (10 * log10(maxLev))
+            return 10 * log10(maxLev)
         }
     }()
     

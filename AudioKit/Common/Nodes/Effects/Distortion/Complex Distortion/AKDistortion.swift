@@ -16,7 +16,6 @@ open class AKDistortion: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
     private var lastKnownMix: Double = 0.5
 
@@ -210,7 +209,7 @@ open class AKDistortion: AKNode, AKToggleable, AUComponent {
             self.softClipGain = softClipGain
             self.finalMix = finalMix
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             au = AUWrapper(au: internalEffect.audioUnit)
 
             super.init()
