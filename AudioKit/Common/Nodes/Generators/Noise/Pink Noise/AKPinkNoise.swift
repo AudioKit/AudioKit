@@ -18,8 +18,7 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
 
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-
-    fileprivate var amplitudeParameter: AUParameter?
+    private var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
