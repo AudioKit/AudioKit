@@ -67,8 +67,7 @@ open class AKDecimator: AKNode, AKToggleable, AUComponent {
             self.rounding = rounding
             self.mix = mix
 
-            let
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             au = AUWrapper(au: internalEffect.audioUnit)
 
             super.init()
