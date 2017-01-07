@@ -37,7 +37,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
 
     /// Detected amplitude
     open var amplitude: Double {
-        return Double(self.internalAU!.amplitude) / sqrt(2.0) * 2.0
+        return Double(internalAU!.amplitude) / sqrt(2.0) * 2.0
     }
 
     // MARK: - Initialization
