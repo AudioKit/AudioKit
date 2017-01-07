@@ -23,9 +23,12 @@
     "frameworks": [
 	"AVFoundation"
     ],
+    "pod_target_xcconfig": {
+	"ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES"
+    },
     "osx": {
         "source_files": "macOS/AudioKit.framework/Versions/A/Headers/*.h",
-	    "public_header_files": "macOS/AudioKit.framework/Versions/A/Headers/*.h",
+        "public_header_files": "macOS/AudioKit.framework/Versions/A/Headers/*.h",
         "vendored_frameworks": "macOS/AudioKit.framework"
     },
     "ios": {
