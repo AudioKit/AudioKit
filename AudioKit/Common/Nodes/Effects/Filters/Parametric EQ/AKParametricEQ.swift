@@ -14,7 +14,6 @@ open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
     private var mixer: AKMixer
 
@@ -82,7 +81,7 @@ open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
             mixer = AKMixer(inputGain!)
             effectGain = AKMixer(input)
             effectGain!.volume = 1
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             au = AUWrapper(au: internalEffect.audioUnit)
             super.init()
 
