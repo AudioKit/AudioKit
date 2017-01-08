@@ -15,8 +15,6 @@ open class AKRingModulator: AKNode, AKToggleable, AUComponent {
     // MARK: - Properties
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
-
-    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
     private var lastKnownMix: Double = 1
 
@@ -78,7 +76,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUComponent {
             self.balance = balance
             self.mix = mix
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             au = AUWrapper(au: internalEffect.audioUnit)
 
             super.init()

@@ -11,15 +11,12 @@ import AVFoundation
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
 open class AKDecimator: AKNode, AKToggleable, AUComponent {
-
     // MARK: - Properties
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
-
-    fileprivate var lastKnownMix: Double = 1
+    private var lastKnownMix: Double = 1
 
     /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     open var decimation: Double = 0.5 {
@@ -68,7 +65,7 @@ open class AKDecimator: AKNode, AKToggleable, AUComponent {
             self.rounding = rounding
             self.mix = mix
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             au = AUWrapper(au: internalEffect.audioUnit)
 
             super.init()
