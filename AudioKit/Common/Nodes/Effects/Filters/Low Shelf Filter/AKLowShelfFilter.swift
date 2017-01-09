@@ -73,15 +73,14 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
         effectGain = AKMixer(input)
         effectGain!.volume = 1
 
-        let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-        au = AUWrapper(au: internalEffect)
+        let effect = _Self.effect
+        au = AUWrapper(au: effect)
 
-        super.init()
+        super.init(avAudioNode: mixer.avAudioNode)
 
-        AudioKit.engine.attach(internalEffect)
-        AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
-        AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
-        avAudioNode = mixer.avAudioNode
+        AudioKit.engine.attach(effect)
+        AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+        AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
         au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
         au[kAULowShelfParam_Gain] = gain

@@ -16,9 +16,9 @@ public protocol AUComponent: class {
 protocol AUEffect: AUComponent { }
 
 extension AUEffect {
-  static var effect: AVAudioUnitEffect {
-    return AVAudioUnitEffect(audioComponentDescription: ComponentDescription)
-  }
+    static var effect: AVAudioUnitEffect {
+        return AVAudioUnitEffect(audioComponentDescription: ComponentDescription)
+    }
 }
 
 public protocol AKComponent: AUComponent {
