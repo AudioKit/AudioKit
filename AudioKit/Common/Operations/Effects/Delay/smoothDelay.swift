@@ -25,6 +25,6 @@ extension AKComputedParameter {
              maximumDelayTime: Double = 5.0
         ) -> AKOperation {
         return AKOperation(module: "smoothdelay",
-                           inputs: self.toMono(), feedback, time, maximumDelayTime, samples)
+                           inputs: toMono(), feedback, time, maximumDelayTime, samples)
     }
 }

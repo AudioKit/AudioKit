@@ -15,6 +15,6 @@ extension AKOperation {
     /// - parameter parameterIndex: Location in the parameters array to save this value
     ///
     public func save(parameterIndex: Int) -> AKOperation {
-        return AKOperation(module: "dup \(parameterIndex) pset", inputs: self.toMono())
+        return AKOperation(module: "dup \(parameterIndex) pset", inputs: toMono())
     }
 }
