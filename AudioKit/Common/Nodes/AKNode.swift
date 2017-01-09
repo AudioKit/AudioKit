@@ -9,6 +9,25 @@
 import Foundation
 import AVFoundation
 
+struct Bus: ExpressibleByIntegerLiteral, RawRepresentable {
+  let rawValue: Int
+
+  init(integerLiteral value: IntegerLiteralType) {
+    self.rawValue = Int(value)
+  }
+
+  init(rawValue: Int) {
+    self.rawValue = rawValue
+  }
+}
+
+
+extension AVAudioConnectionPoint {
+    convenience init(_ node: AKNode, to bus: Int) {
+        self.init(node: node.avAudioNode, bus: bus)
+    }
+}
+
 /// Parent class for all nodes in AudioKit
 @objc open class AKNode: NSObject {
     
@@ -31,14 +50,22 @@ import AVFoundation
     }
 
     /// Connect this node to another
-    open func addConnectionPoint(_ node: AKNode) {
-        connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
+    open func addConnectionPoint(_ node: AKNode, bus: Int = 0) {
+        connectionPoints.append(AVAudioConnectionPoint(node, to: bus))
         AudioKit.engine.connect(avAudioNode,
                                 to: connectionPoints,
-                                fromBus: 0,
+                                fromBus: bus,
                                 format: AudioKit.format)
     }
 }
+
+//extension AKNode where Self: AKComponent {
+//  public init() {
+//    fatalError()
+////      AVAudioUnit.instantiate
+//  }
+//
+//}
 
 /// Protocol for responding to play and stop of MIDI notes
 public protocol AKPolyphonic {
