@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
-open class AKRingModulator: AKNode, AKToggleable, AUComponent {
+open class AKRingModulator: AKNode, AKToggleable, AUEffect {
 
     // MARK: - Properties
 

@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class AKDistortion: AKNode, AKToggleable, AUComponent {
+open class AKDistortion: AKNode, AKToggleable, AUEffect {
 
     // MARK: - Properties
 

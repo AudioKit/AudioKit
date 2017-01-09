@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
-open class AKLowShelfFilter: AKNode, AKToggleable, AUComponent {
+open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
 

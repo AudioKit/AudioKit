@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
+open class AKParametricEQ: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ)
 

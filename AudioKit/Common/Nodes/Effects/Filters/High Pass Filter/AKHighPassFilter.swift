@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-open class AKHighPassFilter: AKNode, AKToggleable, AUComponent {
+open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 

@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class AKPeakLimiter: AKNode, AKToggleable, AUComponent {
+open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
 

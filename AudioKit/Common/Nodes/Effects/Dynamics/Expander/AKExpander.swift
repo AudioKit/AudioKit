@@ -11,7 +11,7 @@ import AVFoundation
 
 /// AudioKit Expander based on Apple's DynamicsProcessor Audio Unit
 ///
-open class AKExpander: AKNode, AKToggleable, AUComponent {
+open class AKExpander: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
