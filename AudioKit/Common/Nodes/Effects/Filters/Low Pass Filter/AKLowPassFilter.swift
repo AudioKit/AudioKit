@@ -74,7 +74,7 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUComponent {
             effectGain!.volume = 1
 
             let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect.audioUnit)
+            au = AUWrapper(au: internalEffect)
 
             super.init()
 

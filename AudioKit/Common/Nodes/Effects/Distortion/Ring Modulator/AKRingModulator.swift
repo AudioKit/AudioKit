@@ -77,7 +77,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUComponent {
             self.mix = mix
 
             let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect.audioUnit)
+            au = AUWrapper(au: internalEffect)
 
             super.init()
             avAudioNode = internalEffect

@@ -22,7 +22,11 @@ import AVFoundation
     override public init() {
         self.avAudioNode = AVAudioNode()
     }
-    
+
+    public init(avAudioNode: AVAudioNode) {
+      self.avAudioNode = avAudioNode
+    }
+
     /// Connect this node to another
     open func addConnectionPoint(_ node: AKNode) {
         connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))

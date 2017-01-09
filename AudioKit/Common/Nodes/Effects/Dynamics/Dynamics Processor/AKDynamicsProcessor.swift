@@ -151,7 +151,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUComponent {
             let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
             AudioKit.engine.attach(internalEffect)
 
-            au = AUWrapper(au: internalEffect.audioUnit)
+            au = AUWrapper(au: internalEffect)
 
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
