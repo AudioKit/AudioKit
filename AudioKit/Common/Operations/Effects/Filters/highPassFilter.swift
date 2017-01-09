@@ -17,6 +17,6 @@ extension AKComputedParameter {
     public func highPassFilter(
         halfPowerPoint: AKParameter = 1000
         ) -> AKOperation {
-        return AKOperation(module: "atone", inputs: self.toMono(), halfPowerPoint)
+        return AKOperation(module: "atone", inputs: toMono(), halfPowerPoint)
     }
 }

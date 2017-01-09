@@ -21,6 +21,6 @@ extension AKComputedParameter {
         amplitude: AKParameter = 0.1
         ) -> AKOperation {
         return AKOperation(module: "100 autowah",
-                           inputs: self.toMono(), amplitude, wah)
+                           inputs: toMono(), amplitude, wah)
     }
 }
