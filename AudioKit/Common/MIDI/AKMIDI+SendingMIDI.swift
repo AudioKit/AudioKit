@@ -6,25 +6,28 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-internal struct MIDIDestinations: Collection {
-    typealias Index = Int
-
-    init() { }
-
+internal extension Collection where Index == Int {
     var startIndex: Index {
         return 0
     }
+
+    func index(after index: Index) -> Index {
+        return index + 1
+    }
+}
+
+internal struct MIDIDestinations: Collection {
+    typealias Index = Int
+    typealias Element = MIDIEndpointRef
+
+    init() { }
 
     var endIndex: Index {
         return MIDIGetNumberOfDestinations()
     }
 
-    subscript (index: Index) -> MIDIEndpointRef {
+    subscript (index: Index) -> Element {
       return MIDIGetDestination(index)
-    }
-
-    func index(after index: Index) -> Index {
-      return index + 1
     }
 }
 
