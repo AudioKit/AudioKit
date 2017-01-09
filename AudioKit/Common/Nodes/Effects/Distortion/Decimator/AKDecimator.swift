@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
-open class AKDecimator: AKNode, AKToggleable, AUComponent {
+open class AKDecimator: AKNode, AKToggleable, AUEffect {
     // MARK: - Properties
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)

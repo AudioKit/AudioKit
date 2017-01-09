@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
+open class AKBandPassFilter: AKNode, AKToggleable, AUEffect {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     private var au: AUWrapper

@@ -13,7 +13,9 @@ public protocol AUComponent: class {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
-extension AUComponent {
+protocol AUEffect: AUComponent { }
+
+extension AUEffect {
   static var effect: AVAudioUnitEffect {
     return AVAudioUnitEffect(audioComponentDescription: ComponentDescription)
   }
