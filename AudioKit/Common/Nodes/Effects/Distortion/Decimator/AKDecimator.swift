@@ -65,13 +65,10 @@ open class AKDecimator: AKNode, AKToggleable, AUComponent {
             self.rounding = rounding
             self.mix = mix
 
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect)
+            let effect = _Self.effect
+            au = AUWrapper(au: effect)
+            super.init(avAudioNode: effect, attach: true)
 
-            super.init()
-
-            avAudioNode = internalEffect
-            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
 
             // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
