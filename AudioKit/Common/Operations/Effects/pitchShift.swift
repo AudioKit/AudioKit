@@ -18,6 +18,6 @@ extension AKComputedParameter {
     ///
     public func pitchShift(semitones: AKParameter = 0) -> AKOperation {
         return AKOperation(module: "1000 100 pshift",
-                           inputs: self.toMono(), semitones)
+                           inputs: toMono(), semitones)
     }
 }
