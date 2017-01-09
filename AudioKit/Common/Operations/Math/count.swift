@@ -17,6 +17,6 @@ extension AKOperation {
     ///   - looping: If set to true, when the maximum is reaching, the count goes back to zero, otherwise it stays at the maximum
     ///
     public func count(maximum: AKParameter = 1000000, looping: Bool = true) -> AKOperation {
-        return AKOperation(module: "count", inputs: self.toMono(), maximum, looping ? 0 : 1)
+        return AKOperation(module: "count", inputs: toMono(), maximum, looping ? 0 : 1)
     }
 }

@@ -25,6 +25,6 @@ extension AKComputedParameter {
         negativeShapeParameter: AKParameter = 0.0
         ) -> AKOperation {
         return AKOperation(module: "dist",
-                           inputs: self.toMono(), pregain, postgain, postiveShapeParameter, negativeShapeParameter)
+                           inputs: toMono(), pregain, postgain, postiveShapeParameter, negativeShapeParameter)
     }
 }

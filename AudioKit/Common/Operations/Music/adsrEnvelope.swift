@@ -25,6 +25,6 @@ extension AKOperation {
         sustain: AKParameter = 1,
         release: AKParameter = 0.2
         ) -> AKOperation {
-        return AKOperation(module:  "adsr *", inputs: self.toMono(), gate, attack, decay, sustain, release)
+        return AKOperation(module:  "adsr *", inputs: toMono(), gate, attack, decay, sustain, release)
     }
 }

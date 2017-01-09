@@ -21,6 +21,6 @@ extension AKComputedParameter {
         sampleRate: AKParameter = 10000
         ) -> AKOperation {
         return AKOperation(module: "bitcrush",
-                           inputs: self.toMono(), bitDepth, sampleRate)
+                           inputs: toMono(), bitDepth, sampleRate)
     }
 }

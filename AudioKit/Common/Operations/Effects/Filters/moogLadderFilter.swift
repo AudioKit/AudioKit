@@ -25,6 +25,6 @@ extension AKComputedParameter {
         resonance: AKParameter = 0.5
         ) -> AKOperation {
         return AKOperation(module: "moogladder",
-                           inputs: self.toMono(), cutoffFrequency, resonance)
+                           inputs: toMono(), cutoffFrequency, resonance)
     }
 }
