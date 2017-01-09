@@ -262,3 +262,14 @@ extension AVAudioUnit {
     }
 }
 
+extension AUParameter {
+    convenience init(identifier: String, name: String, address: AUParameterAddress, range: Range<AUValue>, unit: AudioUnitParameterUnit) {
+        self.init(identifier,
+                  name: name,
+                  address: address,
+                  min: range.lowerBound, 
+                  max: range.upperBound,
+                  unit: unit)
+    }
+}
+

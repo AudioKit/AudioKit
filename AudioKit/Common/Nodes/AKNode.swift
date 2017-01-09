@@ -23,8 +23,11 @@ import AVFoundation
         self.avAudioNode = AVAudioNode()
     }
 
-    public init(avAudioNode: AVAudioNode) {
+    public init(avAudioNode: AVAudioNode, attach: Bool = false) {
       self.avAudioNode = avAudioNode
+      if attach {
+        AudioKit.engine.attach(avAudioNode)
+      }
     }
 
     /// Connect this node to another
