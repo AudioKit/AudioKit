@@ -232,6 +232,17 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
+extension AVAudioUnit {
+  subscript (param: AudioUnitParameterID) -> Double {
+    get {
+        return AudioUnitGetParameter(audioUnit, param: param)
+    }
+    set {
+        AudioUnitSetParameter(audioUnit, param: param, to: newValue)
+    }
+  }
+}
+
 internal struct AUWrapper {
     private let au: AVAudioUnit
 
@@ -241,10 +252,10 @@ internal struct AUWrapper {
 
     subscript (param: AudioUnitParameterID) -> Double {
         get {
-            return AudioUnitGetParameter(au.audioUnit, param: param)
+            return au[param]
         }
         set {
-            AudioUnitSetParameter(au.audioUnit, param: param, to: newValue)
+            au[param] = newValue
         }
     }
 }
