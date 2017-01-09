@@ -8,8 +8,11 @@
 
 import Foundation
 
-public protocol AUComponent: class {
+public protocol Aliased {
     associatedtype _Self = Self
+}
+
+public protocol AUComponent: class, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
