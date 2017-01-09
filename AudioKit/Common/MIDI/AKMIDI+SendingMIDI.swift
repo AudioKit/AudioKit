@@ -16,6 +16,12 @@ internal extension Collection where Index == Int {
     }
 }
 
+func MIDIOutputPort(client: MIDIClientRef, name: CFString) -> MIDIPortRef? {
+    var port: MIDIPortRef = 0
+    guard MIDIOutputPortCreate(client, name, &port) == noErr else { return nil }
+    return port
+}
+
 internal struct MIDIDestinations: Collection {
     typealias Index = Int
     typealias Element = MIDIEndpointRef
@@ -51,21 +57,13 @@ extension AKMIDI {
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openOutput(_ namedOutput: String = "") {
-        var foundDest = false
-        let result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
+        outputPort = MIDIOutputPort(client: client, name: outputPortName)!
 
-        if result != noErr {
-            AKLog("Error creating MIDI output port : \(result)")
-        }
-        for (name, endpoint) in zip(destinationNames, MIDIDestinations()) {
-            if namedOutput.isEmpty || namedOutput == name {
-                AKLog("Found destination at \(name)")
-                endpoints[name] = endpoint
-                foundDest = true
-            }
-        }
-        if !foundDest {
-            AKLog("no midi destination found named \"\(namedOutput)\"")
+        _ = zip(destinationNames, MIDIDestinations()).first {
+            (name, _) in
+            namedOutput.isEmpty || namedOutput == name
+        }.map {
+          endpoints[$0] = $1
         }
     }
 
