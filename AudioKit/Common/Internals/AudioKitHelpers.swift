@@ -233,18 +233,18 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
 }
 
 internal struct AUWrapper {
-    let au: AudioUnit
+    let au: AVAudioUnit
 
-    init(au: AudioUnit) {
+    init(au: AVAudioUnit) {
         self.au = au
     }
 
     subscript (param: AudioUnitParameterID) -> Double {
         get {
-            return AudioUnitGetParameter(au, param: param)
+            return AudioUnitGetParameter(au.audioUnit, param: param)
         }
         set {
-            AudioUnitSetParameter(au, param: param, to: newValue)
+            AudioUnitSetParameter(au.audioUnit, param: param, to: newValue)
         }
     }
 }

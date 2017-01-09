@@ -75,7 +75,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUComponent {
 
             let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
 
-            au = AUWrapper(au: internalEffect.audioUnit)
+            au = AUWrapper(au: internalEffect)
             super.init()
 
             AudioKit.engine.attach(internalEffect)
