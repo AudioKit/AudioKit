@@ -256,6 +256,3 @@ extension AKTable: RandomAccessCollection  {
         return end - start
     }
 }
-
-
-
