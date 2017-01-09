@@ -13,6 +13,12 @@ public protocol AUComponent: class {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
+extension AUComponent {
+  static var effect: AVAudioUnitEffect {
+    return AVAudioUnitEffect(audioComponentDescription: ComponentDescription)
+  }
+}
+
 public protocol AKComponent: AUComponent {
     associatedtype AKAudioUnitType: AnyObject
 }

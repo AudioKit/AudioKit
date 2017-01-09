@@ -249,7 +249,6 @@ internal struct AUWrapper {
     }
 }
 
-
 extension AVAudioUnit {
     class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> ()) {
         AVAudioUnit.instantiate(with: component, options: []) {
