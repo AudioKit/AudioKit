@@ -233,7 +233,7 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
 }
 
 internal struct AUWrapper {
-    let au: AVAudioUnit
+    private let au: AVAudioUnit
 
     init(au: AVAudioUnit) {
         self.au = au
