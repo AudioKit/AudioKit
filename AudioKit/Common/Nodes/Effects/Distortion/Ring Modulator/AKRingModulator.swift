@@ -76,12 +76,11 @@ open class AKRingModulator: AKNode, AKToggleable, AUComponent {
             self.balance = balance
             self.mix = mix
 
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect)
+            let node = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            au = AUWrapper(au: node)
 
-            super.init()
-            avAudioNode = internalEffect
-            AudioKit.engine.attach(self.avAudioNode)
+            super.init(avAudioNode: node, attach: true)
+
             input.addConnectionPoint(self)
 
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
