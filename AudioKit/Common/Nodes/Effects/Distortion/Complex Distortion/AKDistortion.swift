@@ -209,12 +209,11 @@ open class AKDistortion: AKNode, AKToggleable, AUComponent {
             self.softClipGain = softClipGain
             self.finalMix = finalMix
 
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect)
+            let effect = _Self.effect
+            au = AUWrapper(au: effect)
 
-            super.init()
-            avAudioNode = internalEffect
-            AudioKit.engine.attach(self.avAudioNode)
+            super.init(avAudioNode: effect, attach: true)
+
             input.addConnectionPoint(self)
 
             au[kDistortionParam_Delay] = delay

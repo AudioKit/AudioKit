@@ -119,14 +119,13 @@ open class AKCompressor: AKNode, AKToggleable, AUComponent {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            AudioKit.engine.attach(internalEffect)
-            au = AUWrapper(au: internalEffect)
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
+            let effect = _Self.effect
+            AudioKit.engine.attach(effect)
+            au = AUWrapper(au: effect)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
-            super.init()
-            avAudioNode = mixer.avAudioNode
+            super.init(avAudioNode: mixer.avAudioNode)
 
             au[kDynamicsProcessorParam_Threshold] = threshold
             au[kDynamicsProcessorParam_HeadRoom] = headRoom
