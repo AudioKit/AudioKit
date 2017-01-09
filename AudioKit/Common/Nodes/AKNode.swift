@@ -9,19 +9,6 @@
 import Foundation
 import AVFoundation
 
-struct Bus: ExpressibleByIntegerLiteral, RawRepresentable {
-  let rawValue: Int
-
-  init(integerLiteral value: IntegerLiteralType) {
-    self.rawValue = Int(value)
-  }
-
-  init(rawValue: Int) {
-    self.rawValue = rawValue
-  }
-}
-
-
 extension AVAudioConnectionPoint {
     convenience init(_ node: AKNode, to bus: Int) {
         self.init(node: node.avAudioNode, bus: bus)
@@ -58,14 +45,6 @@ extension AVAudioConnectionPoint {
                                 format: AudioKit.format)
     }
 }
-
-//extension AKNode where Self: AKComponent {
-//  public init() {
-//    fatalError()
-////      AVAudioUnit.instantiate
-//  }
-//
-//}
 
 /// Protocol for responding to play and stop of MIDI notes
 public protocol AKPolyphonic {

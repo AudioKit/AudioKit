@@ -233,14 +233,14 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
 }
 
 extension AVAudioUnit {
-  subscript (param: AudioUnitParameterID) -> Double {
-    get {
-        return AudioUnitGetParameter(audioUnit, param: param)
+    subscript (param: AudioUnitParameterID) -> Double {
+        get {
+              return AudioUnitGetParameter(audioUnit, param: param)
+        }
+        set {
+              AudioUnitSetParameter(audioUnit, param: param, to: newValue)
+        }
     }
-    set {
-        AudioUnitSetParameter(audioUnit, param: param, to: newValue)
-    }
-  }
 }
 
 internal struct AUWrapper {
