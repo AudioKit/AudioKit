@@ -232,23 +232,33 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
-internal struct AUWrapper {
-    let au: AudioUnit
+extension AVAudioUnit {
+    subscript (param: AudioUnitParameterID) -> Double {
+        get {
+              return AudioUnitGetParameter(audioUnit, param: param)
+        }
+        set {
+              AudioUnitSetParameter(audioUnit, param: param, to: newValue)
+        }
+    }
+}
 
-    init(au: AudioUnit) {
+internal struct AUWrapper {
+    private let au: AVAudioUnit
+
+    init(au: AVAudioUnit) {
         self.au = au
     }
 
     subscript (param: AudioUnitParameterID) -> Double {
         get {
-            return AudioUnitGetParameter(au, param: param)
+            return au[param]
         }
         set {
-            AudioUnitSetParameter(au, param: param, to: newValue)
+            au[param] = newValue
         }
     }
 }
-
 
 extension AVAudioUnit {
     class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> ()) {
@@ -259,6 +269,17 @@ extension AVAudioUnit {
                 callback($0)
             }
         }
+    }
+}
+
+extension AUParameter {
+    convenience init(identifier: String, name: String, address: AUParameterAddress, range: Range<AUValue>, unit: AudioUnitParameterUnit) {
+        self.init(identifier,
+                  name: name,
+                  address: address,
+                  min: range.lowerBound, 
+                  max: range.upperBound,
+                  unit: unit)
     }
 }
 

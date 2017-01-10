@@ -8,9 +8,20 @@
 
 import Foundation
 
-public protocol AUComponent: class {
+public protocol Aliased {
     associatedtype _Self = Self
+}
+
+public protocol AUComponent: class, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
+}
+
+protocol AUEffect: AUComponent { }
+
+extension AUEffect {
+    static var effect: AVAudioUnitEffect {
+        return AVAudioUnitEffect(audioComponentDescription: ComponentDescription)
+    }
 }
 
 public protocol AKComponent: AUComponent {
