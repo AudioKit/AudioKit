@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
-open class AKRingModulator: AKNode, AKToggleable, AUComponent {
+open class AKRingModulator: AKNode, AKToggleable, AUEffect {
 
     // MARK: - Properties
 
@@ -76,12 +76,11 @@ open class AKRingModulator: AKNode, AKToggleable, AUComponent {
             self.balance = balance
             self.mix = mix
 
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect.audioUnit)
+            let effect = _Self.effect
+            au = AUWrapper(au: effect)
 
-            super.init()
-            avAudioNode = internalEffect
-            AudioKit.engine.attach(self.avAudioNode)
+            super.init(avAudioNode: effect, attach: true)
+
             input.addConnectionPoint(self)
 
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
