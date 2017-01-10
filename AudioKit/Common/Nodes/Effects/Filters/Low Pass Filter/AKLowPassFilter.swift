@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
-open class AKLowPassFilter: AKNode, AKToggleable, AUComponent {
+open class AKLowPassFilter: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowPassFilter)
 
@@ -73,15 +73,14 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUComponent {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect.audioUnit)
+            let effect = _Self.effect
+            au = AUWrapper(au: effect)
 
-            super.init()
+            super.init(avAudioNode: mixer.avAudioNode)
 
-            AudioKit.engine.attach(internalEffect)
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
-            avAudioNode = mixer.avAudioNode
+            AudioKit.engine.attach(effect)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
             au[kLowPassParam_Resonance] = resonance
             au[kLowPassParam_CutoffFrequency] = cutoffFrequency

@@ -142,11 +142,11 @@
 +(instancetype)frequency:(NSString *)identifier
                     name:(NSString *)name
                  address:(AUParameterAddress)address {
-    return [[AUParameter alloc] init:identifier
-                                name:name
-                             address:address
-                                 min:20
-                                 max:22050
-                                unit:kAudioUnitParameterUnit_Hertz];
+    return [AUParameter parameter:identifier
+                             name:name
+                          address:address
+                              min:20
+                              max:22050
+                             unit:kAudioUnitParameterUnit_Hertz];
 }
 @end
