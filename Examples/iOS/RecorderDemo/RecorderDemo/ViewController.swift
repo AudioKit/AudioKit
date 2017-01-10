@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     var state = State.readyToRecord
     
+    @IBOutlet var inputPlot: AKNodeOutputPlot!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var mainButton: UIButton!
@@ -48,6 +49,7 @@ class ViewController: UIViewController {
         
         // Patching
         let mic = AKMicrophone()
+        inputPlot.node = mic
         let micMixer = AKMixer(mic)
         micBooster = AKBooster(micMixer)
         
