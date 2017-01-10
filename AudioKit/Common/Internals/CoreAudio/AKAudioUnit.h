@@ -43,6 +43,10 @@
 
 @end
 
+@interface AUParameterTree(Ext)
++(instancetype)tree:(NSArray<AUParameterNode *> *)children;
+@end
+
 #define standardKernelPassthroughs() \
 - (void)start { _kernel.start(); } \
 - (void)stop { _kernel.stop(); } \
