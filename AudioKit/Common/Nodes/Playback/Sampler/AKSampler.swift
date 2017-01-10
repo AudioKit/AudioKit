@@ -21,7 +21,7 @@ open class AKSampler: AKNode {
     // MARK: - Properties
     
     /// Internal audio unit
-    open var internalAU: AUAudioUnit?
+    private var internalAU: AUAudioUnit?
 
     fileprivate var token: AUParameterObserverToken?
 
@@ -93,11 +93,7 @@ open class AKSampler: AKNode {
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
     open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
-
-        var urls = [URL]()
-        for file in files {
-            urls.append(file.url)
-        }
+        let urls = files.map { $0.url }
         do {
             try samplerUnit.loadAudioFiles(at: urls)
         } catch let error as NSError {

@@ -19,6 +19,6 @@ extension AKOperation {
     ///   - maximum: Increment amount (Default: 1)
     ///
     public func increment(on trigger: AKParameter, by step: AKParameter = 1.0, minimum: AKParameter = 0.0, maximum: AKParameter = 1000000) -> AKOperation {
-        return AKOperation(module: "incr", inputs: trigger, step, minimum, maximum, self.toMono())
+        return AKOperation(module: "incr", inputs: trigger, step, minimum, maximum, toMono())
     }
 }
