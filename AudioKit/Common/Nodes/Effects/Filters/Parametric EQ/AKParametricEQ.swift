@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
+open class AKParametricEQ: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ)
 
@@ -81,14 +81,13 @@ open class AKParametricEQ: AKNode, AKToggleable, AUComponent {
             mixer = AKMixer(inputGain!)
             effectGain = AKMixer(input)
             effectGain!.volume = 1
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect.audioUnit)
-            super.init()
+            let effect = _Self.effect
+            au = AUWrapper(au: effect)
+            super.init(avAudioNode: mixer.avAudioNode)
 
-            AudioKit.engine.attach(internalEffect)
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
-            avAudioNode = mixer.avAudioNode
+            AudioKit.engine.attach(effect)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
             au[kParametricEQParam_CenterFreq] = centerFrequency
             au[kParametricEQParam_Q] = q
