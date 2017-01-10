@@ -42,9 +42,7 @@ public struct AKDuration: CustomStringConvertible {
 
     /// Regular time measurement
     public var seconds: Double {
-        get {
-            return Double(samples) / sampleRate
-        }
+        return Double(samples) / sampleRate
     }
     
     /// Useful for math using tempo in BPM (beats per minute)

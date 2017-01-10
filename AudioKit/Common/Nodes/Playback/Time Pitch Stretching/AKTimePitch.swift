@@ -27,8 +27,8 @@ open class AKTimePitch: AKNode, AKToggleable {
         return pitch != 0.0 || rate != 1.0
     }
 
-    /// Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
-    open var pitch: Double = 1.0 {
+    /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
+    open var pitch: Double = 0.0 {
         didSet {
             pitch = (-2400...2400).clamp(pitch)
             timePitchAU.pitch = Float(pitch)

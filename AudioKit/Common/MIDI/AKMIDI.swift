@@ -34,11 +34,11 @@ open class AKMIDI {
     open var virtualInput = MIDIPortRef()
 
     /// MIDI Client Name
-    fileprivate var clientName: CFString = "MIDI Client" as CFString
+    private let clientName: CFString = "MIDI Client" as CFString
     
     /// MIDI In Port Name
-    internal var inputPortName: CFString = "MIDI In Port" as CFString
-    
+    internal let inputPortName: CFString = "MIDI In Port" as CFString
+
     /// MIDI Out Port Reference
     internal var outputPort = MIDIPortRef()
 
