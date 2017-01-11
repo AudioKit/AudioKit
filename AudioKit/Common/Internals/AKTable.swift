@@ -133,7 +133,10 @@ public struct AKTable: MutableCollection {
     }
 
     public var phaseOffset: Int {
-        return Int(phase * count)
+        @inline(__always)
+        get {
+            return Int(phase * count)
+        }
     }
 
     /// Instantiate the table as a triangle wave

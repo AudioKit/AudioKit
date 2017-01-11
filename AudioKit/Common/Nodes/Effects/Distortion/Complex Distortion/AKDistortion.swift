@@ -10,13 +10,12 @@ import AVFoundation
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class AKDistortion: AKNode, AKToggleable, AUComponent {
+open class AKDistortion: AKNode, AKToggleable, AUEffect {
 
     // MARK: - Properties
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var au: AUWrapper
     private var lastKnownMix: Double = 0.5
 
@@ -210,12 +209,11 @@ open class AKDistortion: AKNode, AKToggleable, AUComponent {
             self.softClipGain = softClipGain
             self.finalMix = finalMix
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect.audioUnit)
+            let effect = _Self.effect
+            au = AUWrapper(au: effect)
 
-            super.init()
-            avAudioNode = internalEffect
-            AudioKit.engine.attach(self.avAudioNode)
+            super.init(avAudioNode: effect, attach: true)
+
             input.addConnectionPoint(self)
 
             au[kDistortionParam_Delay] = delay

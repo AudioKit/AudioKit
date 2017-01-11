@@ -64,15 +64,10 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit.instantiate(with: _Self.ComponentDescription, options: []) {
-            avAudioUnit, error in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+            self.avAudioNode = $0
+            self.internalAU = $0.auAudioUnit as? AKAudioUnitType
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKAudioUnitType
-
-            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 

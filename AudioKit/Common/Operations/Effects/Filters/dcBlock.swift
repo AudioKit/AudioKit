@@ -16,6 +16,6 @@ extension AKComputedParameter {
     /// - parameter input: Input audio signal
     ///
     public func dcBlock() -> AKOperation {
-        return AKOperation(module: "dcblock", inputs: self.toMono())
+        return AKOperation(module: "dcblock", inputs: toMono())
     }
 }

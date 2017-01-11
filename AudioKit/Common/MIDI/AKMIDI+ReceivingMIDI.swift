@@ -8,23 +8,16 @@
 
 internal struct MIDISources: Collection {
     typealias Index = Int
+    typealias Element = MIDIEndpointRef
 
     init() { }
-
-    var startIndex: Index {
-        return 0
-    }
 
     var endIndex: Index {
         return MIDIGetNumberOfSources()
     }
 
-    subscript (index: Index) -> MIDIEndpointRef {
-      return MIDIGetSource(index)
-    }
-
-    func index(after index: Index) -> Index {
-      return index + 1
+    subscript (index: Index) -> Element {
+        return MIDIGetSource(index)
     }
 }
 

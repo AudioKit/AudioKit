@@ -10,11 +10,9 @@ import AVFoundation
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
-open class AKDynamicsProcessor: AKNode, AKToggleable, AUComponent {
+open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
-
-    private var internalEffect = AVAudioUnitEffect()
 
     private var au: AUWrapper
     fileprivate var mixer: AKMixer
@@ -150,16 +148,16 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUComponent {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            AudioKit.engine.attach(internalEffect)
+            let effect = _Self.effect
+            AudioKit.engine.attach(effect)
 
-            au = AUWrapper(au: internalEffect.audioUnit)
+            au = AUWrapper(au: effect)
 
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
-            super.init()
-            avAudioNode = mixer.avAudioNode
+            super.init(avAudioNode: mixer.avAudioNode)
+
             au[kDynamicsProcessorParam_Threshold] = threshold
             au[kDynamicsProcessorParam_HeadRoom] = headRoom
             au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
