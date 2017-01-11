@@ -23,7 +23,7 @@ enum {
     
 };
 
-class AKTremoloDSPKernel : public DSPKernel {
+class AKTremoloDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -153,8 +153,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;

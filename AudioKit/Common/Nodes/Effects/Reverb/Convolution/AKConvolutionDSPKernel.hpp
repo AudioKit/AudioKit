@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKConvolutionDSPKernel : public DSPKernel {
+class AKConvolutionDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -108,8 +108,6 @@ public:
 
 private:
 
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     int partitionLength = 2048;
 
     AudioBufferList *inBufferListPtr = nullptr;

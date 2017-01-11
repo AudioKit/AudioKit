@@ -25,7 +25,7 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKPWMOscillatorDSPKernel : public DSPKernel {
+class AKPWMOscillatorDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -209,8 +209,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *outBufferListPtr = nullptr;
 
