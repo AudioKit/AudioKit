@@ -152,7 +152,7 @@ extension Int {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
-        return pow(2.0, (Double(self) - 69.0) / 12.0) * aRef
+        return Double(self).midiNoteToFrequency(aRef)
     }
 }
 
@@ -176,7 +176,7 @@ extension Int {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12 * log2(Double(self)/aRef)
+        return Double(self).frequencyToMIDINote(aRef)
     }
 }
 
@@ -222,12 +222,14 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
+@inline(__always)
 internal func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> Double {
     var val: AudioUnitParameterValue = 0
     AudioUnitGetParameter(unit, param, kAudioUnitScope_Global, 0, &val)
     return Double(val)
 }
 
+@inline(__always)
 internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: Double) {
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
@@ -273,7 +275,12 @@ extension AVAudioUnit {
 }
 
 extension AUParameter {
-    convenience init(identifier: String, name: String, address: AUParameterAddress, range: Range<AUValue>, unit: AudioUnitParameterUnit) {
+    @nonobjc
+    convenience init(identifier: String,
+                     name: String, 
+                     address: AUParameterAddress,
+                     range: Range<AUValue>,
+                     unit: AudioUnitParameterUnit) {
         self.init(identifier,
                   name: name,
                   address: address,
@@ -282,4 +289,13 @@ extension AUParameter {
                   unit: unit)
     }
 }
+
+extension AudioComponentDescription {
+    func instantiate(callback: @escaping (AVAudioUnit) -> ()) {
+        AVAudioUnit._instantiate(with: self) {
+            callback($0)
+        }
+    }
+}
+
 
