@@ -10,11 +10,10 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-open class AKHighPassFilter: AKNode, AKToggleable, AUComponent {
+open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 
-    private var internalEffect = AVAudioUnitEffect()
     private var mixer: AKMixer
     private var au: AUWrapper
 
@@ -74,16 +73,15 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUComponent {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
+            let effect = _Self.effect
 
-            au = AUWrapper(au: internalEffect.audioUnit)
-            super.init()
+            au = AUWrapper(au: effect)
+            super.init(avAudioNode: mixer.avAudioNode)
 
-            AudioKit.engine.attach(internalEffect)
+            AudioKit.engine.attach(effect)
 
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
-            avAudioNode = mixer.avAudioNode
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
             au[kHipassParam_CutoffFrequency] = cutoffFrequency
             au[kHipassParam_Resonance] = resonance

@@ -20,6 +20,6 @@ extension AKComputedParameter {
         frequency: AKParameter = 4000.0,
                   bandwidth: AKParameter = 1000.0
         ) -> AKOperation {
-        return AKOperation(module: "reson", inputs: self.toMono(), frequency, bandwidth)
+        return AKOperation(module: "reson", inputs: toMono(), frequency, bandwidth)
     }
 }

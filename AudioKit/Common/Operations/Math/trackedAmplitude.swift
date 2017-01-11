@@ -15,6 +15,6 @@ extension AKComputedParameter {
     /// - parameter input: Input audio signal
     ///
     public func trackedAmplitude(_ trackedAmplitude: AKParameter = 0) -> AKOperation {
-        return AKOperation(module: "rms", inputs: self.toMono())
+        return AKOperation(module: "rms", inputs: toMono())
     }
 }

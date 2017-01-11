@@ -24,6 +24,6 @@ extension AKComputedParameter {
         saturation: AKParameter = 0.0
         ) -> AKOperation {
             return AKOperation(module: "wpkorg35",
-                               inputs: self.toMono(), cutoffFrequency, resonance, saturation)
+                               inputs: toMono(), cutoffFrequency, resonance, saturation)
     }
 }

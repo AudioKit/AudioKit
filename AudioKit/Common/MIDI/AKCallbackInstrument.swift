@@ -33,9 +33,7 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
                                   noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity) {
-        if callback != nil {
-            callback!(status, noteNumber, velocity)
-        }
+        _ = callback.map { $0(status, noteNumber, velocity) }
     }
 
     /// Will trigger in response to any noteOn Message
