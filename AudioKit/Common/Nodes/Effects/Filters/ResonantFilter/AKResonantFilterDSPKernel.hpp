@@ -22,7 +22,7 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKResonantFilterDSPKernel : public DSPKernel {
+class AKResonantFilterDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -145,9 +145,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
-
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
 

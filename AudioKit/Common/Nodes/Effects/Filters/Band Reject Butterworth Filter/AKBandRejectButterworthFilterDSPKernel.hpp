@@ -22,7 +22,7 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKBandRejectButterworthFilterDSPKernel : public DSPKernel {
+class AKBandRejectButterworthFilterDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -145,8 +145,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;

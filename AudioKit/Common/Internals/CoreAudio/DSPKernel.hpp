@@ -10,6 +10,7 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <algorithm>
+#import <AudioKit/AudioKit-Swift.h>
 
 template <typename T>
 T clamp(T input, T low, T high) {
@@ -30,5 +31,11 @@ public:
 private:
     void handleOneEvent(AURenderEvent const* event);
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const*& event);
+};
+
+class AKDSPKernel: public DSPKernel {
+protected:
+    int channels = AKSettings.numberOfChannels;
+    float sampleRate = AKSettings.sampleRate;
 };
 

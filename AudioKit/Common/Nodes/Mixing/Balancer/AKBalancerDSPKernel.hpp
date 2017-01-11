@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKBalancerDSPKernel : public DSPKernel {
+class AKBalancerDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -99,9 +99,7 @@ public:
 
 private:
 
-    int channels = AKSettings.numberOfChannels;
     int inputChannels = 4;
-    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *compBufferListPtr = nullptr;

@@ -24,7 +24,7 @@ enum {
     releaseDurationAddress = 3
 };
 
-class AKAmplitudeEnvelopeDSPKernel : public DSPKernel {
+class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -193,8 +193,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     float internalGate = 0;
     float amp = 0;
     

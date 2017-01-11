@@ -24,7 +24,7 @@ enum {
     resonanceAsymmetryAddress = 3
 };
 
-class AKRolandTB303FilterDSPKernel : public DSPKernel {
+class AKRolandTB303FilterDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -189,8 +189,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
