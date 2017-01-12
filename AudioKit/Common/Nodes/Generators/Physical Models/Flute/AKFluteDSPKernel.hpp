@@ -19,7 +19,7 @@ enum {
     amplitudeAddress = 1
 };
 
-class AKFluteDSPKernel : public AKDSPKernel, AKOutputBuffered {
+class AKFluteDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -105,10 +105,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

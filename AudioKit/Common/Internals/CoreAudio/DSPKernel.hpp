@@ -42,7 +42,10 @@ protected:
 class AKOutputBuffered {
 protected:
     AudioBufferList *outBufferListPtr = nullptr;
-
+public:
+    void setBuffer(AudioBufferList *outBufferList) {
+        outBufferListPtr = outBufferList;
+    }
 };
 
 class AKBuffered: public AKOutputBuffered {

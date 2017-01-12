@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKOperationGeneratorDSPKernel : public AKDSPKernel, AKOutputBuffered {
+class AKOperationGeneratorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -88,10 +88,6 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
         }
-    }
-
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
