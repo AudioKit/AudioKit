@@ -25,9 +25,7 @@ public:
     AKBalancerDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
+        AKDSPKernel::init(channelCount, inSampleRate);
 
         sp_create(&sp);
         sp->sr = sampleRate;
