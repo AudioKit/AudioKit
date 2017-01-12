@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKOperationEffectDSPKernel : public AKDSPKernel {
+class AKOperationEffectDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -84,11 +84,6 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
-    }
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         
         if (!started) {
@@ -128,9 +123,6 @@ public:
     // MARK: Member Variables
 
 private:
-    
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     plumber_data pd;
