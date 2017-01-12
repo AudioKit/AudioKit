@@ -24,8 +24,8 @@ public:
 
     AKChowningReverbDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
         sp_jcrev_create(&jcrev);
         sp_jcrev_init(sp, jcrev);

@@ -28,8 +28,8 @@ public:
 
     AKMoogLadderDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
         sp_moogladder_create(&moogladder);
         sp_moogladder_init(sp, moogladder);

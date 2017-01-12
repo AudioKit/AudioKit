@@ -24,8 +24,8 @@ public:
 
     AKOperationGeneratorDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
         plumber_register(&pd);
         plumber_init(&pd);

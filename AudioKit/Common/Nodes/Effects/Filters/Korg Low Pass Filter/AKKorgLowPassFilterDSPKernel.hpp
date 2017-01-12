@@ -29,8 +29,8 @@ public:
 
     AKKorgLowPassFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_wpkorg35_create(&wpkorg35);
         sp_wpkorg35_init(sp, wpkorg35);
         wpkorg35->cutoff = 1000.0;

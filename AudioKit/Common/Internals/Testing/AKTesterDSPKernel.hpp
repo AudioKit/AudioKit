@@ -26,11 +26,12 @@ public:
 
     AKTesterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        
+        channels = _channels;
 
         sp_create(&sp);
-        sampleRate = float(inSampleRate);
+        sampleRate = _sampleRate;
         sp_srand(sp, 12345);
     }
 

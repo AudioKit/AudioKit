@@ -30,8 +30,8 @@ public:
 
     AKOscillatorDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
         sp_osc_create(&osc);
         sp_osc_init(sp, osc, ftbl, 0);

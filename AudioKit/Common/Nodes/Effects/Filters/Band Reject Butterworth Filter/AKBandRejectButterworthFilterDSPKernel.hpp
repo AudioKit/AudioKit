@@ -28,8 +28,8 @@ public:
 
     AKBandRejectButterworthFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_butbr_create(&butbr);
         sp_butbr_init(sp, butbr);
         butbr->freq = 3000.0;
