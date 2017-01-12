@@ -27,7 +27,7 @@ enum {
     amplitudeAddress = 6
 };
 
-class AKDripDSPKernel : public DSPKernel {
+class AKDripDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -259,8 +259,6 @@ public:
 
 private:
 
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     float internalTrigger = 0;
     
     AudioBufferList *inBufferListPtr = nullptr;

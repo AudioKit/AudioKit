@@ -27,7 +27,7 @@ enum {
     strikeWidthAddress = 6
 };
 
-class AKMetalBarDSPKernel : public DSPKernel {
+class AKMetalBarDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -243,9 +243,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     float internalTrigger = 0;
 
     AudioBufferList *outBufferListPtr = nullptr;

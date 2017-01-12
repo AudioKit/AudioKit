@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKFrequencyTrackerDSPKernel : public DSPKernel {
+class AKFrequencyTrackerDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -100,8 +100,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     
     int hopSize = 4096;
     int peakCount = 20;
