@@ -39,21 +39,10 @@ public:
         stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
         
         stk::Stk::setSampleRate(sampleRate);
-        mand1 = new stk::Mandolin(100);
-        mand2 = new stk::Mandolin(100);
-        mand3 = new stk::Mandolin(100);
-        mand4 = new stk::Mandolin(100);
-        mandolins[0] = mand1;
-        mandolins[1] = mand2;
-        mandolins[2] = mand3;
-        mandolins[3] = mand4;
     }
     
     void destroy() {
-        delete mand1;
-        delete mand2;
-        delete mand3;
-        delete mand4;
+
     }
     
     void reset() {
@@ -71,11 +60,11 @@ public:
     }
     
     void setFrequency(float frequency, int course) {
-        mandolins[course]->setFrequency(frequency);
+        mandolins[course].setFrequency(frequency);
     }
     void pluck(int course, float position, int velocity) {
         started = true;
-        mandolins[course]->pluck((float)velocity/127.0, position);
+        mandolins[course].pluck((float)velocity/127.0, position);
     }
     void mute(int course) {
         // How to stop?
@@ -116,7 +105,7 @@ public:
                 break;
         }
     }
-        
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -125,23 +114,19 @@ public:
             
             detune = detuneRamper.getAndStep();
             bodySize = bodySizeRamper.getAndStep();
-            
-            mand1->setDetune(detune);
-            mand2->setDetune(detune);
-            mand3->setDetune(detune);
-            mand4->setDetune(detune);
-            mand1->setBodySize(1.0 / bodySize);
-            mand2->setBodySize(1.0 / bodySize);
-            mand3->setBodySize(1.0 / bodySize);
-            mand4->setBodySize(1.0 / bodySize);
+
+            for (auto & mandolin : mandolins) {
+              mandolin.setDetune(detune);
+              mandolin.setBodySize(1 / bodySize);
+            }
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
-                    *out = mand1->tick();
-                    *out += mand2->tick();
-                    *out += mand3->tick();
-                    *out += mand4->tick();
+                    *out = mandolins[0].tick();
+                    *out += mandolins[1].tick();
+                    *out += mandolins[2].tick();
+                    *out += mandolins[3].tick();
                 } else {
                     *out = 0.0;
                 }
@@ -154,13 +139,10 @@ public:
 private:
   //    float internalTrigger = 0;
 
-    
-    stk::Mandolin *mand1;
-    stk::Mandolin *mand2;
-    stk::Mandolin *mand3;
-    stk::Mandolin *mand4;
-    
-    stk::Mandolin *mandolins[4];
+    stk::Mandolin mandolins[4] = { stk::Mandolin(100),
+                                   stk::Mandolin(100),
+                                   stk::Mandolin(100),
+                                   stk::Mandolin(100) };
     float detune = 1;
     float bodySize = 1;
     
