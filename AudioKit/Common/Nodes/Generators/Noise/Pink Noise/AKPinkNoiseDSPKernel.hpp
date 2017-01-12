@@ -21,7 +21,7 @@ enum {
     amplitudeAddress = 0
 };
 
-class AKPinkNoiseDSPKernel : public AKDSPKernel, AKOutputBuffered {
+class AKPinkNoiseDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -91,10 +91,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

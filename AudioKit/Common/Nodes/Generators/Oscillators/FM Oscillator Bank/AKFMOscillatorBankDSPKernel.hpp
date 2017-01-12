@@ -39,7 +39,7 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKFMOscillatorBankDSPKernel : public AKDSPKernel, AKOutputBuffered {
+class AKFMOscillatorBankDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Types
     struct NoteState {

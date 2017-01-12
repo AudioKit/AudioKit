@@ -25,7 +25,7 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKPWMOscillatorDSPKernel : public AKDSPKernel, AKOutputBuffered {
+class AKPWMOscillatorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -169,10 +169,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

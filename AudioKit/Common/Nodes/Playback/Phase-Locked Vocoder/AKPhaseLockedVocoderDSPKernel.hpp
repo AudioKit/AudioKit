@@ -22,7 +22,7 @@ enum {
     pitchRatioAddress = 2
 };
 
-class AKPhaseLockedVocoderDSPKernel : public AKDSPKernel, AKOutputBuffered {
+class AKPhaseLockedVocoderDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -136,10 +136,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
