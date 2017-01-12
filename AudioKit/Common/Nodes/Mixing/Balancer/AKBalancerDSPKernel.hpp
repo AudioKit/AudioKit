@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKBalancerDSPKernel : public AKDSPKernel, AKBuffered {
+class AKBalancerDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 

@@ -21,7 +21,7 @@ enum {
     reverbDurationAddress = 0
 };
 
-class AKCombFilterReverbDSPKernel : public AKDSPKernel, AKBuffered {
+class AKCombFilterReverbDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -94,11 +94,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
