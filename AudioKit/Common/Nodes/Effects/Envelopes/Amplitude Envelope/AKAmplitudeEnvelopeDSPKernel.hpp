@@ -24,7 +24,7 @@ enum {
     releaseDurationAddress = 3
 };
 
-class AKAmplitudeEnvelopeDSPKernel : public DSPKernel {
+class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -160,10 +160,6 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
-    }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
@@ -193,14 +189,9 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     float internalGate = 0;
     float amp = 0;
     
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
-
     sp_data *sp;
     sp_adsr *adsr;
 

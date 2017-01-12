@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
+open class AKBandPassFilter: AKNode, AKToggleable, AUEffect {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     private var au: AUWrapper
@@ -73,15 +73,13 @@ open class AKBandPassFilter: AKNode, AKToggleable, AUComponent {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect.audioUnit)
+            let effect = _Self.effect
+            au = AUWrapper(au: effect)
 
-            super.init()
-            avAudioNode = mixer.avAudioNode
+            super.init(avAudioNode: mixer.avAudioNode, attach: true)
 
-            AudioKit.engine.attach(internalEffect)
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
             au[kBandpassParam_CenterFrequency] = centerFrequency
             au[kBandpassParam_Bandwidth] = bandwidth

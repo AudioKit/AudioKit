@@ -44,10 +44,8 @@ open class AK3DPanner: AKNode {
         self.x = x
         self.y = y
         self.z = z
-        super.init()
+        super.init(avAudioNode: environmentNode, attach: true)
 
-        self.avAudioNode = environmentNode
-        AudioKit.engine.attach(self.avAudioNode)
         input.connectionPoints.append(AVAudioConnectionPoint(node: environmentNode, bus: environmentNode.numberOfInputs))
         
         let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)

@@ -152,7 +152,7 @@ extension Int {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
-        return pow(2.0, (Double(self) - 69.0) / 12.0) * aRef
+        return Double(self).midiNoteToFrequency(aRef)
     }
 }
 
@@ -176,7 +176,7 @@ extension Int {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12 * log2(Double(self)/aRef)
+        return Double(self).frequencyToMIDINote(aRef)
     }
 }
 
@@ -222,33 +222,45 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
+@inline(__always)
 internal func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> Double {
     var val: AudioUnitParameterValue = 0
     AudioUnitGetParameter(unit, param, kAudioUnitScope_Global, 0, &val)
     return Double(val)
 }
 
+@inline(__always)
 internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: Double) {
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
-internal struct AUWrapper {
-    let au: AudioUnit
+extension AVAudioUnit {
+    subscript (param: AudioUnitParameterID) -> Double {
+        get {
+              return AudioUnitGetParameter(audioUnit, param: param)
+        }
+        set {
+              AudioUnitSetParameter(audioUnit, param: param, to: newValue)
+        }
+    }
+}
 
-    init(au: AudioUnit) {
+internal struct AUWrapper {
+    private let au: AVAudioUnit
+
+    init(au: AVAudioUnit) {
         self.au = au
     }
 
     subscript (param: AudioUnitParameterID) -> Double {
         get {
-            return AudioUnitGetParameter(au, param: param)
+            return au[param]
         }
         set {
-            AudioUnitSetParameter(au, param: param, to: newValue)
+            au[param] = newValue
         }
     }
 }
-
 
 extension AVAudioUnit {
     class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> ()) {
@@ -261,4 +273,29 @@ extension AVAudioUnit {
         }
     }
 }
+
+extension AUParameter {
+    @nonobjc
+    convenience init(identifier: String,
+                     name: String, 
+                     address: AUParameterAddress,
+                     range: Range<AUValue>,
+                     unit: AudioUnitParameterUnit) {
+        self.init(identifier,
+                  name: name,
+                  address: address,
+                  min: range.lowerBound, 
+                  max: range.upperBound,
+                  unit: unit)
+    }
+}
+
+extension AudioComponentDescription {
+    func instantiate(callback: @escaping (AVAudioUnit) -> ()) {
+        AVAudioUnit._instantiate(with: self) {
+            callback($0)
+        }
+    }
+}
+
 

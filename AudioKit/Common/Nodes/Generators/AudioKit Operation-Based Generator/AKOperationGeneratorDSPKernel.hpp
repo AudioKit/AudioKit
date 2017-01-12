@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKOperationGeneratorDSPKernel : public DSPKernel {
+class AKOperationGeneratorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -90,10 +90,6 @@ public:
         }
     }
 
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
-    }
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -136,11 +132,7 @@ public:
 
 private:
 
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     int internalTriggers[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     plumber_data pd;
