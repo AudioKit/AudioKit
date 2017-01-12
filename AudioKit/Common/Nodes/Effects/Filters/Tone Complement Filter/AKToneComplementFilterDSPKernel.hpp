@@ -21,7 +21,7 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKToneComplementFilterDSPKernel : public AKDSPKernel, AKBuffered {
+class AKToneComplementFilterDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -91,11 +91,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

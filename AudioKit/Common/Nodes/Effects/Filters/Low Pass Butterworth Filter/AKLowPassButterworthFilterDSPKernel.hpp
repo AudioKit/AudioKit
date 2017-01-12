@@ -20,7 +20,7 @@ enum {
     cutoffFrequencyAddress = 0
 };
 
-class AKLowPassButterworthFilterDSPKernel : public AKDSPKernel, AKBuffered {
+class AKLowPassButterworthFilterDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -90,11 +90,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

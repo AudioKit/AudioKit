@@ -24,7 +24,7 @@ enum {
     releaseDurationAddress = 3
 };
 
-class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel, AKBuffered {
+class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -160,10 +160,6 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
-    }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 

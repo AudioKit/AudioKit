@@ -27,7 +27,7 @@ enum {
     amplitudeAddress = 6
 };
 
-class AKDripDSPKernel : public AKDSPKernel, AKBuffered {
+class AKDripDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 

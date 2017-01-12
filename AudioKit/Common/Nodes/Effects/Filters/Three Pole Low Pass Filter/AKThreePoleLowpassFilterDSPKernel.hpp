@@ -22,7 +22,7 @@ enum {
     resonanceAddress = 2
 };
 
-class AKThreePoleLowpassFilterDSPKernel : public AKDSPKernel, AKBuffered {
+class AKThreePoleLowpassFilterDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -130,11 +130,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
