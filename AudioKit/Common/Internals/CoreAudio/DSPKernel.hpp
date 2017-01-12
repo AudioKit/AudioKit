@@ -39,8 +39,15 @@ protected:
     float sampleRate = AKSettings.sampleRate;
 };
 
-class AKBuffered {
+class AKOutputBuffered {
+protected:
+    AudioBufferList *outBufferListPtr = nullptr;
+
+};
+
+class AKBuffered: public AKOutputBuffered {
 protected:
     AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
+public:
+
 };

@@ -27,7 +27,7 @@ enum {
     strikeWidthAddress = 6
 };
 
-class AKMetalBarDSPKernel : public AKDSPKernel {
+class AKMetalBarDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -244,8 +244,6 @@ public:
 
 private:
     float internalTrigger = 0;
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_bar *bar;

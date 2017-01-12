@@ -19,7 +19,7 @@ enum {
     amplitudeAddress = 1
 };
 
-class AKFluteDSPKernel : public AKDSPKernel {
+class AKFluteDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -142,8 +142,6 @@ public:
 private:
 
     float internalTrigger = 0;
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     stk::Flute *flute;
     

@@ -22,7 +22,7 @@ enum {
     amplitudeAddress = 1
 };
 
-class AKPluckedStringDSPKernel : public AKDSPKernel {
+class AKPluckedStringDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -146,8 +146,6 @@ public:
 private:
 
     float internalTrigger = 0;
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_pluck *pluck;
