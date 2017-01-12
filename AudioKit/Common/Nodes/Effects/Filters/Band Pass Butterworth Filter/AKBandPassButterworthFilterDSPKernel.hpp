@@ -22,18 +22,15 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKBandPassButterworthFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKBandPassButterworthFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBandPassButterworthFilterDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
+        AKSporthKernel::init(channelCount, inSampleRate);
 
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_butbp_create(&butbp);
         sp_butbp_init(sp, butbp);
         butbp->freq = 2000.0;
@@ -53,7 +50,7 @@ public:
 
     void destroy() {
         sp_butbp_destroy(&butbp);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -139,7 +136,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_butbp *butbp;
 
     float centerFrequency = 2000.0;

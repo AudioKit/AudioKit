@@ -18,17 +18,14 @@ extern "C" {
 }
 
 
-class AKDCBlockDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKDCBlockDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKDCBlockDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
         sp_dcblock_create(&dcblock);
         sp_dcblock_init(sp, dcblock);
 
@@ -44,7 +41,7 @@ public:
 
     void destroy() {
         sp_dcblock_destroy(&dcblock);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -92,9 +89,7 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_dcblock *dcblock;
-
 
 public:
     bool started = true;

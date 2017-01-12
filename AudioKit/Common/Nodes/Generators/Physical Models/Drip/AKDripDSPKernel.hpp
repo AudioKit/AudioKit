@@ -27,17 +27,14 @@ enum {
     amplitudeAddress = 6
 };
 
-class AKDripDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKDripDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKDripDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
         sp_drip_create(&drip);
         sp_drip_init(sp, drip, 0.9);
         drip->num_tubes = 10;
@@ -67,7 +64,7 @@ public:
 
     void destroy() {
         sp_drip_destroy(&drip);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -254,7 +251,6 @@ private:
 
     float internalTrigger = 0;
 
-    sp_data *sp;
     sp_drip *drip;
 
     float intensity = 10;

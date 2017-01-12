@@ -18,17 +18,15 @@ extern "C" {
 }
 
 
-class AKOperationGeneratorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKOperationGeneratorDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKOperationGeneratorDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         plumber_register(&pd);
         plumber_init(&pd);
         pd.sp = sp;
@@ -65,7 +63,7 @@ public:
 
     void destroy() {
         plumber_clean(&pd);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
     
     void reset() {
@@ -131,7 +129,6 @@ private:
 
     int internalTriggers[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-    sp_data *sp;
     plumber_data pd;
     char *sporthCode = nil;
     

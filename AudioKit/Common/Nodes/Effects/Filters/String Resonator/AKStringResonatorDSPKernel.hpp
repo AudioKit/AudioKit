@@ -22,17 +22,15 @@ enum {
     feedbackAddress = 1
 };
 
-class AKStringResonatorDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKStringResonatorDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKStringResonatorDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         sp_streson_create(&streson);
         sp_streson_init(sp, streson);
         streson->freq = 100;
@@ -52,7 +50,7 @@ public:
 
     void destroy() {
         sp_streson_destroy(&streson);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -138,7 +136,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_streson *streson;
 
     float fundamentalFrequency = 100;

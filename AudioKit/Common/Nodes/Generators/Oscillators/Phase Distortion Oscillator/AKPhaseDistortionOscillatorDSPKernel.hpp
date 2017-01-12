@@ -25,17 +25,14 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKPhaseDistortionOscillatorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKPhaseDistortionOscillatorDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKPhaseDistortionOscillatorDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
 
         sp_pdhalf_create(&pdhalf);
         sp_tabread_create(&tab);
@@ -77,7 +74,7 @@ public:
         sp_ftbl_destroy(&ftbl);
         sp_tabread_destroy(&tab);
         sp_phasor_destroy(&phs);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -226,13 +223,11 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_ftbl *ftbl;
     sp_tabread *tab;
     sp_phasor *phs;
     sp_pdhalf *pdhalf;
     UInt32 ftbl_size = 4096;
-
 
     float frequency = 440;
     float amplitude = 1.0;

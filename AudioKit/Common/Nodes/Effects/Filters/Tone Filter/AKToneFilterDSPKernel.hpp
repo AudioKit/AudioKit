@@ -20,17 +20,15 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKToneFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKToneFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKToneFilterDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         sp_tone_create(&tone);
         sp_tone_init(sp, tone);
         tone->hp = 1000.0;
@@ -48,7 +46,7 @@ public:
 
     void destroy() {
         sp_tone_destroy(&tone);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -115,7 +113,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_tone *tone;
 
     float halfPowerPoint = 1000.0;
