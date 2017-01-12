@@ -17,7 +17,7 @@ enum {
     gainAddress = 0
 };
 
-class AKBoosterDSPKernel : public DSPKernel {
+class AKBoosterDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -110,8 +110,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;

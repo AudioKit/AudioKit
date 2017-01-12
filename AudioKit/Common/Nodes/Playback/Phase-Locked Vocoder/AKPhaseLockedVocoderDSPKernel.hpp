@@ -22,7 +22,7 @@ enum {
     pitchRatioAddress = 2
 };
 
-class AKPhaseLockedVocoderDSPKernel : public DSPKernel {
+class AKPhaseLockedVocoderDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -173,8 +173,6 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *outBufferListPtr = nullptr;
 

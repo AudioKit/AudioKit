@@ -150,3 +150,21 @@
                              unit:kAudioUnitParameterUnit_Hertz];
 }
 @end
+
+@implementation AUParameterTree(Ext)
+
++(instancetype)tree:(NSArray<AUParameterNode *> *)children {
+    AUParameterTree* tree = [AUParameterTree createTreeWithChildren:children];
+    if (tree == nil) {
+        return nil;
+    }
+
+    tree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+      AUValue value = valuePtr == nil ? param.value : *valuePtr;
+      return [NSString stringWithFormat:@"%.3f", value];
+
+    };
+    return tree;
+
+}
+@end

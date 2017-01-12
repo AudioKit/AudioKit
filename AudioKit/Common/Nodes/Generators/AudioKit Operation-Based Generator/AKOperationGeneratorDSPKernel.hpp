@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKOperationGeneratorDSPKernel : public DSPKernel {
+class AKOperationGeneratorDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -136,8 +136,6 @@ public:
 
 private:
 
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     int internalTriggers[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
     AudioBufferList *outBufferListPtr = nullptr;

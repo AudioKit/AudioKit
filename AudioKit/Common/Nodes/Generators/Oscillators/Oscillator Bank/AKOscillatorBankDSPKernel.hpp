@@ -36,7 +36,7 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKOscillatorBankDSPKernel : public DSPKernel {
+class AKOscillatorBankDSPKernel : public AKDSPKernel {
 public:
     // MARK: Types
     struct NoteState {
@@ -390,8 +390,6 @@ public:
 private:
     std::vector<NoteState> noteStates;
 
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     double frequencyScale = 2. * M_PI / sampleRate;
     
     AudioBufferList *outBufferListPtr = nullptr;

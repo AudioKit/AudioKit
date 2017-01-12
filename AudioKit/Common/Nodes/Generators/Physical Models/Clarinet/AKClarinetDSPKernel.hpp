@@ -20,7 +20,7 @@ enum {
     amplitudeAddress = 1
 };
 
-class AKClarinetDSPKernel : public DSPKernel {
+class AKClarinetDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -142,8 +142,6 @@ public:
 
 private:
 
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     float internalTrigger = 0;
 
     AudioBufferList *outBufferListPtr = nullptr;
