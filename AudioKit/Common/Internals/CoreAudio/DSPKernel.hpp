@@ -12,6 +12,11 @@
 #import <algorithm>
 #import <AudioKit/AudioKit-Swift.h>
 
+extern "C" {
+#include "soundpipe.h"
+}
+
+
 template <typename T>
 T clamp(T input, T low, T high) {
     return std::min(std::max(input, low), high);
@@ -37,6 +42,16 @@ class AKDSPKernel: public DSPKernel {
 protected:
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
+public:
+    AKDSPKernel(int _channels, float _sampleRate):
+      channels(_channels), sampleRate(_sampleRate) { }
+
+    AKDSPKernel(): AKDSPKernel(AKSettings.numberOfChannels, AKSettings.sampleRate) { }
+
+    void init(int _channels, double _sampleRate) {
+        channels = _channels;
+        sampleRate = _sampleRate;
+    }
 };
 
 class AKOutputBuffered {
@@ -57,3 +72,29 @@ public:
         outBufferListPtr = outBufferList;
     }
 };
+
+class AKSporthKernel: public AKDSPKernel {
+protected:
+    sp_data *sp = nullptr;
+public:
+//    AKSporthKernel(int _channels, float _sampleRate) {
+//
+//      sp_create(&sp);
+//
+//    }
+
+    void init(int channelCount, double inSampleRate) {
+
+      sp_create(&sp);
+    }
+
+//    ~AKSporthKernel() {
+//        sp_destroy(&sp);
+//    }
+    void destroy() {
+        sp_destroy(&sp);
+    }
+
+};
+
+
