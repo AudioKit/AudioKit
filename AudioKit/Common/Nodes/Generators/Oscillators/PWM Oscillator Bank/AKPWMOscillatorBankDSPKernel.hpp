@@ -37,7 +37,7 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKPWMOscillatorBankDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKPWMOscillatorBankDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Types
     struct NoteState {
@@ -150,11 +150,8 @@ public:
     }
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
-        
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         pulseWidthRamper.init();
         attackDurationRamper.init();
         decayDurationRamper.init();
@@ -173,7 +170,7 @@ public:
     }
 
     void destroy() {
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -399,8 +396,6 @@ private:
     std::vector<NoteState> noteStates;
 
     double frequencyScale = 2. * M_PI / sampleRate;
-
-    sp_data *sp;
     
     float pulseWidth = 0.5;
 

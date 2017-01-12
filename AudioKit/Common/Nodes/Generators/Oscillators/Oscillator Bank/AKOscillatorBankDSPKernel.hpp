@@ -36,7 +36,7 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKOscillatorBankDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKOscillatorBankDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Types
     struct NoteState {
@@ -179,7 +179,7 @@ public:
     }
 
     void destroy() {
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -389,7 +389,6 @@ private:
 
     double frequencyScale = 2. * M_PI / sampleRate;
 
-    sp_data *sp;
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
 

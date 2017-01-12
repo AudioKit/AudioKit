@@ -22,17 +22,15 @@ enum {
     feedbackAddress = 1
 };
 
-class AKVariableDelayDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKVariableDelayDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKVariableDelayDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         plumber_register(&pd);
         plumber_init(&pd);
         pd.sp = sp;
@@ -55,7 +53,7 @@ public:
 
     void destroy() {
         plumber_clean(&pd);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -151,7 +149,7 @@ public:
     // MARK: Member Variables
 
 private:
-    sp_data *sp;
+
     plumber_data pd;
     
     float internalMaxDelay = 5.0;

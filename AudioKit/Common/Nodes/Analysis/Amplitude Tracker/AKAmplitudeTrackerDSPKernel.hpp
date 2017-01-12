@@ -21,18 +21,14 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKAmplitudeTrackerDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKAmplitudeTrackerDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKAmplitudeTrackerDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
         sp_rms_create(&rms);
         sp_rms_init(sp, rms);
         rms->ihp = 10;
@@ -48,7 +44,7 @@ public:
 
     void destroy() {
         sp_rms_destroy(&rms);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -109,7 +105,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_rms *rms;
 
 public:

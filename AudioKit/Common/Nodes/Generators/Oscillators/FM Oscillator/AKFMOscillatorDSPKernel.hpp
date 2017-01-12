@@ -25,17 +25,15 @@ enum {
     amplitudeAddress = 4
 };
 
-class AKFMOscillatorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKFMOscillatorDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKFMOscillatorDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         sp_fosc_create(&fosc);
         sp_fosc_init(sp, fosc, ftbl);
         
@@ -70,7 +68,7 @@ public:
 
     void destroy() {
         sp_fosc_destroy(&fosc);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -216,7 +214,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_fosc *fosc;
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;

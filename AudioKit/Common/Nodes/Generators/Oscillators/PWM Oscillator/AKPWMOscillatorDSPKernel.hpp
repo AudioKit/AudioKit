@@ -25,17 +25,15 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKPWMOscillatorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKPWMOscillatorDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKPWMOscillatorDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         sp_blsquare_create(&blsquare);
         sp_blsquare_init(sp, blsquare);
         *blsquare->freq = 440;
@@ -59,7 +57,7 @@ public:
 
     void destroy() {
         sp_blsquare_destroy(&blsquare);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -203,7 +201,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_blsquare *blsquare;
 
     float frequency = 440;

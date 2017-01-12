@@ -25,17 +25,15 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKMorphingOscillatorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKMorphingOscillatorDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKMorphingOscillatorDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         sp_oscmorph_create(&oscmorph);
 
         frequencyRamper.init();
@@ -64,7 +62,7 @@ public:
 
     void destroy() {
         sp_oscmorph_destroy(&oscmorph);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -212,7 +210,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_oscmorph *oscmorph;
     
     sp_ftbl *ft_array[4];

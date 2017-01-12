@@ -22,17 +22,14 @@ enum {
     resonanceAddress = 2
 };
 
-class AKThreePoleLowpassFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKThreePoleLowpassFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKThreePoleLowpassFilterDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
         sp_lpf18_create(&lpf18);
         sp_lpf18_init(sp, lpf18);
         lpf18->dist = 0.5;
@@ -54,7 +51,7 @@ public:
 
     void destroy() {
         sp_lpf18_destroy(&lpf18);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -159,7 +156,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_lpf18 *lpf18;
 
     float distortion = 0.5;

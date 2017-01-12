@@ -21,17 +21,15 @@ enum {
     panAddress = 0
 };
 
-class AKPannerDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKPannerDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKPannerDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
+
         sp_panst_create(&panst);
         sp_panst_init(sp, panst);
         panst->pan = 0;
@@ -49,7 +47,7 @@ public:
 
     void destroy() {
         sp_panst_destroy(&panst);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -124,7 +122,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_panst *panst;
     
     float pan = 0.0;

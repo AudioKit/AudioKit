@@ -18,18 +18,15 @@ extern "C" {
 }
 
 
-class AKChowningReverbDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKChowningReverbDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKChowningReverbDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
+        AKSporthKernel::init(channelCount, inSampleRate);
 
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_jcrev_create(&jcrev);
         sp_jcrev_init(sp, jcrev);
     }
@@ -44,7 +41,7 @@ public:
 
     void destroy() {
         sp_jcrev_destroy(&jcrev);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -89,7 +86,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_jcrev *jcrev;
 
 public:
