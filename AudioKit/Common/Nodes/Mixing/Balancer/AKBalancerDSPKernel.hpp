@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKBalancerDSPKernel : public AKDSPKernel {
+class AKBalancerDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -101,9 +101,7 @@ private:
 
     int inputChannels = 4;
 
-    AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *compBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_bal *bal;

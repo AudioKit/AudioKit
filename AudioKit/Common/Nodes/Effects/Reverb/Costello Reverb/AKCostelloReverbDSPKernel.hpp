@@ -22,7 +22,7 @@ enum {
     cutoffFrequencyAddress = 1
 };
 
-class AKCostelloReverbDSPKernel : public AKDSPKernel {
+class AKCostelloReverbDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -113,11 +113,6 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
-    }
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -152,9 +147,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_revsc *revsc;

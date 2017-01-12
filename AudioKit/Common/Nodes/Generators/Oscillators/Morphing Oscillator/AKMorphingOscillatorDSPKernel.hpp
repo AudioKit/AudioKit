@@ -25,7 +25,7 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKMorphingOscillatorDSPKernel : public AKDSPKernel {
+class AKMorphingOscillatorDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -180,10 +180,6 @@ public:
         }
     }
 
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
-    }
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -218,8 +214,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_oscmorph *oscmorph;
