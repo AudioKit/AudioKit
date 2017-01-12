@@ -25,7 +25,7 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKPhaseDistortionOscillatorDSPKernel : public AKDSPKernel {
+class AKPhaseDistortionOscillatorDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -232,8 +232,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_ftbl *ftbl;

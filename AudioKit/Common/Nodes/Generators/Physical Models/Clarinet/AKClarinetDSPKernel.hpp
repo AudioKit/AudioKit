@@ -20,7 +20,7 @@ enum {
     amplitudeAddress = 1
 };
 
-class AKClarinetDSPKernel : public AKDSPKernel {
+class AKClarinetDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -143,8 +143,6 @@ public:
 private:
 
     float internalTrigger = 0;
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     stk::Clarinet *clarinet;
     

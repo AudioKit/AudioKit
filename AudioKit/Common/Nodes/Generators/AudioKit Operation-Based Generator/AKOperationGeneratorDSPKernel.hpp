@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKOperationGeneratorDSPKernel : public AKDSPKernel {
+class AKOperationGeneratorDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -137,8 +137,6 @@ public:
 private:
 
     int internalTriggers[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     plumber_data pd;

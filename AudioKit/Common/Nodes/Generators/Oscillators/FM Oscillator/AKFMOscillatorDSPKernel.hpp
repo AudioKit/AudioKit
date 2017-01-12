@@ -25,7 +25,7 @@ enum {
     amplitudeAddress = 4
 };
 
-class AKFMOscillatorDSPKernel : public AKDSPKernel {
+class AKFMOscillatorDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -222,8 +222,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_fosc *fosc;

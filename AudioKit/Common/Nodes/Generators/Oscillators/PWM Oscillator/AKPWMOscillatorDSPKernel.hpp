@@ -25,7 +25,7 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKPWMOscillatorDSPKernel : public AKDSPKernel {
+class AKPWMOscillatorDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -209,8 +209,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_blsquare *blsquare;

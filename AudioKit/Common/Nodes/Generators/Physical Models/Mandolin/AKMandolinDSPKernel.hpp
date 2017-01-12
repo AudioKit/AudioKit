@@ -24,7 +24,7 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKMandolinDSPKernel : public AKDSPKernel {
+class AKMandolinDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
     
@@ -159,8 +159,7 @@ public:
     
 private:
   //    float internalTrigger = 0;
-    
-    AudioBufferList *outBufferListPtr = nullptr;
+
     
     stk::Mandolin *mand1;
     stk::Mandolin *mand2;

@@ -20,7 +20,7 @@ enum {
     amplitudeAddress = 0
 };
 
-class AKWhiteNoiseDSPKernel : public AKDSPKernel {
+class AKWhiteNoiseDSPKernel : public AKDSPKernel, AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -123,8 +123,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_noise *noise;
