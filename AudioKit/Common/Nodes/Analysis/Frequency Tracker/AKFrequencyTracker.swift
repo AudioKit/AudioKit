@@ -17,7 +17,6 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     fileprivate var internalAU: AKAudioUnitType?
-    fileprivate var token: AUParameterObserverToken?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {

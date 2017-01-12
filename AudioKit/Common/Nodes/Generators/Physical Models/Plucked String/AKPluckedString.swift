@@ -90,8 +90,8 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter       = tree["frequency"]
-        amplitudeParameter       = tree["amplitude"]
+        frequencyParameter = tree["frequency"]
+        amplitudeParameter = tree["amplitude"]
 
         token = tree.token (byAddingParameterObserver: {
             address, value in

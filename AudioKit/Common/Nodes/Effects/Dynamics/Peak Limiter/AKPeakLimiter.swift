@@ -10,7 +10,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class AKPeakLimiter: AKNode, AKToggleable, AUComponent {
+open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
 
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
 
@@ -82,15 +82,14 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUComponent {
             effectGain = AKMixer(input)
             effectGain!.volume = 1
 
-            let internalEffect = AVAudioUnitEffect(audioComponentDescription: _Self.ComponentDescription)
-            au = AUWrapper(au: internalEffect.audioUnit)
+            let effect = _Self.effect
+            au = AUWrapper(au: effect)
 
-            super.init()
-            AudioKit.engine.attach(internalEffect)
+            super.init(avAudioNode: mixer.avAudioNode)
+            AudioKit.engine.attach(effect)
 
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
-            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
-            self.avAudioNode = mixer.avAudioNode
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect, format: AudioKit.format)
+            AudioKit.engine.connect(effect, to: mixer.avAudioNode, format: AudioKit.format)
 
             au[kLimiterParam_AttackTime] = attackTime
             au[kLimiterParam_DecayTime] = decayTime

@@ -20,7 +20,7 @@ enum {
     amplitudeAddress = 1
 };
 
-class AKClarinetDSPKernel : public DSPKernel {
+class AKClarinetDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -108,10 +108,6 @@ public:
         }
     }
 
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
-    }
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -142,11 +138,7 @@ public:
 
 private:
 
-    int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
     float internalTrigger = 0;
-
-    AudioBufferList *outBufferListPtr = nullptr;
 
     stk::Clarinet *clarinet;
     
