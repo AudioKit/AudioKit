@@ -23,8 +23,8 @@ public:
 
     AKStereoFieldLimiterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKDSPKernel::init(_channels, _sampleRate);
         amountRamper.init();
     }
 

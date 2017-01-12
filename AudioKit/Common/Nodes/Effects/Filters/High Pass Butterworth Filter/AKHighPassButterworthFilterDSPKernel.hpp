@@ -27,8 +27,8 @@ public:
 
     AKHighPassButterworthFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_buthp_create(&buthp);
         sp_buthp_init(sp, buthp);
         buthp->freq = 500.0;

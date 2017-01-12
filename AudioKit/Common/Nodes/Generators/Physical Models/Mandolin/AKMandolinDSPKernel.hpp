@@ -30,11 +30,9 @@ public:
     
     AKMandolinDSPKernel() {}
     
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-        
-        sampleRate = float(inSampleRate);
-        
+    void init(int _channels, double _sampleRate) override {
+        AKDSPKernel::init(_channels, _sampleRate);
+
         // iOS Hack
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
         NSString *resourcePath = [frameworkBundle resourcePath];
@@ -118,11 +116,7 @@ public:
                 break;
         }
     }
-    
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
-    }
-    
+        
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {

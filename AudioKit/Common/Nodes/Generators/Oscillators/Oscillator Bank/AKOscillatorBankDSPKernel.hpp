@@ -147,8 +147,8 @@ public:
         }
     }
 
-    void init(int channelCount, double inSampleRate) {
-        AKDSPKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKDSPKernel::init(_channels, _sampleRate);
         sp_create(&sp);
         sp->sr = sampleRate;
         sp->nchan = channels;
@@ -312,10 +312,6 @@ public:
                 break;
 
         }
-    }
-
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
     }
     
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {

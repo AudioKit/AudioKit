@@ -153,8 +153,8 @@ public:
         }
     }
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         
         attackDurationRamper.init();
         decayDurationRamper.init();
@@ -364,10 +364,6 @@ public:
         }
     }
 
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
-    }
-    
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         if (midiEvent.length != 3) return;
         uint8_t status = midiEvent.data[0] & 0xF0;

@@ -29,8 +29,8 @@ public:
 
     AKFormantFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
         growl_create(&growl);
         growl_init(sp, growl);
