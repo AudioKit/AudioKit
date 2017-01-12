@@ -17,7 +17,7 @@ enum {
     amountAddress = 0
 };
 
-class AKStereoFieldLimiterDSPKernel : public AKDSPKernel {
+class AKStereoFieldLimiterDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -118,9 +118,6 @@ public:
 
 private:
 
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
-    
     float amount = 1.0;
 
 public:

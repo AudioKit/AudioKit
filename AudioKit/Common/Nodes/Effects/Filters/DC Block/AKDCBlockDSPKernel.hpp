@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKDCBlockDSPKernel : public AKDSPKernel {
+class AKDCBlockDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -99,9 +99,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_dcblock *dcblock;

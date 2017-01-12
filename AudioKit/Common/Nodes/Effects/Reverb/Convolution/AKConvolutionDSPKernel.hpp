@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKConvolutionDSPKernel : public AKDSPKernel {
+class AKConvolutionDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -109,9 +109,6 @@ public:
 private:
 
     int partitionLength = 2048;
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_conv *conv;

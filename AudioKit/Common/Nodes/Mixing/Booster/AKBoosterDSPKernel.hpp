@@ -17,7 +17,7 @@ enum {
     gainAddress = 0
 };
 
-class AKBoosterDSPKernel : public AKDSPKernel {
+class AKBoosterDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -111,9 +111,6 @@ public:
 
 private:
 
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
-    
     float gain = 1.0;
 
 public:

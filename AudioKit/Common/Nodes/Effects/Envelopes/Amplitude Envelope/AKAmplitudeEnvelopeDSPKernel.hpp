@@ -24,7 +24,7 @@ enum {
     releaseDurationAddress = 3
 };
 
-class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel {
+class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -196,9 +196,6 @@ private:
     float internalGate = 0;
     float amp = 0;
     
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
-
     sp_data *sp;
     sp_adsr *adsr;
 

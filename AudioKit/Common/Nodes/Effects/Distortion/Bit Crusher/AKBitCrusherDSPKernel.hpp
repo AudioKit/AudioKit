@@ -22,7 +22,7 @@ enum {
     sampleRateAddress = 1
 };
 
-class AKBitCrusherDSPKernel : public DSPKernel {
+class AKBitCrusherDSPKernel : public DSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -147,9 +147,6 @@ public:
 private:
     int channels = AKSettings.numberOfChannels;
     float globalSampleRate = AKSettings.sampleRate;
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_bitcrush *bitcrush;
