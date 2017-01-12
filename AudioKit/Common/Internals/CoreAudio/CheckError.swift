@@ -11,9 +11,9 @@
 /// - parameter error: OSStatus flag
 ///
 public func CheckError(_ error: OSStatus) {
-    if error == 0 {return}
     switch error {
-    // AudioToolbox
+    case noErr:
+        return
     case kAudio_ParamError:
         AKLog("Error: kAudio_ParamError \n")
         
