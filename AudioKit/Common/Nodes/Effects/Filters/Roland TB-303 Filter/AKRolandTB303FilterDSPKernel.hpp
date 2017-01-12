@@ -24,7 +24,7 @@ enum {
     resonanceAsymmetryAddress = 3
 };
 
-class AKRolandTB303FilterDSPKernel : public AKDSPKernel {
+class AKRolandTB303FilterDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -189,9 +189,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_tbvcf *tbvcf;

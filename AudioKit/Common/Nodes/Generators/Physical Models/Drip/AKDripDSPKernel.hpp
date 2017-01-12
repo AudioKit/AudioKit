@@ -27,7 +27,7 @@ enum {
     amplitudeAddress = 6
 };
 
-class AKDripDSPKernel : public AKDSPKernel {
+class AKDripDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -260,9 +260,6 @@ public:
 private:
 
     float internalTrigger = 0;
-    
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_drip *drip;

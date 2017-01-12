@@ -22,7 +22,7 @@ enum {
     feedbackAddress = 1
 };
 
-class AKStringResonatorDSPKernel : public AKDSPKernel {
+class AKStringResonatorDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -145,8 +145,6 @@ public:
     // MARK: Member Variables
 
 private:
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_streson *streson;

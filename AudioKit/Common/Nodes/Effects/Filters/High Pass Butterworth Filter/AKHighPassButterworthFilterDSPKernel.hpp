@@ -21,7 +21,7 @@ enum {
     cutoffFrequencyAddress = 0
 };
 
-class AKHighPassButterworthFilterDSPKernel : public AKDSPKernel {
+class AKHighPassButterworthFilterDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -123,9 +123,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_buthp *buthp;

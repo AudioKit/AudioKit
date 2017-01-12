@@ -18,7 +18,7 @@ extern "C" {
 }
 
 
-class AKFrequencyTrackerDSPKernel : public AKDSPKernel {
+class AKFrequencyTrackerDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -103,9 +103,6 @@ private:
     
     int hopSize = 4096;
     int peakCount = 20;
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_ptrack *ptrack;

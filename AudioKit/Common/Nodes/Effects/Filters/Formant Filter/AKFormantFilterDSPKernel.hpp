@@ -23,7 +23,7 @@ enum {
     yAddress = 1
 };
 
-class AKFormantFilterDSPKernel : public AKDSPKernel {
+class AKFormantFilterDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -147,9 +147,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     

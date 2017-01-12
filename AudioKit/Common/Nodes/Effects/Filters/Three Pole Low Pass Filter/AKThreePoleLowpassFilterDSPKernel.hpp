@@ -22,7 +22,7 @@ enum {
     resonanceAddress = 2
 };
 
-class AKThreePoleLowpassFilterDSPKernel : public AKDSPKernel {
+class AKThreePoleLowpassFilterDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -166,9 +166,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_lpf18 *lpf18;

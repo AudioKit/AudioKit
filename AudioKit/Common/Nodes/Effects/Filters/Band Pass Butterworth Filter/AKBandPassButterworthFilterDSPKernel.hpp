@@ -22,7 +22,7 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKBandPassButterworthFilterDSPKernel : public AKDSPKernel {
+class AKBandPassButterworthFilterDSPKernel : public AKDSPKernel, AKBuffered {
 public:
     // MARK: Member Functions
 
@@ -145,9 +145,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_butbp *butbp;
