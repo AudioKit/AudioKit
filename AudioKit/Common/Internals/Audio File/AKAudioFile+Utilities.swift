@@ -67,25 +67,15 @@ extension AKAudioFile {
             }
             
             // Checks file type (only Audio Files)
-            for fileName in fileNames {
-                let fileNameLowerCase = fileName.lowercased()
-                if fileNameLowerCase.hasSuffix(".wav") {
-                    deleteFileWithFileName(fileName)
-                }
-                if fileNameLowerCase.hasSuffix(".caf") {
-                    deleteFileWithFileName(fileName)
-                }
-                if fileNameLowerCase.hasSuffix(".aif") {
-                    deleteFileWithFileName(fileName)
-                }
-                if fileNameLowerCase.hasSuffix(".mp4") {
-                    deleteFileWithFileName(fileName)
-                }
-                if fileNameLowerCase.hasSuffix(".m4a") {
-                    deleteFileWithFileName(fileName)
+            fileNames.forEach { fn in
+                let lower = fn.lowercased()
+                _ = [".wav", ".caf", ".aif", ".mp4", ".m4a"].first {
+                    lower.hasSuffix($0)
+                }.map { _ in
+                    deleteFileWithFileName(fn)
                 }
             }
-            
+
             // print report
             switch deletedFilesCount {
             case 0: AKLog("AKAudioFile.cleanTempDirectory: No file deleted.")
