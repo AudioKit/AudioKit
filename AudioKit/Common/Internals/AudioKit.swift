@@ -30,8 +30,6 @@ extension AVAudioEngine {
     /// Reference to the AV Audio Engine
     open static let engine = AVAudioEngine()
 
-    override private init() { }
-
     static var shouldBeRunning = false
 
     /// An audio output operation that most applications will need to use last
@@ -250,11 +248,11 @@ extension AVAudioEngine {
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
-    private static func audioEngineConfigurationChange(_ notification: Notification) -> Void {
+    @objc fileprivate static func audioEngineConfigurationChange(_ notification: Notification) -> Void {
 
         if shouldBeRunning && !engine.isRunning {
             do {
-                try self.engine.start()
+                try engine.start()
             } catch {
                 AKLog("couldn't start engine after configuration change \(error)")
             }
@@ -263,7 +261,7 @@ extension AVAudioEngine {
     }
 
     // Restarts the engine after audio output has been changed, like headphones plugged in.
-    private static func restartEngineAfterRouteChange(_ notification: Notification) {
+    @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         if shouldBeRunning {
             do {
                 try self.engine.start()
