@@ -148,11 +148,8 @@ public:
     }
 
     void init(int _channels, double _sampleRate) override {
-        AKDSPKernel::init(_channels, _sampleRate);
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
-        
+        AKSporthKernel::init(_channels, _sampleRate);
+
         attackDurationRamper.init();
         decayDurationRamper.init();
         sustainLevelRamper.init();
