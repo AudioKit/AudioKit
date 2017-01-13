@@ -12,6 +12,8 @@ import AVFoundation
 extension AVAudioCommonFormat: CustomStringConvertible {
     public var description: String {
         switch self {
+        case .otherFormat:
+            return "OtherFormat"
         case .pcmFormatFloat32 :
             return "PCMFormatFloat32"
         case .pcmFormatFloat64:
@@ -20,8 +22,6 @@ extension AVAudioCommonFormat: CustomStringConvertible {
             return "PCMFormatInt16"
         case .pcmFormatInt32:
             return "PCMFormatInt32"
-        default :
-            return "OtherFormat"
         }
     }
 }
