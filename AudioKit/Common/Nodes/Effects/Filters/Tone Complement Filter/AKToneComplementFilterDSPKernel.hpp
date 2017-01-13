@@ -27,8 +27,8 @@ public:
 
     AKToneComplementFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_atone_create(&atone);
         sp_atone_init(sp, atone);
         atone->hp = 1000.0;

@@ -29,8 +29,8 @@ public:
 
     AKPitchShifterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_pshift_create(&pshift);
         sp_pshift_init(sp, pshift);
         *pshift->shift = 0;

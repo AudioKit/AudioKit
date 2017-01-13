@@ -22,16 +22,16 @@ enum {
     sampleRateAddress = 1
 };
 
-class AKBitCrusherDSPKernel : public DSPKernel, public AKBuffered {
+class AKBitCrusherDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBitCrusherDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        channels = _channels;
 
-        globalSampleRate = float(inSampleRate);
+        globalSampleRate = float(_sampleRate);
 
         sp_create(&sp);
         sp->sr = globalSampleRate;

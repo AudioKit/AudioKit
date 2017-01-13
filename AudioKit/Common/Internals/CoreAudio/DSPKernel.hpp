@@ -48,7 +48,9 @@ public:
 
     AKDSPKernel(): AKDSPKernel(AKSettings.numberOfChannels, AKSettings.sampleRate) { }
 
-    void init(int _channels, double _sampleRate) {
+    virtual ~AKDSPKernel() { }
+
+    virtual void init(int _channels, double _sampleRate) {
         channels = _channels;
         sampleRate = _sampleRate;
     }
@@ -83,20 +85,19 @@ public:
 //
 //    }
 
-    void init(int channelCount, double inSampleRate) {
-      AKDSPKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+      AKDSPKernel::init(_channels, _sampleRate);
       sp_create(&sp);
-      sp->sr = sampleRate;
-      sp->nchan = channels;
+      sp->sr = _sampleRate;
+      sp->nchan = _channels;
     }
 
-//    ~AKSporthKernel() {
-//        sp_destroy(&sp);
-//    }
+    ~AKSporthKernel() {
+        sp_destroy(&sp);
+    }
     void destroy() {
         sp_destroy(&sp);
     }
-
 };
 
 
