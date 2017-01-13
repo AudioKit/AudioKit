@@ -31,8 +31,8 @@ public:
 
     AKPhaseDistortionOscillatorDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
         sp_pdhalf_create(&pdhalf);
         sp_tabread_create(&tab);

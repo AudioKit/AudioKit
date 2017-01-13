@@ -29,8 +29,8 @@ public:
 
     AKHighShelfParametricEqualizerFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_pareq_create(&pareq);
         sp_pareq_init(sp, pareq);
         pareq->fc = 1000;
