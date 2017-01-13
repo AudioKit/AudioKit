@@ -24,20 +24,15 @@ enum {
     negativeShapeParameterAddress = 3
 };
 
-class AKTanhDistortionDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKTanhDistortionDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKTanhDistortionDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+        AKSporthKernel::init(channelCount, inSampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_dist_create(&dist);
         sp_dist_init(sp, dist);
         dist->pregain = 2.0;
@@ -61,7 +56,7 @@ public:
 
     void destroy() {
         sp_dist_destroy(&dist);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -185,7 +180,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_dist *dist;
 
     float pregain = 2.0;

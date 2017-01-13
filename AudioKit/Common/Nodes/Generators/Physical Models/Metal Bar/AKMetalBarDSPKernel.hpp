@@ -27,20 +27,14 @@ enum {
     strikeWidthAddress = 6
 };
 
-class AKMetalBarDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKMetalBarDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKMetalBarDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
         sp_bar_create(&bar);
         sp_bar_init(sp, bar, 3, 0.0001);
 //        bar->bcL = 2;
@@ -62,7 +56,7 @@ public:
 
     void destroy() {
         sp_bar_destroy(&bar);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -241,7 +235,6 @@ public:
 private:
     float internalTrigger = 0;
 
-    sp_data *sp;
     sp_bar *bar;
 
     float leftBoundaryCondition = 1;

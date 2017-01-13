@@ -26,10 +26,7 @@ public:
     AKFluteDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
+        AKDSPKernel::init(channelCount, inSampleRate);
         // iOS Hack
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
         NSString *resourcePath = [frameworkBundle resourcePath];

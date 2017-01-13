@@ -23,20 +23,14 @@ enum {
     crossfadeAddress = 2
 };
 
-class AKPitchShifterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKPitchShifterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKPitchShifterDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+        AKSporthKernel::init(channelCount, inSampleRate);
         sp_pshift_create(&pshift);
         sp_pshift_init(sp, pshift);
         *pshift->shift = 0;
@@ -58,7 +52,7 @@ public:
 
     void destroy() {
         sp_pshift_destroy(&pshift);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -163,7 +157,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_pshift *pshift;
 
     float shift = 0;
