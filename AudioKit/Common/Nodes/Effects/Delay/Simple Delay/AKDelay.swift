@@ -76,11 +76,8 @@ open class AKDelay: AKNode, AKToggleable {
             self.lowPassCutoff = lowPassCutoff
             self.dryWetMix = dryWetMix
 
-            super.init()
-            self.avAudioNode = delayAU
-            AudioKit.engine.attach(self.avAudioNode)
+            super.init(avAudioNode: delayAU, attach: true)
             input.addConnectionPoint(self)
-
 
             delayAU.delayTime = self.time
             delayAU.feedback = Float(feedback) * 100.0
