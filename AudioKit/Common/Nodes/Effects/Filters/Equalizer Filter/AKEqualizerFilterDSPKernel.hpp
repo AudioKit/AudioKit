@@ -29,8 +29,8 @@ public:
 
     AKEqualizerFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
         sp_eqfil_create(&eqfil);
         sp_eqfil_init(sp, eqfil);

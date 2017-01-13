@@ -28,8 +28,8 @@ public:
 
     AKThreePoleLowpassFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        AKSporthKernel::init(channelCount, inSampleRate);
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_lpf18_create(&lpf18);
         sp_lpf18_init(sp, lpf18);
         lpf18->dist = 0.5;
