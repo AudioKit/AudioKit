@@ -66,7 +66,12 @@ open class AKMIDI {
         #endif
 
         if client == 0 {
-            let result = MIDIClientCreateWithBlock(clientName, &client, MyMIDINotifyBlock)
+            let result = MIDIClientCreateWithBlock(clientName, &client) {
+                guard $0.pointee.messageID == .msgSetupChanged else { return }
+                for l in self.listeners {
+                    l.receivedMIDISetupChange()
+                }
+            }
             if result != noErr {
                 AKLog("Error creating midi client : \(result)")
             }
