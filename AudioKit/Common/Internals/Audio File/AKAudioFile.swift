@@ -93,24 +93,24 @@ extension AVAudioFile {
     /// Otherwise, returns nil
     /// (useful when sending an AKAudioFile by email)
     public var mimeType: String? {
-        switch fileExt.uppercased() {
-        case "WAV":
-            return  "audio/wav"
-        case "CAF":
-            return  "audio/x-caf"
-        case "AIF", "AIFF", "AIFC":
+        switch fileExt.lowercased() {
+        case "wav":
+            return "audio/wav"
+        case "caf":
+            return "audio/x-caf"
+        case "aif", "aiff", "aifc":
             return "audio/aiff"
-        case "M4R":
-            return  "audio/x-m4r"
-        case "M4A":
-            return  "audio/x-m4a"
-        case "MP4":
-            return  "audio/mp4"
-        case "M2A", "MP2":
-            return  "audio/mpeg"
-        case "AAC":
-            return  "audio/aac"
-        case "MP3":
+        case "m4r":
+            return "audio/x-m4r"
+        case "m4a":
+            return "audio/x-m4a"
+        case "mp4":
+            return "audio/mp4"
+        case "m2a", "mp2":
+            return "audio/mpeg"
+        case "aac":
+            return "audio/aac"
+        case "mp3":
             return "audio/mpeg3"
         default: return nil
         }
