@@ -23,21 +23,15 @@ enum {
     yAddress = 1
 };
 
-class AKFormantFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKFormantFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKFormantFilterDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+        AKSporthKernel::init(channelCount, inSampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
-        
         growl_create(&growl);
         growl_init(sp, growl);
 
@@ -58,7 +52,7 @@ public:
 
     void destroy() {
         growl_destroy(&growl);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -142,8 +136,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    sp_data *sp;
     
     growl_d *growl;
     float x = 0;

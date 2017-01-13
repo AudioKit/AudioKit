@@ -22,20 +22,15 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKResonantFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKResonantFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKResonantFilterDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+        AKSporthKernel::init(channelCount, inSampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_reson_create(&reson);
         sp_reson_init(sp, reson);
         reson->freq = 4000.0;
@@ -55,7 +50,7 @@ public:
 
     void destroy() {
         sp_reson_destroy(&reson);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -141,7 +136,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_reson *reson;
 
     float frequency = 4000.0;

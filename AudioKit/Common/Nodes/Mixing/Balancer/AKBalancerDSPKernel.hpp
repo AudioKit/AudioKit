@@ -18,20 +18,15 @@ extern "C" {
 }
 
 
-class AKBalancerDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKBalancerDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBalancerDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+        AKSporthKernel::init(channelCount, inSampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_bal_create(&bal);
         sp_bal_init(sp, bal);
     }
@@ -46,7 +41,7 @@ public:
     
     void destroy() {
         sp_bal_destroy(&bal);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
     
     void reset() {
@@ -103,7 +98,6 @@ private:
 
     AudioBufferList *compBufferListPtr = nullptr;
 
-    sp_data *sp;
     sp_bal *bal;
 
 public:
