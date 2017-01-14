@@ -73,25 +73,11 @@ standardKernelPassthroughs()
     _kernel.setParameter(pitchRatioAddress, pitchRatioAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree tree:@[
         positionAUParameter,
         amplitudeAUParameter,
         pitchRatioAUParameter
     ]];
-
-    // A function to provide string representations of parameter values.
-    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
-        AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
-        switch (param.address) {
-            case positionAddress:
-            case amplitudeAddress:
-            case pitchRatioAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-            default:
-                return @"?";
-        }
-    };
 
 	parameterTreeBlock(PhaseLockedVocoder)
 }

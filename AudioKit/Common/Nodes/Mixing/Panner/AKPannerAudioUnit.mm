@@ -44,22 +44,10 @@ standardKernelPassthroughs()
     _kernel.setParameter(panAddress,   panAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree tree:@[
         panAUParameter
     ]];
 
-    // A function to provide string representations of parameter values.
-    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
-        AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
-        switch (param.address) {
-            case panAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
-            default:
-                return @"?";
-        }
-    };
     parameterTreeBlock(Panner)
 }
 
