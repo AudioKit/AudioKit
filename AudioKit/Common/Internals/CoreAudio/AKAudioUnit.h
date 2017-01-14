@@ -22,6 +22,11 @@
 
 @end
 
+@protocol AUParameterCollection
+- (AUValue)objectAtIndexedSubscriptWithIdx:(AUParameterAddress)idx;
+- (void)setObject:(AUValue)obj atIndexedSubscript:(AUParameterAddress)atIndexedSubscript;
+@end
+
 @interface AUParameter(Ext)
 -(instancetype)init:(NSString *)identifier
                name:(NSString *)name
