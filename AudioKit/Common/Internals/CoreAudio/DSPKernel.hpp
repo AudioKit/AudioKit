@@ -11,6 +11,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <algorithm>
 #import <AudioKit/AudioKit-Swift.h>
+#import "ParameterRamper.hpp"
 
 extern "C" {
 #include "soundpipe.h"
@@ -21,6 +22,7 @@ template <typename T>
 T clamp(T input, T low, T high) {
     return std::min(std::max(input, low), high);
 }
+
 
 // Put your DSP code into a subclass of DSPKernel.
 class DSPKernel {
@@ -49,10 +51,49 @@ public:
     AKDSPKernel(): AKDSPKernel(AKSettings.numberOfChannels, AKSettings.sampleRate) { }
 
     virtual ~AKDSPKernel() { }
+    //
+    // todo: these should be constructors but the original samples
+    // had init methods
+    //
 
     virtual void init(int _channels, double _sampleRate) {
         channels = _channels;
         sampleRate = _sampleRate;
+    }
+};
+
+class AKParametricKernel {
+protected:
+    virtual ParameterRamper *getRamper(AUParameterAddress address) = 0;
+
+public:
+    AUValue getParameter(AUParameterAddress address) {
+        ParameterRamper *ramper = getRamper(address);
+        if (ramper != nullptr) {
+            return ramper->getUIValue();
+        }
+        return 0.0f;
+    }
+
+    void setParameter(AUParameterAddress address, AUValue value) {
+        ParameterRamper *ramper = getRamper(address);
+        if (ramper != nullptr) {
+            return ramper->setUIValue(value);
+        }
+    }
+
+    void setParameter(AUParameter *parameter) {
+        ParameterRamper *ramper = getRamper(parameter.address);
+        if (ramper != nullptr) {
+            return ramper->setUIValue(parameter.value);
+        }
+    }
+
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {
+        ParameterRamper *ramper = getRamper(address);
+        if (ramper != nullptr) {
+            return ramper->startRamp(value, duration);
+        }
     }
 };
 
@@ -70,8 +111,9 @@ protected:
     AudioBufferList *inBufferListPtr = nullptr;
 public:
     void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
+        AKOutputBuffered::setBuffer(outBufferList);
         inBufferListPtr = inBufferList;
-        outBufferListPtr = outBufferList;
+
     }
 };
 

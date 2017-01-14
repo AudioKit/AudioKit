@@ -77,27 +77,12 @@ standardKernelPassthroughs()
     _kernel.setParameter(resonanceAsymmetryAddress, resonanceAsymmetryAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree tree:@[
         cutoffFrequencyAUParameter,
         resonanceAUParameter,
         distortionAUParameter,
         resonanceAsymmetryAUParameter
     ]];
-
-    // A function to provide string representations of parameter values.
-    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
-        AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
-        switch (param.address) {
-            case cutoffFrequencyAddress:
-            case resonanceAddress:
-            case distortionAddress:
-            case resonanceAsymmetryAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-            default:
-                return @"?";
-        }
-    };
 
 	parameterTreeBlock(RolandTB303Filter)
 }
