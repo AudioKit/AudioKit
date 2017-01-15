@@ -71,6 +71,14 @@
     return _outputBusArray;
 }
 
+-(AUImplementorValueProvider)getter {
+  return _parameterTree.implementorValueProvider;
+}
+
+-(AUImplementorValueObserver)setter {
+  return _parameterTree.implementorValueObserver;
+}
+
 #pragma mark - AUAudioUnit Overrides
 
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
@@ -166,5 +174,23 @@
     };
     return tree;
 
+}
+@end
+
+
+
+@implementation AVAudioNode(Ext)
+-(instancetype)initWithComponent:(AudioComponentDescription)component {
+		self = [self init];
+		__block AVAudioNode * __strong * _this = &self;
+
+  [AVAudioUnit instantiateWithComponentDescription:component
+                                           options:0
+                                 completionHandler:^(__kindof AVAudioUnit * _Nullable audioUnit,
+                                                     NSError * _Nullable error) {
+
+                                   *_this = audioUnit;
+                                 }];
+  return self;
 }
 @end
