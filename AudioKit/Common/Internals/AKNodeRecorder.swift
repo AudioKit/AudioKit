@@ -123,7 +123,7 @@ import AVFoundation
             
             // Sets AVAudioSession Category to be Play and Record
             
-            if AKSettings.session.category != AKSettings.SessionCategory.playAndRecord.rawValue {
+            if AKSettings.session.category != AKSettings.SessionCategoryString[.playAndRecord] {
                 do {
                     try AKSettings.setSession(category: .playAndRecord)
                 } catch let error as NSError {
