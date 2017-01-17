@@ -120,7 +120,11 @@ import AVFoundation
 
     /// Convenience method accessible from Objective-C
     @objc open static func setSession(category: SessionCategory, options: UInt) throws {
-        try setSession(category: category, with: AVAudioSessionCategoryOptions(rawValue: options))
+        if options == 0 {
+            try setSession(category: category)
+        } else {
+            try setSession(category: category, with: AVAudioSessionCategoryOptions(rawValue: options))
+        }
     }
 
     /// Set the audio session type
@@ -133,8 +137,8 @@ import AVFoundation
                 do {
                     try session.setCategory(SessionCategoryString[category]!, with: options!)
                 } catch let error as NSError {
-                    AKLog("AKAsettings Error: Cannot set AVAudioSession Category to \(SessionCategoryString[category])) with options: \(String(describing: options!))")
-                    AKLog("AKAsettings Error: \(error))")
+                    AKLog("AKSettings Error: Cannot set AVAudioSession Category to \(SessionCategoryString[category])) with options: \(String(describing: options!))")
+                    AKLog("AKSettings Error: \(error))")
                     throw error
                 }
                 
@@ -143,8 +147,8 @@ import AVFoundation
                 do {
                     try session.setCategory(SessionCategoryString[category]!)
                 } catch let error as NSError {
-                    AKLog("AKAsettings Error: Cannot set AVAudioSession Category to \(SessionCategoryString[category])")
-                    AKLog("AKAsettings Error: \(error))")
+                    AKLog("AKSettings Error: Cannot set AVAudioSession Category to \(SessionCategoryString[category])")
+                    AKLog("AKSettings Error: \(error))")
                     throw error
                 }
             }
@@ -155,8 +159,8 @@ import AVFoundation
         do {
             try session.setPreferredIOBufferDuration(bufferLength.duration)
         } catch let error as NSError {
-            AKLog("AKAsettings Error: Cannot set Preferred IOBufferDuration to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
-            AKLog("AKAsettings Error: \(error))")
+            AKLog("AKSettings Error: Cannot set Preferred IOBufferDuration to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
+            AKLog("AKSettings Error: \(error))")
             throw error
         }
 
@@ -164,8 +168,8 @@ import AVFoundation
         do {
             try session.setActive(true)
         } catch let error as NSError {
-            AKLog("AKAsettings Error: Cannot set AVAudioSession.setActive to true")
-            AKLog("AKAsettings Error: \(error))")
+            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true")
+            AKLog("AKSettings Error: \(error))")
             throw error
         }
 
