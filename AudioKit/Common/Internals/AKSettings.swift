@@ -29,7 +29,7 @@ import AVFoundation
         /// Use to multi-route audio. May be used on input, output, or both.
         case multiRoute
     }
-    
+
     // Corresponding internal names for AVAudioSession - allows bridging to Objective-C
     internal static let SessionCategoryString: [SessionCategory : String] = [
         .ambient : "AVAudioSessionCategoryAmbient",
@@ -40,7 +40,7 @@ import AVFoundation
         .audioProcessing : "AVAudioSessionCategoryAudioProcessing",
         .multiRoute : "AVAudioSessionCategoryMultiRoute"
     ]
-    
+
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
@@ -122,7 +122,7 @@ import AVFoundation
     @objc open static func setSession(category: SessionCategory, options: UInt) throws {
         try setSession(category: category, with: AVAudioSessionCategoryOptions(rawValue: options))
     }
-    
+
     /// Set the audio session type
     open static func setSession(category: SessionCategory,
                                 with options: AVAudioSessionCategoryOptions? = nil) throws {
@@ -189,9 +189,6 @@ import AVFoundation
             $0.portType == AVAudioSessionPortHeadphones
         }
     }
-    
+
     #endif
-    
-    
-    
 }
