@@ -13,27 +13,38 @@ import AVFoundation
 @objc open class AKSettings: NSObject {
 
     /// Enum of available AVAudioSession Categories
-    public enum SessionCategory: String {
-        // Audio silenced by silent switch and screen lock - audio is mixable
-        case ambient = "AVAudioSessionCategoryAmbient"
-        // Audio is silenced by silent switch and screen lock - audio is non mixable
-        case soloAmbient = "AVAudioSessionCategorySoloAmbient"
-        // Audio is not silenced by silent switch and screen lock - audio is non mixable
-        case playback = "AVAudioSessionCategoryPlayback"
-        // Silences playback audio
-        case record = "AVAudioSessionCategoryRecord"
-        // Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
-        case playAndRecord = "AVAudioSessionCategoryPlayAndRecord"
-        // Disables playback and recording
-        case audioProcessing = "AVAudioSessionCategoryAudioProcessing"
-        // Use to multi-route audio. May be used on input, output, or both.
-        case multiRoute = "AVAudioSessionCategoryMultiRoute"
+    @objc public enum SessionCategory: Int {
+        /// Audio silenced by silent switch and screen lock - audio is mixable
+        case ambient
+        /// Audio is silenced by silent switch and screen lock - audio is non mixable
+        case soloAmbient
+        /// Audio is not silenced by silent switch and screen lock - audio is non mixable
+        case playback
+        /// Silences playback audio
+        case record
+        /// Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
+        case playAndRecord
+        /// Disables playback and recording
+        case audioProcessing
+        /// Use to multi-route audio. May be used on input, output, or both.
+        case multiRoute
     }
-
+    
+    // Corresponding internal names for AVAudioSession - allows bridging to Objective-C
+    internal static let SessionCategoryString: [SessionCategory : String] = [
+        .ambient : "AVAudioSessionCategoryAmbient",
+        .soloAmbient : "AVAudioSessionCategorySoloAmbient",
+        .playback : "AVAudioSessionCategoryPlayback",
+        .record : "AVAudioSessionCategoryRecord",
+        .playAndRecord : "AVAudioSessionCategoryPlayAndRecord",
+        .audioProcessing : "AVAudioSessionCategoryAudioProcessing",
+        .multiRoute : "AVAudioSessionCategoryMultiRoute"
+    ]
+    
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
-    public enum BufferLength: Int {
+    @objc public enum BufferLength: Int {
         case shortest = 5
         case veryShort = 6
         case short = 7
@@ -107,17 +118,22 @@ import AVFoundation
     /// Shortcut for AVAudioSession.sharedInstance()
     open static let session = AVAudioSession.sharedInstance()
 
+    /// Convenience method accessible from Objective-C
+    @objc open static func setSession(category: SessionCategory, options: UInt) throws {
+        try setSession(category: category, with: AVAudioSessionCategoryOptions(rawValue: options))
+    }
+    
     /// Set the audio session type
     open static func setSession(category: SessionCategory,
-                                with options: AVAudioSessionCategoryOptions? = nil ) throws {
+                                with options: AVAudioSessionCategoryOptions? = nil) throws {
         
         if !AKSettings.disableAVAudioSessionCategoryManagement {
             
             if options != nil {
                 do {
-                    try session.setCategory(category.rawValue, with: options!)
+                    try session.setCategory(SessionCategoryString[category]!, with: options!)
                 } catch let error as NSError {
-                    AKLog("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category)) with options: \(String(describing: options!))")
+                    AKLog("AKAsettings Error: Cannot set AVAudioSession Category to \(SessionCategoryString[category])) with options: \(String(describing: options!))")
                     AKLog("AKAsettings Error: \(error))")
                     throw error
                 }
@@ -125,9 +141,9 @@ import AVFoundation
             } else {
                 
                 do {
-                    try session.setCategory(category.rawValue)
+                    try session.setCategory(SessionCategoryString[category]!)
                 } catch let error as NSError {
-                    AKLog("AKAsettings Error: Cannot set AVAudioSession Category to \(String(describing: category))")
+                    AKLog("AKAsettings Error: Cannot set AVAudioSession Category to \(SessionCategoryString[category])")
                     AKLog("AKAsettings Error: \(error))")
                     throw error
                 }
