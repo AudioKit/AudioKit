@@ -276,17 +276,19 @@ extension AVAudioUnit {
 
 extension AUParameter {
     @nonobjc
-    convenience init(identifier: String,
+    convenience init(_ identifier: String,
                      name: String, 
                      address: AUParameterAddress,
-                     range: Range<AUValue>,
-                     unit: AudioUnitParameterUnit) {
+                     range: ClosedRange<AUValue>,
+                     unit: AudioUnitParameterUnit,
+                     value: AUValue = 0) {
         self.init(identifier,
                   name: name,
                   address: address,
                   min: range.lowerBound, 
                   max: range.upperBound,
                   unit: unit)
+        self.value = value
     }
 }
 
