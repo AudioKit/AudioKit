@@ -110,13 +110,13 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
         _Self.register()
         super.init()
 
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
+            input.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -126,18 +126,18 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
         sustainLevelParameter    = tree["sustainLevel"]
         releaseDurationParameter = tree["releaseDuration"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.attackDurationParameter!.address {
-                    self.attackDuration = Double(value)
-                } else if address == self.decayDurationParameter!.address {
-                    self.decayDuration = Double(value)
-                } else if address == self.sustainLevelParameter!.address {
-                    self.sustainLevel = Double(value)
-                } else if address == self.releaseDurationParameter!.address {
-                    self.releaseDuration = Double(value)
+                if address == self?.attackDurationParameter!.address {
+                    self?.attackDuration = Double(value)
+                } else if address == self?.decayDurationParameter!.address {
+                    self?.decayDuration = Double(value)
+                } else if address == self?.sustainLevelParameter!.address {
+                    self?.sustainLevel = Double(value)
+                } else if address == self?.releaseDurationParameter!.address {
+                    self?.releaseDuration = Double(value)
                 }
             }
         })

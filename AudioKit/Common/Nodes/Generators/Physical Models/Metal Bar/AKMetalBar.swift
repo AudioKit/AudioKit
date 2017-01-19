@@ -140,11 +140,11 @@ open class AKMetalBar: AKNode, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -157,24 +157,24 @@ open class AKMetalBar: AKNode, AKComponent {
         strikeVelocityParameter = tree["strikeVelocity"]
         strikeWidthParameter = tree["strikeWidth"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.leftBoundaryConditionParameter!.address {
-                    self.leftBoundaryCondition = Double(value)
-                } else if address == self.rightBoundaryConditionParameter!.address {
-                    self.rightBoundaryCondition = Double(value)
-                } else if address == self.decayDurationParameter!.address {
-                    self.decayDuration = Double(value)
-                } else if address == self.scanSpeedParameter!.address {
-                    self.scanSpeed = Double(value)
-                } else if address == self.positionParameter!.address {
-                    self.position = Double(value)
-                } else if address == self.strikeVelocityParameter!.address {
-                    self.strikeVelocity = Double(value)
-                } else if address == self.strikeWidthParameter!.address {
-                    self.strikeWidth = Double(value)
+                if address == self?.leftBoundaryConditionParameter!.address {
+                    self?.leftBoundaryCondition = Double(value)
+                } else if address == self?.rightBoundaryConditionParameter!.address {
+                    self?.rightBoundaryCondition = Double(value)
+                } else if address == self?.decayDurationParameter!.address {
+                    self?.decayDuration = Double(value)
+                } else if address == self?.scanSpeedParameter!.address {
+                    self?.scanSpeed = Double(value)
+                } else if address == self?.positionParameter!.address {
+                    self?.position = Double(value)
+                } else if address == self?.strikeVelocityParameter!.address {
+                    self?.strikeVelocity = Double(value)
+                } else if address == self?.strikeWidthParameter!.address {
+                    self?.strikeWidth = Double(value)
                 }
             }
         })

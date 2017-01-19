@@ -54,23 +54,23 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.amplitudeParameter!.address {
-                    self.amplitude = Double(value)
+                if address == self?.amplitudeParameter!.address {
+                    self?.amplitude = Double(value)
                 }
             }
         })

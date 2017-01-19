@@ -79,11 +79,11 @@ open class AKMandolin: AKNode, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -91,14 +91,14 @@ open class AKMandolin: AKNode, AKComponent {
         detuneParameter   = tree["detune"]
         bodySizeParameter = tree["bodySize"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.detuneParameter!.address {
-                    self.detune = Double(value)
-                } else if address == self.bodySizeParameter!.address {
-                    self.bodySize = Double(value)
+                if address == self?.detuneParameter!.address {
+                    self?.detune = Double(value)
+                } else if address == self?.bodySizeParameter!.address {
+                    self?.bodySize = Double(value)
                 }
             }
         })

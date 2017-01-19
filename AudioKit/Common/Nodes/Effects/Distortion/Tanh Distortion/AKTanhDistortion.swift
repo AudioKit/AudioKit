@@ -111,13 +111,13 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
+            input.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -127,18 +127,18 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         postiveShapeParameterParameter = tree["postiveShapeParameter"]
         negativeShapeParameterParameter = tree["negativeShapeParameter"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.pregainParameter!.address {
-                    self.pregain = Double(value)
-                } else if address == self.postgainParameter!.address {
-                    self.postgain = Double(value)
-                } else if address == self.postiveShapeParameterParameter!.address {
-                    self.postiveShapeParameter = Double(value)
-                } else if address == self.negativeShapeParameterParameter!.address {
-                    self.negativeShapeParameter = Double(value)
+                if address == self?.pregainParameter!.address {
+                    self?.pregain = Double(value)
+                } else if address == self?.postgainParameter!.address {
+                    self?.postgain = Double(value)
+                } else if address == self?.postiveShapeParameterParameter!.address {
+                    self?.postiveShapeParameter = Double(value)
+                } else if address == self?.negativeShapeParameterParameter!.address {
+                    self?.negativeShapeParameter = Double(value)
                 }
             }
         })
