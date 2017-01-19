@@ -141,11 +141,11 @@ open class AKDrip: AKNode, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -158,24 +158,24 @@ open class AKDrip: AKNode, AKComponent {
         secondResonantFrequencyParameter = tree["secondResonantFrequency"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.intensityParameter!.address {
-                    self.intensity = Double(value)
-                } else if address == self.dampingFactorParameter!.address {
-                    self.dampingFactor = Double(value)
-                } else if address == self.energyReturnParameter!.address {
-                    self.energyReturn = Double(value)
-                } else if address == self.mainResonantFrequencyParameter!.address {
-                    self.mainResonantFrequency = Double(value)
-                } else if address == self.firstResonantFrequencyParameter!.address {
-                    self.firstResonantFrequency = Double(value)
-                } else if address == self.secondResonantFrequencyParameter!.address {
-                    self.secondResonantFrequency = Double(value)
-                } else if address == self.amplitudeParameter!.address {
-                    self.amplitude = Double(value)
+                if address == self?.intensityParameter!.address {
+                    self?.intensity = Double(value)
+                } else if address == self?.dampingFactorParameter!.address {
+                    self?.dampingFactor = Double(value)
+                } else if address == self?.energyReturnParameter!.address {
+                    self?.energyReturn = Double(value)
+                } else if address == self?.mainResonantFrequencyParameter!.address {
+                    self?.mainResonantFrequency = Double(value)
+                } else if address == self?.firstResonantFrequencyParameter!.address {
+                    self?.firstResonantFrequency = Double(value)
+                } else if address == self?.secondResonantFrequencyParameter!.address {
+                    self?.secondResonantFrequency = Double(value)
+                } else if address == self?.amplitudeParameter!.address {
+                    self?.amplitude = Double(value)
                 }
             }
         })

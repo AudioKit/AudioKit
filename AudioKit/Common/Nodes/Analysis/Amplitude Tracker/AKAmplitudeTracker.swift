@@ -16,7 +16,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
 
     // MARK: - Properties
-    private var internalAU: AKAudioUnitType?
+    internal var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
@@ -57,25 +57,25 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
+            input.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
         halfPowerPointParameter = tree["halfPowerPoint"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.halfPowerPointParameter!.address {
-                    self.halfPowerPoint = Double(value)
+                if address == self?.halfPowerPointParameter!.address {
+                    self?.halfPowerPoint = Double(value)
                 }
             }
         })
@@ -92,5 +92,9 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         internalAU!.stop()
+    }
+    
+    deinit {
+        AKLog("* AKAmplitudeTracker")
     }
 }
