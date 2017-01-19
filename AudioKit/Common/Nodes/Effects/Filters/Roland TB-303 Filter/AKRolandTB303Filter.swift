@@ -111,13 +111,13 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
+            input.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -127,18 +127,18 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         distortionParameter         = tree["distortion"]
         resonanceAsymmetryParameter = tree["resonanceAsymmetry"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = Double(value)
-                } else if address == self.resonanceParameter!.address {
-                    self.resonance = Double(value)
-                } else if address == self.distortionParameter!.address {
-                    self.distortion = Double(value)
-                } else if address == self.resonanceAsymmetryParameter!.address {
-                    self.resonanceAsymmetry = Double(value)
+                if address == self?.cutoffFrequencyParameter!.address {
+                    self?.cutoffFrequency = Double(value)
+                } else if address == self?.resonanceParameter!.address {
+                    self?.resonance = Double(value)
+                } else if address == self?.distortionParameter!.address {
+                    self?.distortion = Double(value)
+                } else if address == self?.resonanceAsymmetryParameter!.address {
+                    self?.resonanceAsymmetry = Double(value)
                 }
             }
         })

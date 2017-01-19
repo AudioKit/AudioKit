@@ -144,15 +144,15 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit .auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit .auAudioUnit as? AKAudioUnitType
 
             for (i, waveform) in waveformArray.enumerated() {
-                self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveform.count))
+                self?.internalAU?.setupWaveform(UInt32(i), size: Int32(waveform.count))
                 for (j, sample) in waveform.enumerated() {
-                    self.internalAU?.setWaveform(UInt32(i), withValue: sample, at: UInt32(j))
+                    self?.internalAU?.setWaveform(UInt32(i), withValue: sample, at: UInt32(j))
                 }
             }
         }
@@ -165,20 +165,20 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffsetParameter     = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.frequencyParameter!.address {
-                    self.frequency = Double(value)
-                } else if address == self.amplitudeParameter!.address {
-                    self.amplitude = Double(value)
-                } else if address == self.indexParameter!.address {
-                    self.index = Double(value)
-                } else if address == self.detuningOffsetParameter!.address {
-                    self.detuningOffset = Double(value)
-                } else if address == self.detuningMultiplierParameter!.address {
-                    self.detuningMultiplier = Double(value)
+                if address == self?.frequencyParameter!.address {
+                    self?.frequency = Double(value)
+                } else if address == self?.amplitudeParameter!.address {
+                    self?.amplitude = Double(value)
+                } else if address == self?.indexParameter!.address {
+                    self?.index = Double(value)
+                } else if address == self?.detuningOffsetParameter!.address {
+                    self?.detuningOffset = Double(value)
+                } else if address == self?.detuningMultiplierParameter!.address {
+                    self?.detuningMultiplier = Double(value)
                 }
             }
         })

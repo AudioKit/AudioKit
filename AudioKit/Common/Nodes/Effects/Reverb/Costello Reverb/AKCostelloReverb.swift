@@ -81,13 +81,13 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
+            input.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -95,14 +95,14 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         feedbackParameter        = tree["feedback"]
         cutoffFrequencyParameter = tree["cutoffFrequency"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.feedbackParameter!.address {
-                    self.feedback = Double(value)
-                } else if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = Double(value)
+                if address == self?.feedbackParameter!.address {
+                    self?.feedback = Double(value)
+                } else if address == self?.cutoffFrequencyParameter!.address {
+                    self?.cutoffFrequency = Double(value)
                 }
             }
         })

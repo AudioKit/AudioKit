@@ -83,16 +83,16 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
-            self.internalAU?.setupWaveform(Int32(waveform.count))
+            input.addConnectionPoint(self!)
+            self?.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
-                self.internalAU?.setWaveformValue(sample, at: UInt32(i))
+                self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 
@@ -100,12 +100,12 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
 
         frequencyParameter = tree["frequency"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.frequencyParameter!.address {
-                    self.frequency = Double(value)
+                if address == self?.frequencyParameter!.address {
+                    self?.frequency = Double(value)
                 }
             }
         })
@@ -113,12 +113,12 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
 
         depthParameter = tree["depth"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.depthParameter!.address {
-                    self.depth = Double(value)
+                if address == self?.depthParameter!.address {
+                    self?.depth = Double(value)
                 }
             }
         })

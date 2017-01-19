@@ -38,15 +38,15 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
     public init( _ input: AKNode, comparator: AKNode) {
         _Self.register()
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
+            input.addConnectionPoint(self!)
 
-            comparator.connectionPoints.append(AVAudioConnectionPoint(node: self.avAudioNode, bus: 1))
+            comparator.connectionPoints.append(AVAudioConnectionPoint(node: self!.avAudioNode, bus: 1))
             AudioKit.engine.connect(comparator.avAudioNode, to: comparator.connectionPoints, fromBus: 0, format: nil)
         }
     }

@@ -94,13 +94,13 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
+            input.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -109,16 +109,16 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         resonanceParameter       = tree["resonance"]
         saturationParameter      = tree["saturation"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = Double(value)
-                } else if address == self.resonanceParameter!.address {
-                    self.resonance = Double(value)
-                } else if address == self.saturationParameter!.address {
-                    self.saturation = Double(value)
+                if address == self?.cutoffFrequencyParameter!.address {
+                    self?.cutoffFrequency = Double(value)
+                } else if address == self?.resonanceParameter!.address {
+                    self?.resonance = Double(value)
+                } else if address == self?.saturationParameter!.address {
+                    self?.saturation = Double(value)
                 }
             }
         })
