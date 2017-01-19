@@ -22,20 +22,15 @@ enum {
     resonanceAddress = 1
 };
 
-class AKMoogLadderDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKMoogLadderDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKMoogLadderDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_moogladder_create(&moogladder);
         sp_moogladder_init(sp, moogladder);
         moogladder->freq = 1000;
@@ -55,7 +50,7 @@ public:
 
     void destroy() {
         sp_moogladder_destroy(&moogladder);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -141,7 +136,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_moogladder *moogladder;
 
     float cutoffFrequency = 1000;

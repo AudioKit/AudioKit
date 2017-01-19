@@ -18,20 +18,14 @@ extern "C" {
 }
 
 
-class AKFrequencyTrackerDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKFrequencyTrackerDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKFrequencyTrackerDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_ptrack_create(&ptrack);
         sp_ptrack_init(sp, ptrack, hopSize, peakCount);
 
@@ -47,7 +41,7 @@ public:
 
     void destroy() {
         sp_ptrack_destroy(&ptrack);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
     
     void reset() {
@@ -99,9 +93,7 @@ private:
     int hopSize = 4096;
     int peakCount = 20;
 
-    sp_data *sp;
     sp_ptrack *ptrack;
-
 
 public:
     float trackedAmplitude = 0.0;

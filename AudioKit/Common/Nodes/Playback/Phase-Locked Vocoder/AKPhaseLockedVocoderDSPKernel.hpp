@@ -22,20 +22,15 @@ enum {
     pitchRatioAddress = 2
 };
 
-class AKPhaseLockedVocoderDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKPhaseLockedVocoderDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKPhaseLockedVocoderDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_mincer_create(&mincer);
 
         positionRamper.init();
@@ -63,7 +58,7 @@ public:
 
     void destroy() {
         sp_mincer_destroy(&mincer);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -170,7 +165,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_mincer *mincer;
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;

@@ -36,7 +36,7 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKMorphingOscillatorBankDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKMorphingOscillatorBankDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Types
     struct NoteState {
@@ -148,15 +148,9 @@ public:
         }
     }
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
-        
         attackDurationRamper.init();
         decayDurationRamper.init();
         sustainLevelRamper.init();
@@ -187,7 +181,7 @@ public:
     }
 
     void destroy() {
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -321,10 +315,6 @@ public:
 
         }
     }
-
-    void setBuffer(AudioBufferList *outBufferList) {
-        outBufferListPtr = outBufferList;
-    }
     
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         if (midiEvent.length != 3) return;
@@ -396,8 +386,6 @@ private:
     std::vector<NoteState> noteStates;
 
     double frequencyScale = 2. * M_PI / sampleRate;
-
-    sp_data *sp;
     
     sp_ftbl *ft_array[4];
     UInt32 tbl_size = 4096;

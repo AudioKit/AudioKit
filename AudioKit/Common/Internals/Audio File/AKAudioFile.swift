@@ -12,6 +12,8 @@ import AVFoundation
 extension AVAudioCommonFormat: CustomStringConvertible {
     public var description: String {
         switch self {
+        case .otherFormat:
+            return "OtherFormat"
         case .pcmFormatFloat32 :
             return "PCMFormatFloat32"
         case .pcmFormatFloat64:
@@ -20,8 +22,6 @@ extension AVAudioCommonFormat: CustomStringConvertible {
             return "PCMFormatInt16"
         case .pcmFormatInt32:
             return "PCMFormatInt32"
-        default :
-            return "OtherFormat"
         }
     }
 }
@@ -88,6 +88,78 @@ extension AVAudioFile {
     override open var description: String {
         return super.description + "\n" + String(describing: fileFormat)
     }
+
+    /// returns file Mime Type if exists
+    /// Otherwise, returns nil
+    /// (useful when sending an AKAudioFile by email)
+    public var mimeType: String? {
+        switch fileExt.lowercased() {
+        case "wav":
+            return "audio/wav"
+        case "caf":
+            return "audio/x-caf"
+        case "aif", "aiff", "aifc":
+            return "audio/aiff"
+        case "m4r":
+            return "audio/x-m4r"
+        case "m4a":
+            return "audio/x-m4a"
+        case "mp4":
+            return "audio/mp4"
+        case "m2a", "mp2":
+            return "audio/mpeg"
+        case "aac":
+            return "audio/aac"
+        case "mp3":
+            return "audio/mpeg3"
+        default: return nil
+        }
+    }
+
+    /// Static function to delete all audiofiles from Temp directory
+    ///
+    /// AKAudioFile.cleanTempDirectory()
+    ///
+    public static func cleanTempDirectory() {
+        var deletedFilesCount = 0
+        
+        let fileManager = FileManager.default
+        let tempPath =  NSTemporaryDirectory()
+        
+        do {
+            let fileNames = try fileManager.contentsOfDirectory(atPath: "\(tempPath)")
+            
+            // function for deleting files
+            func deleteFileWithFileName(_ fileName: String) {
+                let filePathName = "\(tempPath)/\(fileName)"
+                do {
+                    try fileManager.removeItem(atPath: filePathName)
+                    AKLog("\"\(fileName)\" deleted.")
+                    deletedFilesCount += 1
+                } catch let error as NSError {
+                    AKLog("Couldn't delete \(fileName) from Temp Directory")
+                    AKLog("Error: \(error)")
+                }
+            }
+            
+            // Checks file type (only Audio Files)
+            fileNames.forEach { fn in
+                let lower = fn.lowercased()
+                _ = [".wav", ".caf", ".aif", ".mp4", ".m4a"].first {
+                    lower.hasSuffix($0)
+                }.map { _ in
+                    deleteFileWithFileName(fn)
+                }
+            }
+
+            AKLog("\(deletedFilesCount) files deleted")
+
+        } catch let error as NSError {
+            AKLog("Couldn't access Temp Directory")
+            AKLog("Error: \(error)")
+        }
+    }
+
 }
 
 /// Audio file, inherits from AVAudioFile and adds functionality

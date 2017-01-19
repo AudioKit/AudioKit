@@ -26,11 +26,10 @@ public:
 
     AKTesterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKDSPKernel::init(_channels, _sampleRate);
 
         sp_create(&sp);
-        sampleRate = float(inSampleRate);
         sp_srand(sp, 12345);
     }
 

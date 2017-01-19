@@ -252,7 +252,7 @@ extension AVAudioEngine {
 
         if shouldBeRunning && !engine.isRunning {
             do {
-                try self.engine.start()
+                try engine.start()
             } catch {
                 AKLog("couldn't start engine after configuration change \(error)")
             }

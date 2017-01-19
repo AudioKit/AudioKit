@@ -18,20 +18,14 @@ extern "C" {
 }
 
 
-class AKConvolutionDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKConvolutionDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKConvolutionDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_conv_create(&conv);
 
     }
@@ -57,7 +51,7 @@ public:
 
     void destroy() {
         sp_conv_destroy(&conv);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -105,7 +99,6 @@ private:
 
     int partitionLength = 2048;
 
-    sp_data *sp;
     sp_conv *conv;
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;

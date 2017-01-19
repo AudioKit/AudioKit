@@ -22,20 +22,15 @@ enum {
     cutoffFrequencyAddress = 1
 };
 
-class AKCostelloReverbDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKCostelloReverbDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKCostelloReverbDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_revsc_create(&revsc);
         sp_revsc_init(sp, revsc);
         revsc->feedback = 0.6;
@@ -55,7 +50,7 @@ public:
 
     void destroy() {
         sp_revsc_destroy(&revsc);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -148,7 +143,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_revsc *revsc;
 
     float feedback = 0.6;

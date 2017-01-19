@@ -82,28 +82,12 @@ standardKernelPassthroughs()
     _kernel.setParameter(releaseDurationAddress, releaseDurationAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree tree:@[
         attackDurationAUParameter,
         decayDurationAUParameter,
         sustainLevelAUParameter,
         releaseDurationAUParameter
     ]];
-
-    // A function to provide string representations of parameter values.
-    self.parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
-        AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
-        switch (param.address) {
-            case attackDurationAddress:
-            case decayDurationAddress:
-            case sustainLevelAddress:
-            case releaseDurationAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-
-            default:
-                return @"?";
-        }
-    };
 
 	parameterTreeBlock(AmplitudeEnvelope)
 }

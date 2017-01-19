@@ -21,20 +21,14 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKToneComplementFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKToneComplementFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKToneComplementFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_atone_create(&atone);
         sp_atone_init(sp, atone);
         atone->hp = 1000.0;
@@ -52,7 +46,7 @@ public:
 
     void destroy() {
         sp_atone_destroy(&atone);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -119,7 +113,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_atone *atone;
 
     float halfPowerPoint = 1000.0;

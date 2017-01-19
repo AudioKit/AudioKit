@@ -21,20 +21,14 @@ enum {
     limitAddress = 0
 };
 
-class AKClipperDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKClipperDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKClipperDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_clip_create(&clip);
         sp_clip_init(sp, clip);
         clip->lim = 1.0;
@@ -52,7 +46,7 @@ public:
 
     void destroy() {
         sp_clip_destroy(&clip);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -119,7 +113,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_clip *clip;
 
     float limit = 1.0;

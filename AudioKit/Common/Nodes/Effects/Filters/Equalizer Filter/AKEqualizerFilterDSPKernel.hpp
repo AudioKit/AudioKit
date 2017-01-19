@@ -23,20 +23,15 @@ enum {
     gainAddress = 2
 };
 
-class AKEqualizerFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKEqualizerFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKEqualizerFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_eqfil_create(&eqfil);
         sp_eqfil_init(sp, eqfil);
         eqfil->freq = 1000.0;
@@ -58,7 +53,7 @@ public:
 
     void destroy() {
         sp_eqfil_destroy(&eqfil);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -163,7 +158,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_eqfil *eqfil;
 
     float centerFrequency = 1000.0;

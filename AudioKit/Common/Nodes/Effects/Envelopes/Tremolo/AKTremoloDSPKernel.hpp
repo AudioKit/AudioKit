@@ -23,20 +23,14 @@ enum {
     
 };
 
-class AKTremoloDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKTremoloDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKTremoloDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_osc_create(&trem);
         sp_osc_init(sp, trem, tbl, 0);
         trem->freq = 10;
@@ -64,7 +58,7 @@ public:
 
     void destroy() {
         sp_osc_destroy(&trem);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -149,7 +143,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_osc *trem;
     sp_ftbl *tbl;
     UInt32 tbl_size = 4096;

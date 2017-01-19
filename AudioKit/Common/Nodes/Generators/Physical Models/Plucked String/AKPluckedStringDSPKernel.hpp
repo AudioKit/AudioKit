@@ -22,20 +22,14 @@ enum {
     amplitudeAddress = 1
 };
 
-class AKPluckedStringDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKPluckedStringDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKPluckedStringDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
-
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
         sp_pluck_create(&pluck);
         sp_pluck_init(sp, pluck, 110);
         pluck->freq = 110;
@@ -52,7 +46,7 @@ public:
 
     void destroy() {
         sp_pluck_destroy(&pluck);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -143,7 +137,6 @@ private:
 
     float internalTrigger = 0;
 
-    sp_data *sp;
     sp_pluck *pluck;
 
     float frequency = 110;

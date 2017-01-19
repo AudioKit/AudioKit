@@ -68,25 +68,11 @@ standardKernelPassthroughs()
     _kernel.setParameter(qAddress,               qAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree tree:@[
         cornerFrequencyAUParameter,
         gainAUParameter,
         qAUParameter
     ]];
-
-    // A function to provide string representations of parameter values.
-    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
-        AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
-        switch (param.address) {
-            case cornerFrequencyAddress:
-            case gainAddress:
-            case qAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-            default:
-                return @"?";
-        }
-    };
 
 	parameterTreeBlock(LowShelfParametricEqualizerFilter)
 }

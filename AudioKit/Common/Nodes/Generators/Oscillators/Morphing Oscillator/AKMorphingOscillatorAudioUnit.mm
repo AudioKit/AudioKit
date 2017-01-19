@@ -99,29 +99,13 @@ standardKernelPassthroughs()
     _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree tree:@[
         frequencyAUParameter,
         amplitudeAUParameter,
         indexAUParameter,
         detuningOffsetAUParameter,
         detuningMultiplierAUParameter
     ]];
-
-    // A function to provide string representations of parameter values.
-    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
-        AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
-        switch (param.address) {
-            case frequencyAddress:
-            case amplitudeAddress:
-            case indexAddress:
-            case detuningOffsetAddress:
-            case detuningMultiplierAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-            default:
-                return @"?";
-        }
-    };
 
 	parameterTreeBlock(MorphingOscillator)
 }
