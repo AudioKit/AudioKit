@@ -186,6 +186,23 @@ open class AKAudioFile: AVAudioFile {
         
         /// Same directory as the input file
         case custom
+
+        func create(file path: String, write: Bool = false) throws -> String {
+          switch (self, write) {
+            case (.temp, _):
+              return NSTemporaryDirectory() + path
+            case (.documents, _):
+              return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + path
+            case (.resources, false):
+              return try Bundle.main.path(forResource: path, ofType: "") ??
+                         NSError.fileCreateError
+            case (.custom, _):
+              AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")
+              fallthrough
+            default:
+              throw NSError.fileCreateError
+          }
+        }
     }
     
     // MARK: - private vars
