@@ -21,20 +21,15 @@ enum {
     amplitudeAddress = 0
 };
 
-class AKPinkNoiseDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKPinkNoiseDSPKernel : public AKSporthKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKPinkNoiseDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_pinknoise_create(&pinknoise);
         sp_pinknoise_init(sp, pinknoise);
         pinknoise->amp = 1;
@@ -52,7 +47,7 @@ public:
 
     void destroy() {
         sp_pinknoise_destroy(&pinknoise);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -120,7 +115,6 @@ public:
     // MARK: Member Variables
 
 private:
-    sp_data *sp;
     sp_pinknoise *pinknoise;
 
     float amplitude = 1;

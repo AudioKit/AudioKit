@@ -22,20 +22,15 @@ enum {
     qualityFactorAddress = 1
 };
 
-class AKModalResonanceFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKModalResonanceFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKModalResonanceFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_mode_create(&mode);
         sp_mode_init(sp, mode);
         mode->freq = 500.0;
@@ -55,7 +50,7 @@ public:
 
     void destroy() {
         sp_mode_destroy(&mode);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -141,7 +136,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_mode *mode;
 
     float frequency = 500.0;

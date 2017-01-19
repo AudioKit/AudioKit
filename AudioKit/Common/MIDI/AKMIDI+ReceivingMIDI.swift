@@ -138,18 +138,4 @@ extension AKMIDI {
             }
         }
     }
-    
-    internal func MyMIDINotifyBlock(_ midiNotification: UnsafePointer<MIDINotification>) {
-        let notification = midiNotification.pointee
-        
-        for listener in listeners {
-            switch notification.messageID {
-            case .msgSetupChanged:
-                listener.receivedMIDISetupChange()
-            default:
-                break
-            }
-        }
-        
-    }
 }

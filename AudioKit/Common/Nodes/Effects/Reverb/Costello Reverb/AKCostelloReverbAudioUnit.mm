@@ -56,23 +56,10 @@ standardKernelPassthroughs()
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree tree:@[
         feedbackAUParameter,
         cutoffFrequencyAUParameter
     ]];
-
-    // A function to provide string representations of parameter values.
-    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
-        AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
-        switch (param.address) {
-            case feedbackAddress:
-            case cutoffFrequencyAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-            default:
-                return @"?";
-        }
-    };
 
 	parameterTreeBlock(CostelloReverb)
 }

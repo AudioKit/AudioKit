@@ -23,20 +23,15 @@ enum {
     qAddress = 2
 };
 
-class AKLowShelfParametricEqualizerFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKLowShelfParametricEqualizerFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKLowShelfParametricEqualizerFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_pareq_create(&pareq);
         sp_pareq_init(sp, pareq);
         pareq->fc = 1000;
@@ -59,7 +54,7 @@ public:
 
     void destroy() {
         sp_pareq_destroy(&pareq);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -164,7 +159,6 @@ public:
 
 private:
 
-    sp_data *sp;
     sp_pareq *pareq;
 
     float cornerFrequency = 1000;

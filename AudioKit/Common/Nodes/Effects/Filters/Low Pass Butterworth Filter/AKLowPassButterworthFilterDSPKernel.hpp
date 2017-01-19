@@ -20,20 +20,15 @@ enum {
     cutoffFrequencyAddress = 0
 };
 
-class AKLowPassButterworthFilterDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKLowPassButterworthFilterDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKLowPassButterworthFilterDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_butlp_create(&butlp);
         sp_butlp_init(sp, butlp);
         butlp->freq = 1000.0;
@@ -51,7 +46,7 @@ public:
 
     void destroy() {
         sp_butlp_destroy(&butlp);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -117,8 +112,6 @@ public:
     // MARK: Member Variables
 
 private:
-
-    sp_data *sp;
     sp_butlp *butlp;
 
     float cutoffFrequency = 1000.0;

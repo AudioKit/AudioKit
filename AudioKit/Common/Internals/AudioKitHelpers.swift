@@ -46,9 +46,9 @@ public func fourCC(_ string: String) -> UInt32 {
 /// - parameter string: Message to print
 ///
 @inline(__always)
-public func AKLog(_ string: String) {
+public func AKLog(_ string: String, fname: String = #function) {
     if AKSettings.enableLogging {
-        print(string)
+        print(fname, string)
     }
 }
 

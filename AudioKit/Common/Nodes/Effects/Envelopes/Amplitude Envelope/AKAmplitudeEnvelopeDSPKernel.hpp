@@ -24,20 +24,15 @@ enum {
     releaseDurationAddress = 3
 };
 
-class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKAmplitudeEnvelopeDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKAmplitudeEnvelopeDSPKernel() {}
 
-    void init(int channelCount, double inSampleRate) {
-        channels = channelCount;
+    void init(int _channels, double _sampleRate) override {
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        sampleRate = float(inSampleRate);
-
-        sp_create(&sp);
-        sp->sr = sampleRate;
-        sp->nchan = channels;
         sp_adsr_create(&adsr);
 
         attackDurationRamper.init();
@@ -63,7 +58,7 @@ public:
 
     void destroy() {
         sp_adsr_destroy(&adsr);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -191,8 +186,7 @@ public:
 private:
     float internalGate = 0;
     float amp = 0;
-    
-    sp_data *sp;
+
     sp_adsr *adsr;
 
     float attackDuration = 0.1;
