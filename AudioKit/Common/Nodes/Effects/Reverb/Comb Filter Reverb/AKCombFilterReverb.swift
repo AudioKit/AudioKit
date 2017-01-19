@@ -68,26 +68,26 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self)
-            self.internalAU!.setLoopDuration(Float(loopDuration))
+            input.addConnectionPoint(self!)
+            self?.internalAU!.setLoopDuration(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
         reverbDurationParameter = tree["reverbDuration"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.reverbDurationParameter!.address {
-                    self.reverbDuration = Double(value)
+                if address == self?.reverbDurationParameter!.address {
+                    self?.reverbDuration = Double(value)
                 }
             }
         })

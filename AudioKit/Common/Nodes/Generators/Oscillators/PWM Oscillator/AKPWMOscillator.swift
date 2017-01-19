@@ -139,11 +139,11 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) {
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
             avAudioUnit in
 
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self?.avAudioNode = avAudioUnit
+            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -154,20 +154,20 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffsetParameter     = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: {
+        token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
 
             DispatchQueue.main.async {
-                if address == self.frequencyParameter!.address {
-                    self.frequency = Double(value)
-                } else if address == self.amplitudeParameter!.address {
-                    self.amplitude = Double(value)
-                } else if address == self.pulseWidthParameter!.address {
-                    self.pulseWidth = Double(value)
-                } else if address == self.detuningOffsetParameter!.address {
-                    self.detuningOffset = Double(value)
-                } else if address == self.detuningMultiplierParameter!.address {
-                    self.detuningMultiplier = Double(value)
+                if address == self?.frequencyParameter!.address {
+                    self?.frequency = Double(value)
+                } else if address == self?.amplitudeParameter!.address {
+                    self?.amplitude = Double(value)
+                } else if address == self?.pulseWidthParameter!.address {
+                    self?.pulseWidth = Double(value)
+                } else if address == self?.detuningOffsetParameter!.address {
+                    self?.detuningOffset = Double(value)
+                } else if address == self?.detuningMultiplierParameter!.address {
+                    self?.detuningMultiplier = Double(value)
                 }
             }
         })
