@@ -26,27 +26,33 @@ open class AKTelephoneView: UIView {
     var callCirclePath = UIBezierPath()
     var busyCirclePath = UIBezierPath()
     
-    var last10Presses = Array<String>(repeating: "", count: 10)
+    var last10Presses = [String](repeating: "", count: 10)
     var currentKey = ""
     var callback: (String, String) -> Void
     
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
-            if key1Rect.contains(touchLocation) { currentKey = "1" }
-            if key2Rect.contains(touchLocation) { currentKey = "2" }
-            if key3Rect.contains(touchLocation) { currentKey = "3" }
-            if key4Rect.contains(touchLocation) { currentKey = "4" }
-            if key5Rect.contains(touchLocation) { currentKey = "5" }
-            if key6Rect.contains(touchLocation) { currentKey = "6" }
-            if key7Rect.contains(touchLocation) { currentKey = "7" }
-            if key8Rect.contains(touchLocation) { currentKey = "8" }
-            if key9Rect.contains(touchLocation) { currentKey = "9" }
-            if key0Rect.contains(touchLocation) { currentKey = "0" }
-            if keyStarRect.contains(touchLocation) { currentKey = "*" }
-            if keyHashRect.contains(touchLocation) { currentKey = "#" }
+            let keyRects: [String: CGRect] = [
+                "1": key1Rect,
+                "2": key2Rect,
+                "3": key3Rect,
+                "4": key4Rect,
+                "5": key5Rect,
+                "6": key6Rect,
+                "7": key7Rect,
+                "8": key8Rect,
+                "9": key9Rect,
+                "0": key0Rect,
+                "*": keyStarRect,
+                "#": keyHashRect            ]
+            for key in keyRects.keys {
+                guard let rect = keyRects[key] else { return }
+                if rect.contains(touchLocation) { currentKey = key }
+            }
             if callCirclePath.contains(touchLocation) { currentKey = "CALL" }
             if busyCirclePath.contains(touchLocation) { currentKey = "BUSY" }
+
             if currentKey != "" {
                 callback(currentKey, "down")
                 if currentKey.characters.count == 1 {

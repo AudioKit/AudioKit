@@ -218,7 +218,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
         if let touch = touches.first {
             let touchLocation = touch.locationInView(superview)
             for ball in balls {
-                if CGRectContainsPoint(ball.frame, touchLocation) {
+                if ball.frame.contains(touchLocation) {
                     snapBehavior = UISnapBehavior(item: ball, snapToPoint: touchLocation)
                     animator?.addBehavior(snapBehavior!)
                 }
