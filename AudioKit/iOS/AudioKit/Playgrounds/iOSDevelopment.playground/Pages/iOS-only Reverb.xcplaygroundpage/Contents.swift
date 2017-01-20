@@ -27,7 +27,7 @@ AudioKit.start()
 player.play()
 
 //: Toggle processing on every loop
-AKPlaygroundLoop(every: 3.428) { () -> () in
+AKPlaygroundLoop(every: 3.428) { () -> Void in
     if reverb2.isBypassed {
         reverb2.start()
     } else {

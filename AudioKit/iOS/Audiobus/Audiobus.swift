@@ -123,7 +123,7 @@ class Audiobus {
     private var audioUnitPropertyListener: AudioUnitPropertyListener!
     
     private func startObservingInterAppAudioConnections() {
-        audioUnitPropertyListener = AudioUnitPropertyListener { (audioUnit, property) in
+        audioUnitPropertyListener = AudioUnitPropertyListener { (_, _) in
             self.updateConnections()
         }
         
@@ -135,7 +135,7 @@ class Audiobus {
     }
     
     private func startObservingAudiobusConnections() {
-        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged, object: nil, queue: nil, using: { notification in
+        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged, object: nil, queue: nil, using: { _ in
             self.updateConnections()
         })
     }
@@ -145,7 +145,7 @@ class Audiobus {
     }
     
     private func updateConnections() {
-        if (isConnected) {
+        if isConnected {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "IAAConnected"), object: nil)
         } else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "IAADisconnected"), object: nil)

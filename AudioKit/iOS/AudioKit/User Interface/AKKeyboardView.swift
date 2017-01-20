@@ -44,14 +44,13 @@ public protocol AKKeyboardDelegate {
     
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-    let topKeyNotes = [0,0,0,1,1,2,2,3,3,4,4,4,5,5,5,6,6,7,7,8,8,9,9,10,10,11,11,11]
+    let topKeyNotes = [0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 11]
     let whiteKeyNotes = [0, 2, 4, 5, 7, 9, 11]
     
     func getNoteName(_ note: Int) -> String {
         let keyInOctave = note % 12
         return notesWithSharps[keyInOctave]
     }
-
     
     // MARK: - Initialization
     
@@ -85,11 +84,11 @@ public protocol AKKeyboardDelegate {
         clipsToBounds = true
     }
     
-    override open var intrinsicContentSize : CGSize {
+    override open var intrinsicContentSize: CGSize {
         return CGSize(width: 1024, height: 84)
     }
     
-    open class override var requiresConstraintBasedLayout : Bool {
+    open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
     
@@ -100,7 +99,6 @@ public protocol AKKeyboardDelegate {
         let width = Int(self.frame.width)
         let height = Int(self.frame.height)
         oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
-        
         
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(i)
@@ -149,7 +147,6 @@ public protocol AKKeyboardDelegate {
             topKeyPaths[i].fill()
         }
     }
-    
     
     // MARK: - Touch Handling
     
@@ -201,7 +198,6 @@ public protocol AKKeyboardDelegate {
         setNeedsDisplay()
     }
     
-    
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if polyphonicMode { return } // no response for 'drawing cursor' in polyphonic mode
         
@@ -223,15 +219,11 @@ public protocol AKKeyboardDelegate {
     // MARK: - Private helper properties and functions
     
     var whiteKeySize: CGSize {
-        get {
-            return CGSize(width: oneOctaveSize.width / 7.0, height: oneOctaveSize.height - 2)
-        }
+        return CGSize(width: oneOctaveSize.width / 7.0, height: oneOctaveSize.height - 2)
     }
     
     var topKeySize: CGSize {
-        get {
-            return CGSize(width: oneOctaveSize.width / (4 * 7), height: oneOctaveSize.height * topKeyHeightRatio)
-        }
+        return CGSize(width: oneOctaveSize.width / (4 * 7), height: oneOctaveSize.height * topKeyHeightRatio)
     }
     
     func whiteKeyX(_ n: Int, octaveNumber: Int) -> CGFloat {

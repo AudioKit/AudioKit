@@ -35,8 +35,8 @@ extension AKAudioFile {
     }
 
     /// Create an AKAudioPlayer to play the current AKAudioFile
-    public var player:AKAudioPlayer? {
-        var filePlayer:AKAudioPlayer?
+    public var player: AKAudioPlayer? {
+        var filePlayer: AKAudioPlayer?
 
         do {
             try filePlayer = AKAudioPlayer(file: self)
