@@ -5,7 +5,6 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
-import CoreMIDI
 
 extension MIDIPacketList: Sequence {
     /// Type alis for MIDI Packet List Generator
