@@ -26,7 +26,7 @@ import Foundation
     @IBInspectable open var textColor: UIColor = .black
     @IBInspectable open var fontSize: CGFloat = 24
     
-    open var callback: ((Double)->())?
+    open var callback: ((Double) -> Void)?
     open var lastTouch = CGPoint.zero
 
     public init(property: String,
@@ -36,14 +36,13 @@ import Foundation
                 maximum: Double = 1,
                 color: UIColor = UIColor.red,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: @escaping (_ x: Double)->()) {
+                callback: @escaping (_ x: Double) -> Void) {
         self.value = value
         self.minimum = minimum
         self.maximum = maximum
         self.property = property
         self.format = format
         self.sliderColor = color
-
 
         self.callback = callback
         super.init(frame: frame)
@@ -67,7 +66,7 @@ import Foundation
         clipsToBounds = true
     }
     
-    open class override var requiresConstraintBasedLayout : Bool {
+    open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
@@ -126,7 +125,6 @@ import Foundation
         bgColor.setFill()
         sliderAreaPath.fill()
 
-
         //// valueRectangle Drawing
         let valueRectanglePath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: currentWidth, height: height))
         sliderColor.setFill()
@@ -145,7 +143,6 @@ import Foundation
         context!.clip(to: nameLabelInset)
         NSString(string: propertyName).draw(in: CGRect(x: nameLabelInset.minX, y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, width: nameLabelInset.width, height: nameLabelTextHeight), withAttributes: nameLabelFontAttributes)
         context!.restoreGState()
-
 
         //// valueLabel Drawing
         let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)

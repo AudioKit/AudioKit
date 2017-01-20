@@ -8,14 +8,14 @@
 
 import CoreAudioKit
 
-open class AKMIDIBluetoothWindow : CABTMIDICentralViewController, UIPopoverPresentationControllerDelegate{
+open class AKMIDIBluetoothWindow: CABTMIDICentralViewController, UIPopoverPresentationControllerDelegate {
     
-    var midi:AKMIDI?
-    var listener:AKMIDIListener?
-    var sourceView:UIViewController?
-    var navC:UINavigationController?
+    var midi: AKMIDI?
+    var listener: AKMIDIListener?
+    var sourceView: UIViewController?
+    var navC: UINavigationController?
     
-    public convenience init(midi: AKMIDI, listener: AKMIDIListener, sourceView: UIViewController){
+    public convenience init(midi: AKMIDI, listener: AKMIDIListener, sourceView: UIViewController) {
         self.init()
         self.midi = midi
         self.listener = listener

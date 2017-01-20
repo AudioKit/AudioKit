@@ -13,7 +13,7 @@ import UIKit
 @IBDesignable open class AKADSRView: UIView {
     
     /// Type of function to call when values of the ADSR have changed
-    public typealias ADSRCallback = (Double, Double, Double, Double)->()
+    public typealias ADSRCallback = (Double, Double, Double, Double) -> Void
 
     /// Attack time in seconds, Default: 0.1
     @IBInspectable open var attackDuration: Double  = 0.100
@@ -85,7 +85,6 @@ import UIKit
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
     @IBInspectable open var curveColor: UIColor = .black
 
-
     var lastPoint = CGPoint.zero
     
     // MARK: - Initialization
@@ -109,11 +108,11 @@ import UIKit
         clipsToBounds = true
     }
     
-    override open var intrinsicContentSize : CGSize {
+    override open var intrinsicContentSize: CGSize {
         return CGSize(width: 440, height: 150)
     }
     
-    open class override var requiresConstraintBasedLayout : Bool {
+    open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
     
@@ -232,7 +231,6 @@ import UIKit
 
         context!.restoreGState()
 
-
         //// releaseTouchArea Drawing
         context!.saveGState()
 
@@ -247,7 +245,6 @@ import UIKit
         releaseTouchAreaPath.fill()
 
         context!.restoreGState()
-
 
         //// releaseArea Drawing
         context!.saveGState()
@@ -267,7 +264,6 @@ import UIKit
 
         context!.restoreGState()
 
-
         //// sustainArea Drawing
         context!.saveGState()
 
@@ -282,7 +278,6 @@ import UIKit
         sustainAreaPath.fill()
 
         context!.restoreGState()
-
 
         //// decayArea Drawing
         context!.saveGState()
@@ -302,7 +297,6 @@ import UIKit
         decayAreaPath.fill()
 
         context!.restoreGState()
-
 
         //// attackArea Drawing
         context!.saveGState()

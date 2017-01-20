@@ -75,29 +75,23 @@ open class AKResourcesAudioFileLoaderView: UIView {
         let backgroundPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
         darkgray.setFill()
         backgroundPath.fill()
-        
-        
+    
         //// stopButton
         //// stopOuter Drawing
         stopOuterPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 60, height: 60))
         sliderColor.setFill()
         stopOuterPath.fill()
         
-        
         //// stopInner Drawing
         let stopInnerPath = UIBezierPath(rect: CGRect(x: 15, y: 15, width: 30, height: 30))
         dark.setFill()
         stopInnerPath.fill()
-        
-        
-        
         
         //// playButton
         //// playOuter Drawing
         playOuterPath = UIBezierPath(rect: CGRect(x: 60, y: 0, width: 60, height: 60))
         color.setFill()
         playOuterPath.fill()
-        
         
         //// playInner Drawing
         let playInnerPath = UIBezierPath()
@@ -107,15 +101,11 @@ open class AKResourcesAudioFileLoaderView: UIView {
         dark.setFill()
         playInnerPath.fill()
         
-        
-        
-        
         //// upButton
         //// upOuter Drawing
         upOuterPath = UIBezierPath(rect: CGRect(x: 381, y: 0, width: 59, height: 30))
         backgroundColor.setFill()
         upOuterPath.fill()
-        
         
         //// upInner Drawing
         let upInnerPath = UIBezierPath()
@@ -128,15 +118,11 @@ open class AKResourcesAudioFileLoaderView: UIView {
         dark.setFill()
         upInnerPath.fill()
         
-        
-        
-        
         //// downButton
         //// downOuter Drawing
         downOuterPath = UIBezierPath(rect: CGRect(x: 381, y: 30, width: 59, height: 30))
         backgroundColor.setFill()
         downOuterPath.fill()
-        
         
         //// downInner Drawing
         let downInnerPath = UIBezierPath()
@@ -148,10 +134,7 @@ open class AKResourcesAudioFileLoaderView: UIView {
         downInnerPath.close()
         dark.setFill()
         downInnerPath.fill()
-        
-        
-        
-        
+
         //// nameLabel Drawing
         let nameLabelRect = CGRect(x: 120, y: 0, width: 320, height: 60)
         let nameLabelStyle = NSMutableParagraphStyle()

@@ -67,7 +67,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     /// If `sustain` is switched from `true` to `false`, any currently sustained touches will be ended immediately.
     public var sustain: Bool = true {
         didSet {
-            if (oldValue == true && sustain == false) {
+            if oldValue == true && sustain == false {
                 end()
             }
         }
@@ -111,7 +111,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
         
-        if (sustain) {
+        if sustain {
             end()
         }
         update(touches)

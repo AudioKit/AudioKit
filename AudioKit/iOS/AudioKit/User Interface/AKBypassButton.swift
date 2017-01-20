@@ -66,7 +66,6 @@ open class AKBypassButton: UIView {
         bypassingCOlor.setFill()
         bypassOuterPath.fill()
 
-
         //// bypassLabel Drawing
         let bypassLabelRect = CGRect(x: 0, y: 0, width: 220, height: 60)
         let bypassLabelStyle = NSMutableParagraphStyle()
@@ -81,15 +80,11 @@ open class AKBypassButton: UIView {
         NSString(string: bypassedText).draw(in: CGRect(x: bypassLabelInset.minX, y: bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2, width: bypassLabelInset.width, height: bypassLabelTextHeight), withAttributes: bypassLabelFontAttributes)
         context!.restoreGState()
 
-
-
-
         //// processGroup
         //// processOuter Drawing
         processOuterPath = UIBezierPath(rect: CGRect(x: 220, y: 0, width: 220, height: 60))
         processingColor.setFill()
         processOuterPath.fill()
-
 
         //// processLabel Drawing
         let processLabelRect = CGRect(x: 220, y: 0, width: 220, height: 60)
