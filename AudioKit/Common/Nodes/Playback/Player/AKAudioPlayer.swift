@@ -252,7 +252,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         if !playing {
             if audioFileBuffer != nil {
                 // schedule it at some point in the future / or immediately if 0
-                scheduleBuffer( secondsToAVAudioTime(scheduledTime) )
+                // don't schedule the buffer if it is paused as it will overwrite what is in it
+                if !paused {
+                    scheduleBuffer( secondsToAVAudioTime(scheduledTime) )
+                }
                 
                 playing = true
                 paused = false
