@@ -132,10 +132,11 @@ public struct AKMIDIEvent {
         
             if packet.isSysex {
                 internalData = [] //reset internalData
-                
+                length = UInt8(0)
                 //voodoo
                 let mirrorData = Mirror(reflecting: packet.data)
                 for (_, value) in mirrorData.children {
+                    length = 1 + length!
                     internalData.append(UInt8(value as! UInt8))
                     if value as! UInt8 == 247 {
                         break

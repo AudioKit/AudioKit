@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import CoreAudioKit
 
 public typealias AKCallback = (Void) -> Void
 
