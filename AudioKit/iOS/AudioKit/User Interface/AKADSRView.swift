@@ -154,11 +154,10 @@ import UIKit
                     releaseTime -= touchLocation.y - lastPoint.y
                 }
             }
-            if attackTime < 0 { attackTime = 0 }
-            if decayTime < 0 { decayTime = 0 }
-            if releaseTime < 0 { releaseTime = 0 }
-            if sustainPercent < 0 { sustainPercent = 0 }
-            if sustainPercent > 100 { sustainPercent = 100 }
+            attackTime = max(attackTime, 0)
+            decayTime = max(decayTime, 0)
+            releaseTime = max(releaseTime, 0)
+            sustainPercent = min(max(sustainPercent, 0), 100)
             
             if let realCallback = self.callback {
                 realCallback(Double(attackTime / 1000.0),
