@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
 //
 
 import AVFoundation
@@ -78,7 +78,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
             au[kDistortionParam_FinalMix] = mix * 100
 
             au[kDistortionParam_PolynomialMix] = 0
-            au[kDistortionParam_DelayMix] = 0
+            au[kDistortionParam_RingModMix] = 0
             au[kDistortionParam_DelayMix] = 0
     }
 

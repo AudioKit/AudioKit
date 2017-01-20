@@ -15,7 +15,7 @@ open class AKPresetLoaderView: UIView {
     
     var currentIndex = 0
     var presets = [String]()
-    var callback: (String) -> ()
+    var callback: (String) -> Void
     var isPresetLoaded = false
     
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -40,7 +40,7 @@ open class AKPresetLoaderView: UIView {
         }
     }
     
-    public init(presets: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60), callback: @escaping (String) -> ()) {
+    public init(presets: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60), callback: @escaping (String) -> Void) {
         self.callback = callback
         self.presets = presets
         super.init(frame: frame)
@@ -69,13 +69,11 @@ open class AKPresetLoaderView: UIView {
         darkgray.setFill()
         backgroundPath.fill()
         
-        
         //// presetButton
         //// presetOuter Drawing
         presetOuterPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 95, height: 60))
         expression.setFill()
         presetOuterPath.fill()
-        
         
         //// presetLabel Drawing
         let presetLabelRect = CGRect(x: 0, y: 0, width: 95, height: 60)
@@ -92,15 +90,11 @@ open class AKPresetLoaderView: UIView {
         presetLabelTextContent.draw(in: CGRect(x: presetLabelInset.minX, y: presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2, width: presetLabelInset.width, height: presetLabelTextHeight), withAttributes: presetLabelFontAttributes)
         context!.restoreGState()
         
-        
-        
-        
         //// upButton
         //// upOuter Drawing
         upOuterPath = UIBezierPath(rect: CGRect(x: 381, y: 0, width: 59, height: 30))
         gray.setFill()
         upOuterPath.fill()
-        
         
         //// upInner Drawing
         let upInnerPath = UIBezierPath()
@@ -113,15 +107,11 @@ open class AKPresetLoaderView: UIView {
         dark.setFill()
         upInnerPath.fill()
         
-        
-        
-        
         //// downButton
         //// downOuter Drawing
         downOuterPath = UIBezierPath(rect: CGRect(x: 381, y: 30, width: 59, height: 30))
         gray.setFill()
         downOuterPath.fill()
-        
         
         //// downInner Drawing
         let downInnerPath = UIBezierPath()
@@ -133,10 +123,7 @@ open class AKPresetLoaderView: UIView {
         downInnerPath.close()
         dark.setFill()
         downInnerPath.fill()
-        
-        
-        
-        
+
         //// nameLabel Drawing
         let nameLabelRect = CGRect(x: 95, y: 0, width: 345, height: 60)
         let nameLabelStyle = NSMutableParagraphStyle()

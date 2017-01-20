@@ -6,9 +6,15 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-#import <AudioToolbox/AudioToolbox.h>
 
-@interface AKAudioUnit : AUAudioUnit 
+#import <AVFoundation/AVFoundation.h>
+
+@protocol AKKernelUnit
+-(AUImplementorValueProvider)getter;
+-(AUImplementorValueObserver)setter;
+@end
+
+@interface AKAudioUnit : AUAudioUnit<AKKernelUnit>
 @property AUAudioUnitBus *outputBus;
 @property AUAudioUnitBusArray *inputBusArray;
 @property AVAudioFormat *defaultFormat;
@@ -20,7 +26,15 @@
 
 @property double rampTime;
 
+-(AUImplementorValueProvider)getter;
+-(AUImplementorValueObserver)setter;
+
 @end
+
+//@protocol AUParameterCollection
+//- (AUValue)objectAtIndexedSubscript:(AUParameter *)idx;
+//- (void)setObject:(AUValue)obj atIndexedSubscript:(AUParameter *)idx;
+//@end
 
 @interface AUParameter(Ext)
 -(instancetype)init:(NSString *)identifier
@@ -46,6 +60,11 @@
 @interface AUParameterTree(Ext)
 +(instancetype)tree:(NSArray<AUParameterNode *> *)children;
 @end
+
+@interface AVAudioNode(Ext)
+-(instancetype)initWithComponent:(AudioComponentDescription)component;
+@end
+
 
 #define standardKernelPassthroughs() \
 - (void)start { _kernel.start(); } \

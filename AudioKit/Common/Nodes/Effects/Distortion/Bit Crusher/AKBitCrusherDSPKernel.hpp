@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #pragma once
@@ -22,20 +22,15 @@ enum {
     sampleRateAddress = 1
 };
 
-class AKBitCrusherDSPKernel : public AKDSPKernel, public AKBuffered {
+class AKBitCrusherDSPKernel : public AKSporthKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBitCrusherDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        channels = _channels;
+        AKSporthKernel::init(_channels, _sampleRate);
 
-        globalSampleRate = float(_sampleRate);
-
-        sp_create(&sp);
-        sp->sr = globalSampleRate;
-        sp->nchan = channels;
         sp_bitcrush_create(&bitcrush);
         sp_bitcrush_init(sp, bitcrush);
         bitcrush->bitdepth = 8;
@@ -55,7 +50,7 @@ public:
 
     void destroy() {
         sp_bitcrush_destroy(&bitcrush);
-        sp_destroy(&sp);
+        AKSporthKernel::destroy();
     }
 
     void reset() {
@@ -140,14 +135,8 @@ public:
     // MARK: Member Variables
 
 private:
-    int channels = AKSettings.numberOfChannels;
-    float globalSampleRate = AKSettings.sampleRate;
-
-    sp_data *sp;
     sp_bitcrush *bitcrush;
-
     float bitDepth = 8;
-    float sampleRate = 10000;
 
 public:
     bool started = true;

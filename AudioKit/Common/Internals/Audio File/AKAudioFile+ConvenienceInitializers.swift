@@ -9,6 +9,24 @@
 import Foundation
 import AVFoundation
 
+extension NSError {
+  static var fileCreateError: NSError {
+    return NSError(domain: NSURLErrorDomain,
+                   code: NSURLErrorCannotCreateFile,
+                   userInfo: nil)
+  }
+}
+
+func ??<T>(lhs: T?, rhs: NSError) throws -> T {
+  guard let l = lhs else { throw rhs }
+  return l
+}
+
+func ||(lhs: Bool, rhs: NSError) throws -> Bool {
+  guard lhs else { throw rhs }
+  return lhs
+}
+
 extension AKAudioFile {
     
     /// Opens a file for reading.
@@ -20,39 +38,8 @@ extension AKAudioFile {
     ///
     public convenience init(readFileName name: String,
                             baseDir: BaseDirectory = .resources) throws {
-        
-        let filePath: String
-        
-        switch baseDir {
-        case .temp:
-            filePath =  (NSTemporaryDirectory() as String) + name
-        case .documents:
-            filePath =  (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) + "/" + name
-        case .resources:
-            func resourcePath(_ name: String?) -> String? {
-                return Bundle.main.path(forResource: name, ofType: "")
-            }
-            let path = resourcePath(name)
-            if path == nil {
-                AKLog("ERROR: AKAudioFile cannot find \"\(name)\" in resources")
-                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist, userInfo: nil)
-            }
-            filePath = path!
-        case .custom:
-            AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")
-            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
-            
-        }
-        let fileURL = URL(fileURLWithPath: filePath)
-        do {
-            try self.init(forReading: fileURL)
-        } catch let error as NSError {
-            AKLog("Error: AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile")
-            AKLog(error.localizedDescription)
-            throw error
-        }
-        
-        
+        let path: String = try baseDir.create(file: name)
+        try self.init(forReading: URL(fileURLWithPath: path))
     }
     
     
@@ -81,59 +68,29 @@ extension AKAudioFile {
     ///   - interleaved: Bool (Whether to use an interleaved processing format.)
     ///
     public convenience init(writeIn baseDir: BaseDirectory = .temp,
-                            name: String = "",
+                            name: String? = nil,
                             settings: [String : Any] = AKSettings.audioFormat.settings)
         throws {
-            
-            let fileNameWithExtension: String
-            // Create a unique file name if fileName == ""
-            if name == "" {
-                fileNameWithExtension =  UUID().uuidString + ".caf"
-            } else {
-                fileNameWithExtension = name + ".caf"
-            }
-            
-            var filePath: String
-            switch baseDir {
-            case .temp:
-                filePath =  (NSTemporaryDirectory() as String) + fileNameWithExtension
-            case .documents:
-                filePath =  (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) + "/" + fileNameWithExtension
-            case .resources:
+            let extPath: String = "\(name ?? UUID().uuidString).caf"
+            let filePath: String = try baseDir.create(file: extPath, write: true)
+            let nsurl = try URL(string: filePath) ?? .fileCreateError
 
-                AKLog("ERROR AKAudioFile: cannot create a file in applications resources")
-                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
-            case .custom:
-                AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")
-                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
-            }
-            
-            let nsurl = URL(string: filePath)
-            guard nsurl != nil else {
-                AKLog("ERROR AKAudioFile: directory \"\(filePath)\" isn't valid")
-                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
-            }
-            
             // Directory exists ?
-            let directoryPath = nsurl!.deletingLastPathComponent()
+            let absDirPath = nsurl.deletingLastPathComponent().absoluteString
             
-            let fileManager = FileManager.default
-            if !fileManager.fileExists(atPath: (directoryPath.absoluteString)) {
-                AKLog("ERROR AKAudioFile: directory \"\(directoryPath)\" doesn't exist")
-                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
-            }
-            
+            _ = try FileManager.default.fileExists(atPath: absDirPath) || .fileCreateError
+
             // AVLinearPCMIsNonInterleaved cannot be set to false (ignored but throw a warning)
-            var  fixedSettings =  settings
+            var fixedSettings = settings
             
             fixedSettings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
             
             do {
-                try self.init(forWriting: nsurl!, settings: fixedSettings)
+                try self.init(forWriting: nsurl, settings: fixedSettings)
             } catch let error as NSError {
                 AKLog("ERROR AKAudioFile: Couldn't create an AKAudioFile...")
                 AKLog("Error: \(error)")
-                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
+                throw NSError.fileCreateError
             }
     }
     
@@ -155,23 +112,24 @@ extension AKAudioFile {
                             baseDir: BaseDirectory = .temp,
                             name: String = "") throws {
         
-        let channelCount = floatsArrays.count
+        let channels = floatsArrays.count
         var fixedSettings = AKSettings.audioFormat.settings
         
-        fixedSettings[AVNumberOfChannelsKey] = channelCount
-        
+        fixedSettings[AVNumberOfChannelsKey] = channels
+
         try self.init(writeIn: baseDir, name: name)
         
         
         // create buffer for floats
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100,
-                                   channels: AVAudioChannelCount (channelCount))
+                                   channels: AVAudioChannelCount(channels))
+
         let buffer = AVAudioPCMBuffer(pcmFormat: format,
                                       frameCapacity:  AVAudioFrameCount(floatsArrays[0].count))
         
         // Fill the buffers
         
-        for channel in 0..<channelCount {
+        for channel in 0..<channels {
             let channelNData = buffer.floatChannelData?[channel]
             for f in 0..<Int(buffer.frameCapacity) {
                 channelNData?[f] = floatsArrays[channel][f]

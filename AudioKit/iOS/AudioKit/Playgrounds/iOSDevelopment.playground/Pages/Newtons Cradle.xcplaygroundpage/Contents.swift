@@ -3,7 +3,6 @@ import PlaygroundSupport
 
 import AudioKit
 
-
 let file = try AKAudioFile(readFileName: "click.wav", baseDir: .resources)
 var tink = try AKAudioPlayer(file: file)
 
@@ -94,9 +93,6 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
         
         createBallViews()
         collisionBehavior.collisionDelegate = self
-        
-        
-        
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -146,15 +142,13 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
     // MARK: Properties
     
     public var attachmentBehaviors: [UIAttachmentBehavior] {
-        get {
-            var attachmentBehaviors: [UIAttachmentBehavior] = []
-            for ball in balls {
-                guard let attachmentBehavior = ballsToAttachmentBehaviors[ball]
-                    else { fatalError("Can't find attachment behavior for \(ball)") }
-                attachmentBehaviors.append(attachmentBehavior)
-            }
-            return attachmentBehaviors
+        var attachmentBehaviors: [UIAttachmentBehavior] = []
+        for ball in balls {
+            guard let attachmentBehavior = ballsToAttachmentBehaviors[ball]
+                else { fatalError("Can't find attachment behavior for \(ball)") }
+            attachmentBehaviors.append(attachmentBehavior)
         }
+        return attachmentBehaviors
     }
     
     public var useSquaresInsteadOfBalls: Bool = false {
@@ -224,7 +218,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
         if let touch = touches.first {
             let touchLocation = touch.locationInView(superview)
             for ball in balls {
-                if CGRectContainsPoint(ball.frame, touchLocation) {
+                if ball.frame.contains(touchLocation) {
                     snapBehavior = UISnapBehavior(item: ball, snapToPoint: touchLocation)
                     animator?.addBehavior(snapBehavior!)
                 }

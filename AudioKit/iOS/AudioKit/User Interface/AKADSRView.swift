@@ -13,7 +13,7 @@ import UIKit
 @IBDesignable open class AKADSRView: UIView {
     
     /// Type of function to call when values of the ADSR have changed
-    public typealias ADSRCallback = (Double, Double, Double, Double)->()
+    public typealias ADSRCallback = (Double, Double, Double, Double) -> Void
 
     /// Attack time in seconds, Default: 0.1
     @IBInspectable open var attackDuration: Double  = 0.100
@@ -85,7 +85,6 @@ import UIKit
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
     @IBInspectable open var curveColor: UIColor = .black
 
-
     var lastPoint = CGPoint.zero
     
     // MARK: - Initialization
@@ -109,11 +108,11 @@ import UIKit
         clipsToBounds = true
     }
     
-    override open var intrinsicContentSize : CGSize {
+    override open var intrinsicContentSize: CGSize {
         return CGSize(width: 440, height: 150)
     }
     
-    open class override var requiresConstraintBasedLayout : Bool {
+    open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
     
@@ -155,11 +154,10 @@ import UIKit
                     releaseTime -= touchLocation.y - lastPoint.y
                 }
             }
-            if attackTime < 0 { attackTime = 0 }
-            if decayTime < 0 { decayTime = 0 }
-            if releaseTime < 0 { releaseTime = 0 }
-            if sustainPercent < 0 { sustainPercent = 0 }
-            if sustainPercent > 100 { sustainPercent = 100 }
+            attackTime = max(attackTime, 0)
+            decayTime = max(decayTime, 0)
+            releaseTime = max(releaseTime, 0)
+            sustainPercent = min(max(sustainPercent, 0), 100)
             
             if let realCallback = self.callback {
                 realCallback(Double(attackTime / 1000.0),
@@ -232,7 +230,6 @@ import UIKit
 
         context!.restoreGState()
 
-
         //// releaseTouchArea Drawing
         context!.saveGState()
 
@@ -247,7 +244,6 @@ import UIKit
         releaseTouchAreaPath.fill()
 
         context!.restoreGState()
-
 
         //// releaseArea Drawing
         context!.saveGState()
@@ -267,7 +263,6 @@ import UIKit
 
         context!.restoreGState()
 
-
         //// sustainArea Drawing
         context!.saveGState()
 
@@ -282,7 +277,6 @@ import UIKit
         sustainAreaPath.fill()
 
         context!.restoreGState()
-
 
         //// decayArea Drawing
         context!.saveGState()
@@ -302,7 +296,6 @@ import UIKit
         decayAreaPath.fill()
 
         context!.restoreGState()
-
 
         //// attackArea Drawing
         context!.saveGState()

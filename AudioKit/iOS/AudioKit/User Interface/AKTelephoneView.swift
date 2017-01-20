@@ -26,27 +26,33 @@ open class AKTelephoneView: UIView {
     var callCirclePath = UIBezierPath()
     var busyCirclePath = UIBezierPath()
     
-    var last10Presses = Array<String>(repeating: "", count: 10)
+    var last10Presses = [String](repeating: "", count: 10)
     var currentKey = ""
-    var callback: (String, String) -> ()
+    var callback: (String, String) -> Void
     
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
-            if key1Rect.contains(touchLocation) { currentKey = "1" }
-            if key2Rect.contains(touchLocation) { currentKey = "2" }
-            if key3Rect.contains(touchLocation) { currentKey = "3" }
-            if key4Rect.contains(touchLocation) { currentKey = "4" }
-            if key5Rect.contains(touchLocation) { currentKey = "5" }
-            if key6Rect.contains(touchLocation) { currentKey = "6" }
-            if key7Rect.contains(touchLocation) { currentKey = "7" }
-            if key8Rect.contains(touchLocation) { currentKey = "8" }
-            if key9Rect.contains(touchLocation) { currentKey = "9" }
-            if key0Rect.contains(touchLocation) { currentKey = "0" }
-            if keyStarRect.contains(touchLocation) { currentKey = "*" }
-            if keyHashRect.contains(touchLocation) { currentKey = "#" }
+            let keyRects: [String: CGRect] = [
+                "1": key1Rect,
+                "2": key2Rect,
+                "3": key3Rect,
+                "4": key4Rect,
+                "5": key5Rect,
+                "6": key6Rect,
+                "7": key7Rect,
+                "8": key8Rect,
+                "9": key9Rect,
+                "0": key0Rect,
+                "*": keyStarRect,
+                "#": keyHashRect            ]
+            for key in keyRects.keys {
+                guard let rect = keyRects[key] else { return }
+                if rect.contains(touchLocation) { currentKey = key }
+            }
             if callCirclePath.contains(touchLocation) { currentKey = "CALL" }
             if busyCirclePath.contains(touchLocation) { currentKey = "BUSY" }
+
             if currentKey != "" {
                 callback(currentKey, "down")
                 if currentKey.characters.count == 1 {
@@ -67,7 +73,7 @@ open class AKTelephoneView: UIView {
         setNeedsDisplay()
     }
     
-    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782), callback: @escaping (String, String) -> ()) {
+    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782), callback: @escaping (String, String) -> Void) {
         self.callback = callback
         super.init(frame: frame)
     }
@@ -90,7 +96,6 @@ open class AKTelephoneView: UIView {
         unpressedKeyColor.setFill()
         backgroundPath.fill()
 
-
         //// key 1 Drawing
         key1Rect = CGRect(x: 70, y: 206, width: 82, height: 82)
         context!.saveGState()
@@ -100,7 +105,6 @@ open class AKTelephoneView: UIView {
 
         AKTelephoneView.drawKey(text: "\n", numeral: "1", isPressed: currentKey == "1")
         context!.restoreGState()
-
 
         //// key 2 Drawing
         key2Rect = CGRect(x: 179, y: 205, width: 82, height: 82)
@@ -112,7 +116,6 @@ open class AKTelephoneView: UIView {
         AKTelephoneView.drawKey(text: "A B C", numeral: "2", isPressed: currentKey == "2")
         context!.restoreGState()
 
-
         //// key 3 Drawing
         key3Rect = CGRect(x: 288, y: 205, width: 82, height: 82)
         context!.saveGState()
@@ -122,7 +125,6 @@ open class AKTelephoneView: UIView {
 
         AKTelephoneView.drawKey(text: "D E F", numeral: "3", isPressed: currentKey == "3")
         context!.restoreGState()
-
 
         //// key 4 Drawing
         key4Rect = CGRect(x: 70, y: 302, width: 82, height: 82)
@@ -134,7 +136,6 @@ open class AKTelephoneView: UIView {
         AKTelephoneView.drawKey(text: "G H I", numeral: "4", isPressed: currentKey == "4")
         context!.restoreGState()
 
-
         //// key 5 Drawing
         key5Rect = CGRect(x: 179, y: 302, width: 82, height: 82)
         context!.saveGState()
@@ -144,7 +145,6 @@ open class AKTelephoneView: UIView {
 
         AKTelephoneView.drawKey(text: "J K L", numeral: "5", isPressed: currentKey == "5")
         context!.restoreGState()
-
 
         //// key 6 Drawing
         key6Rect = CGRect(x: 288, y: 302, width: 82, height: 82)
@@ -156,7 +156,6 @@ open class AKTelephoneView: UIView {
         AKTelephoneView.drawKey(text: "M N O", numeral: "6", isPressed: currentKey == "6")
         context!.restoreGState()
 
-
         //// key 7 Drawing
         key7Rect = CGRect(x: 70, y: 397, width: 82, height: 82)
         context!.saveGState()
@@ -166,7 +165,6 @@ open class AKTelephoneView: UIView {
 
         AKTelephoneView.drawKey(text: "P Q R S", numeral: "7", isPressed: currentKey == "7")
         context!.restoreGState()
-
 
         //// key 8 Drawing
         key8Rect = CGRect(x: 179, y: 397, width: 82, height: 82)
@@ -178,7 +176,6 @@ open class AKTelephoneView: UIView {
         AKTelephoneView.drawKey(text: "T U V", numeral: "8", isPressed: currentKey == "8")
         context!.restoreGState()
 
-
         //// key 9 Drawing
         key9Rect = CGRect(x: 288, y: 397, width: 82, height: 82)
         context!.saveGState()
@@ -188,7 +185,6 @@ open class AKTelephoneView: UIView {
 
         AKTelephoneView.drawKey(text: "W X Y Z", numeral: "9", isPressed: currentKey == "9")
         context!.restoreGState()
-
 
         //// key 0 Drawing
         key0Rect = CGRect(x: 179, y: 494, width: 82, height: 82)
@@ -200,7 +196,6 @@ open class AKTelephoneView: UIView {
         AKTelephoneView.drawKey(text: "+", numeral: "0", isPressed: currentKey == "0")
         context!.restoreGState()
 
-
         //// keyStar Drawing
         keyStarRect = CGRect(x: 70, y: 494, width: 82, height: 82)
         context!.saveGState()
@@ -210,7 +205,6 @@ open class AKTelephoneView: UIView {
 
         AKTelephoneView.drawCenteredKey(numeral: "*", isPressed: currentKey == "*")
         context!.restoreGState()
-
 
         //// keyHash Drawing
         keyHashRect = CGRect(x: 288, y: 494, width: 82, height: 82)
@@ -222,13 +216,11 @@ open class AKTelephoneView: UIView {
         AKTelephoneView.drawCenteredKey(numeral: "#", isPressed: currentKey == "#")
         context!.restoreGState()
 
-
         //// CallButton
         //// callCircle Drawing
         callCirclePath = UIBezierPath(ovalIn: CGRect(x: 181, y: 603, width: 79, height: 79))
         color.setFill()
         callCirclePath.fill()
-
 
         //// telephoneSilhouette Drawing
         let telephoneSilhouettePath = UIBezierPath()
@@ -249,15 +241,11 @@ open class AKTelephoneView: UIView {
         UIColor.white.setFill()
         telephoneSilhouettePath.fill()
 
-
-
-
         //// BusyButton
         //// busyCircle Drawing
         busyCirclePath = UIBezierPath(ovalIn: CGRect(x: 73, y: 603, width: 79, height: 79))
         color2.setFill()
         busyCirclePath.fill()
-
 
         //// busyText Drawing
         let busyTextRect = CGRect(x: 73, y: 603, width: 79, height: 79)
@@ -272,9 +260,6 @@ open class AKTelephoneView: UIView {
         context!.clip(to: busyTextRect)
         busyTextTextContent.draw(in: CGRect(x: busyTextRect.minX, y: busyTextRect.minY + (busyTextRect.height - busyTextTextHeight) / 2, width: busyTextRect.width, height: busyTextTextHeight), withAttributes: busyTextFontAttributes)
         context!.restoreGState()
-
-
-
 
         //// Readout Drawing
         let readoutRect = CGRect(x: 0, y: 52, width: 440, height: 72)
@@ -313,7 +298,6 @@ open class AKTelephoneView: UIView {
         ovalPath.lineWidth = 2.5
         ovalPath.stroke()
 
-
         //// Letters Drawing
         let lettersRect = CGRect(x: 0, y: 60, width: 100, height: 23)
         let lettersStyle = NSMutableParagraphStyle()
@@ -326,7 +310,6 @@ open class AKTelephoneView: UIView {
         context!.clip(to: lettersRect)
         NSString(string: text).draw(in: CGRect(x: lettersRect.minX, y: lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2, width: lettersRect.width, height: lettersTextHeight), withAttributes: lettersFontAttributes)
         context!.restoreGState()
-
 
         //// Number Drawing
         let numberRect = CGRect(x: 27, y: 18, width: 45, height: 46)
@@ -363,7 +346,6 @@ open class AKTelephoneView: UIView {
         UIColor.lightGray.setStroke()
         ovalPath.lineWidth = 2.5
         ovalPath.stroke()
-
 
         //// Number Drawing
         let numberRect = CGRect(x: 27, y: 27, width: 45, height: 46)

@@ -236,8 +236,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AudioKit.engine.attach(internalPlayer)
         let mixer = AVAudioMixerNode()
         AudioKit.engine.attach(mixer)
-        let format = AVAudioFormat(standardFormatWithSampleRate: self.internalAudioFile.sampleRate, channels: self.internalAudioFile.channelCount)
-        AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
+        AudioKit.engine.connect(internalPlayer, to: mixer, format: internalAudioFile.fileFormat)
         self.avAudioNode = mixer
         internalPlayer.volume = 1.0
         
