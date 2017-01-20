@@ -57,11 +57,11 @@ class Audiobus {
             myDict = NSDictionary(contentsOfFile: path)
         }
         if let dict = myDict {
-            for component in dict["AudioComponents"] as [[String: AnyObject]] {
-                let type = fourCC(component["type"] as String)
-                let subtype = fourCC(component["subtype"] as String)
-                let name = component["name"] as String
-                let manufacturer = fourCC(component["manufacturer"] as String)
+            for component in dict["AudioComponents"] as! [[String: AnyObject]] {
+                let type = fourCC(component["type"] as! String)
+                let subtype = fourCC(component["subtype"] as! String)
+                let name = component["name"] as! String
+                let manufacturer = fourCC(component["manufacturer"] as! String)
                 
                 if type == kAudioUnitType_RemoteInstrument ||
                     type == kAudioUnitType_RemoteGenerator {
