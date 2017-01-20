@@ -44,7 +44,7 @@ extension AVAudioEngine {
 
     /// Enumerate the list of available input devices.
     open static var availableInputs: [AKDevice]? {
-        #if os(OSX)
+        #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.inputDevices().map {
                 AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
@@ -60,7 +60,7 @@ extension AVAudioEngine {
     }
     /// Enumerate the list of available output devices.
     open static var availableOutputs: [AKDevice]? {
-        #if os(OSX)
+        #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.outputDevices().map {
                 AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
@@ -72,7 +72,7 @@ extension AVAudioEngine {
 
     /// The name of the current preferred input device, if available.
     open static var inputDevice: AKDevice? {
-        #if os(OSX)
+        #if os(macOS)
             if let dev = EZAudioDevice.currentInput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
             }
@@ -86,7 +86,7 @@ extension AVAudioEngine {
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     open static func setInputDevice(_ input: AKDevice) throws {
-        #if os(OSX)
+        #if os(macOS)
             var address = AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDefaultInputDevice,
                 mScope: kAudioObjectPropertyScopeGlobal,
@@ -108,7 +108,7 @@ extension AVAudioEngine {
     
     /// Change the preferred output device, giving it one of the names from the list of available output.
     open static func setOutputDevice(_ output: AKDevice) throws {
-        #if os(OSX)
+        #if os(macOS)
             var id = output.deviceID
             AudioUnitSetProperty(AudioKit.engine.outputNode.audioUnit!,
                                  kAudioOutputUnitProperty_CurrentDevice,
@@ -139,7 +139,7 @@ extension AVAudioEngine {
                     name: NSNotification.Name.AVAudioSessionRouteChange,
                     object: nil)
             #endif
-            #if !os(OSX)
+            #if !os(macOS)
                 if AKSettings.audioInputEnabled {
 
                 #if os(iOS)

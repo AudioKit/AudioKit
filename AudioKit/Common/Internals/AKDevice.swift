@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-#if os(OSX)
+#if os(macOS)
 public typealias DeviceID = AudioDeviceID
 #else
 public typealias DeviceID = String
