@@ -9,7 +9,7 @@
 import UIKit
 
 /// Delegate for keyboard events
-public protocol AKKeyboardDelegate {
+public protocol AKKeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
     func noteOff(note: MIDINoteNumber)
 }
@@ -26,7 +26,7 @@ public protocol AKKeyboardDelegate {
     @IBInspectable open var  blackKeyOff: UIColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
     @IBInspectable open var  keyOnColor: UIColor = UIColor(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
     
-    open var delegate: AKKeyboardDelegate?
+    open weak var delegate: AKKeyboardDelegate?
     
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
@@ -226,6 +226,7 @@ public protocol AKKeyboardDelegate {
         return CGSize(width: oneOctaveSize.width / (4 * 7), height: oneOctaveSize.height * topKeyHeightRatio)
     }
     
+    // swiftlint:disable variable_name
     func whiteKeyX(_ n: Int, octaveNumber: Int) -> CGFloat {
         return CGFloat(n) * whiteKeySize.width + xOffset + oneOctaveSize.width * CGFloat(octaveNumber)
     }
