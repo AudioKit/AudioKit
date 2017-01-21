@@ -302,6 +302,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
     
+    open func resume() {
+        if !playing && paused {
+            playing = true
+            paused = false
+            internalPlayer.play()
+        }
+    }
+    
     /// resets in and out times for playing
     open func reloadFile() throws {
         let wasPlaying  = playing
