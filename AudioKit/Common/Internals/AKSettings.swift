@@ -113,7 +113,7 @@ import AVFoundation
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
 
-    #if !os(OSX)
+    #if !os(macOS)
 
     /// Shortcut for AVAudioSession.sharedInstance()
     open static let session = AVAudioSession.sharedInstance()
