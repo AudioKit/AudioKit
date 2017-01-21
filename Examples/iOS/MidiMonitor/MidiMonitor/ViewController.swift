@@ -12,7 +12,7 @@ import AudioKit
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet var outputTextView: UITextView!
     var midi = AKMIDI()
-    var midiWindow:AKMIDIBluetoothWindow?
+    var midiWindow: AKMIDIBluetoothWindow?
     
     override func viewDidLoad() {
         super.viewDidLoad()
