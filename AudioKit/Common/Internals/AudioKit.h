@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#if !TARGET_OS_TV
 #import <CoreAudioKit/CoreAudioKit.h>
+#endif
 
 //! Project version number for AudioKit.
 FOUNDATION_EXPORT double AudioKitVersionNumber;
