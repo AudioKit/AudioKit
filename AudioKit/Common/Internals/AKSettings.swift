@@ -83,40 +83,12 @@ import AVFoundation
     
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
+}
 
-    #if !os(macOS)
+#if !os(macOS)
+extension AKSettings {
 
-    /// Enum of available AVAudioSession Categories
-    @objc public enum SessionCategory: Int, CustomStringConvertible {
-        /// Audio silenced by silent switch and screen lock - audio is mixable
-        case ambient
-        /// Audio is silenced by silent switch and screen lock - audio is non mixable
-        case soloAmbient
-        /// Audio is not silenced by silent switch and screen lock - audio is non mixable
-        case playback
-        /// Silences playback audio
-        case record
-        /// Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
-        case playAndRecord
-        /// Disables playback and recording
-        case audioProcessing
-        /// Use to multi-route audio. May be used on input, output, or both.
-        case multiRoute
-
-        public var description: String {
-            switch self {
-            case .ambient: return AVAudioSessionCategoryAmbient
-            case .soloAmbient : return AVAudioSessionCategorySoloAmbient
-            case .playback: return AVAudioSessionCategoryPlayback
-            case .record: return AVAudioSessionCategoryRecord
-            case .playAndRecord: return AVAudioSessionCategoryPlayAndRecord
-            case .audioProcessing: return AVAudioSessionCategoryAudioProcessing
-            case .multiRoute: return AVAudioSessionCategoryMultiRoute
-            }
-        }
-    }
-
-    /// Shortcut for AVAudioSession.sharedInstance()
+  /// Shortcut for AVAudioSession.sharedInstance()
     open static let session = AVAudioSession.sharedInstance()
 
     /// Convenience method accessible from Objective-C
@@ -177,5 +149,41 @@ import AVFoundation
         }
     }
 
-    #endif
+    /// Enum of available AVAudioSession Categories
+    @objc public enum SessionCategory: Int, CustomStringConvertible {
+        /// Audio silenced by silent switch and screen lock - audio is mixable
+        case ambient
+        /// Audio is silenced by silent switch and screen lock - audio is non mixable
+        case soloAmbient
+        /// Audio is not silenced by silent switch and screen lock - audio is non mixable
+        case playback
+        /// Silences playback audio
+        case record
+        /// Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
+        case playAndRecord
+        /// Disables playback and recording
+        #if !os(tvOS)
+        case audioProcessing
+        #endif
+        /// Use to multi-route audio. May be used on input, output, or both.
+        case multiRoute
+
+        public var description: String {
+
+            if self == .ambient { return AVAudioSessionCategoryAmbient }
+            else if self == .soloAmbient { return AVAudioSessionCategorySoloAmbient }
+            else if self == .playback { return AVAudioSessionCategoryPlayback }
+            else if self == .record { return AVAudioSessionCategoryPlayback }
+            else if self == .playAndRecord { return AVAudioSessionCategoryPlayback }
+            else if self == .multiRoute { return AVAudioSessionCategoryMultiRoute }
+            #if !os(tvOS)
+            if self == .audioProcessing { return AVAudioSessionCategoryPlayback }
+            #endif
+
+            fatalError("unrecognized AVAudioSessionCategory \(self)")
+
+      }
+  }
 }
+#endif
+

@@ -8,7 +8,9 @@
 
 import Foundation
 import AVFoundation
+#if !os(tvOS)
 import CoreAudioKit
+#endif
 
 public typealias AKCallback = (Void) -> Void
 
