@@ -66,6 +66,7 @@ import AVFoundation
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     open static var bufferLength: BufferLength = .veryLong
 
+
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
@@ -84,6 +85,7 @@ import AVFoundation
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
 }
+
 
 #if !os(macOS)
 extension AKSettings {
