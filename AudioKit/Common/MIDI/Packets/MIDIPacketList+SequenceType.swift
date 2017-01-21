@@ -8,24 +8,27 @@
 
 extension MIDIPacketList: Sequence {
     /// Type alis for MIDI Packet List Generator
-    public typealias Element = MIDIPacket
+//    public typealias Element = MIDIPacket
+    public typealias Iterator = MIDIPacketListGenerator
     /// Create a generator from the packet list
-    public func makeIterator() -> AnyIterator<Element> {
-      var i = 0
-      var ptr = UnsafeMutablePointer<Element>.allocate(capacity: 1)
-      ptr.initialize(to: packet)
-
-      return AnyIterator {
-          guard i < Int(self.numPackets) else {
-            ptr.deallocate(capacity: 1)
-            return nil
-          }
-
-          defer {
-            ptr = MIDIPacketNext(ptr)
-            i += 1
-          }
-          return ptr.pointee
-      }
+    public func makeIterator() -> Iterator {
+        return Iterator(packetList: self)
     }
+//      var i = 0
+//      var ptr = UnsafeMutablePointer<Element>.allocate(capacity: 1)
+//      ptr.initialize(to: packet)
+//
+//      return AnyIterator {
+//          guard i < Int(self.numPackets) else {
+//            ptr.deallocate(capacity: 1)
+//            return nil
+//          }
+//
+//          defer {
+//            ptr = MIDIPacketNext(ptr)
+//            i += 1
+//          }
+//          return ptr.pointee
+//      }
+//    }
 }
