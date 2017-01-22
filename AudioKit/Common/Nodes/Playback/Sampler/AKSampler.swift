@@ -109,9 +109,9 @@ open class AKSampler: AKNode {
         do {
             try samplerUnit.loadSoundBankInstrument(
                 at: url,
-                program: UInt8(preset),
-                bankMSB: UInt8(type),
-                bankLSB: UInt8(kAUSampler_DefaultBankLSB))
+                program: MIDIByte(preset),
+                bankMSB: MIDIByte(type),
+                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
         } catch {
             AKLog("Error loading SoundFont.")
         }
@@ -194,11 +194,9 @@ open class AKSampler: AKNode {
     ///   - channel: MIDI Channnel
     ///
     open func play(noteNumber: MIDINoteNumber = 60,
-                                velocity: MIDIVelocity = 127,
-                                channel: MIDIChannel = 0) {
-        samplerUnit.startNote(UInt8(noteNumber),
-                              withVelocity: UInt8(velocity),
-                              onChannel: UInt8(channel))
+                   velocity: MIDIVelocity = 127,
+                   channel: MIDIChannel = 0) {
+        samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
     /// Stop a MIDI Note
@@ -208,7 +206,7 @@ open class AKSampler: AKNode {
     ///   - channel: MIDI Channnel
     ///
     open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
-        samplerUnit.stopNote(UInt8(noteNumber), onChannel: UInt8(channel))
+        samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
 
     static func getAUPresetXML() -> String {

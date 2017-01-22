@@ -21,7 +21,7 @@
 /// - ActiveSensing: Active Sensing
 /// - SysReset: System Reset
 ///
-public enum AKMIDISystemCommand: UInt8 {
+public enum AKMIDISystemCommand: MIDIByte {
     /// Trivial Case of None
     case none = 0
     /// System Exclusive

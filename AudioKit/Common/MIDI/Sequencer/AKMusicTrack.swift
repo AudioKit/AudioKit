@@ -47,7 +47,7 @@ open class AKMusicTrack {
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
 
-        let data = [UInt8](name.utf8)
+        let data = [MIDIByte](name.utf8)
 
         var metaEvent = MIDIMetaEvent()
         metaEvent.metaEventType = 3 // track or sequence name
@@ -214,7 +214,7 @@ open class AKMusicTrack {
             if eventType == kMusicEventType_MIDINoteMessage {
                 let convertedData = eventData?.load(as: MIDINoteMessage.self)
                 
-                if convertedData!.note == UInt8(note){
+                if convertedData!.note == MIDIByte(note) {
                     MusicEventIteratorDeleteEvent(iterator!)
                 }
             }
@@ -273,9 +273,9 @@ open class AKMusicTrack {
                   channel: MIDIChannel = 0) {
         
         var noteMessage = MIDINoteMessage(
-            channel: UInt8(channel),
-            note: UInt8(noteNumber),
-            velocity: UInt8(velocity),
+            channel: channel,
+            note: noteNumber,
+            velocity: velocity,
             releaseVelocity: 0,
             duration: Float32(duration.beats))
 
@@ -289,19 +289,19 @@ open class AKMusicTrack {
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this note
     ///
-    open func addController(_ controller: Int, value: Int, position: AKDuration, channel: MIDIChannel = 0) {
+    open func addController(_ controller: MIDIByte, value: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
 
-        var controlMessage = MIDIChannelMessage(status: UInt8(11 << 4) | UInt8((channel) & 0xf), data1: UInt8(controller), data2: UInt8(value), reserved: 0)
+        var controlMessage = MIDIChannelMessage(status: MIDIByte(11 << 4) | MIDIByte((channel) & 0xf), data1: controller, data2: value, reserved: 0)
         MusicTrackNewMIDIChannelEvent(internalMusicTrack!, position.musicTimeStamp, &controlMessage)
     }
 
     /// Add Sysex message to sequence
     ///
     /// - Parameters:
-    ///   - data: The midi data in UInt8 byte array - standard sysex start and end messages are added automatically
+    ///   - data: The midi data byte array - standard sysex start and end messages are added automatically
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///
-    open func addSysex(_ data: [UInt8], position: AKDuration){
+    open func addSysex(_ data: [MIDIByte], position: AKDuration) {
         var midiData = MIDIRawData()
         midiData.length = UInt32(data.count)
         

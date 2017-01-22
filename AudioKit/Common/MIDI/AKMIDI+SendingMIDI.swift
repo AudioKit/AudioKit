@@ -68,7 +68,7 @@ extension AKMIDI {
     }
 
     /// Send Message with data
-    public func sendMessage(_ data: [UInt8]) {
+    public func sendMessage(_ data: [MIDIByte]) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
         var packet: UnsafeMutablePointer<MIDIPacket>? = nil
@@ -101,10 +101,10 @@ extension AKMIDI {
 
     /// Send a Note On Message
     public func sendNoteOnMessage(noteNumber: MIDINoteNumber,
-                                             velocity: MIDIVelocity,
-                                             channel: MIDIChannel = 0) {
-        let noteCommand: UInt8 = UInt8(0x90) + UInt8(channel)
-        let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
+                                  velocity: MIDIVelocity,
+                                  channel: MIDIChannel = 0) {
+        let noteCommand: MIDIByte = MIDIByte(0x90) + channel
+        let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message)
     }
 
@@ -112,15 +112,15 @@ extension AKMIDI {
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
                                              velocity: MIDIVelocity,
                                              channel: MIDIChannel = 0) {
-        let noteCommand: UInt8 = UInt8(0x80) + UInt8(channel)
-        let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
+        let noteCommand: MIDIByte = MIDIByte(0x80) + channel
+        let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message)
     }
 
     /// Send a Continuous Controller message
-    public func sendControllerMessage(_ control: Int, value: Int, channel: MIDIChannel = 0) {
-        let controlCommand: UInt8 = UInt8(0xB0) + UInt8(channel)
-        let message: [UInt8] = [controlCommand, UInt8(control), UInt8(value)]
+    public func sendControllerMessage(_ control: MIDIByte, value: MIDIByte, channel: MIDIChannel = 0) {
+        let controlCommand: MIDIByte = MIDIByte(0xB0) + channel
+        let message: [MIDIByte] = [controlCommand, control, value]
         self.sendMessage(message)
     }
 

@@ -9,8 +9,8 @@
 import Cocoa
 
 public protocol AKKeyboardDelegate {
-    func noteOn(note: Int)
-    func noteOff(note: Int)
+    func noteOn(note: MIDINoteNumber)
+    func noteOff(note: MIDINoteNumber)
 }
 
 public class AKKeyboardView: NSView, AKMIDIListener {
@@ -161,7 +161,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
             let scaledX = x - CGFloat(octNum) * size.width
             note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
         }
-        return note
+        return MIDINoteNumber(note)
     }
 
     override public func mouseDown(with event: NSEvent) {
