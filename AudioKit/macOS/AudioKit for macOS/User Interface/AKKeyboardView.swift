@@ -86,12 +86,12 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     }
 
     func whiteKeyColor(n: Int, octaveNumber: Int) -> NSColor {
-        return onKeys.contains((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n]) ? keyOnColor : whiteKeyOff
+        return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])) ? keyOnColor : whiteKeyOff
     }
 
     func topKeyColor(n: Int, octaveNumber: Int) -> NSColor {
         if notesWithSharps[topKeyNotes[n]].range(of: "#") != nil {
-            return onKeys.contains((firstOctave + octaveNumber) * 12 + topKeyNotes[n]) ? keyOnColor : blackKeyOff
+            return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ? keyOnColor : blackKeyOff
         }
         return topWhiteKeyOff
 
