@@ -12,7 +12,6 @@ import AudioKit
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet var outputTextView: UITextView!
     var midi = AKMIDI()
-    var bluetoothWindow: AKMIDIBluetoothWindow?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +19,6 @@ class ViewController: UIViewController, AKMIDIListener {
         
         midi.openInput()
         midi.addListener(self)
-        bluetoothWindow = AKMIDIBluetoothWindow(self)
     }
     
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
@@ -79,15 +77,13 @@ class ViewController: UIViewController, AKMIDIListener {
         }
         updateText(newString)
     }
+    
     func updateText(_ input: String) {
         DispatchQueue.main.async(execute: {
             self.outputTextView.text = "\(input)\n\(self.outputTextView.text!)"
         })
     }
-    @IBAction func bluetoothButtonFromUI(_ sender: UIButton) {
-        bluetoothWindow?.show(from: sender)
-    }
-    
+
     @IBAction func clearText(_ sender: AnyObject) {
         DispatchQueue.main.async(execute: {
             self.outputTextView.text = ""
