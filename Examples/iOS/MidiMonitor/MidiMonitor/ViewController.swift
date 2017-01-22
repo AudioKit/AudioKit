@@ -69,7 +69,7 @@ class ViewController: UIViewController, AKMIDIListener {
         updateText(newString)
     }
     
-    func receivedMIDISystemCommand(_ data: [UInt8]) {
+    func receivedMIDISystemCommand(_ data: [MIDIByte]) {
         print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
         var newString = "MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!) \n"
         for i in 0 ..< data.count {

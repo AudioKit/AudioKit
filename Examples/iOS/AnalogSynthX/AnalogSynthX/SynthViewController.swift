@@ -85,7 +85,7 @@ class SynthViewController: UIViewController {
     var lastKey: UIButton?
     var monoMode: Bool = false
     var holdMode: Bool = false
-    var midiNotesHeld = [Int]()
+    var midiNotesHeld = [MIDINoteNumber]()
     let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
 
     var conductor = Conductor.sharedInstance
@@ -459,7 +459,7 @@ class SynthViewController: UIViewController {
         updateAllKeysToUpPosition()
 
         for note in 0...127 {
-            conductor.core.stop(noteNumber: note)
+            conductor.core.stop(noteNumber: MIDINoteNumber(note))
         }
         midiNotesHeld.removeAll(keepingCapacity: false)
     }
@@ -477,7 +477,7 @@ class SynthViewController: UIViewController {
     func redisplayHeldKeys() {
 
         // Determine new keyboard bounds
-        let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
+        let lowerMidiNote = MIDINoteNumber(48  + (keyboardOctavePosition * 12))
         let upperMidiNote = lowerMidiNote + 24
         statusLabel.text = "Keyboard Range: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
 
@@ -536,8 +536,8 @@ class SynthViewController: UIViewController {
         }
     }
 
-    func midiNoteFromTag(_ tag: Int) -> Int {
-        return (tag - 200) + (keyboardOctavePosition * 12)
+    func midiNoteFromTag(_ tag: Int) -> MIDINoteNumber {
+        return MIDINoteNumber((tag - 200) + (keyboardOctavePosition * 12))
     }
 }
 

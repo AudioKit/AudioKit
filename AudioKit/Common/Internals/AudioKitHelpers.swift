@@ -10,9 +10,11 @@ import Foundation
 import CoreAudio
 import AudioToolbox
 
-public typealias MIDINoteNumber = Int
-public typealias MIDIVelocity = Int
-public typealias MIDIChannel = Int
+public typealias MIDIByte = UInt8
+public typealias MIDIWord = UInt16
+public typealias MIDINoteNumber = UInt8
+public typealias MIDIVelocity = UInt8
+public typealias MIDIChannel = UInt8
 
 
 extension Collection where IndexDistance == Int {
@@ -155,6 +157,19 @@ extension Int {
         return Double(self).midiNoteToFrequency(aRef)
     }
 }
+
+/// Extension to Int to calculate frequency from a MIDI Note Number
+extension UInt8 {
+    
+    /// Calculate frequency from a MIDI Note Number
+    ///
+    /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
+    ///
+    public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
+        return Double(self).midiNoteToFrequency(aRef)
+    }
+}
+
 
 /// Extension to Double to get the frequency from a MIDI Note Number
 extension Double {

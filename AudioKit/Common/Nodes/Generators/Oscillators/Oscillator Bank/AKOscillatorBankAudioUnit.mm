@@ -46,11 +46,11 @@
     _kernel.setWaveformValue(index, value);
 }
 
-- (void)startNote:(int)note velocity:(int)velocity {
+- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {
     _kernel.startNote(note, velocity);
 }
 
-- (void)stopNote:(int)note {
+- (void)stopNote:(uint8_t)note {
     _kernel.stopNote(note);
 }
 

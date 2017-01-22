@@ -115,7 +115,7 @@ class Conductor {
                 }
                 //print("octave offset is \(octaveOffset)")
                 let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
-                sequence.tracks[Sequence.melody.rawValue].add(noteNumber: noteToAdd,
+                sequence.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(noteToAdd),
                                                               velocity: 100,
                                                               position: AKDuration(beats: step),
                                                               duration: AKDuration(beats: 1))
@@ -158,7 +158,7 @@ class Conductor {
             if(arc4random_uniform(17) > 14) {
                 let step = Double(i) * stepSize
                 sequence.tracks[Sequence.snareDrumGhost.rawValue].add(noteNumber: 60,
-                                                                      velocity: Int(arc4random_uniform(65) + 1),
+                                                                      velocity: MIDIVelocity(arc4random_uniform(65) + 1),
                                                                       position: AKDuration(beats: step),
                                                                       duration: AKDuration(beats: 0.1))
             }
