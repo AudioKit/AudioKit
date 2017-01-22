@@ -22,7 +22,7 @@ fi
 
 if which xcpretty > /dev/null 2>&1;
 then
-	XCPRETTY=xcpretty
+	XCPRETTY=cat #xcpretty
 else
 	XCPRETTY=cat
 fi
