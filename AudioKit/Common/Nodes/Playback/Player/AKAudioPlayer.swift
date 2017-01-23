@@ -397,7 +397,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     
     /// Fills the buffer with data read from internalAudioFile
     fileprivate func updatePCMBuffer() {
-        Swift.print("updatePCMBuffer() reversed \(self.reversed)")
+        //AKLog("updatePCMBuffer() reversed \(self.reversed)")
         
         var theStartFrame = startingFrame
         var theEndFrame = endingFrame
