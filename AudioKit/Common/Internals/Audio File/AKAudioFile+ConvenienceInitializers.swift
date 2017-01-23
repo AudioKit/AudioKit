@@ -31,8 +31,8 @@ extension AKAudioFile {
     
     /// Opens a file for reading.
     ///
-    /// - parameter name:    Filename, including hte extension
-    /// - parameter baseDir: Location of file, can be set to .Resources, .Documents or .Temp
+    /// - parameter name:    Filename, including the extension
+    /// - parameter baseDir: Location of file, can be set to .resources, .documents or .temp
     ///
     /// - returns: An initialized AKAudioFile for reading, or nil if init failed
     ///
@@ -62,7 +62,7 @@ extension AKAudioFile {
     /// - Parameters:
     ///   - name: the name of the file without its extension (String).
     ///   - ext: the extension of the file without "." (String).
-    ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
+    ///   - baseDir: where the file will be located, can be set to .resources, .documents or .temp
     ///   - settings: The settings of the file to create.
     ///   - format: The processing commonFormat to use when writing.
     ///   - interleaved: Bool (Whether to use an interleaved processing format.)
@@ -154,7 +154,7 @@ extension AKAudioFile {
     ///
     /// - Parameters:
     ///   - buffer: the :AVAudioPCMBuffer that will be used to fill the AKAudioFile
-    ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
+    ///   - baseDir: where the file will be located, can be set to .resources, .documents or .temp
     ///   - name: the name of the file without its extension (String).
     ///
     /// - Returns: a .caf AKAudioFile set to AudioKit settings (32 bits float @ 44100 Hz)
