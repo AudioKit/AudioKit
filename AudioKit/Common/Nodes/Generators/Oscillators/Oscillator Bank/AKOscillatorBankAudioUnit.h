@@ -20,8 +20,8 @@
 
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
-- (void)startNote:(int)note velocity:(int)velocity;
-- (void)stopNote:(int)note;
+- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
+- (void)stopNote:(uint8_t)note;
 
 @end
 

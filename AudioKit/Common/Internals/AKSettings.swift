@@ -12,35 +12,6 @@ import AVFoundation
 /// Global settings for AudioKit
 @objc open class AKSettings: NSObject {
 
-    /// Enum of available AVAudioSession Categories
-    @objc public enum SessionCategory: Int {
-        /// Audio silenced by silent switch and screen lock - audio is mixable
-        case ambient
-        /// Audio is silenced by silent switch and screen lock - audio is non mixable
-        case soloAmbient
-        /// Audio is not silenced by silent switch and screen lock - audio is non mixable
-        case playback
-        /// Silences playback audio
-        case record
-        /// Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
-        case playAndRecord
-        /// Disables playback and recording
-        case audioProcessing
-        /// Use to multi-route audio. May be used on input, output, or both.
-        case multiRoute
-    }
-
-    // Corresponding internal names for AVAudioSession - allows bridging to Objective-C
-    internal static let SessionCategoryString: [SessionCategory : String] = [
-        .ambient : "AVAudioSessionCategoryAmbient",
-        .soloAmbient : "AVAudioSessionCategorySoloAmbient",
-        .playback : "AVAudioSessionCategoryPlayback",
-        .record : "AVAudioSessionCategoryRecord",
-        .playAndRecord : "AVAudioSessionCategoryPlayAndRecord",
-        .audioProcessing : "AVAudioSessionCategoryAudioProcessing",
-        .multiRoute : "AVAudioSessionCategoryMultiRoute"
-    ]
-
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
@@ -95,6 +66,7 @@ import AVFoundation
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     open static var bufferLength: BufferLength = .veryLong
 
+
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
@@ -112,19 +84,18 @@ import AVFoundation
     
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
+}
 
-    #if !os(OSX)
 
-    /// Shortcut for AVAudioSession.sharedInstance()
+#if !os(macOS)
+extension AKSettings {
+
+  /// Shortcut for AVAudioSession.sharedInstance()
     open static let session = AVAudioSession.sharedInstance()
 
     /// Convenience method accessible from Objective-C
     @objc open static func setSession(category: SessionCategory, options: UInt) throws {
-        if options == 0 {
-            try setSession(category: category)
-        } else {
-            try setSession(category: category, with: AVAudioSessionCategoryOptions(rawValue: options))
-        }
+        try setSession(category: category, with: AVAudioSessionCategoryOptions(rawValue: options))
     }
 
     /// Set the audio session type
@@ -132,25 +103,11 @@ import AVFoundation
                                 with options: AVAudioSessionCategoryOptions? = nil) throws {
         
         if !AKSettings.disableAVAudioSessionCategoryManagement {
-            
-            if options != nil {
-                do {
-                    try session.setCategory(SessionCategoryString[category]!, with: options!)
-                } catch let error as NSError {
-                    AKLog("AKSettings Error: Cannot set AVAudioSession Category to \(SessionCategoryString[category])) with options: \(String(describing: options!))")
-                    AKLog("AKSettings Error: \(error))")
-                    throw error
-                }
-                
-            } else {
-                
-                do {
-                    try session.setCategory(SessionCategoryString[category]!)
-                } catch let error as NSError {
-                    AKLog("AKSettings Error: Cannot set AVAudioSession Category to \(SessionCategoryString[category])")
-                    AKLog("AKSettings Error: \(error))")
-                    throw error
-                }
+            do {
+                try session.setCategory("\(category)", with: options!)
+            } catch let error as NSError {
+                AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category)" + (options.map { " with options:\($0)" } ?? ""))
+                throw error
             }
         }
 
@@ -194,5 +151,41 @@ import AVFoundation
         }
     }
 
-    #endif
+    /// Enum of available AVAudioSession Categories
+    @objc public enum SessionCategory: Int, CustomStringConvertible {
+        /// Audio silenced by silent switch and screen lock - audio is mixable
+        case ambient
+        /// Audio is silenced by silent switch and screen lock - audio is non mixable
+        case soloAmbient
+        /// Audio is not silenced by silent switch and screen lock - audio is non mixable
+        case playback
+        /// Silences playback audio
+        case record
+        /// Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
+        case playAndRecord
+        /// Disables playback and recording
+        #if !os(tvOS)
+        case audioProcessing
+        #endif
+        /// Use to multi-route audio. May be used on input, output, or both.
+        case multiRoute
+
+        public var description: String {
+
+            if self == .ambient { return AVAudioSessionCategoryAmbient }
+            else if self == .soloAmbient { return AVAudioSessionCategorySoloAmbient }
+            else if self == .playback { return AVAudioSessionCategoryPlayback }
+            else if self == .record { return AVAudioSessionCategoryPlayback }
+            else if self == .playAndRecord { return AVAudioSessionCategoryPlayback }
+            else if self == .multiRoute { return AVAudioSessionCategoryMultiRoute }
+            #if !os(tvOS)
+            if self == .audioProcessing { return AVAudioSessionCategoryPlayback }
+            #endif
+
+            fatalError("unrecognized AVAudioSessionCategory \(self)")
+
+      }
+  }
 }
+#endif
+

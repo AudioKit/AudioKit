@@ -19,8 +19,8 @@
 @property (nonatomic) float detuningOffset;
 @property (nonatomic) float detuningMultiplier;
 
-- (void)startNote:(int)note velocity:(int)velocity;
-- (void)stopNote:(int)note;
+- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
+- (void)stopNote:(uint8_t)note;
 
 @end
 

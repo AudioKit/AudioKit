@@ -6,7 +6,7 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-#if os(OSX)
+#if os(macOS)
     public typealias AKView = NSView
     public typealias AKColor = NSColor
 #else

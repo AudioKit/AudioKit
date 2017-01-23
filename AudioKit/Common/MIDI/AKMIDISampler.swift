@@ -40,15 +40,15 @@ open class AKMIDISampler: AKSampler {
     }
 
     private func handle(event: AKMIDIEvent) {
-        self.handleMIDI(data1: UInt32(event.internalData[0]),
-                        data2: UInt32(event.internalData[1]),
-                        data3: UInt32(event.internalData[2]))
+        self.handleMIDI(data1: event.internalData[0],
+                        data2: event.internalData[1],
+                        data3: event.internalData[2])
     }
     
     // MARK: - Handling MIDI Data
     
     // Send MIDI data to the audio unit
-    func handleMIDI(data1: UInt32, data2: UInt32, data3: UInt32) {
+    func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         let status = data1 >> 4
         let channel = data1 & 0xF
         
@@ -64,7 +64,7 @@ open class AKMIDISampler: AKSampler {
             
         } else if Int(status) == AKMIDIStatus.controllerChange.rawValue {
             
-            midiCC(Int(data2), value: Int(data3), channel: MIDIChannel(channel))
+            midiCC(data2, value: data3, channel: channel)
             
         }
     }
@@ -93,10 +93,8 @@ open class AKMIDISampler: AKSampler {
     ///   - value: MIDI cc value
     ///   - channel: MIDI cc channel
     ///
-    open func midiCC(_ cc: Int, value: Int, channel: MIDIChannel) {
-        samplerUnit.sendController(UInt8(cc),
-                                   withValue: UInt8(value),
-                                   onChannel: UInt8(channel))
+    open func midiCC(_ cc: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+        samplerUnit.sendController(cc, withValue: value, onChannel: channel)
     }
     
     // MARK: - MIDI Note Start/Stop
@@ -105,14 +103,12 @@ open class AKMIDISampler: AKSampler {
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {
-        samplerUnit.startNote(UInt8(noteNumber),
-                              withVelocity: UInt8(velocity),
-                              onChannel: UInt8(channel))
+        samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
     
     /// Stop a note
     open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        samplerUnit.stopNote(UInt8(noteNumber), onChannel: UInt8(channel))
+        samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
 
 }

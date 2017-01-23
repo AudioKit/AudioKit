@@ -12,7 +12,6 @@ import AudioKit
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet var outputTextView: UITextView!
     var midi = AKMIDI()
-    var midiWindow:AKMIDIBluetoothWindow?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +19,6 @@ class ViewController: UIViewController, AKMIDIListener {
         
         midi.openInput()
         midi.addListener(self)
-        midiWindow = AKMIDIBluetoothWindow(midi: midi, listener: self, sourceView: self)
     }
     
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
@@ -71,7 +69,7 @@ class ViewController: UIViewController, AKMIDIListener {
         updateText(newString)
     }
     
-    func receivedMIDISystemCommand(_ data: [UInt8]) {
+    func receivedMIDISystemCommand(_ data: [MIDIByte]) {
         print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
         var newString = "MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!) \n"
         for i in 0 ..< data.count {
@@ -79,15 +77,13 @@ class ViewController: UIViewController, AKMIDIListener {
         }
         updateText(newString)
     }
+    
     func updateText(_ input: String) {
         DispatchQueue.main.async(execute: {
             self.outputTextView.text = "\(input)\n\(self.outputTextView.text!)"
         })
     }
-    @IBAction func bluetoothButtonFromUI(_ sender: UIButton) {
-        midiWindow?.show()
-    }
-    
+
     @IBAction func clearText(_ sender: AnyObject) {
         DispatchQueue.main.async(execute: {
             self.outputTextView.text = ""
