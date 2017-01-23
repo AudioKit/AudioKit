@@ -16,7 +16,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     
     fileprivate var internalAudioFile: AKAudioFile
     fileprivate var internalPlayer = AVAudioPlayerNode()
-    fileprivate var audioFileBuffer: AVAudioPCMBuffer?
     fileprivate var totalFrameCount: UInt32 = 0
     fileprivate var startingFrame: UInt32 = 0
     fileprivate var endingFrame: UInt32 = 0
@@ -28,6 +27,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     fileprivate var internalEndTime: Double = 0
     
     // MARK: - Properties
+    open var audioFileBuffer: AVAudioPCMBuffer?
     
     /// Will be triggered when AKAudioPlayer has finished to play.
     /// (will not as long as loop is on)
@@ -36,6 +36,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Boolean indicating whether or not to loop the playback
     open var looping: Bool = false
     
+    /// Boolean indicating to play the buffer in reverse
+    open var reversed: Bool = false {
+        didSet {
+            updatePCMBuffer()
+        }
+    }
     
     /// return the current played AKAudioFile
     open var audioFile: AKAudioFile {
@@ -64,7 +70,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open var isStarted: Bool {
         return  internalPlayer.isPlaying
     }
-    
     
     /// Current playback time (in seconds)
     open var currentTime: Double {
@@ -117,8 +122,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             
         }
         set {
-            //let wasPlaying = playing
-            
             // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
             if newValue == internalStartTime {
@@ -135,16 +138,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 
                 // now update the buffer
                 updatePCMBuffer()
-                //stop()
                 
                 // remember this value for ease of checking redundancy later
                 internalStartTime = newValue
             }
-            // RF: I don't think this is a good idea. There are many cases where you don't want it to restart on you without
-            //explicitly meaning to.
-            //            if wasPlaying {
-            //                play()
-            //            }
+            
         }
     }
     
@@ -156,8 +154,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             
         }
         set {
-            //let wasPlaying = playing
-            
             // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
             if newValue == internalEndTime {
@@ -177,14 +173,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 
                 // now update the buffer
                 updatePCMBuffer()
-                //stop()
                 
                 // remember this value for ease of checking redundancy later
                 internalEndTime = newValue
             }
-            //            if wasPlaying {
-            //                play()
-            //            }
         }
     }
     
@@ -236,7 +228,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AudioKit.engine.attach(internalPlayer)
         let mixer = AVAudioMixerNode()
         AudioKit.engine.attach(mixer)
-        AudioKit.engine.connect(internalPlayer, to: mixer, format: internalAudioFile.fileFormat)
+        let format = AVAudioFormat(standardFormatWithSampleRate: self.internalAudioFile.sampleRate, channels: self.internalAudioFile.channelCount)
+        AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
         self.avAudioNode = mixer
         internalPlayer.volume = 1.0
         
@@ -279,10 +272,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         paused = false
         internalPlayer.stop()
         
-        //updatePCMBuffer()
-        
-        //if you pre-schedule the buffer it's not possible to schedule it in the future
-        //scheduleBuffer()
     }
     
     /// Pause playback
@@ -338,7 +327,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         AKLog("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
     }
-
+    
     /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time to play (in seconds).
     ///
     ///  - Parameters:
@@ -364,10 +353,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
     
+    
     // MARK: - Private Methods
     
     fileprivate func initialize() {
-        
         audioFileBuffer = nil
         totalFrameCount = UInt32(internalAudioFile.length)
         startingFrame = 0
@@ -399,14 +388,33 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
     
+    /// Fills the buffer with data read from internalAudioFile
     fileprivate func updatePCMBuffer() {
+        Swift.print("updatePCMBuffer() reversed \(self.reversed)")
+        
+        var theStartFrame = startingFrame
+        var theEndFrame = endingFrame
+        
+        // if we are going to be reversing the buffer, we need to think ahead a bit
+        // since the edit points would be reversed as well, we swap them here:
+        if reversed {
+            let revEndTime = duration - startTime
+            let revStartTime = endTime > 0 ? duration - endTime : duration
+            
+            theStartFrame = UInt32(revStartTime * internalAudioFile.sampleRate)
+            theEndFrame = UInt32(revEndTime * internalAudioFile.sampleRate)
+        }
+        
         if internalAudioFile.samplesCount > 0 {
-            internalAudioFile.framePosition = Int64(startingFrame)
-            framesToPlayCount = endingFrame - startingFrame
+            internalAudioFile.framePosition = Int64(theStartFrame)
+            
+            framesToPlayCount = theEndFrame - theStartFrame
+            
             audioFileBuffer = AVAudioPCMBuffer(
                 pcmFormat: internalAudioFile.processingFormat,
                 frameCapacity: AVAudioFrameCount(totalFrameCount) )
             do {
+                // read the requested frame count from the file
                 try internalAudioFile.read(into: audioFileBuffer!, frameCount: framesToPlayCount)
                 
                 // AKLog("AKAudioPlayer.updatePCMBuffer() \(audioFileBuffer!.frameLength)")
@@ -414,9 +422,47 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 AKLog("ERROR AKaudioPlayer: Could not read data into buffer.")
                 return
             }
+            
+            // Now, we'll reverse the data in the buffer if desired...
+            if self.reversed {
+                reverseBuffer()
+            }
+            
         } else {
             AKLog("ERROR updatePCMBuffer: Could not set PCM buffer -> \(internalAudioFile.fileNamePlusExtension) samplesCount = 0.")
         }
+    }
+    
+    /// Turn the buffer around!
+    fileprivate func reverseBuffer() {
+        guard audioFileBuffer != nil else { return }
+        
+        let reverseBuffer = AVAudioPCMBuffer(
+            pcmFormat: internalAudioFile.processingFormat,
+            frameCapacity: audioFileBuffer!.frameCapacity )
+        
+        var j:Int = 0
+        let length = audioFileBuffer!.frameLength
+        
+        //AKLog("reverse() preparing \(length) frames")
+        
+        // i represents the normal buffer read in reverse
+        for i in (0 ..< Int(length)).reversed() {
+            // n is the channel
+            for n in 0 ..< Int(audioFileBuffer!.format.channelCount) {
+                // we write the reverseBuffer via the j index
+                reverseBuffer.floatChannelData?[n][j] = (audioFileBuffer!.floatChannelData?[n][i])!
+            }
+            j += 1
+        }
+        
+        // set the buffer now to be the reverse one
+        audioFileBuffer = reverseBuffer
+        // update this to the new value
+        audioFileBuffer?.frameLength = length
+        
+        //AKLog("Reverse new frame length: \(audioFileBuffer?.frameLength)")
+        
     }
     
     /// Triggered when the player reaches the end of its playing range
