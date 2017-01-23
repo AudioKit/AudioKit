@@ -19,7 +19,7 @@ extension AKAudioFile {
     /// Normalize an AKAudioFile to have a peak of newMaxLevel dB.
     ///
     /// - Parameters:
-    ///   - baseDir:     where the file will be located, can be set to .Resources,  .Documents or .Temp
+    ///   - baseDir:     where the file will be located, can be set to .resources,  .documents or .temp
     ///   - name:        the name of the file without its extension (String).
     ///   - newMaxLevel: max level targeted as a Float value (default if 0 dB)
     ///
@@ -64,7 +64,7 @@ extension AKAudioFile {
     /// Returns an AKAudioFile with audio reversed (will playback in reverse from end to beginning).
     ///
     /// - Parameters:
-    ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+    ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp
     ///   - name: the name of the file without its extension (String).
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.
