@@ -414,7 +414,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         
         if internalAudioFile.samplesCount > 0 {
             internalAudioFile.framePosition = Int64(theStartFrame)
-            
             framesToPlayCount = theEndFrame - theStartFrame
             
             audioFileBuffer = AVAudioPCMBuffer(
@@ -450,7 +449,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         
         var j:Int = 0
         let length = audioFileBuffer!.frameLength
-        
         //AKLog("reverse() preparing \(length) frames")
         
         // i represents the normal buffer read in reverse
@@ -462,14 +460,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             }
             j += 1
         }
-        
         // set the buffer now to be the reverse one
         audioFileBuffer = reverseBuffer
         // update this to the new value
         audioFileBuffer?.frameLength = length
-        
         //AKLog("Reverse new frame length: \(audioFileBuffer?.frameLength)")
-        
     }
     
     /// Triggered when the player reaches the end of its playing range
