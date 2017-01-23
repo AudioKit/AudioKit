@@ -31,7 +31,7 @@ extension AKAudioFile {
     
     /// Opens a file for reading.
     ///
-    /// - parameter name:    Filename, including hte extension
+    /// - parameter name:    Filename, including the extension
     /// - parameter baseDir: Location of file, can be set to .Resources, .Documents or .Temp
     ///
     /// - returns: An initialized AKAudioFile for reading, or nil if init failed
