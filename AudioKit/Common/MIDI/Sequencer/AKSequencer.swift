@@ -63,6 +63,22 @@ open class AKSequencer {
         NewMusicPlayer(&musicPlayer)
         MusicPlayerSetSequence(musicPlayer!, sequence)
     }
+    
+    deinit {
+        if let player = musicPlayer {
+            DisposeMusicPlayer(player)
+        }
+        
+        if let seq = sequence {
+            for track in self.tracks {
+                if let intTrack = track.internalMusicTrack {
+                    MusicSequenceDisposeTrack(seq, intTrack)
+                }
+            }
+            
+            DisposeMusicSequence(seq)
+        }
+    }
 
     /// Initialize the sequence with a MIDI file
     ///
