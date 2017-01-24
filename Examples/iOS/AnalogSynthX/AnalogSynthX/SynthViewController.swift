@@ -492,7 +492,7 @@ class SynthViewController: UIViewController {
         // Check notes currently in view and turn on if held
         for note in lowerMidiNote...upperMidiNote {
             if midiNotesHeld.contains(note) {
-                let keyTag = (note - (keyboardOctavePosition * 12)) + 200
+                let keyTag = (Int(note) - (keyboardOctavePosition * 12)) + 200
                 guard let key = self.view.viewWithTag(keyTag) as? UIButton else {
                     return
                 }

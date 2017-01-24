@@ -40,8 +40,8 @@ class GeneratorBank: AKPolyphonicNode {
     var offset1 = 0 {
         willSet {
             for noteNumber in onNotes {
-                vco1.stop(noteNumber: noteNumber + offset1)
-                vco1.play(noteNumber: noteNumber + newValue, velocity: 127)
+                vco1.stop(noteNumber: MIDINoteNumber(Int(noteNumber) + offset1))
+                vco1.play(noteNumber: MIDINoteNumber(Int(noteNumber) + newValue), velocity: 127)
             }
         }
     }
@@ -49,12 +49,11 @@ class GeneratorBank: AKPolyphonicNode {
     var offset2 = 0 {
         willSet {
             for noteNumber in onNotes {
-                vco2.stop(noteNumber: noteNumber + offset2)
-                vco2.play(noteNumber: noteNumber + newValue, velocity: 127)
+                vco2.stop(noteNumber: MIDINoteNumber(Int(noteNumber) + offset2))
+                vco2.play(noteNumber: MIDINoteNumber(Int(noteNumber) + newValue), velocity: 127)
             }
         }
     }
-    
     
     var morph: Double = 0.0 {
         didSet {
@@ -62,7 +61,6 @@ class GeneratorBank: AKPolyphonicNode {
             updateWaveform2()
         }
     }
-    
     
     /// Attack time
     var attackDuration: Double = 0.1 {
@@ -76,6 +74,7 @@ class GeneratorBank: AKPolyphonicNode {
             
         }
     }
+    
     /// Decay time
     var decayDuration: Double = 0.1 {
         didSet {
@@ -87,6 +86,7 @@ class GeneratorBank: AKPolyphonicNode {
             noiseADSR.decayDuration = decayDuration
         }
     }
+    
     /// Sustain Level
     var sustainLevel: Double = 0.66 {
         didSet {
@@ -139,7 +139,7 @@ class GeneratorBank: AKPolyphonicNode {
     var vcoBalancer: AKDryWetMixer
     var sourceMixer: AKMixer
     
-    var onNotes = Set<Int>()
+    var onNotes = Set<MIDINoteNumber>()
     
     override init() {
         let triangle = AKTable(.triangle)
@@ -184,9 +184,11 @@ class GeneratorBank: AKPolyphonicNode {
     /// Function to start, play, or activate the node, all do the same thing
     override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         
-        vco1.play(noteNumber: noteNumber + offset1, velocity: velocity)
-        vco2.play(noteNumber: noteNumber + offset2, velocity: velocity)
-        subOsc.play(noteNumber: noteNumber - 12, velocity: velocity)
+        vco1.play(noteNumber: MIDINoteNumber(Int(noteNumber) + offset1), velocity: velocity)
+        vco2.play(noteNumber: MIDINoteNumber(Int(noteNumber) + offset2), velocity: velocity)
+        if noteNumber >= 12 {
+            subOsc.play(noteNumber: noteNumber - 12, velocity: velocity)
+        }
         fmOsc.play(noteNumber: noteNumber, velocity: velocity)
         if onNotes.count == 0 {
             noise.start()
@@ -197,9 +199,12 @@ class GeneratorBank: AKPolyphonicNode {
     
     /// Function to stop or bypass the node, both are equivalent
     override func stop(noteNumber: MIDINoteNumber) {
-        vco1.stop(noteNumber: noteNumber + offset1)
-        vco2.stop(noteNumber: noteNumber + offset2)
-        subOsc.stop(noteNumber: noteNumber - 12)
+
+        vco1.stop(noteNumber: MIDINoteNumber(Int(noteNumber) + offset1))
+        vco2.stop(noteNumber: MIDINoteNumber(Int(noteNumber) + offset2))
+        if noteNumber >= 12 {
+            subOsc.stop(noteNumber: noteNumber - 12)
+        }
         fmOsc.stop(noteNumber: noteNumber)
         onNotes.remove(noteNumber)
         if onNotes.count == 0 {
