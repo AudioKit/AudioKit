@@ -31,7 +31,7 @@ extension AKAudioFile {
     
     /// Opens a file for reading.
     ///
-    /// - parameter name:    Filename, including hte extension
+    /// - parameter name:    Filename, including the extension
     /// - parameter baseDir: Location of file, can be set to .Resources, .Documents or .Temp
     ///
     /// - returns: An initialized AKAudioFile for reading, or nil if init failed
@@ -104,7 +104,7 @@ extension AKAudioFile {
     /// - Parameters:
     ///   - floatsArrays: An array of Arrays of floats
     ///   - name: the name of the file without its extension (String).
-    ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+    ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp
     ///
     /// - Returns: a .caf AKAudioFile set to AudioKit settings (32 bits float @ 44100 Hz)
     ///

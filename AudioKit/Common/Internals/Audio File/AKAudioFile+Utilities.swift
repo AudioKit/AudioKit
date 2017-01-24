@@ -20,7 +20,7 @@ extension AKAudioFile {
     ///
     /// - Parameters:
     ///   - samples: the number of samples to generate (equals length in seconds multiplied by sample rate)
-    ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+    ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp
     ///   - name: the name of the file without its extension (String).
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.

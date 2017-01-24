@@ -244,7 +244,7 @@ extension AKAudioFile {
     ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - fromSample: the starting sampleFrame for extraction. (default is zero)
     ///   - toSample: the ending sampleFrame for extraction (default is zero)
-    ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
+    ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp (Default is .temp)
     ///   - name: the name of the resulting file without its extension (String).
     ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
     ///
@@ -283,7 +283,7 @@ extension AKAudioFile {
     ///
     /// - Parameters:
     ///   - name: the name of the exported file without its extension (String).
-    ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+    ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp
     ///   - ExportFormat: the output file format as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
     ///   - fromSample: start range in samples
     ///   - toSample: end range time in samples

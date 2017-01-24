@@ -44,6 +44,18 @@ class PlaygroundView: AKPlaygroundView {
             } else {
                 return "Enable Looping"
             }})
+        
+        addSubview(AKButton(title: "Direction: ➡️") {
+            if player.isPlaying {
+                player.stop()
+            }
+            player.reversed = !player.reversed
+            if player.reversed {
+                return "Direction: ⬅️"
+            } else {
+                return "Direction: ➡️"
+            }
+        })
 
         inPositionSlider = AKPropertySlider(
             property: "In Position",
