@@ -28,7 +28,7 @@ var oscillator = AKOscillator(waveform: custom)
 AudioKit.output = oscillator
 AudioKit.start()
 
-var currentMIDINote = 0
+var currentMIDINote: MIDINoteNumber = 0
 var currentAmplitude = 0.2
 var currentRampTime = 0.05
 oscillator.rampTime = currentRampTime
