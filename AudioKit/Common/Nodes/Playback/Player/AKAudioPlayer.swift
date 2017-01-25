@@ -235,6 +235,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         initialize()
     }
     
+    deinit {
+        AudioKit.engine.detach(internalPlayer)
+    }
+    
     // MARK: - Methods
     
     /// Start playback
