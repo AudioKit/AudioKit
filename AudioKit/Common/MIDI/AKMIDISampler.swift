@@ -110,5 +110,13 @@ open class AKMIDISampler: AKSampler {
     open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
+    
+    // Discard all virtual ports
+    open func destroyEndpoint() {
+        if midiIn != 0 {
+            MIDIEndpointDispose(midiIn)
+            midiIn = 0
+        }
+    }
 
 }
