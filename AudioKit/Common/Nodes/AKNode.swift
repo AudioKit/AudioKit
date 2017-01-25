@@ -44,6 +44,10 @@ extension AVAudioConnectionPoint {
                                 fromBus: bus,
                                 format: AudioKit.format)
     }
+    
+    deinit {
+        AudioKit.engine.detach(self.avAudioNode)
+    }
 }
 
 /// Protocol for responding to play and stop of MIDI notes
