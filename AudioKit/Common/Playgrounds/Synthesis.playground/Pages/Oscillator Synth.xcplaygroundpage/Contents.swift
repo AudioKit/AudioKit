@@ -9,7 +9,7 @@ let waveform = AKTable(.sawtooth) // .triangle, etc.
 
 var oscillator = AKOscillator(waveform: waveform)
 
-var currentMIDINote = 0
+var currentMIDINote: MIDINoteNumber = 0
 var currentAmplitude = 0.1
 var currentRampTime = 0.0
 

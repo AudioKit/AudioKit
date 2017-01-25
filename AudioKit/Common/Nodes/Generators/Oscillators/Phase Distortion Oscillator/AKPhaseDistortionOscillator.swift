@@ -87,7 +87,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     }
 
 
-    /// Duty cycle width (range -1 - -1).
+    /// Duty cycle width (range -1 - 1).
     open var phaseDistortion: Double = 0.0 {
         willSet {
             if phaseDistortion != newValue {
@@ -118,7 +118,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     ///   - waveform:  The waveform of oscillation
     ///   - frequency: In cycles per second, or Hz.
     ///   - amplitude: Output amplitude
-    ///   - phaseDistortion: Duty cycle width (range 0-1).
+    ///   - phaseDistortion: Duty cycle width (range -1 - 1).
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///

@@ -137,7 +137,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     ///
     /// - Parameters:
     ///   - waveform:  The waveform of oscillation
-    ///   - phaseDistortion: Duty cycle width (range 0-1).
+    ///   - phaseDistortion: Phase distortion amount (range -1 - 1).
     ///   - attackDuration: Attack time
     ///   - decayDuration: Decay time
     ///   - sustainLevel: Sustain Level

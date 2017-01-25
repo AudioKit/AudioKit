@@ -6,7 +6,7 @@ import AudioKit
 var oscillator = AKPWMOscillator()
 oscillator.pulseWidth = 0.5
 
-var currentMIDINote = 0
+var currentMIDINote: MIDINoteNumber = 0
 var currentAmplitude = 0.1
 var currentRampTime = 0.0
 
