@@ -62,7 +62,7 @@ standardKernelPassthroughs()
                                                           unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the phaseDistortion.
     AUParameter *phaseDistortionAUParameter = [AUParameter parameter:@"phaseDistortion"
-                                                                name:@"Pulse Width"
+                                                                name:@"Phase Distortion"
                                                              address:phaseDistortionAddress
                                                                  min:0.0
                                                                  max:1.0
@@ -91,7 +91,7 @@ standardKernelPassthroughs()
 
     _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
     _kernel.setParameter(amplitudeAddress,          amplitudeAUParameter.value);
-    _kernel.setParameter(phaseDistortionAddress,         phaseDistortionAUParameter.value);
+    _kernel.setParameter(phaseDistortionAddress,    phaseDistortionAUParameter.value);
     _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
     _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 

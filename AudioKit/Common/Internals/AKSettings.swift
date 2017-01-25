@@ -104,7 +104,7 @@ extension AKSettings {
         
         if !AKSettings.disableAVAudioSessionCategoryManagement {
             do {
-                try session.setCategory("\(category)", with: options ?? .defaultToSpeaker)
+                try session.setCategory("\(category)", with: options ?? .mixWithOthers)
             } catch let error as NSError {
                 AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category)" + (options.map { " with options:\($0)" } ?? ""))
                 throw error

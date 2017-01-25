@@ -16,7 +16,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     var p2Slider: AKPropertySlider?
     var p3Slider: AKPropertySlider?
     var keyboard: AKKeyboardView?
-    var currentMIDINote = 0
+    var currentMIDINote: MIDINoteNumber = 0
 
     override func setup() {
         addTitle("Sporth Generators")

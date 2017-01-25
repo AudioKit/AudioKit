@@ -6,12 +6,14 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
+import AudioKit
+
 extension SynthViewController {
 
     func noteNameFromMidiNote(_ noteNumber: MIDINoteNumber) -> String {
 
         // Handy table of Midi Note Names
-        let noteNames: [Int: String] =
+        let noteNames: [MIDINoteNumber: String] =
         [
             21: "A0",
             22: "A0#",

@@ -70,7 +70,7 @@
 
     // Create a parameter object for the phaseDistortion.
     AUParameter *phaseDistortionAUParameter = [AUParameter parameter:@"phaseDistortion"
-                                                                name:@"Pulse Width"
+                                                                name:@"Phase Distortion"
                                                              address:phaseDistortionAddress
                                                                  min:0.0
                                                                  max:1.0
