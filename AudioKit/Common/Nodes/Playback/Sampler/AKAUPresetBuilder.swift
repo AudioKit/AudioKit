@@ -115,18 +115,14 @@ open class AKAUPresetBuilder {
                 sampleIteration += 1
             }
             
-            var startNote8 = soundDict.object(forKey: startNoteKey) as? UInt8
-            var endNote8 = soundDict.object(forKey: endNoteKey) as? UInt8
-            let rootNote8 = soundDict.object(forKey: rootNoteKey)! as! UInt8
-            startNote8 = (startNote8 == nil ? rootNote8 : startNote8)
-            endNote8 = (endNote8 == nil ? rootNote8 : endNote8)
-            let rootNote = Int(rootNote8)
-            let startNote = Int(startNote8!)
-            let endNote = Int(endNote8!)
+            var startNote = soundDict.object(forKey: startNoteKey) as? MIDINoteNumber
+            var endNote = soundDict.object(forKey: endNoteKey) as? MIDINoteNumber
+            let rootNote = soundDict.object(forKey: rootNoteKey)! as! MIDINoteNumber
+            startNote = (startNote == nil ? rootNote : startNote)
+            endNote = (endNote == nil ? rootNote : endNote)
             let triggerModeStr = soundDict.object(forKey: triggerModeKey) as? String
             let triggerMode : SampleTriggerMode
             
-            //sampleZoneXML.append(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum" as NSCopying)
             loadSoundsArr.append(soundDict)
             
@@ -145,17 +141,17 @@ open class AKAUPresetBuilder {
             }
             switch triggerMode {
             case  .Hold:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote, endNote: endNote, wavRef: sampleNum, loopEnabled: false)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
             case .Loop:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote, endNote: endNote,
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!,
                                                                wavRef: sampleNum, loopEnabled: true)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
             default:
                 //.Trigger and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote, endNote: endNote, wavRef: sampleNum, loopEnabled: false)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
                 let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i+1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i+1, numVoices: 1, ignoreNoteOff: true)
                 layerXML.append(tempLayerXML)
                 
@@ -513,9 +509,9 @@ open class AKAUPresetBuilder {
     }
     
     static func generateZone(id: Int,
-                             rootNote: Int,
-                             startNote: Int,
-                             endNote: Int,
+                             rootNote: MIDINoteNumber,
+                             startNote: MIDINoteNumber,
+                             endNote: MIDINoteNumber,
                              wavRef: Int = 268435457,
                              offset: Int = 0,
                              loopEnabled: Bool = false) -> String {
