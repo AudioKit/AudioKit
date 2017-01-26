@@ -81,19 +81,35 @@ extension AKMIDI {
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
     public func closeInput(_ namedInput: String = "") {
-        for (key, endpoint) in inputPorts {
+        var result = noErr
+        for key in inputPorts.keys {
             if namedInput.isEmpty || key == namedInput {
-                if let port = inputPorts[key] {
-                    let result = MIDIPortDisconnectSource(port, endpoint)
+                if let port = inputPorts[key], let endpoint = endpoints[key] {
+                    
+                    result = MIDIPortDisconnectSource(port, endpoint)
                     if result == noErr {
                         endpoints.removeValue(forKey: namedInput)
                         inputPorts.removeValue(forKey: namedInput)
                     } else {
-                        AKLog("Error closing midiInPort : \(result)")
+                        print("Error closing midiInPort : \(result)")
                     }
                 }
             }
         }
+//        The below code is not working properly - error closing midi port
+//        for (key, endpoint) in inputPorts {
+//            if namedInput.isEmpty || key == namedInput {
+//                if let port = inputPorts[key] {
+//                    let result = MIDIPortDisconnectSource(port, endpoint)
+//                    if result == noErr {
+//                        endpoints.removeValue(forKey: namedInput)
+//                        inputPorts.removeValue(forKey: namedInput)
+//                    } else {
+//                        AKLog("Error closing midiInPort : \(result)")
+//                    }
+//                }
+//            }
+//        }
     }
     
     /// Close all MIDI Input ports
