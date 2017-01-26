@@ -115,15 +115,14 @@ open class AKAUPresetBuilder {
                 sampleIteration += 1
             }
             
-            var startNote = soundDict.object(forKey: startNoteKey) as? Int
-            var endNote = soundDict.object(forKey: endNoteKey) as? Int
-            let rootNote = soundDict.object(forKey: rootNoteKey)! as! Int
+            var startNote = soundDict.object(forKey: startNoteKey) as? MIDINoteNumber
+            var endNote = soundDict.object(forKey: endNoteKey) as? MIDINoteNumber
+            let rootNote = soundDict.object(forKey: rootNoteKey)! as! MIDINoteNumber
             startNote = (startNote == nil ? rootNote : startNote)
             endNote = (endNote == nil ? rootNote : endNote)
             let triggerModeStr = soundDict.object(forKey: triggerModeKey) as? String
             let triggerMode : SampleTriggerMode
             
-            //sampleZoneXML.append(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum" as NSCopying)
             loadSoundsArr.append(soundDict)
             
@@ -510,9 +509,9 @@ open class AKAUPresetBuilder {
     }
     
     static func generateZone(id: Int,
-                             rootNote: Int,
-                             startNote: Int,
-                             endNote: Int,
+                             rootNote: MIDINoteNumber,
+                             startNote: MIDINoteNumber,
+                             endNote: MIDINoteNumber,
                              wavRef: Int = 268435457,
                              offset: Int = 0,
                              loopEnabled: Bool = false) -> String {
