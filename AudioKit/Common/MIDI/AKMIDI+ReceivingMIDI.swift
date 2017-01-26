@@ -91,7 +91,7 @@ extension AKMIDI {
                         endpoints.removeValue(forKey: namedInput)
                         inputPorts.removeValue(forKey: namedInput)
                     } else {
-                        print("Error closing midiInPort : \(result)")
+                        AKLog("Error closing midiInPort : \(result)")
                     }
                 }
             }
