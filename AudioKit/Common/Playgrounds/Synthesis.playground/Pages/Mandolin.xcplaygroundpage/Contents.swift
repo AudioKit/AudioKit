@@ -19,7 +19,7 @@ let reverb = AKReverb(delay)
 
 AudioKit.output = reverb
 AudioKit.start()
-let scale = [0, 2, 4, 5, 7, 9, 11, 12]
+let scale: [MIDINoteNumber] = [0, 2, 4, 5, 7, 9, 11, 12]
 
 class PlaygroundView: AKPlaygroundView {
 
@@ -83,13 +83,13 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 AKPlaygroundLoop(frequency: playRate) {
-    var note1 = scale.randomElement()
-    let octave1 = [2,3,4,5].randomElement() * 12
+    var note1: MIDINoteNumber = scale.randomElement()
+    let octave1: MIDINoteNumber = [2,3,4,5].randomElement() * 12
     let course1 = [1,2,3,4].randomElement()
     if random(0, 10) < 1.0 { note1 += 1 }
 
-    var note2 = scale.randomElement()
-    let octave2 = [2,3,4,5].randomElement() * 12
+    var note2: MIDINoteNumber = scale.randomElement()
+    let octave2: MIDINoteNumber = [2,3,4,5].randomElement() * 12
     let course2 = [1,2,3,4].randomElement()
     if random(0, 10) < 1.0 { note2 += 1 }
 
