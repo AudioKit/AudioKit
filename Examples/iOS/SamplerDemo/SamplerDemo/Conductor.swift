@@ -39,10 +39,10 @@ class Conductor {
         filter?.cutoffFrequency = 20000
         AudioKit.output = filter
 
-        arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
-        padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
-        bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
-        drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
+        try! arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
+        try! padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
+        try! bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
+        try! drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
         AudioKit.start()
         sequence = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
         sequence?.enableLooping()
@@ -108,11 +108,11 @@ class Conductor {
         
         switch synthesizer {
         case Synthesizer.Arpeggio:
-            arpeggioSynthesizer.loadEXS24(path)
+            try! arpeggioSynthesizer.loadEXS24(path)
         case Synthesizer.Pad:
-            padSynthesizer.loadEXS24(path)
+            try! padSynthesizer.loadEXS24(path)
         case Synthesizer.Bass:
-            bassSynthesizer.loadEXS24(path)
+            try! bassSynthesizer.loadEXS24(path)
         }
     }
     
