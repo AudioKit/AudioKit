@@ -46,6 +46,7 @@ extension AVAudioConnectionPoint {
     }
     
     deinit {
+        //AKLog("* AKNode")
         AudioKit.engine.detach(self.avAudioNode)
     }
 }
