@@ -22,7 +22,7 @@ class PlaygroundView: AKPlaygroundView {
     
     override func setup() {
         
-        addTitle("Phsae Locked Vocoder")
+        addTitle("Phase Locked Vocoder")
         
         
         playingPositionSlider = AKPropertySlider(
