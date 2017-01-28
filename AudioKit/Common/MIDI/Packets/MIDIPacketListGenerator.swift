@@ -5,7 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
-
+/*
 /// Generator for MIDIPacketList allowing iteration over its list of MIDIPacket objects.
 public struct MIDIPacketListGenerator: IteratorProtocol {
     public typealias Element = MIDIPacket
@@ -37,4 +37,4 @@ public struct MIDIPacketListGenerator: IteratorProtocol {
     
     // Iteration state
     var packet: UnsafeMutablePointer<MIDIPacket>?
-}
+}*/
