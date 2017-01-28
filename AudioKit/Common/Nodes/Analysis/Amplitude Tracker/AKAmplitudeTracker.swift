@@ -82,6 +82,10 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
         halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
     }
 
+    deinit {
+        AKLog("* AKAmplitudeTracker")
+    }
+    
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -94,7 +98,4 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
         internalAU!.stop()
     }
     
-    deinit {
-        AKLog("* AKAmplitudeTracker")
-    }
 }

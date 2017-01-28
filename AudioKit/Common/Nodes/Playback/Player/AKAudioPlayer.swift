@@ -236,6 +236,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
     
     deinit {
+        AKLog("* AKAudioPlayer")
         AudioKit.engine.detach(internalPlayer)
     }
     
