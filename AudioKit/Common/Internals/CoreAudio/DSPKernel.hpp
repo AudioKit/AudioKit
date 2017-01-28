@@ -120,10 +120,13 @@ public:
     }
 
     ~AKSporthKernel() {
+        //printf("~AKSporthKernel(), &sp is %p\n", (void *)sp);
+        // releasing the memory in the destructor only
         sp_destroy(&sp);
     }
+    
     void destroy() {
-        sp_destroy(&sp);
+        //printf("AKSporthKernel.destroy(), &sp is %p\n", (void *)sp);
     }
 };
 

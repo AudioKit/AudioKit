@@ -43,8 +43,9 @@ public:
     }
 
     void destroy() {
-        sp_rms_destroy(&rms);
+        //printf("AKAmplitudeTrackerDSPKernel.destroy() \n");
         AKSporthKernel::destroy();
+        sp_rms_destroy(&rms);
     }
 
     void reset() {
