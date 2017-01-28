@@ -24,28 +24,11 @@ open class AKMicrophone: AKNode, AKToggleable {
     
     /// Set the actual microphone device
     public func setDevice(_ device: AKDevice) throws {
-        #if os(macOS)
-            var id = device.deviceID
-            var currentID = device.deviceID
-            var size: UInt32 = 0
-            let _ = AudioUnitGetProperty(AudioKit.engine.inputNode!.audioUnit!,
-                                         kAudioOutputUnitProperty_CurrentDevice,
-                                         kAudioUnitScope_Global,
-                                         0, &currentID, &size)
-            if currentID != id {
-                AudioUnitSetProperty(AudioKit.engine.inputNode!.audioUnit!,
-                                     kAudioOutputUnitProperty_CurrentDevice,
-                                     kAudioUnitScope_Global, 0,
-                                     &id,
-                                     UInt32(MemoryLayout<DeviceID>.size))
-            }
-        #else
-            do {
-                try AudioKit.setInputDevice(device)
-            } catch {
-                AKLog("Could not set input device")
-            }
-        #endif
+        do {
+            try AudioKit.setInputDevice(device)
+        } catch {
+            AKLog("Could not set input device")
+        }
     }
     
     fileprivate var lastKnownVolume: Double = 1.0
