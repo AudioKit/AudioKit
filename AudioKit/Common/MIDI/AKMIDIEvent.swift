@@ -327,13 +327,13 @@ public struct AKMIDIEvent {
     ///   - velocity:   MIDI Note velocity (0-127)
     ///   - channel:    Channel on which the note appears
     ///
-    static public func noteOn(noteNumber: MIDINoteNumber,
-                              velocity: MIDIVelocity,
-                              channel: MIDIChannel) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .noteOn,
-                           channel: channel,
-                           byte1: noteNumber,
-                           byte2: velocity)
+    public init(noteOn noteNumber: MIDINoteNumber,
+                velocity: MIDIVelocity,
+                channel: MIDIChannel) {
+      self.init(status: .noteOn,
+                channel: channel,
+                byte1: noteNumber,
+                byte2: velocity)
     }
     
     /// Create note off event
@@ -343,13 +343,13 @@ public struct AKMIDIEvent {
     ///   - velocity:   MIDI Note velocity (0-127)
     ///   - channel:    Channel on which the note appears
     ///
-    static public func noteOff(noteNumber: MIDINoteNumber,
-                               velocity: MIDIVelocity,
-                               channel: MIDIChannel) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .noteOff,
-                           channel: channel,
-                           byte1: noteNumber,
-                           byte2: velocity)
+  public init(noteOff noteNumber: MIDINoteNumber,
+              velocity: MIDIVelocity,
+              channel: MIDIChannel) {
+        self.init(status: .noteOff,
+                  channel: channel,
+                  byte1: noteNumber,
+                  byte2: velocity)
     }
     
     /// Create program change event
@@ -358,12 +358,12 @@ public struct AKMIDIEvent {
     ///   - data: Program change byte
     ///   - channel: Channel on which the program change appears
     ///
-    static public func programChange(data: MIDIByte,
-                                     channel: MIDIChannel) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .programChange,
-                           channel: channel,
-                           byte1: data,
-                           byte2: 0)
+    public init(programChange data: MIDIByte,
+                channel: MIDIChannel) {
+      self.init(status: .programChange,
+                channel: channel,
+                byte1: data,
+                byte2: 0)
     }
     
     /// Create controller event
@@ -373,22 +373,16 @@ public struct AKMIDIEvent {
     ///   - value:      Value of the controller
     ///   - channel:    Channel on which the controller value has changed
     ///
-    static public func controllerChange(controller: MIDIByte,
-                                        value: MIDIByte,
-                                        channel: MIDIChannel) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .controllerChange,
-                           channel: channel,
-                           byte1: controller,
-                           byte2: value)
+    public init(controllerChange controller: MIDIByte,
+                value: MIDIByte,
+                channel: MIDIChannel) {
+      self.init(status: .controllerChange,
+                channel: channel,
+                byte1: controller,
+                byte2: value)
     }
     
-    static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent]{
-        var outEvents: [AKMIDIEvent] = Array()
-        
-        for packet in packetListPointer.pointee {
-            // a coremidi packet may contain multiple midi events
-            outEvents.append(AKMIDIEvent(packet: packet))
-        }
-        return outEvents
+    static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
+        return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
     }
 }
