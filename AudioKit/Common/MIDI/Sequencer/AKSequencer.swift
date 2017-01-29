@@ -265,7 +265,7 @@ open class AKSequencer {
     open func setTempo(_ bpm: Double) {
         if isAVSequencer { return }
 
-        let constrainedTempo = min(max(bpm, 10.0), 280.0)
+        let constrainedTempo = (10...280).clamp(bpm)
 
         var tempoTrack: MusicTrack? = nil
 
@@ -296,7 +296,7 @@ open class AKSequencer {
             return
         }
 
-        let constrainedTempo = min(max(bpm, 10.0), 280.0)
+        let constrainedTempo = (10...280).clamp(bpm)
 
         var tempoTrack: MusicTrack? = nil
 
@@ -608,10 +608,7 @@ open class AKSequencer {
         let noteOnTimeRel = currentRelativePosition.beats
         let lastSpot = AKDuration(beats: modTime(noteOnTimeRel - (noteOnTimeRel.truncatingRemainder(dividingBy: quantizationInBeats))))
         let nextSpot = AKDuration(beats: modTime(lastSpot.beats + quantizationInBeats))
-        var quantizationPositions:[AKDuration] = Array()
-        quantizationPositions.append(lastSpot)
-        quantizationPositions.append(nextSpot)
-        return quantizationPositions
+        return [lastSpot, nextSpot]
     }
     
     /// Time modulus
