@@ -17,34 +17,42 @@ open class AKDelay: AKNode, AKToggleable {
     fileprivate var lastKnownMix: Double = 0.5
 
     /// Delay time in seconds (Default: 1)
-    open var time: TimeInterval = 1 {
-        didSet {
-            time = max(time, 0)
-            delayAU.delayTime = time
+    open var time: TimeInterval {
+        get {
+            return delayAU.delayTime
+        }
+        set {
+            delayAU.delayTime = max(newValue, 0)
         }
     }
 
     /// Feedback (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open var feedback: Double = 0.5 {
-        didSet {
-            feedback = (0...1).clamp(feedback)
-            delayAU.feedback = Float(feedback) * 100.0
+    open var feedback: Double {
+        get {
+            return Double(delayAU.feedback)
+        }
+        set {
+            delayAU.feedback = Float((0...1).clamp(newValue)) * 100.0
         }
     }
 
     /// Low pass cut-off frequency in Hertz (Default: 15000)
-    open var lowPassCutoff: Double = 15000.00 {
-        didSet {
-            lowPassCutoff = max(lowPassCutoff, 0)
-            delayAU.lowPassCutoff = Float(lowPassCutoff)
+    open var lowPassCutoff: Double {
+        get {
+            return Double(delayAU.lowPassCutoff)
+        }
+        set {
+            delayAU.lowPassCutoff = Float(max(newValue, 0))
         }
     }
 
     /// Dry/Wet Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open var wetDryMix: Double = 0.5 {
-        didSet {
-            wetDryMix = (0...1).clamp(wetDryMix)
-            delayAU.wetDryMix = Float(wetDryMix) * 100.0
+    open var wetDryMix: Double{
+        get {
+            return Double(delayAU.wetDryMix)
+        }
+        set {
+            delayAU.wetDryMix = Float((0...1).clamp(newValue)) * 100.0
         }
     }
 
@@ -66,19 +74,13 @@ open class AKDelay: AKNode, AKToggleable {
         feedback: Double = 0.5,
         lowPassCutoff: Double = 15000,
         wetDryMix: Double = 0.5) {
-
-            self.time = TimeInterval(Double(time))
-            self.feedback = feedback
-            self.lowPassCutoff = lowPassCutoff
-            self.wetDryMix = wetDryMix
-
             super.init(avAudioNode: delayAU, attach: true)
             input.addConnectionPoint(self)
 
-            delayAU.delayTime = self.time
-            delayAU.feedback = Float(feedback) * 100.0
-            delayAU.lowPassCutoff = Float(lowPassCutoff)
-            delayAU.wetDryMix = Float(wetDryMix)
+            self.time = time
+            self.feedback = feedback
+            self.lowPassCutoff = lowPassCutoff
+            self.wetDryMix = wetDryMix
     }
 
     /// Function to start, play, or activate the node, all do the same thing
