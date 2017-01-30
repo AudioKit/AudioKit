@@ -23,7 +23,7 @@ let filteredPlayer = AKOperationEffect(player) { player, _ in
 }
 
 //: Mixdown and playback
-let mixer = AKDryWetMixer(filteredNoise, filteredPlayer, balance: 0.5)
+let mixer = AKwetDryMixer(filteredNoise, filteredPlayer, balance: 0.5)
 AudioKit.output = mixer
 AudioKit.start()
 

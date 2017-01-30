@@ -18,7 +18,7 @@ let oscMixer = AKMixer(oscillator)
 //: Let's add some space to our oscillator
 let reverb = AKReverb(oscMixer)
 reverb.loadFactoryPreset(.largeHall)
-reverb.dryWetMix = 0.5
+reverb.wetDryMix = 0.5
 
 //: Create an AKAudioFile to record to:
 let tape = try? AKAudioFile()

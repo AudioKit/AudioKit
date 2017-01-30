@@ -12,7 +12,7 @@ var delay = AKDelay(player)
 
 delay.time = 0.1 // seconds
 delay.feedback  = 0.9 // Normalized Value 0 - 1
-delay.dryWetMix = 0.6 // Normalized Value 0 - 1
+delay.wetDryMix = 0.6 // Normalized Value 0 - 1
 
 AudioKit.output = delay
 AudioKit.start()

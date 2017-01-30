@@ -9,7 +9,7 @@ let pluckedString = AKPluckedString()
 
 var delay  = AKDelay(pluckedString)
 delay.time = 1.5 / playRate
-delay.dryWetMix = 0.3
+delay.wetDryMix = 0.3
 delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
