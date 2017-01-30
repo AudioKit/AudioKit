@@ -171,7 +171,7 @@ public struct AKMIDIEvent {
                 var rawEvent: [MIDIByte] = []
                 var lastStatus: MIDIByte = 0
                 var messageJustFinished = false
-                for byte in bluetoothData.dropFirst().dropFirst() { //drops first two bytes as these are timestamp bytes
+                for byte in bluetoothData.dropFirst(2) { //drops first two bytes as these are timestamp bytes
                     if byte >= 128 {
                         //if we have a new status byte or if rawEvent is a real event
                         
@@ -187,7 +187,7 @@ public struct AKMIDIEvent {
                     }
                     rawEvent.append(byte) //set the status byte
                     if (rawEvent.count == 3 && lastStatus != AKMIDISystemCommand.sysex.rawValue)
-                        || byte == AKMIDISystemCommand.sysexEnd.rawValue{
+                        || byte == AKMIDISystemCommand.sysexEnd.rawValue {
                         //end of message
                         messageJustFinished = true
                         if !rawEvent.isEmpty {
@@ -210,7 +210,7 @@ public struct AKMIDIEvent {
     ///   - data:  [MIDIByte] bluetooth packet
     ///
     init(data: [MIDIByte]) {
-        if let command = AKMIDISystemCommand(rawValue: data[0]){
+        if let command = AKMIDISystemCommand(rawValue: data[0]) {
             internalData = []
             //is sys command
             if command == .sysex{
@@ -380,9 +380,5 @@ public struct AKMIDIEvent {
                 channel: channel,
                 byte1: controller,
                 byte2: value)
-    }
-    
-    static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
-        return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
     }
 }
