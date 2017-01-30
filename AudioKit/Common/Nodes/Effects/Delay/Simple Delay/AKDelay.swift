@@ -41,13 +41,13 @@ open class AKDelay: AKNode, AKToggleable {
     }
 
     /// Dry/Wet Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open var dryWetMix: Double = 0.5 {
+    open var wetDryMix: Double = 0.5 {
         didSet {
-            internalSetDryWetMix(dryWetMix)
+            internalSetwetDryMix(wetDryMix)
         }
     }
 
-    internal func internalSetDryWetMix(_ value: Double) {
+    internal func internalSetwetDryMix(_ value: Double) {
         let newValue = (0...1).clamp(value)
         delayAU.wetDryMix = Float(newValue) * 100.0
     }
@@ -62,19 +62,19 @@ open class AKDelay: AKNode, AKToggleable {
     ///   - time: Delay time in seconds (Default: 1)
     ///   - feedback: Amount of feedback (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
-    ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio (Normalized Value) ranges from 0 to 1 (Default: 0.5)
+    ///   - wetDryMix: Amount of unprocessed (dry) to delayed (wet) audio (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
         _ input: AKNode,
         time: Double = 1,
         feedback: Double = 0.5,
         lowPassCutoff: Double = 15000,
-        dryWetMix: Double = 0.5) {
+        wetDryMix: Double = 0.5) {
 
             self.time = TimeInterval(Double(time))
             self.feedback = feedback
             self.lowPassCutoff = lowPassCutoff
-            self.dryWetMix = dryWetMix
+            self.wetDryMix = wetDryMix
 
             super.init(avAudioNode: delayAU, attach: true)
             input.addConnectionPoint(self)
@@ -82,13 +82,13 @@ open class AKDelay: AKNode, AKToggleable {
             delayAU.delayTime = self.time
             delayAU.feedback = Float(feedback) * 100.0
             delayAU.lowPassCutoff = Float(lowPassCutoff)
-            internalSetDryWetMix(dryWetMix)
+            internalSetwetDryMix(wetDryMix)
     }
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
         if isStopped {
-            dryWetMix = lastKnownMix
+            wetDryMix = lastKnownMix
             isStarted = true
         }
     }
@@ -96,8 +96,8 @@ open class AKDelay: AKNode, AKToggleable {
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         if isPlaying {
-            lastKnownMix = dryWetMix
-            dryWetMix = 0
+            lastKnownMix = wetDryMix
+            wetDryMix = 0
             isStarted = false
         }
     }
