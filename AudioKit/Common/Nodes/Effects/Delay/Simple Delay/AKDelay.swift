@@ -12,7 +12,7 @@ import AVFoundation
 /// AudioKit version of Apple's Delay Audio Unit
 ///
 open class AKDelay: AKNode, AKToggleable {
-    let delayAU = AVAudioUnitDelay()
+    private let delayAU = AVAudioUnitDelay()
 
     fileprivate var lastKnownMix: Double = 0.5
 
