@@ -22,8 +22,8 @@ var dishConvolution = AKConvolution.init(player,
                                          impulseResponseFileURL: dish,
                                          partitionLength: 8192)
 
-var mixer = AKwetDryMixer(stairwellConvolution, dishConvolution, balance: 0.5)
-var wetDryMixer = AKwetDryMixer(player, mixer, balance: 0.5)
+var mixer = AKWetDryMixer(stairwellConvolution, dishConvolution, balance: 0.5)
+var wetDryMixer = AKWetDryMixer(player, mixer, balance: 0.5)
 
 AudioKit.output = wetDryMixer
 AudioKit.start()

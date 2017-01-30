@@ -43,11 +43,11 @@ open class AKDelay: AKNode, AKToggleable {
     /// Dry/Wet Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     open var wetDryMix: Double = 0.5 {
         didSet {
-            internalSetwetDryMix(wetDryMix)
+            internalSetWetDryMix(wetDryMix)
         }
     }
 
-    internal func internalSetwetDryMix(_ value: Double) {
+    internal func internalSetWetDryMix(_ value: Double) {
         let newValue = (0...1).clamp(value)
         delayAU.wetDryMix = Float(newValue) * 100.0
     }
@@ -82,7 +82,7 @@ open class AKDelay: AKNode, AKToggleable {
             delayAU.delayTime = self.time
             delayAU.feedback = Float(feedback) * 100.0
             delayAU.lowPassCutoff = Float(lowPassCutoff)
-            internalSetwetDryMix(wetDryMix)
+            internalSetWetDryMix(wetDryMix)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

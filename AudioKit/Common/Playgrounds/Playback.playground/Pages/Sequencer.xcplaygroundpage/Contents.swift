@@ -14,7 +14,7 @@ var mixer = AKMixer(fmPianoSampler, bellSampler)
 
 let reverb = AKCostelloReverb(mixer)
 
-let wetDryMixer = AKwetDryMixer(mixer, reverb, balance: 0.2)
+let wetDryMixer = AKWetDryMixer(mixer, reverb, balance: 0.2)
 AudioKit.output = wetDryMixer
 
 //: Create the sequencer after AudioKit's output has been set

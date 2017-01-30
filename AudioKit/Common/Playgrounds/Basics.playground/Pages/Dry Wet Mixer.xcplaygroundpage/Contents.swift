@@ -8,7 +8,7 @@
 //: of the two.  This is so common that many of the AudioKit nodes have a
 //: dry/wet mix parameter built in.  But, if you are building your own
 //: custom effects, or making a long chain of effects, you can use
-//: AKwetDryMixer to blend your signals.
+//: AKWetDryMixer to blend your signals.
 import PlaygroundSupport
 import AudioKit
 
@@ -27,7 +27,7 @@ reverb.loadFactoryPreset(.largeChamber)
 
 //: Mix the result of those two processors back with the original
 
-let mixture = AKwetDryMixer(drums, reverb, balance: 0.5)
+let mixture = AKWetDryMixer(drums, reverb, balance: 0.5)
 
 AudioKit.output = mixture
 AudioKit.start()

@@ -1,5 +1,5 @@
 //
-//  AKwetDryMixer.swift
+//  AKWetDryMixer.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -11,7 +11,7 @@ import AVFoundation
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-open class AKwetDryMixer: AKNode {
+open class AKWetDryMixer: AKNode {
     fileprivate let mixer = AKMixer()
 
     /// Balance (Default 0.5)

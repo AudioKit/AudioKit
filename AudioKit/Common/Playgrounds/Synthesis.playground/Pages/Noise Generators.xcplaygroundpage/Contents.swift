@@ -5,7 +5,7 @@ import AudioKit
 
 var white = AKWhiteNoise(amplitude: 0.1)
 var pink = AKPinkNoise(amplitude: 0.1)
-var whitePinkMixer = AKwetDryMixer(white, pink, balance: 0.5)
+var whitePinkMixer = AKWetDryMixer(white, pink, balance: 0.5)
 AudioKit.output = whitePinkMixer
 AudioKit.start()
 pink.start()
