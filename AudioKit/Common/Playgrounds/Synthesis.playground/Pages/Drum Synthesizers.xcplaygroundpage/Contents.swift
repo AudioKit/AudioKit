@@ -22,12 +22,12 @@ AKPlaygroundLoop(frequency: 5) {
     let randomHit = Array(0...3).randomElement() == 0
 
     if onFirstBeat || randomHit {
-        kick.play(noteNumber: 60, velocity: 100)
+        kick.play(noteNumber: MIDINoteNumber(60), velocity: MIDIVelocity(100))
         kick.stop(noteNumber: 60)
     }
 
     if everyOtherBeat {
-        let velocity = Array(0...100).randomElement()
+        let velocity = MIDIVelocity(Array(0...100).randomElement())
         snare.play(noteNumber: 60, velocity: velocity)
         snare.stop(noteNumber: 60)
     }
