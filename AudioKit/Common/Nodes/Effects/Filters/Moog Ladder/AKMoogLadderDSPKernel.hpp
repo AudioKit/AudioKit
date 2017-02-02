@@ -31,10 +31,14 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_moogladder_create(&moogladder);
-        sp_moogladder_init(sp, moogladder);
-        moogladder->freq = 1000;
-        moogladder->res = 0.5;
+        sp_moogladder_create(&moogladder0);
+        sp_moogladder_create(&moogladder1);
+        sp_moogladder_init(sp, moogladder0);
+        sp_moogladder_init(sp, moogladder1);
+        moogladder0->freq = 1000;
+        moogladder1->freq = 1000;
+        moogladder0->res = 0.5;
+        moogladder1->res = 0.5;
 
         cutoffFrequencyRamper.init();
         resonanceRamper.init();
@@ -49,7 +53,8 @@ public:
     }
 
     void destroy() {
-        sp_moogladder_destroy(&moogladder);
+        sp_moogladder_destroy(&moogladder0);
+        sp_moogladder_destroy(&moogladder1);
         AKSoundpipeKernel::destroy();
     }
 
@@ -115,16 +120,22 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             cutoffFrequency = cutoffFrequencyRamper.getAndStep();
-            moogladder->freq = (float)cutoffFrequency;
+            moogladder0->freq = (float)cutoffFrequency;
+            moogladder1->freq = (float)cutoffFrequency;
             resonance = resonanceRamper.getAndStep();
-            moogladder->res = (float)resonance;
+            moogladder0->res = (float)resonance;
+            moogladder1->res = (float)resonance;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_moogladder_compute(sp, moogladder, in, out);
+                    if (channel == 0) {
+                        sp_moogladder_compute(sp, moogladder0, in, out);
+                    } else {
+                        sp_moogladder_compute(sp, moogladder1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -136,7 +147,8 @@ public:
 
 private:
 
-    sp_moogladder *moogladder;
+    sp_moogladder *moogladder0;
+    sp_moogladder *moogladder1;
 
     float cutoffFrequency = 1000;
     float resonance = 0.5;
@@ -147,4 +159,3 @@ public:
     ParameterRamper cutoffFrequencyRamper = 1000;
     ParameterRamper resonanceRamper = 0.5;
 };
-

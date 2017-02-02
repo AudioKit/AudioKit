@@ -29,6 +29,7 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
+
         sp_clip_create(&clip0);
         sp_clip_create(&clip1);
         sp_clip_init(sp, clip0);
@@ -132,4 +133,3 @@ public:
     bool resetted = false;
     ParameterRamper limitRamper = 1.0;
 };
-

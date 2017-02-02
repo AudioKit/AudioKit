@@ -32,13 +32,12 @@ public:
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_butbp_create(&butbp0);
-        sp_butbp_init(sp, butbp0);
-        butbp0->freq = 2000.0;
-        butbp0->bw = 100.0;
-
         sp_butbp_create(&butbp1);
+        sp_butbp_init(sp, butbp0);
         sp_butbp_init(sp, butbp1);
+        butbp0->freq = 2000.0;
         butbp1->freq = 2000.0;
+        butbp0->bw = 100.0;
         butbp1->bw = 100.0;
 
         centerFrequencyRamper.init();
@@ -160,4 +159,3 @@ public:
     ParameterRamper centerFrequencyRamper = 2000.0;
     ParameterRamper bandwidthRamper = 100.0;
 };
-

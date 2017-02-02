@@ -34,20 +34,18 @@ public:
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_dist_create(&dist0);
-        sp_dist_init(sp, dist0);
-        dist0->pregain = 2.0;
-        dist0->postgain = 0.5;
-        dist0->shape1 = 0.0;
-        dist0->shape2 = 0.0;
-
         sp_dist_create(&dist1);
+        sp_dist_init(sp, dist0);
         sp_dist_init(sp, dist1);
+        dist0->pregain = 2.0;
         dist1->pregain = 2.0;
+        dist0->postgain = 0.5;
         dist1->postgain = 0.5;
+        dist0->shape1 = 0.0;
         dist1->shape1 = 0.0;
+        dist0->shape2 = 0.0;
         dist1->shape2 = 0.0;
 
-        
         pregainRamper.init();
         postgainRamper.init();
         postiveShapeParameterRamper.init();
@@ -213,5 +211,3 @@ public:
     ParameterRamper postiveShapeParameterRamper = 0.0;
     ParameterRamper negativeShapeParameterRamper = 0.0;
 };
-
-
