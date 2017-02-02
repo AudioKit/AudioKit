@@ -77,7 +77,7 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 
                 if (started) {
-                    if (channel==0) {
+                    if (channel == 0) {
                         sp_jcrev_compute(sp, jcrev0, in, out);
                     } else {
                         sp_jcrev_compute(sp, jcrev1, in, out);
