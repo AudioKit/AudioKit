@@ -27,8 +27,10 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSporthKernel::init(_channels, _sampleRate);
 
-        sp_jcrev_create(&jcrev);
-        sp_jcrev_init(sp, jcrev);
+        sp_jcrev_create(&jcrev0);
+        sp_jcrev_init(sp, jcrev0);
+        sp_jcrev_create(&jcrev1);
+        sp_jcrev_init(sp, jcrev1);
     }
 
     void start() {
@@ -40,7 +42,8 @@ public:
     }
 
     void destroy() {
-        sp_jcrev_destroy(&jcrev);
+        sp_jcrev_destroy(&jcrev0);
+        sp_jcrev_destroy(&jcrev1);
         AKSporthKernel::destroy();
     }
 
@@ -74,7 +77,11 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 
                 if (started) {
-                    sp_jcrev_compute(sp, jcrev, in, out);
+                    if (channel==0) {
+                        sp_jcrev_compute(sp, jcrev0, in, out);
+                    } else {
+                        sp_jcrev_compute(sp, jcrev1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -86,7 +93,8 @@ public:
 
 private:
 
-    sp_jcrev *jcrev;
+    sp_jcrev *jcrev0;
+    sp_jcrev *jcrev1;
 
 public:
     bool started = true;
