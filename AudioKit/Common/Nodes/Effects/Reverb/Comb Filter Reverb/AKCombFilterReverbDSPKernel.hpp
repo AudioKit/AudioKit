@@ -21,14 +21,14 @@ enum {
     reverbDurationAddress = 0
 };
 
-class AKCombFilterReverbDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKCombFilterReverbDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKCombFilterReverbDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_comb_create(&comb0);
         sp_comb_create(&comb1);
         sp_comb_init(sp, comb0, internalLoopDuration);
@@ -50,7 +50,7 @@ public:
     void destroy() {
         sp_comb_destroy(&comb0);
         sp_comb_destroy(&comb1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

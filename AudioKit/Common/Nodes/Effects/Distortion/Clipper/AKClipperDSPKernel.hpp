@@ -21,14 +21,14 @@ enum {
     limitAddress = 0
 };
 
-class AKClipperDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKClipperDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKClipperDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_clip_create(&clip0);
         sp_clip_create(&clip1);
         sp_clip_init(sp, clip0);
@@ -50,7 +50,7 @@ public:
     void destroy() {
         sp_clip_destroy(&clip0);
         sp_clip_destroy(&clip1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

@@ -22,14 +22,14 @@ enum {
     qualityFactorAddress = 1
 };
 
-class AKModalResonanceFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKModalResonanceFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKModalResonanceFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_mode_create(&mode);
         sp_mode_init(sp, mode);
@@ -50,7 +50,7 @@ public:
 
     void destroy() {
         sp_mode_destroy(&mode);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

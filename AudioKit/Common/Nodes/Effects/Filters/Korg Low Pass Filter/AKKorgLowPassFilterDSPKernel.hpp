@@ -23,14 +23,14 @@ enum {
     saturationAddress = 2
 };
 
-class AKKorgLowPassFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKKorgLowPassFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKKorgLowPassFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_wpkorg35_create(&wpkorg35);
         sp_wpkorg35_init(sp, wpkorg35);
         wpkorg35->cutoff = 1000.0;
@@ -52,7 +52,7 @@ public:
 
     void destroy() {
         sp_wpkorg35_destroy(&wpkorg35);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

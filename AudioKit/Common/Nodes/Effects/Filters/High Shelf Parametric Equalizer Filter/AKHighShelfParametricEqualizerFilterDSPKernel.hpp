@@ -23,14 +23,14 @@ enum {
     qAddress = 2
 };
 
-class AKHighShelfParametricEqualizerFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKHighShelfParametricEqualizerFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKHighShelfParametricEqualizerFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_pareq_create(&pareq);
         sp_pareq_init(sp, pareq);
         pareq->fc = 1000;
@@ -53,7 +53,7 @@ public:
 
     void destroy() {
         sp_pareq_destroy(&pareq);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

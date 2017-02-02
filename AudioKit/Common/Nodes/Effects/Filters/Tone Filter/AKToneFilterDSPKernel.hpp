@@ -20,14 +20,14 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKToneFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKToneFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKToneFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_tone_create(&tone);
         sp_tone_init(sp, tone);
@@ -46,7 +46,7 @@ public:
 
     void destroy() {
         sp_tone_destroy(&tone);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

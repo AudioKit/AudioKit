@@ -18,14 +18,14 @@ extern "C" {
 }
 
 
-class AKChowningReverbDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKChowningReverbDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKChowningReverbDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_jcrev_create(&jcrev0);
         sp_jcrev_init(sp, jcrev0);
@@ -44,7 +44,7 @@ public:
     void destroy() {
         sp_jcrev_destroy(&jcrev0);
         sp_jcrev_destroy(&jcrev1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

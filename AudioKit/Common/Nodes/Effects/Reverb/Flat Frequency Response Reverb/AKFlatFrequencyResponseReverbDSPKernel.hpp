@@ -21,14 +21,14 @@ enum {
     reverbDurationAddress = 0
 };
 
-class AKFlatFrequencyResponseReverbDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKFlatFrequencyResponseReverbDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKFlatFrequencyResponseReverbDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_allpass_create(&allpass0);
         sp_allpass_create(&allpass1);
         sp_allpass_init(sp, allpass0, internalLoopDuration);
@@ -50,7 +50,7 @@ public:
     void destroy() {
         sp_allpass_destroy(&allpass0);
         sp_allpass_destroy(&allpass1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

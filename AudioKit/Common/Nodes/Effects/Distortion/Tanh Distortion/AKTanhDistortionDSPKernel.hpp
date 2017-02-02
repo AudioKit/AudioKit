@@ -24,14 +24,14 @@ enum {
     negativeShapeParameterAddress = 3
 };
 
-class AKTanhDistortionDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKTanhDistortionDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKTanhDistortionDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_dist_create(&dist0);
         sp_dist_init(sp, dist0);
@@ -65,7 +65,7 @@ public:
     void destroy() {
         sp_dist_destroy(&dist0);
         sp_dist_destroy(&dist1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

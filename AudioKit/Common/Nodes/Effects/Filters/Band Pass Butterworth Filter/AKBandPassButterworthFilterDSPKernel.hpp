@@ -22,14 +22,14 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKBandPassButterworthFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKBandPassButterworthFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBandPassButterworthFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_butbp_create(&butbp0);
         sp_butbp_init(sp, butbp0);
@@ -56,7 +56,7 @@ public:
     void destroy() {
         sp_butbp_destroy(&butbp0);
         sp_butbp_destroy(&butbp1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

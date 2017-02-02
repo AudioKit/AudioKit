@@ -24,14 +24,14 @@ enum {
     resonanceAsymmetryAddress = 3
 };
 
-class AKRolandTB303FilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKRolandTB303FilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKRolandTB303FilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_tbvcf_create(&tbvcf);
         sp_tbvcf_init(sp, tbvcf);
         tbvcf->fco = 500;
@@ -55,7 +55,7 @@ public:
 
     void destroy() {
         sp_tbvcf_destroy(&tbvcf);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

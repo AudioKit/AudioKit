@@ -22,14 +22,14 @@ enum {
     feedbackAddress = 1
 };
 
-class AKStringResonatorDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKStringResonatorDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKStringResonatorDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_streson_create(&streson);
         sp_streson_init(sp, streson);
@@ -50,7 +50,7 @@ public:
 
     void destroy() {
         sp_streson_destroy(&streson);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

@@ -18,14 +18,14 @@ extern "C" {
 }
 
 
-class AKDCBlockDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKDCBlockDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKDCBlockDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_dcblock_create(&dcblock);
         sp_dcblock_init(sp, dcblock);
 
@@ -41,7 +41,7 @@ public:
 
     void destroy() {
         sp_dcblock_destroy(&dcblock);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

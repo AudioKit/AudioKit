@@ -18,14 +18,14 @@ extern "C" {
 }
 
 
-class AKConvolutionDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKConvolutionDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKConvolutionDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_conv_create(&conv0);
         sp_conv_create(&conv1);
 
@@ -54,7 +54,7 @@ public:
     void destroy() {
         sp_conv_destroy(&conv0);
         sp_conv_destroy(&conv1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

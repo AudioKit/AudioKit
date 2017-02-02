@@ -18,14 +18,14 @@ extern "C" {
 }
 
 
-class AKOperationGeneratorDSPKernel : public AKSporthKernel, public AKOutputBuffered {
+class AKOperationGeneratorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKOperationGeneratorDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         plumber_register(&pd);
         plumber_init(&pd);
@@ -63,7 +63,7 @@ public:
 
     void destroy() {
         plumber_clean(&pd);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
     
     void reset() {
