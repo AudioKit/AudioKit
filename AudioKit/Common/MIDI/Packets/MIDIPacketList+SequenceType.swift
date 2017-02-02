@@ -7,19 +7,12 @@
 //
 
 extension MIDIPacketList: Sequence {
-  public typealias Element = MIDIPacket
+    public typealias Element = MIDIPacket
 
-  public func makeIterator() -> AnyIterator<Element> {
-    var p: MIDIPacket = packet
-    var idx: UInt32 = 0
-
-    return AnyIterator {
-      guard idx < self.numPackets else { return nil }
-      defer {
-        p = MIDIPacketNext(&p).pointee
-        idx += 1
-      }
-      return p
-    }
+    public func makeIterator() -> AnyIterator<Element> {
+        var first = packet
+        let s = sequence(first: &first) { MIDIPacketNext($0) }
+               .prefix(Int(numPackets)).makeIterator()
+        return AnyIterator { s.next()?.pointee }
   }
 }
