@@ -146,10 +146,12 @@ public:
     // MARK: Member Variables
 
 private:
+
     sp_bitcrush *bitcrush0;
     sp_bitcrush *bitcrush1;
-    
+
     float bitDepth = 8;
+    float sampleRate = 10000;
 
 public:
     bool started = true;
@@ -157,4 +159,3 @@ public:
     ParameterRamper bitDepthRamper = 8;
     ParameterRamper sampleRateRamper = 10000;
 };
-

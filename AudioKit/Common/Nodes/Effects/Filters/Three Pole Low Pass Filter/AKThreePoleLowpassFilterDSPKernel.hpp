@@ -7,6 +7,7 @@
 //
 
 #pragma once
+
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -30,11 +31,17 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-        sp_lpf18_create(&lpf18);
-        sp_lpf18_init(sp, lpf18);
-        lpf18->dist = 0.5;
-        lpf18->cutoff = 1500;
-        lpf18->res = 0.5;
+
+        sp_lpf18_create(&lpf180);
+        sp_lpf18_create(&lpf181);
+        sp_lpf18_init(sp, lpf180);
+        sp_lpf18_init(sp, lpf181);
+        lpf180->dist = 0.5;
+        lpf181->dist = 0.5;
+        lpf180->cutoff = 1500;
+        lpf181->cutoff = 1500;
+        lpf180->res = 0.5;
+        lpf181->res = 0.5;
 
         distortionRamper.init();
         cutoffFrequencyRamper.init();
@@ -50,7 +57,8 @@ public:
     }
 
     void destroy() {
-        sp_lpf18_destroy(&lpf18);
+        sp_lpf18_destroy(&lpf180);
+        sp_lpf18_destroy(&lpf181);
         AKSoundpipeKernel::destroy();
     }
 
@@ -133,18 +141,25 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             distortion = distortionRamper.getAndStep();
-            lpf18->dist = (float)distortion;
+            lpf180->dist = (float)distortion;
+            lpf181->dist = (float)distortion;
             cutoffFrequency = cutoffFrequencyRamper.getAndStep();
-            lpf18->cutoff = (float)cutoffFrequency;
+            lpf180->cutoff = (float)cutoffFrequency;
+            lpf181->cutoff = (float)cutoffFrequency;
             resonance = resonanceRamper.getAndStep();
-            lpf18->res = (float)resonance;
+            lpf180->res = (float)resonance;
+            lpf181->res = (float)resonance;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_lpf18_compute(sp, lpf18, in, out);
+                    if (channel == 0) {
+                        sp_lpf18_compute(sp, lpf180, in, out);
+                    } else {
+                        sp_lpf18_compute(sp, lpf181, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -156,7 +171,8 @@ public:
 
 private:
 
-    sp_lpf18 *lpf18;
+    sp_lpf18 *lpf180;
+    sp_lpf18 *lpf181;
 
     float distortion = 0.5;
     float cutoffFrequency = 1500;
@@ -169,4 +185,3 @@ public:
     ParameterRamper cutoffFrequencyRamper = 1500;
     ParameterRamper resonanceRamper = 0.5;
 };
-

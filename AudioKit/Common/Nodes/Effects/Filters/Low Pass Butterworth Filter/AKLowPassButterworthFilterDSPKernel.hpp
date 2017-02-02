@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
 //
+
 #pragma once
 
 #import "DSPKernel.hpp"
@@ -29,9 +30,12 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_butlp_create(&butlp);
-        sp_butlp_init(sp, butlp);
-        butlp->freq = 1000.0;
+        sp_butlp_create(&butlp0);
+        sp_butlp_create(&butlp1);
+        sp_butlp_init(sp, butlp0);
+        sp_butlp_init(sp, butlp1);
+        butlp0->freq = 1000.0;
+        butlp1->freq = 1000.0;
 
         cutoffFrequencyRamper.init();
     }
@@ -45,7 +49,8 @@ public:
     }
 
     void destroy() {
-        sp_butlp_destroy(&butlp);
+        sp_butlp_destroy(&butlp0);
+        sp_butlp_destroy(&butlp1);
         AKSoundpipeKernel::destroy();
     }
 
@@ -94,14 +99,19 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             cutoffFrequency = cutoffFrequencyRamper.getAndStep();
-            butlp->freq = (float)cutoffFrequency;
+            butlp0->freq = (float)cutoffFrequency;
+            butlp1->freq = (float)cutoffFrequency;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_butlp_compute(sp, butlp, in, out);
+                    if (channel == 0) {
+                        sp_butlp_compute(sp, butlp0, in, out);
+                    } else {
+                        sp_butlp_compute(sp, butlp1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -112,7 +122,9 @@ public:
     // MARK: Member Variables
 
 private:
-    sp_butlp *butlp;
+
+    sp_butlp *butlp0;
+    sp_butlp *butlp1;
 
     float cutoffFrequency = 1000.0;
 
@@ -121,4 +133,3 @@ public:
     bool resetted = false;
     ParameterRamper cutoffFrequencyRamper = 1000.0;
 };
-

@@ -32,12 +32,18 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_pareq_create(&pareq);
-        sp_pareq_init(sp, pareq);
-        pareq->fc = 1000;
-        pareq->v = 1.0;
-        pareq->q = 0.707;
-        pareq->mode = 1;
+        sp_pareq_create(&pareq0);
+        sp_pareq_create(&pareq1);
+        sp_pareq_init(sp, pareq0);
+        sp_pareq_init(sp, pareq1);
+        pareq0->fc = 1000;
+        pareq1->fc = 1000;
+        pareq0->v = 1.0;
+        pareq1->v = 1.0;
+        pareq0->q = 0.707;
+        pareq1->q = 0.707;
+        pareq0->mode = 1;
+        pareq1->mode = 1;
 
         cornerFrequencyRamper.init();
         gainRamper.init();
@@ -53,7 +59,8 @@ public:
     }
 
     void destroy() {
-        sp_pareq_destroy(&pareq);
+        sp_pareq_destroy(&pareq0);
+        sp_pareq_destroy(&pareq1);
         AKSoundpipeKernel::destroy();
     }
 
@@ -136,18 +143,25 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             cornerFrequency = cornerFrequencyRamper.getAndStep();
-            pareq->fc = (float)cornerFrequency;
+            pareq0->fc = (float)cornerFrequency;
+            pareq1->fc = (float)cornerFrequency;
             gain = gainRamper.getAndStep();
-            pareq->v = (float)gain;
+            pareq0->v = (float)gain;
+            pareq1->v = (float)gain;
             q = qRamper.getAndStep();
-            pareq->q = (float)q;
+            pareq0->q = (float)q;
+            pareq1->q = (float)q;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_pareq_compute(sp, pareq, in, out);
+                    if (channel == 0) {
+                        sp_pareq_compute(sp, pareq0, in, out);
+                    } else {
+                        sp_pareq_compute(sp, pareq1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -159,7 +173,8 @@ public:
 
 private:
 
-    sp_pareq *pareq;
+    sp_pareq *pareq0;
+    sp_pareq *pareq1;
 
     float cornerFrequency = 1000;
     float gain = 1.0;
@@ -172,4 +187,3 @@ public:
     ParameterRamper gainRamper = 1.0;
     ParameterRamper qRamper = 0.707;
 };
-

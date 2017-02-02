@@ -31,10 +31,14 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_mode_create(&mode);
-        sp_mode_init(sp, mode);
-        mode->freq = 500.0;
-        mode->q = 50.0;
+        sp_mode_create(&mode0);
+        sp_mode_create(&mode1);
+        sp_mode_init(sp, mode0);
+        sp_mode_init(sp, mode1);
+        mode0->freq = 500.0;
+        mode1->freq = 500.0;
+        mode0->q = 50.0;
+        mode1->q = 50.0;
 
         frequencyRamper.init();
         qualityFactorRamper.init();
@@ -49,7 +53,8 @@ public:
     }
 
     void destroy() {
-        sp_mode_destroy(&mode);
+        sp_mode_destroy(&mode0);
+        sp_mode_destroy(&mode1);
         AKSoundpipeKernel::destroy();
     }
 
@@ -115,16 +120,22 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             frequency = frequencyRamper.getAndStep();
-            mode->freq = (float)frequency;
+            mode0->freq = (float)frequency;
+            mode1->freq = (float)frequency;
             qualityFactor = qualityFactorRamper.getAndStep();
-            mode->q = (float)qualityFactor;
+            mode0->q = (float)qualityFactor;
+            mode1->q = (float)qualityFactor;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_mode_compute(sp, mode, in, out);
+                    if (channel == 0) {
+                        sp_mode_compute(sp, mode0, in, out);
+                    } else {
+                        sp_mode_compute(sp, mode1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -136,7 +147,8 @@ public:
 
 private:
 
-    sp_mode *mode;
+    sp_mode *mode0;
+    sp_mode *mode1;
 
     float frequency = 500.0;
     float qualityFactor = 50.0;
@@ -147,4 +159,3 @@ public:
     ParameterRamper frequencyRamper = 500.0;
     ParameterRamper qualityFactorRamper = 50.0;
 };
-
