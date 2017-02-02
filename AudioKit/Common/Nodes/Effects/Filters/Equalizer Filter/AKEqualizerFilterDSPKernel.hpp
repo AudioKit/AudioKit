@@ -23,14 +23,14 @@ enum {
     gainAddress = 2
 };
 
-class AKEqualizerFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKEqualizerFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKEqualizerFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_eqfil_create(&eqfil);
         sp_eqfil_init(sp, eqfil);
@@ -53,7 +53,7 @@ public:
 
     void destroy() {
         sp_eqfil_destroy(&eqfil);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

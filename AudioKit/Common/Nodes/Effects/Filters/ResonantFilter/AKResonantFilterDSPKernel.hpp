@@ -22,14 +22,14 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKResonantFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKResonantFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKResonantFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_reson_create(&reson);
         sp_reson_init(sp, reson);
@@ -50,7 +50,7 @@ public:
 
     void destroy() {
         sp_reson_destroy(&reson);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

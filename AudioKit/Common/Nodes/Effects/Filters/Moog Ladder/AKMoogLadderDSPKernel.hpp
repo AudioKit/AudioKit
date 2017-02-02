@@ -22,14 +22,14 @@ enum {
     resonanceAddress = 1
 };
 
-class AKMoogLadderDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKMoogLadderDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKMoogLadderDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_moogladder_create(&moogladder);
         sp_moogladder_init(sp, moogladder);
@@ -50,7 +50,7 @@ public:
 
     void destroy() {
         sp_moogladder_destroy(&moogladder);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

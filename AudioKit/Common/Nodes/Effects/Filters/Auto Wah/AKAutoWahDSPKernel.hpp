@@ -23,14 +23,14 @@ enum {
     amplitudeAddress = 2
 };
 
-class AKAutoWahDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKAutoWahDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKAutoWahDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_autowah_create(&autowah0);
         sp_autowah_init(sp, autowah0);
@@ -60,7 +60,7 @@ public:
     void destroy() {
         sp_autowah_destroy(&autowah0);
         sp_autowah_destroy(&autowah1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

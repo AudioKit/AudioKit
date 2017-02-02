@@ -23,14 +23,14 @@ enum {
     crossfadeAddress = 2
 };
 
-class AKPitchShifterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKPitchShifterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKPitchShifterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_pshift_create(&pshift0);
         sp_pshift_create(&pshift1);
         sp_pshift_init(sp, pshift0);
@@ -58,7 +58,7 @@ public:
     void destroy() {
         sp_pshift_destroy(&pshift0);
         sp_pshift_destroy(&pshift1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

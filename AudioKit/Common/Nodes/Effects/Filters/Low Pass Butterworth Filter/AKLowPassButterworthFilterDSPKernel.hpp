@@ -20,14 +20,14 @@ enum {
     cutoffFrequencyAddress = 0
 };
 
-class AKLowPassButterworthFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKLowPassButterworthFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKLowPassButterworthFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_butlp_create(&butlp);
         sp_butlp_init(sp, butlp);
@@ -46,7 +46,7 @@ public:
 
     void destroy() {
         sp_butlp_destroy(&butlp);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

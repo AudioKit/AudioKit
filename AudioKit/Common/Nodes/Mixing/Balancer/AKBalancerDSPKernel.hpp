@@ -18,14 +18,14 @@ extern "C" {
 }
 
 
-class AKBalancerDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKBalancerDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBalancerDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_bal_create(&bal);
         sp_bal_init(sp, bal);
@@ -41,7 +41,7 @@ public:
     
     void destroy() {
         sp_bal_destroy(&bal);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
     
     void reset() {

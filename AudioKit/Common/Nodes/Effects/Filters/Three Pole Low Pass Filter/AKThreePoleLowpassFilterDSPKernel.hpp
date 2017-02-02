@@ -22,14 +22,14 @@ enum {
     resonanceAddress = 2
 };
 
-class AKThreePoleLowpassFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKThreePoleLowpassFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKThreePoleLowpassFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_lpf18_create(&lpf18);
         sp_lpf18_init(sp, lpf18);
         lpf18->dist = 0.5;
@@ -51,7 +51,7 @@ public:
 
     void destroy() {
         sp_lpf18_destroy(&lpf18);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

@@ -22,14 +22,14 @@ enum {
     sampleRateAddress = 1
 };
 
-class AKBitCrusherDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKBitCrusherDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBitCrusherDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_bitcrush_create(&bitcrush0);
         sp_bitcrush_create(&bitcrush1);
@@ -55,7 +55,7 @@ public:
     void destroy() {
         sp_bitcrush_destroy(&bitcrush0);
         sp_bitcrush_destroy(&bitcrush1);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
