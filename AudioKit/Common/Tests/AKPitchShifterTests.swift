@@ -15,6 +15,6 @@ class AKPitchShifterTests: AKTestCase {
         let input = AKOscillator()
         output = AKPitchShifter(input)
         input.start()
-        AKTestMD5("dfa1505b44737bdcaa4834587eae3c07")
+        AKTestMD5("c49a3cb36261a3e8e45a59b90899628c")
     }
 }

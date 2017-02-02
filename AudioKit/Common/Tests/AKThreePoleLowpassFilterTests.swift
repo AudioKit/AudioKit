@@ -15,6 +15,6 @@ class AKThreePoleLowpassFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKThreePoleLowpassFilter(input)
         input.start()
-        AKTestMD5("e26e77b4089b3d47f7002a9fec0832cc")
+        AKTestMD5("8c459009f9b7a720bd2b7207ae41749f")
     }
 }
