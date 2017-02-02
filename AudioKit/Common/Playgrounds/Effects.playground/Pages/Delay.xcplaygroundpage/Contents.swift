@@ -13,7 +13,7 @@ player.looping = true
 var delay = AKDelay(player)
 delay.time = 0.01 // seconds
 delay.feedback  = 0.9 // Normalized Value 0 - 1
-delay.dryWetMix = 0.6 // Normalized Value 0 - 1
+delay.wetDryMix = 0.6 // Normalized Value 0 - 1
 
 AudioKit.output = delay
 AudioKit.start()
@@ -24,7 +24,7 @@ class PlaygroundView: AKPlaygroundView {
     var timeSlider: AKPropertySlider?
     var feedbackSlider: AKPropertySlider?
     var lowPassCutoffFrequencySlider: AKPropertySlider?
-    var dryWetMixSlider: AKPropertySlider?
+    var wetDryMixSlider: AKPropertySlider?
 
     override func setup() {
         addTitle("Delay")
@@ -60,14 +60,14 @@ class PlaygroundView: AKPlaygroundView {
         }
         addSubview(lowPassCutoffFrequencySlider!)
 
-        dryWetMixSlider = AKPropertySlider(
+        wetDryMixSlider = AKPropertySlider(
             property: "Mix",
-            value: delay.dryWetMix,
+            value: delay.wetDryMix,
             color: AKColor.cyan
         ) { sliderValue in
-            delay.dryWetMix = sliderValue
+            delay.wetDryMix = sliderValue
         }
-        addSubview(dryWetMixSlider!)
+        addSubview(wetDryMixSlider!)
 
         let presets = ["Short","Dense Long", "Electric Circuits"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
@@ -89,7 +89,7 @@ class PlaygroundView: AKPlaygroundView {
         timeSlider?.value = delay.time
         feedbackSlider?.value = delay.feedback
         lowPassCutoffFrequencySlider?.value = delay.lowPassCutoff
-        dryWetMixSlider?.value = delay.dryWetMix
+        wetDryMixSlider?.value = delay.wetDryMix
     }
 
 }

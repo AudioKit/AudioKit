@@ -14,7 +14,7 @@ let delay = AKDelay(oscillator)
 delay.feedback = 0.3
 delay.time = 0.1
 let reverb = AKCostelloReverb(delay)
-let mix = AKDryWetMixer(delay, reverb, balance: 0.5)
+let mix = AKWetDryMixer(delay, reverb, balance: 0.5)
 AudioKit.output = mix
 AudioKit.start()
 

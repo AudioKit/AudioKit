@@ -17,10 +17,10 @@ open class AKReverb: AKNode, AKToggleable {
     fileprivate var lastKnownMix: Double = 0.5
 
     /// Dry/Wet Mix (Default 0.5)
-    open var dryWetMix: Double = 0.5 {
+    open var wetDryMix: Double = 0.5 {
         didSet {
-            dryWetMix = (0...1).clamp(dryWetMix)
-            reverbAU.wetDryMix = Float(dryWetMix) * 100
+            wetDryMix = (0...1).clamp(wetDryMix)
+            reverbAU.wetDryMix = Float(wetDryMix) * 100
         }
     }
 
@@ -31,17 +31,17 @@ open class AKReverb: AKNode, AKToggleable {
     ///
     /// - Parameters:
     ///   - input: AKNode to reverberate
-    ///   - dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
+    ///   - wetDryMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
     ///
-    public init(_ input: AKNode, dryWetMix: Double = 0.5) {
-        self.dryWetMix = dryWetMix
+    public init(_ input: AKNode, wetDryMix: Double = 0.5) {
+        self.wetDryMix = wetDryMix
         super.init()
 
         self.avAudioNode = reverbAU
         AudioKit.engine.attach(self.avAudioNode)
         input.addConnectionPoint(self)
 
-        reverbAU.wetDryMix = Float(dryWetMix) * 100.0
+        reverbAU.wetDryMix = Float(wetDryMix) * 100.0
     }
 
     /// Load an Apple Factory Preset
@@ -52,7 +52,7 @@ open class AKReverb: AKNode, AKToggleable {
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
         if isStopped {
-            dryWetMix = lastKnownMix
+            wetDryMix = lastKnownMix
             isStarted = true
         }
     }
@@ -60,8 +60,8 @@ open class AKReverb: AKNode, AKToggleable {
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         if isPlaying {
-            lastKnownMix = dryWetMix
-            dryWetMix = 0
+            lastKnownMix = wetDryMix
+            wetDryMix = 0
             isStarted = false
         }
     }

@@ -89,12 +89,12 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     }
 
     /// Dry/Wet Mix (Default 100)
-    open var dryWetMix: Double = 100 {
+    open var wetDryMix: Double = 100 {
         didSet {
-            dryWetMix = (0...100).clamp(dryWetMix)
+            wetDryMix = (0...100).clamp(wetDryMix)
 
-            inputGain?.volume = 1 - dryWetMix / 100
-            effectGain?.volume = dryWetMix / 100
+            inputGain?.volume = 1 - wetDryMix / 100
+            effectGain?.volume = wetDryMix / 100
         }
     }
 
@@ -172,7 +172,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
         if isStopped {
-            dryWetMix = lastKnownMix
+            wetDryMix = lastKnownMix
             isStarted = true
         }
     }
@@ -180,8 +180,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         if isPlaying {
-            lastKnownMix = dryWetMix
-            dryWetMix = 0
+            lastKnownMix = wetDryMix
+            wetDryMix = 0
             isStarted = false
         }
     }

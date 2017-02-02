@@ -22,10 +22,10 @@ var dishConvolution = AKConvolution.init(player,
                                          impulseResponseFileURL: dish,
                                          partitionLength: 8192)
 
-var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
-var dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
+var mixer = AKWetDryMixer(stairwellConvolution, dishConvolution, balance: 0.5)
+var wetDryMixer = AKWetDryMixer(player, mixer, balance: 0.5)
 
-AudioKit.output = dryWetMixer
+AudioKit.output = wetDryMixer
 AudioKit.start()
 
 stairwellConvolution.start()
@@ -43,10 +43,10 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "Dry Audio to Convolved",
-            value: dryWetMixer.balance,
+            value: wetDryMixer.balance,
             color: AKColor.green
         ) { sliderValue in
-            dryWetMixer.balance = sliderValue
+            wetDryMixer.balance = sliderValue
             })
 
         addSubview(AKPropertySlider(

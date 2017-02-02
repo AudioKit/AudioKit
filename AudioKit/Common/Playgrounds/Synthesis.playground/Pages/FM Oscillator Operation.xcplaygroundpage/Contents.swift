@@ -26,10 +26,10 @@ let generator = AKOperationGenerator() { _ in
 }
 
 let delay1 = AKDelay(generator,
-    time: 0.01, feedback: 0.99, lowPassCutoff: 0, dryWetMix: 0.5)
+    time: 0.01, feedback: 0.99, lowPassCutoff: 0, wetDryMix: 0.5)
 let delay2 = AKDelay(delay1,
-    time: 0.1, feedback: 0.1, lowPassCutoff: 0, dryWetMix: 0.5)
-let reverb = AKReverb(delay2, dryWetMix: 0.5)
+    time: 0.1, feedback: 0.1, lowPassCutoff: 0, wetDryMix: 0.5)
+let reverb = AKReverb(delay2, wetDryMix: 0.5)
 
 AudioKit.output = reverb
 AudioKit.start()

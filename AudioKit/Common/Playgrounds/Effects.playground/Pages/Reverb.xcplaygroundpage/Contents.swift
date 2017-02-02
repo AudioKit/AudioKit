@@ -11,7 +11,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var reverb = AKReverb(player)
-reverb.dryWetMix = 0.5
+reverb.wetDryMix = 0.5
 
 AudioKit.output = reverb
 AudioKit.start()
@@ -32,10 +32,10 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "Mix",
-            value: reverb.dryWetMix,
+            value: reverb.wetDryMix,
             color: AKColor.green
         ) { sliderValue in
-            reverb.dryWetMix = sliderValue
+            reverb.wetDryMix = sliderValue
             })
 
         let presets = ["Cathedral","Large Hall", "Large Hall 2",

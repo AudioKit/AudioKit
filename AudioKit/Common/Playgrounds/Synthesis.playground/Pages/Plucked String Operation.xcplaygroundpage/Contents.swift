@@ -17,7 +17,7 @@ let pluckNode = AKOperationGenerator() { parameters in
 
 var delay  = AKDelay(pluckNode)
 delay.time = 1.5 / playRate
-delay.dryWetMix = 0.3
+delay.wetDryMix = 0.3
 delay.feedback = 0.2
 
 let reverb = AKReverb(delay)

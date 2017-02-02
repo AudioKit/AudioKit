@@ -16,7 +16,7 @@ public extension AKDelay {
         time = 0.125
         feedback = 0.204
         lowPassCutoff = 5077.644
-        dryWetMix = 0.100
+        wetDryMix = 0.100
     }
     
     /// Long, dense delay
@@ -24,7 +24,7 @@ public extension AKDelay {
         time = 0.795
         feedback = 0.900
         lowPassCutoff = 5453.823
-        dryWetMix = 0.924
+        wetDryMix = 0.924
     }
     
     /// Electrical Circuits, Robotic Delay Effect
@@ -32,7 +32,7 @@ public extension AKDelay {
         time = 0.025
         feedback = 0.797
         lowPassCutoff = 13960.832
-        dryWetMix = 0.747
+        wetDryMix = 0.747
     }
     
     /// Print out current values in case you want to save it as a preset 
@@ -41,7 +41,7 @@ public extension AKDelay {
         AKLog("    time = \(String(format: "%0.3f", time))")
         AKLog("    feedback = \(String(format: "%0.3f", feedback))")
         AKLog("    lowPassCutoff = \(String(format: "%0.3f", lowPassCutoff))")
-        AKLog("    dryWetMix = \(String(format: "%0.3f", dryWetMix))")
+        AKLog("    wetDryMix = \(String(format: "%0.3f", wetDryMix))")
         AKLog("}\n")
     }
     
