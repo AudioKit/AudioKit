@@ -14,7 +14,6 @@
 		C43BB2041D64FFEA00DB5A99 /* AKAmplitudeEnvelopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1AC1D64FFEA00DB5A99 /* AKAmplitudeEnvelopeTests.swift */; };
 		C43BB2051D64FFEA00DB5A99 /* AKAutoWahTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1AD1D64FFEA00DB5A99 /* AKAutoWahTests.swift */; };
 		C43BB2061D64FFEA00DB5A99 /* AKBandPassButterworthFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1AE1D64FFEA00DB5A99 /* AKBandPassButterworthFilterTests.swift */; };
-		C43BB2071D64FFEA00DB5A99 /* AKBandPassFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1AF1D64FFEA00DB5A99 /* AKBandPassFilterTests.swift */; };
 		C43BB2081D64FFEA00DB5A99 /* AKBandRejectButterworthFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1B01D64FFEA00DB5A99 /* AKBandRejectButterworthFilterTests.swift */; };
 		C43BB2091D64FFEA00DB5A99 /* AKBitCrusherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1B11D64FFEA00DB5A99 /* AKBitCrusherTests.swift */; };
 		C43BB20A1D64FFEA00DB5A99 /* AKChowningReverbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1B21D64FFEA00DB5A99 /* AKChowningReverbTests.swift */; };
@@ -136,7 +135,6 @@
 		C43BB1AC1D64FFEA00DB5A99 /* AKAmplitudeEnvelopeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAmplitudeEnvelopeTests.swift; path = ../../../Common/Tests/AKAmplitudeEnvelopeTests.swift; sourceTree = "<group>"; };
 		C43BB1AD1D64FFEA00DB5A99 /* AKAutoWahTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAutoWahTests.swift; path = ../../../Common/Tests/AKAutoWahTests.swift; sourceTree = "<group>"; };
 		C43BB1AE1D64FFEA00DB5A99 /* AKBandPassButterworthFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKBandPassButterworthFilterTests.swift; path = ../../../Common/Tests/AKBandPassButterworthFilterTests.swift; sourceTree = "<group>"; };
-		C43BB1AF1D64FFEA00DB5A99 /* AKBandPassFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKBandPassFilterTests.swift; path = ../../../Common/Tests/AKBandPassFilterTests.swift; sourceTree = "<group>"; };
 		C43BB1B01D64FFEA00DB5A99 /* AKBandRejectButterworthFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKBandRejectButterworthFilterTests.swift; path = ../../../Common/Tests/AKBandRejectButterworthFilterTests.swift; sourceTree = "<group>"; };
 		C43BB1B11D64FFEA00DB5A99 /* AKBitCrusherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKBitCrusherTests.swift; path = ../../../Common/Tests/AKBitCrusherTests.swift; sourceTree = "<group>"; };
 		C43BB1B21D64FFEA00DB5A99 /* AKChowningReverbTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKChowningReverbTests.swift; path = ../../../Common/Tests/AKChowningReverbTests.swift; sourceTree = "<group>"; };
@@ -277,7 +275,6 @@
 				C43BB1AC1D64FFEA00DB5A99 /* AKAmplitudeEnvelopeTests.swift */,
 				C43BB1AD1D64FFEA00DB5A99 /* AKAutoWahTests.swift */,
 				C43BB1AE1D64FFEA00DB5A99 /* AKBandPassButterworthFilterTests.swift */,
-				C43BB1AF1D64FFEA00DB5A99 /* AKBandPassFilterTests.swift */,
 				C43BB1B01D64FFEA00DB5A99 /* AKBandRejectButterworthFilterTests.swift */,
 				C43BB1B11D64FFEA00DB5A99 /* AKBitCrusherTests.swift */,
 				C43BB1B21D64FFEA00DB5A99 /* AKChowningReverbTests.swift */,
@@ -550,7 +547,6 @@
 				C43BB21B1D64FFEA00DB5A99 /* AKHighShelfParametricEqualizerFilterTests.swift in Sources */,
 				C43BB2341D64FFEA00DB5A99 /* AKToneComplementFilterTests.swift in Sources */,
 				C43BB2451D64FFEA00DB5A99 /* modalResonanceFilterTests.swift in Sources */,
-				C43BB2071D64FFEA00DB5A99 /* AKBandPassFilterTests.swift in Sources */,
 				C43BB23F1D64FFEA00DB5A99 /* fmOscillatorTests.swift in Sources */,
 				C43BB24D1D64FFEA00DB5A99 /* reverberateWithCombFilterTests.swift in Sources */,
 				C43BB20D1D64FFEA00DB5A99 /* AKCostelloReverbTests.swift in Sources */,
