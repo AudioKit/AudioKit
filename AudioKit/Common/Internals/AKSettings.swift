@@ -175,11 +175,11 @@ extension AKSettings {
             if self == .ambient { return AVAudioSessionCategoryAmbient }
             else if self == .soloAmbient { return AVAudioSessionCategorySoloAmbient }
             else if self == .playback { return AVAudioSessionCategoryPlayback }
-            else if self == .record { return AVAudioSessionCategoryPlayback }
-            else if self == .playAndRecord { return AVAudioSessionCategoryPlayback }
+            else if self == .record { return AVAudioSessionCategoryRecord }
+            else if self == .playAndRecord { return AVAudioSessionCategoryPlayAndRecord }
             else if self == .multiRoute { return AVAudioSessionCategoryMultiRoute }
             #if !os(tvOS)
-            if self == .audioProcessing { return AVAudioSessionCategoryPlayback }
+            if self == .audioProcessing { return AVAudioSessionCategoryAudioProcessing }
             #endif
 
             fatalError("unrecognized AVAudioSessionCategory \(self)")
