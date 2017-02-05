@@ -39,7 +39,12 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
     ///   - sample: Number of sample to product
     ///
     public init(_ input: AKNode, samples: Int) {
-
+        
+        do {
+            try AKSettings.session.setCategory("\(AKSettings.SessionCategory.playAndRecord)")
+        } catch {
+            AKLog("Could not set the session category")
+        }
         testedNode = input as? AKToggleable
         totalSamples = samples
 
