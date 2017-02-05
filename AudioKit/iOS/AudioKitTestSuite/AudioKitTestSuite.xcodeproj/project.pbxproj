@@ -43,7 +43,6 @@
 		C43BB2221D64FFEA00DB5A99 /* AKMoogLadderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1CA1D64FFEA00DB5A99 /* AKMoogLadderTests.swift */; };
 		C43BB2231D64FFEA00DB5A99 /* AKMorphingOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1CB1D64FFEA00DB5A99 /* AKMorphingOscillatorTests.swift */; };
 		C43BB2241D64FFEA00DB5A99 /* AKOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1CC1D64FFEA00DB5A99 /* AKOscillatorTests.swift */; };
-		C43BB2251D64FFEA00DB5A99 /* AKParametricEQTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1CD1D64FFEA00DB5A99 /* AKParametricEQTests.swift */; };
 		C43BB2261D64FFEA00DB5A99 /* AKPeakingParametricEqualizerFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1CE1D64FFEA00DB5A99 /* AKPeakingParametricEqualizerFilterTests.swift */; };
 		C43BB2271D64FFEA00DB5A99 /* AKPeakLimiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1CF1D64FFEA00DB5A99 /* AKPeakLimiterTests.swift */; };
 		C43BB2281D64FFEA00DB5A99 /* AKPhaseDistortionOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1D01D64FFEA00DB5A99 /* AKPhaseDistortionOscillatorTests.swift */; };
@@ -164,7 +163,6 @@
 		C43BB1CA1D64FFEA00DB5A99 /* AKMoogLadderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKMoogLadderTests.swift; path = ../../../Common/Tests/AKMoogLadderTests.swift; sourceTree = "<group>"; };
 		C43BB1CB1D64FFEA00DB5A99 /* AKMorphingOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKMorphingOscillatorTests.swift; path = ../../../Common/Tests/AKMorphingOscillatorTests.swift; sourceTree = "<group>"; };
 		C43BB1CC1D64FFEA00DB5A99 /* AKOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscillatorTests.swift; path = ../../../Common/Tests/AKOscillatorTests.swift; sourceTree = "<group>"; };
-		C43BB1CD1D64FFEA00DB5A99 /* AKParametricEQTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKParametricEQTests.swift; path = ../../../Common/Tests/AKParametricEQTests.swift; sourceTree = "<group>"; };
 		C43BB1CE1D64FFEA00DB5A99 /* AKPeakingParametricEqualizerFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPeakingParametricEqualizerFilterTests.swift; path = ../../../Common/Tests/AKPeakingParametricEqualizerFilterTests.swift; sourceTree = "<group>"; };
 		C43BB1CF1D64FFEA00DB5A99 /* AKPeakLimiterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPeakLimiterTests.swift; path = ../../../Common/Tests/AKPeakLimiterTests.swift; sourceTree = "<group>"; };
 		C43BB1D01D64FFEA00DB5A99 /* AKPhaseDistortionOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPhaseDistortionOscillatorTests.swift; path = ../../../Common/Tests/AKPhaseDistortionOscillatorTests.swift; sourceTree = "<group>"; };
@@ -304,7 +302,6 @@
 				C43BB1CA1D64FFEA00DB5A99 /* AKMoogLadderTests.swift */,
 				C43BB1CB1D64FFEA00DB5A99 /* AKMorphingOscillatorTests.swift */,
 				C43BB1CC1D64FFEA00DB5A99 /* AKOscillatorTests.swift */,
-				C43BB1CD1D64FFEA00DB5A99 /* AKParametricEQTests.swift */,
 				C43BB1CE1D64FFEA00DB5A99 /* AKPeakingParametricEqualizerFilterTests.swift */,
 				C43BB1CF1D64FFEA00DB5A99 /* AKPeakLimiterTests.swift */,
 				C43BB1D01D64FFEA00DB5A99 /* AKPhaseDistortionOscillatorTests.swift */,
@@ -528,7 +525,6 @@
 				C43BB2191D64FFEA00DB5A99 /* AKHighPassFilterTests.swift in Sources */,
 				C43BB2221D64FFEA00DB5A99 /* AKMoogLadderTests.swift in Sources */,
 				C43BB20F1D64FFEA00DB5A99 /* AKDecimatorTests.swift in Sources */,
-				C43BB2251D64FFEA00DB5A99 /* AKParametricEQTests.swift in Sources */,
 				C43BB22B1D64FFEA00DB5A99 /* AKPWMOscillatorTests.swift in Sources */,
 				C43BB21E1D64FFEA00DB5A99 /* AKLowPassFilterTests.swift in Sources */,
 				C43BB2311D64FFEA00DB5A99 /* AKTanhDistortionTests.swift in Sources */,
