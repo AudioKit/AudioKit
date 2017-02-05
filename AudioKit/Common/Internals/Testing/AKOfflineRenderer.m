@@ -14,6 +14,8 @@
 @implementation AKOfflineRenderer
 
 - (instancetype)initWithEngine:(AVAudioEngine *)injun {
+    AVAudioSession *mySession = [AVAudioSession sharedInstance];
+    [mySession setCategory: AVAudioSessionCategoryPlayAndRecord error:nil];
     self.engine = injun;
     return self;
 }
