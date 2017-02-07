@@ -21,17 +21,21 @@ enum {
     limitAddress = 0
 };
 
-class AKClipperDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKClipperDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKClipperDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
-        sp_clip_create(&clip);
-        sp_clip_init(sp, clip);
-        clip->lim = 1.0;
+        AKSoundpipeKernel::init(_channels, _sampleRate);
+
+        sp_clip_create(&clip0);
+        sp_clip_create(&clip1);
+        sp_clip_init(sp, clip0);
+        sp_clip_init(sp, clip1);
+        clip0->lim = 1.0;
+        clip1->lim = 1.0;
 
         limitRamper.init();
     }
@@ -45,8 +49,9 @@ public:
     }
 
     void destroy() {
-        sp_clip_destroy(&clip);
-        AKSporthKernel::destroy();
+        sp_clip_destroy(&clip0);
+        sp_clip_destroy(&clip1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -94,14 +99,19 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             limit = limitRamper.getAndStep();
-            clip->lim = (float)limit;
+            clip0->lim = (float)limit;
+            clip1->lim = (float)limit;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_clip_compute(sp, clip, in, out);
+                    if (channel == 0) {
+                        sp_clip_compute(sp, clip0, in, out);
+                    } else {
+                        sp_clip_compute(sp, clip1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -113,7 +123,8 @@ public:
 
 private:
 
-    sp_clip *clip;
+    sp_clip *clip0;
+    sp_clip *clip1;
 
     float limit = 1.0;
 
@@ -122,4 +133,3 @@ public:
     bool resetted = false;
     ParameterRamper limitRamper = 1.0;
 };
-

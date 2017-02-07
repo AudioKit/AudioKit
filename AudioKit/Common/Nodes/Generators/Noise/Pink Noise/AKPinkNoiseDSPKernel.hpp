@@ -21,14 +21,14 @@ enum {
     amplitudeAddress = 0
 };
 
-class AKPinkNoiseDSPKernel : public AKSporthKernel, public AKOutputBuffered {
+class AKPinkNoiseDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKPinkNoiseDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_pinknoise_create(&pinknoise);
         sp_pinknoise_init(sp, pinknoise);
@@ -47,7 +47,7 @@ public:
 
     void destroy() {
         sp_pinknoise_destroy(&pinknoise);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

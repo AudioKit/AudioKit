@@ -25,14 +25,14 @@ enum {
     amplitudeAddress = 4
 };
 
-class AKFMOscillatorDSPKernel : public AKSporthKernel, public AKOutputBuffered {
+class AKFMOscillatorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKFMOscillatorDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_fosc_create(&fosc);
         sp_fosc_init(sp, fosc, ftbl);
@@ -68,7 +68,7 @@ public:
 
     void destroy() {
         sp_fosc_destroy(&fosc);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

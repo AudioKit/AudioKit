@@ -24,20 +24,27 @@ enum {
     resonanceAsymmetryAddress = 3
 };
 
-class AKRolandTB303FilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKRolandTB303FilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKRolandTB303FilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
-        sp_tbvcf_create(&tbvcf);
-        sp_tbvcf_init(sp, tbvcf);
-        tbvcf->fco = 500;
-        tbvcf->res = 0.5;
-        tbvcf->dist = 2.0;
-        tbvcf->asym = 0.5;
+        AKSoundpipeKernel::init(_channels, _sampleRate);
+
+        sp_tbvcf_create(&tbvcf0);
+        sp_tbvcf_create(&tbvcf1);
+        sp_tbvcf_init(sp, tbvcf0);
+        sp_tbvcf_init(sp, tbvcf1);
+        tbvcf0->fco = 500;
+        tbvcf1->fco = 500;
+        tbvcf0->res = 0.5;
+        tbvcf1->res = 0.5;
+        tbvcf0->dist = 2.0;
+        tbvcf1->dist = 2.0;
+        tbvcf0->asym = 0.5;
+        tbvcf1->asym = 0.5;
 
         cutoffFrequencyRamper.init();
         resonanceRamper.init();
@@ -54,8 +61,9 @@ public:
     }
 
     void destroy() {
-        sp_tbvcf_destroy(&tbvcf);
-        AKSporthKernel::destroy();
+        sp_tbvcf_destroy(&tbvcf0);
+        sp_tbvcf_destroy(&tbvcf1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -154,20 +162,28 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             cutoffFrequency = cutoffFrequencyRamper.getAndStep();
-            tbvcf->fco = (float)cutoffFrequency;
+            tbvcf0->fco = (float)cutoffFrequency;
+            tbvcf1->fco = (float)cutoffFrequency;
             resonance = resonanceRamper.getAndStep();
-            tbvcf->res = (float)resonance;
+            tbvcf0->res = (float)resonance;
+            tbvcf1->res = (float)resonance;
             distortion = distortionRamper.getAndStep();
-            tbvcf->dist = (float)distortion;
+            tbvcf0->dist = (float)distortion;
+            tbvcf1->dist = (float)distortion;
             resonanceAsymmetry = resonanceAsymmetryRamper.getAndStep();
-            tbvcf->asym = (float)resonanceAsymmetry;
+            tbvcf0->asym = (float)resonanceAsymmetry;
+            tbvcf1->asym = (float)resonanceAsymmetry;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_tbvcf_compute(sp, tbvcf, in, out);
+                    if (channel == 0) {
+                        sp_tbvcf_compute(sp, tbvcf0, in, out);
+                    } else {
+                        sp_tbvcf_compute(sp, tbvcf1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -179,7 +195,8 @@ public:
 
 private:
 
-    sp_tbvcf *tbvcf;
+    sp_tbvcf *tbvcf0;
+    sp_tbvcf *tbvcf1;
 
     float cutoffFrequency = 500;
     float resonance = 0.5;
@@ -194,5 +211,3 @@ public:
     ParameterRamper distortionRamper = 2.0;
     ParameterRamper resonanceAsymmetryRamper = 0.5;
 };
-
-

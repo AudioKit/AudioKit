@@ -15,6 +15,6 @@ class AKHighShelfParametricEqualizerFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKHighShelfParametricEqualizerFilter(input)
         input.start()
-        AKTestMD5("ae0658a9b07d9c067a6a70be4f368107")
+        AKTestMD5("907b6c2c83772318a8bee5abac56249c")
     }
 }

@@ -27,14 +27,14 @@ enum {
     amplitudeAddress = 6
 };
 
-class AKDripDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKDripDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKDripDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_drip_create(&drip);
         sp_drip_init(sp, drip, 0.9);
         drip->num_tubes = 10;
@@ -64,7 +64,7 @@ public:
 
     void destroy() {
         sp_drip_destroy(&drip);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

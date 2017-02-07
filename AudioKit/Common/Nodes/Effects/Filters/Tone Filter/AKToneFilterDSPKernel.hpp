@@ -7,6 +7,7 @@
 //
 
 #pragma once
+
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -20,18 +21,21 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKToneFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKToneFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKToneFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_tone_create(&tone);
-        sp_tone_init(sp, tone);
-        tone->hp = 1000.0;
+        sp_tone_create(&tone0);
+        sp_tone_create(&tone1);
+        sp_tone_init(sp, tone0);
+        sp_tone_init(sp, tone1);
+        tone0->hp = 1000.0;
+        tone1->hp = 1000.0;
 
         halfPowerPointRamper.init();
     }
@@ -45,8 +49,9 @@ public:
     }
 
     void destroy() {
-        sp_tone_destroy(&tone);
-        AKSporthKernel::destroy();
+        sp_tone_destroy(&tone0);
+        sp_tone_destroy(&tone1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -94,14 +99,19 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             halfPowerPoint = halfPowerPointRamper.getAndStep();
-            tone->hp = (float)halfPowerPoint;
+            tone0->hp = (float)halfPowerPoint;
+            tone1->hp = (float)halfPowerPoint;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_tone_compute(sp, tone, in, out);
+                    if (channel == 0) {
+                        sp_tone_compute(sp, tone0, in, out);
+                    } else {
+                        sp_tone_compute(sp, tone1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -113,7 +123,8 @@ public:
 
 private:
 
-    sp_tone *tone;
+    sp_tone *tone0;
+    sp_tone *tone1;
 
     float halfPowerPoint = 1000.0;
 
@@ -122,4 +133,3 @@ public:
     bool resetted = false;
     ParameterRamper halfPowerPointRamper = 1000.0;
 };
-

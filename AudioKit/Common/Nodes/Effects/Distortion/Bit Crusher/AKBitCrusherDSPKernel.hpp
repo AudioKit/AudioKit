@@ -22,19 +22,23 @@ enum {
     sampleRateAddress = 1
 };
 
-class AKBitCrusherDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKBitCrusherDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBitCrusherDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_bitcrush_create(&bitcrush);
-        sp_bitcrush_init(sp, bitcrush);
-        bitcrush->bitdepth = 8;
-        bitcrush->srate = 10000;
+        sp_bitcrush_create(&bitcrush0);
+        sp_bitcrush_create(&bitcrush1);
+        sp_bitcrush_init(sp, bitcrush0);
+        sp_bitcrush_init(sp, bitcrush1);
+        bitcrush0->bitdepth = 8;
+        bitcrush1->bitdepth = 8;
+        bitcrush0->srate = 10000;
+        bitcrush1->srate = 10000;
 
         bitDepthRamper.init();
         sampleRateRamper.init();
@@ -49,8 +53,9 @@ public:
     }
 
     void destroy() {
-        sp_bitcrush_destroy(&bitcrush);
-        AKSporthKernel::destroy();
+        sp_bitcrush_destroy(&bitcrush0);
+        sp_bitcrush_destroy(&bitcrush1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -115,16 +120,22 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             bitDepth = bitDepthRamper.getAndStep();
-            bitcrush->bitdepth = (float)bitDepth;
+            bitcrush0->bitdepth = (float)bitDepth;
+            bitcrush1->bitdepth = (float)bitDepth;
             sampleRate = sampleRateRamper.getAndStep();
-            bitcrush->srate = (float)sampleRate;
+            bitcrush0->srate = (float)sampleRate;
+            bitcrush1->srate = (float)sampleRate;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_bitcrush_compute(sp, bitcrush, in, out);
+                    if (channel == 0) {
+                        sp_bitcrush_compute(sp, bitcrush0, in, out);
+                    } else {
+                        sp_bitcrush_compute(sp, bitcrush1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -135,8 +146,12 @@ public:
     // MARK: Member Variables
 
 private:
-    sp_bitcrush *bitcrush;
+
+    sp_bitcrush *bitcrush0;
+    sp_bitcrush *bitcrush1;
+
     float bitDepth = 8;
+    float sampleRate = 10000;
 
 public:
     bool started = true;
@@ -144,4 +159,3 @@ public:
     ParameterRamper bitDepthRamper = 8;
     ParameterRamper sampleRateRamper = 10000;
 };
-

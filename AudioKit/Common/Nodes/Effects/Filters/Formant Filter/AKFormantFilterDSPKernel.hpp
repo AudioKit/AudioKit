@@ -23,14 +23,14 @@ enum {
     yAddress = 1
 };
 
-class AKFormantFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKFormantFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKFormantFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         growl_create(&growl);
         growl_init(sp, growl);
@@ -52,7 +52,7 @@ public:
 
     void destroy() {
         growl_destroy(&growl);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

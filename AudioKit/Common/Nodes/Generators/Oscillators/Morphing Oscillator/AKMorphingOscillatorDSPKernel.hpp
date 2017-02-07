@@ -25,14 +25,14 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKMorphingOscillatorDSPKernel : public AKSporthKernel, public AKOutputBuffered {
+class AKMorphingOscillatorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
     AKMorphingOscillatorDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_oscmorph_create(&oscmorph);
 
@@ -62,7 +62,7 @@ public:
 
     void destroy() {
         sp_oscmorph_destroy(&oscmorph);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

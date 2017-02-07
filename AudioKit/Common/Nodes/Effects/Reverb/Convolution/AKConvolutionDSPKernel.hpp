@@ -18,15 +18,16 @@ extern "C" {
 }
 
 
-class AKConvolutionDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKConvolutionDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKConvolutionDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
-        sp_conv_create(&conv);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
+        sp_conv_create(&conv0);
+        sp_conv_create(&conv1);
 
     }
 
@@ -36,7 +37,8 @@ public:
 
     void start() {
         started = true;
-        sp_conv_init(sp, conv, ftbl, (float)partitionLength);
+        sp_conv_init(sp, conv0, ftbl, (float)partitionLength);
+        sp_conv_init(sp, conv1, ftbl, (float)partitionLength);
     }
 
     void stop() {
@@ -50,8 +52,9 @@ public:
     }
 
     void destroy() {
-        sp_conv_destroy(&conv);
-        AKSporthKernel::destroy();
+        sp_conv_destroy(&conv0);
+        sp_conv_destroy(&conv1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -84,7 +87,11 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 
                 if (started) {
-                    sp_conv_compute(sp, conv, in, out);
+                    if (channel == 0) {
+                        sp_conv_compute(sp, conv0, in, out);
+                    } else {
+                        sp_conv_compute(sp, conv1, in, out);
+                    }
                     *out = *out * 0.05; // Hack
                 } else {
                     *out = *in;
@@ -99,7 +106,9 @@ private:
 
     int partitionLength = 2048;
 
-    sp_conv *conv;
+    sp_conv *conv0;
+    sp_conv *conv1;
+    
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
 
