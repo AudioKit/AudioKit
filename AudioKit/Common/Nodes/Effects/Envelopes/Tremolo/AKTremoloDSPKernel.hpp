@@ -23,14 +23,14 @@ enum {
     
 };
 
-class AKTremoloDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKTremoloDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKTremoloDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_osc_create(&trem);
         sp_osc_init(sp, trem, tbl, 0);
         trem->freq = 10;
@@ -58,7 +58,7 @@ public:
 
     void destroy() {
         sp_osc_destroy(&trem);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

@@ -100,11 +100,11 @@ public:
     }
 };
 
-class AKSporthKernel: public AKDSPKernel {
+class AKSoundpipeKernel: public AKDSPKernel {
 protected:
     sp_data *sp = nullptr;
 public:
-//    AKSporthKernel(int _channels, float _sampleRate):
+//    AKSoundpipeKernel(int _channels, float _sampleRate):
 //        AKDSPKernel(_channels, _sampleRate) {
 //
 //      sp_create(&sp);
@@ -119,14 +119,14 @@ public:
       sp->nchan = _channels;
     }
 
-    ~AKSporthKernel() {
-        //printf("~AKSporthKernel(), &sp is %p\n", (void *)sp);
+    ~AKSoundpipeKernel() {
+        //printf("~AKSoundpipeKernel(), &sp is %p\n", (void *)sp);
         // releasing the memory in the destructor only
         sp_destroy(&sp);
     }
     
     void destroy() {
-        //printf("AKSporthKernel.destroy(), &sp is %p\n", (void *)sp);
+        //printf("AKSoundpipeKernel.destroy(), &sp is %p\n", (void *)sp);
     }
 };
 

@@ -23,19 +23,25 @@ enum {
     saturationAddress = 2
 };
 
-class AKKorgLowPassFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKKorgLowPassFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKKorgLowPassFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
-        sp_wpkorg35_create(&wpkorg35);
-        sp_wpkorg35_init(sp, wpkorg35);
-        wpkorg35->cutoff = 1000.0;
-        wpkorg35->res = 1.0;
-        wpkorg35->saturation = 0.0;
+        AKSoundpipeKernel::init(_channels, _sampleRate);
+
+        sp_wpkorg35_create(&wpkorg350);
+        sp_wpkorg35_create(&wpkorg351);
+        sp_wpkorg35_init(sp, wpkorg350);
+        sp_wpkorg35_init(sp, wpkorg351);
+        wpkorg350->cutoff = 1000.0;
+        wpkorg351->cutoff = 1000.0;
+        wpkorg350->res = 1.0;
+        wpkorg351->res = 1.0;
+        wpkorg350->saturation = 0.0;
+        wpkorg351->saturation = 0.0;
 
         cutoffFrequencyRamper.init();
         resonanceRamper.init();
@@ -51,8 +57,9 @@ public:
     }
 
     void destroy() {
-        sp_wpkorg35_destroy(&wpkorg35);
-        AKSporthKernel::destroy();
+        sp_wpkorg35_destroy(&wpkorg350);
+        sp_wpkorg35_destroy(&wpkorg351);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -89,7 +96,7 @@ public:
                 break;
 
             case saturationAddress:
-                saturationRamper.setUIValue(clamp(value, 0.0f, 2.0f));
+                saturationRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
         }
@@ -121,7 +128,7 @@ public:
                 break;
 
             case saturationAddress:
-                saturationRamper.startRamp(clamp(value, 0.0f, 2.0f), duration);
+                saturationRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
         }
@@ -134,18 +141,25 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             cutoffFrequency = cutoffFrequencyRamper.getAndStep();
-            wpkorg35->cutoff = (float)cutoffFrequency - 0.0001;
+            wpkorg350->cutoff = (float)cutoffFrequency - 0.0001;
+            wpkorg351->cutoff = (float)cutoffFrequency - 0.0001;
             resonance = resonanceRamper.getAndStep();
-            wpkorg35->res = (float)resonance;
+            wpkorg350->res = (float)resonance;
+            wpkorg351->res = (float)resonance;
             saturation = saturationRamper.getAndStep();
-            wpkorg35->saturation = (float)saturation;
+            wpkorg350->saturation = (float)saturation;
+            wpkorg351->saturation = (float)saturation;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_wpkorg35_compute(sp, wpkorg35, in, out);
+                    if (channel == 0) {
+                        sp_wpkorg35_compute(sp, wpkorg350, in, out);
+                    } else {
+                        sp_wpkorg35_compute(sp, wpkorg351, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -157,7 +171,8 @@ public:
 
 private:
 
-    sp_wpkorg35 *wpkorg35;
+    sp_wpkorg35 *wpkorg350;
+    sp_wpkorg35 *wpkorg351;
 
     float cutoffFrequency = 1000.0;
     float resonance = 1.0;
@@ -170,4 +185,3 @@ public:
     ParameterRamper resonanceRamper = 1.0;
     ParameterRamper saturationRamper = 0.0;
 };
-

@@ -15,6 +15,6 @@ class AKStringResonatorTests: AKTestCase {
         let input = AKOscillator()
         output = AKStringResonator(input)
         input.start()
-        AKTestMD5("e7c52eedcf58d0a0990a4faace230621")
+        AKTestMD5("82e87c2d67c4c79e29d3a49979858c11")
     }
 }

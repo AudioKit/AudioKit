@@ -90,7 +90,6 @@ custom_categories:
     children:
     - AKAutoWah
     - AKBandPassButterworthFilter
-    - AKBandPassFilter
     - AKBandRejectButterworthFilter
     - AKCombFilterReverb
     - AKDCBlock
@@ -107,7 +106,6 @@ custom_categories:
     - AKLowShelfParametricEqualizerFilter
     - AKModalResonanceFilter
     - AKMoogLadder
-    - AKParametricEQ
     - AKPeakingParametricEqualizerFilter
     - AKResonantFilter
     - AKRolandTB303Filter

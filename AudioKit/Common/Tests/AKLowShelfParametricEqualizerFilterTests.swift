@@ -15,6 +15,6 @@ class AKLowShelfParametricEqualizerFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKLowShelfParametricEqualizerFilter(input)
         input.start()
-        AKTestMD5("fe5cdbf4b76e8d2c26c10ef8f93b042e")
+        AKTestMD5("56c1b9e1b8509124b8365b707fb05321")
     }
 }

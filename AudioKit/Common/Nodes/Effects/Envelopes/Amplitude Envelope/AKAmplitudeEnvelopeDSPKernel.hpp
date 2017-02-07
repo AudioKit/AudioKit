@@ -24,14 +24,14 @@ enum {
     releaseDurationAddress = 3
 };
 
-class AKAmplitudeEnvelopeDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKAmplitudeEnvelopeDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKAmplitudeEnvelopeDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         sp_adsr_create(&adsr);
 
@@ -58,7 +58,7 @@ public:
 
     void destroy() {
         sp_adsr_destroy(&adsr);
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

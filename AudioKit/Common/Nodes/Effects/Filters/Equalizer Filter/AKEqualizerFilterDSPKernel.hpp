@@ -23,20 +23,25 @@ enum {
     gainAddress = 2
 };
 
-class AKEqualizerFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKEqualizerFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKEqualizerFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_eqfil_create(&eqfil);
-        sp_eqfil_init(sp, eqfil);
-        eqfil->freq = 1000.0;
-        eqfil->bw = 100.0;
-        eqfil->gain = 10.0;
+        sp_eqfil_create(&eqfil0);
+        sp_eqfil_create(&eqfil1);
+        sp_eqfil_init(sp, eqfil0);
+        sp_eqfil_init(sp, eqfil1);
+        eqfil0->freq = 1000.0;
+        eqfil1->freq = 1000.0;
+        eqfil0->bw = 100.0;
+        eqfil1->bw = 100.0;
+        eqfil0->gain = 10.0;
+        eqfil1->gain = 10.0;
 
         centerFrequencyRamper.init();
         bandwidthRamper.init();
@@ -52,8 +57,9 @@ public:
     }
 
     void destroy() {
-        sp_eqfil_destroy(&eqfil);
-        AKSporthKernel::destroy();
+        sp_eqfil_destroy(&eqfil0);
+        sp_eqfil_destroy(&eqfil1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -135,18 +141,25 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             centerFrequency = centerFrequencyRamper.getAndStep();
-            eqfil->freq = (float)centerFrequency;
+            eqfil0->freq = (float)centerFrequency;
+            eqfil1->freq = (float)centerFrequency;
             bandwidth = bandwidthRamper.getAndStep();
-            eqfil->bw = (float)bandwidth;
+            eqfil0->bw = (float)bandwidth;
+            eqfil1->bw = (float)bandwidth;
             gain = gainRamper.getAndStep();
-            eqfil->gain = (float)gain;
+            eqfil0->gain = (float)gain;
+            eqfil1->gain = (float)gain;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_eqfil_compute(sp, eqfil, in, out);
+                    if (channel == 0) {
+                        sp_eqfil_compute(sp, eqfil0, in, out);
+                    } else {
+                        sp_eqfil_compute(sp, eqfil1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -158,7 +171,8 @@ public:
 
 private:
 
-    sp_eqfil *eqfil;
+    sp_eqfil *eqfil0;
+    sp_eqfil *eqfil1;
 
     float centerFrequency = 1000.0;
     float bandwidth = 100.0;
@@ -171,4 +185,3 @@ public:
     ParameterRamper bandwidthRamper = 100.0;
     ParameterRamper gainRamper = 10.0;
 };
-

@@ -21,17 +21,21 @@ enum {
     cutoffFrequencyAddress = 0
 };
 
-class AKHighPassButterworthFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKHighPassButterworthFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKHighPassButterworthFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
-        sp_buthp_create(&buthp);
-        sp_buthp_init(sp, buthp);
-        buthp->freq = 500.0;
+        AKSoundpipeKernel::init(_channels, _sampleRate);
+
+        sp_buthp_create(&buthp0);
+        sp_buthp_create(&buthp1);
+        sp_buthp_init(sp, buthp0);
+        sp_buthp_init(sp, buthp1);
+        buthp0->freq = 500.0;
+        buthp1->freq = 500.0;
 
         cutoffFrequencyRamper.init();
     }
@@ -45,8 +49,9 @@ public:
     }
 
     void destroy() {
-        sp_buthp_destroy(&buthp);
-        AKSporthKernel::destroy();
+        sp_buthp_destroy(&buthp0);
+        sp_buthp_destroy(&buthp1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -94,14 +99,19 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             cutoffFrequency = cutoffFrequencyRamper.getAndStep();
-            buthp->freq = (float)cutoffFrequency;
+            buthp0->freq = (float)cutoffFrequency;
+            buthp1->freq = (float)cutoffFrequency;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_buthp_compute(sp, buthp, in, out);
+                    if (channel == 0) {
+                        sp_buthp_compute(sp, buthp0, in, out);
+                    } else {
+                        sp_buthp_compute(sp, buthp1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -113,7 +123,8 @@ public:
 
 private:
 
-    sp_buthp *buthp;
+    sp_buthp *buthp0;
+    sp_buthp *buthp1;
 
     float cutoffFrequency = 500.0;
 
@@ -122,4 +133,3 @@ public:
     bool resetted = false;
     ParameterRamper cutoffFrequencyRamper = 500.0;
 };
-

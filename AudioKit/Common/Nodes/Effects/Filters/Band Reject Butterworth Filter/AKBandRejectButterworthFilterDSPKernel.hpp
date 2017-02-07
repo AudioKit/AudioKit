@@ -22,18 +22,23 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKBandRejectButterworthFilterDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKBandRejectButterworthFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKBandRejectButterworthFilterDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
-        sp_butbr_create(&butbr);
-        sp_butbr_init(sp, butbr);
-        butbr->freq = 3000.0;
-        butbr->bw = 2000.0;
+        AKSoundpipeKernel::init(_channels, _sampleRate);
+
+        sp_butbr_create(&butbr0);
+        sp_butbr_create(&butbr1);
+        sp_butbr_init(sp, butbr0);
+        sp_butbr_init(sp, butbr1);
+        butbr0->freq = 3000.0;
+        butbr1->freq = 3000.0;
+        butbr0->bw = 2000.0;
+        butbr1->bw = 2000.0;
 
         centerFrequencyRamper.init();
         bandwidthRamper.init();
@@ -48,8 +53,9 @@ public:
     }
 
     void destroy() {
-        sp_butbr_destroy(&butbr);
-        AKSporthKernel::destroy();
+        sp_butbr_destroy(&butbr0);
+        sp_butbr_destroy(&butbr1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -114,16 +120,22 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             centerFrequency = centerFrequencyRamper.getAndStep();
-            butbr->freq = (float)centerFrequency;
+            butbr0->freq = (float)centerFrequency;
+            butbr1->freq = (float)centerFrequency;
             bandwidth = bandwidthRamper.getAndStep();
-            butbr->bw = (float)bandwidth;
+            butbr0->bw = (float)bandwidth;
+            butbr1->bw = (float)bandwidth;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_butbr_compute(sp, butbr, in, out);
+                    if (channel == 0) {
+                        sp_butbr_compute(sp, butbr0, in, out);
+                    } else {
+                        sp_butbr_compute(sp, butbr1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -135,7 +147,8 @@ public:
 
 private:
 
-    sp_butbr *butbr;
+    sp_butbr *butbr0;
+    sp_butbr *butbr1;
 
     float centerFrequency = 3000.0;
     float bandwidth = 2000.0;
@@ -146,4 +159,3 @@ public:
     ParameterRamper centerFrequencyRamper = 3000.0;
     ParameterRamper bandwidthRamper = 2000.0;
 };
-

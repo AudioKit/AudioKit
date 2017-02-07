@@ -15,6 +15,6 @@ class AKModalResonanceFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKModalResonanceFilter(input)
         input.start()
-        AKTestMD5("e5703dc7c9a0f138261a0007c2f9cab9")
+        AKTestMD5("9cd15a61ff271c2717bfb42a66e45c00")
     }
 }

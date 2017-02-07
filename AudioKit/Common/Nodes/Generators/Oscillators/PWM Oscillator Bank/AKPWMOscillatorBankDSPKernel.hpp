@@ -37,7 +37,7 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKPWMOscillatorBankDSPKernel : public AKSporthKernel, public AKOutputBuffered {
+class AKPWMOscillatorBankDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Types
     struct NoteState {
@@ -150,7 +150,7 @@ public:
     }
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
         pulseWidthRamper.init();
         attackDurationRamper.init();
@@ -170,7 +170,7 @@ public:
     }
 
     void destroy() {
-        AKSporthKernel::destroy();
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {

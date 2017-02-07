@@ -22,19 +22,23 @@ enum {
     feedbackAddress = 1
 };
 
-class AKStringResonatorDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKStringResonatorDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKStringResonatorDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_streson_create(&streson);
-        sp_streson_init(sp, streson);
-        streson->freq = 100;
-        streson->fdbgain = 0.95;
+        sp_streson_create(&streson0);
+        sp_streson_create(&streson1);
+        sp_streson_init(sp, streson0);
+        sp_streson_init(sp, streson1);
+        streson0->freq = 100;
+        streson1->freq = 100;
+        streson0->fdbgain = 0.95;
+        streson1->fdbgain = 0.95;
 
         fundamentalFrequencyRamper.init();
         feedbackRamper.init();
@@ -49,8 +53,9 @@ public:
     }
 
     void destroy() {
-        sp_streson_destroy(&streson);
-        AKSporthKernel::destroy();
+        sp_streson_destroy(&streson0);
+        sp_streson_destroy(&streson1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -115,16 +120,22 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             fundamentalFrequency = fundamentalFrequencyRamper.getAndStep();
-            streson->freq = (float)fundamentalFrequency;
+            streson0->freq = (float)fundamentalFrequency;
+            streson1->freq = (float)fundamentalFrequency;
             feedback = feedbackRamper.getAndStep();
-            streson->fdbgain = (float)feedback;
+            streson0->fdbgain = (float)feedback;
+            streson1->fdbgain = (float)feedback;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_streson_compute(sp, streson, in, out);
+                    if (channel == 0) {
+                        sp_streson_compute(sp, streson0, in, out);
+                    } else {
+                        sp_streson_compute(sp, streson1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -136,7 +147,8 @@ public:
 
 private:
 
-    sp_streson *streson;
+    sp_streson *streson0;
+    sp_streson *streson1;
 
     float fundamentalFrequency = 100;
     float feedback = 0.95;
@@ -147,4 +159,3 @@ public:
     ParameterRamper fundamentalFrequencyRamper = 100;
     ParameterRamper feedbackRamper = 0.95;
 };
-

@@ -18,16 +18,19 @@ extern "C" {
 }
 
 
-class AKDCBlockDSPKernel : public AKSporthKernel, public AKBuffered {
+class AKDCBlockDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
 
     AKDCBlockDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKSporthKernel::init(_channels, _sampleRate);
-        sp_dcblock_create(&dcblock);
-        sp_dcblock_init(sp, dcblock);
+        AKSoundpipeKernel::init(_channels, _sampleRate);
+
+        sp_dcblock_create(&dcblock0);
+        sp_dcblock_create(&dcblock1);
+        sp_dcblock_init(sp, dcblock0);
+        sp_dcblock_init(sp, dcblock1);
 
     }
 
@@ -40,8 +43,9 @@ public:
     }
 
     void destroy() {
-        sp_dcblock_destroy(&dcblock);
-        AKSporthKernel::destroy();
+        sp_dcblock_destroy(&dcblock0);
+        sp_dcblock_destroy(&dcblock1);
+        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -77,7 +81,11 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_dcblock_compute(sp, dcblock, in, out);
+                    if (channel == 0) {
+                        sp_dcblock_compute(sp, dcblock0, in, out);
+                    } else {
+                        sp_dcblock_compute(sp, dcblock1, in, out);
+                    }
                 } else {
                     *out = *in;
                 }
@@ -89,10 +97,11 @@ public:
 
 private:
 
-    sp_dcblock *dcblock;
+    sp_dcblock *dcblock0;
+    sp_dcblock *dcblock1;
+
 
 public:
     bool started = true;
     bool resetted = false;
 };
-
