@@ -53,7 +53,7 @@ open class AKSampler: AKNode {
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
     ///
-    open func loadWav(_ file: String) {
+    open func loadWav(_ file: String) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "wav") else {
                 fatalError("file not found.")
         }
@@ -61,6 +61,7 @@ open class AKSampler: AKNode {
             try samplerUnit.loadAudioFiles(at: [url])
         } catch let error as NSError {
             AKLog("Error loading wav file at \(url)")
+            throw error
         }
     }
 
