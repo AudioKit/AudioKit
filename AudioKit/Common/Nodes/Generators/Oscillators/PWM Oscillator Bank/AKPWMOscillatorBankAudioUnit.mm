@@ -126,8 +126,8 @@
     AUParameter *detuningMultiplierAUParameter = [AUParameter parameter:@"detuningMultiplier"
                                                                    name:@"Frequency detuning multiplier"
                                                                 address:detuningMultiplierAddress
-                                                                    min:0.5
-                                                                    max:2.0
+                                                                    min:0.0
+                                                                    max:FLT_MAX
                                                                    unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
