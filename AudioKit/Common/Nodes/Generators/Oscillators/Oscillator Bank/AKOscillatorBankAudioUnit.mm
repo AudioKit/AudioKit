@@ -129,8 +129,8 @@
     [AUParameterTree createParameterWithIdentifier:@"detuningMultiplier"
                                               name:@"Frequency detuning multiplier"
                                            address:detuningMultiplierAddress
-                                               min:0.5
-                                               max:2.0
+                                               min:0.0
+                                               max:FLT_MAX
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0

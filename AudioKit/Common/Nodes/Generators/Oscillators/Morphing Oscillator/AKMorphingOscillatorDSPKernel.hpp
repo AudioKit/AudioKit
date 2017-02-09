@@ -99,7 +99,7 @@ public:
     }
 
     void setDetuningMultiplier(float value) {
-        detuningMultiplier = clamp(value, 0.5f, 2.0f);
+        detuningMultiplier = value;
         detuningMultiplierRamper.setImmediate(detuningMultiplier);
     }
 
@@ -123,7 +123,7 @@ public:
                 break;
 
             case detuningMultiplierAddress:
-                detuningMultiplierRamper.setUIValue(clamp(value, 0.5f, 2.0f));
+                detuningMultiplierRamper.setUIValue(value);
                 break;
 
         }
@@ -169,7 +169,7 @@ public:
                 break;
 
             case detuningMultiplierAddress:
-                detuningMultiplierRamper.startRamp(clamp(value, 0.5f, 2.0f), duration);
+                detuningMultiplierRamper.startRamp(value, duration);
                 break;
 
         }
