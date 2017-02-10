@@ -37,7 +37,10 @@ public:
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
         NSString *resourcePath = [frameworkBundle resourcePath];
         stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
-        
+        mandolins[0] = new stk::Mandolin(100);
+        mandolins[1] = new stk::Mandolin(100);
+        mandolins[2] = new stk::Mandolin(100);
+        mandolins[3] = new stk::Mandolin(100);
         stk::Stk::setSampleRate(sampleRate);
     }
     
@@ -60,11 +63,11 @@ public:
     }
     
     void setFrequency(float frequency, int course) {
-        mandolins[course].setFrequency(frequency);
+        mandolins[course]->setFrequency(frequency);
     }
     void pluck(int course, float position, int velocity) {
         started = true;
-        mandolins[course].pluck((float)velocity/127.0, position);
+        mandolins[course]->pluck((float)velocity/127.0, position);
     }
     void mute(int course) {
         // How to stop?
@@ -116,17 +119,17 @@ public:
             bodySize = bodySizeRamper.getAndStep();
 
             for (auto & mandolin : mandolins) {
-              mandolin.setDetune(detune);
-              mandolin.setBodySize(1 / bodySize);
+              mandolin->setDetune(detune);
+              mandolin->setBodySize(1 / bodySize);
             }
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
-                    *out = mandolins[0].tick();
-                    *out += mandolins[1].tick();
-                    *out += mandolins[2].tick();
-                    *out += mandolins[3].tick();
+                    *out = mandolins[0]->tick();
+                    *out += mandolins[1]->tick();
+                    *out += mandolins[2]->tick();
+                    *out += mandolins[3]->tick();
                 } else {
                     *out = 0.0;
                 }
@@ -137,12 +140,8 @@ public:
     // MARK: Member Variables
     
 private:
-  //    float internalTrigger = 0;
 
-    stk::Mandolin mandolins[4] = { stk::Mandolin(100),
-                                   stk::Mandolin(100),
-                                   stk::Mandolin(100),
-                                   stk::Mandolin(100) };
+    stk::Mandolin *mandolins[4];
     float detune = 1;
     float bodySize = 1;
     
