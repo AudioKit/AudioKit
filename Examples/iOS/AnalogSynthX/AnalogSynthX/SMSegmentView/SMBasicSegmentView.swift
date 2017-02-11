@@ -35,9 +35,9 @@ open class SMBasicSegmentView: UIView {
     open weak var delegate: SMSegmentViewDelegate?
 
     open fileprivate(set) var indexOfSelectedSegment: Int = NSNotFound
-    var numberOfSegments: Int {get {
+    var numberOfSegments: Int {
         return segments.count
-        }}
+    }
 
     @IBInspectable open var vertical: Bool = false {
         didSet {
@@ -93,7 +93,10 @@ open class SMBasicSegmentView: UIView {
                 }
             }
         } else {
-            self.segments[0].frame = CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
+            self.segments[0].frame = CGRect(x: 0.0,
+                                            y: 0.0,
+                                            width: self.frame.size.width,
+                                            height: self.frame.size.height)
         }
 
         self.setNeedsDisplay()

@@ -382,17 +382,6 @@ class SynthViewController: UIViewController {
         }
     }
 
-    @IBAction func cpuEfficientToggled(_ sender: UIButton) {
-        if sender.isSelected {
-            sender.isSelected = false
-            statusLabel.text = "CPU Efficient Mode Off"
-        } else {
-            sender.isSelected = true
-            statusLabel.text = "CPU Efficient Mode On"
-            // TODO: CPU Efficient CODE HERE
-        }
-    }
-
     // About App
     @IBAction func buildThisSynth(_ sender: RoundedButton) {
         openURL("http://audiokit.io/examples/AnalogSynthX")
@@ -478,7 +467,9 @@ class SynthViewController: UIViewController {
         // Determine new keyboard bounds
         let lowerMidiNote = MIDINoteNumber(48 + (keyboardOctavePosition * 12))
         let upperMidiNote = lowerMidiNote + 24
-        statusLabel.text = "Keyboard Range: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
+        statusLabel.text = "Keyboard Range: " +
+                           "\(noteNameFromMidiNote(lowerMidiNote)) to " +
+                           "\(noteNameFromMidiNote(upperMidiNote))"
 
         guard !monoMode else {
             turnOffHeldKeys()
@@ -548,7 +539,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
 
     func updateKnobValue(_ value: Double, tag: Int) {
 
-        switch (tag) {
+        switch tag {
 
         // VCOs
         case ControlTag.vco1Semitones.rawValue:
@@ -655,7 +646,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
 extension SynthViewController: VerticalSliderDelegate {
     func sliderValueDidChange(_ value: Double, tag: Int) {
 
-        switch (tag) {
+        switch tag {
         case ControlTag.adsrAttack.rawValue:
             statusLabel.text = "Attack: \(attackSlider.sliderValue.percentageString)"
             conductor.core.attackDuration = value
@@ -687,7 +678,7 @@ extension SynthViewController: SMSegmentViewDelegate {
     // SMSegment Delegate
     func segmentView(_ segmentView: SMBasicSegmentView, didSelectSegmentAtIndex index: Int) {
 
-        switch (segmentView.tag) {
+        switch segmentView.tag {
         case ControlTag.vco1Waveform.rawValue:
             conductor.core.waveform1 = Double(index)
             statusLabel.text = "VCO1 Waveform Changed"
