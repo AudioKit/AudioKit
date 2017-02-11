@@ -28,7 +28,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
 
     /// Initialize this reverb node
@@ -48,7 +48,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

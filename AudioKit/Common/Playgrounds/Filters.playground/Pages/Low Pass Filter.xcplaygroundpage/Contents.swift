@@ -13,7 +13,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var lowPassFilter = AKLowPassFilter(player)
-lowPassFilter.cutoffFrequency = 6900 // Hz
+lowPassFilter.cutoffFrequency = 6_900 // Hz
 lowPassFilter.resonance = 0 // dB
 
 AudioKit.output = lowPassFilter
@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: lowPassFilter.cutoffFrequency, minimum: 20, maximum: 22050,
+            value: lowPassFilter.cutoffFrequency, minimum: 20, maximum: 22_050,
             color: AKColor.green
         ) { sliderValue in
             lowPassFilter.cutoffFrequency = sliderValue

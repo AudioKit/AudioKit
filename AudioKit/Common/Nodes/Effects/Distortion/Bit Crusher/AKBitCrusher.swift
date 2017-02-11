@@ -41,7 +41,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
         }
     }
     /// The sample rate of signal output.
-    open var sampleRate: Double = 10000 {
+    open var sampleRate: Double = 10_000 {
         willSet {
             if sampleRate != newValue {
                 if internalAU!.isSetUp() {
@@ -70,7 +70,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     public init(
         _ input: AKNode,
         bitDepth: Double = 8,
-        sampleRate: Double = 10000) {
+        sampleRate: Double = 10_000) {
 
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate
@@ -90,7 +90,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        bitDepthParameter   = tree["bitDepth"]
+        bitDepthParameter = tree["bitDepth"]
         sampleRateParameter = tree["sampleRate"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

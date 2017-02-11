@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /// Minimum of two operations
 ///
 /// - Parameters:

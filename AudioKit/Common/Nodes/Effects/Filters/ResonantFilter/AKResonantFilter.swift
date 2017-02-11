@@ -31,7 +31,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    open var frequency: Double = 4000.0 {
+    open var frequency: Double = 4_000.0 {
         willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
@@ -43,7 +43,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Bandwidth of the filter.
-    open var bandwidth: Double = 1000.0 {
+    open var bandwidth: Double = 1_000.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
@@ -70,8 +70,8 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        frequency: Double = 4000.0,
-        bandwidth: Double = 1000.0) {
+        frequency: Double = 4_000.0,
+        bandwidth: Double = 1_000.0) {
 
         self.frequency = frequency
         self.bandwidth = bandwidth

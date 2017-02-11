@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKOperation {
-    
+
     /// Save a value into the parameters array for using outside of the operation
     ///
     /// - parameter parameterIndex: Location in the parameters array to save this value

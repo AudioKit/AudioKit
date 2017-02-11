@@ -4,10 +4,10 @@
 import PlaygroundSupport
 import AudioKit
 
-let generator = AKOperationGenerator() { _ in
+let generator = AKOperationGenerator { _ in
 
     // Generate a sine wave at the right frequency
-    let crossingSignalTone = AKOperation.sineWave(frequency: 2500)
+    let crossingSignalTone = AKOperation.sineWave(frequency: 2_500)
 
     // Periodically trigger an envelope around that signal
     let crossingSignalTrigger = AKOperation.periodicTrigger(period: 0.2)

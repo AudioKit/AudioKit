@@ -26,9 +26,9 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     fileprivate var lastKnownamount: Double = 1.0
-    
+
     /// Limiting Factor
     open var amount: Double = 0 {
         willSet {
@@ -41,7 +41,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -75,7 +75,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        amountParameter   = tree["amount"]
+        amountParameter = tree["amount"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
@@ -97,7 +97,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             amount = lastKnownamount
         }
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         if isPlaying {

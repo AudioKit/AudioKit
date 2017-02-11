@@ -11,8 +11,7 @@ player.looping = true
 
 var lowFilter = AKEqualizerFilter(player, centerFrequency: 50, bandwidth: 100, gain: 1.0)
 var midFilter = AKEqualizerFilter(lowFilter, centerFrequency: 350, bandwidth: 300, gain: 1.0)
-var highFilter = AKEqualizerFilter(midFilter, centerFrequency: 5000, bandwidth: 1000, gain: 1.0)
-
+var highFilter = AKEqualizerFilter(midFilter, centerFrequency: 5_000, bandwidth: 1_000, gain: 1.0)
 
 AudioKit.output = highFilter
 AudioKit.start()
@@ -57,7 +56,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 
 }
-
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

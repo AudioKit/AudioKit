@@ -19,7 +19,6 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change

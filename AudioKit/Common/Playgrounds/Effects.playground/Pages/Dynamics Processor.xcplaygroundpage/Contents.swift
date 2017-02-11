@@ -75,7 +75,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Attack Time",
             format: "%0.3f s",
-            value: effect.attackTime, minimum: 0.0001, maximum: 0.2,
+            value: effect.attackTime, minimum: 0.000_1, maximum: 0.2,
             color: AKColor.green
         ) { sliderValue in
             effect.attackTime = sliderValue

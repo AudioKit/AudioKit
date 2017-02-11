@@ -20,7 +20,7 @@ open class AKReverb2: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit? = nil
+    internal var internalAU: AudioUnit?
 
     fileprivate var lastKnownMix: Double = 50
 
@@ -61,8 +61,8 @@ open class AKReverb2: AKNode, AKToggleable {
     /// Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
     open var minDelayTime: Double = 0.008 {
         didSet {
-            if minDelayTime < 0.0001 {
-                minDelayTime = 0.0001
+            if minDelayTime < 0.000_1 {
+                minDelayTime = 0.000_1
             }
             if minDelayTime > 1.0 {
                 minDelayTime = 1.0
@@ -78,8 +78,8 @@ open class AKReverb2: AKNode, AKToggleable {
     /// Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
     open var maxDelayTime: Double = 0.050 {
         didSet {
-            if maxDelayTime < 0.0001 {
-                maxDelayTime = 0.0001
+            if maxDelayTime < 0.000_1 {
+                maxDelayTime = 0.000_1
             }
             if maxDelayTime > 1.0 {
                 maxDelayTime = 1.0
@@ -132,8 +132,8 @@ open class AKReverb2: AKNode, AKToggleable {
             if randomizeReflections < 1 {
                 randomizeReflections = 1
             }
-            if randomizeReflections > 1000 {
-                randomizeReflections = 1000
+            if randomizeReflections > 1_000 {
+                randomizeReflections = 1_000
             }
             AudioUnitSetParameter(
                 internalAU!,

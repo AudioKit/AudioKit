@@ -13,7 +13,7 @@ player.looping = true
 
 //: Next, we'll connect the audio sources to a decimator
 var decimator = AKDecimator(player)
-decimator.decimation =  0.5 // Normalized Value 0 - 1
+decimator.decimation = 0.5 // Normalized Value 0 - 1
 decimator.rounding = 0.5 // Normalized Value 0 - 1
 decimator.mix = 0.5 // Normalized Value 0 - 1
 
@@ -61,4 +61,3 @@ class PlaygroundView: AKPlaygroundView {
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
-

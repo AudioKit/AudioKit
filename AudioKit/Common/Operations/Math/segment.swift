@@ -42,6 +42,6 @@ extension AKOperation {
         end: AKParameter,
         duration: AKParameter
         ) -> AKOperation {
-        return AKOperation(module: "expon" , inputs: trigger, start, duration, end)
+        return AKOperation(module: "expon", inputs: trigger, start, duration, end)
     }
 }

@@ -20,7 +20,7 @@ extension AKComputedParameter {
      ///
     public func threePoleLowPassFilter(
         distortion: AKParameter = 0.5,
-        cutoffFrequency: AKParameter = 1500,
+        cutoffFrequency: AKParameter = 1_500,
         resonance: AKParameter = 0.5
         ) -> AKOperation {
             return AKOperation(module: "lpf18", inputs: toMono(), distortion, cutoffFrequency, resonance)

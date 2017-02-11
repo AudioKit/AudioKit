@@ -3,11 +3,11 @@
 import PlaygroundSupport
 import AudioKit
 
-let generator = AKOperationGenerator() { parameters in
+let generator = AKOperationGenerator { parameters in
     let updateRate = parameters[0]
 
     // Vary the starting frequency and duration randomly
-    let start = AKOperation.randomNumberPulse() * 2000 + 300
+    let start = AKOperation.randomNumberPulse() * 2_000 + 300
     let duration = AKOperation.randomNumberPulse()
     let frequency = AKOperation.lineSegment(
         trigger: AKOperation.metronome(frequency: updateRate),
@@ -23,7 +23,6 @@ let generator = AKOperationGenerator() { parameters in
         duration: 1.0 / updateRate)
     return AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
 }
-
 
 var delay = AKDelay(generator)
 

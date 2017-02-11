@@ -102,7 +102,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     open var ringModFreq1: Double = 100 {
         didSet {
-            ringModFreq1 = (0.5...8000).clamp(ringModFreq1)
+            ringModFreq1 = (0.5...8_000).clamp(ringModFreq1)
             au[kDistortionParam_RingModFreq1] = ringModFreq1
         }
     }
@@ -110,7 +110,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     open var ringModFreq2: Double = 100 {
         didSet {
-            ringModFreq2 = (0.5...8000).clamp(ringModFreq2)
+            ringModFreq2 = (0.5...8_000).clamp(ringModFreq2)
             au[kDistortionParam_RingModFreq2] = ringModFreq2
         }
     }

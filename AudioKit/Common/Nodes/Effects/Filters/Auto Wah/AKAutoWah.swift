@@ -105,8 +105,8 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        wahParameter       = tree["wah"]
-        mixParameter       = tree["mix"]
+        wahParameter = tree["wah"]
+        mixParameter = tree["mix"]
         amplitudeParameter = tree["amplitude"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

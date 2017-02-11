@@ -9,7 +9,7 @@ let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let frequency = AKOperation.sineWave(frequency: 0.3).scale(minimum: 200, maximum: 1200)
+let frequency = AKOperation.sineWave(frequency: 0.3).scale(minimum: 200, maximum: 1_200)
 
 let effect = AKOperationEffect(player) { player, _ in
     return player.modalResonanceFilter(frequency: frequency,

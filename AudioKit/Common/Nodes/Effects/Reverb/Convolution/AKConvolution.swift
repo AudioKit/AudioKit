@@ -24,7 +24,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
     }
 
     fileprivate var impulseResponseFileURL: CFURL
-    fileprivate var partitionLength: Int = 2048
+    fileprivate var partitionLength: Int = 2_048
 
     // MARK: - Initialization
 
@@ -38,7 +38,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
     public init(
         _ input: AKNode,
         impulseResponseFileURL: URL,
-        partitionLength: Int = 2048) {
+        partitionLength: Int = 2_048) {
 
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
@@ -117,7 +117,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
                     theData = nil // make sure to return NULL
-                    AKLog("Error = \(err)"); break Exit;
+                    AKLog("Error = \(err)"); break Exit
                 }
             }
         }
@@ -127,6 +127,5 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
     open func stop() {
         internalAU!.stop()
     }
-
 
 }

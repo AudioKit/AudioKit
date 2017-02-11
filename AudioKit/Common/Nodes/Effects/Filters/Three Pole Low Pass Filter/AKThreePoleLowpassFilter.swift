@@ -43,7 +43,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Filter cutoff frequency in Hertz.
-    open var cutoffFrequency: Double = 1500 {
+    open var cutoffFrequency: Double = 1_500 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -85,7 +85,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     public init(
         _ input: AKNode,
         distortion: Double = 0.5,
-        cutoffFrequency: Double = 1500,
+        cutoffFrequency: Double = 1_500,
         resonance: Double = 0.5) {
 
         self.distortion = distortion
@@ -106,9 +106,9 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        distortionParameter      = tree["distortion"]
+        distortionParameter = tree["distortion"]
         cutoffFrequencyParameter = tree["cutoffFrequency"]
-        resonanceParameter       = tree["resonance"]
+        resonanceParameter = tree["resonance"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

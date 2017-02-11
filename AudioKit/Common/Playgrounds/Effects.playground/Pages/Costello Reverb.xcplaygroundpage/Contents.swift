@@ -10,7 +10,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var reverb = AKCostelloReverb(player)
-reverb.cutoffFrequency = 9900 // Hz
+reverb.cutoffFrequency = 9_900 // Hz
 reverb.feedback = 0.92
 
 AudioKit.output = reverb
@@ -35,13 +35,12 @@ class PlaygroundView: AKPlaygroundView {
         cutoffFrequencySlider = AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: reverb.cutoffFrequency, maximum: 5000,
+            value: reverb.cutoffFrequency, maximum: 5_000,
             color: AKColor.green
         ) { sliderValue in
             reverb.cutoffFrequency = sliderValue
             }
         addSubview(cutoffFrequencySlider!)
-
 
         feedbackSlider = AKPropertySlider(
             property: "Feedback",

@@ -62,7 +62,6 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         }
     }
 
-
     /// Index of the wavetable to use (fractional are okay).
     open var index: Double = 0.0 {
         willSet {
@@ -112,7 +111,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     public convenience override init() {
         self.init(waveformArray: [AKTable(.triangle), AKTable(.square), AKTable(.sine), AKTable(.sawtooth)])
     }
-    
+
     /// Initialize this Morpher node
     ///
     /// - Parameters:
@@ -159,10 +158,10 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree["frequency"]
-        amplitudeParameter          = tree["amplitude"]
-        indexParameter              = tree["index"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        frequencyParameter = tree["frequency"]
+        amplitudeParameter = tree["amplitude"]
+        indexParameter = tree["index"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

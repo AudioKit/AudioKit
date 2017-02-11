@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKComputedParameter {
-    
+
     /// Smooth variable delay line without varispeed pitch.
     ///
     /// - Parameters:
@@ -20,9 +20,9 @@ extension AKComputedParameter {
     ///
     public func smoothDelay(
         time: AKParameter = 1.0,
-             samples: AKParameter = 1024,
-             feedback: AKParameter = 0.0,
-             maximumDelayTime: Double = 5.0
+        samples: AKParameter = 1_024,
+        feedback: AKParameter = 0.0,
+        maximumDelayTime: Double = 5.0
         ) -> AKOperation {
         return AKOperation(module: "smoothdelay",
                            inputs: toMono(), feedback, time, maximumDelayTime, samples)

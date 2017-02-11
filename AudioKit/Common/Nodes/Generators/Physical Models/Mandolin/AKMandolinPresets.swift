@@ -10,7 +10,7 @@ import Foundation
 
 /// Presets for the AKMandolin
 public extension AKMandolin {
-    
+
     /// Large Resonant Mandolin
     public func presetLargeResonantMandolin() {
         detune = 0.503
@@ -34,13 +34,13 @@ public extension AKMandolin {
         detune = 1.508
         bodySize = 0.375
     }
-    
+
     /// A strangly tuned, psychedelic mandolin
     public func presetAcidMandolin() {
         detune = 1.876
         bodySize = 2.948
     }
-    
+
     /// Print out current values in case you want to save it as a preset
     public func printCurrentValuesAsPreset() {
         AKLog("public func presetSomeNewMandolin() {")

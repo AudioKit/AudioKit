@@ -18,7 +18,7 @@ class sawtoothTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.sawtooth()
         }
         AKTestMD5("0b3fff37bccfc2ce47622192bfe9386f")

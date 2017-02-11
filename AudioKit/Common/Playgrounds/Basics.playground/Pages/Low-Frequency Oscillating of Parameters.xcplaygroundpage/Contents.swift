@@ -8,10 +8,10 @@
 import PlaygroundSupport
 import AudioKit
 
-let generator = AKOperationGenerator() { _ in
+let generator = AKOperationGenerator { _ in
     let frequencyLFO = AKOperation.square(frequency: 1)
         .scale(minimum: 440, maximum: 880)
-    let carrierLFO   = AKOperation.triangle(frequency: 1)
+    let carrierLFO = AKOperation.triangle(frequency: 1)
         .scale(minimum: 1, maximum: 2)
     let modulatingMultiplierLFO = AKOperation.sawtooth(frequency: 1)
         .scale(minimum: 0.1, maximum: 2)

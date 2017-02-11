@@ -18,7 +18,7 @@ class phasorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.phasor()
         }
         AKTestMD5("3158517a6a14167e736cf7038a828dc8")

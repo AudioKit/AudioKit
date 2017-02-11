@@ -121,9 +121,9 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        attackDurationParameter  = tree["attackDuration"]
-        decayDurationParameter   = tree["decayDuration"]
-        sustainLevelParameter    = tree["sustainLevel"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
+        sustainLevelParameter = tree["sustainLevel"]
         releaseDurationParameter = tree["releaseDuration"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

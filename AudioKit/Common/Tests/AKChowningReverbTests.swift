@@ -10,7 +10,7 @@ import XCTest
 import AudioKit
 
 class AKChowningReverbTests: AKTestCase {
-    
+
     func testDefault() {
         let input = AKOscillator()
         output = AKChowningReverb(input)

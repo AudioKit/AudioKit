@@ -62,7 +62,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             stop(noteNumber: noteNumber, channel: channel)
         }
     }
-    
+
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
@@ -73,7 +73,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     open func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         stop(noteNumber: noteNumber, channel: channel)
     }
-    
+
     // MARK: - MIDI Note Start/Stop
 
     /// Start a note
@@ -98,9 +98,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         // OVerride in subclass
     }
-    
+
     // MARK: - Private functions
-    
+
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         let status = data1 >> 4

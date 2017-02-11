@@ -11,12 +11,12 @@ import XCTest
 import AudioKit
 
 class delayTests: AKTestCase {
-    
+
     override func setUp() {
         super.setUp()
         duration = 1.0
     }
-    
+
     func testDefault() {
         let input = AKOscillator()
         input.start()
@@ -25,5 +25,5 @@ class delayTests: AKTestCase {
         }
         AKTestMD5("c26b72e6fd0e4a96edf1d8dbbbd05895")
     }
-    
+
 }

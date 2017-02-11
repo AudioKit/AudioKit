@@ -34,7 +34,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     }
 
     /// Filter cutoff frequency.
-    open var cutoffFrequency: Double = 1000 {
+    open var cutoffFrequency: Double = 1_000 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -74,7 +74,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        cutoffFrequency: Double = 1000,
+        cutoffFrequency: Double = 1_000,
         resonance: Double = 0.5) {
 
         self.cutoffFrequency = cutoffFrequency
@@ -95,7 +95,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
         guard let tree = internalAU?.parameterTree else { return }
 
         cutoffFrequencyParameter = tree["cutoffFrequency"]
-        resonanceParameter       = tree["resonance"]
+        resonanceParameter = tree["resonance"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

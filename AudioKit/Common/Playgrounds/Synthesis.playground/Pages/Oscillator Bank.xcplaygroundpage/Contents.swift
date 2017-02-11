@@ -55,7 +55,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Detuning Offset",
             format: "%0.3f",
-            value:  bank.releaseDuration, minimum: -1200, maximum: 1200,
+            value:  bank.releaseDuration, minimum: -1_200, maximum: 1_200,
             color: AKColor.green
         ) { offset in
             bank.detuningOffset = offset

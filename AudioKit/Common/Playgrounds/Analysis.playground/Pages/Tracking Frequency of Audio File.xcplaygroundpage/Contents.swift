@@ -35,7 +35,7 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f",
             value: 0, maximum: 0.55,
             color: AKColor.green
-        ) { sliderValue in
+        ) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider!)
@@ -43,9 +43,9 @@ class PlaygroundView: AKPlaygroundView {
         trackedFrequencySlider = AKPropertySlider(
             property: "Tracked Frequency",
             format: "%0.3f",
-            value: 0, maximum: 1000,
+            value: 0, maximum: 1_000,
             color: AKColor.red
-        ) { sliderValue in
+        ) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedFrequencySlider!)

@@ -25,13 +25,13 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
         willSet {
-        
+
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency. (in Hertz)
-    open var centerFrequency: Double = 3000.0 {
+    open var centerFrequency: Double = 3_000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -43,7 +43,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Bandwidth. (in Hertz)
-    open var bandwidth: Double = 2000.0 {
+    open var bandwidth: Double = 2_000.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
@@ -71,8 +71,8 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 3000.0,
-        bandwidth: Double = 2000.0) {
+        centerFrequency: Double = 3_000.0,
+        bandwidth: Double = 2_000.0) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
@@ -92,7 +92,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
         guard let tree = internalAU?.parameterTree else { return }
 
         centerFrequencyParameter = tree["centerFrequency"]
-        bandwidthParameter       = tree["bandwidth"]
+        bandwidthParameter = tree["bandwidth"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

@@ -44,7 +44,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Low-pass cutoff frequency.
-    open var cutoffFrequency: Double = 4000 {
+    open var cutoffFrequency: Double = 4_000 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -73,7 +73,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     public init(
         _ input: AKNode,
         feedback: Double = 0.6,
-        cutoffFrequency: Double = 4000) {
+        cutoffFrequency: Double = 4_000) {
 
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
@@ -92,7 +92,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        feedbackParameter        = tree["feedback"]
+        feedbackParameter = tree["feedback"]
         cutoffFrequencyParameter = tree["cutoffFrequency"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

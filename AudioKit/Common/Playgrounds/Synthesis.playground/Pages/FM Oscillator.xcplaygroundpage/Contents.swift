@@ -45,12 +45,12 @@ class PlaygroundView: AKPlaygroundView {
                 oscillator.start()
             default: break
             }
-            self.frequencySlider?.value            = oscillator.baseFrequency
-            self.carrierMultiplierSlider?.value    = oscillator.carrierMultiplier
+            self.frequencySlider?.value = oscillator.baseFrequency
+            self.carrierMultiplierSlider?.value = oscillator.carrierMultiplier
             self.modulatingMultiplierSlider?.value = oscillator.modulatingMultiplier
-            self.modulationIndexSlider?.value      = oscillator.modulationIndex
-            self.amplitudeSlider?.value            = oscillator.amplitude
-            self.rampTimeSlider?.value             = oscillator.rampTime
+            self.modulationIndexSlider?.value = oscillator.modulationIndex
+            self.amplitudeSlider?.value = oscillator.amplitude
+            self.rampTimeSlider?.value = oscillator.rampTime
             }
         )
 
@@ -101,7 +101,6 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.modulationIndex = index
         }
         addSubview(modulationIndexSlider!)
-
 
         amplitudeSlider = AKPropertySlider(
             property: "Amplitude",

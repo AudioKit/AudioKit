@@ -22,7 +22,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         addTitle("ADSR Envelope")
 
-        let adsrView = AKADSRView() {
+        let adsrView = AKADSRView {
             att, dec, sus, rel in
             fmWithADSR.attackDuration = att
             fmWithADSR.decayDuration = dec
@@ -33,10 +33,10 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             Swift.print("fmWithADSR.sustainLevel    = \(sus)")
             Swift.print("fmWithADSR.releaseDuration = \(rel)\n")
         }
-        adsrView.attackDuration  = fmWithADSR.attackDuration
-        adsrView.decayDuration   = fmWithADSR.decayDuration
+        adsrView.attackDuration = fmWithADSR.attackDuration
+        adsrView.decayDuration = fmWithADSR.decayDuration
         adsrView.releaseDuration = fmWithADSR.releaseDuration
-        adsrView.sustainLevel    = fmWithADSR.sustainLevel
+        adsrView.sustainLevel = fmWithADSR.sustainLevel
         addSubview(adsrView)
 
         let plot = AKRollingOutputPlot.createView(width: 440, height: 330)

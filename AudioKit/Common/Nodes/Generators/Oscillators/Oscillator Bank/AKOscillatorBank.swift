@@ -112,7 +112,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     public convenience override init() {
         self.init(waveform: AKTable(.sine))
@@ -137,7 +137,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         releaseDuration: Double = 0.1,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
-
 
         self.waveform = waveform
         self.attackDuration = attackDuration
@@ -164,11 +163,11 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        attackDurationParameter     = tree["attackDuration"]
-        decayDurationParameter      = tree["decayDuration"]
-        sustainLevelParameter       = tree["sustainLevel"]
-        releaseDurationParameter    = tree["releaseDuration"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
+        sustainLevelParameter = tree["sustainLevel"]
+        releaseDurationParameter = tree["releaseDuration"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

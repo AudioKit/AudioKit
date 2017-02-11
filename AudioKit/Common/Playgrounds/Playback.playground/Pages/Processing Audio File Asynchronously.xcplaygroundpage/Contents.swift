@@ -52,27 +52,22 @@ print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncP
 print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
 print("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
-
-
 //: Now, extract one second from piano...
 
-piano?.extractAsynchronously(fromSample: 100000, toSample: 144100, completionHandler: callback)
+piano?.extractAsynchronously(fromSample: 100_000, toSample: 144_100, completionHandler: callback)
 
 print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
 print("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
-
-
 //: You may have noticed that Async Processes are queued serially. That means that the next process will only occur AFTER previous processes have been completed. First in, first out, completionHandlers will always be triggered in the same order as you invoked an async process.
 
 //: Most of the time, you 'll want to chain process. Then, you have to define a specific callback for each process step. Let's experiment with the drum loop
 
-
 var drumloop = try?  AKAudioFile(readFileName: "drumloop.wav")
 
 //: We will first reverse the loop, and append the original loop to the reversed loop, and replace the file of our player with the resulting processed file.
-drumloop?.reverseAsynchronously() { reversedFile, error in
+drumloop?.reverseAsynchronously { reversedFile, error in
     if reversedFile != nil {
         print("Drum Loop has been reversed")
         reversedFile!.appendAsynchronously(file: drumloop!) { appendedFile, error in
@@ -90,6 +85,5 @@ drumloop?.reverseAsynchronously() { reversedFile, error in
 
 //: These processes are done in background, that means that the next line will be printed BEFORE the first (or any) async process has ended.
 print("Can refresh UI or do anything while processing...")
-
 
 PlaygroundPage.current.needsIndefiniteExecution = true

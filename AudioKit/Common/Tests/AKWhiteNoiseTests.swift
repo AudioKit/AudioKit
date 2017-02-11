@@ -10,7 +10,7 @@ import XCTest
 import AudioKit
 
 class AKWhiteNoiseTests: AKTestCase {
-    
+
     func testDefault() {
         output = AKWhiteNoise()
         AKTestMD5("d6b3484278d57bc40ce66df5decb88be")

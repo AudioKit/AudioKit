@@ -28,7 +28,7 @@ func ||(lhs: Bool, rhs: NSError) throws -> Bool {
 }
 
 extension AKAudioFile {
-    
+
     /// Opens a file for reading.
     ///
     /// - parameter name:    Filename, including the extension
@@ -41,8 +41,7 @@ extension AKAudioFile {
         let path: String = try baseDir.create(file: name)
         try self.init(forReading: URL(fileURLWithPath: path))
     }
-    
-    
+
     /// Initialize file for recording / writing purpose
     ///
     /// Default is a .caf AKAudioFile with AudioKit settings
@@ -77,14 +76,14 @@ extension AKAudioFile {
 
             // Directory exists ?
             let absDirPath = nsurl.deletingLastPathComponent().absoluteString
-            
+
             _ = try FileManager.default.fileExists(atPath: absDirPath) || .fileCreateError
 
             // AVLinearPCMIsNonInterleaved cannot be set to false (ignored but throw a warning)
             var fixedSettings = settings
-            
+
             fixedSettings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
-            
+
             do {
                 try self.init(forWriting: nsurl, settings: fixedSettings)
             } catch let error as NSError {
@@ -93,8 +92,7 @@ extension AKAudioFile {
                 throw NSError.fileCreateError
             }
     }
-    
-    
+
     /// Instantiate a file from Floats Arrays.
     ///
     /// To create a stereo file, you pass [leftChannelFloats, rightChannelFloats]
@@ -111,34 +109,33 @@ extension AKAudioFile {
     public convenience init(createFileFromFloats floatsArrays: [[Float]],
                             baseDir: BaseDirectory = .temp,
                             name: String = "") throws {
-        
+
         let channels = floatsArrays.count
         var fixedSettings = AKSettings.audioFormat.settings
-        
+
         fixedSettings[AVNumberOfChannelsKey] = channels
 
         try self.init(writeIn: baseDir, name: name)
-        
-        
+
         // create buffer for floats
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100,
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44_100,
                                    channels: AVAudioChannelCount(channels))
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format,
                                       frameCapacity:  AVAudioFrameCount(floatsArrays[0].count))
-        
+
         // Fill the buffers
-        
+
         for channel in 0..<channels {
             let channelNData = buffer.floatChannelData?[channel]
             for f in 0..<Int(buffer.frameCapacity) {
                 channelNData?[f] = floatsArrays[channel][f]
             }
         }
-        
+
         // set the buffer frameLength
         buffer.frameLength = buffer.frameCapacity
-        
+
         // Write the buffer in file
         do {
             try self.write(from: buffer)
@@ -146,10 +143,9 @@ extension AKAudioFile {
             AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
-        
+
     }
-    
-    
+
     /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
     ///
     /// - Parameters:
@@ -162,10 +158,10 @@ extension AKAudioFile {
     public convenience init(fromAVAudioPCMBuffer buffer: AVAudioPCMBuffer,
                             baseDir: BaseDirectory = .temp,
                             name: String = "") throws {
-        
+
         try self.init(writeIn: baseDir,
                       name: name)
-        
+
         // Write the buffer in file
         do {
             try self.write(from: buffer)
@@ -173,6 +169,6 @@ extension AKAudioFile {
             AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
-        
+
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKOperation {
-    
+
     /// Increment a signal by a default value of 1
     ///
     /// - Parameters:
@@ -18,7 +18,7 @@ extension AKOperation {
     ///   - minimum: Increment amount (Default: 1)
     ///   - maximum: Increment amount (Default: 1)
     ///
-    public func increment(on trigger: AKParameter, by step: AKParameter = 1.0, minimum: AKParameter = 0.0, maximum: AKParameter = 1000000) -> AKOperation {
+    public func increment(on trigger: AKParameter, by step: AKParameter = 1.0, minimum: AKParameter = 0.0, maximum: AKParameter = 1_000_000) -> AKOperation {
         return AKOperation(module: "incr", inputs: trigger, step, minimum, maximum, toMono())
     }
 }

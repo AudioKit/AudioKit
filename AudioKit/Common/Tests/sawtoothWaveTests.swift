@@ -18,7 +18,7 @@ class sawtoothWaveTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.sawtoothWave()
         }
         AKTestMD5("1876f099ad6aa4f04c8d2b52ced9a87a")

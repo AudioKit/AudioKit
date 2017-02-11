@@ -16,15 +16,14 @@ phaseLockedVocoder.pitchRatio = 1
 var timeStep = 0.1
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     // UI Elements we'll need to be able to access
     var playingPositionSlider: AKPropertySlider?
-    
+
     override func setup() {
-        
+
         addTitle("Phase Locked Vocoder")
-        
-        
+
         playingPositionSlider = AKPropertySlider(
             property: "Position",
             format: "%0.2f s",

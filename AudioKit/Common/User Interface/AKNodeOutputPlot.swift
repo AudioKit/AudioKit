@@ -15,8 +15,8 @@ open class AKNodeOutputPlot: EZAudioPlot {
     internal func setupNode(_ input: AKNode?) {
         input?.avAudioNode.installTap(onBus: 0,
                                       bufferSize: bufferSize,
-                                      format: nil) { [weak self] (buffer, time) in
-                                        
+                                      format: nil) { [weak self] (buffer, _) in
+
             guard let strongSelf = self else { return }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
@@ -26,7 +26,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
         }
     }
 
-    internal var bufferSize: UInt32 = 1024
+    internal var bufferSize: UInt32 = 1_024
 
     /// The node whose output to graph
     open var node: AKNode? {
@@ -58,7 +58,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1024) {
+    public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white

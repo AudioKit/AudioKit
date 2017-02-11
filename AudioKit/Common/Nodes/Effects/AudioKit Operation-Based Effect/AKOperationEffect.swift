@@ -35,7 +35,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initializers
-    
+
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
@@ -45,11 +45,11 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///
     public convenience init(_ input: AKNode,
                               numberOfChannels: Int,
-                              operations: (AKStereoOperation, [AKOperation])->[AKOperation]) {
-        
+                              operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
+
         let computedParameters = operations(AKStereoOperation.input, AKOperation.parameters)
         let left = computedParameters[0]
-        
+
         if numberOfChannels == 2 {
             let right = computedParameters[1]
             self.init(input, sporth: "\(right.sporth) \(left.sporth)")
@@ -57,7 +57,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
             self.init(input, sporth: "\(left.sporth)")
         }
     }
-    
+
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
@@ -65,11 +65,10 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - operation: Operation to generate, can be mono or stereo
     ///
     public convenience init(_ input: AKNode,
-                              operation: (AKStereoOperation, [AKOperation])->AKComputedParameter) {
-        
+                              operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
 
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
-        
+
         if type(of: computedParameter) == AKOperation.self {
             let monoOperation = computedParameter as! AKOperation
             self.init(input, sporth: monoOperation.sporth + " dup ")
@@ -78,7 +77,6 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
             self.init(input, sporth: stereoOperation.sporth + " swap ")
         }
     }
-    
 
     /// Initialize the effect with an input and a valid Sporth string
     ///
@@ -101,7 +99,6 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
             self?.internalAU?.setSporth(sporth)
         }
     }
-    
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {

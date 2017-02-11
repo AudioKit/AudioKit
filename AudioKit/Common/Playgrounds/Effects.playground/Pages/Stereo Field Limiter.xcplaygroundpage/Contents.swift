@@ -17,16 +17,16 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Stereo Field Limiter")
-        
+
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: processingPlaygroundFiles))
-        
+
         addSubview(AKBypassButton(node: limitedOutput))
-        
+
         addSubview(AKPropertySlider(
             property: "Amount",
             format: "%0.3f",

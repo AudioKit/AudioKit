@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Frequency",
             format: "%0.1f Hz",
-            value: filter.frequency, maximum: 5000,
+            value: filter.frequency, maximum: 5_000,
             color: AKColor.green
         ) { sliderValue in
             filter.frequency = sliderValue

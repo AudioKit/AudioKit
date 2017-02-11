@@ -16,7 +16,6 @@ public typealias MIDINoteNumber = UInt8
 public typealias MIDIVelocity = UInt8
 public typealias MIDIChannel = UInt8
 
-
 extension Collection where IndexDistance == Int {
     /// Return a random element from the collection
     public var randomIndex: Index {
@@ -61,7 +60,7 @@ public func AKLog(_ string: String, fname: String = #function) {
 ///   - maximum: Upper bound of randomization
 ///
 public func random(_ minimum: Double, _ maximum: Double) -> Double {
-    let precision = 1000000
+    let precision = 1_000_000
     let width = maximum - minimum
 
     return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + minimum
@@ -114,12 +113,12 @@ extension Double {
     public func denormalized(minimum: Double,
                              maximum: Double,
                              taper: Double) -> Double {
-        
+
         // Avoiding division by zero in this trivial case
-        if maximum - minimum < 0.00001 {
+        if maximum - minimum < 0.000_01 {
             return minimum
         }
-        
+
         if taper > 0 {
             // algebraic taper
             return minimum + (maximum - minimum) * pow(self, taper)
@@ -127,8 +126,8 @@ extension Double {
             // exponential taper
             var adjustedMinimum: Double = 0.0
             var adjustedMaximum: Double = 0.0
-            if minimum == 0 { adjustedMinimum = 0.00000000001 }
-            if maximum == 0 { adjustedMaximum = 0.00000000001 }
+            if minimum == 0 { adjustedMinimum = 0.000_000_000_01 }
+            if maximum == 0 { adjustedMaximum = 0.000_000_000_01 }
 
             return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
         }
@@ -160,7 +159,7 @@ extension Int {
 
 /// Extension to Int to calculate frequency from a MIDI Note Number
 extension UInt8 {
-    
+
     /// Calculate frequency from a MIDI Note Number
     ///
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
@@ -169,7 +168,6 @@ extension UInt8 {
         return Double(self).midiNoteToFrequency(aRef)
     }
 }
-
 
 /// Extension to Double to get the frequency from a MIDI Note Number
 extension Double {
@@ -203,7 +201,7 @@ extension Double {
     /// - parameter aRef: Reference frequency of A Note (Default: 440Hz)
     ///
     public func frequencyToMIDINote(_ aRef: Double = 440.0) -> Double {
-        return 69 + 12 * log2(self/aRef)
+        return 69 + 12 * log2(self / aRef)
     }
 }
 
@@ -278,9 +276,9 @@ internal struct AUWrapper {
 }
 
 extension AVAudioUnit {
-    class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> ()) {
+    class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit.instantiate(with: component, options: []) {
-            au, err in
+            au, _ in
             au.map {
                 AudioKit.engine.attach($0)
                 callback($0)
@@ -292,7 +290,7 @@ extension AVAudioUnit {
 extension AUParameter {
     @nonobjc
     convenience init(_ identifier: String,
-                     name: String, 
+                     name: String,
                      address: AUParameterAddress,
                      range: ClosedRange<AUValue>,
                      unit: AudioUnitParameterUnit,
@@ -300,7 +298,7 @@ extension AUParameter {
         self.init(identifier,
                   name: name,
                   address: address,
-                  min: range.lowerBound, 
+                  min: range.lowerBound,
                   max: range.upperBound,
                   unit: unit)
         self.value = value
@@ -308,11 +306,9 @@ extension AUParameter {
 }
 
 extension AudioComponentDescription {
-    func instantiate(callback: @escaping (AVAudioUnit) -> ()) {
+    func instantiate(callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit._instantiate(with: self) {
             callback($0)
         }
     }
 }
-
-

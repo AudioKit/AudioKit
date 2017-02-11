@@ -58,7 +58,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         }
     }
 
-    /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
+    /// Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     open var pitchRatio: Double = 1 {
         willSet {
             if pitchRatio != newValue {
@@ -86,7 +86,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     ///   - audioFileURL: Location of the audio file to use.
     ///   - position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     ///   - amplitude: Amplitude.
-    ///   - pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
+    ///   - pitchRatio: Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     ///
     public init(
         file: AVAudioFile,
@@ -112,8 +112,8 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        positionParameter   = tree["position"]
-        amplitudeParameter  = tree["amplitude"]
+        positionParameter = tree["position"]
+        amplitudeParameter = tree["amplitude"]
         pitchRatioParameter = tree["pitchRatio"]
 
         token = tree.token(byAddingParameterObserver: { [weak self]
@@ -158,7 +158,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
             theOutputFormat.mBitsPerChannel = UInt32(MemoryLayout<Float>.stride) * 8
-            theOutputFormat.mChannelsPerFrame = 1; // Mono
+            theOutputFormat.mChannelsPerFrame = 1 // Mono
             theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(MemoryLayout<Float>.stride)
             theOutputFormat.mFramesPerPacket = 1
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
@@ -194,7 +194,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
                     theData = nil // make sure to return NULL
-                    AKLog("Error = \(err)"); break Exit;
+                    AKLog("Error = \(err)"); break Exit
                 }
             }
         }

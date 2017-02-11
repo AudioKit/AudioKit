@@ -17,7 +17,7 @@ open class AKTimePitch: AKNode, AKToggleable {
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
     open var rate: Double = 1.0 {
         didSet {
-            rate = (0.03125...32).clamp(rate)
+            rate = (0.031_25...32).clamp(rate)
             timePitchAU.rate = Float(rate)
         }
     }
@@ -30,7 +30,7 @@ open class AKTimePitch: AKNode, AKToggleable {
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
     open var pitch: Double = 0.0 {
         didSet {
-            pitch = (-2400...2400).clamp(pitch)
+            pitch = (-2_400...2_400).clamp(pitch)
             timePitchAU.pitch = Float(pitch)
         }
     }

@@ -18,9 +18,9 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
     private var au: AUWrapper
 
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-    open var cutoffFrequency: Double = 6900 {
+    open var cutoffFrequency: Double = 6_900 {
         didSet {
-            cutoffFrequency = (10...22050).clamp(cutoffFrequency)
+            cutoffFrequency = (10...22_050).clamp(cutoffFrequency)
             au[kHipassParam_CutoffFrequency] = cutoffFrequency
         }
     }
@@ -60,7 +60,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
     ///
     public init(
         _ input: AKNode,
-        cutoffFrequency: Double = 6900,
+        cutoffFrequency: Double = 6_900,
         resonance: Double = 0) {
 
             self.cutoffFrequency = cutoffFrequency

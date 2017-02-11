@@ -15,7 +15,7 @@ player.looping = true
 
 //: Next, we'll connect the audio sources to a band pass filter
 var filter = AKBandPassButterworthFilter(player)
-filter.centerFrequency = 5000 // Hz
+filter.centerFrequency = 5_000 // Hz
 filter.bandwidth = 600 // Cents
 filter.rampTime = 1.0
 AudioKit.output = filter
@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Center Frequency",
             format: "%0.1f Hz",
-            value: filter.centerFrequency, minimum: 20, maximum: 22050,
+            value: filter.centerFrequency, minimum: 20, maximum: 22_050,
             color: AKColor.green
         ) { sliderValue in
             filter.centerFrequency = sliderValue
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Bandwidth",
             format: "%0.1f Hz",
-            value: filter.bandwidth, minimum: 100, maximum: 1200,
+            value: filter.bandwidth, minimum: 100, maximum: 1_200,
             color: AKColor.red
         ) { sliderValue in
             filter.bandwidth = sliderValue

@@ -92,12 +92,12 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     public convenience override init() {
         self.init(waveform: AKTable(.sine))
     }
-    
+
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -113,7 +113,6 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
         amplitude: Double = 1,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
-
 
         self.waveform = waveform
         self.frequency = frequency
@@ -138,9 +137,9 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree["frequency"]
-        amplitudeParameter          = tree["amplitude"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        frequencyParameter = tree["frequency"]
+        amplitudeParameter = tree["amplitude"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

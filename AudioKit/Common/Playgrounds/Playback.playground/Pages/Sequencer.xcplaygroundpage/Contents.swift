@@ -21,7 +21,6 @@ AudioKit.output = dryWetMixer
 //: Load in a midi file, and set the sequencer to the main audiokit engine
 var sequencer = AKSequencer(filename: "4tracks", engine: AudioKit.engine)
 
-
 //: Do some basic setup to make the sequence loop correctly
 sequencer.setLength(AKDuration(beats: 4))
 sequencer.enableLooping()
@@ -103,7 +102,6 @@ class PlaygroundView: AKPlaygroundView {
         sequencer.play()
     }
 }
-
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
