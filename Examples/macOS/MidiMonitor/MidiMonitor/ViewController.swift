@@ -31,16 +31,16 @@ class ViewController: NSViewController, AKMIDIListener {
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
-                                       velocity: MIDIVelocity,
-                                       channel: Int) {
+                            velocity: MIDIVelocity,
+                            channel: Int) {
         var newString = "Channel: \(channel + 1) "
         newString.append("noteOn: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
 
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
-                                        velocity: MIDIVelocity,
-                                        channel: Int) {
+                             velocity: MIDIVelocity,
+                             channel: Int) {
         var newString = "Channel: \(channel + 1) "
         newString.append("noteOff: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
@@ -53,8 +53,8 @@ class ViewController: NSViewController, AKMIDIListener {
     }
 
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                           pressure: Int,
-                                           channel: Int) {
+                                pressure: Int,
+                                channel: Int) {
         var newString = "Channel: \(channel + 1) "
         newString.append("midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
         updateText(newString)

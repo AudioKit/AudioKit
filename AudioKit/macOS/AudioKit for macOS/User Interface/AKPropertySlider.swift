@@ -26,13 +26,13 @@ public class AKPropertySlider: NSView {
     var color = NSColor.red
 
     public init(property: String,
-         format: String = "%0.3f",
-         value: Double,
-         minimum: Double = 0,
-         maximum: Double = 1,
-         color: NSColor = NSColor.red,
-         frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-         callback: @escaping (_ x: Double) -> Void) {
+                format: String = "%0.3f",
+                value: Double,
+                minimum: Double = 0,
+                maximum: Double = 1,
+                color: NSColor = NSColor.red,
+                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                callback: @escaping (_ x: Double) -> Void) {
         self.value = value
         self.initialValue = value
         self.minimum = minimum
