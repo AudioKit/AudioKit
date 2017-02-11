@@ -2,8 +2,8 @@
 //  AKAudioPlayer.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka and Laurent Veliscek, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, Laurent Veliscek & Ryan Francesconi, revision history on Github.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -76,7 +76,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             if let nodeTime = internalPlayer.lastRenderTime,
                 let playerTime = internalPlayer.playerTime(forNodeTime: nodeTime) {
                 //return   Double(Double(startingFrame) / sampleRate)  +  Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
-                return Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
+                return Double(playerTime.sampleTime) / playerTime.sampleRate
             }
             
         }
@@ -86,8 +86,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Time within the audio file at the current time
     open var playhead: Double {
         
-        let endTime = Double(Double(endingFrame) / internalAudioFile.sampleRate)
-        let startTime = Double(Double(startingFrame) / internalAudioFile.sampleRate)
+        let endTime = Double(endingFrame) / internalAudioFile.sampleRate
+        let startTime = Double(startingFrame) / internalAudioFile.sampleRate
         
         if endTime > startTime {
             
@@ -179,8 +179,16 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
     
-    /// Sets the time in the future when playback will commence. For immediately playback, leave it 0.
-    open var scheduledTime: Double = 0
+    /// Sets the time in the future when playback will commence. Recommend using play(from:to:avTime) instead.
+    /// this will be deprecated
+    open var scheduledTime: Double = 0 {
+        didSet {
+            let hostTime = mach_absolute_time()
+            scheduledAVTime = AKAudioPlayer.secondsToAVAudioTime(hostTime:hostTime, time:scheduledTime)
+        }
+    }
+    
+    open var scheduledAVTime:AVAudioTime?
     
     
     // MARK: - Initialization
@@ -250,7 +258,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 // schedule it at some point in the future / or immediately if 0
                 // don't schedule the buffer if it is paused as it will overwrite what is in it
                 if !paused {
-                    scheduleBuffer( secondsToAVAudioTime(scheduledTime) )
+                    scheduleBuffer( scheduledAVTime )
                 }
                 
                 playing = true
@@ -324,7 +332,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         initialize()
         
         if wasPlaying {
-            play()
+            start()
         }
     }
     
@@ -343,28 +351,52 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time to play (in seconds).
     ///
     ///  - Parameters:
-    ///    - time: Time into the file at which to start playing back
-    ///    - endTime: Time into the file at which to playing back will stop / Loop
-    ///    - scheduledTime: Time in the future to start playback. This is useful for scheduling a group of sounds to
-    ///         start concurrently, or to simply schedule the start time.
+    ///    - from startTime: Time into the file at which to start playing back
+    ///    - to endTime: Time into the file at which to playing back will stop / Loop
+    ///    - when scheduledTime: use this when scheduled playback doesn't need to be in sync with other players
+    ///         otherwise use the avTime signature.
     ///
-    open func play(from time: Double, to endTime: Double = 0, when scheduledTime: Double = 0) {
-        
+    open func play(from startTime: Double = 0, to endTime: Double = 0, when scheduledTime: Double = 0) {
+        let hostTime = mach_absolute_time()
+        let avTime = AKAudioPlayer.secondsToAVAudioTime(hostTime:hostTime, time:scheduledTime)
+        play(from:startTime, to:endTime, avTime:avTime)
+    }
+    
+    /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time to play (in seconds).
+    ///
+    ///  - Parameters:
+    ///    - from startTime: Time into the file at which to start playing back
+    ///    - to endTime: Time into the file at which to playing back will stop / Loop
+    ///    - avTime: an AVAudioTime object specifying when to schedule the playback. You can create this using the helper function
+    ///         AKAudioPlayer.secondToAVAudioTime(hostTime:time). hostTime is a call to mach_absolute_time(). When you have a group of
+    ///         players which you want to sync together it's important that this value be the same for all of them as a reference point.
+    ///
+    open func play(from time: Double, to endTime: Double, avTime:AVAudioTime? ) {
         if endTime > 0 {
             self.endTime = endTime
         }
-        
         self.startTime = time
         
         if endingFrame > startingFrame {
             stop()
-            self.scheduledTime = scheduledTime
+            scheduledAVTime = avTime
             start()
         } else {
             AKLog("ERROR AKaudioPlayer:  cannot play, \(internalAudioFile.fileNamePlusExtension) is empty or segment is too short!")
         }
     }
     
+    // MARK: - Static Methods
+    
+    open class func secondsToAVAudioTime(hostTime:UInt64, time: Double) -> AVAudioTime {
+        // Find the conversion factor from host ticks to seconds
+        var timebaseInfo = mach_timebase_info()
+        mach_timebase_info(&timebaseInfo)
+        let hostTimeToSecFactor = Double(timebaseInfo.numer) / Double(timebaseInfo.denom) / Double(NSEC_PER_SEC)
+        
+        let out = AVAudioTime(hostTime: hostTime + UInt64(time / hostTimeToSecFactor))
+        return out
+    }
     
     // MARK: - Private Methods
     
@@ -381,14 +413,32 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
     
-    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
-        let sampleTime = AVAudioFramePosition(time * internalAudioFile.sampleRate)
-        return AVAudioTime(hostTime: mach_absolute_time(), sampleTime: sampleTime, atRate: internalAudioFile.sampleRate)
-    }
+    //    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
+    //        let sampleTime = AVAudioFramePosition(time * internalAudioFile.sampleRate)
+    //        return AVAudioTime(hostTime: mach_absolute_time(), sampleTime: sampleTime, atRate: internalAudioFile.sampleRate)
+    //    }
+    
+    
+    //    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
+    //        //        let sampleTime = AVAudioFramePosition(time * sampleRate)
+    //        //        return AVAudioTime(hostTime: mach_absolute_time(), sampleTime: sampleTime, atRate:sampleRate)
+    //        //
+    //        // Find the conversion factor from host ticks to seconds
+    //        let currentTimeTicks = mach_absolute_time()
+    //        var timebaseInfo = mach_timebase_info()
+    //        mach_timebase_info(&timebaseInfo)
+    //        let hostTimeToSecFactor = Double(timebaseInfo.numer) / Double(timebaseInfo.denom) / 1000000000.0
+    //
+    //        let out = AVAudioTime(hostTime: currentTimeTicks + UInt64(time / hostTimeToSecFactor))
+    //
+    //        return out
+    //
+    //    }
     
     fileprivate func scheduleBuffer(_ atTime: AVAudioTime? = nil) {
         if audioFileBuffer != nil {
-            //internalPlayer.scheduleBuffer(audioFileBuffer!, completionHandler: internalCompletionHandler)
+            AKLog("\(atTime)")
+            
             internalPlayer.scheduleBuffer(audioFileBuffer!,
                                           at: atTime,
                                           options: .interrupts,
@@ -421,14 +471,19 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             internalAudioFile.framePosition = Int64(theStartFrame)
             framesToPlayCount = theEndFrame - theStartFrame
             
+            
+            //AKLog("framesToPlayCount: \(framesToPlayCount) frameCapacity \(totalFrameCount)")
+            
             audioFileBuffer = AVAudioPCMBuffer(
                 pcmFormat: internalAudioFile.processingFormat,
                 frameCapacity: AVAudioFrameCount(totalFrameCount) )
+            
             do {
                 // read the requested frame count from the file
                 try internalAudioFile.read(into: audioFileBuffer!, frameCount: framesToPlayCount)
                 
-                // AKLog("AKAudioPlayer.updatePCMBuffer() \(audioFileBuffer!.frameLength)")
+                AKLog("read \(audioFileBuffer!.frameLength) frames into buffer")
+                
             } catch {
                 AKLog("ERROR AKaudioPlayer: Could not read data into buffer.")
                 return
@@ -479,7 +534,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 scheduleBuffer()
             } else {
                 stop()
-                self.completionHandler?()
+                completionHandler?()
             }
         }
     }
