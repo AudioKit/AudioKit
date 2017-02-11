@@ -50,7 +50,7 @@ class KnobLarge: Knob {
         //// Picture 2 Drawing
         context?.saveGState()
         context?.translateBy(x: 63, y: 63)
-        context?.rotate(by: -(knobAngle + 120) * CGFloat(M_PI) / 180)
+        context?.rotate(by: -(knobAngle + 120) * CGFloat.pi / 180)
 
         let picture2Path = UIBezierPath(rect: CGRect(x: -53, y: -53, width: 106, height: 106))
         context?.saveGState()

@@ -382,7 +382,6 @@ class SynthViewController: UIViewController {
         }
     }
 
-
     @IBAction func cpuEfficientToggled(_ sender: UIButton) {
         if sender.isSelected {
             sender.isSelected = false
@@ -540,7 +539,6 @@ class SynthViewController: UIViewController {
         return MIDINoteNumber((tag - 200) + (keyboardOctavePosition * 12))
     }
 }
-
 
 //*****************************************************************
 // MARK: - 🎛 Knob Delegates
@@ -707,5 +705,3 @@ extension SynthViewController: SMSegmentViewDelegate {
         }
     }
 }
-
-

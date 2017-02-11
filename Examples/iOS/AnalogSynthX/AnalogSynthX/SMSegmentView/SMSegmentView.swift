@@ -25,12 +25,9 @@ let keySegmentOffSelectionTextColour = "OffSelectionTextColour"
 // The font of the text in the segment
 let keySegmentTitleFont = "TitleFont"
 
-
-
-
 @IBDesignable
 open class SMSegmentView: SMBasicSegmentView {
-    
+
     @IBInspectable open var segmentVerticalMargin: CGFloat = 5.0 {
         didSet {
             for segment in self.segments as! [SMSegment] {
@@ -38,8 +35,7 @@ open class SMSegmentView: SMBasicSegmentView {
             }
         }
     }
-    
-   
+
     // Segment Colour
     @IBInspectable open var segmentOnSelectionColour: UIColor = UIColor.darkGray {
         didSet {
@@ -55,7 +51,7 @@ open class SMSegmentView: SMBasicSegmentView {
             }
         }
     }
-    
+
     // Segment Title Text Colour & Font
     @IBInspectable open var segmentOnSelectionTextColour: UIColor = UIColor.white {
         didSet {
@@ -78,78 +74,73 @@ open class SMSegmentView: SMBasicSegmentView {
             }
         }
     }
-        
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override public init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         self.layer.masksToBounds = true
     }
-    
+
     public init(frame: CGRect, separatorColour: UIColor, separatorWidth: CGFloat, segmentProperties: Dictionary<String, AnyObject>?) {
-        
+
         super.init(frame: frame)
-        
+
         self.separatorColour = separatorColour
         self.separatorWidth = separatorWidth
-        
+
         if let margin = segmentProperties?[keyContentVerticalMargin] as? Float {
             self.segmentVerticalMargin = CGFloat(margin)
         }
-        
+
         if let onSelectionColour = segmentProperties?[keySegmentOnSelectionColour] as? UIColor {
             self.segmentOnSelectionColour = onSelectionColour
-        }
-        else {
+        } else {
             self.segmentOnSelectionColour = UIColor.darkGray
         }
-        
+
         if let offSelectionColour = segmentProperties?[keySegmentOffSelectionColour] as? UIColor {
             self.segmentOffSelectionColour = offSelectionColour
-        }
-        else {
+        } else {
             self.segmentOffSelectionColour = UIColor.white
         }
-        
+
         if let onSelectionTextColour = segmentProperties?[keySegmentOnSelectionTextColour] as? UIColor {
             self.segmentOnSelectionTextColour = onSelectionTextColour
-        }
-        else {
+        } else {
             self.segmentOnSelectionTextColour = UIColor.white
         }
-        
+
         if let offSelectionTextColour = segmentProperties?[keySegmentOffSelectionTextColour] as? UIColor {
             self.segmentOffSelectionTextColour = offSelectionTextColour
-        }
-        else {
+        } else {
             self.segmentOffSelectionTextColour = UIColor.darkGray
         }
-        
+
         if let titleFont = segmentProperties?[keySegmentTitleFont] as? UIFont {
             self.segmentTitleFont = titleFont
-        }
-        else {
+        } else {
             self.segmentTitleFont = UIFont.systemFont(ofSize: 17.0)
         }
-        
+
         self.backgroundColor = UIColor.clear
         self.layer.masksToBounds = true
     }
-    
+
     open func addSegmentWithTitle(_ title: String?, onSelectionImage: UIImage?, offSelectionImage: UIImage?) -> SMSegment {
-        
+
         let segment = SMSegment(verticalMargin: self.segmentVerticalMargin, onSelectionColour: self.segmentOnSelectionColour, offSelectionColour: self.segmentOffSelectionColour, onSelectionTextColour: self.segmentOnSelectionTextColour, offSelectionTextColour: self.segmentOffSelectionTextColour, titleFont: self.segmentTitleFont)
-        
+
         segment.title = title
         segment.onSelectionImage = onSelectionImage
         segment.offSelectionImage = offSelectionImage
-        
+
         super.addSegment(segment)
-        
+
         return segment
     }
-    
+
 }

@@ -44,7 +44,6 @@ class VerticalSlider: UIControl {
     var slider_top = UIImage(named: "slider_top.png")
     var slider_track = UIImage(named: "slider_track.png")
 
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentMode = .redraw
@@ -56,7 +55,7 @@ class VerticalSlider: UIControl {
         contentMode = .redraw
     }
 
-    class override var requiresConstraintBasedLayout : Bool {
+    class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 }
@@ -141,7 +140,6 @@ extension VerticalSlider {
         backgroundPath.addClip()
         slider_track!.draw(in: CGRect(x: floor(backgroundRect.minX + 0.5), y: floor(backgroundRect.minY + 0.5), width: slider_track!.size.width, height: slider_track!.size.height))
         context?.restoreGState()
-
 
         //// Slider Top Drawing
         let sliderTopRect = CGRect(x: knobRect.origin.x, y: knobRect.origin.y, width: knobRect.size.width, height: knobRect.size.height)

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public typealias ADSRCallback = (Double, Double, Double, Double)->()
+public typealias ADSRCallback = (Double, Double, Double, Double)->Void
 
 public class AKADSRView: NSView {
 
@@ -15,16 +15,16 @@ public class AKADSRView: NSView {
     public var decayDuration = 0.1
     public var sustainLevel = 0.1
     public var releaseDuration = 0.1
-    
+
     var decaySustainTouchAreaPath = NSBezierPath()
     var attackTouchAreaPath = NSBezierPath()
     var releaseTouchAreaPath = NSBezierPath()
-    
+
     var callback: ADSRCallback
     var currentDragArea = ""
- 
+
     var lastPoint = CGPoint.zero
-    
+
     override public var isFlipped: Bool {
         get {
             return true
@@ -35,9 +35,9 @@ public class AKADSRView: NSView {
             return false
         }
     }
-    
+
     override public func mouseDown(with theEvent: NSEvent) {
-        
+
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
         if decaySustainTouchAreaPath.contains(touchLocation) {
             currentDragArea = "ds"
@@ -76,12 +76,10 @@ public class AKADSRView: NSView {
         if sustainLevel < 0 { sustainLevel = 0 }
         if sustainLevel > 1 { sustainLevel = 1 }
 
-        
         self.callback(attackDuration, decayDuration, sustainLevel, releaseDuration)
         lastPoint = touchLocation
         needsDisplay = true
     }
-
 
     public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150), callback: @escaping ADSRCallback) {
         self.callback = callback
@@ -92,7 +90,7 @@ public class AKADSRView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func drawCurveCanvas(size: NSSize = NSMakeSize(440, 151), attackDurationMS: CGFloat = 456, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
+    func drawCurveCanvas(size: NSSize = NSSize(width: 440, height: 151), attackDurationMS: CGFloat = 456, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
         //// General Declarations
         let _ = NSGraphicsContext.current()!.cgContext
 
@@ -120,13 +118,11 @@ public class AKADSRView: NSView {
         let highMax = NSMakePoint(highPoint.x, buffer)
         let sustainPoint = NSMakePoint(max(highPoint.x, attackClickRoom + min(oneSecond * maxADFraction, (attackDurationMS + decayDurationMS) / 1000.0 * oneSecond)), sustainLevel * (size.height - buffer) + buffer)
         let sustainAxis = NSMakePoint(sustainPoint.x, size.height)
-        let initialMax = NSMakePoint(0, buffer)
-        
-        
+        let initialMax = NSPoint(x: 0, y: buffer)
+
         let initialToHighControlPoint = NSMakePoint(initialPoint.x, highPoint.y)
         let highToSustainControlPoint = NSMakePoint(highPoint.x, sustainPoint.y)
         let releaseToEndControlPoint = NSMakePoint(releasePoint.x, endPoint.y)
-
 
         //// attackTouchArea Drawing
         NSGraphicsContext.saveGraphicsState()
@@ -143,7 +139,6 @@ public class AKADSRView: NSView {
 
         NSGraphicsContext.restoreGraphicsState()
 
-
         //// decaySustainTouchArea Drawing
         NSGraphicsContext.saveGraphicsState()
 
@@ -159,7 +154,6 @@ public class AKADSRView: NSView {
 
         NSGraphicsContext.restoreGraphicsState()
 
-
         //// releaseTouchArea Drawing
         NSGraphicsContext.saveGraphicsState()
 
@@ -174,7 +168,6 @@ public class AKADSRView: NSView {
         releaseTouchAreaPath.fill()
 
         NSGraphicsContext.restoreGraphicsState()
-
 
         //// releaseArea Drawing
         NSGraphicsContext.saveGraphicsState()
@@ -194,7 +187,6 @@ public class AKADSRView: NSView {
 
         NSGraphicsContext.restoreGraphicsState()
 
-
         //// sustainArea Drawing
         NSGraphicsContext.saveGraphicsState()
 
@@ -209,7 +201,6 @@ public class AKADSRView: NSView {
         sustainAreaPath.fill()
 
         NSGraphicsContext.restoreGraphicsState()
-
 
         //// decayArea Drawing
         NSGraphicsContext.saveGraphicsState()
@@ -229,7 +220,6 @@ public class AKADSRView: NSView {
         decayAreaPath.fill()
 
         NSGraphicsContext.restoreGraphicsState()
-
 
         //// attackArea Drawing
         NSGraphicsContext.saveGraphicsState()
@@ -268,8 +258,6 @@ public class AKADSRView: NSView {
 
         NSGraphicsContext.restoreGraphicsState()
     }
-
-
 
     override public func draw(_ rect: CGRect) {
         drawCurveCanvas(attackDurationMS: CGFloat(attackDuration * 1000),

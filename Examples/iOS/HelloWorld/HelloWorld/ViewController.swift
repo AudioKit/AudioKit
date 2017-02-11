@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         AudioKit.output = oscillator
         AudioKit.start()
     }
-    
+
     @IBAction func toggleSound(_ sender: UIButton) {
         if oscillator.isPlaying {
             oscillator.stop()
@@ -33,4 +33,3 @@ class ViewController: UIViewController {
     }
 
 }
-

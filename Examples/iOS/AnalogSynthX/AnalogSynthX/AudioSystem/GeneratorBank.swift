@@ -10,24 +10,24 @@ import Foundation
 import AudioKit
 
 class GeneratorBank: AKPolyphonicNode {
-    
+
     func updateWaveform1() {
         var newWaveformIndex = waveform1 + morph
         if newWaveformIndex < 0 { newWaveformIndex = 0 }
         if newWaveformIndex > 3 { newWaveformIndex = 3 }
         vco1.index = newWaveformIndex
     }
-    
+
     func updateWaveform2() {
         var newWaveformIndex = waveform2 + morph
         if newWaveformIndex < 0 { newWaveformIndex = 0 }
         if newWaveformIndex > 3 { newWaveformIndex = 3 }
         vco2.index = newWaveformIndex
     }
-    
+
     var waveform1 = 0.0 { didSet { updateWaveform1() } }
     var waveform2 = 0.0 { didSet { updateWaveform2() } }
-    
+
     var globalbend: Double = 1.0 {
         didSet {
             vco1.detuningMultiplier = globalbend
@@ -36,7 +36,7 @@ class GeneratorBank: AKPolyphonicNode {
             fmOsc.detuningMultiplier = globalbend
         }
     }
-    
+
     var offset1 = 0 {
         willSet {
             for noteNumber in onNotes {
@@ -45,7 +45,7 @@ class GeneratorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     var offset2 = 0 {
         willSet {
             for noteNumber in onNotes {
@@ -54,14 +54,14 @@ class GeneratorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     var morph: Double = 0.0 {
         didSet {
             updateWaveform1()
             updateWaveform2()
         }
     }
-    
+
     /// Attack time
     var attackDuration: Double = 0.1 {
         didSet {
@@ -71,10 +71,10 @@ class GeneratorBank: AKPolyphonicNode {
             subOsc.attackDuration = attackDuration
             fmOsc.attackDuration = attackDuration
             noiseADSR.attackDuration = attackDuration
-            
+
         }
     }
-    
+
     /// Decay time
     var decayDuration: Double = 0.1 {
         didSet {
@@ -86,7 +86,7 @@ class GeneratorBank: AKPolyphonicNode {
             noiseADSR.decayDuration = decayDuration
         }
     }
-    
+
     /// Sustain Level
     var sustainLevel: Double = 0.66 {
         didSet {
@@ -97,7 +97,7 @@ class GeneratorBank: AKPolyphonicNode {
             noiseADSR.sustainLevel = sustainLevel
         }
     }
-    
+
     /// Release time
     var releaseDuration: Double = 0.5 {
         didSet {
@@ -109,43 +109,43 @@ class GeneratorBank: AKPolyphonicNode {
             noiseADSR.releaseDuration = releaseDuration
        }
     }
-    
+
     var vco1On = true {
         didSet {
             vco1Mixer.volume  = vco1On ? 1.0 : 0.0
         }
     }
-    
+
     var vco2On = true {
         didSet {
             vco2Mixer.volume = vco2On ? 1.0 : 0.0
         }
     }
-    
+
     var vco1: AKMorphingOscillatorBank
     var vco2: AKMorphingOscillatorBank
     var subOsc = AKOscillatorBank()
     var fmOsc  = AKFMOscillatorBank()
     var noise  = AKWhiteNoise()
     var noiseADSR: AKAmplitudeEnvelope
-    
+
     // We'll be using these simply to control volume independent of velocity
     var vco1Mixer: AKMixer
     var vco2Mixer: AKMixer
     var subOscMixer: AKMixer
     var fmOscMixer: AKMixer
     var noiseMixer: AKMixer
-    
+
     var vcoBalancer: AKDryWetMixer
     var sourceMixer: AKMixer
-    
+
     var onNotes = Set<MIDINoteNumber>()
-    
+
     override init() {
         let triangle = AKTable(.triangle)
         let square   = AKTable(.square)
         let sawtooth = AKTable(.sawtooth)
-        
+
         var squareWithHighPWM = AKTable()
         let count = squareWithHighPWM.count
         for i in squareWithHighPWM.indices {
@@ -157,33 +157,32 @@ class GeneratorBank: AKPolyphonicNode {
         }
         vco1 = AKMorphingOscillatorBank(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
         vco2 = AKMorphingOscillatorBank(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
-        
+
         noiseADSR = AKAmplitudeEnvelope(noise)
-        
+
         vco1Mixer   = AKMixer(vco1)
         vco2Mixer   = AKMixer(vco2)
         subOscMixer = AKMixer(subOsc)
         fmOscMixer  = AKMixer(fmOsc)
         noiseMixer  = AKMixer(noiseADSR)
-        
+
         // Default non-VCO's off
         subOscMixer.volume = 0
         fmOscMixer.volume  = 0
         noiseMixer.volume  = 0
-        
+
         vcoBalancer = AKDryWetMixer(vco1Mixer, vco2Mixer, balance: 0.5)
-        
+
         sourceMixer = AKMixer(vcoBalancer, fmOscMixer, subOscMixer, noiseMixer)
-        
+
         super.init()
-        
+
         avAudioNode = sourceMixer.avAudioNode
     }
-    
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
-        
+
         vco1.play(noteNumber: MIDINoteNumber(Int(noteNumber) + offset1), velocity: velocity)
         vco2.play(noteNumber: MIDINoteNumber(Int(noteNumber) + offset2), velocity: velocity)
         if noteNumber >= 12 {
@@ -196,7 +195,7 @@ class GeneratorBank: AKPolyphonicNode {
         }
         onNotes.insert(noteNumber)
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     override func stop(noteNumber: MIDINoteNumber) {
 

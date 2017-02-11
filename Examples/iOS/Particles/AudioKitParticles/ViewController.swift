@@ -12,7 +12,7 @@ import AudioKit
 class ViewController: UIViewController {
 
     let statusLabel = UILabel()
-    let floatPi = Float(M_PI)
+    let floatPi = Float.pi
     var gravityWellAngle: Float = 0
 
     var particleLab: ParticleLab!
@@ -140,11 +140,11 @@ class ViewController: UIViewController {
             height: statusLabel.intrinsicContentSize.height)
     }
 
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.landscape
     }
 
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
 

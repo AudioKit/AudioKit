@@ -14,7 +14,7 @@ extension SynthViewController {
     // MARK: - Synth UI Helpers
     //*****************************************************************
 
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
 

@@ -14,7 +14,7 @@ var sequencer = AKSequencer()
 var tempo = 120.0
 var division = 1
 
-var callbacker = AKCallbackInstrument() { status, note, velocity in
+var callbacker = AKCallbackInstrument { status, note, _ in
     if status == .noteOn {
         print("Start Note \(note) at \(sequencer.currentPosition.seconds)")
     }
@@ -45,7 +45,7 @@ sequencer.setTempo(tempo)
 class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Callback Instrument")
-        
+
         addSubview(AKButton(title: "Play") {
             sequencer.play()
             return ""

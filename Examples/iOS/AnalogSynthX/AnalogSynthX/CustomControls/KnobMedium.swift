@@ -50,7 +50,7 @@ class KnobMedium: Knob {
         //// Indicator Drawing
         context?.saveGState()
         context?.translateBy(x: 40, y: 40)
-        context?.rotate(by: -(knobAngle + 120) * CGFloat(M_PI) / 180)
+        context?.rotate(by: -(knobAngle + 120) * CGFloat.pi / 180)
 
         let indicatorPath = UIBezierPath(rect: CGRect(x: -35, y: -35, width: 70, height: 70))
         context?.saveGState()

@@ -12,12 +12,12 @@ import AudioKit
 class EffectsViewController: UIViewController {
 
     @IBOutlet weak var volumeSlider: AKPropertySlider!
-    
+
     let songProcessor = SongProcessor.sharedInstance
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         volumeSlider.maximum = 10.0
 
         if let volume = songProcessor.playerBooster?.gain {
@@ -30,10 +30,9 @@ class EffectsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func updateVolume(value: Double) {
         songProcessor.playerBooster?.gain = value
     }
-
 
 }

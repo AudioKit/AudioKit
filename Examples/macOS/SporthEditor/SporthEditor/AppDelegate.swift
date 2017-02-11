@@ -15,18 +15,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let controlsWindowController = storyboard.instantiateController(withIdentifier: Constants.Identifier.controlsController) as! NSWindowController
         return controlsWindowController
     }()
-    
+
     @IBAction func openControlsWindow(_ sender: AnyObject?) {
         controlsWindowController?.showWindow(self)
     }
-    
+
     @IBAction func openDocument(_ sender: AnyObject?) {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
         panel.allowedFileTypes = [FileUtilities.fileExtension]
-        
+
         if panel.runModal() == NSModalResponseCancel { return }
-        
+
         if let path = panel.url?.path {
             let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
             vc.brain.stop()
@@ -37,15 +37,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
-    
+
     @IBAction func saveDocument(_ sender: AnyObject?) {
         let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
-        
+
         guard !vc.display.isEmpty else {
             presentAlert(Error.code)
             return
         }
-        
+
         if let path = vc.path {
             do {
                 try vc.display.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
@@ -56,22 +56,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             saveDocumentAs(sender)
         }
     }
-    
+
     @IBAction func saveDocumentAs(_ sender: AnyObject?) {
         let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
-        
+
         guard !vc.display.isEmpty else {
             presentAlert(Error.code)
             return
         }
-        
+
         let savePanel = NSSavePanel()
         savePanel.isExtensionHidden = true
         savePanel.message = Constants.Message.save
         savePanel.allowedFileTypes = [FileUtilities.fileExtension]
-        
+
         if savePanel.runModal() == NSModalResponseCancel { return }
-        
+
         if let path = savePanel.url?.path {
             do {
                 try vc.display.write(to: URL(fileURLWithPath: path), atomically: true, encoding: String.Encoding.utf8)
@@ -81,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
-    
+
     func presentAlert(_ error: Error) {
         let alert = NSAlert()
         switch error {

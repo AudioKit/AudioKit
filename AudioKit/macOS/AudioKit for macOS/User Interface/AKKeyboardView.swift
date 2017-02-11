@@ -124,7 +124,6 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-
     public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
                 polyphonic: Bool = false) {
         self.octaveCount = octaveCount
@@ -184,7 +183,6 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
         needsDisplay = true
     }
-
 
     override public func mouseDragged(with event: NSEvent) {
 

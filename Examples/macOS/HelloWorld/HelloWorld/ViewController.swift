@@ -14,14 +14,14 @@ class ViewController: NSViewController {
     var oscillator = AKOscillator()
 
     @IBOutlet var plot: AKOutputWaveformPlot!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         AudioKit.output = oscillator
         AudioKit.start()
     }
-    
+
     @IBAction func toggleSound(_ sender: NSButton) {
         if oscillator.isPlaying {
             oscillator.stop()
@@ -35,4 +35,3 @@ class ViewController: NSViewController {
         sender.setNeedsDisplay()
     }
 }
-
