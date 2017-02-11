@@ -2,7 +2,7 @@
 //  AKADSRView.swift
 //  AudioKit for iOS
 //
-//  Created by Aurelius Prochazka on 8/3/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
