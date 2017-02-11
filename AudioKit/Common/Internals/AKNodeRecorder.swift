@@ -4,7 +4,7 @@
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Tweaked by Laurent Veliscek
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
