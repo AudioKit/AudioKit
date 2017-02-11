@@ -72,8 +72,8 @@ extension AKAudioFile {
             }
         }
 
-        // Returns available Export Formats as an Array of Strings
-        static var arrayOfStrings: [String] {
+        // Available Export Formats
+        static var supportedFileExtensions: [String] {
             return ["wav", "aif", "mp4", "m4a", "caf"]
         }
     }
@@ -293,7 +293,7 @@ extension AKAudioFile {
         let fromFileExt = fileExt.lowercased()
 
         // Only mp4, m4a, .wav, .aif can be exported...
-        guard ExportFormat.arrayOfStrings.contains(fromFileExt) else {
+        guard ExportFormat.supportedFileExtensions.contains(fromFileExt) else {
             AKLog("ERROR: AKAudioFile \".\(fromFileExt)\" is not supported for export!...")
             callback(nil,
                      NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
@@ -424,7 +424,7 @@ extension AKAudioFile {
 
     // private process factory
     fileprivate class ProcessFactory {
-        fileprivate var processArray = [Int]()
+        fileprivate var processIDs = [Int]()
         fileprivate var lastProcessID: Int = 0
 
         // Singleton
@@ -442,7 +442,7 @@ extension AKAudioFile {
 
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1
-            ProcessFactory.sharedInstance.processArray.append(processID)
+            ProcessFactory.sharedInstance.processIDs.append(processID)
 
             ProcessFactory.sharedInstance.processQueue.async {
                 AKLog("AKAudioFile.ProcessFactory beginning Normalizing file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processID))")
@@ -455,7 +455,7 @@ extension AKAudioFile {
                 } catch let error as NSError {
                     processError = error
                 }
-                let lastCompletedProcess = ProcessFactory.sharedInstance.processArray.removeLast()
+                let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if processedFile != nil {
                     AKLog("AKAudioFile.ProcessFactory completed Normalizing file \"\(sourceFile.fileNamePlusExtension)\" -> \"\(processedFile!.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
                 } else if processError != nil {
@@ -488,7 +488,7 @@ extension AKAudioFile {
 
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1
-            ProcessFactory.sharedInstance.processArray.append(processID)
+            ProcessFactory.sharedInstance.processIDs.append(processID)
 
             ProcessFactory.sharedInstance.processQueue.async {
                 AKLog("AKAudioFile.ProcessFactory beginning Reversing file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processID))")
@@ -499,7 +499,7 @@ extension AKAudioFile {
                 } catch let error as NSError {
                     processError = error
                 }
-                let lastCompletedProcess = ProcessFactory.sharedInstance.processArray.removeLast()
+                let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if processedFile != nil {
                     AKLog("AKAudioFile.ProcessFactory completed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> \"\(processedFile!.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
                 } else if processError != nil {
@@ -534,7 +534,7 @@ extension AKAudioFile {
 
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1
-            ProcessFactory.sharedInstance.processArray.append(processID)
+            ProcessFactory.sharedInstance.processIDs.append(processID)
 
             ProcessFactory.sharedInstance.processQueue.async {
                 AKLog("AKAudioFile.ProcessFactory beginning Appending file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processID))")
@@ -547,7 +547,7 @@ extension AKAudioFile {
                 } catch let error as NSError {
                     processError = error
                 }
-                let lastCompletedProcess = ProcessFactory.sharedInstance.processArray.removeLast()
+                let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if processedFile != nil {
                     AKLog("AKAudioFile.ProcessFactory completed Appending file \"\(sourceFile.fileNamePlusExtension)\" -> \"\(processedFile!.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
                 } else if processError != nil {
@@ -582,7 +582,7 @@ extension AKAudioFile {
 
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1
-            ProcessFactory.sharedInstance.processArray.append(processID)
+            ProcessFactory.sharedInstance.processIDs.append(processID)
 
             ProcessFactory.sharedInstance.processQueue.async {
                 AKLog("AKAudioFile.ProcessFactory beginning Extracting from file \"\(sourceFile.fileNamePlusExtension)\" (process #\(processID))")
@@ -596,7 +596,7 @@ extension AKAudioFile {
                 } catch let error as NSError {
                     processError = error
                 }
-                let lastCompletedProcess = ProcessFactory.sharedInstance.processArray.removeLast()
+                let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if processedFile != nil {
                     AKLog("AKAudioFile.ProcessFactory completed Extracting from file \"\(sourceFile.fileNamePlusExtension)\" -> \"\(processedFile!.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
                 } else if processError != nil {
@@ -622,7 +622,7 @@ extension AKAudioFile {
         }
 
         fileprivate var queuedProcessCount: Int {
-            return processArray.count
+            return processIDs.count
         }
 
         fileprivate var scheduledProcessesCount: Int {
@@ -650,7 +650,7 @@ extension AKAudioFile {
     // Export Factory is a singleton that handles Export Sessions serially
     fileprivate class ExportFactory {
 
-        fileprivate static var exportSessionsArray = [Int: ExportSession]()
+        fileprivate static var exportSessions = [Int: ExportSession]()
         fileprivate static var lastExportSessionID: Int = 0
         fileprivate static var isExporting = false
         fileprivate static var currentExportProcessID: Int = 0
@@ -660,7 +660,7 @@ extension AKAudioFile {
 
         fileprivate static func completionHandler() {
 
-            if let session = exportSessionsArray[currentExportProcessID] {
+            if let session = exportSessions[currentExportProcessID] {
                 switch session.avAssetExportSession.status {
                 case  AVAssetExportSessionStatus.failed:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
@@ -684,12 +684,12 @@ extension AKAudioFile {
                     }
                 }
                 AKLog("ExportFactory: session #\(session.id) Completed")
-                exportSessionsArray.removeValue(forKey: currentExportProcessID)
-                if exportSessionsArray.isEmpty == false {
-                    //currentExportProcessID = exportSessionsArray.first!.0
+                exportSessions.removeValue(forKey: currentExportProcessID)
+                if exportSessions.isEmpty == false {
+                    //currentExportProcessID = exportSessions.first!.0
                     currentExportProcessID += 1
                     AKLog("ExportFactory: exporting session #\(currentExportProcessID)")
-                    exportSessionsArray[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
+                    exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
 
                 } else {
                     isExporting = false
@@ -702,13 +702,13 @@ extension AKAudioFile {
 
         // Append the exportSession to the ExportFactory Export Queue
         fileprivate static func queueExportSession(session: ExportSession) {
-            exportSessionsArray[session.id] = session
+            exportSessions[session.id] = session
 
             if !isExporting {
                 isExporting = true
                 currentExportProcessID = session.id
                 AKLog("ExportFactory: exporting session #\(session.id)")
-                exportSessionsArray[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
+                exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
             } else {
                 AKLog("ExportFactory: is busy!")
                 AKLog("ExportFactory: Queuing session #\(session.id)")

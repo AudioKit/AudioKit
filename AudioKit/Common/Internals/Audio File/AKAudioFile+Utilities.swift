@@ -37,8 +37,8 @@ extension AKAudioFile {
             return try AKAudioFile(forReading: emptyFile.url)
         }
 
-        let array = [Float](zeros: Int(samples))
-        let silentFile = try AKAudioFile(createFileFromFloats: [array, array], baseDir: baseDir, name: name)
+        let zeros = [Float](zeros: Int(samples))
+        let silentFile = try AKAudioFile(createFileFromFloats: [zeros, zeros], baseDir: baseDir, name: name)
 
         return try AKAudioFile(forReading: silentFile.url)
     }
