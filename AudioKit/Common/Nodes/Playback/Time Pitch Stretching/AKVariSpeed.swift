@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Eiríkur Orri Ólafsson, revision history on GitHub
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AVFoundation
