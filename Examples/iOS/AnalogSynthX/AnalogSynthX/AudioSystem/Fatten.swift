@@ -12,7 +12,7 @@ class Fatten: AKNode {
     var dryWetMix: AKDryWetMixer
 
     init(_ input: AKNode) {
-        let delay = AKDelay.init(input, time: 0.05, dryWetMix: 0.5)
+        let delay = AKDelay(input, time: 0.05, dryWetMix: 0.5)
         let pannedDelay = AKPanner(delay, pan: 1)
         let pannedSource = AKPanner(input, pan: -1)
         let wet = AKMixer(pannedDelay, pannedSource)

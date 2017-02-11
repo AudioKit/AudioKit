@@ -21,7 +21,7 @@ extension Double {
 
     // Return string shifted 3 decimal places to left
     var decimal1000String: String {
-        let newValue = 1000 * self
+        let newValue = 1_000 * self
         return String(format: "%.02f", newValue)
     }
 

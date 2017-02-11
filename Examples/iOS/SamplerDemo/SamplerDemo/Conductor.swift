@@ -36,7 +36,7 @@ class Conductor {
         mixer.connect(drumKitVolume!)
 
         filter = AKMoogLadder(mixer)
-        filter?.cutoffFrequency = 20000
+        filter?.cutoffFrequency = 20_000
         AudioKit.output = filter
 
         try! arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
@@ -68,7 +68,7 @@ class Conductor {
 
     func adjustFilterFrequency(_ frequency: Float) {
         let value = Double(frequency)
-        filter?.cutoffFrequency = value.denormalized(minimum: 30, maximum: 20000, taper: 3)
+        filter?.cutoffFrequency = value.denormalized(minimum: 30, maximum: 20_000, taper: 3)
     }
 
     func playSequence() {

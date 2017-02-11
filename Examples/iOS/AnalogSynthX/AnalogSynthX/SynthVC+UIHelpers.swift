@@ -31,14 +31,14 @@ extension SynthViewController {
 
     func cutoffFreqFromValue(_ value: Double) -> Double {
         // Logarithmic scale: knobvalue to frequency
-        let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
+        let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7_000)
         return scaledValue * 4
     }
 
     func crusherFreqFromValue(_ value: Double) -> Double {
         // Logarithmic scale: reverse knobvalue to frequency
         let value = 1 - value
-        let scaledValue = Double.scaleRangeLog(value, rangeMin: 50, rangeMax: 8000)
+        let scaledValue = Double.scaleRangeLog(value, rangeMin: 50, rangeMax: 8_000)
         return scaledValue
     }
 

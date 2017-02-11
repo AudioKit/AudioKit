@@ -69,7 +69,7 @@ class SongExporter {
 
             // memset(&channelLayout, 0, sizeof(AudioChannelLayout))
             let outputSettings = [ AVFormatIDKey: NSNumber(value: kAudioFormatLinearPCM as UInt32),
-                                   AVSampleRateKey: NSNumber(value: 44100.0 as Float),
+                                   AVSampleRateKey: NSNumber(value: 44_100.0 as Float),
                                    AVNumberOfChannelsKey: NSNumber(value: 2 as UInt32),
                                    AVLinearPCMBitDepthKey: NSNumber(value: 16 as Int32),
                                    AVLinearPCMIsNonInterleaved: NSNumber(value: false as Bool),
@@ -120,7 +120,7 @@ class SongExporter {
                         assetWriterInput.append(nextBuffer)
                         // Increment byte count.
                         convertedByteCount += CMSampleBufferGetTotalSampleSize(nextBuffer)
-                        buffers += 0.0002
+                        buffers += 0.000_2
 
                     } else {
                         // All done

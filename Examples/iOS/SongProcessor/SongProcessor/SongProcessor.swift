@@ -76,7 +76,7 @@ class SongProcessor {
     func startBitCrushing() {
         bitCrusher = AKBitCrusher(pitchMixer!)
         bitCrusher?.bitDepth = 16
-        bitCrusher?.sampleRate = 3333
+        bitCrusher?.sampleRate = 3_333
         bitCrushMixer = AKDryWetMixer(pitchMixer!, bitCrusher!, balance: 0)
     }
 

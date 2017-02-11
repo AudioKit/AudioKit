@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public typealias ADSRCallback = (Double, Double, Double, Double)->Void
+public typealias ADSRCallback = (Double, Double, Double, Double) -> Void
 
 public class AKADSRView: NSView {
 
@@ -59,11 +59,11 @@ public class AKADSRView: NSView {
         if currentDragArea != "" {
             if currentDragArea == "ds" {
                 sustainLevel = 1.0 - Double(touchLocation.y) / Double(frame.height)
-                decayDuration += Double(touchLocation.x - lastPoint.x) / 1000.0
+                decayDuration += Double(touchLocation.x - lastPoint.x) / 1_000.0
             }
             if currentDragArea == "a" {
-                attackDuration += Double(touchLocation.x - lastPoint.x) / 1000.0
-                attackDuration -= Double(touchLocation.y - lastPoint.y) / 1000.0
+                attackDuration += Double(touchLocation.x - lastPoint.x) / 1_000.0
+                attackDuration -= Double(touchLocation.y - lastPoint.y) / 1_000.0
             }
             if currentDragArea == "r" {
                 releaseDuration += Double(touchLocation.x - lastPoint.x) / 500.0
@@ -95,10 +95,10 @@ public class AKADSRView: NSView {
         let _ = NSGraphicsContext.current()!.cgContext
 
         //// Color Declarations
-        let attackColor     = NSColor(calibratedRed: 0.767, green: 0, blue: 0, alpha: 1)
-        let decayColor      = NSColor(calibratedRed: 0.942, green: 0.648, blue: 0, alpha: 1)
-        let sustainColor    = NSColor(calibratedRed: 0.32, green: 0.8, blue: 0.616, alpha: 1)
-        let releaseColor    = NSColor(calibratedRed: 0.72, green: 0.519, blue: 0.888, alpha: 1)
+        let attackColor = NSColor(calibratedRed: 0.767, green: 0, blue: 0, alpha: 1)
+        let decayColor = NSColor(calibratedRed: 0.942, green: 0.648, blue: 0, alpha: 1)
+        let sustainColor = NSColor(calibratedRed: 0.32, green: 0.8, blue: 0.616, alpha: 1)
+        let releaseColor = NSColor(calibratedRed: 0.72, green: 0.519, blue: 0.888, alpha: 1)
         let backgroundColor = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)
 
         //// Variable Declarations
@@ -109,14 +109,14 @@ public class AKADSRView: NSView {
         let buffer = CGFloat(10)//curveStrokeWidth / 2.0 // make a little room for drwing the stroke
         let endAxes = NSMakePoint(size.width, size.height)
         let releasePoint = NSMakePoint(attackClickRoom + oneSecond, sustainLevel * (size.height - buffer) + buffer)
-        let endPoint = NSMakePoint(releasePoint.x + releaseDurationMS / 1000.0 * oneSecond, size.height)
+        let endPoint = NSMakePoint(releasePoint.x + releaseDurationMS / 1_000.0 * oneSecond, size.height)
         let endMax = NSMakePoint(min(endPoint.x, size.width), buffer)
         let releaseAxis = NSMakePoint(releasePoint.x, endPoint.y)
         let releaseMax = NSMakePoint(releasePoint.x, buffer)
-        let highPoint  = NSMakePoint(attackClickRoom + min(oneSecond * maxADFraction, attackDurationMS / 1000.0 * oneSecond), buffer)
+        let highPoint = NSMakePoint(attackClickRoom + min(oneSecond * maxADFraction, attackDurationMS / 1_000.0 * oneSecond), buffer)
         let highPointAxis = NSMakePoint(highPoint.x, size.height)
         let highMax = NSMakePoint(highPoint.x, buffer)
-        let sustainPoint = NSMakePoint(max(highPoint.x, attackClickRoom + min(oneSecond * maxADFraction, (attackDurationMS + decayDurationMS) / 1000.0 * oneSecond)), sustainLevel * (size.height - buffer) + buffer)
+        let sustainPoint = NSMakePoint(max(highPoint.x, attackClickRoom + min(oneSecond * maxADFraction, (attackDurationMS + decayDurationMS) / 1_000.0 * oneSecond)), sustainLevel * (size.height - buffer) + buffer)
         let sustainAxis = NSMakePoint(sustainPoint.x, size.height)
         let initialMax = NSPoint(x: 0, y: buffer)
 
@@ -260,8 +260,8 @@ public class AKADSRView: NSView {
     }
 
     override public func draw(_ rect: CGRect) {
-        drawCurveCanvas(attackDurationMS: CGFloat(attackDuration * 1000),
-                        decayDurationMS: CGFloat(decayDuration * 1000),
+        drawCurveCanvas(attackDurationMS: CGFloat(attackDuration * 1_000),
+                        decayDurationMS: CGFloat(decayDuration * 1_000),
                         releaseDurationMS: CGFloat(releaseDuration * 500),
                         sustainLevel: CGFloat(1.0 - sustainLevel))
     }

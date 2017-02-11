@@ -22,7 +22,7 @@ class BitCrusherViewController: UIViewController {
 
         bitDepthSlider.minimum = 1
         bitDepthSlider.maximum = 24
-        sampleRateSlider.maximum = 16000
+        sampleRateSlider.maximum = 16_000
 
         if let bitDepth = songProcessor.bitCrusher?.bitDepth {
             bitDepthSlider.value = bitDepth

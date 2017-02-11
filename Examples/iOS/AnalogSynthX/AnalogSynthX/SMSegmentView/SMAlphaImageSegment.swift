@@ -62,7 +62,7 @@ open class SMAlphaImageSegment: SMBasicSegment {
     // MARK: Update Frame
     func resetContentFrame() {
         let margin = self.vertical ? (self.margin * 1.5) : self.margin
-        let imageViewFrame = CGRect(x: margin, y: margin, width: self.frame.size.width - margin*2, height: self.frame.size.height - margin*2)
+        let imageViewFrame = CGRect(x: margin, y: margin, width: self.frame.size.width - margin * 2, height: self.frame.size.height - margin * 2)
 
         self.imageView.frame = imageViewFrame
 

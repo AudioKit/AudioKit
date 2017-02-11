@@ -78,14 +78,14 @@ open class SMBasicSegmentView: UIView {
         let count = self.segments.count
         if count > 1 {
             if self.vertical == false {
-                let segmentWidth = (self.frame.size.width - self.separatorWidth*CGFloat(count-1)) / CGFloat(count)
+                let segmentWidth = (self.frame.size.width - self.separatorWidth * CGFloat(count - 1)) / CGFloat(count)
                 var originX: CGFloat = 0.0
                 for segment in self.segments {
                     segment.frame = CGRect(x: originX, y: 0.0, width: segmentWidth, height: self.frame.size.height)
                     originX += segmentWidth + self.separatorWidth
                 }
             } else {
-                let segmentHeight = (self.frame.size.height - self.separatorWidth*CGFloat(count-1)) / CGFloat(count)
+                let segmentHeight = (self.frame.size.height - self.separatorWidth * CGFloat(count - 1)) / CGFloat(count)
                 var originY: CGFloat = 0.0
                 for segment in self.segments {
                     segment.frame = CGRect(x: 0.0, y: originY, width: self.frame.size.width, height: segmentHeight)
@@ -106,7 +106,7 @@ open class SMBasicSegmentView: UIView {
             let path = CGMutablePath()
 
             if self.vertical == false {
-                var originX: CGFloat = self.segments[0].frame.size.width + self.separatorWidth/2.0
+                var originX: CGFloat = self.segments[0].frame.size.width + self.separatorWidth / 2.0
                 for index in 1..<self.segments.count {
 //                    CGPathMoveToPoint(path, nil, originX, 0.0)
 //                    CGPathAddLineToPoint(path, nil, originX, self.frame.size.height)
@@ -114,7 +114,7 @@ open class SMBasicSegmentView: UIView {
                     originX += self.segments[index].frame.width + self.separatorWidth
                 }
             } else {
-                var originY: CGFloat = self.segments[0].frame.size.height + self.separatorWidth/2.0
+                var originY: CGFloat = self.segments[0].frame.size.height + self.separatorWidth / 2.0
                 for index in 1..<self.segments.count {
 //                    CGPathMoveToPoint(path, nil, 0.0, originY)
 //                    CGPathAddLineToPoint(path, nil, self.frame.size.width, originY)

@@ -116,7 +116,7 @@ class ViewController: UIViewController {
             mass: (lowMaxIndex * amplitude),
             spin: -(lowMaxIndex * amplitude))
 
-        let radiusHi = 0.1 + (0.25 + (hiMaxIndex / 1024))
+        let radiusHi = 0.1 + (0.25 + (hiMaxIndex / 1_024))
 
         particleLab.setGravityWellProperties(gravityWell: .two,
             normalisedPositionX: particleLab.getGravityWellNormalisedPosition(gravityWell: .one).x + (radiusHi * sin(gravityWellAngle * 3)),

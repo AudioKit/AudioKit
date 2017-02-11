@@ -44,7 +44,7 @@ open class SMSegment: SMBasicSegment {
             var brightness: CGFloat = 0.0
             var alpha: CGFloat = 0.0
             self.onSelectionColour.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-            return UIColor(hue: hue, saturation: saturation*0.5, brightness: min(brightness*1.5, 1.0), alpha: alpha)
+            return UIColor(hue: hue, saturation: saturation * 0.5, brightness: min(brightness * 1.5, 1.0), alpha: alpha)
         }
     }
 
@@ -150,11 +150,11 @@ open class SMSegment: SMBasicSegment {
     fileprivate func resetContentFrame() {
 
         var distanceBetween: CGFloat = 0.0
-        var imageViewFrame = CGRect(x: 0.0, y: self.verticalMargin, width: 0.0, height: self.frame.size.height - self.verticalMargin*2)
+        var imageViewFrame = CGRect(x: 0.0, y: self.verticalMargin, width: 0.0, height: self.frame.size.height - self.verticalMargin * 2)
 
         if self.onSelectionImage != nil || self.offSelectionImage != nil {
             // Set imageView as a square
-            imageViewFrame.size.width = self.frame.size.height - self.verticalMargin*2
+            imageViewFrame.size.width = self.frame.size.height - self.verticalMargin * 2
             distanceBetween = 5.0
         }
 
