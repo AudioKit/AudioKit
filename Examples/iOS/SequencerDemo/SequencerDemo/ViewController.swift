@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func clearSnareDrumGhostSequence(_ sender: UIButton) {
-        conductor.clear(Sequence.snareDrumGhost)
+        conductor.clear(Sequence.snareGhost)
     }
 
     @IBAction func generateMajorSequence(_ sender: UIButton) {

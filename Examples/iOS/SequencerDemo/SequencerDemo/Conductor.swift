@@ -89,7 +89,7 @@ class Conductor {
         generateSnareDrumSequence()
 
         let _ = sequence.newTrack()
-        sequence.tracks[Sequence.snareDrumGhost.rawValue].setMIDIOutput(snareGhost.midiIn)
+        sequence.tracks[Sequence.snareGhost.rawValue].setMIDIOutput(snareGhost.midiIn)
         generateSnareDrumGhostSequence()
 
         sequence.enableLooping()
@@ -98,12 +98,12 @@ class Conductor {
     }
 
     func generateNewMelodicSequence(_ stepSize: Float = 1 / 8, minor: Bool = false, clear: Bool = true) {
-        if (clear) { sequence.tracks[Sequence.melody.rawValue].clear() }
+        if clear { sequence.tracks[Sequence.melody.rawValue].clear() }
         sequence.setLength(sequenceLength)
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
         //print("steps in sequence: \(numberOfSteps)")
         for i in 0 ..< numberOfSteps {
-            if (arc4random_uniform(17) > 12) {
+            if arc4random_uniform(17) > 12 {
                 let step = Double(i) * stepSize
                 //print("step is \(step)")
                 let scale = (minor ? scale2 : scale1)
@@ -111,7 +111,11 @@ class Conductor {
                 var octaveOffset = 0
                 for _ in 0 ..< 2 {
                     octaveOffset += Int(12 * (((Float(arc4random_uniform(2))) * 2.0) + (-1.0)))
-                    octaveOffset = Int((Float(arc4random_uniform(2))) * (Float(arc4random_uniform(2))) * Float(octaveOffset))
+                    octaveOffset = Int(
+                        (Float(arc4random_uniform(2))) *
+                        (Float(arc4random_uniform(2))) *
+                        Float(octaveOffset)
+                    )
                 }
                 //print("octave offset is \(octaveOffset)")
                 let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
@@ -125,7 +129,7 @@ class Conductor {
     }
 
     func generateBassDrumSequence(_ stepSize: Float = 1, clear: Bool = true) {
-        if (clear) { sequence.tracks[Sequence.bassDrum.rawValue].clear() }
+        if clear { sequence.tracks[Sequence.bassDrum.rawValue].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
         for i in 0 ..< numberOfSteps {
             let step = Double(i) * stepSize
@@ -138,7 +142,7 @@ class Conductor {
     }
 
     func generateSnareDrumSequence(_ stepSize: Float = 1, clear: Bool = true) {
-        if (clear) { sequence.tracks[2].clear() }
+        if clear { sequence.tracks[2].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
 
         for i in stride(from: 1, to: numberOfSteps, by: 2) {
@@ -151,16 +155,16 @@ class Conductor {
     }
 
     func generateSnareDrumGhostSequence(_ stepSize: Float = 1 / 8, clear: Bool = true) {
-        if (clear) { sequence.tracks[Sequence.snareDrumGhost.rawValue].clear() }
+        if clear { sequence.tracks[Sequence.snareGhost.rawValue].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
         //print("steps in sequnce: \(numberOfSteps)")
         for i in 0 ..< numberOfSteps {
-            if(arc4random_uniform(17) > 14) {
+            if arc4random_uniform(17) > 14 {
                 let step = Double(i) * stepSize
-                sequence.tracks[Sequence.snareDrumGhost.rawValue].add(noteNumber: 60,
-                                                                      velocity: MIDIVelocity(arc4random_uniform(65) + 1),
-                                                                      position: AKDuration(beats: step),
-                                                                      duration: AKDuration(beats: 0.1))
+                sequence.tracks[Sequence.snareGhost.rawValue].add(noteNumber: 60,
+                                                                  velocity: MIDIVelocity(arc4random_uniform(65) + 1),
+                                                                  position: AKDuration(beats: step),
+                                                                  duration: AKDuration(beats: 0.1))
             }
         }
         sequence.setLength(sequenceLength)
@@ -181,13 +185,4 @@ class Conductor {
         sequence.tracks[typeOfSequence.rawValue].clear()
     }
 
-//    func increaseTempo() {
-//        currentTempo += 1.0
-//        sequence.setTempo(currentTempo)
-//    }
-//    
-//    func decreaseTempo() {
-//        currentTempo -= 1.0
-//        sequence.setTempo(currentTempo)
-//    }
 }
