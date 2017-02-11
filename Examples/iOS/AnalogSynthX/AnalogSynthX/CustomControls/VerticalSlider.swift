@@ -41,8 +41,8 @@ class VerticalSlider: UIControl {
     var delegate: VerticalSliderDelegate?
 
     //// Image Declarations
-    var slider_top = UIImage(named: "slider_top.png")
-    var slider_track = UIImage(named: "slider_track.png")
+    var sliderTop = UIImage(named: "slider_top.png")
+    var sliderTrack = UIImage(named: "slider_track.png")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,16 +69,23 @@ extension VerticalSlider {
 
     func setupView() {
 
-        knobRect = CGRect(x: 0, y: convertValueToY(currentValue) - (knobSize.height / 2), width: knobSize.width, height: knobSize.height)
+        knobRect = CGRect(x: 0,
+                          y: convertValueToY(currentValue) - (knobSize.height / 2),
+                          width: knobSize.width,
+                          height: knobSize.height)
         barLength = bounds.height - (barMargin * 2)
 
         let bundle = Bundle(for: type(of: self))
-        slider_top = UIImage(named: "slider_top", in: bundle, compatibleWith: self.traitCollection)!
-        slider_track = UIImage(named: "slider_track", in: bundle, compatibleWith: self.traitCollection)!
+        sliderTop = UIImage(named: "slider_top", in: bundle, compatibleWith: self.traitCollection)!
+        sliderTrack = UIImage(named: "slider_track", in: bundle, compatibleWith: self.traitCollection)!
     }
 
     override func draw(_ rect: CGRect) {
-        drawVerticalSlider(controlFrame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height), knobRect: knobRect)
+        drawVerticalSlider(controlFrame: CGRect(x: 0,
+                                                y: 0,
+                                                width: bounds.width,
+                                                height: bounds.height),
+                           knobRect: knobRect)
     }
 
     override func prepareForInterfaceBuilder() {
@@ -129,7 +136,8 @@ extension VerticalSlider {
         isSliding = false
     }
 
-    func drawVerticalSlider(controlFrame: CGRect = CGRect(x: 0, y: 0, width: 40, height: 216), knobRect: CGRect = CGRect(x: 0, y: 89, width: 36, height: 32)) {
+    func drawVerticalSlider(controlFrame: CGRect = CGRect(x: 0, y: 0, width: 40, height: 216),
+                            knobRect: CGRect = CGRect(x: 0, y: 89, width: 36, height: 32)) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -138,15 +146,24 @@ extension VerticalSlider {
         let backgroundPath = UIBezierPath(rect: backgroundRect)
         context?.saveGState()
         backgroundPath.addClip()
-        slider_track!.draw(in: CGRect(x: floor(backgroundRect.minX + 0.5), y: floor(backgroundRect.minY + 0.5), width: slider_track!.size.width, height: slider_track!.size.height))
+        sliderTrack!.draw(in: CGRect(x: floor(backgroundRect.minX + 0.5),
+                                     y: floor(backgroundRect.minY + 0.5),
+                                     width: sliderTrack!.size.width,
+                                     height: sliderTrack!.size.height))
         context?.restoreGState()
 
         //// Slider Top Drawing
-        let sliderTopRect = CGRect(x: knobRect.origin.x, y: knobRect.origin.y, width: knobRect.size.width, height: knobRect.size.height)
+        let sliderTopRect = CGRect(x: knobRect.origin.x,
+                                   y: knobRect.origin.y,
+                                   width: knobRect.size.width,
+                                   height: knobRect.size.height)
         let sliderTopPath = UIBezierPath(rect: sliderTopRect)
         context?.saveGState()
         sliderTopPath.addClip()
-        slider_top!.draw(in: CGRect(x: floor(sliderTopRect.minX + 0.5), y: floor(sliderTopRect.minY + 0.5), width: slider_top!.size.width, height: slider_top!.size.height))
+        sliderTop!.draw(in: CGRect(x: floor(sliderTopRect.minX + 0.5),
+                                   y: floor(sliderTopRect.minY + 0.5),
+                                   width: sliderTop!.size.width,
+                                   height: sliderTop!.size.height))
         context?.restoreGState()
     }
 }

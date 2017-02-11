@@ -52,7 +52,12 @@ extension SynthViewController {
         setupOscSegmentView(10, y: 377, width: 255, height: 46.0, tag: ControlTag.lfoWaveform.rawValue, type: 1)
     }
 
-    func setupOscSegmentView(_ x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, tag: Int, type: Int) {
+    func setupOscSegmentView(_ x: CGFloat,
+                             y: CGFloat,
+                             width: CGFloat,
+                             height: CGFloat,
+                             tag: Int,
+                             type: Int) {
         let segmentFrame = CGRect(x: x, y: y, width: width, height: height)
         let segmentView = WaveformSegmentedView(frame: segmentFrame)
         segmentView.setOscColors()
