@@ -65,7 +65,8 @@ public class AKTelephoneView: NSView {
         needsDisplay = true
     }
 
-    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782), callback: @escaping (String, String) -> Void) {
+    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
+                callback: @escaping (String, String) -> Void) {
         self.callback = callback
         super.init(frame: frame)
     }
@@ -217,18 +218,38 @@ public class AKTelephoneView: NSView {
         //// telephoneSilhouette Drawing
         let telephoneSilhouettePath = NSBezierPath()
         telephoneSilhouettePath.move(to: NSPoint(x: 214.75, y: 131.6))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 228.04, y: 122.98), controlPoint1: NSPoint(x: 220.59, y: 125.68), controlPoint2: NSPoint(x: 228.04, y: 122.98))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 234.15, y: 122.98), controlPoint1: NSPoint(x: 228.04, y: 122.98), controlPoint2: NSPoint(x: 231.54, y: 121.9))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 237.74, y: 128.01), controlPoint1: NSPoint(x: 236.75, y: 124.06), controlPoint2: NSPoint(x: 237.74, y: 128.01))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 228.04, y: 122.98),
+                                      controlPoint1: NSPoint(x: 220.59, y: 125.68),
+                                      controlPoint2: NSPoint(x: 228.04, y: 122.98))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 234.15, y: 122.98),
+                                      controlPoint1: NSPoint(x: 228.04, y: 122.98),
+                                      controlPoint2: NSPoint(x: 231.54, y: 121.9))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 237.74, y: 128.01),
+                                      controlPoint1: NSPoint(x: 236.75, y: 124.06),
+                                      controlPoint2: NSPoint(x: 237.74, y: 128.01))
         telephoneSilhouettePath.line(to: NSPoint(x: 229.12, y: 134.11))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 222.65, y: 132.68), controlPoint1: NSPoint(x: 229.12, y: 134.11), controlPoint2: NSPoint(x: 225.17, y: 130.88))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 213.68, y: 141.3), controlPoint1: NSPoint(x: 220.14, y: 134.47), controlPoint2: NSPoint(x: 214.75, y: 139.14))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 215.83, y: 146.68), controlPoint1: NSPoint(x: 212.6, y: 143.45), controlPoint2: NSPoint(x: 215.83, y: 146.68))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 222.65, y: 132.68),
+                                      controlPoint1: NSPoint(x: 229.12, y: 134.11),
+                                      controlPoint2: NSPoint(x: 225.17, y: 130.88))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 213.68, y: 141.3),
+                                      controlPoint1: NSPoint(x: 220.14, y: 134.47),
+                                      controlPoint2: NSPoint(x: 214.75, y: 139.14))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 215.83, y: 146.68),
+                                      controlPoint1: NSPoint(x: 212.6, y: 143.45),
+                                      controlPoint2: NSPoint(x: 215.83, y: 146.68))
         telephoneSilhouettePath.line(to: NSPoint(x: 210.8, y: 155.66))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 207.57, y: 154.58), controlPoint1: NSPoint(x: 210.8, y: 155.66), controlPoint2: NSPoint(x: 209.1, y: 155.57))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 204.7, y: 151.71), controlPoint1: NSPoint(x: 206.05, y: 153.59), controlPoint2: NSPoint(x: 204.7, y: 151.71))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 205.78, y: 144.89), controlPoint1: NSPoint(x: 204.7, y: 151.71), controlPoint2: NSPoint(x: 204.34, y: 147.76))
-        telephoneSilhouettePath.curve(to: NSPoint(x: 214.75, y: 131.6), controlPoint1: NSPoint(x: 207.21, y: 142.01), controlPoint2: NSPoint(x: 208.92, y: 137.53))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 207.57, y: 154.58),
+                                      controlPoint1: NSPoint(x: 210.8, y: 155.66),
+                                      controlPoint2: NSPoint(x: 209.1, y: 155.57))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 204.7, y: 151.71),
+                                      controlPoint1: NSPoint(x: 206.05, y: 153.59),
+                                      controlPoint2: NSPoint(x: 204.7, y: 151.71))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 205.78, y: 144.89),
+                                      controlPoint1: NSPoint(x: 204.7, y: 151.71),
+                                      controlPoint2: NSPoint(x: 204.34, y: 147.76))
+        telephoneSilhouettePath.curve(to: NSPoint(x: 214.75, y: 131.6),
+                                      controlPoint1: NSPoint(x: 207.21, y: 142.01),
+                                      controlPoint2: NSPoint(x: 208.92, y: 137.53))
         telephoneSilhouettePath.close()
         NSColor.white.setFill()
         telephoneSilhouettePath.fill()
@@ -245,10 +266,17 @@ public class AKTelephoneView: NSView {
         let busyTextStyle = NSMutableParagraphStyle()
         busyTextStyle.alignment = .center
 
-        let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17)!, NSForegroundColorAttributeName: NSColor.white, NSParagraphStyleAttributeName: busyTextStyle]
+        let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17)!,
+                                      NSForegroundColorAttributeName: NSColor.white,
+                                      NSParagraphStyleAttributeName: busyTextStyle]
 
-        let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(with: NSMakeSize(busyTextRect.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: busyTextFontAttributes).size.height
-        let busyTextTextRect: NSRect = NSMakeRect(busyTextRect.minX, busyTextRect.minY + (busyTextRect.height - busyTextTextHeight) / 2, busyTextRect.width, busyTextTextHeight)
+        let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(with: NSMakeSize(busyTextRect.width, CGFloat.infinity),
+                                                                           options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                           attributes: busyTextFontAttributes).size.height
+        let busyTextTextRect: NSRect = NSMakeRect(busyTextRect.minX,
+                                                  busyTextRect.minY + (busyTextRect.height - busyTextTextHeight) / 2,
+                                                  busyTextRect.width,
+                                                  busyTextTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(busyTextRect)
         busyTextTextContent.draw(in: busyTextTextRect.offsetBy(dx: 0, dy: 5), withAttributes: busyTextFontAttributes)
@@ -260,10 +288,17 @@ public class AKTelephoneView: NSView {
         let readoutStyle = NSMutableParagraphStyle()
         readoutStyle.alignment = .center
 
-        let readoutFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: readoutStyle]
+        let readoutFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+                                     NSForegroundColorAttributeName: NSColor.black,
+                                     NSParagraphStyleAttributeName: readoutStyle]
 
-        let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(with: NSMakeSize(readoutRect.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: readoutFontAttributes).size.height
-        let readoutTextRect: NSRect = NSMakeRect(readoutRect.minX, readoutRect.minY + (readoutRect.height - readoutTextHeight) / 2, readoutRect.width, readoutTextHeight)
+        let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(with: NSMakeSize(readoutRect.width, CGFloat.infinity),
+                                                                         options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                         attributes: readoutFontAttributes).size.height
+        let readoutTextRect: NSRect = NSMakeRect(readoutRect.minX,
+                                                 readoutRect.minY + (readoutRect.height - readoutTextHeight) / 2,
+                                                 readoutRect.width,
+                                                 readoutTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(readoutRect)
         readoutTextContent.draw(in: readoutTextRect.offsetBy(dx: 0, dy: 0), withAttributes: readoutFontAttributes)
@@ -297,10 +332,17 @@ public class AKTelephoneView: NSView {
         let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .center
 
-        let lettersFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 11)!, NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: lettersStyle]
+        let lettersFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 11)!,
+                                     NSForegroundColorAttributeName: textColor,
+                                     NSParagraphStyleAttributeName: lettersStyle]
 
-        let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(with: NSMakeSize(lettersRect.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: lettersFontAttributes).size.height
-        let lettersTextRect: NSRect = NSMakeRect(lettersRect.minX, lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2, lettersRect.width, lettersTextHeight)
+        let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(with: NSMakeSize(lettersRect.width, CGFloat.infinity),
+                                                                             options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                             attributes: lettersFontAttributes).size.height
+        let lettersTextRect: NSRect = NSMakeRect(lettersRect.minX,
+                                                 lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2,
+                                                 lettersRect.width,
+                                                 lettersTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(lettersRect)
         NSString(string: text).draw(in: lettersTextRect.offsetBy(dx: 0, dy: 2), withAttributes: lettersFontAttributes)
@@ -311,10 +353,17 @@ public class AKTelephoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!, NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: numberStyle]
+        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+                                    NSForegroundColorAttributeName: textColor,
+                                    NSParagraphStyleAttributeName: numberStyle]
 
-        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(with: NSMakeSize(numberRect.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: numberFontAttributes).size.height
-        let numberTextRect: NSRect = NSMakeRect(numberRect.minX, numberRect.minY + (numberRect.height - numberTextHeight) / 2, numberRect.width, numberTextHeight)
+        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(with: NSMakeSize(numberRect.width, CGFloat.infinity),
+                                                                               options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                               attributes: numberFontAttributes).size.height
+        let numberTextRect: NSRect = NSMakeRect(numberRect.minX,
+                                                numberRect.minY + (numberRect.height - numberTextHeight) / 2,
+                                                numberRect.width,
+                                                numberTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(numberRect)
         NSString(string: numeral).draw(in: numberTextRect.offsetBy(dx: 0, dy: 0), withAttributes: numberFontAttributes)
@@ -348,10 +397,17 @@ public class AKTelephoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!, NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: numberStyle]
+        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+                                    NSForegroundColorAttributeName: textColor,
+                                    NSParagraphStyleAttributeName: numberStyle]
 
-        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(with: NSMakeSize(numberRect.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: numberFontAttributes).size.height
-        let numberTextRect: NSRect = NSMakeRect(numberRect.minX, numberRect.minY + (numberRect.height - numberTextHeight) / 2, numberRect.width, numberTextHeight)
+        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(with: NSMakeSize(numberRect.width, CGFloat.infinity),
+                                                                               options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                               attributes: numberFontAttributes).size.height
+        let numberTextRect: NSRect = NSMakeRect(numberRect.minX,
+                                                numberRect.minY + (numberRect.height - numberTextHeight) / 2,
+                                                numberRect.width,
+                                                numberTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(numberRect)
         NSString(string: numeral).draw(in: numberTextRect.offsetBy(dx: 0, dy: 0), withAttributes: numberFontAttributes)
