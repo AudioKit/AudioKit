@@ -29,10 +29,10 @@ open class AKCallbackInstrument: AKMIDIInstrument {
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attach(self.avAudioNode)
     }
-
+    
     fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
-                                  noteNumber: MIDINoteNumber,
-                                  velocity: MIDIVelocity) {
+                                      noteNumber: MIDINoteNumber,
+                                      velocity: MIDIVelocity) {
         _ = callback.map { $0(status, noteNumber, velocity) }
     }
 
@@ -44,8 +44,8 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     ///   - channel:    MIDI Channel
     ///
     override open func start(noteNumber: MIDINoteNumber,
-                                          velocity: MIDIVelocity,
-                                          channel: MIDIChannel) {
+                             velocity: MIDIVelocity,
+                             channel: MIDIChannel) {
         triggerCallbacks(.noteOn, noteNumber: noteNumber, velocity: velocity)
     }
 

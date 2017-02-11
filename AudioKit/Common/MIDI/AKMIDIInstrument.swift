@@ -54,8 +54,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - channel:    MIDI channel
     ///
     open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
-                                   velocity: MIDIVelocity,
-                                   channel: MIDIChannel) {
+                                 velocity: MIDIVelocity,
+                                 channel: MIDIChannel) {
         if velocity > 0 {
             start(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {

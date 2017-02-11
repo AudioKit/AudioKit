@@ -80,8 +80,8 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     ///   - channel:    MIDI channel
     ///
     open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
-                                   velocity: MIDIVelocity,
-                                   channel: MIDIChannel) {
+                                 velocity: MIDIVelocity,
+                                 channel: MIDIChannel) {
         if velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity)
         } else {
