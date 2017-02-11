@@ -33,7 +33,7 @@ class ViewController: NSViewController, AKMIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                        velocity: MIDIVelocity,
                                        channel: Int) {
-        var newString = "Channel: \(channel+1) "
+        var newString = "Channel: \(channel + 1) "
         newString.append("noteOn: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
@@ -41,13 +41,13 @@ class ViewController: NSViewController, AKMIDIListener {
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                         velocity: MIDIVelocity,
                                         channel: Int) {
-        var newString = "Channel: \(channel+1) "
+        var newString = "Channel: \(channel + 1) "
         newString.append("noteOff: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
 
     func receivedMIDIController(_ controller: Int, value: Int, channel: Int) {
-        var newString = "Channel: \(channel+1) "
+        var newString = "Channel: \(channel + 1) "
         newString.append("controller: \(controller) value: \(value) ")
         updateText(newString)
     }
@@ -55,25 +55,25 @@ class ViewController: NSViewController, AKMIDIListener {
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                            pressure: Int,
                                            channel: Int) {
-        var newString = "Channel: \(channel+1) "
+        var newString = "Channel: \(channel + 1) "
         newString.append("midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
         updateText(newString)
     }
 
     func receivedMIDIAfterTouch(_ pressure: Int, channel: Int) {
-        var newString = "Channel: \(channel+1) "
+        var newString = "Channel: \(channel + 1) "
         newString.append("midiAfterTouch pressure: \(pressure) ")
         updateText(newString)
     }
 
     func receivedMIDIPitchWheel(_ pitchWheelValue: Int, channel: Int) {
-        var newString = "Channel: \(channel+1) "
+        var newString = "Channel: \(channel + 1) "
         newString.append("midiPitchWheel: \(pitchWheelValue) ")
         updateText(newString)
     }
 
     func receivedMIDIProgramChange(_ program: Int, channel: Int) {
-        var newString = "Channel: \(channel+1) "
+        var newString = "Channel: \(channel + 1) "
         newString.append("programChange: \(program) ")
         updateText(newString)
     }

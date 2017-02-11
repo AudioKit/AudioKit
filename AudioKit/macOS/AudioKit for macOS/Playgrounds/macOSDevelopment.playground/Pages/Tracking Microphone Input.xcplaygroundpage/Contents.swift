@@ -10,7 +10,7 @@ let inputs = AudioKit.availableInputs!
 try AudioKit.setInputDevice(inputs[0])
 try mic.setDevice(inputs[0])
 
-let tracker = AKFrequencyTracker(mic, hopSize: 200, peakCount: 2000)
+let tracker = AKFrequencyTracker(mic, hopSize: 200, peakCount: 2_000)
 let silence = AKBooster(tracker, gain: 0)
 
 //: The frequency tracker passes its input to the output,
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
         trackedFrequencySlider = AKPropertySlider(
             property: "Tracked Frequency",
             format: "%0.3f",
-            value: 0, maximum: 2400,
+            value: 0, maximum: 2_400,
             color: AKColor.red
         ) { _ in
             // Do nothing, just for display

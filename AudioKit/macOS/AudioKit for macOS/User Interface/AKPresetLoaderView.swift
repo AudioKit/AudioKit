@@ -10,8 +10,8 @@ public class AKPresetLoaderView: NSView {
 
     var player: AKAudioPlayer?
     var presetOuterPath = NSBezierPath()
-    var upOuterPath     = NSBezierPath()
-    var downOuterPath   = NSBezierPath()
+    var upOuterPath = NSBezierPath()
+    var downOuterPath = NSBezierPath()
 
     var currentIndex = -1
     var presets = [String]()

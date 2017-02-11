@@ -12,7 +12,7 @@ public class AKPropertySlider: NSView {
     override public func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         return true
     }
-    var callback: (Double)->Void
+    var callback: (Double) -> Void
     var initialValue: Double = 0
     public var value: Double = 0 {
         didSet {
@@ -32,7 +32,7 @@ public class AKPropertySlider: NSView {
          maximum: Double = 1,
          color: NSColor = NSColor.red,
          frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-         callback: @escaping (_ x: Double)->Void) {
+         callback: @escaping (_ x: Double) -> Void) {
         self.value = value
         self.initialValue = value
         self.minimum = minimum

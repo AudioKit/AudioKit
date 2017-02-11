@@ -38,7 +38,7 @@ open class AKPlaygroundView: NSView {
     }
 
     public convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
+        self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1_000))
     }
 
     open func setup() {}

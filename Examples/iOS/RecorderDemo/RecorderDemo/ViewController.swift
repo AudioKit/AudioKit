@@ -143,7 +143,7 @@ class ViewController: UIViewController {
     }
 
     func setupUIForPlaying () {
-        let recordedDuration =  player != nil ? player?.audioFile.duration  : 0
+        let recordedDuration = player != nil ? player?.audioFile.duration  : 0
         infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration!)) seconds"
         mainButton.setTitle("Play", for: .normal)
         state = .readyToPlay
@@ -161,7 +161,7 @@ class ViewController: UIViewController {
         frequencySlider.isHidden = !active
         resonanceSlider.callback = updateResonance
         resonanceSlider.isHidden = !active
-        frequencySlider.maximum = 2000
+        frequencySlider.maximum = 2_000
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
 

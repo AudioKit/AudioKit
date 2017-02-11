@@ -21,7 +21,7 @@ class MoogLadderViewController: UIViewController {
         super.viewDidLoad()
 
         cutoffFrequncySlider.minimum = 12.0
-        cutoffFrequncySlider.maximum = 10000.0
+        cutoffFrequncySlider.maximum = 10_000.0
 
         if let freq = songProcessor.moogLadder?.cutoffFrequency {
             cutoffFrequncySlider.value = freq
@@ -49,6 +49,6 @@ class MoogLadderViewController: UIViewController {
     }
 
     func updateMix(value: Double) {
-        songProcessor.filterMixer?.balance  = value
+        songProcessor.filterMixer?.balance = value
     }
 }

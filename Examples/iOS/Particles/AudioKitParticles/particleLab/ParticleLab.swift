@@ -222,7 +222,7 @@ class ParticleLab: MTKView {
         var imageWidthFloat = Float(imageWidth)
         var imageHeightFloat = Float(imageHeight)
 
-        imageWidthFloatBuffer =  device.makeBuffer(bytes: &imageWidthFloat, length: MemoryLayout<Float>.size, options: MTLResourceOptions())
+        imageWidthFloatBuffer = device.makeBuffer(bytes: &imageWidthFloat, length: MemoryLayout<Float>.size, options: MTLResourceOptions())
 
         imageHeightFloatBuffer = device.makeBuffer(bytes: &imageHeightFloat, length: MemoryLayout<Float>.size, options: MTLResourceOptions())
     }
@@ -401,8 +401,8 @@ enum GravityWell {
 enum ParticleCount: Int {
     case qtrMillion = 65_536
     case halfMillion = 131_072
-    case oneMillion =  262_144
-    case twoMillion =  524_288
+    case oneMillion = 262_144
+    case twoMillion = 524_288
     case fourMillion = 1_048_576
     case eightMillion = 2_097_152
     case sixteenMillion = 4_194_304

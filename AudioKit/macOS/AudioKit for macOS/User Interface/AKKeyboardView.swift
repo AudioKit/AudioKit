@@ -129,7 +129,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        size = CGSize(width: width / octaveCount - width/(octaveCount * octaveCount * 7), height: Double(height))
+        size = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
         midi.openInput()
         midi.addListener(self)
         needsDisplay = true
@@ -151,7 +151,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
         var note = 0
 
-        if y < size.height * (1.0  - topKeyHeightRatio) {
+        if y < size.height * (1.0 - topKeyHeightRatio) {
             let octNum = Int(x / size.width)
             let scaledX = x - CGFloat(octNum) * size.width
             note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))]

@@ -73,8 +73,8 @@ extension VerticalSlider {
         barLength = bounds.height - (barMargin * 2)
 
         let bundle = Bundle(for: type(of: self))
-        slider_top =  UIImage(named: "slider_top", in: bundle, compatibleWith: self.traitCollection)!
-        slider_track =  UIImage(named: "slider_track", in: bundle, compatibleWith: self.traitCollection)!
+        slider_top = UIImage(named: "slider_top", in: bundle, compatibleWith: self.traitCollection)!
+        slider_track = UIImage(named: "slider_track", in: bundle, compatibleWith: self.traitCollection)!
     }
 
     override func draw(_ rect: CGRect) {

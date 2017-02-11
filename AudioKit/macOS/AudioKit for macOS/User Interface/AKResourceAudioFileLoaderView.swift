@@ -13,7 +13,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     var player: AKAudioPlayer?
     var stopOuterPath = NSBezierPath()
     var playOuterPath = NSBezierPath()
-    var upOuterPath   = NSBezierPath()
+    var upOuterPath = NSBezierPath()
     var downOuterPath = NSBezierPath()
 
     var currentIndex = 0

@@ -188,7 +188,7 @@ class SynthViewController: UIViewController {
 
         oscMixKnob.value = conductor.core.vcoBalancer.balance
 
-        lfoAmtKnob.maximum = 1200
+        lfoAmtKnob.maximum = 1_200
         lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
 
         lfoRateKnob.maximum = 5
@@ -476,7 +476,7 @@ class SynthViewController: UIViewController {
     func redisplayHeldKeys() {
 
         // Determine new keyboard bounds
-        let lowerMidiNote = MIDINoteNumber(48  + (keyboardOctavePosition * 12))
+        let lowerMidiNote = MIDINoteNumber(48 + (keyboardOctavePosition * 12))
         let upperMidiNote = lowerMidiNote + 24
         statusLabel.text = "Keyboard Range: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
 

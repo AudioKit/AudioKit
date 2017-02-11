@@ -51,9 +51,9 @@ class TouchView: NSView {
     }
 
     func updateOscillator(with theEvent: NSEvent) {
-        let x = theEvent.locationInWindow.x/self.bounds.width
-        let y = theEvent.locationInWindow.y/self.bounds.height
-        oscillator.baseFrequency = Double(x * 1000)
+        let x = theEvent.locationInWindow.x / self.bounds.width
+        let y = theEvent.locationInWindow.y / self.bounds.height
+        oscillator.baseFrequency = Double(x * 1_000)
         oscillator.modulationIndex = Double(y * 20)
     }
 }
@@ -62,7 +62,7 @@ let touchView: TouchView = {
     $0.wantsLayer = true
     $0.layer?.backgroundColor = NSColor.white.cgColor
     return $0
-}(TouchView(frame: NSRect(x: 0, y: 0, width: 500, height: 1000)))
+}(TouchView(frame: NSRect(x: 0, y: 0, width: 500, height: 1_000)))
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = touchView

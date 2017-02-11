@@ -112,7 +112,7 @@ class GeneratorBank: AKPolyphonicNode {
 
     var vco1On = true {
         didSet {
-            vco1Mixer.volume  = vco1On ? 1.0 : 0.0
+            vco1Mixer.volume = vco1On ? 1.0 : 0.0
         }
     }
 
@@ -125,8 +125,8 @@ class GeneratorBank: AKPolyphonicNode {
     var vco1: AKMorphingOscillatorBank
     var vco2: AKMorphingOscillatorBank
     var subOsc = AKOscillatorBank()
-    var fmOsc  = AKFMOscillatorBank()
-    var noise  = AKWhiteNoise()
+    var fmOsc = AKFMOscillatorBank()
+    var noise = AKWhiteNoise()
     var noiseADSR: AKAmplitudeEnvelope
 
     // We'll be using these simply to control volume independent of velocity
@@ -143,7 +143,7 @@ class GeneratorBank: AKPolyphonicNode {
 
     override init() {
         let triangle = AKTable(.triangle)
-        let square   = AKTable(.square)
+        let square = AKTable(.square)
         let sawtooth = AKTable(.sawtooth)
 
         var squareWithHighPWM = AKTable()
@@ -160,16 +160,16 @@ class GeneratorBank: AKPolyphonicNode {
 
         noiseADSR = AKAmplitudeEnvelope(noise)
 
-        vco1Mixer   = AKMixer(vco1)
-        vco2Mixer   = AKMixer(vco2)
+        vco1Mixer = AKMixer(vco1)
+        vco2Mixer = AKMixer(vco2)
         subOscMixer = AKMixer(subOsc)
-        fmOscMixer  = AKMixer(fmOsc)
-        noiseMixer  = AKMixer(noiseADSR)
+        fmOscMixer = AKMixer(fmOsc)
+        noiseMixer = AKMixer(noiseADSR)
 
         // Default non-VCO's off
         subOscMixer.volume = 0
-        fmOscMixer.volume  = 0
-        noiseMixer.volume  = 0
+        fmOscMixer.volume = 0
+        noiseMixer.volume = 0
 
         vcoBalancer = AKDryWetMixer(vco1Mixer, vco2Mixer, balance: 0.5)
 
