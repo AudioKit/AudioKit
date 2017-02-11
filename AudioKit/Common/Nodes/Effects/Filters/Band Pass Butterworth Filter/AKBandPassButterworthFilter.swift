@@ -30,7 +30,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency. (in Hertz)
-    open var centerFrequency: Double = 2000.0 {
+    open var centerFrequency: Double = 2_000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -70,7 +70,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 2000.0,
+        centerFrequency: Double = 2_000.0,
         bandwidth: Double = 100.0) {
 
         self.centerFrequency = centerFrequency
@@ -91,7 +91,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         guard let tree = internalAU?.parameterTree else { return }
 
         centerFrequencyParameter = tree["centerFrequency"]
-        bandwidthParameter       = tree["bandwidth"]
+        bandwidthParameter = tree["bandwidth"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

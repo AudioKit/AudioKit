@@ -122,9 +122,9 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter    = tree["cutoffFrequency"]
-        resonanceParameter          = tree["resonance"]
-        distortionParameter         = tree["distortion"]
+        cutoffFrequencyParameter = tree["cutoffFrequency"]
+        resonanceParameter = tree["resonance"]
+        distortionParameter = tree["distortion"]
         resonanceAsymmetryParameter = tree["resonanceAsymmetry"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

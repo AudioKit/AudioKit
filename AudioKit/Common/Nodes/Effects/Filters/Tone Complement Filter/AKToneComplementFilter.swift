@@ -29,7 +29,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
-    open var halfPowerPoint: Double = 1000.0 {
+    open var halfPowerPoint: Double = 1_000.0 {
         willSet {
             if halfPowerPoint != newValue {
                 if internalAU!.isSetUp() {
@@ -56,7 +56,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        halfPowerPoint: Double = 1000.0) {
+        halfPowerPoint: Double = 1_000.0) {
 
         self.halfPowerPoint = halfPowerPoint
 

@@ -85,7 +85,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     deinit {
         AKLog("* AKAmplitudeTracker")
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -97,5 +97,5 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     open func stop() {
         internalAU!.stop()
     }
-    
+
 }

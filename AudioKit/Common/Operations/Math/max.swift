@@ -37,4 +37,3 @@ public func max(_ operation: AKComputedParameter, _ parameter: AKParameter) -> A
 public func max(_ parameter: AKParameter, _ operation: AKComputedParameter) -> AKOperation {
     return max(operation.toMono(), parameter)
 }
-

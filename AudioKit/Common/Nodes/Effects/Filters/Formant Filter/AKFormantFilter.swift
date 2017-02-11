@@ -94,7 +94,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         guard let tree = internalAU?.parameterTree else { return }
 
         xParameter = tree["x"]
-        yParameter  = tree["y"]
+        yParameter = tree["y"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

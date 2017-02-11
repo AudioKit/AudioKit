@@ -35,7 +35,6 @@ AudioKit.start()
 //: node to "reverb" if you prefer to record a "wet" oscillator...
 let recorder = try? AKNodeRecorder(node: oscMixer, file: tape!)
 
-
 //: Build our User interface
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
@@ -59,7 +58,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 try? recorder?.record()
                 return "Stop"
             }})
-
 
         addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
             self.recordLabel!.text = "Tape Cleared!"

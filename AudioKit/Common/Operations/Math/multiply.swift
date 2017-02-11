@@ -46,7 +46,6 @@ public func *(left: AKStereoOperation, right: AKParameter) -> AKStereoOperation 
     return AKStereoOperation(module: "dup rot mul rot rot mul swap", inputs: left, right)
 }
 
-
 /// Helper function for Multiplication
 ///
 /// - Parameters:
@@ -56,4 +55,3 @@ public func *(left: AKStereoOperation, right: AKParameter) -> AKStereoOperation 
 public func *(left: AKParameter, right: AKStereoOperation) -> AKStereoOperation {
     return AKStereoOperation(module: "rot dup rot mul rot rot mul swap", inputs: left, right)
 }
-

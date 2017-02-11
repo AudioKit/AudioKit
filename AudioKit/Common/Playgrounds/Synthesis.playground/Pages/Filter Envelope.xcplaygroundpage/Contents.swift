@@ -35,7 +35,7 @@ extension AKOperationGenerator {
     }
 }
 
-let synth = AKOperationGenerator() { parameters in
+let synth = AKOperationGenerator { _ in
 
     let oscillator = AKOperation.fmOscillator(
         baseFrequency: Synth.frequency,
@@ -56,9 +56,8 @@ let synth = AKOperationGenerator() { parameters in
 
 AudioKit.output = synth
 AudioKit.start()
-synth.parameters = [0, 1000, 0] // Initialize the array
+synth.parameters = [0, 1_000, 0] // Initialize the array
 synth.start()
-
 
 //: Setup the user interface
 let playgroundWidth = 500
@@ -71,7 +70,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: synth.cutoff, maximum: 5000,
+            value: synth.cutoff, maximum: 5_000,
             color: AKColor.red
         ) { frequency in
             synth.cutoff = frequency

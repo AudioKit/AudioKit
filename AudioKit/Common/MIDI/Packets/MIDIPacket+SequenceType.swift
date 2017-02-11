@@ -23,12 +23,12 @@ extension MIDIPacket: Sequence {
     public func makeIterator() -> AnyIterator<AKMIDIEvent> {
         let generator = generatorForTuple(self.data)
         var index: UInt16 = 0
-        
+
         return AnyIterator {
             if index >= self.length {
                 return nil
             }
-            
+
             func pop() -> MIDIByte {
                 assert(index < self.length)
                 index += 1
@@ -39,24 +39,24 @@ extension MIDIPacket: Sequence {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
                 var mstat = AKMIDIEvent.statusFromValue(status)
-                
+
                 let chan = status & 0xF
-                
+
                 switch  mstat {
-                    
+
                 case .noteOff, .noteOn, .polyphonicAftertouch, .controllerChange, .pitchWheel:
                     data1 = pop(); data2 = pop()
-                    
+
                     if mstat == .noteOn && data2 == 0 {
                         // turn noteOn with velocity 0 to noteOff
                         mstat = .noteOff
                     }
                     return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
-                    
+
                 case .programChange, .channelAftertouch:
                     data1 = pop()
                     return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
-                    
+
                 case .systemCommand:
                     let cmd = AKMIDISystemCommand(rawValue: status)!
                     switch  cmd {
@@ -68,16 +68,16 @@ extension MIDIPacket: Sequence {
                         //the remaining event generators need to be tested and tweaked to the specific messages
                         data1 = pop()
                         data2 = pop()
-                        
+
                         return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
                     case .songSelect:
                         data1 = pop()
-                
+
                         return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
                     default:
                         return AKMIDIEvent(packet: self)
                     }
-                    
+
                 default:
                     return AKMIDIEvent(packet: self)
                 }
@@ -88,10 +88,8 @@ extension MIDIPacket: Sequence {
     }
 }
 
-
 /// Temporary hack for Xcode 7.3.1 - Appreciate improvements to this if you want to make a go of it!
 typealias AKRawMIDIPacket = (MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte)
-
 
 /// The returned generator will enumerate each value of the provided tuple.
 func generatorForTuple(_ tuple: AKRawMIDIPacket) -> AnyIterator<Any> {

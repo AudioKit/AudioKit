@@ -35,7 +35,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Frequency 1",
             format: "%0.2f Hz",
-            value: ringModulator.frequency1, minimum: 0.5, maximum: 8000,
+            value: ringModulator.frequency1, minimum: 0.5, maximum: 8_000,
             color: AKColor.green
             ) { sliderValue in
                 ringModulator.frequency1 = sliderValue
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Frequency 2",
             format: "%0.2f Hz",
-            value: ringModulator.frequency2, minimum: 0.5, maximum: 8000,
+            value: ringModulator.frequency2, minimum: 0.5, maximum: 8_000,
             color: AKColor.green
         ) { sliderValue in
             ringModulator.frequency2 = sliderValue

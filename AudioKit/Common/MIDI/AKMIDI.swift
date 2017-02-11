@@ -21,21 +21,21 @@ import CoreMIDI
 ///
 /// You then implement the methods you need from AKMIDIListener and use the data how you need.
 open class AKMIDI {
-    
+
     // MARK: - Properties
-    
+
     /// MIDI Client Reference
     open var client = MIDIClientRef()
-    
+
     /// Array of MIDI In ports
     internal var inputPorts = [String: MIDIPortRef]()
-    
+
     /// Virtual MIDI Input destination
     open var virtualInput = MIDIPortRef()
 
     /// MIDI Client Name
     private let clientName: CFString = "MIDI Client" as CFString
-    
+
     /// MIDI In Port Name
     internal let inputPortName: CFString = "MIDI In Port" as CFString
 
@@ -44,16 +44,16 @@ open class AKMIDI {
 
     /// Virtual MIDI output
     internal var virtualOutput = MIDIPortRef()
-    
+
     /// Array of MIDI Endpoints
     internal var endpoints = [String: MIDIEndpointRef]()
-    
+
     /// MIDI Out Port Name
     internal var outputPortName: CFString = "MIDI Out Port" as CFString
-    
+
     /// Array of all listeners
     internal var listeners = [AKMIDIListener]()
-    
+
     // MARK: - Initialization
 
     /// Initialize the AKMIDI system
@@ -77,11 +77,11 @@ open class AKMIDI {
             }
         }
     }
-    
+
     // MARK: - Virtual MIDI
-    
+
     /// Create set of virtual MIDI ports
-    open func createVirtualPorts(_ uniqueID: Int32 = 2000000) {
+    open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000) {
         destroyVirtualPorts()
 
         var result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput) { packetList, _ in
@@ -92,14 +92,13 @@ open class AKMIDI {
                 }
             }
         }
-        
+
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
             AKLog("Error creatervirt dest: \(clientName) -- \(virtualInput)")
         }
-        
-        
+
         result = MIDISourceCreate(client, clientName, &virtualOutput)
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID + 1)
@@ -107,7 +106,7 @@ open class AKMIDI {
             AKLog("Error creating virtual source: \(clientName) -- \(virtualOutput)")
         }
     }
-    
+
     /// Discard all virtual ports
     open func destroyVirtualPorts() {
         if virtualInput != 0 {

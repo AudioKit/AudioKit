@@ -77,8 +77,6 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-
-
     /// Attack time
     open var attackDuration: Double = 0.1 {
         willSet {
@@ -155,7 +153,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     public convenience override init() {
         self.init(waveform: AKTable(.sine))
@@ -187,7 +185,6 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
-
         self.waveform = waveform
         self.carrierMultiplier = carrierMultiplier
         self.modulatingMultiplier = modulatingMultiplier
@@ -217,15 +214,15 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        carrierMultiplierParameter    = tree["carrierMultiplier"]
+        carrierMultiplierParameter = tree["carrierMultiplier"]
         modulatingMultiplierParameter = tree["modulatingMultiplier"]
-        modulationIndexParameter      = tree["modulationIndex"]
+        modulationIndexParameter = tree["modulationIndex"]
 
-        attackDurationParameter     = tree["attackDuration"]
-        decayDurationParameter      = tree["decayDuration"]
-        sustainLevelParameter       = tree["sustainLevel"]
-        releaseDurationParameter    = tree["releaseDuration"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
+        sustainLevelParameter = tree["sustainLevel"]
+        releaseDurationParameter = tree["releaseDuration"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

@@ -69,7 +69,6 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
         frequency: Double = 440,
         amplitude: Double = 0.5) {
 
-
         self.frequency = frequency
         self.amplitude = amplitude
 

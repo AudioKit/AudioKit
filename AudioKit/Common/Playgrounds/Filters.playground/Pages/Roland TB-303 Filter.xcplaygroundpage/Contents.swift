@@ -10,13 +10,12 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var filter = AKRolandTB303Filter(player)
-filter.cutoffFrequency = 1350
+filter.cutoffFrequency = 1_350
 filter.resonance = 0.8
 
 AudioKit.output = filter
 AudioKit.start()
 player.play()
-
 
 var time = 0.0
 let timeStep = 0.02

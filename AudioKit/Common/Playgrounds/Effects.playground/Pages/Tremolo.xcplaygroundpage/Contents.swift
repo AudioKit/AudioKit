@@ -47,4 +47,3 @@ class PlaygroundView: AKPlaygroundView {
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
-

@@ -31,7 +31,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Center frequency.
-    open var centerFrequency: Double = 1000 {
+    open var centerFrequency: Double = 1_000 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -84,7 +84,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 1000,
+        centerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
 
@@ -107,8 +107,8 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         guard let tree = internalAU?.parameterTree else { return }
 
         centerFrequencyParameter = tree["centerFrequency"]
-        gainParameter            = tree["gain"]
-        qParameter               = tree["q"]
+        gainParameter = tree["gain"]
+        qParameter = tree["q"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

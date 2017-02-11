@@ -33,7 +33,7 @@ open class AKDelay: AKNode, AKToggleable {
     }
 
     /// Low pass cut-off frequency in Hertz (Default: 15000)
-    open var lowPassCutoff: Double = 15000.00 {
+    open var lowPassCutoff: Double = 15_000.00 {
         didSet {
             lowPassCutoff = max(lowPassCutoff, 0)
             delayAU.lowPassCutoff = Float(lowPassCutoff)
@@ -68,7 +68,7 @@ open class AKDelay: AKNode, AKToggleable {
         _ input: AKNode,
         time: Double = 1,
         feedback: Double = 0.5,
-        lowPassCutoff: Double = 15000,
+        lowPassCutoff: Double = 15_000,
         dryWetMix: Double = 0.5) {
 
             self.time = TimeInterval(Double(time))

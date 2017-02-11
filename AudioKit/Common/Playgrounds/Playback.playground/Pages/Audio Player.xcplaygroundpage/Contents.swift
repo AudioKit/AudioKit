@@ -25,7 +25,7 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
 
-        AKPlaygroundLoop(every: 1/60.0) {
+        AKPlaygroundLoop(every: 1 / 60.0) {
             if player.duration > 0 {
                 self.playingPositionSlider?.value = player.playhead
             }
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
             } else {
                 return "Enable Looping"
             }})
-        
+
         addSubview(AKButton(title: "Direction: ➡️") {
             if player.isPlaying {
                 player.stop()
@@ -81,7 +81,7 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.2f s",
             value: player.playhead, maximum: 3.428,
             color: AKColor.yellow
-        ) { sliderValue in
+        ) { _ in
             // Can't do player.playhead = sliderValue
         }
         addSubview(playingPositionSlider!)

@@ -29,15 +29,15 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var delaySlider:         AKPropertySlider?
-    var decaySlider:         AKPropertySlider?
-    var delayMixSlider:      AKPropertySlider?
-    var linearTermSlider:    AKPropertySlider?
-    var squaredTermSlider:   AKPropertySlider?
-    var cubicTermSlider:     AKPropertySlider?
+    var delaySlider: AKPropertySlider?
+    var decaySlider: AKPropertySlider?
+    var delayMixSlider: AKPropertySlider?
+    var linearTermSlider: AKPropertySlider?
+    var squaredTermSlider: AKPropertySlider?
+    var cubicTermSlider: AKPropertySlider?
     var polynomialMixSlider: AKPropertySlider?
-    var softClipGainSlider:  AKPropertySlider?
-    var finalMixSlider:      AKPropertySlider?
+    var softClipGainSlider: AKPropertySlider?
+    var finalMixSlider: AKPropertySlider?
 
     override func setup() {
         addTitle("Distortion")

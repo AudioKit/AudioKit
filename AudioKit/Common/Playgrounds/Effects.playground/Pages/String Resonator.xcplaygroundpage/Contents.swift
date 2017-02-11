@@ -11,7 +11,7 @@ player.looping = true
 
 var stringResonator = AKStringResonator(player)
 stringResonator.feedback = 0.9
-stringResonator.fundamentalFrequency = 1000
+stringResonator.fundamentalFrequency = 1_000
 stringResonator.rampTime = 0.1
 
 AudioKit.output = stringResonator
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Fundamental Frequency",
             format: "%0.1f Hz",
-            value: stringResonator.fundamentalFrequency, maximum: 5000,
+            value: stringResonator.fundamentalFrequency, maximum: 5_000,
             color: AKColor.green
         ) { sliderValue in
             stringResonator.fundamentalFrequency = sliderValue
@@ -46,7 +46,6 @@ class PlaygroundView: AKPlaygroundView {
             stringResonator.feedback = sliderValue
             })
     }
-
 
 }
 PlaygroundPage.current.needsIndefiniteExecution = true

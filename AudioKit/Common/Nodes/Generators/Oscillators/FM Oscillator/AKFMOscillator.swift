@@ -129,7 +129,6 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         modulationIndex: Double = 1,
         amplitude: Double = 1) {
 
-
         self.waveform = waveform
         self.baseFrequency = baseFrequency
         self.carrierMultiplier = carrierMultiplier
@@ -153,11 +152,11 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        baseFrequencyParameter        = tree["baseFrequency"]
-        carrierMultiplierParameter    = tree["carrierMultiplier"]
+        baseFrequencyParameter = tree["baseFrequency"]
+        carrierMultiplierParameter = tree["carrierMultiplier"]
         modulatingMultiplierParameter = tree["modulatingMultiplier"]
-        modulationIndexParameter      = tree["modulationIndex"]
-        amplitudeParameter            = tree["amplitude"]
+        modulationIndexParameter = tree["modulationIndex"]
+        amplitudeParameter = tree["amplitude"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

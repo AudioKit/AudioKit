@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKComputedParameter {
-    
+
     /// A modal resonance filter used for modal synthesis. Plucked and bell sounds
     /// can be created using  passing an impulse through a combination of modal
     /// filters.
@@ -20,7 +20,7 @@ extension AKComputedParameter {
     ///
     public func stringResonator(
         frequency: AKParameter = 100.0,
-                  feedback: AKParameter = 0.95
+        feedback: AKParameter = 0.95
         ) -> AKOperation {
         return AKOperation(module: "streson", inputs: toMono(), frequency, feedback)
     }

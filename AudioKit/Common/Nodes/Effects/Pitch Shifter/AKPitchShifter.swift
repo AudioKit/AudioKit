@@ -14,7 +14,6 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
-
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
@@ -44,7 +43,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Window size (in samples)
-    open var windowSize: Double = 1024 {
+    open var windowSize: Double = 1_024 {
         willSet {
             if windowSize != newValue {
                 if internalAU!.isSetUp() {
@@ -86,7 +85,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     public init(
         _ input: AKNode,
         shift: Double = 0,
-        windowSize: Double = 1024,
+        windowSize: Double = 1_024,
         crossfade: Double = 512) {
 
         self.shift = shift
@@ -107,9 +106,9 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        shiftParameter      = tree["shift"]
+        shiftParameter = tree["shift"]
         windowSizeParameter = tree["windowSize"]
-        crossfadeParameter  = tree["crossfade"]
+        crossfadeParameter = tree["crossfade"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

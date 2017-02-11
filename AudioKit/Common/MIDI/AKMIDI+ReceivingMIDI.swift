@@ -28,31 +28,31 @@ internal func GetMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString
 }
 
 extension AKMIDI {
-    
+
     /// Array of input names
     public var inputNames: [String] {
         return MIDISources().names
     }
-    
+
     /// Add a listener to the listeners
     public func addListener(_ listener: AKMIDIListener) {
         listeners.append(listener)
     }
-    
+
     /// Remove all listeners
     public func clearListeners() {
         listeners.removeAll()
     }
-    
+
     /// Open a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
-    public func openInput(_ namedInput: String = "") {        
+    public func openInput(_ namedInput: String = "") {
         for (name, src) in zip(inputNames, MIDISources()) {
             if namedInput.isEmpty || namedInput == name {
                 inputPorts[namedInput] = MIDIPortRef()
-                
+
                 var port = inputPorts[namedInput]!
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) {
@@ -64,9 +64,9 @@ extension AKMIDI {
                         }
                     }
                 }
-                
+
                 inputPorts[namedInput] = port
-                
+
                 if result != noErr {
                     AKLog("Error creating midiInPort : \(result)")
                 }
@@ -75,7 +75,7 @@ extension AKMIDI {
             }
         }
     }
-    
+
     /// Close a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
@@ -85,7 +85,7 @@ extension AKMIDI {
         for key in inputPorts.keys {
             if namedInput.isEmpty || key == namedInput {
                 if let port = inputPorts[key], let endpoint = endpoints[key] {
-                    
+
                     result = MIDIPortDisconnectSource(port, endpoint)
                     if result == noErr {
                         endpoints.removeValue(forKey: namedInput)
@@ -111,12 +111,12 @@ extension AKMIDI {
 //            }
 //        }
     }
-    
+
     /// Close all MIDI Input ports
     public func closeAllInputs() {
         closeInput()
     }
-    
+
     internal func handleMIDIMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
             guard let eventChannel = event.channel else { return }

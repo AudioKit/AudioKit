@@ -27,9 +27,9 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     fileprivate var lastKnownGain: Double = 1.0
-    
+
     /// Amplification Factor
     open var gain: Double = 1 {
         willSet {
@@ -43,7 +43,6 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    
     /// Amplification Factor in db
     open var dB: Double {
         set {
@@ -53,7 +52,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             return 20.0 * log10(gain)
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -87,7 +86,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        gainParameter   = tree["gain"]
+        gainParameter = tree["gain"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in
@@ -109,7 +108,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             gain = lastKnownGain
         }
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         if isPlaying {

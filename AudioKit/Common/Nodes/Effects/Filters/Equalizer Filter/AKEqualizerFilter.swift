@@ -34,7 +34,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency. (in Hertz)
-    open var centerFrequency: Double = 1000.0 {
+    open var centerFrequency: Double = 1_000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -87,7 +87,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 1000.0,
+        centerFrequency: Double = 1_000.0,
         bandwidth: Double = 100.0,
         gain: Double = 10.0) {
 
@@ -110,8 +110,8 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
         guard let tree = internalAU?.parameterTree else { return }
 
         centerFrequencyParameter = tree["centerFrequency"]
-        bandwidthParameter       = tree["bandwidth"]
-        gainParameter            = tree["gain"]
+        bandwidthParameter = tree["bandwidth"]
+        gainParameter = tree["gain"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

@@ -18,7 +18,7 @@ class pinkNoiseTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.pinkNoise()
         }
         AKTestMD5("ddf3ff7735d85181d93abd7655b9658b")

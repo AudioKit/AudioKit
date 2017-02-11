@@ -16,15 +16,15 @@ let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .resou
 
 let leadFile = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
 
-var drums  = try AKAudioPlayer(file: drumFile)
-var bass   = try AKAudioPlayer(file: bassFile)
+var drums = try AKAudioPlayer(file: drumFile)
+var bass = try AKAudioPlayer(file: bassFile)
 var guitar = try AKAudioPlayer(file: guitarFile)
-var lead   = try AKAudioPlayer(file: leadFile)
+var lead = try AKAudioPlayer(file: leadFile)
 
-drums.looping  = true
-bass.looping   = true
+drums.looping = true
+bass.looping = true
 guitar.looping = true
-lead.looping   = true
+lead.looping = true
 
 //: Any number of inputs can be summed into one output
 let mixer = AKMixer(drums, bass, guitar, lead)
@@ -38,13 +38,13 @@ guitar.play()
 lead.play()
 
 //: Adjust the individual track volumes here
-drums.volume  = 0.9
-bass.volume   = 0.9
+drums.volume = 0.9
+bass.volume = 0.9
 guitar.volume = 0.6
-lead.volume   = 0.7
+lead.volume = 0.7
 
-drums.pan  = 0.0
-bass.pan   = 0.0
+drums.pan = 0.0
+bass.pan = 0.0
 guitar.pan = 0.2
 lead.pan   = -0.2
 

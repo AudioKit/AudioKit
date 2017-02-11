@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Rate",
             format: "%0.3f",
-            value: timePitch.rate, minimum: 0.3125, maximum: 5,
+            value: timePitch.rate, minimum: 0.312_5, maximum: 5,
             color: AKColor.green
         ) { sliderValue in
             timePitch.rate = sliderValue
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Pitch",
             format: "%0.3f Cents",
-            value: timePitch.pitch, minimum: -2400, maximum: 2400,
+            value: timePitch.pitch, minimum: -2_400, maximum: 2_400,
             color: AKColor.red
         ) { sliderValue in
             timePitch.pitch = sliderValue

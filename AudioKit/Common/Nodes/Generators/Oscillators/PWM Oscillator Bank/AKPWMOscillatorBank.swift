@@ -123,7 +123,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     ///
     /// - parameter frequency: In cycles per second, or Hz.
@@ -172,12 +172,12 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        pulseWidthParameter         = tree["pulseWidth"]
-        attackDurationParameter     = tree["attackDuration"]
-        decayDurationParameter      = tree["decayDuration"]
-        sustainLevelParameter       = tree["sustainLevel"]
-        releaseDurationParameter    = tree["releaseDuration"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        pulseWidthParameter = tree["pulseWidth"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
+        sustainLevelParameter = tree["sustainLevel"]
+        releaseDurationParameter = tree["releaseDuration"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

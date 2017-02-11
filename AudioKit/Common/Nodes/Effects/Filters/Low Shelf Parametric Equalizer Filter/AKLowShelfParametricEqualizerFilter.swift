@@ -31,7 +31,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     }
 
     /// Corner frequency.
-    open var cornerFrequency: Double = 1000 {
+    open var cornerFrequency: Double = 1_000 {
         willSet {
             if cornerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -84,7 +84,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     ///
     public init(
         _ input: AKNode,
-        cornerFrequency: Double = 1000,
+        cornerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
 
@@ -107,8 +107,8 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         guard let tree = internalAU?.parameterTree else { return }
 
         cornerFrequencyParameter = tree["cornerFrequency"]
-        gainParameter            = tree["gain"]
-        qParameter               = tree["q"]
+        gainParameter = tree["gain"]
+        qParameter = tree["q"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

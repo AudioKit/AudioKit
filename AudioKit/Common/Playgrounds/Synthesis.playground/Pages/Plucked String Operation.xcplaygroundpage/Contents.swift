@@ -5,7 +5,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let pluckNode = AKOperationGenerator() { parameters in
+let pluckNode = AKOperationGenerator { parameters in
     let frequency = (AKOperation.parameters[1] + 40).midiNoteToFrequency()
     return AKOperation.pluckedString(
         trigger: AKOperation.trigger,
@@ -14,8 +14,7 @@ let pluckNode = AKOperationGenerator() { parameters in
         lowestFrequency: 50)
 }
 
-
-var delay  = AKDelay(pluckNode)
+var delay = AKDelay(pluckNode)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 0.3
 delay.feedback = 0.2
@@ -30,7 +29,7 @@ let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
 AKPlaygroundLoop(frequency: playRate) {
     var note = scale.randomElement()
-    let octave = [0,1,2,3].randomElement() * 12
+    let octave = [0, 1, 2, 3].randomElement() * 12
     if random(0, 10) < 1.0 { note += 1 }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
 

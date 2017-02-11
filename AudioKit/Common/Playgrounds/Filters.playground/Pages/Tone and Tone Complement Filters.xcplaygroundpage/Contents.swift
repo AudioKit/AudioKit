@@ -31,7 +31,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "Half Power Point",
-            value: toneFilter.halfPowerPoint, maximum: 10000,
+            value: toneFilter.halfPowerPoint, maximum: 10_000,
             color: AKColor.green
         ) { sliderValue in
             toneFilter.halfPowerPoint = sliderValue
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "Half Power Point",
-            value: toneComplement.halfPowerPoint, maximum: 10000,
+            value: toneComplement.halfPowerPoint, maximum: 10_000,
             color: AKColor.green
         ) { sliderValue in
             toneComplement.halfPowerPoint = sliderValue

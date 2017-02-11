@@ -19,7 +19,7 @@ import CoreAudio
 open class AKSampler: AKNode {
 
     // MARK: - Properties
-    
+
     /// Internal audio unit
     private var internalAU: AUAudioUnit?
 
@@ -27,7 +27,7 @@ open class AKSampler: AKNode {
 
     /// Sampler AV Audio Unit
     open var samplerUnit = AVAudioUnitSampler()
-    
+
     /// Transposition amount in semitones, from -24 to 24, Default: 0
     open var tuning: Double {
         get {
@@ -138,7 +138,6 @@ open class AKSampler: AKNode {
     open func loadPercussiveSoundFont(_ file: String, preset: Int) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
-
 
     /// Load a file path
     ///

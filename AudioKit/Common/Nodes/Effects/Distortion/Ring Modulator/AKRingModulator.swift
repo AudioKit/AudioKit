@@ -21,7 +21,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     open var frequency1: Double = 100 {
         didSet {
-            frequency1 = (0.5...8000).clamp(frequency1)
+            frequency1 = (0.5...8_000).clamp(frequency1)
             au[kDistortionParam_RingModFreq1] = frequency1
         }
     }
@@ -29,7 +29,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     /// Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     open var frequency2: Double = 100 {
         didSet {
-            frequency2 = (0.5...8000).clamp(frequency2)
+            frequency2 = (0.5...8_000).clamp(frequency2)
             au[kDistortionParam_RingModFreq2] = frequency2
         }
     }

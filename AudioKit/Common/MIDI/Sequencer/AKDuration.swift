@@ -13,16 +13,15 @@ public typealias BPM = Double
 /// Container for the notion of time in sequencing
 public struct AKDuration: CustomStringConvertible {
     let secondsPerMinute = 60
-    
+
     /// Duration in beats
     public var beats: Double
 
     /// Samples per second
-    public var sampleRate: Double = 44100
-    
+    public var sampleRate: Double = 44_100
+
     /// Tempo in BPM (beats per minute)
     public var tempo: BPM = 60.0
-    
 
     /// While samples is the most accurate, they blow up too fast, so using beat as standard
     public var samples: Int {
@@ -44,7 +43,7 @@ public struct AKDuration: CustomStringConvertible {
     public var seconds: Double {
         return Double(samples) / sampleRate
     }
-    
+
     /// Useful for math using tempo in BPM (beats per minute)
     public var minutes: Double {
         return seconds / 60.0
@@ -54,19 +53,19 @@ public struct AKDuration: CustomStringConvertible {
     public var musicTimeStamp: MusicTimeStamp {
         return MusicTimeStamp(beats)
     }
-    
+
     /// Pretty printout
     public var description: String {
         return "\(samples) samples at \(sampleRate) = \(beats) Beats at \(tempo) BPM = \(seconds)s"
     }
-    
+
     /// Initialize with samples
     ///
     /// - Parameters:
     ///   - samples:    Number of samples
     ///   - sampleRate: Sample rate in samples per second
     ///
-    public init(samples: Int, sampleRate: Double = 44100, tempo: BPM = 60) {
+    public init(samples: Int, sampleRate: Double = 44_100, tempo: BPM = 60) {
         self.beats = tempo * (samples / sampleRate) / secondsPerMinute
         self.sampleRate = sampleRate
         self.tempo = tempo
@@ -89,7 +88,7 @@ public struct AKDuration: CustomStringConvertible {
     ///   - seconds:    Duration in seconds
     ///   - sampleRate: Samples per second (Default: 44100)
     ///
-    public init(seconds: Double, sampleRate: Double = 44100, tempo: BPM = 60) {
+    public init(seconds: Double, sampleRate: Double = 44_100, tempo: BPM = 60) {
         self.sampleRate = sampleRate
         self.tempo = tempo
         self.beats = tempo * (seconds / secondsPerMinute)

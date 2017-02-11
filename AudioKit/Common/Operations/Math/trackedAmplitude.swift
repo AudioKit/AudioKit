@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKComputedParameter {
-    
+
     /// Panner
     ///
     /// - parameter input: Input audio signal

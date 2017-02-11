@@ -63,17 +63,16 @@ extension AudioComponentDescription {
     public init(effect subType: OSType) {
         self.init(type: kAudioUnitType_Effect, subType: subType)
     }
-    
+
     public init(effect subType: String) {
         self.init(effect: fourCC(subType))
     }
-    
+
     public init(mixer subType: String) {
         self.init(type: kAudioUnitType_Mixer, subType: fourCC(subType))
     }
-    
+
     public init(generator subType: String) {
         self.init(type: kAudioUnitType_Generator, subType: fourCC(subType))
     }
 }
-

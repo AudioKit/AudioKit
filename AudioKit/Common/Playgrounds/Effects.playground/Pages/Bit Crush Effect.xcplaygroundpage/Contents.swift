@@ -18,7 +18,7 @@ player.looping = true
 
 var bitcrusher = AKBitCrusher(player)
 bitcrusher.bitDepth = 16
-bitcrusher.sampleRate = 3333
+bitcrusher.sampleRate = 3_333
 
 AudioKit.output = bitcrusher
 AudioKit.start()
@@ -46,13 +46,12 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Sample Rate",
             format: "%0.1f Hz",
-            value: bitcrusher.sampleRate, maximum: 16000,
+            value: bitcrusher.sampleRate, maximum: 16_000,
             color: AKColor.red
         ) { sliderValue in
             bitcrusher.sampleRate = sliderValue
             })
     }
-
 
 }
 

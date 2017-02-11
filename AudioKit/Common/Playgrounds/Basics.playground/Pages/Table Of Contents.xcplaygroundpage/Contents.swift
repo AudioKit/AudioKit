@@ -30,4 +30,3 @@
 //: * [Using Functions](Using%20Functions)
 //: * [Using Functions Part 2](Using%20Functions%20Part%202)
 //: * [Stereo Operation](Stereo%20Operation)
-

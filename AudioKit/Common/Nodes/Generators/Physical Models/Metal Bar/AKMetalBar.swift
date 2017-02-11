@@ -128,7 +128,6 @@ open class AKMetalBar: AKNode, AKComponent {
         stiffness: Double = 3,
         highFrequencyDamping: Double = 0.001) {
 
-
         self.leftBoundaryCondition = leftBoundaryCondition
         self.rightBoundaryCondition = rightBoundaryCondition
         self.decayDuration = decayDuration

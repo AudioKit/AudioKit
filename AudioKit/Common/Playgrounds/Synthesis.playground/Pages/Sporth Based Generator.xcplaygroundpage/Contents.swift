@@ -35,13 +35,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             //let filePath = Bundle.main.path(filename, ofType: "sp")
             let contentData = FileManager.default.contents(atPath: filePath!)
             //let contentData = FileManager.defaultManager().contentsAtPath(filePath!)
-            
+
             let sporth = String(data: contentData!, encoding: .utf8)
             //let sporth = NSString(data: contentData!, encoding: String.Encoding.utf8) as? String
-                
+
             Swift.print("\n\n\n\n\n\n\(sporth!)")
             generator.sporth = sporth!
-
 
             let sliders = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
@@ -65,7 +64,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 for i in 0 ..< 4 {
                     let pattern = "# p\(i): ([.0-9]+)[ ]+([^\n]+)"
                     let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)
-  
+
                     let value = regex.stringByReplacingMatches(in: line, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(location:0,
                         length: line.characters.count ), withTemplate: "$1")
                     let title = regex.stringByReplacingMatches(in: line, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(location:0,
@@ -121,7 +120,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard!.isHidden = true
         addSubview(keyboard!)
     }
-
 
     func noteOn(note: MIDINoteNumber) {
         currentMIDINote = note

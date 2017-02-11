@@ -91,7 +91,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        timeParameter     = tree["time"]
+        timeParameter = tree["time"]
         feedbackParameter = tree["feedback"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

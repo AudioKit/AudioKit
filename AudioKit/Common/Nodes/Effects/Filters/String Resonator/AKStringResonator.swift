@@ -96,7 +96,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
         guard let tree = internalAU?.parameterTree else { return }
 
         fundamentalFrequencyParameter = tree["fundamentalFrequency"]
-        feedbackParameter             = tree["feedback"]
+        feedbackParameter = tree["feedback"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
             address, value in

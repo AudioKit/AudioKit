@@ -86,7 +86,6 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         }
     }
 
-
     /// Duty cycle width (range -1 - 1).
     open var phaseDistortion: Double = 0.0 {
         willSet {
@@ -106,7 +105,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     public convenience override init() {
         self.init(waveform: AKTable(.sine))
@@ -155,10 +154,10 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree["frequency"]
-        amplitudeParameter          = tree["amplitude"]
-        phaseDistortionParameter    = tree["phaseDistortion"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        frequencyParameter = tree["frequency"]
+        amplitudeParameter = tree["amplitude"]
+        phaseDistortionParameter = tree["phaseDistortion"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

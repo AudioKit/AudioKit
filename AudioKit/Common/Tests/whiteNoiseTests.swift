@@ -18,7 +18,7 @@ class whiteNoiseTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,

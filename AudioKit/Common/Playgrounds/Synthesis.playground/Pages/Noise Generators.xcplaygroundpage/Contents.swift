@@ -38,7 +38,6 @@ class PlaygroundView: AKPlaygroundView {
             })
     }
 
-
 }
 
 PlaygroundPage.current.needsIndefiniteExecution = true

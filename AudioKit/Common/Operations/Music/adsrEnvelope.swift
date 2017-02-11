@@ -20,8 +20,8 @@ extension AKOperation {
     ///
     public func gatedADSREnvelope(
         gate: AKParameter,
-        attack:  AKParameter = 0.1,
-        decay:   AKParameter = 0.0,
+        attack: AKParameter = 0.1,
+        decay: AKParameter = 0.0,
         sustain: AKParameter = 1,
         release: AKParameter = 0.2
         ) -> AKOperation {

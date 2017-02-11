@@ -84,7 +84,6 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         }
     }
 
-
     /// Duty cycle width (range 0-1).
     open var pulseWidth: Double = 0.5 {
         willSet {
@@ -104,7 +103,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     ///
     /// - parameter frequency: In cycles per second, or Hz.
@@ -129,7 +128,6 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
-
         self.frequency = frequency
         self.amplitude = amplitude
         self.pulseWidth = pulseWidth
@@ -148,10 +146,10 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter          = tree["frequency"]
-        amplitudeParameter          = tree["amplitude"]
-        pulseWidthParameter         = tree["pulseWidth"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        frequencyParameter = tree["frequency"]
+        amplitudeParameter = tree["amplitude"]
+        pulseWidthParameter = tree["pulseWidth"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]

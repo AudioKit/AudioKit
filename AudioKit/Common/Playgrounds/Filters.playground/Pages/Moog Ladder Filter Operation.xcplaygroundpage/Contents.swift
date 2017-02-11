@@ -10,7 +10,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = AKOperationEffect(player) { player, _ in
-    let frequency = AKOperation.sineWave(frequency: 1).scale(minimum: 500, maximum: 1000)
+    let frequency = AKOperation.sineWave(frequency: 1).scale(minimum: 500, maximum: 1_000)
     let resonance = abs(AKOperation.sineWave(frequency: 0.3)) * 0.95
 
     return player.moogLadderFilter(cutoffFrequency: frequency,

@@ -7,7 +7,6 @@ import AudioKit
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .resources)
 
-
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -42,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Time",
             format:  "%0.3f s",
-            value: fatten.parameters[0],  minimum: 0.03, maximum: 0.1,
+            value: fatten.parameters[0], minimum: 0.03, maximum: 0.1,
             color: AKColor.cyan
         ) { sliderValue in
             fatten.parameters[0] = sliderValue
@@ -56,7 +55,6 @@ class PlaygroundView: AKPlaygroundView {
             fatten.parameters[1] = sliderValue
             })
     }
-
 
 }
 

@@ -19,7 +19,7 @@ extension AKComputedParameter {
     /// - parameter saturation: Filter saturation. (Default: 0.0, Minimum: 0.0, Maximum: 10.0)
      ///
     public func korgLowPassFilter(
-        cutoffFrequency: AKParameter = 1000.0,
+        cutoffFrequency: AKParameter = 1_000.0,
         resonance: AKParameter = 1.0,
         saturation: AKParameter = 0.0
         ) -> AKOperation {

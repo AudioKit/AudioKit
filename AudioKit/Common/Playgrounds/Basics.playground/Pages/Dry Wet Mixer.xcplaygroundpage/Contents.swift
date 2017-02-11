@@ -15,7 +15,7 @@ import AudioKit
 //: This section prepares the players
 let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
 var drums = try AKAudioPlayer(file: file)
-drums.looping  = true
+drums.looping = true
 
 //: Build an effects chain:
 

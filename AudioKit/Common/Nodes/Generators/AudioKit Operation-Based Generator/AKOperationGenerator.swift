@@ -21,10 +21,10 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     /// Sporth language snippet
     open var sporth: String = "" {
-        didSet  {
+        didSet {
             self.stop()
             self.internalAU?.setSporth(sporth)
             self.start()
@@ -48,15 +48,15 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initializers
-    
+
     /// Initialize with a mono or stereo operation
     ///
     /// - parameter operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(operation: ([AKOperation])->AKComputedParameter) {
-            
+    public convenience init(operation: ([AKOperation]) -> AKComputedParameter) {
+
         let computedParameter = operation(AKOperation.parameters)
-        
+
         if type(of: computedParameter) == AKOperation.self {
             let monoOperation = computedParameter as! AKOperation
             self.init(sporth: monoOperation.sporth + " dup ")
@@ -72,11 +72,11 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
     ///   - operations:       Array of operations [left, right]
     ///
-    public convenience init(numberOfChannels: Int, operations: ([AKOperation])->[AKOperation]) {
-        
+    public convenience init(numberOfChannels: Int, operations: ([AKOperation]) -> [AKOperation]) {
+
         let computedParameters = operations(AKOperation.parameters)
         let left = computedParameters[0]
-        
+
         if numberOfChannels == 2 {
             let right = computedParameters[1]
             self.init(sporth: "\(right.sporth) \(left.sporth)")
@@ -85,7 +85,6 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    
     /// Initialize this generator node with a generic sporth stack and a triggering flag
     ///
     /// - parameter sporth: String of valid Sporth code

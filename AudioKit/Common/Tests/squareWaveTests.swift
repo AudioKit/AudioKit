@@ -18,7 +18,7 @@ class squareWaveTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.squareWave()
         }
         AKTestMD5("8c93ddbc4ce8393a53d2a2c68ab45dca")

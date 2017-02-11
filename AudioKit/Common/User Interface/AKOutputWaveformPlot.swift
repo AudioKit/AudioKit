@@ -14,7 +14,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
     internal func setupNode() {
         AudioKit.engine.outputNode.installTap(onBus: 0,
                                               bufferSize: bufferSize,
-                                              format: nil) { [weak self] (buffer, time) in
+                                              format: nil) { [weak self] (buffer, _) in
             guard let strongSelf = self else { return }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
@@ -29,13 +29,13 @@ open class AKOutputWaveformPlot: EZAudioPlot {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
         setupNode()
     }
-    
+
     func setupReconnection() {
         NotificationCenter.default.addObserver(self, selector: #selector(reconnect), name: NSNotification.Name(rawValue: "IAAConnected"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reconnect), name: NSNotification.Name(rawValue: "IAADisconnected"), object: nil)
     }
-    
-    internal var bufferSize: UInt32 = 1024
+
+    internal var bufferSize: UInt32 = 1_024
 
     deinit {
         AudioKit.engine.outputNode.removeTap(onBus: 0)

@@ -18,7 +18,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         }
         input?.avAudioNode.installTap(onBus: 0,
                                       bufferSize: bufferSize,
-                                      format: nil) { [weak self] (buffer, time) in
+                                      format: nil) { [weak self] (buffer, _) in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize
                 let offset = Int(buffer.frameCapacity - buffer.frameLength)
@@ -27,10 +27,10 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
                                            withBufferSize: strongSelf.bufferSize)
             }
         }
-    
+
     }
 
-    internal var bufferSize: UInt32 = 1024
+    internal var bufferSize: UInt32 = 1_024
 
     /// EZAudioFFT container
     fileprivate var fft: EZAudioFFT?
@@ -65,7 +65,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1024) {
+    public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white

@@ -27,7 +27,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Rate",
             format: "%0.3f",
-            value: variSpeed.rate, minimum: 0.3125, maximum: 5,
+            value: variSpeed.rate, minimum: 0.312_5, maximum: 5,
             color: AKColor.green
         ) { sliderValue in
             variSpeed.rate = sliderValue

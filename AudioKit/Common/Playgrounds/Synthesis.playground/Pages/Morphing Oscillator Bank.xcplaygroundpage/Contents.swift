@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Detuning Offset",
             format: "%0.1f Cents",
-            value:  osc.releaseDuration, minimum: -1200, maximum: 1200,
+            value:  osc.releaseDuration, minimum: -1_200, maximum: 1_200,
             color: AKColor.green
         ) { offset in
             osc.detuningOffset = offset
@@ -81,7 +81,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         osc.stop(noteNumber: note)
     }
 }
-
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

@@ -22,11 +22,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
     fileprivate var waveformArray = [AKTable]()
 
-    fileprivate var attackDurationParameter:     AUParameter?
-    fileprivate var decayDurationParameter:      AUParameter?
-    fileprivate var sustainLevelParameter:       AUParameter?
-    fileprivate var releaseDurationParameter:    AUParameter?
-    fileprivate var detuningOffsetParameter:     AUParameter?
+    fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var decayDurationParameter: AUParameter?
+    fileprivate var sustainLevelParameter: AUParameter?
+    fileprivate var releaseDurationParameter: AUParameter?
+    fileprivate var detuningOffsetParameter: AUParameter?
     fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
@@ -176,11 +176,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        attackDurationParameter     = tree["attackDuration"]
-        decayDurationParameter      = tree["decayDuration"]
-        sustainLevelParameter       = tree["sustainLevel"]
-        releaseDurationParameter    = tree["releaseDuration"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
+        sustainLevelParameter = tree["sustainLevel"]
+        releaseDurationParameter = tree["releaseDuration"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
         token = tree.token (byAddingParameterObserver: { [weak self]
@@ -204,11 +204,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         })
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)
 
-        internalAU?.attackDuration     = Float(attackDuration)
-        internalAU?.decayDuration      = Float(decayDuration)
-        internalAU?.sustainLevel       = Float(sustainLevel)
-        internalAU?.releaseDuration    = Float(releaseDuration)
-        internalAU?.detuningOffset     = Float(detuningOffset)
+        internalAU?.attackDuration = Float(attackDuration)
+        internalAU?.decayDuration = Float(decayDuration)
+        internalAU?.sustainLevel = Float(sustainLevel)
+        internalAU?.releaseDuration = Float(releaseDuration)
+        internalAU?.detuningOffset = Float(detuningOffset)
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 

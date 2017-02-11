@@ -19,7 +19,6 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
     fileprivate var lowestFrequency: Double
@@ -72,7 +71,6 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         frequency: Double = 440,
         amplitude: Double = 0.5,
         lowestFrequency: Double = 110) {
-
 
         self.frequency = frequency
         self.amplitude = amplitude

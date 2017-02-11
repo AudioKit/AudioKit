@@ -18,13 +18,13 @@ class triangleTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             let ramp = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 1,
                 end: 0,
                 duration: self.duration)
-            return AKOperation.triangle(frequency: ramp * 2000, amplitude: ramp, phase: ramp)
+            return AKOperation.triangle(frequency: ramp * 2_000, amplitude: ramp, phase: ramp)
         }
         AKTestMD5("2f01ae01dcb43f267d0854ddea5db002")
     }

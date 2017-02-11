@@ -12,7 +12,7 @@ player.looping = true
 
 var delay = AKDelay(player)
 delay.time = 0.01 // seconds
-delay.feedback  = 0.9 // Normalized Value 0 - 1
+delay.feedback = 0.9 // Normalized Value 0 - 1
 delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
 AudioKit.output = delay
@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
 
         lowPassCutoffFrequencySlider = AKPropertySlider(
             property: "Low Pass Cutoff",
-            value: delay.lowPassCutoff, maximum: 22050,
+            value: delay.lowPassCutoff, maximum: 22_050,
             color: AKColor.magenta
         ) { sliderValue in
             delay.lowPassCutoff = sliderValue
@@ -69,7 +69,7 @@ class PlaygroundView: AKPlaygroundView {
         }
         addSubview(dryWetMixSlider!)
 
-        let presets = ["Short","Dense Long", "Electric Circuits"]
+        let presets = ["Short", "Dense Long", "Electric Circuits"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Short":

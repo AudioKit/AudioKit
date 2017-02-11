@@ -6,7 +6,6 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-
 import Foundation
 import AVFoundation
 
@@ -45,6 +44,5 @@ extension AKAudioFile {
         }
         return filePlayer
     }
-
 
 }

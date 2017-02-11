@@ -18,7 +18,6 @@ AudioKit.start()
 
 player.play()
 
-
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
@@ -38,7 +37,7 @@ class PlaygroundView: AKPlaygroundView {
             reverb.dryWetMix = sliderValue
             })
 
-        let presets = ["Cathedral","Large Hall", "Large Hall 2",
+        let presets = ["Cathedral", "Large Hall", "Large Hall 2",
                        "Large Room", "Large Room 2", "Medium Chamber",
                        "Medium Hall", "Medium Hall 2", "Medium Hall 3",
                        "Medium Room", "Plate", "Small Room"]

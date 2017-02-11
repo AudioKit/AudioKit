@@ -34,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: lowPassFilter.cutoffFrequency, minimum: 20, maximum: 5000,
+            value: lowPassFilter.cutoffFrequency, minimum: 20, maximum: 5_000,
             color: AKColor.green
         ) { sliderValue in
             lowPassFilter.cutoffFrequency = sliderValue

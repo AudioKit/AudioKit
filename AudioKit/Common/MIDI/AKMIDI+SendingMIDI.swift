@@ -51,7 +51,6 @@ extension AKMIDI {
         return MIDIDestinations().names
   }
 
-
     /// Open a MIDI Output Port
     ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
@@ -73,7 +72,7 @@ extension AKMIDI {
 
         var packet: UnsafeMutablePointer<MIDIPacket>? = nil
         packet = MIDIPacketListInit(packetListPointer)
-        packet = MIDIPacketListAdd(packetListPointer, 1024, packet!, 0, data.count, data)
+        packet = MIDIPacketListAdd(packetListPointer, 1_024, packet!, 0, data.count, data)
         for endpoint in endpoints.values {
             let result = MIDISend(outputPort, endpoint, packetListPointer)
             if result != noErr {
