@@ -3,7 +3,7 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka on 8/3/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import Foundation
