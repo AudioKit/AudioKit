@@ -2,7 +2,7 @@
 //  save.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/4/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
