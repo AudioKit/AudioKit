@@ -20,4 +20,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
 }
-

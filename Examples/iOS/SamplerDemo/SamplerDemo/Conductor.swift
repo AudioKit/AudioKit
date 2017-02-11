@@ -34,7 +34,7 @@ class Conductor {
         mixer.connect(padVolume!)
         mixer.connect(bassVolume!)
         mixer.connect(drumKitVolume!)
-        
+
         filter = AKMoogLadder(mixer)
         filter?.cutoffFrequency = 20000
         AudioKit.output = filter
@@ -52,7 +52,7 @@ class Conductor {
         sequence!.avTracks[4].destinationAudioUnit = drumKit.samplerUnit
         sequence!.setLength(AKDuration(beats: 4))
     }
-    
+
     func adjustVolume(_ volume: Float, instrument: Instrument) {
         switch instrument {
         case Instrument.Arpeggio:
@@ -65,29 +65,29 @@ class Conductor {
             drumKitVolume?.gain = Double(volume)
         }
     }
-    
+
     func adjustFilterFrequency(_ frequency: Float) {
         let value = Double(frequency)
         filter?.cutoffFrequency = value.denormalized(minimum: 30, maximum: 20000, taper: 3)
     }
-    
+
     func playSequence() {
         sequence!.play()
     }
-    
+
     func stopSequence() {
         sequence!.stop()
     }
-    
+
     func rewindSequence() {
         sequence!.rewind()
     }
-    
+
     func setLength(_ length: Double) {
         sequence!.setLength(AKDuration(beats: length))
         sequence!.rewind()
     }
-    
+
     func useSound(_ sound: Sound, synthesizer: Synthesizer) {
         let soundPath: String?
         switch sound {
@@ -100,12 +100,12 @@ class Conductor {
         case Sound.Noisy:
             soundPath = "Sounds/Sampler Instruments/noisyRez"
         }
-        
+
         guard let path = soundPath else {
             print("Type of sound wasn't detected")
             return
         }
-        
+
         switch synthesizer {
         case Synthesizer.Arpeggio:
             try! arpeggioSynthesizer.loadEXS24(path)
@@ -115,7 +115,7 @@ class Conductor {
             try! bassSynthesizer.loadEXS24(path)
         }
     }
-    
+
     func adjustTempo(_ tempo: Float) {
         sequence?.rate = Double(tempo)
     }

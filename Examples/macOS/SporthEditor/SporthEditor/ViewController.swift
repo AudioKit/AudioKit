@@ -10,30 +10,30 @@ import Cocoa
 
 class ViewController: NSViewController {
     @IBOutlet var codeEditorTextView: NSTextView!
-    
+
     var display: String {
         get { return (codeEditorTextView?.string)!  }
         set { codeEditorTextView?.string = newValue }
     }
-    
+
     var path: String?
-    
+
     var brain = SporthEditorBrain()
-    
+
     @IBAction func run(_ sender: NSButton) {
         brain.run(display)
     }
-    
+
     @IBAction func stop(_ sender: NSButton) {
         brain.stop()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = NSApplication.shared().delegate as! AppDelegate
         appDelegate.openControlsWindow(nil)
     }
-    
+
     override func viewWillDisappear() {
         brain.stop()
     }

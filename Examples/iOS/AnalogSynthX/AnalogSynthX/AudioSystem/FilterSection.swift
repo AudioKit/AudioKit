@@ -51,17 +51,17 @@ class FilterSection: AKNode {
     init(_ input: AKNode) {
 
         output = AKOperationEffect(input) { input, parameters in
-            
+
             let cutoff   = parameters[0]
             let rez      = parameters[1]
             let oscAmp   = parameters[2]
             let oscRate  = parameters[3]
             let oscIndex = parameters[4]
-            
+
             let lfo = AKOperation.morphingOscillator(frequency: oscRate,
                                                      amplitude: oscAmp,
                                                      index: oscIndex)
-            
+
             return input.moogLadderFilter(cutoffFrequency: max(lfo + cutoff, 0),
                                           resonance: rez)
         }

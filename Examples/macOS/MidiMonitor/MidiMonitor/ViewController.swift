@@ -13,23 +13,23 @@ class ViewController: NSViewController, AKMIDIListener {
     @IBOutlet var outputTextView: NSTextView!
     @IBOutlet var sourcePopUpButton: NSPopUpButton!
     var midi = AKMIDI()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+
         midi.openInput("Session 1")
         midi.addListener(self)
-        
+
         sourcePopUpButton.removeAllItems()
         sourcePopUpButton.addItems(withTitles: midi.inputNames)
     }
-    
+
     @IBAction func sourceChanged(_ sender: NSPopUpButton) {
         midi.closeAllInputs()
         midi.openInput(midi.inputNames[sender.indexOfSelectedItem])
     }
-    
+
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                        velocity: MIDIVelocity,
                                        channel: Int) {
@@ -37,7 +37,7 @@ class ViewController: NSViewController, AKMIDIListener {
         newString.append("noteOn: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
-    
+
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                         velocity: MIDIVelocity,
                                         channel: Int) {
@@ -45,13 +45,13 @@ class ViewController: NSViewController, AKMIDIListener {
         newString.append("noteOff: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
-    
+
     func receivedMIDIController(_ controller: Int, value: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
         newString.append("controller: \(controller) value: \(value) ")
         updateText(newString)
     }
-    
+
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                            pressure: Int,
                                            channel: Int) {
@@ -59,25 +59,25 @@ class ViewController: NSViewController, AKMIDIListener {
         newString.append("midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
         updateText(newString)
     }
-    
+
     func receivedMIDIAfterTouch(_ pressure: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
         newString.append("midiAfterTouch pressure: \(pressure) ")
         updateText(newString)
     }
-    
+
     func receivedMIDIPitchWheel(_ pitchWheelValue: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
         newString.append("midiPitchWheel: \(pitchWheelValue) ")
         updateText(newString)
     }
-    
+
     func receivedMIDIProgramChange(_ program: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
         newString.append("programChange: \(program) ")
         updateText(newString)
     }
-    
+
     func receivedMIDISystemCommand(_ data: [UInt8]) {
         print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
         var newString = "MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!) \n"
@@ -86,19 +86,19 @@ class ViewController: NSViewController, AKMIDIListener {
         }
         updateText(newString)
     }
-    
+
     func updateText(_ input: String) {
         DispatchQueue.main.async(execute: {
             self.outputTextView.string = "\(input)\n\(self.outputTextView.string!)"
         })
     }
-    
+
     @IBAction func clearText(_ sender: Any) {
         DispatchQueue.main.async(execute: {
             self.outputTextView.string = ""
         })
     }
-    
+
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.

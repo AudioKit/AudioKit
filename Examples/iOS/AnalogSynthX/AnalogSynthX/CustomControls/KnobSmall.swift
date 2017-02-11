@@ -21,7 +21,6 @@ class KnobSmall: Knob {
     var knob120_base = UIImage(named: "knob120_base")
     var knob120_indicator = UIImage(named: "knob120_indicator")
 
-
     override func draw(_ rect: CGRect) {
         drawKnobSmall(knobValue: knobValue)
     }
@@ -51,7 +50,7 @@ class KnobSmall: Knob {
         //// Indicator Drawing
         context?.saveGState()
         context?.translateBy(x: 35, y: 35)
-        context?.rotate(by: -(knobAngle + 120) * CGFloat(M_PI) / 180)
+        context?.rotate(by: -(knobAngle + 120) * CGFloat.pi / 180)
 
         let indicatorPath = UIBezierPath(rect: CGRect(x: -30, y: -30, width: 60, height: 60))
         context?.saveGState()
