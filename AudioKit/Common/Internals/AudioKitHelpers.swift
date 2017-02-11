@@ -80,9 +80,9 @@ extension Double {
     ///
     public func normalized(
         minimum: Double,
-                maximum: Double,
-                taper: Double) -> Double {
-
+        maximum: Double,
+        taper: Double) -> Double {
+        
         if taper > 0 {
             // algebraic taper
             return pow(((self - minimum) / (maximum - minimum)), (1.0 / taper))

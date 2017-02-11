@@ -44,9 +44,9 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - operations:       Array of operations [left, right]
     ///
     public convenience init(_ input: AKNode,
-                              numberOfChannels: Int,
-                              operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
-
+                            numberOfChannels: Int,
+                            operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
+        
         let computedParameters = operations(AKStereoOperation.input, AKOperation.parameters)
         let left = computedParameters[0]
 
@@ -65,8 +65,8 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - operation: Operation to generate, can be mono or stereo
     ///
     public convenience init(_ input: AKNode,
-                              operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
-
+                            operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
+        
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
 
         if type(of: computedParameter) == AKOperation.self {

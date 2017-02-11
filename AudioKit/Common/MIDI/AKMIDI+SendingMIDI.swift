@@ -49,7 +49,7 @@ extension AKMIDI {
     /// Array of destination names
     public var destinationNames: [String] {
         return MIDIDestinations().names
-  }
+    }
 
     /// Open a MIDI Output Port
     ///
@@ -109,8 +109,8 @@ extension AKMIDI {
 
     /// Send a Note Off Message
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
-                                             velocity: MIDIVelocity,
-                                             channel: MIDIChannel = 0) {
+                                   velocity: MIDIVelocity,
+                                   channel: MIDIChannel = 0) {
         let noteCommand: MIDIByte = MIDIByte(0x80) + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message)

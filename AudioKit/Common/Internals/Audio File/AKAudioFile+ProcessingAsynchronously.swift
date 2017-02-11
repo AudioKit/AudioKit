@@ -64,11 +64,16 @@ extension AKAudioFile {
         // Returns a Uniform Type identifier for each audio file format
         fileprivate var UTI: CFString {
             switch self {
-            case .wav: return AVFileTypeWAVE as CFString
-            case .aif: return AVFileTypeAIFF as CFString
-            case .mp4: return AVFileTypeAppleM4A as CFString
-            case .m4a: return AVFileTypeAppleM4A as CFString
-            case .caf: return AVFileTypeCoreAudioFormat as CFString
+            case .wav:
+                return AVFileTypeWAVE as CFString
+            case .aif:
+                return AVFileTypeAIFF as CFString
+            case .mp4:
+                return AVFileTypeAppleM4A as CFString
+            case .m4a:
+                return AVFileTypeAppleM4A as CFString
+            case .caf:
+                return AVFileTypeCoreAudioFormat as CFString
             }
         }
 
@@ -435,10 +440,10 @@ extension AKAudioFile {
 
         // Append Normalize Process
         fileprivate func queueNormalizeAsyncProcess(sourceFile: AKAudioFile,
-                                                           baseDir: BaseDirectory,
-                                                           name: String,
-                                                           newMaxLevel: Float,
-                                                           completionHandler: @escaping AsyncProcessCallback ) {
+                                                    baseDir: BaseDirectory,
+                                                    name: String,
+                                                    newMaxLevel: Float,
+                                                    completionHandler: @escaping AsyncProcessCallback ) {
 
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1

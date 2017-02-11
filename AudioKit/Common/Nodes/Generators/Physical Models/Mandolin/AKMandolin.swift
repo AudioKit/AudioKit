@@ -114,9 +114,9 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - course3Note: MIDI note number for course 3
     ///   - course4Note: MIDI note number for course 4
     open func prepareChord(_ course1Note: MIDINoteNumber,
-                      _ course2Note: MIDINoteNumber,
-                      _ course3Note: MIDINoteNumber,
-                      _ course4Note: MIDINoteNumber) {
+                           _ course2Note: MIDINoteNumber,
+                           _ course3Note: MIDINoteNumber,
+                           _ course4Note: MIDINoteNumber) {
         fret(noteNumber: course1Note, course: 0)
         fret(noteNumber: course2Note, course: 1)
         fret(noteNumber: course3Note, course: 2)
