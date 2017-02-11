@@ -473,7 +473,8 @@ extension AKAudioFile {
                             comment: "")
                     ]
                     processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
-                                           code: 0, userInfo: userInfo)
+                                           code: 0,
+                                           userInfo: userInfo)
 
                 }
                 completionHandler(processedFile, processError)
