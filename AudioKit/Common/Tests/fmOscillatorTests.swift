@@ -3,12 +3,11 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/5/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import XCTest
-
 import AudioKit
+import XCTest
 
 class fmOscillatorTests: AKTestCase {
 

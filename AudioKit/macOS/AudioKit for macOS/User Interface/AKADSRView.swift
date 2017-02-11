@@ -3,7 +3,7 @@
 //  AudioKit for macOS
 //
 //  Created by Aurelius Prochazka on 8/2/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
