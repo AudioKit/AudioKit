@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 open class AKButton: UIView {
     internal var callback: () -> (String)
     open var title: String {

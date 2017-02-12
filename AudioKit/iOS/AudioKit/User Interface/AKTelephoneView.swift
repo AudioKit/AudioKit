@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// This is primarily for the telephone page in the Synthesis playground
 open class AKTelephoneView: UIView {
     

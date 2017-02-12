@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKComputedParameter {
 
     /// This is was built using the JC reverb implentation found in FAUST. According

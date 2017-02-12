@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 extension AVAudioConnectionPoint {
     convenience init(_ node: AKNode, to bus: Int) {
         self.init(node: node.avAudioNode, bus: bus)

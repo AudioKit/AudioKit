@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKComputedParameter {
 
     /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.

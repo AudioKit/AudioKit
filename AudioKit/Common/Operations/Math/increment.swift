@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKOperation {
 
     /// Increment a signal by a default value of 1

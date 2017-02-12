@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// Analog model of the Korg 35 Lowpass Filter
 ///
 open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
@@ -94,8 +92,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

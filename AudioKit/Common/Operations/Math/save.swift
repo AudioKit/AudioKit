@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKOperation {
 
     /// Save a value into the parameters array for using outside of the operation

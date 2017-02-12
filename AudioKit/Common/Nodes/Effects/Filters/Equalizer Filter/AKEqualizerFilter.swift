@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// A 2nd order tunable equalization filter that provides a peak/notch filter
 /// for building parametric/graphic equalizers. With gain above 1, there will be
 /// a peak at the center frequency with a width dependent on bandwidth. If gain
@@ -98,8 +96,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

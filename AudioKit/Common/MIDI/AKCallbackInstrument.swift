@@ -29,7 +29,7 @@ open class AKCallbackInstrument: AKMIDIInstrument {
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attach(self.avAudioNode)
     }
-    
+
     fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
                                       noteNumber: MIDINoteNumber,
                                       velocity: MIDIVelocity) {

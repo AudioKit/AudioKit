@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// When fed with a pulse train, it will generate a series of overlapping
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
@@ -82,8 +80,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

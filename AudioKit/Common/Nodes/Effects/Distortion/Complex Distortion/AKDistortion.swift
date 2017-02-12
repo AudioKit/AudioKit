@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
 open class AKDistortion: AKNode, AKToggleable, AUEffect {

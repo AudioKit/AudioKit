@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 // Since the AudioKit playgrounds are cross-platform, 
 // keep track of the audio resources available to each playground set here
 

@@ -6,7 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 /// A click and draggable view of an ADSR Envelope (Atttack, Decay, Sustain, Release)

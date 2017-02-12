@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// A computed parameter differs from a regular parameter in that it only exists within an operation (unlike float, doubles, and ints which have a value outside of an operation)
 public protocol AKComputedParameter: AKParameter {}
 
@@ -48,7 +46,9 @@ open class AKOperation: AKComputedParameter {
     fileprivate var module = ""
 
     internal var inlineSporth: String {
-        if valueText != "" { return valueText }
+        if valueText != "" {
+            return valueText
+        }
         var opString = ""
         for input in inputs {
             if type(of: input) == AKOperation.self {

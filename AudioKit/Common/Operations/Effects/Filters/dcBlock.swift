@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKComputedParameter {
 
     /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])

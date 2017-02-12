@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// Audio from the standard input
 open class AKMicrophone: AKNode, AKToggleable {
 

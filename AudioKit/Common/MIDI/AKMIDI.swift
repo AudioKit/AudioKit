@@ -6,7 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
 import CoreMIDI
 
 /// MIDI input and output handler

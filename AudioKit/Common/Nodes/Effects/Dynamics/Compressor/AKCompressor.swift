@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// AudioKit Compressor based on Apple's DynamicsProcessor Audio Unit
 ///
 open class AKCompressor: AKNode, AKToggleable, AUEffect {

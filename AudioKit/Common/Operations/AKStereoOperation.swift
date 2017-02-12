@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Stereo version of AKComputedParameter
 open class AKStereoOperation: AKComputedParameter {
 
@@ -45,7 +43,9 @@ open class AKStereoOperation: AKComputedParameter {
     internal var setupSporth = ""
 
     fileprivate var inlineSporth: String {
-        if valueText != "" { return valueText }
+        if valueText != "" {
+            return valueText
+        }
         var opString = ""
         for input in inputs {
             if type(of: input) == AKOperation.self {

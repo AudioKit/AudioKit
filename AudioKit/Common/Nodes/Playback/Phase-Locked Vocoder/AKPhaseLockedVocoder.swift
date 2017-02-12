@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// This is a phase locked vocoder. It has the ability to play back an audio
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
@@ -103,8 +101,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
 
         super.init()
 
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -118,8 +115,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         amplitudeParameter = tree["amplitude"]
         pitchRatioParameter = tree["pitchRatio"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.positionParameter!.address {

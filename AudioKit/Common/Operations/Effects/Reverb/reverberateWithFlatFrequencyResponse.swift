@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKComputedParameter {
 
     /// This filter reiterates the input with an echo density determined by loop

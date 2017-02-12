@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// Not so simple audio playback class
 open class AKAudioPlayer: AKNode, AKToggleable {
 
@@ -496,7 +493,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Turn the buffer around!
     fileprivate func reverseBuffer() {
-        guard audioFileBuffer != nil else { return }
+        guard audioFileBuffer != nil else {
+            return
+        }
 
         let reverseBuffer = AVAudioPCMBuffer(
             pcmFormat: internalAudioFile.processingFormat,

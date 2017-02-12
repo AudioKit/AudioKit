@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Protocol that must be adhered to if you want your class to respond to MIDI
 ///
 /// Implement the AKMIDIListener protocol on any classes that need to respond

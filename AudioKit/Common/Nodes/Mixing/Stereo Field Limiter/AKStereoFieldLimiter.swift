@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// Stereo Field Limiter
 open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKStereoFieldLimiterAudioUnit
@@ -64,8 +62,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

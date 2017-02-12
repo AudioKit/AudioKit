@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// Kick Drum Synthesizer Instrument
 open class AKSynthKick: AKMIDIInstrument {
 

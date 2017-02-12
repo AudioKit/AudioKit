@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
 open class AKLowPassFilter: AKNode, AKToggleable, AUEffect {
