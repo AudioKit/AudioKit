@@ -57,11 +57,11 @@ class ViewController: UIViewController {
             frequencyLabel.text = String(format: "%0.1f", tracker.frequency)
 
             var frequency = Float(tracker.frequency)
-            while (frequency > Float(noteFrequencies[noteFrequencies.count - 1])) {
-                frequency = frequency / 2.0
+            while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
+                frequency /= 2.0
             }
-            while (frequency < Float(noteFrequencies[0])) {
-                frequency = frequency * 2.0
+            while frequency < Float(noteFrequencies[0]) {
+                frequency *= 2.0
             }
 
             var minDistance: Float = 10_000.0
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
 
             for i in 0..<noteFrequencies.count {
                 let distance = fabsf(Float(noteFrequencies[i]) - frequency)
-                if (distance < minDistance) {
+                if distance < minDistance {
                     index = i
                     minDistance = distance
                 }
