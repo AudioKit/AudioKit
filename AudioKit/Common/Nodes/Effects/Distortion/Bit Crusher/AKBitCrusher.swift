@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// This will digitally degrade a signal.
 ///
 open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
@@ -79,8 +77,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
 
         super.init()
 
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

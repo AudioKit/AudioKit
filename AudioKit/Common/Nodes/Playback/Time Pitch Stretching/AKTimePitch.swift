@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
 open class AKTimePitch: AKNode, AKToggleable {

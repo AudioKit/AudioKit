@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// FFT Calculation for any node
 @objc open class AKFFTTap: NSObject, EZAudioFFTDelegate {
 
@@ -25,7 +23,9 @@ import Foundation
         super.init()
         fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
         input.avAudioNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, _) -> Void in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
             let tail = buffer.floatChannelData?[0]

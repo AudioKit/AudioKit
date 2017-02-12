@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKOperation {
     /// Multiplication of parameters
     ///
@@ -32,7 +30,7 @@ extension AKOperation {
 ///   - left: 1st parameter
 ///   - right: 2nd parameter
 ///
-public func *(left: AKParameter, right: AKParameter) -> AKOperation {
+public func * (left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().times(right)
 }
 
@@ -42,7 +40,7 @@ public func *(left: AKParameter, right: AKParameter) -> AKOperation {
 ///   - left: stereo operation
 ///   - right: parameter
 ///
-public func *(left: AKStereoOperation, right: AKParameter) -> AKStereoOperation {
+public func * (left: AKStereoOperation, right: AKParameter) -> AKStereoOperation {
     return AKStereoOperation(module: "dup rot mul rot rot mul swap", inputs: left, right)
 }
 
@@ -52,6 +50,6 @@ public func *(left: AKStereoOperation, right: AKParameter) -> AKStereoOperation 
 ///   - left: parameter
 ///   - right: stereo operation
 ///
-public func *(left: AKParameter, right: AKStereoOperation) -> AKStereoOperation {
+public func * (left: AKParameter, right: AKStereoOperation) -> AKStereoOperation {
     return AKStereoOperation(module: "rot dup rot mul rot rot mul swap", inputs: left, right)
 }

@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Builds presets for Apple sampler to read from
 open class AKAUPresetBuilder {
 
@@ -72,7 +70,7 @@ open class AKAUPresetBuilder {
         let endNoteKey = "endnote"
         let filenameKey = "filename"
         let triggerModeKey = "triggerMode"
-        var loadSoundsArr = Array<NSMutableDictionary>()
+        var loadSoundsArr = [NSMutableDictionary]()
         var sampleZoneXML = ""
         var layerXML = ""
         var sampleIDXML = ""

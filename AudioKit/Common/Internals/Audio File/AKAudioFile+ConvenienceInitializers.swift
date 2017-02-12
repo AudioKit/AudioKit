@@ -14,12 +14,12 @@ extension NSError {
   }
 }
 
-func ??<T>(lhs: T?, rhs: NSError) throws -> T {
+func ??<T> (lhs: T?, rhs: NSError) throws -> T {
   guard let l = lhs else { throw rhs }
   return l
 }
 
-func ||(lhs: Bool, rhs: NSError) throws -> Bool {
+func || (lhs: Bool, rhs: NSError) throws -> Bool {
   guard lhs else { throw rhs }
   return lhs
 }

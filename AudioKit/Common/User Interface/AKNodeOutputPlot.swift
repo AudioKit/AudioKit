@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Plot the output from any node in an signal processing graph
 @IBDesignable
 open class AKNodeOutputPlot: EZAudioPlot {
@@ -17,7 +15,9 @@ open class AKNodeOutputPlot: EZAudioPlot {
                                       bufferSize: bufferSize,
                                       format: nil) { [weak self] (buffer, _) in
 
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
             let tail = buffer.floatChannelData?[0]

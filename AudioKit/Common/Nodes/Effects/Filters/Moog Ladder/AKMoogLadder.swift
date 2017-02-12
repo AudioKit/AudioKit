@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// Moog Ladder is an new digital implementation of the Moog ladder filter based
 /// on the work of Antti Huovilainen, described in the paper "Non-Linear Digital
 /// Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of
@@ -83,8 +81,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

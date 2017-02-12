@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// AudioKit version of Apple's Delay Audio Unit
 ///
 open class AKDelay: AKNode, AKToggleable {

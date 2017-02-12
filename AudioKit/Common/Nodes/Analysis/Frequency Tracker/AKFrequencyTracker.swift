@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// This is based on an algorithm originally created by Miller Puckette.
 ///
 open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {

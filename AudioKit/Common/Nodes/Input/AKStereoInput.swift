@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// Audio from a standard stereo input (very useful for making filters that use Audiobus or IAA as their input source)
 open class AKStereoInput: AKNode, AKToggleable {
 

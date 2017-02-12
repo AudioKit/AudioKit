@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// AudioKit Expander based on Apple's DynamicsProcessor Audio Unit
 ///
 open class AKExpander: AKNode, AKToggleable, AUEffect {

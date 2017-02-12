@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
 open class AKRingModulator: AKNode, AKToggleable, AUEffect {

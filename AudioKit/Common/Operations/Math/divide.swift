@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKOperation {
     /// Division of parameters
     ///
@@ -24,7 +22,7 @@ extension AKOperation {
 ///   - numerator: Mono parameter
 ///   - denominator: The amount to divide
 ///
-public func /(numerator: AKParameter, denominator: AKParameter) -> AKOperation {
+public func / (numerator: AKParameter, denominator: AKParameter) -> AKOperation {
     return numerator.toMono().dividedBy(denominator)
 }
 
@@ -34,6 +32,6 @@ public func /(numerator: AKParameter, denominator: AKParameter) -> AKOperation {
 ///   - numerator: Stereo operation
 ///   - denominator: The amount to divide
 ///
-public func /(numerator: AKStereoOperation, denominator: AKParameter) -> AKStereoOperation {
+public func / (numerator: AKStereoOperation, denominator: AKParameter) -> AKStereoOperation {
     return AKStereoOperation(module: "dup rot swap / rot rot / swap", inputs: numerator, denominator)
 }

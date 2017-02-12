@@ -109,7 +109,8 @@ extension AVAudioFile {
             return "audio/aac"
         case "mp3":
             return "audio/mpeg3"
-        default: return nil
+        default:
+            return nil
         }
     }
 

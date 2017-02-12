@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKOperation {
 
     /// Loosely based off of the Csound opcode randomh. The design is equivalent to

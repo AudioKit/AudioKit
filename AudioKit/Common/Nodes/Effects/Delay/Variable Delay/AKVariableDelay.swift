@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// A delay line with cubic interpolation.
 ///
 open class AKVariableDelay: AKNode, AKToggleable, AKComponent {

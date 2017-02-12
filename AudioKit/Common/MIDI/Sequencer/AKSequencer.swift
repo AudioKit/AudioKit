@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// Basic sequencer
 ///
 /// This  is currently in transistion from old c core audio apis, to the more

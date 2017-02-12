@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 // MARK: Numeric Protocol
 
 /// Very simple protoocol for anything with an instrinsic floating point value.
@@ -47,21 +45,21 @@ extension Double: Numeric {
 //}
 
 /// Addition
-public func +(lhs: Numeric, rhs: Numeric) -> Double {
+public func + (lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() + rhs.value()
 }
 
 /// Subtraction
-public func -(lhs: Numeric, rhs: Numeric) -> Double {
+public func - (lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() - rhs.value()
 }
 
 /// Division
-public func /(lhs: Numeric, rhs: Numeric) -> Double {
+public func / (lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() / rhs.value()
 }
 
 /// Multiplication
-public func *(lhs: Numeric, rhs: Numeric) -> Double {
+public func * (lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() * rhs.value()
 }

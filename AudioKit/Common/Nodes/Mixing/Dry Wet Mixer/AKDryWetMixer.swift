@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
 open class AKDryWetMixer: AKNode {

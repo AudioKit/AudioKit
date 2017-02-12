@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///

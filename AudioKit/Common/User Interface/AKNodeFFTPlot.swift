@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Plot the FFT output from any node in an signal processing graph
 @IBDesignable
 open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {

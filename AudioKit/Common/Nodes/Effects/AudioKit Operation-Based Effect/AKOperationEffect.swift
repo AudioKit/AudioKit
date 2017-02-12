@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// Operation-based effect
 open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOperationEffectAudioUnit
@@ -46,7 +44,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     public convenience init(_ input: AKNode,
                             numberOfChannels: Int,
                             operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
-        
+
         let computedParameters = operations(AKStereoOperation.input, AKOperation.parameters)
         let left = computedParameters[0]
 
@@ -66,7 +64,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///
     public convenience init(_ input: AKNode,
                             operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
-        
+
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
 
         if type(of: computedParameter) == AKOperation.self {

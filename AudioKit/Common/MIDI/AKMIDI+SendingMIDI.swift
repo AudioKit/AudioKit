@@ -60,8 +60,7 @@ extension AKMIDI {
     public func openOutput(_ namedOutput: String = "") {
         outputPort = MIDIOutputPort(client: client, name: outputPortName)!
 
-        _ = zip(destinationNames, MIDIDestinations()).first {
-            (name, _) in
+        _ = zip(destinationNames, MIDIDestinations()).first { name, _ in
             namedOutput.isEmpty || namedOutput == name
         }.map {
           endpoints[$0] = $1

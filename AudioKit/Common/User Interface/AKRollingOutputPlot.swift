@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Wrapper class for plotting audio from the final mix in a rolling plot
 @IBDesignable
 open class AKRollingOutputPlot: EZAudioPlot {
@@ -15,7 +13,9 @@ open class AKRollingOutputPlot: EZAudioPlot {
         AudioKit.engine.outputNode.installTap(onBus: 0,
                                               bufferSize: bufferSize,
                                               format: nil) { [weak self] (buffer, _) in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                return
+            }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
             let tail = buffer.floatChannelData?[0]

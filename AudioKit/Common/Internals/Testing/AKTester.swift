@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// Testing node
 open class AKTester: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKTesterAudioUnit

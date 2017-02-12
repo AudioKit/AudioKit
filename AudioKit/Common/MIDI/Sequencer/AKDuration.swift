@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 public typealias BPM = Double
 
 /// Container for the notion of time in sequencing
@@ -110,7 +108,7 @@ public func ceil(_ duration: AKDuration) -> AKDuration {
 /// - parameter lhs: Starting duration
 /// - parameter rhs: Amount to add
 ///
-public func +=(lhs: inout AKDuration, rhs: AKDuration) {
+public func += (lhs: inout AKDuration, rhs: AKDuration) {
     lhs.beats += rhs.beats
 }
 
@@ -119,7 +117,7 @@ public func +=(lhs: inout AKDuration, rhs: AKDuration) {
 /// - parameter lhs: Starting duration
 /// - parameter rhs: Amount to subtract
 ///
-public func -=(lhs: inout AKDuration, rhs: AKDuration) {
+public func -= (lhs: inout AKDuration, rhs: AKDuration) {
     lhs.beats -= rhs.beats
 }
 
@@ -128,7 +126,7 @@ public func -=(lhs: inout AKDuration, rhs: AKDuration) {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func == (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats == rhs.beats
 }
 
@@ -137,7 +135,7 @@ public func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func !=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func != (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats != rhs.beats
 }
 
@@ -146,7 +144,7 @@ public func !=(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func >=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func >= (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats >= rhs.beats
 }
 
@@ -155,7 +153,7 @@ public func >=(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func <=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func <= (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats <= rhs.beats
 }
 
@@ -164,7 +162,7 @@ public func <=(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func <(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func < (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats < rhs.beats
 }
 
@@ -173,7 +171,7 @@ public func <(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func >(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func > (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats > rhs.beats
 }
 
@@ -182,7 +180,7 @@ public func >(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func +(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+public func + (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var newDuration = lhs
     newDuration.beats += rhs.beats
     return newDuration
@@ -193,7 +191,7 @@ public func +(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func -(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+public func - (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var newDuration = lhs
     newDuration.beats -= rhs.beats
     return newDuration
@@ -204,7 +202,7 @@ public func -(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func %(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+public func % (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var copy = lhs
     copy.beats = lhs.beats.truncatingRemainder(dividingBy: rhs.beats)
     return copy

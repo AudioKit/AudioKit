@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Wrapper for internal Apple MusicTrack
 open class AKMusicTrack {
 
@@ -304,10 +302,9 @@ open class AKMusicTrack {
         var midiData = MIDIRawData()
         midiData.length = UInt32(data.count)
 
-        withUnsafeMutablePointer(to: &midiData.data, {
-            ptr in
+        withUnsafeMutablePointer(to: &midiData.data, { pointer in
             for i in 0 ..< data.count {
-                ptr[i] = data[i]
+                pointer[i] = data[i]
             }
         })
 

@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// AKParameters are simply arguments that can be passed into AKComputedParameters
 /// These could be numbers (floats, doubles, ints) or other operations themselves
 /// Since parameters can be audio in mono or stereo format, the protocol 

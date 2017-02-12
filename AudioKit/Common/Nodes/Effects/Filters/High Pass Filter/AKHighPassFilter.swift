@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import AVFoundation
-
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
 open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
