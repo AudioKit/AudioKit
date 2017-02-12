@@ -135,15 +135,16 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
             }
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         frequencyParameter = tree["frequency"]
         amplitudeParameter = tree["amplitude"]
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.frequencyParameter!.address {

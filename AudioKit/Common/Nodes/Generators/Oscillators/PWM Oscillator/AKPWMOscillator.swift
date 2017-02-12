@@ -144,7 +144,9 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         frequencyParameter = tree["frequency"]
         amplitudeParameter = tree["amplitude"]
@@ -152,8 +154,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.frequencyParameter!.address {

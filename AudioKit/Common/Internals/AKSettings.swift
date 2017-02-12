@@ -181,7 +181,9 @@ extension AKSettings {
                 return AVAudioSessionCategoryMultiRoute
             }
             #if !os(tvOS)
-            if self == .audioProcessing { return AVAudioSessionCategoryAudioProcessing }
+            if self == .audioProcessing {
+                return AVAudioSessionCategoryAudioProcessing
+            }
             #endif
 
             fatalError("unrecognized AVAudioSessionCategory \(self)")

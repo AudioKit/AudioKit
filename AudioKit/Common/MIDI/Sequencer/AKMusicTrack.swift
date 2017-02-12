@@ -53,10 +53,9 @@ open class AKMusicTrack {
         metaEvent.metaEventType = 3 // track or sequence name
         metaEvent.dataLength = UInt32(data.count)
 
-        withUnsafeMutablePointer(to: &metaEvent.data, {
-            ptr in
+        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
             for i in 0 ..< data.count {
-                ptr[i] = data[i]
+                pointer[i] = data[i]
             }
         })
 

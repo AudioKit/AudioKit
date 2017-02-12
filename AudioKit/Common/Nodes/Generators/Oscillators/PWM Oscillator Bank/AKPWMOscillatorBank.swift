@@ -170,7 +170,9 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         pulseWidthParameter = tree["pulseWidth"]
         attackDurationParameter = tree["attackDuration"]
@@ -180,8 +182,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.pulseWidthParameter!.address {

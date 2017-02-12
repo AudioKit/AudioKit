@@ -104,14 +104,15 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         cornerFrequencyParameter = tree["cornerFrequency"]
         gainParameter = tree["gain"]
         qParameter = tree["q"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.cornerFrequencyParameter!.address {

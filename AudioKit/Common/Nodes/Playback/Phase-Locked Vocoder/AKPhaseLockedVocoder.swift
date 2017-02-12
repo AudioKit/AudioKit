@@ -110,7 +110,9 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         positionParameter = tree["position"]
         amplitudeParameter = tree["amplitude"]

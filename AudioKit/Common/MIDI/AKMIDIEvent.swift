@@ -251,7 +251,8 @@ public struct AKMIDIEvent {
         switch status {
         case .controllerChange:
             length = 3
-        case .channelAftertouch: break
+        case .channelAftertouch:
+            break
         case .programChange:
             length = 2
         default:

@@ -212,7 +212,9 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         carrierMultiplierParameter = tree["carrierMultiplier"]
         modulatingMultiplierParameter = tree["modulatingMultiplier"]
@@ -225,8 +227,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.carrierMultiplierParameter!.address {
