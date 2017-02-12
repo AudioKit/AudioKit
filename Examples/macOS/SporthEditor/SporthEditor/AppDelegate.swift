@@ -25,7 +25,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.allowsMultipleSelection = false
         panel.allowedFileTypes = [FileUtilities.fileExtension]
 
-        if panel.runModal() == NSModalResponseCancel { return }
+        if panel.runModal() == NSModalResponseCancel {
+            return
+        }
 
         if let path = panel.url?.path {
             let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
@@ -70,7 +72,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         savePanel.message = Constants.Message.save
         savePanel.allowedFileTypes = [FileUtilities.fileExtension]
 
-        if savePanel.runModal() == NSModalResponseCancel { return }
+        if savePanel.runModal() == NSModalResponseCancel {
+            return
+        }
 
         if let path = savePanel.url?.path {
             do {

@@ -26,14 +26,10 @@ public class AKADSRView: NSView {
     var lastPoint = CGPoint.zero
 
     override public var isFlipped: Bool {
-        get {
-            return true
-        }
+        return true
     }
     override public var wantsDefaultClipping: Bool {
-        get {
-            return false
-        }
+        return false
     }
 
     override public func mouseDown(with theEvent: NSEvent) {

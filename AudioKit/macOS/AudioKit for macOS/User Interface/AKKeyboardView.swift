@@ -16,7 +16,7 @@ public protocol AKKeyboardDelegate {
 public class AKKeyboardView: NSView, AKMIDIListener {
 
     override public var isFlipped: Bool {
-        get { return true }
+        return true
     }
 
     let whiteKeyOff = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)
@@ -66,15 +66,11 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     }
 
     var whiteKeySize: NSSize {
-        get {
-            return NSMakeSize(size.width / 7.0, size.height - 2)
-        }
+        return NSMakeSize(size.width / 7.0, size.height - 2)
     }
 
     var topKeySize: NSSize {
-        get {
-            return NSMakeSize(size.width / (4 * 7), size.height * topKeyHeightRatio)
-        }
+        return NSMakeSize(size.width / (4 * 7), size.height * topKeyHeightRatio)
     }
 
     func whiteKeyX(n: Int, octaveNumber: Int) -> CGFloat {
@@ -186,7 +182,9 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
     override public func mouseDragged(with event: NSEvent) {
 
-        if polyphonicMode { return } // no response for 'drawing cursor' in polyphonic mode
+        if polyphonicMode {
+            return
+        } // no response for 'drawing cursor' in polyphonic mode
 
         let note = noteFromEvent(event: event)
         if !onKeys.contains(note) {

@@ -67,7 +67,7 @@ open class SMSegmentView: SMBasicSegmentView {
             }
         }
     }
-    @IBInspectable open var segmentTitleFont: UIFont = UIFont.systemFont(ofSize: 17.0) {
+    open var segmentTitleFont: UIFont = UIFont.systemFont(ofSize: 17.0) {
         didSet {
             for segment in self.segments as! [SMSegment] {
                 segment.titleFont = self.segmentTitleFont

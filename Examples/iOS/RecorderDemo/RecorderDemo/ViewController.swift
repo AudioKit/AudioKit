@@ -1,5 +1,5 @@
-import UIKit
 import AudioKit
+import UIKit
 
 class ViewController: UIViewController {
 
