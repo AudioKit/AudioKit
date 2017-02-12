@@ -119,6 +119,36 @@ open class AKSampler: AKNode {
         }
     }
 
+    /// Load a Bank from a SoundFont SF2 sample data file
+    ///
+    /// - Parameters:
+    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - preset: Number of the program to use
+    ///   - bank: Number of the bank to use
+    ///
+    open func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
+        guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
+            fatalError("file not found.")
+        }
+        do {
+            var bMSB: Int
+            if bank <= 127 {
+                bMSB = kAUSampler_DefaultMelodicBankMSB
+            } else {
+                bMSB = kAUSampler_DefaultPercussionBankMSB
+            }
+            let bLSB: Int = bank % 128
+            try samplerUnit.loadSoundBankInstrument(
+                at: url,
+                program: MIDIByte(preset),
+                bankMSB: MIDIByte(bMSB),
+                bankLSB: MIDIByte(bLSB))
+        } catch let error as NSError {
+            AKLog("Error loading SoundFont \(file)")
+            throw error
+        }
+    }
+
     /// Load a Melodic SoundFont SF2 sample data file
     ///
     /// - Parameters:
