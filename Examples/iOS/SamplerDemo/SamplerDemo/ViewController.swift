@@ -10,12 +10,12 @@ import AudioKit
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet var arpeggioVolumeSlider: AKPropertySlider!
-    @IBOutlet var padVolumeSlider: AKPropertySlider!
-    @IBOutlet var bassVolumeSlider: AKPropertySlider!
-    @IBOutlet var drumVolumeSlider: AKPropertySlider!
-    @IBOutlet var filterFrequencySlider: AKPropertySlider!
-    @IBOutlet var tempoSlider: AKPropertySlider!
+    @IBOutlet private var arpeggioVolumeSlider: AKPropertySlider!
+    @IBOutlet private var padVolumeSlider: AKPropertySlider!
+    @IBOutlet private var bassVolumeSlider: AKPropertySlider!
+    @IBOutlet private var drumVolumeSlider: AKPropertySlider!
+    @IBOutlet private var filterFrequencySlider: AKPropertySlider!
+    @IBOutlet private var tempoSlider: AKPropertySlider!
 
     let conductor = Conductor()
 

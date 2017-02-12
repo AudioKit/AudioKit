@@ -11,11 +11,11 @@ import AudioKit
 
 class ViewController: NSViewController {
 
-    @IBOutlet var frequencyLabel: NSTextField!
-    @IBOutlet var amplitudeLabel: NSTextField!
-    @IBOutlet var noteNameWithSharpsLabel: NSTextField!
-    @IBOutlet var noteNameWithFlatsLabel: NSTextField!
-    @IBOutlet var audioInputPlot: EZAudioPlot!
+    @IBOutlet private var frequencyLabel: NSTextField!
+    @IBOutlet private var amplitudeLabel: NSTextField!
+    @IBOutlet private var noteNameWithSharpsLabel: NSTextField!
+    @IBOutlet private var noteNameWithFlatsLabel: NSTextField!
+    @IBOutlet private var audioInputPlot: EZAudioPlot!
 
     var mic: AKMicrophone!
     var tracker: AKFrequencyTracker!

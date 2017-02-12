@@ -12,14 +12,14 @@ class ViewController: UIViewController {
 
     var state = State.readyToRecord
 
-    @IBOutlet var inputPlot: AKNodeOutputPlot!
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var mainButton: UIButton!
-    @IBOutlet weak var frequencySlider: AKPropertySlider!
-    @IBOutlet weak var resonanceSlider: AKPropertySlider!
-    @IBOutlet weak var loopButton: UIButton!
-    @IBOutlet weak var moogLadderTitle: UILabel!
+    @IBOutlet private var inputPlot: AKNodeOutputPlot!
+    @IBOutlet private weak var infoLabel: UILabel!
+    @IBOutlet private weak var resetButton: UIButton!
+    @IBOutlet private weak var mainButton: UIButton!
+    @IBOutlet private weak var frequencySlider: AKPropertySlider!
+    @IBOutlet private weak var resonanceSlider: AKPropertySlider!
+    @IBOutlet private weak var loopButton: UIButton!
+    @IBOutlet private weak var moogLadderTitle: UILabel!
 
     enum State {
         case readyToRecord

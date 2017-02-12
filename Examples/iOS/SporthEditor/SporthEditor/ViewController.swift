@@ -10,15 +10,15 @@ import UIKit
 import AudioKit
 
 class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate {
-    @IBOutlet var codeEditorTextView: UITextView!
-    @IBOutlet weak var keyboard: AKKeyboardView!
-    @IBOutlet weak var status: UILabel!
-    @IBOutlet weak var runButton: RoundedButton!
+    @IBOutlet private var codeEditorTextView: UITextView!
+    @IBOutlet private weak var keyboard: AKKeyboardView!
+    @IBOutlet private weak var status: UILabel!
+    @IBOutlet private weak var runButton: RoundedButton!
 
-    @IBOutlet var slider1: AKPropertySlider!
-    @IBOutlet var slider2: AKPropertySlider!
-    @IBOutlet var slider3: AKPropertySlider!
-    @IBOutlet var slider4: AKPropertySlider!
+    @IBOutlet private var slider1: AKPropertySlider!
+    @IBOutlet private var slider2: AKPropertySlider!
+    @IBOutlet private var slider3: AKPropertySlider!
+    @IBOutlet private var slider4: AKPropertySlider!
 
     var brain = SporthEditorBrain()
     var sporthDictionary = [String: URL]()
@@ -123,7 +123,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
         brain.save(name, code: code)
     }
 
-    @IBOutlet weak var slidersStackView: UIStackView!
+    @IBOutlet private weak var slidersStackView: UIStackView!
     func updateContextAwareCotrols() {
         let sporth = brain.knownCodes[brain.names[brain.currentIndex]]!
         slidersStackView.isHidden = true

@@ -6,12 +6,12 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class EffectsViewController: UIViewController {
 
-    @IBOutlet weak var volumeSlider: AKPropertySlider!
+    @IBOutlet private weak var volumeSlider: AKPropertySlider!
 
     let songProcessor = SongProcessor.sharedInstance
 

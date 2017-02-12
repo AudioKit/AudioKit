@@ -15,42 +15,42 @@ class SynthViewController: UIViewController {
     // MARK: - Instance Properties
     // *********************************************************
 
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var octavePositionLabel: UILabel!
-    @IBOutlet weak var oscMixKnob: KnobMedium!
-    @IBOutlet weak var osc1SemitonesKnob: KnobMedium!
-    @IBOutlet weak var osc2SemitonesKnob: KnobMedium!
-    @IBOutlet weak var osc2DetuneKnob: KnobMedium!
-    @IBOutlet weak var lfoAmtKnob: KnobMedium!
-    @IBOutlet weak var lfoRateKnob: KnobMedium!
-    @IBOutlet weak var crushAmtKnob: KnobMedium!
-    @IBOutlet weak var delayTimeKnob: KnobMedium!
-    @IBOutlet weak var delayMixKnob: KnobMedium!
-    @IBOutlet weak var reverbAmtKnob: KnobMedium!
-    @IBOutlet weak var reverbMixKnob: KnobMedium!
-    @IBOutlet weak var cutoffKnob: KnobLarge!
-    @IBOutlet weak var rezKnob: KnobSmall!
-    @IBOutlet weak var subMixKnob: KnobSmall!
-    @IBOutlet weak var fmMixKnob: KnobSmall!
-    @IBOutlet weak var fmModKnob: KnobSmall!
-    @IBOutlet weak var noiseMixKnob: KnobSmall!
-    @IBOutlet weak var morphKnob: KnobSmall!
-    @IBOutlet weak var masterVolKnob: KnobSmall!
-    @IBOutlet weak var attackSlider: VerticalSlider!
-    @IBOutlet weak var decaySlider: VerticalSlider!
-    @IBOutlet weak var sustainSlider: VerticalSlider!
-    @IBOutlet weak var releaseSlider: VerticalSlider!
-    @IBOutlet weak var vco1Toggle: UIButton!
-    @IBOutlet weak var vco2Toggle: UIButton!
-    @IBOutlet weak var bitcrushToggle: UIButton!
-    @IBOutlet weak var filterToggle: UIButton!
-    @IBOutlet weak var delayToggle: UIButton!
-    @IBOutlet weak var reverbToggle: UIButton!
-    @IBOutlet weak var fattenToggle: UIButton!
-    @IBOutlet weak var holdToggle: UIButton!
-    @IBOutlet weak var monoToggle: UIButton!
-    @IBOutlet weak var audioPlot: AKOutputWaveformPlot!
-    @IBOutlet weak var plotToggle: UIButton!
+    @IBOutlet fileprivate weak var statusLabel: UILabel!
+    @IBOutlet fileprivate weak var octavePositionLabel: UILabel!
+    @IBOutlet fileprivate weak var oscMixKnob: KnobMedium!
+    @IBOutlet fileprivate weak var osc1SemitonesKnob: KnobMedium!
+    @IBOutlet fileprivate weak var osc2SemitonesKnob: KnobMedium!
+    @IBOutlet fileprivate weak var osc2DetuneKnob: KnobMedium!
+    @IBOutlet fileprivate weak var lfoAmtKnob: KnobMedium!
+    @IBOutlet fileprivate weak var lfoRateKnob: KnobMedium!
+    @IBOutlet fileprivate weak var crushAmtKnob: KnobMedium!
+    @IBOutlet fileprivate weak var delayTimeKnob: KnobMedium!
+    @IBOutlet fileprivate weak var delayMixKnob: KnobMedium!
+    @IBOutlet fileprivate weak var reverbAmtKnob: KnobMedium!
+    @IBOutlet fileprivate weak var reverbMixKnob: KnobMedium!
+    @IBOutlet fileprivate weak var cutoffKnob: KnobLarge!
+    @IBOutlet fileprivate weak var rezKnob: KnobSmall!
+    @IBOutlet fileprivate weak var subMixKnob: KnobSmall!
+    @IBOutlet fileprivate weak var fmMixKnob: KnobSmall!
+    @IBOutlet fileprivate weak var fmModKnob: KnobSmall!
+    @IBOutlet fileprivate weak var noiseMixKnob: KnobSmall!
+    @IBOutlet fileprivate weak var morphKnob: KnobSmall!
+    @IBOutlet fileprivate weak var masterVolKnob: KnobSmall!
+    @IBOutlet fileprivate weak var attackSlider: VerticalSlider!
+    @IBOutlet fileprivate weak var decaySlider: VerticalSlider!
+    @IBOutlet fileprivate weak var sustainSlider: VerticalSlider!
+    @IBOutlet fileprivate weak var releaseSlider: VerticalSlider!
+    @IBOutlet fileprivate weak var vco1Toggle: UIButton!
+    @IBOutlet fileprivate weak var vco2Toggle: UIButton!
+    @IBOutlet fileprivate weak var bitcrushToggle: UIButton!
+    @IBOutlet fileprivate weak var filterToggle: UIButton!
+    @IBOutlet fileprivate weak var delayToggle: UIButton!
+    @IBOutlet fileprivate weak var reverbToggle: UIButton!
+    @IBOutlet fileprivate weak var fattenToggle: UIButton!
+    @IBOutlet fileprivate weak var holdToggle: UIButton!
+    @IBOutlet fileprivate weak var monoToggle: UIButton!
+    @IBOutlet fileprivate weak var audioPlot: AKOutputWaveformPlot!
+    @IBOutlet fileprivate weak var plotToggle: UIButton!
 
     enum ControlTag: Int {
         case cutoff = 101

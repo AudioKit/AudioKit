@@ -6,11 +6,11 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class ViewController: UIViewController, AKMIDIListener {
-    @IBOutlet var outputTextView: UITextView!
+    @IBOutlet private var outputTextView: UITextView!
     var midi = AKMIDI()
 
     override func viewDidLoad() {

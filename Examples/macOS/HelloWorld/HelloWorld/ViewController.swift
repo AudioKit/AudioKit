@@ -6,14 +6,14 @@
 //  Copyright © 2015 AudioKit. All rights reserved.
 //
 
-import Cocoa
 import AudioKit
+import Cocoa
 
 class ViewController: NSViewController {
 
     var oscillator = AKOscillator()
 
-    @IBOutlet var plot: AKOutputWaveformPlot!
+    @IBOutlet private var plot: AKOutputWaveformPlot!
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -6,9 +6,9 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AVFoundation
 import MediaPlayer
+import UIKit
 
 class AlbumsViewController: UITableViewController {
 

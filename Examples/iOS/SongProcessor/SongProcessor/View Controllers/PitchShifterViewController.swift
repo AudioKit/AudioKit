@@ -6,13 +6,13 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class PitchShifterViewController: UIViewController {
 
-    @IBOutlet weak var pitchSlider: AKPropertySlider!
-    @IBOutlet weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var pitchSlider: AKPropertySlider!
+    @IBOutlet private weak var mixSlider: AKPropertySlider!
 
     let songProcessor = SongProcessor.sharedInstance
 

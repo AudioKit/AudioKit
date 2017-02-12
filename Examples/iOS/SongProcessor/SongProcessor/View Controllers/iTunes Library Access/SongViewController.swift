@@ -6,15 +6,15 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
+import AudioKit
 import AVFoundation
 import MediaPlayer
-import AudioKit
+import UIKit
 
 class SongViewController: UIViewController {
 
-    @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var albumImageView: UIImageView!
+    @IBOutlet private weak var playButton: UIButton!
+    @IBOutlet private weak var albumImageView: UIImageView!
 
     var exportPath: String = ""
     var startTime: Float = 0.00
