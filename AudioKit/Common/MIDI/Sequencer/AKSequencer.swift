@@ -276,7 +276,8 @@ open class AKSequencer {
             MusicTrackNewExtendedTempoEvent(tempoTrack!, currTime, constrainedTempo)
         }
 
-// Had to comment out this line and two below to make the synth arpeggiator work.  Doing so brings back the "Invalid beat range or track is empty" error
+// Had to comment out this line and two below to make the synth arpeggiator work.  
+// Doing so brings back the "Invalid beat range or track is empty" error
 //        if !isTempoTrackEmpty {
         MusicTrackClear(tempoTrack!, 0, length.beats)
 //        }
@@ -326,7 +327,9 @@ open class AKSequencer {
             MusicEventIteratorPreviousEvent(iterator!)
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
             if eventType == kMusicEventType_ExtendedTempo {
-                let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer((eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self))!)
+                let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(
+                    (eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self))!
+                )
                 tempoOut = tempoEventPointer.pointee.bpm
             }
         }

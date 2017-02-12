@@ -38,7 +38,9 @@ public extension AudioUnit {
 
 public struct AudioUnitPropertyListener {
 
-    public typealias AudioUnitPropertyListenerCallback = (_ audioUnit: AudioUnit, _ property: AudioUnitPropertyID) -> Void
+    public typealias AudioUnitPropertyListenerCallback = (
+        _ audioUnit: AudioUnit,
+        _ property: AudioUnitPropertyID) -> Void
 
     let proc: AudioUnitPropertyListenerProc
     let procInput: UnsafeMutablePointer<AudioUnitPropertyListenerCallback>
@@ -50,7 +52,9 @@ public struct AudioUnitPropertyListener {
             inRefCon.assumingMemoryBound(to: AudioUnitPropertyListenerCallback.self).pointee(inUnit, inID)
         }
 
-        self.procInput = UnsafeMutablePointer<AudioUnitPropertyListenerCallback>.allocate(capacity: MemoryLayout<AudioUnitPropertyListenerCallback>.stride)
+        self.procInput = UnsafeMutablePointer<AudioUnitPropertyListenerCallback>.allocate(
+            capacity: MemoryLayout<AudioUnitPropertyListenerCallback>.stride
+        )
         self.procInput.initialize(to: callback)
     }
 
@@ -87,11 +91,13 @@ public extension AudioUnit {
         try AudioFileSetProperty(self, propertyID, dataSize, &data).check()
     }
 
-    internal func addPropertyListener(listener: AudioUnitPropertyListener, toProperty propertyID: AudioUnitPropertyID) throws {
+    internal func addPropertyListener(listener: AudioUnitPropertyListener,
+                                      toProperty propertyID: AudioUnitPropertyID) throws {
         try AudioUnitAddPropertyListener(self, propertyID, listener.proc, listener.procInput).check()
     }
 
-    internal func removePropertyListener(listener: AudioUnitPropertyListener, fromProperty propertyID: AudioUnitPropertyID) throws {
+    internal func removePropertyListener(listener: AudioUnitPropertyListener,
+                                         fromProperty propertyID: AudioUnitPropertyID) throws {
         try AudioUnitRemovePropertyListenerWithUserData(self, propertyID, listener.proc, listener.procInput).check()
     }
 

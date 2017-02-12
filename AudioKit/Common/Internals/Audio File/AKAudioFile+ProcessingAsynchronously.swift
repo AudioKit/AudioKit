@@ -175,7 +175,7 @@ extension AKAudioFile {
         )
     }
 
-    /// Process the current AKAudioFile in background to return an AKAudioFile with appended audio data from another AKAudioFile.
+    /// Process an AKAudioFile in background to return an AKAudioFile with appended audio data from another AKAudioFile.
     ///
     /// Completion Handler is function with an AKAudioFile.AsyncProcessCallback signature:
     /// ```
@@ -218,7 +218,8 @@ extension AKAudioFile {
 
     /// Process the current AKAudioFile in background to return an AKAudioFile with an extracted range of audio data.
     ///
-    /// if "toSample" parameter is set to zero, it will be set to be the number of samples of the file, so extraction will go from fromSample value to the end of file.
+    /// if "toSample" parameter is set to zero, it will be set to be the number of samples of the file, 
+    /// so extraction will go from fromSample value to the end of file.
     ///
     /// Completion Handler is function with an AKAudioFile.AsyncProcessCallback signature:
     /// ```
@@ -342,7 +343,8 @@ extension AKAudioFile {
             case .temp:
                 filePath = (NSTemporaryDirectory() as String) + fileName
             case .documents:
-                filePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) + "/" + fileName
+                let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                filePath = documentsPath + "/" + fileName
             case .resources:
                 AKLog("ERROR AKAudioFile export: cannot create a file in applications resources!...")
                 callback(nil,

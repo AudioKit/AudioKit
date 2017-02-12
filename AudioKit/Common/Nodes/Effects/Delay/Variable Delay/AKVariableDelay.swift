@@ -27,7 +27,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+    /// Delay time (in seconds) that can be changed at any point. This value must not exceed the maximum delay time.
     open var time: Double = 1 {
         willSet {
             if time != newValue {
@@ -63,7 +63,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+    ///   - time: Delay time (in seconds). This value must not exceed the maximum delay time.
     ///   - feedback: Feedback amount. Should be a value between 0-1.
     ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///

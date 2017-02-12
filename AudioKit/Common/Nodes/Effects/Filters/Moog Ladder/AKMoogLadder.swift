@@ -43,7 +43,8 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, 
+    /// analogue synths generally allow resonances to be above 1.
     open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
@@ -68,7 +69,9 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Filter cutoff frequency.
-    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///   - resonance: Resonance, generally < 1, but not limited to it. 
+    ///                Higher than 1 resonance values might cause aliasing, 
+    ///                analogue synths generally allow resonances to be above 1.
     ///
     public init(
         _ input: AKNode,

@@ -41,7 +41,8 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, 
+    /// analogue synths generally allow resonances to be above 1.
     open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
@@ -90,7 +91,9 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
-    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///   - resonance: Resonance, generally < 1, but not limited to it. 
+    ///                Higher than 1 resonance values might cause aliasing, 
+    ///                analogue synths generally allow resonances to be above 1.
     ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///

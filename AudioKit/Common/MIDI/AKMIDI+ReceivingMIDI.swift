@@ -99,7 +99,8 @@ extension AKMIDI {
 //        for (key, endpoint) in inputPorts {
 //            if namedInput.isEmpty || key == namedInput {
 //                if let port = inputPorts[key] {
-//                    let result = MIDIPortDisconnectSource(port, endpoint) //this line is returning error -50, either port or endpoint is not right
+//                    // the next line is returning error -50, either port or endpoint is not right
+//                    let result = MIDIPortDisconnectSource(port, endpoint)
 //                    if result == noErr {
 //                        endpoints.removeValue(forKey: namedInput)
 //                        inputPorts.removeValue(forKey: namedInput)

@@ -143,7 +143,11 @@ open class AKMusicTrack {
                     let dur = data?.pointee.duration
 
                     if eventTime + dur! > duration.beats {
-                        var newNote = MIDINoteMessage(channel: channel!, note: note!, velocity: velocity!, releaseVelocity: 0, duration: Float32(duration.beats - eventTime))
+                        var newNote = MIDINoteMessage(channel: channel!,
+                                                      note: note!,
+                                                      velocity: velocity!,
+                                                      releaseVelocity: 0,
+                                                      duration: Float32(duration.beats - eventTime))
                         MusicEventIteratorSetEventInfo(iterator!, eventType, &newNote)
                     }
                 }
@@ -288,7 +292,10 @@ open class AKMusicTrack {
     ///
     open func addController(_ controller: MIDIByte, value: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
 
-        var controlMessage = MIDIChannelMessage(status: MIDIByte(11 << 4) | MIDIByte((channel) & 0xf), data1: controller, data2: value, reserved: 0)
+        var controlMessage = MIDIChannelMessage(status: MIDIByte(11 << 4) | MIDIByte((channel) & 0xf),
+                                                data1: controller,
+                                                data2: value,
+                                                reserved: 0)
         MusicTrackNewMIDIChannelEvent(internalMusicTrack!, position.musicTimeStamp, &controlMessage)
     }
 
