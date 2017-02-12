@@ -47,12 +47,12 @@ extension SynthViewController {
     //*****************************************************************
 
     func createWaveFormSegmentViews() {
-        setupOscSegmentView(8, y: 75.0, width: 195, height: 46.0, tag: ControlTag.vco1Waveform.rawValue, type: 0)
-        setupOscSegmentView(212, y: 75.0, width: 226, height: 46.0, tag: ControlTag.vco2Waveform.rawValue, type: 0)
-        setupOscSegmentView(10, y: 377, width: 255, height: 46.0, tag: ControlTag.lfoWaveform.rawValue, type: 1)
+        setupOscSegmentView(x: 8, y: 75.0, width: 195, height: 46.0, tag: ControlTag.vco1Waveform.rawValue, type: 0)
+        setupOscSegmentView(x: 212, y: 75.0, width: 226, height: 46.0, tag: ControlTag.vco2Waveform.rawValue, type: 0)
+        setupOscSegmentView(x: 10, y: 377, width: 255, height: 46.0, tag: ControlTag.lfoWaveform.rawValue, type: 1)
     }
 
-    func setupOscSegmentView(_ x: CGFloat,
+    func setupOscSegmentView(x: CGFloat,
                              y: CGFloat,
                              width: CGFloat,
                              height: CGFloat,

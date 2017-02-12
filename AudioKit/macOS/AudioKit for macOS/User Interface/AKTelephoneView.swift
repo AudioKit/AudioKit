@@ -24,7 +24,7 @@ public class AKTelephoneView: NSView {
     var callCirclePath = NSBezierPath()
     var busyCirclePath = NSBezierPath()
 
-    var last10Presses = Array<String>(repeating: "", count: 10)
+    var last10Presses = [String](repeating: "", count: 10)
     var currentKey = ""
     var callback: (String, String) -> Void
 

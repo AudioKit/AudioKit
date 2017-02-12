@@ -6,10 +6,10 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
+import AudioKit
 import AVFoundation
 import MediaPlayer
-import AudioKit
+import UIKit
 
 class SongExporter {
 
@@ -114,7 +114,7 @@ class SongExporter {
 
                 // While the writer input can accept more samples, keep appending its buffers
                 // with buffers read from the reader output.
-                while (assetWriterInput.isReadyForMoreMediaData) {
+                while assetWriterInput.isReadyForMoreMediaData {
 
                     if let nextBuffer = assetReaderOutput.copyNextSampleBuffer() {
                         assetWriterInput.append(nextBuffer)

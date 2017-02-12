@@ -6,8 +6,8 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class SynthViewController: UIViewController {
 

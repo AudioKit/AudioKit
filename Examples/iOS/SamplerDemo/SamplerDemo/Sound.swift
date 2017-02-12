@@ -7,8 +7,8 @@
 //
 
 enum Sound: String {
-    case Square = "Square"
-    case Saw = "Saw"
-    case SlowPad = "SlowPad"
-    case Noisy = "Noisy"
+    case Square
+    case Saw
+    case SlowPad
+    case Noisy
 }

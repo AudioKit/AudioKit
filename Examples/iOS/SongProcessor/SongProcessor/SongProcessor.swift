@@ -8,7 +8,6 @@
 
 import UIKit
 import AudioKit
-import AVFoundation
 import MediaPlayer
 
 class SongProcessor {

@@ -19,9 +19,9 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import Metal
-import UIKit
-import MetalPerformanceShaders
 import MetalKit
+import MetalPerformanceShaders
+import UIKit
 
 class ParticleLab: MTKView {
     let imageWidth: UInt
