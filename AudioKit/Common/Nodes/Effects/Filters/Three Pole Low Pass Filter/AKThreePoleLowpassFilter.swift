@@ -104,14 +104,15 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         distortionParameter = tree["distortion"]
         cutoffFrequencyParameter = tree["cutoffFrequency"]
         resonanceParameter = tree["resonance"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.distortionParameter!.address {

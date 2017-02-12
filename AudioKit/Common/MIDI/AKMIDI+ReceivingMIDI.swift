@@ -55,8 +55,7 @@ extension AKMIDI {
 
                 var port = inputPorts[namedInput]!
 
-                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) {
-                  packetList, _ in
+                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     for packet in packetList.pointee {
                         // a coremidi packet may contain multiple midi events
                         for event in packet {
@@ -119,7 +118,9 @@ extension AKMIDI {
 
     internal func handleMIDIMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
-            guard let eventChannel = event.channel else { return }
+            guard let eventChannel = event.channel else {
+                return
+            }
             let type = event.status
             switch type {
             case .controllerChange:

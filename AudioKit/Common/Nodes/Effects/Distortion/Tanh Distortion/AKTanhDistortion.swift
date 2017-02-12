@@ -120,15 +120,16 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         pregainParameter = tree["pregain"]
         postgainParameter = tree["postgain"]
         postiveShapeParameterParameter = tree["postiveShapeParameter"]
         negativeShapeParameterParameter = tree["negativeShapeParameter"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.pregainParameter!.address {

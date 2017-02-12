@@ -263,7 +263,9 @@ open class AKSequencer {
 
     /// Set the tempo of the sequencer
     open func setTempo(_ bpm: Double) {
-        if isAVSequencer { return }
+        if isAVSequencer {
+            return
+        }
 
         let constrainedTempo = (10...280).clamp(bpm)
 

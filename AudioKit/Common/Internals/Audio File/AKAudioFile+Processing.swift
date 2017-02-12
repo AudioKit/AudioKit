@@ -45,7 +45,7 @@ extension AKAudioFile {
 
         var newArrays: [[Float]] = []
         for array in arrays {
-            let newArray = array.map {$0 * gainFactor}
+            let newArray = array.map { $0 * gainFactor }
             newArrays.append(newArray)
         }
 

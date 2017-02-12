@@ -18,7 +18,9 @@ internal extension Collection where Index == Int {
 
 func MIDIOutputPort(client: MIDIClientRef, name: CFString) -> MIDIPortRef? {
     var port: MIDIPortRef = 0
-    guard MIDIOutputPortCreate(client, name, &port) == noErr else { return nil }
+    guard MIDIOutputPortCreate(client, name, &port) == noErr else {
+        return nil
+    }
     return port
 }
 

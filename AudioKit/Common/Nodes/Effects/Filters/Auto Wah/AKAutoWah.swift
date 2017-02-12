@@ -103,14 +103,15 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         wahParameter = tree["wah"]
         mixParameter = tree["mix"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.wahParameter!.address {

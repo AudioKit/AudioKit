@@ -67,7 +67,9 @@ open class AKMIDI {
 
         if client == 0 {
             let result = MIDIClientCreateWithBlock(clientName, &client) {
-                guard $0.pointee.messageID == .msgSetupChanged else { return }
+                guard $0.pointee.messageID == .msgSetupChanged else {
+                    return
+                }
                 for l in self.listeners {
                     l.receivedMIDISetupChange()
                 }

@@ -148,7 +148,9 @@ open class AKDrip: AKNode, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         intensityParameter = tree["intensity"]
         dampingFactorParameter = tree["dampingFactor"]
@@ -158,8 +160,7 @@ open class AKDrip: AKNode, AKComponent {
         secondResonantFrequencyParameter = tree["secondResonantFrequency"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.intensityParameter!.address {

@@ -104,14 +104,15 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         centerFrequencyParameter = tree["centerFrequency"]
         gainParameter = tree["gain"]
         qParameter = tree["q"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.centerFrequencyParameter!.address {
