@@ -1,6 +1,6 @@
 //: ## Morphing Oscillator
 //: Oscillator with four different waveforms built in.
-import PlaygroundSupport
+
 import AudioKit
 
 var morph = AKMorphingOscillator(waveformArray:
@@ -63,5 +63,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

@@ -1,6 +1,6 @@
 //: ## Smooth Delay Operation
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -51,7 +51,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-PlaygroundPage.current.needsIndefiniteExecution = true
+import PlaygroundSupport
 PlaygroundPage.current.liveView = PlaygroundView()
-
 PlaygroundPage.current.needsIndefiniteExecution = true

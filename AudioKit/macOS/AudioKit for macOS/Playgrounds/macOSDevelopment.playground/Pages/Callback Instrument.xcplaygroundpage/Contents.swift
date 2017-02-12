@@ -5,7 +5,6 @@
 //: ## Callback Instrument
 //:
 
-import PlaygroundSupport
 import AudioKit
 
 var sequencer = AKSequencer()
@@ -62,6 +61,8 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 sequencer.play()
+
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

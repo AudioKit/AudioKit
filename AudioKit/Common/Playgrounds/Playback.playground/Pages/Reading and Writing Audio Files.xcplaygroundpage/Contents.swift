@@ -1,7 +1,7 @@
 //: ## Reading and Writing Audio Files
 //:
 //: AKAudioFile inherits from AVAudioFile so you can use it just like any AVAudioFile
-import PlaygroundSupport
+
 import AudioKit
 
 // Let's create an AKaudioFile :
@@ -81,4 +81,5 @@ if myWorkingFile != nil && mySecondWorkingFile != nil {
 //: reverse them or extract samples as float arrays. You can even perform audio edits very easily.
 //: Have a look to AKAudioFile Part 2...
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

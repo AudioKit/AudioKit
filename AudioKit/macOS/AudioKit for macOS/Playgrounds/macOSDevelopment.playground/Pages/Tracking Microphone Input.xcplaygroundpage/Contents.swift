@@ -1,6 +1,5 @@
 //: ## Tracking Microphone Input
 //:
-import PlaygroundSupport
 import AudioKit
 
 let mic = AKMicrophone()
@@ -57,5 +56,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

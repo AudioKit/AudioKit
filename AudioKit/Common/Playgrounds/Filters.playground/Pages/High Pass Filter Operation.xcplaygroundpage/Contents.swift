@@ -1,6 +1,6 @@
 //: ## High Pass Filter Operation
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 //: Noise Example
@@ -30,4 +30,5 @@ AudioKit.start()
 whiteNoise.start()
 player.play()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

@@ -1,6 +1,5 @@
 //: ## Phase Distortion Oscillator Bank
 
-import PlaygroundSupport
 import AudioKit
 
 let osc = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
@@ -82,5 +81,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

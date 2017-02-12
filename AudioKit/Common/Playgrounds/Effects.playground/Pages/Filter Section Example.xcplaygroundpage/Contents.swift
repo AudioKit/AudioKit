@@ -1,6 +1,6 @@
 //: ## Filter Section
 //: This playgrounds was the development area for the filter in the Analog Synth X example project.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -28,4 +28,5 @@ AudioKit.start()
 
 player.play()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

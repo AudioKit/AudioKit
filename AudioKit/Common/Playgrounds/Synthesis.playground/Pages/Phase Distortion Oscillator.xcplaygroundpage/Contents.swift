@@ -1,6 +1,6 @@
 //: ## Phase Distortion Oscillator
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 var oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.sawtooth))
@@ -68,5 +68,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

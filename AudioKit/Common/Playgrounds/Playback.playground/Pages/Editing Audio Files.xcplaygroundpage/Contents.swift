@@ -1,10 +1,9 @@
 //: ## Editing Audio Files
 //: Let's have some fun with our drum loop
 
-import PlaygroundSupport
 import AudioKit
 
-//: First we load the drumloop
+//: First load the drumloop
 
 let loop = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
 
@@ -72,4 +71,5 @@ AudioKit.output = sequencePlayer!
 AudioKit.start()
 sequencePlayer!.play()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

@@ -7,7 +7,7 @@
 //: specifies the dynamic range (the difference between the smallest and loudest
 //: audio signal). By changing the bit-depth of an audio file, you can create
 //: rather interesting digital distortion effects.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -55,5 +55,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

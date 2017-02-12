@@ -1,6 +1,6 @@
 //: ## PWM Oscillator
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 var oscillator = AKPWMOscillator()
@@ -72,5 +72,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

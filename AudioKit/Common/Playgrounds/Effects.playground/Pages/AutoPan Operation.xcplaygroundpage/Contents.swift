@@ -1,6 +1,6 @@
 //: ## AutoPan Operation
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 //: This first section sets up parameter naming in such a way
@@ -66,5 +66,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

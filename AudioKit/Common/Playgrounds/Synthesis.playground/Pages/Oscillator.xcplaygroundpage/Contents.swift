@@ -1,7 +1,7 @@
 //: ## Oscillator
 //: This oscillator can be loaded with a wavetable of your own design,
 //: or with one of the defaults.
-import PlaygroundSupport
+
 import AudioKit
 
 let square = AKTable(.square, count: 16)
@@ -86,5 +86,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

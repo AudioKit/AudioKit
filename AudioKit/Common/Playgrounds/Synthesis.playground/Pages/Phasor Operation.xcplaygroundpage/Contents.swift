@@ -1,6 +1,6 @@
 //: ## Phasor Operation
 //: Using the phasor to sweep amplitude and frequencies
-import PlaygroundSupport
+
 import AudioKit
 
 let interval: Double = 2
@@ -23,4 +23,5 @@ AudioKit.output = generator
 AudioKit.start()
 generator.start()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

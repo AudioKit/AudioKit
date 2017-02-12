@@ -1,7 +1,7 @@
 //: ## Fatten Effect
 //: This is a cool fattening effect that Matthew Flecher wanted for the
 //: Analog Synth X project, so it was developed here in a playground first.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -58,5 +58,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

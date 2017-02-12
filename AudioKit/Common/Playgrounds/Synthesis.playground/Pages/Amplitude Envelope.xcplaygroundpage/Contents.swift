@@ -5,7 +5,7 @@
 //: * Decay is the amount of time after which the peak amplitude is reached for a lower amplitude to arrive.
 //: * Sustain is not a time, but a percentage of the peak amplitude that will be the the sustained amplitude.
 //: * Release is the amount of time after a note is let go for the sound to die away to zero.
-import PlaygroundSupport
+
 import AudioKit
 
 var fmWithADSR = AKOscillatorBank()
@@ -22,8 +22,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         addTitle("ADSR Envelope")
 
-        let adsrView = AKADSRView {
-            att, dec, sus, rel in
+        let adsrView = AKADSRView { att, dec, sus, rel in
             fmWithADSR.attackDuration = att
             fmWithADSR.decayDuration = dec
             fmWithADSR.sustainLevel = sus
@@ -59,5 +58,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

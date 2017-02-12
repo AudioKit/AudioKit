@@ -1,7 +1,7 @@
 //: ## FM Oscillator
 //: Open the timeline view to use the controls this playground sets up.
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 var oscillator = AKFMOscillator()
@@ -43,7 +43,8 @@ class PlaygroundView: AKPlaygroundView {
             case "Spiral":
                 oscillator.presetSpiral()
                 oscillator.start()
-            default: break
+            default:
+                break
             }
             self.frequencySlider?.value = oscillator.baseFrequency
             self.carrierMultiplierSlider?.value = oscillator.carrierMultiplier
@@ -124,5 +125,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

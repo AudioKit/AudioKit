@@ -1,6 +1,6 @@
 //: ## Sawtooth Wave Oscillator Operation
 //: Maybe the most annoying sound ever. Sorry.
-import PlaygroundSupport
+
 import AudioKit
 
 //: Set up the operations that will be used to make a generator node
@@ -16,4 +16,5 @@ AudioKit.start()
 
 generator.start()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

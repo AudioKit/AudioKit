@@ -1,7 +1,6 @@
 //: ## Sampler
 //: Loading a sampler with a reference wav file
 
-import PlaygroundSupport
 import AudioKit
 
 let pulse = 0.23 // seconds
@@ -33,4 +32,5 @@ AKPlaygroundLoop(every: pulse) { _ in
     if random(0, 6) > 1.0 { sampler.play(noteNumber: MIDINoteNumber(note + octave)) }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

@@ -2,7 +2,6 @@
 //: Open the timeline view to use the controls this playground sets up.
 //:
 
-import PlaygroundSupport
 import AudioKit
 
 let fmBank = AKFMOscillatorBank()
@@ -86,5 +85,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

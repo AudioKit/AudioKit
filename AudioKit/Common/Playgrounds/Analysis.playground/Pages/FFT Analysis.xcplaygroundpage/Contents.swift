@@ -1,6 +1,5 @@
 //: ## FFT Analysis
 //:
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
@@ -18,4 +17,5 @@ AKPlaygroundLoop(every: 0.1) {
     let index = fft.fftData.index(of: max)
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

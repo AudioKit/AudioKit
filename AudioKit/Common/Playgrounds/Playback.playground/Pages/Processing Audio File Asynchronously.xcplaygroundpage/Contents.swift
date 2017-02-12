@@ -1,6 +1,6 @@
 //: ## Processing Audio File Asynchronously
 //: Processing some audio files in background
-import PlaygroundSupport
+
 import AudioKit
 
 //: We begin by cleaning our bedroom... (any audioFiles in the Temp directory are deleted)
@@ -86,4 +86,5 @@ drumloop?.reverseAsynchronously { reversedFile, error in
 //: These processes are done in background, that means that the next line will be printed BEFORE the first (or any) async process has ended.
 print("Can refresh UI or do anything while processing...")
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

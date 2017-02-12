@@ -1,7 +1,6 @@
 //: ## Simple Reverb
 //: This is an implementation of Apple's simplest reverb which only allows you to set presets
 
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -67,7 +66,8 @@ class PlaygroundView: AKPlaygroundView {
                 reverb.loadFactoryPreset(.plate)
             case "Small Room":
                 reverb.loadFactoryPreset(.smallRoom)
-            default: break
+            default:
+                break
             }}
         )
 
@@ -75,7 +75,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
-
-PlaygroundPage.current.needsIndefiniteExecution = true

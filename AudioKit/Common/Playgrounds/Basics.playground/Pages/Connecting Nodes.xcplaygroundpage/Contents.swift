@@ -9,7 +9,6 @@
 //: by connecting nodes together. A node is simply an object that will
 //: take in audio input, process it, and pass the processed audio to
 //: another node, or to the Digital-Analog Converter (speaker).
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
@@ -35,5 +34,6 @@ AudioKit.start()
 
 player.play()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

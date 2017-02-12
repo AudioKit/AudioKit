@@ -9,7 +9,7 @@
 //: dry/wet mix parameter built in.  But, if you are building your own
 //: custom effects, or making a long chain of effects, you can use
 //: AKDryWetMixer to blend your signals.
-import PlaygroundSupport
+
 import AudioKit
 
 //: This section prepares the players
@@ -54,6 +54,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
 

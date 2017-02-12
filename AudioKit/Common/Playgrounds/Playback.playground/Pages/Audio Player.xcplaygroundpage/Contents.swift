@@ -1,6 +1,6 @@
 //: ## Audio Player
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
@@ -88,5 +88,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
