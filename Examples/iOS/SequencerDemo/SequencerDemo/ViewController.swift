@@ -10,11 +10,11 @@ import UIKit
 import AudioKit
 
 class ViewController: UIViewController {
-    @IBOutlet var melodyButton: UIButton!
-    @IBOutlet var bassButton: UIButton!
-    @IBOutlet var snareButton: UIButton!
-    @IBOutlet var tempoLabel: UILabel!
-    @IBOutlet var tempoSlider: AKPropertySlider!
+    @IBOutlet private var melodyButton: UIButton!
+    @IBOutlet private var bassButton: UIButton!
+    @IBOutlet private var snareButton: UIButton!
+    @IBOutlet private var tempoLabel: UILabel!
+    @IBOutlet private var tempoSlider: AKPropertySlider!
 
     let conductor = Conductor()
 

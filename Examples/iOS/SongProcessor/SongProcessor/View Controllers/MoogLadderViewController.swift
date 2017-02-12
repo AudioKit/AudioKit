@@ -6,14 +6,14 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class MoogLadderViewController: UIViewController {
 
-    @IBOutlet weak var cutoffFrequncySlider: AKPropertySlider!
-    @IBOutlet weak var resonanceSlider: AKPropertySlider!
-    @IBOutlet weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var cutoffFrequncySlider: AKPropertySlider!
+    @IBOutlet private weak var resonanceSlider: AKPropertySlider!
+    @IBOutlet private weak var mixSlider: AKPropertySlider!
 
     let songProcessor = SongProcessor.sharedInstance
 

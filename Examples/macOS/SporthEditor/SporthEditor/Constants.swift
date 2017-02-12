@@ -6,8 +6,6 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import Foundation
-
 struct Constants {
     struct Message {
         static let ok = "OK"

@@ -9,7 +9,7 @@
 import Cocoa
 
 class ViewController: NSViewController {
-    @IBOutlet var codeEditorTextView: NSTextView!
+    @IBOutlet private var codeEditorTextView: NSTextView!
 
     var display: String {
         get { return (codeEditorTextView?.string)! }

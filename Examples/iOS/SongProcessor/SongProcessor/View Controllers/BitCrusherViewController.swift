@@ -6,14 +6,14 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class BitCrusherViewController: UIViewController {
 
-    @IBOutlet weak var bitDepthSlider: AKPropertySlider!
-    @IBOutlet weak var sampleRateSlider: AKPropertySlider!
-    @IBOutlet weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var bitDepthSlider: AKPropertySlider!
+    @IBOutlet private weak var sampleRateSlider: AKPropertySlider!
+    @IBOutlet private weak var mixSlider: AKPropertySlider!
 
     let songProcessor = SongProcessor.sharedInstance
 

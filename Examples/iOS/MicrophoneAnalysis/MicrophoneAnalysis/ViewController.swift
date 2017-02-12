@@ -11,11 +11,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet var frequencyLabel: UILabel!
-    @IBOutlet var amplitudeLabel: UILabel!
-    @IBOutlet var noteNameWithSharpsLabel: UILabel!
-    @IBOutlet var noteNameWithFlatsLabel: UILabel!
-    @IBOutlet var audioInputPlot: EZAudioPlot!
+    @IBOutlet private var frequencyLabel: UILabel!
+    @IBOutlet private var amplitudeLabel: UILabel!
+    @IBOutlet private var noteNameWithSharpsLabel: UILabel!
+    @IBOutlet private var noteNameWithFlatsLabel: UILabel!
+    @IBOutlet private var audioInputPlot: EZAudioPlot!
 
     var mic: AKMicrophone!
     var tracker: AKFrequencyTracker!

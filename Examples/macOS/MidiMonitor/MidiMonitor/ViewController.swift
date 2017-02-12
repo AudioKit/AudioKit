@@ -6,12 +6,12 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import Cocoa
 import AudioKit
+import Cocoa
 
 class ViewController: NSViewController, AKMIDIListener {
-    @IBOutlet var outputTextView: NSTextView!
-    @IBOutlet var sourcePopUpButton: NSPopUpButton!
+    @IBOutlet private var outputTextView: NSTextView!
+    @IBOutlet private var sourcePopUpButton: NSPopUpButton!
     var midi = AKMIDI()
 
     override func viewDidLoad() {

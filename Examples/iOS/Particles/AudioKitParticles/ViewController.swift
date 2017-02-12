@@ -6,8 +6,8 @@
 //  Copyright © 2015 Simon Gladman. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class ViewController: UIViewController {
 

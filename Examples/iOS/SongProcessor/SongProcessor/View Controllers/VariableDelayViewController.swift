@@ -6,14 +6,14 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class VariableDelayViewController: UIViewController {
 
-    @IBOutlet weak var timeSlider: AKPropertySlider!
-    @IBOutlet weak var feedbackSlider: AKPropertySlider!
-    @IBOutlet weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var timeSlider: AKPropertySlider!
+    @IBOutlet private weak var feedbackSlider: AKPropertySlider!
+    @IBOutlet private weak var mixSlider: AKPropertySlider!
 
     let songProcessor = SongProcessor.sharedInstance
 

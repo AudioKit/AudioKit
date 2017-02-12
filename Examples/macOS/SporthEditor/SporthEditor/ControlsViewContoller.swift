@@ -7,15 +7,14 @@
 //
 
 import Cocoa
-import AudioKit
 
 class ControlsViewContoller: NSViewController {
     let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
 
-    @IBOutlet var slider1: NSSlider!
-    @IBOutlet var slider2: NSSlider!
-    @IBOutlet var slider3: NSSlider!
-    @IBOutlet var slider4: NSSlider!
+    @IBOutlet private var slider1: NSSlider!
+    @IBOutlet private var slider2: NSSlider!
+    @IBOutlet private var slider3: NSSlider!
+    @IBOutlet private var slider4: NSSlider!
 
     override func viewDidLoad() {
         super.viewDidLoad()

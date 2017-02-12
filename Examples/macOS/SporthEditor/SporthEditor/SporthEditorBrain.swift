@@ -6,7 +6,6 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import Foundation
 import AudioKit
 
 class SporthEditorBrain {
@@ -29,7 +28,9 @@ class SporthEditorBrain {
     func run(_ code: String) {
         generator?.stop()
         AudioKit.stop()
-        generator = AKOperationGenerator { _ in return AKOperation(code) }
+        generator = AKOperationGenerator { _ in
+            return AKOperation(code)
+        }
         AudioKit.output = generator
         AudioKit.start()
         generator?.start()
