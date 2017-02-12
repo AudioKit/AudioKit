@@ -1,6 +1,6 @@
 //: ## Pink and White Noise Generators
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 var white = AKWhiteNoise(amplitude: 0.1)
@@ -40,5 +40,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

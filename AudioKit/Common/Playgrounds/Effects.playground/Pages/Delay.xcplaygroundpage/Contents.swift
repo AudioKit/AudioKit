@@ -1,7 +1,7 @@
 //: ## Delay
 //: Exploring the powerful effect of repeating sounds after
 //: varying length delay times and feedback amounts
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -78,7 +78,8 @@ class PlaygroundView: AKPlaygroundView {
                 delay.presetDenseLongDelay()
             case "Electric Circuits":
                 delay.presetElectricCircuitsDelay()
-            default: break
+            default:
+                break
             }
             self.updateUI()
             }
@@ -94,5 +95,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

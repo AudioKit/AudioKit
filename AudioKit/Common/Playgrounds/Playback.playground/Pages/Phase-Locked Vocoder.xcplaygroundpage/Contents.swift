@@ -1,6 +1,6 @@
 //: ## Phase-Locked Vocoder
 //: A different kind of time and pitch stretching
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "guitarloop.wav",
@@ -36,5 +36,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

@@ -2,7 +2,6 @@
 //: This playground uses the AKVariSpeed node to change the playback speed of a file
 //: (which also affects the pitch)
 //:
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: playbackPlaygroundFiles[0],
@@ -41,5 +40,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

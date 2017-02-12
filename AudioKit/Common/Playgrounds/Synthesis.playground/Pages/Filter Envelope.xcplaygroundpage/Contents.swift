@@ -1,7 +1,6 @@
 //: ## Filter Envelope
 //:
 //: This is a pretty advanced example.
-import PlaygroundSupport
 import AudioKit
 
 enum SynthParameter: Int {
@@ -92,5 +91,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

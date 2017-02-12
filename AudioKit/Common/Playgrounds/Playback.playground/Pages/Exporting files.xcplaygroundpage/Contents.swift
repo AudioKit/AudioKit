@@ -1,6 +1,5 @@
 //: ## Exporting Audio Files
 //: AKAudioFiles can be easily converted to major audio formats asynchronously.
-import PlaygroundSupport
 import AudioKit
 
 //: Pick a file to convert :
@@ -50,5 +49,7 @@ drumloop.exportAsynchronously(name: "test3", baseDir: .documents, exportFormat: 
 //: Each time an export has been completed and succeeded, the player will be set to play it.
 
 //: Check the debug area. Notice that all file exports are done serially, in the order they were set.
+
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 //: Be aware that PCM format files can be converted to PCM or compressed formats. But compressed m4a or mp4 audiofiles cannot be converted to PCM files (.wav or .aif). For converting from any format compressed format to PCM, you can use AKAudioFile.extract or AKAudioFile.extractAsynchronously() methods (will convert to .CAF PCM). The resulting file can then be exported to .mp4, m4a, .wav, or .aif.

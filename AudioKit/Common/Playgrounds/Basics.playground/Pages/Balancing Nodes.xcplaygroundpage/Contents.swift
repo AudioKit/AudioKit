@@ -6,7 +6,6 @@
 //: Sometimes you want to ensure that an audio signal that you're processing
 //: remains at a volume similar to where it started.
 //: Such an application is perfect for the AKBalancer node.
-import PlaygroundSupport
 import AudioKit
 
 //: This section prepares the players
@@ -37,6 +36,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
 

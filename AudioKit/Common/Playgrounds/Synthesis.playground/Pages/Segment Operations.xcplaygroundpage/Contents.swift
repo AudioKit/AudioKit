@@ -1,6 +1,6 @@
 //: ## Segment Operations
 //: Creating segments that vary parameters in operations linearly or exponentially over a certain duration
-import PlaygroundSupport
+
 import AudioKit
 
 let generator = AKOperationGenerator { parameters in
@@ -55,5 +55,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

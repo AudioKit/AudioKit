@@ -69,7 +69,8 @@ class PlaygroundView: AKPlaygroundView {
                 mandolin.presetSmallBodiedDistortedMandolin()
             case "Acid Mandolin":
                 mandolin.presetAcidMandolin()
-            default: break
+            default:
+                break
             }
             self.updateUI()
             }

@@ -1,6 +1,6 @@
 //: ## Formant Filter
 //: ##
-import PlaygroundSupport
+
 import AudioKit
 
 let osc = AKPWMOscillator(frequency: 220)
@@ -39,5 +39,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

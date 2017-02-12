@@ -1,6 +1,6 @@
 //: ## Sequencer
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 //: Create some samplers, load different sounds, and connect it to a mixer and the output
@@ -103,5 +103,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

@@ -1,6 +1,5 @@
 //: ## Node Output Plot
 //: What's interesting here is that we're plotting the waveform BEFORE the delay is processed
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
@@ -56,5 +55,6 @@ public class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.liveView = PlaygroundView()
 PlaygroundPage.current.needsIndefiniteExecution = true

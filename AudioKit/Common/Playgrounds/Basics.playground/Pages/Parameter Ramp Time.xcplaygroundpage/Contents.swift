@@ -7,7 +7,6 @@
 //: Its very common need to change these parameters in a smooth way
 //: to avoid pops and clicks, so you can set a ramp time to slow the
 //: variation of a property from its current value to its next.
-import PlaygroundSupport
 import AudioKit
 
 var noise = AKWhiteNoise(amplitude: 1)
@@ -49,6 +48,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
 

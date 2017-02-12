@@ -1,6 +1,6 @@
 //: ## Sean Costello Reverb
 //: This is a great sounding reverb that we just love.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -58,7 +58,8 @@ class PlaygroundView: AKPlaygroundView {
                 reverb.presetShortTailCostelloReverb()
             case "Low Ringing Tail":
                 reverb.presetLowRingingLongTailCostelloReverb()
-            default: break
+            default:
+                break
             }
             self.updateUI()
             }
@@ -72,5 +73,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

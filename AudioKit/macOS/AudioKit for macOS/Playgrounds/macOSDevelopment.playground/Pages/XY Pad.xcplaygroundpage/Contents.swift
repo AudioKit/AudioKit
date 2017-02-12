@@ -4,9 +4,8 @@
 //:
 //: ## XY Pad
 //:
-import Cocoa
-import PlaygroundSupport
 import AudioKit
+import Cocoa
 
 var oscillator = AKFMOscillator()
 oscillator.amplitude = 0.4
@@ -22,7 +21,9 @@ class TouchView: NSView {
     var (path, currentPath) = (NSBezierPath(), NSBezierPath())
 
     override func draw(_ dirtyRect: NSRect) {
-        guard let contextPtr = NSGraphicsContext.current()?.graphicsPort else {return}
+        guard let contextPtr = NSGraphicsContext.current()?.graphicsPort else {
+            return
+        }
         let context = unsafeBitCast(contextPtr, to: CGContext.self)
         context.clear(dirtyRect)
         path.stroke()
@@ -64,6 +65,7 @@ let touchView: TouchView = {
     return $0
 }(TouchView(frame: NSRect(x: 0, y: 0, width: 500, height: 1_000)))
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = touchView
 

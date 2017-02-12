@@ -4,7 +4,6 @@
 //:
 //: ## Using Functions Part 2
 //:
-import PlaygroundSupport
 import AudioKit
 
 func instrument(noteNumber: MIDINoteNumber, rate: Double, amplitude: Double) -> AKOperation {
@@ -32,5 +31,6 @@ AudioKit.start()
 
 generator.start()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -1,6 +1,6 @@
 //: ## String Resonator
 //: ##
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -46,7 +46,8 @@ class PlaygroundView: AKPlaygroundView {
             stringResonator.feedback = sliderValue
             })
     }
-
 }
+
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

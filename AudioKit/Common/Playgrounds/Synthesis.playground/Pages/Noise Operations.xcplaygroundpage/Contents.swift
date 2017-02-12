@@ -1,6 +1,6 @@
 //: ## Noise Operations
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let generator = AKOperationGenerator { _ in
@@ -18,4 +18,5 @@ AudioKit.start()
 
 generator.start()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

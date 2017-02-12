@@ -2,7 +2,6 @@
 //: AKNodeRecorder allows you to record the output of a specific node.
 //: Let's record a sawtooth solo.
 
-import PlaygroundSupport
 import AudioKit
 
 //: Set up a source to be recorded
@@ -116,5 +115,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

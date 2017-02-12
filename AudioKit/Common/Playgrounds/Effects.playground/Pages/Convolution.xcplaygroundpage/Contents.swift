@@ -1,7 +1,7 @@
 //: ## Convolution
 //: Allows you to create a large variety of effects, usually reverbs or environments,
 //: but it could also be for modeling.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -59,5 +59,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

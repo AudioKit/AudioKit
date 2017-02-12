@@ -2,7 +2,7 @@
 //: Tracking frequency is just as easy as tracking amplitude, and even
 //: includes amplitude, but it is more CPU intensive, so if you just need amplitude,
 //: use the amplitude tracker.
-import PlaygroundSupport
+
 import AudioKit
 
 //: First lets set up sound source to track
@@ -70,5 +70,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

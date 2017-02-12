@@ -3,7 +3,6 @@
 //: Apple's Dynamics Processor audio unit. threshold and headRoom (similar to
 //: 'ratio' you might be more familiar with) are specific to the compressor,
 //: expansionRatio and expansionThreshold control the expander.
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -101,5 +100,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

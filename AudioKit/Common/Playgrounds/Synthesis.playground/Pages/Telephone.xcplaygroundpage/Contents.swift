@@ -1,6 +1,6 @@
 //: ## Telephone
 //: AudioKit is great for sound design. This playground creates canonical telephone sounds.
-import PlaygroundSupport
+
 import AudioKit
 
 //: ### Dial Tone
@@ -123,5 +123,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

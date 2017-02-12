@@ -4,7 +4,7 @@
 //: from where the frequency limit is set. Adjusting the bandwidth sets how far out
 //: above and below the center frequency the frequency band should be.
 //: Anything above that band should pass through.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -55,5 +55,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

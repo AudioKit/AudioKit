@@ -1,5 +1,4 @@
 //: ## Oscillator Bank
-import PlaygroundSupport
 import AudioKit
 
 let bank = AKOscillatorBank(waveform: AKTable(.sine),
@@ -94,5 +93,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
