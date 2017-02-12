@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 extension AKAudioFile {
 
     /// Create an AKSampler loaded with the current AKAudioFile

@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 extension AVAudioCommonFormat: CustomStringConvertible {
     public var description: String {
         switch self {

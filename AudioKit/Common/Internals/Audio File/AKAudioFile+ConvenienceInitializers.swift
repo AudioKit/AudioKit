@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 extension NSError {
   static var fileCreateError: NSError {
     return NSError(domain: NSURLErrorDomain,

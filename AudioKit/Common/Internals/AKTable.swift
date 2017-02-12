@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Supported default table types
 public enum AKTableType: String {
     /// Standard sine waveform

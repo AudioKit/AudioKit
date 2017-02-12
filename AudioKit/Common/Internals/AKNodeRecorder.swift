@@ -7,9 +7,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// Simple audio recorder class
 @objc open class AKNodeRecorder: NSObject {
 

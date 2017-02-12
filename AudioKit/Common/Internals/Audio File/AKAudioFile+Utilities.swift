@@ -8,9 +8,6 @@
 //
 //
 
-import Foundation
-import AVFoundation
-
 extension AKAudioFile {
 
     /// Returns a silent AKAudioFile with a length set in samples.

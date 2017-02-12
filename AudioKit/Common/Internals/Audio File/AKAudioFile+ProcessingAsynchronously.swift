@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 ///  Major Revision: Async process objects are now handled by AKAudioFile ProcessFactory singleton.
 ///  So there's no more need to handle asyncProcess objects.
 ///  You can process a file asynchronously using:
