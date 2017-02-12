@@ -6,9 +6,8 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import CoreAudio
 import AudioToolbox
+import CoreAudio
 
 public typealias MIDIByte = UInt8
 public typealias MIDIWord = UInt16

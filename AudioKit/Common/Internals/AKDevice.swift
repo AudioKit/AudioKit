@@ -6,9 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 #if os(macOS)
 public typealias DeviceID = AudioDeviceID
 #else

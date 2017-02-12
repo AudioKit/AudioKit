@@ -8,7 +8,6 @@
 //  Copyright © 2017 Daniel Clelland. All rights reserved.
 //
 
-import Foundation
 import CoreAudio
 
 // MARK: - AudioUnit helpers
