@@ -57,9 +57,9 @@ open class AKDelay: AKNode, AKToggleable {
     /// - Parameters:
     ///   - input: Input audio AKNode to process
     ///   - time: Delay time in seconds (Default: 1)
-    ///   - feedback: Amount of feedback (Normalized Value) ranges from 0 to 1 (Default: 0.5)
+    ///   - feedback: Amount of feedback, ranges from 0 to 1 (Default: 0.5)
     ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
-    ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio (Normalized Value) ranges from 0 to 1 (Default: 0.5)
+    ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
         _ input: AKNode,

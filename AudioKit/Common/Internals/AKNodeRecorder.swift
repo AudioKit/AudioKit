@@ -133,22 +133,23 @@
         recording = true
 
         AKLog("AKNodeRecorder: recording")
-        node.avAudioNode.installTap(onBus: 0,
-                                    bufferSize: recordingBufferLength,
-                                    format: internalAudioFile.processingFormat) { (buffer: AVAudioPCMBuffer!, _) -> Void in
-                                        do {
-                                            self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
-                                            try self.internalAudioFile.write(from: buffer)
-                                            AKLog("AKNodeRecorder writing (file duration: \(self.internalAudioFile.duration) seconds)")
+        node.avAudioNode.installTap(
+            onBus: 0,
+            bufferSize: recordingBufferLength,
+            format: internalAudioFile.processingFormat) { (buffer: AVAudioPCMBuffer!, _) -> Void in
+                do {
+                    self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
+                    try self.internalAudioFile.write(from: buffer)
+                    AKLog("AKNodeRecorder writing (file duration: \(self.internalAudioFile.duration) seconds)")
 
-                                            // allow an optional timed stop
-                                            if self.durationToRecord != 0 && self.internalAudioFile.duration >= self.durationToRecord {
-                                                self.stop()
-                                            }
+                    // allow an optional timed stop
+                    if self.durationToRecord != 0 && self.internalAudioFile.duration >= self.durationToRecord {
+                        self.stop()
+                    }
 
-                                        } catch let error as NSError {
-                                            AKLog("Write failed: error -> \(error.localizedDescription)")
-                                        }
+                } catch let error as NSError {
+                    AKLog("Write failed: error -> \(error.localizedDescription)")
+                }
         }
     }
 
