@@ -189,7 +189,7 @@ class GeneratorBank: AKPolyphonicNode {
             subOsc.play(noteNumber: noteNumber - 12, velocity: velocity)
         }
         fmOsc.play(noteNumber: noteNumber, velocity: velocity)
-        if onNotes.count == 0 {
+        if onNotes.isEmpty {
             noise.start()
             noiseADSR.start()
         }
@@ -206,7 +206,7 @@ class GeneratorBank: AKPolyphonicNode {
         }
         fmOsc.stop(noteNumber: noteNumber)
         onNotes.remove(noteNumber)
-        if onNotes.count == 0 {
+        if onNotes.isEmpty {
             noiseADSR.stop()
         }
     }

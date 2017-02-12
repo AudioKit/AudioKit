@@ -71,7 +71,7 @@ open class AKOperation: AKComputedParameter {
     internal var sporth: String {
         let rd = recursiveDependencies
         var str = ""
-        if rd.count > 0 {
+        if !rd.isEmpty {
             str = "\"ak\" \""
             for _ in rd {
                 str += "0 "

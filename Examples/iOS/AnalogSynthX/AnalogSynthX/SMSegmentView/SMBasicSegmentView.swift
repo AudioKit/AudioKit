@@ -71,7 +71,7 @@ open class SMBasicSegmentView: UIView {
     }
 
     open func updateFrameForSegments() {
-        if self.segments.count == 0 {
+        if self.segments.isEmpty {
             return
         }
 

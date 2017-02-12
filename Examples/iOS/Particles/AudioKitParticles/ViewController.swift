@@ -100,7 +100,7 @@ class ViewController: UIViewController {
     }
 
     func particleLabStep() {
-        gravityWellAngle = gravityWellAngle + 0.01
+        gravityWellAngle += 0.01
 
         let radiusLow = 0.1 + (lowMaxIndex / 256)
 

@@ -371,7 +371,7 @@ open class AKSequencer {
         let absoluteValueSeconds = fabs(seconds)
         var outBeats = AKDuration(beats: MusicTimeStamp())
         MusicSequenceGetBeatsForSeconds(sequence!, Float64(absoluteValueSeconds), &(outBeats.beats))
-        outBeats.beats = outBeats.beats * sign
+        outBeats.beats *= sign
         return outBeats
     }
 
@@ -384,7 +384,7 @@ open class AKSequencer {
         let absoluteValueBeats = fabs(duration.beats)
         var outSecs: Double = MusicTimeStamp()
         MusicSequenceGetSecondsForBeats(sequence!, absoluteValueBeats, &outSecs)
-        outSecs = outSecs * sign
+        outSecs *= sign
         return outSecs
     }
 
