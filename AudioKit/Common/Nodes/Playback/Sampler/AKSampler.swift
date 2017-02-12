@@ -118,19 +118,19 @@ open class AKSampler: AKNode {
             throw error
         }
     }
-    
+
     fileprivate func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
             fatalError("file not found.")
         }
         do {
             var bMSB: Int
-            if (bank <= 127) {
-                bMSB  = kAUSampler_DefaultMelodicBankMSB;
+            if bank <= 127 {
+                bMSB  = kAUSampler_DefaultMelodicBankMSB
             } else {
-                bMSB  = kAUSampler_DefaultPercussionBankMSB;
+                bMSB  = kAUSampler_DefaultPercussionBankMSB
             }
-            var bLSB: Int = bank % 128;
+            let bLSB: Int = bank % 128
             try samplerUnit.loadSoundBankInstrument(
                 at: url,
                 program: MIDIByte(preset),
@@ -172,7 +172,6 @@ open class AKSampler: AKNode {
     open func loadBankSoundFont(_ file: String, preset: Int, bank: Int) throws {
         try loadSoundFont(file, preset: preset, bank: bank)
     }
-
 
     /// Load a file path
     ///
