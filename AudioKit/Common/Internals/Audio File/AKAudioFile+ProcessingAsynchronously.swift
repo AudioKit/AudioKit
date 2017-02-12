@@ -335,7 +335,7 @@ extension AKAudioFile {
 
             // only add the file extension if it isn't already there
             if !fileName.hasSuffix(fileExt) {
-                fileName = fileName + "." + fileExt
+                fileName += "." + fileExt
             }
 
             switch baseDir {
