@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
             value: filter.rampTime
         ) { sliderValue in
             filter.rampTime = sliderValue
-            })
+        })
     }
 }
 

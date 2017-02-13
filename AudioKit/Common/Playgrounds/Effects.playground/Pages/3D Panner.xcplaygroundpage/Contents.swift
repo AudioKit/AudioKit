@@ -30,7 +30,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             panner.x = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Y",
@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             panner.y = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Z",
@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             panner.z = sliderValue
-            })
+        })
     }
 }
 

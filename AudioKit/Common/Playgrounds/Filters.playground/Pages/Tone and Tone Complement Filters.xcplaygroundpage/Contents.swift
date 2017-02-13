@@ -35,7 +35,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             toneFilter.halfPowerPoint = sliderValue
-            })
+        })
 
         addLabel("Tone Complement Filter: ")
 
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             toneComplement.halfPowerPoint = sliderValue
-            })
+        })
     }
 }
 

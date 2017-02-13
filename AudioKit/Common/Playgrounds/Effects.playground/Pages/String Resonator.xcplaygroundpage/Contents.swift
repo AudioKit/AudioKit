@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             stringResonator.fundamentalFrequency = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Feedback",
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             stringResonator.feedback = sliderValue
-            })
+        })
     }
 }
 

@@ -65,7 +65,7 @@ class PlaygroundView: AKPlaygroundView {
                 return "Stop All"
             }
             return "Start All"
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Drums Volume",
@@ -73,14 +73,14 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             drums.volume = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Drums Pan",
             value: drums.pan, minimum: -1, maximum: 1,
             color: AKColor.red
         ) { sliderValue in
             drums.pan = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Bass Volume",
@@ -88,14 +88,14 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             bass.volume = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Bass Pan",
             value: bass.pan, minimum: -1, maximum: 1,
             color: AKColor.red
         ) { sliderValue in
             bass.pan = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Guitar Volume",
@@ -103,14 +103,14 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             guitar.volume = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Guitar Pan",
             value: guitar.pan, minimum: -1, maximum: 1,
             color: AKColor.red
         ) { sliderValue in
             guitar.pan = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Lead Volume",
@@ -118,14 +118,14 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             lead.volume = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Lead Pan",
             value: lead.pan, minimum: -1, maximum: 1,
             color: AKColor.red
         ) { sliderValue in
             lead.pan = sliderValue
-            })
+        })
     }
 }
 

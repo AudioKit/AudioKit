@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.speed = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Depth",
@@ -62,7 +62,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             effect.depth = sliderValue
-            })
+        })
     }
 }
 

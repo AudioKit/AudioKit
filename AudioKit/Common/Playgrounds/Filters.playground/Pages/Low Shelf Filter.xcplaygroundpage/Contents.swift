@@ -37,7 +37,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             lowShelfFilter.cutoffFrequency = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Gain",
@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             lowShelfFilter.gain = sliderValue
-            })
+        })
     }
 }
 

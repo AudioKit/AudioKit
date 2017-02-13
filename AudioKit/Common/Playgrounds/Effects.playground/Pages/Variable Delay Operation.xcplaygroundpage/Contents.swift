@@ -39,19 +39,19 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f s",
             value: effect.parameters[0], maximum: 0.3) { sliderValue in
             effect.parameters[0] = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Delay Frequency",
             format: "%0.3f Hz",
             value: effect.parameters[1]) { sliderValue in
             effect.parameters[1] = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Feedback Frequency",
             format: "%0.3f Hz",
             value: effect.parameters[2]) { sliderValue in
             effect.parameters[2] = sliderValue
-            })
+        })
     }
 }
 

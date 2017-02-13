@@ -50,7 +50,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             mixture.balance = sliderValue
-            })
+        })
     }
 }
 

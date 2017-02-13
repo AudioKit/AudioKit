@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { rate in
             generator.parameters[0] = rate
             delay.time = 0.25 / rate
-            })
+        })
     }
 }
 

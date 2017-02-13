@@ -20,7 +20,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.red
         ) { amount in
             osc.phaseDistortion = amount
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Attack",
@@ -29,7 +29,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { duration in
             osc.attackDuration = duration
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Release",
@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { duration in
             osc.releaseDuration = duration
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Detuning Offset",
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { offset in
             osc.detuningOffset = offset
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
@@ -55,7 +55,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { multiplier in
             osc.detuningMultiplier = multiplier
-            })
+        })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard!.polyphonicMode = false
@@ -69,7 +69,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             } else {
                 return "Go Polyphonic"
             }
-            })
+        })
     }
 
     func noteOn(note: MIDINoteNumber) {

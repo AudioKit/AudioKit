@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             reverb.cutoffFrequency = sliderValue
-            }
+        }
         addSubview(cutoffFrequencySlider!)
 
         feedbackSlider = AKPropertySlider(
@@ -48,7 +48,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             reverb.feedback = sliderValue
-            }
+        }
         addSubview(feedbackSlider!)
 
         let presets = ["Short Tail", "Low Ringing Tail"]
@@ -62,8 +62,7 @@ class PlaygroundView: AKPlaygroundView {
                 break
             }
             self.updateUI()
-            }
-        )
+        })
     }
 
     func updateUI() {

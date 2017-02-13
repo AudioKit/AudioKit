@@ -39,8 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             highPassFilter.cutoffFrequency = sliderValue
-            })
-
+        })
     }
 }
 

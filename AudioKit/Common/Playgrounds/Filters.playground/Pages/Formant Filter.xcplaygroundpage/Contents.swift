@@ -26,7 +26,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.yellow
         ) { sliderValue in
             filter.x = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "y",

@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             delay.time = sliderValue
-            }
+        }
         addSubview(timeSlider!)
 
         feedbackSlider = AKPropertySlider(
@@ -82,8 +82,7 @@ class PlaygroundView: AKPlaygroundView {
                 break
             }
             self.updateUI()
-            }
-        )
+        })
     }
 
     func updateUI() {

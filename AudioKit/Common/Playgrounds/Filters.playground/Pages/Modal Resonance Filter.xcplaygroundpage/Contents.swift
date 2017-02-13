@@ -37,7 +37,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             filter.frequency = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Quality Factor",
@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             filter.qualityFactor = sliderValue
-            })
+        })
 
     }
 }

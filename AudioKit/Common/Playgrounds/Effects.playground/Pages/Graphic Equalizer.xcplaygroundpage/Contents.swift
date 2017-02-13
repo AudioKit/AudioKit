@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             lowFilter.gain = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Mid",
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             midFilter.gain = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "High",
@@ -52,7 +52,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             highFilter.gain = sliderValue
-            })
+        })
     }
 
 }

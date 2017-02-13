@@ -24,7 +24,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 color: AKColor.green
             ) { amp in
                 amplitudes[i] = amp
-                }
+            }
             addSubview(slider)
         }
 

@@ -52,8 +52,7 @@ class PlaygroundView: AKPlaygroundView {
             self.modulationIndexSlider?.value = oscillator.modulationIndex
             self.amplitudeSlider?.value = oscillator.amplitude
             self.rampTimeSlider?.value = oscillator.rampTime
-            }
-        )
+        })
 
         addSubview(AKButton(title: "Randomize") {
             oscillator.baseFrequency = self.frequencySlider!.randomize()
