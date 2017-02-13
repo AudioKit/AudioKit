@@ -62,7 +62,8 @@ public class AKResourcesAudioFileLoaderView: NSView {
         self.titles = filenames
     }
 
-    func drawAudioFileLoader(sliderColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1), fileName: String = "None") {
+    func drawAudioFileLoader(sliderColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1),
+                             fileName: String = "None") {
         //// General Declarations
         let _ = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
 
@@ -149,10 +150,11 @@ public class AKResourcesAudioFileLoaderView: NSView {
             with: NSMakeSize(nameLabelInset.width, CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
-        let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX,
-                                                   nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
-                                                   nameLabelInset.width,
-                                                   nameLabelTextHeight)
+        let nameLabelTextRect: NSRect = NSMakeRect(
+            nameLabelInset.minX,
+            nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+            nameLabelInset.width,
+            nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
         NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),

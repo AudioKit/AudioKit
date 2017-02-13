@@ -114,10 +114,16 @@ public class AKADSRView: NSView {
         let endMax = NSMakePoint(min(endPoint.x, size.width), buffer)
         let releaseAxis = NSMakePoint(releasePoint.x, endPoint.y)
         let releaseMax = NSMakePoint(releasePoint.x, buffer)
-        let highPoint = NSMakePoint(attackClickRoom + min(oneSecond * maxADFraction, attackDurationMS / 1_000.0 * oneSecond), buffer)
+        let highPoint = NSMakePoint(
+            attackClickRoom + min(oneSecond * maxADFraction, attackDurationMS / 1_000.0 * oneSecond),
+            buffer)
         let highPointAxis = NSMakePoint(highPoint.x, size.height)
         let highMax = NSMakePoint(highPoint.x, buffer)
-        let sustainPoint = NSMakePoint(max(highPoint.x, attackClickRoom + min(oneSecond * maxADFraction, (attackDurationMS + decayDurationMS) / 1_000.0 * oneSecond)), sustainLevel * (size.height - buffer) + buffer)
+        let sustainPoint = NSMakePoint(
+            max(highPoint.x,
+                attackClickRoom + min(oneSecond * maxADFraction,
+                                      (attackDurationMS + decayDurationMS) / 1_000.0 * oneSecond)),
+            sustainLevel * (size.height - buffer) + buffer)
         let sustainAxis = NSMakePoint(sustainPoint.x, size.height)
         let initialMax = NSPoint(x: 0, y: buffer)
 

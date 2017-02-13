@@ -88,12 +88,14 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     }
 
     func whiteKeyColor(n: Int, octaveNumber: Int) -> NSColor {
-        return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])) ? keyOnColor : whiteKeyOff
+        return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])) ?
+            keyOnColor : whiteKeyOff
     }
 
     func topKeyColor(n: Int, octaveNumber: Int) -> NSColor {
         if notesWithSharps[topKeyNotes[n]].range(of: "#") != nil {
-            return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ? keyOnColor : blackKeyOff
+            return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ?
+                keyOnColor : blackKeyOff
         }
         return topWhiteKeyOff
 
@@ -101,7 +103,10 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
     func drawOctaveCanvas(octaveNumber: Int) {
         //// background Drawing
-        let backgroundPath = NSBezierPath(rect: NSMakeRect(0 + size.width * CGFloat(octaveNumber), 0, size.width, size.height))
+        let backgroundPath = NSBezierPath(rect: NSMakeRect(0 + size.width * CGFloat(octaveNumber),
+                                                           0,
+                                                           size.width,
+                                                           size.height))
         NSColor.black.setFill()
         backgroundPath.fill()
 
@@ -109,7 +114,10 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
         for i in 0 ..< 7 {
             whiteKeysPaths.append(
-                NSBezierPath(rect: NSMakeRect(whiteKeyX(n: i, octaveNumber: octaveNumber), 1, whiteKeySize.width - 1, whiteKeySize.height))
+                NSBezierPath(rect: NSMakeRect(whiteKeyX(n: i, octaveNumber: octaveNumber),
+                                              1,
+                                              whiteKeySize.width - 1,
+                                              whiteKeySize.height))
             )
             whiteKeyColor(n: i, octaveNumber: octaveNumber).setFill()
             whiteKeysPaths[i].fill()
@@ -119,7 +127,10 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
         for i in 0 ..< 28 {
             topKeyPaths.append(
-                NSBezierPath(rect: NSMakeRect(topKeyX(n: i, octaveNumber: octaveNumber), 1, topKeySize.width, topKeySize.height))
+                NSBezierPath(rect: NSMakeRect(topKeyX(n: i, octaveNumber: octaveNumber),
+                                              1,
+                                              topKeySize.width,
+                                              topKeySize.height))
             )
             topKeyColor(n: i, octaveNumber: octaveNumber).setFill()
             topKeyPaths[i].fill()

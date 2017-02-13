@@ -59,17 +59,20 @@ public class AKBypassButton: NSView {
         let bypassLabelStyle = NSMutableParagraphStyle()
         bypassLabelStyle.alignment = .center
 
-        let bypassLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: bypassLabelStyle]
+        let bypassLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+                                         NSForegroundColorAttributeName: NSColor.black,
+                                         NSParagraphStyleAttributeName: bypassLabelStyle]
 
         let bypassLabelInset: CGRect = bypassLabelRect.insetBy(dx: 10, dy: 0)
         let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(
             with: NSMakeSize(bypassLabelInset.width, CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: bypassLabelFontAttributes).size.height
-        let bypassLabelTextRect: NSRect = NSMakeRect(bypassLabelInset.minX,
-                                                     bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2,
-                                                     bypassLabelInset.width,
-                                                     bypassLabelTextHeight)
+        let bypassLabelTextRect: NSRect = NSMakeRect(
+            bypassLabelInset.minX,
+            bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2,
+            bypassLabelInset.width,
+            bypassLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(bypassLabelInset)
         NSString(string: bypassedText).draw(in: bypassLabelTextRect.offsetBy(dx: 0, dy: 0),
@@ -96,10 +99,11 @@ public class AKBypassButton: NSView {
             with: NSMakeSize(processLabelInset.width, CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: processLabelFontAttributes).size.height
-        let processLabelTextRect: NSRect = NSMakeRect(processLabelInset.minX,
-                                                      processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2,
-                                                      processLabelInset.width,
-                                                      processLabelTextHeight)
+        let processLabelTextRect: NSRect = NSMakeRect(
+            processLabelInset.minX,
+            processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2,
+            processLabelInset.width,
+            processLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(processLabelInset)
         NSString(string: processingText).draw(in: processLabelTextRect.offsetBy(dx: 0, dy: 0),

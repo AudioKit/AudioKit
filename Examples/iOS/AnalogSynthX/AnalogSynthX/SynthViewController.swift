@@ -702,7 +702,7 @@ extension SynthViewController: SMSegmentViewDelegate {
 //*****************************************************************
 
 extension SynthViewController {
-    
+
     func setDelegates() {
         oscMixKnob.delegate = self
         cutoffKnob.delegate = self

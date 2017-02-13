@@ -57,11 +57,11 @@ public class AKButton: NSView {
                                    NSParagraphStyleAttributeName: labelStyle]
 
         let labelInset: CGRect = labelRect.insetBy(dx: 10, dy: 0)
-        let labelTextHeight: CGFloat = NSString(string: title).boundingRect(with: CGSize(width: labelInset.width,
-                                                                                         height: CGFloat.infinity),
-                                                                            options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                            attributes: labelFontAttributes,
-                                                                            context: nil).size.height
+        let labelTextHeight: CGFloat = NSString(string: title).boundingRect(
+            with: CGSize(width: labelInset.width, height: CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: labelFontAttributes,
+            context: nil).size.height
         context.saveGState()
         context.clip(to: labelInset)
         NSString(string: title).draw(in: CGRect(x: labelInset.minX,

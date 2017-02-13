@@ -10,12 +10,16 @@ extension AKComputedParameter {
 
     /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
     ///
-    /// - returns: AKOperation
-    /// - parameter input: Input audio signal
-    /// - parameter distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
-    /// - parameter cutoffFrequency: Filter cutoff frequency in Hertz. (Default: 1500, Minimum: 12.0, Maximum: 20000.0)
-    /// - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
-     ///
+    /// - Parameters:
+    ///   - input: Input audio signal
+    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion
+    ///                 controlled by the filter parameters, in such a way that both low cutoff and high resonance 
+    ///                 increase the distortion amount. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
+    ///   - cutoffFrequency: Filter cutoff frequency in Hertz. (Default: 1500, Minimum: 12.0, Maximum: 20000.0)
+    ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff 
+    ///                frequency. Values slightly greater than 1 are possible for more sustained oscillation and an 
+    ///                “overdrive” effect. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
+    ///
     public func threePoleLowPassFilter(
         distortion: AKParameter = 0.5,
         cutoffFrequency: AKParameter = 1_500,

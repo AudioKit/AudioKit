@@ -21,7 +21,9 @@
     ///
     public init(_ input: AKNode) {
         super.init()
-        fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
+        fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
+                         sampleRate: Float(AKSettings.sampleRate),
+                         delegate: self)
         input.avAudioNode.installTap(onBus: 0,
                                      bufferSize: bufferSize,
                                      format: AudioKit.format) { [weak self] (buffer, _) -> Void in

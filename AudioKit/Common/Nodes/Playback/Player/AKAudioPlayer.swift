@@ -72,7 +72,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         if playing {
             if let nodeTime = internalPlayer.lastRenderTime,
                 let playerTime = internalPlayer.playerTime(forNodeTime: nodeTime) {
-                //return   Double(Double(startingFrame) / sampleRate)  +  Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
+                // return Double(Double(startingFrame) / sampleRate)  +  Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
                 return Double(playerTime.sampleTime) / playerTime.sampleRate
             }
 
@@ -125,7 +125,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 return
 
             } else if newValue > Double(endingFrame) / internalAudioFile.sampleRate && endingFrame > 0 {
-                AKLog("ERROR: AKAudioPlayer cannot set a startTime bigger than the endTime: \(Double(endingFrame) / internalAudioFile.sampleRate) seconds")
+                AKLog("ERROR: AKAudioPlayer cannot set a startTime bigger than the endTime: " +
+                    "\(Double(endingFrame) / internalAudioFile.sampleRate) seconds")
 
             } else {
                 startingFrame = UInt32(newValue * internalAudioFile.sampleRate)
@@ -161,7 +162,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
             } else if newValue < Double(startingFrame) / internalAudioFile.sampleRate
                 || newValue > Double(Double(totalFrameCount) / internalAudioFile.sampleRate) {
-                AKLog("ERROR: AKAudioPlayer cannot set an endTime more than file's duration: \(duration) seconds or less than startTime: \(Double(startingFrame) / internalAudioFile.sampleRate) seconds")
+                AKLog("ERROR: AKAudioPlayer cannot set an endTime more than file's duration: \(duration) seconds or " +
+                    "less than startTime: \(Double(startingFrame) / internalAudioFile.sampleRate) seconds")
             } else {
                 endingFrame = UInt32(newValue * internalAudioFile.sampleRate)
 
@@ -203,10 +205,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     /// - Parameters:
     ///   - file: the AKAudioFile to play
-    ///   - looping : will loop play if set to true, or stop when play ends, so it can trig the completionHandler callback. Default is false (non looping)
-    ///   - completionHandler : AKCallback that will be triggered when the player end playing (useful for refreshing UI so we're not playing anymore, we stopped playing...
+    ///   - looping: will loop play if set to true, or stop when play ends, so it can trig the 
+    ///              completionHandler callback. Default is false (non looping)
+    ///   - completionHandler: AKCallback that will be triggered when the player end playing (useful for refreshing 
+    ///                        UI so we're not playing anymore, we stopped playing...)
     ///
-    /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be catched as it is a throwing init.
+    /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
     ///
     public init(file: AKAudioFile, looping: Bool = false, completionHandler: AKCallback? = nil) throws {
 
@@ -230,7 +234,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AudioKit.engine.attach(internalPlayer)
         let mixer = AVAudioMixerNode()
         AudioKit.engine.attach(mixer)
-        let format = AVAudioFormat(standardFormatWithSampleRate: self.internalAudioFile.sampleRate, channels: self.internalAudioFile.channelCount)
+        let format = AVAudioFormat(standardFormatWithSampleRate: self.internalAudioFile.sampleRate,
+                                   channels: self.internalAudioFile.channelCount)
         AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
         self.avAudioNode = mixer
         internalPlayer.volume = 1.0
@@ -357,14 +362,16 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         play(from:startTime, to:endTime, avTime:avTime)
     }
 
-    /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time to play (in seconds).
+    /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time 
+    /// to play (in seconds).
     ///
     ///  - Parameters:
     ///    - from startTime: Time into the file at which to start playing back
     ///    - to endTime: Time into the file at which to playing back will stop / Loop
-    ///    - avTime: an AVAudioTime object specifying when to schedule the playback. You can create this using the helper function
-    ///         AKAudioPlayer.secondToAVAudioTime(hostTime:time). hostTime is a call to mach_absolute_time(). When you have a group of
-    ///         players which you want to sync together it's important that this value be the same for all of them as a reference point.
+    ///    - avTime: an AVAudioTime object specifying when to schedule the playback. You can create this using the 
+    ///              helper function AKAudioPlayer.secondToAVAudioTime(hostTime:time). hostTime is a call to 
+    ///              mach_absolute_time(). When you have a group of players which you want to sync together it's 
+    ///              important that this value be the same for all of them as a reference point.
     ///
     open func play(from time: Double, to endTime: Double, avTime: AVAudioTime? ) {
         if endTime > 0 {
@@ -377,7 +384,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             scheduledAVTime = avTime
             start()
         } else {
-            AKLog("ERROR AKaudioPlayer:  cannot play, \(internalAudioFile.fileNamePlusExtension) is empty or segment is too short!")
+            AKLog("ERROR AKaudioPlayer: cannot play, \(internalAudioFile.fileNamePlusExtension) " +
+                "is empty or segment is too short!")
         }
     }
 
@@ -410,7 +418,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     //    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
     //        let sampleTime = AVAudioFramePosition(time * internalAudioFile.sampleRate)
-    //        return AVAudioTime(hostTime: mach_absolute_time(), sampleTime: sampleTime, atRate: internalAudioFile.sampleRate)
+    //        return AVAudioTime(hostTime: mach_absolute_time(), 
+    //                           sampleTime: sampleTime, 
+    //                           atRate: internalAudioFile.sampleRate)
     //    }
 
     //    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
@@ -488,7 +498,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             }
 
         } else {
-            AKLog("ERROR updatePCMBuffer: Could not set PCM buffer -> \(internalAudioFile.fileNamePlusExtension) samplesCount = 0.")
+            AKLog("ERROR updatePCMBuffer: Could not set PCM buffer -> " +
+                "\(internalAudioFile.fileNamePlusExtension) samplesCount = 0.")
         }
     }
 

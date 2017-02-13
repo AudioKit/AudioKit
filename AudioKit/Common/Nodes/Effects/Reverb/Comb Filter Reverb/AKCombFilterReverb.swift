@@ -54,8 +54,10 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    ///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
+    ///   - reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its 
+    ///                     original amplitude. (aka RT-60).
+    ///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. 
+    ///            Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
     public init(
         _ input: AKNode,

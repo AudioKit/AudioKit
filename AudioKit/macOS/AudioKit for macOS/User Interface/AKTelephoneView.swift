@@ -269,7 +269,7 @@ public class AKTelephoneView: NSView {
         let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17)!,
                                       NSForegroundColorAttributeName: NSColor.white,
                                       NSParagraphStyleAttributeName: busyTextStyle]
-        
+
         let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(
             with: NSMakeSize(busyTextRect.width, CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,

@@ -44,7 +44,8 @@ class AlbumsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cellIdentifier = "AlbumCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ??
+            UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
 
         // Configure the cell...
         let repItem = albumsList[(indexPath as NSIndexPath).row].representativeItem!

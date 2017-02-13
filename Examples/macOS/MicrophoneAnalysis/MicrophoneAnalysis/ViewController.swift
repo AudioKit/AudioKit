@@ -48,7 +48,11 @@ class ViewController: NSViewController {
         AudioKit.output = silence
         AudioKit.start()
         setupPlot()
-        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ViewController.updateUI), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 0.1,
+                             target: self,
+                             selector: #selector(ViewController.updateUI),
+                             userInfo: nil,
+                             repeats: true)
     }
 
     override var representedObject: Any? {
