@@ -52,13 +52,23 @@ public class AKButton: NSView {
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: labelStyle]
+        let labelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 24),
+                                   NSForegroundColorAttributeName: NSColor.black,
+                                   NSParagraphStyleAttributeName: labelStyle]
 
         let labelInset: CGRect = labelRect.insetBy(dx: 10, dy: 0)
-        let labelTextHeight: CGFloat = NSString(string: title).boundingRect(with: CGSize(width: labelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).size.height
+        let labelTextHeight: CGFloat = NSString(string: title).boundingRect(with: CGSize(width: labelInset.width,
+                                                                                         height: CGFloat.infinity),
+                                                                            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                                                            attributes: labelFontAttributes,
+                                                                            context: nil).size.height
         context.saveGState()
         context.clip(to: labelInset)
-        NSString(string: title).draw(in: CGRect(x: labelInset.minX, y: labelInset.minY + (labelInset.height - labelTextHeight) / 2, width: labelInset.width, height: labelTextHeight), withAttributes: labelFontAttributes)
+        NSString(string: title).draw(in: CGRect(x: labelInset.minX,
+                                                y: labelInset.minY + (labelInset.height - labelTextHeight) / 2,
+                                                width: labelInset.width,
+                                                height: labelTextHeight),
+                                     withAttributes: labelFontAttributes)
         context.restoreGState()
 
     }

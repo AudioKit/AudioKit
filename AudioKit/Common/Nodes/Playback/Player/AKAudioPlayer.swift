@@ -342,7 +342,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AKLog("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
     }
 
-    /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time to play (in seconds).
+    /// Play the file back from a certain time, to an end time (if set). 
+    /// You can optionally set a scheduled time to play (in seconds).
     ///
     ///  - Parameters:
     ///    - from startTime: Time into the file at which to start playing back

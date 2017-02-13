@@ -12,7 +12,9 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
     internal func setupNode(_ input: AKNode?) {
         if fft == nil {
-            fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
+            fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
+                             sampleRate: Float(AKSettings.sampleRate),
+                             delegate: self)
         }
         input?.avAudioNode.installTap(onBus: 0,
                                       bufferSize: bufferSize,
@@ -80,7 +82,9 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - updatedWithFFTData: A pointer to a c-style array of floats
     ///   - bufferSize: Number of elements in the FFT Data array
     ///
-    open func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>, bufferSize: vDSP_Length) {
+    open func fft(_ fft: EZAudioFFT!,
+                  updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
+                  bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
             self.updateBuffer(fftData, withBufferSize: self.bufferSize)
         }

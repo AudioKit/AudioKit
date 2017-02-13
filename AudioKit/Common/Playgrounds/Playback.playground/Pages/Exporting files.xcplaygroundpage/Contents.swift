@@ -40,11 +40,21 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
 mixloop.exportAsynchronously(name: "test", baseDir: .documents, exportFormat: .mp4, callback: callback)
 
 //: Convert the file to .WAV format, and this time, set a range for the export
-mixloop.exportAsynchronously(name: "test2", baseDir: .documents, exportFormat: .wav, fromSample: 10_000, toSample: 20_000, callback: callback)
+mixloop.exportAsynchronously(name: "test2",
+                             baseDir: .documents,
+                             exportFormat: .wav,
+                             fromSample: 10_000,
+                             toSample: 20_000,
+                             callback: callback)
 
 /// Use another file to convert to .aif.
 let drumloop = try AKAudioFile(readFileName: "drumloop.wav")
-drumloop.exportAsynchronously(name: "test3", baseDir: .documents, exportFormat: .aif, fromSample: 20_000, toSample: 40_000, callback: callback)
+drumloop.exportAsynchronously(name: "test3",
+                              baseDir: .documents,
+                              exportFormat: .aif,
+                              fromSample: 20_000,
+                              toSample: 40_000,
+                              callback: callback)
 
 //: Each time an export has been completed and succeeded, the player will be set to play it.
 

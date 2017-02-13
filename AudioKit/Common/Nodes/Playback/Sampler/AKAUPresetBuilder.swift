@@ -139,18 +139,47 @@ open class AKAUPresetBuilder {
             }
             switch triggerMode {
             case  .Hold:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i + 1, numVoices: 1, ignoreNoteOff: false)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                                                               rootNote: rootNote,
+                                                               startNote: startNote!,
+                                                               endNote: endNote!,
+                                                               wavRef: sampleNum,
+                                                               loopEnabled: false)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                                                                   envelopes: envelopesXML,
+                                                                   zones: sampleZoneXML,
+                                                                   layer: i + 1,
+                                                                   numVoices: 1,
+                                                                   ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
             case .Loop:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!,
-                                                               wavRef: sampleNum, loopEnabled: true)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i + 1, numVoices: 1, ignoreNoteOff: false)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                                                               rootNote: rootNote,
+                                                               startNote: startNote!,
+                                                               endNote: endNote!,
+                                                               wavRef: sampleNum,
+                                                               loopEnabled: true)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                                                                   envelopes: envelopesXML,
+                                                                   zones: sampleZoneXML,
+                                                                   layer: i + 1,
+                                                                   numVoices: 1,
+                                                                   ignoreNoteOff: false)
                 layerXML.append(tempLayerXML)
             default:
                 //.Trigger and .Repeat (repeat needs to be handled in the app that uses this mode - otherwise is just the same as Trig mode)
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i, rootNote: rootNote, startNote: startNote!, endNote: endNote!, wavRef: sampleNum, loopEnabled: false)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1), envelopes: envelopesXML, zones: sampleZoneXML, layer: i + 1, numVoices: 1, ignoreNoteOff: true)
+                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                                                               rootNote: rootNote,
+                                                               startNote: startNote!,
+                                                               endNote: endNote!,
+                                                               wavRef: sampleNum,
+                                                               loopEnabled: false)
+                let tempLayerXML = AKAUPresetBuilder.generateLayer(connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                                                                   envelopes: envelopesXML,
+                                                                   zones: sampleZoneXML,
+                                                                   layer: i + 1,
+                                                                   numVoices: 1,
+                                                                   ignoreNoteOff: true)
                 layerXML.append(tempLayerXML)
 
             }
@@ -186,7 +215,10 @@ open class AKAUPresetBuilder {
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
         let filenameKey = "filename"
-        let defaultObjects: [NSObject] = [rootNote as NSObject, startNote as NSObject, endNote as NSObject, filename as NSObject]
+        let defaultObjects: [NSObject] = [rootNote as NSObject,
+                                          startNote as NSObject,
+                                          endNote as NSObject,
+                                          filename as NSObject]
         let keys = [rootNoteKey, startNoteKey, endNoteKey, filenameKey]
         return NSMutableDictionary(objects: defaultObjects, forKeys: keys as [NSCopying])
     }
@@ -710,11 +742,20 @@ open class AKAUPresetBuilder {
         return str
     }
 
-    static func generateLayers(connections: [String], envelopes: [String], filters: [String], lfos: [String], zones: [String]) -> String {
+    static func generateLayers(connections: [String],
+                               envelopes: [String],
+                               filters: [String],
+                               lfos: [String],
+                               zones: [String]) -> String {
         //make sure all arrays are same size
         var str = ""
         for i in 0..<connections.count {
-            str.append(AKAUPresetBuilder.generateLayer(connections: connections[i], envelopes: envelopes[i], filter: filters[i], lfos: lfos[i], zones: zones[i], layer: i))
+            str.append(AKAUPresetBuilder.generateLayer(connections: connections[i],
+                                                       envelopes: envelopes[i],
+                                                       filter: filters[i],
+                                                       lfos: lfos[i],
+                                                       zones: zones[i],
+                                                       layer: i))
         }
         return str
     }
@@ -725,9 +766,24 @@ open class AKAUPresetBuilder {
         let envelopeSource: Int = 536_870_912 + layerOffset
         let gainDest: Int = 1_343_225_856 + layerOffset
         var str = ""
-        str.append(generateConnectionDict(id: 0, source: 300, destination: pitchDest, scale: 12_800, transform: 1, invert: false)) //keynum->pitch
-        str.append(generateConnectionDict(id: 1, source: envelopeSource, destination: gainDest, scale: -96, transform: 1, invert: true)) //envelope->amp
-        str.append(generateConnectionDict(id: 2, source: 301, destination: gainDest, scale: -96, transform: 2, invert: true))
+        str.append(generateConnectionDict(id: 0,
+                                          source: 300,
+                                          destination: pitchDest,
+                                          scale: 12_800,
+                                          transform: 1,
+                                          invert: false)) //keynum->pitch
+        str.append(generateConnectionDict(id: 1,
+                                          source: envelopeSource,
+                                          destination: gainDest,
+                                          scale: -96,
+                                          transform: 1,
+                                          invert: true)) //envelope->amp
+        str.append(generateConnectionDict(id: 2,
+                                          source: 301,
+                                          destination: gainDest,
+                                          scale: -96,
+                                          transform: 2,
+                                          invert: true))
         return str
     }
 

@@ -269,10 +269,11 @@ public class AKTelephoneView: NSView {
         let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17)!,
                                       NSForegroundColorAttributeName: NSColor.white,
                                       NSParagraphStyleAttributeName: busyTextStyle]
-
-        let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(with: NSMakeSize(busyTextRect.width, CGFloat.infinity),
-                                                                           options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                           attributes: busyTextFontAttributes).size.height
+        
+        let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(
+            with: NSMakeSize(busyTextRect.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: busyTextFontAttributes).size.height
         let busyTextTextRect: NSRect = NSMakeRect(busyTextRect.minX,
                                                   busyTextRect.minY + (busyTextRect.height - busyTextTextHeight) / 2,
                                                   busyTextRect.width,
@@ -292,9 +293,10 @@ public class AKTelephoneView: NSView {
                                      NSForegroundColorAttributeName: NSColor.black,
                                      NSParagraphStyleAttributeName: readoutStyle]
 
-        let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(with: NSMakeSize(readoutRect.width, CGFloat.infinity),
-                                                                         options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                         attributes: readoutFontAttributes).size.height
+        let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(
+            with: NSMakeSize(readoutRect.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: readoutFontAttributes).size.height
         let readoutTextRect: NSRect = NSMakeRect(readoutRect.minX,
                                                  readoutRect.minY + (readoutRect.height - readoutTextHeight) / 2,
                                                  readoutRect.width,
@@ -336,9 +338,10 @@ public class AKTelephoneView: NSView {
                                      NSForegroundColorAttributeName: textColor,
                                      NSParagraphStyleAttributeName: lettersStyle]
 
-        let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(with: NSMakeSize(lettersRect.width, CGFloat.infinity),
-                                                                             options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                             attributes: lettersFontAttributes).size.height
+        let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(
+            with: NSMakeSize(lettersRect.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: lettersFontAttributes).size.height
         let lettersTextRect: NSRect = NSMakeRect(lettersRect.minX,
                                                  lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2,
                                                  lettersRect.width,
@@ -357,9 +360,10 @@ public class AKTelephoneView: NSView {
                                     NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: numberStyle]
 
-        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(with: NSMakeSize(numberRect.width, CGFloat.infinity),
-                                                                               options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                               attributes: numberFontAttributes).size.height
+        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
+            with: NSMakeSize(numberRect.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: numberFontAttributes).size.height
         let numberTextRect: NSRect = NSMakeRect(numberRect.minX,
                                                 numberRect.minY + (numberRect.height - numberTextHeight) / 2,
                                                 numberRect.width,
@@ -401,9 +405,10 @@ public class AKTelephoneView: NSView {
                                     NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: numberStyle]
 
-        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(with: NSMakeSize(numberRect.width, CGFloat.infinity),
-                                                                               options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                                                               attributes: numberFontAttributes).size.height
+        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
+            with: NSMakeSize(numberRect.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: numberFontAttributes).size.height
         let numberTextRect: NSRect = NSMakeRect(numberRect.minX,
                                                 numberRect.minY + (numberRect.height - numberTextHeight) / 2,
                                                 numberRect.width,

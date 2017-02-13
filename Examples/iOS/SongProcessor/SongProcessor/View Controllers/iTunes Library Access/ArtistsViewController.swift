@@ -39,7 +39,8 @@ class ArtistsViewController: UITableViewController {
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cellIdentifier = "MusicCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .default,
+                                                                                                    reuseIdentifier: cellIdentifier)
 
         // Configure the cell...
         let repItem = artistList[(indexPath as NSIndexPath).row].representativeItem!

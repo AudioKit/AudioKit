@@ -99,7 +99,8 @@ class ParticleLab: MTKView {
 
         statusPrefix = "\(numParticles.rawValue * 4) Particles"
 
-        super.init(frame: CGRect(x: 0, y: 0, width: Int(width), height: Int(height)), device:  MTLCreateSystemDefaultDevice())
+        super.init(frame: CGRect(x: 0, y: 0, width: Int(width), height: Int(height)),
+                   device:  MTLCreateSystemDefaultDevice())
 
         framebufferOnly = false
         drawableSize = CGSize(width: CGFloat(imageWidth), height: CGFloat(imageHeight))
@@ -130,10 +131,10 @@ class ParticleLab: MTKView {
     }
 
     func resetGravityWells() {
-        setGravityWellProperties(gravityWell: .one, normalisedPositionX: 0.5, normalisedPositionY: 0.5, mass: 0, spin: 0)
-        setGravityWellProperties(gravityWell: .two, normalisedPositionX: 0.5, normalisedPositionY: 0.5, mass: 0, spin: 0)
-        setGravityWellProperties(gravityWell: .three, normalisedPositionX: 0.5, normalisedPositionY: 0.5, mass: 0, spin: 0)
-        setGravityWellProperties(gravityWell: .four, normalisedPositionX: 0.5, normalisedPositionY: 0.5, mass: 0, spin: 0)
+        setGravityWellProperties(gravityWell: .one)
+        setGravityWellProperties(gravityWell: .two)
+        setGravityWellProperties(gravityWell: .three)
+        setGravityWellProperties(gravityWell: .four)
     }
 
     func resetParticles(_ edgesOnly: Bool) {
@@ -222,9 +223,13 @@ class ParticleLab: MTKView {
         var imageWidthFloat = Float(imageWidth)
         var imageHeightFloat = Float(imageHeight)
 
-        imageWidthFloatBuffer = device.makeBuffer(bytes: &imageWidthFloat, length: MemoryLayout<Float>.size, options: MTLResourceOptions())
+        imageWidthFloatBuffer = device.makeBuffer(bytes: &imageWidthFloat,
+                                                  length: MemoryLayout<Float>.size,
+                                                  options: MTLResourceOptions())
 
-        imageHeightFloatBuffer = device.makeBuffer(bytes: &imageHeightFloat, length: MemoryLayout<Float>.size, options: MTLResourceOptions())
+        imageHeightFloatBuffer = device.makeBuffer(bytes: &imageHeightFloat,
+                                                   length: MemoryLayout<Float>.size,
+                                                   options: MTLResourceOptions())
     }
 
     override func draw(_ dirtyRect: CGRect) {
@@ -251,25 +256,34 @@ class ParticleLab: MTKView {
 
         commandEncoder.setComputePipelineState(pipelineState)
 
-        let particlesBufferNoCopy = device.makeBuffer(bytesNoCopy: particlesMemory!, length: Int(particlesMemoryByteSize),
+        let particlesBufferNoCopy = device.makeBuffer(bytesNoCopy: particlesMemory!,
+                                                      length: Int(particlesMemoryByteSize),
             options: MTLResourceOptions(), deallocator: nil)
 
         commandEncoder.setBuffer(particlesBufferNoCopy, offset: 0, at: 0)
         commandEncoder.setBuffer(particlesBufferNoCopy, offset: 0, at: 1)
 
-        let inGravityWell = device.makeBuffer(bytes: &gravityWellParticle, length: particleSize, options: MTLResourceOptions())
+        let inGravityWell = device.makeBuffer(bytes: &gravityWellParticle,
+                                              length: particleSize,
+                                              options: MTLResourceOptions())
         commandEncoder.setBuffer(inGravityWell, offset: 0, at: 2)
 
-        let colorBuffer = device.makeBuffer(bytes: &particleColor, length: MemoryLayout<ParticleColor>.size, options: MTLResourceOptions())
+        let colorBuffer = device.makeBuffer(bytes: &particleColor,
+                                            length: MemoryLayout<ParticleColor>.size,
+                                            options: MTLResourceOptions())
         commandEncoder.setBuffer(colorBuffer, offset: 0, at: 3)
 
         commandEncoder.setBuffer(imageWidthFloatBuffer, offset: 0, at: 4)
         commandEncoder.setBuffer(imageHeightFloatBuffer, offset: 0, at: 5)
 
-        let dragFactorBuffer = device.makeBuffer(bytes: &dragFactor, length: MemoryLayout<Float>.size, options: MTLResourceOptions())
+        let dragFactorBuffer = device.makeBuffer(bytes: &dragFactor,
+                                                 length: MemoryLayout<Float>.size,
+                                                 options: MTLResourceOptions())
         commandEncoder.setBuffer(dragFactorBuffer, offset: 0, at: 6)
 
-        let respawnOutOfBoundsParticlesBuffer = device.makeBuffer(bytes: &respawnOutOfBoundsParticles, length: MemoryLayout<Bool>.size, options: MTLResourceOptions())
+        let respawnOutOfBoundsParticlesBuffer = device.makeBuffer(bytes: &respawnOutOfBoundsParticles,
+                                                                  length: MemoryLayout<Bool>.size,
+                                                                  options: MTLResourceOptions())
         commandEncoder.setBuffer(respawnOutOfBoundsParticlesBuffer, offset: 0, at: 7)
 
         guard let drawable = currentDrawable else {
@@ -336,23 +350,47 @@ class ParticleLab: MTKView {
         return returnPoint
     }
 
-    final func setGravityWellProperties(gravityWellIndex: Int, normalisedPositionX: Float, normalisedPositionY: Float, mass: Float, spin: Float) {
+    final func setGravityWellProperties(gravityWellIndex: Int,
+                                        normalisedPositionX: Float = 0.5,
+                                        normalisedPositionY: Float = 0.5,
+                                        mass: Float = 0,
+                                        spin: Float = 0) {
         switch gravityWellIndex {
         case 1:
-            setGravityWellProperties(gravityWell: .two, normalisedPositionX: normalisedPositionX, normalisedPositionY: normalisedPositionY, mass: mass, spin: spin)
+            setGravityWellProperties(gravityWell: .two,
+                                     normalisedPositionX: normalisedPositionX,
+                                     normalisedPositionY: normalisedPositionY,
+                                     mass: mass,
+                                     spin: spin)
 
         case 2:
-            setGravityWellProperties(gravityWell: .three, normalisedPositionX: normalisedPositionX, normalisedPositionY: normalisedPositionY, mass: mass, spin: spin)
+            setGravityWellProperties(gravityWell: .three,
+                                     normalisedPositionX: normalisedPositionX,
+                                     normalisedPositionY: normalisedPositionY,
+                                     mass: mass,
+                                     spin: spin)
 
         case 3:
-            setGravityWellProperties(gravityWell: .four, normalisedPositionX: normalisedPositionX, normalisedPositionY: normalisedPositionY, mass: mass, spin: spin)
+            setGravityWellProperties(gravityWell: .four,
+                                     normalisedPositionX: normalisedPositionX,
+                                     normalisedPositionY: normalisedPositionY,
+                                     mass: mass,
+                                     spin: spin)
 
         default:
-            setGravityWellProperties(gravityWell: .one, normalisedPositionX: normalisedPositionX, normalisedPositionY: normalisedPositionY, mass: mass, spin: spin)
+            setGravityWellProperties(gravityWell: .one,
+                                     normalisedPositionX: normalisedPositionX,
+                                     normalisedPositionY: normalisedPositionY,
+                                     mass: mass,
+                                     spin: spin)
         }
     }
 
-    final func setGravityWellProperties(gravityWell: GravityWell, normalisedPositionX: Float, normalisedPositionY: Float, mass: Float, spin: Float) {
+    final func setGravityWellProperties(gravityWell: GravityWell,
+                                        normalisedPositionX: Float,
+                                        normalisedPositionY: Float,
+                                        mass: Float,
+                                        spin: Float) {
         let imageWidthFloat = Float(imageWidth)
         let imageHeightFloat = Float(imageHeight)
 

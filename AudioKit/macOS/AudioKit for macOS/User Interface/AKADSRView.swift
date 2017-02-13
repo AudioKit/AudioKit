@@ -86,7 +86,12 @@ public class AKADSRView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func drawCurveCanvas(size: NSSize = NSSize(width: 440, height: 151), attackDurationMS: CGFloat = 456, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
+    func drawCurveCanvas(size: NSSize = NSSize(width: 440, height: 151),
+                         attackDurationMS: CGFloat = 456,
+                         decayDurationMS: CGFloat = 262,
+                         releaseDurationMS: CGFloat = 448,
+                         sustainLevel: CGFloat = 0.583,
+                         maxADFraction: CGFloat = 0.75) {
         //// General Declarations
         let _ = NSGraphicsContext.current()!.cgContext
 
