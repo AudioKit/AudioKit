@@ -56,13 +56,14 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 self.recordLabel!.text = "Recording..."
                 try? recorder?.record()
                 return "Stop"
-            }})
+            }
+        })
 
         addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
             self.recordLabel!.text = "Tape Cleared!"
             try? recorder?.reset()
             return "Reset Recording"
-            })
+        })
 
         playLabel = addLabel("Press Play to playback...")
 
@@ -82,7 +83,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     self.playLabel!.text = "Tape is empty!..."
                 }
                 return "Stop"
-            }})
+            }
+        })
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self

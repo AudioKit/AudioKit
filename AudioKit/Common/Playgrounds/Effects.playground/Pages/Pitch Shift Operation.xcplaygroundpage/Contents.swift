@@ -34,21 +34,21 @@ class PlaygroundView: AKPlaygroundView {
             value: effect.parameters[0], minimum: -12, maximum: 12
         ) { sliderValue in
             effect.parameters[0] = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Range",
             format: "%0.3f semitones",
             value: effect.parameters[1], minimum: 0, maximum: 24
         ) { sliderValue in
             effect.parameters[1] = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Speed",
             format: "%0.3f Hz",
             value: effect.parameters[2], minimum: 0.001, maximum: 10
         ) { sliderValue in
             effect.parameters[2] = sliderValue
-            })
+        })
     }
 }
 

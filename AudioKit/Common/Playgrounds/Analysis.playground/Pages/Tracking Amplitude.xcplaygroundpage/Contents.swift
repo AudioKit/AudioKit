@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { _ in
             // Do nothing, just for display
-            }
+        }
         addSubview(trackedAmplitudeSlider!)
 
         addSubview(AKRollingOutputPlot.createView())

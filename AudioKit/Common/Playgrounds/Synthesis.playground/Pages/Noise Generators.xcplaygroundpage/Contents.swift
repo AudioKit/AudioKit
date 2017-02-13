@@ -26,7 +26,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { amplitude in
             pink.amplitude = amplitude
             white.amplitude = amplitude
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "White to Pink Balance",
@@ -35,7 +35,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.magenta
         ) { balance in
             whitePinkMixer.balance = balance
-            })
+        })
     }
 
 }

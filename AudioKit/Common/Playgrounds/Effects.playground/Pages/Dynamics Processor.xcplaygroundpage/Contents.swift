@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.threshold = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Head Room",
@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.headRoom = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Expansion Ratio",
@@ -61,7 +61,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.expansionRatio = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Expansion Threshold",
@@ -69,7 +69,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Attack Time",
@@ -78,7 +78,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.attackTime = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Release Time",
@@ -87,7 +87,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.releaseTime = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Master Gain",
@@ -96,7 +96,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.masterGain = sliderValue
-            })
+        })
     }
 }
 

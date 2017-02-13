@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             highPassFilter.cutoffFrequency = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Resonance",
@@ -49,7 +49,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             highPassFilter.resonance = sliderValue
-            })
+        })
     }
 }
 

@@ -43,7 +43,8 @@ class PlaygroundView: AKPlaygroundView {
                 return "Disable Looping"
             } else {
                 return "Enable Looping"
-            }})
+            }
+        })
 
         addSubview(AKButton(title: "Direction: ➡️") {
             if player.isPlaying {

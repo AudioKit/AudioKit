@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             peakLimiter.attackTime = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Decay Time",
@@ -49,7 +49,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             peakLimiter.decayTime = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Pre-gain",
@@ -58,7 +58,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             peakLimiter.preGain = sliderValue
-            })
+        })
     }
 }
 

@@ -73,8 +73,7 @@ class PlaygroundView: AKPlaygroundView {
                 break
             }
             self.updateUI()
-            }
-        )
+        })
     }
     func updateUI() {
         detuneSlider!.value = mandolin.detune

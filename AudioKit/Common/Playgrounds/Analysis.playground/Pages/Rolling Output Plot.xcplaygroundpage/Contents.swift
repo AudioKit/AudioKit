@@ -31,7 +31,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             variSpeed.rate = sliderValue
-            })
+        })
 
         addSubview(AKRollingOutputPlot.createView())
     }

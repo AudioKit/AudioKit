@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             wah.wah = sliderValue
-            })
+        })
     }
 }
 

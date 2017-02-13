@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             filter.reverbDuration = sliderValue
-            })
+        })
     }
 }
 

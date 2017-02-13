@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             timePitch.rate = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Pitch",
@@ -50,7 +50,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             timePitch.pitch = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Overlap",
@@ -58,7 +58,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             timePitch.overlap = sliderValue
-            })
+        })
     }
 }
 

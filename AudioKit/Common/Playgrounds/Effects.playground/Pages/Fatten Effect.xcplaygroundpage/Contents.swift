@@ -45,7 +45,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             fatten.parameters[0] = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Mix",
@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             fatten.parameters[1] = sliderValue
-            })
+        })
     }
 
 }

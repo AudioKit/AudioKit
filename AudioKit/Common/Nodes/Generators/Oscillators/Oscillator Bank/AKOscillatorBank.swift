@@ -147,7 +147,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         _Self.register()
 
         super.init()
-         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -158,7 +158,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.yellow
         ) { frequency in
             morph.frequency = frequency
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Amplitude",
@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.magenta
         ) { amplitude in
             morph.amplitude = amplitude
-            })
+        })
 
         addLabel("Index: Sine = 0, Triangle = 1, Sawtooth = 2, Square = 3")
 
@@ -50,7 +50,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { index in
             morph.index = index
-            })
+        })
 
         addSubview(AKOutputWaveformPlot.createView(width: 440, height: 400))
     }

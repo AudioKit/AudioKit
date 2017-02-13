@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             dryWetMixer.balance = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Stairwell to Dish",
@@ -55,7 +55,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             mixer.balance = sliderValue
-            })
+        })
     }
 }
 

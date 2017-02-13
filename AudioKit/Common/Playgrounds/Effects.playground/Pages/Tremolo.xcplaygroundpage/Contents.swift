@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             tremolo.frequency = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Depth",
@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             tremolo.depth = sliderValue
-            })
+        })
     }
 }
 

@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
             self.updateButtons()
             sequencer.play()
             return ""
-            })
+        })
         addSubview(AKButton(title: "Use Bell As Global Output", color: AKColor.red) {
             sequencer.stop()
             sequencer.setGlobalAVAudioUnitOutput(bellSampler.samplerUnit)

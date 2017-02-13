@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.red
         ) { amplitude in
             currentAmplitude = amplitude
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Ramp Time",
@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.cyan
         ) { time in
             currentRampTime = time
-            })
+        })
 
         let keyboard = AKKeyboardView(width: 440,
                                       height: 100,

@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             bitcrusher.bitDepth = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Sample Rate",
@@ -50,9 +50,8 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             bitcrusher.sampleRate = sliderValue
-            })
+        })
     }
-
 }
 
 import PlaygroundSupport

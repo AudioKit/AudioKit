@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             filter.centerFrequency = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Bandwidth",
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             filter.bandwidth = sliderValue
-            })
+        })
     }
 }
 

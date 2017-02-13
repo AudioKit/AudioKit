@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             decimator.decimation = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Rounding",
@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             decimator.rounding = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Mix",
@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             decimator.mix = sliderValue
-            })
+        })
 
     }
 }

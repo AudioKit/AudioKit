@@ -34,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             reverb.dryWetMix = sliderValue
-            })
+        })
 
         let presets = ["Cathedral", "Large Hall", "Large Hall 2",
                        "Large Room", "Large Room 2", "Medium Chamber",
@@ -68,9 +68,8 @@ class PlaygroundView: AKPlaygroundView {
                 reverb.loadFactoryPreset(.smallRoom)
             default:
                 break
-            }}
-        )
-
+            }
+        })
     }
 
 }
