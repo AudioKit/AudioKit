@@ -696,3 +696,36 @@ extension SynthViewController: SMSegmentViewDelegate {
         }
     }
 }
+
+//*****************************************************************
+// MARK: - Set Delegates
+//*****************************************************************
+
+extension SynthViewController {
+    
+    func setDelegates() {
+        oscMixKnob.delegate = self
+        cutoffKnob.delegate = self
+        rezKnob.delegate = self
+        osc1SemitonesKnob.delegate = self
+        osc2SemitonesKnob.delegate = self
+        osc2DetuneKnob.delegate = self
+        lfoAmtKnob.delegate = self
+        lfoRateKnob.delegate = self
+        crushAmtKnob.delegate = self
+        delayTimeKnob.delegate = self
+        delayMixKnob.delegate = self
+        reverbAmtKnob.delegate = self
+        reverbMixKnob.delegate = self
+        subMixKnob.delegate = self
+        fmMixKnob.delegate = self
+        fmModKnob.delegate = self
+        morphKnob.delegate = self
+        noiseMixKnob.delegate = self
+        masterVolKnob.delegate = self
+        attackSlider.delegate = self
+        decaySlider.delegate = self
+        sustainSlider.delegate = self
+        releaseSlider.delegate = self
+    }
+}
