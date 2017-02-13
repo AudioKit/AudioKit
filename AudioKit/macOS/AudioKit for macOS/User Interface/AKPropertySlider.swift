@@ -126,14 +126,23 @@ public class AKPropertySlider: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+                                       NSForegroundColorAttributeName: NSColor.black,
+                                       NSParagraphStyleAttributeName: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
-        let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(with: NSMakeSize(nameLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: nameLabelFontAttributes).size.height
-        let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX, nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, nameLabelInset.width, nameLabelTextHeight)
+        let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
+            with: NSMakeSize(nameLabelInset.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: nameLabelFontAttributes).size.height
+        let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX,
+                                                   nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+                                                   nameLabelInset.width,
+                                                   nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
-        NSString(string: propertyName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0), withAttributes: nameLabelFontAttributes)
+        NSString(string: propertyName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
+                                            withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
 
         //// valueLabel Drawing
@@ -141,14 +150,23 @@ public class AKPropertySlider: NSView {
         let valueLabelStyle = NSMutableParagraphStyle()
         valueLabelStyle.alignment = .right
 
-        let valueLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: valueLabelStyle]
+        let valueLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+                                        NSForegroundColorAttributeName: NSColor.black,
+                                        NSParagraphStyleAttributeName: valueLabelStyle]
 
         let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 10, dy: 0)
-        let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRect(with: NSMakeSize(valueLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: valueLabelFontAttributes).size.height
-        let valueLabelTextRect: NSRect = NSMakeRect(valueLabelInset.minX, valueLabelInset.minY + (valueLabelInset.height - valueLabelTextHeight) / 2, valueLabelInset.width, valueLabelTextHeight)
+        let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRect(
+            with: NSMakeSize(valueLabelInset.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: valueLabelFontAttributes).size.height
+        let valueLabelTextRect: NSRect = NSMakeRect(valueLabelInset.minX,
+                                                    valueLabelInset.minY + (valueLabelInset.height - valueLabelTextHeight) / 2,
+                                                    valueLabelInset.width,
+                                                    valueLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(valueLabelInset)
-        NSString(string: currentValueText).draw(in: valueLabelTextRect.offsetBy(dx: 0, dy: 0), withAttributes: valueLabelFontAttributes)
+        NSString(string: currentValueText).draw(in: valueLabelTextRect.offsetBy(dx: 0, dy: 0),
+                                                withAttributes: valueLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }
 

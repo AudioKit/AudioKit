@@ -22,7 +22,9 @@
     public init(_ input: AKNode) {
         super.init()
         fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
-        input.avAudioNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, _) -> Void in
+        input.avAudioNode.installTap(onBus: 0,
+                                     bufferSize: bufferSize,
+                                     format: AudioKit.format) { [weak self] (buffer, _) -> Void in
             guard let strongSelf = self else {
                 return
             }
@@ -35,7 +37,9 @@
     }
 
     /// Callback function for FFT computation
-    @objc open func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>, bufferSize: vDSP_Length) {
+    @objc open func fft(_ fft: EZAudioFFT!,
+                        updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
+                        bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
             for i in 0..<512 {
                 self.fftData[i] = Double(fftData[i])

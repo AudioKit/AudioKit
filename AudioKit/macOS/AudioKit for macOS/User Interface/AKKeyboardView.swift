@@ -55,12 +55,18 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(octaveNumber: i)
         }
-        let backgroundPath = NSBezierPath(rect: NSMakeRect(size.width * CGFloat(octaveCount), 0, size.width / 7, size.height))
+        let backgroundPath = NSBezierPath(rect: NSMakeRect(size.width * CGFloat(octaveCount),
+                                                           0,
+                                                           size.width / 7,
+                                                           size.height))
         NSColor.black.setFill()
         backgroundPath.fill()
 
         let lastC = NSBezierPath(rect:
-            CGRect(x: whiteKeyX(n: 0, octaveNumber: octaveCount), y: 1, width: whiteKeySize.width - 2, height: whiteKeySize.height))
+            CGRect(x: whiteKeyX(n: 0, octaveNumber: octaveCount),
+                   y: 1,
+                   width: whiteKeySize.width - 2,
+                   height: whiteKeySize.height))
         whiteKeyColor(n: 0, octaveNumber: octaveCount).setFill()
         lastC.fill()
     }

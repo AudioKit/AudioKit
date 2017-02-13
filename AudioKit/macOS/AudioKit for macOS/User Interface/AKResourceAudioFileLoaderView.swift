@@ -140,14 +140,23 @@ public class AKResourcesAudioFileLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+                                       NSForegroundColorAttributeName: NSColor.black,
+                                       NSParagraphStyleAttributeName: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
-        let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(with: NSMakeSize(nameLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: nameLabelFontAttributes).size.height
-        let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX, nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, nameLabelInset.width, nameLabelTextHeight)
+        let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
+            with: NSMakeSize(nameLabelInset.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: nameLabelFontAttributes).size.height
+        let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX,
+                                                   nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+                                                   nameLabelInset.width,
+                                                   nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
-        NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0), withAttributes: nameLabelFontAttributes)
+        NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
+                                        withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }
 

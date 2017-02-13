@@ -54,7 +54,8 @@ class SongsViewController: UITableViewController {
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cellIdentifier = "SongCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .default,
+                                                                                                    reuseIdentifier: cellIdentifier)
 
         let song: MPMediaItem = songsList[(indexPath as NSIndexPath).row]
         let songTitle = song.value(forProperty: MPMediaItemPropertyTitle) as! String

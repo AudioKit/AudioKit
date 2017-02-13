@@ -62,11 +62,18 @@ public class AKBypassButton: NSView {
         let bypassLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: bypassLabelStyle]
 
         let bypassLabelInset: CGRect = bypassLabelRect.insetBy(dx: 10, dy: 0)
-        let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(with: NSMakeSize(bypassLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: bypassLabelFontAttributes).size.height
-        let bypassLabelTextRect: NSRect = NSMakeRect(bypassLabelInset.minX, bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2, bypassLabelInset.width, bypassLabelTextHeight)
+        let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(
+            with: NSMakeSize(bypassLabelInset.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: bypassLabelFontAttributes).size.height
+        let bypassLabelTextRect: NSRect = NSMakeRect(bypassLabelInset.minX,
+                                                     bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2,
+                                                     bypassLabelInset.width,
+                                                     bypassLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(bypassLabelInset)
-        NSString(string: bypassedText).draw(in: bypassLabelTextRect.offsetBy(dx: 0, dy: 0), withAttributes: bypassLabelFontAttributes)
+        NSString(string: bypassedText).draw(in: bypassLabelTextRect.offsetBy(dx: 0, dy: 0),
+                                            withAttributes: bypassLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
 
         //// processGroup
@@ -80,14 +87,23 @@ public class AKBypassButton: NSView {
         let processLabelStyle = NSMutableParagraphStyle()
         processLabelStyle.alignment = .center
 
-        let processLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: processLabelStyle]
+        let processLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+                                          NSForegroundColorAttributeName: NSColor.black,
+                                          NSParagraphStyleAttributeName: processLabelStyle]
 
         let processLabelInset: CGRect = processLabelRect.insetBy(dx: 10, dy: 0)
-        let processLabelTextHeight: CGFloat = NSString(string: processingText).boundingRect(with: NSMakeSize(processLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: processLabelFontAttributes).size.height
-        let processLabelTextRect: NSRect = NSMakeRect(processLabelInset.minX, processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2, processLabelInset.width, processLabelTextHeight)
+        let processLabelTextHeight: CGFloat = NSString(string: processingText).boundingRect(
+            with: NSMakeSize(processLabelInset.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: processLabelFontAttributes).size.height
+        let processLabelTextRect: NSRect = NSMakeRect(processLabelInset.minX,
+                                                      processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2,
+                                                      processLabelInset.width,
+                                                      processLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(processLabelInset)
-        NSString(string: processingText).draw(in: processLabelTextRect.offsetBy(dx: 0, dy: 0), withAttributes: processLabelFontAttributes)
+        NSString(string: processingText).draw(in: processLabelTextRect.offsetBy(dx: 0, dy: 0),
+                                              withAttributes: processLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }
 

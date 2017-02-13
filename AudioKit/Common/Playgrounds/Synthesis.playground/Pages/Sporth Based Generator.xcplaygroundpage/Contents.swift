@@ -63,12 +63,19 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
                 for i in 0 ..< 4 {
                     let pattern = "# p\(i): ([.0-9]+)[ ]+([^\n]+)"
-                    let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)
+                    let regex = try! NSRegularExpression(pattern: pattern,
+                                                         options: NSRegularExpression.Options.dotMatchesLineSeparators)
 
-                    let value = regex.stringByReplacingMatches(in: line, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(location:0,
-                        length: line.characters.count ), withTemplate: "$1")
-                    let title = regex.stringByReplacingMatches(in: line, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(location:0,
-                        length: line.characters.count ), withTemplate: "$2")
+                    let value = regex.stringByReplacingMatches(in: line,
+                                                               options: NSRegularExpression.MatchingOptions.reportCompletion,
+                                                               range: NSRange(location:0,
+                                                                              length: line.characters.count),
+                                                               withTemplate: "$1")
+                    let title = regex.stringByReplacingMatches(in: line,
+                                                               options: NSRegularExpression.MatchingOptions.reportCompletion,
+                                                               range: NSRange(location:0,
+                                                                              length: line.characters.count ),
+                                                               withTemplate: "$2")
                     if title != line {
                         generator.parameters[i] = Double(value)!
                         sliders[i]?.isHidden = false

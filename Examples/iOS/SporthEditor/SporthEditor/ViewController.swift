@@ -58,7 +58,8 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     func setupUI() {
 
         do {
-            try brain.save(Constants.File.simpleKeyboard, code: String(contentsOfFile: Constants.Path.simpleKeyboard, encoding: String.Encoding.utf8))
+            try brain.save(Constants.File.simpleKeyboard,
+                           code: String(contentsOfFile: Constants.Path.simpleKeyboard, encoding: String.Encoding.utf8))
 
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
             status.text = brain.names.first!

@@ -28,7 +28,8 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the 
+    /// filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     open var distortion: Double = 0.5 {
         willSet {
             if distortion != newValue {
@@ -76,9 +77,13 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion
+    ///                 controlled by the filter parameters, in such a way that both low cutoff and high resonance 
+    ///                 increase the distortion amount.
     ///   - cutoffFrequency: Filter cutoff frequency in Hertz.
-    ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    ///   - resonance: Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency.
+    ///                Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” 
+    ///                effect.
     ///
     public init(
         _ input: AKNode,
