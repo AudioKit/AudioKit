@@ -83,7 +83,12 @@ public class AKPropertySlider: NSView {
                        currentValueText: String(format: format, value))
     }
 
-    func drawFlatSlider(currentValue: CGFloat = 0, initialValue: CGFloat = 0, minimum: CGFloat = 0, maximum: CGFloat = 1, propertyName: String = "Property Name", currentValueText: String = "0.0") {
+    func drawFlatSlider(currentValue: CGFloat = 0,
+                        initialValue: CGFloat = 0,
+                        minimum: CGFloat = 0,
+                        maximum: CGFloat = 1,
+                        propertyName: String = "Property Name",
+                        currentValueText: String = "0.0") {
         //// General Declarations
         let context = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
 
@@ -92,8 +97,10 @@ public class AKPropertySlider: NSView {
         let sliderColor = color // NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1)
 
         //// Variable Declarations
-        let currentWidth: CGFloat = currentValue < minimum ? 0 : (currentValue < maximum ? (currentValue - minimum) / (maximum - minimum) * self.frame.width : self.frame.width)
-        let initialX: CGFloat = initialValue < minimum ? 9 : 9 + (initialValue < maximum ? (initialValue - minimum) / (maximum - minimum) * self.frame.width : self.frame.width)
+        let currentWidth: CGFloat = currentValue < minimum ? 0 : (currentValue < maximum ?
+            (currentValue - minimum) / (maximum - minimum) * self.frame.width : self.frame.width)
+        let initialX: CGFloat = initialValue < minimum ? 9 : 9 + (initialValue < maximum ?
+            (initialValue - minimum) / (maximum - minimum) * self.frame.width : self.frame.width)
 
         //// sliderArea Drawing
         let sliderAreaPath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 440, height: 60))
@@ -135,10 +142,11 @@ public class AKPropertySlider: NSView {
             with: NSMakeSize(nameLabelInset.width, CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
-        let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX,
-                                                   nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
-                                                   nameLabelInset.width,
-                                                   nameLabelTextHeight)
+        let nameLabelTextRect: NSRect = NSMakeRect(
+            nameLabelInset.minX,
+            nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+            nameLabelInset.width,
+            nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
         NSString(string: propertyName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
@@ -159,10 +167,11 @@ public class AKPropertySlider: NSView {
             with: NSMakeSize(valueLabelInset.width, CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: valueLabelFontAttributes).size.height
-        let valueLabelTextRect: NSRect = NSMakeRect(valueLabelInset.minX,
-                                                    valueLabelInset.minY + (valueLabelInset.height - valueLabelTextHeight) / 2,
-                                                    valueLabelInset.width,
-                                                    valueLabelTextHeight)
+        let valueLabelTextRect: NSRect = NSMakeRect(
+            valueLabelInset.minX,
+            valueLabelInset.minY + (valueLabelInset.height - valueLabelTextHeight) / 2,
+            valueLabelInset.width,
+            valueLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(valueLabelInset)
         NSString(string: currentValueText).draw(in: valueLabelTextRect.offsetBy(dx: 0, dy: 0),

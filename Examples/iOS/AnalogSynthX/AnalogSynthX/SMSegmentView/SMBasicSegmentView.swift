@@ -41,7 +41,9 @@ open class SMBasicSegmentView: UIView {
 
     @IBInspectable open var vertical: Bool = false {
         didSet {
-            let mode = vertical ? SegmentOrganiseMode.segmentOrganiseVertical : SegmentOrganiseMode.segmentOrganiseHorizontal
+            let mode = vertical ?
+                SegmentOrganiseMode.segmentOrganiseVertical :
+                SegmentOrganiseMode.segmentOrganiseHorizontal
             self.orientationChangedTo(mode)
         }
     }

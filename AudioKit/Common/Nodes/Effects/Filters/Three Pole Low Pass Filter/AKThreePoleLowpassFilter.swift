@@ -53,7 +53,8 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. 
+    /// Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {

@@ -67,12 +67,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                                          options: NSRegularExpression.Options.dotMatchesLineSeparators)
 
                     let value = regex.stringByReplacingMatches(in: line,
-                                                               options: NSRegularExpression.MatchingOptions.reportCompletion,
+                                                               options: .MatchingOptions.reportCompletion,
                                                                range: NSRange(location:0,
                                                                               length: line.characters.count),
                                                                withTemplate: "$1")
                     let title = regex.stringByReplacingMatches(in: line,
-                                                               options: NSRegularExpression.MatchingOptions.reportCompletion,
+                                                               options: .MatchingOptions.reportCompletion,
                                                                range: NSRange(location:0,
                                                                               length: line.characters.count ),
                                                                withTemplate: "$2")

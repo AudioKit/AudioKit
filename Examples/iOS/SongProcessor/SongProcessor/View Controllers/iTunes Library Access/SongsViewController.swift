@@ -54,14 +54,17 @@ class SongsViewController: UITableViewController {
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cellIdentifier = "SongCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .default,
-                                                                                                    reuseIdentifier: cellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ??
+            UITableViewCell(style: .default,
+                            reuseIdentifier: cellIdentifier)
 
         let song: MPMediaItem = songsList[(indexPath as NSIndexPath).row]
         let songTitle = song.value(forProperty: MPMediaItemPropertyTitle) as! String
 
         let minutes = (song.value(forProperty: MPMediaItemPropertyPlaybackDuration)! as AnyObject).floatValue / 60
-        let seconds = ((song.value(forProperty: MPMediaItemPropertyPlaybackDuration)! as AnyObject).floatValue).truncatingRemainder(dividingBy: 60)
+        let seconds = ((song.value(
+            forProperty: MPMediaItemPropertyPlaybackDuration)! as AnyObject).floatValue).truncatingRemainder(
+                dividingBy: 60)
 
         cell.textLabel?.text = songTitle
         cell.detailTextLabel?.text = String(format: "%.0f:%02.0f", minutes, seconds)

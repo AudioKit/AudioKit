@@ -39,8 +39,8 @@ class SongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let artwork = songProcessor.currentSong!.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork {
-            albumImageView.image = artwork.image(at: self.view.bounds.size)
+        if let art = songProcessor.currentSong!.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork {
+            albumImageView.image = art.image(at: self.view.bounds.size)
         }
 
         if songProcessor.isPlaying! {
@@ -57,7 +57,9 @@ class SongViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let docDirs: [NSString] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [NSString]
+        let docDirs: [NSString] = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                                      .userDomainMask,
+                                                                      true) as [NSString]
         let docDir = docDirs[0]
         let tmp = docDir.appendingPathComponent("exported") as NSString
         exportPath = tmp.appendingPathExtension("wav")!

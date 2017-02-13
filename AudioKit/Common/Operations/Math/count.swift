@@ -12,7 +12,8 @@ extension AKOperation {
     ///
     /// - Parameters:
     ///   - maximum: Largest value to hold before looping or being pinned to this value
-    ///   - looping: If set to true, when the maximum is reaching, the count goes back to zero, otherwise it stays at the maximum
+    ///   - looping: If set to true, when the maximum is reaching, the count goes back to zero, 
+    ///              otherwise it stays at the maximum
     ///
     public func count(maximum: AKParameter = 1_000_000, looping: Bool = true) -> AKOperation {
         return AKOperation(module: "count", inputs: toMono(), maximum, looping ? 0 : 1)

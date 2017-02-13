@@ -59,7 +59,8 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
     /// Initialize the STK Clarinet model
     ///
     /// - Parameters:
-    ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
+    ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is 
+    ///                greater than that.
     ///   - amplitude: Amplitude
     ///
     public init(

@@ -6,7 +6,8 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// A computed parameter differs from a regular parameter in that it only exists within an operation (unlike float, doubles, and ints which have a value outside of an operation)
+/// A computed parameter differs from a regular parameter in that it only exists within an operation 
+/// (unlike float, doubles, and ints which have a value outside of an operation)
 public protocol AKComputedParameter: AKParameter {}
 
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node

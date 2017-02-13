@@ -80,14 +80,24 @@ public class AKPresetLoaderView: NSView {
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .left
 
-        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: presetLabelStyle]
+        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+                                         NSForegroundColorAttributeName: NSColor.black,
+                                         NSParagraphStyleAttributeName: presetLabelStyle]
 
         let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
-        let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(with: NSMakeSize(presetLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: presetLabelFontAttributes).size.height
-        let presetLabelTextRect: NSRect = NSMakeRect(presetLabelInset.minX, presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2, presetLabelInset.width, presetLabelTextHeight)
+        let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
+            with: NSMakeSize(presetLabelInset.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: presetLabelFontAttributes).size.height
+        let presetLabelTextRect: NSRect = NSMakeRect(
+            presetLabelInset.minX,
+            presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2,
+            presetLabelInset.width,
+            presetLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(presetLabelInset)
-        presetLabelTextContent.draw(in: presetLabelTextRect.offsetBy(dx: 0, dy: 0), withAttributes: presetLabelFontAttributes)
+        presetLabelTextContent.draw(in: presetLabelTextRect.offsetBy(dx: 0, dy: 0),
+                                    withAttributes: presetLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
 
         //// upButton
@@ -138,10 +148,11 @@ public class AKPresetLoaderView: NSView {
             with: NSMakeSize(nameLabelInset.width, CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
-        let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX,
-                                                   nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
-                                                   nameLabelInset.width,
-                                                   nameLabelTextHeight)
+        let nameLabelTextRect: NSRect = NSMakeRect(
+            nameLabelInset.minX,
+            nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+            nameLabelInset.width,
+            nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
         NSString(string: presetName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),

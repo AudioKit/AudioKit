@@ -244,7 +244,8 @@ open class AKSampler: AKNode {
     static func getAUPresetXML() -> String {
         var templateStr: String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-        templateStr.append("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
+        templateStr.append("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" " +
+            "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
         templateStr.append("<plist version=\"1.0\">\n")
         templateStr.append("    <dict>\n")
         templateStr.append("        <key>AU version</key>\n")

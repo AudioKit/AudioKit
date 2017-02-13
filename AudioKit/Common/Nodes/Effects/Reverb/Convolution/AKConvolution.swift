@@ -118,18 +118,18 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
             let dataSize = UInt32(theFileLengthInFrames) * theOutputFormat.mBytesPerFrame
             theData = UnsafeMutablePointer.allocate(capacity: Int(dataSize))
             if theData != nil {
-                var theDataBuffer: AudioBufferList = AudioBufferList()
-                theDataBuffer.mNumberBuffers = 1
-                theDataBuffer.mBuffers.mDataByteSize = dataSize
-                theDataBuffer.mBuffers.mNumberChannels = theOutputFormat.mChannelsPerFrame
-                theDataBuffer.mBuffers.mData = UnsafeMutableRawPointer(theData)
+                var bufferList: AudioBufferList = AudioBufferList()
+                bufferList.mNumberBuffers = 1
+                bufferList.mBuffers.mDataByteSize = dataSize
+                bufferList.mBuffers.mNumberChannels = theOutputFormat.mChannelsPerFrame
+                bufferList.mBuffers.mData = UnsafeMutableRawPointer(theData)
 
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
-                err = ExtAudioFileRead(extRef!, &ioNumberFrames, &theDataBuffer)
+                err = ExtAudioFileRead(extRef!, &ioNumberFrames, &bufferList)
                 if err == noErr {
                     // success
-                    let data = UnsafeMutablePointer<Float>(theDataBuffer.mBuffers.mData?.assumingMemoryBound(to: Float.self))
+                    let data = UnsafeMutablePointer<Float>(bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self))
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
                     internalAU!.start()
                 } else {
