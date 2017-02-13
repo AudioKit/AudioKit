@@ -56,7 +56,7 @@ class SongViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated: animated)
+        super.viewWillAppear(animated)
         let docDirs: [NSString] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [NSString]
         let docDir = docDirs[0]
         let tmp = docDir.appendingPathComponent("exported") as NSString
