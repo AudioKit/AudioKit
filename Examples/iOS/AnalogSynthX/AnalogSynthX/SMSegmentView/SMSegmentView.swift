@@ -6,6 +6,7 @@
 //
 
 import UIKit
+// swiftlint:disable force_cast
 
 /*
   Keys for segment properties

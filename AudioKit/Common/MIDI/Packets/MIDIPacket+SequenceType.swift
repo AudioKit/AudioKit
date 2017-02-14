@@ -32,7 +32,10 @@ extension MIDIPacket: Sequence {
             func pop() -> MIDIByte {
                 assert(index < self.length)
                 index += 1
-                return generator.next() as! MIDIByte
+                guard let byte = generator.next() as? MIDIByte else {
+                    return 0 // Is this right?
+                }
+                return byte
             }
             let status = pop()
             if AKMIDIEvent.isStatusByte(status) {

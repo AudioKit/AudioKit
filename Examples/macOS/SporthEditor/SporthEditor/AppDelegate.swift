@@ -31,7 +31,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         if let path = panel.url?.path {
-            let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
+            guard let vc = NSApplication.shared().windows.first!.contentViewController as? ViewController else {
+                return
+            }
             vc.brain.stop()
             vc.path = path
             let code = try? NSString(contentsOf: URL(fileURLWithPath: path), encoding: String.Encoding.utf8.rawValue)
@@ -42,7 +44,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func saveDocument(_ sender: AnyObject?) {
-        let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
+        guard let vc = NSApplication.shared().windows.first!.contentViewController as? ViewController else {
+            return
+        }
 
         guard !vc.display.isEmpty else {
             presentAlert(Error.code)
@@ -61,7 +65,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func saveDocumentAs(_ sender: AnyObject?) {
-        let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
+        guard let vc = NSApplication.shared().windows.first!.contentViewController as? ViewController else {
+            return
+        }
 
         guard !vc.display.isEmpty else {
             presentAlert(Error.code)
