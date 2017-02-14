@@ -137,8 +137,11 @@ public struct AKMIDIEvent {
                 let mirrorData = Mirror(reflecting: packet.data)
                 for (_, value) in mirrorData.children {
                     length = 1 + length!
-                    internalData.append(MIDIByte(value as! MIDIByte))
-                    if value as! MIDIByte == 247 {
+                    guard let byte = value as? MIDIByte else {
+                        return
+                    }
+                    internalData.append(byte)
+                    if byte == 247 {
                         break
                     }
                 }

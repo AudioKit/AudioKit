@@ -50,14 +50,11 @@ public class AKTelephoneView: NSView {
                 last10Presses.removeFirst()
                 last10Presses.append(currentKey)
             }
-
         }
         needsDisplay = true
-
     }
 
     override public func mouseUp(with theEvent: NSEvent) {
-
         if currentKey != "" {
             callback(currentKey, "up")
             currentKey = ""

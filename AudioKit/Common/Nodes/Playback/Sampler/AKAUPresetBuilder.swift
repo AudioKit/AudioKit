@@ -79,7 +79,9 @@ open class AKAUPresetBuilder {
 
         //iterate over the sounds
         for i in 0 ..< dict.count {
-            let sound = dict.allValues[i] as! NSMutableDictionary
+            guard let sound = dict.allValues[i] as? NSMutableDictionary else {
+                return
+            }
             var soundDict: NSMutableDictionary
             var alreadyLoaded = false
             var sampleNum = 0
@@ -87,11 +89,16 @@ open class AKAUPresetBuilder {
             soundDict = NSMutableDictionary(dictionary: sound)
             //check if this sample is already loaded
             for loadedSoundDict in loadSoundsArr {
-                let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as! String
-                let newLoadingSound: String = soundDict.object(forKey: filenameKey) as! String
+                guard let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as? String,
+                    let newLoadingSound: String = soundDict.object(forKey: filenameKey) as? String else {
+                        return
+                }
                 if alreadyLoadedSound == newLoadingSound {
                     alreadyLoaded = true
-                    sampleNum = loadedSoundDict.object(forKey: "sampleNum") as! Int
+                    guard let temp = loadedSoundDict.object(forKey: "sampleNum") as? Int else {
+                        return
+                    }
+                    sampleNum = temp
                 }
             }
 
@@ -111,17 +118,18 @@ open class AKAUPresetBuilder {
 
             if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
-                let idXML = AKAUPresetBuilder.generateFileRef(wavRef: sampleNum,
-                                                              samplePath: (sound as AnyObject).object(
-                                                                forKey: "filename")! as! String)
+                guard let samplePath = (sound as AnyObject).object(forKey: "filename")! as? String else {
+                    return
+                }
+                let idXML = AKAUPresetBuilder.generateFileRef(wavRef: sampleNum, samplePath: samplePath)
                 sampleIDXML.append(idXML)
-
+                
                 sampleIteration += 1
             }
 
             var startNote = soundDict.object(forKey: startNoteKey) as? MIDINoteNumber
             var endNote = soundDict.object(forKey: endNoteKey) as? MIDINoteNumber
-            let rootNote = soundDict.object(forKey: rootNoteKey)! as! MIDINoteNumber
+            let rootNote = soundDict.object(forKey: rootNoteKey)! as? MIDINoteNumber
             startNote = (startNote == nil ? rootNote : startNote)
             endNote = (endNote == nil ? rootNote : endNote)
             let triggerModeStr = soundDict.object(forKey: triggerModeKey) as? String
@@ -152,7 +160,7 @@ open class AKAUPresetBuilder {
             switch triggerMode {
             case  .Hold:
                 sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
-                                                               rootNote: rootNote,
+                                                               rootNote: rootNote!,
                                                                startNote: startNote!,
                                                                endNote: endNote!,
                                                                wavRef: sampleNum,
@@ -167,7 +175,7 @@ open class AKAUPresetBuilder {
                 layerXML.append(tempLayerXML)
             case .Loop:
                 sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
-                                                               rootNote: rootNote,
+                                                               rootNote: rootNote!,
                                                                startNote: startNote!,
                                                                endNote: endNote!,
                                                                wavRef: sampleNum,
@@ -184,7 +192,7 @@ open class AKAUPresetBuilder {
                 // .Trigger and .Repeat (repeat needs to be handled in the app that uses this mode,
                 // otherwise is just the same as Trig mode)
                 sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
-                                                               rootNote: rootNote,
+                                                               rootNote: rootNote!,
                                                                startNote: startNote!,
                                                                endNote: endNote!,
                                                                wavRef: sampleNum,

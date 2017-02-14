@@ -24,7 +24,9 @@ class SongExporter {
 
         isReadyToPlay = false
 
-        let url = song.value(forProperty: MPMediaItemPropertyAssetURL) as! URL
+        guard let url = song.value(forProperty: MPMediaItemPropertyAssetURL) as? URL else {
+            return
+        }
         let songAsset = AVURLAsset(url: url, options: nil)
 
         var assetError: NSError?

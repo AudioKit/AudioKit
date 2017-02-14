@@ -30,7 +30,9 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = NSApplication.shared().delegate as! AppDelegate
+        guard let appDelegate = NSApplication.shared().delegate as? AppDelegate else {
+            return
+        }
         appDelegate.openControlsWindow(nil)
     }
 
