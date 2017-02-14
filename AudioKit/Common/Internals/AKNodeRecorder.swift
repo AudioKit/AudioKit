@@ -60,12 +60,12 @@
     ///   - node: Node to record from
     ///   - file: Audio file to record to
     ///
-    public init(node: AKNode = AudioKit.output!,
-                file: AKAudioFile? = nil) throws {
+    public init(node: AKNode? = AudioKit.output,
+                file: AKAudioFile?) throws {
 
         // AVAudioSession buffer setup
 
-        if file == nil {
+        guard let akFile = file else {
             // We create a record file in temp directory
             do {
                 self.internalAudioFile = try AKAudioFile()
@@ -73,17 +73,15 @@
                 AKLog("AKNodeRecorder Error: Cannot create an empty audio file")
                 throw error
             }
-
-        } else {
-
-            do {
-                // We initialize AKAudioFile for writing (and check that we can write to)
-                self.internalAudioFile = try AKAudioFile(forWriting: file!.url,
-                                                         settings: file!.processingFormat.settings)
-            } catch let error as NSError {
-                AKLog("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
-                throw error
-            }
+            return
+        }
+        do {
+            // We initialize AKAudioFile for writing (and check that we can write to)
+            self.internalAudioFile = try AKAudioFile(forWriting: akFile.url,
+                                                     settings: akFile.processingFormat.settings)
+        } catch let error as NSError {
+            AKLog("AKNodeRecorder Error: cannot write to \(akFile.fileNamePlusExtension)")
+            throw error
         }
         self.node = node
     }
@@ -161,18 +159,14 @@
         }
 
         recording = false
-        if  node != nil {
-            if AKSettings.fixTruncatedRecordings {
-                //  delay before stopping so the recording is not truncated.
-                let delay = UInt32(recordBufferDuration * 1_000_000)
-                usleep(delay)
-            }
-            node!.avAudioNode.removeTap(onBus: 0)
-            AKLog("AKNodeRecorder: Recording Stopped.")
 
-        } else {
-            AKLog("AKNodeRecorder Error: input node is not available")
+        if AKSettings.fixTruncatedRecordings {
+            //  delay before stopping so the recording is not truncated.
+            let delay = UInt32(recordBufferDuration * 1_000_000)
+            usleep(delay)
         }
+        node?.avAudioNode.removeTap(onBus: 0)
+
     }
 
     /// Reset the AKAudioFile to clear previous recordings
