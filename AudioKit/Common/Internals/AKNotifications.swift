@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by John Groenhof, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// Object to handle notifications for events that can affect the audio
 @objc open class AKNotifications: NSObject {

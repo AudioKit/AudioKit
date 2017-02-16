@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 /// Potential MIDI Status messages
@@ -49,5 +49,5 @@ public enum AKMIDIStatus: Int {
     case pitchWheel = 14
     /// System commands differ from system to system
     case systemCommand = 15
-    
+
 }

@@ -16,6 +16,6 @@
 //: * [Tracking Amplitude](Tracking%20Amplitude)
 //: * [Tracking Frequency](Tracking%20Frequency)
 //: * [Tracking Frequency of Audio File](Tracking%20Frequency%20of%20Audio%20File)
-//: * Tracking Microphone Input appears in the macOS Development playground since iOS playgrounds don't have access to the micorphone
+//: * Tracking Microphone Input appears in the macOS Development playground since iOS playgrounds 
+//:   don't have access to the micorphone
 //:
-

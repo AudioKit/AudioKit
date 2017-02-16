@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// Supported default table types
 public enum AKTableType: String {
@@ -102,7 +100,7 @@ public struct AKTable: MutableCollection {
     ///
     public init(_ type: AKTableType = .sine,
                 phase: Float = 0,
-                count: IndexDistance = 4096) {
+                count: IndexDistance = 4_096) {
         self.type = type
         self.phase = phase
 
@@ -179,7 +177,7 @@ public struct AKTable: MutableCollection {
     /// Instantiate the table as a sine wave
     mutating func standardSineWave() {
         for i in indices {
-            content[i] = Float(sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(sin(2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
         }
     }
 
@@ -223,12 +221,12 @@ public struct AKTable: MutableCollection {
     /// Instantiate the table as a sine wave
     mutating func positiveSineWave() {
         for i in indices {
-            content[i] = Float(0.5 + 0.5 * sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(0.5 + 0.5 * sin(2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
         }
     }
 }
 
-extension AKTable: RandomAccessCollection  {
+extension AKTable: RandomAccessCollection {
     public typealias Indices = Array<Element>.Indices
 
     @inline(__always)
@@ -250,7 +248,7 @@ extension AKTable: RandomAccessCollection  {
     public func formIndex(after i: inout Index) {
         i += 1
     }
-    
+
     @inline(__always)
     public func distance(from start: Index, to end: Index) -> IndexDistance {
         return end - start

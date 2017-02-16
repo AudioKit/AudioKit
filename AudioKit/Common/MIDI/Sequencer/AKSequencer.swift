@@ -3,11 +3,8 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
-import AVFoundation
 
 /// Basic sequencer
 ///
@@ -21,7 +18,7 @@ import AVFoundation
 open class AKSequencer {
 
     /// Music sequence
-    open var sequence: MusicSequence? = nil
+    open var sequence: MusicSequence?
 
     /// Pointer to Music Sequence
     open var sequencePointer: UnsafeMutablePointer<MusicSequence>
@@ -46,7 +43,7 @@ open class AKSequencer {
     }
 
     /// Music Player
-    var musicPlayer: MusicPlayer? = nil
+    var musicPlayer: MusicPlayer?
 
     /// Loop control
     open var loopEnabled: Bool = false
@@ -63,19 +60,19 @@ open class AKSequencer {
         NewMusicPlayer(&musicPlayer)
         MusicPlayerSetSequence(musicPlayer!, sequence)
     }
-    
+
     deinit {
         if let player = musicPlayer {
             DisposeMusicPlayer(player)
         }
-        
+
         if let seq = sequence {
             for track in self.tracks {
                 if let intTrack = track.internalMusicTrack {
                     MusicSequenceDisposeTrack(seq, intTrack)
                 }
             }
-            
+
             DisposeMusicSequence(seq)
         }
     }
@@ -263,7 +260,9 @@ open class AKSequencer {
 
     /// Set the tempo of the sequencer
     open func setTempo(_ bpm: Double) {
-        if isAVSequencer { return }
+        if isAVSequencer {
+            return
+        }
 
         let constrainedTempo = (10...280).clamp(bpm)
 
@@ -277,7 +276,8 @@ open class AKSequencer {
             MusicTrackNewExtendedTempoEvent(tempoTrack!, currTime, constrainedTempo)
         }
 
-// Had to comment out this line and two below to make the synth arpeggiator work.  Doing so brings back the "Invalid beat range or track is empty" error
+// Had to comment out this line and two below to make the synth arpeggiator work.  
+// Doing so brings back the "Invalid beat range or track is empty" error
 //        if !isTempoTrackEmpty {
         MusicTrackClear(tempoTrack!, 0, length.beats)
 //        }
@@ -327,7 +327,9 @@ open class AKSequencer {
             MusicEventIteratorPreviousEvent(iterator!)
             MusicEventIteratorGetEventInfo(iterator!, &eventTime, &eventType, &eventData, &eventDataSize)
             if eventType == kMusicEventType_ExtendedTempo {
-                let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer((eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self))!)
+                let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(
+                    (eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self))!
+                )
                 tempoOut = tempoEventPointer.pointee.bpm
             }
         }
@@ -369,7 +371,7 @@ open class AKSequencer {
         let absoluteValueSeconds = fabs(seconds)
         var outBeats = AKDuration(beats: MusicTimeStamp())
         MusicSequenceGetBeatsForSeconds(sequence!, Float64(absoluteValueSeconds), &(outBeats.beats))
-        outBeats.beats = outBeats.beats * sign
+        outBeats.beats *= sign
         return outBeats
     }
 
@@ -382,7 +384,7 @@ open class AKSequencer {
         let absoluteValueBeats = fabs(duration.beats)
         var outSecs: Double = MusicTimeStamp()
         MusicSequenceGetSecondsForBeats(sequence!, absoluteValueBeats, &outSecs)
-        outSecs = outSecs * sign
+        outSecs *= sign
         return outSecs
     }
 
@@ -439,7 +441,7 @@ open class AKSequencer {
             return isPlayingBool.boolValue
         }
     }
-    
+
     /// Current Time
     open var currentPosition: AKDuration {
         if isAVSequencer {
@@ -578,7 +580,7 @@ open class AKSequencer {
             }
         }
     }
-    
+
     /// Nearest time of quantized beat
     open func nearestQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         let noteOnTimeRel = currentRelativePosition.beats
@@ -592,25 +594,26 @@ open class AKSequencer {
         //AKLog("nearest \(optimisedQuantTime.beats)")
         return optimisedQuantTime
     }
-    
+
     /// The last quantized beat
     open func previousQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[0]
     }
-    
+
     /// Next quantized beat
     open func nextQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[1]
     }
-    
+
     /// An array of all quantization points
     func getQuantizationPositions(quantizationInBeats: Double) -> [AKDuration] {
         let noteOnTimeRel = currentRelativePosition.beats
-        let lastSpot = AKDuration(beats: modTime(noteOnTimeRel - (noteOnTimeRel.truncatingRemainder(dividingBy: quantizationInBeats))))
+        let lastSpot = AKDuration(beats:
+            modTime(noteOnTimeRel - (noteOnTimeRel.truncatingRemainder(dividingBy: quantizationInBeats))))
         let nextSpot = AKDuration(beats: modTime(lastSpot.beats + quantizationInBeats))
         return [lastSpot, nextSpot]
     }
-    
+
     /// Time modulus
     func modTime(_ time: Double) -> Double {
         return time.truncatingRemainder(dividingBy: length.beats)

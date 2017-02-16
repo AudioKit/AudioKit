@@ -1,6 +1,6 @@
 //: ## Modal Resonance Filter
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -33,11 +33,11 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Frequency",
             format: "%0.1f Hz",
-            value: filter.frequency, maximum: 5000,
+            value: filter.frequency, maximum: 5_000,
             color: AKColor.green
         ) { sliderValue in
             filter.frequency = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Quality Factor",
@@ -46,10 +46,11 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             filter.qualityFactor = sliderValue
-            })
+        })
 
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

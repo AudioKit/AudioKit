@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// A delay line with cubic interpolation.
 ///
@@ -29,7 +27,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+    /// Delay time (in seconds) that can be changed at any point. This value must not exceed the maximum delay time.
     open var time: Double = 1 {
         willSet {
             if time != newValue {
@@ -65,7 +63,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+    ///   - time: Delay time (in seconds). This value must not exceed the maximum delay time.
     ///   - feedback: Feedback amount. Should be a value between 0-1.
     ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///
@@ -80,8 +78,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
 
         _Self.register()
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -89,13 +86,14 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        timeParameter     = tree["time"]
+        timeParameter = tree["time"]
         feedbackParameter = tree["feedback"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.timeParameter!.address {

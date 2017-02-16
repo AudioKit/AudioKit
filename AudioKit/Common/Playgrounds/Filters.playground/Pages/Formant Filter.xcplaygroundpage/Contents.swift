@@ -1,6 +1,6 @@
 //: ## Formant Filter
 //: ##
-import PlaygroundSupport
+
 import AudioKit
 
 let osc = AKPWMOscillator(frequency: 220)
@@ -26,7 +26,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.yellow
         ) { sliderValue in
             filter.x = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "y",
@@ -39,6 +39,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

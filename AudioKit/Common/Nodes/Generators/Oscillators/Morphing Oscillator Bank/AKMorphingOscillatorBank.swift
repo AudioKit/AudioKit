@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
@@ -22,11 +20,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
     fileprivate var waveformArray = [AKTable]()
 
-    fileprivate var attackDurationParameter:     AUParameter?
-    fileprivate var decayDurationParameter:      AUParameter?
-    fileprivate var sustainLevelParameter:       AUParameter?
-    fileprivate var releaseDurationParameter:    AUParameter?
-    fileprivate var detuningOffsetParameter:     AUParameter?
+    fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var decayDurationParameter: AUParameter?
+    fileprivate var sustainLevelParameter: AUParameter?
+    fileprivate var releaseDurationParameter: AUParameter?
+    fileprivate var detuningOffsetParameter: AUParameter?
     fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
@@ -161,8 +159,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
@@ -174,17 +171,18 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        attackDurationParameter     = tree["attackDuration"]
-        decayDurationParameter      = tree["decayDuration"]
-        sustainLevelParameter       = tree["sustainLevel"]
-        releaseDurationParameter    = tree["releaseDuration"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
+        sustainLevelParameter = tree["sustainLevel"]
+        releaseDurationParameter = tree["releaseDuration"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.attackDurationParameter!.address {
@@ -204,11 +202,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         })
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)
 
-        internalAU?.attackDuration     = Float(attackDuration)
-        internalAU?.decayDuration      = Float(decayDuration)
-        internalAU?.sustainLevel       = Float(sustainLevel)
-        internalAU?.releaseDuration    = Float(releaseDuration)
-        internalAU?.detuningOffset     = Float(detuningOffset)
+        internalAU?.attackDuration = Float(attackDuration)
+        internalAU?.decayDuration = Float(decayDuration)
+        internalAU?.sustainLevel = Float(sustainLevel)
+        internalAU?.releaseDuration = Float(releaseDuration)
+        internalAU?.detuningOffset = Float(detuningOffset)
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 

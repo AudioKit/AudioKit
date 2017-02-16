@@ -1,7 +1,7 @@
 //: ## FM Oscillator
 //: Open the timeline view to use the controls this playground sets up.
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 var oscillator = AKFMOscillator()
@@ -43,16 +43,16 @@ class PlaygroundView: AKPlaygroundView {
             case "Spiral":
                 oscillator.presetSpiral()
                 oscillator.start()
-            default: break
+            default:
+                break
             }
-            self.frequencySlider?.value            = oscillator.baseFrequency
-            self.carrierMultiplierSlider?.value    = oscillator.carrierMultiplier
+            self.frequencySlider?.value = oscillator.baseFrequency
+            self.carrierMultiplierSlider?.value = oscillator.carrierMultiplier
             self.modulatingMultiplierSlider?.value = oscillator.modulatingMultiplier
-            self.modulationIndexSlider?.value      = oscillator.modulationIndex
-            self.amplitudeSlider?.value            = oscillator.amplitude
-            self.rampTimeSlider?.value             = oscillator.rampTime
-            }
-        )
+            self.modulationIndexSlider?.value = oscillator.modulationIndex
+            self.amplitudeSlider?.value = oscillator.amplitude
+            self.rampTimeSlider?.value = oscillator.rampTime
+        })
 
         addSubview(AKButton(title: "Randomize") {
             oscillator.baseFrequency = self.frequencySlider!.randomize()
@@ -102,7 +102,6 @@ class PlaygroundView: AKPlaygroundView {
         }
         addSubview(modulationIndexSlider!)
 
-
         amplitudeSlider = AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
@@ -125,5 +124,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

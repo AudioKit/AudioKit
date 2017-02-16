@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Classic FM Synthesis audio generation.
 ///
@@ -115,7 +113,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - waveform: Shape of the oscillation
-    ///   - baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+    ///   - baseFrequency: In Hz, this is the common denominator for the carrier and modulating frequencies.
     ///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
     ///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
     ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
@@ -129,7 +127,6 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         modulationIndex: Double = 1,
         amplitude: Double = 1) {
 
-
         self.waveform = waveform
         self.baseFrequency = baseFrequency
         self.carrierMultiplier = carrierMultiplier
@@ -140,8 +137,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
@@ -151,16 +147,17 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
             }
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        baseFrequencyParameter        = tree["baseFrequency"]
-        carrierMultiplierParameter    = tree["carrierMultiplier"]
+        baseFrequencyParameter = tree["baseFrequency"]
+        carrierMultiplierParameter = tree["carrierMultiplier"]
         modulatingMultiplierParameter = tree["modulatingMultiplier"]
-        modulationIndexParameter      = tree["modulationIndex"]
-        amplitudeParameter            = tree["amplitude"]
+        modulationIndexParameter = tree["modulationIndex"]
+        amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.baseFrequencyParameter!.address {

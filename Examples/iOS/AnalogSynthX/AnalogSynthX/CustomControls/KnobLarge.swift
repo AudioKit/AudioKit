@@ -18,8 +18,8 @@ class KnobLarge: Knob {
     var delegate: KnobLargeDelegate?
 
     // Image Declarations
-    var knob212_base = UIImage(named: "knob212_base")
-    var knob212_indicator = UIImage(named: "knob212_indicator")
+    var knob212Base = UIImage(named: "knob212_base")
+    var knob212Indicator = UIImage(named: "knob212_indicator")
 
     override func draw(_ rect: CGRect) {
         drawKnobLarge(knobValue: knobValue)
@@ -44,18 +44,21 @@ class KnobLarge: Knob {
         let picturePath = UIBezierPath(rect: CGRect(x: 10, y: 10, width: 106, height: 106))
         context?.saveGState()
         picturePath.addClip()
-        knob212_base!.draw(in: CGRect(x: 10, y: 10, width: knob212_base!.size.width, height: knob212_base!.size.height))
+        knob212Base!.draw(in: CGRect(x: 10, y: 10, width: knob212Base!.size.width, height: knob212Base!.size.height))
         context?.restoreGState()
 
         //// Picture 2 Drawing
         context?.saveGState()
         context?.translateBy(x: 63, y: 63)
-        context?.rotate(by: -(knobAngle + 120) * CGFloat(M_PI) / 180)
+        context?.rotate(by: -(knobAngle + 120) * CGFloat.pi / 180)
 
         let picture2Path = UIBezierPath(rect: CGRect(x: -53, y: -53, width: 106, height: 106))
         context?.saveGState()
         picture2Path.addClip()
-        knob212_indicator!.draw(in: CGRect(x: -53, y: -53, width: knob212_indicator!.size.width, height: knob212_indicator!.size.height))
+        knob212Indicator!.draw(in: CGRect(x: -53,
+                                          y: -53,
+                                          width: knob212Indicator!.size.width,
+                                          height: knob212Indicator!.size.height))
         context?.restoreGState()
 
         context?.restoreGState()
@@ -66,8 +69,8 @@ class KnobLarge: Knob {
         super.prepareForInterfaceBuilder()
 
         let bundle = Bundle(for: type(of: self))
-        knob212_base = UIImage(named: "knob212_base", in: bundle, compatibleWith: self.traitCollection)!
-        knob212_indicator = UIImage(named: "knob212_indicator", in: bundle, compatibleWith: self.traitCollection)!
+        knob212Base = UIImage(named: "knob212_base", in: bundle, compatibleWith: self.traitCollection)!
+        knob212Indicator = UIImage(named: "knob212_indicator", in: bundle, compatibleWith: self.traitCollection)!
     }
 
 }

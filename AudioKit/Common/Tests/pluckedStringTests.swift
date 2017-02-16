@@ -3,12 +3,11 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import XCTest
-
 import AudioKit
+import XCTest
 
 class pluckedStringTests: AKTestCase {
 
@@ -18,7 +17,7 @@ class pluckedStringTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.pluckedString(trigger: AKOperation.metronome())
         }
         AKTestMD5("ef5660234d2603a3f945cde22a967102")

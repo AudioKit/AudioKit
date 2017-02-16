@@ -3,12 +3,11 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import XCTest
-
 import AudioKit
+import XCTest
 
 class squareTests: AKTestCase {
 
@@ -18,7 +17,7 @@ class squareTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.square()
         }
         AKTestMD5("7f69f2dfc4f6780825b5f7d18ad6516c")

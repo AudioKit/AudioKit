@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// Maximum of two operations
 ///
@@ -37,4 +35,3 @@ public func max(_ operation: AKComputedParameter, _ parameter: AKParameter) -> A
 public func max(_ parameter: AKParameter, _ operation: AKComputedParameter) -> AKOperation {
     return max(operation.toMono(), parameter)
 }
-

@@ -1,6 +1,6 @@
 //: ## Ring Modulator
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -35,20 +35,20 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Frequency 1",
             format: "%0.2f Hz",
-            value: ringModulator.frequency1, minimum: 0.5, maximum: 8000,
+            value: ringModulator.frequency1, minimum: 0.5, maximum: 8_000,
             color: AKColor.green
-            ) { sliderValue in
-                ringModulator.frequency1 = sliderValue
+        ) { sliderValue in
+            ringModulator.frequency1 = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Frequency 2",
             format: "%0.2f Hz",
-            value: ringModulator.frequency2, minimum: 0.5, maximum: 8000,
+            value: ringModulator.frequency2, minimum: 0.5, maximum: 8_000,
             color: AKColor.green
         ) { sliderValue in
             ringModulator.frequency2 = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Balance",
@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             ringModulator.balance = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Mix",
@@ -64,9 +64,10 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             ringModulator.mix = sliderValue
-            })
+        })
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

@@ -1,9 +1,9 @@
 //: ## Noise Operations
 //:
-import PlaygroundSupport
+
 import AudioKit
 
-let generator = AKOperationGenerator() { _ in
+let generator = AKOperationGenerator { _ in
     let white = AKOperation.whiteNoise()
     let pink = AKOperation.pinkNoise()
 
@@ -18,4 +18,5 @@ AudioKit.start()
 
 generator.start()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

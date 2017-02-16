@@ -3,12 +3,11 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import XCTest
-
 import AudioKit
+import XCTest
 
 class phasorTests: AKTestCase {
 
@@ -18,7 +17,7 @@ class phasorTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.phasor()
         }
         AKTestMD5("3158517a6a14167e736cf7038a828dc8")

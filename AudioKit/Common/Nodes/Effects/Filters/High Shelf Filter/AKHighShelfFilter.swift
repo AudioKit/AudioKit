@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
@@ -18,9 +16,9 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     private var mixer: AKMixer
 
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    open var cutoffFrequency: Double = 10000 {
+    open var cutoffFrequency: Double = 10_000 {
         didSet {
-            cutoffFrequency = (10000...22050).clamp(cutoffFrequency)
+            cutoffFrequency = (10_000...22_050).clamp(cutoffFrequency)
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
         }
     }
@@ -60,7 +58,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     ///
     public init(
         _ input: AKNode,
-        cutOffFrequency: Double = 10000,
+        cutOffFrequency: Double = 10_000,
         gain: Double = 0) {
 
             self.cutoffFrequency = cutOffFrequency

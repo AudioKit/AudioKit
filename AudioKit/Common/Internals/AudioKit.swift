@@ -3,11 +3,9 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
 #if !os(tvOS)
 import CoreAudioKit
 #endif
@@ -41,7 +39,7 @@ extension AVAudioEngine {
             engine.connect(output!.avAudioNode, to: engine.outputNode)
         }
     }
-    
+
     // MARK: - Device Management
 
     /// Enumerate the list of available input devices.
@@ -107,7 +105,7 @@ extension AVAudioEngine {
             }
         #endif
     }
-    
+
     /// Change the preferred output device, giving it one of the names from the list of available output.
     open static func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
@@ -123,7 +121,7 @@ extension AVAudioEngine {
     }
 
     // MARK: - Start/Stop
-    
+
     /// Start up the audio engine
     open static func start() {
         if output == nil {
@@ -220,7 +218,7 @@ extension AVAudioEngine {
     ///
     open static func test(node: AKNode, duration: Double) {
         let samples = Int(duration * AKSettings.sampleRate)
-        
+
         tester = AKTester(node, samples: samples)
         output = tester
         start()
@@ -229,7 +227,7 @@ extension AVAudioEngine {
         let renderer = AKOfflineRenderer(engine: self.engine)
         renderer?.render(Int32(samples))
     }
-    
+
     /// Audition the test to hear what it sounds like
     ///
     /// - Parameters:
@@ -242,16 +240,16 @@ extension AVAudioEngine {
         if let playableNode = node as? AKToggleable {
             playableNode.play()
         }
-        usleep(UInt32(duration * 1000000))
+        usleep(UInt32(duration * 1_000_000))
         stop()
         start()
     }
-    
+
     // MARK: - Configuration Change Response
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
-    @objc fileprivate static func audioEngineConfigurationChange(_ notification: Notification) -> Void {
+    @objc fileprivate static func audioEngineConfigurationChange(_ notification: Notification) {
 
         if shouldBeRunning && !engine.isRunning {
             do {
@@ -281,7 +279,7 @@ extension AVAudioEngine {
             }
         }
     }
-    
+
     // MARK: - Deinitialization
 
     deinit {

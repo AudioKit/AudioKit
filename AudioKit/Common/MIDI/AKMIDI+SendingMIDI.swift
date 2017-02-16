@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 internal extension Collection where Index == Int {
@@ -18,7 +18,9 @@ internal extension Collection where Index == Int {
 
 func MIDIOutputPort(client: MIDIClientRef, name: CFString) -> MIDIPortRef? {
     var port: MIDIPortRef = 0
-    guard MIDIOutputPortCreate(client, name, &port) == noErr else { return nil }
+    guard MIDIOutputPortCreate(client, name, &port) == noErr else {
+        return nil
+    }
     return port
 }
 
@@ -49,8 +51,7 @@ extension AKMIDI {
     /// Array of destination names
     public var destinationNames: [String] {
         return MIDIDestinations().names
-  }
-
+    }
 
     /// Open a MIDI Output Port
     ///
@@ -59,8 +60,7 @@ extension AKMIDI {
     public func openOutput(_ namedOutput: String = "") {
         outputPort = MIDIOutputPort(client: client, name: outputPortName)!
 
-        _ = zip(destinationNames, MIDIDestinations()).first {
-            (name, _) in
+        _ = zip(destinationNames, MIDIDestinations()).first { name, _ in
             namedOutput.isEmpty || namedOutput == name
         }.map {
           endpoints[$0] = $1
@@ -73,7 +73,7 @@ extension AKMIDI {
 
         var packet: UnsafeMutablePointer<MIDIPacket>? = nil
         packet = MIDIPacketListInit(packetListPointer)
-        packet = MIDIPacketListAdd(packetListPointer, 1024, packet!, 0, data.count, data)
+        packet = MIDIPacketListAdd(packetListPointer, 1_024, packet!, 0, data.count, data)
         for endpoint in endpoints.values {
             let result = MIDISend(outputPort, endpoint, packetListPointer)
             if result != noErr {
@@ -110,8 +110,8 @@ extension AKMIDI {
 
     /// Send a Note Off Message
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
-                                             velocity: MIDIVelocity,
-                                             channel: MIDIChannel = 0) {
+                                   velocity: MIDIVelocity,
+                                   channel: MIDIChannel = 0) {
         let noteCommand: MIDIByte = MIDIByte(0x80) + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message)

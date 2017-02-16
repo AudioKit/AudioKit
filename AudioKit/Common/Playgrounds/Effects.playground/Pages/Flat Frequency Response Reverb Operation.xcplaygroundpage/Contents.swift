@@ -1,11 +1,10 @@
 //: ## Flat Frequency Response Reverb Operation
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .resources)
-
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -21,4 +20,5 @@ AudioKit.output = effect
 AudioKit.start()
 player.play()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

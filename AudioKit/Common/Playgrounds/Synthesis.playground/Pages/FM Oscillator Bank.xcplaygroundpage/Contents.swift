@@ -2,7 +2,6 @@
 //: Open the timeline view to use the controls this playground sets up.
 //:
 
-import PlaygroundSupport
 import AudioKit
 
 let fmBank = AKFMOscillatorBank()
@@ -24,7 +23,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.red
         ) { multiplier in
             fmBank.carrierMultiplier = multiplier
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Modulating Multiplier",
@@ -33,7 +32,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { multiplier in
             fmBank.modulatingMultiplier = multiplier
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Modulation Index",
@@ -42,7 +41,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.cyan
         ) { index in
             fmBank.modulationIndex = index
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Attack",
@@ -51,7 +50,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { duration in
             fmBank.attackDuration = duration
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Release",
@@ -60,7 +59,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { duration in
             fmBank.releaseDuration = duration
-            })
+        })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard!.polyphonicMode = false
@@ -74,7 +73,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             } else {
                 return "Go Polyphonic"
             }
-            })
+        })
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -86,5 +85,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

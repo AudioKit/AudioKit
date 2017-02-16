@@ -3,11 +3,8 @@
 //  AudioKit
 //
 //  Created by Stéphane Peter, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
-import AVFoundation
 
 /// Global settings for AudioKit
 @objc open class AKSettings: NSObject {
@@ -37,7 +34,7 @@ import AVFoundation
     }
 
     /// The sample rate in Hertz
-    open static var sampleRate: Double = 44100
+    open static var sampleRate: Double = 44_100
 
     /// Number of audio channels: 2 for stereo, 1 for mono
     open static var numberOfChannels: UInt32 = 2
@@ -57,7 +54,7 @@ import AVFoundation
     open static var defaultToSpeaker: Bool = false
 
     /// Global default rampTime value
-    open static var rampTime: Double = 0.0002
+    open static var rampTime: Double = 0.000_2
 
     /// Allows AudioKit to send Notifications
     open static var notificationsEnabled: Bool = false
@@ -65,7 +62,6 @@ import AVFoundation
     /// AudioKit buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     open static var bufferLength: BufferLength = .veryLong
-
 
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
@@ -81,11 +77,10 @@ import AVFoundation
 
     /// Enable AudioKit AVAudioSession Category Management
     open static var disableAVAudioSessionCategoryManagement: Bool = false
-    
+
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
 }
-
 
 #if !os(macOS)
 extension AKSettings {
@@ -101,12 +96,13 @@ extension AKSettings {
     /// Set the audio session type
     open static func setSession(category: SessionCategory,
                                 with options: AVAudioSessionCategoryOptions? = nil) throws {
-        
+
         if !AKSettings.disableAVAudioSessionCategoryManagement {
             do {
                 try session.setCategory("\(category)", with: options ?? .mixWithOthers)
             } catch let error as NSError {
-                AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category)" + (options.map { " with options:\($0)" } ?? ""))
+                AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category)" +
+                    (options.map { " with options:\($0)" } ?? ""))
                 throw error
             }
         }
@@ -116,7 +112,8 @@ extension AKSettings {
         do {
             try session.setPreferredIOBufferDuration(bufferLength.duration)
         } catch let error as NSError {
-            AKLog("AKSettings Error: Cannot set Preferred IOBufferDuration to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
+            AKLog("AKSettings Error: Cannot set Preferred IOBufferDuration to " +
+                "\(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
             AKLog("AKSettings Error: \(error))")
             throw error
         }
@@ -130,10 +127,9 @@ extension AKSettings {
             throw error
         }
 
-
         // FOR DEBUG !
-        // (setting the AVAudioSession can be non effective under certain circonstances even if there's no error thrown.)
-        // You may uncomment the next 'print' lines for debugging :
+        // Setting the AVAudioSession can be non effective under certain circonstances even if there's no error thrown.
+        // You may uncomment the next 'AKLOg' lines for debugging :
         // AKLog("AKSettings: asked for: \(category.rawValue)")
         // AKLog("AKSettings: Session.category is set to: \(session.category)")
 
@@ -161,7 +157,8 @@ extension AKSettings {
         case playback
         /// Silences playback audio
         case record
-        /// Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
+        /// Audio is not silenced by silent switch and screen lock - audio is non mixable. 
+        /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
         case playAndRecord
         /// Disables playback and recording
         #if !os(tvOS)
@@ -172,14 +169,23 @@ extension AKSettings {
 
         public var description: String {
 
-            if self == .ambient { return AVAudioSessionCategoryAmbient }
-            else if self == .soloAmbient { return AVAudioSessionCategorySoloAmbient }
-            else if self == .playback { return AVAudioSessionCategoryPlayback }
-            else if self == .record { return AVAudioSessionCategoryRecord }
-            else if self == .playAndRecord { return AVAudioSessionCategoryPlayAndRecord }
-            else if self == .multiRoute { return AVAudioSessionCategoryMultiRoute }
+            if self == .ambient {
+                return AVAudioSessionCategoryAmbient
+            } else if self == .soloAmbient {
+                return AVAudioSessionCategorySoloAmbient
+            } else if self == .playback {
+                return AVAudioSessionCategoryPlayback
+            } else if self == .record {
+                return AVAudioSessionCategoryRecord
+            } else if self == .playAndRecord {
+                return AVAudioSessionCategoryPlayAndRecord
+            } else if self == .multiRoute {
+                return AVAudioSessionCategoryMultiRoute
+            }
             #if !os(tvOS)
-            if self == .audioProcessing { return AVAudioSessionCategoryAudioProcessing }
+            if self == .audioProcessing {
+                return AVAudioSessionCategoryAudioProcessing
+            }
             #endif
 
             fatalError("unrecognized AVAudioSessionCategory \(self)")
@@ -188,4 +194,3 @@ extension AKSettings {
   }
 }
 #endif
-

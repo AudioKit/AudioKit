@@ -1,15 +1,14 @@
 //: ## Editing Audio Files
 //: Let's have some fun with our drum loop
 
-import PlaygroundSupport
 import AudioKit
 
-//: First we load the drumloop
+//: First load the drumloop
 
 let loop = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
 
 //: You may have noticed that the drumloop doesn't loop so well. Let's fix this...
-let fixedLoop = try? loop!.extracted(fromSample: 0, toSample: Int64(3.42 * 44100))
+let fixedLoop = try? loop!.extracted(fromSample: 0, toSample: Int64(3.42 * 44_100))
 
 //: Now out drumloop is one bar long and perfectly loops. Let's extract the kick,
 //: the snare and hihat into sixteenth note long files:
@@ -49,7 +48,7 @@ let samplesBox: [AKAudioFile] = [kick!, snare!, kick!, snare!, kick!, snare!,
                                  silence!, silence!, silence!, silence!, silence!]
 
 //: Now, we'll play the original loop three times,
-let threeTimesLoop =  try? fixedLoop!.appendedBy(file: fixedLoop!)
+let threeTimesLoop = try? fixedLoop!.appendedBy(file: fixedLoop!)
 var sequence = try? threeTimesLoop!.appendedBy(file: fixedLoop!)
 //: Next, we append a random sequence of 16 sixteenth of audio to build our random drum solo...
 
@@ -65,7 +64,6 @@ for i in 0..<16 {
 //: Let's listen to our edited audiofile: Original Loop 3 times,
 //: followed by the "drum solo of the day"...
 
-
 let sequencePlayer = try? AKAudioPlayer(file: sequence!)
 sequencePlayer!.looping = true
 
@@ -73,5 +71,5 @@ AudioKit.output = sequencePlayer!
 AudioKit.start()
 sequencePlayer!.play()
 
-
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

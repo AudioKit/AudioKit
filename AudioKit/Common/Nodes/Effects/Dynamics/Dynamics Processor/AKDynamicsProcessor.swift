@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
@@ -52,7 +50,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     /// Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
     open var attackTime: Double = 0.001 {
         didSet {
-            attackTime = (0.0001...0.2).clamp(attackTime)
+            attackTime = (0.000_1...0.2).clamp(attackTime)
             au[kDynamicsProcessorParam_AttackTime] = attackTime
         }
     }
@@ -79,7 +77,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     }
 
     /// Input Amplitude (dB) read only
-    open var inputAmplitude:Double {
+    open var inputAmplitude: Double {
         return au[kDynamicsProcessorParam_InputAmplitude]
     }
 

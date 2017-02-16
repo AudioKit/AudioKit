@@ -8,8 +8,6 @@
 
 import AudioKit
 
-
-
 class MultiDelay: AKNode {
 
     var time: Double = 0.0 {

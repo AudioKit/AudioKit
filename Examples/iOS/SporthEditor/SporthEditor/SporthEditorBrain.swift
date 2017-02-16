@@ -12,10 +12,10 @@ import AudioKit
 class SporthEditorBrain {
 
     var generator: AKOperationGenerator?
-    var knownCodes = [String : String]()
+    var knownCodes = [String: String]()
 
     var currentIndex = 0
-    
+
     var names: [String] {
         return Array(knownCodes.keys)
     }
@@ -23,7 +23,7 @@ class SporthEditorBrain {
     func run(_ code: String) {
         generator?.stop()
         AudioKit.stop()
-        generator = AKOperationGenerator() { _ in return AKOperation(code) }
+        generator = AKOperationGenerator { _ in return AKOperation(code) }
         AudioKit.output = generator
         AudioKit.start()
         generator?.start()

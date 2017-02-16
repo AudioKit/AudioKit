@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Physical model of a 4 course mandolin
 ///
@@ -79,20 +77,20 @@ open class AKMandolin: AKNode, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        detuneParameter   = tree["detune"]
+        detuneParameter = tree["detune"]
         bodySizeParameter = tree["bodySize"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.detuneParameter!.address {
@@ -114,9 +112,9 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - course3Note: MIDI note number for course 3
     ///   - course4Note: MIDI note number for course 4
     open func prepareChord(_ course1Note: MIDINoteNumber,
-                      _ course2Note: MIDINoteNumber,
-                      _ course3Note: MIDINoteNumber,
-                      _ course4Note: MIDINoteNumber) {
+                           _ course2Note: MIDINoteNumber,
+                           _ course3Note: MIDINoteNumber,
+                           _ course4Note: MIDINoteNumber) {
         fret(noteNumber: course1Note, course: 0)
         fret(noteNumber: course2Note, course: 1)
         fret(noteNumber: course3Note, course: 2)
@@ -157,7 +155,7 @@ open class AKMandolin: AKNode, AKComponent {
         pluck(course: 3, position: position, velocity: velocity)
     }
 
-// TODO: - Add Mute Functionality
+// Add Mute Functionality
 //
 //    public func mute(course course: Int) {
 //    }

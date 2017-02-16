@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 import AVFoundation
@@ -35,7 +35,6 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         avAudioNode = internalNode.avAudioNode
     }
 
-
     /// Enable MIDI input from a given MIDI client
     /// This is not in the init function because it must be called AFTER you start audiokit
     ///
@@ -44,8 +43,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
-        CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) {
-            packetList, srcConnRefCon in
+        CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)
                 self.handleMIDI(data1: MIDIByte(event.internalData[0]),
@@ -81,8 +79,8 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     ///   - channel:    MIDI channel
     ///
     open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
-                                   velocity: MIDIVelocity,
-                                   channel: MIDIChannel) {
+                                 velocity: MIDIVelocity,
+                                 channel: MIDIChannel) {
         if velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity)
         } else {

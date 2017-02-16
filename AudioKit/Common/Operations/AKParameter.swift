@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// AKParameters are simply arguments that can be passed into AKComputedParameters
 /// These could be numbers (floats, doubles, ints) or other operations themselves
@@ -15,7 +13,7 @@ import Foundation
 public protocol AKParameter: CustomStringConvertible {
     /// Require a function to produce a mono operation regarless of the mono/stereo nature of the parameter
     func toMono() -> AKOperation
-    
+
     /// Require a function to produce a stereo operation regardless of the mono/stereo nature of the parameter
     func toStereo() -> AKStereoOperation
 }
@@ -26,7 +24,7 @@ extension AKParameter {
     public func toMono() -> AKOperation {
         return AKOperation("\(self) ")
     }
-    
+
     /// Most parameters are mono, so the dault is to duplicate the parameter in both stereo channels
     public func toStereo() -> AKStereoOperation {
         return AKStereoOperation("\(self) \(self) ")

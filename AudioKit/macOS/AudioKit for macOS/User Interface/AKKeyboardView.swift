@@ -16,7 +16,7 @@ public protocol AKKeyboardDelegate {
 public class AKKeyboardView: NSView, AKMIDIListener {
 
     override public var isFlipped: Bool {
-        get { return true }
+        return true
     }
 
     let whiteKeyOff = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)
@@ -55,26 +55,28 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(octaveNumber: i)
         }
-        let backgroundPath = NSBezierPath(rect: NSMakeRect(size.width * CGFloat(octaveCount), 0, size.width / 7, size.height))
+        let backgroundPath = NSBezierPath(rect: NSMakeRect(size.width * CGFloat(octaveCount),
+                                                           0,
+                                                           size.width / 7,
+                                                           size.height))
         NSColor.black.setFill()
         backgroundPath.fill()
 
         let lastC = NSBezierPath(rect:
-            CGRect(x: whiteKeyX(n: 0, octaveNumber: octaveCount), y: 1, width: whiteKeySize.width - 2, height: whiteKeySize.height))
+            CGRect(x: whiteKeyX(n: 0, octaveNumber: octaveCount),
+                   y: 1,
+                   width: whiteKeySize.width - 2,
+                   height: whiteKeySize.height))
         whiteKeyColor(n: 0, octaveNumber: octaveCount).setFill()
         lastC.fill()
     }
 
     var whiteKeySize: NSSize {
-        get {
-            return NSMakeSize(size.width / 7.0, size.height - 2)
-        }
+        return NSMakeSize(size.width / 7.0, size.height - 2)
     }
 
     var topKeySize: NSSize {
-        get {
-            return NSMakeSize(size.width / (4 * 7), size.height * topKeyHeightRatio)
-        }
+        return NSMakeSize(size.width / (4 * 7), size.height * topKeyHeightRatio)
     }
 
     func whiteKeyX(n: Int, octaveNumber: Int) -> CGFloat {
@@ -86,12 +88,14 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     }
 
     func whiteKeyColor(n: Int, octaveNumber: Int) -> NSColor {
-        return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])) ? keyOnColor : whiteKeyOff
+        return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])) ?
+            keyOnColor : whiteKeyOff
     }
 
     func topKeyColor(n: Int, octaveNumber: Int) -> NSColor {
         if notesWithSharps[topKeyNotes[n]].range(of: "#") != nil {
-            return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ? keyOnColor : blackKeyOff
+            return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ?
+                keyOnColor : blackKeyOff
         }
         return topWhiteKeyOff
 
@@ -99,7 +103,10 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
     func drawOctaveCanvas(octaveNumber: Int) {
         //// background Drawing
-        let backgroundPath = NSBezierPath(rect: NSMakeRect(0 + size.width * CGFloat(octaveNumber), 0, size.width, size.height))
+        let backgroundPath = NSBezierPath(rect: NSMakeRect(0 + size.width * CGFloat(octaveNumber),
+                                                           0,
+                                                           size.width,
+                                                           size.height))
         NSColor.black.setFill()
         backgroundPath.fill()
 
@@ -107,7 +114,10 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
         for i in 0 ..< 7 {
             whiteKeysPaths.append(
-                NSBezierPath(rect: NSMakeRect(whiteKeyX(n: i, octaveNumber: octaveNumber), 1, whiteKeySize.width - 1, whiteKeySize.height))
+                NSBezierPath(rect: NSMakeRect(whiteKeyX(n: i, octaveNumber: octaveNumber),
+                                              1,
+                                              whiteKeySize.width - 1,
+                                              whiteKeySize.height))
             )
             whiteKeyColor(n: i, octaveNumber: octaveNumber).setFill()
             whiteKeysPaths[i].fill()
@@ -117,20 +127,22 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
         for i in 0 ..< 28 {
             topKeyPaths.append(
-                NSBezierPath(rect: NSMakeRect(topKeyX(n: i, octaveNumber: octaveNumber), 1, topKeySize.width, topKeySize.height))
+                NSBezierPath(rect: NSMakeRect(topKeyX(n: i, octaveNumber: octaveNumber),
+                                              1,
+                                              topKeySize.width,
+                                              topKeySize.height))
             )
             topKeyColor(n: i, octaveNumber: octaveNumber).setFill()
             topKeyPaths[i].fill()
         }
     }
 
-
     public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
                 polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        size = CGSize(width: width / octaveCount - width/(octaveCount * octaveCount * 7), height: Double(height))
+        size = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
         midi.openInput()
         midi.addListener(self)
         needsDisplay = true
@@ -152,7 +164,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
         var note = 0
 
-        if y < size.height * (1.0  - topKeyHeightRatio) {
+        if y < size.height * (1.0 - topKeyHeightRatio) {
             let octNum = Int(x / size.width)
             let scaledX = x - CGFloat(octNum) * size.width
             note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))]
@@ -185,10 +197,11 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         needsDisplay = true
     }
 
-
     override public func mouseDragged(with event: NSEvent) {
 
-        if polyphonicMode { return } // no response for 'drawing cursor' in polyphonic mode
+        if polyphonicMode {
+            return
+        } // no response for 'drawing cursor' in polyphonic mode
 
         let note = noteFromEvent(event: event)
         if !onKeys.contains(note) {

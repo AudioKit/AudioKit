@@ -3,17 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Faust-based pitch shfiter
 ///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
-
 
     // MARK: - Properties
 
@@ -44,7 +41,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Window size (in samples)
-    open var windowSize: Double = 1024 {
+    open var windowSize: Double = 1_024 {
         willSet {
             if windowSize != newValue {
                 if internalAU!.isSetUp() {
@@ -86,7 +83,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     public init(
         _ input: AKNode,
         shift: Double = 0,
-        windowSize: Double = 1024,
+        windowSize: Double = 1_024,
         crossfade: Double = 512) {
 
         self.shift = shift
@@ -96,8 +93,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -105,14 +101,15 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        shiftParameter      = tree["shift"]
+        shiftParameter = tree["shift"]
         windowSizeParameter = tree["windowSize"]
-        crossfadeParameter  = tree["crossfade"]
+        crossfadeParameter = tree["crossfade"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.shiftParameter!.address {

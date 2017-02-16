@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 import UIKit
@@ -17,8 +17,8 @@ public protocol AKKeyboardDelegate: class {
 /// Clickable keyboard mainly used for AudioKit playgrounds
 @IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
 
-    @IBInspectable open var octaveCount = 2
-    @IBInspectable open var firstOctave = 4
+    @IBInspectable open var octaveCount: Int = 2
+    @IBInspectable open var firstOctave: Int = 4
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
     @IBInspectable open var polyphonicButton: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 

@@ -3,11 +3,8 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-
-import AVFoundation
 
 /// AudioKit Expander based on Apple's DynamicsProcessor Audio Unit
 ///
@@ -18,9 +15,9 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     private var au: AUWrapper
     private var mixer: AKMixer
 
-    private var internalCompressionAmount:AudioUnitParameterValue = 0.0
-    private var internalInputAmplitude:AudioUnitParameterValue = 0.0
-    private var internalOutputAmplitude:AudioUnitParameterValue = 0.0
+    private var internalCompressionAmount: AudioUnitParameterValue = 0.0
+    private var internalInputAmplitude: AudioUnitParameterValue = 0.0
+    private var internalOutputAmplitude: AudioUnitParameterValue = 0.0
 
     /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
     open var expansionRatio: Double = 2 {
@@ -41,7 +38,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     /// Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
     open var attackTime: Double = 0.001 {
         didSet {
-            attackTime = (0.0001...0.2).clamp(attackTime)
+            attackTime = (0.000_1...0.2).clamp(attackTime)
             au[kDynamicsProcessorParam_AttackTime] = attackTime
         }
     }

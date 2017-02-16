@@ -2,8 +2,8 @@
 //  AKAudioUnit.mm
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/28/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKAudioUnit.h"

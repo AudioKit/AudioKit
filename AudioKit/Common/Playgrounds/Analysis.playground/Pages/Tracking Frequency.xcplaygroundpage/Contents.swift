@@ -2,16 +2,16 @@
 //: Tracking frequency is just as easy as tracking amplitude, and even
 //: includes amplitude, but it is more CPU intensive, so if you just need amplitude,
 //: use the amplitude tracker.
-import PlaygroundSupport
+
 import AudioKit
 
 //: First lets set up sound source to track
-let oscillatorNode = AKOperationGenerator() { _ in
+let oscillatorNode = AKOperationGenerator { _ in
     // Let's set up the volume to be changing in the shape of a sine wave
     let volume = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
 
     // And let's make the frequency also be a sineWave
-    let frequency = AKOperation.sineWave(frequency: 0.1).scale(minimum: 100, maximum: 2200)
+    let frequency = AKOperation.sineWave(frequency: 0.1).scale(minimum: 100, maximum: 2_200)
 
     return AKOperation.sineWave(frequency: frequency, amplitude: volume)
 }
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f",
             value: 0, maximum: 0.8,
             color: AKColor.green
-        ) { sliderValue in
+        ) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider!)
@@ -59,9 +59,9 @@ class PlaygroundView: AKPlaygroundView {
         trackedFrequencySlider = AKPropertySlider(
             property: "Tracked Frequency",
             format: "%0.3f",
-            value: 0, maximum: 2400,
+            value: 0, maximum: 2_400,
             color: AKColor.red
-        ) { sliderValue in
+        ) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedFrequencySlider!)
@@ -70,5 +70,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

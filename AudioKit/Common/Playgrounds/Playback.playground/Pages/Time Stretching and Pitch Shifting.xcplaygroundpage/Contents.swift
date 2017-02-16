@@ -2,7 +2,6 @@
 //: With AKTimePitch you can easily change the pitch and speed of a
 //: player-generated sound.  It does not work on live input or generated signals.
 //:
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: playbackPlaygroundFiles[0],
@@ -38,20 +37,20 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Rate",
             format: "%0.3f",
-            value: timePitch.rate, minimum: 0.3125, maximum: 5,
+            value: timePitch.rate, minimum: 0.312_5, maximum: 5,
             color: AKColor.green
         ) { sliderValue in
             timePitch.rate = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Pitch",
             format: "%0.3f Cents",
-            value: timePitch.pitch, minimum: -2400, maximum: 2400,
+            value: timePitch.pitch, minimum: -2_400, maximum: 2_400,
             color: AKColor.red
         ) { sliderValue in
             timePitch.pitch = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Overlap",
@@ -59,9 +58,10 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.cyan
         ) { sliderValue in
             timePitch.overlap = sliderValue
-            })
+        })
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

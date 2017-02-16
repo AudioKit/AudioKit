@@ -3,11 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
-import AVFoundation
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
@@ -33,7 +30,7 @@ open class AKDelay: AKNode, AKToggleable {
     }
 
     /// Low pass cut-off frequency in Hertz (Default: 15000)
-    open var lowPassCutoff: Double = 15000.00 {
+    open var lowPassCutoff: Double = 15_000.00 {
         didSet {
             lowPassCutoff = max(lowPassCutoff, 0)
             delayAU.lowPassCutoff = Float(lowPassCutoff)
@@ -60,15 +57,15 @@ open class AKDelay: AKNode, AKToggleable {
     /// - Parameters:
     ///   - input: Input audio AKNode to process
     ///   - time: Delay time in seconds (Default: 1)
-    ///   - feedback: Amount of feedback (Normalized Value) ranges from 0 to 1 (Default: 0.5)
+    ///   - feedback: Amount of feedback, ranges from 0 to 1 (Default: 0.5)
     ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
-    ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio (Normalized Value) ranges from 0 to 1 (Default: 0.5)
+    ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
         _ input: AKNode,
         time: Double = 1,
         feedback: Double = 0.5,
-        lowPassCutoff: Double = 15000,
+        lowPassCutoff: Double = 15_000,
         dryWetMix: Double = 0.5) {
 
             self.time = TimeInterval(Double(time))

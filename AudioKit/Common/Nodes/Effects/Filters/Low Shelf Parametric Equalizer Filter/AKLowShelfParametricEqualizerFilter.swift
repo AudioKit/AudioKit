@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
@@ -31,7 +29,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     }
 
     /// Corner frequency.
-    open var cornerFrequency: Double = 1000 {
+    open var cornerFrequency: Double = 1_000 {
         willSet {
             if cornerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -79,12 +77,13 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cornerFrequency: Corner frequency.
-    ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+    ///   - gain: Amount at which the corner frequency value shall be increased or decreased. 
+    ///           A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
         _ input: AKNode,
-        cornerFrequency: Double = 1000,
+        cornerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
 
@@ -95,8 +94,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -104,14 +102,15 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         cornerFrequencyParameter = tree["cornerFrequency"]
-        gainParameter            = tree["gain"]
-        qParameter               = tree["q"]
+        gainParameter = tree["gain"]
+        qParameter = tree["q"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.cornerFrequencyParameter!.address {

@@ -3,12 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka and Laurent Veliscek on 7/4/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-
-import Foundation
-import AVFoundation
 
 extension AKAudioFile {
 
@@ -45,6 +41,5 @@ extension AKAudioFile {
         }
         return filePlayer
     }
-
 
 }

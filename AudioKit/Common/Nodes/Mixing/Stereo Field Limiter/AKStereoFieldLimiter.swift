@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Stereo Field Limiter
 open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
@@ -26,9 +24,9 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     fileprivate var lastKnownamount: Double = 1.0
-    
+
     /// Limiting Factor
     open var amount: Double = 0 {
         willSet {
@@ -41,7 +39,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -64,8 +62,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -73,12 +70,13 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        amountParameter   = tree["amount"]
+        amountParameter = tree["amount"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.amountParameter!.address {
@@ -97,7 +95,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             amount = lastKnownamount
         }
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         if isPlaying {

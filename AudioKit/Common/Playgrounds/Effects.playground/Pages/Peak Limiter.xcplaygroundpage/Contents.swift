@@ -2,7 +2,7 @@
 //: A peak limiter will set a hard limit on the amplitude of an audio signal.
 //: They're espeically useful for any type of live input processing, when you
 //: may not be in total control of the audio signal you're recording or processing.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             peakLimiter.attackTime = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Decay Time",
@@ -49,7 +49,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             peakLimiter.decayTime = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Pre-gain",
@@ -58,9 +58,10 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             peakLimiter.preGain = sliderValue
-            })
+        })
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

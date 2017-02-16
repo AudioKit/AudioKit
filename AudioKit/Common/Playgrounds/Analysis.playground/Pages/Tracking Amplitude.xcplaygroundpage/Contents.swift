@@ -2,11 +2,11 @@
 //: Determing the amplitude of an audio signal by
 //: outputting the value of a generator node into the AKAmplitudeTracker.
 //: This node is great if you want to build an app that does audio monitoring and analysis.
-import PlaygroundSupport
+
 import AudioKit
 
 //: First lets set up sound source to track
-let oscillatorNode = AKOperationGenerator() { _ in
+let oscillatorNode = AKOperationGenerator { _ in
     // Let's set up the volume to be changing in the shape of a sine wave
     let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0, maximum: 0.5)
 
@@ -41,21 +41,20 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f",
             value: 0, maximum: 0.55,
             color: AKColor.green
-        ) { sliderValue in
+        ) { _ in
             // Do nothing, just for display
-            }
+        }
         addSubview(trackedAmplitudeSlider!)
 
         addSubview(AKRollingOutputPlot.createView())
     }
 }
 
-PlaygroundPage.current.needsIndefiniteExecution = true
+import PlaygroundSupport
 PlaygroundPage.current.liveView = PlaygroundView()
 
 //: This keeps the playground running so that audio can play for a long time
 PlaygroundPage.current.needsIndefiniteExecution = true
-
 
 //: Experiment with this playground by changing the volume function to a
 //: phasor or another well-known function to see how well the amplitude tracker
