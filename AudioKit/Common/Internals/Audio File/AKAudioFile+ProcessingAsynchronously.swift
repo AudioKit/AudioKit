@@ -355,14 +355,13 @@ extension AKAudioFile {
                 filePath = defaultBase.path +  "/" + fileName
             }
 
-            let nsurl = URL(string: filePath)
-            guard nsurl != nil else {
+            guard let nsurl = URL(string: filePath) else {
                 AKLog("ERROR AKAudioFile export: directory \"\(filePath)\" isn't valid!...")
                 callback(nil,
                          NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
                 return
             }
-            let directoryPath = nsurl!.deletingLastPathComponent()
+            let directoryPath = nsurl.deletingLastPathComponent()
             // Check if directory exists
             let fileManager = FileManager.default
             if fileManager.fileExists(atPath: (directoryPath.absoluteString)) == false {
@@ -372,13 +371,13 @@ extension AKAudioFile {
             }
 
             // Check if out file exists
-            if fileManager.fileExists(atPath: (nsurl?.absoluteString)!) {
+            if fileManager.fileExists(atPath: nsurl.absoluteString) {
                 // Then delete file
                 AKLog("AKAudioFile export: Output file already exists, trying to delete...")
                 do {
-                    try fileManager.removeItem(atPath: (nsurl?.absoluteString)!)
+                    try fileManager.removeItem(atPath: nsurl.absoluteString)
                 } catch let error as NSError {
-                    AKLog("Error !!! AKAudioFile: couldn't delete file \"\(nsurl!)\" !...")
+                    AKLog("Error !!! AKAudioFile: couldn't delete file \"\(nsurl)\" !...")
                     AKLog(error.localizedDescription)
                     callback(nil, error)
                 }
