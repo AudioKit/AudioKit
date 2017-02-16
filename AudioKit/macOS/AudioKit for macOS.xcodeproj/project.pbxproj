@@ -17,7 +17,7 @@
 		4871D45D1DD912E70046A768 /* OneZero.h in Headers */ = {isa = PBXBuildFile; fileRef = 4871D45C1DD912E70046A768 /* OneZero.h */; };
 		4871D45F1DD912F20046A768 /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4871D45E1DD912F20046A768 /* OneZero.cpp */; };
 		4871D4681DD913800046A768 /* AKClarinetDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4871D4641DD913800046A768 /* AKClarinetDSPKernel.hpp */; };
-		B1F47AB71DC5385500706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47AB51DC5385500706A2F /* EZAudioFileMarker.h */; };
+		B1F47AB71DC5385500706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47AB51DC5385500706A2F /* EZAudioFileMarker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1F47AB81DC5385500706A2F /* EZAudioFileMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F47AB61DC5385500706A2F /* EZAudioFileMarker.m */; };
 		C40101D41DED705B000C5765 /* AKAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40101D21DED705B000C5765 /* AKAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40101D51DED705B000C5765 /* AKAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40101D31DED705B000C5765 /* AKAudioUnit.mm */; };
@@ -3473,6 +3473,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1F47AB71DC5385500706A2F /* EZAudioFileMarker.h in Headers */,
 				C43101D11DEA9B0700DD7076 /* growl.h in Headers */,
 				C456697F1D448D7E00D26565 /* AKPhaseDistortionOscillatorAudioUnit.h in Headers */,
 				C456674D1D448D7E00D26565 /* plumber.h in Headers */,
@@ -3604,7 +3605,6 @@
 				C45668221D448D7E00D26565 /* Noise.h in Headers */,
 				C45669681D448D7E00D26565 /* AKFMOscillatorDSPKernel.hpp in Headers */,
 				C45669351D448D7E00D26565 /* AKToneComplementFilterDSPKernel.hpp in Headers */,
-				B1F47AB71DC5385500706A2F /* EZAudioFileMarker.h in Headers */,
 				C456695A1D448D7E00D26565 /* AKOperationGeneratorAudioUnit.h in Headers */,
 				C45666AF1D448D7E00D26565 /* EZAudio.h in Headers */,
 				C45669071D448D7E00D26565 /* AKHighShelfParametricEqualizerFilterAudioUnit.h in Headers */,
@@ -4441,6 +4441,7 @@
 		C42F36D51C0582E6000E937C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -4471,6 +4472,7 @@
 		C42F36D61C0582E6000E937C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
