@@ -2,7 +2,6 @@
 //: AKNodeRecorder allows you to record the output of a specific node.
 //: Let's record a sawtooth solo.
 
-import PlaygroundSupport
 import AudioKit
 
 //: Set up a source to be recorded
@@ -35,7 +34,6 @@ AudioKit.start()
 //: node to "reverb" if you prefer to record a "wet" oscillator...
 let recorder = try? AKNodeRecorder(node: oscMixer, file: tape!)
 
-
 //: Build our User interface
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
@@ -58,14 +56,14 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 self.recordLabel!.text = "Recording..."
                 try? recorder?.record()
                 return "Stop"
-            }})
-
+            }
+        })
 
         addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
             self.recordLabel!.text = "Tape Cleared!"
             try? recorder?.reset()
             return "Reset Recording"
-            })
+        })
 
         playLabel = addLabel("Press Play to playback...")
 
@@ -85,7 +83,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     self.playLabel!.text = "Tape is empty!..."
                 }
                 return "Stop"
-            }})
+            }
+        })
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
@@ -118,5 +117,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

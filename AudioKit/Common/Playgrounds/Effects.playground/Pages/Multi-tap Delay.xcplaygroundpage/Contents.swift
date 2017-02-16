@@ -5,7 +5,7 @@
 //: rhythmic delay patterns, but they can also be used to create sound
 //: fields of such density that they start to take on some of the qualities
 //: we'd more usually associate with reverb. - Geoff Smith, Sound on Sound
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -18,7 +18,7 @@ player.looping = true
 //: that mixes together several delays and gains.
 func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
-    zip(times, gains).forEach { (time, gain) -> () in
+    zip(times, gains).forEach { (time, gain) -> Void in
         let delay = AKDelay(input, time: time, feedback: 0.0, dryWetMix: 1)
         mix.connect(AKBooster(delay, gain: gain))
     }
@@ -29,4 +29,5 @@ AudioKit.output = multitapDelay(player, times: [0.1, 0.2, 0.4], gains: [0.5, 2.0
 AudioKit.start()
 player.play()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

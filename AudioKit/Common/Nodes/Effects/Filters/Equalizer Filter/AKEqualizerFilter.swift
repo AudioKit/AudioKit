@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// A 2nd order tunable equalization filter that provides a peak/notch filter
 /// for building parametric/graphic equalizers. With gain above 1, there will be
@@ -34,7 +32,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency. (in Hertz)
-    open var centerFrequency: Double = 1000.0 {
+    open var centerFrequency: Double = 1_000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -87,7 +85,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 1000.0,
+        centerFrequency: Double = 1_000.0,
         bandwidth: Double = 100.0,
         gain: Double = 10.0) {
 
@@ -98,8 +96,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -107,14 +104,15 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         centerFrequencyParameter = tree["centerFrequency"]
-        bandwidthParameter       = tree["bandwidth"]
-        gainParameter            = tree["gain"]
+        bandwidthParameter = tree["bandwidth"]
+        gainParameter = tree["gain"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.centerFrequencyParameter!.address {

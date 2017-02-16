@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Phase Distortion Oscillator Bank
 ///
@@ -48,8 +46,6 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
-
 
     /// Attack time
     open var attackDuration: Double = 0.1 {
@@ -127,7 +123,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     public convenience override init() {
         self.init(waveform: AKTable(.sine))
@@ -155,7 +151,6 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
-
         self.waveform = waveform
         self.phaseDistortion = phaseDistortion
 
@@ -169,8 +164,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -181,19 +175,20 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        phaseDistortionParameter    = tree["phaseDistortion"]
+        phaseDistortionParameter = tree["phaseDistortion"]
 
-        attackDurationParameter     = tree["attackDuration"]
-        decayDurationParameter      = tree["decayDuration"]
-        sustainLevelParameter       = tree["sustainLevel"]
-        releaseDurationParameter    = tree["releaseDuration"]
-        detuningOffsetParameter     = tree["detuningOffset"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
+        sustainLevelParameter = tree["sustainLevel"]
+        releaseDurationParameter = tree["releaseDuration"]
+        detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
             if address == self?.phaseDistortionParameter!.address {

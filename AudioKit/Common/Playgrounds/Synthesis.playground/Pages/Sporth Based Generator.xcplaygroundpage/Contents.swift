@@ -1,7 +1,7 @@
 //: ## Sporth Based Generator
 //: AudioKit nodes can be created using [Sporth](https://github.com/PaulBatchelor/Sporth).
 //: With this playground you can load up a few demonstration sporth patches to try out.
-import PlaygroundSupport
+
 import AudioKit
 
 var generator = AKOperationGenerator(sporth: "")
@@ -35,13 +35,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             //let filePath = Bundle.main.path(filename, ofType: "sp")
             let contentData = FileManager.default.contents(atPath: filePath!)
             //let contentData = FileManager.defaultManager().contentsAtPath(filePath!)
-            
+
             let sporth = String(data: contentData!, encoding: .utf8)
             //let sporth = NSString(data: contentData!, encoding: String.Encoding.utf8) as? String
-                
+
             Swift.print("\n\n\n\n\n\n\(sporth!)")
             generator.sporth = sporth!
-
 
             let sliders = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
@@ -64,12 +63,19 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
                 for i in 0 ..< 4 {
                     let pattern = "# p\(i): ([.0-9]+)[ ]+([^\n]+)"
-                    let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)
-  
-                    let value = regex.stringByReplacingMatches(in: line, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(location:0,
-                        length: line.characters.count ), withTemplate: "$1")
-                    let title = regex.stringByReplacingMatches(in: line, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSRange(location:0,
-                        length: line.characters.count ), withTemplate: "$2")
+                    let regex = try! NSRegularExpression(pattern: pattern,
+                                                         options: NSRegularExpression.Options.dotMatchesLineSeparators)
+
+                    let value = regex.stringByReplacingMatches(in: line,
+                                                               options: .MatchingOptions.reportCompletion,
+                                                               range: NSRange(location:0,
+                                                                              length: line.characters.count),
+                                                               withTemplate: "$1")
+                    let title = regex.stringByReplacingMatches(in: line,
+                                                               options: .MatchingOptions.reportCompletion,
+                                                               range: NSRange(location:0,
+                                                                              length: line.characters.count ),
+                                                               withTemplate: "$2")
                     if title != line {
                         generator.parameters[i] = Double(value)!
                         sliders[i]?.isHidden = false
@@ -78,8 +84,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     }
                 }
             }
-
-            })
+        })
         addLabel("Open up the console view to see the Sporth code.")
 
         p0Slider = AKPropertySlider(
@@ -87,7 +92,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             value: generator.parameters[0],
             color: AKColor.orange) { sliderValue in
                 generator.parameters[0] = sliderValue
-            }
+        }
         p0Slider?.isHidden = true
         addSubview(p0Slider!)
         p1Slider = AKPropertySlider(
@@ -95,7 +100,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             value: generator.parameters[1],
         color: AKColor.cyan) { sliderValue in
             generator.parameters[1] = sliderValue
-            }
+        }
         p1Slider?.isHidden = true
         addSubview(p1Slider!)
         p2Slider = AKPropertySlider(
@@ -103,7 +108,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             value: generator.parameters[2],
         color: AKColor.magenta) { sliderValue in
             generator.parameters[2] = sliderValue
-            }
+        }
         p2Slider?.isHidden = true
         addSubview(p2Slider!)
         p3Slider = AKPropertySlider(
@@ -111,7 +116,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         value: generator.parameters[3],
         color: AKColor.yellow) { sliderValue in
             generator.parameters[3] = sliderValue
-            }
+        }
         p3Slider?.isHidden = true
         addSubview(p3Slider!)
 
@@ -121,7 +126,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard!.isHidden = true
         addSubview(keyboard!)
     }
-
 
     func noteOn(note: MIDINoteNumber) {
         currentMIDINote = note
@@ -137,5 +141,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

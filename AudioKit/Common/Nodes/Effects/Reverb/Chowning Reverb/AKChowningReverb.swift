@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// This is was built using the JC reverb implentation found in FAUST. According
 /// to the source code, the specifications for this implementation were found on
@@ -28,7 +26,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     open var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
 
     /// Initialize this reverb node
@@ -39,8 +37,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -48,7 +45,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

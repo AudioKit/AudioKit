@@ -1,6 +1,6 @@
 //: ## Expander
 //: ##
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
             value: expander.expansionRatio, minimum: 1, maximum: 50
         ) { sliderValue in
             expander.expansionRatio = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Threshold",
@@ -40,31 +40,32 @@ class PlaygroundView: AKPlaygroundView {
             value: expander.expansionThreshold, minimum: 1, maximum: 50
         ) { sliderValue in
             expander.expansionThreshold = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Attack Time",
             format: "%0.4f s",
             value: expander.attackTime, minimum: 0.001, maximum: 0.2
         ) { sliderValue in
             expander.attackTime = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Release Time",
             format: "%0.3f s",
             value: expander.releaseTime, minimum: 0.01, maximum: 3
         ) { sliderValue in
             expander.releaseTime = sliderValue
-            })
+        })
         addSubview(AKPropertySlider(
             property: "Master Gain",
             format: "%0.2f dB",
             value: expander.masterGain, minimum: -40, maximum: 40
         ) { sliderValue in
             expander.masterGain = sliderValue
-            })
+        })
 
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

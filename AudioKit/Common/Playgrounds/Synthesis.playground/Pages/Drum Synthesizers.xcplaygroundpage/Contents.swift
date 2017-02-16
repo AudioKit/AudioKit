@@ -1,6 +1,6 @@
 //: ## Drum Synthesizers
 //: These can also be hooked up to MIDI or a sequencer.
-import PlaygroundSupport
+
 import AudioKit
 
 //: Set up instruments:
@@ -34,4 +34,5 @@ AKPlaygroundLoop(frequency: 5) {
     counter += 1
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

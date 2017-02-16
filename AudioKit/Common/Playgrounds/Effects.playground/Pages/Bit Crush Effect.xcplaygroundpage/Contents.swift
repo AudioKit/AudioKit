@@ -7,7 +7,7 @@
 //: specifies the dynamic range (the difference between the smallest and loudest
 //: audio signal). By changing the bit-depth of an audio file, you can create
 //: rather interesting digital distortion effects.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -18,7 +18,7 @@ player.looping = true
 
 var bitcrusher = AKBitCrusher(player)
 bitcrusher.bitDepth = 16
-bitcrusher.sampleRate = 3333
+bitcrusher.sampleRate = 3_333
 
 AudioKit.output = bitcrusher
 AudioKit.start()
@@ -41,20 +41,19 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             bitcrusher.bitDepth = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Sample Rate",
             format: "%0.1f Hz",
-            value: bitcrusher.sampleRate, maximum: 16000,
+            value: bitcrusher.sampleRate, maximum: 16_000,
             color: AKColor.red
         ) { sliderValue in
             bitcrusher.sampleRate = sliderValue
-            })
+        })
     }
-
-
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

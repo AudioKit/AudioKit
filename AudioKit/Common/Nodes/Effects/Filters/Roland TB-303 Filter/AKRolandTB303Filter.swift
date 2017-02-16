@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Emulation of the Roland TB-303 filter
 ///
@@ -43,7 +41,8 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, 
+    /// analogue synths generally allow resonances to be above 1.
     open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
@@ -92,7 +91,9 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
-    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///   - resonance: Resonance, generally < 1, but not limited to it. 
+    ///                Higher than 1 resonance values might cause aliasing, 
+    ///                analogue synths generally allow resonances to be above 1.
     ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
@@ -111,8 +112,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -120,15 +120,16 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        cutoffFrequencyParameter    = tree["cutoffFrequency"]
-        resonanceParameter          = tree["resonance"]
-        distortionParameter         = tree["distortion"]
+        cutoffFrequencyParameter = tree["cutoffFrequency"]
+        resonanceParameter = tree["resonance"]
+        distortionParameter = tree["distortion"]
         resonanceAsymmetryParameter = tree["resonanceAsymmetry"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.cutoffFrequencyParameter!.address {

@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// This will digitally degrade a signal.
 ///
@@ -41,7 +39,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
         }
     }
     /// The sample rate of signal output.
-    open var sampleRate: Double = 10000 {
+    open var sampleRate: Double = 10_000 {
         willSet {
             if sampleRate != newValue {
                 if internalAU!.isSetUp() {
@@ -70,7 +68,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     public init(
         _ input: AKNode,
         bitDepth: Double = 8,
-        sampleRate: Double = 10000) {
+        sampleRate: Double = 10_000) {
 
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate
@@ -79,8 +77,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
 
         super.init()
 
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -88,13 +85,14 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        bitDepthParameter   = tree["bitDepth"]
+        bitDepthParameter = tree["bitDepth"]
         sampleRateParameter = tree["sampleRate"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.bitDepthParameter!.address {

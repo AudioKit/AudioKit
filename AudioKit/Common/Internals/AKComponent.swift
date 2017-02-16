@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 public protocol Aliased {
     associatedtype _Self = Self
@@ -63,17 +61,16 @@ extension AudioComponentDescription {
     public init(effect subType: OSType) {
         self.init(type: kAudioUnitType_Effect, subType: subType)
     }
-    
+
     public init(effect subType: String) {
         self.init(effect: fourCC(subType))
     }
-    
+
     public init(mixer subType: String) {
         self.init(type: kAudioUnitType_Mixer, subType: fourCC(subType))
     }
-    
+
     public init(generator subType: String) {
         self.init(type: kAudioUnitType_Generator, subType: fourCC(subType))
     }
 }
-

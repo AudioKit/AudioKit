@@ -3,19 +3,19 @@
 //  AudioKit for macOS
 //
 //  Created by Aurelius Prochazka on 7/30/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 public class AKPresetLoaderView: NSView {
 
     var player: AKAudioPlayer?
     var presetOuterPath = NSBezierPath()
-    var upOuterPath     = NSBezierPath()
-    var downOuterPath   = NSBezierPath()
+    var upOuterPath = NSBezierPath()
+    var downOuterPath = NSBezierPath()
 
     var currentIndex = -1
     var presets = [String]()
-    var callback: (String) -> ()
+    var callback: (String) -> Void
     var isPresetLoaded = false
 
     override public func mouseDown(with theEvent: NSEvent) {
@@ -38,7 +38,9 @@ public class AKPresetLoaderView: NSView {
         }
     }
 
-    public init(presets: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60), callback: @escaping (String) -> ()) {
+    public init(presets: [String],
+                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                callback: @escaping (String) -> Void) {
         self.callback = callback
         self.presets = presets
         super.init(frame: frame)
@@ -62,92 +64,99 @@ public class AKPresetLoaderView: NSView {
         let expression: NSColor = isPresetLoaded ? green : red
 
         //// background Drawing
-        let backgroundPath = NSBezierPath(rect: NSMakeRect(0, 0, 440, 60))
+        let backgroundPath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 440, height: 60))
         gray.setFill()
         backgroundPath.fill()
 
-
         //// presetButton
         //// presetOuter Drawing
-        presetOuterPath = NSBezierPath(rect: NSMakeRect(0, 0, 95, 60))
+        presetOuterPath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 95, height: 60))
         expression.setFill()
         presetOuterPath.fill()
 
-
         //// presetLabel Drawing
-        let presetLabelRect = NSMakeRect(0, 0, 95, 60)
+        let presetLabelRect = NSRect(x: 0, y: 0, width: 95, height: 60)
         let presetLabelTextContent = NSString(string: "Preset")
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .left
 
-        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: presetLabelStyle]
+        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+                                         NSForegroundColorAttributeName: NSColor.black,
+                                         NSParagraphStyleAttributeName: presetLabelStyle]
 
-        let presetLabelInset: CGRect = NSInsetRect(presetLabelRect, 10, 0)
-        let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(with: NSMakeSize(presetLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: presetLabelFontAttributes).size.height
-        let presetLabelTextRect: NSRect = NSMakeRect(presetLabelInset.minX, presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2, presetLabelInset.width, presetLabelTextHeight)
+        let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
+        let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
+            with: NSMakeSize(presetLabelInset.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: presetLabelFontAttributes).size.height
+        let presetLabelTextRect: NSRect = NSMakeRect(
+            presetLabelInset.minX,
+            presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2,
+            presetLabelInset.width,
+            presetLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(presetLabelInset)
-        presetLabelTextContent.draw(in: NSOffsetRect(presetLabelTextRect, 0, 0), withAttributes: presetLabelFontAttributes)
+        presetLabelTextContent.draw(in: presetLabelTextRect.offsetBy(dx: 0, dy: 0),
+                                    withAttributes: presetLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
-
-
-
 
         //// upButton
         //// upOuter Drawing
-        upOuterPath = NSBezierPath(rect: NSMakeRect(381, 30, 59, 30))
+        upOuterPath = NSBezierPath(rect: NSRect(x: 381, y: 30, width: 59, height: 30))
         gray.setFill()
         upOuterPath.fill()
 
-
         //// upInner Drawing
         let upInnerPath = NSBezierPath()
-        upInnerPath.move(to: NSMakePoint(395.75, 37.5))
-        upInnerPath.line(to: NSMakePoint(425.25, 37.5))
-        upInnerPath.line(to: NSMakePoint(410.5, 52.5))
-        upInnerPath.line(to: NSMakePoint(410.5, 52.5))
-        upInnerPath.line(to: NSMakePoint(395.75, 37.5))
+        upInnerPath.move(to: NSPoint(x: 395.75, y: 37.5))
+        upInnerPath.line(to: NSPoint(x: 425.25, y: 37.5))
+        upInnerPath.line(to: NSPoint(x: 410.5, y: 52.5))
+        upInnerPath.line(to: NSPoint(x: 410.5, y: 52.5))
+        upInnerPath.line(to: NSPoint(x: 395.75, y: 37.5))
         upInnerPath.close()
         dark.setFill()
         upInnerPath.fill()
 
-
-
-
         //// downButton
         //// downOuter Drawing
-        downOuterPath = NSBezierPath(rect: NSMakeRect(381, 0, 59, 30))
+        downOuterPath = NSBezierPath(rect: NSRect(x: 381, y: 0, width: 59, height: 30))
         gray.setFill()
         downOuterPath.fill()
 
-
         //// downInner Drawing
         let downInnerPath = NSBezierPath()
-        downInnerPath.move(to: NSMakePoint(410.5, 7.5))
-        downInnerPath.line(to: NSMakePoint(410.5, 7.5))
-        downInnerPath.line(to: NSMakePoint(425.25, 22.5))
-        downInnerPath.line(to: NSMakePoint(395.75, 22.5))
-        downInnerPath.line(to: NSMakePoint(410.5, 7.5))
+        downInnerPath.move(to: NSPoint(x: 410.5, y: 7.5))
+        downInnerPath.line(to: NSPoint(x: 410.5, y: 7.5))
+        downInnerPath.line(to: NSPoint(x: 425.25, y: 22.5))
+        downInnerPath.line(to: NSPoint(x: 395.75, y: 22.5))
+        downInnerPath.line(to: NSPoint(x: 410.5, y: 7.5))
         downInnerPath.close()
         dark.setFill()
         downInnerPath.fill()
 
-
-
-
         //// nameLabel Drawing
-        let nameLabelRect = NSMakeRect(95, 0, 345, 60)
+        let nameLabelRect = NSRect(x: 95, y: 0, width: 345, height: 60)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: NSColor.black, NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+                                       NSForegroundColorAttributeName: NSColor.black,
+                                       NSParagraphStyleAttributeName: nameLabelStyle]
 
-        let nameLabelInset: CGRect = NSInsetRect(nameLabelRect, 10, 0)
-        let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(with: NSMakeSize(nameLabelInset.width, CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: nameLabelFontAttributes).size.height
-        let nameLabelTextRect: NSRect = NSMakeRect(nameLabelInset.minX, nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, nameLabelInset.width, nameLabelTextHeight)
+        let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
+        let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(
+            with: NSMakeSize(nameLabelInset.width, CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: nameLabelFontAttributes).size.height
+        let nameLabelTextRect: NSRect = NSMakeRect(
+            nameLabelInset.minX,
+            nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+            nameLabelInset.width,
+            nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
-        NSString(string: presetName).draw(in: NSOffsetRect(nameLabelTextRect, 0, 0), withAttributes: nameLabelFontAttributes)
+        NSString(string: presetName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
+                                          withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }
 

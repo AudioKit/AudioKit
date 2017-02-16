@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Moog Ladder is an new digital implementation of the Moog ladder filter based
 /// on the work of Antti Huovilainen, described in the paper "Non-Linear Digital
@@ -34,7 +32,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     }
 
     /// Filter cutoff frequency.
-    open var cutoffFrequency: Double = 1000 {
+    open var cutoffFrequency: Double = 1_000 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -45,7 +43,8 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, 
+    /// analogue synths generally allow resonances to be above 1.
     open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
@@ -70,11 +69,13 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Filter cutoff frequency.
-    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///   - resonance: Resonance, generally < 1, but not limited to it. 
+    ///                Higher than 1 resonance values might cause aliasing, 
+    ///                analogue synths generally allow resonances to be above 1.
     ///
     public init(
         _ input: AKNode,
-        cutoffFrequency: Double = 1000,
+        cutoffFrequency: Double = 1_000,
         resonance: Double = 0.5) {
 
         self.cutoffFrequency = cutoffFrequency
@@ -83,8 +84,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -92,13 +92,14 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         cutoffFrequencyParameter = tree["cutoffFrequency"]
-        resonanceParameter       = tree["resonance"]
+        resonanceParameter = tree["resonance"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.cutoffFrequencyParameter!.address {

@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
 /// modeling scattering junction of 8 lossless waveguides of equal
@@ -31,7 +29,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a 
+    /// large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     open var feedback: Double = 0.6 {
         willSet {
             if feedback != newValue {
@@ -44,7 +43,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Low-pass cutoff frequency.
-    open var cutoffFrequency: Double = 4000 {
+    open var cutoffFrequency: Double = 4_000 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -67,13 +66,15 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+    ///   - feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, 
+    ///               and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will 
+    ///               make the opcode unstable.
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
     public init(
         _ input: AKNode,
         feedback: Double = 0.6,
-        cutoffFrequency: Double = 4000) {
+        cutoffFrequency: Double = 4_000) {
 
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
@@ -81,8 +82,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -90,13 +90,14 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        feedbackParameter        = tree["feedback"]
+        feedbackParameter = tree["feedback"]
         cutoffFrequencyParameter = tree["cutoffFrequency"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.feedbackParameter!.address {

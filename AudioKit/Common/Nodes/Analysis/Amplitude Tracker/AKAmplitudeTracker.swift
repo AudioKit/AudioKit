@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Performs a "root-mean-square" on a signal to get overall amplitude of a
 /// signal. The output signal looks similar to that of a classic VU meter.
@@ -57,8 +55,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -66,12 +63,13 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         halfPowerPointParameter = tree["halfPowerPoint"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.halfPowerPointParameter!.address {
@@ -85,7 +83,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     deinit {
         AKLog("* AKAmplitudeTracker")
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -97,5 +95,5 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     open func stop() {
         internalAU!.stop()
     }
-    
+
 }

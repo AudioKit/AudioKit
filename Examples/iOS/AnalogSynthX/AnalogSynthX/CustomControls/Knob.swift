@@ -59,7 +59,7 @@ class Knob: UIView {
         clipsToBounds = true
     }
 
-    class override var requiresConstraintBasedLayout : Bool {
+    class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
@@ -76,6 +76,5 @@ class Knob: UIView {
         lastX = touchPoint.x
         lastY = touchPoint.y
     }
-
 
 }

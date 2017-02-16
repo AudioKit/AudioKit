@@ -6,8 +6,8 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class ViewController: UIViewController {
 
@@ -16,28 +16,28 @@ class ViewController: UIViewController {
     var reverb: AKCostelloReverb?
     var reverbMixer: AKDryWetMixer?
     var booster: AKBooster?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let input = AKStereoInput()
-        
+
         delay = AKVariableDelay(input)
         delay?.rampTime = 0.5 // Allows for some cool effects
         delayMixer = AKDryWetMixer(input, delay!)
-        
+
         reverb = AKCostelloReverb(delayMixer!)
         reverbMixer = AKDryWetMixer(delayMixer!, reverb!)
-        
+
         booster = AKBooster(reverbMixer!)
-        
+
         AudioKit.output = booster
         AudioKit.start()
         Audiobus.start()
-            
+
         setupUI()
     }
-    
+
     func setupUI() {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 10
-        
+
         stackView.addArrangedSubview(AKPropertySlider(
             property: "Delay Time",
             format: "%0.2f s",
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
             color: UIColor.red) { sliderValue in
                 self.reverb?.feedback = sliderValue
         })
-        
+
         stackView.addArrangedSubview(AKPropertySlider(
             property: "Reverb Mix",
             format: "%0.2f",
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
             color: UIColor.red) { sliderValue in
                 self.reverbMixer?.balance = sliderValue
         })
-        
+
         stackView.addArrangedSubview(AKPropertySlider(
             property: "Output Volume",
             format: "%0.2f",
@@ -93,14 +93,13 @@ class ViewController: UIViewController {
             color: UIColor.yellow) { sliderValue in
                 self.booster?.gain = sliderValue
         })
-        
+
         view.addSubview(stackView)
-        
+
         stackView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.9).isActive = true
         stackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.9).isActive = true
-        
+
         stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
 }
-

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 import AVFoundation
@@ -19,7 +19,7 @@ import CoreAudio
 open class AKSampler: AKNode {
 
     // MARK: - Properties
-    
+
     /// Internal audio unit
     private var internalAU: AUAudioUnit?
 
@@ -27,7 +27,7 @@ open class AKSampler: AKNode {
 
     /// Sampler AV Audio Unit
     open var samplerUnit = AVAudioUnitSampler()
-    
+
     /// Transposition amount in semitones, from -24 to 24, Default: 0
     open var tuning: Double {
         get {
@@ -119,6 +119,36 @@ open class AKSampler: AKNode {
         }
     }
 
+    /// Load a Bank from a SoundFont SF2 sample data file
+    ///
+    /// - Parameters:
+    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - preset: Number of the program to use
+    ///   - bank: Number of the bank to use
+    ///
+    open func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
+        guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
+            fatalError("file not found.")
+        }
+        do {
+            var bMSB: Int
+            if bank <= 127 {
+                bMSB = kAUSampler_DefaultMelodicBankMSB
+            } else {
+                bMSB = kAUSampler_DefaultPercussionBankMSB
+            }
+            let bLSB: Int = bank % 128
+            try samplerUnit.loadSoundBankInstrument(
+                at: url,
+                program: MIDIByte(preset),
+                bankMSB: MIDIByte(bMSB),
+                bankLSB: MIDIByte(bLSB))
+        } catch let error as NSError {
+            AKLog("Error loading SoundFont \(file)")
+            throw error
+        }
+    }
+
     /// Load a Melodic SoundFont SF2 sample data file
     ///
     /// - Parameters:
@@ -138,7 +168,6 @@ open class AKSampler: AKNode {
     open func loadPercussiveSoundFont(_ file: String, preset: Int) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
-
 
     /// Load a file path
     ///
@@ -215,7 +244,8 @@ open class AKSampler: AKNode {
     static func getAUPresetXML() -> String {
         var templateStr: String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-        templateStr.append("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
+        templateStr.append("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" " +
+            "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
         templateStr.append("<plist version=\"1.0\">\n")
         templateStr.append("    <dict>\n")
         templateStr.append("        <key>AU version</key>\n")

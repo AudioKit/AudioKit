@@ -1,6 +1,6 @@
 //: ## Phase Distortion Oscillator
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 var oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.sawtooth))
@@ -25,7 +25,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.purple
         ) { amplitude in
             currentAmplitude = amplitude
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Phase Distortion",
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.red
         ) { amount in
             oscillator.phaseDistortion = amount
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Ramp Time",
@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.orange
         ) { time in
             currentRampTime = time
-            })
+        })
 
         let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
@@ -68,5 +68,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

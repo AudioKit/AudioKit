@@ -1,11 +1,13 @@
 //: ## Amplitude Envelope
 //: A surprising amount of character can be added to a sound by changing its amplitude over time.  
-//: A very common means of defining the shape of amplitude is to use an ADSR envelope which stands for Attack, Sustain, Decay, Release.
-//: * Attack is the amount of time it takes a sound to reach its maximum volume.  An example of a fast attack is a piano, where as a cello can have a longer attack time.
+//: A very common means of defining the shape of amplitude is to use an ADSR envelope which stands for 
+//: Attack, Sustain, Decay, Release.
+//: * Attack is the amount of time it takes a sound to reach its maximum volume.  An example of a fast attack is a 
+//:   piano, where as a cello can have a longer attack time.
 //: * Decay is the amount of time after which the peak amplitude is reached for a lower amplitude to arrive.
 //: * Sustain is not a time, but a percentage of the peak amplitude that will be the the sustained amplitude.
 //: * Release is the amount of time after a note is let go for the sound to die away to zero.
-import PlaygroundSupport
+
 import AudioKit
 
 var fmWithADSR = AKOscillatorBank()
@@ -22,8 +24,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         addTitle("ADSR Envelope")
 
-        let adsrView = AKADSRView() {
-            att, dec, sus, rel in
+        let adsrView = AKADSRView { att, dec, sus, rel in
             fmWithADSR.attackDuration = att
             fmWithADSR.decayDuration = dec
             fmWithADSR.sustainLevel = sus
@@ -33,10 +34,10 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             Swift.print("fmWithADSR.sustainLevel    = \(sus)")
             Swift.print("fmWithADSR.releaseDuration = \(rel)\n")
         }
-        adsrView.attackDuration  = fmWithADSR.attackDuration
-        adsrView.decayDuration   = fmWithADSR.decayDuration
+        adsrView.attackDuration = fmWithADSR.attackDuration
+        adsrView.decayDuration = fmWithADSR.decayDuration
         adsrView.releaseDuration = fmWithADSR.releaseDuration
-        adsrView.sustainLevel    = fmWithADSR.sustainLevel
+        adsrView.sustainLevel = fmWithADSR.sustainLevel
         addSubview(adsrView)
 
         let plot = AKRollingOutputPlot.createView(width: 440, height: 330)
@@ -59,5 +60,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

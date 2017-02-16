@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
 ///
@@ -30,7 +28,8 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the 
+    /// filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     open var distortion: Double = 0.5 {
         willSet {
             if distortion != newValue {
@@ -43,7 +42,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Filter cutoff frequency in Hertz.
-    open var cutoffFrequency: Double = 1500 {
+    open var cutoffFrequency: Double = 1_500 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -54,7 +53,8 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. 
+    /// Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
@@ -78,14 +78,18 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion
+    ///                 controlled by the filter parameters, in such a way that both low cutoff and high resonance 
+    ///                 increase the distortion amount.
     ///   - cutoffFrequency: Filter cutoff frequency in Hertz.
-    ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    ///   - resonance: Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency.
+    ///                Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” 
+    ///                effect.
     ///
     public init(
         _ input: AKNode,
         distortion: Double = 0.5,
-        cutoffFrequency: Double = 1500,
+        cutoffFrequency: Double = 1_500,
         resonance: Double = 0.5) {
 
         self.distortion = distortion
@@ -95,8 +99,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -104,14 +107,15 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        distortionParameter      = tree["distortion"]
+        distortionParameter = tree["distortion"]
         cutoffFrequencyParameter = tree["cutoffFrequency"]
-        resonanceParameter       = tree["resonance"]
+        resonanceParameter = tree["resonance"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.distortionParameter!.address {

@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
@@ -20,7 +18,7 @@ open class AKReverb2: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit? = nil
+    internal var internalAU: AudioUnit?
 
     fileprivate var lastKnownMix: Double = 50
 
@@ -61,8 +59,8 @@ open class AKReverb2: AKNode, AKToggleable {
     /// Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
     open var minDelayTime: Double = 0.008 {
         didSet {
-            if minDelayTime < 0.0001 {
-                minDelayTime = 0.0001
+            if minDelayTime < 0.000_1 {
+                minDelayTime = 0.000_1
             }
             if minDelayTime > 1.0 {
                 minDelayTime = 1.0
@@ -78,8 +76,8 @@ open class AKReverb2: AKNode, AKToggleable {
     /// Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
     open var maxDelayTime: Double = 0.050 {
         didSet {
-            if maxDelayTime < 0.0001 {
-                maxDelayTime = 0.0001
+            if maxDelayTime < 0.000_1 {
+                maxDelayTime = 0.000_1
             }
             if maxDelayTime > 1.0 {
                 maxDelayTime = 1.0
@@ -132,8 +130,8 @@ open class AKReverb2: AKNode, AKToggleable {
             if randomizeReflections < 1 {
                 randomizeReflections = 1
             }
-            if randomizeReflections > 1000 {
-                randomizeReflections = 1000
+            if randomizeReflections > 1_000 {
+                randomizeReflections = 1_000
             }
             AudioUnitSetParameter(
                 internalAU!,
@@ -184,13 +182,48 @@ open class AKReverb2: AKNode, AKToggleable {
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
 
-            AudioUnitSetParameter(internalAU!, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, Float(dryWetMix * 100.0), 0)
-            AudioUnitSetParameter(internalAU!, kReverb2Param_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
-            AudioUnitSetParameter(internalAU!, kReverb2Param_MinDelayTime, kAudioUnitScope_Global, 0, Float(minDelayTime), 0)
-            AudioUnitSetParameter(internalAU!, kReverb2Param_MaxDelayTime, kAudioUnitScope_Global, 0, Float(maxDelayTime), 0)
-            AudioUnitSetParameter(internalAU!, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, Float(decayTimeAt0Hz), 0)
-            AudioUnitSetParameter(internalAU!, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, Float(decayTimeAtNyquist), 0)
-            AudioUnitSetParameter(internalAU!, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, Float(randomizeReflections), 0)
+            AudioUnitSetParameter(internalAU!,
+                                  kReverb2Param_DryWetMix,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  Float(dryWetMix * 100.0),
+                                  0)
+            AudioUnitSetParameter(internalAU!,
+                                  kReverb2Param_Gain,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  Float(gain),
+                                  0)
+            AudioUnitSetParameter(internalAU!,
+                                  kReverb2Param_MinDelayTime,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  Float(minDelayTime),
+                                  0)
+            AudioUnitSetParameter(internalAU!,
+                                  kReverb2Param_MaxDelayTime,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  Float(maxDelayTime),
+                                  0)
+            AudioUnitSetParameter(internalAU!,
+                                  kReverb2Param_DecayTimeAt0Hz,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  Float(decayTimeAt0Hz),
+                                  0)
+            AudioUnitSetParameter(internalAU!,
+                                  kReverb2Param_DecayTimeAtNyquist,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  Float(decayTimeAtNyquist),
+                                  0)
+            AudioUnitSetParameter(internalAU!,
+                                  kReverb2Param_RandomizeReflections,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  Float(randomizeReflections),
+                                  0)
     }
 
     // MARK: - Control

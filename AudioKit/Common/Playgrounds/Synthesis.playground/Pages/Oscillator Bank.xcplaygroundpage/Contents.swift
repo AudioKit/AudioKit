@@ -1,5 +1,4 @@
 //: ## Oscillator Bank
-import PlaygroundSupport
 import AudioKit
 
 let bank = AKOscillatorBank(waveform: AKTable(.sine),
@@ -23,7 +22,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { duration in
             bank.attackDuration = duration
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Decay",
@@ -32,7 +31,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.cyan
         ) { duration in
             bank.decayDuration = duration
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Sustain Level",
@@ -41,7 +40,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.yellow
         ) { level in
             bank.sustainLevel = level
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Release",
@@ -50,16 +49,16 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { duration in
             bank.releaseDuration = duration
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Detuning Offset",
             format: "%0.3f",
-            value:  bank.releaseDuration, minimum: -1200, maximum: 1200,
+            value:  bank.releaseDuration, minimum: -1_200, maximum: 1_200,
             color: AKColor.green
         ) { offset in
             bank.detuningOffset = offset
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
@@ -68,7 +67,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { multiplier in
             bank.detuningMultiplier = multiplier
-            })
+        })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard!.polyphonicMode = false
@@ -82,7 +81,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             } else {
                 return "Go Polyphonic"
             }
-            })
+        })
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -94,5 +93,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

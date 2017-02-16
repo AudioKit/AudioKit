@@ -2,14 +2,12 @@
 //  save.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/4/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 extension AKOperation {
-    
+
     /// Save a value into the parameters array for using outside of the operation
     ///
     /// - parameter parameterIndex: Location in the parameters array to save this value

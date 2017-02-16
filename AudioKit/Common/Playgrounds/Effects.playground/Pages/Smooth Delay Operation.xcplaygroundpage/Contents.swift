@@ -1,6 +1,6 @@
 //: ## Smooth Delay Operation
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -12,7 +12,7 @@ player.looping = true
 let effect = AKOperationEffect(player) { player, parameters in
     let delayedPlayer = player.smoothDelay(
         time: parameters[0],
-        samples: 1024,
+        samples: 1_024,
         feedback: parameters[1],
         maximumDelayTime: 2.0)
     return mixer(player.toMono(), delayedPlayer)
@@ -51,8 +51,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-PlaygroundPage.current.needsIndefiniteExecution = true
+import PlaygroundSupport
 PlaygroundPage.current.liveView = PlaygroundView()
-
-
 PlaygroundPage.current.needsIndefiniteExecution = true

@@ -3,14 +3,12 @@
 //  AudioKit 
 //
 //  Created by Nicholas Arner, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// Preset for the AKDistortion
 public extension AKDistortion {
-    
+
     /// Massive Distortion
     public func presetInfiniteDistortionWall() {
         delay = 475.776
@@ -23,7 +21,7 @@ public extension AKDistortion {
         softClipGain = -8.441
         finalMix = 0.798
     }
-    
+
     /// Print out current values in case you want to save it as a preset
     public func printCurrentValuesAsPreset() {
         AKLog("public func presetSomeNewDistortion() {")

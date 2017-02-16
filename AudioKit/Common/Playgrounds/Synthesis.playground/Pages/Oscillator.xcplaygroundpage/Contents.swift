@@ -1,24 +1,24 @@
 //: ## Oscillator
 //: This oscillator can be loaded with a wavetable of your own design,
 //: or with one of the defaults.
-import PlaygroundSupport
+
 import AudioKit
 
 let square = AKTable(.square, count: 16)
 for value in square { value } // Click the eye icon ->
 
-let triangle = AKTable(.triangle, count: 4096)
+let triangle = AKTable(.triangle, count: 4_096)
 for value in triangle { value } // Click the eye icon ->
 
-let sine = AKTable(.sine, count: 4096)
+let sine = AKTable(.sine, count: 4_096)
 for value in sine { value } // Click the eye icon ->
 
-let sawtooth = AKTable(.sawtooth, count: 4096)
+let sawtooth = AKTable(.sawtooth, count: 4_096)
 for value in sawtooth { value } // Click the eye icon ->
 
 var custom = AKTable(.sine, count: 512)
 for i in custom.indices {
-    custom[i] += Float(random(-0.3, 0.3) + Double(i)/2048.0)
+    custom[i] += Float(random(-0.3, 0.3) + Double(i) / 2_048.0)
 }
 for value in custom { value } // Click the eye icon ->
 
@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.red
         ) { amplitude in
             currentAmplitude = amplitude
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Ramp Time",
@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.cyan
         ) { time in
             currentRampTime = time
-            })
+        })
 
         let keyboard = AKKeyboardView(width: 440,
                                       height: 100,
@@ -86,5 +86,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

@@ -6,7 +6,7 @@
 //: All nodes in AudioKit can have multiple destinations, the only
 //: caveat is that all of the destinations do have to eventually be mixed
 //: back together and none of the parallel signal paths can have any time stretching.
-import PlaygroundSupport
+
 import AudioKit
 
 //: Prepare the source audio player
@@ -32,5 +32,6 @@ AudioKit.output = mixer
 AudioKit.start()
 player.play()
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

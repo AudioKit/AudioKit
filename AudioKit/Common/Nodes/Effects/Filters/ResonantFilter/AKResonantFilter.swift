@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// The output for reson appears to be very hot, so take caution when using this
 /// module.
@@ -31,7 +29,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    open var frequency: Double = 4000.0 {
+    open var frequency: Double = 4_000.0 {
         willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
@@ -43,7 +41,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Bandwidth of the filter.
-    open var bandwidth: Double = 1000.0 {
+    open var bandwidth: Double = 1_000.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
@@ -70,8 +68,8 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        frequency: Double = 4000.0,
-        bandwidth: Double = 1000.0) {
+        frequency: Double = 4_000.0,
+        bandwidth: Double = 1_000.0) {
 
         self.frequency = frequency
         self.bandwidth = bandwidth
@@ -79,8 +77,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -88,13 +85,14 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         frequencyParameter = tree["frequency"]
         bandwidthParameter = tree["bandwidth"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.frequencyParameter!.address {

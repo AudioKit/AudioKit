@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Stereo Booster
 ///
@@ -27,9 +25,9 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     fileprivate var lastKnownGain: Double = 1.0
-    
+
     /// Amplification Factor
     open var gain: Double = 1 {
         willSet {
@@ -43,7 +41,6 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    
     /// Amplification Factor in db
     open var dB: Double {
         set {
@@ -53,7 +50,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             return 20.0 * log10(gain)
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -76,8 +73,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -85,12 +81,13 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        gainParameter   = tree["gain"]
+        gainParameter = tree["gain"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.gainParameter!.address {
@@ -109,7 +106,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             gain = lastKnownGain
         }
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         if isPlaying {

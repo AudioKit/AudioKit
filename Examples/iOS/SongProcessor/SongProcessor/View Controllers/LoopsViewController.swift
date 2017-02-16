@@ -6,23 +6,23 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import UIKit
 import AudioKit
+import UIKit
 
 class LoopsViewController: UIViewController {
-    
+
     let songProcessor = SongProcessor.sharedInstance
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     fileprivate func playNew(loop: String) {
         songProcessor.audioFile = try? AKAudioFile(readFileName: "\(loop)loop.wav", baseDir: .resources)
         let _ = try? songProcessor.audioFilePlayer?.replace(file: songProcessor.audioFile!)
         songProcessor.audioFilePlayer?.play()
     }
-    
+
     @IBAction func playMix(_ sender: UIButton) {
         playNew(loop: "mix")
     }
@@ -34,11 +34,11 @@ class LoopsViewController: UIViewController {
     @IBAction func playBass(_ sender: UIButton) {
         playNew(loop: "bass")
     }
-    
+
     @IBAction func playGuitar(_ sender: UIButton) {
         playNew(loop: "guitar")
     }
-    
+
     @IBAction func playLead(_ sender: UIButton) {
         playNew(loop: "lead")
     }
@@ -46,5 +46,5 @@ class LoopsViewController: UIViewController {
     @IBAction func stop(_ sender: UIButton) {
         songProcessor.audioFilePlayer?.stop()
     }
-    
+
 }

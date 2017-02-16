@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// This filter reiterates the input with an echo density determined by loop
 /// time. The attenuation rate is independent and is determined by the
@@ -56,8 +54,10 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
+    ///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000, 
+    ///                     or 60dB down from its original amplitude.
+    ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the 
+    ///                   delay time or “echo density” of the reverberation.
     ///
     public init(
         _ input: AKNode,
@@ -69,8 +69,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -79,12 +78,13 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
             self?.internalAU!.setLoopDuration(Float(loopDuration))
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         reverbDurationParameter = tree["reverbDuration"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.reverbDurationParameter!.address {

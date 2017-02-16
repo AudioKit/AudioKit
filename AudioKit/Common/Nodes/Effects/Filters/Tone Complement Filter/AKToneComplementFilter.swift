@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// A complement to the AKLowPassFilter.
 ///
@@ -29,7 +27,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
-    open var halfPowerPoint: Double = 1000.0 {
+    open var halfPowerPoint: Double = 1_000.0 {
         willSet {
             if halfPowerPoint != newValue {
                 if internalAU!.isSetUp() {
@@ -56,15 +54,14 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        halfPowerPoint: Double = 1000.0) {
+        halfPowerPoint: Double = 1_000.0) {
 
         self.halfPowerPoint = halfPowerPoint
 
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -72,12 +69,13 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         halfPowerPointParameter = tree["halfPowerPoint"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.halfPowerPointParameter!.address {

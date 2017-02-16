@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 // MARK: Numeric Protocol
 
@@ -47,21 +45,21 @@ extension Double: Numeric {
 //}
 
 /// Addition
-public func +(lhs: Numeric, rhs: Numeric) -> Double {
+public func + (lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() + rhs.value()
 }
 
 /// Subtraction
-public func -(lhs: Numeric, rhs: Numeric) -> Double {
+public func - (lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() - rhs.value()
 }
 
 /// Division
-public func /(lhs: Numeric, rhs: Numeric) -> Double {
+public func / (lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() / rhs.value()
 }
 
 /// Multiplication
-public func *(lhs: Numeric, rhs: Numeric) -> Double {
+public func * (lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() * rhs.value()
 }

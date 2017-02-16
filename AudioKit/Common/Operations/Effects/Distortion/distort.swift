@@ -3,20 +3,21 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 extension AKComputedParameter {
 
     /// Distortion using a modified hyperbolic tangent function.
     ///
     /// - Parameters:
-    ///   - pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
+    ///   - pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives 
+    ///              slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
     ///   - postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
-    ///   - postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
-    ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
+    ///   - postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. 
+    ///                            (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
+    ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part. 
+    ///                             (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
     ///
     public func distort(
         pregain: AKParameter = 2.0,

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #pragma once
@@ -37,15 +37,12 @@ public:
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
         NSString *resourcePath = [frameworkBundle resourcePath];
         stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
-        mandolins[0] = new stk::Mandolin(100);
-        mandolins[1] = new stk::Mandolin(100);
-        mandolins[2] = new stk::Mandolin(100);
-        mandolins[3] = new stk::Mandolin(100);
+        for (int i=0; i <= 3; i++) mandolins[i] = new stk::Mandolin(100);
         stk::Stk::setSampleRate(sampleRate);
     }
     
     void destroy() {
-
+        for (int i=0; i <= 3; i++) delete mandolins[i];
     }
     
     void reset() {

@@ -2,11 +2,9 @@
 //  AKTelephoneView.swift
 //  AudioKit for iOS
 //
-//  Created by Aurelius Prochazka on 7/31/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// This is primarily for the telephone page in the Synthesis playground
 open class AKTelephoneView: UIView {

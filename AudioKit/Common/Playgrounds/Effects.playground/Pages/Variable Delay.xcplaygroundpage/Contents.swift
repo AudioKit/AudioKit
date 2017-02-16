@@ -1,6 +1,6 @@
 //: ## Variable Delay
 //: When you smoothly vary effect parameters, you get completely new kinds of effects.
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -31,4 +31,5 @@ AKPlaygroundLoop(every: timeStep) {
     time += timeStep
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

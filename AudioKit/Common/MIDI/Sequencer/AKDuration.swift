@@ -3,26 +3,23 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 public typealias BPM = Double
 
 /// Container for the notion of time in sequencing
 public struct AKDuration: CustomStringConvertible {
     let secondsPerMinute = 60
-    
+
     /// Duration in beats
     public var beats: Double
 
     /// Samples per second
-    public var sampleRate: Double = 44100
-    
+    public var sampleRate: Double = 44_100
+
     /// Tempo in BPM (beats per minute)
     public var tempo: BPM = 60.0
-    
 
     /// While samples is the most accurate, they blow up too fast, so using beat as standard
     public var samples: Int {
@@ -44,7 +41,7 @@ public struct AKDuration: CustomStringConvertible {
     public var seconds: Double {
         return Double(samples) / sampleRate
     }
-    
+
     /// Useful for math using tempo in BPM (beats per minute)
     public var minutes: Double {
         return seconds / 60.0
@@ -54,19 +51,19 @@ public struct AKDuration: CustomStringConvertible {
     public var musicTimeStamp: MusicTimeStamp {
         return MusicTimeStamp(beats)
     }
-    
+
     /// Pretty printout
     public var description: String {
         return "\(samples) samples at \(sampleRate) = \(beats) Beats at \(tempo) BPM = \(seconds)s"
     }
-    
+
     /// Initialize with samples
     ///
     /// - Parameters:
     ///   - samples:    Number of samples
     ///   - sampleRate: Sample rate in samples per second
     ///
-    public init(samples: Int, sampleRate: Double = 44100, tempo: BPM = 60) {
+    public init(samples: Int, sampleRate: Double = 44_100, tempo: BPM = 60) {
         self.beats = tempo * (samples / sampleRate) / secondsPerMinute
         self.sampleRate = sampleRate
         self.tempo = tempo
@@ -89,7 +86,7 @@ public struct AKDuration: CustomStringConvertible {
     ///   - seconds:    Duration in seconds
     ///   - sampleRate: Samples per second (Default: 44100)
     ///
-    public init(seconds: Double, sampleRate: Double = 44100, tempo: BPM = 60) {
+    public init(seconds: Double, sampleRate: Double = 44_100, tempo: BPM = 60) {
         self.sampleRate = sampleRate
         self.tempo = tempo
         self.beats = tempo * (seconds / secondsPerMinute)
@@ -111,8 +108,8 @@ public func ceil(_ duration: AKDuration) -> AKDuration {
 /// - parameter lhs: Starting duration
 /// - parameter rhs: Amount to add
 ///
-public func +=( lhs: inout AKDuration, rhs: AKDuration) {
-    lhs.beats = lhs.beats + rhs.beats
+public func += (lhs: inout AKDuration, rhs: AKDuration) {
+    lhs.beats += rhs.beats
 }
 
 /// Subtract from a duration
@@ -120,8 +117,8 @@ public func +=( lhs: inout AKDuration, rhs: AKDuration) {
 /// - parameter lhs: Starting duration
 /// - parameter rhs: Amount to subtract
 ///
-public func -=( lhs: inout AKDuration, rhs: AKDuration) {
-    lhs.beats = lhs.beats - rhs.beats
+public func -= (lhs: inout AKDuration, rhs: AKDuration) {
+    lhs.beats -= rhs.beats
 }
 
 /// Duration equality
@@ -129,7 +126,7 @@ public func -=( lhs: inout AKDuration, rhs: AKDuration) {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func == (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats == rhs.beats
 }
 
@@ -138,7 +135,7 @@ public func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func !=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func != (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats != rhs.beats
 }
 
@@ -147,7 +144,7 @@ public func !=(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func >=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func >= (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats >= rhs.beats
 }
 
@@ -156,7 +153,7 @@ public func >=(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func <=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func <= (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats <= rhs.beats
 }
 
@@ -165,7 +162,7 @@ public func <=(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func <(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func < (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats < rhs.beats
 }
 
@@ -174,7 +171,7 @@ public func <(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func >(lhs: AKDuration, rhs: AKDuration) -> Bool {
+public func > (lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats > rhs.beats
 }
 
@@ -183,7 +180,7 @@ public func >(lhs: AKDuration, rhs: AKDuration) -> Bool {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func +(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+public func + (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var newDuration = lhs
     newDuration.beats += rhs.beats
     return newDuration
@@ -194,7 +191,7 @@ public func +(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func -(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+public func - (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var newDuration = lhs
     newDuration.beats -= rhs.beats
     return newDuration
@@ -205,7 +202,7 @@ public func -(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
 /// - parameter lhs: One duration
 /// - parameter rhs: Another duration
 ///
-public func %(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+public func % (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var copy = lhs
     copy.beats = lhs.beats.truncatingRemainder(dividingBy: rhs.beats)
     return copy

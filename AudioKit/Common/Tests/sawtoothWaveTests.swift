@@ -3,12 +3,11 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import XCTest
-
 import AudioKit
+import XCTest
 
 class sawtoothWaveTests: AKTestCase {
 
@@ -18,7 +17,7 @@ class sawtoothWaveTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.sawtoothWave()
         }
         AKTestMD5("1876f099ad6aa4f04c8d2b52ced9a87a")

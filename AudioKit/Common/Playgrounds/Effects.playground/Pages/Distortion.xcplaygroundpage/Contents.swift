@@ -1,7 +1,7 @@
 //: ## Distortion
 //: This thing is a beast.
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -29,15 +29,15 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var delaySlider:         AKPropertySlider?
-    var decaySlider:         AKPropertySlider?
-    var delayMixSlider:      AKPropertySlider?
-    var linearTermSlider:    AKPropertySlider?
-    var squaredTermSlider:   AKPropertySlider?
-    var cubicTermSlider:     AKPropertySlider?
+    var delaySlider: AKPropertySlider?
+    var decaySlider: AKPropertySlider?
+    var delayMixSlider: AKPropertySlider?
+    var linearTermSlider: AKPropertySlider?
+    var squaredTermSlider: AKPropertySlider?
+    var cubicTermSlider: AKPropertySlider?
     var polynomialMixSlider: AKPropertySlider?
-    var softClipGainSlider:  AKPropertySlider?
-    var finalMixSlider:      AKPropertySlider?
+    var softClipGainSlider: AKPropertySlider?
+    var finalMixSlider: AKPropertySlider?
 
     override func setup() {
         addTitle("Distortion")
@@ -145,5 +145,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

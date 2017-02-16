@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Analog model of the Korg 35 Lowpass Filter
 ///
@@ -31,7 +29,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Filter cutoff
-    open var cutoffFrequency: Double = 1000.0 {
+    open var cutoffFrequency: Double = 1_000.0 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -83,7 +81,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode,
-        cutoffFrequency: Double = 1000.0,
+        cutoffFrequency: Double = 1_000.0,
         resonance: Double = 1.0,
         saturation: Double = 0.0) {
 
@@ -94,8 +92,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
@@ -103,14 +100,15 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+                guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         cutoffFrequencyParameter = tree["cutoffFrequency"]
-        resonanceParameter       = tree["resonance"]
-        saturationParameter      = tree["saturation"]
+        resonanceParameter = tree["resonance"]
+        saturationParameter = tree["saturation"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.cutoffFrequencyParameter!.address {
