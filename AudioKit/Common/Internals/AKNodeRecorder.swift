@@ -61,11 +61,11 @@
     ///   - file: Audio file to record to
     ///
     public init(node: AKNode? = AudioKit.output,
-                file: AKAudioFile?) throws {
+                file: AKAudioFile? = nil) throws {
 
         // AVAudioSession buffer setup
 
-        guard let akFile = file else {
+        if file == nil {
             // We create a record file in temp directory
             do {
                 self.internalAudioFile = try AKAudioFile()
@@ -73,15 +73,17 @@
                 AKLog("AKNodeRecorder Error: Cannot create an empty audio file")
                 throw error
             }
-            return
-        }
-        do {
-            // We initialize AKAudioFile for writing (and check that we can write to)
-            self.internalAudioFile = try AKAudioFile(forWriting: akFile.url,
-                                                     settings: akFile.processingFormat.settings)
-        } catch let error as NSError {
-            AKLog("AKNodeRecorder Error: cannot write to \(akFile.fileNamePlusExtension)")
-            throw error
+
+        } else {
+
+            do {
+                // We initialize AKAudioFile for writing (and check that we can write to)
+                self.internalAudioFile = try AKAudioFile(forWriting: file!.url,
+                                                         settings: file!.processingFormat.settings)
+            } catch let error as NSError {
+                AKLog("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
+                throw error
+            }
         }
         self.node = node
     }
