@@ -41,6 +41,7 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
 #import "EZOutput.h"
 #import "EZRecorder.h"
 #import "EZAudioPlayer.h"
+#import "EZAudioFileMarker.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Interface Components
