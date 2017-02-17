@@ -30,7 +30,7 @@
 #import "EZAudio.h"
 #import "EZAudioFloatConverter.h"
 #import "EZAudioFloatData.h"
-#import "EZAudioFileMarker.h"
+//#import "EZAudioFileMarker.h"
 
 #include <pthread.h>
 
