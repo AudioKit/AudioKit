@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		524B77BA1CC4B060001D82D1 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524B77B91CC4B060001D82D1 /* AKNotifications.swift */; };
-		B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47ABD1DC54E0F00706A2F /* EZAudioFileMarker.h */; };
+		B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47ABD1DC54E0F00706A2F /* EZAudioFileMarker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1F47AC01DC54E0F00706A2F /* EZAudioFileMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F47ABE1DC54E0F00706A2F /* EZAudioFileMarker.m */; };
 		C40101D81DED741E000C5765 /* AKAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40101D61DED741E000C5765 /* AKAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40101D91DED741E000C5765 /* AKAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40101D71DED741E000C5765 /* AKAudioUnit.mm */; };
@@ -3209,6 +3209,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */,
 				C45382101C3A5CBD00A51738 /* AKWhiteNoiseAudioUnit.h in Headers */,
 				C4E13D3E1C42703C008F0A3C /* AKPhaseLockedVocoderAudioUnit.h in Headers */,
 				C45382011C3A5CBD00A51738 /* AKCostelloReverbDSPKernel.hpp in Headers */,
@@ -3251,7 +3252,6 @@
 				C40C42861C41BF00009D870B /* AKPluckedStringDSPKernel.hpp in Headers */,
 				C48C6AD21D3C1574008EA51B /* ugens.h in Headers */,
 				C40101D81DED741E000C5765 /* AKAudioUnit.h in Headers */,
-				B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */,
 				C45381C01C3A5CBD00A51738 /* AKFormantFilterAudioUnit.h in Headers */,
 				C453821A1C3A5CBD00A51738 /* AKOscillatorDSPKernel.hpp in Headers */,
 				C487B6061DD922D000C56B59 /* AKClarinetDSPKernel.hpp in Headers */,
