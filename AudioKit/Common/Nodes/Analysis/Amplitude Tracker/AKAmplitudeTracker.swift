@@ -88,12 +88,12 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        internalAU!.start()
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        internalAU!.stop()
+        internalAU?.stop()
     }
 
 }

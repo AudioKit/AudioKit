@@ -189,17 +189,17 @@ open class AKMetalBar: AKNode, AKComponent {
     /// Trigger the sound with an optional set of parameters
     ///
     open func trigger() {
-        self.internalAU!.start()
+        internalAU?.start()
         self.internalAU!.trigger()
     }
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        self.internalAU!.start()
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        self.internalAU!.stop()
+        internalAU?.stop()
     }
 }

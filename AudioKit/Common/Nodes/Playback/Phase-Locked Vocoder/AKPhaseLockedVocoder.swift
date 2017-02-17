@@ -208,7 +208,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
                     // success
                     let data = UnsafeMutablePointer<Float>(bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self))
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
-                    internalAU!.start()
+                    internalAU?.start()
                 } else {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
@@ -221,6 +221,6 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        internalAU!.stop()
+        internalAU?.stop()
     }
 }
