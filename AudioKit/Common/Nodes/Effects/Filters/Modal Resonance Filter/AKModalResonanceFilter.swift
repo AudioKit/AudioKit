@@ -113,11 +113,11 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        self.internalAU!.start()
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        self.internalAU!.stop()
+        internalAU?.stop()
     }
 }
