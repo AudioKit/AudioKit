@@ -96,9 +96,9 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.timeParameter!.address {
+                if address == self?.timeParameter?.address {
                     self?.time = Double(value)
-                } else if address == self?.feedbackParameter!.address {
+                } else if address == self?.feedbackParameter?.address {
                     self?.feedback = Double(value)
                 }
             }

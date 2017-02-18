@@ -129,13 +129,13 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.pregainParameter!.address {
+                if address == self?.pregainParameter?.address {
                     self?.pregain = Double(value)
-                } else if address == self?.postgainParameter!.address {
+                } else if address == self?.postgainParameter?.address {
                     self?.postgain = Double(value)
-                } else if address == self?.postiveShapeParameterParameter!.address {
+                } else if address == self?.postiveShapeParameterParameter?.address {
                     self?.postiveShapeParameter = Double(value)
-                } else if address == self?.negativeShapeParameterParameter!.address {
+                } else if address == self?.negativeShapeParameterParameter?.address {
                     self?.negativeShapeParameter = Double(value)
                 }
             }

@@ -78,7 +78,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.limitParameter!.address {
+                if address == self?.limitParameter?.address {
                     self?.limit = Double(value)
                 }
             }
