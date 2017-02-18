@@ -17,7 +17,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var amplitudeParameter: AUParameter?
+    private var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     open var rampTime: Double = AKSettings.rampTime {
@@ -46,8 +46,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter amplitude: Amplitude. (Value between 0-1).
     ///
-    public init(
-        amplitude: Double = 1) {
+    public init(amplitude: Double = 1) {
 
         self.amplitude = amplitude
 
