@@ -43,17 +43,10 @@ standardKernelPassthroughs()
 
     _kernel.setParameter(amplitudeAddress, amplitudeAUParameter.value);
 
-    // A function to provide string representations of parameter values.
-    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
-        AUValue value = valuePtr == nil ? param.value : *valuePtr;
-
-        switch (param.address) {
-            case amplitudeAddress:
-                return [NSString stringWithFormat:@"%.3f", value];
-            default:
-                return @"?";
-        }
-    };
+    // Create the parameter tree.
+    _parameterTree = [AUParameterTree tree:@[
+        amplitudeAUParameter
+    ]];
 
 	parameterTreeBlock(WhiteNoise)
 }
