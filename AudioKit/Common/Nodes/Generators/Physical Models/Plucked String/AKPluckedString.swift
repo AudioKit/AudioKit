@@ -95,9 +95,9 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.frequencyParameter!.address {
+                if address == self?.frequencyParameter?.address {
                     self?.frequency = Double(value)
-                } else if address == self?.amplitudeParameter!.address {
+                } else if address == self?.amplitudeParameter?.address {
                     self?.amplitude = Double(value)
                 }
             }

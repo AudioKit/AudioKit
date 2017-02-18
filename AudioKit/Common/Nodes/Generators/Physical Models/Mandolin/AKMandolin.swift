@@ -93,9 +93,9 @@ open class AKMandolin: AKNode, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.detuneParameter!.address {
+                if address == self?.detuneParameter?.address {
                     self?.detune = Double(value)
-                } else if address == self?.bodySizeParameter!.address {
+                } else if address == self?.bodySizeParameter?.address {
                     self?.bodySize = Double(value)
                 }
             }

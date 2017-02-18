@@ -78,7 +78,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.panParameter!.address {
+                if address == self?.panParameter?.address {
                     self?.pan = Double(value)
                 }
             }

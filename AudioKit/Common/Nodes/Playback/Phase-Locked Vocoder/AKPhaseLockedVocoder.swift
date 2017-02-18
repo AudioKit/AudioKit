@@ -118,11 +118,11 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.positionParameter!.address {
+                if address == self?.positionParameter?.address {
                     self?.position = Double(value)
-                } else if address == self?.amplitudeParameter!.address {
+                } else if address == self?.amplitudeParameter?.address {
                     self?.amplitude = Double(value)
-                } else if address == self?.pitchRatioParameter!.address {
+                } else if address == self?.pitchRatioParameter?.address {
                     self?.pitchRatio = Double(value)
                 }
             }

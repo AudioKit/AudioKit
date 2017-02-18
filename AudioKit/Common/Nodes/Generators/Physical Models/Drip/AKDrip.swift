@@ -160,19 +160,19 @@ open class AKDrip: AKNode, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.intensityParameter!.address {
+                if address == self?.intensityParameter?.address {
                     self?.intensity = Double(value)
-                } else if address == self?.dampingFactorParameter!.address {
+                } else if address == self?.dampingFactorParameter?.address {
                     self?.dampingFactor = Double(value)
-                } else if address == self?.energyReturnParameter!.address {
+                } else if address == self?.energyReturnParameter?.address {
                     self?.energyReturn = Double(value)
-                } else if address == self?.mainResonantFrequencyParameter!.address {
+                } else if address == self?.mainResonantFrequencyParameter?.address {
                     self?.mainResonantFrequency = Double(value)
-                } else if address == self?.firstResonantFrequencyParameter!.address {
+                } else if address == self?.firstResonantFrequencyParameter?.address {
                     self?.firstResonantFrequency = Double(value)
-                } else if address == self?.secondResonantFrequencyParameter!.address {
+                } else if address == self?.secondResonantFrequencyParameter?.address {
                     self?.secondResonantFrequency = Double(value)
-                } else if address == self?.amplitudeParameter!.address {
+                } else if address == self?.amplitudeParameter?.address {
                     self?.amplitude = Double(value)
                 }
             }

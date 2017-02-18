@@ -132,13 +132,13 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.cutoffFrequencyParameter!.address {
+                if address == self?.cutoffFrequencyParameter?.address {
                     self?.cutoffFrequency = Double(value)
-                } else if address == self?.resonanceParameter!.address {
+                } else if address == self?.resonanceParameter?.address {
                     self?.resonance = Double(value)
-                } else if address == self?.distortionParameter!.address {
+                } else if address == self?.distortionParameter?.address {
                     self?.distortion = Double(value)
-                } else if address == self?.resonanceAsymmetryParameter!.address {
+                } else if address == self?.resonanceAsymmetryParameter?.address {
                     self?.resonanceAsymmetry = Double(value)
                 }
             }

@@ -111,11 +111,11 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.wahParameter!.address {
+                if address == self?.wahParameter?.address {
                     self?.wah = Double(value)
-                } else if address == self?.mixParameter!.address {
+                } else if address == self?.mixParameter?.address {
                     self?.mix = Double(value)
-                } else if address == self?.amplitudeParameter!.address {
+                } else if address == self?.amplitudeParameter?.address {
                     self?.amplitude = Double(value)
                 }
             }

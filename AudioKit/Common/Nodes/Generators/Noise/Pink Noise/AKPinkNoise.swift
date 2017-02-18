@@ -67,7 +67,7 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.amplitudeParameter!.address {
+                if address == self?.amplitudeParameter?.address {
                     self?.amplitude = Double(value)
                 }
             }

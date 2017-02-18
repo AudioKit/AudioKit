@@ -79,7 +79,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.cutoffFrequencyParameter!.address {
+                if address == self?.cutoffFrequencyParameter?.address {
                     self?.cutoffFrequency = Double(value)
                 }
             }

@@ -98,9 +98,9 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.xParameter!.address {
+                if address == self?.xParameter?.address {
                     self?.x = Double(value)
-                } else if address == self?.yParameter!.address {
+                } else if address == self?.yParameter?.address {
                     self?.y = Double(value)
                 }
             }

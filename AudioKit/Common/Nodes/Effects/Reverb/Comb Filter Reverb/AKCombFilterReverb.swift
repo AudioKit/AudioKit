@@ -86,7 +86,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.reverbDurationParameter!.address {
+                if address == self?.reverbDurationParameter?.address {
                     self?.reverbDuration = Double(value)
                 }
             }

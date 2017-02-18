@@ -112,11 +112,11 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.centerFrequencyParameter!.address {
+                if address == self?.centerFrequencyParameter?.address {
                     self?.centerFrequency = Double(value)
-                } else if address == self?.gainParameter!.address {
+                } else if address == self?.gainParameter?.address {
                     self?.gain = Double(value)
-                } else if address == self?.qParameter!.address {
+                } else if address == self?.qParameter?.address {
                     self?.q = Double(value)
                 }
             }
