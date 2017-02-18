@@ -102,7 +102,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.frequencyParameter!.address {
+                if address == self?.frequencyParameter?.address {
                     self?.frequency = Double(value)
                 }
             }
@@ -114,7 +114,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.depthParameter!.address {
+                if address == self?.depthParameter?.address {
                     self?.depth = Double(value)
                 }
             }

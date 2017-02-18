@@ -95,9 +95,9 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.bitDepthParameter!.address {
+                if address == self?.bitDepthParameter?.address {
                     self?.bitDepth = Double(value)
-                } else if address == self?.sampleRateParameter!.address {
+                } else if address == self?.sampleRateParameter?.address {
                     self?.sampleRate = Double(value)
                 }
             }

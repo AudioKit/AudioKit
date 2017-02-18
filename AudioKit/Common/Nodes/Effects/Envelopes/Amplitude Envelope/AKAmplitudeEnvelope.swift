@@ -128,13 +128,13 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.attackDurationParameter!.address {
+                if address == self?.attackDurationParameter?.address {
                     self?.attackDuration = Double(value)
-                } else if address == self?.decayDurationParameter!.address {
+                } else if address == self?.decayDurationParameter?.address {
                     self?.decayDuration = Double(value)
-                } else if address == self?.sustainLevelParameter!.address {
+                } else if address == self?.sustainLevelParameter?.address {
                     self?.sustainLevel = Double(value)
-                } else if address == self?.releaseDurationParameter!.address {
+                } else if address == self?.releaseDurationParameter?.address {
                     self?.releaseDuration = Double(value)
                 }
             }
