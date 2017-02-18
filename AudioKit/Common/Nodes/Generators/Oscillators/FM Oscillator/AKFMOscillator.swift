@@ -160,15 +160,15 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.baseFrequencyParameter!.address {
+                if address == self?.baseFrequencyParameter?.address {
                     self?.baseFrequency = Double(value)
-                } else if address == self?.carrierMultiplierParameter!.address {
+                } else if address == self?.carrierMultiplierParameter?.address {
                     self?.carrierMultiplier = Double(value)
-                } else if address == self?.modulatingMultiplierParameter!.address {
+                } else if address == self?.modulatingMultiplierParameter?.address {
                     self?.modulatingMultiplier = Double(value)
-                } else if address == self?.modulationIndexParameter!.address {
+                } else if address == self?.modulationIndexParameter?.address {
                     self?.modulationIndex = Double(value)
-                } else if address == self?.amplitudeParameter!.address {
+                } else if address == self?.amplitudeParameter?.address {
                     self?.amplitude = Double(value)
                 }
             }

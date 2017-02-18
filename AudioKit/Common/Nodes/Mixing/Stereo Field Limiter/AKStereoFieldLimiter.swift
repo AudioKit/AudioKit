@@ -79,7 +79,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.amountParameter!.address {
+                if address == self?.amountParameter?.address {
                     self?.amount = Double(value)
                 }
             }

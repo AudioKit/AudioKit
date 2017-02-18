@@ -65,11 +65,11 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
         self.gain = gain
 
         inputGain = AKMixer(input)
-        inputGain!.volume = 0
+        inputGain?.volume = 0
         mixer = AKMixer(inputGain!)
 
         effectGain = AKMixer(input)
-        effectGain!.volume = 1
+        effectGain?.volume = 1
 
         let effect = _Self.effect
         au = AUWrapper(au: effect)

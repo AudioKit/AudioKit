@@ -100,9 +100,9 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.feedbackParameter!.address {
+                if address == self?.feedbackParameter?.address {
                     self?.feedback = Double(value)
-                } else if address == self?.cutoffFrequencyParameter!.address {
+                } else if address == self?.cutoffFrequencyParameter?.address {
                     self?.cutoffFrequency = Double(value)
                 }
             }

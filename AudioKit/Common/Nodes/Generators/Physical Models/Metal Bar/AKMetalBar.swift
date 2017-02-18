@@ -158,19 +158,19 @@ open class AKMetalBar: AKNode, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.leftBoundaryConditionParameter!.address {
+                if address == self?.leftBoundaryConditionParameter?.address {
                     self?.leftBoundaryCondition = Double(value)
-                } else if address == self?.rightBoundaryConditionParameter!.address {
+                } else if address == self?.rightBoundaryConditionParameter?.address {
                     self?.rightBoundaryCondition = Double(value)
-                } else if address == self?.decayDurationParameter!.address {
+                } else if address == self?.decayDurationParameter?.address {
                     self?.decayDuration = Double(value)
-                } else if address == self?.scanSpeedParameter!.address {
+                } else if address == self?.scanSpeedParameter?.address {
                     self?.scanSpeed = Double(value)
-                } else if address == self?.positionParameter!.address {
+                } else if address == self?.positionParameter?.address {
                     self?.position = Double(value)
-                } else if address == self?.strikeVelocityParameter!.address {
+                } else if address == self?.strikeVelocityParameter?.address {
                     self?.strikeVelocity = Double(value)
-                } else if address == self?.strikeWidthParameter!.address {
+                } else if address == self?.strikeWidthParameter?.address {
                     self?.strikeWidth = Double(value)
                 }
             }

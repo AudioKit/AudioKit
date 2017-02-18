@@ -115,11 +115,11 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.centerFrequencyParameter!.address {
+                if address == self?.centerFrequencyParameter?.address {
                     self?.centerFrequency = Double(value)
-                } else if address == self?.bandwidthParameter!.address {
+                } else if address == self?.bandwidthParameter?.address {
                     self?.bandwidth = Double(value)
-                } else if address == self?.gainParameter!.address {
+                } else if address == self?.gainParameter?.address {
                     self?.gain = Double(value)
                 }
             }

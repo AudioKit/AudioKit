@@ -111,11 +111,11 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.cutoffFrequencyParameter!.address {
+                if address == self?.cutoffFrequencyParameter?.address {
                     self?.cutoffFrequency = Double(value)
-                } else if address == self?.resonanceParameter!.address {
+                } else if address == self?.resonanceParameter?.address {
                     self?.resonance = Double(value)
-                } else if address == self?.saturationParameter!.address {
+                } else if address == self?.saturationParameter?.address {
                     self?.saturation = Double(value)
                 }
             }

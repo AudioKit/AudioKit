@@ -103,9 +103,9 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.fundamentalFrequencyParameter!.address {
+                if address == self?.fundamentalFrequencyParameter?.address {
                     self?.fundamentalFrequency = Double(value)
-                } else if address == self?.feedbackParameter!.address {
+                } else if address == self?.feedbackParameter?.address {
                     self?.feedback = Double(value)
                 }
             }

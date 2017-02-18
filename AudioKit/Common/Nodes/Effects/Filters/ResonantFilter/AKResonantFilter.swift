@@ -95,9 +95,9 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.frequencyParameter!.address {
+                if address == self?.frequencyParameter?.address {
                     self?.frequency = Double(value)
-                } else if address == self?.bandwidthParameter!.address {
+                } else if address == self?.bandwidthParameter?.address {
                     self?.bandwidth = Double(value)
                 }
             }

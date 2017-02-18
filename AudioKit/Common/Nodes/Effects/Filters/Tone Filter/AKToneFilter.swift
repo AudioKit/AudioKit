@@ -77,7 +77,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.halfPowerPointParameter!.address {
+                if address == self?.halfPowerPointParameter?.address {
                     self?.halfPowerPoint = Double(value)
                 }
             }

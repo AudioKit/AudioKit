@@ -112,11 +112,11 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.shiftParameter!.address {
+                if address == self?.shiftParameter?.address {
                     self?.shift = Double(value)
-                } else if address == self?.windowSizeParameter!.address {
+                } else if address == self?.windowSizeParameter?.address {
                     self?.windowSize = Double(value)
-                } else if address == self?.crossfadeParameter!.address {
+                } else if address == self?.crossfadeParameter?.address {
                     self?.crossfade = Double(value)
                 }
             }
