@@ -70,7 +70,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { frequency in
             oscillator.baseFrequency = frequency
         }
-        addSubview(frequencySlider!)
+        addSubview(frequencySlider)
 
         carrierMultiplierSlider = AKPropertySlider(
             property: "Carrier Multiplier",
@@ -80,7 +80,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         }
-        addSubview(carrierMultiplierSlider!)
+        addSubview(carrierMultiplierSlider)
 
         modulatingMultiplierSlider = AKPropertySlider(
             property: "Modulating Multiplier",
@@ -90,7 +90,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         }
-        addSubview(modulatingMultiplierSlider!)
+        addSubview(modulatingMultiplierSlider)
 
         modulationIndexSlider = AKPropertySlider(
             property: "Modulation Index",
@@ -100,7 +100,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { index in
             oscillator.modulationIndex = index
         }
-        addSubview(modulationIndexSlider!)
+        addSubview(modulationIndexSlider)
 
         amplitudeSlider = AKPropertySlider(
             property: "Amplitude",
@@ -110,7 +110,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { amplitude in
             oscillator.amplitude = amplitude
         }
-        addSubview(amplitudeSlider!)
+        addSubview(amplitudeSlider)
 
         rampTimeSlider = AKPropertySlider(
             property: "Ramp Time",
@@ -120,7 +120,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { time in
             oscillator.rampTime = time
         }
-        addSubview(rampTimeSlider!)
+        addSubview(rampTimeSlider)
     }
 }
 

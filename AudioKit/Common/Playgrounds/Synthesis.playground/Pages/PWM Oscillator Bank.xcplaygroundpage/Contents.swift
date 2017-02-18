@@ -61,7 +61,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                   firstOctave: 3, octaveCount: 3)
         keyboard!.polyphonicMode = false
         keyboard!.delegate = self
-        addSubview(keyboard!)
+        addSubview(keyboard)
 
         addSubview(AKButton(title: "Go Polyphonic") {
             self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode

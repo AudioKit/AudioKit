@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.delay = sliderValue
         }
-        addSubview(delaySlider!)
+        addSubview(delaySlider)
 
         decaySlider = AKPropertySlider(
             property: "Decay Rate",
@@ -65,7 +65,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.decay = sliderValue
         }
-        addSubview(decaySlider!)
+        addSubview(decaySlider)
 
         delayMixSlider = AKPropertySlider(
             property: "Delay Mix",
@@ -74,7 +74,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.delayMix = sliderValue
         }
-        addSubview(delayMixSlider!)
+        addSubview(delayMixSlider)
 
         linearTermSlider = AKPropertySlider(
             property: "Linear Term",
@@ -83,7 +83,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.linearTerm = sliderValue
         }
-        addSubview(linearTermSlider!)
+        addSubview(linearTermSlider)
 
         squaredTermSlider = AKPropertySlider(
             property: "Squared Term",
@@ -92,7 +92,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.squaredTerm = sliderValue
         }
-        addSubview(squaredTermSlider!)
+        addSubview(squaredTermSlider)
 
         cubicTermSlider = AKPropertySlider(
             property: "Cubic Term",
@@ -101,7 +101,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.cubicTerm = sliderValue
         }
-        addSubview(cubicTermSlider!)
+        addSubview(cubicTermSlider)
 
         polynomialMixSlider = AKPropertySlider(
             property: "Polynomial Mix",
@@ -110,7 +110,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.polynomialMix = sliderValue
         }
-        addSubview(polynomialMixSlider!)
+        addSubview(polynomialMixSlider)
 
         softClipGainSlider = AKPropertySlider(
             property: "Soft Clip Gain",
@@ -120,7 +120,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.softClipGain = sliderValue
         }
-        addSubview(softClipGainSlider!)
+        addSubview(softClipGainSlider)
 
         finalMixSlider = AKPropertySlider(
             property: "Final Mix",
@@ -129,7 +129,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.finalMix = sliderValue
         }
-        addSubview(finalMixSlider!)
+        addSubview(finalMixSlider)
     }
 
     func updateUI() {

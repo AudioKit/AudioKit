@@ -37,7 +37,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { detune in
             mandolin.detune = detune
         }
-        addSubview(detuneSlider!)
+        addSubview(detuneSlider)
 
         bodySizeSlider = AKPropertySlider(
             property: "Body Size",
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
-        addSubview(bodySizeSlider!)
+        addSubview(bodySizeSlider)
 
         addSubview(AKPropertySlider(
             property: "Pluck Position",
