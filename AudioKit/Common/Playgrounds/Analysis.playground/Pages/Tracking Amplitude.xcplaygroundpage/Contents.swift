@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedAmplitudeSlider!)
+        addSubview(trackedAmplitudeSlider)
 
         addSubview(AKRollingOutputPlot.createView())
     }

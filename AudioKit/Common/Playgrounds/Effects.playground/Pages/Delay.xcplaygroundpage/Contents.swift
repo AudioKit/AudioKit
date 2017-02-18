@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             delay.time = sliderValue
         }
-        addSubview(timeSlider!)
+        addSubview(timeSlider)
 
         feedbackSlider = AKPropertySlider(
             property: "Feedback",
@@ -49,7 +49,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             delay.feedback = sliderValue
         }
-        addSubview(feedbackSlider!)
+        addSubview(feedbackSlider)
 
         lowPassCutoffFrequencySlider = AKPropertySlider(
             property: "Low Pass Cutoff",
@@ -58,7 +58,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             delay.lowPassCutoff = sliderValue
         }
-        addSubview(lowPassCutoffFrequencySlider!)
+        addSubview(lowPassCutoffFrequencySlider)
 
         dryWetMixSlider = AKPropertySlider(
             property: "Mix",
@@ -67,7 +67,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             delay.dryWetMix = sliderValue
         }
-        addSubview(dryWetMixSlider!)
+        addSubview(dryWetMixSlider)
 
         let presets = ["Short", "Dense Long", "Electric Circuits"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in

@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             phaseLockedVocoder.position = sliderValue
         }
-        addSubview(playingPositionSlider!)
+        addSubview(playingPositionSlider)
     }
 }
 

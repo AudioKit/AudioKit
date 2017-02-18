@@ -71,10 +71,10 @@ class PlaygroundView: AKPlaygroundView {
             self.toggleTrack(trackNumber: 4)
             return ""
         }
-        addSubview(button1!)
-        addSubview(button2!)
-        addSubview(button3!)
-        addSubview(button4!)
+        addSubview(button1)
+        addSubview(button2)
+        addSubview(button3)
+        addSubview(button4)
     }
 
     func toggleTrack(trackNumber: Int) {

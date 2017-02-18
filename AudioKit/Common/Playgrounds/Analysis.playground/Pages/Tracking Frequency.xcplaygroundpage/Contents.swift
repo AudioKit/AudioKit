@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedAmplitudeSlider!)
+        addSubview(trackedAmplitudeSlider)
 
         trackedFrequencySlider = AKPropertySlider(
             property: "Tracked Frequency",
@@ -64,7 +64,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedFrequencySlider!)
+        addSubview(trackedFrequencySlider)
 
         addSubview(AKRollingOutputPlot.createView())
     }

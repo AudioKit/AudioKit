@@ -66,7 +66,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             player.startTime = sliderValue
         }
-        addSubview(inPositionSlider!)
+        addSubview(inPositionSlider)
 
         outPositionSlider = AKPropertySlider(
             property: "Out Position",
@@ -75,7 +75,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             player.endTime = sliderValue
         }
-        addSubview(outPositionSlider!)
+        addSubview(outPositionSlider)
 
         playingPositionSlider = AKPropertySlider(
             property: "Position",
@@ -85,7 +85,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { _ in
             // Can't do player.playhead = sliderValue
         }
-        addSubview(playingPositionSlider!)
+        addSubview(playingPositionSlider)
     }
 }
 

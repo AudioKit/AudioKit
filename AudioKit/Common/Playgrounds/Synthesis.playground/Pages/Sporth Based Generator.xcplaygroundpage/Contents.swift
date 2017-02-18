@@ -67,12 +67,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                                          options: NSRegularExpression.Options.dotMatchesLineSeparators)
 
                     let value = regex.stringByReplacingMatches(in: line,
-                                                               options: .MatchingOptions.reportCompletion,
+                                                               options: NSRegularExpression.MatchingOptions.reportCompletion,
                                                                range: NSRange(location:0,
                                                                               length: line.characters.count),
                                                                withTemplate: "$1")
                     let title = regex.stringByReplacingMatches(in: line,
-                                                               options: .MatchingOptions.reportCompletion,
+                                                               options: NSRegularExpression.MatchingOptions.reportCompletion,
                                                                range: NSRange(location:0,
                                                                               length: line.characters.count ),
                                                                withTemplate: "$2")
@@ -94,7 +94,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 generator.parameters[0] = sliderValue
         }
         p0Slider?.isHidden = true
-        addSubview(p0Slider!)
+        addSubview(p0Slider)
         p1Slider = AKPropertySlider(
             property: "Parameter 1",
             value: generator.parameters[1],
@@ -102,7 +102,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             generator.parameters[1] = sliderValue
         }
         p1Slider?.isHidden = true
-        addSubview(p1Slider!)
+        addSubview(p1Slider)
         p2Slider = AKPropertySlider(
             property: "Parameter 2",
             value: generator.parameters[2],
@@ -110,7 +110,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             generator.parameters[2] = sliderValue
         }
         p2Slider?.isHidden = true
-        addSubview(p2Slider!)
+        addSubview(p2Slider)
         p3Slider = AKPropertySlider(
             property: "Parameter 3",
         value: generator.parameters[3],
@@ -118,13 +118,13 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             generator.parameters[3] = sliderValue
         }
         p3Slider?.isHidden = true
-        addSubview(p3Slider!)
+        addSubview(p3Slider)
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard!.polyphonicMode = false
         keyboard!.delegate = self
         keyboard!.isHidden = true
-        addSubview(keyboard!)
+        addSubview(keyboard)
     }
 
     func noteOn(note: MIDINoteNumber) {

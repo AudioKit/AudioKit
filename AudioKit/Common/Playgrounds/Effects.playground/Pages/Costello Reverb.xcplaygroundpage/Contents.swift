@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             reverb.cutoffFrequency = sliderValue
         }
-        addSubview(cutoffFrequencySlider!)
+        addSubview(cutoffFrequencySlider)
 
         feedbackSlider = AKPropertySlider(
             property: "Feedback",
@@ -49,7 +49,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             reverb.feedback = sliderValue
         }
-        addSubview(feedbackSlider!)
+        addSubview(feedbackSlider)
 
         let presets = ["Short Tail", "Low Ringing Tail"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
