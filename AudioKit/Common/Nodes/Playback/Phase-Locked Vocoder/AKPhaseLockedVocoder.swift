@@ -71,7 +71,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
-        return internalAU!.isPlaying()
+        return internalAU?.isPlaying() ?? false
     }
 
     fileprivate var avAudiofile: AVAudioFile

@@ -22,7 +22,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
-        return internalAU!.isPlaying()
+        return internalAU?.isPlaying() ?? false
     }
 
     // MARK: - Initialization
