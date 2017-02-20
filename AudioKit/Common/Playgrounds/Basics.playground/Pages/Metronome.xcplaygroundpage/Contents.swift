@@ -17,9 +17,9 @@ let generator = AKOperationGenerator { parameters in
 
     let metronome = AKOperation.metronome(frequency: parameters[0] / 60)
 
-    let count = metronome.count(maximum: 4, looping: true)
+    let count = metronome.count(maximum: parameters[1], looping: true)
 
-    let beep = AKOperation.sineWave(frequency: 480 * (2 - (count / 4 + 0.49).round()))
+    let beep = AKOperation.sineWave(frequency: 480 * (2 - (count / parameters[1] + 0.49).round()))
 
     let beeps = beep.triggeredWithEnvelope(
         trigger: metronome,
@@ -27,7 +27,7 @@ let generator = AKOperationGenerator { parameters in
     return beeps
 }
 
-generator.parameters = [currentFrequency]
+generator.parameters = [currentFrequency, 4]
 
 AudioKit.output = generator
 AudioKit.start()
@@ -37,6 +37,26 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("Metronome")
+        
+        addSubview(AKButton(title: "Stop") {
+            generator.stop()
+            return ""
+        })
+        
+        addSubview(AKButton(title: "Start") {
+            generator.restart()
+            return ""
+        })
+        
+        addSubview(AKPropertySlider(
+            property: "Sudivision",
+            format: "%0.0f",
+            value: 4, minimum: 1, maximum: 10,
+            color: AKColor.red
+        ) { sudivision in
+            generator.parameters[1] = round(sudivision)
+        })
+
 
         addSubview(AKPropertySlider(
             property: "Frequency",
