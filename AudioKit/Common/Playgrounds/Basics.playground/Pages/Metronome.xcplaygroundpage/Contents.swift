@@ -37,17 +37,17 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("Metronome")
-        
+
         addSubview(AKButton(title: "Stop") {
             generator.stop()
             return ""
         })
-        
+
         addSubview(AKButton(title: "Start") {
             generator.restart()
             return ""
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Sudivision",
             format: "%0.0f",
@@ -56,7 +56,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sudivision in
             generator.parameters[1] = round(sudivision)
         })
-
 
         addSubview(AKPropertySlider(
             property: "Frequency",
