@@ -23,9 +23,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Sporth language snippet
     open var sporth: String = "" {
         didSet {
-            stop()
-            internalAU?.setSporth(sporth)
-            start()
+            restart()
         }
     }
 
@@ -88,6 +86,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// - parameter sporth: String of valid Sporth code
     ///
     public init(sporth: String) {
+        self.sporth = sporth
 
         _Self.register()
 
@@ -114,5 +113,12 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         internalAU?.stop()
+    }
+
+    /// Restart from scratch
+    open func restart() {
+        stop()
+        internalAU?.setSporth(sporth)
+        start()
     }
 }
