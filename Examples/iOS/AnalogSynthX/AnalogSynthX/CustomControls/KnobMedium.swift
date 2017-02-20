@@ -17,9 +17,11 @@ class KnobMedium: Knob {
 
     var delegate: KnobMediumDelegate?
 
+    let baseImageName = "knob140_base"
+    let indicatorImageName = "knob140_indicator"
     //// Image Declarations
-    var knob140Base = UIImage(named: "knob140_base")
-    var knob140Indicator = UIImage(named: "knob140_indicator")
+    var knob140Base = UIImage(named: baseImageName)
+    var knob140Indicator = UIImage(named: indicatorImageName)
 
     override func draw(_ rect: CGRect) {
         drawKnobMedium(knobValue: knobValue)
@@ -71,8 +73,8 @@ class KnobMedium: Knob {
         super.prepareForInterfaceBuilder()
 
         let bundle = Bundle(for: type(of: self))
-        knob140Base = UIImage(named: "knob140_base", in: bundle, compatibleWith: self.traitCollection)!
-        knob140Indicator = UIImage(named: "knob140_indicator", in: bundle, compatibleWith: self.traitCollection)!
+        knob140Base = UIImage(named: baseImageName, in: bundle, compatibleWith: self.traitCollection)!
+        knob140Indicator = UIImage(named: indicatorImageName, in: bundle, compatibleWith: self.traitCollection)!
     }
 
 }

@@ -510,19 +510,22 @@ class SynthViewController: UIViewController {
 
     func updateKeyToUpPosition(_ key: UIButton) {
         let index = key.tag - 200
+
+        let blackKeyImageName = "blackkey"
+        let whiteKeyImageName = "whitekey"
         if blackKeys.contains(index) {
-            key.setImage(UIImage(named: "blackkey"), for: UIControlState())
+            key.setImage(UIImage(named: blackKeyImageName), for: UIControlState())
         } else {
-            key.setImage(UIImage(named: "whitekey"), for: UIControlState())
+            key.setImage(UIImage(named: whiteKeyImageName), for: UIControlState())
         }
     }
 
     func updateKeyToDownPosition(_ key: UIButton) {
         let index = key.tag - 200
         if blackKeys.contains(index) {
-            key.setImage(UIImage(named: "blackkey_selected"), for: UIControlState())
+            key.setImage(UIImage(named: "\(blackKeyImageName)_selected"), for: UIControlState())
         } else {
-            key.setImage(UIImage(named: "whitekey_selected"), for: UIControlState())
+            key.setImage(UIImage(named: "\(whiteKeyImageName)_selected"), for: UIControlState())
         }
     }
 
