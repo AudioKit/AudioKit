@@ -39,10 +39,13 @@ class VerticalSlider: UIControl {
     var isSliding = false
     var sliderValue: CGFloat = 0.5
     var delegate: VerticalSliderDelegate?
+    
+    let sliderTopImage = "slider_top.png"
+    let sliderTrackImage = "slider_track.png"
 
     //// Image Declarations
-    var sliderTop = UIImage(named: "slider_top.png")
-    var sliderTrack = UIImage(named: "slider_track.png")
+    var sliderTop = UIImage(named: sliderTopImage)
+    var sliderTrack = UIImage(named: sliderTrackImage)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,8 +79,8 @@ extension VerticalSlider {
         barLength = bounds.height - (barMargin * 2)
 
         let bundle = Bundle(for: type(of: self))
-        sliderTop = UIImage(named: "slider_top", in: bundle, compatibleWith: self.traitCollection)!
-        sliderTrack = UIImage(named: "slider_track", in: bundle, compatibleWith: self.traitCollection)!
+        sliderTop = UIImage(named: sliderTopImage, in: bundle, compatibleWith: self.traitCollection)!
+        sliderTrack = UIImage(named: sliderTrackImage, in: bundle, compatibleWith: self.traitCollection)!
     }
 
     override func draw(_ rect: CGRect) {

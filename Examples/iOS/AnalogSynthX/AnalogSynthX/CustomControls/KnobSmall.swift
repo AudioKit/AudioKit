@@ -17,9 +17,12 @@ class KnobSmall: Knob {
 
     var delegate: KnobSmallDelegate?
 
+    let baseImageName = "knob120_base"
+    let indicatorImageName = "knob120_indicator"
+    
     //// Image Declarations
-    var knob120Base = UIImage(named: "knob120_base")
-    var knob120Indicator = UIImage(named: "knob120_indicator")
+    var knob120Base = UIImage(named: baseImageName)
+    var knob120Indicator = UIImage(named: indicatorImageName)
 
     override func draw(_ rect: CGRect) {
         drawKnobSmall(knobValue: knobValue)
@@ -72,8 +75,8 @@ class KnobSmall: Knob {
         super.prepareForInterfaceBuilder()
 
         let bundle = Bundle(for: type(of: self))
-        knob120Base = UIImage(named: "knob120_base", in: bundle, compatibleWith: self.traitCollection)!
-        knob120Indicator = UIImage(named: "knob120_indicator", in: bundle, compatibleWith: self.traitCollection)!
+        knob120Base = UIImage(named: baseImageName, in: bundle, compatibleWith: self.traitCollection)!
+        knob120Indicator = UIImage(named: indicatorImageName, in: bundle, compatibleWith: self.traitCollection)!
     }
 
 }

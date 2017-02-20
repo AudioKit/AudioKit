@@ -15,11 +15,13 @@ protocol KnobLargeDelegate {
 @IBDesignable
 class KnobLarge: Knob {
 
+    let baseImageName = "knob212_base"
+    let indicatorImageName = "knob212_indicator"
     var delegate: KnobLargeDelegate?
 
     // Image Declarations
-    var knob212Base = UIImage(named: "knob212_base")
-    var knob212Indicator = UIImage(named: "knob212_indicator")
+    var knob212Base = UIImage(named: baseImageName)
+    var knob212Indicator = UIImage(named: indicatorImageName)
 
     override func draw(_ rect: CGRect) {
         drawKnobLarge(knobValue: knobValue)
@@ -69,8 +71,8 @@ class KnobLarge: Knob {
         super.prepareForInterfaceBuilder()
 
         let bundle = Bundle(for: type(of: self))
-        knob212Base = UIImage(named: "knob212_base", in: bundle, compatibleWith: self.traitCollection)!
-        knob212Indicator = UIImage(named: "knob212_indicator", in: bundle, compatibleWith: self.traitCollection)!
+        knob212Base = UIImage(named: baseImageName, in: bundle, compatibleWith: self.traitCollection)!
+        knob212Indicator = UIImage(named: indicatorImageName, in: bundle, compatibleWith: self.traitCollection)!
     }
 
 }
