@@ -39,10 +39,14 @@ class Conductor {
         filter?.cutoffFrequency = 20_000
         AudioKit.output = filter
 
-        try! arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
-        try! padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
-        try! bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
-        try! drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
+        do {
+            try arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
+            try padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
+            try bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
+            try drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
+        } catch {
+            print("A file was not found.")
+        }
         AudioKit.start()
         sequence = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
         sequence?.enableLooping()
@@ -106,13 +110,17 @@ class Conductor {
             return
         }
 
-        switch synthesizer {
-        case Synthesizer.Arpeggio:
-            try! arpeggioSynthesizer.loadEXS24(path)
-        case Synthesizer.Pad:
-            try! padSynthesizer.loadEXS24(path)
-        case Synthesizer.Bass:
-            try! bassSynthesizer.loadEXS24(path)
+        do {
+            switch synthesizer {
+            case Synthesizer.Arpeggio:
+                try arpeggioSynthesizer.loadEXS24(path)
+            case Synthesizer.Pad:
+                try padSynthesizer.loadEXS24(path)
+            case Synthesizer.Bass:
+                try bassSynthesizer.loadEXS24(path)
+            }
+        } catch {
+            print("Could not load EXS24")
         }
     }
 

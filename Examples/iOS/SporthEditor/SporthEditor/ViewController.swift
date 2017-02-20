@@ -136,9 +136,14 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
                 keyboard.isHidden = false
             }
 
+            var regex = NSRegularExpression()
             var pattern = "# default ([.0-9]+)"
-            var regex = try! NSRegularExpression(pattern: pattern,
-                                                 options: .dotMatchesLineSeparators)
+            do {
+                regex = try NSRegularExpression(pattern: pattern,
+                                                options: .dotMatchesLineSeparators)
+            } catch {
+                print("Regular expression failed")
+            }
 
             let value = regex.stringByReplacingMatches(in: line,
                                                        options: .reportCompletion,
@@ -147,9 +152,12 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
                                                        withTemplate: "$1")
 
             pattern = "##: - Control ([1-4]): ([^\n]+)"
-            regex = try! NSRegularExpression(pattern: pattern,
-                                             options: .dotMatchesLineSeparators)
-
+            do {
+                regex = try NSRegularExpression(pattern: pattern,
+                                                options: .dotMatchesLineSeparators)
+            } catch {
+                print("Regular expression failed")
+            }
             let currentControlText = regex.stringByReplacingMatches(in: line,
                                                             options: .reportCompletion,
                                                             range: NSRange(location: 0,
