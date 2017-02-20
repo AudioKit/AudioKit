@@ -65,7 +65,7 @@
 
         // AVAudioSession buffer setup
 
-        if file == nil {
+        guard let existingFile = file else {
             // We create a record file in temp directory
             do {
                 internalAudioFile = try AKAudioFile()
@@ -73,18 +73,19 @@
                 AKLog("AKNodeRecorder Error: Cannot create an empty audio file")
                 throw error
             }
-
-        } else {
-
-            do {
-                // We initialize AKAudioFile for writing (and check that we can write to)
-                internalAudioFile = try AKAudioFile(forWriting: file!.url,
-                                                    settings: file!.processingFormat.settings)
-            } catch let error as NSError {
-                AKLog("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
-                throw error
-            }
+            self.node = node
+            return
         }
+
+        do {
+            // We initialize AKAudioFile for writing (and check that we can write to)
+            internalAudioFile = try AKAudioFile(forWriting: existingFile.url,
+                                                settings: existingFile.processingFormat.settings)
+        } catch let error as NSError {
+            AKLog("AKNodeRecorder Error: cannot write to \(existingFile.fileNamePlusExtension)")
+            throw error
+        }
+
         self.node = node
     }
 
@@ -187,7 +188,7 @@
         do {
             try fileManager.removeItem(atPath: audioFile!.url.absoluteString)
         } catch let error as NSError {
-            AKLog("AKNodeRecorder Error: cannot delete Recording file:  \(audioFile!.fileNamePlusExtension)")
+            AKLog("AKNodeRecorder Error: cannot delete Recording file: \(audioFile?.fileNamePlusExtension)")
             throw error
         }
 
