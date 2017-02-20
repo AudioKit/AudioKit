@@ -277,14 +277,10 @@ open class AKAudioFile: AVAudioFile {
                 let cmin = floats.min()
 
                 // positive max
-                if cmax != nil {
-                    maxLev = max(cmax!, maxLev)
-                }
+                maxLev = max(cmax ?? maxLev, maxLev)
 
                 // negative max
-                if cmin != nil {
-                    maxLev = max(abs(cmin!), maxLev)
-                }
+                maxLev = -min(abs(cmin ?? -maxLev), -maxLev)
             }
         }
 
