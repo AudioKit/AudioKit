@@ -192,7 +192,7 @@ open class AKDrip: AKNode, AKComponent {
     ///
     open func trigger() {
         internalAU?.start()
-        self.internalAU!.trigger()
+        internalAU?.trigger()
     }
 
     /// Function to start, play, or activate the node, all do the same thing

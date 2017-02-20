@@ -7,11 +7,11 @@ let mixloop = try AKAudioFile(readFileName: "mixloop.wav")
 
 //: Export will be done asynchronously. So you can play some music while exporting
 
-let player = mixloop.player
+let player = mixloop.player!
 AudioKit.output = player
 AudioKit.start()
-player!.looping = false
-player!.play()
+player.looping = false
+player.play()
 
 //: You need a callback that will be triggered as soon as Export has been completed.
 //: the callback must be set as an AsyncProcessCallback with a signature set to be:
@@ -30,7 +30,7 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
         // Print the exported file's duration
         print("Exported File Duration: \(converted.duration) seconds")
         // Replace the file being played
-        try? player!.replace(file: converted)
+        try? player.replace(file: converted)
     } else {
         // An error occured. So, print the Error
         print("Error: \(error!.localizedDescription)")

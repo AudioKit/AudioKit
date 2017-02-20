@@ -23,9 +23,9 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Sporth language snippet
     open var sporth: String = "" {
         didSet {
-            self.stop()
-            self.internalAU?.setSporth(sporth)
-            self.start()
+            stop()
+            internalAU?.setSporth(sporth)
+            start()
         }
     }
 
@@ -103,7 +103,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Trigger the sound with current parameters
     ///
     open func trigger(_ triggerNumber: Int = 0) {
-        self.internalAU!.trigger(Int32(triggerNumber))
+        internalAU?.trigger(Int32(triggerNumber))
     }
 
     /// Function to start, play, or activate the node, all do the same thing

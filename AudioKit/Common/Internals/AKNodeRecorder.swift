@@ -68,7 +68,7 @@
         if file == nil {
             // We create a record file in temp directory
             do {
-                self.internalAudioFile = try AKAudioFile()
+                internalAudioFile = try AKAudioFile()
             } catch let error as NSError {
                 AKLog("AKNodeRecorder Error: Cannot create an empty audio file")
                 throw error
@@ -78,8 +78,8 @@
 
             do {
                 // We initialize AKAudioFile for writing (and check that we can write to)
-                self.internalAudioFile = try AKAudioFile(forWriting: file!.url,
-                                                         settings: file!.processingFormat.settings)
+                internalAudioFile = try AKAudioFile(forWriting: file!.url,
+                                                    settings: file!.processingFormat.settings)
             } catch let error as NSError {
                 AKLog("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
                 throw error

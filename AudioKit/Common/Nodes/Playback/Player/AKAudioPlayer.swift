@@ -226,7 +226,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             AKLog("Error: \(error)")
             throw error
         }
-        self.internalAudioFile = readFile
+        internalAudioFile = readFile
         self.completionHandler = completionHandler
         self.looping = looping
 
@@ -234,10 +234,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AudioKit.engine.attach(internalPlayer)
         let mixer = AVAudioMixerNode()
         AudioKit.engine.attach(mixer)
-        let format = AVAudioFormat(standardFormatWithSampleRate: self.internalAudioFile.sampleRate,
-                                   channels: self.internalAudioFile.channelCount)
+        let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate,
+                                   channels: internalAudioFile.channelCount)
         AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
-        self.avAudioNode = mixer
+        avAudioNode = mixer
         internalPlayer.volume = 1.0
 
         initialize()
