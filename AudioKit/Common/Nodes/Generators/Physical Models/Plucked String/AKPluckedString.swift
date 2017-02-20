@@ -114,7 +114,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         self.frequency = frequency
         self.amplitude = amplitude
         internalAU?.start()
-        self.internalAU!.triggerFrequency(Float(frequency), amplitude: Float(amplitude))
+        internalAU?.triggerFrequency(Float(frequency), amplitude: Float(amplitude))
     }
 
     /// Function to start, play, or activate the node, all do the same thing
