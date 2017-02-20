@@ -14,6 +14,9 @@ protocol VerticalSliderDelegate {
     func sliderValueDidChange(_ value: Double, tag: Int)
 }
 
+let sliderTopImage = "slider_top.png"
+let sliderTrackImage = "slider_track.png"
+
 @IBDesignable
 class VerticalSlider: UIControl {
 
@@ -39,9 +42,6 @@ class VerticalSlider: UIControl {
     var isSliding = false
     var sliderValue: CGFloat = 0.5
     var delegate: VerticalSliderDelegate?
-    
-    let sliderTopImage = "slider_top.png"
-    let sliderTrackImage = "slider_track.png"
 
     //// Image Declarations
     var sliderTop = UIImage(named: sliderTopImage)

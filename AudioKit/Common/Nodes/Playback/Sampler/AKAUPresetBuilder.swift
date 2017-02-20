@@ -123,7 +123,7 @@ open class AKAUPresetBuilder {
                 }
                 let idXML = AKAUPresetBuilder.generateFileRef(wavRef: sampleNum, samplePath: samplePath)
                 sampleIDXML.append(idXML)
-                
+
                 sampleIteration += 1
             }
 

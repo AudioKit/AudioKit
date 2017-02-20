@@ -12,11 +12,12 @@ protocol KnobLargeDelegate {
     func updateKnobValue(_ value: Double, tag: Int)
 }
 
+let baseImageName = "knob212_base"
+let indicatorImageName = "knob212_indicator"
+
 @IBDesignable
 class KnobLarge: Knob {
 
-    let baseImageName = "knob212_base"
-    let indicatorImageName = "knob212_indicator"
     var delegate: KnobLargeDelegate?
 
     // Image Declarations
