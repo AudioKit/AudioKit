@@ -38,11 +38,20 @@ int sp_mincer_destroy(sp_mincer **p)
     return SP_OK;
 }
 
-int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft)
+static int find_power(int n) {
+    int pow = -1;
+    while(n > 0) {
+        n >>= 1;
+        pow++;
+    }
+    return pow;
+}
+
+int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft, int winsize)
 {
     p->ft = ft;
     p->idecim = 4;
-    p->iN = 2048;
+    p->iN = winsize;
     p->lock = 1;
     p->pitch = 1;
     p->amp = 1;
@@ -50,9 +59,14 @@ int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft)
     int N =  p->iN, ui;
     unsigned int size;
     int decim = p->idecim;
+    int pow;
 
+    /* find power to use for fft */
+    
+    pow = find_power(winsize);
     /* 2^11 = 2048, the default fftsize, will probably not change */
-    sp_fft_init(&p->fft, 11);
+    sp_fft_init(&p->fft, pow);
+
 
     if (decim == 0) decim = 4;
 

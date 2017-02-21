@@ -13,13 +13,13 @@ int sporth_reson(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "reson: Creating\n");
+            plumber_print(pd, "reson: Creating\n");
 #endif
 
             sp_reson_create(&reson);
             plumber_add_ugen(pd, SPORTH_RESON, reson);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for reson\n");
+                plumber_print(pd,"Not enough arguments for reson\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_reson(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "reson: Initialising\n");
+            plumber_print(pd, "reson: Initialising\n");
 #endif
 
             bw = sporth_stack_pop_float(stack);
@@ -56,7 +56,7 @@ int sporth_reson(sporth_stack *stack, void *ud)
             sp_reson_destroy(&reson);
             break;
         default:
-            fprintf(stderr, "reson: Unknown mode!\n");
+            plumber_print(pd, "reson: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

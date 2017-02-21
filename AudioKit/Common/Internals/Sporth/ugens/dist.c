@@ -15,13 +15,13 @@ int sporth_dist(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "dist: Creating\n");
+            plumber_print(pd, "dist: Creating\n");
 #endif
 
             sp_dist_create(&dist);
             plumber_add_ugen(pd, SPORTH_DIST, dist);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for dist\n");
+                plumber_print(pd,"Not enough arguments for dist\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -35,7 +35,7 @@ int sporth_dist(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "dist: Initialising\n");
+            plumber_print(pd, "dist: Initialising\n");
 #endif
             shape2 = sporth_stack_pop_float(stack);
             shape1 = sporth_stack_pop_float(stack);
@@ -65,7 +65,7 @@ int sporth_dist(sporth_stack *stack, void *ud)
             sp_dist_destroy(&dist);
             break;
         default:
-            fprintf(stderr, "dist: Unknown mode!\n");
+            plumber_print(pd, "dist: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

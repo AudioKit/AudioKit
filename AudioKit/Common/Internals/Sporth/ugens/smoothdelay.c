@@ -15,13 +15,13 @@ int sporth_smoothdelay(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "smoothdelay: Creating\n");
+            plumber_print(pd, "smoothdelay: Creating\n");
 #endif
 
             sp_smoothdelay_create(&smoothdelay);
             plumber_add_ugen(pd, SPORTH_SMOOTHDELAY, smoothdelay);
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for smoothdelay\n");
+                plumber_print(pd,"Not enough arguments for smoothdelay\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -35,7 +35,7 @@ int sporth_smoothdelay(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "smoothdelay: Initialising\n");
+            plumber_print(pd, "smoothdelay: Initialising\n");
 #endif
 
             interp = (uint32_t) sporth_stack_pop_float(stack);
@@ -64,7 +64,7 @@ int sporth_smoothdelay(sporth_stack *stack, void *ud)
             sp_smoothdelay_destroy(&smoothdelay);
             break;
         default:
-            fprintf(stderr, "smoothdelay: Unknown mode!\n");
+            plumber_print(pd, "smoothdelay: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -14,7 +14,7 @@ int sporth_scrambler(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_SCRAMBLER, NULL);
             if(sporth_check_args(stack, "ss") != SPORTH_OK) {
-                fprintf(stderr, "Init: not enough arguments for gen_line\n");
+                plumber_print(pd, "Init: not enough arguments for gen_line\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -22,7 +22,7 @@ int sporth_scrambler(sporth_stack *stack, void *ud)
             dst = sporth_stack_pop_string(stack);
 
             if(plumber_ftmap_search(pd, src, &ft_s) != PLUMBER_OK) {
-                fprintf(stderr, 
+                plumber_print(pd, 
                     "scrambler: could not find ftable %s",
                     src);
             }

@@ -16,13 +16,13 @@ int sporth_gen_sine(sporth_stack *stack, void *ud)
             plumber_add_ugen(pd, SPORTH_GEN_SINE, NULL);
 
             if(sporth_check_args(stack, "sf") != SPORTH_OK) {
-                fprintf(stderr, "Init: not enough arguments for gen_sine\n");
+                plumber_print(pd, "Init: not enough arguments for gen_sine\n");
                 return PLUMBER_NOTOK;
             }
             size = (int)sporth_stack_pop_float(stack);
             str = sporth_stack_pop_string(stack);
 #ifdef DEBUG_MODE
-            fprintf(stderr, "Creating sine table %s of size %d\n", str, size);
+            plumber_print(pd, "Creating sine table %s of size %d\n", str, size);
 #endif
             sp_ftbl_create(pd->sp, &ft, size);
             sp_gen_sine(pd->sp, ft);

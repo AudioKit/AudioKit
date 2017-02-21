@@ -24,13 +24,13 @@ int sporth_atget(sporth_stack *stack, void *ud)
             atd = malloc(sizeof(sporth_atbl_d));
             plumber_add_ugen(pd, SPORTH_ATGET, atd);
             if(sporth_check_args(stack, "fs") != SPORTH_OK) {
-               fprintf(stderr,"atget: not enough arguments\n");
+               plumber_print(pd,"atget: not enough arguments\n");
                 return PLUMBER_NOTOK;
             }
             ftname = sporth_stack_pop_string(stack);
             atd->index = floor(sporth_stack_pop_float(stack));
             if(plumber_ftmap_search_userdata(pd, ftname, (void **)&at) == PLUMBER_NOTOK) {
-                fprintf(stderr, "atget: could not find table '%s'\n", ftname);
+                plumber_print(pd, "atget: could not find table '%s'\n", ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             } printf("found argtable %s of size %d\n", ftname, at->size);
@@ -57,7 +57,7 @@ int sporth_atget(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;
@@ -76,14 +76,14 @@ int sporth_atset(sporth_stack *stack, void *ud)
             atd = malloc(sizeof(sporth_atbl_d));
             plumber_add_ugen(pd, SPORTH_ATSET, atd);
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
-               fprintf(stderr,"Init: not enough arguments for tset\n");
+               plumber_print(pd,"Init: not enough arguments for tset\n");
                 return PLUMBER_NOTOK;
             }
             ftname = sporth_stack_pop_string(stack);
             atd->index = floor(sporth_stack_pop_float(stack));
             atd->val = sporth_stack_pop_float(stack);
             if(plumber_ftmap_search_userdata(pd, ftname, (void **)&at) == PLUMBER_NOTOK) {
-                fprintf(stderr, "tset: could not find table '%s'\n", ftname);
+                plumber_print(pd, "tset: could not find table '%s'\n", ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -113,7 +113,7 @@ int sporth_atset(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;
@@ -132,12 +132,12 @@ int sporth_atblsize(sporth_stack *stack, void *ud)
             tsize = malloc(sizeof(uint32_t));
             plumber_add_ugen(pd, SPORTH_ATBLSIZE, tsize);
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
-               fprintf(stderr,"Init: not enough arguments for atblsize\n");
+               plumber_print(pd,"Init: not enough arguments for atblsize\n");
                 return PLUMBER_NOTOK;
             }
             ftname = sporth_stack_pop_string(stack);
             if(plumber_ftmap_search_userdata(pd, ftname, (void **)&at) == PLUMBER_NOTOK) {
-                fprintf(stderr, "atblsize: could not find table '%s'\n", ftname);
+                plumber_print(pd, "atblsize: could not find table '%s'\n", ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -163,7 +163,7 @@ int sporth_atblsize(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;

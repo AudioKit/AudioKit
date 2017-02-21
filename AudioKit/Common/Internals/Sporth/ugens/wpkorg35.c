@@ -14,13 +14,13 @@ int sporth_wpkorg35(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "wpkorg35: Creating\n");
+            plumber_print(pd, "wpkorg35: Creating\n");
 #endif
 
             sp_wpkorg35_create(&wpkorg35);
             plumber_add_ugen(pd, SPORTH_WPKORG35, wpkorg35);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for wpkorg35\n");
+                plumber_print(pd,"Not enough arguments for wpkorg35\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -33,7 +33,7 @@ int sporth_wpkorg35(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "wpkorg35: Initialising\n");
+            plumber_print(pd, "wpkorg35: Initialising\n");
 #endif
 
             saturation = sporth_stack_pop_float(stack);
@@ -61,7 +61,7 @@ int sporth_wpkorg35(sporth_stack *stack, void *ud)
             sp_wpkorg35_destroy(&wpkorg35);
             break;
         default:
-            fprintf(stderr, "wpkorg35: Unknown mode!\n");
+            plumber_print(pd, "wpkorg35: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

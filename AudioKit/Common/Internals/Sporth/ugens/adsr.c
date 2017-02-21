@@ -15,13 +15,13 @@ int sporth_adsr(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "adsr: Creating\n");
+            plumber_print(pd, "adsr: Creating\n");
 #endif
 
             sp_adsr_create(&adsr);
             plumber_add_ugen(pd, SPORTH_ADSR, adsr);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for adsr\n");
+                plumber_print(pd,"Not enough arguments for adsr\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -35,7 +35,7 @@ int sporth_adsr(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "adsr: Initialising\n");
+            plumber_print(pd, "adsr: Initialising\n");
 #endif
 
             rel = sporth_stack_pop_float(stack);
@@ -66,7 +66,7 @@ int sporth_adsr(sporth_stack *stack, void *ud)
             sp_adsr_destroy(&adsr);
             break;
         default:
-            fprintf(stderr, "adsr: Unknown mode!\n");
+            plumber_print(pd, "adsr: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -13,13 +13,13 @@ int sporth_randi(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "randi: Creating\n");
+            plumber_print(pd, "randi: Creating\n");
 #endif
 
             sp_randi_create(&randi);
             plumber_add_ugen(pd, SPORTH_RANDI, randi);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for randi\n");
+                plumber_print(pd,"Not enough arguments for randi\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_randi(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "randi: Initialising\n");
+            plumber_print(pd, "randi: Initialising\n");
 #endif
             cps = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
@@ -56,7 +56,7 @@ int sporth_randi(sporth_stack *stack, void *ud)
             sp_randi_destroy(&randi);
             break;
         default:
-            fprintf(stderr, "randi: Unknown mode!\n");
+            plumber_print(pd, "randi: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

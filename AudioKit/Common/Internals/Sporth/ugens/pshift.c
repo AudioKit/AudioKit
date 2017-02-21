@@ -14,13 +14,13 @@ int sporth_pshift(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "pshift: Creating\n");
+            plumber_print(pd, "pshift: Creating\n");
 #endif
 
             sp_pshift_create(&pshift);
             plumber_add_ugen(pd, SPORTH_PSHIFT, pshift);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for pshift\n");
+                plumber_print(pd,"Not enough arguments for pshift\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -34,7 +34,7 @@ int sporth_pshift(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "pshift: Initialising\n");
+            plumber_print(pd, "pshift: Initialising\n");
 #endif
 
             xfade = sporth_stack_pop_float(stack);
@@ -60,7 +60,7 @@ int sporth_pshift(sporth_stack *stack, void *ud)
             sp_pshift_destroy(&pshift);
             break;
         default:
-            fprintf(stderr, "pshift: Unknown mode!\n");
+            plumber_print(pd, "pshift: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

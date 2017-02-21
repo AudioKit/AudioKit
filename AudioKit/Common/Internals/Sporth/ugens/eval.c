@@ -15,7 +15,7 @@ int sporth_eval(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_EVAL, NULL);
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
-                fprintf(stderr, "Not enough arguments for eval.\n");
+                plumber_print(pd, "Not enough arguments for eval.\n");
                 return PLUMBER_NOTOK;
             }
 

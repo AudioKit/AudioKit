@@ -13,13 +13,13 @@ int sporth_allpass(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "allpass: Creating\n");
+            plumber_print(pd, "allpass: Creating\n");
 #endif
 
             sp_allpass_create(&allpass);
             plumber_add_ugen(pd, SPORTH_ALLPASS, allpass);
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for allpass\n");
+                plumber_print(pd,"Not enough arguments for allpass\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_allpass(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "allpass: Initialising\n");
+            plumber_print(pd, "allpass: Initialising\n");
 #endif
 
             looptime = sporth_stack_pop_float(stack);
@@ -55,7 +55,7 @@ int sporth_allpass(sporth_stack *stack, void *ud)
             sp_allpass_destroy(&allpass);
             break;
         default:
-            fprintf(stderr, "allpass: Unknown mode!\n");
+            plumber_print(pd, "allpass: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

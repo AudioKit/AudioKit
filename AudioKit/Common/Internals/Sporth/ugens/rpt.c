@@ -16,13 +16,13 @@ int sporth_rpt(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "rpt: Creating\n");
+            plumber_print(pd, "rpt: Creating\n");
 #endif
 
             sp_rpt_create(&rpt);
             plumber_add_ugen(pd, SPORTH_RPT, rpt);
             if(sporth_check_args(stack, "ffffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for rpt\n");
+                plumber_print(pd,"Not enough arguments for rpt\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -37,7 +37,7 @@ int sporth_rpt(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "rpt: Initialising\n");
+            plumber_print(pd, "rpt: Initialising\n");
 #endif
 
             maxdur = sporth_stack_pop_float(stack);
@@ -69,7 +69,7 @@ int sporth_rpt(sporth_stack *stack, void *ud)
             sp_rpt_destroy(&rpt);
             break;
         default:
-            fprintf(stderr, "rpt: Unknown mode!\n");
+            plumber_print(pd, "rpt: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

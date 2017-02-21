@@ -13,13 +13,13 @@ int sporth_streson(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "streson: Creating\n");
+            plumber_print(pd, "streson: Creating\n");
 #endif
 
             sp_streson_create(&streson);
             plumber_add_ugen(pd, SPORTH_STRESON, streson);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for streson\n");
+                plumber_print(pd,"Not enough arguments for streson\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_streson(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "streson: Initialising\n");
+            plumber_print(pd, "streson: Initialising\n");
 #endif
 
             fdbgain = sporth_stack_pop_float(stack);
@@ -56,7 +56,7 @@ int sporth_streson(sporth_stack *stack, void *ud)
             sp_streson_destroy(&streson);
             break;
         default:
-            fprintf(stderr, "streson: Unknown mode!\n");
+            plumber_print(pd, "streson: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

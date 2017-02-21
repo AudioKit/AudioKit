@@ -19,13 +19,13 @@ int sporth_drip(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "drip: Creating\n");
+            plumber_print(pd, "drip: Creating\n");
 #endif
 
             sp_drip_create(&drip);
             plumber_add_ugen(pd, SPORTH_DRIP, drip);
             if(sporth_check_args(stack, "fffffffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for drip\n");
+                plumber_print(pd,"Not enough arguments for drip\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -34,7 +34,7 @@ int sporth_drip(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "drip: Initialising\n");
+            plumber_print(pd, "drip: Initialising\n");
 #endif
 
             dettack = sporth_stack_pop_float(stack);
@@ -76,7 +76,7 @@ int sporth_drip(sporth_stack *stack, void *ud)
             sp_drip_destroy(&drip);
             break;
         default:
-            fprintf(stderr, "drip: Unknown mode!\n");
+            plumber_print(pd, "drip: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

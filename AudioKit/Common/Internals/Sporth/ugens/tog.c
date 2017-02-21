@@ -13,7 +13,7 @@ int sporth_tog(sporth_stack *stack, void *ud)
             plumber_add_ugen(pd, SPORTH_TOG, val);
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
                 stack->error++;
-                fprintf(stderr,"Invalid arguments for tog.\n");
+                plumber_print(pd,"Invalid arguments for tog.\n");
                 return PLUMBER_NOTOK;
             }
 

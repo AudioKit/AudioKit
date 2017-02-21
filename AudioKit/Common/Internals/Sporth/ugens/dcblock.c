@@ -10,12 +10,12 @@ int sporth_dcblock(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "Creating module dcblk\n");
+            plumber_print(pd, "Creating module dcblk\n");
 #endif
             sp_dcblock_create(&data);
             plumber_add_ugen(pd, SPORTH_DCBLK, data);
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr, "Not enough arguments for dcblk\n");
+                plumber_print(pd, "Not enough arguments for dcblk\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }

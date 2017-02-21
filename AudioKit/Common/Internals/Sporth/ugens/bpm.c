@@ -15,13 +15,13 @@ int sporth_bpm2dur(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "bpm2dur: Creating\n");
+            plumber_print(pd, "bpm2dur: Creating\n");
 #endif
             data = malloc(sizeof(bpm2val));
             data->pbpm = -100;
             data->val= -100;
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr, "bpm2dur: not enough args\n");
+                plumber_print(pd, "bpm2dur: not enough args\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -33,7 +33,7 @@ int sporth_bpm2dur(sporth_stack *stack, void *ud)
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "bpm2dur: Initializing\n");
+            plumber_print(pd, "bpm2dur: Initializing\n");
 #endif
             data = pd->last->ud;
             val = sporth_stack_pop_float(stack);
@@ -59,7 +59,7 @@ int sporth_bpm2dur(sporth_stack *stack, void *ud)
             free(data);
             break;
         default:
-            fprintf(stderr,"bpm2dur: unknown mode!");
+            plumber_print(pd,"bpm2dur: unknown mode!");
             stack->error++;
             return PLUMBER_NOTOK;
             break;
@@ -75,13 +75,13 @@ int sporth_bpm2rate(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "bpm2rate: Creating\n");
+            plumber_print(pd, "bpm2rate: Creating\n");
 #endif
             data = malloc(sizeof(bpm2val));
             data->pbpm = -100;
             data->val= -100;
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr, "bpm2rate: not enough args\n");
+                plumber_print(pd, "bpm2rate: not enough args\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -93,7 +93,7 @@ int sporth_bpm2rate(sporth_stack *stack, void *ud)
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "bpm2rate: Initializing\n");
+            plumber_print(pd, "bpm2rate: Initializing\n");
 #endif
             data = pd->last->ud;
             val = sporth_stack_pop_float(stack);
@@ -119,7 +119,7 @@ int sporth_bpm2rate(sporth_stack *stack, void *ud)
             free(data);
             break;
         default:
-            fprintf(stderr,"bpm2rate: unknown mode!");
+            plumber_print(pd,"bpm2rate: unknown mode!");
             stack->error++;
             return PLUMBER_NOTOK;
             break;

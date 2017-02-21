@@ -16,7 +16,7 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
             plumber_add_ugen(pd, SPORTH_GEN_VALS, NULL);
 
             if(sporth_check_args(stack, "ss") != SPORTH_OK) {
-                fprintf(stderr,"Init: not enough arguments for gen_vals\n");
+                plumber_print(pd,"Init: not enough arguments for gen_vals\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -24,17 +24,17 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
             str = sporth_stack_pop_string(stack);
 
 #ifdef DEBUG_MODE
-            fprintf(stderr,"Creating value table %s\n", str + 1);
+            plumber_print(pd,"Creating value table %s\n", str + 1);
 #endif
             sp_ftbl_create(pd->sp, &ft, 1);
 
 #ifdef DEBUG_MODE
-            fprintf(stderr,"Running gen_val function\n");
+            plumber_print(pd,"Running gen_val function\n");
 #endif
             sp_gen_vals(pd->sp, ft, args);
 
 #ifdef DEBUG_MODE
-            fprintf(stderr,"Adding ftable\n");
+            plumber_print(pd,"Adding ftable\n");
 #endif
 
             plumber_ftmap_add(pd, str, ft);
@@ -53,7 +53,7 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
             break;
 
         default:
-          fprintf(stderr,"Error: Unknown mode!");
+          plumber_print(pd,"Error: Unknown mode!");
            break;
     }
     return PLUMBER_OK;
