@@ -132,7 +132,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
             }
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 
