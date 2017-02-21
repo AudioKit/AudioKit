@@ -19,7 +19,7 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
             sp_tblrec_create(&td);
             plumber_add_ugen(pd, SPORTH_TBLREC, td);
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
-               fprintf(stderr,"Init: not enough arguments for tblrec\n");
+               plumber_print(pd,"Init: not enough arguments for tblrec\n");
                 return PLUMBER_NOTOK;
             }
             ftname = sporth_stack_pop_string(stack);
@@ -28,7 +28,7 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
             td->index = 0;
             td->record = 0;
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
-                fprintf(stderr, "tblrec: could not find table '%s'\n", ftname);
+                plumber_print(pd, "tblrec: could not find table '%s'\n", ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -59,7 +59,7 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!\n");
+            plumber_print(pd,"Error: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

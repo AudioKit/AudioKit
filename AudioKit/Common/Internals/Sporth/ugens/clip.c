@@ -12,13 +12,13 @@ int sporth_clip(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "clip: Creating\n");
+            plumber_print(pd, "clip: Creating\n");
 #endif
 
             sp_clip_create(&clip);
             plumber_add_ugen(pd, SPORTH_CLIP, clip);
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for clip\n");
+                plumber_print(pd,"Not enough arguments for clip\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_clip(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "clip: Initialising\n");
+            plumber_print(pd, "clip: Initialising\n");
 #endif
             lim = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
@@ -50,7 +50,7 @@ int sporth_clip(sporth_stack *stack, void *ud)
             sp_clip_destroy(&clip);
             break;
         default:
-            fprintf(stderr, "clip: Unknown mode!\n");
+            plumber_print(pd, "clip: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

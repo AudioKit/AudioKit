@@ -12,12 +12,12 @@ int sporth_tone(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tone: Creating\n");
+            plumber_print(pd, "tone: Creating\n");
 #endif
             sp_tone_create(&tone);
             plumber_add_ugen(pd, SPORTH_TONE, tone);
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for tone\n");
+                plumber_print(pd,"Not enough arguments for tone\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -28,7 +28,7 @@ int sporth_tone(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tone: Initialising\n");
+            plumber_print(pd, "tone: Initialising\n");
 #endif
             hp = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
@@ -49,7 +49,7 @@ int sporth_tone(sporth_stack *stack, void *ud)
             sp_tone_destroy(&tone);
             break;
         default:
-            fprintf(stderr, "tone: Unknown mode!\n");
+            plumber_print(pd, "tone: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

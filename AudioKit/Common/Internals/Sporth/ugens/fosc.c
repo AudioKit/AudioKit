@@ -17,13 +17,13 @@ int sporth_fosc(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "fosc: Creating\n");
+            plumber_print(pd, "fosc: Creating\n");
 #endif
 
             sp_fosc_create(&fosc);
             plumber_add_ugen(pd, SPORTH_FOSC, fosc);
             if(sporth_check_args(stack, "fffffs") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for fosc\n");
+                plumber_print(pd,"Not enough arguments for fosc\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -35,7 +35,7 @@ int sporth_fosc(sporth_stack *stack, void *ud)
             freq = sporth_stack_pop_float(stack);
 
             if(plumber_ftmap_search(pd, str, &tbl) != PLUMBER_OK) {
-                fprintf(stderr, "fosc: could not find ftable %s\n", str);
+                plumber_print(pd, "fosc: could not find ftable %s\n", str);
                 return PLUMBER_NOTOK;
             }
             sp_fosc_init(pd->sp, fosc, tbl);
@@ -44,7 +44,7 @@ int sporth_fosc(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "fosc: Initialising\n");
+            plumber_print(pd, "fosc: Initialising\n");
 #endif
 
             str = sporth_stack_pop_string(stack);
@@ -76,7 +76,7 @@ int sporth_fosc(sporth_stack *stack, void *ud)
             sp_fosc_destroy(&fosc);
             break;
         default:
-            fprintf(stderr, "fosc: Unknown mode!\n");
+            plumber_print(pd, "fosc: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

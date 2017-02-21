@@ -14,13 +14,13 @@ int sporth_autowah(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "autowah: Creating\n");
+            plumber_print(pd, "autowah: Creating\n");
 #endif
 
             sp_autowah_create(&autowah);
             plumber_add_ugen(pd, SPORTH_AUTOWAH, autowah);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for autowah\n");
+                plumber_print(pd,"Not enough arguments for autowah\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -33,7 +33,7 @@ int sporth_autowah(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "autowah: Initialising\n");
+            plumber_print(pd, "autowah: Initialising\n");
 #endif
             mix = sporth_stack_pop_float(stack);
             wah = sporth_stack_pop_float(stack);
@@ -60,7 +60,7 @@ int sporth_autowah(sporth_stack *stack, void *ud)
             sp_autowah_destroy(&autowah);
             break;
         default:
-            fprintf(stderr, "autowah: Unknown mode!\n");
+            plumber_print(pd, "autowah: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

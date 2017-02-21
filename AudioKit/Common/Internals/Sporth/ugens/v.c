@@ -17,12 +17,12 @@ int sporth_get(sporth_stack *stack, void *ud)
             var = malloc(sizeof(SPFLOAT *));
             plumber_add_ugen(pd, SPORTH_GET, var);
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
-               fprintf(stderr,"Not enough arguments for get\n");
+               plumber_print(pd,"Not enough arguments for get\n");
                 return PLUMBER_NOTOK;
             }
             ftname = sporth_stack_pop_string(stack);
             if(plumber_ftmap_search_userdata(pd, ftname, (void **)var) == PLUMBER_NOTOK) {
-                fprintf(stderr, "get: could not find table '%s'\n", ftname);
+                plumber_print(pd, "get: could not find table '%s'\n", ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -46,7 +46,7 @@ int sporth_get(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;
@@ -64,13 +64,13 @@ int sporth_set(sporth_stack *stack, void *ud)
             var = malloc(sizeof(SPFLOAT *));
             plumber_add_ugen(pd, SPORTH_SET, var);
             if(sporth_check_args(stack, "fs") != SPORTH_OK) {
-               fprintf(stderr,"Not enough arguments for get\n");
+               plumber_print(pd,"Not enough arguments for get\n");
                 return PLUMBER_NOTOK;
             }
             ftname = sporth_stack_pop_string(stack);
             val = sporth_stack_pop_float(stack);
             if(plumber_ftmap_search_userdata(pd, ftname, (void **)var) == PLUMBER_NOTOK) {
-                fprintf(stderr, "set: could not find table '%s'\n", ftname);
+                plumber_print(pd, "set: could not find table '%s'\n", ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -96,7 +96,7 @@ int sporth_set(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;
@@ -113,12 +113,12 @@ int sporth_var(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_VAR, NULL);
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
-                fprintf(stderr, "Init: not enough arguments for var\n");
+                plumber_print(pd, "Init: not enough arguments for var\n");
                 return PLUMBER_NOTOK;
             }
             str = sporth_stack_pop_string(stack);
 #ifdef DEBUG_MODE
-            fprintf(stderr, "var: creating table %s\n", str);
+            plumber_print(pd, "var: creating table %s\n", str);
 #endif
             var = malloc(sizeof(SPFLOAT));
             *var = 0;
@@ -136,7 +136,7 @@ int sporth_var(sporth_stack *stack, void *ud)
             break;
 
         default:
-           fprintf(stderr, "Error: Unknown mode!\n");
+           plumber_print(pd, "Error: Unknown mode!\n");
            break;
     }
     return PLUMBER_OK;
@@ -154,13 +154,13 @@ int sporth_varset(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_VARSET, NULL);
             if(sporth_check_args(stack, "sf") != SPORTH_OK) {
-                fprintf(stderr, "Init: not enough arguments for varset\n");
+                plumber_print(pd, "Init: not enough arguments for varset\n");
                 return PLUMBER_NOTOK;
             }
             val = sporth_stack_pop_float(stack);
             str = sporth_stack_pop_string(stack);
 #ifdef DEBUG_MODE
-            fprintf(stderr, "var: creating table %s\n", str);
+            plumber_print(pd, "var: creating table %s\n", str);
 #endif
             var = malloc(sizeof(SPFLOAT));
             *var = val;
@@ -180,7 +180,7 @@ int sporth_varset(sporth_stack *stack, void *ud)
             break;
 
         default:
-           fprintf(stderr, "Error: Unknown mode!\n");
+           plumber_print(pd, "Error: Unknown mode!\n");
            break;
     }
     return PLUMBER_OK;

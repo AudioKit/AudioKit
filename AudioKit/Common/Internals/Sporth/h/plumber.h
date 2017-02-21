@@ -96,6 +96,8 @@ typedef struct plumber_data {
     int showprog;
     int recompile;
     char *str;
+
+    FILE *log;
 } plumber_data;
 
 typedef int (* plumber_dyn_func) (plumber_data *, sporth_stack *, void **);
@@ -205,4 +207,6 @@ int plumber_create_var(plumber_data *pd, char *name, SPFLOAT **var);
 
 int plumber_get_userdata(plumber_data *plumb, const char *name, plumber_ptr **p);
 int polysporth_eval(plumber_ptr *p, const char *str);
+
+void plumber_print(plumber_data *pd, const char *fmt, ...);
 #endif

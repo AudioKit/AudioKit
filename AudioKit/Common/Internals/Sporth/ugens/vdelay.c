@@ -20,13 +20,13 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "vdelay: Creating\n");
+            plumber_print(pd, "vdelay: Creating\n");
 #endif
             vd = malloc(sizeof(sporth_vdelay_d));
             sp_vdelay_create(&vd->vdelay);
             plumber_add_ugen(pd, SPORTH_VDELAY, vd);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for vdelay\n");
+                plumber_print(pd,"Not enough arguments for vdelay\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -40,7 +40,7 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "vdelay: Initialising\n");
+            plumber_print(pd, "vdelay: Initialising\n");
 #endif
 
             maxdel = sporth_stack_pop_float(stack);
@@ -70,7 +70,7 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
             free(vd);
             break;
         default:
-            fprintf(stderr, "vdelay: Unknown mode!\n");
+            plumber_print(pd, "vdelay: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

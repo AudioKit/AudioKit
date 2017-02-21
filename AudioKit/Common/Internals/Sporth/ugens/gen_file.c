@@ -17,7 +17,7 @@ int sporth_gen_file(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_GEN_FILE, NULL);
             if(sporth_check_args(stack, "sfs") != SPORTH_OK) {
-                fprintf(stderr, "Init: not enough arguments for gen_file\n");
+                plumber_print(pd, "Init: not enough arguments for gen_file\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -26,7 +26,7 @@ int sporth_gen_file(sporth_stack *stack, void *ud)
             str = sporth_stack_pop_string(stack);
             sp_ftbl_create(pd->sp, &ft, size);
             if(sp_gen_file(pd->sp, ft, filename) == SP_NOT_OK) {
-                fprintf(stderr, "There was an issue creating the ftable \"%s\".\n", str);
+                plumber_print(pd, "There was an issue creating the ftable \"%s\".\n", str);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }

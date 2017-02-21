@@ -14,13 +14,13 @@ int sporth_eqfil(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "eqfil: Creating\n");
+            plumber_print(pd, "eqfil: Creating\n");
 #endif
 
             sp_eqfil_create(&eqfil);
             plumber_add_ugen(pd, SPORTH_EQFIL, eqfil);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for eqfil\n");
+                plumber_print(pd,"Not enough arguments for eqfil\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_eqfil(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "eqfil: Initialising\n");
+            plumber_print(pd, "eqfil: Initialising\n");
 #endif
 
             gain = sporth_stack_pop_float(stack);
@@ -57,7 +57,7 @@ int sporth_eqfil(sporth_stack *stack, void *ud)
             sp_eqfil_destroy(&eqfil);
             break;
         default:
-            fprintf(stderr, "eqfil: Unknown mode!\n");
+            plumber_print(pd, "eqfil: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

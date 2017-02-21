@@ -13,13 +13,13 @@ int sporth_tphasor(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tphasor: Creating\n");
+            plumber_print(pd, "tphasor: Creating\n");
 #endif
 
             sp_phasor_create(&tphasor);
             plumber_add_ugen(pd, SPORTH_TPHASOR, tphasor);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for tphasor\n");
+                plumber_print(pd,"Not enough arguments for tphasor\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_tphasor(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tphasor: Initialising\n");
+            plumber_print(pd, "tphasor: Initialising\n");
 #endif
             iphs = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
@@ -59,7 +59,7 @@ int sporth_tphasor(sporth_stack *stack, void *ud)
             sp_phasor_destroy(&tphasor);
             break;
         default:
-            fprintf(stderr, "tphasor: Unknown mode!\n");
+            plumber_print(pd, "tphasor: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

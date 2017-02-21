@@ -26,13 +26,13 @@ int sporth_fof(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "fof: Creating\n");
+            plumber_print(pd, "fof: Creating\n");
 #endif
 
             sp_fof_create(&fof);
             plumber_add_ugen(pd, SPORTH_FOF, fof);
             if(sporth_check_args(stack, "ffffffffffss") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for fof\n");
+                plumber_print(pd,"Not enough arguments for fof\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -53,7 +53,7 @@ int sporth_fof(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "fof: Initialising\n");
+            plumber_print(pd, "fof: Initialising\n");
 #endif
 
             sinestr = sporth_stack_pop_string(stack);
@@ -111,7 +111,7 @@ int sporth_fof(sporth_stack *stack, void *ud)
             sp_fof_destroy(&fof);
             break;
         default:
-            fprintf(stderr, "fof: Unknown mode!\n");
+            plumber_print(pd, "fof: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -13,14 +13,14 @@ int sporth_writecode(sporth_stack *stack, void *ud)
             plumber_add_ugen(pd, SPORTH_WRITECODE, NULL);
 
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
-                fprintf(stderr, "writecode: not enough arguments\n");
+                plumber_print(pd, "writecode: not enough arguments\n");
                 return PLUMBER_NOTOK;
             }
 
             file = sporth_stack_pop_string(stack);
             fp = fopen(file, "w");
             if(fp == NULL) {
-                fprintf(stderr, "There was a problem opening %s", file);
+                plumber_print(pd, "There was a problem opening %s", file);
                 return PLUMBER_NOTOK;
             }
             plumber_write_code(pd, fp);

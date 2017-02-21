@@ -22,14 +22,14 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
     switch(pd->mode) {
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "gbuzz: Creating\n");
+            plumber_print(pd, "gbuzz: Creating\n");
 #endif
             gbuzz = malloc(sizeof(sporth_gbuzz_d));
             sp_ftbl_create(pd->sp, &gbuzz->ft, 8192);
             sp_gbuzz_create(&gbuzz->gbuzz);
             plumber_add_ugen(pd, SPORTH_GBUZZ, gbuzz);
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for gbuzz\n");
+                plumber_print(pd,"Not enough arguments for gbuzz\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -44,7 +44,7 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "gbuzz: Initialising\n");
+            plumber_print(pd, "gbuzz: Initialising\n");
 #endif
             mul = sporth_stack_pop_float(stack);
             lharm = sporth_stack_pop_float(stack);
@@ -82,7 +82,7 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
             free(gbuzz);
             break;
         default:
-            fprintf(stderr, "gbuzz: Unknown mode!\n");
+            plumber_print(pd, "gbuzz: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

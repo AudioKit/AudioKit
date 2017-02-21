@@ -13,13 +13,13 @@ int sporth_thresh(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "thresh: Creating\n");
+            plumber_print(pd, "thresh: Creating\n");
 #endif
 
             sp_thresh_create(&thresh);
             plumber_add_ugen(pd, SPORTH_THRESH, thresh);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for thresh\n");
+                plumber_print(pd,"Not enough arguments for thresh\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -28,7 +28,7 @@ int sporth_thresh(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "thresh: Initialising\n");
+            plumber_print(pd, "thresh: Initialising\n");
 #endif
 
             mode = (int)sporth_stack_pop_float(stack);
@@ -53,7 +53,7 @@ int sporth_thresh(sporth_stack *stack, void *ud)
             sp_thresh_destroy(&thresh);
             break;
         default:
-            fprintf(stderr, "thresh: Unknown mode!\n");
+            plumber_print(pd, "thresh: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

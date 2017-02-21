@@ -25,13 +25,13 @@ int sporth_fog(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "fog: Creating\n");
+            plumber_print(pd, "fog: Creating\n");
 #endif
 
             sp_fog_create(&fog);
             plumber_add_ugen(pd, SPORTH_FOG, fog);
             if(sporth_check_args(stack, "fffffffffffss") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for fog\n");
+                plumber_print(pd,"Not enough arguments for fog\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -53,7 +53,7 @@ int sporth_fog(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "fog: Initialising\n");
+            plumber_print(pd, "fog: Initialising\n");
 #endif
 
             wavstr = sporth_stack_pop_string(stack);
@@ -115,7 +115,7 @@ int sporth_fog(sporth_stack *stack, void *ud)
             sp_fog_destroy(&fog);
             break;
         default:
-            fprintf(stderr, "fog: Unknown mode!\n");
+            plumber_print(pd, "fog: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

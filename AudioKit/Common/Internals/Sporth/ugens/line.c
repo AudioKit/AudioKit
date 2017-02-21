@@ -14,13 +14,13 @@ int sporth_line(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "line: Creating\n");
+            plumber_print(pd, "line: Creating\n");
 #endif
 
             sp_line_create(&line);
             plumber_add_ugen(pd, SPORTH_LINE, line);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for line\n");
+                plumber_print(pd,"Not enough arguments for line\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_line(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "line: Initialising\n");
+            plumber_print(pd, "line: Initialising\n");
 #endif
 
             b = sporth_stack_pop_float(stack);
@@ -57,7 +57,7 @@ int sporth_line(sporth_stack *stack, void *ud)
             sp_line_destroy(&line);
             break;
         default:
-            fprintf(stderr, "line: Unknown mode!\n");
+            plumber_print(pd, "line: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

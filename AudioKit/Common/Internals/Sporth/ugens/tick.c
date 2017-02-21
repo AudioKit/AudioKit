@@ -11,7 +11,7 @@ int sporth_tick(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tick: Creating\n");
+            plumber_print(pd, "tick: Creating\n");
 #endif
             plumber_add_ugen(pd, SPORTH_TICK, NULL);
             sporth_stack_push_float(stack, 0);
@@ -19,7 +19,7 @@ int sporth_tick(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tick: Initialising\n");
+            plumber_print(pd, "tick: Initialising\n");
 #endif
             pipes = plumber_get_pipes(pd);
             pipes->tick = 1;
@@ -39,7 +39,7 @@ int sporth_tick(sporth_stack *stack, void *ud)
         case PLUMBER_DESTROY:
             break;
         default:
-            fprintf(stderr, "tick: Unknown mode!\n");
+            plumber_print(pd, "tick: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

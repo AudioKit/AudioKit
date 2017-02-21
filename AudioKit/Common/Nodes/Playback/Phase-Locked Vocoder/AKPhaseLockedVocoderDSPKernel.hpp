@@ -40,7 +40,7 @@ public:
 
     void start() {
         started = true;
-        sp_mincer_init(sp, mincer, ftbl);
+        sp_mincer_init(sp, mincer, ftbl, 2048);
         mincer->time = 0;
         mincer->amp = 1;
         mincer->pitch = 1;

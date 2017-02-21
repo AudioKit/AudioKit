@@ -13,13 +13,13 @@ int sporth_randh(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "randh: Creating\n");
+            plumber_print(pd, "randh: Creating\n");
 #endif
 
             sp_randh_create(&randh);
             plumber_add_ugen(pd, SPORTH_RANDH, randh);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for randh\n");
+                plumber_print(pd,"Not enough arguments for randh\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_randh(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "randh: Initialising\n");
+            plumber_print(pd, "randh: Initialising\n");
 #endif
 
             freq = sporth_stack_pop_float(stack);
@@ -57,7 +57,7 @@ int sporth_randh(sporth_stack *stack, void *ud)
             sp_randh_destroy(&randh);
             break;
         default:
-            fprintf(stderr, "randh: Unknown mode!\n");
+            plumber_print(pd, "randh: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

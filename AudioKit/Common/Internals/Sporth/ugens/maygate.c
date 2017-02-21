@@ -12,13 +12,13 @@ int sporth_maygate(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "maygate: Creating\n");
+            plumber_print(pd, "maygate: Creating\n");
 #endif
 
             sp_maygate_create(&maygate);
             plumber_add_ugen(pd, SPORTH_MAYGATE, maygate);
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for maygate\n");
+                plumber_print(pd,"Not enough arguments for maygate\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_maygate(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "maygate: Initialising\n");
+            plumber_print(pd, "maygate: Initialising\n");
 #endif
 
             prob = sporth_stack_pop_float(stack);
@@ -52,7 +52,7 @@ int sporth_maygate(sporth_stack *stack, void *ud)
             sp_maygate_destroy(&maygate);
             break;
         default:
-            fprintf(stderr, "maygate: Unknown mode!\n");
+            plumber_print(pd, "maygate: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;
