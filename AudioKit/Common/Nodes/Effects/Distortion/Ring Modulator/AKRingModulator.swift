@@ -75,7 +75,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
             self.mix = mix
 
             let effect = _Self.effect
-            au = AUWrapper(au: effect)
+            au = AUWrapper(effect)
 
             super.init(avAudioNode: effect, attach: true)
 
