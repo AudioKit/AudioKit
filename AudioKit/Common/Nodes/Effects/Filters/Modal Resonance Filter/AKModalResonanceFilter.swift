@@ -33,7 +33,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
     open var frequency: Double = 500.0 {
         willSet {
             if frequency != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     frequencyParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.frequency = Float(newValue)
@@ -45,7 +45,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
     open var qualityFactor: Double = 50.0 {
         willSet {
             if qualityFactor != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     qualityFactorParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.qualityFactor = Float(newValue)

@@ -186,7 +186,9 @@
         let url = internalAudioFile.url
 
         do {
-            try fileManager.removeItem(atPath: audioFile!.url.absoluteString)
+            if let path = audioFile?.url.absoluteString {
+                try fileManager.removeItem(atPath: path)
+            }
         } catch let error as NSError {
             AKLog("AKNodeRecorder Error: cannot delete Recording file: \(audioFile?.fileNamePlusExtension)")
             throw error

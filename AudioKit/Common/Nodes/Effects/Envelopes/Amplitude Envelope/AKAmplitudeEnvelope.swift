@@ -32,7 +32,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     open var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     attackDurationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.attackDuration = Float(newValue)
@@ -44,7 +44,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     open var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     decayDurationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.decayDuration = Float(newValue)
@@ -56,7 +56,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     open var sustainLevel: Double = 1.0 {
         willSet {
             if sustainLevel != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     sustainLevelParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.sustainLevel = Float(newValue)
@@ -68,7 +68,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     open var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     releaseDurationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.releaseDuration = Float(newValue)

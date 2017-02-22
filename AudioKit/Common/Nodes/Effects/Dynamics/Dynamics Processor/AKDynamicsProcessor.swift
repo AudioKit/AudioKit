@@ -140,7 +140,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
             self.masterGain = masterGain
 
             inputGain = AKMixer(input)
-            inputGain!.volume = 0
+            inputGain?.volume = 0
             mixer = AKMixer(inputGain!)
 
             effectGain = AKMixer(input)

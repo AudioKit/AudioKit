@@ -32,7 +32,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     open var gain: Double = 1 {
         willSet {
             if gain != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     gainParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.gain = Float(newValue)

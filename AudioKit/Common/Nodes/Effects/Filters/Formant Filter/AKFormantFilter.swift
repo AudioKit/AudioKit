@@ -33,7 +33,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     open var x: Double = 0 {
         willSet {
             if x != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     xParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.x = Float(newValue)
@@ -45,7 +45,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     open var y: Double = 0 {
         willSet {
             if y != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     yParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.y = Float(newValue)

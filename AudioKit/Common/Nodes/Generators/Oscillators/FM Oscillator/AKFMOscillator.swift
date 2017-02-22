@@ -36,7 +36,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     open var baseFrequency: Double = 440 {
         willSet {
             if baseFrequency != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     baseFrequencyParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.baseFrequency = Float(newValue)
@@ -49,7 +49,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     open var carrierMultiplier: Double = 1.0 {
         willSet {
             if carrierMultiplier != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     carrierMultiplierParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.carrierMultiplier = Float(newValue)
@@ -62,7 +62,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     open var modulatingMultiplier: Double = 1 {
         willSet {
             if modulatingMultiplier != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     modulatingMultiplierParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.modulatingMultiplier = Float(newValue)
@@ -75,7 +75,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     open var modulationIndex: Double = 1 {
         willSet {
             if modulationIndex != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     modulationIndexParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.modulationIndex = Float(newValue)
@@ -88,7 +88,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     open var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     amplitudeParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.amplitude = Float(newValue)

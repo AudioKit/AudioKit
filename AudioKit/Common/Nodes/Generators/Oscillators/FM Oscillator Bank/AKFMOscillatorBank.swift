@@ -40,7 +40,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var carrierMultiplier: Double = 1.0 {
         willSet {
             if carrierMultiplier != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     carrierMultiplierParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.carrierMultiplier = Float(newValue)
@@ -53,7 +53,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var modulatingMultiplier: Double = 1 {
         willSet {
             if modulatingMultiplier != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     modulatingMultiplierParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.modulatingMultiplier = Float(newValue)
@@ -66,7 +66,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var modulationIndex: Double = 1 {
         willSet {
             if modulationIndex != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     modulationIndexParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.modulationIndex = Float(newValue)
@@ -79,7 +79,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     attackDurationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.attackDuration = Float(newValue)
@@ -91,7 +91,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     decayDurationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.decayDuration = Float(newValue)
@@ -103,7 +103,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var sustainLevel: Double = 1.0 {
         willSet {
             if sustainLevel != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     sustainLevelParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.sustainLevel = Float(newValue)
@@ -115,7 +115,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     releaseDurationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.releaseDuration = Float(newValue)
@@ -128,7 +128,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.detuningOffset = Float(newValue)
@@ -141,7 +141,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     open var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.detuningMultiplier = Float(newValue)

@@ -34,7 +34,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     open var reverbDuration: Double = 1.0 {
         willSet {
             if reverbDuration != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     reverbDurationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.reverbDuration = Float(newValue)
