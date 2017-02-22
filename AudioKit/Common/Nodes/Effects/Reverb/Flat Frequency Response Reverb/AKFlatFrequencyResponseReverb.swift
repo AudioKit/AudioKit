@@ -34,7 +34,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     open var reverbDuration: Double = 0.5 {
         willSet {
             if reverbDuration != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     reverbDurationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.reverbDuration = Float(newValue)

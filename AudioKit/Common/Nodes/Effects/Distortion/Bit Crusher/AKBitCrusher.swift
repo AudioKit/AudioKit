@@ -30,7 +30,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     open var bitDepth: Double = 8 {
         willSet {
             if bitDepth != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     bitDepthParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.bitDepth = Float(newValue)
@@ -42,7 +42,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     open var sampleRate: Double = 10_000 {
         willSet {
             if sampleRate != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     sampleRateParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.sampleRate = Float(newValue)

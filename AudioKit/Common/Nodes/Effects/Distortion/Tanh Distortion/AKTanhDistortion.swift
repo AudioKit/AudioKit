@@ -33,7 +33,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     open var pregain: Double = 2.0 {
         willSet {
             if pregain != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     pregainParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.pregain = Float(newValue)
@@ -45,7 +45,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     open var postgain: Double = 0.5 {
         willSet {
             if postgain != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     postgainParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.postgain = Float(newValue)
@@ -57,7 +57,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     open var postiveShapeParameter: Double = 0.0 {
         willSet {
             if postiveShapeParameter != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     postiveShapeParameterParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.postiveShapeParameter = Float(newValue)
@@ -69,7 +69,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     open var negativeShapeParameter: Double = 0.0 {
         willSet {
             if negativeShapeParameter != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     negativeShapeParameterParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.negativeShapeParameter = Float(newValue)

@@ -30,7 +30,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
     open var pan: Double = 0 {
         willSet {
             if pan != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     panParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.pan = Float(newValue)

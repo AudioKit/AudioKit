@@ -30,7 +30,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     open var halfPowerPoint: Double = 1_000.0 {
         willSet {
             if halfPowerPoint != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     halfPowerPointParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.halfPowerPoint = Float(newValue)

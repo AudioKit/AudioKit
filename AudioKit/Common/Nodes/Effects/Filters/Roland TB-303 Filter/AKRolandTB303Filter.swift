@@ -33,7 +33,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     open var cutoffFrequency: Double = 500 {
         willSet {
             if cutoffFrequency != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
@@ -46,7 +46,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     resonanceParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.resonance = Float(newValue)
@@ -58,7 +58,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     open var distortion: Double = 2.0 {
         willSet {
             if distortion != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     distortionParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.distortion = Float(newValue)
@@ -70,7 +70,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     open var resonanceAsymmetry: Double = 0.5 {
         willSet {
             if resonanceAsymmetry != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     resonanceAsymmetryParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.resonanceAsymmetry = Float(newValue)

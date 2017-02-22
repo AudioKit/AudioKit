@@ -31,7 +31,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     open var cutoffFrequency: Double = 500.0 {
         willSet {
             if cutoffFrequency != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)

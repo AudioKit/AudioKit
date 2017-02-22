@@ -32,7 +32,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     open var cutoffFrequency: Double = 1_000.0 {
         willSet {
             if cutoffFrequency != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
@@ -44,7 +44,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     open var resonance: Double = 1.0 {
         willSet {
             if resonance != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     resonanceParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.resonance = Float(newValue)
@@ -56,7 +56,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     open var saturation: Double = 0.0 {
         willSet {
             if saturation != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     saturationParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.saturation = Float(newValue)

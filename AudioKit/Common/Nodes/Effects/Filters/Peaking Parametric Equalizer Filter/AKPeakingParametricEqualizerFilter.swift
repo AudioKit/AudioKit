@@ -32,7 +32,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     open var centerFrequency: Double = 1_000 {
         willSet {
             if centerFrequency != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.centerFrequency = Float(newValue)
@@ -44,7 +44,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     open var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     gainParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.gain = Float(newValue)
@@ -56,7 +56,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     open var q: Double = 0.707 {
         willSet {
             if q != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     qParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.q = Float(newValue)

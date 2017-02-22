@@ -38,7 +38,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     open var frequency: Double = 440 {
         willSet {
             if frequency != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     frequencyParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.frequency = Float(newValue)
@@ -51,7 +51,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     open var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     amplitudeParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.amplitude = Float(newValue)
@@ -64,7 +64,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     open var index: Double = 0.0 {
         willSet {
             let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
-//            if internalAU!.isSetUp() {
+//            if internalAU?.isSetUp() ?? false {
 //                indexParameter?.setValue(Float(transformedValue), originator: token!)
 //            } else {
                 internalAU?.index = Float(transformedValue)
@@ -76,7 +76,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     open var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.detuningOffset = Float(newValue)
@@ -89,7 +89,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     open var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.detuningMultiplier = Float(newValue)

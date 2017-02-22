@@ -35,7 +35,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     open var cutoffFrequency: Double = 1_000 {
         willSet {
             if cutoffFrequency != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
@@ -48,7 +48,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     open var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     resonanceParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.resonance = Float(newValue)

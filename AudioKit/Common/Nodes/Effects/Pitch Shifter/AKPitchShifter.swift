@@ -32,7 +32,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     open var shift: Double = 0 {
         willSet {
             if shift != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     shiftParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.shift = Float(newValue)
@@ -44,7 +44,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     open var windowSize: Double = 1_024 {
         willSet {
             if windowSize != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     windowSizeParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.windowSize = Float(newValue)
@@ -56,7 +56,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     open var crossfade: Double = 512 {
         willSet {
             if crossfade != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     crossfadeParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.crossfade = Float(newValue)

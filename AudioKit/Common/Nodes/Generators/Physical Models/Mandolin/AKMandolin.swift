@@ -37,7 +37,7 @@ open class AKMandolin: AKNode, AKComponent {
     open var detune: Double = 1 {
         willSet {
             if detune != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     detuneParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.detune = Float(newValue)
@@ -50,7 +50,7 @@ open class AKMandolin: AKNode, AKComponent {
     open var bodySize: Double = 1 {
         willSet {
             if bodySize != newValue {
-                if internalAU!.isSetUp() {
+                if internalAU?.isSetUp() ?? false {
                     bodySizeParameter?.setValue(Float(newValue), originator: token!)
                 } else {
                     internalAU?.bodySize = Float(newValue)
