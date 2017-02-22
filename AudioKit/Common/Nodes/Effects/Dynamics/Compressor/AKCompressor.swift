@@ -119,7 +119,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect {
 
             let effect = _Self.effect
             AudioKit.engine.attach(effect)
-            au = AUWrapper(au: effect)
+            au = AUWrapper(effect)
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
             AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 

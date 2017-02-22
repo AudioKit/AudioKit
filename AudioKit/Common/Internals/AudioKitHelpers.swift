@@ -258,18 +258,18 @@ extension AVAudioUnit {
 }
 
 internal struct AUWrapper {
-    private let au: AVAudioUnit
+    private let avAudioUnit: AVAudioUnit
 
-    init(au: AVAudioUnit) {
-        self.au = au
+    init(_ avAudioUnit: AVAudioUnit) {
+        self.avAudioUnit = avAudioUnit
     }
 
     subscript (param: AudioUnitParameterID) -> Double {
         get {
-            return au[param]
+            return avAudioUnit[param]
         }
         set {
-            au[param] = newValue
+            avAudioUnit[param] = newValue
         }
     }
 }

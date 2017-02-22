@@ -81,7 +81,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
             effectGain!.volume = 1
 
             let effect = _Self.effect
-            au = AUWrapper(au: effect)
+            au = AUWrapper(effect)
 
             super.init(avAudioNode: mixer.avAudioNode)
             AudioKit.engine.attach(effect)
