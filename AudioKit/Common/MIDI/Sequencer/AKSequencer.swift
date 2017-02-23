@@ -213,7 +213,7 @@ open class AKSequencer {
 
             let size: UInt32 = 0
             var len = length.musicTimeStamp
-            var tempoTrack: MusicTrack? = nil
+            var tempoTrack: MusicTrack?
             MusicSequenceGetTempoTrack(sequence!, &tempoTrack)
             MusicTrackSetProperty(tempoTrack!, kSequenceTrackProperty_TrackLength, &len, size)
         }
@@ -266,7 +266,7 @@ open class AKSequencer {
 
         let constrainedTempo = (10...280).clamp(bpm)
 
-        var tempoTrack: MusicTrack? = nil
+        var tempoTrack: MusicTrack?
 
         MusicSequenceGetTempoTrack(sequence!, &tempoTrack)
         if isPlaying {
@@ -298,7 +298,7 @@ open class AKSequencer {
 
         let constrainedTempo = (10...280).clamp(bpm)
 
-        var tempoTrack: MusicTrack? = nil
+        var tempoTrack: MusicTrack?
 
         MusicSequenceGetTempoTrack(sequence!, &tempoTrack)
         MusicTrackNewExtendedTempoEvent(tempoTrack!, position.beats, constrainedTempo)
@@ -309,15 +309,15 @@ open class AKSequencer {
     open var tempo: Double {
         var tempoOut: Double = 120.0
 
-        var tempoTrack: MusicTrack? = nil
+        var tempoTrack: MusicTrack?
         MusicSequenceGetTempoTrack(sequence!, &tempoTrack)
 
-        var iterator: MusicEventIterator? = nil
+        var iterator: MusicEventIterator?
         NewMusicEventIterator(tempoTrack!, &iterator)
 
         var eventTime: MusicTimeStamp = 0
         var eventType: MusicEventType = kMusicEventType_ExtendedTempo
-        var eventData: UnsafeRawPointer? = nil
+        var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
 
         var hasPreviousEvent: DarwinBoolean = false
@@ -339,13 +339,13 @@ open class AKSequencer {
 
     var isTempoTrackEmpty: Bool {
         var outBool = true
-        var iterator: MusicEventIterator? = nil
-        var tempoTrack: MusicTrack? = nil
+        var iterator: MusicEventIterator?
+        var tempoTrack: MusicTrack?
         MusicSequenceGetTempoTrack(sequence!, &tempoTrack)
         NewMusicEventIterator(tempoTrack!, &iterator)
         var eventTime = MusicTimeStamp(0)
         var eventType = MusicEventType()
-        var eventData: UnsafeRawPointer? = nil
+        var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
 
@@ -496,7 +496,7 @@ open class AKSequencer {
         MusicSequenceGetTrackCount(sequence!, &count)
 
         for i in 0 ..< count {
-            var musicTrack: MusicTrack? = nil
+            var musicTrack: MusicTrack?
             MusicSequenceGetIndTrack(sequence!, UInt32(i), &musicTrack)
             tracks.append(AKMusicTrack(musicTrack: musicTrack!, name: "InitializedTrack"))
         }
@@ -509,7 +509,7 @@ open class AKSequencer {
             return nil
         }
 
-        var newMusicTrack: MusicTrack? = nil
+        var newMusicTrack: MusicTrack?
         MusicSequenceNewTrack(sequence!, &newMusicTrack)
         var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence!, &count)

@@ -113,8 +113,8 @@ open class AKMusicTrack {
     open func setLength(_ duration: AKDuration) {
         let size: UInt32 = 0
         var durationAsMusicTimeStamp = duration.musicTimeStamp
-        var tempSequence: MusicSequence? = nil
-        var tempTrack: MusicTrack? = nil
+        var tempSequence: MusicSequence?
+        var tempTrack: MusicTrack?
 
         NewMusicSequence(&tempSequence)
         guard let newSequence = tempSequence else {
@@ -138,14 +138,14 @@ open class AKMusicTrack {
             DisposeMusicSequence(newSequence)
 
             //now to clean up any notes that are too long
-            var tempIterator: MusicEventIterator? = nil
+            var tempIterator: MusicEventIterator?
             NewMusicEventIterator(track, &tempIterator)
             guard let iterator = tempIterator else {
                 return
             }
             var eventTime = MusicTimeStamp(0)
             var eventType = MusicEventType()
-            var eventData: UnsafeRawPointer? = nil
+            var eventData: UnsafeRawPointer?
             var eventDataSize: UInt32 = 0
             var hasNextEvent: DarwinBoolean = false
 
@@ -209,14 +209,14 @@ open class AKMusicTrack {
         guard let track = internalMusicTrack else {
             return
         }
-        var tempIterator: MusicEventIterator? = nil
+        var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
             return
         }
         var eventTime = MusicTimeStamp(0)
         var eventType = MusicEventType()
-        var eventData: UnsafeRawPointer? = nil
+        var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
 
@@ -236,14 +236,14 @@ open class AKMusicTrack {
         guard let track = internalMusicTrack else {
             return
         }
-        var tempIterator: MusicEventIterator? = nil
+        var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
             return
         }
         var eventTime = MusicTimeStamp(0)
         var eventType = MusicEventType()
-        var eventData: UnsafeRawPointer? = nil
+        var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
 
@@ -266,7 +266,7 @@ open class AKMusicTrack {
         guard let track = internalMusicTrack else {
             return true
         }
-        var tempIterator: MusicEventIterator? = nil
+        var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
             return true
@@ -274,7 +274,7 @@ open class AKMusicTrack {
         var outBool = true
         var eventTime = MusicTimeStamp(0)
         var eventType = MusicEventType()
-        var eventData: UnsafeRawPointer? = nil
+        var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
