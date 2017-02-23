@@ -22,7 +22,7 @@ internal struct MIDISources: Collection {
 }
 
 internal func GetMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
-    var string: Unmanaged<CFString>? = nil
+    var string: Unmanaged<CFString>?
     MIDIObjectGetStringProperty(ref, property, &string)
     return (string?.takeRetainedValue())! as String
 }

@@ -64,8 +64,8 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
             var theFileLengthInFrames: Int64 = 0
             var theFileFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
             var thePropertySize: UInt32 = UInt32(MemoryLayout.stride(ofValue: theFileFormat))
-            var extRef: ExtAudioFileRef? = nil
-            var theData: UnsafeMutablePointer<CChar>? = nil
+            var extRef: ExtAudioFileRef?
+            var theData: UnsafeMutablePointer<CChar>?
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
 
             err = ExtAudioFileOpenURL(self.impulseResponseFileURL, &extRef)
