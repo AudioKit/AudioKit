@@ -268,13 +268,14 @@ public class AKTelephoneView: NSView {
                                       NSParagraphStyleAttributeName: busyTextStyle]
 
         let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(
-            with: NSMakeSize(busyTextRect.width, CGFloat.infinity),
+            with: NSSize(width: busyTextRect.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: busyTextFontAttributes).size.height
-        let busyTextTextRect: NSRect = NSMakeRect(busyTextRect.minX,
-                                                  busyTextRect.minY + (busyTextRect.height - busyTextTextHeight) / 2,
-                                                  busyTextRect.width,
-                                                  busyTextTextHeight)
+        let busyTextTextRect: NSRect = NSRect(
+            x: busyTextRect.minX,
+            y: busyTextRect.minY + (busyTextRect.height - busyTextTextHeight) / 2,
+            width: busyTextRect.width,
+            height: busyTextTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(busyTextRect)
         busyTextTextContent.draw(in: busyTextTextRect.offsetBy(dx: 0, dy: 5), withAttributes: busyTextFontAttributes)
@@ -291,13 +292,14 @@ public class AKTelephoneView: NSView {
                                      NSParagraphStyleAttributeName: readoutStyle]
 
         let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(
-            with: NSMakeSize(readoutRect.width, CGFloat.infinity),
+            with: NSSize(width: readoutRect.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: readoutFontAttributes).size.height
-        let readoutTextRect: NSRect = NSMakeRect(readoutRect.minX,
-                                                 readoutRect.minY + (readoutRect.height - readoutTextHeight) / 2,
-                                                 readoutRect.width,
-                                                 readoutTextHeight)
+        let readoutTextRect: NSRect = NSRect(
+            x: readoutRect.minX,
+            y: readoutRect.minY + (readoutRect.height - readoutTextHeight) / 2,
+            width: readoutRect.width,
+            height: readoutTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(readoutRect)
         readoutTextContent.draw(in: readoutTextRect.offsetBy(dx: 0, dy: 0), withAttributes: readoutFontAttributes)
@@ -336,13 +338,14 @@ public class AKTelephoneView: NSView {
                                      NSParagraphStyleAttributeName: lettersStyle]
 
         let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(
-            with: NSMakeSize(lettersRect.width, CGFloat.infinity),
+            with: NSSize(width: lettersRect.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: lettersFontAttributes).size.height
-        let lettersTextRect: NSRect = NSMakeRect(lettersRect.minX,
-                                                 lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2,
-                                                 lettersRect.width,
-                                                 lettersTextHeight)
+        let lettersTextRect: NSRect = NSRect(
+            x: lettersRect.minX,
+            y: lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2,
+            width: lettersRect.width,
+            height: lettersTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(lettersRect)
         NSString(string: text).draw(in: lettersTextRect.offsetBy(dx: 0, dy: 2), withAttributes: lettersFontAttributes)
@@ -358,13 +361,14 @@ public class AKTelephoneView: NSView {
                                     NSParagraphStyleAttributeName: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
-            with: NSMakeSize(numberRect.width, CGFloat.infinity),
+            with: NSSize(width: numberRect.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: numberFontAttributes).size.height
-        let numberTextRect: NSRect = NSMakeRect(numberRect.minX,
-                                                numberRect.minY + (numberRect.height - numberTextHeight) / 2,
-                                                numberRect.width,
-                                                numberTextHeight)
+        let numberTextRect: NSRect = NSRect(
+            x: numberRect.minX,
+            y: numberRect.minY + (numberRect.height - numberTextHeight) / 2,
+            width: numberRect.width,
+            height: numberTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(numberRect)
         NSString(string: numeral).draw(in: numberTextRect.offsetBy(dx: 0, dy: 0), withAttributes: numberFontAttributes)
@@ -403,13 +407,14 @@ public class AKTelephoneView: NSView {
                                     NSParagraphStyleAttributeName: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
-            with: NSMakeSize(numberRect.width, CGFloat.infinity),
+            with: NSSize(width: numberRect.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: numberFontAttributes).size.height
-        let numberTextRect: NSRect = NSMakeRect(numberRect.minX,
-                                                numberRect.minY + (numberRect.height - numberTextHeight) / 2,
-                                                numberRect.width,
-                                                numberTextHeight)
+        let numberTextRect: NSRect = NSRect(
+            x: numberRect.minX,
+            y: numberRect.minY + (numberRect.height - numberTextHeight) / 2,
+            width: numberRect.width,
+            height: numberTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(numberRect)
         NSString(string: numeral).draw(in: numberTextRect.offsetBy(dx: 0, dy: 0), withAttributes: numberFontAttributes)

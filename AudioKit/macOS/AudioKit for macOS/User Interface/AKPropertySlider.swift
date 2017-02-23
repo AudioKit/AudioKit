@@ -139,14 +139,14 @@ public class AKPropertySlider: NSView {
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
-            with: NSMakeSize(nameLabelInset.width, CGFloat.infinity),
+            with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
-        let nameLabelTextRect: NSRect = NSMakeRect(
-            nameLabelInset.minX,
-            nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
-            nameLabelInset.width,
-            nameLabelTextHeight)
+        let nameLabelTextRect: NSRect = NSRect(
+            x: nameLabelInset.minX,
+            y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+            width: nameLabelInset.width,
+            height: nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
         NSString(string: propertyName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
@@ -164,14 +164,14 @@ public class AKPropertySlider: NSView {
 
         let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 10, dy: 0)
         let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRect(
-            with: NSMakeSize(valueLabelInset.width, CGFloat.infinity),
+            with: NSSize(width: valueLabelInset.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: valueLabelFontAttributes).size.height
-        let valueLabelTextRect: NSRect = NSMakeRect(
-            valueLabelInset.minX,
-            valueLabelInset.minY + (valueLabelInset.height - valueLabelTextHeight) / 2,
-            valueLabelInset.width,
-            valueLabelTextHeight)
+        let valueLabelTextRect: NSRect = NSRect(
+            x: valueLabelInset.minX,
+            y: valueLabelInset.minY + (valueLabelInset.height - valueLabelTextHeight) / 2,
+            width: valueLabelInset.width,
+            height: valueLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(valueLabelInset)
         NSString(string: currentValueText).draw(in: valueLabelTextRect.offsetBy(dx: 0, dy: 0),

@@ -147,14 +147,14 @@ public class AKResourcesAudioFileLoaderView: NSView {
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
-            with: NSMakeSize(nameLabelInset.width, CGFloat.infinity),
+            with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
-        let nameLabelTextRect: NSRect = NSMakeRect(
-            nameLabelInset.minX,
-            nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
-            nameLabelInset.width,
-            nameLabelTextHeight)
+        let nameLabelTextRect: NSRect = NSRect(
+            x: nameLabelInset.minX,
+            y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+            width: nameLabelInset.width,
+            height: nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(nameLabelInset)
         NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
