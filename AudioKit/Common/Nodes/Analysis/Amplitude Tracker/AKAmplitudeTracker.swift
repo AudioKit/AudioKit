@@ -20,7 +20,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     fileprivate var halfPowerPointParameter: AUParameter?
 
     /// Half-power point (in Hz) of internal lowpass filter.
-    open var halfPowerPoint: Double = 10 {
+    open dynamic var halfPowerPoint: Double = 10 {
         willSet {
             if halfPowerPoint != newValue {
                 if let existingToken = token {
@@ -31,12 +31,12 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     /// Detected amplitude
-    open var amplitude: Double {
+    open dynamic var amplitude: Double {
         if let amp = internalAU?.amplitude {
             return Double(amp) / sqrt(2.0) * 2.0
         } else {

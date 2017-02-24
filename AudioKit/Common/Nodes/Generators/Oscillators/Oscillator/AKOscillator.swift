@@ -26,14 +26,14 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// In cycles per second, or Hz.
-    open var frequency: Double = 440 {
+    open dynamic var frequency: Double = 440 {
         willSet {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -48,7 +48,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    open var amplitude: Double = 1 {
+    open dynamic var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -63,7 +63,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency offset in Hz.
-    open var detuningOffset: Double = 0 {
+    open dynamic var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -78,7 +78,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency detuning multiplier
-    open var detuningMultiplier: Double = 1 {
+    open dynamic var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -93,7 +93,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

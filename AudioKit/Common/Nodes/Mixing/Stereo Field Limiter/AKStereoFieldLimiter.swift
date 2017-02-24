@@ -19,7 +19,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     fileprivate var amountParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
@@ -28,7 +28,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     fileprivate var lastKnownamount: Double = 1.0
 
     /// Limiting Factor
-    open var amount: Double = 0 {
+    open dynamic var amount: Double = 0 {
         willSet {
             if amount != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -43,7 +43,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

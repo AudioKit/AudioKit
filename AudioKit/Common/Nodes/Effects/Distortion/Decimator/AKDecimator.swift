@@ -17,7 +17,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 1
 
     /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open var decimation: Double = 0.5 {
+    open dynamic var decimation: Double = 0.5 {
         didSet {
             decimation = (0...1).clamp(decimation)
             au[kDistortionParam_Decimation] = decimation * 100
@@ -25,7 +25,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
-    open var rounding: Double = 0 {
+    open dynamic var rounding: Double = 0 {
         didSet {
             rounding = (0...1).clamp(rounding)
             au[kDistortionParam_Rounding] = rounding * 100
@@ -33,7 +33,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    open var mix: Double = 1 {
+    open dynamic var mix: Double = 1 {
         didSet {
             mix = (0...1).clamp(mix)
             au[kDistortionParam_FinalMix] = mix * 100
@@ -41,7 +41,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     // MARK: - Initialization
 

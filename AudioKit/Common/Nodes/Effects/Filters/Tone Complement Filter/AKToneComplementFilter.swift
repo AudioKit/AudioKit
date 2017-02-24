@@ -20,14 +20,14 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var halfPowerPointParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
-    open var halfPowerPoint: Double = 1_000.0 {
+    open dynamic var halfPowerPoint: Double = 1_000.0 {
         willSet {
             if halfPowerPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -42,7 +42,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

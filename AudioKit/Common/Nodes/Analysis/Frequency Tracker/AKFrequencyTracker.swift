@@ -17,17 +17,17 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     fileprivate var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
-    open var amplitude: Double {
+    open dynamic var amplitude: Double {
         return Double(internalAU?.amplitude ?? 0) / 2.0 // Stereo Hack
     }
 
     /// Detected frequency
-    open var frequency: Double {
+    open dynamic var frequency: Double {
         return Double(internalAU?.frequency ?? 0) * 2.0 // Stereo Hack
     }
 

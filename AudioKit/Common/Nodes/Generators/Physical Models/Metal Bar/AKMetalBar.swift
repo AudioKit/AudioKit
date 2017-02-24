@@ -26,14 +26,14 @@ open class AKMetalBar: AKNode, AKComponent {
     fileprivate var strikeWidthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    open var leftBoundaryCondition: Double = 1 {
+    open dynamic var leftBoundaryCondition: Double = 1 {
         willSet {
             if leftBoundaryCondition != newValue {
                 if let existingToken = token {
@@ -44,7 +44,7 @@ open class AKMetalBar: AKNode, AKComponent {
     }
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    open var rightBoundaryCondition: Double = 1 {
+    open dynamic var rightBoundaryCondition: Double = 1 {
         willSet {
             if rightBoundaryCondition != newValue {
                 if let existingToken = token {
@@ -55,7 +55,7 @@ open class AKMetalBar: AKNode, AKComponent {
     }
 
     /// 30db decay time (in seconds).
-    open var decayDuration: Double = 3 {
+    open dynamic var decayDuration: Double = 3 {
         willSet {
             if decayDuration != newValue {
                 if let existingToken = token {
@@ -66,7 +66,7 @@ open class AKMetalBar: AKNode, AKComponent {
     }
 
     /// Speed of scanning the output location.
-    open var scanSpeed: Double = 0.25 {
+    open dynamic var scanSpeed: Double = 0.25 {
         willSet {
             if scanSpeed != newValue {
                 if let existingToken = token {
@@ -77,7 +77,7 @@ open class AKMetalBar: AKNode, AKComponent {
     }
 
     /// Position along bar that strike occurs.
-    open var position: Double = 0.2 {
+    open dynamic var position: Double = 0.2 {
         willSet {
             if position != newValue {
                 if let existingToken = token {
@@ -88,7 +88,7 @@ open class AKMetalBar: AKNode, AKComponent {
     }
 
     /// Normalized strike velocity
-    open var strikeVelocity: Double = 500 {
+    open dynamic var strikeVelocity: Double = 500 {
         willSet {
             if strikeVelocity != newValue {
                 if let existingToken = token {
@@ -99,7 +99,7 @@ open class AKMetalBar: AKNode, AKComponent {
     }
 
     /// Spatial width of strike.
-    open var strikeWidth: Double = 0.05 {
+    open dynamic var strikeWidth: Double = 0.05 {
         willSet {
             if strikeWidth != newValue {
                 if let existingToken = token {
@@ -110,7 +110,7 @@ open class AKMetalBar: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

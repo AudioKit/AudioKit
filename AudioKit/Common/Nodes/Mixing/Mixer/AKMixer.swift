@@ -11,7 +11,7 @@ open class AKMixer: AKNode, AKToggleable {
     fileprivate let mixerAU = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
-    open var volume: Double = 1.0 {
+    open dynamic var volume: Double = 1.0 {
         didSet {
             volume = max(volume, 0)
             mixerAU.outputVolume = Float(volume)
@@ -21,7 +21,7 @@ open class AKMixer: AKNode, AKToggleable {
     fileprivate var lastKnownVolume: Double = 1.0
 
     /// Determine if the mixer is serving any output or if it is stopped.
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return volume != 0.0
     }
 

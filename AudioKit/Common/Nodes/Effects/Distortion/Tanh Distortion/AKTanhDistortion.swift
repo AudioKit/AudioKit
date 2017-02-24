@@ -23,14 +23,14 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     fileprivate var negativeShapeParameterParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    open var pregain: Double = 2.0 {
+    open dynamic var pregain: Double = 2.0 {
         willSet {
             if pregain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Gain applied after waveshaping
-    open var postgain: Double = 0.5 {
+    open dynamic var postgain: Double = 0.5 {
         willSet {
             if postgain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    open var postiveShapeParameter: Double = 0.0 {
+    open dynamic var postiveShapeParameter: Double = 0.0 {
         willSet {
             if postiveShapeParameter != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -72,7 +72,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Like the positive shape parameter, only for the negative part.
-    open var negativeShapeParameter: Double = 0.0 {
+    open dynamic var negativeShapeParameter: Double = 0.0 {
         willSet {
             if negativeShapeParameter != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -87,7 +87,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
