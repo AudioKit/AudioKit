@@ -7,7 +7,6 @@
 //
 import UIKit
 
-
 /// Delegate for keyboard events
 public protocol AKKeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
@@ -213,7 +212,7 @@ public protocol AKKeyboardDelegate: class {
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let key = noteFromTouchLocation(touch.location(in: self)),
-                key != noteFromTouchLocation(touch.previousLocation(in: self))  {
+                key != noteFromTouchLocation(touch.previousLocation(in: self)) {
                 pressAdded(key)
             }
         }
@@ -221,13 +220,11 @@ public protocol AKKeyboardDelegate: class {
         setNeedsDisplay()
     }
     
-    
     override open func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         verifyTouches(event?.allTouches)
     }
     
-    
-    // MARK:  - Executing Key Presses
+    // MARK: - Executing Key Presses
     
     private func pressAdded(_ newNote: MIDINoteNumber) {
         if !polyphonicMode {
