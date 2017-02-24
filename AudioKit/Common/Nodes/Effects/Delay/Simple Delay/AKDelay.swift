@@ -14,7 +14,7 @@ open class AKDelay: AKNode, AKToggleable {
     fileprivate var lastKnownMix: Double = 0.5
 
     /// Delay time in seconds (Default: 1)
-    open var time: TimeInterval = 1 {
+    open dynamic var time: TimeInterval = 1 {
         didSet {
             time = max(time, 0)
             delayAU.delayTime = time
@@ -22,7 +22,7 @@ open class AKDelay: AKNode, AKToggleable {
     }
 
     /// Feedback (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open var feedback: Double = 0.5 {
+    open dynamic var feedback: Double = 0.5 {
         didSet {
             feedback = (0...1).clamp(feedback)
             delayAU.feedback = Float(feedback) * 100.0
@@ -30,7 +30,7 @@ open class AKDelay: AKNode, AKToggleable {
     }
 
     /// Low pass cut-off frequency in Hertz (Default: 15000)
-    open var lowPassCutoff: Double = 15_000.00 {
+    open dynamic var lowPassCutoff: Double = 15_000.00 {
         didSet {
             lowPassCutoff = max(lowPassCutoff, 0)
             delayAU.lowPassCutoff = Float(lowPassCutoff)
@@ -38,7 +38,7 @@ open class AKDelay: AKNode, AKToggleable {
     }
 
     /// Dry/Wet Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open var dryWetMix: Double = 0.5 {
+    open dynamic var dryWetMix: Double = 0.5 {
         didSet {
             internalSetDryWetMix(dryWetMix)
         }
@@ -50,7 +50,7 @@ open class AKDelay: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     /// Initialize the delay node
     ///

@@ -16,7 +16,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     private var mixer: AKMixer
 
     /// Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
-    open var cutoffFrequency: Double = 80 {
+    open dynamic var cutoffFrequency: Double = 80 {
         didSet {
             cutoffFrequency = (10...200).clamp(cutoffFrequency)
             au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
@@ -24,7 +24,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    open var gain: Double = 0 {
+    open dynamic var gain: Double = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kAULowShelfParam_Gain] = gain
@@ -32,7 +32,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     }
 
     /// Dry/Wet Mix (Default 100)
-    open var dryWetMix: Double = 100 {
+    open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
@@ -47,7 +47,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     // MARK: - Initialization
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     /// Initialize the low shelf filter node
     ///

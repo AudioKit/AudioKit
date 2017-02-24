@@ -19,7 +19,7 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent {
     private var token: AUParameterObserverToken?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

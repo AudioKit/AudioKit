@@ -21,14 +21,14 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = rampTime
         }
     }
 
     /// Wah Amount
-    open var wah: Double = 0.0 {
+    open dynamic var wah: Double = 0.0 {
         willSet {
             if wah != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -42,7 +42,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Dry/Wet Mix
-    open var mix: Double = 1.0 {
+    open dynamic var mix: Double = 1.0 {
         willSet {
             if mix != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -56,7 +56,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Overall level
-    open var amplitude: Double = 0.1 {
+    open dynamic var amplitude: Double = 0.1 {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -71,7 +71,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
