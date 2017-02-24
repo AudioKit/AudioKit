@@ -88,12 +88,12 @@ open class AKMIDISampler: AKSampler {
     /// Handle MIDI CC that come in externally
     ///
     /// - Parameters:
-    ///   - cc: MIDI cc number
-    ///   - value: MIDI cc value
-    ///   - channel: MIDI cc channel
+    ///   - controller: MIDI CC number
+    ///   - value: MIDI CC value
+    ///   - channel: MIDI CC channel
     ///
-    open func midiCC(_ cc: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
-        samplerUnit.sendController(cc, withValue: value, onChannel: channel)
+    open func midiCC(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+        samplerUnit.sendController(controller, withValue: value, onChannel: channel)
     }
 
     // MARK: - MIDI Note Start/Stop
