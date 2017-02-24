@@ -71,7 +71,9 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         willSet {
             if resonanceAsymmetry != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    resonanceAsymmetryParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                        resonanceAsymmetryParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.resonanceAsymmetry = Float(newValue)
                 }
