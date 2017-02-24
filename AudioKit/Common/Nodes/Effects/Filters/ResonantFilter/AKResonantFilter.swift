@@ -22,14 +22,14 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var bandwidthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    open var frequency: Double = 4_000.0 {
+    open dynamic var frequency: Double = 4_000.0 {
         willSet {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -43,7 +43,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Bandwidth of the filter.
-    open var bandwidth: Double = 1_000.0 {
+    open dynamic var bandwidth: Double = 1_000.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

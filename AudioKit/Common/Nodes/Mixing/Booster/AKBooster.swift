@@ -20,7 +20,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     fileprivate var gainParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
@@ -29,7 +29,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     fileprivate var lastKnownGain: Double = 1.0
 
     /// Amplification Factor
-    open var gain: Double = 1 {
+    open dynamic var gain: Double = 1 {
         willSet {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplification Factor in db
-    open var dB: Double {
+    open dynamic var dB: Double {
         set {
             gain = pow(10.0, Double(newValue / 20))
         }
@@ -54,7 +54,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

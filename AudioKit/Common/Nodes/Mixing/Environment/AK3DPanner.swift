@@ -11,21 +11,21 @@ open class AK3DPanner: AKNode {
     fileprivate let environmentNode = AVAudioEnvironmentNode()
 
     /// Position of sound source along x-axis
-    open var x: Double {
+    open dynamic var x: Double {
         willSet {
             environmentNode.listenerPosition.x = Float(-newValue)
         }
     }
 
     /// Position of sound source along y-axis
-    open var y: Double {
+    open dynamic var y: Double {
         willSet {
             environmentNode.listenerPosition.y = Float(-newValue)
         }
     }
 
     /// Position of sound source along z-axis
-    open var z: Double {
+    open dynamic var z: Double {
         willSet {
             environmentNode.listenerPosition.z = Float(-newValue)
         }

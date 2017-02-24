@@ -17,7 +17,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 1
 
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    open var frequency1: Double = 100 {
+    open dynamic var frequency1: Double = 100 {
         didSet {
             frequency1 = (0.5...8_000).clamp(frequency1)
             au[kDistortionParam_RingModFreq1] = frequency1
@@ -25,7 +25,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    open var frequency2: Double = 100 {
+    open dynamic var frequency2: Double = 100 {
         didSet {
             frequency2 = (0.5...8_000).clamp(frequency2)
             au[kDistortionParam_RingModFreq2] = frequency2
@@ -33,7 +33,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open var balance: Double = 0.5 {
+    open dynamic var balance: Double = 0.5 {
         didSet {
             balance = (0...1).clamp(balance)
             au[kDistortionParam_RingModBalance] = balance * 100
@@ -41,7 +41,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    open var mix: Double = 1 {
+    open dynamic var mix: Double = 1 {
         didSet {
             mix = (0...1).clamp(mix)
             au[kDistortionParam_FinalMix] = mix * 100
@@ -49,7 +49,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     // MARK: - Initialization
 

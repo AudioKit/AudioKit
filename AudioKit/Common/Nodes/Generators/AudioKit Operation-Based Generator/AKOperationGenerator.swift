@@ -16,19 +16,19 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     fileprivate var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     /// Sporth language snippet
-    open var sporth: String = "" {
+    open dynamic var sporth: String = "" {
         didSet {
             restart()
         }
     }
 
     /// Parameters for changing internal operations
-    open var parameters: [Double] {
+    open dynamic var parameters: [Double] {
         get {
             var result: [Double] = []
             if let floatParameters = internalAU?.parameters as? [NSNumber] {

@@ -23,39 +23,39 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     fileprivate var internalEndTime: Double = 0
 
     // MARK: - Properties
-    open var audioFileBuffer: AVAudioPCMBuffer?
+    open dynamic var audioFileBuffer: AVAudioPCMBuffer?
 
     /// Will be triggered when AKAudioPlayer has finished to play.
     /// (will not as long as loop is on)
-    open var completionHandler: AKCallback?
+    open dynamic var completionHandler: AKCallback?
 
     /// Boolean indicating whether or not to loop the playback
-    open var looping: Bool = false
+    open dynamic var looping: Bool = false
 
     /// Boolean indicating to play the buffer in reverse
-    open var reversed: Bool = false {
+    open dynamic var reversed: Bool = false {
         didSet {
             updatePCMBuffer()
         }
     }
 
     /// return the current played AKAudioFile
-    open var audioFile: AKAudioFile {
+    open dynamic var audioFile: AKAudioFile {
         return internalAudioFile
     }
 
     // path to the currently loaded AKAudioFile
-    open var path: String {
+    open dynamic var path: String {
         return audioFile.url.path
     }
 
     /// Total duration of one loop through of the file
-    open var duration: Double {
+    open dynamic var duration: Double {
         return Double(totalFrameCount) / Double(internalAudioFile.sampleRate)
     }
 
     /// Output Volume (Default 1)
-    open var volume: Double = 1.0 {
+    open dynamic var volume: Double = 1.0 {
         didSet {
             volume = max(volume, 0)
             internalPlayer.volume = Float(volume)
@@ -63,12 +63,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Whether or not the audio player is currently started
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return  internalPlayer.isPlaying
     }
 
     /// Current playback time (in seconds)
-    open var currentTime: Double {
+    open dynamic var currentTime: Double {
         if playing {
             if let nodeTime = internalPlayer.lastRenderTime,
                 let playerTime = internalPlayer.playerTime(forNodeTime: nodeTime) {
@@ -80,7 +80,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Time within the audio file at the current time
-    open var playhead: Double {
+    open dynamic var playhead: Double {
 
         let endTime = Double(endingFrame) / internalAudioFile.sampleRate
         let startTime = Double(startingFrame) / internalAudioFile.sampleRate
@@ -102,7 +102,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Pan (Default Center = 0)
-    open var pan: Double = 0.0 {
+    open dynamic var pan: Double = 0.0 {
         didSet {
             pan = (-1...1).clamp(pan)
             internalPlayer.pan = Float(pan)
@@ -111,7 +111,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// sets the start time, If it is playing, player will
     /// restart playing from the start time each time end time is set
-    open var startTime: Double {
+    open dynamic var startTime: Double {
         get {
             return Double(startingFrame) / internalAudioFile.sampleRate
 
@@ -144,7 +144,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// sets the end time, If it is playing, player will
     /// restart playing from the start time each time end time is set
-    open var endTime: Double {
+    open dynamic var endTime: Double {
         get {
             return Double(endingFrame) / internalAudioFile.sampleRate
 
@@ -179,14 +179,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Sets the time in the future when playback will commence. Recommend using play(from:to:avTime) instead.
     /// this will be deprecated
-    open var scheduledTime: Double = 0 {
+    open dynamic var scheduledTime: Double = 0 {
         didSet {
             let hostTime = mach_absolute_time()
             scheduledAVTime = AKAudioPlayer.secondsToAVAudioTime(hostTime:hostTime, time:scheduledTime)
         }
     }
 
-    open var scheduledAVTime: AVAudioTime?
+    open dynamic var scheduledAVTime: AVAudioTime?
 
     // MARK: - Initialization
 
