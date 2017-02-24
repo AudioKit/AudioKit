@@ -18,12 +18,12 @@ open class AKButton: UIView {
             setNeedsDisplay()
         }
     }
-    
+
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let newTitle = callback()
         if newTitle != "" { title = newTitle }
     }
-    
+
     public init(title: String,
                 color: UIColor = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
@@ -33,11 +33,11 @@ open class AKButton: UIView {
         self.color = color
         super.init(frame: frame)
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func drawButton() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -45,22 +45,22 @@ open class AKButton: UIView {
         let outerPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
         color.setFill()
         outerPath.fill()
-        
+
         let labelRect = CGRect(x: 0, y: 0, width: 440, height: 60)
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
-        
+
         let labelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: labelStyle]
-        
+
         let labelInset: CGRect = labelRect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(with: CGSize(width: labelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).size.height
-        context!.saveGState()
-        context!.clip(to: labelInset)
+        context?.saveGState()
+        context?.clip(to: labelInset)
         NSString(string: title).draw(in: CGRect(x: labelInset.minX, y: labelInset.minY + (labelInset.height - labelTextHeight) / 2, width: labelInset.width, height: labelTextHeight), withAttributes: labelFontAttributes)
-        context!.restoreGState()
-        
+        context?.restoreGState()
+
     }
-    
+
     override open func draw(_ rect: CGRect) {
         drawButton()
     }
