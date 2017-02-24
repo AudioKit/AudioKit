@@ -39,7 +39,7 @@ open class AKMixer: AKNode, AKToggleable {
     ///
     /// - parameter inputs: A varaiadic list of AKNodes
     ///
-    public init(_ inputs: AKNode...) {
+    public init(_ inputs: AKNode?...) {
         super.init()
         self.avAudioNode = mixerAU
         AudioKit.engine.attach(self.avAudioNode)
@@ -52,14 +52,19 @@ open class AKMixer: AKNode, AKToggleable {
     ///
     /// - parameter input: AKNode to connect
     ///
-    open func connect(_ input: AKNode) {
+    open func connect(_ input: AKNode?) {
         var wasRunning = false
         if AudioKit.engine.isRunning {
             wasRunning = true
             AudioKit.stop()
         }
-        input.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU, bus: mixerAU.numberOfInputs))
-        AudioKit.engine.connect(input.avAudioNode, to: input.connectionPoints, fromBus: 0, format: AudioKit.format)
+        if let existingInput = input {
+            existingInput.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU, bus: mixerAU.numberOfInputs))
+            AudioKit.engine.connect(existingInput.avAudioNode,
+                                    to: existingInput.connectionPoints,
+                                    fromBus: 0,
+                                    format: AudioKit.format)
+        }
         if wasRunning {
             AudioKit.start()
         }
