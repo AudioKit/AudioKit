@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class fmOscillatorTests: AKTestCase {
+class FMOscillatorTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

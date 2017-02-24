@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class dcBlockTests: AKTestCase {
+class DCBlockTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class autoWahTests: AKTestCase {
+class AutoWahTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

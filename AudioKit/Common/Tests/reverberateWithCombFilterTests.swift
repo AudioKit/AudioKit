@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class reverberateWithCombFilterTests: AKTestCase {
+class ReverberateWithCombFilterTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

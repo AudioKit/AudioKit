@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class pinkNoiseTests: AKTestCase {
+class PinkNoiseTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

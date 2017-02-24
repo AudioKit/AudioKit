@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class bitcrushTests: AKTestCase {
+class BitcrushTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

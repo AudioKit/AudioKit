@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class moogLadderFilterTests: AKTestCase {
+class MoogLadderFilterTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

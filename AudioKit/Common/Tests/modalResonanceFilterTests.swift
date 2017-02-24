@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class modalResonanceFilterTests: AKTestCase {
+class ModalResonanceFilterTests: AKTestCase {
 
     override func setUp() {
         super.setUp()
