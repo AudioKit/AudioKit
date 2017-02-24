@@ -74,11 +74,11 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
             self.preGain = preGain
 
             inputGain = AKMixer(input)
-            inputGain!.volume = 0
-            mixer = AKMixer(inputGain!)
+            inputGain?.volume = 0
+            mixer = AKMixer(inputGain)
 
             effectGain = AKMixer(input)
-            effectGain!.volume = 1
+            effectGain?.volume = 1
 
             let effect = _Self.effect
             au = AUWrapper(effect)
@@ -86,7 +86,9 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
             super.init(avAudioNode: mixer.avAudioNode)
             AudioKit.engine.attach(effect)
 
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect, format: AudioKit.format)
+            if let node = effectGain?.avAudioNode {
+                AudioKit.engine.connect(node, to: effect, format: AudioKit.format)
+            }
             AudioKit.engine.connect(effect, to: mixer.avAudioNode, format: AudioKit.format)
 
             au[kLimiterParam_AttackTime] = attackTime

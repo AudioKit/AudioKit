@@ -120,17 +120,19 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
             self.masterGain = masterGain
 
             inputGain = AKMixer(input)
-            inputGain!.volume = 0
-            mixer = AKMixer(inputGain!)
+            inputGain?.volume = 0
+            mixer = AKMixer(inputGain)
 
             effectGain = AKMixer(input)
-            effectGain!.volume = 1
+            effectGain?.volume = 1
 
             let effect = _Self.effect
             AudioKit.engine.attach(effect)
             au = AUWrapper(effect)
 
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            if let node = effectGain?.avAudioNode {
+                AudioKit.engine.connect(node, to: effect)
+            }
             AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
             super.init(avAudioNode: mixer.avAudioNode)

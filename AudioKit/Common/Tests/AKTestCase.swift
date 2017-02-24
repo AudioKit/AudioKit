@@ -15,7 +15,7 @@ class AKTestCase: XCTestCase {
     var output: AKNode?
 
     var MD5: String {
-        return AudioKit.tester!.MD5
+        return AudioKit.tester?.MD5 ?? ""
     }
 
     func auditionTest() {

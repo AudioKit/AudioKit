@@ -24,7 +24,11 @@ internal struct MIDISources: Collection {
 internal func GetMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
     var string: Unmanaged<CFString>?
     MIDIObjectGetStringProperty(ref, property, &string)
-    return (string?.takeRetainedValue())! as String
+    if let returnString = string?.takeRetainedValue() {
+        return returnString as String
+    } else {
+        return ""
+    }
 }
 
 extension AKMIDI {

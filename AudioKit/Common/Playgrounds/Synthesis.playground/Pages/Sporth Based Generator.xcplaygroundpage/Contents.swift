@@ -121,9 +121,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(p3Slider)
 
         keyboard = AKKeyboardView(width: 440, height: 100)
-        keyboard!.polyphonicMode = false
-        keyboard!.delegate = self
-        keyboard!.isHidden = true
+        keyboard?.polyphonicMode = false
+        keyboard?.delegate = self
+        keyboard?.isHidden = true
         addSubview(keyboard)
     }
 
