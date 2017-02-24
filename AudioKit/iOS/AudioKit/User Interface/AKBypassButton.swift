@@ -75,10 +75,10 @@ open class AKBypassButton: UIView {
 
         let bypassLabelInset: CGRect = bypassLabelRect.insetBy(dx: 10, dy: 0)
         let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(with: CGSize(width: bypassLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: bypassLabelFontAttributes, context: nil).size.height
-        context!.saveGState()
-        context!.clip(to: bypassLabelInset)
+        context?.saveGState()
+        context?.clip(to: bypassLabelInset)
         NSString(string: bypassedText).draw(in: CGRect(x: bypassLabelInset.minX, y: bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2, width: bypassLabelInset.width, height: bypassLabelTextHeight), withAttributes: bypassLabelFontAttributes)
-        context!.restoreGState()
+        context?.restoreGState()
 
         //// processGroup
         //// processOuter Drawing
@@ -95,10 +95,10 @@ open class AKBypassButton: UIView {
 
         let processLabelInset: CGRect = processLabelRect.insetBy(dx: 10, dy: 0)
         let processLabelTextHeight: CGFloat = NSString(string: processingText).boundingRect(with: CGSize(width: processLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: processLabelFontAttributes, context: nil).size.height
-        context!.saveGState()
-        context!.clip(to: processLabelInset)
+        context?.saveGState()
+        context?.clip(to: processLabelInset)
         NSString(string: processingText).draw(in: CGRect(x: processLabelInset.minX, y: processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2, width: processLabelInset.width, height: processLabelTextHeight), withAttributes: processLabelFontAttributes)
-        context!.restoreGState()
+        context?.restoreGState()
     }
 
     /// Draw the button
