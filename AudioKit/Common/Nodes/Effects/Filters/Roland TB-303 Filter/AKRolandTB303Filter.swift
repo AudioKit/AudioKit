@@ -23,14 +23,14 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     fileprivate var resonanceAsymmetryParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Cutoff frequency. (in Hertz)
-    open var cutoffFrequency: Double = 500 {
+    open dynamic var cutoffFrequency: Double = 500 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -45,7 +45,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     }
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, 
     /// analogue synths generally allow resonances to be above 1.
-    open var resonance: Double = 0.5 {
+    open dynamic var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -59,7 +59,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues.
-    open var distortion: Double = 2.0 {
+    open dynamic var distortion: Double = 2.0 {
         willSet {
             if distortion != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -73,7 +73,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Asymmetry of resonance. Value is between 0-1
-    open var resonanceAsymmetry: Double = 0.5 {
+    open dynamic var resonanceAsymmetry: Double = 0.5 {
         willSet {
             if resonanceAsymmetry != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -88,7 +88,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

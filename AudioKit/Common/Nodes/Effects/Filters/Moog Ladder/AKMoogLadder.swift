@@ -25,14 +25,14 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     fileprivate var resonanceParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Filter cutoff frequency.
-    open var cutoffFrequency: Double = 1_000 {
+    open dynamic var cutoffFrequency: Double = 1_000 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -47,7 +47,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     }
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, 
     /// analogue synths generally allow resonances to be above 1.
-    open var resonance: Double = 0.5 {
+    open dynamic var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -62,7 +62,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

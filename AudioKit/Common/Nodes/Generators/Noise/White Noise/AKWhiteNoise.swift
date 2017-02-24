@@ -20,14 +20,14 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     private var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Amplitude. (Value between 0-1).
-    open var amplitude: Double = 1 {
+    open dynamic var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 if let existingToken = token {
@@ -38,7 +38,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

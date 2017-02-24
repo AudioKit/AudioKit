@@ -22,14 +22,14 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     fileprivate var crossfadeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Pitch shift (in semitones)
-    open var shift: Double = 0 {
+    open dynamic var shift: Double = 0 {
         willSet {
             if shift != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -43,7 +43,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Window size (in samples)
-    open var windowSize: Double = 1_024 {
+    open dynamic var windowSize: Double = 1_024 {
         willSet {
             if windowSize != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -57,7 +57,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Crossfade (in samples)
-    open var crossfade: Double = 512 {
+    open dynamic var crossfade: Double = 512 {
         willSet {
             if crossfade != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -72,7 +72,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

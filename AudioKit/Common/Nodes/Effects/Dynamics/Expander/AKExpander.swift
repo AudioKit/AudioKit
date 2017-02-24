@@ -20,7 +20,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     private var internalOutputAmplitude: AudioUnitParameterValue = 0.0
 
     /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
-    open var expansionRatio: Double = 2 {
+    open dynamic var expansionRatio: Double = 2 {
         didSet {
             expansionRatio = (1...50).clamp(expansionRatio)
             au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
@@ -28,7 +28,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     }
 
     /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
-    open var expansionThreshold: Double = 2 {
+    open dynamic var expansionThreshold: Double = 2 {
         didSet {
             expansionThreshold = (1...50).clamp(expansionThreshold)
             au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
@@ -36,7 +36,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     }
 
     /// Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    open var attackTime: Double = 0.001 {
+    open dynamic var attackTime: Double = 0.001 {
         didSet {
             attackTime = (0.000_1...0.2).clamp(attackTime)
             au[kDynamicsProcessorParam_AttackTime] = attackTime
@@ -44,7 +44,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     }
 
     /// Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
-    open var releaseTime: Double = 0.05 {
+    open dynamic var releaseTime: Double = 0.05 {
         didSet {
             releaseTime = (0.01...3).clamp(releaseTime)
             au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
@@ -52,7 +52,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     }
 
     /// Master Gain (dB) ranges from -40 to 40 (Default: 0)
-    open var masterGain: Double = 0 {
+    open dynamic var masterGain: Double = 0 {
         didSet {
             masterGain = (-40...40).clamp(masterGain)
             au[kDynamicsProcessorParam_MasterGain] = masterGain
@@ -60,22 +60,22 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     }
 
     /// Compression Amount (dB) read only
-    open var compressionAmount: Double {
+    open dynamic var compressionAmount: Double {
         return au[kDynamicsProcessorParam_CompressionAmount]
     }
 
     /// Input Amplitude (dB) read only
-    open var inputAmplitude: Double {
+    open dynamic var inputAmplitude: Double {
         return au[kDynamicsProcessorParam_InputAmplitude]
     }
 
     /// Output Amplitude (dB) read only
-    open var outputAmplitude: Double {
+    open dynamic var outputAmplitude: Double {
         return au[kDynamicsProcessorParam_OutputAmplitude]
     }
 
     /// Dry/Wet Mix (Default 100)
-    open var dryWetMix: Double = 100 {
+    open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
@@ -88,7 +88,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     private var effectGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     /// Initialize the dynamics processor node
     ///

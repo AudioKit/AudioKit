@@ -24,14 +24,14 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     fileprivate var reverbDurationParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    open var reverbDuration: Double = 0.5 {
+    open dynamic var reverbDuration: Double = 0.5 {
         willSet {
             if reverbDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -46,7 +46,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

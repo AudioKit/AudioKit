@@ -24,14 +24,14 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     fileprivate var pitchRatioParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    open var position: Double = 0 {
+    open dynamic var position: Double = 0 {
         willSet {
             if position != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -46,7 +46,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     }
 
     /// Amplitude.
-    open var amplitude: Double = 1 {
+    open dynamic var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -61,7 +61,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     }
 
     /// Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
-    open var pitchRatio: Double = 1 {
+    open dynamic var pitchRatio: Double = 1 {
         willSet {
             if pitchRatio != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -76,7 +76,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
