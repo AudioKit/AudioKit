@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class pluckedStringTests: AKTestCase {
+class PluckedStringTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

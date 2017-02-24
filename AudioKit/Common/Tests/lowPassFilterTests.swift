@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class lowPassFilterTests: AKTestCase {
+class LowPassFilterTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

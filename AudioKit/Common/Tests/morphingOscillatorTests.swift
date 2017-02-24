@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class morphingOscillatorTests: AKTestCase {
+class MorphingOscillatorTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

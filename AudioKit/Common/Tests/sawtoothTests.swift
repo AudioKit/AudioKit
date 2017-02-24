@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class sawtoothTests: AKTestCase {
+class SawtoothTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

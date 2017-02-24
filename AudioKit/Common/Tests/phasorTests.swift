@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class phasorTests: AKTestCase {
+class PhasorTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

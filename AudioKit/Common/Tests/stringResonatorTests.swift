@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class stringResonatorTests: AKTestCase {
+class StringResonatorTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class sineWaveTests: AKTestCase {
+class SineWaveTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class resonantFilterTests: AKTestCase {
+class ResonantFilterTests: AKTestCase {
 
     override func setUp() {
         super.setUp()

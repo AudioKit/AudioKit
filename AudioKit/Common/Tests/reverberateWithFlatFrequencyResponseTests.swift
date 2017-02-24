@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class reverberateWithFlatFrequencyResponseTests: AKTestCase {
+class ReverberateWithFlatFrequencyResponseTests: AKTestCase {
 
     override func setUp() {
         super.setUp()
