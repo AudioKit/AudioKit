@@ -33,7 +33,9 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         willSet {
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.centerFrequency = Float(newValue)
                 }
@@ -45,7 +47,9 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         willSet {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    gainParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    gainParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.gain = Float(newValue)
                 }
@@ -57,7 +61,9 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         willSet {
             if q != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    qParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    qParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.q = Float(newValue)
                 }

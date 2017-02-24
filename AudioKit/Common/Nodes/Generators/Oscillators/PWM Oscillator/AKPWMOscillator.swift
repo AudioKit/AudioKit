@@ -35,7 +35,9 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    frequencyParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.frequency = Float(newValue)
                 }
@@ -48,7 +50,9 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.amplitude = Float(newValue)
                 }
@@ -61,7 +65,9 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if detuningOffset != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.detuningOffset = Float(newValue)
                 }
@@ -74,7 +80,9 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.detuningMultiplier = Float(newValue)
                 }
@@ -87,7 +95,9 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if pulseWidth != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    pulseWidthParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    pulseWidthParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.pulseWidth = Float(newValue)
                 }

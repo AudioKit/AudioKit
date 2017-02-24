@@ -31,7 +31,9 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent {
         willSet {
             if halfPowerPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    halfPowerPointParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.halfPowerPoint = Float(newValue)
                 }

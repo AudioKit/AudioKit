@@ -32,7 +32,9 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
         willSet {
             if limit != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    limitParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    limitParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.limit = Float(newValue)
                 }

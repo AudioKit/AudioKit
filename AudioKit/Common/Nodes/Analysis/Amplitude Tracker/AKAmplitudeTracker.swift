@@ -23,7 +23,9 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     open var halfPowerPoint: Double = 10 {
         willSet {
             if halfPowerPoint != newValue {
-                halfPowerPointParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -77,7 +79,9 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
                 }
             }
         })
-        halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
+        if let existingToken = token {
+            halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: existingToken)
+        }
     }
 
     deinit {

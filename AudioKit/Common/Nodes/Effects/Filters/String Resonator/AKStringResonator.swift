@@ -37,7 +37,9 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
         willSet {
             if fundamentalFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    fundamentalFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.fundamentalFrequency = Float(newValue)
                 }
@@ -50,7 +52,9 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
         willSet {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    feedbackParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.feedback = Float(newValue)
                 }

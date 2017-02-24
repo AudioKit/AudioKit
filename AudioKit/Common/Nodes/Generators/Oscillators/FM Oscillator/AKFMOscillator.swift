@@ -37,7 +37,9 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if baseFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    baseFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    baseFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.baseFrequency = Float(newValue)
                 }
@@ -50,7 +52,9 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if carrierMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    carrierMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    carrierMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.carrierMultiplier = Float(newValue)
                 }
@@ -63,7 +67,9 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if modulatingMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    modulatingMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    modulatingMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.modulatingMultiplier = Float(newValue)
                 }
@@ -76,7 +82,9 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if modulationIndex != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    modulationIndexParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    modulationIndexParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.modulationIndex = Float(newValue)
                 }
@@ -89,7 +97,9 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.amplitude = Float(newValue)
                 }

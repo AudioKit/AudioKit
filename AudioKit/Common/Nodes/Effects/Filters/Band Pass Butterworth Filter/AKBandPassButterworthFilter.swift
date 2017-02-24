@@ -32,7 +32,9 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         willSet {
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.centerFrequency = Float(newValue)
                 }
@@ -44,7 +46,9 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         willSet {
             if bandwidth != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    bandwidthParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.bandwidth = Float(newValue)
                 }

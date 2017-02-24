@@ -34,7 +34,9 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         willSet {
             if pregain != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    pregainParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    pregainParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.pregain = Float(newValue)
                 }
@@ -46,7 +48,9 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         willSet {
             if postgain != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    postgainParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    postgainParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.postgain = Float(newValue)
                 }
@@ -58,7 +62,9 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         willSet {
             if postiveShapeParameter != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    postiveShapeParameterParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    postiveShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.postiveShapeParameter = Float(newValue)
                 }
@@ -70,7 +76,9 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         willSet {
             if negativeShapeParameter != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    negativeShapeParameterParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    negativeShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.negativeShapeParameter = Float(newValue)
                 }
