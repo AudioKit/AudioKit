@@ -71,6 +71,7 @@ public protocol AKKeyboardDelegate: class {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        isMultipleTouchEnabled = true
     }
     
     // MARK: - Storyboard Rendering
