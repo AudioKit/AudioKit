@@ -35,7 +35,9 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         willSet {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    feedbackParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.feedback = Float(newValue)
                 }
@@ -47,7 +49,9 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
                 }

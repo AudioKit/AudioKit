@@ -39,7 +39,9 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             if attackDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    attackDurationParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.attackDuration = Float(newValue)
                 }
@@ -51,7 +53,9 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             if decayDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    decayDurationParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.decayDuration = Float(newValue)
                 }
@@ -63,7 +67,9 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             if sustainLevel != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    sustainLevelParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.sustainLevel = Float(newValue)
                 }
@@ -75,7 +81,9 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             if releaseDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    releaseDurationParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.releaseDuration = Float(newValue)
                 }
@@ -88,7 +96,9 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             if detuningOffset != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.detuningOffset = Float(newValue)
                 }
@@ -101,7 +111,9 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.detuningMultiplier = Float(newValue)
                 }

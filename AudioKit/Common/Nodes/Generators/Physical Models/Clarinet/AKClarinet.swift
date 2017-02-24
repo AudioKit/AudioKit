@@ -30,7 +30,9 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
     open var frequency: Double = 110 {
         willSet {
             if frequency != newValue {
-                frequencyParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -39,7 +41,9 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
     open var amplitude: Double = 0.5 {
         willSet {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }

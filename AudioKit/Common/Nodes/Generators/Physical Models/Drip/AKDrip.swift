@@ -37,7 +37,9 @@ open class AKDrip: AKNode, AKComponent {
     open var intensity: Double = 10 {
         willSet {
             if intensity != newValue {
-                intensityParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    intensityParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -46,7 +48,9 @@ open class AKDrip: AKNode, AKComponent {
     open var dampingFactor: Double = 0.2 {
         willSet {
             if dampingFactor != newValue {
-                dampingFactorParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    dampingFactorParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -55,7 +59,9 @@ open class AKDrip: AKNode, AKComponent {
     open var energyReturn: Double = 0 {
         willSet {
             if energyReturn != newValue {
-                energyReturnParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    energyReturnParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -64,7 +70,9 @@ open class AKDrip: AKNode, AKComponent {
     open var mainResonantFrequency: Double = 450 {
         willSet {
             if mainResonantFrequency != newValue {
-                mainResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    mainResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -73,7 +81,9 @@ open class AKDrip: AKNode, AKComponent {
     open var firstResonantFrequency: Double = 600 {
         willSet {
             if firstResonantFrequency != newValue {
-                firstResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    firstResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -82,7 +92,9 @@ open class AKDrip: AKNode, AKComponent {
     open var secondResonantFrequency: Double = 750 {
         willSet {
             if secondResonantFrequency != newValue {
-                secondResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    secondResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -91,7 +103,9 @@ open class AKDrip: AKNode, AKComponent {
     open var amplitude: Double = 0.3 {
         willSet {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }

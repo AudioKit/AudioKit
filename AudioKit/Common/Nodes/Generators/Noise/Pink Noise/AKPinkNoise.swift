@@ -29,7 +29,9 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
     open var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }

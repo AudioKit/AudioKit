@@ -39,7 +39,9 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    frequencyParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.frequency = Float(newValue)
                 }
@@ -52,7 +54,9 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.amplitude = Float(newValue)
                 }
@@ -65,7 +69,9 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
 //            if internalAU?.isSetUp() ?? false {
-//                indexParameter?.setValue(Float(transformedValue), originator: token!)
+                    if let existingToken = token {
+//                indexParameter?.setValue(Float(transformedValue), originator: existingToken)
+                    }
 //            } else {
                 internalAU?.index = Float(transformedValue)
 //            }
@@ -77,7 +83,9 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if detuningOffset != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.detuningOffset = Float(newValue)
                 }
@@ -90,7 +98,9 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
-                    detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                    if let existingToken = token {
+                    detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.detuningMultiplier = Float(newValue)
                 }

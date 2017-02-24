@@ -36,7 +36,9 @@ open class AKMetalBar: AKNode, AKComponent {
     open var leftBoundaryCondition: Double = 1 {
         willSet {
             if leftBoundaryCondition != newValue {
-                leftBoundaryConditionParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    leftBoundaryConditionParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -45,7 +47,9 @@ open class AKMetalBar: AKNode, AKComponent {
     open var rightBoundaryCondition: Double = 1 {
         willSet {
             if rightBoundaryCondition != newValue {
-                rightBoundaryConditionParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    rightBoundaryConditionParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -54,7 +58,9 @@ open class AKMetalBar: AKNode, AKComponent {
     open var decayDuration: Double = 3 {
         willSet {
             if decayDuration != newValue {
-                decayDurationParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -63,7 +69,9 @@ open class AKMetalBar: AKNode, AKComponent {
     open var scanSpeed: Double = 0.25 {
         willSet {
             if scanSpeed != newValue {
-                scanSpeedParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    scanSpeedParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -72,7 +80,9 @@ open class AKMetalBar: AKNode, AKComponent {
     open var position: Double = 0.2 {
         willSet {
             if position != newValue {
-                positionParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    positionParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -81,7 +91,9 @@ open class AKMetalBar: AKNode, AKComponent {
     open var strikeVelocity: Double = 500 {
         willSet {
             if strikeVelocity != newValue {
-                strikeVelocityParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    strikeVelocityParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
@@ -90,7 +102,9 @@ open class AKMetalBar: AKNode, AKComponent {
     open var strikeWidth: Double = 0.05 {
         willSet {
             if strikeWidth != newValue {
-                strikeWidthParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    strikeWidthParameter?.setValue(Float(newValue), originator: existingToken)
+                }
             }
         }
     }
