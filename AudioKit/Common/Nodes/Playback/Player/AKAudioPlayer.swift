@@ -72,7 +72,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         if playing {
             if let nodeTime = internalPlayer.lastRenderTime,
                 let playerTime = internalPlayer.playerTime(forNodeTime: nodeTime) {
-                // return Double(Double(startingFrame) / sampleRate)  +  Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
                 return Double(playerTime.sampleTime) / playerTime.sampleRate
             }
 
@@ -212,7 +211,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
     ///
-    public init(file: AKAudioFile, looping: Bool = false, completionHandler: AKCallback? = nil) throws {
+    public init(file: AKAudioFile,
+                looping: Bool = false,
+                completionHandler: AKCallback? = nil) throws {
 
         let readFile: AKAudioFile
 
