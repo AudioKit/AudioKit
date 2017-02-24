@@ -5,8 +5,8 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
 //
-
 import UIKit
+
 
 /// Delegate for keyboard events
 public protocol AKKeyboardDelegate: class {
@@ -16,12 +16,12 @@ public protocol AKKeyboardDelegate: class {
 
 /// Clickable keyboard mainly used for AudioKit playgrounds
 @IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
-
+    
     @IBInspectable open var octaveCount = 2
     @IBInspectable open var firstOctave = 4
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
     @IBInspectable open var polyphonicButton: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-
+    
     @IBInspectable open var  whiteKeyOff: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     @IBInspectable open var  blackKeyOff: UIColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
     @IBInspectable open var  keyOnColor: UIColor = UIColor(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -56,6 +56,7 @@ public protocol AKKeyboardDelegate: class {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        isMultipleTouchEnabled = true
     }
     
     public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
@@ -63,7 +64,8 @@ public protocol AKKeyboardDelegate: class {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        oneOctaveSize = CGSize(width: Double(width / octaveCount - width / (octaveCount * octaveCount * 7)), height: Double(height))
+        isMultipleTouchEnabled = true
         setNeedsDisplay()
     }
     
@@ -75,10 +77,10 @@ public protocol AKKeyboardDelegate: class {
     
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-
+        
         let width = Int(self.frame.width)
         let height = Int(self.frame.height)
-        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        oneOctaveSize = CGSize(width: Double(width / octaveCount - width / (octaveCount * octaveCount * 7)), height: Double(height))
         
         contentMode = .redraw
         clipsToBounds = true
@@ -98,7 +100,7 @@ public protocol AKKeyboardDelegate: class {
         
         let width = Int(self.frame.width)
         let height = Int(self.frame.height)
-        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        oneOctaveSize = CGSize(width: Double(width / octaveCount - width / (octaveCount * octaveCount * 7)), height: Double(height))
         
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(i)
@@ -120,7 +122,7 @@ public protocol AKKeyboardDelegate: class {
         
         let width = Int(self.frame.width)
         let height = Int(self.frame.height)
-        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        oneOctaveSize = CGSize(width: Double(width / octaveCount - width / (octaveCount * octaveCount * 7)), height: Double(height))
         
         //// background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: 0 + oneOctaveSize.width * CGFloat(octaveNumber), y: 0, width: oneOctaveSize.width, height: oneOctaveSize.height))
@@ -153,67 +155,115 @@ public protocol AKKeyboardDelegate: class {
     func notesFromTouches(_ touches: Set<UITouch>) -> [MIDINoteNumber] {
         var notes = [MIDINoteNumber]()
         for touch in touches {
-            let scaledTouch =  touch.location(in: self)
-            let x = scaledTouch.x - xOffset
-            let y = scaledTouch.y
-        
-            var note = 0
-            
-            if y > oneOctaveSize.height * topKeyHeightRatio {
-                let octNum = Int(x / oneOctaveSize.width)
-                let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
-                note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))]
-            } else {
-                let octNum = Int(x / oneOctaveSize.width)
-                let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
-                note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
+            if let note = noteFromTouchLocation(touch.location(in: self)) {
+                notes.append(note)
             }
-            if note >= 0 { notes.append(MIDINoteNumber(note)) }
         }
         return notes
+    }
+    
+    func noteFromTouchLocation(_ location: CGPoint ) -> MIDINoteNumber? {
+        guard bounds.contains(location) else { return nil }
+        
+        let x = location.x - xOffset
+        let y = location.y
+        
+        var note = 0
+        
+        if y > oneOctaveSize.height * topKeyHeightRatio {
+            let octNum = Int(x / oneOctaveSize.width)
+            let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
+            note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))]
+        } else {
+            let octNum = Int(x / oneOctaveSize.width)
+            let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
+            note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
+        }
+        if note >= 0 { return MIDINoteNumber(note) } else { return nil }
+
     }
     
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let notes = notesFromTouches(touches)
         for note in notes {
-            if polyphonicMode && onKeys.contains(note) {
-                onKeys.remove(note)
-                delegate?.noteOff(note: note)
-            } else {
-                onKeys.insert(note)
-                delegate?.noteOn(note: note)
-            }
+            pressAdded(note)
         }
+        verifyTouches(event?.allTouches)
         setNeedsDisplay()
     }
     
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !polyphonicMode {
-            let notes = notesFromTouches(touches)
-            for note in notes {
-                onKeys.remove(note)
-                delegate?.noteOff(note: note)
+        for touch in touches {
+            if let note = noteFromTouchLocation(touch.location(in: self)) {
+                // verify that there isn't still a touch remaining on same key from another finger
+                if var otherTouches = event?.allTouches {
+                    otherTouches.remove(touch)
+                    if !notesFromTouches(otherTouches).contains(note) {
+                        pressRemoved(note, touches: event?.allTouches)
+                    }
+                }
             }
         }
+        verifyTouches(event?.allTouches)
         setNeedsDisplay()
     }
     
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if polyphonicMode { return } // no response for 'drawing cursor' in polyphonic mode
-        
-        let notes = notesFromTouches(touches)
-        for note in notes {
-            if !onKeys.contains(note) {
-                let currentNote = onKeys.first
-                onKeys.removeAll()
-                onKeys.insert(note)
-                delegate?.noteOn(note: note)
-                if let currNote = currentNote {
-                    delegate?.noteOff(note: currNote)
-                }
+        for touch in touches {
+            if let key = noteFromTouchLocation(touch.location(in: self)),
+                key != noteFromTouchLocation(touch.previousLocation(in: self))  {
+                pressAdded(key)
             }
         }
+        verifyTouches(event?.allTouches)
         setNeedsDisplay()
+    }
+    
+    
+    override open func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+        verifyTouches(event?.allTouches)
+    }
+    
+    
+    // MARK:  - Executing Key Presses
+    
+    private func pressAdded(_ newNote: MIDINoteNumber) {
+        if !polyphonicMode {
+            for key in onKeys where key != newNote {
+                pressRemoved(key)
+            }
+        }
+        
+        if !onKeys.contains(newNote) {
+            onKeys.insert(newNote)
+            delegate?.noteOn(note: newNote)
+        }
+        
+    }
+    
+    private func pressRemoved(_ note: MIDINoteNumber, touches: Set<UITouch>? = nil) {
+        guard onKeys.contains(note) else { return }
+        onKeys.remove(note)
+        delegate?.noteOff(note: note)
+        if !polyphonicMode {
+            // in mono mode, replace with note from highest remaining touch, if it exists
+            var remainingNotes = notesFromTouches(touches ?? Set<UITouch>())
+            remainingNotes = remainingNotes.filter {$0 != note}
+            if let highest = remainingNotes.max() {
+                pressAdded(highest)
+            }
+        }
+    }
+    
+    private func verifyTouches(_ touches: Set<UITouch>?) {
+        // check that current touches conforms to onKeys, remove stuck notes
+        let notes = notesFromTouches(touches ?? Set<UITouch>() )
+        let disjunct = onKeys.subtracting(notes)
+        if !disjunct.isEmpty {
+            for note in disjunct {
+                pressRemoved(note)
+            }
+        }
     }
     
     // MARK: - Private helper properties and functions
