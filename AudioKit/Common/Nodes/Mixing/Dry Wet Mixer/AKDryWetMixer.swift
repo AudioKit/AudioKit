@@ -41,11 +41,11 @@ open class AKDryWetMixer: AKNode {
         avAudioNode = mixer.avAudioNode
 
         dryGain = AKMixer(dry)
-        dryGain!.volume = 1 - balance
-        mixer.connect(dryGain!)
+        dryGain?.volume = 1 - balance
+        mixer.connect(dryGain)
 
         wetGain = AKMixer(wet)
-        wetGain!.volume = balance
-        mixer.connect(wetGain!)
+        wetGain?.volume = balance
+        mixer.connect(wetGain)
     }
 }

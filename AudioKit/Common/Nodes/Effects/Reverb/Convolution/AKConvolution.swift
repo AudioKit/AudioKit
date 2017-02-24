@@ -51,7 +51,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input.addConnectionPoint(self!)
-            self?.internalAU!.setPartitionLength(Int32(partitionLength))
+            self?.internalAU?.setPartitionLength(Int32(partitionLength))
         }
     }
 

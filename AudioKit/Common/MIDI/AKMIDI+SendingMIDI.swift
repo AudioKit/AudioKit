@@ -58,7 +58,10 @@ extension AKMIDI {
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openOutput(_ namedOutput: String = "") {
-        outputPort = MIDIOutputPort(client: client, name: outputPortName)!
+        guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
+            return
+        }
+        outputPort = tempPort
 
         _ = zip(destinationNames, MIDIDestinations()).first { name, _ in
             namedOutput.isEmpty || namedOutput == name

@@ -20,12 +20,16 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
 
     /// Calculate the MD5
     open var MD5: String {
-        return (internalAU?.md5)!
+        return internalAU?.md5 ?? ""
     }
 
     /// Flag on whether or not the test is still in progress
     open var isStarted: Bool {
-        return Int((internalAU?.samples)!) < totalSamples
+        if let samplesIn = internalAU?.samples {
+            return Int(samplesIn) < totalSamples
+        } else {
+            return false
+        }
     }
 
     // MARK: - Initializers

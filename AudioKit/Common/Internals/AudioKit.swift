@@ -36,7 +36,9 @@ extension AVAudioEngine {
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
-            engine.connect(output!.avAudioNode, to: engine.outputNode)
+            if let existingOutput = output {
+                engine.connect(existingOutput.avAudioNode, to: engine.outputNode)
+            }
         }
     }
 
@@ -110,11 +112,13 @@ extension AVAudioEngine {
     open static func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
             var id = output.deviceID
-            AudioUnitSetProperty(AudioKit.engine.outputNode.audioUnit!,
-                                 kAudioOutputUnitProperty_CurrentDevice,
-                                 kAudioUnitScope_Global, 0,
-                                 &id,
-                                 UInt32(MemoryLayout<DeviceID>.size))
+            if let audioUnit = AudioKit.engine.outputNode.audioUnit {
+                AudioUnitSetProperty(audioUnit,
+                                     kAudioOutputUnitProperty_CurrentDevice,
+                                     kAudioUnitScope_Global, 0,
+                                     &id,
+                                     UInt32(MemoryLayout<DeviceID>.size))
+            }
         #else
             //not available on ios
         #endif

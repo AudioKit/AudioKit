@@ -65,11 +65,11 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
             self.gain = gain
 
             inputGain = AKMixer(input)
-            inputGain!.volume = 0
-            mixer = AKMixer(inputGain!)
+            inputGain?.volume = 0
+            mixer = AKMixer(inputGain)
 
             effectGain = AKMixer(input)
-            effectGain!.volume = 1
+            effectGain?.volume = 1
 
             let effect = _Self.effect
 
@@ -77,7 +77,9 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
             super.init(avAudioNode: mixer.avAudioNode)
 
             AudioKit.engine.attach(effect)
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            if let node = effectGain?.avAudioNode {
+                AudioKit.engine.connect(node, to: effect)
+            }
             AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency

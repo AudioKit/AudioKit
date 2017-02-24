@@ -327,7 +327,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             throw error
         }
 
-        internalAudioFile = newAudioFile!
+        if let newFile = newAudioFile {
+            internalAudioFile = newFile
+        }
         internalPlayer.reset()
         initialize()
 
@@ -444,10 +446,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         if audioFileBuffer != nil {
             AKLog("\(atTime)")
 
-            internalPlayer.scheduleBuffer(audioFileBuffer!,
-                                          at: atTime,
-                                          options: .interrupts,
-                                          completionHandler: internalCompletionHandler)
+            if let buffer = audioFileBuffer {
+                internalPlayer.scheduleBuffer(buffer,
+                                              at: atTime,
+                                              options: .interrupts,
+                                              completionHandler: internalCompletionHandler)
+            }
 
             if atTime != nil {
                 internalPlayer.prepare(withFrameCount: framesToPlayCount)

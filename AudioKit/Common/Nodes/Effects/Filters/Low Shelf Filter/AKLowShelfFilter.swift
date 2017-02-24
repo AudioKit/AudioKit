@@ -77,7 +77,9 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
         super.init(avAudioNode: mixer.avAudioNode)
 
         AudioKit.engine.attach(effect)
-        AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+        if let node = effectGain?.avAudioNode {
+                AudioKit.engine.connect(node, to: effect)
+            }
         AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
         au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
