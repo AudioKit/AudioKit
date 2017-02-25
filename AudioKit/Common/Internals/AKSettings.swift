@@ -49,9 +49,12 @@
     open static var audioFormat: AVAudioFormat {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
-
+    
     /// Whether to DefaultToSpeaker when audio input is enabled
     open static var defaultToSpeaker: Bool = false
+    
+    /// Whether to use bluetooth speaker when audio input is enabled
+    open static var useBluetoothSpeaker: Bool = false
 
     /// Global default rampTime value
     open static var rampTime: Double = 0.000_2

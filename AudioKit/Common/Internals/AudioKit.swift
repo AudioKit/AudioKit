@@ -159,11 +159,17 @@ extension AVAudioEngine {
                             name: NSNotification.Name.AVAudioEngineConfigurationChange,
                             object: engine)
 
-                    } else {
-
-                        try AKSettings.setSession(category: .playAndRecord,
-                                                  with: .mixWithOthers)
-
+                    } else if AKSettings.useBluetoothSpeaker {
+                        
+                        if #available(iOS 10.0, *) {
+                            try AKSettings.setSession(category: .playAndRecord, with: .allowBluetoothA2DP)
+                        } else {
+                            // Fallback on earlier versions
+                            try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
+                        }
+                        
+                    }else {
+                        try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
                     }
                 #else
                     // tvOS
