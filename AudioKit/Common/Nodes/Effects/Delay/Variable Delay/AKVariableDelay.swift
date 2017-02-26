@@ -33,7 +33,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
             if time != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    timeParameter?.setValue(Float(newValue), originator: existingToken)
+                        timeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.time = Float(newValue)
@@ -47,7 +47,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.feedback = Float(newValue)

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1]) 
+/// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])
 /// Based on work by Perry Cook.
 ///
 open class AKDCBlock: AKNode, AKToggleable, AKComponent {

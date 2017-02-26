@@ -33,7 +33,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
@@ -72,7 +72,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

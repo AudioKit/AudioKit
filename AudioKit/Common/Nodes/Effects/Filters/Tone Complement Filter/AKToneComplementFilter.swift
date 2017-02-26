@@ -32,7 +32,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
             if halfPowerPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
+                        halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.halfPowerPoint = Float(newValue)
@@ -71,7 +71,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

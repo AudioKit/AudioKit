@@ -39,7 +39,7 @@ open class AKMandolin: AKNode, AKComponent {
             if detune != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    detuneParameter?.setValue(Float(newValue), originator: existingToken)
+                        detuneParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.detune = Float(newValue)
@@ -54,7 +54,7 @@ open class AKMandolin: AKNode, AKComponent {
             if bodySize != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    bodySizeParameter?.setValue(Float(newValue), originator: existingToken)
+                        bodySizeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.bodySize = Float(newValue)
@@ -87,7 +87,7 @@ open class AKMandolin: AKNode, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 
