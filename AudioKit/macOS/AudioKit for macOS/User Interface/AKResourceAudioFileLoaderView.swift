@@ -62,15 +62,15 @@ public class AKResourcesAudioFileLoaderView: NSView {
         self.titles = filenames
     }
 
-    func drawAudioFileLoader(sliderColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1),
+    func drawAudioFileLoader(sliderColor: NSColor = #colorLiteral(red: 1, green: 0, blue: 0.062, alpha: 1),
                              fileName: String = "None") {
         //// General Declarations
         let _ = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
 
         //// Color Declarations
-        let backgroundColor = NSColor(calibratedRed: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
-        let color = NSColor(calibratedRed: 0.029, green: 1, blue: 0, alpha: 1)
-        let dark = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1)
+        let backgroundColor = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
+        let color = #colorLiteral(red: 0.029, green: 1, blue: 0, alpha: 1)
+        let dark = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 
         //// background Drawing
         let backgroundPath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 440, height: 60))

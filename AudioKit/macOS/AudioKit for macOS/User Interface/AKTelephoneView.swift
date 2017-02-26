@@ -77,9 +77,9 @@ public class AKTelephoneView: NSView {
         let context = NSGraphicsContext.current()!.cgContext
 
         //// Color Declarations
-        let color = NSColor(calibratedRed: 0.306, green: 0.851, blue: 0.392, alpha: 1)
-        let color2 = NSColor(calibratedRed: 1, green: 0.151, blue: 0, alpha: 1)
-        let unpressedKeyColor = NSColor(calibratedRed: 0.937, green: 0.941, blue: 0.949, alpha: 1)
+        let color = #colorLiteral(red: 0.306, green: 0.851, blue: 0.392, alpha: 1)
+        let color2 = #colorLiteral(red: 1, green: 0.151, blue: 0, alpha: 1)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1)
 
         //// Background Drawing
         let backgroundPath = NSBezierPath(rect: NSRect(x: 1, y: 0, width: 440, height: 782))
@@ -311,10 +311,10 @@ public class AKTelephoneView: NSView {
         let _ = NSGraphicsContext.current()!.cgContext
 
         //// Color Declarations
-        let pressedKeyColor = NSColor(calibratedRed: 0.655, green: 0.745, blue: 0.804, alpha: 1)
-        let unpressedKeyColor = NSColor(calibratedRed: 0.937, green: 0.941, blue: 0.949, alpha: 1)
-        let unpressedTextColor = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1)
-        let pressedTextColor = NSColor(calibratedRed: 1, green: 0.992, blue: 0.988, alpha: 1)
+        let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1)
+        let unpressedTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let pressedTextColor = #colorLiteral(red: 1, green: 0.992, blue: 0.988, alpha: 1)
 
         //// Variable Declarations
         let keyColor: NSColor = isPressed ? pressedKeyColor : unpressedKeyColor
@@ -380,10 +380,10 @@ public class AKTelephoneView: NSView {
         let _ = NSGraphicsContext.current()!.cgContext
 
         //// Color Declarations
-        let pressedKeyColor = NSColor(calibratedRed: 0.655, green: 0.745, blue: 0.804, alpha: 1)
-        let unpressedKeyColor = NSColor(calibratedRed: 0.937, green: 0.941, blue: 0.949, alpha: 1)
-        let unpressedTextColor = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1)
-        let pressedTextColor = NSColor(calibratedRed: 1, green: 0.992, blue: 0.988, alpha: 1)
+        let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1)
+        let unpressedTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let pressedTextColor = #colorLiteral(red: 1, green: 0.992, blue: 0.988, alpha: 1)
 
         //// Variable Declarations
         let keyColor: NSColor = isPressed ? pressedKeyColor : unpressedKeyColor

@@ -25,7 +25,7 @@ open class AKButton: UIView {
     }
 
     public init(title: String,
-                color: UIColor = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
+                color: UIColor = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping () -> (String)) {
         self.title = title
