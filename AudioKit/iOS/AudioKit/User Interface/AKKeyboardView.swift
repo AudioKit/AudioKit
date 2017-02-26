@@ -314,7 +314,7 @@ public protocol AKKeyboardDelegate: class {
         if notesWithSharps[topKeyNotes[n]].range(of: "#") != nil {
             return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ? keyOnColor : blackKeyOff
         }
-        return UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
+        return #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
 
     }
 }
