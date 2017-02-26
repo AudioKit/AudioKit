@@ -23,7 +23,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     fileprivate var cutoffFrequencyParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
@@ -31,7 +31,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a 
     /// large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
-    open var feedback: Double = 0.6 {
+    open dynamic var feedback: Double = 0.6 {
         willSet {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -45,7 +45,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Low-pass cutoff frequency.
-    open var cutoffFrequency: Double = 4_000 {
+    open dynamic var cutoffFrequency: Double = 4_000 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -60,7 +60,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

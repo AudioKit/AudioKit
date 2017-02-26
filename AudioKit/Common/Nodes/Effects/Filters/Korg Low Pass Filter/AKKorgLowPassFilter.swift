@@ -22,14 +22,14 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var saturationParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Filter cutoff
-    open var cutoffFrequency: Double = 1_000.0 {
+    open dynamic var cutoffFrequency: Double = 1_000.0 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -43,7 +43,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Filter resonance (should be between 0-2)
-    open var resonance: Double = 1.0 {
+    open dynamic var resonance: Double = 1.0 {
         willSet {
             if resonance != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -57,7 +57,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Filter saturation.
-    open var saturation: Double = 0.0 {
+    open dynamic var saturation: Double = 0.0 {
         willSet {
             if saturation != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -72,7 +72,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

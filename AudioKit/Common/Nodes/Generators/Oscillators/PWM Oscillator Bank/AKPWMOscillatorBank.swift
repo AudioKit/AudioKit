@@ -26,14 +26,14 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Duty cycle width (range 0-1).
-    open var pulseWidth: Double = 0.5 {
+    open dynamic var pulseWidth: Double = 0.5 {
         willSet {
             if pulseWidth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -48,7 +48,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Attack time
-    open var attackDuration: Double = 0.1 {
+    open dynamic var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -62,7 +62,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
     /// Decay time
-    open var decayDuration: Double = 0.1 {
+    open dynamic var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -76,7 +76,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
     /// Sustain Level
-    open var sustainLevel: Double = 1.0 {
+    open dynamic var sustainLevel: Double = 1.0 {
         willSet {
             if sustainLevel != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -90,7 +90,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
     /// Release time
-    open var releaseDuration: Double = 0.1 {
+    open dynamic var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -105,7 +105,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Frequency offset in Hz.
-    open var detuningOffset: Double = 0 {
+    open dynamic var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -120,7 +120,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Frequency detuning multiplier
-    open var detuningMultiplier: Double = 1 {
+    open dynamic var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
