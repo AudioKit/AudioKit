@@ -45,7 +45,9 @@ open class AKTelephoneView: UIView {
                 "*": keyStarRect,
                 "#": keyHashRect            ]
             for key in keyRects.keys {
-                guard let rect = keyRects[key] else { return }
+                guard let rect = keyRects[key] else {
+                    return
+                }
                 if rect.contains(touchLocation) { currentKey = key }
             }
             if callCirclePath.contains(touchLocation) { currentKey = "CALL" }
@@ -71,7 +73,8 @@ open class AKTelephoneView: UIView {
         setNeedsDisplay()
     }
 
-    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782), callback: @escaping (String, String) -> Void) {
+    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
+                callback: @escaping (String, String) -> Void) {
         self.callback = callback
         super.init(frame: frame)
     }
