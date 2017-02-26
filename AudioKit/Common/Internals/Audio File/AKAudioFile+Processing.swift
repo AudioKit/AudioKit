@@ -17,13 +17,13 @@ extension AKAudioFile {
     ///
     /// - Parameters:
     ///   - baseDir:     where the file will be located, can be set to .resources,  .documents or .temp
-    ///   - name:        the name of the file without its extension (String).
+    ///   - name:        the name of the file without its extension (String).  If none is given, a unique random name is used.
     ///   - newMaxLevel: max level targeted as a Float value (default if 0 dB)
     ///
     /// - returns: An AKAudioFile, or nil if init failed.
     ///
     public func normalized(baseDir: BaseDirectory = .temp,
-                           name: String = "",
+                           name: String = UUID().uuidString,
                            newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
 
         let level = self.maxLevel
@@ -59,12 +59,12 @@ extension AKAudioFile {
     ///
     /// - Parameters:
     ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp
-    ///   - name: the name of the file without its extension (String).
+    ///   - name: the name of the file without its extension (String).  If none is given, a unique random name is used.
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
     public func reversed(baseDir: BaseDirectory = .temp,
-                         name: String = "" ) throws -> AKAudioFile {
+                         name: String = UUID().uuidString ) throws -> AKAudioFile {
 
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
 
@@ -91,13 +91,13 @@ extension AKAudioFile {
     /// - Parameters:
     ///   - file: an AKAudioFile that will be used to append audio from.
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
-    ///   - name: the name of the file without its extension (String).
+    ///   - name: the name of the file without its extension (String).  If none is given, a unique random name is used.
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
     public func appendedBy(file: AKAudioFile,
                            baseDir: BaseDirectory = .temp,
-                           name: String  = "") throws -> AKAudioFile {
+                           name: String  = UUID().uuidString) throws -> AKAudioFile {
 
         var sourceBuffer = self.pcmBuffer
         var appendedBuffer = file.pcmBuffer
@@ -172,14 +172,14 @@ extension AKAudioFile {
     ///   - fromSample: the starting sampleFrame for extraction.
     ///   - toSample: the ending sampleFrame for extraction
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
-    ///   - name: the name of the file without its extension (String).
+    ///   - name: the name of the file without its extension (String).  If none is given, a unique random name is used.
     ///
     /// - Returns: An AKAudioFile, or nil if init failed.
     ///
     public func extracted(fromSample: Int64 = 0,
                           toSample: Int64 = 0,
                           baseDir: BaseDirectory = .temp,
-                          name: String = "") throws -> AKAudioFile {
+                          name: String = UUID().uuidString) throws -> AKAudioFile {
 
         let fixedFrom = abs(fromSample)
         let fixedTo: Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample, Int64(self.samplesCount))
