@@ -49,9 +49,9 @@ open class AKBypassButton: UIView {
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let red = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
-        let gray = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 1.000)
-        let green = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
+        let red = #colorLiteral(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
+        let gray = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 1.000)
+        let green = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
 
         //// Variable Declarations
         let processingColor = isBypassed ? gray : green
