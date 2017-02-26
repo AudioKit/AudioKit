@@ -93,14 +93,14 @@ public class AKADSRView: NSView {
                          sustainLevel: CGFloat = 0.583,
                          maxADFraction: CGFloat = 0.75) {
         //// General Declarations
-        let _ = NSGraphicsContext.current()!.cgContext
+        let _ = NSGraphicsContext.current()?.cgContext
 
         //// Color Declarations
-        let attackColor = NSColor(calibratedRed: 0.767, green: 0, blue: 0, alpha: 1)
-        let decayColor = NSColor(calibratedRed: 0.942, green: 0.648, blue: 0, alpha: 1)
-        let sustainColor = NSColor(calibratedRed: 0.32, green: 0.8, blue: 0.616, alpha: 1)
-        let releaseColor = NSColor(calibratedRed: 0.72, green: 0.519, blue: 0.888, alpha: 1)
-        let backgroundColor = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)
+        let attackColor = #colorLiteral(red: 0.767, green: 0, blue: 0, alpha: 1)
+        let decayColor = #colorLiteral(red: 0.942, green: 0.648, blue: 0, alpha: 1)
+        let sustainColor = #colorLiteral(red: 0.32, green: 0.8, blue: 0.616, alpha: 1)
+        let releaseColor = #colorLiteral(red: 0.72, green: 0.519, blue: 0.888, alpha: 1)
+        let backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 
         //// Variable Declarations
         let attackClickRoom = CGFloat(30) // to allow the attack to be clicked even if is zero

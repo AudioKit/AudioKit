@@ -23,11 +23,7 @@ AudioKit.start()
  Let's create an instance of our UIKit Dynamics based Newton's Cradle.
  Try adding more colors to the array to increase the number of balls in the device.
  */
-let newtonsCradle = NewtonsCradle(colors:
-    [[#Color(colorLiteralRed: 0.878, green: 0.381, blue: 0.577, alpha: 1)#],
-    [#Color(colorLiteralRed: 0.220, green: 0.702, blue: 0.959, alpha: 1)#],
-    [#Color(colorLiteralRed: 0.917, green: 0.4121, blue: 0.284, alpha: 1)#],
-    [#Color(colorLiteralRed: 0.522, green: 0.8, blue: 0.346, alpha: 1)#]])
+let newtonsCradle = NewtonsCradle(colors: [#colorLiteral(red: 0.878, green: 0.381, blue: 0.577, alpha: 1), [#colorLiteral(red: 0.220, green: 0.702, blue: 0.959, alpha: 1)], [#colorLiteral(red: 0.917, green: 0.4121, blue: 0.284, alpha: 1)], [#colorLiteral(red: 0.522, green: 0.8, blue: 0.346, alpha: 1)]])
 /*:
  ### Size and spacing
  Try changing the size and spacing of the balls and see how that changes the device.

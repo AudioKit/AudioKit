@@ -19,10 +19,10 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         return true
     }
 
-    let whiteKeyOff = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)
-    let blackKeyOff = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1)
-    let keyOnColor = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1)
-    let topWhiteKeyOff = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 0)
+    let whiteKeyOff = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    let blackKeyOff = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    let keyOnColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+    let topWhiteKeyOff = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
 
     public var delegate: AKKeyboardDelegate?
 
