@@ -54,7 +54,9 @@ open class AKResourcesAudioFileLoaderView: UIView {
         }
     }
 
-    public convenience init(player: AKAudioPlayer, filenames: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
+    public convenience init(player: AKAudioPlayer,
+                            filenames: [String],
+                            frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.init(frame: frame)
         self.player = player
         self.titles = filenames
@@ -153,7 +155,8 @@ open class AKResourcesAudioFileLoaderView: UIView {
         context?.saveGState()
         context?.clip(to: nameLabelInset)
         NSString(string: fileName).draw(in: CGRect(x: nameLabelInset.minX,
-                                                   y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+                                                   y: nameLabelInset.minY +
+                                                    (nameLabelInset.height - nameLabelTextHeight) / 2,
                                                    width: nameLabelInset.width,
                                                    height: nameLabelTextHeight),
                                         withAttributes: nameLabelFontAttributes)

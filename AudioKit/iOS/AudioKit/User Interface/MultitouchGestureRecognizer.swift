@@ -85,7 +85,8 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         /// One more more touches are currently in progress.
         case live
 
-        /// All touches have ended, but one or more is being retained in the `touches` collection thanks to the `sustain` setting.
+        /// All touches have ended, but one or more is being retained in the `touches` collection 
+        /// thanks to the `sustain` setting.
         case sustained
     }
 

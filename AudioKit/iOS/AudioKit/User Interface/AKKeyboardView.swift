@@ -198,7 +198,9 @@ public protocol AKKeyboardDelegate: class {
             let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
             note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
         }
-        if note >= 0 { return MIDINoteNumber(note) } else {
+        if note >= 0 {
+            return MIDINoteNumber(note)
+        } else {
             return nil
         }
 

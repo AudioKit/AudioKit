@@ -96,7 +96,8 @@ open class AKPresetLoaderView: UIView {
         context?.saveGState()
         context?.clip(to: presetLabelInset)
         presetLabelTextContent.draw(in: CGRect(x: presetLabelInset.minX,
-                                               y: presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2,
+                                               y: presetLabelInset.minY +
+                                                (presetLabelInset.height - presetLabelTextHeight) / 2,
                                                width: presetLabelInset.width,
                                                height: presetLabelTextHeight),
                                     withAttributes: presetLabelFontAttributes)
@@ -155,7 +156,8 @@ open class AKPresetLoaderView: UIView {
         context?.saveGState()
         context?.clip(to: nameLabelInset)
         NSString(string: presetName).draw(in: CGRect(x: nameLabelInset.minX,
-                                                     y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+                                                     y: nameLabelInset.minY +
+                                                        (nameLabelInset.height - nameLabelTextHeight) / 2,
                                                      width: nameLabelInset.width,
                                                      height: nameLabelTextHeight),
                                           withAttributes: nameLabelFontAttributes)
