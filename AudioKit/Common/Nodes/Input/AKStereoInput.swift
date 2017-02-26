@@ -12,7 +12,7 @@ open class AKStereoInput: AKNode, AKToggleable {
     internal let mixer = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
-    open var volume: Double = 1.0 {
+    open dynamic var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
                 volume = 0
@@ -24,7 +24,7 @@ open class AKStereoInput: AKNode, AKToggleable {
     fileprivate var lastKnownVolume: Double = 1.0
 
     /// Determine if the microphone is currently on.
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return volume != 0.0
     }
 

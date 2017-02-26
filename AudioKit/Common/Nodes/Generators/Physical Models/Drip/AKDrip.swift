@@ -27,14 +27,14 @@ open class AKDrip: AKNode, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// The intensity of the dripping sound.
-    open var intensity: Double = 10 {
+    open dynamic var intensity: Double = 10 {
         willSet {
             if intensity != newValue {
                 if let existingToken = token {
@@ -45,7 +45,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// The damping factor. Maximum value is 2.0.
-    open var dampingFactor: Double = 0.2 {
+    open dynamic var dampingFactor: Double = 0.2 {
         willSet {
             if dampingFactor != newValue {
                 if let existingToken = token {
@@ -56,7 +56,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// The amount of energy to add back into the system.
-    open var energyReturn: Double = 0 {
+    open dynamic var energyReturn: Double = 0 {
         willSet {
             if energyReturn != newValue {
                 if let existingToken = token {
@@ -67,7 +67,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// Main resonant frequency.
-    open var mainResonantFrequency: Double = 450 {
+    open dynamic var mainResonantFrequency: Double = 450 {
         willSet {
             if mainResonantFrequency != newValue {
                 if let existingToken = token {
@@ -78,7 +78,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// The first resonant frequency.
-    open var firstResonantFrequency: Double = 600 {
+    open dynamic var firstResonantFrequency: Double = 600 {
         willSet {
             if firstResonantFrequency != newValue {
                 if let existingToken = token {
@@ -89,7 +89,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// The second resonant frequency.
-    open var secondResonantFrequency: Double = 750 {
+    open dynamic var secondResonantFrequency: Double = 750 {
         willSet {
             if secondResonantFrequency != newValue {
                 if let existingToken = token {
@@ -100,7 +100,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// Amplitude.
-    open var amplitude: Double = 0.3 {
+    open dynamic var amplitude: Double = 0.3 {
         willSet {
             if amplitude != newValue {
                 if let existingToken = token {
@@ -111,7 +111,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

@@ -22,14 +22,14 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     fileprivate var depthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Frequency (Hz)
-    open var frequency: Double = 10 {
+    open dynamic var frequency: Double = 10 {
         willSet {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     }
 
     /// Depth
-    open var depth: Double = 1 {
+    open dynamic var depth: Double = 1 {
         willSet {
             if depth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -59,7 +59,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -129,7 +129,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    open dynamic func start() {
         internalAU?.start()
     }
 

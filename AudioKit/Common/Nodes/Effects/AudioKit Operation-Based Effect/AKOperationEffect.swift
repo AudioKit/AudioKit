@@ -16,12 +16,12 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     fileprivate var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     /// Parameters for changing internal operations
-    open var parameters: [Double] {
+    open dynamic var parameters: [Double] {
         get {
             return (internalAU?.parameters as? [NSNumber]).flatMap {
                 $0.flatMap { $0.doubleValue }

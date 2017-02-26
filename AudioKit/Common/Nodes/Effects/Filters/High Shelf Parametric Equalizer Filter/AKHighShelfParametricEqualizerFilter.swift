@@ -22,14 +22,14 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     fileprivate var qParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Corner frequency.
-    open var centerFrequency: Double = 1_000 {
+    open dynamic var centerFrequency: Double = 1_000 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -43,7 +43,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         }
     }
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    open var gain: Double = 1.0 {
+    open dynamic var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -57,7 +57,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         }
     }
     /// Q of the filter. sqrt(0.5) is no resonance.
-    open var q: Double = 0.707 {
+    open dynamic var q: Double = 0.707 {
         willSet {
             if q != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -72,7 +72,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

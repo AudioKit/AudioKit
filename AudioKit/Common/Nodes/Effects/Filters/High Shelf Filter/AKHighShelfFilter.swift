@@ -16,7 +16,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     private var mixer: AKMixer
 
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    open var cutoffFrequency: Double = 10_000 {
+    open dynamic var cutoffFrequency: Double = 10_000 {
         didSet {
             cutoffFrequency = (10_000...22_050).clamp(cutoffFrequency)
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
@@ -24,7 +24,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    open var gain: Double = 0 {
+    open dynamic var gain: Double = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kHighShelfParam_Gain] = gain
@@ -32,7 +32,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     }
 
     /// Dry/Wet Mix (Default 100)
-    open var dryWetMix: Double = 100 {
+    open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
@@ -45,7 +45,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     private var effectGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     // MARK: - Initialization
 

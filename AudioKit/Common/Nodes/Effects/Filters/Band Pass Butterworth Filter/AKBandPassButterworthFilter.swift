@@ -21,14 +21,14 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var bandwidthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency. (in Hertz)
-    open var centerFrequency: Double = 2_000.0 {
+    open dynamic var centerFrequency: Double = 2_000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -42,7 +42,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Bandwidth. (in Hertz)
-    open var bandwidth: Double = 100.0 {
+    open dynamic var bandwidth: Double = 100.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -57,7 +57,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

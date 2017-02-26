@@ -20,14 +20,14 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     fileprivate var sampleRateParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    open var bitDepth: Double = 8 {
+    open dynamic var bitDepth: Double = 8 {
         willSet {
             if bitDepth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -41,7 +41,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
         }
     }
     /// The sample rate of signal output.
-    open var sampleRate: Double = 10_000 {
+    open dynamic var sampleRate: Double = 10_000 {
         willSet {
             if sampleRate != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -56,7 +56,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

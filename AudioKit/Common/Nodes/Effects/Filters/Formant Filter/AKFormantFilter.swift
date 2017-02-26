@@ -23,14 +23,14 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var yParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency.
-    open var x: Double = 0 {
+    open dynamic var x: Double = 0 {
         willSet {
             if x != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Impulse response attack time (in seconds).
-    open var y: Double = 0 {
+    open dynamic var y: Double = 0 {
         willSet {
             if y != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -59,7 +59,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
+    open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
