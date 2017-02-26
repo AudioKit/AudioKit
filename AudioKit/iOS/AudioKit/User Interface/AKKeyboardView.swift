@@ -309,12 +309,16 @@ public protocol AKKeyboardDelegate: class {
     }
 
     func whiteKeyColor(_ n: Int, octaveNumber: Int) -> UIColor {
-        return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])) ? keyOnColor : whiteKeyOff
+        return onKeys.contains(
+            MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])
+            ) ? keyOnColor : whiteKeyOff
     }
 
     func topKeyColor(_ n: Int, octaveNumber: Int) -> UIColor {
         if notesWithSharps[topKeyNotes[n]].range(of: "#") != nil {
-            return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ? keyOnColor : blackKeyOff
+            return onKeys.contains(
+                MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])
+                ) ? keyOnColor : blackKeyOff
         }
         return #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
 

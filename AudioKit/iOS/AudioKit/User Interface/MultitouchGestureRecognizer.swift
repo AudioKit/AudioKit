@@ -9,20 +9,26 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
-/// Extension of `UIGestureRecognizerDelegate` which allows the delegate to receive messages relating to individual touches. The `delegate` property can be set to a class implementing `MultitouchGestureRecognizerDelegate` and it will receive these messages.
+/// Extension of `UIGestureRecognizerDelegate` which allows the delegate to receive messages relating to 
+/// individual touches. The `delegate` property can be set to a class 
+/// implementing `MultitouchGestureRecognizerDelegate` and it will receive these messages.
 @objc public protocol MultitouchGestureRecognizerDelegate: UIGestureRecognizerDelegate {
 
     /// Called when a touch is started.
-    @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer, touchDidBegin touch: UITouch)
+    @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer,
+                                                    touchDidBegin touch: UITouch)
 
     /// Called when a touch is updates.
-    @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer, touchDidMove touch: UITouch)
+    @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer,
+                                                    touchDidMove touch: UITouch)
 
     /// Called when a touch is cancelled.
-    @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer, touchDidCancel touch: UITouch)
+    @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer,
+                                                    touchDidCancel touch: UITouch)
 
     /// Called when a touch is ended.
-    @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer, touchDidEnd touch: UITouch)
+    @objc optional func multitouchGestureRecognizer(_ gestureRecognizer: MultitouchGestureRecognizer,
+                                                    touchDidEnd touch: UITouch)
 
 }
 
@@ -63,7 +69,8 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    /// If `sustain` is set to `true`, when touches end they will be retained in `touches` until such time as all touches have ended and a new touch begins.
+    /// If `sustain` is set to `true`, when touches end they will be retained in `touches` until such time as all 
+    /// touches have ended and a new touch begins.
     /// If `sustain` is switched from `true` to `false`, any currently sustained touches will be ended immediately.
     public var sustain: Bool = true {
         didSet {
@@ -73,7 +80,8 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    /// The currently tracked collection of touches. May contain touches after they have ended, if `sustain` is set to `true`.
+    /// The currently tracked collection of touches. May contain touches after they have ended, 
+    /// if `sustain` is set to `true`.
     public lazy private(set) var touches = [UITouch]()
 
     /// The current gesture recognizer state, as it pertains to the `sustain` setting.
