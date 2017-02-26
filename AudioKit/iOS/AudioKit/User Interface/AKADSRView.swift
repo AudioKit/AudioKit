@@ -75,11 +75,11 @@ import UIKit
     private var currentDragArea = ""
 
     //// Color Declarations
-    @IBInspectable open var attackColor: UIColor = UIColor(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
-    @IBInspectable open var decayColor: UIColor = UIColor(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
-    @IBInspectable open var sustainColor: UIColor = UIColor(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
-    @IBInspectable open var releaseColor: UIColor = UIColor(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
-    let bgColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable open var attackColor: UIColor = #colorLiteral(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var decayColor: UIColor = #colorLiteral(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var sustainColor: UIColor = #colorLiteral(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
+    @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
+    let bgColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
     @IBInspectable open var curveColor: UIColor = .black
