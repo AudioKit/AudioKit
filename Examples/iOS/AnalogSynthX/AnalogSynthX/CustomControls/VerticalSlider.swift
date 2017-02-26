@@ -10,7 +10,7 @@
 
 import UIKit
 
-protocol VerticalSliderDelegate {
+protocol VerticalSliderDelegate: class {
     func sliderValueDidChange(_ value: Double, tag: Int)
 }
 
@@ -41,7 +41,7 @@ class VerticalSlider: UIControl {
     var barLength: CGFloat = 164.0
     var isSliding = false
     var sliderValue: CGFloat = 0.5
-    var delegate: VerticalSliderDelegate?
+    weak var delegate: VerticalSliderDelegate?
 
     //// Image Declarations
     var sliderTop = UIImage(named: sliderTopImage)

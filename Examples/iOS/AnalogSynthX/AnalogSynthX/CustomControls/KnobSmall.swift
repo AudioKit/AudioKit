@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol KnobSmallDelegate {
+protocol KnobSmallDelegate: class {
     func updateKnobValue(_ value: Double, tag: Int)
 }
 
 @IBDesignable
 class KnobSmall: Knob {
 
-    var delegate: KnobSmallDelegate?
+    weak var delegate: KnobSmallDelegate?
 
     //// Image Declarations
     var knob120Base = UIImage(named: "knob120_base")
