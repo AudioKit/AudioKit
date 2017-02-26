@@ -171,7 +171,12 @@ import UIKit
 
     // MARK: - Drawing
 
-    func drawCurveCanvas(size: CGSize = CGSize(width: 440, height: 151), attackDurationMS: CGFloat = 449, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
+    func drawCurveCanvas(size: CGSize = CGSize(width: 440, height: 151),
+                         attackDurationMS: CGFloat = 449,
+                         decayDurationMS: CGFloat = 262,
+                         releaseDurationMS: CGFloat = 448,
+                         sustainLevel: CGFloat = 0.583,
+                         maxADFraction: CGFloat = 0.75) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -186,7 +191,9 @@ import UIKit
         let endMax = CGPoint(x: min(endPoint.x, size.width), y: buffer)
         let releaseAxis = CGPoint(x: releasePoint.x, y: endPoint.y)
         let releaseMax = CGPoint(x: releasePoint.x, y: buffer)
-        let highPoint = CGPoint(x: attackClickRoom + min(oneSecond * maxADFraction, attackDurationMS / 1_000.0 * oneSecond), y: buffer)
+        let highPoint = CGPoint(x: attackClickRoom +
+            min(oneSecond * maxADFraction, attackDurationMS / 1_000.0 * oneSecond),
+                                y: buffer)
         let highPointAxis = CGPoint(x: highPoint.x, y: size.height)
         let highMax = CGPoint(x: highPoint.x, y: buffer)
         let minthing = min(oneSecond * maxADFraction, (attackDurationMS + decayDurationMS) / 1_000.0 * oneSecond)

@@ -71,13 +71,24 @@ open class AKBypassButton: UIView {
         let bypassLabelStyle = NSMutableParagraphStyle()
         bypassLabelStyle.alignment = .center
 
-        let bypassLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: bypassLabelStyle]
+        let bypassLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
+                                         NSForegroundColorAttributeName: UIColor.black,
+                                         NSParagraphStyleAttributeName: bypassLabelStyle]
 
         let bypassLabelInset: CGRect = bypassLabelRect.insetBy(dx: 10, dy: 0)
-        let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(with: CGSize(width: bypassLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: bypassLabelFontAttributes, context: nil).size.height
+        let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(
+            with: CGSize(width: bypassLabelInset.width, height: CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: bypassLabelFontAttributes,
+            context: nil).size.height
         context?.saveGState()
         context?.clip(to: bypassLabelInset)
-        NSString(string: bypassedText).draw(in: CGRect(x: bypassLabelInset.minX, y: bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2, width: bypassLabelInset.width, height: bypassLabelTextHeight), withAttributes: bypassLabelFontAttributes)
+        NSString(string: bypassedText).draw(
+            in: CGRect(x: bypassLabelInset.minX,
+                       y: bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2,
+                       width: bypassLabelInset.width,
+                       height: bypassLabelTextHeight),
+            withAttributes: bypassLabelFontAttributes)
         context?.restoreGState()
 
         //// processGroup
@@ -91,13 +102,24 @@ open class AKBypassButton: UIView {
         let processLabelStyle = NSMutableParagraphStyle()
         processLabelStyle.alignment = .center
 
-        let processLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: processLabelStyle]
+        let processLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
+                                          NSForegroundColorAttributeName: UIColor.black,
+                                          NSParagraphStyleAttributeName: processLabelStyle]
 
         let processLabelInset: CGRect = processLabelRect.insetBy(dx: 10, dy: 0)
-        let processLabelTextHeight: CGFloat = NSString(string: processingText).boundingRect(with: CGSize(width: processLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: processLabelFontAttributes, context: nil).size.height
+        let processLabelTextHeight: CGFloat = NSString(string: processingText).boundingRect(
+            with: CGSize(width: processLabelInset.width, height: CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: processLabelFontAttributes,
+            context: nil).size.height
         context?.saveGState()
         context?.clip(to: processLabelInset)
-        NSString(string: processingText).draw(in: CGRect(x: processLabelInset.minX, y: processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2, width: processLabelInset.width, height: processLabelTextHeight), withAttributes: processLabelFontAttributes)
+        NSString(string: processingText).draw(
+            in: CGRect(x: processLabelInset.minX,
+                       y: processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2,
+                       width: processLabelInset.width,
+                       height: processLabelTextHeight),
+            withAttributes: processLabelFontAttributes)
         context?.restoreGState()
     }
 

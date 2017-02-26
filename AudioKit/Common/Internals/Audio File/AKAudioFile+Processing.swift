@@ -16,8 +16,8 @@ extension AKAudioFile {
     /// Normalize an AKAudioFile to have a peak of newMaxLevel dB.
     ///
     /// - Parameters:
-    ///   - baseDir:     where the file will be located, can be set to .resources,  .documents or .temp
-    ///   - name:        the name of the file without its extension (String).  If none is given, a unique random name is used.
+    ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp
+    ///   - name: the name of the file without its extension (String).  If none is given, a unique random name is used.
     ///   - newMaxLevel: max level targeted as a Float value (default if 0 dB)
     ///
     /// - returns: An AKAudioFile, or nil if init failed.
