@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol KnobLargeDelegate {
+protocol KnobLargeDelegate: class {
     func updateKnobValue(_ value: Double, tag: Int)
 }
 
@@ -18,7 +18,7 @@ let indicatorImageName = "knob212_indicator"
 @IBDesignable
 class KnobLarge: Knob {
 
-    var delegate: KnobLargeDelegate?
+    weak var delegate: KnobLargeDelegate?
 
     // Image Declarations
     var knob212Base = UIImage(named: baseImageName)

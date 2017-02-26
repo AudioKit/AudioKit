@@ -111,7 +111,7 @@ open class AKReverb2: AKNode, AKToggleable {
             }
         }
     }
-    
+
     /// Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
     open var decayTimeAtNyquist: Double = 0.5 {
         didSet {
@@ -129,7 +129,7 @@ open class AKReverb2: AKNode, AKToggleable {
             }
         }
     }
-    
+
     /// Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     open var randomizeReflections: Double = 1 {
         didSet {
