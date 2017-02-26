@@ -29,14 +29,14 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a 
+    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a
     /// large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     open dynamic var feedback: Double = 0.6 {
         willSet {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.feedback = Float(newValue)
@@ -50,7 +50,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
@@ -70,8 +70,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, 
-    ///               and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will 
+    ///   - feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall,
+    ///               and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will
     ///               make the opcode unstable.
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
@@ -94,7 +94,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

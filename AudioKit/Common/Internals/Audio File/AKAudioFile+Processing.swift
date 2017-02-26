@@ -97,7 +97,7 @@ extension AKAudioFile {
     ///
     public func appendedBy(file: AKAudioFile,
                            baseDir: BaseDirectory = .temp,
-                           name: String  = UUID().uuidString) throws -> AKAudioFile {
+                           name: String = UUID().uuidString) throws -> AKAudioFile {
 
         var sourceBuffer = self.pcmBuffer
         var appendedBuffer = file.pcmBuffer

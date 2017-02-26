@@ -40,7 +40,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.frequency = Float(newValue)
@@ -55,7 +55,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                        amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.amplitude = Float(newValue)
@@ -84,7 +84,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
             if detuningOffset != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
+                        detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.detuningOffset = Float(newValue)
@@ -99,7 +99,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
             if detuningMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                        detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.detuningMultiplier = Float(newValue)
@@ -163,7 +163,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
             }
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

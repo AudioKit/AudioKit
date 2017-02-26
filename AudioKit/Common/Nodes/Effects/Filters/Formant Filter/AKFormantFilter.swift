@@ -35,7 +35,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             if x != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    xParameter?.setValue(Float(newValue), originator: existingToken)
+                        xParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.x = Float(newValue)
@@ -49,7 +49,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             if y != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    yParameter?.setValue(Float(newValue), originator: existingToken)
+                        yParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.y = Float(newValue)
@@ -92,7 +92,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

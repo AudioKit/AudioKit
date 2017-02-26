@@ -34,7 +34,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    gainParameter?.setValue(Float(newValue), originator: existingToken)
+                        gainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.gain = Float(newValue)
@@ -83,7 +83,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

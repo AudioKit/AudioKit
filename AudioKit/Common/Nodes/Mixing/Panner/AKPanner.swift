@@ -32,7 +32,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
             if pan != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    panParameter?.setValue(Float(newValue), originator: existingToken)
+                        panParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.pan = Float(newValue)
@@ -71,7 +71,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

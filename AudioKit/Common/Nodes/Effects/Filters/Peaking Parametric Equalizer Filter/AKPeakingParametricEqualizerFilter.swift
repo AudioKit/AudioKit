@@ -34,7 +34,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.centerFrequency = Float(newValue)
@@ -48,7 +48,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    gainParameter?.setValue(Float(newValue), originator: existingToken)
+                        gainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.gain = Float(newValue)
@@ -62,7 +62,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             if q != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    qParameter?.setValue(Float(newValue), originator: existingToken)
+                        qParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.q = Float(newValue)
@@ -107,7 +107,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 
