@@ -61,7 +61,9 @@ extension MIDIPacket: Sequence {
                     return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
 
                 case .systemCommand:
-                    let cmd = AKMIDISystemCommand(rawValue: status)!
+                    guard let cmd = AKMIDISystemCommand(rawValue: status) else {
+                        return AKMIDIEvent(packet: self)
+                    }
                     switch  cmd {
                     case .sysex:
                         // sysex - guaranteed by coremidi to be the entire packet

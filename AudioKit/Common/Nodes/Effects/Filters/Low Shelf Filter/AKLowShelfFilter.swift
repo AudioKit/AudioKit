@@ -66,7 +66,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
 
         inputGain = AKMixer(input)
         inputGain?.volume = 0
-        mixer = AKMixer(inputGain!)
+        mixer = AKMixer(inputGain)
 
         effectGain = AKMixer(input)
         effectGain?.volume = 1

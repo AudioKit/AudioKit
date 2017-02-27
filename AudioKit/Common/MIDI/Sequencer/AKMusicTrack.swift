@@ -45,7 +45,7 @@ open class AKMusicTrack {
     public init(musicTrack: MusicTrack, name: String = "Unnamed") {
         self.name = name
         internalMusicTrack = musicTrack
-        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
+        trackPointer = UnsafeMutablePointer<MusicTrack>(musicTrack)
 
         let data = [MIDIByte](name.utf8)
 

@@ -32,9 +32,10 @@
             }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
-            let tail = buffer.floatChannelData?[0]
-            strongSelf.fft!.computeFFT(withBuffer: &tail![offset],
+            if let tail = buffer.floatChannelData?[0], let existingFFT = strongSelf.fft {
+                existingFFT.computeFFT(withBuffer: &tail[offset],
                                        withBufferSize: strongSelf.bufferSize)
+            }
         }
     }
 

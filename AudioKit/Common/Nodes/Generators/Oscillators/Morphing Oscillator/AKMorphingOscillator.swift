@@ -68,13 +68,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     open dynamic var index: Double = 0.0 {
         willSet {
             let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
-//            if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-//                indexParameter?.setValue(Float(transformedValue), originator: existingToken)
-                    }
-//            } else {
-                internalAU?.index = Float(transformedValue)
-//            }
+            internalAU?.index = Float(transformedValue)
         }
     }
 

@@ -50,18 +50,18 @@ public struct AKMIDIEvent {
     var length: MIDIByte?
 
     /// Status
-    public var status: AKMIDIStatus {
+    public var status: AKMIDIStatus? {
         let status = internalData[0] >> 4
-        return AKMIDIStatus(rawValue: Int(status))!
+        return AKMIDIStatus(rawValue: Int(status))
     }
 
     /// System Command
-    public var command: AKMIDISystemCommand {
+    public var command: AKMIDISystemCommand? {
         let status = internalData[0] >> 4
         if status < 15 {
             return .none
         }
-        return AKMIDISystemCommand(rawValue: internalData[0])!
+        return AKMIDISystemCommand(rawValue: internalData[0])
     }
 
     /// MIDI Channel
@@ -130,13 +130,16 @@ public struct AKMIDIEvent {
             }
         } else {
 
+            guard let existingLength = length else {
+                return
+            }
             if packet.isSysex {
                 internalData = [] //reset internalData
                 length = MIDIByte(0)
                 //voodoo
                 let mirrorData = Mirror(reflecting: packet.data)
                 for (_, value) in mirrorData.children {
-                    length = 1 + length!
+                    length = existingLength + 1
                     guard let byte = value as? MIDIByte else {
                         return
                     }
@@ -154,7 +157,9 @@ public struct AKMIDIEvent {
                 }
             }
         }
-        internalData = Array(internalData.prefix(Int(length!)))
+        if let existingLength = length {
+            internalData = Array(internalData.prefix(Int(existingLength)))
+        }
     }
 
     public static func generateFrom(bluetoothData: [MIDIByte]) -> [AKMIDIEvent] {
@@ -260,7 +265,9 @@ public struct AKMIDIEvent {
         default:
             length = 3
         }
-        internalData = Array(internalData.prefix(Int(length!)))
+        if let existingLength = length {
+            internalData = Array(internalData.prefix(Int(existingLength)))
+        }
     }
 
     /// Initialize the MIDI Event from a system command message
@@ -293,7 +300,9 @@ public struct AKMIDIEvent {
         default:
             length = 1
         }
-        internalData = Array(internalData.prefix(Int(length!)))
+        if let existingLength = length {
+            internalData = Array(internalData.prefix(Int(existingLength)))
+        }
     }
 
     // MARK: - Utility constructors for common MIDI events

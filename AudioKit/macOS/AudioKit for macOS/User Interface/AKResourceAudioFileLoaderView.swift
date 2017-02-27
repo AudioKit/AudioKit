@@ -141,7 +141,10 @@ public class AKResourcesAudioFileLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+        guard let font = NSFont(name: "HelveticaNeue", size: 24) else {
+            return
+        }
+        let nameLabelFontAttributes = [NSFontAttributeName: font,
                                        NSForegroundColorAttributeName: NSColor.black,
                                        NSParagraphStyleAttributeName: nameLabelStyle]
 

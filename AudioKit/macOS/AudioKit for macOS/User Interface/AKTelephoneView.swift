@@ -74,7 +74,7 @@ public class AKTelephoneView: NSView {
 
     override public func draw(_ rect: CGRect) {
         //// General Declarations
-        let context = NSGraphicsContext.current()!.cgContext
+        let context = NSGraphicsContext.current()?.cgContext
 
         //// Color Declarations
         let color = #colorLiteral(red: 0.306, green: 0.851, blue: 0.392, alpha: 1)
@@ -90,8 +90,8 @@ public class AKTelephoneView: NSView {
         key1Rect = NSRect(x: 70, y: 494, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key1Rect)
-        context.translateBy(x: key1Rect.origin.x, y: key1Rect.origin.y)
-        context.scaleBy(x: key1Rect.size.width / 100, y: key1Rect.size.height / 100)
+        context?.translateBy(x: key1Rect.origin.x, y: key1Rect.origin.y)
+        context?.scaleBy(x: key1Rect.size.width / 100, y: key1Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "\n", numeral: "1", isPressed: currentKey == "1")
         NSGraphicsContext.restoreGraphicsState()
@@ -100,8 +100,8 @@ public class AKTelephoneView: NSView {
         key2Rect = NSRect(x: 179, y: 495, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key2Rect)
-        context.translateBy(x: key2Rect.origin.x, y: key2Rect.origin.y)
-        context.scaleBy(x: key2Rect.size.width / 100, y: key2Rect.size.height / 100)
+        context?.translateBy(x: key2Rect.origin.x, y: key2Rect.origin.y)
+        context?.scaleBy(x: key2Rect.size.width / 100, y: key2Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "A B C", numeral: "2", isPressed: currentKey == "2")
         NSGraphicsContext.restoreGraphicsState()
@@ -110,8 +110,8 @@ public class AKTelephoneView: NSView {
         key3Rect = NSRect(x: 288, y: 495, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key3Rect)
-        context.translateBy(x: key3Rect.origin.x, y: key3Rect.origin.y)
-        context.scaleBy(x: key3Rect.size.width / 100, y: key3Rect.size.height / 100)
+        context?.translateBy(x: key3Rect.origin.x, y: key3Rect.origin.y)
+        context?.scaleBy(x: key3Rect.size.width / 100, y: key3Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "D E F", numeral: "3", isPressed: currentKey == "3")
         NSGraphicsContext.restoreGraphicsState()
@@ -120,8 +120,8 @@ public class AKTelephoneView: NSView {
         key4Rect = NSRect(x: 70, y: 398, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key4Rect)
-        context.translateBy(x: key4Rect.origin.x, y: key4Rect.origin.y)
-        context.scaleBy(x: key4Rect.size.width / 100, y: key4Rect.size.height / 100)
+        context?.translateBy(x: key4Rect.origin.x, y: key4Rect.origin.y)
+        context?.scaleBy(x: key4Rect.size.width / 100, y: key4Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "G H I", numeral: "4", isPressed: currentKey == "4")
         NSGraphicsContext.restoreGraphicsState()
@@ -130,8 +130,8 @@ public class AKTelephoneView: NSView {
         key5Rect = NSRect(x: 179, y: 398, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key5Rect)
-        context.translateBy(x: key5Rect.origin.x, y: key5Rect.origin.y)
-        context.scaleBy(x: key5Rect.size.width / 100, y: key5Rect.size.height / 100)
+        context?.translateBy(x: key5Rect.origin.x, y: key5Rect.origin.y)
+        context?.scaleBy(x: key5Rect.size.width / 100, y: key5Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "J K L", numeral: "5", isPressed: currentKey == "5")
         NSGraphicsContext.restoreGraphicsState()
@@ -140,8 +140,8 @@ public class AKTelephoneView: NSView {
         key6Rect = NSRect(x: 288, y: 398, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key6Rect)
-        context.translateBy(x: key6Rect.origin.x, y: key6Rect.origin.y)
-        context.scaleBy(x: key6Rect.size.width / 100, y: key6Rect.size.height / 100)
+        context?.translateBy(x: key6Rect.origin.x, y: key6Rect.origin.y)
+        context?.scaleBy(x: key6Rect.size.width / 100, y: key6Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "M N O", numeral: "6", isPressed: currentKey == "6")
         NSGraphicsContext.restoreGraphicsState()
@@ -150,8 +150,8 @@ public class AKTelephoneView: NSView {
         key7Rect = NSRect(x: 70, y: 303, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key7Rect)
-        context.translateBy(x: key7Rect.origin.x, y: key7Rect.origin.y)
-        context.scaleBy(x: key7Rect.size.width / 100, y: key7Rect.size.height / 100)
+        context?.translateBy(x: key7Rect.origin.x, y: key7Rect.origin.y)
+        context?.scaleBy(x: key7Rect.size.width / 100, y: key7Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "P Q R S", numeral: "7", isPressed: currentKey == "7")
         NSGraphicsContext.restoreGraphicsState()
@@ -160,8 +160,8 @@ public class AKTelephoneView: NSView {
         key8Rect = NSRect(x: 179, y: 303, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key8Rect)
-        context.translateBy(x: key8Rect.origin.x, y: key8Rect.origin.y)
-        context.scaleBy(x: key8Rect.size.width / 100, y: key8Rect.size.height / 100)
+        context?.translateBy(x: key8Rect.origin.x, y: key8Rect.origin.y)
+        context?.scaleBy(x: key8Rect.size.width / 100, y: key8Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "T U V", numeral: "8", isPressed: currentKey == "8")
         NSGraphicsContext.restoreGraphicsState()
@@ -170,8 +170,8 @@ public class AKTelephoneView: NSView {
         key9Rect = NSRect(x: 288, y: 303, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key9Rect)
-        context.translateBy(x: key9Rect.origin.x, y: key9Rect.origin.y)
-        context.scaleBy(x: key9Rect.size.width / 100, y: key9Rect.size.height / 100)
+        context?.translateBy(x: key9Rect.origin.x, y: key9Rect.origin.y)
+        context?.scaleBy(x: key9Rect.size.width / 100, y: key9Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "W X Y Z", numeral: "9", isPressed: currentKey == "9")
         NSGraphicsContext.restoreGraphicsState()
@@ -180,8 +180,8 @@ public class AKTelephoneView: NSView {
         key0Rect = NSRect(x: 179, y: 206, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(key0Rect)
-        context.translateBy(x: key0Rect.origin.x, y: key0Rect.origin.y)
-        context.scaleBy(x: key0Rect.size.width / 100, y: key0Rect.size.height / 100)
+        context?.translateBy(x: key0Rect.origin.x, y: key0Rect.origin.y)
+        context?.scaleBy(x: key0Rect.size.width / 100, y: key0Rect.size.height / 100)
 
         AKTelephoneView.drawKey(text: "+", numeral: "0", isPressed: currentKey == "0")
         NSGraphicsContext.restoreGraphicsState()
@@ -190,8 +190,8 @@ public class AKTelephoneView: NSView {
         keyStarRect = NSRect(x: 70, y: 206, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(keyStarRect)
-        context.translateBy(x: keyStarRect.origin.x, y: keyStarRect.origin.y)
-        context.scaleBy(x: keyStarRect.size.width / 100, y: keyStarRect.size.height / 100)
+        context?.translateBy(x: keyStarRect.origin.x, y: keyStarRect.origin.y)
+        context?.scaleBy(x: keyStarRect.size.width / 100, y: keyStarRect.size.height / 100)
 
         AKTelephoneView.drawCenteredKey(numeral: "*", isPressed: currentKey == "*")
         NSGraphicsContext.restoreGraphicsState()
@@ -200,8 +200,8 @@ public class AKTelephoneView: NSView {
         keyHashRect = NSRect(x: 288, y: 206, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(keyHashRect)
-        context.translateBy(x: keyHashRect.origin.x, y: keyHashRect.origin.y)
-        context.scaleBy(x: keyHashRect.size.width / 100, y: keyHashRect.size.height / 100)
+        context?.translateBy(x: keyHashRect.origin.x, y: keyHashRect.origin.y)
+        context?.scaleBy(x: keyHashRect.size.width / 100, y: keyHashRect.size.height / 100)
 
         AKTelephoneView.drawCenteredKey(numeral: "#", isPressed: currentKey == "#")
         NSGraphicsContext.restoreGraphicsState()
@@ -263,7 +263,10 @@ public class AKTelephoneView: NSView {
         let busyTextStyle = NSMutableParagraphStyle()
         busyTextStyle.alignment = .center
 
-        let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17)!,
+        guard let font = NSFont(name: "HelveticaNeue", size: 17) else {
+            return
+        }
+        let busyTextFontAttributes = [NSFontAttributeName: font,
                                       NSForegroundColorAttributeName: NSColor.white,
                                       NSParagraphStyleAttributeName: busyTextStyle]
 
@@ -287,7 +290,10 @@ public class AKTelephoneView: NSView {
         let readoutStyle = NSMutableParagraphStyle()
         readoutStyle.alignment = .center
 
-        let readoutFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+        guard let readoutFont = NSFont(name: "HelveticaNeue", size: 48) else {
+            return
+        }
+        let readoutFontAttributes = [NSFontAttributeName: readoutFont,
                                      NSForegroundColorAttributeName: NSColor.black,
                                      NSParagraphStyleAttributeName: readoutStyle]
 
@@ -308,8 +314,8 @@ public class AKTelephoneView: NSView {
 
     public class func drawKey(text: String = "A B C", numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
-        let _ = NSGraphicsContext.current()!.cgContext
-
+        let _ = NSGraphicsContext.current()?.cgContext
+        
         //// Color Declarations
         let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1)
         let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1)
@@ -333,7 +339,10 @@ public class AKTelephoneView: NSView {
         let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .center
 
-        let lettersFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 11)!,
+        guard let font = NSFont(name: "HelveticaNeue", size: 11) else {
+            return
+        }
+        let lettersFontAttributes = [NSFontAttributeName: font,
                                      NSForegroundColorAttributeName: textColor,
                                      NSParagraphStyleAttributeName: lettersStyle]
 
@@ -356,7 +365,10 @@ public class AKTelephoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+        guard let numberFont = NSFont(name: "HelveticaNeue", size: 48) else {
+            return
+        }
+        let numberFontAttributes = [NSFontAttributeName: numberFont,
                                     NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: numberStyle]
 
@@ -377,7 +389,7 @@ public class AKTelephoneView: NSView {
 
     public class func drawCenteredKey(numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
-        let _ = NSGraphicsContext.current()!.cgContext
+        let _ = NSGraphicsContext.current()?.cgContext
 
         //// Color Declarations
         let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1)
@@ -402,7 +414,10 @@ public class AKTelephoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+        guard let font = NSFont(name: "HelveticaNeue", size: 48) else {
+            return
+        }
+        let numberFontAttributes = [NSFontAttributeName: font,
                                     NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: numberStyle]
 
