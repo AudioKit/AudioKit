@@ -510,24 +510,25 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Turn the buffer around!
     fileprivate func reverseBuffer() {
-        guard audioFileBuffer != nil else {
+        guard let buffer = audioFileBuffer else {
             return
         }
 
         let reverseBuffer = AVAudioPCMBuffer(
             pcmFormat: internalAudioFile.processingFormat,
-            frameCapacity: audioFileBuffer!.frameCapacity )
+            frameCapacity: buffer.frameCapacity
+        )
 
         var j: Int = 0
-        let length = audioFileBuffer!.frameLength
+        let length = buffer.frameLength
         //AKLog("reverse() preparing \(length) frames")
 
         // i represents the normal buffer read in reverse
         for i in (0 ..< Int(length)).reversed() {
             // n is the channel
-            for n in 0 ..< Int(audioFileBuffer!.format.channelCount) {
+            for n in 0 ..< Int(buffer.format.channelCount) {
                 // we write the reverseBuffer via the j index
-                reverseBuffer.floatChannelData?[n][j] = (audioFileBuffer!.floatChannelData?[n][i])!
+                reverseBuffer.floatChannelData?[n][j] = buffer.floatChannelData?[n][i] ?? 0.0
             }
             j += 1
         }
