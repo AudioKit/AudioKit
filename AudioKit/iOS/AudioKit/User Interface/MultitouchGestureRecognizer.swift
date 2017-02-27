@@ -100,9 +100,9 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
 
     /// The current multitouch gesture recognizer state.
     public var multitouchState: State {
-        if touches.count == 0 {
+        if touches.isEmpty {
             return .ready
-        } else if touches.filter({ $0.phase != .ended }).count > 0 {
+        } else if !touches.filter({ $0.phase != .ended }).isEmpty {
             return .live
         } else {
             return .sustained
@@ -214,7 +214,7 @@ extension MultitouchGestureRecognizer {
 
     /// The average of all touch locations in the current view.
     public var centroid: CGPoint? {
-        guard let view = view, touches.count > 0 else {
+        guard let view = view, !touches.isEmpty else {
             return nil
         }
 
@@ -232,7 +232,7 @@ extension MultitouchGestureRecognizer {
 
     /// The average of all previous touch locations in the current view.
     public var previousCentroid: CGPoint? {
-        guard let view = view, touches.count > 0 else {
+        guard let view = view, !touches.isEmpty else {
             return nil
         }
 
