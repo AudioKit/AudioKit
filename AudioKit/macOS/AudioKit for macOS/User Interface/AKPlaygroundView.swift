@@ -74,7 +74,10 @@ open class AKPlaygroundView: NSView {
         return newLabel
     }
 
-    open override func addSubview(_ view: NSView) {
+    open override func addSubview(_ subview: NSView?) {
+        guard let view = subview else {
+            return
+        }
         subviews.removeAll()
         potentialSubviews.append(view)
         let reversedSubviews = potentialSubviews.reversed()

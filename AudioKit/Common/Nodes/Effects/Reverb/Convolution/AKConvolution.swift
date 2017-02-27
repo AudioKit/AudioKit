@@ -31,7 +31,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - impulseResponseFileURL: Location of the imulseResponse audio File
-    ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, 
+    ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency,
     ///                      at the cost of requiring more CPU power.
     ///
     public init(
@@ -70,8 +70,13 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
 
             err = ExtAudioFileOpenURL(self.impulseResponseFileURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
+
+            guard let externalAudioFileRef = extRef else {
+                break Exit
+            }
+
             // Get the audio data format
-            err = ExtAudioFileGetProperty(extRef!,
+            err = ExtAudioFileGetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_FileDataFormat,
                                           &thePropertySize,
                                           &theFileFormat)
@@ -94,7 +99,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
 
             // Set the desired client (output) data format
-            err = ExtAudioFileSetProperty(extRef!,
+            err = ExtAudioFileSetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_ClientDataFormat,
                                           UInt32(MemoryLayout.stride(ofValue: theOutputFormat)),
                                           &theOutputFormat)
@@ -105,7 +110,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
 
             // Get the total frame count
             thePropertySize = UInt32(MemoryLayout.stride(ofValue: theFileLengthInFrames))
-            err = ExtAudioFileGetProperty(extRef!,
+            err = ExtAudioFileGetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_FileLengthFrames,
                                           &thePropertySize,
                                           &theFileLengthInFrames)
@@ -126,10 +131,12 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
 
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
-                err = ExtAudioFileRead(extRef!, &ioNumberFrames, &bufferList)
+                err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
                 if err == noErr {
                     // success
-                    let data = UnsafeMutablePointer<Float>(bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self))
+                    let data = UnsafeMutablePointer<Float>(
+                        bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
+                    )
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
                     internalAU?.start()
                 } else {

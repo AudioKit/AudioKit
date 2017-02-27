@@ -154,7 +154,10 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
             err = ExtAudioFileOpenURL(self.avAudiofile.url as CFURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
             // Get the audio data format
-            err = ExtAudioFileGetProperty(extRef!,
+            guard let externalAudioFileRef = extRef else {
+                break Exit
+            }
+            err = ExtAudioFileGetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_FileDataFormat,
                                           &thePropertySize,
                                           &theFileFormat)
@@ -177,7 +180,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
 
             // Set the desired client (output) data format
-            err = ExtAudioFileSetProperty(extRef!,
+            err = ExtAudioFileSetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_ClientDataFormat,
                                           UInt32(MemoryLayout.stride(ofValue: theOutputFormat)),
                                           &theOutputFormat)
@@ -188,7 +191,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
 
             // Get the total frame count
             thePropertySize = UInt32(MemoryLayout.stride(ofValue: theFileLengthInFrames))
-            err = ExtAudioFileGetProperty(extRef!,
+            err = ExtAudioFileGetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_FileLengthFrames,
                                           &thePropertySize,
                                           &theFileLengthInFrames)
@@ -209,10 +212,12 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
 
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
-                err = ExtAudioFileRead(extRef!, &ioNumberFrames, &bufferList)
+                err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
                 if err == noErr {
                     // success
-                    let data = UnsafeMutablePointer<Float>(bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self))
+                    let data = UnsafeMutablePointer<Float>(
+                        bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
+                    )
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
                     internalAU?.start()
                 } else {

@@ -126,7 +126,9 @@ extension AKMIDI {
             guard let eventChannel = event.channel else {
                 return
             }
-            let type = event.status
+            guard let type = event.status else {
+                return
+            }
             switch type {
             case .controllerChange:
                 listener.receivedMIDIController(Int(event.internalData[1]),

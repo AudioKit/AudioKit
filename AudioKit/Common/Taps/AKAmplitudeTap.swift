@@ -21,7 +21,7 @@ open class AKAmplitudeTap {
 
             // do a quick calc from the buffer values
             for i in 0 ..< Int(self.bufferSize) {
-                sum += pow(Float((buffer.floatChannelData?.pointee[i])!), 2)
+                sum += pow(Float((buffer.floatChannelData?.pointee[i]) ?? 0.0), 2)
             }
         }
     }

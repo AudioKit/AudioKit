@@ -74,9 +74,8 @@ extension AKMIDI {
     public func sendMessage(_ data: [MIDIByte]) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
-        var packet: UnsafeMutablePointer<MIDIPacket>?
-        packet = MIDIPacketListInit(packetListPointer)
-        packet = MIDIPacketListAdd(packetListPointer, 1_024, packet!, 0, data.count, data)
+        var packet = MIDIPacketListInit(packetListPointer)
+        packet = MIDIPacketListAdd(packetListPointer, 1_024, packet, 0, data.count, data)
         for endpoint in endpoints.values {
             let result = MIDISend(outputPort, endpoint, packetListPointer)
             if result != noErr {
