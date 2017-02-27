@@ -1,7 +1,5 @@
-import UIKit
-import PlaygroundSupport
-
 import AudioKit
+import UIKit
 
 let file = try AKAudioFile(readFileName: "click.wav", baseDir: .resources)
 var tink = try AKAudioPlayer(file: file)
@@ -58,6 +56,7 @@ for attachmentBehavior in newtonsCradle.attachmentBehaviors {
     attachmentBehavior.length = 100
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.liveView = newtonsCradle
 
 public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {

@@ -444,7 +444,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     fileprivate func scheduleBuffer(_ atTime: AVAudioTime? = nil) {
         if audioFileBuffer != nil {
-            AKLog("\(atTime)")
+            AKLog("Scheduled \(atTime)")
 
             if let buffer = audioFileBuffer {
                 internalPlayer.scheduleBuffer(buffer,
@@ -535,7 +535,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         audioFileBuffer = reverseBuffer
         // update this to the new value
         audioFileBuffer?.frameLength = length
-        //AKLog("Reverse new frame length: \(audioFileBuffer?.frameLength)")
     }
 
     /// Triggered when the player reaches the end of its playing range
