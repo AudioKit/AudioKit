@@ -18,15 +18,11 @@
     // The file to record to
     fileprivate var internalAudioFile: AKAudioFile
 
-    fileprivate var recording = false
+    /// True if we are recording.
+    public private(set) dynamic var isRecording = false
 
     // An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0
-
-    /// True if we are recording.
-    open var isRecording: Bool {
-        return recording
-    }
 
     /// Duration of recording
     open var recordedDuration: Double {
@@ -93,7 +89,7 @@
 
     /// Start recording
     open func record() throws {
-        if recording {
+        if isRecording == true {
             AKLog("AKNodeRecorder Warning: already recording !")
             return
         }
@@ -131,7 +127,7 @@
         }
 
         let recordingBufferLength: AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
-        recording = true
+        isRecording = true
 
         AKLog("AKNodeRecorder: recording")
         node.avAudioNode.installTap(
@@ -156,12 +152,12 @@
 
     /// Stop recording
     open func stop() {
-        if !recording {
+        if isRecording == false {
             AKLog("AKNodeRecorder Warning: Cannot stop recording, already stopped !")
             return
         }
 
-        recording = false
+        isRecording = false
 
         if AKSettings.fixTruncatedRecordings {
             //  delay before stopping so the recording is not truncated.
@@ -176,7 +172,7 @@
     open func reset() throws {
 
         // Stop recording
-        if recording {
+        if isRecording == true {
             stop()
         }
 
