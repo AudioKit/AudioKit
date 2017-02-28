@@ -574,6 +574,8 @@
 		C4B192D21C3B637900C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4B192CE1C3B637900C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm */; };
 		C4B192D31C3B637900C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4B192CF1C3B637900C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */; };
 		C4B73B501D4C961E007EB274 /* mixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B73B4F1D4C961E007EB274 /* mixer.swift */; };
+		C4B8A2F91E65696A006432FA /* AKSampler+SoundFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8A2F81E65696A006432FA /* AKSampler+SoundFont.swift */; };
+		C4B8A2FB1E6569E3006432FA /* AKSampler+getAUPresetXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8A2FA1E6569E3006432FA /* AKSampler+getAUPresetXML.swift */; };
 		C4BA6E881DD99C23002254EB /* AKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA6E871DD99C23002254EB /* AKComponent.swift */; };
 		C4BEAA121DEC3A9800186C50 /* AKAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BEAA101DEC3A9800186C50 /* AKAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4BEAA131DEC3A9800186C50 /* AKAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */; };
@@ -1343,6 +1345,8 @@
 		C4B192CE1C3B637900C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAmplitudeEnvelopeAudioUnit.mm; sourceTree = "<group>"; };
 		C4B192CF1C3B637900C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKAmplitudeEnvelopeDSPKernel.hpp; sourceTree = "<group>"; };
 		C4B73B4F1D4C961E007EB274 /* mixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mixer.swift; sourceTree = "<group>"; };
+		C4B8A2F81E65696A006432FA /* AKSampler+SoundFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+SoundFont.swift"; sourceTree = "<group>"; };
+		C4B8A2FA1E6569E3006432FA /* AKSampler+getAUPresetXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+getAUPresetXML.swift"; sourceTree = "<group>"; };
 		C4BA6E871DD99C23002254EB /* AKComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKComponent.swift; sourceTree = "<group>"; };
 		C4BEAA101DEC3A9800186C50 /* AKAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnit.h; sourceTree = "<group>"; };
 		C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioUnit.mm; sourceTree = "<group>"; };
@@ -1732,6 +1736,8 @@
 			isa = PBXGroup;
 			children = (
 				C40AD69F1C463CC300B638AF /* AKSampler.swift */,
+				C4B8A2FA1E6569E3006432FA /* AKSampler+getAUPresetXML.swift */,
+				C4B8A2F81E65696A006432FA /* AKSampler+SoundFont.swift */,
 				FE52FEEE1CB70A8500A35B63 /* AKAUPresetBuilder.swift */,
 				FEE48A451C967A6800DD788C /* TemplateAUPreset.h */,
 			);
@@ -3722,7 +3728,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "if which swiftlint >/dev/null; then\ncd /Users/aure/Developer/AudioKit/\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3893,6 +3899,7 @@
 				C4537F301C39D2A300A51738 /* AKDistortion.swift in Sources */,
 				C49E9DF61D2B1F9100E5E8BF /* AKDuration.swift in Sources */,
 				C4537FB11C3A438D00A51738 /* AKBandRejectButterworthFilter.swift in Sources */,
+				C4B8A2FB1E6569E3006432FA /* AKSampler+getAUPresetXML.swift in Sources */,
 				C48DB7C71CD56AC100D1EC13 /* AKMIDISystemCommand.swift in Sources */,
 				C46EECCF1C9FF3C8007FEA1B /* adsrEnvelope.swift in Sources */,
 				C49E9E351D2C2C6700E5E8BF /* stringResonator.swift in Sources */,
@@ -4166,6 +4173,7 @@
 				C4C136F11C2F94A00026FD7A /* AKStereoOperation.swift in Sources */,
 				C40AD69A1C463B2600B638AF /* AKMIDIEvent.swift in Sources */,
 				C43ABDD61E5BCA1B00165053 /* saturator.c in Sources */,
+				C4B8A2F91E65696A006432FA /* AKSampler+SoundFont.swift in Sources */,
 				C446B3EC1D454AB6000AEFCA /* AKPlaygroundLoop.swift in Sources */,
 				C474B1651CE43A9D00EB8D8E /* AKAmplitudeTap.swift in Sources */,
 				C463028C1C20E7A7009B44D9 /* phasor.swift in Sources */,
