@@ -104,21 +104,19 @@ open class AKAUPresetBuilder {
 
             if (sound as AnyObject).object(forKey: startNoteKey) == nil ||
                 (sound as AnyObject).object(forKey: endNoteKey) == nil {
-                soundDict.setObject((sound as AnyObject).object(forKey: rootNoteKey)!,
-                                    forKey: startNoteKey as NSCopying)
-                soundDict.setObject((sound as AnyObject).object(forKey: rootNoteKey)!,
-                                    forKey: endNoteKey as NSCopying)
+                if let soundObject = (sound as AnyObject).object(forKey: rootNoteKey) {
+                    soundDict.setObject(soundObject, forKey: startNoteKey as NSCopying)
+                    soundDict.setObject(soundObject, forKey: endNoteKey as NSCopying)
+                }
             }
-            if (sound as AnyObject).object(forKey: rootNoteKey) == nil {
-                //error
-            } else {
-                soundDict.setObject((sound as AnyObject).object(forKey: rootNoteKey)!,
-                                    forKey: rootNoteKey as NSCopying)
+
+            if let soundObject = (sound as AnyObject).object(forKey: rootNoteKey) {
+                soundDict.setObject(soundObject, forKey: rootNoteKey as NSCopying)
             }
 
             if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
-                guard let samplePath = (sound as AnyObject).object(forKey: "filename")! as? String else {
+                guard let samplePath = (sound as AnyObject).object(forKey: "filename") as? String else {
                     return
                 }
                 let idXML = AKAUPresetBuilder.generateFileRef(wavRef: sampleNum, samplePath: samplePath)
@@ -129,7 +127,7 @@ open class AKAUPresetBuilder {
 
             var startNote = soundDict.object(forKey: startNoteKey) as? MIDINoteNumber
             var endNote = soundDict.object(forKey: endNoteKey) as? MIDINoteNumber
-            let rootNote = soundDict.object(forKey: rootNoteKey)! as? MIDINoteNumber
+            let rootNote = soundDict.object(forKey: rootNoteKey) as? MIDINoteNumber
             startNote = (startNote == nil ? rootNote : startNote)
             endNote = (endNote == nil ? rootNote : endNote)
             let triggerModeStr = soundDict.object(forKey: triggerModeKey) as? String
@@ -138,13 +136,18 @@ open class AKAUPresetBuilder {
             soundDict.setObject(sampleNum, forKey: "sampleNum" as NSCopying)
             loadSoundsArr.append(soundDict)
 
+            guard let existingAttack = attack, let existingRelease = release else {
+                return
+            }
+
             let envelopesXML = AKAUPresetBuilder.generateEnvelope(id: 0,
                                                                   delay: 0,
-                                                                  attack: attack!,
+                                                                  attack: existingAttack,
                                                                   hold: 0,
                                                                   decay: 0,
                                                                   sustain: 1,
-                                                                  release: release!)
+                                                                  release: existingRelease)
+
             switch triggerModeStr {
                 case SampleTriggerMode.Loop.rawValue?:
                     triggerMode = SampleTriggerMode.Loop
@@ -159,53 +162,60 @@ open class AKAUPresetBuilder {
             }
             switch triggerMode {
             case  .Hold:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
-                                                               rootNote: rootNote!,
-                                                               startNote: startNote!,
-                                                               endNote: endNote!,
-                                                               wavRef: sampleNum,
-                                                               loopEnabled: false)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(
-                    connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
-                    envelopes: envelopesXML,
-                    zones: sampleZoneXML,
-                    layer: i + 1,
-                    numVoices: 1,
-                    ignoreNoteOff: false)
-                layerXML.append(tempLayerXML)
+                if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
+                    sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                                                                   rootNote: existingRootNote,
+                                                                   startNote: existingStartNote,
+                                                                   endNote: existingEndNote,
+                                                                   wavRef: sampleNum,
+                                                                   loopEnabled: false)
+                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
+                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                        envelopes: envelopesXML,
+                        zones: sampleZoneXML,
+                        layer: i + 1,
+                        numVoices: 1,
+                        ignoreNoteOff: false)
+                    layerXML.append(tempLayerXML)
+                }
+
             case .Loop:
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
-                                                               rootNote: rootNote!,
-                                                               startNote: startNote!,
-                                                               endNote: endNote!,
-                                                               wavRef: sampleNum,
-                                                               loopEnabled: true)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(
-                    connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
-                    envelopes: envelopesXML,
-                    zones: sampleZoneXML,
-                    layer: i + 1,
-                    numVoices: 1,
-                    ignoreNoteOff: false)
-                layerXML.append(tempLayerXML)
+                if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
+                    sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                                                                   rootNote: existingRootNote,
+                                                                   startNote: existingStartNote,
+                                                                   endNote: existingEndNote,
+                                                                   wavRef: sampleNum,
+                                                                   loopEnabled: true)
+                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
+                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                        envelopes: envelopesXML,
+                        zones: sampleZoneXML,
+                        layer: i + 1,
+                        numVoices: 1,
+                        ignoreNoteOff: false)
+                    layerXML.append(tempLayerXML)
+                }
+
             default:
                 // .Trigger and .Repeat (repeat needs to be handled in the app that uses this mode,
                 // otherwise is just the same as Trig mode)
-                sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
-                                                               rootNote: rootNote!,
-                                                               startNote: startNote!,
-                                                               endNote: endNote!,
-                                                               wavRef: sampleNum,
-                                                               loopEnabled: false)
-                let tempLayerXML = AKAUPresetBuilder.generateLayer(
-                    connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
-                    envelopes: envelopesXML,
-                    zones: sampleZoneXML,
-                    layer: i + 1,
-                    numVoices: 1,
-                    ignoreNoteOff: true)
-                layerXML.append(tempLayerXML)
-
+                if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
+                    sampleZoneXML = AKAUPresetBuilder.generateZone(id: i,
+                                                                   rootNote: existingRootNote,
+                                                                   startNote: existingStartNote,
+                                                                   endNote: existingEndNote,
+                                                                   wavRef: sampleNum,
+                                                                   loopEnabled: false)
+                    let tempLayerXML = AKAUPresetBuilder.generateLayer(
+                        connections: AKAUPresetBuilder.generateMinimalConnections(layer: i + 1),
+                        envelopes: envelopesXML,
+                        zones: sampleZoneXML,
+                        layer: i + 1,
+                        numVoices: 1,
+                        ignoreNoteOff: true)
+                    layerXML.append(tempLayerXML)
+                }
             }
         }
 

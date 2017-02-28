@@ -20,7 +20,9 @@ open class AKResourcesAudioFileLoaderView: UIView {
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             var isFileChanged = false
-            let isPlayerPlaying = player!.isPlaying
+            guard let isPlayerPlaying = player?.isPlaying else {
+                return
+            }
             let touchLocation = touch.location(in: self)
             if stopOuterPath.contains(touchLocation) {
                 player?.stop()
@@ -42,11 +44,12 @@ open class AKResourcesAudioFileLoaderView: UIView {
             if isFileChanged {
                 player?.stop()
                 let filename = titles[currentIndex]
-                let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources)
-                do {
-                    try player?.replace(file: file!)
-                } catch {
-                    AKLog("Could not replace file")
+                if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
+                    do {
+                        try player?.replace(file: file)
+                    } catch {
+                        AKLog("Could not replace file")
+                    }
                 }
                 if isPlayerPlaying { player?.play() }
                 setNeedsDisplay()

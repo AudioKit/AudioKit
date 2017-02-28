@@ -5,10 +5,10 @@ import AudioKit
 let mic = AKMicrophone()
 
 //: Set the microphone device if you need to
-let inputs = AudioKit.availableInputs!
-try AudioKit.setInputDevice(inputs[0])
-try mic.setDevice(inputs[0])
-
+if let inputs = AudioKit.availableInputs {
+    try AudioKit.setInputDevice(inputs[0])
+    try mic.setDevice(inputs[0])
+}
 let tracker = AKFrequencyTracker(mic, hopSize: 200, peakCount: 2_000)
 let silence = AKBooster(tracker, gain: 0)
 

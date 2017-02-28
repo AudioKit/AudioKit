@@ -90,7 +90,7 @@ public class AKPropertySlider: NSView {
                         propertyName: String = "Property Name",
                         currentValueText: String = "0.0") {
         //// General Declarations
-        let context = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
+        let context = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
 
         //// Color Declarations
         let backgroundColor = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
@@ -133,7 +133,7 @@ public class AKPropertySlider: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
                                        NSForegroundColorAttributeName: NSColor.black,
                                        NSParagraphStyleAttributeName: nameLabelStyle]
 
@@ -158,7 +158,7 @@ public class AKPropertySlider: NSView {
         let valueLabelStyle = NSMutableParagraphStyle()
         valueLabelStyle.alignment = .right
 
-        let valueLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+        let valueLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
                                         NSForegroundColorAttributeName: NSColor.black,
                                         NSParagraphStyleAttributeName: valueLabelStyle]
 
