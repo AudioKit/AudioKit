@@ -1,4 +1,5 @@
 import AudioKit
+import PlaygroundSupport
 import UIKit
 
 let file = try AKAudioFile(readFileName: "click.wav", baseDir: .resources)
@@ -56,7 +57,6 @@ for attachmentBehavior in newtonsCradle.attachmentBehaviors {
     attachmentBehavior.length = 100
 }
 
-import PlaygroundSupport
 PlaygroundPage.current.liveView = newtonsCradle
 
 public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
@@ -215,7 +215,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
             for ball in balls {
                 if ball.frame.contains(touchLocation) {
                     snapBehavior = UISnapBehavior(item: ball, snapToPoint: touchLocation)
-                    animator?.addBehavior(snapBehavior!)
+                    animator?.addBehavior(snapBehavior)
                 }
             }
         }

@@ -77,7 +77,9 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input.addConnectionPoint(self!)
-            self?.internalAU?.setLoopDuration(Float(loopDuration))
+            if let au = self?.internalAU {
+                au.setLoopDuration(Float(loopDuration))
+            }
         }
 
         guard let tree = internalAU?.parameterTree else {

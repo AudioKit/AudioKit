@@ -329,7 +329,7 @@ public struct AKMIDIEvent {
     ///
     static func statusFromValue(_ byte: MIDIByte) -> AKMIDIStatus {
         let status = byte >> 4
-        return AKMIDIStatus(rawValue: Int(status))!
+        return AKMIDIStatus(rawValue: Int(status)) ?? .nothing
     }
 
     /// Create note on event
