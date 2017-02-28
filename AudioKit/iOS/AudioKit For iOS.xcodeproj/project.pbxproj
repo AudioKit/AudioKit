@@ -3649,7 +3649,6 @@
 				C42F34FC1C057E03000E937C /* Frameworks */,
 				C42F34FD1C057E03000E937C /* Headers */,
 				C42F34FE1C057E03000E937C /* Resources */,
-				C483233E1E33FFBE002EF980 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3715,22 +3714,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C483233E1E33FFBE002EF980 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\ncd /Users/aure/Developer/AudioKit/\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C42F34FB1C057E03000E937C /* Sources */ = {
