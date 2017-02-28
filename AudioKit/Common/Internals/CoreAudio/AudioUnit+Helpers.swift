@@ -25,11 +25,19 @@ public extension AudioUnit {
     }
 
     func add(listener: AudioUnitPropertyListener, toProperty property: AudioUnitPropertyID) {
-        try! addPropertyListener(listener: listener, toProperty: property)
+        do {
+            try addPropertyListener(listener: listener, toProperty: property)
+        } catch {
+            AKLog("Error Adding Property Listener")
+        }
     }
 
     func remove(listener: AudioUnitPropertyListener, fromProperty property: AudioUnitPropertyID) {
-        try! removePropertyListener(listener: listener, fromProperty: property)
+        do {
+            try removePropertyListener(listener: listener, fromProperty: property)
+        } catch {
+            AKLog("Error Removing Property Listener")
+        }
     }
 
 }
