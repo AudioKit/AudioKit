@@ -1,6 +1,5 @@
 //: ## Telephone
 //: AudioKit is great for sound design. This playground creates canonical telephone sounds.
-
 import AudioKit
 
 //: ### Dial Tone

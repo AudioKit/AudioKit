@@ -419,29 +419,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    //    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
-    //        let sampleTime = AVAudioFramePosition(time * internalAudioFile.sampleRate)
-    //        return AVAudioTime(hostTime: mach_absolute_time(), 
-    //                           sampleTime: sampleTime, 
-    //                           atRate: internalAudioFile.sampleRate)
-    //    }
-
-    //    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
-    //        //        let sampleTime = AVAudioFramePosition(time * sampleRate)
-    //        //        return AVAudioTime(hostTime: mach_absolute_time(), sampleTime: sampleTime, atRate:sampleRate)
-    //        //
-    //        // Find the conversion factor from host ticks to seconds
-    //        let currentTimeTicks = mach_absolute_time()
-    //        var timebaseInfo = mach_timebase_info()
-    //        mach_timebase_info(&timebaseInfo)
-    //        let hostTimeToSecFactor = Double(timebaseInfo.numer) / Double(timebaseInfo.denom) / 1000000000.0
-    //
-    //        let out = AVAudioTime(hostTime: currentTimeTicks + UInt64(time / hostTimeToSecFactor))
-    //
-    //        return out
-    //
-    //    }
-
     fileprivate func scheduleBuffer(_ atTime: AVAudioTime? = nil) {
         if audioFileBuffer != nil {
             AKLog("Scheduled \(atTime)")
@@ -490,7 +467,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 // read the requested frame count from the file
                 try internalAudioFile.read(into: audioFileBuffer!, frameCount: framesToPlayCount)
 
-                AKLog("read \(audioFileBuffer!.frameLength) frames into buffer")
+                AKLog("read \(audioFileBuffer?.frameLength ?? 0) frames into buffer")
 
             } catch {
                 AKLog("ERROR AKaudioPlayer: Could not read data into buffer.")
@@ -549,5 +526,4 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             }
         }
     }
-
 }
