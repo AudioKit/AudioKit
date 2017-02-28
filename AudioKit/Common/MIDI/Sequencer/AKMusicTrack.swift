@@ -27,10 +27,7 @@ open class AKMusicTrack {
         var size: UInt32 = 0
         var lengthFromMusicTimeStamp = MusicTimeStamp(0)
         if let track = internalMusicTrack {
-            MusicTrackGetProperty(track,
-                                  kSequenceTrackProperty_TrackLength,
-                                  &lengthFromMusicTimeStamp,
-                                  &size)
+            MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &lengthFromMusicTimeStamp, &size)
         }
         return lengthFromMusicTimeStamp
     }
@@ -96,10 +93,7 @@ open class AKMusicTrack {
         var loopInfo = MusicTrackLoopInfo(loopDuration: loopDuration,
                                           numberOfLoops: Int32(numberOfLoops))
         if let musicTrack = internalMusicTrack {
-            MusicTrackSetProperty(musicTrack,
-                                  kSequenceTrackProperty_LoopInfo,
-                                  &loopInfo,
-                                  size)
+            MusicTrackSetProperty(musicTrack, kSequenceTrackProperty_LoopInfo, &loopInfo, size)
         }
 
     }
@@ -173,7 +167,6 @@ open class AKMusicTrack {
                         MusicEventIteratorSetEventInfo(iterator, eventType, &newNote)
                     }
                 }
-
                 MusicEventIteratorNextEvent(iterator)
                 MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
             }
@@ -282,8 +275,6 @@ open class AKMusicTrack {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
 
             outBool = false
-            //AKLog("time is \(eventTime) - type is \(eventType)")
-            //AKLog("data is \(eventData)")
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
@@ -375,7 +366,6 @@ open class AKMusicTrack {
         if result != 0 {
             AKLog("Unable to insert raw midi data")
         }
-
     }
 
     /// Copy this track to another track

@@ -28,7 +28,7 @@
 ///
 public enum AKMIDIStatus: Int {
     /// Default empty status
-    case  nothing = 0
+    case nothing = 0
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
