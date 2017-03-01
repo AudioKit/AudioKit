@@ -20,7 +20,9 @@ open class AKResourcesAudioFileLoaderView: UIView {
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             var isFileChanged = false
-            let isPlayerPlaying = player!.isPlaying
+            guard let isPlayerPlaying = player?.isPlaying else {
+                return
+            }
             let touchLocation = touch.location(in: self)
             if stopOuterPath.contains(touchLocation) {
                 player?.stop()
@@ -42,11 +44,12 @@ open class AKResourcesAudioFileLoaderView: UIView {
             if isFileChanged {
                 player?.stop()
                 let filename = titles[currentIndex]
-                let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources)
-                do {
-                    try player?.replace(file: file!)
-                } catch {
-                    AKLog("Could not replace file")
+                if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
+                    do {
+                        try player?.replace(file: file)
+                    } catch {
+                        AKLog("Could not replace file")
+                    }
                 }
                 if isPlayerPlaying { player?.play() }
                 setNeedsDisplay()
@@ -54,7 +57,9 @@ open class AKResourcesAudioFileLoaderView: UIView {
         }
     }
 
-    public convenience init(player: AKAudioPlayer, filenames: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
+    public convenience init(player: AKAudioPlayer,
+                            filenames: [String],
+                            frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.init(frame: frame)
         self.player = player
         self.titles = filenames
@@ -65,11 +70,11 @@ open class AKResourcesAudioFileLoaderView: UIView {
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let sliderColor = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
-        let backgroundColor = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
-        let color = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
-        let dark = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
-        let darkgray = UIColor(red: 0.735, green: 0.742, blue: 0.736, alpha: 1.000)
+        let sliderColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
+        let backgroundColor = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
+        let color = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
+        let dark = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+        let darkgray = #colorLiteral(red: 0.735, green: 0.742, blue: 0.736, alpha: 1.000)
 
         //// background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
@@ -153,7 +158,8 @@ open class AKResourcesAudioFileLoaderView: UIView {
         context?.saveGState()
         context?.clip(to: nameLabelInset)
         NSString(string: fileName).draw(in: CGRect(x: nameLabelInset.minX,
-                                                   y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+                                                   y: nameLabelInset.minY +
+                                                    (nameLabelInset.height - nameLabelTextHeight) / 2,
                                                    width: nameLabelInset.width,
                                                    height: nameLabelTextHeight),
                                         withAttributes: nameLabelFontAttributes)

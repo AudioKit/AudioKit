@@ -33,7 +33,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             if amount != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    amountParameter?.setValue(Float(newValue), originator: existingToken)
+                        amountParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.amount = Float(newValue)
@@ -72,7 +72,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

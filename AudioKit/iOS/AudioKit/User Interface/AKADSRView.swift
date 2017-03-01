@@ -75,11 +75,11 @@ import UIKit
     private var currentDragArea = ""
 
     //// Color Declarations
-    @IBInspectable open var attackColor: UIColor = UIColor(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
-    @IBInspectable open var decayColor: UIColor = UIColor(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
-    @IBInspectable open var sustainColor: UIColor = UIColor(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
-    @IBInspectable open var releaseColor: UIColor = UIColor(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
-    let bgColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable open var attackColor: UIColor = #colorLiteral(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var decayColor: UIColor = #colorLiteral(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var sustainColor: UIColor = #colorLiteral(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
+    @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
+    let bgColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
     @IBInspectable open var curveColor: UIColor = .black
@@ -171,7 +171,12 @@ import UIKit
 
     // MARK: - Drawing
 
-    func drawCurveCanvas(size: CGSize = CGSize(width: 440, height: 151), attackDurationMS: CGFloat = 449, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
+    func drawCurveCanvas(size: CGSize = CGSize(width: 440, height: 151),
+                         attackDurationMS: CGFloat = 449,
+                         decayDurationMS: CGFloat = 262,
+                         releaseDurationMS: CGFloat = 448,
+                         sustainLevel: CGFloat = 0.583,
+                         maxADFraction: CGFloat = 0.75) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -186,7 +191,9 @@ import UIKit
         let endMax = CGPoint(x: min(endPoint.x, size.width), y: buffer)
         let releaseAxis = CGPoint(x: releasePoint.x, y: endPoint.y)
         let releaseMax = CGPoint(x: releasePoint.x, y: buffer)
-        let highPoint = CGPoint(x: attackClickRoom + min(oneSecond * maxADFraction, attackDurationMS / 1_000.0 * oneSecond), y: buffer)
+        let highPoint = CGPoint(x: attackClickRoom +
+            min(oneSecond * maxADFraction, attackDurationMS / 1_000.0 * oneSecond),
+                                y: buffer)
         let highPointAxis = CGPoint(x: highPoint.x, y: size.height)
         let highMax = CGPoint(x: highPoint.x, y: buffer)
         let minthing = min(oneSecond * maxADFraction, (attackDurationMS + decayDurationMS) / 1_000.0 * oneSecond)

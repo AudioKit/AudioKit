@@ -34,7 +34,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             if cornerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    cornerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        cornerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.cornerFrequency = Float(newValue)
@@ -48,7 +48,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    gainParameter?.setValue(Float(newValue), originator: existingToken)
+                        gainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.gain = Float(newValue)
@@ -62,7 +62,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             if q != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    qParameter?.setValue(Float(newValue), originator: existingToken)
+                        qParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.q = Float(newValue)
@@ -83,7 +83,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cornerFrequency: Corner frequency.
-    ///   - gain: Amount at which the corner frequency value shall be increased or decreased. 
+    ///   - gain: Amount at which the corner frequency value shall be increased or decreased.
     ///           A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
@@ -108,7 +108,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

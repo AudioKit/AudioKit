@@ -419,32 +419,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    //    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
-    //        let sampleTime = AVAudioFramePosition(time * internalAudioFile.sampleRate)
-    //        return AVAudioTime(hostTime: mach_absolute_time(), 
-    //                           sampleTime: sampleTime, 
-    //                           atRate: internalAudioFile.sampleRate)
-    //    }
-
-    //    fileprivate func secondsToAVAudioTime(_ time: Double) -> AVAudioTime {
-    //        //        let sampleTime = AVAudioFramePosition(time * sampleRate)
-    //        //        return AVAudioTime(hostTime: mach_absolute_time(), sampleTime: sampleTime, atRate:sampleRate)
-    //        //
-    //        // Find the conversion factor from host ticks to seconds
-    //        let currentTimeTicks = mach_absolute_time()
-    //        var timebaseInfo = mach_timebase_info()
-    //        mach_timebase_info(&timebaseInfo)
-    //        let hostTimeToSecFactor = Double(timebaseInfo.numer) / Double(timebaseInfo.denom) / 1000000000.0
-    //
-    //        let out = AVAudioTime(hostTime: currentTimeTicks + UInt64(time / hostTimeToSecFactor))
-    //
-    //        return out
-    //
-    //    }
-
     fileprivate func scheduleBuffer(_ atTime: AVAudioTime? = nil) {
         if audioFileBuffer != nil {
-            AKLog("\(atTime)")
+            AKLog("Scheduled \(atTime)")
 
             if let buffer = audioFileBuffer {
                 internalPlayer.scheduleBuffer(buffer,
@@ -490,7 +467,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 // read the requested frame count from the file
                 try internalAudioFile.read(into: audioFileBuffer!, frameCount: framesToPlayCount)
 
-                AKLog("read \(audioFileBuffer!.frameLength) frames into buffer")
+                AKLog("read \(audioFileBuffer?.frameLength ?? 0) frames into buffer")
 
             } catch {
                 AKLog("ERROR AKaudioPlayer: Could not read data into buffer.")
@@ -510,24 +487,25 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Turn the buffer around!
     fileprivate func reverseBuffer() {
-        guard audioFileBuffer != nil else {
+        guard let buffer = audioFileBuffer else {
             return
         }
 
         let reverseBuffer = AVAudioPCMBuffer(
             pcmFormat: internalAudioFile.processingFormat,
-            frameCapacity: audioFileBuffer!.frameCapacity )
+            frameCapacity: buffer.frameCapacity
+        )
 
         var j: Int = 0
-        let length = audioFileBuffer!.frameLength
+        let length = buffer.frameLength
         //AKLog("reverse() preparing \(length) frames")
 
         // i represents the normal buffer read in reverse
         for i in (0 ..< Int(length)).reversed() {
             // n is the channel
-            for n in 0 ..< Int(audioFileBuffer!.format.channelCount) {
+            for n in 0 ..< Int(buffer.format.channelCount) {
                 // we write the reverseBuffer via the j index
-                reverseBuffer.floatChannelData?[n][j] = (audioFileBuffer!.floatChannelData?[n][i])!
+                reverseBuffer.floatChannelData?[n][j] = buffer.floatChannelData?[n][i] ?? 0.0
             }
             j += 1
         }
@@ -535,7 +513,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         audioFileBuffer = reverseBuffer
         // update this to the new value
         audioFileBuffer?.frameLength = length
-        //AKLog("Reverse new frame length: \(audioFileBuffer?.frameLength)")
     }
 
     /// Triggered when the player reaches the end of its playing range
@@ -549,5 +526,4 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             }
         }
     }
-
 }

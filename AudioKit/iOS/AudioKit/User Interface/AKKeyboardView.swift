@@ -20,11 +20,11 @@ public protocol AKKeyboardDelegate: class {
     @IBInspectable open var firstOctave: Int = 4
 
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
-    @IBInspectable open var polyphonicButton: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable open var polyphonicButton: UIColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
-    @IBInspectable open var  whiteKeyOff: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-    @IBInspectable open var  blackKeyOff: UIColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
-    @IBInspectable open var  keyOnColor: UIColor = UIColor(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var  whiteKeyOff: UIColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable open var  blackKeyOff: UIColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var  keyOnColor: UIColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
     open weak var delegate: AKKeyboardDelegate?
 
@@ -198,7 +198,9 @@ public protocol AKKeyboardDelegate: class {
             let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
             note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
         }
-        if note >= 0 { return MIDINoteNumber(note) } else {
+        if note >= 0 {
+            return MIDINoteNumber(note)
+        } else {
             return nil
         }
 
@@ -307,14 +309,18 @@ public protocol AKKeyboardDelegate: class {
     }
 
     func whiteKeyColor(_ n: Int, octaveNumber: Int) -> UIColor {
-        return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])) ? keyOnColor : whiteKeyOff
+        return onKeys.contains(
+            MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])
+            ) ? keyOnColor : whiteKeyOff
     }
 
     func topKeyColor(_ n: Int, octaveNumber: Int) -> UIColor {
         if notesWithSharps[topKeyNotes[n]].range(of: "#") != nil {
-            return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ? keyOnColor : blackKeyOff
+            return onKeys.contains(
+                MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])
+                ) ? keyOnColor : blackKeyOff
         }
-        return UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
+        return #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
 
     }
 }

@@ -37,7 +37,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.centerFrequency = Float(newValue)
@@ -51,7 +51,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
             if bandwidth != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
+                        bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.bandwidth = Float(newValue)
@@ -65,7 +65,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    gainParameter?.setValue(Float(newValue), originator: existingToken)
+                        gainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.gain = Float(newValue)
@@ -110,7 +110,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

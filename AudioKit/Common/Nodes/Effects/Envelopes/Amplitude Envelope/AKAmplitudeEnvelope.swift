@@ -48,7 +48,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
             if decayDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                        decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.decayDuration = Float(newValue)
@@ -62,7 +62,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
             if sustainLevel != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
+                        sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.sustainLevel = Float(newValue)
@@ -76,7 +76,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
             if releaseDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                        releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.releaseDuration = Float(newValue)
@@ -124,7 +124,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

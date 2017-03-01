@@ -34,7 +34,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             if shift != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    shiftParameter?.setValue(Float(newValue), originator: existingToken)
+                        shiftParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.shift = Float(newValue)
@@ -48,7 +48,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             if windowSize != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    windowSizeParameter?.setValue(Float(newValue), originator: existingToken)
+                        windowSizeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.windowSize = Float(newValue)
@@ -62,7 +62,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             if crossfade != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    crossfadeParameter?.setValue(Float(newValue), originator: existingToken)
+                        crossfadeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.crossfade = Float(newValue)
@@ -107,7 +107,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

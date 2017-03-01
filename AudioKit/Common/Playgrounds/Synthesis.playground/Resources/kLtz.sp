@@ -3,7 +3,7 @@
 # August 2016
 # p0: 0.5   Tempo
 # p1: 0.5   Probability
-# p2: 0 25  Feedback
+# p2: 0.25  Feedback
 # p3: 0.25  Resonance
 
 _trig 1 zeros

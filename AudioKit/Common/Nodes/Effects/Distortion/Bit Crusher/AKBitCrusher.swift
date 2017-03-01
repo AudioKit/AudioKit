@@ -32,7 +32,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
             if bitDepth != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    bitDepthParameter?.setValue(Float(newValue), originator: existingToken)
+                        bitDepthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.bitDepth = Float(newValue)
@@ -46,7 +46,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
             if sampleRate != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    sampleRateParameter?.setValue(Float(newValue), originator: existingToken)
+                        sampleRateParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.sampleRate = Float(newValue)
@@ -89,7 +89,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

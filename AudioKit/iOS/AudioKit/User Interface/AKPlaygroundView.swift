@@ -48,7 +48,9 @@ open class AKPlaygroundView: UIView {
     }
 
     open override func addSubview(_ potentialView: UIView?) {
-        guard let view = potentialView else { return }
+        guard let view = potentialView else {
+            return
+        }
         view.frame.origin.y = CGFloat(yPosition)
         if view.frame.origin.x < 30 {
             view.frame.origin.x = 30

@@ -37,7 +37,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
@@ -45,14 +45,14 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, 
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing,
     /// analogue synths generally allow resonances to be above 1.
     open dynamic var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    resonanceParameter?.setValue(Float(newValue), originator: existingToken)
+                        resonanceParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.resonance = Float(newValue)
@@ -73,8 +73,8 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Filter cutoff frequency.
-    ///   - resonance: Resonance, generally < 1, but not limited to it. 
-    ///                Higher than 1 resonance values might cause aliasing, 
+    ///   - resonance: Resonance, generally < 1, but not limited to it.
+    ///                Higher than 1 resonance values might cause aliasing,
     ///                analogue synths generally allow resonances to be above 1.
     ///
     public init(
@@ -96,7 +96,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

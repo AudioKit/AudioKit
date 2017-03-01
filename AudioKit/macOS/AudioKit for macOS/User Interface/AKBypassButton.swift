@@ -35,12 +35,12 @@ public class AKBypassButton: NSView {
 
     func drawBypassButton(isBypassed: Bool = false) {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
 
         //// Color Declarations
-        let red = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1)
-        let gray = NSColor(calibratedRed: 0.835, green: 0.842, blue: 0.836, alpha: 1)
-        let green = NSColor(calibratedRed: 0.029, green: 1, blue: 0, alpha: 1)
+        let red = #colorLiteral(red: 1, green: 0, blue: 0.062, alpha: 1)
+        let gray = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 1)
+        let green = #colorLiteral(red: 0.029, green: 1, blue: 0, alpha: 1)
 
         //// Variable Declarations
         let processingColor: NSColor = isBypassed ? gray : green
@@ -59,7 +59,7 @@ public class AKBypassButton: NSView {
         let bypassLabelStyle = NSMutableParagraphStyle()
         bypassLabelStyle.alignment = .center
 
-        let bypassLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+        let bypassLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
                                          NSForegroundColorAttributeName: NSColor.black,
                                          NSParagraphStyleAttributeName: bypassLabelStyle]
 
@@ -90,7 +90,7 @@ public class AKBypassButton: NSView {
         let processLabelStyle = NSMutableParagraphStyle()
         processLabelStyle.alignment = .center
 
-        let processLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+        let processLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
                                           NSForegroundColorAttributeName: NSColor.black,
                                           NSParagraphStyleAttributeName: processLabelStyle]
 

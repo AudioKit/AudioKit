@@ -68,12 +68,18 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
 
         if type(of: computedParameter) == AKOperation.self {
-            let monoOperation = computedParameter as! AKOperation
-            self.init(input, sporth: monoOperation.sporth + " dup ")
+            if let monoOperation = computedParameter as? AKOperation {
+                self.init(input, sporth: monoOperation.sporth + " dup ")
+                return
+            }
         } else {
-            let stereoOperation = computedParameter as! AKStereoOperation
-            self.init(input, sporth: stereoOperation.sporth + " swap ")
+            if let stereoOperation = computedParameter as? AKStereoOperation {
+                self.init(input, sporth: stereoOperation.sporth + " swap ")
+                return
+            }
         }
+        AKLog("Initialization failed.")
+        self.init(input, sporth: "")
     }
 
     /// Initialize the effect with an input and a valid Sporth string

@@ -57,11 +57,11 @@ open class AKPresetLoaderView: UIView {
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let red = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
-        let gray = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
-        let darkgray = UIColor(red: 0.735, green: 0.742, blue: 0.736, alpha: 1.000)
-        let green = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
-        let dark = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+        let red = #colorLiteral(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
+        let gray = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
+        let darkgray = #colorLiteral(red: 0.735, green: 0.742, blue: 0.736, alpha: 1.000)
+        let green = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
+        let dark = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
         //// Variable Declarations
         let expression = isPresetLoaded ? green : red
@@ -96,7 +96,8 @@ open class AKPresetLoaderView: UIView {
         context?.saveGState()
         context?.clip(to: presetLabelInset)
         presetLabelTextContent.draw(in: CGRect(x: presetLabelInset.minX,
-                                               y: presetLabelInset.minY + (presetLabelInset.height - presetLabelTextHeight) / 2,
+                                               y: presetLabelInset.minY +
+                                                (presetLabelInset.height - presetLabelTextHeight) / 2,
                                                width: presetLabelInset.width,
                                                height: presetLabelTextHeight),
                                     withAttributes: presetLabelFontAttributes)
@@ -155,7 +156,8 @@ open class AKPresetLoaderView: UIView {
         context?.saveGState()
         context?.clip(to: nameLabelInset)
         NSString(string: presetName).draw(in: CGRect(x: nameLabelInset.minX,
-                                                     y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2,
+                                                     y: nameLabelInset.minY +
+                                                        (nameLabelInset.height - nameLabelTextHeight) / 2,
                                                      width: nameLabelInset.width,
                                                      height: nameLabelTextHeight),
                                           withAttributes: nameLabelFontAttributes)
