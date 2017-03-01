@@ -125,6 +125,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     }
 
     @IBOutlet private weak var slidersStackView: UIStackView!
+
     func updateContextAwareCotrols() {
         let sporth = brain.knownCodes[brain.names[brain.currentIndex]]!
         slidersStackView.isHidden = true
@@ -159,10 +160,10 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
                 print("Regular expression failed")
             }
             let currentControlText = regex.stringByReplacingMatches(in: line,
-                                                            options: .reportCompletion,
-                                                            range: NSRange(location: 0,
-                                                                           length: line.characters.count),
-                                                            withTemplate: "$1")
+                                                                    options: .reportCompletion,
+                                                                    range: NSRange(location: 0,
+                                                                                   length: line.characters.count),
+                                                                    withTemplate: "$1")
 
             title = regex.stringByReplacingMatches(in: line,
                                                    options: .reportCompletion,
@@ -203,7 +204,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
         for i in 0..<4 {
             sliders[i].callback = { value in self.brain.generator?.parameters[i] = Double(value) }
         }
-        }
+    }
 
     // MARK: - Keyboard Delegate
 

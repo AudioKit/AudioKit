@@ -49,10 +49,10 @@
     open static var audioFormat: AVAudioFormat {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
-    
+
     /// Whether to DefaultToSpeaker when audio input is enabled
     open static var defaultToSpeaker: Bool = false
-    
+
     /// Whether to use bluetooth when audio input is enabled
     open static var useBluetooth: Bool = false
 

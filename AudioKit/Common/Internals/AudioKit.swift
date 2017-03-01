@@ -69,7 +69,7 @@ extension AVAudioEngine {
             }
         #else
             let devs = AVAudioSession.sharedInstance().currentRoute.inputs
-            if devs.count > 0 {
+            if !devs.isEmpty {
                 var outs = [AKDevice]()
                 for dev in devs {
                     outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
@@ -88,7 +88,7 @@ extension AVAudioEngine {
             }
         #else
             let devs = AVAudioSession.sharedInstance().currentRoute.outputs
-            if devs.count > 0 {
+            if !devs.isEmpty {
                 var outs = [AKDevice]()
                 for dev in devs {
                     outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
@@ -110,14 +110,14 @@ extension AVAudioEngine {
                 return AKDevice(name: dev.portName, deviceID: dev.uid)
             } else {
                 let devs = AVAudioSession.sharedInstance().currentRoute.inputs
-                if devs.count > 0 {
+                if !devs.isEmpty {
                     return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
                 }
             }
         #endif
         return nil
     }
-    
+
     /// The name of the current output device, if available.
     open static var outputDevice: AKDevice? {
         #if os(macOS)
@@ -126,14 +126,14 @@ extension AVAudioEngine {
             }
         #else
             let devs = AVAudioSession.sharedInstance().currentRoute.outputs
-            if devs.count > 0 {
+            if !devs.isEmpty {
                 return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
             }
-            
+
         #endif
         return nil
     }
-    
+
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     open static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
@@ -208,7 +208,7 @@ extension AVAudioEngine {
                             object: engine)
 
                     } else if AKSettings.useBluetooth {
-                        
+
                         if #available(iOS 10.0, *) {
                             let opts: AVAudioSessionCategoryOptions = [.allowBluetoothA2DP, .mixWithOthers]
                             try AKSettings.setSession(category: .playAndRecord, with: opts)
@@ -216,8 +216,8 @@ extension AVAudioEngine {
                             // Fallback on earlier versions
                             try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
                         }
-                        
-                    }else {
+
+                    } else {
                         try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
                     }
                 #else
