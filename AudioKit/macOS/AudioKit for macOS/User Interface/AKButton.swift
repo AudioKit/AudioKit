@@ -42,7 +42,7 @@ public class AKButton: NSView {
 
     func drawButton() {
         //// General Declarations
-        let context = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
+        let context = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
 
         let outerPath = NSBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
         color.setFill()

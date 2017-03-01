@@ -52,13 +52,13 @@ public class AKPresetLoaderView: NSView {
 
     func drawPresetLoader(presetName: String = "None", isPresetLoaded: Bool = false) {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
 
         //// Color Declarations
-        let red = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1)
-        let gray = NSColor(calibratedRed: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
-        let green = NSColor(calibratedRed: 0.029, green: 1, blue: 0, alpha: 1)
-        let dark = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1)
+        let red = #colorLiteral(red: 1, green: 0, blue: 0.062, alpha: 1)
+        let gray = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
+        let green = #colorLiteral(red: 0.029, green: 1, blue: 0, alpha: 1)
+        let dark = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 
         //// Variable Declarations
         let expression: NSColor = isPresetLoaded ? green : red
@@ -80,7 +80,7 @@ public class AKPresetLoaderView: NSView {
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .left
 
-        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
                                          NSForegroundColorAttributeName: NSColor.black,
                                          NSParagraphStyleAttributeName: presetLabelStyle]
 
@@ -139,7 +139,7 @@ public class AKPresetLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
                                        NSForegroundColorAttributeName: NSColor.black,
                                        NSParagraphStyleAttributeName: nameLabelStyle]
 

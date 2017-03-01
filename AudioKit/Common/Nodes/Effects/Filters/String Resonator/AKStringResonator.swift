@@ -38,7 +38,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
             if fundamentalFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.fundamentalFrequency = Float(newValue)
@@ -46,14 +46,14 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. 
+    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
     /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     open dynamic var feedback: Double = 0.95 {
         willSet {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.feedback = Float(newValue)
@@ -74,8 +74,8 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - fundamentalFrequency: Fundamental frequency of string.
-    ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more 
-    ///               pronounced resonance. Small values may leave the input signal unaffected. Depending on the 
+    ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more
+    ///               pronounced resonance. Small values may leave the input signal unaffected. Depending on the
     ///               filter frequency, typical values are > .9.
     ///
     public init(
@@ -97,7 +97,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

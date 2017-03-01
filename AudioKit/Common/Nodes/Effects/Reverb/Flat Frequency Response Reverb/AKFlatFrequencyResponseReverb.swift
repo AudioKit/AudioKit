@@ -36,7 +36,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
             if reverbDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                        reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.reverbDuration = Float(newValue)
@@ -56,9 +56,9 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000, 
+    ///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000,
     ///                     or 60dB down from its original amplitude.
-    ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the 
+    ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the
     ///                   delay time or “echo density” of the reverberation.
     ///
     public init(
@@ -77,10 +77,12 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input.addConnectionPoint(self!)
-            self?.internalAU!.setLoopDuration(Float(loopDuration))
+            if let au = self?.internalAU {
+                au.setLoopDuration(Float(loopDuration))
+            }
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

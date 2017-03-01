@@ -6,7 +6,7 @@ import AudioKit
 let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
 
 let player = try AKAudioPlayer(file: mixloop) {
-    print("completion callback has been triggered !")
+    print("completion callback has been triggered!")
 }
 
 AudioKit.output = player

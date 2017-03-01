@@ -21,7 +21,9 @@ public class AKResourcesAudioFileLoaderView: NSView {
 
     override public func mouseDown(with theEvent: NSEvent) {
         var isFileChanged = false
-        let isPlayerPlaying = player!.isPlaying
+        guard let isPlayerPlaying = player?.isPlaying else {
+            return
+        }
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
         if stopOuterPath.contains(touchLocation) {
             player?.stop()
@@ -43,11 +45,12 @@ public class AKResourcesAudioFileLoaderView: NSView {
         if isFileChanged {
             player?.stop()
             let filename = titles[currentIndex]
-            let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources)
-            do {
-                try player?.replace(file: file!)
-            } catch {
-                Swift.print("Could not replace file")
+            if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
+                do {
+                    try player?.replace(file: file)
+                } catch {
+                    Swift.print("Could not replace file")
+                }
             }
             if isPlayerPlaying { player?.play() }
         }
@@ -62,15 +65,15 @@ public class AKResourcesAudioFileLoaderView: NSView {
         self.titles = filenames
     }
 
-    func drawAudioFileLoader(sliderColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1),
+    func drawAudioFileLoader(sliderColor: NSColor = #colorLiteral(red: 1, green: 0, blue: 0.062, alpha: 1),
                              fileName: String = "None") {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.current()!.graphicsPort, to: CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
 
         //// Color Declarations
-        let backgroundColor = NSColor(calibratedRed: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
-        let color = NSColor(calibratedRed: 0.029, green: 1, blue: 0, alpha: 1)
-        let dark = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1)
+        let backgroundColor = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
+        let color = #colorLiteral(red: 0.029, green: 1, blue: 0, alpha: 1)
+        let dark = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 
         //// background Drawing
         let backgroundPath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 440, height: 60))
@@ -141,7 +144,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
                                        NSForegroundColorAttributeName: NSColor.black,
                                        NSParagraphStyleAttributeName: nameLabelStyle]
 

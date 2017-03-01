@@ -9,16 +9,7 @@
 /// This is primarily for the telephone page in the Synthesis playground
 open class AKTelephoneView: UIView {
 
-    var key1Rect = CGRect.zero
-    var key2Rect = CGRect.zero
-    var key3Rect = CGRect.zero
-    var key4Rect = CGRect.zero
-    var key5Rect = CGRect.zero
-    var key6Rect = CGRect.zero
-    var key7Rect = CGRect.zero
-    var key8Rect = CGRect.zero
-    var key9Rect = CGRect.zero
-    var key0Rect = CGRect.zero
+    var keyRects = [String: CGRect]()
     var keyStarRect = CGRect.zero
     var keyHashRect = CGRect.zero
     var callCirclePath = UIBezierPath()
@@ -31,21 +22,11 @@ open class AKTelephoneView: UIView {
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
-            let keyRects: [String: CGRect] = [
-                "1": key1Rect,
-                "2": key2Rect,
-                "3": key3Rect,
-                "4": key4Rect,
-                "5": key5Rect,
-                "6": key6Rect,
-                "7": key7Rect,
-                "8": key8Rect,
-                "9": key9Rect,
-                "0": key0Rect,
-                "*": keyStarRect,
-                "#": keyHashRect            ]
+
             for key in keyRects.keys {
-                guard let rect = keyRects[key] else { return }
+                guard let rect = keyRects[key] else {
+                    return
+                }
                 if rect.contains(touchLocation) { currentKey = key }
             }
             if callCirclePath.contains(touchLocation) { currentKey = "CALL" }
@@ -71,7 +52,8 @@ open class AKTelephoneView: UIView {
         setNeedsDisplay()
     }
 
-    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782), callback: @escaping (String, String) -> Void) {
+    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
+                callback: @escaping (String, String) -> Void) {
         self.callback = callback
         super.init(frame: frame)
     }
@@ -80,137 +62,74 @@ open class AKTelephoneView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setupKeyDrawing(context: CGContext?, x: Int, y: Int) -> CGRect {
+        let keyRect = CGRect(x: x, y: y, width: 82, height: 82)
+        context?.saveGState()
+        UIRectClip(keyRect)
+        context?.translateBy(x: keyRect.origin.x, y: keyRect.origin.y)
+        context?.scaleBy(x: keyRect.size.width / 100, y: keyRect.size.height / 100)
+        return keyRect
+    }
+
     override open func draw(_ rect: CGRect) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let color = UIColor(red: 0.306, green: 0.851, blue: 0.392, alpha: 1.000)
-        let color2 = UIColor(red: 1.000, green: 0.151, blue: 0.000, alpha: 1.000)
-        let unpressedKeyColor = UIColor(red: 0.937, green: 0.941, blue: 0.949, alpha: 1.000)
+        let color = #colorLiteral(red: 0.306, green: 0.851, blue: 0.392, alpha: 1.000)
+        let color2 = #colorLiteral(red: 1.000, green: 0.151, blue: 0.000, alpha: 1.000)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1.000)
 
         //// Background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: 1, y: 0, width: 440, height: 782))
         unpressedKeyColor.setFill()
         backgroundPath.fill()
 
-        //// key 1 Drawing
-        key1Rect = CGRect(x: 70, y: 206, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key1Rect)
-        context?.translateBy(x: key1Rect.origin.x, y: key1Rect.origin.y)
-        context?.scaleBy(x: key1Rect.size.width / 100, y: key1Rect.size.height / 100)
-
+        keyRects["1"] = setupKeyDrawing(context: context, x: 70, y: 206)
         AKTelephoneView.drawKey(text: "\n", numeral: "1", isPressed: currentKey == "1")
         context?.restoreGState()
 
-        //// key 2 Drawing
-        key2Rect = CGRect(x: 179, y: 205, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key2Rect)
-        context?.translateBy(x: key2Rect.origin.x, y: key2Rect.origin.y)
-        context?.scaleBy(x: key2Rect.size.width / 100, y: key2Rect.size.height / 100)
-
+        keyRects["2"] = setupKeyDrawing(context: context, x: 179, y: 205)
         AKTelephoneView.drawKey(text: "A B C", numeral: "2", isPressed: currentKey == "2")
         context?.restoreGState()
 
-        //// key 3 Drawing
-        key3Rect = CGRect(x: 288, y: 205, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key3Rect)
-        context?.translateBy(x: key3Rect.origin.x, y: key3Rect.origin.y)
-        context?.scaleBy(x: key3Rect.size.width / 100, y: key3Rect.size.height / 100)
-
+        keyRects["3"] = setupKeyDrawing(context: context, x: 288, y: 205)
         AKTelephoneView.drawKey(text: "D E F", numeral: "3", isPressed: currentKey == "3")
         context?.restoreGState()
 
-        //// key 4 Drawing
-        key4Rect = CGRect(x: 70, y: 302, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key4Rect)
-        context?.translateBy(x: key4Rect.origin.x, y: key4Rect.origin.y)
-        context?.scaleBy(x: key4Rect.size.width / 100, y: key4Rect.size.height / 100)
-
+        keyRects["4"] = setupKeyDrawing(context: context, x: 70, y: 302)
         AKTelephoneView.drawKey(text: "G H I", numeral: "4", isPressed: currentKey == "4")
         context?.restoreGState()
 
-        //// key 5 Drawing
-        key5Rect = CGRect(x: 179, y: 302, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key5Rect)
-        context?.translateBy(x: key5Rect.origin.x, y: key5Rect.origin.y)
-        context?.scaleBy(x: key5Rect.size.width / 100, y: key5Rect.size.height / 100)
-
+        keyRects["5"] = setupKeyDrawing(context: context, x: 179, y: 302)
         AKTelephoneView.drawKey(text: "J K L", numeral: "5", isPressed: currentKey == "5")
         context?.restoreGState()
 
-        //// key 6 Drawing
-        key6Rect = CGRect(x: 288, y: 302, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key6Rect)
-        context?.translateBy(x: key6Rect.origin.x, y: key6Rect.origin.y)
-        context?.scaleBy(x: key6Rect.size.width / 100, y: key6Rect.size.height / 100)
-
+        keyRects["6"] = setupKeyDrawing(context: context, x: 288, y: 302)
         AKTelephoneView.drawKey(text: "M N O", numeral: "6", isPressed: currentKey == "6")
         context?.restoreGState()
 
-        //// key 7 Drawing
-        key7Rect = CGRect(x: 70, y: 397, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key7Rect)
-        context?.translateBy(x: key7Rect.origin.x, y: key7Rect.origin.y)
-        context?.scaleBy(x: key7Rect.size.width / 100, y: key7Rect.size.height / 100)
-
+        keyRects["7"] = setupKeyDrawing(context: context, x: 70, y: 397)
         AKTelephoneView.drawKey(text: "P Q R S", numeral: "7", isPressed: currentKey == "7")
         context?.restoreGState()
 
-        //// key 8 Drawing
-        key8Rect = CGRect(x: 179, y: 397, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key8Rect)
-        context?.translateBy(x: key8Rect.origin.x, y: key8Rect.origin.y)
-        context?.scaleBy(x: key8Rect.size.width / 100, y: key8Rect.size.height / 100)
-
+        keyRects["8"] = setupKeyDrawing(context: context, x: 179, y: 397)
         AKTelephoneView.drawKey(text: "T U V", numeral: "8", isPressed: currentKey == "8")
         context?.restoreGState()
 
-        //// key 9 Drawing
-        key9Rect = CGRect(x: 288, y: 397, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key9Rect)
-        context?.translateBy(x: key9Rect.origin.x, y: key9Rect.origin.y)
-        context?.scaleBy(x: key9Rect.size.width / 100, y: key9Rect.size.height / 100)
-
+        keyRects["9"] = setupKeyDrawing(context: context, x: 288, y: 397)
         AKTelephoneView.drawKey(text: "W X Y Z", numeral: "9", isPressed: currentKey == "9")
         context?.restoreGState()
 
-        //// key 0 Drawing
-        key0Rect = CGRect(x: 179, y: 494, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(key0Rect)
-        context?.translateBy(x: key0Rect.origin.x, y: key0Rect.origin.y)
-        context?.scaleBy(x: key0Rect.size.width / 100, y: key0Rect.size.height / 100)
-
+        keyRects["0"] = setupKeyDrawing(context: context, x: 179, y: 494)
         AKTelephoneView.drawKey(text: "+", numeral: "0", isPressed: currentKey == "0")
         context?.restoreGState()
 
-        //// keyStar Drawing
-        keyStarRect = CGRect(x: 70, y: 494, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(keyStarRect)
-        context?.translateBy(x: keyStarRect.origin.x, y: keyStarRect.origin.y)
-        context?.scaleBy(x: keyStarRect.size.width / 100, y: keyStarRect.size.height / 100)
-
+        keyRects["*"] = setupKeyDrawing(context: context, x: 70, y: 494)
         AKTelephoneView.drawCenteredKey(numeral: "*", isPressed: currentKey == "*")
         context?.restoreGState()
 
-        //// keyHash Drawing
-        keyHashRect = CGRect(x: 288, y: 494, width: 82, height: 82)
-        context?.saveGState()
-        UIRectClip(keyHashRect)
-        context?.translateBy(x: keyHashRect.origin.x, y: keyHashRect.origin.y)
-        context?.scaleBy(x: keyHashRect.size.width / 100, y: keyHashRect.size.height / 100)
-
+        keyRects["#"] = setupKeyDrawing(context: context, x: 288, y: 494)
         AKTelephoneView.drawCenteredKey(numeral: "#", isPressed: currentKey == "#")
         context?.restoreGState()
 
@@ -319,10 +238,10 @@ open class AKTelephoneView: UIView {
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let pressedKeyColor = UIColor(red: 0.655, green: 0.745, blue: 0.804, alpha: 1.000)
-        let unpressedKeyColor = UIColor(red: 0.937, green: 0.941, blue: 0.949, alpha: 1.000)
-        let unpressedTextColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
-        let pressedTextColor = UIColor(red: 1.000, green: 0.992, blue: 0.988, alpha: 1.000)
+        let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1.000)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1.000)
+        let unpressedTextColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+        let pressedTextColor = #colorLiteral(red: 1.000, green: 0.992, blue: 0.988, alpha: 1.000)
 
         //// Variable Declarations
         let keyColor = isPressed ? pressedKeyColor : unpressedKeyColor
@@ -388,10 +307,10 @@ open class AKTelephoneView: UIView {
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let pressedKeyColor = UIColor(red: 0.655, green: 0.745, blue: 0.804, alpha: 1.000)
-        let unpressedKeyColor = UIColor(red: 0.937, green: 0.941, blue: 0.949, alpha: 1.000)
-        let unpressedTextColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
-        let pressedTextColor = UIColor(red: 1.000, green: 0.992, blue: 0.988, alpha: 1.000)
+        let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1.000)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1.000)
+        let unpressedTextColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+        let pressedTextColor = #colorLiteral(red: 1.000, green: 0.992, blue: 0.988, alpha: 1.000)
 
         //// Variable Declarations
         let keyColor = isPressed ? pressedKeyColor : unpressedKeyColor
@@ -428,5 +347,4 @@ open class AKTelephoneView: UIView {
                                        withAttributes: numberFontAttributes)
         context?.restoreGState()
     }
-
 }

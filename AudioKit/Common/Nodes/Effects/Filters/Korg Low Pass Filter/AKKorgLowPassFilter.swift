@@ -34,7 +34,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
@@ -48,7 +48,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
             if resonance != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    resonanceParameter?.setValue(Float(newValue), originator: existingToken)
+                        resonanceParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.resonance = Float(newValue)
@@ -62,7 +62,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
             if saturation != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    saturationParameter?.setValue(Float(newValue), originator: existingToken)
+                        saturationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.saturation = Float(newValue)
@@ -106,7 +106,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
             input.addConnectionPoint(self!)
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

@@ -54,12 +54,18 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         let computedParameter = operation(AKOperation.parameters)
 
         if type(of: computedParameter) == AKOperation.self {
-            let monoOperation = computedParameter as! AKOperation
-            self.init(sporth: monoOperation.sporth + " dup ")
+            if let monoOperation = computedParameter as? AKOperation {
+                self.init(sporth: monoOperation.sporth + " dup ")
+                return
+            }
         } else {
-            let stereoOperation = computedParameter as! AKStereoOperation
-            self.init(sporth: stereoOperation.sporth + " swap ")
+            if let stereoOperation = computedParameter as? AKStereoOperation {
+                self.init(sporth: stereoOperation.sporth + " swap ")
+                return
+            }
         }
+        AKLog("Operation initialization failed.")
+        self.init(sporth: "")
     }
 
     /// Initialize the generator for stereo (2 channels)

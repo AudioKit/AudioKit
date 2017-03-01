@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol KnobMediumDelegate {
+protocol KnobMediumDelegate: class {
     func updateKnobValue(_ value: Double, tag: Int)
 }
 
 @IBDesignable
 class KnobMedium: Knob {
 
-    var delegate: KnobMediumDelegate?
+    weak var delegate: KnobMediumDelegate?
 
     //// Image Declarations
     var knob140Base = UIImage(named: "knob140_base")

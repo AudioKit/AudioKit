@@ -34,7 +34,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                        frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.frequency = Float(newValue)
@@ -49,7 +49,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
             if depth != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                    depthParameter?.setValue(Float(newValue), originator: existingToken)
+                        depthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
                     internalAU?.depth = Float(newValue)
@@ -97,7 +97,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
             }
         }
 
-                guard let tree = internalAU?.parameterTree else {
+        guard let tree = internalAU?.parameterTree else {
             return
         }
 

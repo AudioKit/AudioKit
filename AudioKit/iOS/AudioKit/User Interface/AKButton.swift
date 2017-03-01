@@ -25,7 +25,7 @@ open class AKButton: UIView {
     }
 
     public init(title: String,
-                color: UIColor = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
+                color: UIColor = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping () -> (String)) {
         self.title = title
@@ -50,13 +50,23 @@ open class AKButton: UIView {
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: labelStyle]
+        let labelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
+                                   NSForegroundColorAttributeName: UIColor.black,
+                                   NSParagraphStyleAttributeName: labelStyle]
 
         let labelInset: CGRect = labelRect.insetBy(dx: 10, dy: 0)
-        let labelTextHeight: CGFloat = NSString(string: title).boundingRect(with: CGSize(width: labelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).size.height
+        let labelTextHeight: CGFloat = NSString(string: title).boundingRect(
+            with: CGSize(width: labelInset.width, height: CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: labelFontAttributes,
+            context: nil).size.height
         context?.saveGState()
         context?.clip(to: labelInset)
-        NSString(string: title).draw(in: CGRect(x: labelInset.minX, y: labelInset.minY + (labelInset.height - labelTextHeight) / 2, width: labelInset.width, height: labelTextHeight), withAttributes: labelFontAttributes)
+        NSString(string: title).draw(in: CGRect(x: labelInset.minX,
+                                                y: labelInset.minY + (labelInset.height - labelTextHeight) / 2,
+                                                width: labelInset.width,
+                                                height: labelTextHeight),
+                                     withAttributes: labelFontAttributes)
         context?.restoreGState()
 
     }

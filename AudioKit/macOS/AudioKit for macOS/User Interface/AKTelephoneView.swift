@@ -9,18 +9,7 @@
 /// This is primarily for the telephone page in the Synthesis playground
 public class AKTelephoneView: NSView {
 
-    var key1Rect = CGRect.zero
-    var key2Rect = CGRect.zero
-    var key3Rect = CGRect.zero
-    var key4Rect = CGRect.zero
-    var key5Rect = CGRect.zero
-    var key6Rect = CGRect.zero
-    var key7Rect = CGRect.zero
-    var key8Rect = CGRect.zero
-    var key9Rect = CGRect.zero
-    var key0Rect = CGRect.zero
-    var keyStarRect = CGRect.zero
-    var keyHashRect = CGRect.zero
+    var keyRects = [String: CGRect]()
     var callCirclePath = NSBezierPath()
     var busyCirclePath = NSBezierPath()
 
@@ -30,18 +19,13 @@ public class AKTelephoneView: NSView {
 
     override public func mouseDown(with theEvent: NSEvent) {
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
-        if key1Rect.contains(touchLocation) { currentKey = "1" }
-        if key2Rect.contains(touchLocation) { currentKey = "2" }
-        if key3Rect.contains(touchLocation) { currentKey = "3" }
-        if key4Rect.contains(touchLocation) { currentKey = "4" }
-        if key5Rect.contains(touchLocation) { currentKey = "5" }
-        if key6Rect.contains(touchLocation) { currentKey = "6" }
-        if key7Rect.contains(touchLocation) { currentKey = "7" }
-        if key8Rect.contains(touchLocation) { currentKey = "8" }
-        if key9Rect.contains(touchLocation) { currentKey = "9" }
-        if key0Rect.contains(touchLocation) { currentKey = "0" }
-        if keyStarRect.contains(touchLocation) { currentKey = "*" }
-        if keyHashRect.contains(touchLocation) { currentKey = "#" }
+
+        for key in keyRects.keys {
+            guard let rect = keyRects[key] else {
+                return
+            }
+            if rect.contains(touchLocation) { currentKey = key }
+        }
         if callCirclePath.contains(touchLocation) { currentKey = "CALL" }
         if busyCirclePath.contains(touchLocation) { currentKey = "BUSY" }
         if currentKey != "" {
@@ -72,137 +56,74 @@ public class AKTelephoneView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setupKeyDrawing(context: CGContext?, x: Int, y: Int) -> CGRect {
+        let keyRect = NSRect(x: x, y: y, width: 82, height: 82)
+        NSGraphicsContext.saveGraphicsState()
+        NSRectClip(keyRect)
+        context?.translateBy(x: keyRect.origin.x, y: keyRect.origin.y)
+        context?.scaleBy(x: keyRect.size.width / 100, y: keyRect.size.height / 100)
+        return keyRect
+    }
+
     override public func draw(_ rect: CGRect) {
         //// General Declarations
-        let context = NSGraphicsContext.current()!.cgContext
+        let context = NSGraphicsContext.current()?.cgContext
 
         //// Color Declarations
-        let color = NSColor(calibratedRed: 0.306, green: 0.851, blue: 0.392, alpha: 1)
-        let color2 = NSColor(calibratedRed: 1, green: 0.151, blue: 0, alpha: 1)
-        let unpressedKeyColor = NSColor(calibratedRed: 0.937, green: 0.941, blue: 0.949, alpha: 1)
+        let color = #colorLiteral(red: 0.306, green: 0.851, blue: 0.392, alpha: 1)
+        let color2 = #colorLiteral(red: 1, green: 0.151, blue: 0, alpha: 1)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1)
 
         //// Background Drawing
         let backgroundPath = NSBezierPath(rect: NSRect(x: 1, y: 0, width: 440, height: 782))
         unpressedKeyColor.setFill()
         backgroundPath.fill()
 
-        //// key 1 Drawing
-        key1Rect = NSRect(x: 70, y: 494, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key1Rect)
-        context.translateBy(x: key1Rect.origin.x, y: key1Rect.origin.y)
-        context.scaleBy(x: key1Rect.size.width / 100, y: key1Rect.size.height / 100)
-
+        keyRects["1"] = setupKeyDrawing(context: context, x: 70, y: 494)
         AKTelephoneView.drawKey(text: "\n", numeral: "1", isPressed: currentKey == "1")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 2 Drawing
-        key2Rect = NSRect(x: 179, y: 495, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key2Rect)
-        context.translateBy(x: key2Rect.origin.x, y: key2Rect.origin.y)
-        context.scaleBy(x: key2Rect.size.width / 100, y: key2Rect.size.height / 100)
-
+        keyRects["2"] = setupKeyDrawing(context: context, x: 179, y: 495)
         AKTelephoneView.drawKey(text: "A B C", numeral: "2", isPressed: currentKey == "2")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 3 Drawing
-        key3Rect = NSRect(x: 288, y: 495, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key3Rect)
-        context.translateBy(x: key3Rect.origin.x, y: key3Rect.origin.y)
-        context.scaleBy(x: key3Rect.size.width / 100, y: key3Rect.size.height / 100)
-
+        keyRects["3"] = setupKeyDrawing(context: context, x: 288, y: 495)
         AKTelephoneView.drawKey(text: "D E F", numeral: "3", isPressed: currentKey == "3")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 4 Drawing
-        key4Rect = NSRect(x: 70, y: 398, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key4Rect)
-        context.translateBy(x: key4Rect.origin.x, y: key4Rect.origin.y)
-        context.scaleBy(x: key4Rect.size.width / 100, y: key4Rect.size.height / 100)
-
+        keyRects["4"] = setupKeyDrawing(context: context, x: 70, y: 398)
         AKTelephoneView.drawKey(text: "G H I", numeral: "4", isPressed: currentKey == "4")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 5 Drawing
-        key5Rect = NSRect(x: 179, y: 398, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key5Rect)
-        context.translateBy(x: key5Rect.origin.x, y: key5Rect.origin.y)
-        context.scaleBy(x: key5Rect.size.width / 100, y: key5Rect.size.height / 100)
-
+        keyRects["5"] = setupKeyDrawing(context: context, x: 179, y: 398)
         AKTelephoneView.drawKey(text: "J K L", numeral: "5", isPressed: currentKey == "5")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 6 Drawing
-        key6Rect = NSRect(x: 288, y: 398, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key6Rect)
-        context.translateBy(x: key6Rect.origin.x, y: key6Rect.origin.y)
-        context.scaleBy(x: key6Rect.size.width / 100, y: key6Rect.size.height / 100)
-
+        keyRects["6"] = setupKeyDrawing(context: context, x: 288, y: 398)
         AKTelephoneView.drawKey(text: "M N O", numeral: "6", isPressed: currentKey == "6")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 7 Drawing
-        key7Rect = NSRect(x: 70, y: 303, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key7Rect)
-        context.translateBy(x: key7Rect.origin.x, y: key7Rect.origin.y)
-        context.scaleBy(x: key7Rect.size.width / 100, y: key7Rect.size.height / 100)
-
+        keyRects["7"] = setupKeyDrawing(context: context, x: 70, y: 303)
         AKTelephoneView.drawKey(text: "P Q R S", numeral: "7", isPressed: currentKey == "7")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 8 Drawing
-        key8Rect = NSRect(x: 179, y: 303, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key8Rect)
-        context.translateBy(x: key8Rect.origin.x, y: key8Rect.origin.y)
-        context.scaleBy(x: key8Rect.size.width / 100, y: key8Rect.size.height / 100)
-
+        keyRects["8"] = setupKeyDrawing(context: context, x: 179, y: 303)
         AKTelephoneView.drawKey(text: "T U V", numeral: "8", isPressed: currentKey == "8")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 9 Drawing
-        key9Rect = NSRect(x: 288, y: 303, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key9Rect)
-        context.translateBy(x: key9Rect.origin.x, y: key9Rect.origin.y)
-        context.scaleBy(x: key9Rect.size.width / 100, y: key9Rect.size.height / 100)
-
+        keyRects["9"] = setupKeyDrawing(context: context, x: 288, y: 303)
         AKTelephoneView.drawKey(text: "W X Y Z", numeral: "9", isPressed: currentKey == "9")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// key 0 Drawing
-        key0Rect = NSRect(x: 179, y: 206, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(key0Rect)
-        context.translateBy(x: key0Rect.origin.x, y: key0Rect.origin.y)
-        context.scaleBy(x: key0Rect.size.width / 100, y: key0Rect.size.height / 100)
-
+        keyRects["0"] = setupKeyDrawing(context: context, x: 179, y: 206)
         AKTelephoneView.drawKey(text: "+", numeral: "0", isPressed: currentKey == "0")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// keyStar Drawing
-        keyStarRect = NSRect(x: 70, y: 206, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(keyStarRect)
-        context.translateBy(x: keyStarRect.origin.x, y: keyStarRect.origin.y)
-        context.scaleBy(x: keyStarRect.size.width / 100, y: keyStarRect.size.height / 100)
-
+        keyRects["*"] = setupKeyDrawing(context: context, x: 70, y: 206)
         AKTelephoneView.drawCenteredKey(numeral: "*", isPressed: currentKey == "*")
         NSGraphicsContext.restoreGraphicsState()
 
-        //// keyHash Drawing
-        keyHashRect = NSRect(x: 288, y: 206, width: 82, height: 82)
-        NSGraphicsContext.saveGraphicsState()
-        NSRectClip(keyHashRect)
-        context.translateBy(x: keyHashRect.origin.x, y: keyHashRect.origin.y)
-        context.scaleBy(x: keyHashRect.size.width / 100, y: keyHashRect.size.height / 100)
-
+        keyRects["#"] = setupKeyDrawing(context: context, x: 288, y: 206)
         AKTelephoneView.drawCenteredKey(numeral: "#", isPressed: currentKey == "#")
         NSGraphicsContext.restoreGraphicsState()
 
@@ -263,7 +184,7 @@ public class AKTelephoneView: NSView {
         let busyTextStyle = NSMutableParagraphStyle()
         busyTextStyle.alignment = .center
 
-        let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17)!,
+        let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17),
                                       NSForegroundColorAttributeName: NSColor.white,
                                       NSParagraphStyleAttributeName: busyTextStyle]
 
@@ -287,7 +208,7 @@ public class AKTelephoneView: NSView {
         let readoutStyle = NSMutableParagraphStyle()
         readoutStyle.alignment = .center
 
-        let readoutFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+        let readoutFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48),
                                      NSForegroundColorAttributeName: NSColor.black,
                                      NSParagraphStyleAttributeName: readoutStyle]
 
@@ -308,13 +229,13 @@ public class AKTelephoneView: NSView {
 
     public class func drawKey(text: String = "A B C", numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
-        let _ = NSGraphicsContext.current()!.cgContext
+        let _ = NSGraphicsContext.current()?.cgContext
 
         //// Color Declarations
-        let pressedKeyColor = NSColor(calibratedRed: 0.655, green: 0.745, blue: 0.804, alpha: 1)
-        let unpressedKeyColor = NSColor(calibratedRed: 0.937, green: 0.941, blue: 0.949, alpha: 1)
-        let unpressedTextColor = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1)
-        let pressedTextColor = NSColor(calibratedRed: 1, green: 0.992, blue: 0.988, alpha: 1)
+        let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1)
+        let unpressedTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let pressedTextColor = #colorLiteral(red: 1, green: 0.992, blue: 0.988, alpha: 1)
 
         //// Variable Declarations
         let keyColor: NSColor = isPressed ? pressedKeyColor : unpressedKeyColor
@@ -333,7 +254,7 @@ public class AKTelephoneView: NSView {
         let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .center
 
-        let lettersFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 11)!,
+        let lettersFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 11),
                                      NSForegroundColorAttributeName: textColor,
                                      NSParagraphStyleAttributeName: lettersStyle]
 
@@ -356,7 +277,7 @@ public class AKTelephoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48),
                                     NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: numberStyle]
 
@@ -377,13 +298,13 @@ public class AKTelephoneView: NSView {
 
     public class func drawCenteredKey(numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
-        let _ = NSGraphicsContext.current()!.cgContext
+        let _ = NSGraphicsContext.current()?.cgContext
 
         //// Color Declarations
-        let pressedKeyColor = NSColor(calibratedRed: 0.655, green: 0.745, blue: 0.804, alpha: 1)
-        let unpressedKeyColor = NSColor(calibratedRed: 0.937, green: 0.941, blue: 0.949, alpha: 1)
-        let unpressedTextColor = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1)
-        let pressedTextColor = NSColor(calibratedRed: 1, green: 0.992, blue: 0.988, alpha: 1)
+        let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1)
+        let unpressedKeyColor = #colorLiteral(red: 0.937, green: 0.941, blue: 0.949, alpha: 1)
+        let unpressedTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let pressedTextColor = #colorLiteral(red: 1, green: 0.992, blue: 0.988, alpha: 1)
 
         //// Variable Declarations
         let keyColor: NSColor = isPressed ? pressedKeyColor : unpressedKeyColor
@@ -402,7 +323,7 @@ public class AKTelephoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
+        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48),
                                     NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: numberStyle]
 
