@@ -53,8 +53,8 @@
     /// Whether to DefaultToSpeaker when audio input is enabled
     open static var defaultToSpeaker: Bool = false
     
-    /// Whether to use bluetooth speaker when audio input is enabled
-    open static var useBluetoothSpeaker: Bool = false
+    /// Whether to use bluetooth when audio input is enabled
+    open static var useBluetooth: Bool = false
 
     /// Global default rampTime value
     open static var rampTime: Double = 0.000_2
@@ -98,15 +98,14 @@ extension AKSettings {
 
     /// Set the audio session type
     open static func setSession(category: SessionCategory,
-                                with options: AVAudioSessionCategoryOptions? = nil) throws {
+                                with options: AVAudioSessionCategoryOptions = [.mixWithOthers]) throws {
 
         if !AKSettings.disableAVAudioSessionCategoryManagement {
             do {
-                try session.setCategory("\(category)", with: options ?? .mixWithOthers)
+                try session.setCategory("\(category)", with: options)
             } catch let error as NSError {
-                AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category)" +
-                    (options.map { " with options:\($0)" } ?? ""))
-                throw error
+                AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category) with options: \(options)")
+                    throw error
             }
         }
 
