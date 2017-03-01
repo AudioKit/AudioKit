@@ -139,7 +139,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     /// Initialize this oscillator node
     ///
     /// - Parameters:
-    ///   - waveform:           The waveform of oscillation
+    ///   - waveformArray:      An array of 4 waveforms
     ///   - index:              Index of the wavetable to use (fractional are okay).
     ///   - attackDuration:     Attack time
     ///   - decayDuration:      Decay time
