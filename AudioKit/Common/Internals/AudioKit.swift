@@ -85,7 +85,38 @@ extension AVAudioEngine {
         #endif
         return nil
     }
-
+    
+    /// The name of the current input device, if available.
+    open static var currentInputDevice: AKDevice? {
+        #if os(macOS)
+            if let dev = EZAudioDevice.currentInput() {
+                return AKDevice(name: dev.name, deviceID: dev.deviceID)
+            }
+        #else
+            let devs = AVAudioSession.sharedInstance().currentRoute.inputs
+            if devs.count > 0 {
+                return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
+            }
+            
+        #endif
+        return nil
+    }
+    /// The name of the current output device, if available.
+    open static var currentOutputDevice: AKDevice? {
+        #if os(macOS)
+            if let dev = EZAudioDevice.currentInput() {
+                return AKDevice(name: dev.name, deviceID: dev.deviceID)
+            }
+        #else
+            let devs = AVAudioSession.sharedInstance().currentRoute.outputs
+            if devs.count > 0 {
+                return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
+            }
+            
+        #endif
+        return nil
+    }
+    
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     open static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
