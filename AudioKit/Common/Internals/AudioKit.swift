@@ -61,18 +61,45 @@ extension AVAudioEngine {
         #endif
     }
     /// Enumerate the list of available output devices.
-    open static var availableOutputs: [AKDevice]? {
+    open static var inputs: [AKDevice]? {
+        #if os(macOS)
+            EZAudioUtilities.setShouldExitOnCheckResultFail(false)
+            return EZAudioDevice.inputDevices().map {
+                AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
+            }
+        #else
+            let devs = AVAudioSession.sharedInstance().currentRoute.inputs
+            if devs.count > 0 {
+                var outs = [AKDevice]()
+                for dev in devs {
+                    outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
+                }
+                return outs
+            }
+            return nil
+        #endif
+    }
+    /// Enumerate the list of available output devices.
+    open static var outputs: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.outputDevices().map {
                 AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
             }
         #else
+            let devs = AVAudioSession.sharedInstance().currentRoute.outputs
+            if devs.count > 0 {
+                var outs = [AKDevice]()
+                for dev in devs {
+                    outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
+                }
+                return outs
+            }
             return nil
         #endif
     }
 
-    /// The name of the current preferred input device, if available.
+    /// The name of the current input device, if available.
     open static var inputDevice: AKDevice? {
         #if os(macOS)
             if let dev = EZAudioDevice.currentInput() {
@@ -81,28 +108,18 @@ extension AVAudioEngine {
         #else
             if let dev = AVAudioSession.sharedInstance().preferredInput {
                 return AKDevice(name: dev.portName, deviceID: dev.uid)
+            } else {
+                let devs = AVAudioSession.sharedInstance().currentRoute.inputs
+                if devs.count > 0 {
+                    return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
+                }
             }
         #endif
         return nil
     }
     
-    /// The name of the current input device, if available.
-    open static var currentInputDevice: AKDevice? {
-        #if os(macOS)
-            if let dev = EZAudioDevice.currentInput() {
-                return AKDevice(name: dev.name, deviceID: dev.deviceID)
-            }
-        #else
-            let devs = AVAudioSession.sharedInstance().currentRoute.inputs
-            if devs.count > 0 {
-                return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
-            }
-            
-        #endif
-        return nil
-    }
     /// The name of the current output device, if available.
-    open static var currentOutputDevice: AKDevice? {
+    open static var outputDevice: AKDevice? {
         #if os(macOS)
             if let dev = EZAudioDevice.currentInput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
@@ -190,10 +207,11 @@ extension AVAudioEngine {
                             name: NSNotification.Name.AVAudioEngineConfigurationChange,
                             object: engine)
 
-                    } else if AKSettings.useBluetoothSpeaker {
+                    } else if AKSettings.useBluetooth {
                         
                         if #available(iOS 10.0, *) {
-                            try AKSettings.setSession(category: .playAndRecord, with: .allowBluetoothA2DP)
+                            let opts: AVAudioSessionCategoryOptions = [.allowBluetoothA2DP, .mixWithOthers]
+                            try AKSettings.setSession(category: .playAndRecord, with: opts)
                         } else {
                             // Fallback on earlier versions
                             try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
