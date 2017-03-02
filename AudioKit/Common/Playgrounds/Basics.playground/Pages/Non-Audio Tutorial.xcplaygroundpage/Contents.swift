@@ -51,13 +51,6 @@ let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
 let player = try AKAudioPlayer(file: file)
 let effect = AKMoogLadder(player)
 
-//: We'll often use the notation above which is `let variable = AKClass(input)`
-//: but for the best code completion, this is equivalent to
-//: `let variable = AKClass.init(input)` which has the added benefit of providing
-//: better code completion and inline documentation.  This may not be necessary
-//: as Xcode's support for Swift code completion improves.
-let effect2 = AKMoogLadder.init(player)
-
 //: The following line keeps a playground executing even after the last line is
 //: run so that the audio elements that were started have time to play and make
 //: sounds for us to listen to.
