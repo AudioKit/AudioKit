@@ -23,8 +23,8 @@ let scale: [MIDINoteNumber] = [0, 2, 4, 5, 7, 9, 11, 12]
 
 class PlaygroundView: AKPlaygroundView {
 
-    var detuneSlider: AKPropertySlider?
-    var bodySizeSlider: AKPropertySlider?
+    var detuneSlider: AKPropertySlider!
+    var bodySizeSlider: AKPropertySlider!
 
     override func setup() {
         addTitle("Mandolin")
@@ -76,8 +76,8 @@ class PlaygroundView: AKPlaygroundView {
         })
     }
     func updateUI() {
-        detuneSlider!.value = mandolin.detune
-        bodySizeSlider!.value = mandolin.bodySize
+        detuneSlider.value = mandolin.detune
+        bodySizeSlider.value = mandolin.bodySize
     }
 }
 

@@ -13,12 +13,12 @@ AudioKit.start()
 class PlaygroundView: AKPlaygroundView {
 
     // UI Elements we'll need to be able to access
-    var frequencySlider: AKPropertySlider?
-    var carrierMultiplierSlider: AKPropertySlider?
-    var modulatingMultiplierSlider: AKPropertySlider?
-    var modulationIndexSlider: AKPropertySlider?
-    var amplitudeSlider: AKPropertySlider?
-    var rampTimeSlider: AKPropertySlider?
+    var frequencySlider: AKPropertySlider!
+    var carrierMultiplierSlider: AKPropertySlider!
+    var modulatingMultiplierSlider: AKPropertySlider!
+    var modulationIndexSlider: AKPropertySlider!
+    var amplitudeSlider: AKPropertySlider!
+    var rampTimeSlider: AKPropertySlider!
 
     override func setup() {
         addTitle("FM Oscillator")
@@ -55,10 +55,10 @@ class PlaygroundView: AKPlaygroundView {
         })
 
         addSubview(AKButton(title: "Randomize") {
-            oscillator.baseFrequency = self.frequencySlider!.randomize()
-            oscillator.carrierMultiplier = self.carrierMultiplierSlider!.randomize()
-            oscillator.modulatingMultiplier = self.modulatingMultiplierSlider!.randomize()
-            oscillator.modulationIndex = self.modulationIndexSlider!.randomize()
+            oscillator.baseFrequency = self.frequencySlider.randomize()
+            oscillator.carrierMultiplier = self.carrierMultiplierSlider.randomize()
+            oscillator.modulatingMultiplier = self.modulatingMultiplierSlider.randomize()
+            oscillator.modulationIndex = self.modulationIndexSlider.randomize()
             return ""
         })
 

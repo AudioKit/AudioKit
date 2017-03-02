@@ -53,13 +53,13 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
             print("Export succeeded")
 
             // If it is valid, we can play it :
-            if exportedFile != nil {
+            if let successfulFile = exportedFile {
 
-                print(exportedFile?.fileNamePlusExtension)
-                let player = try? AKAudioPlayer(file: exportedFile!)
+                print(successfulFile.fileNamePlusExtension)
+                let player = try? AKAudioPlayer(file: successfulFile)
                 AudioKit.output = player
                 AudioKit.start()
-                player!.play()
+                player?.play()
             }
 
         } else {
@@ -69,16 +69,15 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
 
 //: ## AKAudioFile for writing / recording
 //: AKAudioFile is handy to create file for recording or writing to.
-//: The simplest way to create such a file is like this:
-let myWorkingFile = try? AKAudioFile()
-let mySecondWorkingFile = try? AKAudioFile()
-
+//:
 //: If you set no parameter, an AKAudioFile is created in temp directory,
 //: set to match AudioKit AKSettings (a stereo empty 32 bits float wav file at 44.1 kHz,
-//: with a unique name identifier:
-if myWorkingFile != nil && mySecondWorkingFile != nil {
-    let myWorkingFileName1 = myWorkingFile!.fileNamePlusExtension
-    let mySecondWorkingFileName = mySecondWorkingFile!.fileNamePlusExtension
+//: with a unique name identifier.
+//:
+//: The simplest way to create such a file is like this:
+if let myWorkingFile = try? AKAudioFile(), let mySecondWorkingFile = try? AKAudioFile() {
+    let myWorkingFileName1 = myWorkingFile.fileNamePlusExtension
+    let mySecondWorkingFileName = mySecondWorkingFile.fileNamePlusExtension
 }
 
 //: But the benefits of using AKAudioFile instead of AVAudioFile, is that you can normalize,

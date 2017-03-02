@@ -12,24 +12,30 @@ player.looping = true
 
 let bundle = Bundle.main
 
-let stairwell = bundle.url(forResource: "Impulse Responses/stairwell", withExtension: "wav")!
-let dish = bundle.url(forResource: "Impulse Responses/dish", withExtension: "wav")!
+var dryWetMixer: AKDryWetMixer!
+var mixer: AKDryWetMixer!
+var dishConvolution: AKConvolution!
+var stairwellConvolution: AKConvolution!
 
-var stairwellConvolution = AKConvolution(player,
+if let stairwell = bundle.url(forResource: "Impulse Responses/stairwell", withExtension: "wav"),
+    let dish = bundle.url(forResource: "Impulse Responses/dish", withExtension: "wav") {
+
+    stairwellConvolution = AKConvolution(player,
                                          impulseResponseFileURL: stairwell,
                                          partitionLength: 8_192)
-var dishConvolution = AKConvolution(player,
+    dishConvolution = AKConvolution(player,
                                     impulseResponseFileURL: dish,
                                     partitionLength: 8_192)
-
-var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
-var dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
+}
+mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
+dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
 
 AudioKit.output = dryWetMixer
 AudioKit.start()
 
 stairwellConvolution.start()
 dishConvolution.start()
+
 player.play()
 
 class PlaygroundView: AKPlaygroundView {

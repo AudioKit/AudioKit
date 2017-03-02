@@ -11,11 +11,11 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var p0Slider: AKPropertySlider?
-    var p1Slider: AKPropertySlider?
-    var p2Slider: AKPropertySlider?
-    var p3Slider: AKPropertySlider?
-    var keyboard: AKKeyboardView?
+    var p0Slider: AKPropertySlider!
+    var p1Slider: AKPropertySlider!
+    var p2Slider: AKPropertySlider!
+    var p3Slider: AKPropertySlider!
+    var keyboard: AKKeyboardView!
     var currentMIDINote: MIDINoteNumber = 0
 
     override func setup() {
@@ -31,56 +31,56 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                            "kLtz",
                            "Simple Keyboard"]
         addSubview(AKPresetLoaderView(presets: sporthFiles) { filename in
-            let filePath = Bundle.main.path(forResource: filename, ofType: "sp")
-            //let filePath = Bundle.main.path(filename, ofType: "sp")
-            let contentData = FileManager.default.contents(atPath: filePath!)
-            //let contentData = FileManager.defaultManager().contentsAtPath(filePath!)
+            guard
+                let filePath = Bundle.main.path(forResource: filename, ofType: "sp"),
+                let contentData = FileManager.default.contents(atPath: filePath),
+                let sporth = String(data: contentData, encoding: .utf8) else {
+                return
+            }
 
-            let sporth = String(data: contentData!, encoding: .utf8)
-            //let sporth = NSString(data: contentData!, encoding: String.Encoding.utf8) as? String
+            Swift.print("\n\n\n\n\n\n\(sporth)")
+            generator.sporth = sporth
 
-            Swift.print("\n\n\n\n\n\n\(sporth!)")
-            generator.sporth = sporth!
-
-            let sliders = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
+            let sliders: [AKPropertySlider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
             // Reset UI Eleements
-            self.keyboard?.isHidden = true
+            self.keyboard.isHidden = true
             for i in 0 ..< 4 {
-                sliders[i]?.isHidden = true
-                sliders[i]?.property = "Parameter \(i)"
-                sliders[i]?.value = 0.0
+                sliders[i].isHidden = true
+                sliders[i].property = "Parameter \(i)"
+                sliders[i].value = 0.0
             }
 
             // Process the comments in the file to customize the UI
-            search: for line in sporth!.components(separatedBy: NSCharacterSet.newlines)
-            //search: for  line in sporth!.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
-            {
+            search: for line in sporth.components(separatedBy: NSCharacterSet.newlines) {
                 if line.contains("# Uses Keyboard") {
-                    self.keyboard?.isHidden = false
+                    self.keyboard.isHidden = false
                     break search
                 }
 
                 for i in 0 ..< 4 {
-                    let pattern = "# p\(i): ([.0-9]+)[ ]+([^\n]+)"
-                    let regex = try! NSRegularExpression(pattern: pattern,
-                                                         options: NSRegularExpression.Options.dotMatchesLineSeparators)
+                    guard let regex = try? NSRegularExpression(pattern: "# p\(i): ([.0-9]+)[ ]+([^\n]+)",
+                                                               options: .dotMatchesLineSeparators) else {
+                        return
+                    }
 
                     let value = regex.stringByReplacingMatches(in: line,
-                                                               options: NSRegularExpression.MatchingOptions.reportCompletion,
+                                                               options: .reportCompletion,
                                                                range: NSRange(location:0,
                                                                               length: line.characters.count),
                                                                withTemplate: "$1")
                     let title = regex.stringByReplacingMatches(in: line,
-                                                               options: NSRegularExpression.MatchingOptions.reportCompletion,
+                                                               options: .reportCompletion,
                                                                range: NSRange(location:0,
                                                                               length: line.characters.count ),
                                                                withTemplate: "$2")
                     if title != line {
-                        generator.parameters[i] = Double(value)!
-                        sliders[i]?.isHidden = false
-                        sliders[i]?.property = title
-                        sliders[i]?.value = Double(value)!
+                        if let doubleValue = Double(value) {
+                            generator.parameters[i] = doubleValue
+                            sliders[i].isHidden = false
+                            sliders[i].property = title
+                            sliders[i].value = doubleValue
+                        }
                     }
                 }
             }
@@ -121,9 +121,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(p3Slider)
 
         keyboard = AKKeyboardView(width: 440, height: 100)
-        keyboard?.polyphonicMode = false
-        keyboard?.delegate = self
-        keyboard?.isHidden = true
+        keyboard.polyphonicMode = false
+        keyboard.delegate = self
+        keyboard.isHidden = true
         addSubview(keyboard)
     }
 

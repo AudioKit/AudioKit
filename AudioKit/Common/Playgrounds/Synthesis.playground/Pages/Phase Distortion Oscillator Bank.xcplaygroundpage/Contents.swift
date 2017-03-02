@@ -9,7 +9,7 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var keyboard: AKKeyboardView?
+    var keyboard: AKKeyboardView!
 
     override func setup() {
         addTitle("Phase Distortion Oscillator Bank")
@@ -58,13 +58,13 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
-        keyboard!.polyphonicMode = false
-        keyboard!.delegate = self
+        keyboard.polyphonicMode = false
+        keyboard.delegate = self
         addSubview(keyboard)
 
         addSubview(AKButton(title: "Go Polyphonic") {
-            self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
-            if self.keyboard!.polyphonicMode {
+            self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
+            if self.keyboard.polyphonicMode {
                 return "Go Monophonic"
             } else {
                 return "Go Polyphonic"
