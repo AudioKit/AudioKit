@@ -8,14 +8,15 @@ import AudioKit
 AKAudioFile.cleanTempDirectory()
 
 //: We load the piano piece from resources and play it :
-var piano = try? AKAudioFile(readFileName: "poney.mp3")
-let player = piano?.player
-player?.looping = true
+var piano = try AKAudioFile(readFileName: "poney.mp3")
+let player = try AKAudioPlayer(file: piano)
+player.looping = true
 
-AudioKit.output = player!
+AudioKit.output = player
 AudioKit.start()
-player!.start()
-//: While the piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory 
+player.start()
+
+//: While the piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory
 //: that will handle any process in background
 //: We define a call back that will be invoked when an async process has been completed. Notice that the process can 
 //: have succeeded or failed. if processedFile is different from nil, process succeeded, so you can get the processed 
@@ -29,11 +30,15 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
     print("callback -> How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
     // Now we handle the file (and the error if any occured.)
-    if processedFile != nil {
+    if let successfulFile = processedFile {
         // We print its duration:
-        print("callback -> processed: \(processedFile!.duration)")
+        print("callback -> processed: \(successfulFile.duration)")
         // We replace the actual played file with the processed file
-        try? player?.replace(file: processedFile!)
+        do {
+            try player.replace(file: successfulFile)
+        } catch {
+            AKLog("Couldn't replace file.")
+        }
         print("callback -> Replaced player's file !")
     } else {
         print("callback -> error: \(error)")
@@ -42,14 +47,14 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
 
 //: Let's process our piano asynchronously. First, we reverse the piano so it will play backward...
 
-piano?.reverseAsynchronously(completionHandler: callback)
+piano.reverseAsynchronously(completionHandler: callback)
 
 print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
 print("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
 //: Now we lower the piano level by normalizing it to a max level set at - 6 dB
-piano?.normalizeAsynchronously(newMaxLevel: 0, completionHandler: callback)
+piano.normalizeAsynchronously(newMaxLevel: 0, completionHandler: callback)
 
 print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
@@ -57,7 +62,7 @@ print("How many async process have been completed: \(AKAudioFile.completedAsyncP
 
 //: Now, extract one second from piano...
 
-piano?.extractAsynchronously(fromSample: 100_000, toSample: 144_100, completionHandler: callback)
+piano.extractAsynchronously(fromSample: 100_000, toSample: 144_100, completionHandler: callback)
 
 print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
@@ -70,17 +75,21 @@ print("How many async process have been completed: \(AKAudioFile.completedAsyncP
 //: Most of the time, you 'll want to chain process. Then, you have to define a specific callback for each 
 //: process step. Let's experiment with the drum loop
 
-var drumloop = try?  AKAudioFile(readFileName: "drumloop.wav")
+var drumloop = try AKAudioFile(readFileName: "drumloop.wav")
 
 //: We will first reverse the loop, and append the original loop to the reversed loop, and replace the file of our 
 //: player with the resulting processed file.
-drumloop?.reverseAsynchronously { reversedFile, error in
-    if reversedFile != nil {
+drumloop.reverseAsynchronously { reversedFile, error in
+    if let successfullyReversedFile = reversedFile {
         print("Drum Loop has been reversed")
-        reversedFile!.appendAsynchronously(file: drumloop!) { appendedFile, error in
-            if appendedFile != nil {
+        successfullyReversedFile.appendAsynchronously(file: drumloop) { appendedFile, error in
+            if let successfullyAppendedFile = appendedFile {
                 print("Original drum loop has been appended to the reversed loop, so we can play the resulting file.")
-                try? player?.replace(file: appendedFile!)
+                do {
+                    try player.replace(file: successfullyAppendedFile)
+                } catch {
+                    AKLog("Could not replace file.")
+                }
             } else {
                 print("error: \(error)")
             }

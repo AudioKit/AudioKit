@@ -31,10 +31,10 @@ sequencer.play()
 //: Set up a basic UI for setting outputs of tracks
 
 class PlaygroundView: AKPlaygroundView {
-    var button1: AKButton?
-    var button2: AKButton?
-    var button3: AKButton?
-    var button4: AKButton?
+    var button1: AKButton!
+    var button2: AKButton!
+    var button3: AKButton!
+    var button4: AKButton!
 
     override func setup() {
 
@@ -88,7 +88,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func updateButtons() {
-        let buttons = [button1!, button2!, button3!, button4!]
+        let buttons: [AKButton] = [button1, button2, button3, button4]
         for i in 0 ..< buttons.count {
             if sequencer.avTracks[i + 1].destinationAudioUnit == bellSampler.samplerUnit {
                 buttons[i].title = "Track \(i + 1): Bell"
