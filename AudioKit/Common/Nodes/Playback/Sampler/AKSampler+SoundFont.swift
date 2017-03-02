@@ -71,7 +71,7 @@ extension AKSampler {
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
     ///
-    open func loadPercussiveSoundFont(_ file: String, preset: Int) throws {
+    open func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
 
