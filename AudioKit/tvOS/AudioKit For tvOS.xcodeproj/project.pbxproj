@@ -465,6 +465,11 @@
 		C49F29351D1626B9000A2D2F /* AKFluteAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49F29311D1626B9000A2D2F /* AKFluteAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49F29361D1626B9000A2D2F /* AKFluteAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49F29321D1626B9000A2D2F /* AKFluteAudioUnit.mm */; };
 		C49F29371D1626B9000A2D2F /* AKFluteDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49F29331D1626B9000A2D2F /* AKFluteDSPKernel.hpp */; };
+		C4A1074D1E6967A40018848C /* AKBrownianNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A107491E6967A40018848C /* AKBrownianNoise.swift */; };
+		C4A1074E1E6967A40018848C /* AKBrownianNoiseAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A1074A1E6967A40018848C /* AKBrownianNoiseAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4A1074F1E6967A40018848C /* AKBrownianNoiseAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A1074B1E6967A40018848C /* AKBrownianNoiseAudioUnit.mm */; };
+		C4A107501E6967A40018848C /* AKBrownianNoiseDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A1074C1E6967A40018848C /* AKBrownianNoiseDSPKernel.hpp */; };
+		C4A107521E6967D00018848C /* brown.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A107511E6967D00018848C /* brown.c */; };
 		C4A662901CCB146A00A38B90 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A6628C1CCB146A00A38B90 /* BufferedAudioBus.hpp */; };
 		C4A662911CCB146A00A38B90 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A6628D1CCB146A00A38B90 /* DSPKernel.hpp */; };
 		C4A662921CCB146A00A38B90 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A6628E1CCB146A00A38B90 /* DSPKernel.mm */; };
@@ -1189,6 +1194,11 @@
 		C49F29311D1626B9000A2D2F /* AKFluteAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFluteAudioUnit.h; sourceTree = "<group>"; };
 		C49F29321D1626B9000A2D2F /* AKFluteAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFluteAudioUnit.mm; sourceTree = "<group>"; };
 		C49F29331D1626B9000A2D2F /* AKFluteDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFluteDSPKernel.hpp; sourceTree = "<group>"; };
+		C4A107491E6967A40018848C /* AKBrownianNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoise.swift; sourceTree = "<group>"; };
+		C4A1074A1E6967A40018848C /* AKBrownianNoiseAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBrownianNoiseAudioUnit.h; sourceTree = "<group>"; };
+		C4A1074B1E6967A40018848C /* AKBrownianNoiseAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBrownianNoiseAudioUnit.mm; sourceTree = "<group>"; };
+		C4A1074C1E6967A40018848C /* AKBrownianNoiseDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBrownianNoiseDSPKernel.hpp; sourceTree = "<group>"; };
+		C4A107511E6967D00018848C /* brown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brown.c; sourceTree = "<group>"; };
 		C4A6628C1CCB146A00A38B90 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
 		C4A6628D1CCB146A00A38B90 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
 		C4A6628E1CCB146A00A38B90 /* DSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKernel.mm; sourceTree = "<group>"; };
@@ -2169,6 +2179,7 @@
 		C45381511C3A5CBD00A51738 /* Noise */ = {
 			isa = PBXGroup;
 			children = (
+				C4A107481E6967A40018848C /* Brownian Noise */,
 				C45381521C3A5CBD00A51738 /* Pink Noise */,
 				C45381571C3A5CBD00A51738 /* White Noise */,
 			);
@@ -2410,6 +2421,7 @@
 				C48C696F1D3C1573008EA51B /* blsaw.c */,
 				C48C69701D3C1573008EA51B /* blsquare.c */,
 				C48C69711D3C1573008EA51B /* bltriangle.c */,
+				C4A107511E6967D00018848C /* brown.c */,
 				C48C69721D3C1573008EA51B /* butbp.c */,
 				C48C69731D3C1573008EA51B /* butbr.c */,
 				C48C69741D3C1573008EA51B /* buthp.c */,
@@ -2795,6 +2807,17 @@
 				C49F29331D1626B9000A2D2F /* AKFluteDSPKernel.hpp */,
 			);
 			path = Flute;
+			sourceTree = "<group>";
+		};
+		C4A107481E6967A40018848C /* Brownian Noise */ = {
+			isa = PBXGroup;
+			children = (
+				C4A107491E6967A40018848C /* AKBrownianNoise.swift */,
+				C4A1074A1E6967A40018848C /* AKBrownianNoiseAudioUnit.h */,
+				C4A1074B1E6967A40018848C /* AKBrownianNoiseAudioUnit.mm */,
+				C4A1074C1E6967A40018848C /* AKBrownianNoiseDSPKernel.hpp */,
+			);
+			path = "Brownian Noise";
 			sourceTree = "<group>";
 		};
 		C4A916911C25083A006C1A15 /* Music */ = {
@@ -3243,6 +3266,7 @@
 				C45381BC1C3A5CBD00A51738 /* AKEqualizerFilterAudioUnit.h in Headers */,
 				C45381F71C3A5CBD00A51738 /* AKToneFilterDSPKernel.hpp in Headers */,
 				C4BDE83D1C12FFBC00207DA9 /* AudioKit.h in Headers */,
+				C4A1074E1E6967A40018848C /* AKBrownianNoiseAudioUnit.h in Headers */,
 				C40C422C1C40E5C2009D870B /* EZAudioUtilities.h in Headers */,
 				C45381EF1C3A5CBD00A51738 /* AKThreePoleLowpassFilterDSPKernel.hpp in Headers */,
 				C48C6ACC1D3C1574008EA51B /* md5.h in Headers */,
@@ -3378,6 +3402,7 @@
 				C42FFBDD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp in Headers */,
 				C45381941C3A5CBD00A51738 /* AKVariableDelayDSPKernel.hpp in Headers */,
 				C46809841CEED72800ADFC05 /* AKPitchShifterDSPKernel.hpp in Headers */,
+				C4A107501E6967A40018848C /* AKBrownianNoiseDSPKernel.hpp in Headers */,
 				C45382121C3A5CBD00A51738 /* AKWhiteNoiseDSPKernel.hpp in Headers */,
 				C45381BE1C3A5CBD00A51738 /* AKEqualizerFilterDSPKernel.hpp in Headers */,
 				C40C42841C41BF00009D870B /* AKPluckedStringAudioUnit.h in Headers */,
@@ -3591,6 +3616,7 @@
 				C4F8CAF21DCA928B001F38F2 /* gen_line.c in Sources */,
 				C4F8CADE1DCA928A001F38F2 /* crossfade.c in Sources */,
 				C48C6AC81D3C1574008EA51B /* wpkorg35.c in Sources */,
+				C4A1074D1E6967A40018848C /* AKBrownianNoise.swift in Sources */,
 				C48C6AC01D3C1574008EA51B /* tone.c in Sources */,
 				C45381971C3A5CBD00A51738 /* AKBitCrusherAudioUnit.mm in Sources */,
 				C43101D51DEA9B3C00DD7076 /* growl.c in Sources */,
@@ -3602,6 +3628,7 @@
 				C453819D1C3A5CBD00A51738 /* AKDistortion.swift in Sources */,
 				C48C6AB51D3C1574008EA51B /* tadsr.c in Sources */,
 				C4F8CB061DCA928B001F38F2 /* metro.c in Sources */,
+				C4A1074F1E6967A40018848C /* AKBrownianNoiseAudioUnit.mm in Sources */,
 				C4F8CB251DCA928B001F38F2 /* revsc.c in Sources */,
 				C48C6A7F1D3C1574008EA51B /* fof.c in Sources */,
 				C45381BD1C3A5CBD00A51738 /* AKEqualizerFilterAudioUnit.mm in Sources */,
@@ -3693,6 +3720,7 @@
 				C4F8CAFF1DCA928B001F38F2 /* load.c in Sources */,
 				C47AC6231D5D53EA0005E485 /* AKBoosterAudioUnit.mm in Sources */,
 				C48C6A9D1D3C1574008EA51B /* pinknoise.c in Sources */,
+				C4A107521E6967D00018848C /* brown.c in Sources */,
 				C48C6A8A1D3C1574008EA51B /* jitter.c in Sources */,
 				C48C6A9B1D3C1574008EA51B /* phaser.c in Sources */,
 				C45381E01C3A5CBD00A51738 /* AKPeakingParametricEqualizerFilter.swift in Sources */,

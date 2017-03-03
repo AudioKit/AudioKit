@@ -272,6 +272,14 @@ int sp_bitcrush_destroy(sp_bitcrush **p);
 int sp_bitcrush_init(sp_data *sp, sp_bitcrush *p);
 int sp_bitcrush_compute(sp_data *sp, sp_bitcrush *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    SPFLOAT brown;
+} sp_brown;
+
+int sp_brown_create(sp_brown **p);
+int sp_brown_destroy(sp_brown **p);
+int sp_brown_init(sp_data *sp, sp_brown *p);
+int sp_brown_compute(sp_data *sp, sp_brown *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
     SPFLOAT sr, freq, bw, istor;
     SPFLOAT lkf, lkb;
     SPFLOAT a[8];
@@ -1218,10 +1226,6 @@ int sp_reson_create(sp_reson **p);
 int sp_reson_destroy(sp_reson **p);
 int sp_reson_init(sp_data *sp, sp_reson *p);
 int sp_reson_compute(sp_data *sp, sp_reson *p, SPFLOAT *in, SPFLOAT *out);
-typedef struct{
-size_t size;
-void *auxp;
-}auxData;
 typedef struct {
     int     writePos;
     int     bufferSize;
