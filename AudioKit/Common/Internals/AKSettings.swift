@@ -128,17 +128,6 @@ extension AKSettings {
             AKLog("AKSettings Error: \(error))")
             throw error
         }
-
-        // FOR DEBUG !
-        // Setting the AVAudioSession can be non effective under certain circonstances even if there's no error thrown.
-        // You may uncomment the next 'AKLOg' lines for debugging :
-        // AKLog("AKSettings: asked for: \(category.rawValue)")
-        // AKLog("AKSettings: Session.category is set to: \(session.category)")
-
-        if options != nil {
-            // AKLog("AKSettings: asked for options: \(options!)")
-            // AKLog("AKSettings: Session.category is set to: \(session.categoryOptions)")
-        }
     }
 
     /// Checks if headphones are plugged
