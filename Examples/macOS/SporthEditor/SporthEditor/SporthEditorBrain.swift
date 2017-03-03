@@ -22,7 +22,8 @@ class SporthEditorBrain {
     }
 
     func getCode(_ name: String) -> String {
-        return knownCodes[name]!
+        let returnValue = knownCodes[name]
+        return returnValue ?? ""
     }
 
     func run(_ code: String) {

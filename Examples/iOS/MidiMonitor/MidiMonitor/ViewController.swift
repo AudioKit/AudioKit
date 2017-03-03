@@ -15,63 +15,48 @@ class ViewController: UIViewController, AKMIDIListener {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
         midi.openInput()
         midi.addListener(self)
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        var newString = "Channel: \(channel + 1) "
-        newString.append("noteOn: \(noteNumber) velocity: \(velocity) ")
-        updateText(newString)
+        updateText("Channel: \(channel + 1) noteOn: \(noteNumber) velocity: \(velocity) ")
     }
 
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        var newString = "Channel: \(channel + 1) "
-        newString.append("noteOff: \(noteNumber) velocity: \(velocity) ")
-        updateText(newString)
+        updateText("Channel: \(channel + 1) noteOff: \(noteNumber) velocity: \(velocity) ")
     }
 
     func receivedMIDIController(_ controller: Int, value: Int, channel: MIDIChannel) {
-        var newString = "Channel: \(channel + 1) "
-        newString.append("controller: \(controller) value: \(value) ")
-        updateText(newString)
+        updateText("Channel: \(channel + 1) controller: \(controller) value: \(value) ")
     }
 
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: Int,
                                 channel: MIDIChannel) {
-        var newString = "Channel: \(channel + 1) "
-        newString.append("midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
-        updateText(newString)
+        updateText("Channel: \(channel + 1) midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
     }
 
     func receivedMIDIAfterTouch(_ pressure: Int, channel: MIDIChannel) {
-        var newString = "Channel: \(channel + 1) "
-        newString.append("midiAfterTouch pressure: \(pressure) ")
-        updateText(newString)
+        updateText("Channel: \(channel + 1) midiAfterTouch pressure: \(pressure) ")
     }
 
     func receivedMIDIPitchWheel(_ pitchWheelValue: Int, channel: MIDIChannel) {
-        var newString = "Channel: \(channel + 1) "
-        newString.append("midiPitchWheel: \(pitchWheelValue) ")
-        updateText(newString)
+        updateText("Channel: \(channel + 1)  midiPitchWheel: \(pitchWheelValue)")
     }
 
     func receivedMIDIProgramChange(_ program: Int, channel: MIDIChannel) {
-        var newString = "Channel: \(channel + 1) "
-        newString.append("programChange: \(program) ")
-        updateText(newString)
+        updateText("Channel: \(channel + 1) programChange: \(program)")
     }
 
     func receivedMIDISystemCommand(_ data: [MIDIByte]) {
-        print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
-        var newString = "MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!) \n"
-        for i in 0 ..< data.count {
-            newString.append("\(data[i]) ")
+        if let command = AKMIDISystemCommand(rawValue: data[0]) {
+            var newString = "MIDI System Command: \(command) \n"
+            for i in 0 ..< data.count {
+                newString.append("\(data[i]) ")
+            }
+            updateText(newString)
         }
-        updateText(newString)
     }
 
     func updateText(_ input: String) {

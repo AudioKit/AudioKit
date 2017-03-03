@@ -12,7 +12,7 @@ class ViewController: NSViewController {
     @IBOutlet private var codeEditorTextView: NSTextView!
 
     var display: String {
-        get { return (codeEditorTextView?.string)! }
+        get { return codeEditorTextView.string ?? "" }
         set { codeEditorTextView?.string = newValue }
     }
 

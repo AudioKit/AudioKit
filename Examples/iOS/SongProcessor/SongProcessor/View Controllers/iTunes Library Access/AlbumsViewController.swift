@@ -48,9 +48,10 @@ class AlbumsViewController: UITableViewController {
             UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
 
         // Configure the cell...
-        let repItem = albumsList[(indexPath as NSIndexPath).row].representativeItem!
-        let albumTitle = repItem.value(forProperty: MPMediaItemPropertyAlbumTitle) as! String
-        cell.textLabel?.text = albumTitle
+        if let repItem = albumsList[(indexPath as NSIndexPath).row].representativeItem,
+            let albumTitle = repItem.value(forProperty: MPMediaItemPropertyAlbumTitle) as? String {
+            cell.textLabel?.text = albumTitle
+        }
 
         return cell
     }
@@ -60,11 +61,11 @@ class AlbumsViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "SongsSegue" {
-            let senderCell = sender as! UITableViewCell
-            let songsVC = segue.destination as! SongsViewController
-            songsVC.artistName = artistName
-            songsVC.albumName = senderCell.textLabel?.text
-            songsVC.title = senderCell.textLabel?.text
+            if let senderCell = sender as? UITableViewCell, let songsVC = segue.destination as? SongsViewController {
+                songsVC.artistName = artistName
+                songsVC.albumName = senderCell.textLabel?.text
+                songsVC.title = senderCell.textLabel?.text
+            }
         }
 
     }

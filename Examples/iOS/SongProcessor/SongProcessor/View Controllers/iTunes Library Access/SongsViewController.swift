@@ -34,8 +34,8 @@ class SongsViewController: UITableViewController {
             value: NSNumber(value: false as Bool),
             forProperty: MPMediaItemPropertyIsCloudItem))
 
-        if songsQuery.items != nil {
-            songsList = songsQuery.items!
+        if let items = songsQuery.items {
+            songsList = items
             tableView.reloadData()
         }
     }
@@ -59,7 +59,7 @@ class SongsViewController: UITableViewController {
                             reuseIdentifier: cellIdentifier)
 
         let song: MPMediaItem = songsList[(indexPath as NSIndexPath).row]
-        let songTitle = song.value(forProperty: MPMediaItemPropertyTitle) as! String
+        let songTitle = song.value(forProperty: MPMediaItemPropertyTitle) as? String ?? ""
 
         let minutes = (song.value(forProperty: MPMediaItemPropertyPlaybackDuration)! as AnyObject).floatValue / 60
         let seconds = ((song.value(
@@ -78,9 +78,10 @@ class SongsViewController: UITableViewController {
 
         if segue.identifier == "SongSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let songVC = segue.destination as! SongViewController
-                songVC.song = songsList[(indexPath as NSIndexPath).row]
-                songVC.title = songVC.song!.value(forProperty: MPMediaItemPropertyTitle) as? String
+                if let songVC = segue.destination as? SongViewController {
+                    songVC.song = songsList[(indexPath as NSIndexPath).row]
+                    songVC.title = songVC.song!.value(forProperty: MPMediaItemPropertyTitle) as? String
+                }
             }
         }
 
