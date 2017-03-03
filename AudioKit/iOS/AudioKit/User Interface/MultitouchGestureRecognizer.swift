@@ -102,7 +102,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     
     // MARK: - Delegate
     
-    internal var multitouchDelegate: MultitouchGestureRecognizerDelegate? {
+    internal weak var multitouchDelegate: MultitouchGestureRecognizerDelegate? {
         return delegate as? MultitouchGestureRecognizerDelegate
     }
     
