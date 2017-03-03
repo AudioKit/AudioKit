@@ -627,6 +627,8 @@
 		C4A107461E6967850018848C /* AKBrownianNoiseAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A107421E6967850018848C /* AKBrownianNoiseAudioUnit.mm */; };
 		C4A107471E6967850018848C /* AKBrownianNoiseDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A107431E6967850018848C /* AKBrownianNoiseDSPKernel.hpp */; };
 		C4A107541E6967E70018848C /* brown.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A107531E6967E70018848C /* brown.c */; };
+		C4A107561E696C4F0018848C /* brown.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A107551E696C4F0018848C /* brown.c */; };
+		C4A107641E696F9B0018848C /* brownianNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A107631E696F9B0018848C /* brownianNoise.swift */; };
 		C4B8A2FE1E6583D9006432FA /* AKSampler+getAUPresetXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8A2FD1E6583D9006432FA /* AKSampler+getAUPresetXML.swift */; };
 		C4B8A3001E658405006432FA /* AKSampler+SoundFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8A2FF1E658405006432FA /* AKSampler+SoundFont.swift */; };
 		C4BA6E861DD99794002254EB /* AKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA6E851DD99794002254EB /* AKComponent.swift */; };
@@ -1414,6 +1416,8 @@
 		C4A107421E6967850018848C /* AKBrownianNoiseAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBrownianNoiseAudioUnit.mm; sourceTree = "<group>"; };
 		C4A107431E6967850018848C /* AKBrownianNoiseDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBrownianNoiseDSPKernel.hpp; sourceTree = "<group>"; };
 		C4A107531E6967E70018848C /* brown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brown.c; sourceTree = "<group>"; };
+		C4A107551E696C4F0018848C /* brown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brown.c; sourceTree = "<group>"; };
+		C4A107631E696F9B0018848C /* brownianNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = brownianNoise.swift; sourceTree = "<group>"; };
 		C4B8A2FD1E6583D9006432FA /* AKSampler+getAUPresetXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+getAUPresetXML.swift"; sourceTree = "<group>"; };
 		C4B8A2FF1E658405006432FA /* AKSampler+SoundFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+SoundFont.swift"; sourceTree = "<group>"; };
 		C4BA6E851DD99794002254EB /* AKComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKComponent.swift; sourceTree = "<group>"; };
@@ -2016,6 +2020,7 @@
 				C4F8C9441DCA9255001F38F2 /* blsquare.c */,
 				C4F8C9451DCA9255001F38F2 /* bltriangle.c */,
 				C4F8C9461DCA9255001F38F2 /* bpm.c */,
+				C4A107551E696C4F0018848C /* brown.c */,
 				C4F8C9471DCA9255001F38F2 /* butbp.c */,
 				C4F8C9481DCA9255001F38F2 /* butbr.c */,
 				C4F8C9491DCA9255001F38F2 /* buthp.c */,
@@ -3366,6 +3371,7 @@
 		C456666A1D448D7E00D26565 /* Noise */ = {
 			isa = PBXGroup;
 			children = (
+				C4A107631E696F9B0018848C /* brownianNoise.swift */,
 				C456666B1D448D7E00D26565 /* pinkNoise.swift */,
 				C456666C1D448D7E00D26565 /* whiteNoise.swift */,
 			);
@@ -3849,6 +3855,7 @@
 				C45667081D448D7E00D26565 /* line.c in Sources */,
 				C456672A1D448D7E00D26565 /* rms.c in Sources */,
 				C4F8CA311DCA9256001F38F2 /* tgate.c in Sources */,
+				C4A107561E696C4F0018848C /* brown.c in Sources */,
 				C4F8CA041DCA9256001F38F2 /* p.c in Sources */,
 				C4F8C9DE1DCA9256001F38F2 /* expon.c in Sources */,
 				C45669D51D448D7E00D26565 /* sawtooth.swift in Sources */,
@@ -3856,6 +3863,7 @@
 				C45667011D448D7E00D26565 /* fosc.c in Sources */,
 				C45667321D448D7E00D26565 /* tadsr.c in Sources */,
 				C45669671D448D7E00D26565 /* AKFMOscillatorAudioUnit.mm in Sources */,
+				C4A107641E696F9B0018848C /* brownianNoise.swift in Sources */,
 				C45666A11D448D7E00D26565 /* AKAudioFile+Peripherals.swift in Sources */,
 				C456673A1D448D7E00D26565 /* thresh.c in Sources */,
 				C45666E21D448D7E00D26565 /* biquad.c in Sources */,
