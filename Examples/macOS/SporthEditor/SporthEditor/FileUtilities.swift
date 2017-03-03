@@ -10,7 +10,7 @@ import Foundation
 
 struct FileUtilities {
     static let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                                       .userDomainMask, true).first!
+                                                                       .userDomainMask, true).first ?? ""
 
     static var storageDirectory: String = {
         let directory = "\(documentDirectory)/SporthEditor"

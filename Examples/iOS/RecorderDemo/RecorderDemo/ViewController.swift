@@ -3,12 +3,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var recorder: AKNodeRecorder?
-    var player: AKAudioPlayer?
-    var tape: AKAudioFile?
-    var micBooster: AKBooster?
-    var moogLadder: AKMoogLadder?
-    var delay: AKDelay?
+    var recorder: AKNodeRecorder!
+    var player: AKAudioPlayer!
+    var tape: AKAudioFile!
+    var micBooster: AKBooster!
+    var moogLadder: AKMoogLadder!
+    var delay: AKDelay!
 
     var state = State.readyToRecord
 
@@ -52,15 +52,23 @@ class ViewController: UIViewController {
         micBooster = AKBooster(micMixer)
 
         // Will set the level of microphone monitoring
-        micBooster!.gain = 0
+        micBooster.gain = 0
         recorder = try? AKNodeRecorder(node: micMixer)
-        player = try? AKAudioPlayer(file: (recorder?.audioFile)!)
-        player?.looping = true
-        player?.completionHandler = playingEnded
+        if let file = recorder.audioFile {
+            player = try? AKAudioPlayer(file: file)
+        }
+        player.looping = true
+        player.completionHandler = playingEnded
 
-        moogLadder = AKMoogLadder(player!)
+        moogLadder = AKMoogLadder(player)
 
-        let mainMixer = AKMixer(moogLadder!, micBooster!)
+        let mainMixer = AKMixer(moogLadder, micBooster)
+
+        do {
+            try AKSettings.setSession(category: .playAndRecord, with: .allowBluetoothA2DP)
+        } catch {
+            AKLog("Could not set session category.")
+        }
 
         AudioKit.output = mainMixer
         AudioKit.start()
@@ -86,25 +94,25 @@ class ViewController: UIViewController {
             // microphone will be monitored while recording
             // only if headphones are plugged
             if AKSettings.headPhonesPlugged {
-                micBooster!.gain = 1
+                micBooster.gain = 1
             }
             do {
-                try recorder?.record()
+                try recorder.record()
             } catch { print("Errored recording.") }
 
         case .recording :
             // Microphone monitoring is muted
-            micBooster!.gain = 0
+            micBooster.gain = 0
             do {
-                try player?.reloadFile()
+                try player.reloadFile()
             } catch { print("Errored reloading.") }
 
-            let recordedDuration = player != nil ? player?.audioFile.duration  : 0
-            if recordedDuration! > 0.0 {
-                recorder?.stop()
-                player?.audioFile.exportAsynchronously(name: "TempTestFile.m4a",
-                                                       baseDir: .documents,
-                                                       exportFormat: .m4a) {_, error in
+            let recordedDuration = player != nil ? player.audioFile.duration  : 0
+            if recordedDuration > 0.0 {
+                recorder.stop()
+                player.audioFile.exportAsynchronously(name: "TempTestFile.m4a",
+                                                      baseDir: .documents,
+                                                      exportFormat: .m4a) {_, error in
                     if error != nil {
                         print("Export Failed \(error)")
                     } else {
@@ -114,12 +122,12 @@ class ViewController: UIViewController {
                 setupUIForPlaying ()
             }
         case .readyToPlay :
-            player!.play()
+            player.play()
             infoLabel.text = "Playing..."
             mainButton.setTitle("Stop", for: .normal)
             state = .playing
         case .playing :
-            player?.stop()
+            player.stop()
             setupUIForPlaying()
         }
     }
@@ -140,20 +148,20 @@ class ViewController: UIViewController {
         mainButton.setTitle("Record", for: .normal)
         resetButton.isEnabled = false
         resetButton.isHidden = true
-        micBooster?.gain = 0
+        micBooster.gain = 0
         setSliders(active: false)
     }
 
     func setupUIForPlaying () {
-        let recordedDuration = player != nil ? player?.audioFile.duration  : 0
-        infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration!)) seconds"
+        let recordedDuration = player != nil ? player.audioFile.duration  : 0
+        infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration)) seconds"
         mainButton.setTitle("Play", for: .normal)
         state = .readyToPlay
         resetButton.isHidden = false
         resetButton.isEnabled = true
         setSliders(active: true)
-        frequencySlider.value = (moogLadder?.cutoffFrequency)!
-        resonanceSlider.value = (moogLadder?.resonance)!
+        frequencySlider.value = moogLadder.cutoffFrequency
+        resonanceSlider.value = moogLadder.resonance
     }
 
     func setSliders(active: Bool) {
@@ -169,34 +177,34 @@ class ViewController: UIViewController {
 
     @IBAction func loopButtonTouched(sender: UIButton) {
 
-        if player!.looping {
-            player!.looping = false
+        if player.looping {
+            player.looping = false
             sender.setTitle("Loop is Off", for: .normal)
         } else {
-            player!.looping = true
+            player.looping = true
             sender.setTitle("Loop is On", for: .normal)
 
         }
 
     }
     @IBAction func resetButtonTouched(sender: UIButton) {
-        player!.stop()
+        player.stop()
         do {
-            try recorder?.reset()
+            try recorder.reset()
         } catch { print("Errored resetting.") }
 
-        //try? player?.replaceFile((recorder?.audioFile)!)
+        //try? player.replaceFile((recorder.audioFile)!)
         setupUIForRecording()
     }
 
     func updateFrequency(value: Double) {
-        moogLadder!.cutoffFrequency = value
+        moogLadder.cutoffFrequency = value
         frequencySlider.property = "Frequency"
         frequencySlider.format = "%0.0f"
     }
 
     func updateResonance(value: Double) {
-        moogLadder?.resonance = value
+        moogLadder.resonance = value
         resonanceSlider.property = "Resonance"
         resonanceSlider.format = "%0.3f"
     }

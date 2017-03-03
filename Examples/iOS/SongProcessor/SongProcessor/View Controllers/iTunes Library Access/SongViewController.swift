@@ -23,7 +23,7 @@ class SongViewController: UIViewController {
 
     var song: MPMediaItem? {
         didSet {
-            if song!.persistentID != songProcessor.currentSong?.persistentID {
+            if song?.persistentID != songProcessor.currentSong?.persistentID {
 
                 songProcessor.audioFilePlayer?.stop()
                 songProcessor.isPlaying = false
@@ -103,7 +103,7 @@ class SongViewController: UIViewController {
 
         songProcessor.audioFile = try? AKAudioFile(readFileName: "exported.wav", baseDir: .documents)
 
-        let _ = try? songProcessor.audioFilePlayer?.replace(file: songProcessor.audioFile!)
+        try? songProcessor.audioFilePlayer?.replace(file: songProcessor.audioFile!)
 
     }
 

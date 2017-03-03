@@ -6,8 +6,8 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import Cocoa
 import AudioKit
+import Cocoa
 
 class ViewController: NSViewController {
 

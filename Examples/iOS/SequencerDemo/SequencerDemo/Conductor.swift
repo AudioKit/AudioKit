@@ -12,18 +12,18 @@ class Conductor {
     let midi = AKMIDI()
 
     var fmOscillator = AKFMOscillatorBank()
-    var melodicSound: AKMIDINode?
-    var verb: AKReverb2?
+    var melodicSound: AKMIDINode!
+    var verb: AKReverb2!
 
     var bassDrum = AKSynthKick()
     var snareDrum = AKSynthSnare()
     var snareGhost = AKSynthSnare(duration: 0.06, resonance: 0.3)
     var snareMixer = AKMixer()
-    var snareVerb: AKReverb?
+    var snareVerb: AKReverb!
 
     var sequence = AKSequencer()
     var mixer = AKMixer()
-    var pumper: AKCompressor?
+    var pumper: AKCompressor!
 
     var currentTempo = 110.0 {
         didSet {
@@ -40,13 +40,13 @@ class Conductor {
         fmOscillator.modulationIndex = 0.3
 
         melodicSound = AKMIDINode(node: fmOscillator)
-        melodicSound?.enableMIDI(midi.client, name: "melodicSound midi in")
-        verb = AKReverb2(melodicSound!)
-        verb?.dryWetMix = 0.5
-        verb?.decayTimeAt0Hz = 7
-        verb?.decayTimeAtNyquist = 11
-        verb?.randomizeReflections = 600
-        verb?.gain = 1
+        melodicSound.enableMIDI(midi.client, name: "melodicSound midi in")
+        verb = AKReverb2(melodicSound)
+        verb.dryWetMix = 0.5
+        verb.decayTimeAt0Hz = 7
+        verb.decayTimeAtNyquist = 11
+        verb.randomizeReflections = 600
+        verb.gain = 1
 
         bassDrum.enableMIDI(midi.client, name: "bassDrum midi in")
         snareDrum.enableMIDI(midi.client, name: "snareDrum midi in")
@@ -58,17 +58,17 @@ class Conductor {
 
         pumper = AKCompressor(mixer)
 
-        pumper?.headRoom = 0.10
-        pumper?.threshold = -15
-        pumper?.masterGain = 10
-        pumper?.attackTime = 0.01
-        pumper?.releaseTime = 0.3
+        pumper.headRoom = 0.10
+        pumper.threshold = -15
+        pumper.masterGain = 10
+        pumper.attackTime = 0.01
+        pumper.releaseTime = 0.3
 
-        mixer.connect(verb!)
+        mixer.connect(verb)
         mixer.connect(bassDrum)
         mixer.connect(snareDrum)
         mixer.connect(snareGhost)
-        mixer.connect(snareVerb!)
+        mixer.connect(snareVerb)
 
         AudioKit.output = pumper
         AudioKit.start()
@@ -77,7 +77,7 @@ class Conductor {
     func setupTracks() {
         let _ = sequence.newTrack()
         sequence.setLength(sequenceLength)
-        sequence.tracks[Sequence.melody.rawValue].setMIDIOutput(melodicSound!.midiIn)
+        sequence.tracks[Sequence.melody.rawValue].setMIDIOutput(melodicSound.midiIn)
         generateNewMelodicSequence(minor: false)
 
         let _ = sequence.newTrack()

@@ -9,7 +9,7 @@
 import AudioKit
 
 class Conductor {
-    private var sequence: AKSequencer?
+    private var sequence: AKSequencer!
     private var mixer = AKMixer()
     private var arpeggioSynthesizer = AKSampler()
     private var padSynthesizer = AKSampler()
@@ -30,10 +30,10 @@ class Conductor {
         padVolume?.gain = 1
         bassVolume?.gain = 1
         drumKitVolume?.gain = 1
-        mixer.connect(arpeggioVolume!)
-        mixer.connect(padVolume!)
-        mixer.connect(bassVolume!)
-        mixer.connect(drumKitVolume!)
+        mixer.connect(arpeggioVolume)
+        mixer.connect(padVolume)
+        mixer.connect(bassVolume)
+        mixer.connect(drumKitVolume)
 
         filter = AKMoogLadder(mixer)
         filter?.cutoffFrequency = 20_000
@@ -49,12 +49,12 @@ class Conductor {
         }
         AudioKit.start()
         sequence = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
-        sequence?.enableLooping()
-        sequence!.avTracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
-        sequence!.avTracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
-        sequence!.avTracks[3].destinationAudioUnit = padSynthesizer.samplerUnit
-        sequence!.avTracks[4].destinationAudioUnit = drumKit.samplerUnit
-        sequence!.setLength(AKDuration(beats: 4))
+        sequence.enableLooping()
+        sequence.avTracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
+        sequence.avTracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
+        sequence.avTracks[3].destinationAudioUnit = padSynthesizer.samplerUnit
+        sequence.avTracks[4].destinationAudioUnit = drumKit.samplerUnit
+        sequence.setLength(AKDuration(beats: 4))
     }
 
     func adjustVolume(_ volume: Float, instrument: Instrument) {
@@ -76,20 +76,20 @@ class Conductor {
     }
 
     func playSequence() {
-        sequence!.play()
+        sequence.play()
     }
 
     func stopSequence() {
-        sequence!.stop()
+        sequence.stop()
     }
 
     func rewindSequence() {
-        sequence!.rewind()
+        sequence.rewind()
     }
 
     func setLength(_ length: Double) {
-        sequence!.setLength(AKDuration(beats: length))
-        sequence!.rewind()
+        sequence.setLength(AKDuration(beats: length))
+        sequence.rewind()
     }
 
     func useSound(_ sound: Sound, synthesizer: Synthesizer) {

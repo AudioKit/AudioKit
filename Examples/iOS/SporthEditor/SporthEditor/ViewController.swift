@@ -62,7 +62,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
                            code: String(contentsOfFile: Constants.Path.simpleKeyboard, encoding: String.Encoding.utf8))
 
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
-            status.text = brain.names.first!
+            status.text = brain.names.first ?? ""
 
             codeEditorTextView.autocorrectionType = .no
             codeEditorTextView.autocapitalizationType = .none
