@@ -56,7 +56,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         amount: Double = 1) {
 
         self.amount = amount
@@ -69,7 +69,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

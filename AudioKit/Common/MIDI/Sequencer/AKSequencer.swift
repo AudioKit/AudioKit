@@ -290,7 +290,7 @@ open class AKSequencer {
             currTime = fmod(currTime, length.beats)
             if let existingTempoTrack = tempoTrack {
                 MusicTrackNewExtendedTempoEvent(existingTempoTrack, currTime, constrainedTempo)
-                
+
             }
         }
         if let existingTempoTrack = tempoTrack {

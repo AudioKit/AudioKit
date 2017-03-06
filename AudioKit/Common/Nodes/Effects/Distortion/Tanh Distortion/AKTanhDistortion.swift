@@ -103,7 +103,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         pregain: Double = 2.0,
         postgain: Double = 0.5,
         postiveShapeParameter: Double = 0.0,
@@ -122,7 +122,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

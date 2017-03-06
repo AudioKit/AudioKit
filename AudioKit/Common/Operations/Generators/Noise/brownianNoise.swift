@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Brownian noise generator
     ///
     /// - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1.0, Minimum: 0, Maximum: 1.0)

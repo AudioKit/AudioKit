@@ -67,7 +67,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         gain: Double = 1) {
 
         self.gain = gain
@@ -80,7 +80,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

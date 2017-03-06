@@ -70,7 +70,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     ///   - sampleRate: The sample rate of signal output.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         bitDepth: Double = 8,
         sampleRate: Double = 10_000) {
 
@@ -86,7 +86,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

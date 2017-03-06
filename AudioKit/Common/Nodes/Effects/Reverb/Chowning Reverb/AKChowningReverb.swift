@@ -33,7 +33,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter input: Input node to process
     ///
-    public init(_ input: AKNode) {
+    public init(_ input: AKNode?) {
         _Self.register()
 
         super.init()
@@ -42,7 +42,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
     }
 

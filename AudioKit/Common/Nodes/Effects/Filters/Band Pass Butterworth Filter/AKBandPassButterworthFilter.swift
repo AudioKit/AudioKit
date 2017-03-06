@@ -71,7 +71,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     ///   - bandwidth: Bandwidth. (in Hertz)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         centerFrequency: Double = 2_000.0,
         bandwidth: Double = 100.0) {
 
@@ -86,7 +86,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

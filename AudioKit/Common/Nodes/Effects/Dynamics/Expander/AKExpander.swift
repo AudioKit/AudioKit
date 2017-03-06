@@ -101,7 +101,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         threshold: Double = -20,
         headRoom: Double = 5,
         expansionRatio: Double = 2,

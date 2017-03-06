@@ -55,7 +55,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent {
     ///   - halfPowerPoint: The response curve's half-power point, in Hz. Half power is defined as peak power / root 2.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         halfPowerPoint: Double = 1_000.0) {
 
         self.halfPowerPoint = halfPowerPoint
@@ -67,7 +67,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent {
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

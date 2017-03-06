@@ -72,7 +72,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         time: Double = 1,
         feedback: Double = 0,
         maximumDelayTime: Double = 5) {
@@ -87,7 +87,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

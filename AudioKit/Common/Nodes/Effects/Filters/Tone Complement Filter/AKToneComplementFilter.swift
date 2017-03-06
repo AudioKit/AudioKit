@@ -55,7 +55,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         halfPowerPoint: Double = 1_000.0) {
 
         self.halfPowerPoint = halfPowerPoint
@@ -68,7 +68,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

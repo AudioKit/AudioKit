@@ -14,8 +14,8 @@ open class AKAmplitudeTap {
     ///
     /// - parameter input: Node to analyze
     ///
-    public init(_ input: AKNode) {
-        input.avAudioNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { buffer, _ in
+    public init(_ input: AKNode?) {
+        input?.avAudioNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { buffer, _ in
 
             var sum: Float = 0
 

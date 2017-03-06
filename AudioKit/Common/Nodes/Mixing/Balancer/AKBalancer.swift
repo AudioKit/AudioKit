@@ -33,7 +33,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
     ///   - input: Input node to process
     ///   - comparator: Audio to match power with
     ///
-    public init( _ input: AKNode, comparator: AKNode) {
+    public init( _ input: AKNode?, comparator: AKNode) {
         _Self.register()
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
@@ -41,7 +41,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
 
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self!.avAudioNode, bus: 1))
             AudioKit.engine.connect(comparator.avAudioNode, to: comparator.connectionPoints, fromBus: 0, format: nil)

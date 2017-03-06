@@ -86,7 +86,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     ///   - amplitude: Overall level
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         wah: Double = 0.0,
         mix: Double = 1.0,
         amplitude: Double = 0.1) {
@@ -103,7 +103,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

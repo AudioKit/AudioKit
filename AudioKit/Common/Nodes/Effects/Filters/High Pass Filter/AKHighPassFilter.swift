@@ -57,7 +57,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
     ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         cutoffFrequency: Double = 6_900,
         resonance: Double = 0) {
 
