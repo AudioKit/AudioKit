@@ -74,7 +74,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///   - decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         x: Double = 0,
         y: Double = 0) {
 
@@ -89,7 +89,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

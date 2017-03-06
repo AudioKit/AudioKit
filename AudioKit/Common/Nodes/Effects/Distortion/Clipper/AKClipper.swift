@@ -56,7 +56,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
     ///   - limit: Threshold / limiting value.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         limit: Double = 1.0) {
 
         self.limit = limit
@@ -68,7 +68,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = $0
             self?.internalAU = $0.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

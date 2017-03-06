@@ -9,7 +9,7 @@ let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-func multitapDelay(_ input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
+func multitapDelay(_ input: AKNode?, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
     zip(times, gains).forEach { (time, gain) -> Void in
         let delay = AKVariableDelay(input, time: time)

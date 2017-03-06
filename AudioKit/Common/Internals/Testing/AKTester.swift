@@ -40,7 +40,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
     ///   - input: AKNode to test
     ///   - sample: Number of sample to product
     ///
-    public init(_ input: AKNode, samples: Int) {
+    public init(_ input: AKNode?, samples: Int) {
 
         testedNode = input as? AKToggleable
         totalSamples = samples
@@ -53,7 +53,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
             self?.internalAU?.samples = Int32(samples)
         }
     }

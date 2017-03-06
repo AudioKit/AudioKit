@@ -64,7 +64,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         attackTime: Double = 0.012,
         decayTime: Double = 0.024,
         preGain: Double = 0) {

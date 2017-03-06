@@ -93,7 +93,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     ///                effect.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         distortion: Double = 0.5,
         cutoffFrequency: Double = 1_500,
         resonance: Double = 0.5) {
@@ -110,7 +110,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

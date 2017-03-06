@@ -74,7 +74,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     ///   - waveform:  Shape of the tremolo (default to sine)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         frequency: Double = 10,
         depth: Double = 1.0,
         waveform: AKTable = AKTable(.positiveSine)) {
@@ -90,7 +90,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
             self?.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
                 self?.internalAU?.setWaveformValue(sample, at: UInt32(i))

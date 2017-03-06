@@ -79,6 +79,13 @@ open class AKRollingOutputPlot: EZAudioPlot {
         super.init(coder: aDecoder)
         setupNode()
         setupReconnection()
+
+        plotType = .rolling
+        backgroundColor = AKColor.white
+        color = AKColor.green
+        shouldFill = true
+        shouldMirror = true
+        shouldCenterYAxis = true
     }
 
     /// Create a View with the plot (usually for playgrounds)

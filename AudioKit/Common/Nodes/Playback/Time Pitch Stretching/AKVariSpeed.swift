@@ -33,14 +33,14 @@ open class AKVariSpeed: AKNode, AKToggleable {
     ///   - input: Input node to process
     ///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
     ///
-    public init(_ input: AKNode, rate: Double = 1.0) {
+    public init(_ input: AKNode?, rate: Double = 1.0) {
         self.rate = rate
         lastKnownRate = rate
 
         super.init()
         self.avAudioNode = variSpeedAU
         AudioKit.engine.attach(self.avAudioNode)
-        input.addConnectionPoint(self)
+        input?.addConnectionPoint(self)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

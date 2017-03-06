@@ -41,7 +41,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
     ///   - operations:       Array of operations [left, right]
     ///
-    public convenience init(_ input: AKNode,
+    public convenience init(_ input: AKNode?,
                             numberOfChannels: Int,
                             operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
 
@@ -62,7 +62,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - input:     AKNode to use for processing
     ///   - operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(_ input: AKNode,
+    public convenience init(_ input: AKNode?,
                             operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
 
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
@@ -88,7 +88,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - input: AKNode to use for processing
     ///   - sporth: String of valid Sporth code
     ///
-    public init(_ input: AKNode, sporth: String) {
+    public init(_ input: AKNode?, sporth: String) {
 
         _Self.register()
 
@@ -98,7 +98,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
             self?.internalAU?.setSporth(sporth)
         }
     }

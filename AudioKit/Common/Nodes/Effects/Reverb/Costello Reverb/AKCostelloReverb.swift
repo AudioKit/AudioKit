@@ -76,7 +76,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         feedback: Double = 0.6,
         cutoffFrequency: Double = 4_000) {
 
@@ -91,7 +91,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

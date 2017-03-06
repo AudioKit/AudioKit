@@ -172,7 +172,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         delay: Double = 0.1,
         decay: Double = 1.0,
         delayMix: Double = 0.5,
@@ -212,7 +212,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
 
             super.init(avAudioNode: effect, attach: true)
 
-            input.addConnectionPoint(self)
+            input?.addConnectionPoint(self)
 
             au[kDistortionParam_Delay] = delay
             au[kDistortionParam_Decay] = decay

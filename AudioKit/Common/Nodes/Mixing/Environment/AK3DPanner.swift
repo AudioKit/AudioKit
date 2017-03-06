@@ -39,18 +39,22 @@ open class AK3DPanner: AKNode {
     ///   - y:     y-axis location in meters
     ///   - z:     z-axis location in meters
     ///
-    public init(_ input: AKNode, x: Double = 0, y: Double = 0, z: Double = 0) {
+    public init(_ input: AKNode?, x: Double = 0, y: Double = 0, z: Double = 0) {
         self.x = x
         self.y = y
         self.z = z
         super.init(avAudioNode: environmentNode, attach: true)
 
-        input.connectionPoints.append(AVAudioConnectionPoint(node: environmentNode,
-                                                             bus: environmentNode.numberOfInputs))
+        guard let inputNode = input else {
+            return
+        }
+
+        inputNode.connectionPoints.append(AVAudioConnectionPoint(node: environmentNode,
+                                                                 bus: environmentNode.numberOfInputs))
 
         let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
 
-        AudioKit.engine.connect(input.avAudioNode, to: input.connectionPoints, fromBus: 0, format: format)
+        AudioKit.engine.connect(inputNode.avAudioNode, to: inputNode.connectionPoints, fromBus: 0, format: format)
     }
 
 }

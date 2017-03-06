@@ -56,7 +56,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         cutoffFrequency: Double = 1_000.0) {
 
         self.cutoffFrequency = cutoffFrequency
@@ -69,7 +69,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

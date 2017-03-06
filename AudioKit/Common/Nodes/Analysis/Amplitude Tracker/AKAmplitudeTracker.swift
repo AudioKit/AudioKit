@@ -53,7 +53,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         halfPowerPoint: Double = 10) {
 
         self.halfPowerPoint = halfPowerPoint
@@ -66,7 +66,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

@@ -87,7 +87,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         centerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
@@ -104,7 +104,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

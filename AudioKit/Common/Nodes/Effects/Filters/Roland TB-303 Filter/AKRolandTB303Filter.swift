@@ -106,7 +106,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         cutoffFrequency: Double = 500,
         resonance: Double = 0.5,
         distortion: Double = 2.0,
@@ -125,7 +125,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

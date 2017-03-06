@@ -78,7 +78,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
     ///                analogue synths generally allow resonances to be above 1.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         cutoffFrequency: Double = 1_000,
         resonance: Double = 0.5) {
 
@@ -93,7 +93,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

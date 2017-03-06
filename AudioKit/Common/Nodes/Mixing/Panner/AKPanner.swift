@@ -55,7 +55,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         pan: Double = 0) {
 
         self.pan = pan
@@ -68,7 +68,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

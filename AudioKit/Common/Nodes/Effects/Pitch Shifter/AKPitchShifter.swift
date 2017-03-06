@@ -87,7 +87,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     ///   - crossfade: Crossfade (in samples)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         shift: Double = 0,
         windowSize: Double = 1_024,
         crossfade: Double = 512) {
@@ -104,7 +104,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

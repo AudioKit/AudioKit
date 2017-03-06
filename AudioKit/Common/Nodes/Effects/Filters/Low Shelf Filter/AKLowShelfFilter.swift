@@ -57,7 +57,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         cutoffFrequency: Double = 80,
         gain: Double = 0) {
 

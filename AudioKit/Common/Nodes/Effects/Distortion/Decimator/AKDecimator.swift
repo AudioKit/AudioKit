@@ -54,7 +54,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         decimation: Double = 0.5,
         rounding: Double = 0,
         mix: Double = 1) {
@@ -67,7 +67,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
             au = AUWrapper(effect)
             super.init(avAudioNode: effect, attach: true)
 
-            input.addConnectionPoint(self)
+            input?.addConnectionPoint(self)
 
             // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
 

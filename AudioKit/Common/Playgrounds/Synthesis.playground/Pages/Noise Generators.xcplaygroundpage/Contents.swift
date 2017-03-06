@@ -29,7 +29,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { amplitude in
             brownian.amplitude = amplitude
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Pink Volume",
             format: "%0.2f",
@@ -46,7 +46,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { amplitude in
             white.amplitude = amplitude
         })
-
 
     }
 

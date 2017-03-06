@@ -79,7 +79,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     ///               filter frequency, typical values are > .9.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         fundamentalFrequency: Double = 100,
         feedback: Double = 0.95) {
 
@@ -94,7 +94,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

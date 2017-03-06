@@ -40,7 +40,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     /// - parameter peakCount: Number of peaks.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         hopSize: Double = 512,
         peakCount: Double = 20) {
 
@@ -52,7 +52,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
     }
 

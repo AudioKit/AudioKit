@@ -62,7 +62,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     ///            Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         reverbDuration: Double = 1.0,
         loopDuration: Double = 0.1) {
 
@@ -75,7 +75,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
             self?.internalAU?.setLoopDuration(Float(loopDuration))
         }
 

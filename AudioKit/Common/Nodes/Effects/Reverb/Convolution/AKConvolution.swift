@@ -35,7 +35,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
     ///                      at the cost of requiring more CPU power.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         impulseResponseFileURL: URL,
         partitionLength: Int = 2_048) {
 
@@ -50,7 +50,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
             self?.internalAU?.setPartitionLength(Int32(partitionLength))
         }
     }
