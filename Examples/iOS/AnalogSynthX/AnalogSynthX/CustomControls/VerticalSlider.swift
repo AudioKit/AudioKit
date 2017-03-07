@@ -1,6 +1,6 @@
 //
 //  VerticalSlider.swift
-//  Swift Synth
+//  Analog Synth X
 //
 //  Created by Matthew Fecher on 1/11/16.
 //  Copyright (c) 2016 AudioKit. All rights reserved.
@@ -79,8 +79,8 @@ extension VerticalSlider {
         barLength = bounds.height - (barMargin * 2)
 
         let bundle = Bundle(for: type(of: self))
-        sliderTop = UIImage(named: sliderTopImage, in: bundle, compatibleWith: self.traitCollection)!
-        sliderTrack = UIImage(named: sliderTrackImage, in: bundle, compatibleWith: self.traitCollection)!
+        sliderTop = UIImage(named: sliderTopImage, in: bundle, compatibleWith: self.traitCollection)
+        sliderTrack = UIImage(named: sliderTrackImage, in: bundle, compatibleWith: self.traitCollection)
     }
 
     override func draw(_ rect: CGRect) {
@@ -149,10 +149,10 @@ extension VerticalSlider {
         let backgroundPath = UIBezierPath(rect: backgroundRect)
         context?.saveGState()
         backgroundPath.addClip()
-        sliderTrack!.draw(in: CGRect(x: floor(backgroundRect.minX + 0.5),
+        sliderTrack?.draw(in: CGRect(x: floor(backgroundRect.minX + 0.5),
                                      y: floor(backgroundRect.minY + 0.5),
-                                     width: sliderTrack!.size.width,
-                                     height: sliderTrack!.size.height))
+                                     width: sliderTrack?.size.width ?? 0,
+                                     height: sliderTrack?.size.height ?? 0))
         context?.restoreGState()
 
         //// Slider Top Drawing
@@ -163,10 +163,10 @@ extension VerticalSlider {
         let sliderTopPath = UIBezierPath(rect: sliderTopRect)
         context?.saveGState()
         sliderTopPath.addClip()
-        sliderTop!.draw(in: CGRect(x: floor(sliderTopRect.minX + 0.5),
+        sliderTop?.draw(in: CGRect(x: floor(sliderTopRect.minX + 0.5),
                                    y: floor(sliderTopRect.minY + 0.5),
-                                   width: sliderTop!.size.width,
-                                   height: sliderTop!.size.height))
+                                   width: sliderTop?.size.width ?? 0,
+                                   height: sliderTop?.size.height ?? 0))
         context?.restoreGState()
     }
 }

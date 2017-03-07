@@ -61,7 +61,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
             try brain.save(Constants.File.simpleKeyboard,
                            code: String(contentsOfFile: Constants.Path.simpleKeyboard, encoding: String.Encoding.utf8))
 
-            codeEditorTextView.text = brain.knownCodes[brain.names.first!]
+            codeEditorTextView.text = brain.knownCodes[brain.names.first ?? ""]
             status.text = brain.names.first ?? ""
 
             codeEditorTextView.autocorrectionType = .no
@@ -76,10 +76,12 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
 
     func getSporthFiles() {
         let baseURL = "https://raw.githubusercontent.com/PaulBatchelor/the_sporth_cookbook/master/"
-        let keysURL = URL(string: "\(baseURL)ready.txt")
+        guard let keysURL = URL(string: "\(baseURL)ready.txt") else {
+            return
+        }
         var urlContents = ""
         do {
-            urlContents = try String(contentsOf: keysURL!)
+            urlContents = try String(contentsOf: keysURL)
         } catch {
             print ("error")
         }
@@ -127,7 +129,9 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     @IBOutlet private weak var slidersStackView: UIStackView!
 
     func updateContextAwareCotrols() {
-        let sporth = brain.knownCodes[brain.names[brain.currentIndex]]!
+        guard let sporth = brain.knownCodes[brain.names[brain.currentIndex]] else {
+            return
+        }
         slidersStackView.isHidden = true
         sliders.forEach { $0.isHidden = true }
         keyboard.isHidden = true
@@ -160,11 +164,10 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
                 print("Regular expression failed")
             }
             let currentControlText = regex.stringByReplacingMatches(in: line,
-                                                                    options: .reportCompletion,
-                                                                    range: NSRange(location: 0,
-                                                                                   length: line.characters.count),
-                                                                    withTemplate: "$1")
-
+                                                                          options: .reportCompletion,
+                                                                          range: NSRange(location: 0,
+                                                                                         length: line.characters.count),
+                                                                          withTemplate: "$1")
             title = regex.stringByReplacingMatches(in: line,
                                                    options: .reportCompletion,
                                                    range: NSRange(location: 0,
@@ -172,14 +175,14 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
                                                    withTemplate: "$2")
 
             if title != line {
-                currentControl = Int(currentControlText)! - 1
+                currentControl = (Int(currentControlText) ?? 0) - 1
                 slidersStackView.isHidden = false
                 sliders[currentControl].isHidden = false
-                sliders[currentControl].property = title!
+                sliders[currentControl].property = title ?? ""
             }
             if value != line {
-                brain.generator?.parameters[currentControl] = Double(value)!
-                sliders[currentControl].value = Double(value)!
+                brain.generator?.parameters[currentControl] = Double(value) ?? 0.0
+                sliders[currentControl].value = Double(value) ?? 0.0
             }
         }
     }
