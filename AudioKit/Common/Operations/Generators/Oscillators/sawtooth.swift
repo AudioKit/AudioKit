@@ -23,7 +23,6 @@ extension AKOperation {
         return AKOperation(module: "\"sawtooth\" osc",
                            setup: "\"sawtooth\" 4096 \"0 -1 4095 1\" gen_line",
                            inputs: frequency, amplitude, phase)
-
     }
 
     /// Simple reverse sawtooth oscillator, not-band limited, can be used for LFO or wave.
