@@ -353,6 +353,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
         case EZPlotTypeBuffer:
             [self setSampleData:buffer
                          length:bufferSize];
+            [self redraw];
             break;
         case EZPlotTypeRolling:
             
@@ -444,7 +445,9 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
 - (void)displayLinkNeedsDisplay:(EZAudioDisplayLink *)displayLink
 {
-    [self redraw];
+    if (self.plotType == EZPlotTypeRolling) {
+        [self redraw];
+    }
 }
 
 //------------------------------------------------------------------------------
