@@ -1,45 +1,47 @@
 disabled_rules: # rule identifiers to exclude from running
-  - attributes
-  - force_try
-  - line_length
-  - variable_name
   - file_header
-  - force_unwrapping
-  - missing_docs
-  - closure_end_indentation
-  - type_name
+  - attributes
   - cyclomatic_complexity
-  - type_body_length
-  - file_length
-  - force_cast
-  - legacy_constructor
-  - object_literal
-  - function_parameter_count
-  - class_delegate_protocol
-  - weak_delegate
-  - sorted_imports
+  - type_name
+
 
 type_body_length:
   - 400 # warning
-  - 1000 # error
+  - 4000 # error
 
 function_body_length:
   - 400 # warning
-  - 1000 # error
+  - 4000 # error
 
 line_length:
   - 120 # warning
-  - 500 # error
+  - 5000 # error
+
+file_length:
+  - 400 # warning
+  - 10000 # error
+
+variable_name:
+  min_length:
+    - 1 # warning
 
 force_cast: warning
+empty_count: warning
+force_try: warning
+cyclomatic_complexity:
+  - 10 # warning
+  - 100 # error
 
 excluded:
   - dev
   - Examples/iOS/AnalogSynthX/AnalogSynthX/Extensions/
   - AudioKit/iOS/Audiobus/
+  - Examples/iOS/Particles/
 
 opt_in_rules:
+  - legacy_constructor
   - closure_spacing
+  - closure_end_indentation
   - conditional_returns_on_newline
   - empty_count
   - explicit_init
@@ -52,3 +54,18 @@ opt_in_rules:
   - prohibited_super_call
   - redundant_nil_coalescing
   - switch_case_on_newline
+  - file_length
+  - weak_delegate
+  - force_cast
+  - object_literal
+  - sorted_imports
+  - line_length
+  - attributes
+  - force_unwrapping
+  - variable_name
+  - type_name
+  - type_body_length
+  - legacy_constructor
+  - function_parameter_count
+  - class_delegate_protocol
+  - force_try
