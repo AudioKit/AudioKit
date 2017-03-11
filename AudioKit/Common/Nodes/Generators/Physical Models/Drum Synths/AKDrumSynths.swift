@@ -32,6 +32,8 @@ open class AKSynthKick: AKMIDIInstrument {
 
     /// Function to start, play, or activate the node, all do the same thing
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+        filter.cutoffFrequency = (Double(velocity) / 127.0 * 366.0) + 300.0
+        filter.resonance = 1.0 - Double(velocity) / 127.0
         generator.trigger()
     }
 
