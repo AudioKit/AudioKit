@@ -14,8 +14,9 @@ open class AKPresetLoaderView: UIView {
     var downOuterPath = UIBezierPath()
 
     var currentIndex = 0
-    var presets = [String]()
-    var callback: (String) -> Void
+    open var label = "Preset"
+    open var presets = [String]()
+    open var callback: (String) -> Void
     var isPresetLoaded = false
 
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -49,7 +50,9 @@ open class AKPresetLoaderView: UIView {
     }
 
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.callback = {filename in return}
+        self.presets = []
+        super.init(coder: aDecoder)
     }
 
     func drawPresetLoader(presetName: String = "None", isPresetLoaded: Bool = false) {
@@ -79,7 +82,7 @@ open class AKPresetLoaderView: UIView {
 
         //// presetLabel Drawing
         let presetLabelRect = CGRect(x: 0, y: 0, width: 95, height: 60)
-        let presetLabelTextContent = NSString(string: "Preset")
+        let presetLabelTextContent = NSString(string: label)
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .left
 
