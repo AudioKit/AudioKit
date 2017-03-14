@@ -26,9 +26,11 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
+        if (ptrack != nullptr) {
+          sp_ptrack_destroy(&ptrack);
+        }
         sp_ptrack_create(&ptrack);
         sp_ptrack_init(sp, ptrack, hopSize, peakCount);
-
     }
     
     void start() {
@@ -93,7 +95,7 @@ private:
     int hopSize = 4096;
     int peakCount = 20;
 
-    sp_ptrack *ptrack;
+    sp_ptrack *ptrack = nullptr;
 
 public:
     float trackedAmplitude = 0.0;
