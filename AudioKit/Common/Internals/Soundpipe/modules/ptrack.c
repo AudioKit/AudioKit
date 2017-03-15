@@ -92,7 +92,7 @@ typedef struct peak
 
 int sp_ptrack_create(sp_ptrack **p)
 {
-    *p = malloc(sizeof(sp_ptrack));
+    *p = calloc(1, sizeof(sp_ptrack));
     return SP_OK;
 }
 
