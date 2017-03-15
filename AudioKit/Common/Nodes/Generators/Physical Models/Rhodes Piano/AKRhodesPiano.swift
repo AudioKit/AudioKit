@@ -105,8 +105,9 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     }
 
     /// Trigger the sound with an optional set of parameters
+    /// - Parameters:
     ///   - frequency: Frequency in Hz
-    /// - amplitude amplitude: Volume
+    ///   - amplitude amplitude: Volume
     ///
     open func trigger(frequency: Double, amplitude: Double = 1) {
         self.frequency = frequency
