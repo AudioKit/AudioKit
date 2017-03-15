@@ -88,7 +88,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - input: AKNode to use for processing
     ///   - sporth: String of valid Sporth code
     ///
-    public init(_ input: AKNode?, sporth: String) {
+    public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
 
         _Self.register()
 
@@ -99,6 +99,9 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input?.addConnectionPoint(self!)
+            for ugen in customUgens {
+              self?.internalAU?.add(ugen)
+            }
             self?.internalAU?.setSporth(sporth)
         }
     }

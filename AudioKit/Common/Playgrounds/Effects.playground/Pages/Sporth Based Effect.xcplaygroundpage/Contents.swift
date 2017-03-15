@@ -9,10 +9,11 @@ let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let input = AKStereoOperation.input
-let sporth = "\(input) 15 200 7.0 8.0 10000 315 0 1500 0 1 0 zitarev"
+let input  = AKStereoOperation.input
+//let sporth = "\(input) 15 200 7.0 8.0 10000 315 0 1500 0 1 0 zitarev"
+let sporth = "\(input) add (_divByFour f) dup"
 
-let effect = AKOperationEffect(player, sporth: sporth)
+let effect = AKOperationEffect(player, sporth: sporth, customUgens: [divByFourUgen])
 
 AudioKit.output = effect
 AudioKit.start()

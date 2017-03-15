@@ -2530,10 +2530,10 @@
 			isa = PBXGroup;
 			children = (
 				C45380451C3A59EA00A51738 /* AKOperationEffect.swift */,
+				F02767251E79114A0099CA47 /* AKCustomUgen.swift */,
 				C45380461C3A59EA00A51738 /* AKOperationEffectAudioUnit.h */,
 				C45380471C3A59EA00A51738 /* AKOperationEffectAudioUnit.mm */,
 				C45380481C3A59EA00A51738 /* AKOperationEffectDSPKernel.hpp */,
-				F02767251E79114A0099CA47 /* AKCustomUgen.swift */,
 			);
 			path = "AudioKit Operation-Based Effect";
 			sourceTree = "<group>";
