@@ -8,6 +8,7 @@
 
 #import "AKOperationEffectAudioUnit.h"
 #import "AKOperationEffectDSPKernel.hpp"
+#import "AKSporthStack.h"
 
 #import "BufferedAudioBus.hpp"
 
@@ -15,40 +16,11 @@
 
 typedef struct UserData {
   AKCustomUgen *ugen;
-  SporthStack *stack;
+  AKSporthStack *stack;
 } UserData;
 
-
-@implementation SporthStack
-{
-  sporth_stack *_stack;
-}
-
-- (void)setStack:(sporth_stack *)stack
-{
-  _stack = stack;
-}
-
-- (char *)popString
-{
-  return sporth_stack_pop_string(_stack);
-}
-
-- (float)popFloat
-{
-  return sporth_stack_pop_float(_stack);
-}
-
-- (void)pushFloat:(float)f
-{
-  sporth_stack_push_float(_stack, f);
-}
-
-- (void)pushString:(char *)str
-{
-  sporth_stack_push_string(_stack, &str);
-}
-
+@interface AKSporthStack (Internal)
+- (void)setStack:(sporth_stack *)stack;
 @end
 
 static int userFunction(plumber_data *pd, sporth_stack *stack, void **ud)
@@ -63,7 +35,7 @@ static int userFunction(plumber_data *pd, sporth_stack *stack, void **ud)
 //            UserData *userData = (UserData *)*ud;
 //            fprintf(stderr, "userData: %p\n", userData);
             AKCustomUgen *ugen = (__bridge AKCustomUgen *)*ud;
-            SporthStack *sporthStack = [SporthStack new];//userData->stack;
+            AKSporthStack *sporthStack = [AKSporthStack new];//userData->stack;
             [sporthStack setStack:stack];
 
             if(sporth_check_args(stack, [ugen.argTypes cStringUsingEncoding:NSUTF8StringEncoding]) != SPORTH_OK) {
@@ -75,7 +47,7 @@ static int userFunction(plumber_data *pd, sporth_stack *stack, void **ud)
             break;
         } case PLUMBER_COMPUTE: {
             AKCustomUgen *ugen = (__bridge AKCustomUgen *)*ud;
-            SporthStack *sporthStack = [SporthStack new];//userData->stack;
+            AKSporthStack *sporthStack = [AKSporthStack new];//userData->stack;
             [sporthStack setStack:stack];
 
             ugen.computeFunction(sporthStack);
@@ -127,7 +99,7 @@ static int userFunction(plumber_data *pd, sporth_stack *stack, void **ud)
       printf("getCString failed\n");
     }
 //    UserData *userData = (UserData *)malloc(sizeof(UserData));
-//    userData->stack = [SporthStack new];
+//    userData->stack = [AKSporthStack new];
 //    userData->ugen = ugen;
     _kernel.addCustomUgen({cName, &userFunction, (__bridge void *)ugen});
 }

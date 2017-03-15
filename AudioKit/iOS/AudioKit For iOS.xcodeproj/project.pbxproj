@@ -800,6 +800,8 @@
 		EA8BA9821C5E24AE00BBD469 /* AKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8BA9811C5E24AE00BBD469 /* AKView.swift */; };
 		EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9C9861C69A3E500C10CCE /* AKDevice.swift */; };
 		F02767261E79114A0099CA47 /* AKCustomUgen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02767251E79114A0099CA47 /* AKCustomUgen.swift */; };
+		F027672F1E791A8D0099CA47 /* AKSporthStack.h in Headers */ = {isa = PBXBuildFile; fileRef = F027672D1E791A8C0099CA47 /* AKSporthStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F02767301E791A8D0099CA47 /* AKSporthStack.mm in Sources */ = {isa = PBXBuildFile; fileRef = F027672E1E791A8D0099CA47 /* AKSporthStack.mm */; };
 		FE52FEEF1CB70A8500A35B63 /* AKAUPresetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE52FEEE1CB70A8500A35B63 /* AKAUPresetBuilder.swift */; };
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
 /* End PBXBuildFile section */
@@ -1610,6 +1612,8 @@
 		EA8BA9811C5E24AE00BBD469 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
 		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
 		F02767251E79114A0099CA47 /* AKCustomUgen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomUgen.swift; sourceTree = "<group>"; };
+		F027672D1E791A8C0099CA47 /* AKSporthStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSporthStack.h; sourceTree = "<group>"; };
+		F027672E1E791A8D0099CA47 /* AKSporthStack.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSporthStack.mm; sourceTree = "<group>"; };
 		FE52FEEE1CB70A8500A35B63 /* AKAUPresetBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUPresetBuilder.swift; sourceTree = "<group>"; };
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
 		FEE48A451C967A6800DD788C /* TemplateAUPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateAUPreset.h; sourceTree = "<group>"; };
@@ -2531,6 +2535,8 @@
 			children = (
 				C45380451C3A59EA00A51738 /* AKOperationEffect.swift */,
 				F02767251E79114A0099CA47 /* AKCustomUgen.swift */,
+				F027672D1E791A8C0099CA47 /* AKSporthStack.h */,
+				F027672E1E791A8D0099CA47 /* AKSporthStack.mm */,
 				C45380461C3A59EA00A51738 /* AKOperationEffectAudioUnit.h */,
 				C45380471C3A59EA00A51738 /* AKOperationEffectAudioUnit.mm */,
 				C45380481C3A59EA00A51738 /* AKOperationEffectDSPKernel.hpp */,
@@ -3736,6 +3742,7 @@
 				C453804C1C3A59EA00A51738 /* AKOperationEffectDSPKernel.hpp in Headers */,
 				C45380431C3A599F00A51738 /* AKFrequencyTrackerDSPKernel.hpp in Headers */,
 				C47047791E76884C00D9906F /* AKShakerAudioUnit.h in Headers */,
+				F027672F1E791A8D0099CA47 /* AKSporthStack.h in Headers */,
 				C4537FE01C3A438D00A51738 /* AKMoogLadderDSPKernel.hpp in Headers */,
 				C4E8ED0D1C4391C70041965F /* AKConvolutionDSPKernel.hpp in Headers */,
 				C49390881E0889DB009FEAA1 /* AKStereoFieldLimiterDSPKernel.hpp in Headers */,
@@ -3993,6 +4000,7 @@
 				C4537FCD1C3A438D00A51738 /* AKHighShelfParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C49F29241D162448000A2D2F /* AKFluteAudioUnit.mm in Sources */,
 				C4E8ED0C1C4391C70041965F /* AKConvolutionAudioUnit.mm in Sources */,
+				F02767301E791A8D0099CA47 /* AKSporthStack.mm in Sources */,
 				C4F8C8DF1DCA8CE4001F38F2 /* gen_sporth.c in Sources */,
 				C49D69771D1F1DE300BF018A /* AKOscillatorBankAudioUnit.mm in Sources */,
 				C40C42711C41B22A009D870B /* AKPluckedStringAudioUnit.mm in Sources */,
