@@ -8,14 +8,14 @@
 
 import Foundation
 
-@objc open class AKCustomUgen: NSObject {
-  @objc open var name: String
-  @objc open var argTypes: String // something like "fff" or "sf"
+open class AKCustomUgen: NSObject {
+  open let name: String
+  open let argTypes: String // string of f for float / s for string, e.g. "fsf"
 
-  open var computeFunction: @convention(c) (SporthStack) -> ()
+  open let computeFunction: @convention(c) (AKSporthStack) -> ()
 
   public init(name: String = "", argTypes: String,
-       computeFunction: @escaping @convention(c) (SporthStack) -> ()) {
+       computeFunction: @escaping @convention(c) (AKSporthStack) -> ()) {
     self.name = name
     self.argTypes = argTypes
     self.computeFunction = computeFunction
