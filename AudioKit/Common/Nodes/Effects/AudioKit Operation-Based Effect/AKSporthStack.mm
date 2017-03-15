@@ -19,7 +19,7 @@
   _stack = stack;
 }
 
-- (char *)popString
+- (const char *)popString
 {
   return sporth_stack_pop_string(_stack);
 }

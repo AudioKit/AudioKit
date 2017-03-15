@@ -17,13 +17,9 @@
 
 extern "C" {
 #include "plumber.h"
-
-typedef struct CustomUgenInfo {
-    const char *name;
-    plumber_dyn_func fp;
-    void *userData;
-} CustomUgenInfo;
 }
+
+#import "AKCustomUgenInfo.h"
 
 class AKOperationEffectDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
@@ -59,7 +55,7 @@ public:
         }
     };
 
-    void addCustomUgen(CustomUgenInfo info) {
+    void addCustomUgen(AKCustomUgenInfo info) {
         customUgens.push_back(info);
     }
 
@@ -137,7 +133,7 @@ private:
 
     plumber_data pd;
     char *sporthCode = nil;
-    std::vector<CustomUgenInfo> customUgens;
+    std::vector<AKCustomUgenInfo> customUgens;
 public:
     float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     bool started = true;

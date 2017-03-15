@@ -11,11 +11,9 @@
 #import <Foundation/Foundation.h>
 
 @interface AKSporthStack : NSObject
-
-- (char *)popString;
+- (const char *)popString;
 - (float)popFloat;
 
 - (void)pushFloat:(float)f;
 - (void)pushString:(char *)str;
-
 @end
