@@ -8,6 +8,8 @@
 
 #pragma once
 
+#import <vector>
+
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -15,6 +17,12 @@
 
 extern "C" {
 #include "plumber.h"
+
+typedef struct UserFunctionInfo {
+    const char *name;
+    plumber_dyn_func fp;
+    void *userData;
+} UserFunctionInfo;
 }
 
 
@@ -29,6 +37,11 @@ public:
 
         plumber_register(&pd);
         plumber_init(&pd);
+
+        for (auto info : userFunctions) {
+          plumber_ftmap_add_function(&pd, info.name, info.fp, info.userData);
+        }
+
         pd.sp = sp;
         if (sporthCode != nil) {
             plumber_parse_string(&pd, sporthCode);
@@ -46,6 +59,10 @@ public:
             parameters[i] = params[i];
         }
     };
+
+    void addCustom(UserFunctionInfo info) {
+        userFunctions.push_back(info);
+    }
     
     void start() {
         started = true;
@@ -121,6 +138,7 @@ private:
 
     plumber_data pd;
     char *sporthCode = nil;
+    std::vector<UserFunctionInfo> userFunctions;
 public:
     float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     bool started = true;
