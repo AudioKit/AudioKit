@@ -8,60 +8,11 @@
 
 #import "AKOperationEffectAudioUnit.h"
 #import "AKOperationEffectDSPKernel.hpp"
-#import "AKSporthStack.h"
+#import "AKCustomUgenFunction.h"
 
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
-
-typedef struct UserData {
-  AKCustomUgen *ugen;
-  AKSporthStack *stack;
-} UserData;
-
-@interface AKSporthStack (Internal)
-- (void)setStack:(sporth_stack *)stack;
-@end
-
-static int userFunction(plumber_data *pd, sporth_stack *stack, void **ud)
-{
-    switch(pd->mode) {
-        case PLUMBER_CREATE:
-            fprintf(stderr, "Default user function in create mode.\n");
-            break;
-        case PLUMBER_INIT: {
-            fprintf(stderr, "Default user function in init mode.\n");
-
-//            UserData *userData = (UserData *)*ud;
-//            fprintf(stderr, "userData: %p\n", userData);
-            AKCustomUgen *ugen = (__bridge AKCustomUgen *)*ud;
-            AKSporthStack *sporthStack = [AKSporthStack new];//userData->stack;
-            [sporthStack setStack:stack];
-
-            if(sporth_check_args(stack, [ugen.argTypes cStringUsingEncoding:NSUTF8StringEncoding]) != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for userFunction\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
-            ugen.computeFunction(sporthStack);
-            break;
-        } case PLUMBER_COMPUTE: {
-            AKCustomUgen *ugen = (__bridge AKCustomUgen *)*ud;
-            AKSporthStack *sporthStack = [AKSporthStack new];//userData->stack;
-            [sporthStack setStack:stack];
-
-            ugen.computeFunction(sporthStack);
-            break;
-        } case PLUMBER_DESTROY:
-            fprintf(stderr, "Default user function in destroy mode.\n");
-//            bd = (bp_data *)*ud;
-            break;
-        default:
-            fprintf(stderr, "aux (f)unction: unknown mode!\n");
-            break;
-    }
-    return PLUMBER_OK;
-}
 
 @implementation AKOperationEffectAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
@@ -91,17 +42,11 @@ static int userFunction(plumber_data *pd, sporth_stack *stack, void **ud)
 }
 
 - (void)addCustomUgen:(AKCustomUgen *)ugen {
-    //TODO: Assert that init hasn't run yet?
-    unsigned long nameLength = ugen.name.length + 1;
-    char *cName = (char *)malloc(sizeof(char) * nameLength);
-    BOOL worked = [ugen.name getCString:cName maxLength:nameLength encoding:NSUTF8StringEncoding];
-    if (!worked) {
-      printf("getCString failed\n");
-    }
-//    UserData *userData = (UserData *)malloc(sizeof(UserData));
-//    userData->stack = [AKSporthStack new];
-//    userData->ugen = ugen;
-    _kernel.addCustomUgen({cName, &userFunction, (__bridge void *)ugen});
+    char *cName = (char *)[ugen.name UTF8String];
+    auto userData = (AKUgenFunctionUserData *)malloc(sizeof(AKUgenFunctionUserData));
+    userData->stack = [AKSporthStack new];
+    userData->ugen = ugen;
+    _kernel.addCustomUgen({cName, &akCustomUgenFunction, (void *)userData});
 }
 
 - (void)start {
