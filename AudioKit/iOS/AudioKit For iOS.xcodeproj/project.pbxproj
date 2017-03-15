@@ -799,6 +799,7 @@
 		EA6949E21C59A9FC0035B5DF /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949E11C59A9FC0035B5DF /* AKSettings.swift */; };
 		EA8BA9821C5E24AE00BBD469 /* AKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8BA9811C5E24AE00BBD469 /* AKView.swift */; };
 		EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9C9861C69A3E500C10CCE /* AKDevice.swift */; };
+		F02767261E79114A0099CA47 /* AKCustomUgen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02767251E79114A0099CA47 /* AKCustomUgen.swift */; };
 		FE52FEEF1CB70A8500A35B63 /* AKAUPresetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE52FEEE1CB70A8500A35B63 /* AKAUPresetBuilder.swift */; };
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
 /* End PBXBuildFile section */
@@ -1608,6 +1609,7 @@
 		EA6949E11C59A9FC0035B5DF /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		EA8BA9811C5E24AE00BBD469 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
 		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
+		F02767251E79114A0099CA47 /* AKCustomUgen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomUgen.swift; sourceTree = "<group>"; };
 		FE52FEEE1CB70A8500A35B63 /* AKAUPresetBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUPresetBuilder.swift; sourceTree = "<group>"; };
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
 		FEE48A451C967A6800DD788C /* TemplateAUPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateAUPreset.h; sourceTree = "<group>"; };
@@ -2531,6 +2533,7 @@
 				C45380461C3A59EA00A51738 /* AKOperationEffectAudioUnit.h */,
 				C45380471C3A59EA00A51738 /* AKOperationEffectAudioUnit.mm */,
 				C45380481C3A59EA00A51738 /* AKOperationEffectDSPKernel.hpp */,
+				F02767251E79114A0099CA47 /* AKCustomUgen.swift */,
 			);
 			path = "AudioKit Operation-Based Effect";
 			sourceTree = "<group>";
@@ -4243,6 +4246,7 @@
 				C48C6C5E1D3C15F1008EA51B /* blsquare.c in Sources */,
 				C48C6C5B1D3C15F1008EA51B /* biscale.c in Sources */,
 				C48C6C551D3C15F1008EA51B /* atone.c in Sources */,
+				F02767261E79114A0099CA47 /* AKCustomUgen.swift in Sources */,
 				C4F8C8C61DCA8CE4001F38F2 /* dcblock.c in Sources */,
 				C48C6C881D3C15F1008EA51B /* osc.c in Sources */,
 				C48C6CB11D3C15F1008EA51B /* tevent.c in Sources */,

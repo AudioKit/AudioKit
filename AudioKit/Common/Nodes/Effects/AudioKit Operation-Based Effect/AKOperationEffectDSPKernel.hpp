@@ -18,13 +18,12 @@
 extern "C" {
 #include "plumber.h"
 
-typedef struct UserFunctionInfo {
+typedef struct CustomUgenInfo {
     const char *name;
     plumber_dyn_func fp;
     void *userData;
-} UserFunctionInfo;
+} CustomUgenInfo;
 }
-
 
 class AKOperationEffectDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
@@ -38,7 +37,7 @@ public:
         plumber_register(&pd);
         plumber_init(&pd);
 
-        for (auto info : userFunctions) {
+        for (auto info : customUgens) {
           plumber_ftmap_add_function(&pd, info.name, info.fp, info.userData);
         }
 
@@ -60,10 +59,10 @@ public:
         }
     };
 
-    void addCustom(UserFunctionInfo info) {
-        userFunctions.push_back(info);
+    void addCustomUgen(CustomUgenInfo info) {
+        customUgens.push_back(info);
     }
-    
+
     void start() {
         started = true;
     }
@@ -138,7 +137,7 @@ private:
 
     plumber_data pd;
     char *sporthCode = nil;
-    std::vector<UserFunctionInfo> userFunctions;
+    std::vector<CustomUgenInfo> customUgens;
 public:
     float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     bool started = true;
