@@ -42,10 +42,7 @@ class ViewController: UIViewController {
         
         // Session settings
         AKSettings.bufferLength = .medium
-        
-        do {
-            try AKSettings.setSession(category: .playAndRecord, with: .defaultToSpeaker)
-        } catch { print("Errored setting category.") }
+        AKSettings.defaultToSpeaker = true
         
         // Patching
         let mic = AKMicrophone()
