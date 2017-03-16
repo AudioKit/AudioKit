@@ -179,7 +179,7 @@ public extension AKMIDIListener {
     /// - parameter data: Array of integers
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte]) {
-        AKLog("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0]))")
+        AKLog("MIDI System Command: \(String(describing: AKMIDISystemCommand(rawValue: data[0])))")
     }
 
     /// MIDI Setup has changed
