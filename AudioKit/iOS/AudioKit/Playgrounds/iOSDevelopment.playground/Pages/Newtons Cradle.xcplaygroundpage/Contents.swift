@@ -22,7 +22,7 @@ AudioKit.start()
  Let's create an instance of our UIKit Dynamics based Newton's Cradle.
  Try adding more colors to the array to increase the number of balls in the device.
  */
-let newtonsCradle = NewtonsCradle(colors: [#colorLiteral(red: 0.878, green: 0.381, blue: 0.577, alpha: 1), [#colorLiteral(red: 0.220, green: 0.702, blue: 0.959, alpha: 1)], [#colorLiteral(red: 0.917, green: 0.4121, blue: 0.284, alpha: 1)], [#colorLiteral(red: 0.522, green: 0.8, blue: 0.346, alpha: 1)]])
+let newtonsCradle = NewtonsCradle(colors: [#colorLiteral(red: 0.878, green: 0.381, blue: 0.577, alpha: 1), #colorLiteral(red: 0.220, green: 0.702, blue: 0.959, alpha: 1), #colorLiteral(red: 0.917, green: 0.4121, blue: 0.284, alpha: 1), #colorLiteral(red: 0.522, green: 0.8, blue: 0.346, alpha: 1)])
 /*:
  ### Size and spacing
  Try changing the size and spacing of the balls and see how that changes the device.
@@ -102,10 +102,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
 
     // MARK: Collision
 
-    public func collisionBehavior(behavior: UICollisionBehavior,
-                                  beganContactForItem item1: UIDynamicItem,
-                                  withItem item2: UIDynamicItem,
-                                  atPoint point: CGPoint) {
+    public func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item1: UIDynamicItem, with item2: UIDynamicItem, at p: CGPoint) {
         tink.stop()
         tink.play()
     }
@@ -174,7 +171,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
 
     private func layoutBalls() {
         let requiredWidth = CGFloat(balls.count) * (ballSize.width + CGFloat(ballPadding))
-        for (index, ball) in balls.enumerate() {
+        for (index, ball) in balls.enumerated() {
             // Remove any attachment behavior that already exists.
             if let attachmentBehavior = ballsToAttachmentBehaviors[ball] {
                 animator?.removeBehavior(attachmentBehavior)
@@ -209,28 +206,28 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
 
     // MARK: Touch Handling
 
-    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let touchLocation = touch.locationInView(superview)
+            let touchLocation = touch.location(in: superview)
             for ball in balls {
                 if ball.frame.contains(touchLocation) {
-                    snapBehavior = UISnapBehavior(item: ball, snapToPoint: touchLocation)
-                    animator?.addBehavior(snapBehavior)
+                    snapBehavior = UISnapBehavior(item: ball, snapTo: touchLocation)
+                    animator?.addBehavior(snapBehavior!)
                 }
             }
         }
     }
 
-    override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let touchLocation = touch.locationInView(superview)
+            let touchLocation = touch.location(in: superview)
             if let snapBehavior = snapBehavior {
                 snapBehavior.snapPoint = touchLocation
             }
         }
     }
 
-    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let snapBehavior = snapBehavior {
             animator?.removeBehavior(snapBehavior)
         }
@@ -239,10 +236,10 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
 
     // MARK: KVO
 
-    public override func observeValueForKeyPath(keyPath: String?,
-                                                ofObject object: AnyObject?,
-                                                change: [String : AnyObject]?,
-                                                context: UnsafeMutablePointer<Void>) {
+    public override func observeValue(forKeyPath keyPath: String?,
+                                      of object: Any?,
+                                      change: [NSKeyValueChangeKey : Any]?,
+                                      context: UnsafeMutableRawPointer?) {
         if keyPath == "center" {
             setNeedsDisplay()
         }
@@ -250,20 +247,20 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
 
     // MARK: Drawing
 
-    public override func drawRect(rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        CGContextSaveGState(context)
+        context?.saveGState()
 
         for ball in balls {
             guard let attachmentBehavior = ballsToAttachmentBehaviors[ball]
                 else { fatalError("Can't find attachment behavior for \(ball)") }
             let anchorPoint = attachmentBehavior.anchorPoint
 
-            CGContextMoveToPoint(context, anchorPoint.x, anchorPoint.y)
-            CGContextAddLineToPoint(context, ball.center.x, ball.center.y)
-            CGContextSetStrokeColorWithColor(context, UIColor.darkGray.CGColor)
-            CGContextSetLineWidth(context, 4.0)
-            CGContextStrokePath(context)
+            context?.move(to: anchorPoint)
+            context?.addLine(to: ball.center)
+            context?.setStrokeColor(UIColor.darkGray.cgColor)
+            context?.setLineWidth(4.0)
+            context?.strokePath()
 
             let attachmentDotWidth: CGFloat = 10.0
             let attachmentDotOrigin = CGPoint(x: anchorPoint.x - (attachmentDotWidth / 2),
@@ -273,11 +270,10 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
                                            width: attachmentDotWidth,
                                            height: attachmentDotWidth)
 
-            CGContextSetFillColorWithColor(context, UIColor.darkGray.CGColor)
-            CGContextFillEllipseInRect(context, attachmentDotRect)
+            context?.setFillColor(UIColor.darkGray.cgColor)
+            context?.fillEllipse(in: attachmentDotRect)
         }
-
-        CGContextRestoreGState(context)
+        context?.restoreGState()
     }
 
 }
