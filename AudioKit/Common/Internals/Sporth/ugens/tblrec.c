@@ -13,6 +13,7 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
     char *ftname;
     SPFLOAT trig = 0;
     SPFLOAT in = 0;
+    SPFLOAT out = 0;
 
     switch(pd->mode){
         case PLUMBER_CREATE:
@@ -33,15 +34,17 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             sp_tblrec_init(pd->sp, td, ft);
+            sporth_stack_push_float(stack, in);
             break;
 
         case PLUMBER_INIT:
             td = pd->last->ud;
             ftname = sporth_stack_pop_string(stack);
             sporth_stack_pop_float(stack);
-            sporth_stack_pop_float(stack);
+            in = sporth_stack_pop_float(stack);
             td->index = 0;
             td->record = 0;
+            sporth_stack_push_float(stack, in);
             break;
 
         case PLUMBER_COMPUTE:
@@ -49,7 +52,8 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
             trig = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
             
-            sp_tblrec_compute(pd->sp, td, &in, &trig, NULL);
+            sp_tblrec_compute(pd->sp, td, &in, &trig, &out);
+            sporth_stack_push_float(stack, out);
 
             break;
 

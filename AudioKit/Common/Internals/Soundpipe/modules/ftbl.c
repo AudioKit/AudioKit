@@ -145,31 +145,6 @@ int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename)
 }
 #endif
 
-#ifdef USE_SPA
-int sp_ftbl_loadspa(sp_data *sp, sp_ftbl **ft, const char *filename)
-{
-    *ft = malloc(sizeof(sp_ftbl));
-    sp_ftbl *ftp = *ft;
-
-    sp_audio spa;
-
-    spa_open(sp, &spa, filename, SPA_READ);
-
-    size_t size = spa.header.len;
-
-    ftp->size = size;
-    ftp->sicvt = 1.0 * SP_FT_MAXLEN / sp->sr;
-    ftp->tbl = malloc(sizeof(SPFLOAT) * (size + 1));
-    ftp->lobits = log2(SP_FT_MAXLEN / size);
-    ftp->lomask = (2^ftp->lobits) - 1;
-    ftp->lodiv = 1.0 / pow(2, ftp->lobits);
-
-    spa_read_buf(sp, &spa, ftp->tbl, ftp->size);
-    spa_close(&spa);
-    return SP_OK;
-}
-#endif
-
 /* port of GEN10 from Csound */
 int sp_gen_sinesum(sp_data *sp, sp_ftbl *ft, const char *argstring)
 {

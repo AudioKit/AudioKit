@@ -523,10 +523,15 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
             case 'w':
                 write_code = 1;
                 break;
+#ifdef BUILD_JACK
+            case 'S':
+                wait = 0;
+                break;
+#endif
             case 's':
                 argv++;
                 if(--argc) { 
-                    pd->seed = (uint32_t)atol(argv[0]);
+                    pd->seed = atol(argv[0]);
                 } else {
                     plumber_print(pd, "Seed needs an argument.\n");
                     exit(1);
@@ -603,9 +608,7 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
                 sp_process_plot(sp, ud, process);
                 break;
             case DRIVER_SPA:
-#ifdef USE_SPA
-                sp_process_spa(sp, ud, process);
-#endif
+//                sp_process_spa(sp, ud, process);
                 break;
 #ifdef BUILD_JACK
             case DRIVER_JACK:
@@ -671,26 +674,6 @@ int plumber_process_null(sp_data *sp, void *ud, void (*callback)(sp_data *, void
 plumbing * plumber_get_pipes(plumber_data *plumb)
 {
     return plumb->tmp;
-}
-
-int plumber_argtbl_create(plumber_data *plumb, plumber_argtbl **at, uint32_t size)
-{
-    uint32_t i;
-    plumber_argtbl *atp = malloc(sizeof(plumber_argtbl));
-    atp->size = size;
-    atp->tbl = malloc(sizeof(SPFLOAT *) * size);
-    *at = atp;
-    /* initialize with p[0] so it doesn't segfault as easily */
-    for(i = 0; i < size; i++) atp->tbl[i] = &plumb->p[0];
-    return PLUMBER_OK;
-}
-
-int plumber_argtbl_destroy(plumber_data *plumb, plumber_argtbl **at)
-{
-    plumber_argtbl *atp = *at;
-    free(atp->tbl);
-    free(atp);
-    return PLUMBER_OK;
 }
 
 int plumber_get_userdata(plumber_data *plumb, const char *name, plumber_ptr **p)

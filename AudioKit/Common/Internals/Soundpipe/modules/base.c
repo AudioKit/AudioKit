@@ -120,23 +120,6 @@ int sp_process_raw(sp_data *sp, void *ud, void (*callback)(sp_data *, void *))
     return SP_OK;
 }
 
-#ifdef USE_SPA
-int sp_process_spa(sp_data *sp, void *ud, void (*callback)(sp_data *, void *))
-{
-    sp_audio spa;
-    if(spa_open(sp, &spa, sp->filename, SPA_WRITE) == SP_NOT_OK) {
-        fprintf(stderr, "Error: could not open file %s.\n", sp->filename);    
-    }
-    while(sp->len > 0) {
-        callback(sp, ud);
-        spa_write_buf(sp, &spa, sp->out, sp->nchan);
-        sp->len--;
-        sp->pos++;
-    }
-    spa_close(&spa);
-    return SP_OK;
-}
-#endif
 
 int sp_process_plot(sp_data *sp, void *ud, void (*callback)(sp_data *, void *))
 {
