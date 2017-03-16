@@ -38,5 +38,7 @@ int sp_tblrec_compute(sp_data *sp, sp_tblrec *p, SPFLOAT *in, SPFLOAT *trig, SPF
         p->ft->tbl[p->index] = *in;
         p->index = (p->index + 1) % p->ft->size;
     }
+
+    *out = *in;
     return SP_OK;
 }

@@ -40,12 +40,10 @@ int sporth_prints(sporth_stack *stack, void *ud)
             if(prnt->type == SPORTH_FLOAT) {
                 val = sporth_stack_pop_float(stack);
                 prnt->pval = val; 
-                plumber_print(pd, "%s: \"%g\",\n", str, val);
                 sporth_stack_push_float(stack, val);
             } else if(prnt->type == SPORTH_STRING) {
                 sval = sporth_stack_pop_string(stack);
                 prnt->sval = sval;
-                plumber_print(pd, "%s: \"%s\",\n", str, prnt->sval); 
                 sporth_stack_push_string(stack, &sval);
             } else {
                 plumber_print(pd, "Print: unknown type\n");
@@ -74,13 +72,13 @@ int sporth_prints(sporth_stack *stack, void *ud)
             break;
         case PLUMBER_COMPUTE:
             prnt = pd->last->ud;
+            prnt->init = 0;
             if(prnt->type == SPORTH_FLOAT) {
                 val = sporth_stack_pop_float(stack);
                 if(val != prnt->pval && prnt->init == 0) {
                     prnt->pval = val;
                     plumber_print(pd, "%s: \"%g\",\n", prnt->label, val);
                 }
-                prnt->init = 0;
                 sporth_stack_push_float(stack, val);
             } 
             break;

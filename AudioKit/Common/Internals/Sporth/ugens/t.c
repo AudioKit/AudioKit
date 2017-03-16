@@ -211,3 +211,54 @@ int sporth_tbldur(sporth_stack *stack, void *ud)
     }
     return PLUMBER_OK;
 }
+
+int sporth_talias(sporth_stack *stack, void *ud)
+{
+    plumber_data *pd = ud;
+
+    char *ftname;
+    char *varname;
+    uint32_t index;
+    SPFLOAT *var;
+    sp_ftbl *ft;
+
+    switch(pd->mode){
+        case PLUMBER_CREATE:
+            plumber_add_ugen(pd, SPORTH_TALIAS, NULL);
+            if(sporth_check_args(stack, "sfs") != SPORTH_OK) {
+               plumber_print(pd,"Init: incorrect arguments for talias\n");
+                return PLUMBER_NOTOK;
+            }
+            ftname = sporth_stack_pop_string(stack);
+            index = sporth_stack_pop_float(stack);
+            varname = sporth_stack_pop_string(stack);
+
+            if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
+                plumber_print(pd, "talias: could not find table '%s'\n", ftname);
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+           
+            var = &ft->tbl[index];
+
+            plumber_ftmap_delete(pd, 0);
+            plumber_ftmap_add_userdata(pd, varname, var);
+            plumber_ftmap_delete(pd, 1);
+
+            break;
+
+        case PLUMBER_INIT:
+            ftname = sporth_stack_pop_string(stack);
+            index = sporth_stack_pop_float(stack);
+            varname = sporth_stack_pop_string(stack);
+            break;
+
+        case PLUMBER_COMPUTE:
+            sporth_stack_pop_float(stack);
+            break;
+
+        case PLUMBER_DESTROY:
+            break;
+    }
+    return PLUMBER_OK;
+}

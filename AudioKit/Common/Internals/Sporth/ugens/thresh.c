@@ -23,6 +23,9 @@ int sporth_thresh(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+            sporth_stack_pop_float(stack);
+            sporth_stack_pop_float(stack);
+            sporth_stack_pop_float(stack);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
