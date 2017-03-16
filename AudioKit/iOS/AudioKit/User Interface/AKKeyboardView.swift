@@ -7,7 +7,6 @@
 //
 import UIKit
 
-
 /// Delegate for keyboard events
 public protocol AKKeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
@@ -17,8 +16,8 @@ public protocol AKKeyboardDelegate: class {
 /// Clickable keyboard mainly used for AudioKit playgrounds
 @IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
     
-    @IBInspectable open var octaveCount = 2
-    @IBInspectable open var firstOctave = 4
+    @IBInspectable open var octaveCount: Int = 2
+    @IBInspectable open var firstOctave: Int = 4
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
     @IBInspectable open var polyphonicButton: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     
@@ -212,7 +211,7 @@ public protocol AKKeyboardDelegate: class {
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let key = noteFromTouchLocation(touch.location(in: self)),
-                key != noteFromTouchLocation(touch.previousLocation(in: self))  {
+                key != noteFromTouchLocation(touch.previousLocation(in: self)) {
                 pressAdded(key)
             }
         }
@@ -220,13 +219,11 @@ public protocol AKKeyboardDelegate: class {
         setNeedsDisplay()
     }
     
-    
     override open func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         verifyTouches(event?.allTouches)
     }
     
-    
-    // MARK:  - Executing Key Presses
+    // MARK: - Executing Key Presses
     
     private func pressAdded(_ newNote: MIDINoteNumber) {
         if !polyphonicMode {
