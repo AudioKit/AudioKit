@@ -531,7 +531,7 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
             case 's':
                 argv++;
                 if(--argc) { 
-                    pd->seed = atol(argv[0]);
+                    pd->seed = (uint32_t)atol(argv[0]);
                 } else {
                     plumber_print(pd, "Seed needs an argument.\n");
                     exit(1);
