@@ -10,39 +10,34 @@
 
 #import "AKSporthStack+Internal.h"
 
-typedef struct {
-  AKCustomUgen *ugen;
-  AKSporthStack *stack;
-} AKUgenFunctionUserData;
-
 static int akCustomUgenFunction(plumber_data *pd, sporth_stack *stack, void **ud)
 {
     switch(pd->mode) {
         case PLUMBER_CREATE:
             break;
         case PLUMBER_INIT: {
-            AKUgenFunctionUserData *userData = (AKUgenFunctionUserData *)*ud;
-            AKCustomUgen *ugen = userData->ugen;
-            AKSporthStack *sporthStack = userData->stack;
-            [sporthStack setStack:stack];
+            // copy the source ugen so that different instances of the same function
+            // don't affect each others' userData.
+            AKCustomUgen *ugen = [(__bridge AKCustomUgen *)*ud duplicate];
+            *ud = (void *)CFBridgingRetain(ugen);
+            [ugen.stack setStack:stack];
 
-            if(sporth_check_args(stack, [ugen.argTypes cStringUsingEncoding:NSUTF8StringEncoding]) != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for userFunction\n");
+            const char *argTypes = [ugen.argTypes UTF8String];
+            if (sporth_check_args(stack, argTypes) != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for format '%s' "
+                "on custom ugen '%s'\n", argTypes, [ugen.name UTF8String]);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            ugen.computeFunction(sporthStack);
+            ugen.callComputeFunction(ugen);
             break;
         } case PLUMBER_COMPUTE: {
-            AKUgenFunctionUserData *userData = (AKUgenFunctionUserData *)*ud;
-            AKCustomUgen *ugen = userData->ugen;
-            AKSporthStack *sporthStack = userData->stack;
-            [sporthStack setStack:stack];
-
-            ugen.computeFunction(sporthStack);
+            AKCustomUgen *ugen = (__bridge AKCustomUgen *)*ud;
+            [ugen.stack setStack:stack];
+            ugen.callComputeFunction(ugen);
             break;
         } case PLUMBER_DESTROY:
-            free(*ud);
+            CFBridgingRelease(*ud);
             break;
         default:
             fprintf(stderr, "aux (f)unction: unknown mode!\n");

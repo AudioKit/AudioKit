@@ -11,13 +11,25 @@ import Foundation
 open class AKCustomUgen: NSObject {
   open let name: String
   open let argTypes: String // string of f for float / s for string, e.g. "fsf"
+  open var userData: Any?
+  open let computeFunction: (AKSporthStack, inout Any?) -> ()
 
-  open let computeFunction: @convention(c) (AKSporthStack) -> ()
+  @objc public var stack = AKSporthStack()
 
-  public init(name: String = "", argTypes: String,
-       computeFunction: @escaping @convention(c) (AKSporthStack) -> ()) {
-    self.name = name
-    self.argTypes = argTypes
-    self.computeFunction = computeFunction
+  public init(name: String = "", argTypes: String, userData: Any? = nil,
+              computeFunction: @escaping (AKSporthStack, inout Any?) -> ()) {
+      self.name = name
+      self.argTypes = argTypes
+      self.computeFunction = computeFunction
+      self.userData = userData
+  }
+
+  public func duplicate() -> AKCustomUgen {
+     return AKCustomUgen(name: self.name, argTypes: self.argTypes, userData: self.userData, computeFunction: self.computeFunction)
+  }
+
+  open let callComputeFunction: @convention(c) (AKCustomUgen) -> ()
+      = { ugen in
+      ugen.computeFunction(ugen.stack, &(ugen.userData))
   }
 }

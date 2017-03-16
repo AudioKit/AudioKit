@@ -43,10 +43,7 @@
 
 - (void)addCustomUgen:(AKCustomUgen *)ugen {
     char *cName = (char *)[ugen.name UTF8String];
-    auto userData = (AKUgenFunctionUserData *)malloc(sizeof(AKUgenFunctionUserData));
-    userData->stack = [AKSporthStack new];
-    userData->ugen = ugen;
-    _kernel.addCustomUgen({cName, &akCustomUgenFunction, (void *)userData});
+    _kernel.addCustomUgen({cName, &akCustomUgenFunction, (__bridge void *)ugen});
 }
 
 - (void)start {
