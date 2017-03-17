@@ -91,8 +91,8 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
     ///   - sporth: String of valid Sporth code
     ///
     public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
-
         self.customUgens = customUgens
+
         _Self.register()
 
         super.init()
