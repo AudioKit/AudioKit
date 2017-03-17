@@ -2,11 +2,14 @@
 # By Paul Batchelor
 # July 2016
 
-# Controls:
-# p0: 0.5 Filter Cutoff
-# p1: 0.5 Crazy Delay/Chorus Level
-# p2: 0.5 Random Delay Portamento
-# p3: 0.5 Tempo
+##: - Control 1: Filter Cutoff
+# default 0.5
+##: - Control 2: Crazy Delay/Chorus Level
+# default 0.5
+##: - Control 3: Random Delay Portamento
+# default 0.5
+##: - Control 4: Tempo
+# default 0.5
 
 "seq" "0 10 12 3 7 2" gen_vals
 "seq2" "15 17 14 7 19" gen_vals
