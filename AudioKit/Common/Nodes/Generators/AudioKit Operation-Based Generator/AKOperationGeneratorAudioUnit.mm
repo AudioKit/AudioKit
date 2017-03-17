@@ -8,6 +8,7 @@
 
 #import "AKOperationGeneratorAudioUnit.h"
 #import "AKOperationGeneratorDSPKernel.hpp"
+#import "AKCustomUgenFunction.h"
 
 #import "BufferedAudioBus.hpp"
 
@@ -43,6 +44,11 @@
         params[i] =[parameters[i] floatValue];
     }
     _kernel.setParameters(params);
+}
+
+- (void)addCustomUgen:(AKCustomUgen *)ugen {
+    char *cName = (char *)[ugen.name UTF8String];
+    _kernel.addCustomUgen({cName, &akCustomUgenFunction, (__bridge void *)ugen});
 }
 
 
