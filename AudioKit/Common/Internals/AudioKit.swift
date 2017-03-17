@@ -219,7 +219,8 @@ extension AVAudioEngine {
 
                     } else if !AKSettings.useBluetoothOptions.isEmpty {
                         let opts: AVAudioSessionCategoryOptions = [.mixWithOthers]
-                        try AKSettings.setSession(category: .playAndRecord, with: opts.union(AKSettings.useBluetoothOptions))
+                        try AKSettings.setSession(category: .playAndRecord,
+                                                  with: opts.union(AKSettings.useBluetoothOptions))
                     } else {
                         try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
                     }
