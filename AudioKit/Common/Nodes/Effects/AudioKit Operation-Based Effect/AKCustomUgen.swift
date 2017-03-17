@@ -25,7 +25,8 @@ open class AKCustomUgen: NSObject {
   }
 
   public func duplicate() -> AKCustomUgen {
-     return AKCustomUgen(name: self.name, argTypes: self.argTypes, userData: self.userData, computeFunction: self.computeFunction)
+     return AKCustomUgen(name: self.name, argTypes: self.argTypes, userData: self.userData,
+                         computeFunction: self.computeFunction)
   }
 
   open let callComputeFunction: @convention(c) (AKCustomUgen) -> ()
