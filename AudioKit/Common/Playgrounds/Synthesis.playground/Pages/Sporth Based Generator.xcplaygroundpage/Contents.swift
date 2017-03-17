@@ -29,6 +29,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                            "Distant Intelligence",
                            "Influx",
                            "kLtz",
+                           "Scheale",
                            "Simple Keyboard"]
         addSubview(AKPresetLoaderView(presets: sporthFiles) { filename in
             guard
@@ -51,39 +52,61 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 sliders[i].value = 0.0
             }
 
-            // Process the comments in the file to customize the UI
+            var currentControl = 0
             search: for line in sporth.components(separatedBy: NSCharacterSet.newlines) {
                 if line.contains("# Uses Keyboard") {
                     self.keyboard.isHidden = false
                     break search
                 }
 
-                for i in 0 ..< 4 {
-                    guard let regex = try? NSRegularExpression(pattern: "# p\(i): ([.0-9]+)[ ]+([^\n]+)",
-                                                               options: .dotMatchesLineSeparators) else {
-                        return
-                    }
-
-                    let value = regex.stringByReplacingMatches(in: line,
-                                                               options: .reportCompletion,
-                                                               range: NSRange(location:0,
-                                                                              length: line.characters.count),
-                                                               withTemplate: "$1")
-                    let title = regex.stringByReplacingMatches(in: line,
-                                                               options: .reportCompletion,
-                                                               range: NSRange(location:0,
-                                                                              length: line.characters.count ),
-                                                               withTemplate: "$2")
-                    if title != line {
-                        if let doubleValue = Double(value) {
-                            generator.parameters[i] = doubleValue
-                            sliders[i].isHidden = false
-                            sliders[i].property = title
-                            sliders[i].value = doubleValue
-                        }
+                
+                var regex = NSRegularExpression()
+                var pattern = "# default ([.0-9]+)"
+                do {
+                    regex = try NSRegularExpression(pattern: pattern,
+                                                    options: .dotMatchesLineSeparators)
+                } catch {
+                    print("Regular expression failed")
+                }
+                
+                let value = regex.stringByReplacingMatches(in: line,
+                                                           options: .reportCompletion,
+                                                           range: NSRange(location: 0,
+                                                                          length: line.characters.count),
+                                                           withTemplate: "$1")
+                
+                pattern = "##: - Control ([1-4]): ([^\n]+)"
+                do {
+                    regex = try NSRegularExpression(pattern: pattern,
+                                                    options: .dotMatchesLineSeparators)
+                } catch {
+                    print("Regular expression failed")
+                }
+                let currentControlText = regex.stringByReplacingMatches(in: line,
+                                                                        options: .reportCompletion,
+                                                                        range: NSRange(location: 0,
+                                                                                       length: line.characters.count),
+                                                                        withTemplate: "$1")
+                let title = regex.stringByReplacingMatches(in: line,
+                                                       options: .reportCompletion,
+                                                       range: NSRange(location: 0,
+                                                                      length: line.characters.count),
+                                                       withTemplate: "$2")
+                
+                if title != line {
+                    currentControl = (Int(currentControlText) ?? 0) - 1
+                    sliders[currentControl].isHidden = false
+                    sliders[currentControl].property = title
+                }
+                if value != line {
+                    if let doubleValue = Double(value) {
+                        print("GOt here")
+                        generator.parameters[currentControl] = doubleValue
+                        sliders[currentControl].value = doubleValue
                     }
                 }
             }
+
         })
         addLabel("Open up the console view to see the Sporth code.")
 
