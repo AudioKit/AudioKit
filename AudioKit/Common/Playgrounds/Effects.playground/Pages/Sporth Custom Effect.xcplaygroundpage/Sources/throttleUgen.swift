@@ -1,8 +1,10 @@
 import AudioKit
 
 public let throttleUgen =
-AKCustomUgen(name: "throttle", argTypes: "ff") { stack, userData in
-    let maxChange = stack.popFloat()
+AKCustomUgen(name: "throttle", argTypes: "ff") { ugen, stack, userData in
+    let maxChangePerSecond = stack.popFloat()
+    let maxChange = maxChangePerSecond / Float(AKSettings.sampleRate)
+
     let destValue = stack.popFloat()
     var nextValue = destValue
 
