@@ -103,6 +103,8 @@ public:
             ++kernel->playingNotesCount;
         }
         
+        //TODO: Add new AKPolyphonic method
+        
         void noteOn(int noteNumber, int velocity)
         {
             if (velocity == 0) {

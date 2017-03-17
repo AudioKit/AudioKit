@@ -219,6 +219,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         self.internalAU!.startNote(noteNumber, velocity: velocity)
     }
     
+    //TODO: Example of new AKPolyphonic method
     // New function to start, play, or activate the node at frequency
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency:Float) {
         self.internalAU!.startNote(noteNumber, velocity: velocity, frequency:frequency)

@@ -235,6 +235,8 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - AKPolyphonic
 
+    //TODO: Add new AKPolyphonic method
+    
     /// Function to start, play, or activate the node, all do the same thing
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         internalAU?.startNote(noteNumber, velocity: velocity)

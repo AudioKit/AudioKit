@@ -19,6 +19,8 @@
 @property (nonatomic) float detuningOffset;
 @property (nonatomic) float detuningMultiplier;
 
+//TODO: Add new AKPolyphonic method
+
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
 - (void)stopNote:(uint8_t)note;
 

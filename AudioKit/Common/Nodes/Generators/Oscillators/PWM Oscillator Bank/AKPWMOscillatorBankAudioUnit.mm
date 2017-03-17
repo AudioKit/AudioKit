@@ -41,6 +41,8 @@
     _kernel.setDetuningMultiplier(detuningMultiplier);
 }
 
+//TODO: Add new AKPolyphonic method
+
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {
     _kernel.startNote(note, velocity);
 }

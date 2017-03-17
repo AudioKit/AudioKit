@@ -55,7 +55,7 @@
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {
     _kernel.startNote(note, velocity);
 }
-// New function
+//TODO: Example of new AKPolyphonic method
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency {
     _kernel.startNote(note, velocity, frequency);
 }

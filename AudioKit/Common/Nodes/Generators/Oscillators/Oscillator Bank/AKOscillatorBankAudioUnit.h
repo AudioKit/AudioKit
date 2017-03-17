@@ -20,6 +20,7 @@
 
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
+//TODO: Add new AKPolyphonic method
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
 - (void)stopNote:(uint8_t)note;
 

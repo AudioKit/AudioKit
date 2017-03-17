@@ -56,6 +56,8 @@
     _kernel.setWaveformValue(index, value);
 }
 
+//TODO: Add new AKPolyphonic method
+
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {
     _kernel.startNote(note, velocity);
 }
