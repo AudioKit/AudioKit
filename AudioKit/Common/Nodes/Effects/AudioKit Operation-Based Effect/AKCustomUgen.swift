@@ -12,12 +12,12 @@ open class AKCustomUgen: NSObject {
   open let name: String
   open let argTypes: String // string of f for float / s for string, e.g. "fsf"
   open var userData: Any?
-  open let computeFunction: (AKSporthStack, inout Any?) -> ()
+  open let computeFunction: (AKCustomUgen, AKSporthStack, inout Any?) -> ()
 
-  @objc public var stack = AKSporthStack()
+  public var stack = AKSporthStack()
 
   public init(name: String, argTypes: String, userData: Any? = nil,
-              computeFunction: @escaping (AKSporthStack, inout Any?) -> ()) {
+              computeFunction: @escaping (AKCustomUgen, AKSporthStack, inout Any?) -> ()) {
       self.name = name
       self.argTypes = argTypes
       self.computeFunction = computeFunction
@@ -30,6 +30,6 @@ open class AKCustomUgen: NSObject {
 
   open let callComputeFunction: @convention(c) (AKCustomUgen) -> ()
       = { ugen in
-      ugen.computeFunction(ugen.stack, &(ugen.userData))
+      ugen.computeFunction(ugen, ugen.stack, &(ugen.userData))
   }
 }
