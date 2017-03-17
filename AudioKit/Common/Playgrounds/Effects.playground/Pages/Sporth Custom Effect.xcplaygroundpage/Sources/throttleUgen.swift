@@ -1,7 +1,7 @@
 import AudioKit
 
-public let maxChangeUgen =
-AKCustomUgen(name: "maxchange", argTypes: "ff") { stack, userData in
+public let throttleUgen =
+AKCustomUgen(name: "throttle", argTypes: "ff") { stack, userData in
     let maxChange = stack.popFloat()
     let destValue = stack.popFloat()
     var nextValue = destValue

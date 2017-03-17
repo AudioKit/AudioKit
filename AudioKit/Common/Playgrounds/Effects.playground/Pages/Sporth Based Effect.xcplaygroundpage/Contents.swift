@@ -9,10 +9,10 @@ let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let input  = AKStereoOperation.input.toMono()
-let sporth = "(\(input) ((0 p) 0.001 (_maxchange f)) 1000 100 pshift) dup"
+let input = AKStereoOperation.input
+let sporth = "\(input) 15 200 7.0 8.0 10000 315 0 1500 0 1 0 zitarev"
 
-let effect = AKOperationEffect(player, sporth: sporth, customUgens: [maxChangeUgen])
+let effect = AKOperationEffect(player, sporth: sporth)
 
 AudioKit.output = effect
 AudioKit.start()
@@ -21,8 +21,3 @@ player.play()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-
-for i in 0..<100 {
-  effect.parameters[0] = (effect.parameters[0] == 12) ? -12 : 12
-  usleep(2_000_000)
-}
