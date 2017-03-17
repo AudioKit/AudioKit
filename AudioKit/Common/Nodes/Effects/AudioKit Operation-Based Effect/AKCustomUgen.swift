@@ -16,7 +16,7 @@ open class AKCustomUgen: NSObject {
 
   @objc public var stack = AKSporthStack()
 
-  public init(name: String = "", argTypes: String, userData: Any? = nil,
+  public init(name: String, argTypes: String, userData: Any? = nil,
               computeFunction: @escaping (AKSporthStack, inout Any?) -> ()) {
       self.name = name
       self.argTypes = argTypes
