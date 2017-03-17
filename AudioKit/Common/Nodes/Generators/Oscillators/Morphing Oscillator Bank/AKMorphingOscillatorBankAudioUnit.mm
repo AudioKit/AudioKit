@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKMorphingOscillatorBankAudioUnit.h"
@@ -54,6 +54,10 @@
 
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {
     _kernel.startNote(note, velocity);
+}
+// New function
+- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency {
+    _kernel.startNote(note, velocity, frequency);
 }
 
 - (void)stopNote:(uint8_t)note {
@@ -129,8 +133,8 @@
     AUParameter *detuningMultiplierAUParameter = [AUParameter parameter:@"detuningMultiplier"
                                                                    name:@"Frequency detuning multiplier"
                                                                 address:detuningMultiplierAddress
-                                                                    min:0.0
-                                                                    max:FLT_MAX
+                                                                    min:0.5
+                                                                    max:2.0
                                                                    unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.

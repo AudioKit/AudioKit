@@ -56,6 +56,14 @@ public protocol AKPolyphonic {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
+    ///   - frequency: play this frequency
+    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Float)
+
+    /// Play a sound corresponding to a MIDI note
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity:   MIDI Velocity
     ///
     func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity)
 
@@ -68,6 +76,17 @@ public protocol AKPolyphonic {
 
 /// Bare bones implementation of AKPolyphonic protocol
 open class AKPolyphonicNode: AKNode, AKPolyphonic {
+
+    /// Play a sound corresponding to a MIDI note with frequency
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity:   MIDI Velocity
+    ///   - frequency: play this frequency
+    ///
+    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Float) {
+        AKLog("Playing note \(noteNumber), with velocity \(velocity), at frequency \(frequency)...override in subclass")
+    }
 
     /// Play a sound corresponding to a MIDI note
     ///

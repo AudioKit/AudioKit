@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #pragma once
@@ -108,6 +108,23 @@ public:
             }
         }
         
+        // New function...needed for all Kernals
+        void noteOn(int noteNumber, int velocity, float frequency)
+        {
+            if (velocity == 0) {
+                if (stage == stageOn) {
+                    stage = stageRelease;
+                    internalGate = 0;
+                }
+            } else {
+                if (stage == stageOff) { add(); }
+                osc->freq = frequency;
+                osc->amp = (float)pow2(velocity / 127.);
+                stage = stageOn;
+                internalGate = 1;
+            }
+        }
+
         
         void run(int frameCount, float* outL, float* outR)
         {
@@ -175,6 +192,9 @@ public:
     void startNote(int note, int velocity) {
         noteStates[note].noteOn(note, velocity);
     }
+    void startNote(int note, int velocity, float frequency) {
+        noteStates[note].noteOn(note, velocity, frequency);
+    }
 
     void stopNote(int note) {
         noteStates[note].noteOn(note, 0);
@@ -226,7 +246,7 @@ public:
     }
 
     void setDetuningMultiplier(float value) {
-        detuningMultiplier = value;
+        detuningMultiplier = clamp(value, (float)0.5, (float)2.0);
         detuningMultiplierRamper.setImmediate(detuningMultiplier);
     }
 
@@ -255,7 +275,7 @@ public:
                 break;
 
             case detuningMultiplierAddress:
-                detuningMultiplierRamper.setUIValue(value);
+                detuningMultiplierRamper.setUIValue(clamp(value, (float)0.5, (float)2.0));
                 break;
 
         }
@@ -310,7 +330,7 @@ public:
                 break;
 
             case detuningMultiplierAddress:
-                detuningMultiplierRamper.startRamp(value, duration);
+                detuningMultiplierRamper.startRamp(clamp(value, (float)0.5, (float)2.0), duration);
                 break;
 
         }
