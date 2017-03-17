@@ -1614,12 +1614,12 @@
 		EA6949E11C59A9FC0035B5DF /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		EA8BA9811C5E24AE00BBD469 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
 		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
-		F02767251E79114A0099CA47 /* AKCustomUgen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCustomUgen.swift; path = "../Nodes/Effects/AudioKit Operation-Based Effect/AKCustomUgen.swift"; sourceTree = "<group>"; };
-		F027672D1E791A8C0099CA47 /* AKSporthStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSporthStack.h; path = "../Nodes/Effects/AudioKit Operation-Based Effect/AKSporthStack.h"; sourceTree = "<group>"; };
-		F027672E1E791A8D0099CA47 /* AKSporthStack.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AKSporthStack.mm; path = "../Nodes/Effects/AudioKit Operation-Based Effect/AKSporthStack.mm"; sourceTree = "<group>"; };
-		F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AKSporthStack+Internal.h"; path = "../Nodes/Effects/AudioKit Operation-Based Effect/AKSporthStack+Internal.h"; sourceTree = "<group>"; };
-		F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKCustomUgenInfo.h; path = "../Nodes/Effects/AudioKit Operation-Based Effect/AKCustomUgenInfo.h"; sourceTree = "<group>"; };
-		F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKCustomUgenFunction.h; sourceTree = "<group>"; };
+		F02767251E79114A0099CA47 /* AKCustomUgen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCustomUgen.swift; path = "Sporth Custom Ugens/AKCustomUgen.swift"; sourceTree = "<group>"; };
+		F027672D1E791A8C0099CA47 /* AKSporthStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSporthStack.h; path = "Sporth Custom Ugens/AKSporthStack.h"; sourceTree = "<group>"; };
+		F027672E1E791A8D0099CA47 /* AKSporthStack.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AKSporthStack.mm; path = "Sporth Custom Ugens/AKSporthStack.mm"; sourceTree = "<group>"; };
+		F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AKSporthStack+Internal.h"; path = "Sporth Custom Ugens/AKSporthStack+Internal.h"; sourceTree = "<group>"; };
+		F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKCustomUgenInfo.h; path = "Sporth Custom Ugens/AKCustomUgenInfo.h"; sourceTree = "<group>"; };
+		F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKCustomUgenFunction.h; path = "Sporth Custom Ugens/AKCustomUgenFunction.h"; sourceTree = "<group>"; };
 		FE52FEEE1CB70A8500A35B63 /* AKAUPresetBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUPresetBuilder.swift; sourceTree = "<group>"; };
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
 		FEE48A451C967A6800DD788C /* TemplateAUPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateAUPreset.h; sourceTree = "<group>"; };
@@ -3606,11 +3606,11 @@
 			isa = PBXGroup;
 			children = (
 				F02767251E79114A0099CA47 /* AKCustomUgen.swift */,
+				F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */,
+				F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */,
 				F027672D1E791A8C0099CA47 /* AKSporthStack.h */,
 				F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */,
 				F027672E1E791A8D0099CA47 /* AKSporthStack.mm */,
-				F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */,
-				F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */,
 			);
 			name = "Sporth Custom Ugens";
 			sourceTree = "<group>";

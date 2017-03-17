@@ -34,5 +34,5 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 for i in 0..<100 {
   effect.parameters[0] = (i % 2 == 0) ? -12 : 12
-  sleep(2)
+  usleep(2_000_000)
 }
