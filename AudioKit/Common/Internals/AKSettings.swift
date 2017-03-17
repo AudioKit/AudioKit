@@ -56,6 +56,9 @@
     /// Whether to use bluetooth when audio input is enabled
     open static var useBluetooth: Bool = false
 
+    // Additional control over the options to use for bluetooth
+    open static var useBluetoothOptions : AVAudioSessionCategoryOptions = []
+
     /// Global default rampTime value
     open static var rampTime: Double = 0.000_2
 
