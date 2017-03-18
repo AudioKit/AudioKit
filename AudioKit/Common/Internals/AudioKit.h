@@ -24,6 +24,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects
 #import "AKOperationEffectAudioUnit.h"
+#import "AKSporthStack.h"
 
 // Effects / Delay
 #import "AKVariableDelayAudioUnit.h"

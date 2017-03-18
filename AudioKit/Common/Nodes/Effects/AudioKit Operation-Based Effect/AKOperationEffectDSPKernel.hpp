@@ -8,6 +8,8 @@
 
 #pragma once
 
+#import <vector>
+
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
@@ -17,6 +19,7 @@ extern "C" {
 #include "plumber.h"
 }
 
+#import "AKCustomUgenInfo.h"
 
 class AKOperationEffectDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
@@ -29,6 +32,11 @@ public:
 
         plumber_register(&pd);
         plumber_init(&pd);
+
+        for (auto info : customUgens) {
+          plumber_ftmap_add_function(&pd, info.name, info.fp, info.userData);
+        }
+
         pd.sp = sp;
         if (sporthCode != nil) {
             plumber_parse_string(&pd, sporthCode);
@@ -46,7 +54,11 @@ public:
             parameters[i] = params[i];
         }
     };
-    
+
+    void addCustomUgen(AKCustomUgenInfo info) {
+        customUgens.push_back(info);
+    }
+
     void start() {
         started = true;
     }
@@ -121,6 +133,7 @@ private:
 
     plumber_data pd;
     char *sporthCode = nil;
+    std::vector<AKCustomUgenInfo> customUgens;
 public:
     float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     bool started = true;
