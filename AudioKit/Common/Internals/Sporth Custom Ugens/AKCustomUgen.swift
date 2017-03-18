@@ -1,6 +1,6 @@
 //
 //  AKCustomUgen.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Joseph Constantakis on 3/14/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
