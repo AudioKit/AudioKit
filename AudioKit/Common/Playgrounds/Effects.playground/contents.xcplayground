@@ -32,6 +32,7 @@
         <page name='Ring Modulator'/>
         <page name='Smooth Delay Operation'/>
         <page name='Sporth Based Effect'/>
+        <page name='Sporth Custom Effect'/>
         <page name='Stereo Delay Operation'/>
         <page name='Stereo Field Limiter'/>
         <page name='String Resonator'/>
