@@ -210,7 +210,7 @@ extension AVAudioEngine {
                     } else if AKSettings.useBluetooth {
 
                         if #available(iOS 10.0, *) {
-                            let opts: AVAudioSessionCategoryOptions = [.allowBluetoothA2DP, .mixWithOthers]
+                            let opts: AVAudioSessionCategoryOptions = [.allowBluetooth, .allowBluetoothA2DP, .mixWithOthers]
                             try AKSettings.setSession(category: .playAndRecord, with: opts)
                         } else {
                             // Fallback on earlier versions
