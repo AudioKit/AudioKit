@@ -20,8 +20,8 @@ class ViewController: UIViewController {
 
     func setupUI() {
         [melodyButton, bassButton, snareButton].forEach({
-            $0.setTitleColor(UIColor.white, for: UIControlState())
-            $0.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
+            $0?.setTitleColor(UIColor.white, for: UIControlState())
+            $0?.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
         })
         tempoSlider.callback = updateTempo
         tempoSlider.minimum = 40
