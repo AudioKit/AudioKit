@@ -154,6 +154,10 @@ Here are some resources that we use to develop our coding choices and core philo
 * [Tips for Writing a Great iOS Framework](https://medium.com/@samjarman/tips-for-writing-a-great-ios-framework-8cf3452f6c5d#.wzejktd3l)
 * [Best practices running an iOS open source project on GitHub](https://www.cocoanetics.com/2014/10/best-practices-running-an-ios-open-source-project-on-github/)
 
+## GitHub Pull Request Policy
+
+Ready to send us a pull request? Please make sure your request is based on the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch of the repository as `master` only holds stable releases.
+
 ## Interested in audio synthesis?
 
 * check out [Syntorial](http://www.syntorial.com/#a_aid=AudioKit), it's hands down the best way to learn about synthesis interactively, your best bet if you care about synthesis from the sound design point of view; an afternoon with this will help you understand more than any book or video
