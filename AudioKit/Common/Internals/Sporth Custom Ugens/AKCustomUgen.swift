@@ -16,7 +16,9 @@ open class AKCustomUgen: NSObject {
 
   public var stack = AKSporthStack()
 
-  public init(name: String, argTypes: String, userData: Any? = nil,
+  public init(name: String,
+              argTypes: String,
+              userData: Any? = nil,
               computeFunction: @escaping (AKCustomUgen, AKSporthStack, inout Any?) -> ()) {
       self.name = name
       self.argTypes = argTypes
@@ -25,7 +27,9 @@ open class AKCustomUgen: NSObject {
   }
 
   public func duplicate() -> AKCustomUgen {
-     return AKCustomUgen(name: self.name, argTypes: self.argTypes, userData: self.userData,
+     return AKCustomUgen(name: self.name,
+                         argTypes: self.argTypes,
+                         userData: self.userData,
                          computeFunction: self.computeFunction)
   }
 
