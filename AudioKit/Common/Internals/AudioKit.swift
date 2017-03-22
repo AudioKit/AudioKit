@@ -332,12 +332,13 @@ extension AVAudioEngine {
             if shouldBeRunning {
                 do {
                     try self.engine.start()
-                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
+                    // Sends notification after restarting the engine, so it is safe to resume
+                    // AudioKit functions.
                     if AKSettings.notificationsEnabled {
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: AKNotifications.engineRestartedAfterRouteChange),
+                            name: .AKEngineRestartedAfterRouteChange,
                             object: nil,
-                            userInfo: (notification as NSNotification).userInfo)
+                            userInfo: notification.userInfo)
 
                     }
                 } catch {
@@ -353,7 +354,7 @@ extension AVAudioEngine {
         #if os(iOS)
             NotificationCenter.default.removeObserver(
                 self,
-                name: NSNotification.Name(rawValue: AKNotifications.engineRestartedAfterRouteChange),
+                name: .AKEngineRestartedAfterRouteChange,
                 object: nil)
         #endif
     }
