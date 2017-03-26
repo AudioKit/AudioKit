@@ -38,25 +38,25 @@ class ViewController: NSViewController, AKMIDIListener {
         updateText("Channel: \(channel + 1) noteOff: \(noteNumber) velocity: \(velocity) ")
     }
 
-    func receivedMIDIController(_ controller: Int, value: Int, channel: MIDIChannel) {
+    func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         updateText("Channel: \(channel + 1) controller: \(controller) value: \(value) ")
     }
 
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                pressure: Int,
+                                pressure: MIDIByte,
                                 channel: MIDIChannel) {
         updateText("Channel: \(channel + 1) midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
     }
 
-    func receivedMIDIAfterTouch(_ pressure: Int, channel: MIDIChannel) {
+    func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
         updateText("Channel: \(channel + 1) midiAfterTouch pressure: \(pressure) ")
     }
 
-    func receivedMIDIPitchWheel(_ pitchWheelValue: Int, channel: MIDIChannel) {
+    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIByte, channel: MIDIChannel) {
         updateText("Channel: \(channel + 1)  midiPitchWheel: \(pitchWheelValue)")
     }
 
-    func receivedMIDIProgramChange(_ program: Int, channel: MIDIChannel) {
+    func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
         updateText("Channel: \(channel + 1) programChange: \(program)")
     }
 

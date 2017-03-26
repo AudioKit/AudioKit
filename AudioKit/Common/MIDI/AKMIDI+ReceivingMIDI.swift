@@ -131,11 +131,11 @@ extension AKMIDI {
             }
             switch type {
             case .controllerChange:
-                listener.receivedMIDIController(Int(event.internalData[1]),
-                                                value: Int(event.internalData[2]),
+                listener.receivedMIDIController(event.internalData[1],
+                                                value: event.internalData[2],
                                                 channel: MIDIChannel(eventChannel))
             case .channelAftertouch:
-                listener.receivedMIDIAfterTouch(Int(event.internalData[1]),
+                listener.receivedMIDIAfterTouch(event.internalData[1],
                                                 channel: MIDIChannel(eventChannel))
             case .noteOn:
                 listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.internalData[1]),
@@ -146,14 +146,14 @@ extension AKMIDI {
                                              velocity: MIDIVelocity(event.internalData[2]),
                                              channel: MIDIChannel(eventChannel))
             case .pitchWheel:
-                listener.receivedMIDIPitchWheel(Int(event.data),
+                listener.receivedMIDIPitchWheel(MIDIByte(Int(event.data)),
                                                 channel: MIDIChannel(eventChannel))
             case .polyphonicAftertouch:
                 listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),
-                                                pressure: Int(event.internalData[2]),
+                                                pressure: event.internalData[2],
                                                 channel: MIDIChannel(eventChannel))
             case .programChange:
-                listener.receivedMIDIProgramChange(Int(event.internalData[1]),
+                listener.receivedMIDIProgramChange(event.internalData[1],
                                                    channel: MIDIChannel(eventChannel))
             case .systemCommand:
                 listener.receivedMIDISystemCommand(event.internalData)
