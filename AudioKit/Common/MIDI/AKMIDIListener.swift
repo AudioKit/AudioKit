@@ -44,7 +44,7 @@ public protocol AKMIDIListener {
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDIController(_ controller: Int, value: Int, channel: MIDIChannel)
+    func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel)
 
     /// Receive single note based aftertouch event
     ///
@@ -54,7 +54,7 @@ public protocol AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                pressure: Int,
+                                pressure: MIDIByte,
                                 channel: MIDIChannel)
 
     /// Receive global aftertouch
@@ -63,7 +63,7 @@ public protocol AKMIDIListener {
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    func receivedMIDIAfterTouch(_ pressure: Int, channel: MIDIChannel)
+    func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel)
 
     /// Receive pitch wheel value
     ///
@@ -71,7 +71,7 @@ public protocol AKMIDIListener {
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
     ///
-    func receivedMIDIPitchWheel(_ pitchWheelValue: Int, channel: MIDIChannel)
+    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIByte, channel: MIDIChannel)
 
     /// Receive program change
     ///
@@ -79,7 +79,7 @@ public protocol AKMIDIListener {
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    func receivedMIDIProgramChange(_ program: Int, channel: MIDIChannel)
+    func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel)
 
     /// Receive a midi system command (such as clock, sysex, etc)
     ///
@@ -127,7 +127,7 @@ public extension AKMIDIListener {
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDIController(_ controller: Int, value: Int, channel: MIDIChannel) {
+    func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         AKLog("channel: \(channel) controller: \(controller) value: \(value)")
     }
 
@@ -139,7 +139,7 @@ public extension AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                pressure: Int,
+                                pressure: MIDIByte,
                                 channel: MIDIChannel) {
         AKLog("channel: \(channel) midiAftertouch Note: \(noteNumber) pressure: \(pressure)")
     }
@@ -150,7 +150,7 @@ public extension AKMIDIListener {
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    func receivedMIDIAfterTouch(_ pressure: Int, channel: MIDIChannel) {
+    func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
         AKLog("channel: \(channel) midiAfterTouch pressure: \(pressure)")
     }
 
@@ -160,7 +160,7 @@ public extension AKMIDIListener {
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
     ///
-    func receivedMIDIPitchWheel(_ pitchWheelValue: Int, channel: MIDIChannel) {
+    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIByte, channel: MIDIChannel) {
         AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue)")
     }
 
@@ -170,7 +170,7 @@ public extension AKMIDIListener {
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    func receivedMIDIProgramChange(_ program: Int, channel: MIDIChannel) {
+    func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
         AKLog("channel: \(channel) programChange: \(program)")
     }
 
