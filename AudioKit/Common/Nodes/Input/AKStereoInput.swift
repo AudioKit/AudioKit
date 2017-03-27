@@ -40,6 +40,10 @@ open class AKStereoInput: AKNode, AKToggleable {
             }
         #endif
     }
+    
+    deinit {
+        AKSettings.audioInputEnabled = false
+    }
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
