@@ -40,7 +40,7 @@ open class AKStereoInput: AKNode, AKToggleable {
             }
         #endif
     }
-    
+
     deinit {
         AKSettings.audioInputEnabled = false
     }

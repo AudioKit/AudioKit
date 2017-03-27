@@ -47,7 +47,7 @@ open class AKMicrophone: AKNode, AKToggleable {
             }
         #endif
     }
-    
+
     deinit {
         AKSettings.audioInputEnabled = false
     }
