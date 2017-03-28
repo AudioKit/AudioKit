@@ -112,8 +112,8 @@ class ViewController: UIViewController {
                 recorder.stop()
                 player.audioFile.exportAsynchronously(name: "TempTestFile.m4a",
                                                       baseDir: .documents,
-                                                      exportFormat: .m4a) {_, error in
-                    if error != nil {
+                                                      exportFormat: .m4a) {_, exportError in
+                    if let error = exportError {
                         print("Export Failed \(error)")
                     } else {
                         print("Export succeeded")

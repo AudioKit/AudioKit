@@ -62,8 +62,8 @@ class SongExporter {
                 assetWriter = nil
             }
 
-            if assetError != nil {
-                print("Error \(assetError)")
+            if let error = assetError {
+                print("Error: \(error)")
                 return
             }
 
