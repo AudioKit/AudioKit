@@ -133,7 +133,7 @@ public class AKPropertySlider: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
                                        NSForegroundColorAttributeName: NSColor.black,
                                        NSParagraphStyleAttributeName: nameLabelStyle]
 
@@ -158,7 +158,7 @@ public class AKPropertySlider: NSView {
         let valueLabelStyle = NSMutableParagraphStyle()
         valueLabelStyle.alignment = .right
 
-        let valueLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
+        let valueLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
                                         NSForegroundColorAttributeName: NSColor.black,
                                         NSParagraphStyleAttributeName: valueLabelStyle]
 
