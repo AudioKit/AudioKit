@@ -461,10 +461,10 @@ extension AKAudioFile {
                 let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if processedFile != nil {
                     AKLog("Completed Normalizing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "\"\(processedFile?.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
+                        "\"\(String(describing: processedFile?.fileNamePlusExtension))\" (process #\(lastCompletedProcess))")
                 } else if processError != nil {
                     AKLog("Failed Normalizing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "Error: \"\(processError)\" (process #\(lastCompletedProcess))")
+                        "Error: \"\(String(describing: processError))\" (process #\(lastCompletedProcess))")
                 } else {
                     AKLog("Failed Normalizing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                         "Unknown Error (process #\(lastCompletedProcess))")
@@ -509,10 +509,10 @@ extension AKAudioFile {
                 let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if processedFile != nil {
                     AKLog("Completed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "\"\(processedFile?.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
+                        "\"\(String(describing: processedFile?.fileNamePlusExtension))\" (process #\(lastCompletedProcess))")
                 } else if processError != nil {
                     AKLog("Failed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "Error: \"\(processError)\" (process #\(lastCompletedProcess))")
+                        "Error: \"\(String(describing: processError))\" (process #\(lastCompletedProcess))")
                 } else {
                     AKLog("Failed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                         "Unknown Error (process #\(lastCompletedProcess))")
@@ -560,10 +560,10 @@ extension AKAudioFile {
                 let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if processedFile != nil {
                     AKLog("Completed Appending file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "\"\(processedFile?.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
+                        "\"\(String(describing: processedFile?.fileNamePlusExtension))\" (process #\(lastCompletedProcess))")
                 } else if processError != nil {
                     AKLog("Failed Appending file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "Error: \"\(processError)\" (process #\(lastCompletedProcess))")
+                        "Error: \"\(String(describing: processError))\" (process #\(lastCompletedProcess))")
                 } else {
                     AKLog("Failed Appending file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                         "Unknown Error (process #\(lastCompletedProcess))")
@@ -612,10 +612,10 @@ extension AKAudioFile {
                 let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if processedFile != nil {
                     AKLog("Completed Extracting from file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "\"\(processedFile?.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
+                        "\"\(String(describing: processedFile?.fileNamePlusExtension))\" (process #\(lastCompletedProcess))")
                 } else if processError != nil {
                     AKLog("Failed Extracting from file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "Error: \"\(processError)\" (process #\(lastCompletedProcess))")
+                        "Error: \"\(String(describing: processError))\" (process #\(lastCompletedProcess))")
                 } else {
                     AKLog("Failed Extracting from file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                         "Unknown Error (process #\(lastCompletedProcess))")
