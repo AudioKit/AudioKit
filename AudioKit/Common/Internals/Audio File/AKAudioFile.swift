@@ -285,7 +285,7 @@ open class AKAudioFile: AVAudioFile {
         }
 
         if maxLev == 0 {
-            return FLT_MIN
+            return Float.leastNormalMagnitude
         } else {
             return 10 * log10(maxLev)
         }

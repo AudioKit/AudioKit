@@ -34,7 +34,7 @@ extension AKAudioFile {
             return try AKAudioFile(forReading: outputFile.url)
         }
 
-        if level == FLT_MIN {
+        if level == Float.leastNormalMagnitude {
             AKLog("WARNING AKAudioFile: cannot normalize a silent file")
             return try AKAudioFile(forReading: outputFile.url)
         }

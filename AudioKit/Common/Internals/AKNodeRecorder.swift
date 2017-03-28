@@ -186,7 +186,7 @@
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
-            AKLog("AKNodeRecorder Error: cannot delete Recording file: \(audioFile?.fileNamePlusExtension)")
+            AKLog("AKNodeRecorder Error: cannot delete Recording file: \(audioFile?.fileNamePlusExtension ?? "nil")")
             throw error
         }
 
