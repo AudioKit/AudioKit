@@ -1698,7 +1698,7 @@
 				C4D35CCE1E8A3D9000E42D93 /* macOSDevelopment.playground */,
 			);
 			name = Playgrounds;
-			path = "AudioKit for macOS/Playgrounds";
+			path = "AudioKit/Playgrounds";
 			sourceTree = "<group>";
 		};
 		C452105A1E7D0832007C38FE /* Sporth Custom Ugens */ = {
@@ -4684,7 +4684,7 @@
 					"$(inherited)",
 					"AUDIOKIT=1",
 				);
-				INFOPLIST_FILE = "AudioKit for macOS/Info.plist";
+				INFOPLIST_FILE = "AudioKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -4713,7 +4713,7 @@
 					"NO_LIBSNDFILE=1",
 					"AUDIOKIT=1",
 				);
-				INFOPLIST_FILE = "AudioKit for macOS/Info.plist";
+				INFOPLIST_FILE = "AudioKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
