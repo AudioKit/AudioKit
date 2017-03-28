@@ -30,7 +30,7 @@ fi
 # Provide 3 arguments: platform (iOS or tvOS), simulator os, native os
 create_universal_framework()
 {
-	PROJECT="../AudioKit/$1/AudioKit for $1.xcodeproj"
+	PROJECT="../AudioKit/$1/AudioKit For $1.xcodeproj"
 	DIR="AudioKit-$1"
 	OUTPUT="$DIR/${PROJECT_NAME}.framework"
 	rm -rf "$OUTPUT"
