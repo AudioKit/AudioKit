@@ -14,13 +14,13 @@ int sporth_lpf18(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "lpf18: Creating\n");
+            plumber_print(pd, "lpf18: Creating\n");
 #endif
 
             sp_lpf18_create(&lpf18);
             plumber_add_ugen(pd, SPORTH_LPF18, lpf18);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for lpf18\n");
+                plumber_print(pd,"Not enough arguments for lpf18\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_lpf18(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "lpf18: Initialising\n");
+            plumber_print(pd, "lpf18: Initialising\n");
 #endif
 
             dist = sporth_stack_pop_float(stack);
@@ -57,7 +57,7 @@ int sporth_lpf18(sporth_stack *stack, void *ud)
             sp_lpf18_destroy(&lpf18);
             break;
         default:
-            fprintf(stderr, "lpf18: Unknown mode!\n");
+            plumber_print(pd, "lpf18: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

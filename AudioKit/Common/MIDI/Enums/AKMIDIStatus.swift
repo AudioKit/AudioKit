@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 /// Potential MIDI Status messages
@@ -28,7 +28,7 @@
 ///
 public enum AKMIDIStatus: Int {
     /// Default empty status
-    case  nothing = 0
+    case nothing = 0
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -49,5 +49,5 @@ public enum AKMIDIStatus: Int {
     case pitchWheel = 14
     /// System commands differ from system to system
     case systemCommand = 15
-    
+
 }

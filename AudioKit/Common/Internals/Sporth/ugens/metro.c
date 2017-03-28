@@ -12,7 +12,7 @@ int sporth_metro(sporth_stack *stack, void *ud)
             sp_metro_create(&data);
             plumber_add_ugen(pd, SPORTH_METRO, data);
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for metro\n");
+                plumber_print(pd,"Not enough arguments for metro\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -36,7 +36,7 @@ int sporth_metro(sporth_stack *stack, void *ud)
             sp_metro_destroy(&data);
             break;
         default:
-          fprintf(stderr,"Error: Unknown mode!");
+          plumber_print(pd,"Error: Unknown mode!");
            break;
     }
     return PLUMBER_OK;

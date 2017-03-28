@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
@@ -19,7 +17,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 1
 
     /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open var decimation: Double = 0.5 {
+    open dynamic var decimation: Double = 0.5 {
         didSet {
             decimation = (0...1).clamp(decimation)
             au[kDistortionParam_Decimation] = decimation * 100
@@ -27,7 +25,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
-    open var rounding: Double = 0 {
+    open dynamic var rounding: Double = 0 {
         didSet {
             rounding = (0...1).clamp(rounding)
             au[kDistortionParam_Rounding] = rounding * 100
@@ -35,7 +33,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    open var mix: Double = 1 {
+    open dynamic var mix: Double = 1 {
         didSet {
             mix = (0...1).clamp(mix)
             au[kDistortionParam_FinalMix] = mix * 100
@@ -43,7 +41,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     // MARK: - Initialization
 
@@ -56,7 +54,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         decimation: Double = 0.5,
         rounding: Double = 0,
         mix: Double = 1) {
@@ -66,10 +64,10 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
             self.mix = mix
 
             let effect = _Self.effect
-            au = AUWrapper(au: effect)
+            au = AUWrapper(effect)
             super.init(avAudioNode: effect, attach: true)
 
-            input.addConnectionPoint(self)
+            input?.addConnectionPoint(self)
 
             // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
 

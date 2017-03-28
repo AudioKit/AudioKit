@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
 /// modeling scattering junction of 8 lossless waveguides of equal
@@ -25,18 +23,21 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     fileprivate var cutoffFrequencyParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
-    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
-    open var feedback: Double = 0.6 {
+    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a
+    /// large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+    open dynamic var feedback: Double = 0.6 {
         willSet {
             if feedback != newValue {
-                if internalAU!.isSetUp() {
-                    feedbackParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.feedback = Float(newValue)
                 }
@@ -44,11 +45,13 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Low-pass cutoff frequency.
-    open var cutoffFrequency: Double = 4000 {
+    open dynamic var cutoffFrequency: Double = 4_000 {
         willSet {
             if cutoffFrequency != newValue {
-                if internalAU!.isSetUp() {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.cutoffFrequency = Float(newValue)
                 }
@@ -57,8 +60,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return internalAU!.isPlaying()
+    open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying() ?? false
     }
 
     // MARK: - Initialization
@@ -67,13 +70,15 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+    ///   - feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall,
+    ///               and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will
+    ///               make the opcode unstable.
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         feedback: Double = 0.6,
-        cutoffFrequency: Double = 4000) {
+        cutoffFrequency: Double = 4_000) {
 
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
@@ -81,27 +86,27 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        feedbackParameter        = tree["feedback"]
+        feedbackParameter = tree["feedback"]
         cutoffFrequencyParameter = tree["cutoffFrequency"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.feedbackParameter!.address {
+                if address == self?.feedbackParameter?.address {
                     self?.feedback = Double(value)
-                } else if address == self?.cutoffFrequencyParameter!.address {
+                } else if address == self?.cutoffFrequencyParameter?.address {
                     self?.cutoffFrequency = Double(value)
                 }
             }
@@ -115,11 +120,11 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        self.internalAU!.start()
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        self.internalAU!.stop()
+        internalAU?.stop()
     }
 }

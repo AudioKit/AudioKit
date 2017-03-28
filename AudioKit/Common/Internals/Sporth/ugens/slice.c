@@ -16,13 +16,13 @@ int sporth_slice(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "slice: Creating\n");
+            plumber_print(pd, "slice: Creating\n");
 #endif
 
             sp_slice_create(&slice);
             plumber_add_ugen(pd, SPORTH_SLICE, slice);
             if(sporth_check_args(stack, "ffss") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for slice\n");
+                plumber_print(pd,"Not enough arguments for slice\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -35,20 +35,20 @@ int sporth_slice(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "slice: Initialising\n");
+            plumber_print(pd, "slice: Initialising\n");
 #endif
 
             buf_name = sporth_stack_pop_string(stack);
             vals_name = sporth_stack_pop_string(stack);
             if(plumber_ftmap_search(pd, vals_name, &vals) == PLUMBER_NOTOK) { 
-                fprintf(stderr, "slice: could not find ftable %s\n", 
+                plumber_print(pd, "slice: could not find ftable %s\n", 
                     vals_name);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             
             if(plumber_ftmap_search(pd, buf_name, &buf) == PLUMBER_NOTOK) { 
-                fprintf(stderr, "slice: could not find ftable %s\n", 
+                plumber_print(pd, "slice: could not find ftable %s\n", 
                     vals_name);
                 stack->error++;
                 return PLUMBER_NOTOK;
@@ -72,7 +72,7 @@ int sporth_slice(sporth_stack *stack, void *ud)
             sp_slice_destroy(&slice);
             break;
         default:
-            fprintf(stderr, "slice: Unknown mode!\n");
+            plumber_print(pd, "slice: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

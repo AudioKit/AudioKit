@@ -14,13 +14,13 @@ int sporth_peaklim(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "peaklim: Creating\n");
+            plumber_print(pd, "peaklim: Creating\n");
 #endif
 
             sp_peaklim_create(&peaklim);
             plumber_add_ugen(pd, SPORTH_PEAKLIM, peaklim);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for peaklim\n");
+                plumber_print(pd,"Not enough arguments for peaklim\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -33,7 +33,7 @@ int sporth_peaklim(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "peaklim: Initialising\n");
+            plumber_print(pd, "peaklim: Initialising\n");
 #endif
 
             thresh = sporth_stack_pop_float(stack);
@@ -61,7 +61,7 @@ int sporth_peaklim(sporth_stack *stack, void *ud)
             sp_peaklim_destroy(&peaklim);
             break;
         default:
-            fprintf(stderr, "peaklim: Unknown mode!\n");
+            plumber_print(pd, "peaklim: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

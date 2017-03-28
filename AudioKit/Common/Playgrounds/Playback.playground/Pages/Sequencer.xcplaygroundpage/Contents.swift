@@ -1,6 +1,6 @@
 //: ## Sequencer
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 //: Create some samplers, load different sounds, and connect it to a mixer and the output
@@ -21,7 +21,6 @@ AudioKit.output = dryWetMixer
 //: Load in a midi file, and set the sequencer to the main audiokit engine
 var sequencer = AKSequencer(filename: "4tracks", engine: AudioKit.engine)
 
-
 //: Do some basic setup to make the sequence loop correctly
 sequencer.setLength(AKDuration(beats: 4))
 sequencer.enableLooping()
@@ -32,10 +31,10 @@ sequencer.play()
 //: Set up a basic UI for setting outputs of tracks
 
 class PlaygroundView: AKPlaygroundView {
-    var button1: AKButton?
-    var button2: AKButton?
-    var button3: AKButton?
-    var button4: AKButton?
+    var button1: AKButton!
+    var button2: AKButton!
+    var button3: AKButton!
+    var button4: AKButton!
 
     override func setup() {
 
@@ -47,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
             self.updateButtons()
             sequencer.play()
             return ""
-            })
+        })
         addSubview(AKButton(title: "Use Bell As Global Output", color: AKColor.red) {
             sequencer.stop()
             sequencer.setGlobalAVAudioUnitOutput(bellSampler.samplerUnit)
@@ -72,10 +71,10 @@ class PlaygroundView: AKPlaygroundView {
             self.toggleTrack(trackNumber: 4)
             return ""
         }
-        addSubview(button1!)
-        addSubview(button2!)
-        addSubview(button3!)
-        addSubview(button4!)
+        addSubview(button1)
+        addSubview(button2)
+        addSubview(button3)
+        addSubview(button4)
     }
 
     func toggleTrack(trackNumber: Int) {
@@ -89,7 +88,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func updateButtons() {
-        let buttons = [button1!, button2!, button3!, button4!]
+        let buttons: [AKButton] = [button1, button2, button3, button4]
         for i in 0 ..< buttons.count {
             if sequencer.avTracks[i + 1].destinationAudioUnit == bellSampler.samplerUnit {
                 buttons[i].title = "Track \(i + 1): Bell"
@@ -104,6 +103,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

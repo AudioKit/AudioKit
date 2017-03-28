@@ -13,13 +13,13 @@ int sporth_blsquare(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "blsquare: Creating\n");
+            plumber_print(pd, "blsquare: Creating\n");
 #endif
 
             sp_blsquare_create(&blsquare);
             plumber_add_ugen(pd, SPORTH_SQUARE, blsquare);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for blsquare\n");
+                plumber_print(pd,"Not enough arguments for blsquare\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_blsquare(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "blsquare: Initialising\n");
+            plumber_print(pd, "blsquare: Initialising\n");
 #endif
 
             width = sporth_stack_pop_float(stack);
@@ -57,7 +57,7 @@ int sporth_blsquare(sporth_stack *stack, void *ud)
             sp_blsquare_destroy(&blsquare);
             break;
         default:
-            fprintf(stderr, "blsquare: Unknown mode!\n");
+            plumber_print(pd, "blsquare: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -13,13 +13,13 @@ int sporth_biscale(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "biscale: Creating\n");
+            plumber_print(pd, "biscale: Creating\n");
 #endif
 
             sp_biscale_create(&biscale);
             plumber_add_ugen(pd, SPORTH_BISCALE, biscale);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for biscale\n");
+                plumber_print(pd,"Not enough arguments for biscale\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_biscale(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "biscale: Initialising\n");
+            plumber_print(pd, "biscale: Initialising\n");
 #endif
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
@@ -55,7 +55,7 @@ int sporth_biscale(sporth_stack *stack, void *ud)
             sp_biscale_destroy(&biscale);
             break;
         default:
-            fprintf(stderr, "biscale: Unknown mode!\n");
+            plumber_print(pd, "biscale: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

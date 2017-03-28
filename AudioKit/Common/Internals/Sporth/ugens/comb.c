@@ -13,13 +13,13 @@ int sporth_comb(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "comb: Creating\n");
+            plumber_print(pd, "comb: Creating\n");
 #endif
 
             sp_comb_create(&comb);
             plumber_add_ugen(pd, SPORTH_COMB, comb);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for comb\n");
+                plumber_print(pd,"Not enough arguments for comb\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_comb(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "comb: Initialising\n");
+            plumber_print(pd, "comb: Initialising\n");
 #endif
 
             looptime = sporth_stack_pop_float(stack);
@@ -55,7 +55,7 @@ int sporth_comb(sporth_stack *stack, void *ud)
             sp_comb_destroy(&comb);
             break;
         default:
-            fprintf(stderr, "comb: Unknown mode!\n");
+            plumber_print(pd, "comb: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

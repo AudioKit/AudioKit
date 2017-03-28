@@ -1,9 +1,12 @@
 # Aurora
 # by Paul Batchelor
 
-# p0: 0.5 Probability
-# p1: 0.5 Speed
-# p2: 0.5 Release
+##: - Control 1: Probability
+# default 0.5
+##: - Control 2: Speed
+# default 0.5
+##: - Control 3: Release
+# default 0.5
 
 'seq' '69 71 73 74 68' gen_vals
 1 p 30 220 scale 4 pset

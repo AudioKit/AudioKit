@@ -16,13 +16,13 @@ int sporth_conv(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "conv: Creating\n");
+            plumber_print(pd, "conv: Creating\n");
 #endif
 
             sp_conv_create(&conv);
             plumber_add_ugen(pd, SPORTH_CONV, conv);
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for conv\n");
+                plumber_print(pd,"Not enough arguments for conv\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -34,7 +34,7 @@ int sporth_conv(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "conv: Initialising\n");
+            plumber_print(pd, "conv: Initialising\n");
 #endif
 
             ftname = sporth_stack_pop_string(stack);
@@ -63,7 +63,7 @@ int sporth_conv(sporth_stack *stack, void *ud)
             sp_conv_destroy(&conv);
             break;
         default:
-            fprintf(stderr, "conv: Unknown mode!\n");
+            plumber_print(pd, "conv: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

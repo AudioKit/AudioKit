@@ -25,12 +25,12 @@ int sporth_pluck(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "pluck: Creating\n");
+            plumber_print(pd, "pluck: Creating\n");
 #endif
             sp_pluck_create(&pluck);
             plumber_add_ugen(pd, SPORTH_PLUCK, pluck);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for pluck\n");
+                plumber_print(pd,"Not enough arguments for pluck\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -45,7 +45,7 @@ int sporth_pluck(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "pluck: Initialising\n");
+            plumber_print(pd, "pluck: Initialising\n");
 #endif
 
             pluck = pd->last->ud;
@@ -77,7 +77,7 @@ int sporth_pluck(sporth_stack *stack, void *ud)
             sp_pluck_destroy(&pluck);
             break;
         default:
-            fprintf(stderr, "pluck: Unknown mode!\n");
+            plumber_print(pd, "pluck: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

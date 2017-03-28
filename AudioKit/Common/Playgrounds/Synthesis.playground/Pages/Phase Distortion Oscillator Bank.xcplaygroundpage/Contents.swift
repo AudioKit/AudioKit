@@ -1,6 +1,5 @@
 //: ## Phase Distortion Oscillator Bank
 
-import PlaygroundSupport
 import AudioKit
 
 let osc = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
@@ -10,7 +9,7 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var keyboard: AKKeyboardView?
+    var keyboard: AKKeyboardView!
 
     override func setup() {
         addTitle("Phase Distortion Oscillator Bank")
@@ -21,7 +20,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.red
         ) { amount in
             osc.phaseDistortion = amount
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Attack",
@@ -30,7 +29,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { duration in
             osc.attackDuration = duration
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Release",
@@ -39,16 +38,16 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { duration in
             osc.releaseDuration = duration
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Detuning Offset",
             format: "%0.1f Cents",
-            value:  osc.releaseDuration, minimum: -1200, maximum: 1200,
+            value:  osc.releaseDuration, minimum: -1_200, maximum: 1_200,
             color: AKColor.green
         ) { offset in
             osc.detuningOffset = offset
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
@@ -56,22 +55,21 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { multiplier in
             osc.detuningMultiplier = multiplier
-            })
-
+        })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
-        keyboard!.polyphonicMode = false
-        keyboard!.delegate = self
-        addSubview(keyboard!)
+        keyboard.polyphonicMode = false
+        keyboard.delegate = self
+        addSubview(keyboard)
 
         addSubview(AKButton(title: "Go Polyphonic") {
-            self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
-            if self.keyboard!.polyphonicMode {
+            self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
+            if self.keyboard.polyphonicMode {
                 return "Go Monophonic"
             } else {
                 return "Go Polyphonic"
             }
-            })
+        })
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -83,6 +81,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

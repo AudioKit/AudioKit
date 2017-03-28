@@ -15,13 +15,13 @@ int sporth_posc3(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "posc3: Creating\n");
+            plumber_print(pd, "posc3: Creating\n");
 #endif
 
             sp_posc3_create(&posc3);
             plumber_add_ugen(pd, SPORTH_POSC3, posc3);
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for posc3\n");
+                plumber_print(pd,"Not enough arguments for posc3\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -38,7 +38,7 @@ int sporth_posc3(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "posc3: Initialising\n");
+            plumber_print(pd, "posc3: Initialising\n");
 #endif
 
             str = sporth_stack_pop_string(stack);
@@ -62,7 +62,7 @@ int sporth_posc3(sporth_stack *stack, void *ud)
             sp_posc3_destroy(&posc3);
             break;
         default:
-            fprintf(stderr, "posc3: Unknown mode!\n");
+            plumber_print(pd, "posc3: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

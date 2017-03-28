@@ -1,7 +1,7 @@
 //: ## Delay
 //: Exploring the powerful effect of repeating sounds after
 //: varying length delay times and feedback amounts
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -12,7 +12,7 @@ player.looping = true
 
 var delay = AKDelay(player)
 delay.time = 0.01 // seconds
-delay.feedback  = 0.9 // Normalized Value 0 - 1
+delay.feedback = 0.9 // Normalized Value 0 - 1
 delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
 AudioKit.output = delay
@@ -39,8 +39,8 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             delay.time = sliderValue
-            }
-        addSubview(timeSlider!)
+        }
+        addSubview(timeSlider)
 
         feedbackSlider = AKPropertySlider(
             property: "Feedback",
@@ -49,16 +49,16 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             delay.feedback = sliderValue
         }
-        addSubview(feedbackSlider!)
+        addSubview(feedbackSlider)
 
         lowPassCutoffFrequencySlider = AKPropertySlider(
             property: "Low Pass Cutoff",
-            value: delay.lowPassCutoff, maximum: 22050,
+            value: delay.lowPassCutoff, maximum: 22_050,
             color: AKColor.magenta
         ) { sliderValue in
             delay.lowPassCutoff = sliderValue
         }
-        addSubview(lowPassCutoffFrequencySlider!)
+        addSubview(lowPassCutoffFrequencySlider)
 
         dryWetMixSlider = AKPropertySlider(
             property: "Mix",
@@ -67,9 +67,9 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             delay.dryWetMix = sliderValue
         }
-        addSubview(dryWetMixSlider!)
+        addSubview(dryWetMixSlider)
 
-        let presets = ["Short","Dense Long", "Electric Circuits"]
+        let presets = ["Short", "Dense Long", "Electric Circuits"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Short":
@@ -78,11 +78,11 @@ class PlaygroundView: AKPlaygroundView {
                 delay.presetDenseLongDelay()
             case "Electric Circuits":
                 delay.presetElectricCircuitsDelay()
-            default: break
+            default:
+                break
             }
             self.updateUI()
-            }
-        )
+        })
     }
 
     func updateUI() {
@@ -94,5 +94,6 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

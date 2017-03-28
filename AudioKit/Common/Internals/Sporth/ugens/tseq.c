@@ -15,14 +15,14 @@ int sporth_tseq(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "Creating tseq function... \n");
+            plumber_print(pd, "Creating tseq function... \n");
 #endif
             sp_tseq_create(&tseq);
             plumber_add_ugen(pd, SPORTH_TSEQ, tseq);
 
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
                 stack->error++;
-                fprintf(stderr, "Invalid arguments for tseq.\n");
+                plumber_print(pd, "Invalid arguments for tseq.\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -40,7 +40,7 @@ int sporth_tseq(sporth_stack *stack, void *ud)
             trig = sporth_stack_pop_float(stack);
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tseq INIT: searching for ftable... \n");
+            plumber_print(pd, "tseq INIT: searching for ftable... \n");
 #endif
 
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
@@ -64,7 +64,7 @@ int sporth_tseq(sporth_stack *stack, void *ud)
             break;
         case PLUMBER_DESTROY:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "Destroying tseq\n");
+            plumber_print(pd, "Destroying tseq\n");
 #endif 
             tseq = pd->last->ud;
             sp_tseq_destroy(&tseq);

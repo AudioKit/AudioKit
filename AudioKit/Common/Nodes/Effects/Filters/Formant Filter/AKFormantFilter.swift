@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// When fed with a pulse train, it will generate a series of overlapping
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
@@ -25,18 +23,20 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var yParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency.
-    open var x: Double = 0 {
+    open dynamic var x: Double = 0 {
         willSet {
             if x != newValue {
-                if internalAU!.isSetUp() {
-                    xParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        xParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.x = Float(newValue)
                 }
@@ -44,11 +44,13 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Impulse response attack time (in seconds).
-    open var y: Double = 0 {
+    open dynamic var y: Double = 0 {
         willSet {
             if y != newValue {
-                if internalAU!.isSetUp() {
-                    yParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        yParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.y = Float(newValue)
                 }
@@ -57,8 +59,8 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return internalAU!.isPlaying()
+    open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying() ?? false
     }
 
     // MARK: - Initialization
@@ -72,7 +74,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///   - decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         x: Double = 0,
         y: Double = 0) {
 
@@ -82,27 +84,27 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         xParameter = tree["x"]
-        yParameter  = tree["y"]
+        yParameter = tree["y"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.xParameter!.address {
+                if address == self?.xParameter?.address {
                     self?.x = Double(value)
-                } else if address == self?.yParameter!.address {
+                } else if address == self?.yParameter?.address {
                     self?.y = Double(value)
                 }
             }
@@ -116,11 +118,11 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        self.internalAU!.start()
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        self.internalAU!.stop()
+        internalAU?.stop()
     }
 }

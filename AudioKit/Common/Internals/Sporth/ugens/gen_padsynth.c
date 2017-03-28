@@ -17,7 +17,7 @@ int sporth_gen_padsynth(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_GEN_PADSYNTH, NULL);
             if(sporth_check_args(stack, "sfffs") != SPORTH_OK) {
-                fprintf(stderr,"Padsynth: not enough arguments for gen_padsynth\n");
+                plumber_print(pd,"Padsynth: not enough arguments for gen_padsynth\n");
                 return PLUMBER_NOTOK;
             }
             ampname = sporth_stack_pop_string(stack);
@@ -35,7 +35,7 @@ int sporth_gen_padsynth(sporth_stack *stack, void *ud)
             sp_ftbl_create(pd->sp, &ft, size);
 
 #ifdef DEBUG_MODE
-            fprintf(stderr,"Running padsynth function\n");
+            plumber_print(pd,"Running padsynth function\n");
 #endif
             sp_gen_padsynth(pd->sp, ft, amps, freq, bw);
 
@@ -60,7 +60,7 @@ int sporth_gen_padsynth(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;

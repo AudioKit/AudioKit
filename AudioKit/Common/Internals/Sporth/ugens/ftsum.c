@@ -20,13 +20,13 @@ int sporth_ftsum(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "ftsum: creating... \n");
+            plumber_print(pd, "ftsum: creating... \n");
 #endif
             ftsum = malloc(sizeof(sporth_ftsum_d));
             plumber_add_ugen(pd, SPORTH_FTSUM, ftsum);
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
                 stack->error++;
-                fprintf(stderr,"Invalid arguments for ftsum.\n");
+                plumber_print(pd,"Invalid arguments for ftsum.\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -69,7 +69,7 @@ int sporth_ftsum(sporth_stack *stack, void *ud)
             free(ftsum);
             break;
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             stack->error++;
             return PLUMBER_NOTOK;
             break;

@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 extension AKOperation {
 
@@ -16,7 +14,7 @@ extension AKOperation {
     /// - Parameters:
     ///   - frequency: In cycles per second, or Hz. (Default: 440, Minimum: 0, Maximum: 20000)
     ///   - amplitude: Output amplitude (Default: 1.0, Minimum: 0, Maximum: 10)
-    ///   - pulseWidth: Duty cycle width (range 0-1). (Default: 0.5, Minimum: 0, Maximum: 1)
+    ///   - pulseWidth: Duty cycle width. (Default: 0.5, Minimum: 0, Maximum: 1)
     ///
     public static func squareWave(
         frequency: AKParameter = 440,

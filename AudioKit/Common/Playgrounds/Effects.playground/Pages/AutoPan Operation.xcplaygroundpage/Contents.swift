@@ -1,6 +1,6 @@
 //: ## AutoPan Operation
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 //: This first section sets up parameter naming in such a way
@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.speed = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Depth",
@@ -62,9 +62,10 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             effect.depth = sliderValue
-            })
+        })
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

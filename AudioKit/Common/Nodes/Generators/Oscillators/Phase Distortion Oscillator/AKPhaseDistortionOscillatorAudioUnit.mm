@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKPhaseDistortionOscillatorAudioUnit.h"
@@ -78,8 +78,8 @@ standardKernelPassthroughs()
     AUParameter *detuningMultiplierAUParameter = [AUParameter parameter:@"detuningMultiplier"
                                                                    name:@"Frequency detuning multiplier"
                                                                 address:detuningMultiplierAddress
-                                                                    min:0.5
-                                                                    max:2.0
+                                                                    min:0.0
+                                                                    max:FLT_MAX
                                                                    unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.

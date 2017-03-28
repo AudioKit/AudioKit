@@ -3,7 +3,6 @@
 //: Apple's Dynamics Processor audio unit. threshold and headRoom (similar to
 //: 'ratio' you might be more familiar with) are specific to the compressor,
 //: expansionRatio and expansionThreshold control the expander.
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -45,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.threshold = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Head Room",
@@ -54,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.headRoom = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Expansion Ratio",
@@ -62,7 +61,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.expansionRatio = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Expansion Threshold",
@@ -70,16 +69,16 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Attack Time",
             format: "%0.3f s",
-            value: effect.attackTime, minimum: 0.0001, maximum: 0.2,
+            value: effect.attackTime, minimum: 0.000_1, maximum: 0.2,
             color: AKColor.green
         ) { sliderValue in
             effect.attackTime = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Release Time",
@@ -88,7 +87,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.releaseTime = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Master Gain",
@@ -97,9 +96,10 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             effect.masterGain = sliderValue
-            })
+        })
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

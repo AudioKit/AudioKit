@@ -12,13 +12,13 @@ int sporth_hilbert(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "hilbert: Creating\n");
+            plumber_print(pd, "hilbert: Creating\n");
 #endif
 
             sp_hilbert_create(&hilbert);
             plumber_add_ugen(pd, SPORTH_HILBERT, hilbert);
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for hilbert\n");
+                plumber_print(pd,"Not enough arguments for hilbert\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_hilbert(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "hilbert: Initialising\n");
+            plumber_print(pd, "hilbert: Initialising\n");
 #endif
 
             input = sporth_stack_pop_float(stack);
@@ -50,7 +50,7 @@ int sporth_hilbert(sporth_stack *stack, void *ud)
             sp_hilbert_destroy(&hilbert);
             break;
         default:
-            fprintf(stderr, "hilbert: Unknown mode!\n");
+            plumber_print(pd, "hilbert: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

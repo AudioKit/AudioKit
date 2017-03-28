@@ -13,13 +13,13 @@ int sporth_tenv2(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tenv2: Creating\n");
+            plumber_print(pd, "tenv2: Creating\n");
 #endif
 
             sp_tenv2_create(&tenv2);
             plumber_add_ugen(pd, SPORTH_TENV2, tenv2);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for tenv2\n");
+                plumber_print(pd,"Not enough arguments for tenv2\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_tenv2(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tenv2: Initialising\n");
+            plumber_print(pd, "tenv2: Initialising\n");
 #endif
 
             rel = sporth_stack_pop_float(stack);
@@ -56,7 +56,7 @@ int sporth_tenv2(sporth_stack *stack, void *ud)
             sp_tenv2_destroy(&tenv2);
             break;
         default:
-            fprintf(stderr, "tenv2: Unknown mode!\n");
+            plumber_print(pd, "tenv2: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

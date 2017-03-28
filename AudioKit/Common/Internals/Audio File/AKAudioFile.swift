@@ -3,11 +3,8 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
-import AVFoundation
 
 extension AVAudioCommonFormat: CustomStringConvertible {
     public var description: String {
@@ -112,7 +109,8 @@ extension AVAudioFile {
             return "audio/aac"
         case "mp3":
             return "audio/mpeg3"
-        default: return nil
+        default:
+            return nil
         }
     }
 
@@ -122,13 +120,13 @@ extension AVAudioFile {
     ///
     public static func cleanTempDirectory() {
         var deletedFilesCount = 0
-        
+
         let fileManager = FileManager.default
-        let tempPath =  NSTemporaryDirectory()
-        
+        let tempPath = NSTemporaryDirectory()
+
         do {
             let fileNames = try fileManager.contentsOfDirectory(atPath: "\(tempPath)")
-            
+
             // function for deleting files
             func deleteFileWithFileName(_ fileName: String) {
                 let filePathName = "\(tempPath)/\(fileName)"
@@ -141,7 +139,7 @@ extension AVAudioFile {
                     AKLog("Error: \(error)")
                 }
             }
-            
+
             // Checks file type (only Audio Files)
             fileNames.forEach { fn in
                 let lower = fn.lowercased()
@@ -166,7 +164,7 @@ extension AVAudioFile {
 open class AKAudioFile: AVAudioFile {
 
     // MARK: - embedded enums
-    
+
     /// Common places for files
     ///
     /// - Temp:      Temp Directory
@@ -177,13 +175,13 @@ open class AKAudioFile: AVAudioFile {
     public enum BaseDirectory {
         /// Temporary directory
         case temp
-        
+
         /// Documents directory
         case documents
-        
+
         /// Resources directory
         case resources
-        
+
         /// Same directory as the input file
         case custom
 
@@ -204,14 +202,13 @@ open class AKAudioFile: AVAudioFile {
           }
         }
     }
-    
+
     // MARK: - private vars
-    
+
     // Used for exporting, can be accessed with public .avAsset property
     fileprivate lazy var internalAVAsset: AVURLAsset = {
         AVURLAsset(url: URL(fileURLWithPath: self.url.path))
     }()
-
 
     /// Returns an AVAsset from the AKAudioFile
     open var avAsset: AVURLAsset {
@@ -234,7 +231,7 @@ open class AKAudioFile: AVAudioFile {
 
         let channelCount = Int(self.pcmBuffer.format.channelCount)
         let frameLength = Int(self.pcmBuffer.frameLength)
-        let stride  = self.pcmBuffer.stride
+        let stride = self.pcmBuffer.stride
 
         // Preallocate our Array so we're not constantly thrashing while resizing as we append.
         var result = Array(repeating: [Float](zeros: frameLength), count: channelCount)
@@ -280,24 +277,20 @@ open class AKAudioFile: AVAudioFile {
                 let cmin = floats.min()
 
                 // positive max
-                if cmax != nil {
-                    maxLev  = max(cmax!, maxLev)
-                }
+                maxLev = max(cmax ?? maxLev, maxLev)
 
                 // negative max
-                if cmin != nil {
-                    maxLev  = max(abs(cmin!), maxLev)
-                }
+                maxLev = -min(abs(cmin ?? -maxLev), -maxLev)
             }
         }
 
         if maxLev == 0 {
-            return FLT_MIN
+            return Float.leastNormalMagnitude
         } else {
             return 10 * log10(maxLev)
         }
     }()
-    
+
     /// Initialize the audio file
     ///
     /// - parameter fileURL: URL of the file
@@ -308,7 +301,6 @@ open class AKAudioFile: AVAudioFile {
         try super.init(forReading: fileURL)
     }
 
-    
     /// Initialize the audio file
     ///
     /// - Parameters:
@@ -321,10 +313,9 @@ open class AKAudioFile: AVAudioFile {
     public override init(forReading fileURL: URL,
                          commonFormat format: AVAudioCommonFormat,
                          interleaved: Bool) throws {
-        
+
         try super.init(forReading: fileURL, commonFormat: format, interleaved: interleaved)
     }
-    
 
     /// Initialize the audio file
     ///
@@ -354,8 +345,7 @@ open class AKAudioFile: AVAudioFile {
                        commonFormat: format,
                        interleaved: interleaved)
     }
-    
-    
+
     /// Super.init inherited from AVAudioFile superclass
     ///
     /// - Parameters:

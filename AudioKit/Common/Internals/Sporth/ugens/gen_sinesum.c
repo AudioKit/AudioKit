@@ -16,7 +16,7 @@ int sporth_gen_sinesum(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_GEN_SINESUM, NULL);
             if(sporth_check_args(stack, "sfs") != SPORTH_OK) {
-                fprintf(stderr, "Init: not enough arguments for gen_sinesum\n");
+                plumber_print(pd, "Init: not enough arguments for gen_sinesum\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -24,11 +24,11 @@ int sporth_gen_sinesum(sporth_stack *stack, void *ud)
             size = (int)sporth_stack_pop_float(stack);
             str = sporth_stack_pop_string(stack);
 #ifdef DEBUG_MODE
-            fprintf(stderr, "Creating sinesum table %s of size %d\n", str, size);
+            plumber_print(pd, "Creating sinesum table %s of size %d\n", str, size);
 #endif
             sp_ftbl_create(pd->sp, &ft, size);
             if(sp_gen_sinesum(pd->sp, ft, args) == SP_NOT_OK) {
-                fprintf(stderr, "There was an issue creating the sinesume ftable \"%s\".\n", str);
+                plumber_print(pd, "There was an issue creating the sinesume ftable \"%s\".\n", str);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }

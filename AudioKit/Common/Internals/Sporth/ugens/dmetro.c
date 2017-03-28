@@ -11,13 +11,13 @@ int sporth_dmetro(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "dmetro: Creating\n");
+            plumber_print(pd, "dmetro: Creating\n");
 #endif
 
             sp_dmetro_create(&dmetro);
             plumber_add_ugen(pd, SPORTH_DMETRO, dmetro);
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for dmetro\n");
+                plumber_print(pd,"Not enough arguments for dmetro\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -27,7 +27,7 @@ int sporth_dmetro(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "dmetro: Initialising\n");
+            plumber_print(pd, "dmetro: Initialising\n");
 #endif
 
             time = sporth_stack_pop_float(stack);
@@ -47,7 +47,7 @@ int sporth_dmetro(sporth_stack *stack, void *ud)
             sp_dmetro_destroy(&dmetro);
             break;
         default:
-            fprintf(stderr, "dmetro: Unknown mode!\n");
+            plumber_print(pd, "dmetro: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

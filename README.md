@@ -4,7 +4,7 @@ AudioKit V3.5
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
 [![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/audiokit/AudioKit/blob/master/LICENSE)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://github.com/CocoaPods/Specs/tree/master/Specs/AudioKit)
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://cocoapods.org/pods/AudioKit)
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
 <img src="https://img.shields.io/badge/%20in-swift%203.0-orange.svg">
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
@@ -43,9 +43,15 @@ Taps use nodes as their data source, but do not redirect the audio signal away f
 
 ## Installation
 
-Installation can be achieved in the usual ways for a framework.  This is explained in more detail in the INSTALL.md file in the Frameworks directory.
+Installation can be achieved in the usual ways for a framework.  This is explained in more detail in the [INSTALL.md file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/INSTALL.md) in the Frameworks directory.
 
-Installation with CocoaPods and Carthage is also planned but may not come with the first release.
+An AudioKit package is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) and Carthage.
+
+In most cases, when building for iOS or tvOS, regardless of how you install the framework, you will need to add a run phase to your project's target with the following script:
+
+```
+"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh"
+```
 
 ## Example Code
 There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.
@@ -147,6 +153,10 @@ Here are some resources that we use to develop our coding choices and core philo
 
 * [Tips for Writing a Great iOS Framework](https://medium.com/@samjarman/tips-for-writing-a-great-ios-framework-8cf3452f6c5d#.wzejktd3l)
 * [Best practices running an iOS open source project on GitHub](https://www.cocoanetics.com/2014/10/best-practices-running-an-ios-open-source-project-on-github/)
+
+## GitHub Pull Request Policy
+
+Ready to send us a pull request? Please make sure your request is based on the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch of the repository as `master` only holds stable releases.
 
 ## Interested in audio synthesis?
 

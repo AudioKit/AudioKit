@@ -12,13 +12,13 @@ int sporth_bal(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "bal: Creating\n");
+            plumber_print(pd, "bal: Creating\n");
 #endif
 
             sp_bal_create(&bal);
             plumber_add_ugen(pd, SPORTH_BAL, bal);
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for bal\n");
+                plumber_print(pd,"Not enough arguments for bal\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_bal(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "bal: Initialising\n");
+            plumber_print(pd, "bal: Initialising\n");
 #endif
 
             sig = sporth_stack_pop_float(stack);
@@ -50,7 +50,7 @@ int sporth_bal(sporth_stack *stack, void *ud)
             sp_bal_destroy(&bal);
             break;
         default:
-            fprintf(stderr, "bal: Unknown mode!\n");
+            plumber_print(pd, "bal: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

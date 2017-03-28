@@ -17,7 +17,7 @@ int sporth_gen_rand(sporth_stack *stack, void *ud)
             plumber_add_ugen(pd, SPORTH_GEN_RAND, NULL);
 
             if(sporth_check_args(stack, "sfs") != SPORTH_OK) {
-               fprintf(stderr,
+               plumber_print(pd,
                        "gen_rand: not enough arguments for gen_rand\n");
                 return PLUMBER_NOTOK;
             }
@@ -47,7 +47,7 @@ int sporth_gen_rand(sporth_stack *stack, void *ud)
             break;
 
         default:
-          fprintf(stderr,"Error: Unknown mode!");
+          plumber_print(pd,"Error: Unknown mode!");
            break;
     }
     return PLUMBER_OK;

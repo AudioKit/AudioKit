@@ -10,7 +10,7 @@ mandolin.detune = 1
 mandolin.bodySize = 1
 var pluckPosition = 0.2
 
-var delay  = AKDelay(mandolin)
+var delay = AKDelay(mandolin)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 0.3
 delay.feedback = 0.2
@@ -23,8 +23,8 @@ let scale: [MIDINoteNumber] = [0, 2, 4, 5, 7, 9, 11, 12]
 
 class PlaygroundView: AKPlaygroundView {
 
-    var detuneSlider: AKPropertySlider?
-    var bodySizeSlider: AKPropertySlider?
+    var detuneSlider: AKPropertySlider!
+    var bodySizeSlider: AKPropertySlider!
 
     override func setup() {
         addTitle("Mandolin")
@@ -37,7 +37,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { detune in
             mandolin.detune = detune
         }
-        addSubview(detuneSlider!)
+        addSubview(detuneSlider)
 
         bodySizeSlider = AKPropertySlider(
             property: "Body Size",
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
-        addSubview(bodySizeSlider!)
+        addSubview(bodySizeSlider)
 
         addSubview(AKPropertySlider(
             property: "Pluck Position",
@@ -57,7 +57,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { position in
             pluckPosition = position
         })
-
 
         let presets = ["Large, Resonant", "Electric Guitar-ish", "Small-Bodied, Distorted", "Acid Mandolin"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
@@ -70,36 +69,35 @@ class PlaygroundView: AKPlaygroundView {
                 mandolin.presetSmallBodiedDistortedMandolin()
             case "Acid Mandolin":
                 mandolin.presetAcidMandolin()
-            default: break
+            default:
+                break
             }
             self.updateUI()
-            }
-        )
+        })
     }
     func updateUI() {
-        detuneSlider!.value = mandolin.detune
-        bodySizeSlider!.value = mandolin.bodySize
+        detuneSlider.value = mandolin.detune
+        bodySizeSlider.value = mandolin.bodySize
     }
 }
 
 AKPlaygroundLoop(frequency: playRate) {
     var note1: MIDINoteNumber = scale.randomElement()
-    let octave1: MIDINoteNumber = [2,3,4,5].randomElement() * 12
-    let course1 = [1,2,3,4].randomElement()
+    let octave1: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
+    let course1 = [1, 2, 3, 4].randomElement()
     if random(0, 10) < 1.0 { note1 += 1 }
 
     var note2: MIDINoteNumber = scale.randomElement()
-    let octave2: MIDINoteNumber = [2,3,4,5].randomElement() * 12
-    let course2 = [1,2,3,4].randomElement()
+    let octave2: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
+    let course2 = [1, 2, 3, 4].randomElement()
     if random(0, 10) < 1.0 { note2 += 1 }
 
-
     if random(0, 6) > 1.0 {
-        mandolin.fret(noteNumber: note1+octave1, course: course1 - 1)
+        mandolin.fret(noteNumber: note1 + octave1, course: course1 - 1)
         mandolin.pluck(course: course1 - 1, position: pluckPosition, velocity: 127)
     }
     if random(0, 6) > 3.0 {
-        mandolin.fret(noteNumber: note2+octave2, course: course2 - 1)
+        mandolin.fret(noteNumber: note2 + octave2, course: course2 - 1)
         mandolin.pluck(course: course2 - 1, position: pluckPosition, velocity: 127)
     }
 

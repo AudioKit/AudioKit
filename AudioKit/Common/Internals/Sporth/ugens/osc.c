@@ -19,14 +19,14 @@ int sporth_osc(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "Creating osc function... \n");
+            plumber_print(pd, "Creating osc function... \n");
 #endif
             osc = malloc(sizeof(sporth_osc_d));
             sp_osc_create(&osc->data);
             plumber_add_ugen(pd, SPORTH_OSC, osc);
             if(sporth_check_args(stack, "fffs") != SPORTH_OK) {
                 stack->error++;
-                fprintf(stderr,"Invalid arguments for osc.\n");
+                plumber_print(pd,"Invalid arguments for osc.\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -73,7 +73,7 @@ int sporth_osc(sporth_stack *stack, void *ud)
             free(osc);
             break;
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             stack->error++;
             return PLUMBER_NOTOK;
             break;

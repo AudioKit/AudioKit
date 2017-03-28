@@ -16,13 +16,13 @@ int sporth_dtrig(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "dtrig: Creating\n");
+            plumber_print(pd, "dtrig: Creating\n");
 #endif
 
             sp_dtrig_create(&dtrig);
             plumber_add_ugen(pd, SPORTH_DTRIG, dtrig);
             if(sporth_check_args(stack, "ffffs") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for dtrig\n");
+                plumber_print(pd,"Not enough arguments for dtrig\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -42,7 +42,7 @@ int sporth_dtrig(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "dtrig: Initialising\n");
+            plumber_print(pd, "dtrig: Initialising\n");
 #endif
 
             ftname = sporth_stack_pop_string(stack);
@@ -74,7 +74,7 @@ int sporth_dtrig(sporth_stack *stack, void *ud)
             sp_dtrig_destroy(&dtrig);
             break;
         default:
-            fprintf(stderr, "dtrig: Unknown mode!\n");
+            plumber_print(pd, "dtrig: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -16,7 +16,7 @@ int sporth_prop(sporth_stack *stack, void *ud)
             sp_prop_create(&data);
             plumber_add_ugen(pd, SPORTH_PROP, data);
             if(sporth_check_args(stack, "fs") != SPORTH_OK) {
-                fprintf(stderr, "Not enough arguments for prop\n");
+                plumber_print(pd, "Not enough arguments for prop\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -67,7 +67,7 @@ int sporth_tprop(sporth_stack *stack, void *ud)
             sp_prop_create(&data);
             plumber_add_ugen(pd, SPORTH_TPROP, data);
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
-                fprintf(stderr, "Not enough arguments for tprop\n");
+                plumber_print(pd, "Not enough arguments for tprop\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }

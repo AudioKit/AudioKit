@@ -2,7 +2,7 @@
 //:  If you open the Assitant editor and make sure it shows the
 //: "Rolling Output Plot.xcplaygroundpage (Timeline) view",
 //: you should see a plot of the amplitude peaks scrolling in the view
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
@@ -27,15 +27,16 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Rate",
             format: "%0.3f",
-            value: variSpeed.rate, minimum: 0.3125, maximum: 5,
+            value: variSpeed.rate, minimum: 0.312_5, maximum: 5,
             color: AKColor.green
         ) { sliderValue in
             variSpeed.rate = sliderValue
-            })
+        })
 
         addSubview(AKRollingOutputPlot.createView())
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

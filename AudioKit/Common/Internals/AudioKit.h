@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -24,6 +24,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects
 #import "AKOperationEffectAudioUnit.h"
+#import "AKSporthStack.h"
 
 // Effects / Delay
 #import "AKVariableDelayAudioUnit.h"
@@ -73,6 +74,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKOperationGeneratorAudioUnit.h"
 
 // Generators / Noise
+#import "AKBrownianNoiseAudioUnit.h"
 #import "AKPinkNoiseAudioUnit.h"
 #import "AKWhiteNoiseAudioUnit.h"
 
@@ -89,12 +91,15 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPWMOscillatorBankAudioUnit.h"
 
 // Generators / Physical Models
+#import "AKClarinetAudioUnit.h"
 #import "AKDripAudioUnit.h"
 #import "AKFluteAudioUnit.h"
 #import "AKMandolinAudioUnit.h"
 #import "AKMetalBarAudioUnit.h"
 #import "AKPluckedStringAudioUnit.h"
-#import "AKClarinetAudioUnit.h"
+#import "AKRhodesPianoAudioUnit.h"
+#import "AKShakerAudioUnit.h"
+#import "AKTubularBellsAudioUnit.h"
 
 // Mixing
 #import "AKBalancerAudioUnit.h"

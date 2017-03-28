@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 internal struct MIDISources: Collection {
@@ -22,41 +22,44 @@ internal struct MIDISources: Collection {
 }
 
 internal func GetMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
-    var string: Unmanaged<CFString>? = nil
+    var string: Unmanaged<CFString>?
     MIDIObjectGetStringProperty(ref, property, &string)
-    return (string?.takeRetainedValue())! as String
+    if let returnString = string?.takeRetainedValue() {
+        return returnString as String
+    } else {
+        return ""
+    }
 }
 
 extension AKMIDI {
-    
+
     /// Array of input names
     public var inputNames: [String] {
         return MIDISources().names
     }
-    
+
     /// Add a listener to the listeners
     public func addListener(_ listener: AKMIDIListener) {
         listeners.append(listener)
     }
-    
+
     /// Remove all listeners
     public func clearListeners() {
         listeners.removeAll()
     }
-    
+
     /// Open a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
-    public func openInput(_ namedInput: String = "") {        
+    public func openInput(_ namedInput: String = "") {
         for (name, src) in zip(inputNames, MIDISources()) {
             if namedInput.isEmpty || namedInput == name {
                 inputPorts[namedInput] = MIDIPortRef()
-                
+
                 var port = inputPorts[namedInput]!
 
-                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) {
-                  packetList, _ in
+                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     for packet in packetList.pointee {
                         // a coremidi packet may contain multiple midi events
                         for event in packet {
@@ -64,9 +67,9 @@ extension AKMIDI {
                         }
                     }
                 }
-                
+
                 inputPorts[namedInput] = port
-                
+
                 if result != noErr {
                     AKLog("Error creating midiInPort : \(result)")
                 }
@@ -75,7 +78,7 @@ extension AKMIDI {
             }
         }
     }
-    
+
     /// Close a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
@@ -85,7 +88,7 @@ extension AKMIDI {
         for key in inputPorts.keys {
             if namedInput.isEmpty || key == namedInput {
                 if let port = inputPorts[key], let endpoint = endpoints[key] {
-                    
+
                     result = MIDIPortDisconnectSource(port, endpoint)
                     if result == noErr {
                         endpoints.removeValue(forKey: namedInput)
@@ -100,7 +103,8 @@ extension AKMIDI {
 //        for (key, endpoint) in inputPorts {
 //            if namedInput.isEmpty || key == namedInput {
 //                if let port = inputPorts[key] {
-//                    let result = MIDIPortDisconnectSource(port, endpoint) //this line is returning error -50, either port or endpoint is not right
+//                    // the next line is returning error -50, either port or endpoint is not right
+//                    let result = MIDIPortDisconnectSource(port, endpoint)
 //                    if result == noErr {
 //                        endpoints.removeValue(forKey: namedInput)
 //                        inputPorts.removeValue(forKey: namedInput)
@@ -111,23 +115,27 @@ extension AKMIDI {
 //            }
 //        }
     }
-    
+
     /// Close all MIDI Input ports
     public func closeAllInputs() {
         closeInput()
     }
-    
+
     internal func handleMIDIMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
-            guard let eventChannel = event.channel else { return }
-            let type = event.status
+            guard let eventChannel = event.channel else {
+                return
+            }
+            guard let type = event.status else {
+                return
+            }
             switch type {
             case .controllerChange:
-                listener.receivedMIDIController(Int(event.internalData[1]),
-                                                value: Int(event.internalData[2]),
+                listener.receivedMIDIController(event.internalData[1],
+                                                value: event.internalData[2],
                                                 channel: MIDIChannel(eventChannel))
             case .channelAftertouch:
-                listener.receivedMIDIAfterTouch(Int(event.internalData[1]),
+                listener.receivedMIDIAfterTouch(event.internalData[1],
                                                 channel: MIDIChannel(eventChannel))
             case .noteOn:
                 listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.internalData[1]),
@@ -138,14 +146,14 @@ extension AKMIDI {
                                              velocity: MIDIVelocity(event.internalData[2]),
                                              channel: MIDIChannel(eventChannel))
             case .pitchWheel:
-                listener.receivedMIDIPitchWheel(Int(event.data),
+                listener.receivedMIDIPitchWheel(MIDIByte(Int(event.data)),
                                                 channel: MIDIChannel(eventChannel))
             case .polyphonicAftertouch:
                 listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),
-                                                pressure: Int(event.internalData[2]),
+                                                pressure: event.internalData[2],
                                                 channel: MIDIChannel(eventChannel))
             case .programChange:
-                listener.receivedMIDIProgramChange(Int(event.internalData[1]),
+                listener.receivedMIDIProgramChange(event.internalData[1],
                                                    channel: MIDIChannel(eventChannel))
             case .systemCommand:
                 listener.receivedMIDISystemCommand(event.internalData)

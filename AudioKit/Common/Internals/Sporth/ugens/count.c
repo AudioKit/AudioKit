@@ -13,13 +13,13 @@ int sporth_count(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "count: Creating\n");
+            plumber_print(pd, "count: Creating\n");
 #endif
 
             sp_count_create(&cnt);
             plumber_add_ugen(pd, SPORTH_COUNT, cnt);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for count\n");
+                plumber_print(pd,"Not enough arguments for count\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_count(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "count: Initialising\n");
+            plumber_print(pd, "count: Initialising\n");
 #endif
             mode = sporth_stack_pop_float(stack);
             count = sporth_stack_pop_float(stack);
@@ -55,7 +55,7 @@ int sporth_count(sporth_stack *stack, void *ud)
             sp_count_destroy(&cnt);
             break;
         default:
-            fprintf(stderr, "count: Unknown mode!\n");
+            plumber_print(pd, "count: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

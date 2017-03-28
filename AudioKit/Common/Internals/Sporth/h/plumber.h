@@ -96,6 +96,8 @@ typedef struct plumber_data {
     int showprog;
     int recompile;
     char *str;
+
+    FILE *log;
 } plumber_data;
 
 typedef int (* plumber_dyn_func) (plumber_data *, sporth_stack *, void **);
@@ -110,13 +112,6 @@ typedef struct {
     void *handle;
     void *ud;
 } sporth_fload_d; 
-
-/* needed for plugin formats that work with pointer references */
-
-typedef struct {
-    SPFLOAT **tbl;
-    uint32_t size;
-} plumber_argtbl;
 
 #ifdef LIVE_CODING
 #include <pthread.h>
@@ -199,10 +194,10 @@ void plumbing_write_code(plumber_data *plumb, plumbing *pipes, FILE *fp);
 void plumber_write_code(plumber_data *plumb, FILE *fp);
 int plumber_process_null(sp_data *sp, void *ud, void (*callback)(sp_data *, void *));
 
-int plumber_argtbl_create(plumber_data *plumb, plumber_argtbl **at, uint32_t size);
-int plumber_argtbl_destroy(plumber_data *plumb, plumber_argtbl **at);
 int plumber_create_var(plumber_data *pd, char *name, SPFLOAT **var);
 
 int plumber_get_userdata(plumber_data *plumb, const char *name, plumber_ptr **p);
 int polysporth_eval(plumber_ptr *p, const char *str);
+
+void plumber_print(plumber_data *pd, const char *fmt, ...);
 #endif

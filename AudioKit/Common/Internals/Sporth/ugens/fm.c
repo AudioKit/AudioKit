@@ -19,7 +19,7 @@ int sporth_fm(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-           fprintf(stderr,"creating FM function... \n");
+           plumber_print(pd,"creating FM function... \n");
 #endif
             fm = malloc(sizeof(sporth_fm_d));
             sp_ftbl_create(pd->sp, &fm->ft, 8192);
@@ -80,7 +80,7 @@ int sporth_fm(sporth_stack *stack, void *ud)
             free(fm);
             break;
         default:
-           fprintf(stderr,"Error: Unknown mode!");
+           plumber_print(pd,"Error: Unknown mode!");
             stack->error++;
             return PLUMBER_NOTOK;
             break;

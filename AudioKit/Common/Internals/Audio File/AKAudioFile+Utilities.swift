@@ -3,16 +3,12 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek on 7/4/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 //
 //
-
-import Foundation
-import AVFoundation
 
 extension AKAudioFile {
-    
 
     /// Returns a silent AKAudioFile with a length set in samples.
     ///
@@ -28,7 +24,7 @@ extension AKAudioFile {
     static public func silent(samples: Int64,
                               baseDir: BaseDirectory = .temp,
                               name: String = "") throws -> AKAudioFile {
-        
+
         if samples < 0 {
             AKLog( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count !")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
@@ -37,13 +33,11 @@ extension AKAudioFile {
             // we return it as a file for reading
             return try AKAudioFile(forReading: emptyFile.url)
         }
-        
-        let array = [Float](zeros: Int(samples))
-        let silentFile = try AKAudioFile(createFileFromFloats: [array, array], baseDir: baseDir, name: name)
-        
+
+        let zeros = [Float](zeros: Int(samples))
+        let silentFile = try AKAudioFile(createFileFromFloats: [zeros, zeros], baseDir: baseDir, name: name)
+
         return try AKAudioFile(forReading: silentFile.url)
     }
-    
-    
-    
+
 }

@@ -13,13 +13,13 @@ int sporth_butbr(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "butbr: Creating\n");
+            plumber_print(pd, "butbr: Creating\n");
 #endif
 
             sp_butbr_create(&butbr);
             plumber_add_ugen(pd, SPORTH_BUTBR, butbr);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for butbr\n");
+                plumber_print(pd,"Not enough arguments for butbr\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -28,7 +28,7 @@ int sporth_butbr(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "butbr: Initialising\n");
+            plumber_print(pd, "butbr: Initialising\n");
 #endif
 
             bw = sporth_stack_pop_float(stack);
@@ -53,7 +53,7 @@ int sporth_butbr(sporth_stack *stack, void *ud)
             sp_butbr_destroy(&butbr);
             break;
         default:
-            fprintf(stderr, "butbr: Unknown mode!\n");
+            plumber_print(pd, "butbr: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

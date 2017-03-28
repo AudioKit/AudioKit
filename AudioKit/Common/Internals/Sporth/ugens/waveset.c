@@ -13,13 +13,13 @@ int sporth_waveset(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "waveset: Creating\n");
+            plumber_print(pd, "waveset: Creating\n");
 #endif
 
             sp_waveset_create(&waveset);
             plumber_add_ugen(pd, SPORTH_WAVESET, waveset);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for waveset\n");
+                plumber_print(pd,"Not enough arguments for waveset\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_waveset(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "waveset: Initialising\n");
+            plumber_print(pd, "waveset: Initialising\n");
 #endif
 
             ilen = sporth_stack_pop_float(stack);
@@ -55,7 +55,7 @@ int sporth_waveset(sporth_stack *stack, void *ud)
             sp_waveset_destroy(&waveset);
             break;
         default:
-            fprintf(stderr, "waveset: Unknown mode!\n");
+            plumber_print(pd, "waveset: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

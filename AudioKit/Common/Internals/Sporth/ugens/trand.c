@@ -13,13 +13,13 @@ int sporth_trand(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "trand: Creating\n");
+            plumber_print(pd, "trand: Creating\n");
 #endif
 
             sp_trand_create(&trand);
             plumber_add_ugen(pd, SPORTH_TRAND, trand);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for trand\n");
+                plumber_print(pd,"Not enough arguments for trand\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_trand(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "trand: Initialising\n");
+            plumber_print(pd, "trand: Initialising\n");
 #endif
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
@@ -55,7 +55,7 @@ int sporth_trand(sporth_stack *stack, void *ud)
             sp_trand_destroy(&trand);
             break;
         default:
-            fprintf(stderr, "trand: Unknown mode!\n");
+            plumber_print(pd, "trand: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;
