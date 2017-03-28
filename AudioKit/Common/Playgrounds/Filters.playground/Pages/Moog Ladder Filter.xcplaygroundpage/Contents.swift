@@ -8,7 +8,6 @@
 //: analog synthesizer, we don't have to worry about dealing with
 //: voltage control directly. However, by using this node, you can
 //: emulate some of the sounds of classic analog synthesizers in your app.
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -39,11 +38,11 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: moogLadder.cutoffFrequency, maximum: 5000,
+            value: moogLadder.cutoffFrequency, maximum: 5_000,
             color: AKColor.green
         ) { sliderValue in
             moogLadder.cutoffFrequency = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Resonance",
@@ -52,10 +51,10 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.red
         ) { sliderValue in
             moogLadder.resonance = sliderValue
-            })
+        })
     }
-
-
 }
+
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

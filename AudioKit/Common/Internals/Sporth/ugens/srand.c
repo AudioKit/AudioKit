@@ -13,14 +13,14 @@ int sporth_srand(sporth_stack *stack, void *ud)
             plumber_add_ugen(pd, SPORTH_SRAND, NULL);
 
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr, "rseed: not enough arguments\n");
+                plumber_print(pd, "rseed: not enough arguments\n");
                 return PLUMBER_NOTOK;
             }
 #ifdef DEBUG_MODE
-            fprintf(stderr, "Setting seed to %d\n");
+            plumber_print(pd, "Setting seed to %d\n");
 #endif
             seed = (uint32_t)sporth_stack_pop_float(stack);
-            fprintf(stderr, "seed: %u\n", seed);
+            plumber_print(pd, "seed: %u\n", seed);
             sp_srand(pd->sp, seed);
             pd->seed = seed;
 

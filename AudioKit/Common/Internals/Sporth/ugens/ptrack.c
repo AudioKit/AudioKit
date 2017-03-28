@@ -14,13 +14,13 @@ int sporth_ptrack(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "ptrack: Creating\n");
+            plumber_print(pd, "ptrack: Creating\n");
 #endif
 
             sp_ptrack_create(&ptrack);
             plumber_add_ugen(pd, SPORTH_PTRACK, ptrack);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for ptrack\n");
+                plumber_print(pd,"Not enough arguments for ptrack\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -33,7 +33,7 @@ int sporth_ptrack(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "ptrack: Initialising\n");
+            plumber_print(pd, "ptrack: Initialising\n");
 #endif
 
             ihopsize = sporth_stack_pop_float(stack);
@@ -58,7 +58,7 @@ int sporth_ptrack(sporth_stack *stack, void *ud)
             sp_ptrack_destroy(&ptrack);
             break;
         default:
-            fprintf(stderr, "ptrack: Unknown mode!\n");
+            plumber_print(pd, "ptrack: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

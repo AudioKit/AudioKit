@@ -1,6 +1,6 @@
 //: ## Drum Synthesizers
 //: These can also be hooked up to MIDI or a sequencer.
-import PlaygroundSupport
+
 import AudioKit
 
 //: Set up instruments:
@@ -17,21 +17,23 @@ reverb.loadFactoryPreset(.mediumRoom)
 var counter = 0
 AKPlaygroundLoop(frequency: 5) {
 
+    let randomVelocity = MIDIVelocity(random(0.0, 127.0))
     let onFirstBeat = counter % 4 == 0
     let everyOtherBeat = counter % 4 == 2
     let randomHit = Array(0...3).randomElement() == 0
 
     if onFirstBeat || randomHit {
-        kick.play(noteNumber: MIDINoteNumber(60), velocity: MIDIVelocity(100))
+        kick.play(noteNumber: MIDINoteNumber(60), velocity: randomVelocity)
         kick.stop(noteNumber: 60)
     }
 
     if everyOtherBeat {
         let velocity = MIDIVelocity(Array(0...100).randomElement())
-        snare.play(noteNumber: 60, velocity: velocity)
+        snare.play(noteNumber: 60, velocity: randomVelocity)
         snare.stop(noteNumber: 60)
     }
     counter += 1
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

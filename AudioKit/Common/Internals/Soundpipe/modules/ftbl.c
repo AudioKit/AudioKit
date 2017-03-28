@@ -24,6 +24,19 @@ int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size)
     return SP_OK;
 }
 
+int sp_ftbl_bind(sp_data *sp, sp_ftbl **ft, SPFLOAT *tbl, size_t size)
+{
+    *ft = malloc(sizeof(sp_ftbl));
+    sp_ftbl *ftp = *ft;
+    ftp->size = size;
+    ftp->tbl = tbl;
+    ftp->sicvt = 1.0 * SP_FT_MAXLEN / sp->sr;
+    ftp->lobits = log2(SP_FT_MAXLEN / size);
+    ftp->lomask = (2^ftp->lobits) - 1;
+    ftp->lodiv = 1.0 / pow(2, ftp->lobits);
+    return SP_OK;
+}
+
 int sp_ftbl_destroy(sp_ftbl **ft)
 {
     sp_ftbl *ftp = *ft;
@@ -128,31 +141,6 @@ int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename)
     sf_readf_float(snd, ftp->tbl, ftp->size);
 #endif
     sf_close(snd);
-    return SP_OK;
-}
-#endif
-
-#ifdef USE_SPA
-int sp_ftbl_loadspa(sp_data *sp, sp_ftbl **ft, const char *filename)
-{
-    *ft = malloc(sizeof(sp_ftbl));
-    sp_ftbl *ftp = *ft;
-
-    sp_audio spa;
-
-    spa_open(sp, &spa, filename, SPA_READ);
-
-    size_t size = spa.header.len;
-
-    ftp->size = size;
-    ftp->sicvt = 1.0 * SP_FT_MAXLEN / sp->sr;
-    ftp->tbl = malloc(sizeof(SPFLOAT) * (size + 1));
-    ftp->lobits = log2(SP_FT_MAXLEN / size);
-    ftp->lomask = (2^ftp->lobits) - 1;
-    ftp->lodiv = 1.0 / pow(2, ftp->lobits);
-
-    spa_read_buf(sp, &spa, ftp->tbl, ftp->size);
-    spa_close(&spa);
     return SP_OK;
 }
 #endif

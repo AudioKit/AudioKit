@@ -12,12 +12,12 @@ int sporth_rand(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "trand: Creating\n");
+            plumber_print(pd, "trand: Creating\n");
 #endif
             val = malloc(sizeof(SPFLOAT));
             plumber_add_ugen(pd, SPORTH_RAND, val);
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for rand\n");
+                plumber_print(pd,"Not enough arguments for rand\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -28,7 +28,7 @@ int sporth_rand(sporth_stack *stack, void *ud)
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "rand: Initialising\n");
+            plumber_print(pd, "rand: Initialising\n");
 #endif
             sporth_stack_pop_float(stack);
             sporth_stack_pop_float(stack);
@@ -46,7 +46,7 @@ int sporth_rand(sporth_stack *stack, void *ud)
             free(val);
             break;
         default:
-            fprintf(stderr, "rand: Unknown mode!\n");
+            plumber_print(pd, "rand: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

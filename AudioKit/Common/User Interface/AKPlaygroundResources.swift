@@ -2,11 +2,9 @@
 //  AKPlaygroundResources.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 8/8/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 // Since the AudioKit playgrounds are cross-platform, 
 // keep track of the audio resources available to each playground set here

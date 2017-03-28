@@ -3,11 +3,8 @@
 //  AudioKit
 //
 //  Created by Stéphane Peter, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
-import AVFoundation
 
 #if os(macOS)
 public typealias DeviceID = AudioDeviceID

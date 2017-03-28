@@ -13,7 +13,6 @@ static void process(sp_data *sp, void *udata){
     int chan;
 
     if(pd->recompile) {
-        fprintf(stderr, "Recompiling!\n");
         plumber_recompile_string(&ud->pd, pd->str);
         pd->recompile = 0;
     }

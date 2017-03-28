@@ -3,14 +3,13 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+import AudioKit
 import XCTest
 
-import AudioKit
-
-class sawtoothTests: AKTestCase {
+class SawtoothTests: AKTestCase {
 
     override func setUp() {
         super.setUp()
@@ -18,7 +17,7 @@ class sawtoothTests: AKTestCase {
     }
 
     func testDefault() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             return AKOperation.sawtooth()
         }
         AKTestMD5("0b3fff37bccfc2ce47622192bfe9386f")

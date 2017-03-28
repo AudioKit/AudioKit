@@ -82,3 +82,5 @@ int sporth_lexer(char *str, int32_t size);
 sporth_stack_val * sporth_stack_get_last(sporth_stack *stack);
 
 size_t sporth_getline(char **lineptr, size_t *n, FILE *stream);
+
+void sporth_print(sporth_data *sporth, const char *fmt, ...);

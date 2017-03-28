@@ -12,7 +12,7 @@ typedef struct {
 } sporth_print_d;
 
 
-int sporth_print(sporth_stack *stack, void *ud)
+int sporth_prints(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     sporth_print_d *prnt;
@@ -24,12 +24,12 @@ int sporth_print(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "print: Creating\n");
+            plumber_print(pd, "print: Creating\n");
 #endif
             prnt = malloc(sizeof(sporth_print_d));
             plumber_add_ugen(pd, SPORTH_PRINT, prnt);
             if(sporth_check_args(stack, "ns") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for print\n");
+                plumber_print(pd,"Not enough arguments for print\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -40,15 +40,13 @@ int sporth_print(sporth_stack *stack, void *ud)
             if(prnt->type == SPORTH_FLOAT) {
                 val = sporth_stack_pop_float(stack);
                 prnt->pval = val; 
-                fprintf(stderr, "%s: \"%g\",\n", str, val);
                 sporth_stack_push_float(stack, val);
             } else if(prnt->type == SPORTH_STRING) {
                 sval = sporth_stack_pop_string(stack);
                 prnt->sval = sval;
-                fprintf(stderr, "%s: \"%s\",\n", str, prnt->sval); 
                 sporth_stack_push_string(stack, &sval);
             } else {
-                fprintf(stderr, "Print: unknown type\n");
+                plumber_print(pd, "Print: unknown type\n");
                 return PLUMBER_NOTOK;
             }
             
@@ -58,7 +56,7 @@ int sporth_print(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "print: Initialising\n");
+            plumber_print(pd, "print: Initialising\n");
 #endif
             prnt = pd->last->ud;
             str = sporth_stack_pop_string(stack);
@@ -74,13 +72,13 @@ int sporth_print(sporth_stack *stack, void *ud)
             break;
         case PLUMBER_COMPUTE:
             prnt = pd->last->ud;
+            prnt->init = 0;
             if(prnt->type == SPORTH_FLOAT) {
                 val = sporth_stack_pop_float(stack);
                 if(val != prnt->pval && prnt->init == 0) {
                     prnt->pval = val;
-                    fprintf(stderr, "%s: \"%g\",\n", prnt->label, val);
+                    plumber_print(pd, "%s: \"%g\",\n", prnt->label, val);
                 }
-                prnt->init = 0;
                 sporth_stack_push_float(stack, val);
             } 
             break;
@@ -89,7 +87,7 @@ int sporth_print(sporth_stack *stack, void *ud)
             free(prnt);
             break;
         default:
-            fprintf(stderr, "print: Unknown mode!\n");
+            plumber_print(pd, "print: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

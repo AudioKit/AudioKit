@@ -3,11 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
-import AVFoundation
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
@@ -17,7 +14,7 @@ open class AKReverb: AKNode, AKToggleable {
     fileprivate var lastKnownMix: Double = 0.5
 
     /// Dry/Wet Mix (Default 0.5)
-    open var dryWetMix: Double = 0.5 {
+    open dynamic var dryWetMix: Double = 0.5 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             reverbAU.wetDryMix = Float(dryWetMix) * 100
@@ -25,7 +22,7 @@ open class AKReverb: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     /// Initialize the reverb node
     ///
@@ -33,13 +30,13 @@ open class AKReverb: AKNode, AKToggleable {
     ///   - input: AKNode to reverberate
     ///   - dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
     ///
-    public init(_ input: AKNode, dryWetMix: Double = 0.5) {
+    public init(_ input: AKNode?, dryWetMix: Double = 0.5) {
         self.dryWetMix = dryWetMix
         super.init()
 
         self.avAudioNode = reverbAU
         AudioKit.engine.attach(self.avAudioNode)
-        input.addConnectionPoint(self)
+        input?.addConnectionPoint(self)
 
         reverbAU.wetDryMix = Float(dryWetMix) * 100.0
     }

@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// This filter reiterates input with an echo density determined by
 /// loopDuration. The attenuation rate is independent and is determined by
@@ -26,18 +24,20 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     fileprivate var reverbDurationParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    open var reverbDuration: Double = 1.0 {
+    open dynamic var reverbDuration: Double = 1.0 {
         willSet {
             if reverbDuration != newValue {
-                if internalAU!.isSetUp() {
-                    reverbDurationParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.reverbDuration = Float(newValue)
                 }
@@ -46,8 +46,8 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return internalAU!.isPlaying()
+    open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying() ?? false
     }
 
     // MARK: - Initialization
@@ -56,11 +56,13 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    ///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
+    ///   - reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its
+    ///                     original amplitude. (aka RT-60).
+    ///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time.
+    ///            Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         reverbDuration: Double = 1.0,
         loopDuration: Double = 0.1) {
 
@@ -68,25 +70,25 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
-            self?.internalAU!.setLoopDuration(Float(loopDuration))
+            input?.addConnectionPoint(self!)
+            self?.internalAU?.setLoopDuration(Float(loopDuration))
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         reverbDurationParameter = tree["reverbDuration"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.reverbDurationParameter!.address {
+                if address == self?.reverbDurationParameter?.address {
                     self?.reverbDuration = Double(value)
                 }
             }
@@ -99,11 +101,11 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        self.internalAU!.start()
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        self.internalAU!.stop()
+        internalAU?.stop()
     }
 }

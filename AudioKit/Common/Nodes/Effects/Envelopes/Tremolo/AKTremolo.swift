@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Table-lookup tremolo with linear interpolation
 ///
@@ -24,18 +22,20 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     fileprivate var depthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Frequency (Hz)
-    open var frequency: Double = 10 {
+    open dynamic var frequency: Double = 10 {
         willSet {
             if frequency != newValue {
-                if internalAU!.isSetUp() {
-                    frequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.frequency = Float(newValue)
                 }
@@ -44,11 +44,13 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     }
 
     /// Depth
-    open var depth: Double = 1 {
+    open dynamic var depth: Double = 1 {
         willSet {
             if depth != newValue {
-                if internalAU!.isSetUp() {
-                    depthParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        depthParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.depth = Float(newValue)
                 }
@@ -57,8 +59,8 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return internalAU!.isPlaying()
+    open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying() ?? false
     }
 
     // MARK: - Initialization
@@ -72,7 +74,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     ///   - waveform:  Shape of the tremolo (default to sine)
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         frequency: Double = 10,
         depth: Double = 1.0,
         waveform: AKTable = AKTable(.positiveSine)) {
@@ -83,28 +85,28 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
             self?.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
                 self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         frequencyParameter = tree["frequency"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.frequencyParameter!.address {
+                if address == self?.frequencyParameter?.address {
                     self?.frequency = Double(value)
                 }
             }
@@ -113,11 +115,10 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
 
         depthParameter = tree["depth"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.depthParameter!.address {
+                if address == self?.depthParameter?.address {
                     self?.depth = Double(value)
                 }
             }
@@ -128,12 +129,12 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
-        self.internalAU!.start()
+    open dynamic func start() {
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        self.internalAU!.stop()
+        internalAU?.stop()
     }
 }

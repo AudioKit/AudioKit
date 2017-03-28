@@ -203,6 +203,9 @@ FOUNDATION_EXPORT UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength;
  */
 - (void)updateColor:(id)color;
 
+/** Resets the plot data */
+- (void)resetHistoryBuffers;
+
 //------------------------------------------------------------------------------
 
 @end

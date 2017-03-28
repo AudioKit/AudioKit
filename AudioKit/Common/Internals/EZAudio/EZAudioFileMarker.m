@@ -1,9 +1,9 @@
 //
-//  AKAudioFileMarker.m
-//  EDL
+//  EZAudioFileMarker
+//  AudioKit
 //
-//  Created by Ryan Francesconi on 10/29/16.
-//  Copyright © 2016 Spongefork. All rights reserved.
+//  Created by Ryan Francesconi, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 #import "EZAudioFileMarker.h"

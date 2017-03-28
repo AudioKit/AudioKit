@@ -2,8 +2,8 @@
 //  AKBypassButton.swift
 //  AudioKit for iOS
 //
-//  Created by Aurelius Prochazka on 7/30/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 /// Button that just access the start/stop feature of an AKNode,
@@ -49,9 +49,9 @@ open class AKBypassButton: UIView {
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let red = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
-        let gray = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 1.000)
-        let green = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
+        let red = #colorLiteral(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
+        let gray = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 1.000)
+        let green = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
 
         //// Variable Declarations
         let processingColor = isBypassed ? gray : green
@@ -71,14 +71,25 @@ open class AKBypassButton: UIView {
         let bypassLabelStyle = NSMutableParagraphStyle()
         bypassLabelStyle.alignment = .center
 
-        let bypassLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: bypassLabelStyle]
+        let bypassLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
+                                         NSForegroundColorAttributeName: UIColor.black,
+                                         NSParagraphStyleAttributeName: bypassLabelStyle]
 
         let bypassLabelInset: CGRect = bypassLabelRect.insetBy(dx: 10, dy: 0)
-        let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(with: CGSize(width: bypassLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: bypassLabelFontAttributes, context: nil).size.height
-        context!.saveGState()
-        context!.clip(to: bypassLabelInset)
-        NSString(string: bypassedText).draw(in: CGRect(x: bypassLabelInset.minX, y: bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2, width: bypassLabelInset.width, height: bypassLabelTextHeight), withAttributes: bypassLabelFontAttributes)
-        context!.restoreGState()
+        let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(
+            with: CGSize(width: bypassLabelInset.width, height: CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: bypassLabelFontAttributes,
+            context: nil).size.height
+        context?.saveGState()
+        context?.clip(to: bypassLabelInset)
+        NSString(string: bypassedText).draw(
+            in: CGRect(x: bypassLabelInset.minX,
+                       y: bypassLabelInset.minY + (bypassLabelInset.height - bypassLabelTextHeight) / 2,
+                       width: bypassLabelInset.width,
+                       height: bypassLabelTextHeight),
+            withAttributes: bypassLabelFontAttributes)
+        context?.restoreGState()
 
         //// processGroup
         //// processOuter Drawing
@@ -91,14 +102,25 @@ open class AKBypassButton: UIView {
         let processLabelStyle = NSMutableParagraphStyle()
         processLabelStyle.alignment = .center
 
-        let processLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24), NSForegroundColorAttributeName: UIColor.black, NSParagraphStyleAttributeName: processLabelStyle]
+        let processLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
+                                          NSForegroundColorAttributeName: UIColor.black,
+                                          NSParagraphStyleAttributeName: processLabelStyle]
 
         let processLabelInset: CGRect = processLabelRect.insetBy(dx: 10, dy: 0)
-        let processLabelTextHeight: CGFloat = NSString(string: processingText).boundingRect(with: CGSize(width: processLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: processLabelFontAttributes, context: nil).size.height
-        context!.saveGState()
-        context!.clip(to: processLabelInset)
-        NSString(string: processingText).draw(in: CGRect(x: processLabelInset.minX, y: processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2, width: processLabelInset.width, height: processLabelTextHeight), withAttributes: processLabelFontAttributes)
-        context!.restoreGState()
+        let processLabelTextHeight: CGFloat = NSString(string: processingText).boundingRect(
+            with: CGSize(width: processLabelInset.width, height: CGFloat.infinity),
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: processLabelFontAttributes,
+            context: nil).size.height
+        context?.saveGState()
+        context?.clip(to: processLabelInset)
+        NSString(string: processingText).draw(
+            in: CGRect(x: processLabelInset.minX,
+                       y: processLabelInset.minY + (processLabelInset.height - processLabelTextHeight) / 2,
+                       width: processLabelInset.width,
+                       height: processLabelTextHeight),
+            withAttributes: processLabelFontAttributes)
+        context?.restoreGState()
     }
 
     /// Draw the button

@@ -3,11 +3,12 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKOperationEffectAudioUnit.h"
 #import "AKOperationEffectDSPKernel.hpp"
+#import "AKCustomUgenFunction.h"
 
 #import "BufferedAudioBus.hpp"
 
@@ -38,6 +39,11 @@
         params[i] =[parameters[i] floatValue];
     }
     _kernel.setParameters(params);
+}
+
+- (void)addCustomUgen:(AKCustomUgen *)ugen {
+    char *cName = (char *)[ugen.name UTF8String];
+    _kernel.addCustomUgen({cName, &akCustomUgenFunction, (__bridge void *)ugen});
 }
 
 - (void)start {

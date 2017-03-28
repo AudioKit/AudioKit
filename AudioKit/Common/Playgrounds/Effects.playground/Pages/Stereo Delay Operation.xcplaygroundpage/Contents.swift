@@ -1,6 +1,6 @@
 //: ## Stereo Delay Operation
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -23,43 +23,40 @@ player.play()
 //: User Interface
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Stereo Delay Operation")
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: processingPlaygroundFiles))
-        
+
         addSubview(AKPropertySlider(
             property: "Left Delay",
             format: "%0.3f s",
-            value: effect.parameters[0], maximum: 0.3)
-        { sliderValue in
+            value: effect.parameters[0], maximum: 0.3) { sliderValue in
             effect.parameters[0] = sliderValue
         })
         addSubview(AKPropertySlider(
             property: "Left Feedback",
             format: "%0.3f",
-            value: effect.parameters[1])
-        { sliderValue in
+            value: effect.parameters[1]) { sliderValue in
             effect.parameters[1] = sliderValue
         })
         addSubview(AKPropertySlider(
             property: "Right Delay",
             format: "%0.3f s",
-            value: effect.parameters[2], maximum: 0.3)
-        { sliderValue in
+            value: effect.parameters[2], maximum: 0.3) { sliderValue in
             effect.parameters[2] = sliderValue
         })
         addSubview(AKPropertySlider(
             property: "Left Feedback",
             format: "%0.3f",
-            value: effect.parameters[3])
-        { sliderValue in
+            value: effect.parameters[3]) { sliderValue in
             effect.parameters[3] = sliderValue
         })
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

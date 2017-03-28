@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// Wrapper class for plotting audio from the final mix in a rolling plot
 @IBDesignable
@@ -14,28 +12,37 @@ open class AKRollingOutputPlot: EZAudioPlot {
     internal func setupNode() {
         AudioKit.engine.outputNode.installTap(onBus: 0,
                                               bufferSize: bufferSize,
-                                              format: nil) { [weak self] (buffer, time) in
-            guard let strongSelf = self else { return }
+                                              format: nil) { [weak self] (buffer, _) in
+            guard let strongSelf = self else {
+                return
+            }
             buffer.frameLength = strongSelf.bufferSize
             let offset = Int(buffer.frameCapacity - buffer.frameLength)
-            let tail = buffer.floatChannelData?[0]
-            strongSelf.updateBuffer(&tail![offset],
-                                    withBufferSize: strongSelf.bufferSize)
+            if let tail = buffer.floatChannelData?[0] {
+                strongSelf.updateBuffer(&tail[offset],
+                                        withBufferSize: strongSelf.bufferSize)
+            }
         }
     }
-    
+
     /// Useful to reconnect after connecting to Audiobus or IAA
     public func reconnect() {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
         setupNode()
     }
-    
+
     func setupReconnection() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reconnect), name: NSNotification.Name(rawValue: "IAAConnected"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reconnect), name: NSNotification.Name(rawValue: "IAADisconnected"), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reconnect),
+                                               name: NSNotification.Name(rawValue: "IAAConnected"),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reconnect),
+                                               name: NSNotification.Name(rawValue: "IAADisconnected"),
+                                               object: nil)
     }
 
-    internal var bufferSize: UInt32 = 1024
+    internal var bufferSize: UInt32 = 1_024
 
     deinit {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
@@ -72,6 +79,13 @@ open class AKRollingOutputPlot: EZAudioPlot {
         super.init(coder: aDecoder)
         setupNode()
         setupReconnection()
+
+        plotType = .rolling
+        backgroundColor = AKColor.white
+        color = AKColor.green
+        shouldFill = true
+        shouldMirror = true
+        shouldCenterYAxis = true
     }
 
     /// Create a View with the plot (usually for playgrounds)

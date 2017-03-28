@@ -27,7 +27,9 @@ int sporth_exec(sporth_data *sporth, const char *keyword)
 {
     uint32_t id;
     if(sporth_search(&sporth->dict, keyword, &id) != SPORTH_OK) {
-       fprintf(stderr,"Could not find function called '%s'.\n", keyword);
+        sporth_print(sporth, 
+                "Could not find function called '%s'.\n", 
+                keyword);
         return SPORTH_NOTOK;
     }
 #ifdef DEBUG_MODE
@@ -44,8 +46,6 @@ int sporth_check_args(sporth_stack *stack, const char *args)
     int len = (int) strlen(args);
     int i;
     if(len > stack->pos) {
-       fprintf(stderr,"Expected %d arguments on the stack, but there are only %d!\n",
-                len, stack->pos);
         stack->error++;
         return SPORTH_NOTOK;
     }
@@ -54,15 +54,12 @@ int sporth_check_args(sporth_stack *stack, const char *args)
         switch(args[i]) {
             case 'f':
                 if(stack->stack[pos].type != SPORTH_FLOAT) {
-                   fprintf(stderr,"Argument %d was expecting a float\n", i);
                     stack->error++;
                     return SPORTH_NOTOK;
                 }
                 break;
             case 's':
                 if(stack->stack[pos].type != SPORTH_STRING) {
-                   fprintf(stderr,"Argument %d was expecting a string, got value %g instead\n",
-                            i, stack->stack[pos].fval);
                     stack->error++;
                     return SPORTH_NOTOK;
                 }

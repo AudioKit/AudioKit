@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// Plot the FFT output from any node in an signal processing graph
 @IBDesignable
@@ -14,23 +12,26 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
     internal func setupNode(_ input: AKNode?) {
         if fft == nil {
-            fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
+            fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
+                             sampleRate: Float(AKSettings.sampleRate),
+                             delegate: self)
         }
         input?.avAudioNode.installTap(onBus: 0,
                                       bufferSize: bufferSize,
-                                      format: nil) { [weak self] (buffer, time) in
+                                      format: nil) { [weak self] (buffer, _) in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize
                 let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                let tail = buffer.floatChannelData?[0]
-                strongSelf.fft!.computeFFT(withBuffer: &tail![offset],
-                                           withBufferSize: strongSelf.bufferSize)
+                if let tail = buffer.floatChannelData?[0], let existingFFT = strongSelf.fft {
+                    existingFFT.computeFFT(withBuffer: &tail[offset],
+                                              withBufferSize: strongSelf.bufferSize)
+                }
             }
         }
-    
+
     }
 
-    internal var bufferSize: UInt32 = 1024
+    internal var bufferSize: UInt32 = 1_024
 
     /// EZAudioFFT container
     fileprivate var fft: EZAudioFFT?
@@ -65,7 +66,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1024) {
+    public init(_ input: AKNode?, frame: CGRect, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
@@ -82,7 +83,9 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     ///   - updatedWithFFTData: A pointer to a c-style array of floats
     ///   - bufferSize: Number of elements in the FFT Data array
     ///
-    open func fft(_ fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>, bufferSize: vDSP_Length) {
+    open func fft(_ fft: EZAudioFFT!,
+                  updatedWithFFTData fftData: UnsafeMutablePointer<Float>,
+                  bufferSize: vDSP_Length) {
         DispatchQueue.main.async { () -> Void in
             self.updateBuffer(fftData, withBufferSize: self.bufferSize)
         }

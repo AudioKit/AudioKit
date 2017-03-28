@@ -23,13 +23,13 @@ int sporth_phaser(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "phaser: Creating\n");
+            plumber_print(pd, "phaser: Creating\n");
 #endif
 
             sp_phaser_create(&phaser);
             plumber_add_ugen(pd, SPORTH_PHASER, phaser);
             if(sporth_check_args(stack, "ffffffffffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for phaser\n");
+                plumber_print(pd,"Not enough arguments for phaser\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -51,7 +51,7 @@ int sporth_phaser(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "phaser: Initialising\n");
+            plumber_print(pd, "phaser: Initialising\n");
 #endif
 
             lfobpm = sporth_stack_pop_float(stack);
@@ -104,7 +104,7 @@ int sporth_phaser(sporth_stack *stack, void *ud)
             sp_phaser_destroy(&phaser);
             break;
         default:
-            fprintf(stderr, "phaser: Unknown mode!\n");
+            plumber_print(pd, "phaser: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

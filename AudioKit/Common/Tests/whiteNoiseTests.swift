@@ -3,14 +3,13 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+import AudioKit
 import XCTest
 
-import AudioKit
-
-class whiteNoiseTests: AKTestCase {
+class WhiteNoiseTests: AKTestCase {
 
     override func setUp() {
         super.setUp()
@@ -18,7 +17,7 @@ class whiteNoiseTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        output = AKOperationGenerator() { _ in
+        output = AKOperationGenerator { _ in
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),
                 start: 0,

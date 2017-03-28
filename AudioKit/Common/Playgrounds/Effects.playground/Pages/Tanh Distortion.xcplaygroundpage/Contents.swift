@@ -1,7 +1,7 @@
 //: ## Tanh Distortion
 //: ##
 //:
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             distortion.pregain = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Post-gain",
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             distortion.postgain = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Postive Shape Parameter",
@@ -55,7 +55,7 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             distortion.postiveShapeParameter = sliderValue
-            })
+        })
 
         addSubview(AKPropertySlider(
             property: "Negative Shape Parameter",
@@ -63,9 +63,10 @@ class PlaygroundView: AKPlaygroundView {
             color: AKColor.green
         ) { sliderValue in
             distortion.negativeShapeParameter = sliderValue
-            })
+        })
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

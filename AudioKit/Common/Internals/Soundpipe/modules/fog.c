@@ -162,6 +162,7 @@ int sp_fog_compute(sp_data *sp, sp_fog *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT  amp, fund, ptch, speed;
     SPFLOAT fract;
     int32_t fund_inc;
+    int32_t incr;
 
     int32_t ndx;
     SPFLOAT x1, x2;
@@ -207,11 +208,22 @@ int sp_fog_compute(sp_data *sp, sp_fog *p, SPFLOAT *in, SPFLOAT *out)
         ovp->pos += ovp->inc;
 
         if (ovp->risphs < SP_FT_MAXLEN) {
-        result *= *(ftp2->tbl + (ovp->risphs >> ftp2->lobits) );
-        ovp->risphs += ovp->risinc;
+            /* bounds checking so it doesn't segfault */
+            incr = (ovp->risphs >> ftp2->lobits);
+            if(incr <= ftp2->size) {
+                result *= *(ftp2->tbl + incr );
+            } else {
+                result = 0;
+            }
+            ovp->risphs += ovp->risinc;
         }
         if (ovp->timrem <= ovp->dectim) {
-            result *= *(ftp2->tbl + (ovp->decphs >> ftp2->lobits) );
+            incr = (ovp->decphs >> ftp2->lobits);
+            if(incr <= ftp2->size) {
+                result *= *(ftp2->tbl + incr );
+            } else {
+                result = 0;
+            }
             if ((ovp->decphs -= ovp->decinc) < 0)
             ovp->decphs = 0;
         }

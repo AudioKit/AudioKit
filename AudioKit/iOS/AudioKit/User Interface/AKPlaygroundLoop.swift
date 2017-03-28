@@ -3,16 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 /// Class to handle updating via CADisplayLink
 public class AKPlaygroundLoop: NSObject {
     private var internalHandler: () -> Void = {}
     private var duration = 1.0
-    
+
     /// Repeat this loop at a given period with a code block
     ///
     /// - parameter every: Period, or interval between block executions
@@ -24,7 +22,7 @@ public class AKPlaygroundLoop: NSObject {
         super.init()
         update()
     }
-    
+
     /// Repeat this loop at a given frequency with a code block
     ///
     /// - parameter frequency: Frequency of block executions in Hz
@@ -36,7 +34,7 @@ public class AKPlaygroundLoop: NSObject {
         super.init()
         update()
     }
-    
+
     /// Callback function
     @objc func update() {
         self.internalHandler()
@@ -44,6 +42,6 @@ public class AKPlaygroundLoop: NSObject {
                      with: nil,
                      afterDelay: duration,
                      inModes: [RunLoopMode.commonModes])
-        
+
     }
 }

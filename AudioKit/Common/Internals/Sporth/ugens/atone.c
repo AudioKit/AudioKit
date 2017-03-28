@@ -12,13 +12,13 @@ int sporth_atone(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "atone: Creating\n");
+            plumber_print(pd, "atone: Creating\n");
 #endif
 
             sp_atone_create(&atone);
             plumber_add_ugen(pd, SPORTH_ATONE, atone);
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for atone\n");
+                plumber_print(pd,"Not enough arguments for atone\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_atone(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "atone: Initialising\n");
+            plumber_print(pd, "atone: Initialising\n");
 #endif
             hp = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
@@ -50,7 +50,7 @@ int sporth_atone(sporth_stack *stack, void *ud)
             sp_atone_destroy(&atone);
             break;
         default:
-            fprintf(stderr, "atone: Unknown mode!\n");
+            plumber_print(pd, "atone: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

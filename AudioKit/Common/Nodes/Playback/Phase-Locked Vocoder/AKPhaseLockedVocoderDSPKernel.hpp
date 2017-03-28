@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 #pragma once
@@ -40,7 +40,7 @@ public:
 
     void start() {
         started = true;
-        sp_mincer_init(sp, mincer, ftbl);
+        sp_mincer_init(sp, mincer, ftbl, 2048);
         mincer->time = 0;
         mincer->amp = 1;
         mincer->pitch = 1;

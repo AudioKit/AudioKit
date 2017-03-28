@@ -91,6 +91,7 @@ typedef struct sp_ftbl{
 }sp_ftbl;
 
 int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size);
+int sp_ftbl_bind(sp_data *sp, sp_ftbl **ft, SPFLOAT *tbl, size_t size);
 int sp_ftbl_destroy(sp_ftbl **ft);
 int sp_gen_vals(sp_data *sp, sp_ftbl *ft, const char *string);
 int sp_gen_sine(sp_data *sp, sp_ftbl *ft);
@@ -271,6 +272,14 @@ int sp_bitcrush_destroy(sp_bitcrush **p);
 int sp_bitcrush_init(sp_data *sp, sp_bitcrush *p);
 int sp_bitcrush_compute(sp_data *sp, sp_bitcrush *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    SPFLOAT brown;
+} sp_brown;
+
+int sp_brown_create(sp_brown **p);
+int sp_brown_destroy(sp_brown **p);
+int sp_brown_init(sp_data *sp, sp_brown *p);
+int sp_brown_compute(sp_data *sp, sp_brown *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
     SPFLOAT sr, freq, bw, istor;
     SPFLOAT lkf, lkb;
     SPFLOAT a[8];
@@ -322,6 +331,16 @@ int sp_clip_create(sp_clip **p);
 int sp_clip_destroy(sp_clip **p);
 int sp_clip_init(sp_data *sp, sp_clip *p);
 int sp_clip_compute(sp_data *sp, sp_clip *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    SPFLOAT bpm;
+    SPFLOAT subdiv;
+    uint32_t counter;
+} sp_clock;
+
+int sp_clock_create(sp_clock **p);
+int sp_clock_destroy(sp_clock **p);
+int sp_clock_init(sp_data *sp, sp_clock *p);
+int sp_clock_compute(sp_data *sp, sp_clock *p, SPFLOAT *trig, SPFLOAT *out);
 typedef struct sp_comb{
     SPFLOAT revtime, looptime;
     SPFLOAT coef, prvt;
@@ -414,6 +433,29 @@ int sp_delay_create(sp_delay **p);
 int sp_delay_destroy(sp_delay **p);
 int sp_delay_init(sp_data *sp, sp_delay *p, SPFLOAT time);
 int sp_delay_compute(sp_data *sp, sp_delay *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    /* 4 one-pole filters */
+    SPFLOAT opva_alpha[4];
+    SPFLOAT opva_beta[4];
+    SPFLOAT opva_gamma[4];
+    SPFLOAT opva_delta[4];
+    SPFLOAT opva_eps[4];
+    SPFLOAT opva_a0[4];
+    SPFLOAT opva_fdbk[4];
+    SPFLOAT opva_z1[4];
+    /* end one-pole filters */
+
+    SPFLOAT SG[4];
+    SPFLOAT gamma;
+    SPFLOAT freq;
+    SPFLOAT K;
+    SPFLOAT res;
+} sp_diode;
+
+int sp_diode_create(sp_diode **p);
+int sp_diode_destroy(sp_diode **p);
+int sp_diode_init(sp_data *sp, sp_diode *p);
+int sp_diode_compute(sp_data *sp, sp_diode *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct sp_dist{
     SPFLOAT pregain, postgain, shape1, shape2, mode;
 } sp_dist;
@@ -731,7 +773,7 @@ typedef struct {
 
 int sp_mincer_create(sp_mincer **p);
 int sp_mincer_destroy(sp_mincer **p);
-int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft);
+int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft, int winsize);
 int sp_mincer_compute(sp_data *sp, sp_mincer *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct{
     SPFLOAT freq, q, xnm1, ynm1, ynm2, a0, a1, a2, d, lfq, lq;
@@ -1000,7 +1042,7 @@ int sp_port_create(sp_port **p);
 int sp_port_destroy(sp_port **p);
 int sp_port_init(sp_data *sp, sp_port *p, SPFLOAT htime);
 int sp_port_compute(sp_data *sp, sp_port *p, SPFLOAT *in, SPFLOAT *out);
-int sp_port_reset(sp_data *sp, sp_port *p, SPFLOAT *in);    
+int sp_port_reset(sp_data *sp, sp_port *p, SPFLOAT *in);
 typedef struct {
     SPFLOAT freq, amp, iphs;
     sp_ftbl *tbl;
@@ -1184,10 +1226,6 @@ int sp_reson_create(sp_reson **p);
 int sp_reson_destroy(sp_reson **p);
 int sp_reson_init(sp_data *sp, sp_reson *p);
 int sp_reson_compute(sp_data *sp, sp_reson *p, SPFLOAT *in, SPFLOAT *out);
-typedef struct{
-size_t size;
-void *auxp;
-}auxData;
 typedef struct {
     int     writePos;
     int     bufferSize;
@@ -1243,6 +1281,36 @@ int sp_rpt_destroy(sp_rpt **p);
 int sp_rpt_init(sp_data *sp, sp_rpt *p, SPFLOAT maxdur);
 int sp_rpt_compute(sp_data *sp, sp_rpt *p, SPFLOAT *trig, 
         SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    SPFLOAT min, max, cps_min, cps_max;
+    SPFLOAT si;
+    SPFLOAT phs;
+    int rmin_cod, rmax_cod;
+    SPFLOAT num0, num1, num2, df0, df1, c3, c2;
+    SPFLOAT onedsr;
+    int holdrand;
+    int init;
+} sp_rspline;
+
+int sp_rspline_create(sp_rspline **p);
+int sp_rspline_destroy(sp_rspline **p);
+int sp_rspline_init(sp_data *sp, sp_rspline *p);
+int sp_rspline_compute(sp_data *sp, sp_rspline *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct
+{
+    SPFLOAT drive;
+    SPFLOAT dcoffset;
+
+    SPFLOAT dcblocker[2][7];
+
+    SPFLOAT ai[6][7];
+    SPFLOAT aa[6][7];
+} sp_saturator;
+
+int sp_saturator_create(sp_saturator **p);
+int sp_saturator_destroy(sp_saturator **p);
+int sp_saturator_init(sp_data *sp, sp_saturator *p);
+int sp_saturator_compute(sp_data *sp, sp_saturator *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT val;
 } sp_samphold;

@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// Stereo Panner
 ///
@@ -22,18 +20,20 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
     fileprivate var panParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
-    open var pan: Double = 0 {
+    open dynamic var pan: Double = 0 {
         willSet {
             if pan != newValue {
-                if internalAU!.isSetUp() {
-                    panParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        panParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.pan = Float(newValue)
                 }
@@ -42,8 +42,8 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return internalAU!.isPlaying()
+    open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying() ?? false
     }
 
     // MARK: - Initialization
@@ -55,7 +55,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
     public init(
-        _ input: AKNode,
+        _ input: AKNode?,
         pan: Double = 0) {
 
         self.pan = pan
@@ -63,24 +63,24 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
-        panParameter   = tree["pan"]
+        panParameter = tree["pan"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.panParameter!.address {
+                if address == self?.panParameter?.address {
                     self?.pan = Double(value)
                 }
             }
@@ -92,11 +92,11 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        self.internalAU!.start()
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        self.internalAU!.stop()
+        internalAU?.stop()
     }
 }

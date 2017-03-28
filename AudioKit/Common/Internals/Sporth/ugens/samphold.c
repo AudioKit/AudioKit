@@ -12,13 +12,13 @@ int sporth_samphold(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "samphold: Creating\n");
+            plumber_print(pd, "samphold: Creating\n");
 #endif
 
             sp_samphold_create(&samphold);
             plumber_add_ugen(pd, SPORTH_SAMPHOLD, samphold);
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for samphold\n");
+                plumber_print(pd,"Not enough arguments for samphold\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -29,7 +29,7 @@ int sporth_samphold(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "samphold: Initialising\n");
+            plumber_print(pd, "samphold: Initialising\n");
 #endif
 
             trig = sporth_stack_pop_float(stack);
@@ -50,7 +50,7 @@ int sporth_samphold(sporth_stack *stack, void *ud)
             sp_samphold_destroy(&samphold);
             break;
         default:
-            fprintf(stderr, "samphold: Unknown mode!\n");
+            plumber_print(pd, "samphold: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -13,13 +13,13 @@ int sporth_bitcrush(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "bitcrush: Creating\n");
+            plumber_print(pd, "bitcrush: Creating\n");
 #endif
 
             sp_bitcrush_create(&bitcrush);
             plumber_add_ugen(pd, SPORTH_BITCRUSH, bitcrush);
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for bitcrush\n");
+                plumber_print(pd,"Not enough arguments for bitcrush\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -31,7 +31,7 @@ int sporth_bitcrush(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "bitcrush: Initialising\n");
+            plumber_print(pd, "bitcrush: Initialising\n");
 #endif
             srate = sporth_stack_pop_float(stack);
             bitdepth = sporth_stack_pop_float(stack);
@@ -55,7 +55,7 @@ int sporth_bitcrush(sporth_stack *stack, void *ud)
             sp_bitcrush_destroy(&bitcrush);
             break;
         default:
-            fprintf(stderr, "bitcrush: Unknown mode!\n");
+            plumber_print(pd, "bitcrush: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -1,6 +1,6 @@
 //: ## Phase-Locked Vocoder
 //: A different kind of time and pitch stretching
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "guitarloop.wav",
@@ -16,15 +16,14 @@ phaseLockedVocoder.pitchRatio = 1
 var timeStep = 0.1
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     // UI Elements we'll need to be able to access
     var playingPositionSlider: AKPropertySlider?
-    
+
     override func setup() {
-        
+
         addTitle("Phase Locked Vocoder")
-        
-        
+
         playingPositionSlider = AKPropertySlider(
             property: "Position",
             format: "%0.2f s",
@@ -33,9 +32,10 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             phaseLockedVocoder.position = sliderValue
         }
-        addSubview(playingPositionSlider!)
+        addSubview(playingPositionSlider)
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

@@ -14,13 +14,13 @@ int sporth_nsmp(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-           fprintf(stderr,"Creating nsmp function... \n");
+           plumber_print(pd,"Creating nsmp function... \n");
 #endif
             sp_nsmp_create(&nsmp);
             plumber_add_ugen(pd, SPORTH_NSMP, nsmp);
             if(sporth_check_args(stack, "fffss") != SPORTH_OK) {
                 stack->error++;
-                fprintf(stderr, "Invalid arguments for nsmp.\n");
+                plumber_print(pd, "Invalid arguments for nsmp.\n");
                 return PLUMBER_NOTOK;
             }
 
@@ -36,7 +36,7 @@ int sporth_nsmp(sporth_stack *stack, void *ud)
             }
 
             if(sp_nsmp_init(pd->sp, nsmp, ft, sr, ini) == SP_NOT_OK) {
-                fprintf(stderr, "nsmp: there was an error opening the files\n");
+                plumber_print(pd, "nsmp: there was an error opening the files\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             };
@@ -68,7 +68,7 @@ int sporth_nsmp(sporth_stack *stack, void *ud)
             sp_nsmp_destroy(&nsmp);
             break;
         default:
-           fprintf(stderr,"Error: Unknown mode!");
+           plumber_print(pd,"Error: Unknown mode!");
             stack->error++;
             return PLUMBER_NOTOK;
             break;

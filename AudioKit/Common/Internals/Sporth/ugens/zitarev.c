@@ -24,13 +24,13 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "zitarev: Creating\n");
+            plumber_print(pd, "zitarev: Creating\n");
 #endif
 
             sp_zitarev_create(&zitarev);
             plumber_add_ugen(pd, SPORTH_ZITAREV, zitarev);
             if(sporth_check_args(stack, "fffffffffffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for zitarev\n");
+                plumber_print(pd,"Not enough arguments for zitarev\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -53,7 +53,7 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "zitarev: Initialising\n");
+            plumber_print(pd, "zitarev: Initialising\n");
 #endif
             level = sporth_stack_pop_float(stack);
             mix = sporth_stack_pop_float(stack);
@@ -108,7 +108,7 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
             sp_zitarev_destroy(&zitarev);
             break;
         default:
-            fprintf(stderr, "zitarev: Unknown mode!\n");
+            plumber_print(pd, "zitarev: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;
@@ -130,13 +130,13 @@ int sporth_zrev(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "zrev: Creating\n");
+            plumber_print(pd, "zrev: Creating\n");
 #endif
 
             sp_zitarev_create(&zitarev);
             plumber_add_ugen(pd, SPORTH_ZREV, zitarev);
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for zitarev\n");
+                plumber_print(pd,"Not enough arguments for zitarev\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -151,11 +151,11 @@ int sporth_zrev(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "zrev: Initialising\n");
+            plumber_print(pd, "zrev: Initialising\n");
 #endif
 
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for zitarev\n");
+                plumber_print(pd,"Not enough arguments for zitarev\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -191,7 +191,7 @@ int sporth_zrev(sporth_stack *stack, void *ud)
             sp_zitarev_destroy(&zitarev);
             break;
         default:
-            fprintf(stderr, "zrev: Unknown mode!\n");
+            plumber_print(pd, "zrev: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

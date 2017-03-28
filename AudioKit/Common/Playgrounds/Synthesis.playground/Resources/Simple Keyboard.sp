@@ -1,10 +1,15 @@
 # Simple Keyboard
 # by Aurelius Prochazka and Paul Batchelor
 
-# p0: 0.001 Portamento
-# p1: 1     Modulating Multiplier
-# p2: 1     Modulation Index
-# p3: 0.5   Reverb Mix
+##: - Control 1: Portamento
+# default 0.001
+##: - Control 2: Modulating Multiplier
+# default 1
+##: - Control 3: Modulation Index
+# default 1
+##: - Control 4: Reverb Mix
+# default 0.5
+
 # Uses Keyboard
 
 5 p # MIDI Note Number

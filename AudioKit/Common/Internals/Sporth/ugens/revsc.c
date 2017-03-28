@@ -14,7 +14,7 @@ int sporth_revsc(sporth_stack *stack, void *ud)
             sp_revsc_create(&data);
             plumber_add_ugen(pd, SPORTH_REVSC, data);
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-               fprintf(stderr,"Init: not enough arguments for revsc!\n");
+               plumber_print(pd,"Init: not enough arguments for revsc!\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -67,7 +67,7 @@ int sporth_revsc(sporth_stack *stack, void *ud)
             break;
 
         default:
-          fprintf(stderr,"Error: Unknown mode!");
+          plumber_print(pd,"Error: Unknown mode!");
            break;
     }
     return PLUMBER_OK;

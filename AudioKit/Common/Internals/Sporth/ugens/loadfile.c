@@ -18,14 +18,14 @@ int sporth_loadfile(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_LOADFILE, NULL);
             if(sporth_check_args(stack, "ss") != SPORTH_OK) {
-                fprintf(stderr, "Init: not enough arguments for gen_line\n");
+                plumber_print(pd, "Init: not enough arguments for gen_line\n");
                 return PLUMBER_NOTOK;
             }
 
             filename = sporth_stack_pop_string(stack);
             str = sporth_stack_pop_string(stack);
             if(sp_ftbl_loadfile(pd->sp, &ft, filename) == SP_NOT_OK) {
-                fprintf(stderr, "There was an issue creating the ftable \"%s\".\n", str);
+                plumber_print(pd, "There was an issue creating the ftable \"%s\".\n", str);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }

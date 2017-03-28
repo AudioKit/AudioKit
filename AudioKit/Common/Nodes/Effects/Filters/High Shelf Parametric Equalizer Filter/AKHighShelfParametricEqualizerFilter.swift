@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
@@ -24,18 +22,20 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     fileprivate var qParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open var rampTime: Double = AKSettings.rampTime {
+    open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Corner frequency.
-    open var centerFrequency: Double = 1000 {
+    open dynamic var centerFrequency: Double = 1_000 {
         willSet {
             if centerFrequency != newValue {
-                if internalAU!.isSetUp() {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.centerFrequency = Float(newValue)
                 }
@@ -43,11 +43,13 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         }
     }
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    open var gain: Double = 1.0 {
+    open dynamic var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
-                if internalAU!.isSetUp() {
-                    gainParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        gainParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.gain = Float(newValue)
                 }
@@ -55,11 +57,13 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         }
     }
     /// Q of the filter. sqrt(0.5) is no resonance.
-    open var q: Double = 0.707 {
+    open dynamic var q: Double = 0.707 {
         willSet {
             if q != newValue {
-                if internalAU!.isSetUp() {
-                    qParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        qParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
                 } else {
                     internalAU?.q = Float(newValue)
                 }
@@ -68,8 +72,8 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return internalAU!.isPlaying()
+    open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying() ?? false
     }
 
     // MARK: - Initialization
@@ -79,12 +83,12 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     /// - Parameters:
     ///   - input: Input node to process
     ///   - centerFrequency: Corner frequency.
-    ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+    ///   - gain: Amount the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
-        _ input: AKNode,
-        centerFrequency: Double = 1000,
+        _ input: AKNode?,
+        centerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
 
@@ -95,30 +99,30 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self]
-            avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input.addConnectionPoint(self!)
+            input?.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            return
+        }
 
         centerFrequencyParameter = tree["centerFrequency"]
-        gainParameter            = tree["gain"]
-        qParameter               = tree["q"]
+        gainParameter = tree["gain"]
+        qParameter = tree["q"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self]
-            address, value in
+        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.centerFrequencyParameter!.address {
+                if address == self?.centerFrequencyParameter?.address {
                     self?.centerFrequency = Double(value)
-                } else if address == self?.gainParameter!.address {
+                } else if address == self?.gainParameter?.address {
                     self?.gain = Double(value)
-                } else if address == self?.qParameter!.address {
+                } else if address == self?.qParameter?.address {
                     self?.q = Double(value)
                 }
             }
@@ -133,11 +137,11 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        self.internalAU!.start()
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        self.internalAU!.stop()
+        internalAU?.stop()
     }
 }

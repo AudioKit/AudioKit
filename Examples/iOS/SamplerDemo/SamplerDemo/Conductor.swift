@@ -9,7 +9,7 @@
 import AudioKit
 
 class Conductor {
-    private var sequence: AKSequencer?
+    private var sequence: AKSequencer!
     private var mixer = AKMixer()
     private var arpeggioSynthesizer = AKSampler()
     private var padSynthesizer = AKSampler()
@@ -30,29 +30,33 @@ class Conductor {
         padVolume?.gain = 1
         bassVolume?.gain = 1
         drumKitVolume?.gain = 1
-        mixer.connect(arpeggioVolume!)
-        mixer.connect(padVolume!)
-        mixer.connect(bassVolume!)
-        mixer.connect(drumKitVolume!)
-        
+        mixer.connect(arpeggioVolume)
+        mixer.connect(padVolume)
+        mixer.connect(bassVolume)
+        mixer.connect(drumKitVolume)
+
         filter = AKMoogLadder(mixer)
-        filter?.cutoffFrequency = 20000
+        filter?.cutoffFrequency = 20_000
         AudioKit.output = filter
 
-        try! arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
-        try! padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
-        try! bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
-        try! drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
+        do {
+            try arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
+            try padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
+            try bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
+            try drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
+        } catch {
+            print("A file was not found.")
+        }
         AudioKit.start()
         sequence = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
-        sequence?.enableLooping()
-        sequence!.avTracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
-        sequence!.avTracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
-        sequence!.avTracks[3].destinationAudioUnit = padSynthesizer.samplerUnit
-        sequence!.avTracks[4].destinationAudioUnit = drumKit.samplerUnit
-        sequence!.setLength(AKDuration(beats: 4))
+        sequence.enableLooping()
+        sequence.avTracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
+        sequence.avTracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
+        sequence.avTracks[3].destinationAudioUnit = padSynthesizer.samplerUnit
+        sequence.avTracks[4].destinationAudioUnit = drumKit.samplerUnit
+        sequence.setLength(AKDuration(beats: 4))
     }
-    
+
     func adjustVolume(_ volume: Float, instrument: Instrument) {
         switch instrument {
         case Instrument.Arpeggio:
@@ -65,29 +69,29 @@ class Conductor {
             drumKitVolume?.gain = Double(volume)
         }
     }
-    
+
     func adjustFilterFrequency(_ frequency: Float) {
         let value = Double(frequency)
-        filter?.cutoffFrequency = value.denormalized(minimum: 30, maximum: 20000, taper: 3)
+        filter?.cutoffFrequency = value.denormalized(minimum: 30, maximum: 20_000, taper: 3)
     }
-    
+
     func playSequence() {
-        sequence!.play()
+        sequence.play()
     }
-    
+
     func stopSequence() {
-        sequence!.stop()
+        sequence.stop()
     }
-    
+
     func rewindSequence() {
-        sequence!.rewind()
+        sequence.rewind()
     }
-    
+
     func setLength(_ length: Double) {
-        sequence!.setLength(AKDuration(beats: length))
-        sequence!.rewind()
+        sequence.setLength(AKDuration(beats: length))
+        sequence.rewind()
     }
-    
+
     func useSound(_ sound: Sound, synthesizer: Synthesizer) {
         let soundPath: String?
         switch sound {
@@ -100,22 +104,26 @@ class Conductor {
         case Sound.Noisy:
             soundPath = "Sounds/Sampler Instruments/noisyRez"
         }
-        
+
         guard let path = soundPath else {
             print("Type of sound wasn't detected")
             return
         }
-        
-        switch synthesizer {
-        case Synthesizer.Arpeggio:
-            try! arpeggioSynthesizer.loadEXS24(path)
-        case Synthesizer.Pad:
-            try! padSynthesizer.loadEXS24(path)
-        case Synthesizer.Bass:
-            try! bassSynthesizer.loadEXS24(path)
+
+        do {
+            switch synthesizer {
+            case Synthesizer.Arpeggio:
+                try arpeggioSynthesizer.loadEXS24(path)
+            case Synthesizer.Pad:
+                try padSynthesizer.loadEXS24(path)
+            case Synthesizer.Bass:
+                try bassSynthesizer.loadEXS24(path)
+            }
+        } catch {
+            print("Could not load EXS24")
         }
     }
-    
+
     func adjustTempo(_ tempo: Float) {
         sequence?.rate = Double(tempo)
     }

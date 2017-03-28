@@ -3,10 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import AVFoundation
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
@@ -18,15 +16,15 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     private var mixer: AKMixer
 
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    open var cutoffFrequency: Double = 10000 {
+    open dynamic var cutoffFrequency: Double = 10_000 {
         didSet {
-            cutoffFrequency = (10000...22050).clamp(cutoffFrequency)
+            cutoffFrequency = (10_000...22_050).clamp(cutoffFrequency)
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
         }
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    open var gain: Double = 0 {
+    open dynamic var gain: Double = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kHighShelfParam_Gain] = gain
@@ -34,7 +32,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     }
 
     /// Dry/Wet Mix (Default 100)
-    open var dryWetMix: Double = 100 {
+    open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
@@ -47,7 +45,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     private var effectGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted = true
+    open dynamic var isStarted = true
 
     // MARK: - Initialization
 
@@ -59,27 +57,29 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
-        cutOffFrequency: Double = 10000,
+        _ input: AKNode?,
+        cutOffFrequency: Double = 10_000,
         gain: Double = 0) {
 
             self.cutoffFrequency = cutOffFrequency
             self.gain = gain
 
             inputGain = AKMixer(input)
-            inputGain!.volume = 0
-            mixer = AKMixer(inputGain!)
+            inputGain?.volume = 0
+            mixer = AKMixer(inputGain)
 
             effectGain = AKMixer(input)
-            effectGain!.volume = 1
+            effectGain?.volume = 1
 
             let effect = _Self.effect
 
-            au = AUWrapper(au: effect)
+            au = AUWrapper(effect)
             super.init(avAudioNode: mixer.avAudioNode)
 
             AudioKit.engine.attach(effect)
-            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: effect)
+            if let node = effectGain?.avAudioNode {
+                AudioKit.engine.connect(node, to: effect)
+            }
             AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency

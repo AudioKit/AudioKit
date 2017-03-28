@@ -2,7 +2,6 @@
 //: AKNodeRecorder allows you to record the output of a specific node.
 //: Let's record a sawtooth solo.
 
-import PlaygroundSupport
 import AudioKit
 
 //: Set up a source to be recorded
@@ -21,27 +20,26 @@ reverb.loadFactoryPreset(.largeHall)
 reverb.dryWetMix = 0.5
 
 //: Create an AKAudioFile to record to:
-let tape = try? AKAudioFile()
+let tape = try AKAudioFile()
 //: We set a player to playback our "tape"
-let player = try? AKAudioPlayer(file: tape!)
+let player = try AKAudioPlayer(file: tape)
 
 //: Mix our reverberated oscillator with our player, so we can listen to both.
-let mixer = AKMixer(player!, reverb)
+let mixer = AKMixer(player, reverb)
 AudioKit.output = mixer
 
 AudioKit.start()
 
 //: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...
-let recorder = try? AKNodeRecorder(node: oscMixer, file: tape!)
-
+let recorder = try AKNodeRecorder(node: oscMixer, file: tape)
 
 //: Build our User interface
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var recordLabel: Label?
-    var playLabel: Label?
+    var recordLabel: Label!
+    var playLabel: Label!
 
     override func setup() {
         addTitle("Recording Nodes")
@@ -49,43 +47,56 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         recordLabel = addLabel("Press Record to Record...")
 
         addSubview(AKButton(title: "Record", color: AKColor.red) {
-            if recorder!.isRecording {
-                let dur = String(format: "%0.3f seconds", recorder!.recordedDuration)
-                self.recordLabel!.text = "Stopped. (\(dur) recorded)"
-                recorder?.stop()
+            if recorder.isRecording {
+                let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
+                self.recordLabel.text = "Stopped. (\(dur) recorded)"
+                recorder.stop()
                 return "Record"
             } else {
-                self.recordLabel!.text = "Recording..."
-                try? recorder?.record()
+                self.recordLabel.text = "Recording..."
+                do {
+                    try recorder.record()
+                } catch {
+                    AKLog("Couldn't record")
+                }
                 return "Stop"
-            }})
-
+            }
+        })
 
         addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
-            self.recordLabel!.text = "Tape Cleared!"
-            try? recorder?.reset()
+            self.recordLabel.text = "Tape Cleared!"
+            do {
+                try recorder.reset()
+            } catch {
+                AKLog("Couldn't reset.")
+            }
             return "Reset Recording"
-            })
+        })
 
         playLabel = addLabel("Press Play to playback...")
 
         addSubview(AKButton(title: "Play") {
-            if player!.isPlaying {
-                self.playLabel!.text = "Stopped playback!"
-                player?.stop()
+            if player.isPlaying {
+                self.playLabel.text = "Stopped playback!"
+                player.stop()
                 return "Play"
             } else {
-                try? player?.reloadFile()
+                do {
+                    try player.reloadFile()
+                } catch {
+                    AKLog("Couldn't reload file.")
+                }
                 // If the tape is not empty, we can play it !...
-                if player?.audioFile.duration ?? 0 > 0 {
-                    self.playLabel!.text = "Playing..."
-                    player?.completionHandler = self.callback
-                    player?.play()
+                if player.audioFile.duration ?? 0 > 0 {
+                    self.playLabel.text = "Playing..."
+                    player.completionHandler = self.callback
+                    player.play()
                 } else {
-                    self.playLabel!.text = "Tape is empty!..."
+                    self.playLabel.text = "Tape is empty!..."
                 }
                 return "Stop"
-            }})
+            }
+        })
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
@@ -95,7 +106,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     func callback() {
         // We use Dispatch_async to refresh UI as callback is invoked from a background thread
         DispatchQueue.main.async {
-            self.playLabel!.text = "Finished playing!"
+            self.playLabel.text = "Finished playing!"
         }
     }
 
@@ -118,5 +129,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

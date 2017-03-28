@@ -19,12 +19,11 @@ static int slist_parse(slist_d *sl, char *filename, uint32_t size)
     char *line = NULL;
     sl-> list = malloc(sizeof(char *) * size); 
     if(fp == NULL) {
-        fprintf(stderr, "slist: could not load file %s\n", filename);
         return PLUMBER_NOTOK;
     }
 
     for(i = 0; i < size; i++) {
-        if((read = getline(&line, &len, fp)) == -1) break;
+        if((read = sporth_getline(&line, &len, fp)) == -1) break;
         sl->list[i] = malloc(read + 1);
         memset(sl->list[i], 0, read + 1);
         strncpy(sl->list[i], line, read - 1);
@@ -63,14 +62,14 @@ int sporth_slist(sporth_stack *stack, void *ud)
             sl->list = NULL;
             plumber_add_ugen(pd, SPORTH_SLIST, sl);
             if(sporth_check_args(stack, "sfs") != SPORTH_OK) {
-               fprintf(stderr,"Not enough arguments for slist\n");
+               plumber_print(pd,"Not enough arguments for slist\n");
                 return PLUMBER_NOTOK;
             }
             filename = sporth_stack_pop_string(stack);
             size = sporth_stack_pop_float(stack);
             ftname = sporth_stack_pop_string(stack);
             if(slist_parse(sl, filename, size) != PLUMBER_OK) {
-                fprintf(stderr, 
+                plumber_print(pd, 
                         "slist: could not load file %s\n",
                         filename);
                 return PLUMBER_NOTOK;
@@ -95,7 +94,7 @@ int sporth_slist(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;
@@ -114,18 +113,18 @@ int sporth_sget(sporth_stack *stack, void *ud)
             str = malloc(sizeof(char *));
             plumber_add_ugen(pd, SPORTH_SGET, str);
             if(sporth_check_args(stack, "fs") != SPORTH_OK) {
-               fprintf(stderr,"Not enough arguments for sget\n");
+               plumber_print(pd,"Not enough arguments for sget\n");
                 return PLUMBER_NOTOK;
             }
             ftname = sporth_stack_pop_string(stack);
             index = sporth_stack_pop_float(stack);
             if(plumber_ftmap_search_userdata(pd,ftname, (void *)&sl) != 
                     PLUMBER_OK) {
-                fprintf(stderr, "Could not find ftable %s\n", ftname);
+                plumber_print(pd, "Could not find ftable %s\n", ftname);
                 return PLUMBER_NOTOK;
             }
             if(index > sl->len - 1) {
-                fprintf(stderr, "Index %d exceeds slist length %d\n",
+                plumber_print(pd, "Index %d exceeds slist length %d\n",
                         index, sl->len);
                 return PLUMBER_NOTOK;
             }
@@ -150,7 +149,7 @@ int sporth_sget(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;
@@ -170,14 +169,14 @@ int sporth_slick(sporth_stack *stack, void *ud)
             plumber_add_ugen(pd, SPORTH_SLICK, str);
 
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
-               fprintf(stderr,"Not enough arguments for slick\n");
+               plumber_print(pd,"Not enough arguments for slick\n");
                 return PLUMBER_NOTOK;
             }
 
             ftname = sporth_stack_pop_string(stack);
             if(plumber_ftmap_search_userdata(pd,ftname, (void *)&sl) != 
                     PLUMBER_OK) {
-                fprintf(stderr, "Could not find ftable %s\n", ftname);
+                plumber_print(pd, "Could not find ftable %s\n", ftname);
                 return PLUMBER_NOTOK;
             }
             index = (uint32_t)(((SPFLOAT)sp_rand(pd->sp) / SP_RANDMAX) * sl->len);
@@ -200,7 +199,7 @@ int sporth_slick(sporth_stack *stack, void *ud)
             break;
 
         default:
-            fprintf(stderr,"Error: Unknown mode!");
+            plumber_print(pd,"Error: Unknown mode!");
             break;
     }
     return PLUMBER_OK;

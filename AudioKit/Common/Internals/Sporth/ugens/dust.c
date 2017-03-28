@@ -13,13 +13,13 @@ int sporth_dust(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "dust: Creating\n");
+            plumber_print(pd, "dust: Creating\n");
 #endif
 
             sp_dust_create(&dust);
             plumber_add_ugen(pd, SPORTH_DUST, dust);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for dust\n");
+                plumber_print(pd,"Not enough arguments for dust\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -28,7 +28,7 @@ int sporth_dust(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "dust: Initialising\n");
+            plumber_print(pd, "dust: Initialising\n");
 #endif
 
             bipolar = (int)sporth_stack_pop_float(stack);
@@ -54,7 +54,7 @@ int sporth_dust(sporth_stack *stack, void *ud)
             sp_dust_destroy(&dust);
             break;
         default:
-            fprintf(stderr, "dust: Unknown mode!\n");
+            plumber_print(pd, "dust: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

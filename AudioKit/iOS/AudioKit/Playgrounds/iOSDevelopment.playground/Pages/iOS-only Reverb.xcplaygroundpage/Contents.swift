@@ -5,7 +5,6 @@
 //: ## iOS-only Reverb
 //: For some reason, this reverb is only supplied on iOS devices. It is super-powerful.
 
-import PlaygroundSupport
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .resources)
@@ -36,6 +35,7 @@ AKPlaygroundLoop(every: 3.428) { () -> Void in
     reverb2.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

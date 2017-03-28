@@ -1,6 +1,6 @@
 //: ## Tone and Tone Complement Filters
 //: ##
-import PlaygroundSupport
+
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
@@ -31,11 +31,11 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "Half Power Point",
-            value: toneFilter.halfPowerPoint, maximum: 10000,
+            value: toneFilter.halfPowerPoint, maximum: 10_000,
             color: AKColor.green
         ) { sliderValue in
             toneFilter.halfPowerPoint = sliderValue
-            })
+        })
 
         addLabel("Tone Complement Filter: ")
 
@@ -43,13 +43,14 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "Half Power Point",
-            value: toneComplement.halfPowerPoint, maximum: 10000,
+            value: toneComplement.halfPowerPoint, maximum: 10_000,
             color: AKColor.green
         ) { sliderValue in
             toneComplement.halfPowerPoint = sliderValue
-            })
+        })
     }
 }
 
+import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()

@@ -3,25 +3,24 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
-/// A computed parameter differs from a regular parameter in that it only exists within an operation (unlike float, doubles, and ints which have a value outside of an operation)
+/// A computed parameter differs from a regular parameter in that it only exists within an operation 
+/// (unlike float, doubles, and ints which have a value outside of an operation)
 public protocol AKComputedParameter: AKParameter {}
 
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
 open class AKOperation: AKComputedParameter {
 
     // MARK: - Dependency Management
-    
+
     fileprivate var inputs = [AKParameter]()
 
     internal var savedLocation = -1
-    
+
     fileprivate var dependencies = [AKOperation]()
-    
+
     internal var recursiveDependencies: [AKOperation] {
         var all = [AKOperation]()
         var uniq = [AKOperation]()
@@ -30,7 +29,7 @@ open class AKOperation: AKComputedParameter {
             all += dep.recursiveDependencies
             all.append(dep)
         }
-        
+
         for elem in all {
             if !added.contains(elem.inlineSporth) {
                 uniq.append(elem)
@@ -40,15 +39,17 @@ open class AKOperation: AKComputedParameter {
 
         return uniq
     }
-    
+
     // MARK: - String Representations
-    
+
     fileprivate var valueText = ""
     internal var setupSporth = ""
     fileprivate var module = ""
-    
+
     internal var inlineSporth: String {
-        if valueText != "" { return valueText }
+        if valueText != "" {
+            return valueText
+        }
         var opString = ""
         for input in inputs {
             if type(of: input) == AKOperation.self {
@@ -56,7 +57,7 @@ open class AKOperation: AKComputedParameter {
                     if operation.savedLocation >= 0 {
                         opString += "\(operation.savedLocation) \"ak\" tget "
                     } else {
-                        opString  += operation.inlineSporth
+                        opString += operation.inlineSporth
                     }
                 }
             } else {
@@ -66,12 +67,12 @@ open class AKOperation: AKComputedParameter {
         opString  += "\(module) "
         return opString
     }
-    
+
     /// Final sporth string when this operation is the last operation in the stack
     internal var sporth: String {
         let rd = recursiveDependencies
         var str = ""
-        if rd.count > 0 {
+        if !rd.isEmpty {
             str = "\"ak\" \""
             for _ in rd {
                 str += "0 "
@@ -88,28 +89,28 @@ open class AKOperation: AKComputedParameter {
         }
         str += "\(setupSporth) \n"
         str += "\(inlineSporth) \n"
-        
+
         return str
     }
-    
+
     /// Redefining description to return the operation string
     open var description: String {
         return inlineSporth
     }
-    
+
     // MARK: - Inputs
-    
+
     /// Left input to any stereo operation
     open static var leftInput = AKOperation("(14 p) ")
 
     /// Right input to any stereo operation
     open static var rightInput = AKOperation("(15 p) ")
-    
+
     /// Dummy trigger
     open static var trigger = AKOperation("(0 p) ")
-    
+
     // MARK: - Functions
-    
+
     /// An= array of 14 parameters which may be sent to operations
     open static var parameters: [AKOperation] =
         [AKOperation("(0 p) "),
@@ -126,8 +127,7 @@ open class AKOperation: AKComputedParameter {
          AKOperation("(11 p) "),
          AKOperation("(12 p) "),
          AKOperation("(13 p) ")]
-    
-    
+
     /// Convert the operation to a mono operation
     open func toMono() -> AKOperation {
         return self
@@ -169,7 +169,7 @@ open class AKOperation: AKComputedParameter {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the operation as a constant value
     ///
     /// - parameter value: Constant value as an operation
@@ -181,7 +181,7 @@ open class AKOperation: AKComputedParameter {
     init(global: String) {
         self.valueText = global
     }
-    
+
     /// Initialize the operation with a Sporth string
     ///
     /// - parameter operationString: Valid Sporth string (proceed with caution
@@ -192,18 +192,18 @@ open class AKOperation: AKComputedParameter {
         //AKOperation.nextTableIndex += 1
         //AKOperation.operationArray.append(self)
     }
-    
+
     /// Initialize the operation
     ///
     /// - parameter module: Sporth unit generator
     /// - parameter setup:  Any setup Sporth code that this operation may require
     /// - parameter inputs: All the parameters of the operation
     ///
-    public init(module: String, setup: String = "",  inputs: AKParameter...) {
+    public init(module: String, setup: String = "", inputs: AKParameter...) {
         self.module = module
         self.setupSporth = setup
         self.inputs = inputs
-        
+
         for input in inputs {
             if type(of: input) == AKOperation.self {
                 if let forcedInput = input as? AKOperation {

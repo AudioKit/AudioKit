@@ -15,13 +15,13 @@ int sporth_tseg(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tseg: Creating\n");
+            plumber_print(pd, "tseg: Creating\n");
 #endif
 
             sp_tseg_create(&tseg);
             plumber_add_ugen(pd, SPORTH_TSEG, tseg);
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for tseg\n");
+                plumber_print(pd,"Not enough arguments for tseg\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -35,7 +35,7 @@ int sporth_tseg(sporth_stack *stack, void *ud)
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "tseg: Initialising\n");
+            plumber_print(pd, "tseg: Initialising\n");
 #endif
 
             ibeg = sporth_stack_pop_float(stack);
@@ -65,7 +65,7 @@ int sporth_tseg(sporth_stack *stack, void *ud)
             sp_tseg_destroy(&tseg);
             break;
         default:
-            fprintf(stderr, "tseg: Unknown mode!\n");
+            plumber_print(pd, "tseg: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

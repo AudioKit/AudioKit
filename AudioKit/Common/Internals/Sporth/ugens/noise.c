@@ -12,7 +12,7 @@ int sporth_noise(sporth_stack *stack, void *ud)
             sp_noise_create(&data);
             plumber_add_ugen(pd, SPORTH_NOISE, data);
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr, "Not enough arguments for noise\n");
+                plumber_print(pd, "Not enough arguments for noise\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
