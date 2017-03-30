@@ -178,17 +178,12 @@ extension AVAudioEngine {
 
     /// Start up the audio engine
     open static func start() {
-        print("starting ak")
         if output == nil {
             NSLog("AudioKit: No output node has been set yet, no processing will happen.")
         }
         // Start the engine.
         do {
-            self.engine.reset()
-            print("reset nodes")
-            print("will prepare engine")
             self.engine.prepare()
-            print("did prepare engine")
 
             #if os(iOS)
 
@@ -239,15 +234,14 @@ extension AVAudioEngine {
                 #endif
 
                 } else if AKSettings.playbackWhileMuted {
-                    print("will set session")
-                    try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
-                    print("just set session")
+
+                    try AKSettings.setSession(category: .playback)
+
                 } else {
                     try AKSettings.setSession(category: .ambient)
 
                 }
             #if os(iOS)
-                print("setting active")
                 try AVAudioSession.sharedInstance().setActive(true)
             #endif
 

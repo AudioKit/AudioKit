@@ -104,8 +104,7 @@ extension AKSettings {
     /// Set the audio session type
     open static func setSession(category: SessionCategory,
                                 with options: AVAudioSessionCategoryOptions = [.mixWithOthers]) throws {
-        print("setting session")
-        print("AKSettings.disableAVAudioSessionCategoryManagement \(AKSettings.disableAVAudioSessionCategoryManagement)")
+
         if !AKSettings.disableAVAudioSessionCategoryManagement {
             do {
                 try session.setCategory("\(category)", with: options)
@@ -118,9 +117,6 @@ extension AKSettings {
         // Preferred IO Buffer Duration
 
         do {
-            AKLog("bufflen \(bufferLength.duration)")
-            print("session buffer is \(AVAudioSession.sharedInstance().ioBufferDuration)")
-            print("preferred buffer is \(AVAudioSession.sharedInstance().preferredIOBufferDuration)")
             try session.setPreferredIOBufferDuration(bufferLength.duration)
         } catch let error as NSError {
             AKLog("AKSettings Error: Cannot set Preferred IOBufferDuration to " +
@@ -131,14 +127,12 @@ extension AKSettings {
 
         // Activate session
         do {
-            print("trying to set active from setsession")
             try session.setActive(true)
         } catch let error as NSError {
             AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true")
             AKLog("AKSettings Error: \(error))")
             throw error
         }
-        print("done setting session")
     }
 
     /// Checks if headphones are plugged
