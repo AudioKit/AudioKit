@@ -82,12 +82,15 @@ open class AKMIDI {
     // MARK: - Virtual MIDI
 
     /// Create set of virtual MIDI ports
-    open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000, name:String? = nil) {
+    open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
         destroyVirtualPorts()
         createVirtualInputPort(uniqueID, name: name)
         createVirtualOutputPort(uniqueID, name: name)
     }
-    open func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name:String? = nil) {destroyVirtualPorts()
+    
+    /// Create a virtual MIDI input port
+    open func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
+        destroyVirtualPorts()
         let virtualPortname = ((name != nil) ? name! : String(clientName))
         
         let result = MIDIDestinationCreateWithBlock(client, virtualPortname as CFString, &virtualInput) { packetList, _ in
@@ -105,7 +108,9 @@ open class AKMIDI {
             AKLog("Error creatervirt dest: \(virtualPortname) -- \(virtualInput)")
         }
     }
-    open func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_000, name:String? = nil) {
+    
+    /// Create a virtual MIDI output port
+    open func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
         let virtualPortname = ((name != nil) ? name! : String(clientName))
         
         let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
