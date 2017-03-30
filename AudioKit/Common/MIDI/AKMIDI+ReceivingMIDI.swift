@@ -146,8 +146,7 @@ extension AKMIDI {
                                              velocity: MIDIVelocity(event.internalData[2]),
                                              channel: MIDIChannel(eventChannel))
             case .pitchWheel:
-                print(event.data)
-                listener.receivedMIDIPitchWheel(MIDIByte(Int(event.data)),
+                listener.receivedMIDIPitchWheel(MIDIWord(Int(event.data)),
                                                 channel: MIDIChannel(eventChannel))
             case .polyphonicAftertouch:
                 listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),
