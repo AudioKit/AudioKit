@@ -42,10 +42,10 @@ open class AKMIDI {
     internal var outputPort = MIDIPortRef()
 
     /// Virtual MIDI output
-    internal var virtualOutput = MIDIPortRef()
+    open var virtualOutput = MIDIPortRef()
 
     /// Array of MIDI Endpoints
-    internal var endpoints = [String: MIDIEndpointRef]()
+    open var endpoints = [String: MIDIEndpointRef]()
 
     /// MIDI Out Port Name
     internal var outputPortName: CFString = "MIDI Out Port" as CFString
@@ -82,10 +82,15 @@ open class AKMIDI {
     // MARK: - Virtual MIDI
 
     /// Create set of virtual MIDI ports
-    open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000) {
+    open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000, name:String? = nil) {
         destroyVirtualPorts()
-
-        var result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput) { packetList, _ in
+        createVirtualInputPort(uniqueID, name: name)
+        createVirtualOutputPort(uniqueID, name: name)
+    }
+    open func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name:String? = nil) {destroyVirtualPorts()
+        let virtualPortname = ((name != nil) ? name! : String(clientName))
+        
+        let result = MIDIDestinationCreateWithBlock(client, virtualPortname as CFString, &virtualInput) { packetList, _ in
             for packet in packetList.pointee {
                 // a coremidi packet may contain multiple midi events
                 for event in packet {
@@ -93,20 +98,24 @@ open class AKMIDI {
                 }
             }
         }
-
+        
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
-            AKLog("Error creatervirt dest: \(clientName) -- \(virtualInput)")
+            AKLog("Error creatervirt dest: \(virtualPortname) -- \(virtualInput)")
         }
-
-        result = MIDISourceCreate(client, clientName, &virtualOutput)
+    }
+    open func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_000, name:String? = nil) {
+        let virtualPortname = ((name != nil) ? name! : String(clientName))
+        
+        let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID + 1)
         } else {
-            AKLog("Error creating virtual source: \(clientName) -- \(virtualOutput)")
+            AKLog("Error creating virtual source: \(virtualPortname) -- \(virtualOutput)")
         }
     }
+
 
     /// Discard all virtual ports
     open func destroyVirtualPorts() {
