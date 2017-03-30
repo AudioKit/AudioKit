@@ -65,8 +65,8 @@ class Audiobus {
                 
                 if type == kAudioUnitType_RemoteInstrument ||
                     type == kAudioUnitType_RemoteGenerator {
-                    self.controller.addAudioSenderPort(
-                        ABAudioSenderPort(
+                    self.controller.addSenderPort(
+                        ABSenderPort(
                             name: name,
                             title: name,
                             audioComponentDescription: AudioComponentDescription(
@@ -81,8 +81,8 @@ class Audiobus {
                     )
                 }
                 if type == kAudioUnitType_RemoteEffect {
-                    self.controller.addAudioFilterPort(
-                        ABAudioFilterPort(
+                    self.controller.addFilterPort(
+                        ABFilterPort(
                             name: name,
                             title: name,
                             audioComponentDescription: AudioComponentDescription(
@@ -115,8 +115,7 @@ class Audiobus {
     }
     
     var isConnectedToInput: Bool {
-        return controller.isConnectedToAudiobus(portOfType: ABPortTypeAudioSender) ||
-            audioUnit.isConnectedToInterAppAudio(nodeOfType: kAudioUnitType_RemoteEffect)
+        return controller.isConnectedToAudiobus(portOfType: ABPortTypeSender) || audioUnit.isConnectedToInterAppAudio(nodeOfType: kAudioUnitType_RemoteEffect)
     }
     
     // MARK: Connections
@@ -136,10 +135,7 @@ class Audiobus {
     }
     
     private func startObservingAudiobusConnections() {
-        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged,
-                                                       object: nil,
-                                                       queue: nil,
-                                                       using: { _ in
+        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged, object: nil, queue: nil, using: { _ in
             self.updateConnections()
         })
     }
