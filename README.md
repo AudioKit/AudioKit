@@ -33,7 +33,7 @@ As of AudioKit 3.4, we have moved to support Swift 3 exclusively. You will there
 ## Key Concepts
 
 ### Nodes
-Nodes are interconnectable signal processing components.  Each node has at least an ouput and most likely also has parameters.  If it is processing another signal, the node will also have an input.
+Nodes are interconnectable signal processing components.  Each node has at least an output and most likely also has parameters.  If it is processing another signal, the node will also have an input.
 
 ### Operations
 Operations are similar to nodes, except that they are a series of signal processing components that exist inside of a single node.  Operations can be used as parameters to other operations to create very complex processing results.
