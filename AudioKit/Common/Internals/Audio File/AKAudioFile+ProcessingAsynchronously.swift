@@ -297,7 +297,7 @@ extension AKAudioFile {
 
         // Only mp4, m4a, .wav, .aif can be exported...
         guard ExportFormat.supportedFileExtensions.contains(fromFileExt) else {
-            AKLog("ERROR: AKAudioFile \".\(fromFileExt)\" is not supported for export!...")
+            AKLog("ERROR: AKAudioFile \".\(fromFileExt)\" is not supported for export.")
             callback(nil,
                      NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             return
@@ -312,7 +312,7 @@ extension AKAudioFile {
 
         if fromFileFormatIsCompressed {
             if !outFileFormatIsCompressed {
-                AKLog("ERROR AKAudioFile: cannot export from .\(fileExt) to .\(String(describing: exportFormat))!...")
+                AKLog("ERROR AKAudioFile: cannot export from .\(fileExt) to .\(String(describing: exportFormat))")
                 callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             } else {
                 avExportPreset = AVAssetExportPresetPassthrough
@@ -346,7 +346,7 @@ extension AKAudioFile {
                 let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
                 filePath = documentsPath + "/" + fileName
             case .resources:
-                AKLog("ERROR AKAudioFile export: cannot create a file in applications resources!...")
+                AKLog("ERROR AKAudioFile export: cannot create a file in applications resources")
                 callback(nil,
                          NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             // Save in same directory as original file
@@ -356,7 +356,7 @@ extension AKAudioFile {
             }
 
             guard let nsurl = URL(string: filePath) else {
-                AKLog("ERROR AKAudioFile export: directory \"\(filePath)\" isn't valid!...")
+                AKLog("ERROR AKAudioFile export: directory \"\(filePath)\" isn't valid")
                 callback(nil,
                          NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
                 return
@@ -710,7 +710,7 @@ extension AKAudioFile {
                 }
                 AKLog("ExportFactory: session #\(session.id) Completed")
                 exportSessions.removeValue(forKey: currentExportProcessID)
-                if exportSessions.isEmpty == false {
+                if !exportSessions.isEmpty {
                     //currentExportProcessID = exportSessions.first!.0
                     currentExportProcessID += 1
                     AKLog("ExportFactory: exporting session #\(currentExportProcessID)")
