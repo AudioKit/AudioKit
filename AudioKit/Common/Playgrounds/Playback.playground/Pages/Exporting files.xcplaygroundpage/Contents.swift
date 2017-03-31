@@ -22,7 +22,7 @@ player.play()
 //: If export succeeded, no error will be set (error = nil) and the exported file is returned as an AKAudioFile.
 //: The callback will print some information and replace the file being played with the exported file.
 func callback(processedFile: AKAudioFile?, error: NSError?) {
-    print("Export completed !")
+    print("Export completed!")
 
     // Check if processed file is valid (different from nil)
     if let converted = processedFile {

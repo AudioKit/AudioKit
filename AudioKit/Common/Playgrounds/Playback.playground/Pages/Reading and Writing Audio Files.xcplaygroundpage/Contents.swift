@@ -48,23 +48,24 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
                                   exportFormat: .m4a,
                                   fromSample: 44_100,
                                   toSample: 2 * 44_100) { exportedFile, error in
-        print("myExportCallBack has been triggered. It means that export ended")
-        if error == nil {
-            print("Export succeeded")
+    print("myExportCallBack has been triggered. It means that export ended")
+    if error == nil {
+        print("Export succeeded")
 
-            // If it is valid, we can play it :
-            if let successfulFile = exportedFile {
+        // If it is valid, we can play it :
+        if let successfulFile = exportedFile {
 
-                print(successfulFile.fileNamePlusExtension)
-                let player = try? AKAudioPlayer(file: successfulFile)
-                AudioKit.output = player
-                AudioKit.start()
-                player?.play()
-            }
-
-        } else {
-            print("Export failed")
+            print(successfulFile.fileNamePlusExtension)
+            let player = try? AKAudioPlayer(file: successfulFile)
+            AudioKit.output = player
+            AudioKit.start()
+            player?.play()
         }
+
+    } else {
+        print(drumloop.fileNamePlusExtension)
+        print("Export failed: \(error)")
+    }
 }
 
 //: ## AKAudioFile for writing / recording
