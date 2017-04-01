@@ -468,6 +468,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open func stopAtNextLoopEnd() {
         scheduledStopAction = AKScheduledAction(interval: endTime - currentTime) {
             self.stop()
+            self.completionHandler?()
         }
     }
 
