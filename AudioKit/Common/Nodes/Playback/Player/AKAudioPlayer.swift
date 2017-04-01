@@ -30,7 +30,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open dynamic var completionHandler: AKCallback?
 
     /// Boolean indicating whether or not to loop the playback
-    open dynamic var looping: Bool = false
+    open dynamic var looping: Bool = false {
+        didSet {
+            if playing {
+                let options: AVAudioPlayerNodeBufferOptions = looping ? [.loops, .interruptsAtLoop] : [.interruptsAtLoop]
+                scheduleBuffer(atTime: nil, options: options)
+            }
+        }
+    }
 
     /// Boolean indicating to play the buffer in reverse
     open dynamic var reversed: Bool = false {
@@ -249,6 +256,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AudioKit.engine.detach(internalPlayer)
     }
 
+    fileprivate var defaultBufferOptions: AVAudioPlayerNodeBufferOptions {
+        return looping ? [.loops, .interrupts] : [.interrupts]
+    }
+
     // MARK: - Methods
 
     /// Start playback
@@ -259,7 +270,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 // schedule it at some point in the future / or immediately if 0
                 // don't schedule the buffer if it is paused as it will overwrite what is in it
                 if !paused {
-                    scheduleBuffer( scheduledAVTime )
+                    scheduleBuffer(atTime: scheduledAVTime, options: defaultBufferOptions)
                 }
 
                 playing = true
@@ -419,14 +430,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    fileprivate func scheduleBuffer(_ atTime: AVAudioTime? = nil) {
+    fileprivate func scheduleBuffer(atTime: AVAudioTime?, options: AVAudioPlayerNodeBufferOptions) {
         if audioFileBuffer != nil {
 
             if let buffer = audioFileBuffer {
                 internalPlayer.scheduleBuffer(buffer,
                                               at: atTime,
-                                              options: .interrupts,
-                                              completionHandler: internalCompletionHandler)
+                                              options: options,
+                                              completionHandler: looping ? nil : internalCompletionHandler)
             }
 
             if atTime != nil {
@@ -517,12 +528,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Triggered when the player reaches the end of its playing range
     fileprivate func internalCompletionHandler() {
         if playing {
-            if looping {
-                scheduleBuffer()
-            } else {
-                stop()
-                completionHandler?()
-            }
+            stop()
+            completionHandler?()
         }
     }
 }
