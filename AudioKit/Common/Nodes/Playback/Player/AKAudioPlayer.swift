@@ -29,14 +29,22 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// (will not as long as loop is on)
     open dynamic var completionHandler: AKCallback?
 
-    /// Boolean indicating whether or not to loop the playback
-    open dynamic var looping: Bool = false {
+    private var _looping: Bool = false {
         didSet {
             if playing {
                 let options: AVAudioPlayerNodeBufferOptions = looping ? [.loops, .interruptsAtLoop] : [.interruptsAtLoop]
                 scheduleBuffer(atTime: nil, options: options)
             }
         }
+    }
+
+    /// Boolean indicating whether or not to loop the playback (Default false)
+    open dynamic var looping: Bool {
+        set {
+            guard  newValue != _looping else { return }
+            _looping = newValue
+        }
+        get { return _looping }
     }
 
     /// Boolean indicating to play the buffer in reverse
@@ -236,9 +244,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         internalAudioFile = readFile
         self.completionHandler = completionHandler
-        self.looping = looping
 
         super.init()
+        self.looping = looping
         AudioKit.engine.attach(internalPlayer)
         let mixer = AVAudioMixerNode()
         AudioKit.engine.attach(mixer)
