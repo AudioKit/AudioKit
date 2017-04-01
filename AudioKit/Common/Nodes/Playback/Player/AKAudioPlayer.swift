@@ -21,6 +21,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     fileprivate var playing = false
     fileprivate var internalStartTime: Double = 0
     fileprivate var internalEndTime: Double = 0
+    fileprivate var scheduledStopAction: AKScheduledAction?
 
     // MARK: - Properties
     open dynamic var audioFileBuffer: AVAudioPCMBuffer?
@@ -31,10 +32,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     private var _looping: Bool = false {
         didSet {
-            if playing {
-                let options: AVAudioPlayerNodeBufferOptions = looping ? [.loops, .interruptsAtLoop] : [.interruptsAtLoop]
-                scheduleBuffer(atTime: nil, options: options)
-            }
+            updateBufferLooping()
         }
     }
 
@@ -295,6 +293,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Stop playback
     open func stop() {
+        scheduledStopAction = nil
+        
         if !playing {
             return
         }
@@ -440,6 +440,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     fileprivate func scheduleBuffer(atTime: AVAudioTime?, options: AVAudioPlayerNodeBufferOptions) {
         if let buffer = audioFileBuffer {
+            scheduledStopAction = nil
             internalPlayer.scheduleBuffer(buffer,
                                           at: atTime,
                                           options: options,
@@ -447,6 +448,26 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             if atTime != nil {
                 internalPlayer.prepare(withFrameCount: framesToPlayCount)
             }
+        }
+    }
+
+    fileprivate func updateBufferLooping() {
+        guard playing else {
+            return
+        }
+        if looping {
+            // Looping is toggled on: schedule the buffer to loop at the next loop interval.
+            let options: AVAudioPlayerNodeBufferOptions = [.loops, .interruptsAtLoop]
+            scheduleBuffer(atTime: nil, options: options)
+        } else {
+            // Looping is toggled of: schedule to stop at the end of the current loop.
+            stopAtNextLoopEnd()
+        }
+    }
+    
+    open func stopAtNextLoopEnd() {
+        scheduledStopAction = AKScheduledAction(interval: endTime - currentTime) {
+            self.stop()
         }
     }
 
