@@ -294,7 +294,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Stop playback
     open func stop() {
         scheduledStopAction = nil
-        
+
         if !playing {
             return
         }
@@ -460,11 +460,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             let options: AVAudioPlayerNodeBufferOptions = [.loops, .interruptsAtLoop]
             scheduleBuffer(atTime: nil, options: options)
         } else {
-            // Looping is toggled of: schedule to stop at the end of the current loop.
+            // Looping is toggled off: schedule to stop at the end of the current loop.
             stopAtNextLoopEnd()
         }
     }
-    
+
     open func stopAtNextLoopEnd() {
         guard playing else {
             return
