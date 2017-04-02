@@ -34,6 +34,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKClipperAudioUnit.h"
 #import "AKTanhDistortionAudioUnit.h"
 
+// Effects / Dynamics
+#import "AKDynamicRangeCompressorAudioUnit.h"
+
 // Effects / Envelopes
 #import "AKAmplitudeEnvelopeAudioUnit.h"
 #import "AKTremoloAudioUnit.h"
@@ -61,6 +64,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKToneComplementFilterAudioUnit.h"
 #import "AKToneFilterAudioUnit.h"
 
+// Effects / Phaser
+#import "AKPhaserAudioUnit.h"
+
 // Effects / Pitch Shifter
 #import "AKPitchShifterAudioUnit.h"
 
@@ -69,6 +75,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKConvolutionAudioUnit.h"
 #import "AKCostelloReverbAudioUnit.h"
 #import "AKFlatFrequencyResponseReverbAudioUnit.h"
+#import "AKZitaReverbAudioUnit.h"
 
 // Generators
 #import "AKOperationGeneratorAudioUnit.h"
