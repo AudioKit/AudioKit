@@ -179,7 +179,7 @@ extension AVAudioEngine {
     /// Start up the audio engine
     open static func start() {
         if output == nil {
-            NSLog("AudioKit: No output node has been set yet, no processing will happen.")
+            AKLog("AudioKit: No output node has been set yet, no processing will happen.")
         }
         // Start the engine.
         do {
