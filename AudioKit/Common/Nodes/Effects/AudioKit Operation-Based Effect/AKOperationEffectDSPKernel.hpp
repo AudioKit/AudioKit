@@ -34,7 +34,7 @@ public:
         plumber_init(&pd);
 
         for (auto info : customUgens) {
-          plumber_ftmap_add_function(&pd, info.name, info.fp, info.userData);
+          plumber_ftmap_add_function(&pd, info.name, info.func, info.userData);
         }
 
         pd.sp = sp;
