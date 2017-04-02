@@ -20,20 +20,23 @@ class AKScheduledAction {
         start()
     }
 
-    dynamic func start() {
+    func start() {
         timer?.invalidate()
-        timer = nil
-        timer = Timer.scheduledTimer(withTimeInterval: interval,
-                                     repeats: false,
-                                     block: { [weak self] (timer) in
-                                        guard timer.isValid else { return }
-                                        self?.block()
-        })
+        timer = Timer.scheduledTimer(timeInterval: interval,
+                                     target: self,
+                                     selector: #selector(fire(timer:)),
+                                     userInfo: nil,
+                                     repeats: false)
     }
 
-    dynamic func stop() {
+    func stop() {
         timer?.invalidate()
         timer = nil
+    }
+
+    private dynamic func fire(timer: Timer) {
+        guard timer.isValid else { return }
+        self.block()
     }
 
     deinit {
