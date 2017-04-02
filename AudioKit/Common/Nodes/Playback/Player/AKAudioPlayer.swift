@@ -439,6 +439,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     fileprivate func scheduleBuffer(atTime: AVAudioTime?, options: AVAudioPlayerNodeBufferOptions) {
+        scheduledStopAction = nil
+
         if let buffer = audioFileBuffer {
             scheduledStopAction = nil
             internalPlayer.scheduleBuffer(buffer,
