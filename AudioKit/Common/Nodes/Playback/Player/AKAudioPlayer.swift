@@ -21,6 +21,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     fileprivate var playing = false
     fileprivate var internalStartTime: Double = 0
     fileprivate var internalEndTime: Double = 0
+    fileprivate var scheduledStopAction: AKScheduledAction?
 
     // MARK: - Properties
     open dynamic var audioFileBuffer: AVAudioPCMBuffer?
@@ -29,8 +30,20 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// (will not as long as loop is on)
     open dynamic var completionHandler: AKCallback?
 
-    /// Boolean indicating whether or not to loop the playback
-    open dynamic var looping: Bool = false
+    private var _looping: Bool = false {
+        didSet {
+            updateBufferLooping()
+        }
+    }
+
+    /// Boolean indicating whether or not to loop the playback (Default false)
+    open dynamic var looping: Bool {
+        set {
+            guard  newValue != _looping else { return }
+            _looping = newValue
+        }
+        get { return _looping }
+    }
 
     /// Boolean indicating to play the buffer in reverse
     open dynamic var reversed: Bool = false {
@@ -229,9 +242,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         internalAudioFile = readFile
         self.completionHandler = completionHandler
-        self.looping = looping
 
         super.init()
+        self.looping = looping
         AudioKit.engine.attach(internalPlayer)
         let mixer = AVAudioMixerNode()
         AudioKit.engine.attach(mixer)
@@ -249,6 +262,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AudioKit.engine.detach(internalPlayer)
     }
 
+    fileprivate var defaultBufferOptions: AVAudioPlayerNodeBufferOptions {
+        return looping ? [.loops, .interrupts] : [.interrupts]
+    }
+
     // MARK: - Methods
 
     /// Start playback
@@ -259,7 +276,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 // schedule it at some point in the future / or immediately if 0
                 // don't schedule the buffer if it is paused as it will overwrite what is in it
                 if !paused {
-                    scheduleBuffer( scheduledAVTime )
+                    scheduleBuffer(atTime: scheduledAVTime, options: defaultBufferOptions)
                 }
 
                 playing = true
@@ -276,6 +293,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Stop playback
     open func stop() {
+        scheduledStopAction = nil
+
         if !playing {
             return
         }
@@ -419,19 +438,42 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    fileprivate func scheduleBuffer(_ atTime: AVAudioTime? = nil) {
-        if audioFileBuffer != nil {
+    fileprivate func scheduleBuffer(atTime: AVAudioTime?, options: AVAudioPlayerNodeBufferOptions) {
+        scheduledStopAction = nil
 
-            if let buffer = audioFileBuffer {
-                internalPlayer.scheduleBuffer(buffer,
-                                              at: atTime,
-                                              options: .interrupts,
-                                              completionHandler: internalCompletionHandler)
-            }
-
+        if let buffer = audioFileBuffer {
+            scheduledStopAction = nil
+            internalPlayer.scheduleBuffer(buffer,
+                                          at: atTime,
+                                          options: options,
+                                          completionHandler: looping ? nil : internalCompletionHandler)
             if atTime != nil {
                 internalPlayer.prepare(withFrameCount: framesToPlayCount)
             }
+        }
+    }
+
+    fileprivate func updateBufferLooping() {
+        guard playing else {
+            return
+        }
+        if looping {
+            // Looping is toggled on: schedule the buffer to loop at the next loop interval.
+            let options: AVAudioPlayerNodeBufferOptions = [.loops, .interruptsAtLoop]
+            scheduleBuffer(atTime: nil, options: options)
+        } else {
+            // Looping is toggled off: schedule to stop at the end of the current loop.
+            stopAtNextLoopEnd()
+        }
+    }
+
+    open func stopAtNextLoopEnd() {
+        guard playing else {
+            return
+        }
+        scheduledStopAction = AKScheduledAction(interval: endTime - currentTime) {
+            self.stop()
+            self.completionHandler?()
         }
     }
 
@@ -517,12 +559,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Triggered when the player reaches the end of its playing range
     fileprivate func internalCompletionHandler() {
         if playing {
-            if looping {
-                scheduleBuffer()
-            } else {
-                stop()
-                completionHandler?()
-            }
+            stop()
+            completionHandler?()
         }
     }
 }
