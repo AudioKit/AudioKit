@@ -1,6 +1,6 @@
 //
 //  AKScheduledAction.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by David Sweetman on 4/1/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
