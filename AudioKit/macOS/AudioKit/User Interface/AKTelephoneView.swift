@@ -184,7 +184,7 @@ public class AKTelephoneView: NSView {
         let busyTextStyle = NSMutableParagraphStyle()
         busyTextStyle.alignment = .center
 
-        let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17),
+        let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17)!,
                                       NSForegroundColorAttributeName: NSColor.white,
                                       NSParagraphStyleAttributeName: busyTextStyle]
 
@@ -208,7 +208,7 @@ public class AKTelephoneView: NSView {
         let readoutStyle = NSMutableParagraphStyle()
         readoutStyle.alignment = .center
 
-        let readoutFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48),
+        let readoutFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
                                      NSForegroundColorAttributeName: NSColor.black,
                                      NSParagraphStyleAttributeName: readoutStyle]
 
@@ -254,7 +254,7 @@ public class AKTelephoneView: NSView {
         let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .center
 
-        let lettersFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 11),
+        let lettersFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 11)!,
                                      NSForegroundColorAttributeName: textColor,
                                      NSParagraphStyleAttributeName: lettersStyle]
 
@@ -277,7 +277,7 @@ public class AKTelephoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48),
+        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
                                     NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: numberStyle]
 
@@ -323,7 +323,7 @@ public class AKTelephoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48),
+        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
                                     NSForegroundColorAttributeName: textColor,
                                     NSParagraphStyleAttributeName: numberStyle]
 
