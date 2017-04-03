@@ -9,11 +9,16 @@ let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
+var delays = [AKVariableDelay]()
+var counter = 0
+
 func multitapDelay(_ input: AKNode?, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
+    
     zip(times, gains).forEach { (time, gain) -> Void in
-        let delay = AKVariableDelay(input, time: time)
-        mix.connect(AKBooster(delay, gain: gain))
+        delays.append(AKVariableDelay(input, time: time))
+        mix.connect(AKBooster(delays[counter], gain: gain))
+        counter += 1
     }
     return mix
 }
@@ -29,7 +34,7 @@ let leftDelay = multitapDelay(input,
     times: [1.5, 2.5, 3.5].map { t -> Double in t * delayTime },
     gains: gains)
 let rightDelay = multitapDelay(input,
-    times: [1, 2, 3].map { t -> Double in t * delayTime },
+    times: [1.0, 2.0, 3.0].map { t -> Double in t * delayTime },
     gains: gains)
 let delayPannedLeft = AKPanner(leftDelay, pan: -1)
 let delayPannedRight = AKPanner(rightDelay, pan: 1)
