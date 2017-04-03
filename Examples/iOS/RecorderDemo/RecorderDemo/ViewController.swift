@@ -42,8 +42,12 @@ class ViewController: UIViewController {
         AKSettings.bufferLength = .medium
 
         do {
-            try AKSettings.setSession(category: .playAndRecord, with: .defaultToSpeaker)
-        } catch { print("Errored setting category.") }
+            try AKSettings.setSession(category: .playAndRecord, with: .allowBluetoothA2DP)
+        } catch {
+            AKLog("Could not set session category.")
+        }
+        
+        AKSettings.defaultToSpeaker = true
 
         // Patching
         let mic = AKMicrophone()
@@ -63,12 +67,6 @@ class ViewController: UIViewController {
         moogLadder = AKMoogLadder(player)
 
         let mainMixer = AKMixer(moogLadder, micBooster)
-
-        do {
-            try AKSettings.setSession(category: .playAndRecord, with: .allowBluetoothA2DP)
-        } catch {
-            AKLog("Could not set session category.")
-        }
 
         AudioKit.output = mainMixer
         AudioKit.start()
