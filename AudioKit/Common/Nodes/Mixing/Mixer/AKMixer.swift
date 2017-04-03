@@ -47,6 +47,19 @@ open class AKMixer: AKNode, AKToggleable {
             connect(input)
         }
     }
+    
+    /// Initialize the mixer node with multiple inputs
+    ///
+    /// - parameter inputs: An array of AKNodes
+    ///
+    public init(_ inputs: [AKNode]) {
+        super.init()
+        self.avAudioNode = mixerAU
+        AudioKit.engine.attach(self.avAudioNode)
+        for input in inputs {
+            connect(input)
+        }
+    }
 
     /// Connnect another input after initialization
     ///
