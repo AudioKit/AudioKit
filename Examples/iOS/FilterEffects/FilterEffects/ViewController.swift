@@ -17,11 +17,11 @@ class ViewController: UIViewController {
     var reverbMixer: AKDryWetMixer!
     var booster: AKBooster!
 
+    let input = AKStereoInput()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let input = AKStereoInput()
-
+        
         delay = AKVariableDelay(input)
         delay.rampTime = 0.5 // Allows for some cool effects
         delayMixer = AKDryWetMixer(input, delay)
