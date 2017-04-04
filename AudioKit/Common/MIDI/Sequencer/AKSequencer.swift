@@ -359,7 +359,7 @@ open class AKSequencer {
                 }
             }
         }
-
+        DisposeMusicEventIterator(iterator)
         return tempoOut
     }
 
@@ -394,6 +394,7 @@ open class AKSequencer {
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
+        DisposeMusicEventIterator(iterator)
         return outBool
     }
 

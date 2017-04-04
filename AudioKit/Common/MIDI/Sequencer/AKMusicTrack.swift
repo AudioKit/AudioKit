@@ -223,6 +223,7 @@ open class AKMusicTrack {
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
+        DisposeMusicEventIterator(iterator)
     }
 
     open func clearNote(_ note: MIDINoteNumber) {
@@ -253,6 +254,7 @@ open class AKMusicTrack {
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
+        DisposeMusicEventIterator(iterator)
     }
 
     open var isEmpty: Bool {
@@ -278,6 +280,7 @@ open class AKMusicTrack {
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
+        DisposeMusicEventIterator(iterator)
         return outBool
     }
 
