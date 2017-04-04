@@ -171,7 +171,6 @@ open class AKMusicTrack {
         } else {
             MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
         }
-        
         MusicSequenceDisposeTrack(newSequence, newTrack)
         DisposeMusicSequence(newSequence)
     }
