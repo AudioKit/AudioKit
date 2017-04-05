@@ -1,5 +1,6 @@
 //: ## Tracking Microphone Input
 //:
+import AudioKitPlaygrounds
 import AudioKit
 
 let mic = AKMicrophone()
