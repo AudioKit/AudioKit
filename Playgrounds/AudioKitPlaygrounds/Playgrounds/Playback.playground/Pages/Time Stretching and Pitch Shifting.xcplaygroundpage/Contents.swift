@@ -2,6 +2,7 @@
 //: With AKTimePitch you can easily change the pitch and speed of a
 //: player-generated sound.  It does not work on live input or generated signals.
 //:
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: playbackPlaygroundFiles[0],

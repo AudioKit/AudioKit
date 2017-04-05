@@ -1,6 +1,6 @@
 //: ## Audio Player
 //:
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)

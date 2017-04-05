@@ -1,6 +1,6 @@
 //: ## Expander
 //: ##
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

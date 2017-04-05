@@ -1,6 +1,6 @@
 //: ## Processing Audio File Asynchronously
 //: Processing some audio files in background
-
+import AudioKitPlaygrounds
 import AudioKit
 
 //: We begin by cleaning our bedroom... (any audioFiles in the Temp directory are deleted)

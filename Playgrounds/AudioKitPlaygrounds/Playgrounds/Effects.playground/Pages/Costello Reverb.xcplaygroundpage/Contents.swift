@@ -1,6 +1,6 @@
 //: ## Sean Costello Reverb
 //: This is a great sounding reverb that we just love.
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

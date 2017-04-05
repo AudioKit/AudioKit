@@ -1,6 +1,6 @@
 //: ## Phase-Locked Vocoder
 //: A different kind of time and pitch stretching
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "guitarloop.wav",

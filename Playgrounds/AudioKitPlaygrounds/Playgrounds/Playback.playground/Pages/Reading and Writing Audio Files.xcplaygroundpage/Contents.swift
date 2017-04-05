@@ -1,7 +1,7 @@
 //: ## Reading and Writing Audio Files
 //:
 //: AKAudioFile inherits from AVAudioFile so you can use it just like any AVAudioFile
-
+import AudioKitPlaygrounds
 import AudioKit
 
 // Let's create an AKaudioFile :

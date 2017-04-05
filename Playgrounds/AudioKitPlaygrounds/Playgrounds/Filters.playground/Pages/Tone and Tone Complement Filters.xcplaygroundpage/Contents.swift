@@ -1,6 +1,6 @@
 //: ## Tone and Tone Complement Filters
 //: ##
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],

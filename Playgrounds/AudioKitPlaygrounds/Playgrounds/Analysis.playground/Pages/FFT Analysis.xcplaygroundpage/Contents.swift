@@ -1,5 +1,6 @@
 //: ## FFT Analysis
 //:
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)

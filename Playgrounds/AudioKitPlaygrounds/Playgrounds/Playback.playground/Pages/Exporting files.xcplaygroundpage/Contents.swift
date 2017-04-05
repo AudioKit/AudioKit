@@ -1,5 +1,6 @@
 //: ## Exporting Audio Files
 //: AKAudioFiles can be easily converted to major audio formats asynchronously.
+import AudioKitPlaygrounds
 import AudioKit
 
 //: Pick a file to convert :

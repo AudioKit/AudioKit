@@ -1,6 +1,6 @@
 //: ## Variable Delay
 //: When you smoothly vary effect parameters, you get completely new kinds of effects.
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

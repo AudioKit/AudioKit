@@ -8,6 +8,7 @@
 //: analog synthesizer, we don't have to worry about dealing with
 //: voltage control directly. However, by using this node, you can
 //: emulate some of the sounds of classic analog synthesizers in your app.
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],

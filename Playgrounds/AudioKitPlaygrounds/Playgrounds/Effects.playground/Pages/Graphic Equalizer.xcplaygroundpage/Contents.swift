@@ -1,6 +1,6 @@
 //: ## Graphic Equalizer
 //: This playground builds a graphic equalizer from a set of equalizer filters
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

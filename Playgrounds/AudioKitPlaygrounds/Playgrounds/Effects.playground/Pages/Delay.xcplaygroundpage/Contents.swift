@@ -1,7 +1,7 @@
 //: ## Delay
 //: Exploring the powerful effect of repeating sounds after
 //: varying length delay times and feedback amounts
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

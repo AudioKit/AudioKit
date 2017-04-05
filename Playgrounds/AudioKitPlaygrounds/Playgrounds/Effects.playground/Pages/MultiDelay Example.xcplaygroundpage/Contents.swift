@@ -1,6 +1,6 @@
 //: ## MultiDelay Example
 //: This is similar to the MultiDelay implemented in the Analog Synth X example project.
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

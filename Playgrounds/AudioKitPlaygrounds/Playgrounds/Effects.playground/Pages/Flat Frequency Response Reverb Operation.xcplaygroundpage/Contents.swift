@@ -1,6 +1,6 @@
 //: ## Flat Frequency Response Reverb Operation
 //:
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

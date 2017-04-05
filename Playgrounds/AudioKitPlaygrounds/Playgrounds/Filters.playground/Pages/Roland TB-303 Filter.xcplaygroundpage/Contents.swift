@@ -1,6 +1,6 @@
 //: ## Roland TB-303 Filter
 //:
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],

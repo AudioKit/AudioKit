@@ -2,7 +2,7 @@
 //: Determing the amplitude of an audio signal by
 //: outputting the value of a generator node into the AKAmplitudeTracker.
 //: This node is great if you want to build an app that does audio monitoring and analysis.
-
+import AudioKitPlaygrounds
 import AudioKit
 
 //: First lets set up sound source to track
