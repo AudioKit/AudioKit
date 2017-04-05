@@ -248,7 +248,6 @@ open class AKSequencer {
         return  AKDuration(beats: length, tempo: tempo)
     }
     
-    
     /// Set the rate of the sequencer
     /// 
     /// - parameter rate: Set the rate relative to the tempo of the track
