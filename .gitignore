@@ -13,6 +13,8 @@ project.xcworkspace/
 xcuserdata/
 xcodebuild
 
+Playgrounds/**/*.framework
+Playgrounds/iOS/
 # Cocoapods
 Pods/
 Podfile.lock
