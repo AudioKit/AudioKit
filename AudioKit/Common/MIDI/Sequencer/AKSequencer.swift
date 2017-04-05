@@ -247,24 +247,33 @@ open class AKSequencer {
         }
         return  AKDuration(beats: length, tempo: tempo)
     }
+    
+    
+    /// Set the rate of the sequencer
+    /// 
+    /// - parameter rate: Set the rate relative to the tempo of the track
+    ///
+    open func setRate(_ rate: Double) {
+        if isAVSequencer {
+            avSequencer.rate = Float(rate)
+        } else {
+            if let existingMusicPlayer = musicPlayer {
+                MusicPlayerSetPlayRateScalar(existingMusicPlayer, MusicTimeStamp(rate))
+            }
+        }
+    }
 
     /// Rate relative to the default tempo (BPM) of the track
-    open var rate: Double? {
+    open var rate: Double {
         get {
             if isAVSequencer {
                 return Double(avSequencer.rate)
             } else {
-                AKLog("AKSequencer ERROR ! rate only work if isAVSequencer ")
-                return nil
-            }
-        }
-        set {
-            if let value = newValue {
-                if isAVSequencer {
-                    avSequencer.rate = Float(value)
-                } else {
-                    AKLog("AKSequencer ERROR ! rate only work if isAVSequencer ")
+                var rate = MusicTimeStamp(1.0)
+                if let existingMusicPlayer = musicPlayer {
+                    MusicPlayerGetPlayRateScalar(existingMusicPlayer, &rate)
                 }
+                return rate
             }
         }
     }
