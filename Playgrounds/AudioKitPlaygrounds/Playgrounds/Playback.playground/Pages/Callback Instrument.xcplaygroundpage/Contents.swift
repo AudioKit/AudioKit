@@ -4,7 +4,7 @@
 //:
 //: ## Callback Instrument
 //:
-
+import AudioKitPlaygrounds
 import AudioKit
 
 var sequencer = AKSequencer()
