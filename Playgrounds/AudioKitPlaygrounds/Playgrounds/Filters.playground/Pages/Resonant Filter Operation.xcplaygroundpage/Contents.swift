@@ -1,6 +1,6 @@
 //: ## Resonant Filter Operation
 //:
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],

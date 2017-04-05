@@ -1,6 +1,6 @@
 //: ## Simple Reverb
 //: This is an implementation of Apple's simplest reverb which only allows you to set presets
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

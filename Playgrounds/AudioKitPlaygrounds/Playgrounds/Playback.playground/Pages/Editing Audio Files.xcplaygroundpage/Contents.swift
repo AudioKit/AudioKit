@@ -1,6 +1,6 @@
 //: ## Editing Audio Files
 //: Let's have some fun with our drum loop
-
+import AudioKitPlaygrounds
 import AudioKit
 
 //: First load the drumloop

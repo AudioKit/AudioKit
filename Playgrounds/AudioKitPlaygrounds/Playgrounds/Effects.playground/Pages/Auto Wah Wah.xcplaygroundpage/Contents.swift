@@ -1,7 +1,7 @@
 //: ## Auto Wah Wah
 //: One of the most iconic guitar effects is the wah-pedal.
 //: This playground runs an audio loop of a guitar through an AKAutoWah node.
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

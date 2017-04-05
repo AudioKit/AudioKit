@@ -1,6 +1,6 @@
 //: ## Formant Filter
 //: ##
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let osc = AKPWMOscillator(frequency: 220)

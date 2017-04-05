@@ -1,6 +1,6 @@
 //: ## AutoPan Operation
 //:
-
+import AudioKitPlaygrounds
 import AudioKit
 
 //: This first section sets up parameter naming in such a way

@@ -3,7 +3,7 @@
 //: low-frequency components of the audio signal, allowing for the higher frequency
 //: components to "pass through" the filter.
 //:
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],

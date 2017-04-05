@@ -1,6 +1,6 @@
 //: ## Tracking Frequency of an Audio File
 //: A more real-world example of tracking the pitch of an audio stream
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)

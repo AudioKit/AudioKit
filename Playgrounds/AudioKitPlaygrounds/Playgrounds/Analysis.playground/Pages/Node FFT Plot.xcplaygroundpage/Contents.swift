@@ -1,6 +1,7 @@
 //: ## Node FFT Plot
 //: An FFT plot displays a signal as relative amplitudes across the frequency spectrum.
 //: This playground creates spikes in the plot by playing an oscillator at a specific frequency.
+import AudioKitPlaygrounds
 import AudioKit
 
 var oscillator = AKOscillator(waveform: AKTable(.sine, count: 4_096))

@@ -2,7 +2,7 @@
 //: Decimation is a type of digital distortion like bit crushing,
 //: but instead of directly stating what bit depth and sample rate you want,
 //: it is done through setting "decimation" and "rounding" parameters.
-
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],

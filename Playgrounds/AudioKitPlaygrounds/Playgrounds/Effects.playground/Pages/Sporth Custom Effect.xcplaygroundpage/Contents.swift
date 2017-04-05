@@ -12,6 +12,7 @@
 //: stays smooth. This is why throttleUgen is defined in a separate file: if the
 //: playground tries to log every iteration in the sidebar, it slows the function
 //: down too much to work properly.
+import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
