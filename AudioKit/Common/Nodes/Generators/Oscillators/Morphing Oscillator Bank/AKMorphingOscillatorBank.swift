@@ -224,9 +224,21 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
     // MARK: - AKPolyphonic
 
+    // TODO: Must remove this implementation to inherit default AKPolyphonicNode implementation
+    #if false
     /// Function to start, play, or activate the node, all do the same thing
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
-        internalAU?.startNote(noteNumber, velocity: velocity)
+    internalAU?.startNote(noteNumber, velocity: velocity)
+    }
+    #else
+    // Using DEFAULT AKPolyphonic IMPLEMENTATION...looks up frequency in tuning table
+    // and calls new method below
+    #endif
+    
+    // TODO: Example of new AKPolyphonic method
+    // New function to start, play, or activate the node at frequency
+    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency:Float) {
+        internalAU?.startNote(noteNumber, velocity: velocity, frequency:frequency)
     }
 
     /// Function to stop or bypass the node, both are equivalent
