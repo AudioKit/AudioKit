@@ -10,6 +10,12 @@ import AudioKit
 
 class MultiDelay: AKNode {
 
+    let leftDelayMix = AKMixer()
+    let rightDelayMix = AKMixer()
+    var delayPannedLeft: AKPanner!
+    var delayPannedRight: AKPanner!
+    var mixer: AKMixer!
+    
     var time: Double = 0.0 {
         didSet {
             leftTimes = [1, 2, 3].map { t -> Double in t * time }
@@ -45,9 +51,6 @@ class MultiDelay: AKNode {
 
     init(_ input: AKNode) {
 
-        let leftDelayMix = AKMixer()
-        let rightDelayMix = AKMixer()
-
         for i in 0..<gains.count {
             leftDelays.append(AKDelay(input, time: leftTimes[i], feedback: 0.0))
             rightDelays.append(AKDelay(input, time: rightTimes[i], feedback: 0.0))
@@ -61,10 +64,10 @@ class MultiDelay: AKNode {
         let delayPannedLeft = AKPanner(leftDelayMix, pan: -1)
         let delayPannedRight = AKPanner(rightDelayMix, pan: 1)
 
-        let mix = AKMixer(delayPannedLeft, delayPannedRight)
+        mixer = AKMixer(delayPannedLeft, delayPannedRight)
 
         super.init()
-        self.avAudioNode = mix.avAudioNode
+        self.avAudioNode = mixer.avAudioNode
         input.addConnectionPoint(self)
 
     }
