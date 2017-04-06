@@ -31,7 +31,7 @@
 		C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKitPlaygrounds.h; sourceTree = "<group>"; };
 		C46EDA541E94F04D0099E238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C46EDA5D1E94F0680099E238 /* AudioKitPlaygrounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitPlaygrounds.swift; sourceTree = "<group>"; };
-		C46EDA611E94F0BF0099E238 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		C46EDA611E94F0BF0099E238 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C4F1DB441E94F5ED000D5022 /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
 		C4F1DB451E94F5ED000D5022 /* Basics.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Basics.playground; sourceTree = "<group>"; };
 		C4F1DB461E94F5ED000D5022 /* Effects.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Effects.playground; sourceTree = "<group>"; };
@@ -293,6 +293,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioKitPlaygrounds",
+					"../Frameworks/AudioKit-macOS",
 				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKitPlaygrounds/Info.plist;
@@ -319,6 +320,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioKitPlaygrounds",
+					"../Frameworks/AudioKit-macOS",
 				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKitPlaygrounds/Info.plist;
