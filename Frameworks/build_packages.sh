@@ -10,6 +10,7 @@ PLATFORMS=${PLATFORMS:-"iOS tvOS macOS"}
 if ! which gsed > /dev/null 2>&1;
 then
 	echo "You need GNU sed installed to run this script properly!"
+	echo "  brew install gnu-sed"
 	exit 1
 fi
 
@@ -42,6 +43,11 @@ create_package()
 	# Exceptions of any example projects to skip
 	rm -rf Examples/SongProcessor
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
+	# Playgrounds, for macOS only
+	if test $1 = "macOS"; then
+		cp -a ../../Playgrounds .
+		gsed -i "s/Frameworks\/AudioKit-macOS//g" Playgrounds/AudioKitPlaygrounds.xcodeproj/project.pbxproj
+	fi
 	cp ../../README.md ../../VERSION ../../LICENSE ../INSTALL.md .
 	cp -a ../docs/docsets/AudioKit.docset .
 	find . -name .DS_Store -or -name build -or -name xcuserdata -exec rm -rf {} \;
