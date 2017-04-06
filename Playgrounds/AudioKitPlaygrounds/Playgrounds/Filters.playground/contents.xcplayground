@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='macos' display-mode='rendered'>
+    <pages>
+        <page name='Table Of Contents'/>
+        <page name='Band Pass Butterworth Filter'/>
+        <page name='Band Pass Filter'/>
+        <page name='Band Reject Butterworth Filter'/>
+        <page name='Formant Filter'/>
+        <page name='High Pass Butterworth Filter'/>
+        <page name='High Pass Filter'/>
+        <page name='High Pass Filter Operation'/>
+        <page name='High Shelf Filter'/>
+        <page name='Korg Low Pass Filter'/>
+        <page name='Korg Low Pass Filter Operation'/>
+        <page name='Low Pass Butterworth Filter'/>
+        <page name='Low Pass Filter'/>
+        <page name='Low Pass Filter Operation'/>
+        <page name='Low Shelf Filter'/>
+        <page name='Modal Resonance Filter'/>
+        <page name='Modal Resonance Filter Operation'/>
+        <page name='Moog Ladder Filter'/>
+        <page name='Moog Ladder Filter Operation'/>
+        <page name='Parametric Equalizer'/>
+        <page name='Resonant Filter'/>
+        <page name='Resonant Filter Operation'/>
+        <page name='Roland TB-303 Filter'/>
+        <page name='Three-Pole Low Pass Filter'/>
+        <page name='Tone and Tone Complement Filters'/>
+    </pages>
+</playground>
