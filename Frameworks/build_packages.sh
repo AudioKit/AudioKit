@@ -44,9 +44,13 @@ create_package()
 	rm -rf Examples/SongProcessor
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
 	# Playgrounds, for macOS only
+	cp -a ../../Playgrounds .
 	if test $1 = "macOS"; then
-		cp -a ../../Playgrounds .
 		gsed -i "s/Frameworks\/AudioKit-macOS//g" Playgrounds/AudioKitPlaygrounds.xcodeproj/project.pbxproj
+	else
+		cp -a ../AudioKit-macOS/AudioKit.framework Playgrounds/AudioKitPlaygrounds/
+		gsed -i "s/\.\.\/\.\.\/Frameworks\/AudioKit-macOS/\./g" Playgrounds/AudioKitPlaygrounds.xcodeproj/project.pbxproj
+		gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS//g" Playgrounds/AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	fi
 	cp ../../README.md ../../VERSION ../../LICENSE ../INSTALL.md .
 	cp -a ../docs/docsets/AudioKit.docset .
