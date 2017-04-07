@@ -1,4 +1,4 @@
-//: ## From Playgrounds to Production
+//: ## Playgrounds to Production
 //:
 //: The intention of most of the AudioKit Playgrounds is to highlight a particular
 //: concept.  To keep things clear, we have kept the amount of code to a minimum.
@@ -6,7 +6,9 @@
 //: different from production.  In general, to see best practices, you can check out
 //: the AudioKit examples project, but here in this playground we'll highlight some
 //: important ways playground code differs from production code.
-//:
+import AudioKitPlaygrounds
+import AudioKit
+
 //: ### Memory management
 //:
 //: In a playground, you don't have to worry about whether a node is retained, so you can
@@ -16,7 +18,7 @@ AudioKit.output = oscillator
 AudioKit.start()
 
 //: But if you did the same type of thing in a project:
-class AudioEngine {
+class BadAudioEngine {
     init() {
         let oscillator = AKOscillator()
         AudioKit.output = oscillator
@@ -40,7 +42,7 @@ class AudioEngine {
 //:
 //: In AudioKit playgrounds, failable initializers are just one line:
 let file = try AKAudioFile()
-let player = try AKAudioPlayer(file: file)
+var player = try AKAudioPlayer(file: file)
 
 //: In production code, this would need to be wrapped in a do-catch block
 do {
@@ -48,5 +50,4 @@ do {
     player = try AKAudioPlayer(file: file)
 } catch {
     AKLog("File Not Found")
-    return
 }
