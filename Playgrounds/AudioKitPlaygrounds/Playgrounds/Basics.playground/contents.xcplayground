@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='macos' display-mode='raw' last-migration='0800'>
+<playground version='6.0' target-platform='macos' display-mode='rendered' last-migration='0800'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Introduction and Hello World'/>
@@ -16,5 +16,6 @@
         <page name='Using Functions'/>
         <page name='Using Functions Part 2'/>
         <page name='Stereo Operation'/>
+        <page name='Playgrounds to Production'/>
     </pages>
 </playground>
