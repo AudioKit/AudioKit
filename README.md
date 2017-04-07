@@ -101,7 +101,7 @@ We have so many playground pages that it became difficult to maintain them in on
 * Filters - Frequency range modification
 * Analysis - Pitch and loudness detection, FFT spectrum analysis
 
-Since AudioKit 3.6, we provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our releases page, open and build the project, and go to the playground pages to learn the API in a fun way!
+Since AudioKit 3.6, we provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn the API in a fun way!
 
 ## Tests
 
