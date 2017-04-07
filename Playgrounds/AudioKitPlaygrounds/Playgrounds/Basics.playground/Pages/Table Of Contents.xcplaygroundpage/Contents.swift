@@ -30,3 +30,8 @@
 //: * [Using Functions](Using%20Functions)
 //: * [Using Functions Part 2](Using%20Functions%20Part%202)
 //: * [Stereo Operation](Stereo%20Operation)
+//:
+//: And finally some notes about the differences between playground
+//: code and production code
+//: * [Playgrounds to Production](Playgrounds%20to%20Production)
+//:
