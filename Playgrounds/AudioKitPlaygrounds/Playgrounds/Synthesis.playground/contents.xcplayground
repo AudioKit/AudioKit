@@ -32,5 +32,6 @@
         <page name='Segment Operations'/>
         <page name='Sporth Based Generator'/>
         <page name='Telephone'/>
+        <page name='XY Pad'/>
     </pages>
 </playground>
