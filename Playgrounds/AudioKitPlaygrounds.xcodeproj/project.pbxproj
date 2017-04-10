@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C46EDA551E94F04D0099E238 /* AudioKitPlaygrounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C46EDA5E1E94F0680099E238 /* AudioKitPlaygrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46EDA5D1E94F0680099E238 /* AudioKitPlaygrounds.swift */; };
 		C46EDA621E94F0BF0099E238 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; };
 		C46EDA631E94F0C50099E238 /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C486FA8E1E98BD5200DEB790 /* AKPlaygroundUgens.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */; };
@@ -32,7 +31,6 @@
 		C46EDA501E94F04D0099E238 /* AudioKitPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKitPlaygrounds.h; sourceTree = "<group>"; };
 		C46EDA541E94F04D0099E238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C46EDA5D1E94F0680099E238 /* AudioKitPlaygrounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitPlaygrounds.swift; sourceTree = "<group>"; };
 		C46EDA611E94F0BF0099E238 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundUgens.swift; sourceTree = "<group>"; };
 		C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhoneView.swift; sourceTree = "<group>"; };
@@ -81,7 +79,6 @@
 				C46EDA541E94F04D0099E238 /* Info.plist */,
 				C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */,
 				C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */,
-				C46EDA5D1E94F0680099E238 /* AudioKitPlaygrounds.swift */,
 			);
 			path = AudioKitPlaygrounds;
 			sourceTree = "<group>";
@@ -181,7 +178,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C46EDA5E1E94F0680099E238 /* AudioKitPlaygrounds.swift in Sources */,
 				C486FAA41E9A0CA200DEB790 /* AKPhoneView.swift in Sources */,
 				C486FA8E1E98BD5200DEB790 /* AKPlaygroundUgens.swift in Sources */,
 			);
