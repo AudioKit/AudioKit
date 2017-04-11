@@ -43,9 +43,13 @@ create_package()
 	# Exceptions of any example projects to skip
 	rm -rf Examples/SongProcessor
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
+	find -d Examples -name Pods -exec rm -rf {} \;
+	find Examples -name Podfile.lock -exec rm -rf {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../INSTALL.md .
 	cp -a ../docs/docsets/AudioKit.docset .
-	find . -name .DS_Store -or -name build -or -name xcuserdata -exec rm -rf {} \;
+	find . -name .DS_Store -exec rm -rf {} \;
+	find -d . -name build -exec rm -rf {} \;
+	find -d . -name xcuserdata -exec rm -rf {} \;
 	cd ..
 	zip -9yr ${DIR}-${VERSION}.zip $DIR
 }
