@@ -6,8 +6,6 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import Foundation
-
 extension AKSampler {
     static func getAUPresetXML() -> String {
         var templateStr: String
