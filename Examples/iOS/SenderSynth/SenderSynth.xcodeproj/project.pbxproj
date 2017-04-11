@@ -48,7 +48,7 @@
 		C4EDA0E81DA88F2E008C1827 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C4EDA0EA1DA88F2E008C1827 /* SenderSynth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SenderSynth.entitlements; sourceTree = "<group>"; };
 		C4EDA0EB1DA8C101008C1827 /* SenderSynth-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SenderSynth-BridgingHeader.h"; sourceTree = "<group>"; };
-		C4EDA0EF1DA8C36A008C1827 /* Audiobus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Audiobus.swift; path = ../../../../AudioKit/iOS/Audiobus/Audiobus.swift; sourceTree = "<group>"; };
+		C4EDA0EF1DA8C36A008C1827 /* Audiobus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Audiobus.swift; path = ../../Audiobus/Audiobus.swift; sourceTree = "<group>"; };
 		C4EDA0F11DA8C91A008C1827 /* Audiobus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Audiobus.txt; sourceTree = "<group>"; };
 		C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
