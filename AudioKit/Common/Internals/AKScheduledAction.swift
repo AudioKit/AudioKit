@@ -6,8 +6,6 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import Foundation
-
 class AKScheduledAction {
 
     private var interval: TimeInterval

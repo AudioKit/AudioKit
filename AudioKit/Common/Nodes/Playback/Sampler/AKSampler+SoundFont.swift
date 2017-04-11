@@ -6,8 +6,6 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import Foundation
-
 extension AKSampler {
     fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
