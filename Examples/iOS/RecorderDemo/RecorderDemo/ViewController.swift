@@ -3,12 +3,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKAudioPlayer!
     var tape: AKAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
     var delay: AKDelay!
+    var mainMixer: AKMixer!
+    
+    let mic = AKMicrophone()
 
     var state = State.readyToRecord
 
@@ -50,9 +54,8 @@ class ViewController: UIViewController {
         AKSettings.defaultToSpeaker = true
 
         // Patching
-        let mic = AKMicrophone()
         inputPlot.node = mic
-        let micMixer = AKMixer(mic)
+        micMixer = AKMixer(mic)
         micBooster = AKBooster(micMixer)
 
         // Will set the level of microphone monitoring
@@ -66,7 +69,7 @@ class ViewController: UIViewController {
 
         moogLadder = AKMoogLadder(player)
 
-        let mainMixer = AKMixer(moogLadder, micBooster)
+        mainMixer = AKMixer(moogLadder, micBooster)
 
         AudioKit.output = mainMixer
         AudioKit.start()
