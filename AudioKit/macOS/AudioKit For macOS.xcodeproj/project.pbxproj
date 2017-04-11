@@ -30,6 +30,7 @@
 		C42899A41D55498500B941B5 /* peaklim.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899A31D55498500B941B5 /* peaklim.c */; };
 		C43101D01DEA9B0700DD7076 /* growl.c in Sources */ = {isa = PBXBuildFile; fileRef = C43101CE1DEA9B0700DD7076 /* growl.c */; };
 		C43101D11DEA9B0700DD7076 /* growl.h in Headers */ = {isa = PBXBuildFile; fileRef = C43101CF1DEA9B0700DD7076 /* growl.h */; };
+		C43647811E9CB663009FBD85 /* AKPeriodicFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43647801E9CB663009FBD85 /* AKPeriodicFunction.swift */; };
 		C43ABDDE1E5BCC4C00165053 /* changed.c in Sources */ = {isa = PBXBuildFile; fileRef = C43ABDDD1E5BCC4C00165053 /* changed.c */; };
 		C43ABDE01E5BCC5300165053 /* clock.c in Sources */ = {isa = PBXBuildFile; fileRef = C43ABDDF1E5BCC5300165053 /* clock.c */; };
 		C43ABDE21E5BCC6000165053 /* diode.c in Sources */ = {isa = PBXBuildFile; fileRef = C43ABDE11E5BCC6000165053 /* diode.c */; };
@@ -852,6 +853,7 @@
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43101CE1DEA9B0700DD7076 /* growl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = growl.c; sourceTree = "<group>"; };
 		C43101CF1DEA9B0700DD7076 /* growl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = growl.h; sourceTree = "<group>"; };
+		C43647801E9CB663009FBD85 /* AKPeriodicFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPeriodicFunction.swift; sourceTree = "<group>"; };
 		C43ABDDD1E5BCC4C00165053 /* changed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = changed.c; sourceTree = "<group>"; };
 		C43ABDDF1E5BCC5300165053 /* clock.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = clock.c; sourceTree = "<group>"; };
 		C43ABDE11E5BCC6000165053 /* diode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = diode.c; sourceTree = "<group>"; };
@@ -1736,6 +1738,7 @@
 				C45662B51D448D7D00D26565 /* AKDevice.swift */,
 				C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */,
 				C45662B71D448D7D00D26565 /* AKNotifications.swift */,
+				C43647801E9CB663009FBD85 /* AKPeriodicFunction.swift */,
 				C42858EB1E90B5BE009B737D /* AKScheduledAction.swift */,
 				C45662B81D448D7D00D26565 /* AKSettings.swift */,
 				C45662B91D448D7D00D26565 /* AKTable.swift */,
@@ -4137,6 +4140,7 @@
 				C456669F1D448D7E00D26565 /* AKAudioFile+ConvenienceInitializers.swift in Sources */,
 				C4F8CA191DCA9256001F38F2 /* reson.c in Sources */,
 				C45231041DCDC21900A4F0DC /* increment.swift in Sources */,
+				C43647811E9CB663009FBD85 /* AKPeriodicFunction.swift in Sources */,
 				C456669E1D448D7E00D26565 /* AKTable.swift in Sources */,
 				C45F62751E8EE4FC00F82CD4 /* AKPhaserAudioUnit.mm in Sources */,
 				C4F8CA161DCA9256001F38F2 /* randi.c in Sources */,
