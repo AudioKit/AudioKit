@@ -35,11 +35,24 @@ extension AVAudioEngine {
 
     static var shouldBeRunning = false
 
+    
+    static var finalMixer = AKMixer()
+    
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
-            if let existingOutput = output {
-                engine.connect(existingOutput.avAudioNode, to: engine.outputNode)
+            finalMixer.connect(output)
+            engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
+        }
+    }
+    
+    /// Timing nodes that should be added to the signal chain
+    open static var periodicFunctions: [AKPeriodicFunction]? {
+        didSet {
+            if let existingFunctions = periodicFunctions {
+                for function in existingFunctions {
+                    finalMixer.connect(function)
+                }
             }
         }
     }
