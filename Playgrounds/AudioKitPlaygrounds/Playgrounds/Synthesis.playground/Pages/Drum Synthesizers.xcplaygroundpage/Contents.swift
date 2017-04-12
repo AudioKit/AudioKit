@@ -10,14 +10,10 @@ var snare = AKSynthSnare(duration: 0.07)
 
 var mix = AKMixer(kick, snare)
 var reverb = AKReverb(mix)
-AudioKit.output = reverb
-AudioKit.start()
-reverb.loadFactoryPreset(.mediumRoom)
 
 //: Generate a cheap electro beat
 var counter = 0
-AKPlaygroundLoop(frequency: 5) {
-
+let beats = AKPeriodicFunction(frequency: 5) {
     let randomVelocity = MIDIVelocity(random(0.0, 127.0))
     let onFirstBeat = counter % 4 == 0
     let everyOtherBeat = counter % 4 == 2
@@ -35,6 +31,12 @@ AKPlaygroundLoop(frequency: 5) {
     }
     counter += 1
 }
+
+AudioKit.output = reverb
+AudioKit.periodicFunctions = [beats]
+AudioKit.start()
+reverb.loadFactoryPreset(.mediumRoom)
+beats.start()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
