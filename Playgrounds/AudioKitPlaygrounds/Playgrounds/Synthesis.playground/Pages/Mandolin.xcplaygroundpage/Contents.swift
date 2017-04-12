@@ -17,9 +17,33 @@ delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 
-AudioKit.output = reverb
-AudioKit.start()
 let scale: [MIDINoteNumber] = [0, 2, 4, 5, 7, 9, 11, 12]
+
+let performance = AKPeriodicFunction(frequency: playRate) {
+    var note1: MIDINoteNumber = scale.randomElement()
+    let octave1: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
+    let course1 = [1, 2, 3, 4].randomElement()
+    if random(0, 10) < 1.0 { note1 += 1 }
+    
+    var note2: MIDINoteNumber = scale.randomElement()
+    let octave2: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
+    let course2 = [1, 2, 3, 4].randomElement()
+    if random(0, 10) < 1.0 { note2 += 1 }
+    
+    if random(0, 6) > 1.0 {
+        mandolin.fret(noteNumber: note1 + octave1, course: course1 - 1)
+        mandolin.pluck(course: course1 - 1, position: pluckPosition, velocity: 127)
+    }
+    if random(0, 6) > 3.0 {
+        mandolin.fret(noteNumber: note2 + octave2, course: course2 - 1)
+        mandolin.pluck(course: course2 - 1, position: pluckPosition, velocity: 127)
+    }
+}
+
+AudioKit.output = reverb
+AudioKit.periodicFunctions = [performance]
+AudioKit.start()
+performance.start()
 
 class PlaygroundView: AKPlaygroundView {
 
@@ -79,28 +103,6 @@ class PlaygroundView: AKPlaygroundView {
         detuneSlider.value = mandolin.detune
         bodySizeSlider.value = mandolin.bodySize
     }
-}
-
-AKPlaygroundLoop(frequency: playRate) {
-    var note1: MIDINoteNumber = scale.randomElement()
-    let octave1: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
-    let course1 = [1, 2, 3, 4].randomElement()
-    if random(0, 10) < 1.0 { note1 += 1 }
-
-    var note2: MIDINoteNumber = scale.randomElement()
-    let octave2: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
-    let course2 = [1, 2, 3, 4].randomElement()
-    if random(0, 10) < 1.0 { note2 += 1 }
-
-    if random(0, 6) > 1.0 {
-        mandolin.fret(noteNumber: note1 + octave1, course: course1 - 1)
-        mandolin.pluck(course: course1 - 1, position: pluckPosition, velocity: 127)
-    }
-    if random(0, 6) > 3.0 {
-        mandolin.fret(noteNumber: note2 + octave2, course: course2 - 1)
-        mandolin.pluck(course: course2 - 1, position: pluckPosition, velocity: 127)
-    }
-
 }
 
 import PlaygroundSupport
