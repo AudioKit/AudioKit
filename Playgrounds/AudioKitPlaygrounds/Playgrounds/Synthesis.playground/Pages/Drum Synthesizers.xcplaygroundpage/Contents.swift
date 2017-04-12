@@ -33,8 +33,7 @@ let beats = AKPeriodicFunction(frequency: 5) {
 }
 
 AudioKit.output = reverb
-AudioKit.periodicFunctions = [beats]
-AudioKit.start()
+AudioKit.start(withPeriodicFunctions: beats)
 reverb.loadFactoryPreset(.mediumRoom)
 beats.start()
 

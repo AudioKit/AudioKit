@@ -27,9 +27,8 @@ let modulation = AKPeriodicFunction(every: timeStep) {
     delay.feedback = feedbackModulation
     time += timeStep
 }
-AudioKit.periodicFunctions = [modulation]
 
-AudioKit.start()
+AudioKit.start(withPeriodicFunctions: modulation)
 player.play()
 modulation.start()
 
