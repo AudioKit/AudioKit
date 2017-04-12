@@ -45,17 +45,6 @@ extension AVAudioEngine {
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
     }
-    
-    /// Timing nodes that should be added to the signal chain
-    open static var periodicFunctions: [AKPeriodicFunction]? {
-        didSet {
-            if let existingFunctions = periodicFunctions {
-                for function in existingFunctions {
-                    finalMixer.connect(function)
-                }
-            }
-        }
-    }
 
     // MARK: - Device Management
 
@@ -189,6 +178,14 @@ extension AVAudioEngine {
 
     // MARK: - Start/Stop
 
+    /// Start up the audio engine with periodic functions
+    open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) {
+        for function in functions {
+            finalMixer.connect(function)
+        }
+        start()
+    }
+    
     /// Start up the audio engine
     open static func start() {
         if output == nil {

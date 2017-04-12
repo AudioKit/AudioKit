@@ -13,6 +13,8 @@ delay.dryWetMix = 0.3
 delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
+
+let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 let performance = AKPeriodicFunction(frequency: playRate) {
     var note = scale.randomElement()
     let octave = [2, 3, 4, 5].randomElement() * 12
@@ -26,10 +28,7 @@ let performance = AKPeriodicFunction(frequency: playRate) {
 }
 
 AudioKit.output = reverb
-AudioKit.periodicFunctions = [performance]
-AudioKit.start()
-
-let scale = [0, 2, 4, 5, 7, 9, 11, 12]
+AudioKit.start(withPeriodicFunctions: performance)
 performance.start()
 
 import PlaygroundSupport
