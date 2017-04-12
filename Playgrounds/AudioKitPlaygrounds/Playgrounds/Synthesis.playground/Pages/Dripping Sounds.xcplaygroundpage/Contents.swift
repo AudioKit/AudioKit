@@ -11,12 +11,14 @@ drip.intensity = 100
 
 let reverb = AKReverb(drip)
 
-AudioKit.output = reverb
-AudioKit.start()
-
-AKPlaygroundLoop(frequency: playRate) {
+let drips = AKPeriodicFunction(frequency: playRate) {
     drip.trigger()
 }
+
+AudioKit.output = AKBooster(reverb, gain: 0.4)
+AudioKit.periodicFunctions = [drips]
+AudioKit.start()
+drips.start()
 
 class PlaygroundView: AKPlaygroundView {
 
