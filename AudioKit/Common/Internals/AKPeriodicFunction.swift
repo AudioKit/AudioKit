@@ -1,9 +1,9 @@
 //
 //  AKPeriodicFunction.swift
-//  AudioKitPlaygrounds
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 4/10/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 public class AKPeriodicFunction: AKOperationGenerator {
