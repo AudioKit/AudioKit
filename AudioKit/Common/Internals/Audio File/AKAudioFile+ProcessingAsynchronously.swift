@@ -325,7 +325,7 @@ extension AKAudioFile {
             }
         }
 
-        let asset = AVURLAsset(url: URL(fileURLWithPath: url.absoluteString))
+        let asset = url.isFileURL ? AVURLAsset(url: url) : AVURLAsset(url: URL(fileURLWithPath: url.absoluteString))
         if let internalExportSession = AVAssetExportSession(asset: asset, presetName: avExportPreset) {
             AKLog("internalExportSession session created")
 
