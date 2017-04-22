@@ -52,6 +52,11 @@
     _kernel.setWaveformValue(waveform, index, value);
 }
 
+//TODO: Drilling down from AKPolyphonic to C++
+- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency {
+    _kernel.startNote(note, velocity, frequency);
+}
+
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {
     _kernel.startNote(note, velocity);
 }
