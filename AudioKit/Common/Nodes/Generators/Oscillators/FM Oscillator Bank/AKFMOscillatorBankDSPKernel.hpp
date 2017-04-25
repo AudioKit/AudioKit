@@ -95,8 +95,12 @@ public:
             ++kernel->playingNotesCount;
         }
         
-        //TODO: Add new AKPolyphonic method
         void noteOn(int noteNumber, int velocity)
+        {
+            noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
+        }
+        
+        void noteOn(int noteNumber, int velocity, float frequency)
         {
             if (velocity == 0) {
                 if (stage == stageOn) {
@@ -105,9 +109,7 @@ public:
                 }
             } else {
                 if (stage == stageOff) { add(); }
-                fosc->freq = (float)noteToHz(noteNumber);
-                //TODO: AURE: This is the other major alternative: Can we expose the Swift tuning table to C++?  If it was accessible at this file level you could keep the existing noteOn api's...don't need the new AKPolyphonic method
-                //fosc->freq = AKPolyphonicNode.tuningTable.frequency(noteNumber:noteNumber);
+                fosc->freq = frequency;
                 fosc->amp = (float)pow2(velocity / 127.);
                 stage = stageOn;
                 internalGate = 1;
@@ -175,13 +177,13 @@ public:
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
-
-    //TODO: Add new AKPolyphonic method
     
     void startNote(int note, int velocity) {
         noteStates[note].noteOn(note, velocity);
     }
-
+    void startNote(int note, int velocity, float frequency) {
+        noteStates[note].noteOn(note, velocity, frequency);
+    }
     void stopNote(int note) {
         noteStates[note].noteOn(note, 0);
     }
