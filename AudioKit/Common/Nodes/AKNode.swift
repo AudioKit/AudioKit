@@ -51,34 +51,6 @@ extension AVAudioConnectionPoint {
 /// Protocol for responding to play and stop of MIDI notes
 public protocol AKPolyphonic {
 
-    //TODO: Aure:
-    
-    // 2 Major approaches: 
-    // 1) Expose global Swift tuning table to C++ (see comment in AKFMOscillatorBankDSPKernel.hpp)
-    // 2) Pass frequency from global Swift tuning table through AKPolyphonic down to C++.
-    
-    //I implemented (2) for AKMorphingOscillatorBank:
-    //- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;
-    //- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
-    //- (void)stopNote:(uint8_t)note;
-    
-    
-    // classes that would certainly benefit from [not yet implemented]:
-    //AKMorphingOscillatorBankAudioUnit
-    //AKClarinetAudioUnit
-    //AKFluteAudioUnit
-    //AKFMOscillatorAudioUnit
-    //AKFMOscillatorBankAudioUnit
-    //AKMandolinAudioUnit
-    //AKOscillatorAudioUnit
-    //AKOscillatorBankAudioUnit
-    //AKPhaseDistortionOscillatorAudioUnit
-    //AKPhaseDistortionOscillatorBankAudioUnit
-    //AKPluckedStringAudioUnit
-    //AKPWMOscillatorAudioUnit
-    //AKPWMOscillatorBankAudioUnit
-        
-
     /// Play a sound corresponding to a MIDI note
     ///
     /// - Parameters:

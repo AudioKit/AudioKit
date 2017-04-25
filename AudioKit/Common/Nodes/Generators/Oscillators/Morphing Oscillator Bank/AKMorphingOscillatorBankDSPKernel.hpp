@@ -57,7 +57,6 @@ public:
             sp_adsr_create(&adsr);
             sp_adsr_init(kernel->sp, adsr);
             sp_oscmorph_create(&osc);
-            //TODO: Bug here?...sp_oscmorph member nft is hard-coded to 4
             sp_oscmorph_init(kernel->sp, osc, kernel->ft_array, 4, 0);
             osc->freq = 0;
             osc->amp = 0;
@@ -95,22 +94,9 @@ public:
         
         void noteOn(int noteNumber, int velocity)
         {
-            if (velocity == 0) {
-                if (stage == stageOn) {
-                    stage = stageRelease;
-                    internalGate = 0;
-                }
-            } else {
-                if (stage == stageOff) { add(); }
-                osc->freq = (float)noteToHz(noteNumber);
-                osc->amp = (float)pow2(velocity / 127.);
-                stage = stageOn;
-                internalGate = 1;
-            }
+            noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
         }
         
-        //TODO: Drilling down from AKPolyphonic to C++
-        //TODO: Example of new AKPolyphonic method
         void noteOn(int noteNumber, int velocity, float frequency)
         {
             if (velocity == 0) {
@@ -189,14 +175,12 @@ public:
     }
     
     void setIndex(float value) {
-        index = clamp(value, 0.0f, 1000.0f);
+        index = clamp(value, 0.0f, 3.0f);
     }
 
     void startNote(int note, int velocity) {
         noteStates[note].noteOn(note, velocity);
-    }
-    
-    //Example of new AKPolyphonic method
+    }    
     void startNote(int note, int velocity, float frequency) {
         noteStates[note].noteOn(note, velocity, frequency);
     }
