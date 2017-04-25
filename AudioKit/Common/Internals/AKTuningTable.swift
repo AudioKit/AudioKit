@@ -64,13 +64,16 @@ import Foundation
         
         // octave reduce
         let nfOctaveReduce = inputNumberField.map({(number:Element)->Element in
-            let l2 = log2(number)
+            var l2 = log2(number)
+            while l2 < 0 {
+                l2 += 1
+            }
             let m = fmod(l2, 1)
             return m
         })
         
         // sort
-        let nfOctaveReducedSorted = nfOctaveReduce.sorted {$0 > $1}
+        let nfOctaveReducedSorted = nfOctaveReduce.sorted {$0 < $1}
         numberField = nfOctaveReducedSorted
 
         updateTuningTable()
@@ -79,7 +82,7 @@ import Foundation
     private func updateTuningTable() {
         AKLog("Updating tuning table from numberField:\(numberField)")
         for i in 0..<AKTuningTable.numberOfMidiNotes {
-            let ff = Element(i - Int(noteNumberAtMiddleC)) / Element(AKTuningTable.numberOfMidiNotes)
+            let ff = Element(i - Int(noteNumberAtMiddleC)) / Element(numberField.count)
             var ttOctaveFactor = Element(trunc(ff))
             if ff < 0 {
                 ttOctaveFactor -= 1
@@ -89,10 +92,9 @@ import Foundation
                 frac = 0
                 ttOctaveFactor += 1
             }
-            let nfIndex = Int(floor(frac * Element(numberField.count)))
+            let nfIndex = Int(round(frac * Element(numberField.count)))
             let tone = Element(exp2(numberField[nfIndex]))
-            let oamc = pow(2.0, Element(octaveAtMiddleC))
-            let lp2 = pow(oamc, ttOctaveFactor)
+            let lp2 = pow(2, ttOctaveFactor)
             var f = tone * lp2 * frequencyAtMiddleC
             
             if f > AKTuningTable.NYQUIST {
