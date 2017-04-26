@@ -17,7 +17,16 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var waveform: AKTable?
+    open var waveform: AKTable? {
+        //TODO: Add error checking for table size...needs to match init()
+        willSet {
+            if let wf = newValue {
+                for (i, sample) in wf.enumerated() {
+                    self.internalAU?.setWaveformValue(sample, at: UInt32(i))
+                }
+            }
+        }
+    }
     fileprivate var carrierMultiplierParameter: AUParameter?
     fileprivate var modulatingMultiplierParameter: AUParameter?
     fileprivate var modulationIndexParameter: AUParameter?
@@ -280,10 +289,10 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     // MARK: - AKPolyphonic
-
-    /// Function to start, play, or activate the node, all do the same thing
-    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
-        internalAU?.startNote(noteNumber, velocity: velocity)
+    
+    // Function to start, play, or activate the node at frequency
+    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency:Float) {
+        internalAU?.startNote(noteNumber, velocity: velocity, frequency:frequency)
     }
 
     /// Function to stop or bypass the node, both are equivalent
