@@ -117,7 +117,7 @@ open class AKMusicTrack {
 
         MusicSequenceNewTrack(newSequence, &tempTrack)
         guard let newTrack = tempTrack,
-            let track = internalMusicTrack  else {
+            let track = internalMusicTrack else {
             return
         }
         MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
@@ -127,9 +127,6 @@ open class AKMusicTrack {
             clear()
             MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
             MusicTrackCopyInsert(newTrack, 0, durationAsMusicTimeStamp, track, 0)
-            MusicSequenceDisposeTrack(newSequence, newTrack)
-
-            DisposeMusicSequence(newSequence)
 
             //now to clean up any notes that are too long
             var tempIterator: MusicEventIterator?
@@ -174,6 +171,8 @@ open class AKMusicTrack {
         } else {
             MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
         }
+        MusicSequenceDisposeTrack(newSequence, newTrack)
+        DisposeMusicSequence(newSequence)
     }
 
     /// A less destructive and simpler way to set the length
@@ -223,6 +222,7 @@ open class AKMusicTrack {
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
+        DisposeMusicEventIterator(iterator)
     }
 
     open func clearNote(_ note: MIDINoteNumber) {
@@ -253,6 +253,7 @@ open class AKMusicTrack {
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
+        DisposeMusicEventIterator(iterator)
     }
 
     open var isEmpty: Bool {
@@ -278,6 +279,7 @@ open class AKMusicTrack {
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
+        DisposeMusicEventIterator(iterator)
         return outBool
     }
 

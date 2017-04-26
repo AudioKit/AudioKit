@@ -10,6 +10,6 @@
 
 typedef struct {
     const char *name;
-    plumber_dyn_func fp;
+    plumber_dyn_func func;
     void *userData;
 } AKCustomUgenInfo;

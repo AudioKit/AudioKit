@@ -3,10 +3,8 @@
 //  AudioKit For iOS
 //
 //  Created by Aurelius Prochazka on 2/28/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-
-import Foundation
 
 extension AKSampler {
     fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {

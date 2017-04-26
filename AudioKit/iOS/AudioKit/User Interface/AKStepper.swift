@@ -1,9 +1,9 @@
 //
 //  AKStepper.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/11/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 open class AKStepper: UIView {

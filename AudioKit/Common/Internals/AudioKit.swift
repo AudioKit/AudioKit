@@ -35,12 +35,14 @@ extension AVAudioEngine {
 
     static var shouldBeRunning = false
 
+    
+    static var finalMixer = AKMixer()
+    
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
-            if let existingOutput = output {
-                engine.connect(existingOutput.avAudioNode, to: engine.outputNode)
-            }
+            finalMixer.connect(output)
+            engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
     }
 
@@ -176,10 +178,18 @@ extension AVAudioEngine {
 
     // MARK: - Start/Stop
 
+    /// Start up the audio engine with periodic functions
+    open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) {
+        for function in functions {
+            finalMixer.connect(function)
+        }
+        start()
+    }
+    
     /// Start up the audio engine
     open static func start() {
         if output == nil {
-            NSLog("AudioKit: No output node has been set yet, no processing will happen.")
+            AKLog("AudioKit: No output node has been set yet, no processing will happen.")
         }
         // Start the engine.
         do {

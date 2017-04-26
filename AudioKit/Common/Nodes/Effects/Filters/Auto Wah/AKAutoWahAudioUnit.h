@@ -14,5 +14,3 @@
 @property (nonatomic) float mix;
 @property (nonatomic) float amplitude;
 @end
-
-
