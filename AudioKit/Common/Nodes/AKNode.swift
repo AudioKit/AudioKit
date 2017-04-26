@@ -56,6 +56,14 @@ public protocol AKPolyphonic {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
+    ///   - frequency: play this frequency
+    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Float)
+
+    /// Play a sound corresponding to a MIDI note
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity:   MIDI Velocity
     ///
     func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity)
 
@@ -67,8 +75,22 @@ public protocol AKPolyphonic {
 }
 
 /// Bare bones implementation of AKPolyphonic protocol
-open class AKPolyphonicNode: AKNode, AKPolyphonic {
+@objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
 
+    // Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
+    open static var tuningTable = AKTuningTable()
+    
+    /// Play a sound corresponding to a MIDI note with frequency
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity:   MIDI Velocity
+    ///   - frequency: play this frequency
+    ///
+    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Float) {
+        AKLog("Playing note:\(noteNumber), velocity:\(velocity), frequency:\(frequency), override in subclass")
+    }
+    
     /// Play a sound corresponding to a MIDI note
     ///
     /// - Parameters:
@@ -76,7 +98,12 @@ open class AKPolyphonicNode: AKNode, AKPolyphonic {
     ///   - velocity:   MIDI Velocity
     ///
     open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
-        AKLog("Playing note \(noteNumber), with velocity \(velocity), override in subclass")
+
+        // MARK: Microtonal pitch lookup
+        // default implementation is 12 ET
+        let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
+        AKLog("Playing note:\(noteNumber), velocity:\(velocity), using tuning table frequency:\(frequency)")
+        self.play(noteNumber: noteNumber, velocity:velocity, frequency:Float(frequency))
     }
 
     /// Stop a sound corresponding to a MIDI note
