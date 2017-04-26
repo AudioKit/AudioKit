@@ -41,6 +41,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
             }
         }
     }
+
     /// Dry/Wet Mix
     open dynamic var mix: Double = 1.0 {
         willSet {
@@ -55,6 +56,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
             }
         }
     }
+
     /// Overall level
     open dynamic var amplitude: Double = 0.1 {
         willSet {
@@ -114,7 +116,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
         mixParameter = tree["mix"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.wahParameter?.address {

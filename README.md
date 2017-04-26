@@ -1,4 +1,4 @@
-AudioKit V3.5
+AudioKit V3.6
 ===
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
@@ -54,7 +54,7 @@ In most cases, when building for iOS or tvOS, regardless of how you install the 
 ```
 
 ## Example Code
-There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.
+There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They simply play an oscillator and display the waveform.
 
 The examples rely on the frameworks being built so you can either download the precompiled frameworks or build them on your own:
 
@@ -101,9 +101,7 @@ We have so many playground pages that it became difficult to maintain them in on
 * Filters - Frequency range modification
 * Analysis - Pitch and loudness detection, FFT spectrum analysis
 
-Because Playgrounds have some different capabilities on different platforms, there are a few playground pages available in OS Specific playgrounds for iOS and macOS.
-At this point tvOS behaves very much like iOS so there is no set of playgrounds explicitly for tvOS.
-
+Since AudioKit 3.6, we provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn the API in a fun way!
 
 ## Tests
 
@@ -120,7 +118,7 @@ github "audiokit/AudioKit"
 If you use CocoaPods, you can also easily get the latest AudioKit binary framework for your project. Use this in your `Podfile`:
 
 ```
-pod 'AudioKit', '~> 3.5'
+pod 'AudioKit', '~> 3.6'
 ```
 
 ## About Us

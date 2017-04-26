@@ -6,8 +6,6 @@
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 /// Class to handle updating via CADisplayLink
 public class AKPlaygroundLoop: NSObject {
     private var internalHandler: () -> Void = {}

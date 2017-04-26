@@ -11,29 +11,30 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var oscillator = AKOscillator()
+    var oscillator1 = AKOscillator()
     var oscillator2 = AKOscillator()
+    var mixer = AKMixer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AudioKit.output = AKMixer(oscillator, oscillator2)
+        mixer = AKMixer(oscillator1, oscillator2)
+        mixer.volume = 0.5
+        AudioKit.output = mixer
         AudioKit.start()
     }
 
     @IBAction func toggleSound(_ sender: UIButton) {
-        if oscillator.isPlaying {
-            oscillator.stop()
+        if oscillator1.isPlaying {
+            oscillator1.stop()
             oscillator2.stop()
             sender.setTitle("Play Sine Waves", for: .normal)
         } else {
-            oscillator.amplitude = random(0.5, 1)
-            oscillator.frequency = random(220, 880)
-            oscillator.start()
-            oscillator2.amplitude = random(0.5, 1)
+            oscillator1.frequency = random(220, 880)
+            oscillator1.start()
             oscillator2.frequency = random(220, 880)
             oscillator2.start()
-            sender.setTitle("Stop \(Int(oscillator.frequency))Hz & \(Int(oscillator2.frequency))Hz", for: .normal)
+            sender.setTitle("Stop \(Int(oscillator1.frequency))Hz & \(Int(oscillator2.frequency))Hz", for: .normal)
         }
     }
 

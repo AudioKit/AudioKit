@@ -1,6 +1,6 @@
 //
 //  AKTuningTable.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Marcus W. Hobbs on 3/17/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc open class AKTuningTable:NSObject {
+@objc open class AKTuningTable: NSObject {
    
     private static let NYQUIST:Element = 22050
 
@@ -16,19 +16,19 @@ import Foundation
     
     public static let numberOfMidiNotes = 128
     
-    public var noteNumberAtMiddleC:MIDINoteNumber = 60 {
+    public var noteNumberAtMiddleC: MIDINoteNumber = 60 {
         didSet {
             updateTuningTable()
         }
     }
     
-    public var frequencyAtMiddleC:Element = 261.0 {
+    public var frequencyAtMiddleC: Element = 261.0 {
         didSet {
             updateTuningTable()
         }
     }
     // -2, -1, 0, 1, 2, etc.
-    public var octaveAtMiddleC:Int = 0  {
+    public var octaveAtMiddleC: Int = 0  {
         didSet {
             updateTuningTable()
         }
@@ -42,10 +42,10 @@ import Foundation
         twelveToneEqualTemperament()
     }
     
-    public func frequency(forNoteNumber noteNumber:MIDINoteNumber) -> Element {
+    public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Element {
         return content[Int(noteNumber)]
     }
-    public func setFrequency(_ frequency:Element, at noteNumber:MIDINoteNumber) {
+    public func setFrequency(_ frequency:Element, at noteNumber: MIDINoteNumber) {
         content[Int(noteNumber)] = frequency
     }
     
@@ -59,11 +59,11 @@ import Foundation
         tuningTable(fromNumberField: nf)
     }
 
-    public func tuningTable(fromNumberField inputNumberField:[Element]) {
+    public func tuningTable(fromNumberField inputNumberField: [Element]) {
         if inputNumberField.count==0 {return}
         
         // octave reduce
-        let nfOctaveReduce = inputNumberField.map({(number:Element)->Element in
+        let nfOctaveReduce = inputNumberField.map({(number: Element)->Element in
             var l2 = log2(number)
             while l2 < 0 {
                 l2 += 1
@@ -80,7 +80,7 @@ import Foundation
     }
     
     private func updateTuningTable() {
-        AKLog("Updating tuning table from numberField:\(numberField)")
+        AKLog("Updating tuning table from numberField: \(numberField)")
         for i in 0..<AKTuningTable.numberOfMidiNotes {
             let ff = Element(i - Int(noteNumberAtMiddleC)) / Element(numberField.count)
             var ttOctaveFactor = Element(trunc(ff))
@@ -133,7 +133,7 @@ import Foundation
     
     
     // MARK: Scala file support
-    public func scalaFile(_ filePath:String) {
+    public func scalaFile(_ filePath: String) {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
             let contentStr = String(data: contentData, encoding: .utf8) else {
@@ -146,7 +146,7 @@ import Foundation
         }
     }
 
-    fileprivate func stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(_ inputString:String?) -> String? {
+    fileprivate func stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(_ inputString: String?) -> String? {
         guard let string = inputString else {return nil}
         
         let leadingTrailingWhiteSpacesPattern = "(?:^\\s+)|(?:\\s+$)"
@@ -165,7 +165,7 @@ import Foundation
         return trimmedString
     }
     
-    fileprivate func numberField(fromScalaString rawStr:String?) -> [Element]? {
+    fileprivate func numberField(fromScalaString rawStr: String?) -> [Element]? {
         guard let inputStr = rawStr else {return nil}
         
         // default return value is [1.0]

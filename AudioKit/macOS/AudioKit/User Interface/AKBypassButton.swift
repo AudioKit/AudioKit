@@ -59,7 +59,7 @@ public class AKBypassButton: NSView {
         let bypassLabelStyle = NSMutableParagraphStyle()
         bypassLabelStyle.alignment = .center
 
-        let bypassLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
+        let bypassLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
                                          NSForegroundColorAttributeName: NSColor.black,
                                          NSParagraphStyleAttributeName: bypassLabelStyle]
 
@@ -90,7 +90,7 @@ public class AKBypassButton: NSView {
         let processLabelStyle = NSMutableParagraphStyle()
         processLabelStyle.alignment = .center
 
-        let processLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
+        let processLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
                                           NSForegroundColorAttributeName: NSColor.black,
                                           NSParagraphStyleAttributeName: processLabelStyle]
 

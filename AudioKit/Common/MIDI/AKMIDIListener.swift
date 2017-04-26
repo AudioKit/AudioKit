@@ -71,7 +71,7 @@ public protocol AKMIDIListener {
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
     ///
-    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIByte, channel: MIDIChannel)
+    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel)
 
     /// Receive program change
     ///
@@ -160,7 +160,7 @@ public extension AKMIDIListener {
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
     ///
-    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIByte, channel: MIDIChannel) {
+    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
         AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue)")
     }
 

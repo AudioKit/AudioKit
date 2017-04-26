@@ -80,7 +80,7 @@ public class AKPresetLoaderView: NSView {
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .left
 
-        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
+        let presetLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
                                          NSForegroundColorAttributeName: NSColor.black,
                                          NSParagraphStyleAttributeName: presetLabelStyle]
 
@@ -139,7 +139,7 @@ public class AKPresetLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24),
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 24)!,
                                        NSForegroundColorAttributeName: NSColor.black,
                                        NSParagraphStyleAttributeName: nameLabelStyle]
 

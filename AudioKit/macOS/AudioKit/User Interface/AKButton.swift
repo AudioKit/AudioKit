@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
-
 public class AKButton: NSView {
     internal var callback: () -> (String)
     public var title: String {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='macos' display-mode='rendered'>
+    <pages>
+        <page name='Table Of Contents'/>
+        <page name='AutoPan Operation'/>
+        <page name='AutoWah Operation'/>
+        <page name='Auto Wah Wah'/>
+        <page name='Bit Crush Effect'/>
+        <page name='Bit Crush Operation'/>
+        <page name='Clipper'/>
+        <page name='Comb Filter Reverb'/>
+        <page name='Compressor'/>
+        <page name='Convolution'/>
+        <page name='Costello Reverb'/>
+        <page name='Costello Reverb Operation'/>
+        <page name='Decimator'/>
+        <page name='Delay'/>
+        <page name='Distortion'/>
+        <page name='Dynamics Processor'/>
+        <page name='Expander'/>
+        <page name='Fatten Effect'/>
+        <page name='Filter Section Example'/>
+        <page name='Flat Frequency Response Reverb'/>
+        <page name='Flat Frequency Response Reverb Operation'/>
+        <page name='Graphic Equalizer'/>
+        <page name='Multi-tap Delay'/>
+        <page name='MultiDelay Example'/>
+        <page name='Peak Limiter'/>
+        <page name='Pitch Shifter'/>
+        <page name='Pitch Shift Operation'/>
+        <page name='Reverb'/>
+        <page name='Ring Modulator'/>
+        <page name='Smooth Delay Operation'/>
+        <page name='Sporth Based Effect'/>
+        <page name='Sporth Custom Effect'/>
+        <page name='Stereo Delay Operation'/>
+        <page name='Stereo Field Limiter'/>
+        <page name='String Resonator'/>
+        <page name='Tanh Distortion'/>
+        <page name='Tremolo'/>
+        <page name='Variable Delay'/>
+        <page name='Variable Delay Operation'/>
+        <page name='3D Panner'/>
+    </pages>
+</playground>

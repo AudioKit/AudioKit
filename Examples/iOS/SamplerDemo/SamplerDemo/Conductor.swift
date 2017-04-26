@@ -125,6 +125,6 @@ class Conductor {
     }
 
     func adjustTempo(_ tempo: Float) {
-        sequence?.rate = Double(tempo)
+        sequence?.setRate(Double(tempo))
     }
 }

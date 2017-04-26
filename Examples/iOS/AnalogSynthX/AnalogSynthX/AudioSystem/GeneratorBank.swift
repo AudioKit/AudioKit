@@ -11,17 +11,11 @@ import AudioKit
 class GeneratorBank: AKPolyphonicNode {
 
     func updateWaveform1() {
-        var newWaveformIndex = waveform1 + morph
-        if newWaveformIndex < 0 { newWaveformIndex = 0 }
-        if newWaveformIndex > 3 { newWaveformIndex = 3 }
-        vco1.index = newWaveformIndex
+        vco1.index = (0...3).clamp(waveform1 + morph)
     }
 
     func updateWaveform2() {
-        var newWaveformIndex = waveform2 + morph
-        if newWaveformIndex < 0 { newWaveformIndex = 0 }
-        if newWaveformIndex > 3 { newWaveformIndex = 3 }
-        vco2.index = newWaveformIndex
+        vco2.index = (0...3).clamp(waveform2 + morph)
     }
 
     var waveform1 = 0.0 { didSet { updateWaveform1() } }
