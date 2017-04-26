@@ -518,6 +518,7 @@
 		C4A107521E6967D00018848C /* brown.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A107511E6967D00018848C /* brown.c */; };
 		C4A1075A1E696EFC0018848C /* brown.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A107591E696EFC0018848C /* brown.c */; };
 		C4A107601E696F490018848C /* brownianNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1075F1E696F490018848C /* brownianNoise.swift */; };
+		C4A20B811EB1581700875D93 /* AKTuningTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A20B801EB1581700875D93 /* AKTuningTable.swift */; };
 		C4A662901CCB146A00A38B90 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A6628C1CCB146A00A38B90 /* BufferedAudioBus.hpp */; };
 		C4A662911CCB146A00A38B90 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A6628D1CCB146A00A38B90 /* DSPKernel.hpp */; };
 		C4A662921CCB146A00A38B90 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A6628E1CCB146A00A38B90 /* DSPKernel.mm */; };
@@ -1295,6 +1296,7 @@
 		C4A107511E6967D00018848C /* brown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brown.c; sourceTree = "<group>"; };
 		C4A107591E696EFC0018848C /* brown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brown.c; sourceTree = "<group>"; };
 		C4A1075F1E696F490018848C /* brownianNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = brownianNoise.swift; sourceTree = "<group>"; };
+		C4A20B801EB1581700875D93 /* AKTuningTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTuningTable.swift; sourceTree = "<group>"; };
 		C4A6628C1CCB146A00A38B90 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
 		C4A6628D1CCB146A00A38B90 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
 		C4A6628E1CCB146A00A38B90 /* DSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKernel.mm; sourceTree = "<group>"; };
@@ -3101,6 +3103,7 @@
 				C42859081E90B762009B737D /* AKScheduledAction.swift */,
 				EA6949E81C5A2F610035B5DF /* AKSettings.swift */,
 				C40C41E21C40E5C2009D870B /* AKTable.swift */,
+				C4A20B801EB1581700875D93 /* AKTuningTable.swift */,
 				C40C41E31C40E5C2009D870B /* AudioKitHelpers.swift */,
 				C49E9E121D2B4BE600E5E8BF /* Audio File */,
 				C40C41E41C40E5C2009D870B /* CoreAudio */,
@@ -4174,6 +4177,7 @@
 				C48C6A951D3C1574008EA51B /* padsynth.c in Sources */,
 				C40101D91DED741E000C5765 /* AKAudioUnit.mm in Sources */,
 				C4F8CB181DCA928B001F38F2 /* port.c in Sources */,
+				C4A20B811EB1581700875D93 /* AKTuningTable.swift in Sources */,
 				C45381E21C3A5CBD00A51738 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C48C6AA01D3C1574008EA51B /* port.c in Sources */,
 				C45382171C3A5CBD00A51738 /* AKOscillator.swift in Sources */,
