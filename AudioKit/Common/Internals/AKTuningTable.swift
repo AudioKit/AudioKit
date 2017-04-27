@@ -10,7 +10,7 @@ import Foundation
 
 @objc open class AKTuningTable: NSObject {
    
-    private static let NYQUIST:Element = 22050
+    private static let NYQUIST: Element = AKSettings.sampleRate / 2
 
     public typealias Element = Double
     
@@ -37,7 +37,7 @@ import Foundation
     }
     
     private var content = [Element](repeating:1.0, count:numberOfMidiNotes)
-    private var numberField=[Element]()
+    private var numberField = [Element]()
     
     // default is 12ET
     public override init() {
@@ -58,21 +58,21 @@ import Foundation
     // Note this is [nearly] equivalent to 440.0*exp2((noteNumber - 69.0)/12.0))
     public func twelveToneEqualTemperament() {
         var nf = [Element](repeatElement(1.0, count: 12))
-        for i in 0...11 {
-            nf[i] = Element(pow(2.0, Element(Element(i)/12.0)))
+        for i in 0 ... 11 {
+            nf[i] = Element(pow(2.0, Element(Element(i) / 12.0)))
         }
         tuningTable(fromNumberField: nf)
     }
 
     // create the tuning using the input number field
     public func tuningTable(fromNumberField inputNumberField: [Element]) {
-        if inputNumberField.count==0 {
+        if inputNumberField.isEmpty {
             AKLog("input number field is empty")
             return
         }
         
         // octave reduce
-        let nfOctaveReduce = inputNumberField.map({(number: Element)->Element in
+        let nfOctaveReduce = inputNumberField.map({(number: Element) -> Element in
             var l2 = log2(number)
             while l2 < 0 {
                 l2 += 1
@@ -95,7 +95,7 @@ import Foundation
     // Assume number field is set and valid:  Process and update tuning table.
     private func updateTuningTable() {
         AKLog("Updating tuning table from numberField: \(numberField)")
-        for i in 0..<AKTuningTable.numberOfMidiNotes {
+        for i in 0 ..< AKTuningTable.numberOfMidiNotes {
             let ff = Element(i - Int(noteNumberAtMiddleC)) / Element(numberField.count)
             var ttOctaveFactor = Element(trunc(ff))
             if ff < 0 {
@@ -111,12 +111,7 @@ import Foundation
             let lp2 = pow(2, ttOctaveFactor)
             var f = tone * lp2 * frequencyAtMiddleC
             
-            if f > AKTuningTable.NYQUIST {
-                f = AKTuningTable.NYQUIST
-            }
-            if f <= 0.0 {
-                f = 0.0
-            }
+            f = (0...AKTuningTable.NYQUIST).clamp(f)
             
             content[i] = Element(f)
         }
@@ -124,21 +119,21 @@ import Foundation
 
     // From Erv Wilson
     public func presetRecurrenceRelation01() {
-        tuningTable(fromNumberField: [1,34,5,21,3,13,55])
+        tuningTable(fromNumberField: [1, 34, 5, 21, 3, 13, 55])
     }
     // From Erv Wilson
     public func presetHighlandBagPipes() {
-        tuningTable(fromNumberField: [32,36,39,171,48,52,57])
+        tuningTable(fromNumberField: [32, 36, 39, 171, 48, 52, 57])
     }
     // From Erv Wilson
     public func presetPersianNorthIndianMadhubanti() {
         tuningTable(fromNumberField: [1.0,
-                                      9.0/8.0,
-                                      1215.0/1024.0,
-                                      45.0/32.0,
-                                      3.0/2.0,
-                                      27.0/16.0,
-                                      15.0/8.0])
+                                      9.0 / 8.0,
+                                      1215.0 / 1024.0,
+                                      45.0 / 32.0,
+                                      3.0 / 2.0,
+                                      27.0 / 16.0,
+                                      15.0 / 8.0])
     }
     
     public func hexany(_ A:Element, _ B:Element, _ C:Element, _ D:Element) {
@@ -151,7 +146,7 @@ import Foundation
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
             let contentStr = String(data: contentData, encoding: .utf8) else {
-                AKLog("can't read filePath:\(filePath)")
+                AKLog("can't read filePath: \(filePath)")
                 return
         }
         
@@ -164,17 +159,21 @@ import Foundation
         guard let string = inputString else {return nil}
         
         let leadingTrailingWhiteSpacesPattern = "(?:^\\s+)|(?:\\s+$)"
-        var regex:NSRegularExpression?
+        var regex: NSRegularExpression?
         
         do {
-            try regex = NSRegularExpression.init(pattern: leadingTrailingWhiteSpacesPattern, options: NSRegularExpression.Options.caseInsensitive)
+            try regex = NSRegularExpression.init(pattern: leadingTrailingWhiteSpacesPattern,
+                                                 options: NSRegularExpression.Options.caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: create regex: \(error)")
             return nil
         }
         
         let stringRange = NSMakeRange(0, string.characters.count)
-        let trimmedString = regex?.stringByReplacingMatches(in: string, options: NSRegularExpression.MatchingOptions.reportProgress, range: stringRange, withTemplate: "$1")
+        let trimmedString = regex?.stringByReplacingMatches(in: string,
+                                                            options: NSRegularExpression.MatchingOptions.reportProgress,
+                                                            range: stringRange,
+                                                            withTemplate: "$1")
         
         return trimmedString
     }
@@ -256,8 +255,10 @@ import Foundation
             /* The first note of 1/1 or 0.0 cents is implicit and not in the files.*/
             
             // REGEX defined above this loop
-            let rangeOfFirstMatch = regex?.rangeOfFirstMatch(in: lineStr, options: NSRegularExpression.MatchingOptions.anchored, range: NSMakeRange(0,lineStr.characters.count))
-            var scaleDegree:Element = 0
+            let rangeOfFirstMatch = regex?.rangeOfFirstMatch(in: lineStr,
+                                                             options: NSRegularExpression.MatchingOptions.anchored,
+                                                             range: NSMakeRange(0,lineStr.characters.count))
+            var scaleDegree: Element = 0
             if !NSEqualRanges(rangeOfFirstMatch!, NSMakeRange(NSNotFound, 0)) {
                 let nsLineStr = lineStr as NSString?
                 let substringForFirstMatch = nsLineStr?.substring(with: rangeOfFirstMatch!) as NSString?
@@ -332,7 +333,7 @@ import Foundation
             }
         }
         
-        if (!parsedScala) {
+        if !parsedScala {
             AKLog("FATAL ERROR: cannot parse Scala file")
             return nil
         }
