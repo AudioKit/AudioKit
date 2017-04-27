@@ -27,7 +27,9 @@ import Foundation
             updateTuningTable()
         }
     }
-    // -2, -1, 0, 1, 2, etc.
+    
+    // Musically useful for instrument register
+    // ..., -2, -1, 0, 1, 2, ...
     public var octaveAtMiddleC: Int = 0  {
         didSet {
             updateTuningTable()
@@ -37,14 +39,17 @@ import Foundation
     private var content = [Element](repeating:1.0, count:numberOfMidiNotes)
     private var numberField=[Element]()
     
+    // default is 12ET
     public override init() {
         super.init()
         twelveToneEqualTemperament()
     }
     
+    // getter
     public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Element {
         return content[Int(noteNumber)]
     }
+    // setter
     public func setFrequency(_ frequency:Element, at noteNumber: MIDINoteNumber) {
         content[Int(noteNumber)] = frequency
     }
@@ -59,8 +64,12 @@ import Foundation
         tuningTable(fromNumberField: nf)
     }
 
+    // create the tuning using the input number field
     public func tuningTable(fromNumberField inputNumberField: [Element]) {
-        if inputNumberField.count==0 {return}
+        if inputNumberField.count==0 {
+            AKLog("input number field is empty")
+            return
+        }
         
         // octave reduce
         let nfOctaveReduce = inputNumberField.map({(number: Element)->Element in
@@ -76,9 +85,14 @@ import Foundation
         let nfOctaveReducedSorted = nfOctaveReduce.sorted {$0 < $1}
         numberField = nfOctaveReducedSorted
 
+        // uniquify.
+        // provide epsilon for frequency equality comparison
+
+        // update
         updateTuningTable()
     }
     
+    // Assume number field is set and valid:  Process and update tuning table.
     private func updateTuningTable() {
         AKLog("Updating tuning table from numberField: \(numberField)")
         for i in 0..<AKTuningTable.numberOfMidiNotes {
@@ -178,8 +192,6 @@ import Foundation
         let values = inputStr.components(separatedBy: NSCharacterSet.newlines)
         var parsedFirstNonCommentLine = false
         var parsedNumberOfNotes = false
-        var proposedScalaFilename:String?
-        var scalaShortDescription:String?
         
         // REGEX match for a cents or ratio
         //              (RATIO      |CENTS                                  )
@@ -201,17 +213,23 @@ import Foundation
             if lineStr.hasPrefix("!") {
                 if !parsedFirstCommentLine {
                     parsedFirstCommentLine = true
-                    let components = lineStr.components(separatedBy: "!")
-                    if (components.count > 1) {
-                        proposedScalaFilename = components[1]
-                    }
+                    #if false
+                        // currently not using the scala file name embedded in the file
+                        let components = lineStr.components(separatedBy: "!")
+                        if (components.count > 1) {
+                            proposedScalaFilename = components[1]
+                        }
+                    #endif
                 }
                 continue
             }
             
             if !parsedFirstNonCommentLine {
                 parsedFirstNonCommentLine = true
-                scalaShortDescription = lineStr
+                #if false
+                    // currently not using the scala short description embedded in the file
+                    scalaShortDescription = lineStr
+                #endif
                 continue
             }
             
