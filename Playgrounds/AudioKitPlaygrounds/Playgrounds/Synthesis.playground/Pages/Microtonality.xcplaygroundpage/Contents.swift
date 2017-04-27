@@ -28,7 +28,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             case "Highland BagPipes":
                 AKPolyphonicNode.tuningTable.presetHighlandBagPipes()
             case "Hexany 1,45,135,225":
-                AKPolyphonicNode.tuningTable.scalaFile("hexany_1_45_135_225.scl")
+                if let filePath = Bundle.main.path(forResource: "hexany_1_45_135_225", ofType: "scl") {
+                    AKPolyphonicNode.tuningTable.scalaFile(filePath)
+                }
             case "Hexany 1,5,9,15":
                 AKPolyphonicNode.tuningTable.hexany(1,5,9,15)
                 
