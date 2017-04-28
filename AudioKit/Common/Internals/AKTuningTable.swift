@@ -85,7 +85,7 @@ import Foundation
         let nfOctaveReducedSorted = nfOctaveReduce.sorted {$0 < $1}
         numberField = nfOctaveReducedSorted
 
-        // uniquify.
+        // optional uniquify.
         // provide epsilon for frequency equality comparison
 
         // update
@@ -178,7 +178,9 @@ import Foundation
         return trimmedString
     }
     
-    fileprivate func numberField(fromScalaString rawStr: String?) -> [Element]? {
+    
+    
+    open func numberField(fromScalaString rawStr: String?) -> [Element]? {
         guard let inputStr = rawStr else {return nil}
         
         // default return value is [1.0]
@@ -262,7 +264,7 @@ import Foundation
             if !NSEqualRanges(rangeOfFirstMatch!, NSMakeRange(NSNotFound, 0)) {
                 let nsLineStr = lineStr as NSString?
                 let substringForFirstMatch = nsLineStr?.substring(with: rangeOfFirstMatch!) as NSString?
-                if (substringForFirstMatch?.range(of: ".").length) != nil {
+                if substringForFirstMatch?.range(of: ".").length != 0 {
                     scaleDegree = Element(lineStr)!
                     // ignore 0.0...same as 1.0, 2.0, etc.
                     if scaleDegree != 0 {
@@ -276,8 +278,8 @@ import Foundation
                     }
                 }
                 else {
-                    if (substringForFirstMatch?.range(of: "/").length) != nil {
-                        if (substringForFirstMatch?.range(of: "-").length) != nil {
+                    if (substringForFirstMatch?.range(of: "/").length) != 0 {
+                        if (substringForFirstMatch?.range(of: "-").length) != 0 {
                             AKLog("ERROR: invalid ratio: \(String(describing: substringForFirstMatch))")
                             parsedScala = false
                             break
@@ -338,6 +340,7 @@ import Foundation
             return nil
         }
         
+        AKLog("numberField: \(noteArray)")
         return noteArray
     }
 }
