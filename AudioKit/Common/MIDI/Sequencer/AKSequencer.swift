@@ -264,16 +264,14 @@ open class AKSequencer {
 
     /// Rate relative to the default tempo (BPM) of the track
     open var rate: Double {
-        get {
-            if isAVSequencer {
-                return Double(avSequencer.rate)
-            } else {
-                var rate = MusicTimeStamp(1.0)
-                if let existingMusicPlayer = musicPlayer {
-                    MusicPlayerGetPlayRateScalar(existingMusicPlayer, &rate)
-                }
-                return rate
+        if isAVSequencer {
+            return Double(avSequencer.rate)
+        } else {
+            var rate = MusicTimeStamp(1.0)
+            if let existingMusicPlayer = musicPlayer {
+                MusicPlayerGetPlayRateScalar(existingMusicPlayer, &rate)
             }
+            return rate
         }
     }
 

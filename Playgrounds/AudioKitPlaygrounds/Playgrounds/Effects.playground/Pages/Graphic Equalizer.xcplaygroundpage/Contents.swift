@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             filterBand2.gain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(
             property: "64Hz",
             value: filterBand3.gain, maximum: 2,
@@ -48,7 +48,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             filterBand3.gain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(
             property: "125Hz",
             value: filterBand4.gain, maximum: 2,
@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             filterBand4.gain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(
             property: "250Hz",
             value: filterBand5.gain, maximum: 2,
@@ -64,7 +64,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             filterBand5.gain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(
             property: "500Hz",
             value: filterBand6.gain, maximum: 2,
@@ -72,7 +72,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             filterBand6.gain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(
             property: "1000Hz",
             value: filterBand7.gain, maximum: 2,

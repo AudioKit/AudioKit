@@ -33,7 +33,9 @@ class AKScheduledAction {
     }
 
     private dynamic func fire(timer: Timer) {
-        guard timer.isValid else { return }
+        guard timer.isValid else {
+            return
+        }
         self.block()
     }
 

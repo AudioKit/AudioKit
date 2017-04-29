@@ -17,7 +17,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
 
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    
+
     open var waveform: AKTable? {
         //TODO: Add error checking for table size...needs to match init()
         willSet {
@@ -28,7 +28,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
@@ -217,7 +217,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     // MARK: - AKPolyphonic
-    
+
     // Function to start, play, or activate the node at frequency
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))

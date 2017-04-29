@@ -24,12 +24,12 @@ let performance = AKPeriodicFunction(frequency: playRate) {
     let octave1: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
     let course1 = [1, 2, 3, 4].randomElement()
     if random(0, 10) < 1.0 { note1 += 1 }
-    
+
     var note2: MIDINoteNumber = scale.randomElement()
     let octave2: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
     let course2 = [1, 2, 3, 4].randomElement()
     if random(0, 10) < 1.0 { note2 += 1 }
-    
+
     if random(0, 6) > 1.0 {
         mandolin.fret(noteNumber: note1 + octave1, course: course1 - 1)
         mandolin.pluck(course: course1 - 1, position: pluckPosition, velocity: 127)

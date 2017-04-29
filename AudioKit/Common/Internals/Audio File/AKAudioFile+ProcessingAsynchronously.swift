@@ -513,7 +513,7 @@ extension AKAudioFile {
                     AKLog("Completed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                         "\"\(file.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
                 } else {
-                    
+
                     if let error = processError {
                         AKLog("Failed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                             "Error: \"\(error)\" (process #\(lastCompletedProcess))")

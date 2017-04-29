@@ -17,7 +17,6 @@ player.looping = true
 //: Route the audio player through the panner
 var panner = AKPanner(player)
 
-
 //: Adjust the pan to smoothly cycle left and right over time
 var time = 0.0
 let timeStep = 0.05

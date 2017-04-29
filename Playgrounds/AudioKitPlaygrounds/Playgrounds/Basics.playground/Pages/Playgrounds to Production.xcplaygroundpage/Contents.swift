@@ -35,7 +35,7 @@ class BadAudioEngine {
 //: method completed.  Instead,  makensure it is declared as an instance variable:
 class AudioEngine {
     var oscillator: AKOscillator
-    
+
     init() {
         oscillator = AKOscillator()
         AudioKit.output = oscillator

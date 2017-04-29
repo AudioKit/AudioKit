@@ -87,12 +87,12 @@ open class AKMIDI {
         createVirtualInputPort(uniqueID, name: name)
         createVirtualOutputPort(uniqueID, name: name)
     }
-    
+
     /// Create a virtual MIDI input port
     open func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
         destroyVirtualPorts()
         let virtualPortname = ((name != nil) ? name! : String(clientName))
-        
+
         let result = MIDIDestinationCreateWithBlock(client, virtualPortname as CFString, &virtualInput) { packetList, _ in
             for packet in packetList.pointee {
                 // a coremidi packet may contain multiple midi events
@@ -101,18 +101,18 @@ open class AKMIDI {
                 }
             }
         }
-        
+
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
             AKLog("Error creatervirt dest: \(virtualPortname) -- \(virtualInput)")
         }
     }
-    
+
     /// Create a virtual MIDI output port
     open func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
         let virtualPortname = ((name != nil) ? name! : String(clientName))
-        
+
         let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
         if result == noErr {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID + 1)
@@ -120,7 +120,6 @@ open class AKMIDI {
             AKLog("Error creating virtual source: \(virtualPortname) -- \(virtualOutput)")
         }
     }
-
 
     /// Discard all virtual ports
     open func destroyVirtualPorts() {

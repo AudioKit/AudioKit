@@ -11,38 +11,38 @@
     public typealias Frequency = Double
 
     private static let NYQUIST: Frequency = AKSettings.sampleRate / 2
-    
+
     public static let midiNoteCount = 128
-    
+
     public var middleCNoteNumber: MIDINoteNumber = 60 {
         didSet {
             updateTuningTable()
         }
     }
-    
+
     public var middleCFrequency: Frequency = 261.0 {
         didSet {
             updateTuningTable()
         }
     }
-    
+
     // Musically useful for instrument register
     // ..., -2, -1, 0, 1, 2, ...
-    public var middleCOctave: Int = 0  {
+    public var middleCOctave: Int = 0 {
         didSet {
             updateTuningTable()
         }
     }
-    
+
     private var content = [Frequency](repeating: 1.0, count: midiNoteCount)
     private var frequencies = [Frequency]()
-    
+
     // default is 12ET
     public override init() {
         super.init()
         twelveToneEqualTemperament()
     }
-    
+
     // getter
     public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
         return content[Int(noteNumber)]
@@ -51,7 +51,7 @@
     public func setFrequency(_ frequency: Frequency, at noteNumber: MIDINoteNumber) {
         content[Int(noteNumber)] = frequency
     }
-    
+
     // Default tuning table is 12ET.
     // Note this is [nearly] equivalent to 440.0*exp2((noteNumber - 69.0)/12.0))
     public func twelveToneEqualTemperament() {
@@ -68,7 +68,7 @@
             AKLog("No input frequencies")
             return
         }
-        
+
         // octave reduce
         let frequenciesOctaveReduce = inputFrequencies.map({(frequency: Frequency) -> Frequency in
             var l2 = log2(frequency)
@@ -78,9 +78,9 @@
             let m = fmod(l2, 1)
             return m
         })
-        
+
         // sort
-        let frequenciesOctaveReducedSorted = frequenciesOctaveReduce.sorted {$0 < $1}
+        let frequenciesOctaveReducedSorted = frequenciesOctaveReduce.sorted { $0 < $1 }
         frequencies = frequenciesOctaveReducedSorted
 
         // optional uniquify.
@@ -89,7 +89,7 @@
         // update
         updateTuningTable()
     }
-    
+
     // Assume frequencies are set and valid:  Process and update tuning table.
     private func updateTuningTable() {
         AKLog("Updating tuning table from frequencies: \(frequencies)")
@@ -108,9 +108,9 @@
             let tone = Frequency(exp2(frequencies[frequencyIndex]))
             let lp2 = pow(2, ttOctaveFactor)
             var f = tone * lp2 * middleCFrequency
-            
+
             f = (0...AKTuningTable.NYQUIST).clamp(f)
-            
+
             content[i] = Frequency(f)
         }
     }
@@ -127,18 +127,17 @@
     public func presetPersianNorthIndianMadhubanti() {
         tuningTable(fromFrequencies: [1.0,
                                       9.0 / 8.0,
-                                      1215.0 / 1024.0,
+                                      1_215.0 / 1_024.0,
                                       45.0 / 32.0,
                                       3.0 / 2.0,
                                       27.0 / 16.0,
                                       15.0 / 8.0])
     }
-    
-    public func hexany(_ A:Frequency, _ B:Frequency, _ C:Frequency, _ D:Frequency) {
-        tuningTable(fromFrequencies: [A*B, A*C, A*D, B*C, B*D, C*D])
+
+    public func hexany(_ A: Frequency, _ B: Frequency, _ C: Frequency, _ D: Frequency) {
+        tuningTable(fromFrequencies: [A * B, A * C, A * D, B * C, B * D, C * D])
     }
-    
-    
+
     // MARK: Scala file support
     public func scalaFile(_ filePath: String) {
         guard
@@ -147,83 +146,85 @@
                 AKLog("can't read filePath: \(filePath)")
                 return
         }
-        
+
         if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
             tuningTable(fromFrequencies: scalaFrequencies)
         }
     }
 
     fileprivate func stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(_ inputString: String?) -> String? {
-        guard let string = inputString else {return nil}
-        
+        guard let string = inputString else {
+            return nil
+        }
+
         let leadingTrailingWhiteSpacesPattern = "(?:^\\s+)|(?:\\s+$)"
         var regex: NSRegularExpression?
-        
+
         do {
-            try regex = NSRegularExpression.init(pattern: leadingTrailingWhiteSpacesPattern,
-                                                 options: NSRegularExpression.Options.caseInsensitive)
+            try regex = NSRegularExpression(pattern: leadingTrailingWhiteSpacesPattern,
+                                            options: NSRegularExpression.Options.caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: create regex: \(error)")
             return nil
         }
-        
+
         let stringRange = NSMakeRange(0, string.characters.count)
         let trimmedString = regex?.stringByReplacingMatches(in: string,
                                                             options: NSRegularExpression.MatchingOptions.reportProgress,
                                                             range: stringRange,
                                                             withTemplate: "$1")
-        
+
         return trimmedString
     }
-    
-    
-    
+
     open func frequencies(fromScalaString rawStr: String?) -> [Frequency]? {
-        guard let inputStr = rawStr else {return nil}
-        
+        guard let inputStr = rawStr else {
+            return nil
+        }
+
         // default return value is [1.0]
         var noteArray = [Frequency(1)]
         var actualNumberOfNotes = 1
         var numberOfNotes = 1
-        
+
         var parsedScala = true
         var parsedFirstCommentLine = false
         let values = inputStr.components(separatedBy: NSCharacterSet.newlines)
         var parsedFirstNonCommentLine = false
         var parsedNumberOfNotes = false
-        
+
         // REGEX match for a cents or ratio
         //              (RATIO      |CENTS                                  )
         //              (  a   /  b |-   a   .  b |-   .  b |-   a   .|-   a )
         let regexStr = "(\\d+\\/\\d+|-?\\d+\\.\\d+|-?\\.\\d+|-?\\d+\\.|-?\\d+)"
         var regex: NSRegularExpression?
         do {
-            regex = try NSRegularExpression.init(pattern: regexStr,
+            regex = try NSRegularExpression(pattern: regexStr,
                                                  options: NSRegularExpression.Options.caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: cannot parse scala file: \(error)")
             return noteArray
         }
-        
+
         for rawLineStr in values {
             var lineStr = stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(rawLineStr) ?? rawLineStr
-            
-            if lineStr.characters.count == 0 { continue }
-            
+
+            if lineStr.characters.isEmpty { continue }
+
             if lineStr.hasPrefix("!") {
                 if !parsedFirstCommentLine {
                     parsedFirstCommentLine = true
                     #if false
                         // currently not using the scala file name embedded in the file
                         let components = lineStr.components(separatedBy: "!")
-                        if (components.count > 1) {
+                        if components.count > 1 {
                             proposedScalaFilename = components[1]
                         }
                     #endif
                 }
                 continue
             }
-            
+
             if !parsedFirstNonCommentLine {
                 parsedFirstNonCommentLine = true
                 #if false
@@ -232,7 +233,7 @@
                 #endif
                 continue
             }
-            
+
             if parsedFirstNonCommentLine && !parsedNumberOfNotes {
                 if let newNumberOfNotes = Int(lineStr) {
                     numberOfNotes = newNumberOfNotes
@@ -241,26 +242,25 @@
                         AKLog("ERROR: number of notes in scala file: \(numberOfNotes)")
                         parsedScala = false
                         break
-                    }
-                    else {
+                    } else {
                         parsedNumberOfNotes = true
                         continue
                     }
                 }
             }
-            
+
             if actualNumberOfNotes > numberOfNotes {
                 AKLog("actualNumberOfNotes: \(actualNumberOfNotes) > numberOfNotes: \(numberOfNotes)")
             }
-            
+
             /* The first note of 1/1 or 0.0 cents is implicit and not in the files.*/
-            
+
             // REGEX defined above this loop
             let rangeOfFirstMatch = regex?.rangeOfFirstMatch(in: lineStr,
                                                              options: NSRegularExpression.MatchingOptions.anchored,
-                                                             range: NSMakeRange(0,lineStr.characters.count))
+                                                             range: NSMakeRange(0, lineStr.characters.count))
             var scaleDegree: Frequency = 0
-            if !NSEqualRanges(rangeOfFirstMatch!, NSMakeRange(NSNotFound, 0)) {
+            if !NSEqualRanges(rangeOfFirstMatch!, NSRange(location: NSNotFound, length: 0)) {
                 let nsLineStr = lineStr as NSString?
                 let substringForFirstMatch = nsLineStr?.substring(with: rangeOfFirstMatch!) as NSString?
                 if substringForFirstMatch?.range(of: ".").length != 0 {
@@ -269,14 +269,13 @@
                     if scaleDegree != 0 {
                         scaleDegree = fabs(scaleDegree)
                         // convert from cents to frequency
-                        scaleDegree /= 1200
+                        scaleDegree /= 1_200
                         scaleDegree = pow(2, scaleDegree)
                         noteArray.append(scaleDegree)
                         actualNumberOfNotes += 1
                         continue
                     }
-                }
-                else {
+                } else {
                     if (substringForFirstMatch?.range(of: "/").length) != 0 {
                         if (substringForFirstMatch?.range(of: "-").length) != 0 {
                             AKLog("ERROR: invalid ratio: \(String(describing: substringForFirstMatch))")
@@ -293,33 +292,28 @@
                             AKLog("ERROR: invalid ratio: \(String(describing: substringForFirstMatch))")
                             parsedScala = false
                             break
-                        }
-                        else {
-                            let mt = Frequency(numerator!)/Frequency(denominator!)
+                        } else {
+                            let mt = Frequency(numerator!) / Frequency(denominator!)
                             if mt == 1.0 || mt == 2.0 {
                                 // skip 1/1, 2/1
                                 continue
-                            }
-                            else {
+                            } else {
                                 noteArray.append(mt)
                                 actualNumberOfNotes += 1
                                 continue
                             }
                         }
-                    }
-                    else {
+                    } else {
                         // a whole number, treated as a rational with a denominator of 1
                         if let whole = Int(substringForFirstMatch! as String) {
                             if whole <= 0 {
                                 AKLog("ERROR: invalid ratio: \(String(describing: substringForFirstMatch))")
                                 parsedScala = false
                                 break
-                            }
-                            else if (whole == 1 || whole == 2) {
+                            } else if whole == 1 || whole == 2 {
                                 // skip degrees of 1 or 2
                                 continue
-                            }
-                            else {
+                            } else {
                                 noteArray.append(Frequency(whole))
                                 actualNumberOfNotes += 1
                                 continue
@@ -327,18 +321,17 @@
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 AKLog("ERROR: error parsing: \(lineStr)")
                 continue
             }
         }
-        
+
         if !parsedScala {
             AKLog("FATAL ERROR: cannot parse Scala file")
             return nil
         }
-        
+
         AKLog("frequencies: \(noteArray)")
         return noteArray
     }
