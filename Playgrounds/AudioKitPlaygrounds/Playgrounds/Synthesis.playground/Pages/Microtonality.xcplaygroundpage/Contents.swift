@@ -100,7 +100,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     func noteOn(note: MIDINoteNumber) {
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: note)
         AKLog("playing \(note) at frequency:\(frequency)")
-        osc.play(noteNumber: note, velocity: 127, frequency: Float(frequency))
+        osc.play(noteNumber: note, velocity: 127, frequency: frequency)
     }
     
     func noteOff(note: MIDINoteNumber) {
