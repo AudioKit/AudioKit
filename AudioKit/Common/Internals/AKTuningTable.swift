@@ -183,15 +183,15 @@
         }
 
         // default return value is [1.0]
-        var noteArray = [Frequency(1)]
-        var actualNumberOfNotes = 1
-        var numberOfNotes = 1
+        var scalaFrequencies = [Frequency(1)]
+        var actualFrequencyCount = 1
+        var frequencyCount = 1
 
         var parsedScala = true
         var parsedFirstCommentLine = false
         let values = inputStr.components(separatedBy: NSCharacterSet.newlines)
         var parsedFirstNonCommentLine = false
-        var parsedNumberOfNotes = false
+        var parsedAllFrequencies = false
 
         // REGEX match for a cents or ratio
         //              (RATIO      |CENTS                                  )
@@ -203,7 +203,7 @@
                                                  options: NSRegularExpression.Options.caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: cannot parse scala file: \(error)")
-            return noteArray
+            return scalaFrequencies
         }
 
         for rawLineStr in values {
@@ -234,23 +234,23 @@
                 continue
             }
 
-            if parsedFirstNonCommentLine && !parsedNumberOfNotes {
-                if let newNumberOfNotes = Int(lineStr) {
-                    numberOfNotes = newNumberOfNotes
-                    if numberOfNotes == 0 || numberOfNotes > 127 {
+            if parsedFirstNonCommentLine && !parsedAllFrequencies {
+                if let newFrequencyCount = Int(lineStr) {
+                    frequencyCount = newFrequencyCount
+                    if frequencyCount == 0 || frequencyCount > 127 {
                         //#warning SPEC SAYS 0 notes is okay because 1/1 is implicit
-                        AKLog("ERROR: number of notes in scala file: \(numberOfNotes)")
+                        AKLog("ERROR: number of notes in scala file: \(frequencyCount)")
                         parsedScala = false
                         break
                     } else {
-                        parsedNumberOfNotes = true
+                        parsedAllFrequencies = true
                         continue
                     }
                 }
             }
 
-            if actualNumberOfNotes > numberOfNotes {
-                AKLog("actualNumberOfNotes: \(actualNumberOfNotes) > numberOfNotes: \(numberOfNotes)")
+            if actualFrequencyCount > frequencyCount {
+                AKLog("actual frequency cont: \(actualFrequencyCount) > frequency count: \(frequencyCount)")
             }
 
             /* The first note of 1/1 or 0.0 cents is implicit and not in the files.*/
@@ -271,8 +271,8 @@
                         // convert from cents to frequency
                         scaleDegree /= 1_200
                         scaleDegree = pow(2, scaleDegree)
-                        noteArray.append(scaleDegree)
-                        actualNumberOfNotes += 1
+                        scalaFrequencies.append(scaleDegree)
+                        actualFrequencyCount += 1
                         continue
                     }
                 } else {
@@ -298,8 +298,8 @@
                                 // skip 1/1, 2/1
                                 continue
                             } else {
-                                noteArray.append(mt)
-                                actualNumberOfNotes += 1
+                                scalaFrequencies.append(mt)
+                                actualFrequencyCount += 1
                                 continue
                             }
                         }
@@ -314,8 +314,8 @@
                                 // skip degrees of 1 or 2
                                 continue
                             } else {
-                                noteArray.append(Frequency(whole))
-                                actualNumberOfNotes += 1
+                                scalaFrequencies.append(Frequency(whole))
+                                actualFrequencyCount += 1
                                 continue
                             }
                         }
@@ -332,7 +332,7 @@
             return nil
         }
 
-        AKLog("frequencies: \(noteArray)")
-        return noteArray
+        AKLog("frequencies: \(scalaFrequencies)")
+        return scalaFrequencies
     }
 }
