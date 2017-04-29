@@ -289,7 +289,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     // MARK: - AKPolyphonic
-    
+
     // Function to start, play, or activate the node at frequency
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))

@@ -95,7 +95,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.
-    open dynamic var dampingFrequency: Double = 6000.0 {
+    open dynamic var dampingFrequency: Double = 6_000.0 {
         willSet {
             if dampingFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -140,7 +140,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 2.
-    open dynamic var equalizerFrequency2: Double = 1500.0 {
+    open dynamic var equalizerFrequency2: Double = 1_500.0 {
         willSet {
             if equalizerFrequency2 != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -212,10 +212,10 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
         crossoverFrequency: Double = 200.0,
         lowReleaseTime: Double = 3.0,
         midReleaseTime: Double = 2.0,
-        dampingFrequency: Double = 6000.0,
+        dampingFrequency: Double = 6_000.0,
         equalizerFrequency1: Double = 315.0,
         equalizerLevel1: Double = 0.0,
-        equalizerFrequency2: Double = 1500.0,
+        equalizerFrequency2: Double = 1_500.0,
         equalizerLevel2: Double = 0.0,
         dryWetMix: Double = 1.0) {
 

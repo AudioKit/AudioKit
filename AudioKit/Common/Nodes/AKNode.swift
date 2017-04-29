@@ -79,7 +79,7 @@ public protocol AKPolyphonic {
 
     // Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     open static var tuningTable = AKTuningTable()
-    
+
     /// Play a sound corresponding to a MIDI note with frequency
     ///
     /// - Parameters:
@@ -90,7 +90,7 @@ public protocol AKPolyphonic {
     open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
         AKLog("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), override in subclass")
     }
-    
+
     /// Play a sound corresponding to a MIDI note
     ///
     /// - Parameters:

@@ -12,13 +12,17 @@ AKPolyphonicNode.tuningTable.presetHighlandBagPipes()
 AKPolyphonicNode.tuningTable.twelveToneEqualTemperament()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
-    
+
     var keyboard: AKKeyboardView!
-    
+
     override func setup() {
         addTitle("Morphing Oscillator Bank")
-        
-        let presets = ["Highland BagPipes", "Recurrence Relation 01", "Madhubanti", "Hexany 1,45,135,225", "Hexany 1,5,9,15"]
+
+        let presets = ["Highland BagPipes",
+                       "Recurrence Relation 01",
+                       "Madhubanti",
+                       "Hexany 1,45,135,225",
+                       "Hexany 1,5,9,15"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Recurrence Relation 01":
@@ -30,13 +34,13 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             case "Hexany 1,45,135,225":
                 AKPolyphonicNode.tuningTable.scalaFile("hexany_1_45_135_225.scl")
             case "Hexany 1,5,9,15":
-                AKPolyphonicNode.tuningTable.hexany(1,5,9,15)
+                AKPolyphonicNode.tuningTable.hexany(1, 5, 9, 15)
 
             default:
                 break
             }
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Morph Index",
             value: osc.index, maximum: 3,
@@ -44,7 +48,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { index in
             osc.index = index
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Attack",
             format: "%0.3f s",
@@ -53,7 +57,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { duration in
             osc.attackDuration = duration
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Release",
             format: "%0.3f s",
@@ -62,7 +66,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { duration in
             osc.releaseDuration = duration
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Detuning Offset",
             format: "%0.1f Cents",
@@ -71,7 +75,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { offset in
             osc.detuningOffset = offset
         })
-        
+
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
             value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
@@ -79,12 +83,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { multiplier in
             osc.detuningMultiplier = multiplier
         })
-        
+
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
         addSubview(keyboard)
-        
+
         addSubview(AKButton(title: "Go Polyphonic") {
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
@@ -94,13 +98,13 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             }
         })
     }
-    
+
     func noteOn(note: MIDINoteNumber) {
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: note)
         AKLog("playing \(note) at frequency:\(frequency)")
         osc.play(noteNumber: note, velocity: 127, frequency:Float(frequency))
     }
-    
+
     func noteOff(note: MIDINoteNumber) {
         osc.stop(noteNumber: note)
     }

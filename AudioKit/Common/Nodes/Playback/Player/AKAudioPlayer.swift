@@ -39,7 +39,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Boolean indicating whether or not to loop the playback (Default false)
     open dynamic var looping: Bool {
         set {
-            guard  newValue != _looping else { return }
+            guard  newValue != _looping else {
+                return
+            }
             _looping = newValue
         }
         get { return _looping }

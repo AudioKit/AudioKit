@@ -58,7 +58,7 @@ class PlaygroundView: AKPlaygroundView {
             // Do nothing, just for display
         }
         addSubview(trackedFrequencySlider)
-        
+
         let fftPlot = AKNodeFFTPlot(mic, frame: CGRect(x: 0, y: 0, width: 500, height: 200))
         fftPlot.shouldFill = true
         fftPlot.shouldMirror = false
@@ -66,7 +66,7 @@ class PlaygroundView: AKPlaygroundView {
         fftPlot.color = AKColor.purple
         fftPlot.gain = 100
         addSubview(fftPlot)
-        
+
         let rollingPlot = AKNodeOutputPlot(micCopy1, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
         rollingPlot.plotType = .buffer
         rollingPlot.shouldFill = true
@@ -74,7 +74,7 @@ class PlaygroundView: AKPlaygroundView {
         rollingPlot.color = AKColor.red
         rollingPlot.gain = 2
         addSubview(rollingPlot)
-        
+
         let plot = AKNodeOutputPlot(micCopy2, frame: CGRect(x: 0, y: 0, width: 440, height: 200))
         plot.plotType = .rolling
         plot.shouldFill = true
@@ -83,7 +83,7 @@ class PlaygroundView: AKPlaygroundView {
         plot.gain = 2
         plot.shouldOptimizeForRealtimePlot = false
         addSubview(plot)
-        
+
     }
 }
 

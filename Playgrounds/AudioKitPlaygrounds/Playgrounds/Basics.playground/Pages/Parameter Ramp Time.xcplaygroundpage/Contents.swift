@@ -33,7 +33,6 @@ AudioKit.start(withPeriodicFunctions: toggling)
 noise.start()
 toggling.start()
 
-
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {

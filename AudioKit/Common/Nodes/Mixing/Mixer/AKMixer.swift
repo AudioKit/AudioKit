@@ -47,7 +47,7 @@ open class AKMixer: AKNode, AKToggleable {
             connect(input)
         }
     }
-    
+
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: An array of AKNodes

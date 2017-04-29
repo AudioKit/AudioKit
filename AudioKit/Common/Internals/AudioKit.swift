@@ -35,9 +35,8 @@ extension AVAudioEngine {
 
     static var shouldBeRunning = false
 
-    
     static var finalMixer = AKMixer()
-    
+
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
@@ -185,7 +184,7 @@ extension AVAudioEngine {
         }
         start()
     }
-    
+
     /// Start up the audio engine
     open static func start() {
         if output == nil {
@@ -222,8 +221,10 @@ extension AVAudioEngine {
                     } else if AKSettings.useBluetooth {
 
                         if #available(iOS 10.0, *) {
-                            let opts: AVAudioSessionCategoryOptions = [.allowBluetooth, .allowBluetoothA2DP, .mixWithOthers]
-                            try AKSettings.setSession(category: .playAndRecord, with: opts)
+                            let options: AVAudioSessionCategoryOptions = [.allowBluetooth,
+                                                                          .allowBluetoothA2DP,
+                                                                          .mixWithOthers]
+                            try AKSettings.setSession(category: .playAndRecord, with: options)
                         } else {
                             // Fallback on earlier versions
                             try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)

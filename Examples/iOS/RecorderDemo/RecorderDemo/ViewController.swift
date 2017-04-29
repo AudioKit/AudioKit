@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     var moogLadder: AKMoogLadder!
     var delay: AKDelay!
     var mainMixer: AKMixer!
-    
+
     let mic = AKMicrophone()
 
     var state = State.readyToRecord
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         } catch {
             AKLog("Could not set session category.")
         }
-        
+
         AKSettings.defaultToSpeaker = true
 
         // Patching

@@ -9,9 +9,9 @@
 public class AKPeriodicFunction: AKOperationGenerator {
     fileprivate var internalHandler: () -> Void = {}
     private var duration = 1.0
-    
+
     let triggerFunctionUgen =
-        AKCustomUgen(name: "triggerFunction", argTypes: "f") { ugen, stack, userData in
+        AKCustomUgen(name: "triggerFunction", argTypes: "f") { _, stack, userData in
             let trigger = stack.popFloat()
             if trigger != 0 {
                 if let function = userData as? AKPeriodicFunction {
@@ -20,8 +20,8 @@ public class AKPeriodicFunction: AKOperationGenerator {
                     }
                 }
             }
-    }
-    
+        }
+
     /// Repeat this loop at a given period with a code block
     ///
     /// - parameter every: Period, or interval between block executions
@@ -33,7 +33,7 @@ public class AKPeriodicFunction: AKOperationGenerator {
         super.init(sporth: "\(dur) dmetro (_triggerFunction fe) 0 0", customUgens: [triggerFunctionUgen] )
         triggerFunctionUgen.userData = self
     }
-    
+
     /// Repeat this loop at a given frequency with a code block
     ///
     /// - parameter frequency: Period, or interval between block executions

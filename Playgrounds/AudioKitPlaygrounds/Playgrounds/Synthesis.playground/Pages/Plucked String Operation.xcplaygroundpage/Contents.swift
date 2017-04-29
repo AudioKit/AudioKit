@@ -28,7 +28,7 @@ let performance = AKPeriodicFunction(frequency: playRate) {
     let octave = [0, 1, 2, 3].randomElement() * 12
     if random(0, 10) < 1.0 { note += 1 }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
-    
+
     if random(0, 6) > 1.0 {
         pluckNode.parameters[1] = Double(note + octave)
         pluckNode.trigger()

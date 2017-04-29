@@ -20,7 +20,7 @@ let performance = AKPeriodicFunction(frequency: playRate) {
     let octave = [2, 3, 4, 5].randomElement() * 12
     if random(0, 10) < 1.0 { note += 1 }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
-    
+
     let frequency = (note + octave).midiNoteToFrequency()
     if random(0, 6) > 1.0 {
         pluckedString.trigger(frequency: frequency)
