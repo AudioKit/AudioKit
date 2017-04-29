@@ -6,28 +6,34 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+/// Tuning table stores frequencies at which to play MIDI notes
 @objc open class AKTuningTable: NSObject {
 
+    /// For clarity, typealias Frequency as a Double
     public typealias Frequency = Double
 
+    /// Standard Nyquist frequency
     private static let NYQUIST: Frequency = AKSettings.sampleRate / 2
 
+    /// Total number of MIDI Notes available to play
     public static let midiNoteCount = 128
 
+    /// Note number for standard reference note
     public var middleCNoteNumber: MIDINoteNumber = 60 {
         didSet {
             updateTuningTable()
         }
     }
 
+    /// Frequency of standard reference note
     public var middleCFrequency: Frequency = 261.0 {
         didSet {
             updateTuningTable()
         }
     }
 
-    // Musically useful for instrument register
-    // ..., -2, -1, 0, 1, 2, ...
+    /// Octave number for standard reference note.  Can be negative
+    /// ..., -2, -1, 0, 1, 2, ...
     public var middleCOctave: Int = 0 {
         didSet {
             updateTuningTable()
@@ -37,23 +43,24 @@
     private var content = [Frequency](repeating: 1.0, count: midiNoteCount)
     private var frequencies = [Frequency]()
 
-    // default is 12ET
+    /// Initialization for standard default 12 tone equal temperament
     public override init() {
         super.init()
         twelveToneEqualTemperament()
     }
 
-    // getter
+    /// Pull out frequency information for a given note number
     public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
         return content[Int(noteNumber)]
     }
-    // setter
+    
+    /// Set frequency of a given note number
     public func setFrequency(_ frequency: Frequency, at noteNumber: MIDINoteNumber) {
         content[Int(noteNumber)] = frequency
     }
 
-    // Default tuning table is 12ET.
-    // Note this is [nearly] equivalent to 440.0*exp2((noteNumber - 69.0)/12.0))
+    /// Default tuning table is 12ET.
+    /// Note this is [nearly] equivalent to 440.0*exp2((noteNumber - 69.0)/12.0))
     public func twelveToneEqualTemperament() {
         var equalTempermentFrequencies = [Frequency](repeatElement(1.0, count: 12))
         for i in 0 ... 11 {
@@ -62,7 +69,7 @@
         tuningTable(fromFrequencies: equalTempermentFrequencies)
     }
 
-    // create the tuning using the input frequencies
+    /// Create the tuning using the input frequencies
     public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) {
         if inputFrequencies.isEmpty {
             AKLog("No input frequencies")
@@ -115,15 +122,17 @@
         }
     }
 
-    // From Erv Wilson
+    /// Recurrence Relation 01 Preset From Erv Wilson
     public func presetRecurrenceRelation01() {
         tuningTable(fromFrequencies: [1, 34, 5, 21, 3, 13, 55])
     }
-    // From Erv Wilson
+    
+    /// Highland Bag Pipes Preset From Erv Wilson
     public func presetHighlandBagPipes() {
         tuningTable(fromFrequencies: [32, 36, 39, 171, 48, 52, 57])
     }
-    // From Erv Wilson
+    
+    /// Persian North Indian Mdhubanti Preset From Erv Wilson
     public func presetPersianNorthIndianMadhubanti() {
         tuningTable(fromFrequencies: [1.0,
                                       9.0 / 8.0,
@@ -134,11 +143,12 @@
                                       15.0 / 8.0])
     }
 
+    /// Hexany tuning table created from four frequencies
     public func hexany(_ A: Frequency, _ B: Frequency, _ C: Frequency, _ D: Frequency) {
         tuningTable(fromFrequencies: [A * B, A * C, A * D, B * C, B * D, C * D])
     }
 
-    // MARK: Scala file support
+    /// Use a Scala file to write the tuning table
     public func scalaFile(_ filePath: String) {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
@@ -177,6 +187,7 @@
         return trimmedString
     }
 
+    /// Get frequencies from a Scala string
     open func frequencies(fromScalaString rawStr: String?) -> [Frequency]? {
         guard let inputStr = rawStr else {
             return nil
