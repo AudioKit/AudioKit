@@ -6,23 +6,21 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import Foundation
-
 @objc open class AKTuningTable: NSObject {
-   
-    private static let NYQUIST: Element = AKSettings.sampleRate / 2
 
     public typealias Element = Double
+
+    private static let NYQUIST: Element = AKSettings.sampleRate / 2
     
-    public static let numberOfMidiNotes = 128
+    public static let midiNoteCount = 128
     
-    public var noteNumberAtMiddleC: MIDINoteNumber = 60 {
+    public var middleCNoteNumber: MIDINoteNumber = 60 {
         didSet {
             updateTuningTable()
         }
     }
     
-    public var frequencyAtMiddleC: Element = 261.0 {
+    public var middleCFrequency: Element = 261.0 {
         didSet {
             updateTuningTable()
         }
@@ -30,13 +28,13 @@ import Foundation
     
     // Musically useful for instrument register
     // ..., -2, -1, 0, 1, 2, ...
-    public var octaveAtMiddleC: Int = 0  {
+    public var middleCOctave: Int = 0  {
         didSet {
             updateTuningTable()
         }
     }
     
-    private var content = [Element](repeating:1.0, count:numberOfMidiNotes)
+    private var content = [Element](repeating: 1.0, count: midiNoteCount)
     private var numberField = [Element]()
     
     // default is 12ET
@@ -50,7 +48,7 @@ import Foundation
         return content[Int(noteNumber)]
     }
     // setter
-    public func setFrequency(_ frequency:Element, at noteNumber: MIDINoteNumber) {
+    public func setFrequency(_ frequency: Element, at noteNumber: MIDINoteNumber) {
         content[Int(noteNumber)] = frequency
     }
     
@@ -95,8 +93,8 @@ import Foundation
     // Assume number field is set and valid:  Process and update tuning table.
     private func updateTuningTable() {
         AKLog("Updating tuning table from numberField: \(numberField)")
-        for i in 0 ..< AKTuningTable.numberOfMidiNotes {
-            let ff = Element(i - Int(noteNumberAtMiddleC)) / Element(numberField.count)
+        for i in 0 ..< AKTuningTable.midiNoteCount {
+            let ff = Element(i - Int(middleCNoteNumber)) / Element(numberField.count)
             var ttOctaveFactor = Element(trunc(ff))
             if ff < 0 {
                 ttOctaveFactor -= 1
@@ -109,7 +107,7 @@ import Foundation
             let nfIndex = Int(round(frac * Element(numberField.count)))
             let tone = Element(exp2(numberField[nfIndex]))
             let lp2 = pow(2, ttOctaveFactor)
-            var f = tone * lp2 * frequencyAtMiddleC
+            var f = tone * lp2 * middleCFrequency
             
             f = (0...AKTuningTable.NYQUIST).clamp(f)
             
@@ -200,7 +198,8 @@ import Foundation
         let regexStr = "(\\d+\\/\\d+|-?\\d+\\.\\d+|-?\\.\\d+|-?\\d+\\.|-?\\d+)"
         var regex:NSRegularExpression?
         do {
-            regex = try NSRegularExpression.init(pattern: regexStr, options: NSRegularExpression.Options.caseInsensitive)
+            regex = try NSRegularExpression.init(pattern: regexStr,
+                                                 options: NSRegularExpression.Options.caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: cannot parse scala file: \(error)")
             return noteArray
