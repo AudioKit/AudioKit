@@ -8,9 +8,9 @@
 
 @objc open class AKTuningTable: NSObject {
 
-    public typealias Element = Double
+    public typealias Frequency = Double
 
-    private static let NYQUIST: Element = AKSettings.sampleRate / 2
+    private static let NYQUIST: Frequency = AKSettings.sampleRate / 2
     
     public static let midiNoteCount = 128
     
@@ -20,7 +20,7 @@
         }
     }
     
-    public var middleCFrequency: Element = 261.0 {
+    public var middleCFrequency: Frequency = 261.0 {
         didSet {
             updateTuningTable()
         }
@@ -34,8 +34,8 @@
         }
     }
     
-    private var content = [Element](repeating: 1.0, count: midiNoteCount)
-    private var numberField = [Element]()
+    private var content = [Frequency](repeating: 1.0, count: midiNoteCount)
+    private var frequencies = [Frequency]()
     
     // default is 12ET
     public override init() {
@@ -44,34 +44,34 @@
     }
     
     // getter
-    public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Element {
+    public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
         return content[Int(noteNumber)]
     }
     // setter
-    public func setFrequency(_ frequency: Element, at noteNumber: MIDINoteNumber) {
+    public func setFrequency(_ frequency: Frequency, at noteNumber: MIDINoteNumber) {
         content[Int(noteNumber)] = frequency
     }
     
     // Default tuning table is 12ET.
     // Note this is [nearly] equivalent to 440.0*exp2((noteNumber - 69.0)/12.0))
     public func twelveToneEqualTemperament() {
-        var nf = [Element](repeatElement(1.0, count: 12))
+        var equalTempermentFrequencies = [Frequency](repeatElement(1.0, count: 12))
         for i in 0 ... 11 {
-            nf[i] = Element(pow(2.0, Element(Element(i) / 12.0)))
+            equalTempermentFrequencies[i] = Frequency(pow(2.0, Frequency(Frequency(i) / 12.0)))
         }
-        tuningTable(fromNumberField: nf)
+        tuningTable(fromFrequencies: equalTempermentFrequencies)
     }
 
-    // create the tuning using the input number field
-    public func tuningTable(fromNumberField inputNumberField: [Element]) {
-        if inputNumberField.isEmpty {
-            AKLog("input number field is empty")
+    // create the tuning using the input frequencies
+    public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) {
+        if inputFrequencies.isEmpty {
+            AKLog("No input frequencies")
             return
         }
         
         // octave reduce
-        let nfOctaveReduce = inputNumberField.map({(number: Element) -> Element in
-            var l2 = log2(number)
+        let frequenciesOctaveReduce = inputFrequencies.map({(frequency: Frequency) -> Frequency in
+            var l2 = log2(frequency)
             while l2 < 0 {
                 l2 += 1
             }
@@ -80,8 +80,8 @@
         })
         
         // sort
-        let nfOctaveReducedSorted = nfOctaveReduce.sorted {$0 < $1}
-        numberField = nfOctaveReducedSorted
+        let frequenciesOctaveReducedSorted = frequenciesOctaveReduce.sorted {$0 < $1}
+        frequencies = frequenciesOctaveReducedSorted
 
         // optional uniquify.
         // provide epsilon for frequency equality comparison
@@ -90,12 +90,12 @@
         updateTuningTable()
     }
     
-    // Assume number field is set and valid:  Process and update tuning table.
+    // Assume frequencies are set and valid:  Process and update tuning table.
     private func updateTuningTable() {
-        AKLog("Updating tuning table from numberField: \(numberField)")
+        AKLog("Updating tuning table from frequencies: \(frequencies)")
         for i in 0 ..< AKTuningTable.midiNoteCount {
-            let ff = Element(i - Int(middleCNoteNumber)) / Element(numberField.count)
-            var ttOctaveFactor = Element(trunc(ff))
+            let ff = Frequency(i - Int(middleCNoteNumber)) / Frequency(frequencies.count)
+            var ttOctaveFactor = Frequency(trunc(ff))
             if ff < 0 {
                 ttOctaveFactor -= 1
             }
@@ -104,28 +104,28 @@
                 frac = 0
                 ttOctaveFactor += 1
             }
-            let nfIndex = Int(round(frac * Element(numberField.count)))
-            let tone = Element(exp2(numberField[nfIndex]))
+            let frequencyIndex = Int(round(frac * Frequency(frequencies.count)))
+            let tone = Frequency(exp2(frequencies[frequencyIndex]))
             let lp2 = pow(2, ttOctaveFactor)
             var f = tone * lp2 * middleCFrequency
             
             f = (0...AKTuningTable.NYQUIST).clamp(f)
             
-            content[i] = Element(f)
+            content[i] = Frequency(f)
         }
     }
 
     // From Erv Wilson
     public func presetRecurrenceRelation01() {
-        tuningTable(fromNumberField: [1, 34, 5, 21, 3, 13, 55])
+        tuningTable(fromFrequencies: [1, 34, 5, 21, 3, 13, 55])
     }
     // From Erv Wilson
     public func presetHighlandBagPipes() {
-        tuningTable(fromNumberField: [32, 36, 39, 171, 48, 52, 57])
+        tuningTable(fromFrequencies: [32, 36, 39, 171, 48, 52, 57])
     }
     // From Erv Wilson
     public func presetPersianNorthIndianMadhubanti() {
-        tuningTable(fromNumberField: [1.0,
+        tuningTable(fromFrequencies: [1.0,
                                       9.0 / 8.0,
                                       1215.0 / 1024.0,
                                       45.0 / 32.0,
@@ -134,8 +134,8 @@
                                       15.0 / 8.0])
     }
     
-    public func hexany(_ A:Element, _ B:Element, _ C:Element, _ D:Element) {
-        tuningTable(fromNumberField: [A*B, A*C, A*D, B*C, B*D, C*D])
+    public func hexany(_ A:Frequency, _ B:Frequency, _ C:Frequency, _ D:Frequency) {
+        tuningTable(fromFrequencies: [A*B, A*C, A*D, B*C, B*D, C*D])
     }
     
     
@@ -148,8 +148,8 @@
                 return
         }
         
-        if let scalaNumberField = numberField(fromScalaString: contentStr) {
-            tuningTable(fromNumberField: scalaNumberField)
+        if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
+            tuningTable(fromFrequencies: scalaFrequencies)
         }
     }
 
@@ -178,11 +178,11 @@
     
     
     
-    open func numberField(fromScalaString rawStr: String?) -> [Element]? {
+    open func frequencies(fromScalaString rawStr: String?) -> [Frequency]? {
         guard let inputStr = rawStr else {return nil}
         
         // default return value is [1.0]
-        var noteArray = [Element(1)]
+        var noteArray = [Frequency(1)]
         var actualNumberOfNotes = 1
         var numberOfNotes = 1
         
@@ -196,7 +196,7 @@
         //              (RATIO      |CENTS                                  )
         //              (  a   /  b |-   a   .  b |-   .  b |-   a   .|-   a )
         let regexStr = "(\\d+\\/\\d+|-?\\d+\\.\\d+|-?\\.\\d+|-?\\d+\\.|-?\\d+)"
-        var regex:NSRegularExpression?
+        var regex: NSRegularExpression?
         do {
             regex = try NSRegularExpression.init(pattern: regexStr,
                                                  options: NSRegularExpression.Options.caseInsensitive)
@@ -259,12 +259,12 @@
             let rangeOfFirstMatch = regex?.rangeOfFirstMatch(in: lineStr,
                                                              options: NSRegularExpression.MatchingOptions.anchored,
                                                              range: NSMakeRange(0,lineStr.characters.count))
-            var scaleDegree: Element = 0
+            var scaleDegree: Frequency = 0
             if !NSEqualRanges(rangeOfFirstMatch!, NSMakeRange(NSNotFound, 0)) {
                 let nsLineStr = lineStr as NSString?
                 let substringForFirstMatch = nsLineStr?.substring(with: rangeOfFirstMatch!) as NSString?
                 if substringForFirstMatch?.range(of: ".").length != 0 {
-                    scaleDegree = Element(lineStr)!
+                    scaleDegree = Frequency(lineStr)!
                     // ignore 0.0...same as 1.0, 2.0, etc.
                     if scaleDegree != 0 {
                         scaleDegree = fabs(scaleDegree)
@@ -295,7 +295,7 @@
                             break
                         }
                         else {
-                            let mt = Element(numerator!)/Element(denominator!)
+                            let mt = Frequency(numerator!)/Frequency(denominator!)
                             if mt == 1.0 || mt == 2.0 {
                                 // skip 1/1, 2/1
                                 continue
@@ -320,7 +320,7 @@
                                 continue
                             }
                             else {
-                                noteArray.append(Element(whole))
+                                noteArray.append(Frequency(whole))
                                 actualNumberOfNotes += 1
                                 continue
                             }
@@ -339,7 +339,7 @@
             return nil
         }
         
-        AKLog("numberField: \(noteArray)")
+        AKLog("frequencies: \(noteArray)")
         return noteArray
     }
 }
