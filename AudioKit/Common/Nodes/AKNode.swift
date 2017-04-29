@@ -56,8 +56,8 @@ public protocol AKPolyphonic {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
-    ///   - frequency: play this frequency
-    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Float)
+    ///   - frequency:  Play this frequency
+    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double)
 
     /// Play a sound corresponding to a MIDI note
     ///
@@ -85,10 +85,10 @@ public protocol AKPolyphonic {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
-    ///   - frequency: play this frequency
+    ///   - frequency:  Play this frequency
     ///
-    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Float) {
-        AKLog("Playing note:\(noteNumber), velocity:\(velocity), frequency:\(frequency), override in subclass")
+    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
+        AKLog("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), override in subclass")
     }
     
     /// Play a sound corresponding to a MIDI note
@@ -102,8 +102,8 @@ public protocol AKPolyphonic {
         // MARK: Microtonal pitch lookup
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-        AKLog("Playing note:\(noteNumber), velocity:\(velocity), using tuning table frequency:\(frequency)")
-        self.play(noteNumber: noteNumber, velocity:velocity, frequency:Float(frequency))
+        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
+        self.play(noteNumber: noteNumber, velocity: velocity, frequency: frequency)
     }
 
     /// Stop a sound corresponding to a MIDI note
