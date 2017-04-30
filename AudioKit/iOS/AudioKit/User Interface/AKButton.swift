@@ -24,13 +24,20 @@ open class AKButton: UIView {
         if newTitle != "" { title = newTitle }
     }
 
+    @IBInspectable open var fontSize: CGFloat = 24
+    @IBInspectable open var font: UIFont = UIFont.boldSystemFont(ofSize: 24)
+
     public init(title: String,
                 color: UIColor = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                font: UIFont = UIFont.boldSystemFont(ofSize: 24),
+                fontSize: CGFloat = 24,
                 callback: @escaping () -> (String)) {
         self.title = title
         self.callback = callback
         self.color = color
+        self.fontSize = fontSize
+        self.font = font
         super.init(frame: frame)
     }
 
@@ -42,19 +49,24 @@ open class AKButton: UIView {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
-        let outerPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
+        let outerPath = UIBezierPath(rect: self.bounds)
         color.setFill()
         outerPath.fill()
 
-        let labelRect = CGRect(x: 0, y: 0, width: 440, height: 60)
+        let labelRect = self.bounds
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
-                                   NSForegroundColorAttributeName: UIColor.black,
-                                   NSParagraphStyleAttributeName: labelStyle]
+        // Font with fontName and fontSize
+        let finalFontName = font.fontName
+        let finalFont = UIFont.init(name: finalFontName, size: fontSize) as Any
+        let buttonLabelStyle = NSMutableParagraphStyle()
+        buttonLabelStyle.alignment = .center
+        let labelFontAttributes = [NSFontAttributeName: finalFont,
+                                       NSForegroundColorAttributeName: UIColor.black,
+                                       NSParagraphStyleAttributeName: buttonLabelStyle] as [String : Any]
 
-        let labelInset: CGRect = labelRect.insetBy(dx: 10, dy: 0)
+        let labelInset: CGRect = labelRect.insetBy(dx: 0, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(
             with: CGSize(width: labelInset.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,

@@ -79,7 +79,7 @@ import UIKit
     @IBInspectable open var decayColor: UIColor = #colorLiteral(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
     @IBInspectable open var sustainColor: UIColor = #colorLiteral(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
     @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
-    let bgColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    let bgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
 
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
     @IBInspectable open var curveColor: UIColor = .black
@@ -92,6 +92,7 @@ import UIKit
         self.callback = callback
         super.init(frame: CGRect(x: 0, y: 0, width: 440, height: 150))
         backgroundColor = .white
+        self.isOpaque = false
     }
 
     required public init?(coder aDecoder: NSCoder) {
