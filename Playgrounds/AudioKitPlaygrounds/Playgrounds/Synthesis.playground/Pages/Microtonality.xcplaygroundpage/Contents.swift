@@ -8,35 +8,32 @@ let osc = AKMorphingOscillatorBank()
 AudioKit.output = osc
 AudioKit.start()
 
-// Default is 12-tone equal temperament
+AKPolyphonicNode.tuningTable.presetHighlandBagPipes()
 AKPolyphonicNode.tuningTable.twelveToneEqualTemperament()
-
-let scalaPath = try Bundle.main.path(forResource: "hexany_1_45_135_225", ofType: "scl")
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView!
 
     override func setup() {
-        addTitle("Microtonal Morphing Oscillator")
-        
-        // presets view
-        let presets = ["12 tone equal temperament", "Highland BagPipes", "Recurrence Relation 01", "Madhubanti", "Hexany 1,45,135,225", "Hexany 1,5,9,15"]
-        
+        addTitle("Morphing Oscillator Bank")
+
+        let presets = ["Highland BagPipes", "Recurrence Relation 01", "Madhubanti", "Hexany 1,45,135,225", "Hexany 1,5,9,15"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
-            case "12 tone equal temperament":
-                AKPolyphonicNode.tuningTable.twelveToneEqualTemperament()
             case "Recurrence Relation 01":
                 AKPolyphonicNode.tuningTable.presetRecurrenceRelation01()
             case "Madhubanti":
-                AKPolyphonicNode.tuningTable.presetPersian17NorthIndian17Madhubanti()
+                AKPolyphonicNode.tuningTable.presetPersianNorthIndianMadhubanti()
             case "Highland BagPipes":
                 AKPolyphonicNode.tuningTable.presetHighlandBagPipes()
             case "Hexany 1,45,135,225":
-                AKPolyphonicNode.tuningTable.scalaFile(scalaPath!)
+                if let filePath = Bundle.main.path(forResource: "hexany_1_45_135_225", ofType: "scl") {
+                    AKPolyphonicNode.tuningTable.scalaFile(filePath)
+                }
             case "Hexany 1,5,9,15":
                 AKPolyphonicNode.tuningTable.hexany(1, 5, 9, 15)
+
             default:
                 break
             }

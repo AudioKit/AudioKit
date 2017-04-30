@@ -12,7 +12,6 @@ public typealias Label = UILabel
 open class AKPlaygroundView: UIView {
 
     open var elementHeight: CGFloat = 30
-    open var xInset: Int = 30
     open var yPosition: Int = 25
     open var spacing = 25
 
@@ -53,8 +52,8 @@ open class AKPlaygroundView: UIView {
             return
         }
         view.frame.origin.y = CGFloat(yPosition)
-        if view.frame.origin.x < CGFloat(xInset) {
-            view.frame.origin.x = CGFloat(xInset)
+        if view.frame.origin.x < 30 {
+            view.frame.origin.x = 30
         }
         super.addSubview(view)
         yPosition += Int(view.frame.height) + spacing

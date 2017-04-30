@@ -12,32 +12,41 @@ open class AKPresetLoaderView: UIView {
     var presetOuterPath = UIBezierPath()
     var upOuterPath = UIBezierPath()
     var downOuterPath = UIBezierPath()
-    var turboScrollPath = UIBezierPath()
 
     var currentIndex = 0
     open var label = "Preset"
     open var presets = [String]()
     open var callback: (String) -> Void
     var isPresetLoaded = false
-    @IBInspectable open var fontSize: CGFloat = 24
-    @IBInspectable open var font: UIFont = UIFont.boldSystemFont(ofSize: 24)
+
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            isPresetLoaded = false
+            let touchLocation = touch.location(in: self)
+            if upOuterPath.contains(touchLocation) {
+                currentIndex -= 1
+                isPresetLoaded = true
+            }
+            if downOuterPath.contains(touchLocation) {
+                currentIndex += 1
+                isPresetLoaded = true
+            }
+            if currentIndex < 0 { currentIndex = presets.count - 1 }
+            if currentIndex >= presets.count { currentIndex = 0 }
+
+            if isPresetLoaded {
+                callback(presets[currentIndex])
+                setNeedsDisplay()
+            }
+        }
+    }
 
     public init(presets: [String],
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                font: UIFont = UIFont.boldSystemFont(ofSize: 24),
-                fontSize: CGFloat = 24,
                 callback: @escaping (String) -> Void) {
         self.callback = callback
         self.presets = presets
-        self.font = font
-        self.fontSize = fontSize
         super.init(frame: frame)
-        if self.presets.count > 0 {
-            isPresetLoaded = true
-            currentIndex = 0
-            self.callback(presets[currentIndex])
-            setNeedsDisplay()
-        }
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -53,47 +62,35 @@ open class AKPresetLoaderView: UIView {
         //// Color Declarations
         let red = #colorLiteral(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
         let gray = #colorLiteral(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
-        let darkgray = #colorLiteral(red: 0.735, green: 0.742, blue: 0.736, alpha: 0.5)
-        let green = #colorLiteral(red: 0.029, green: 1, blue: 0, alpha: 0.4921599912)
+        let darkgray = #colorLiteral(red: 0.735, green: 0.742, blue: 0.736, alpha: 1.000)
+        let green = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
         let dark = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
         //// Variable Declarations
         let expression = isPresetLoaded ? green : red
 
-        // Layout
-        let hitpointWidth:CGFloat = 60
-        let hitpointHeight:CGFloat = 60
-        let hitpointHeight2:CGFloat = 0.5 * self.bounds.size.height
-        let presetLabelWidth:CGFloat = 95-30-30+10
-
-        // turboScroll area for touches
-        turboScrollPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: self.bounds.size.width-hitpointWidth, height: self.bounds.size.height))
-
         //// background Drawing
-        let backgroundPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        let backgroundPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
         darkgray.setFill()
         backgroundPath.fill()
 
         //// presetButton
         //// presetOuter Drawing
-        presetOuterPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: presetLabelWidth, height: self.bounds.size.height))
+        presetOuterPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 95, height: 60))
         expression.setFill()
         presetOuterPath.fill()
 
-        // Font
-        let finalFontName = font.fontName
-        let finalFont = UIFont.init(name: finalFontName, size: fontSize) as Any
-
         //// presetLabel Drawing
-        let presetLabelRect = CGRect(x: 0, y: 0, width: presetLabelWidth, height: self.bounds.size.height)
+        let presetLabelRect = CGRect(x: 0, y: 0, width: 95, height: 60)
         let presetLabelTextContent = NSString(string: label)
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .left
-        let presetLabelFontAttributes = [NSFontAttributeName: finalFont,
+
+        let presetLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
                                          NSForegroundColorAttributeName: UIColor.black,
                                          NSParagraphStyleAttributeName: presetLabelStyle]
 
-        let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10-10, dy: 0)
+        let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
         let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
             with: CGSize(width: presetLabelInset.width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
@@ -111,49 +108,48 @@ open class AKPresetLoaderView: UIView {
 
         //// upButton
         //// upOuter Drawing
-        let originX:CGFloat = 380-30+15+5
-        let buttonX:CGFloat = self.bounds.size.width-hitpointWidth
-        upOuterPath = UIBezierPath(rect: CGRect(x: Int(buttonX+381-originX), y: 0, width: Int(hitpointWidth), height: Int(hitpointHeight2)))
+        upOuterPath = UIBezierPath(rect: CGRect(x: 381, y: 0, width: 59, height: 30))
         gray.setFill()
         upOuterPath.fill()
 
         //// upInner Drawing
         let upInnerPath = UIBezierPath()
-        upInnerPath.move(to: CGPoint(x: Int(buttonX+395.75-originX), y: Int(2*hitpointHeight2*22.5/hitpointHeight)))
-        upInnerPath.addLine(to: CGPoint(x: Int(buttonX+425.25-originX), y: Int(2*hitpointHeight2*22.5/hitpointHeight)))
-        upInnerPath.addLine(to: CGPoint(x: Int(buttonX+410.5-originX), y: Int(2*hitpointHeight2*7.5/hitpointHeight)))
-        upInnerPath.addLine(to: CGPoint(x: Int(buttonX+410.5-originX), y: Int(2*hitpointHeight2*7.5/hitpointHeight)))
-        upInnerPath.addLine(to: CGPoint(x: Int(buttonX+395.75-originX), y: Int(2*hitpointHeight2*22.5/hitpointHeight)))
+        upInnerPath.move(to: CGPoint(x: 395.75, y: 22.5))
+        upInnerPath.addLine(to: CGPoint(x: 425.25, y: 22.5))
+        upInnerPath.addLine(to: CGPoint(x: 410.5, y: 7.5))
+        upInnerPath.addLine(to: CGPoint(x: 410.5, y: 7.5))
+        upInnerPath.addLine(to: CGPoint(x: 395.75, y: 22.5))
         upInnerPath.close()
         dark.setFill()
         upInnerPath.fill()
 
         //// downButton
         //// downOuter Drawing
-        downOuterPath = UIBezierPath(rect: CGRect(x: Int(buttonX+381-originX), y: Int(hitpointHeight2), width: Int(hitpointWidth), height: Int(hitpointHeight2)))
+        downOuterPath = UIBezierPath(rect: CGRect(x: 381, y: 30, width: 59, height: 30))
         gray.setFill()
         downOuterPath.fill()
 
         //// downInner Drawing
         let downInnerPath = UIBezierPath()
-        downInnerPath.move(to: CGPoint(x: Int(buttonX+410.5-originX), y: Int(2*hitpointHeight2*52.5/hitpointHeight)))
-        downInnerPath.addLine(to: CGPoint(x: Int(buttonX+410.5-originX), y: Int(2*hitpointHeight2*52.5/hitpointHeight)))
-        downInnerPath.addLine(to: CGPoint(x: Int(buttonX+425.25-originX), y: Int(2*hitpointHeight2*37.5/hitpointHeight)))
-        downInnerPath.addLine(to: CGPoint(x: Int(buttonX+395.75-originX), y: Int(2*hitpointHeight2*37.5/hitpointHeight)))
-        downInnerPath.addLine(to: CGPoint(x: Int(buttonX+410.5-originX), y: Int(2*hitpointHeight2*52.5/hitpointHeight)))
+        downInnerPath.move(to: CGPoint(x: 410.5, y: 52.5))
+        downInnerPath.addLine(to: CGPoint(x: 410.5, y: 52.5))
+        downInnerPath.addLine(to: CGPoint(x: 425.25, y: 37.5))
+        downInnerPath.addLine(to: CGPoint(x: 395.75, y: 37.5))
+        downInnerPath.addLine(to: CGPoint(x: 410.5, y: 52.5))
         downInnerPath.close()
         dark.setFill()
         downInnerPath.fill()
 
         //// nameLabel Drawing
-        // Font with fontName and fontSize
-        let nameLabelRect = CGRect(x: presetLabelWidth, y: 0, width: self.bounds.size.width-presetLabelWidth, height: hitpointHeight)
+        let nameLabelRect = CGRect(x: 95, y: 0, width: 345, height: 60)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
-        let nameLabelFontAttributes = [NSFontAttributeName: finalFont,
+
+        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
                                        NSForegroundColorAttributeName: UIColor.black,
-                                       NSParagraphStyleAttributeName: nameLabelStyle] as [String : Any]
-        let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10-10, dy: 0)
+                                       NSParagraphStyleAttributeName: nameLabelStyle]
+
+        let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(
             with: CGSize(width: nameLabelInset.width,
                          height: CGFloat.infinity),
@@ -172,62 +168,7 @@ open class AKPresetLoaderView: UIView {
     }
 
     override open func draw(_ rect: CGRect) {
-        let displayName = String(currentIndex) + ": " + presets[currentIndex]
-        let presetName = isPresetLoaded ? displayName : "None"
+        let presetName = isPresetLoaded ? presets[currentIndex] : "None"
         drawPresetLoader(presetName: presetName, isPresetLoaded: isPresetLoaded)
-    }
-    
-    // touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            isPresetLoaded = false
-            
-            // preset buttons
-            let touchLocation = touch.location(in: self)
-            if upOuterPath.contains(touchLocation) {
-                currentIndex -= 1
-                isPresetLoaded = true
-            }
-            if downOuterPath.contains(touchLocation) {
-                currentIndex += 1
-                isPresetLoaded = true
-            }
-            
-            // clamp
-            if currentIndex < 0 { currentIndex = presets.count - 1 }
-            if currentIndex >= presets.count { currentIndex = 0 }
-            
-            // preset callback
-            if isPresetLoaded {
-                callback(presets[currentIndex])
-                setNeedsDisplay()
-            }
-        }
-    }
-    
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            // turbo scroll
-            let touchLocation = touch.location(in: self)
-            if turboScrollPath.contains(touchLocation) {
-                let previousTouchLocation = touch.previousLocation(in: self)
-                let delta = previousTouchLocation.x - touchLocation.x
-                let iDelta = Int(delta)
-                if iDelta != 0 {
-                    currentIndex += iDelta
-                    isPresetLoaded = true
-                }
-            }
-            
-            // clamp
-            if currentIndex < 0 { currentIndex = presets.count - 1 }
-            if currentIndex >= presets.count { currentIndex = 0 }
-            
-            // preset callback
-            if isPresetLoaded {
-                callback(presets[currentIndex])
-                setNeedsDisplay()
-            }
-        }
     }
 }
