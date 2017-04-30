@@ -23,7 +23,6 @@
     @IBInspectable open var sliderColor: UIColor = .red
     @IBInspectable open var textColor: UIColor = .black
     @IBInspectable open var fontSize: CGFloat = 24
-    @IBInspectable open var font: UIFont = UIFont.boldSystemFont(ofSize: 24)
 
     open var callback: ((Double) -> Void)?
     open var lastTouch = CGPoint.zero
@@ -35,21 +34,16 @@
                 maximum: Double = 1,
                 color: UIColor = UIColor.red,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                font: UIFont = UIFont.boldSystemFont(ofSize: 24),
-                fontSize: CGFloat = 24,
                 callback: @escaping (_ x: Double) -> Void) {
-        super.init(frame: frame)
         self.value = value
         self.minimum = minimum
         self.maximum = maximum
         self.property = property
         self.format = format
         self.sliderColor = color
-        self.font = font
-        self.fontSize = fontSize
-        self.layer.borderColor = UIColor.init(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.5).cgColor
-        self.layer.borderWidth = 1
+
         self.callback = callback
+        super.init(frame: frame)
 
         setNeedsDisplay()
     }
@@ -86,20 +80,6 @@
     }
 
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let touchLocation = touch.location(in: self)
-            if lastTouch.x != touchLocation.x {
-                value = Double(touchLocation.x / bounds.width) * (maximum - minimum) + minimum
-                if value > maximum { value = maximum }
-                if value < minimum { value = minimum }
-                setNeedsDisplay()
-                callback?(value)
-                lastTouch = touchLocation
-            }
-        }
-    }
-    
-    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             if lastTouch.x != touchLocation.x {
@@ -159,10 +139,7 @@
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        // Font with fontName and fontSize
-        let finalFontName = font.fontName
-        let finalFont = UIFont.init(name: finalFontName, size: fontSize) as Any
-        let nameLabelFontAttributes = [NSFontAttributeName: finalFont,
+        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize),
                                        NSForegroundColorAttributeName: textColor,
                                        NSParagraphStyleAttributeName: nameLabelStyle] as [String : Any]
 
@@ -187,7 +164,7 @@
         let valueLabelStyle = NSMutableParagraphStyle()
         valueLabelStyle.alignment = .right
 
-        let valueLabelFontAttributes = [NSFontAttributeName: finalFont,
+        let valueLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize),
                                         NSForegroundColorAttributeName: textColor,
                                         NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
 
