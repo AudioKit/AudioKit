@@ -1476,9 +1476,9 @@
 		C47AC62B1D5D5CB00005E485 /* AKTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKTestCase.swift; path = ../../Common/Tests/AKTestCase.swift; sourceTree = "<group>"; };
 		C483F63C1D666D7A00374B2A /* trackedAmplitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = trackedAmplitude.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C486B3371DFE2A65009A25C4 /* gen_eval.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gen_eval.c; sourceTree = "<group>"; };
-		C486FAA21E999EF000DEB790 /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Dev.playground; sourceTree = "<group>"; };
 		C486FAA91E9A118F00DEB790 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
 		C486FAAB1E9A11D800DEB790 /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
+		C48B8EED1EB7031E00B1BC0E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = AudioKit/Dev.playground; sourceTree = "<group>"; };
 		C49390931E088F4C009FEAA1 /* AKStereoFieldLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiter.swift; sourceTree = "<group>"; };
 		C49390941E088F4C009FEAA1 /* AKStereoFieldLimiterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStereoFieldLimiterAudioUnit.h; sourceTree = "<group>"; };
 		C49390951E088F4C009FEAA1 /* AKStereoFieldLimiterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKStereoFieldLimiterAudioUnit.mm; sourceTree = "<group>"; };
@@ -1684,6 +1684,7 @@
 			isa = PBXGroup;
 			children = (
 				C45662B31D448D7400D26565 /* AudioKit */,
+				C48B8EED1EB7031E00B1BC0E /* Dev.playground */,
 				C49A0AF11D548402007D8ADB /* Tests */,
 				C42F36CD1C0582E6000E937C /* Products */,
 			);
@@ -3649,7 +3650,6 @@
 		C49A0AF11D548402007D8ADB /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C486FAA21E999EF000DEB790 /* Dev.playground */,
 				C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */,
 				C47AC62B1D5D5CB00005E485 /* AKTestCase.swift */,
 				C49A0AF41D548402007D8ADB /* Info.plist */,
