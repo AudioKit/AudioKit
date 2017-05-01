@@ -1,5 +1,5 @@
 //
-//  AKTuningTable.swift
+//  AKTuningTable+NorthIndianRaga.swift
 //  AudioKit
 //
 //  Created by Marcus W. Hobbs on 4/28/17.

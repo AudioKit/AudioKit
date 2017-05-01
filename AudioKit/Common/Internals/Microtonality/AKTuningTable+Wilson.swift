@@ -1,6 +1,5 @@
-
 //
-//  AKTuningTable.swift
+//  AKTuningTable+Wilson.swift
 //  AudioKit
 //
 //  Created by Marcus W. Hobbs on 4/28/17.
