@@ -54,7 +54,7 @@ extension AKTuningTable {
             while ff < 1.0 {
                 ff = ff*2.0
             }
-            while ff > 2.0 {
+            while ff >= 2.0 {
                 ff = ff/2.0
             }
             return ff
