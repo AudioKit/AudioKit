@@ -48,7 +48,7 @@ extension AVAudioEngine {
     // MARK: - Device Management
 
     /// Enumerate the list of available input devices.
-    open static var availableInputs: [AKDevice]? {
+    open static var inputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.inputDevices().map {
@@ -63,27 +63,9 @@ extension AVAudioEngine {
             return nil
         #endif
     }
+    
     /// Enumerate the list of available output devices.
-    open static var inputs: [AKDevice]? {
-        #if os(macOS)
-            EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-            return EZAudioDevice.inputDevices().map {
-                AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
-            }
-        #else
-            let devs = AVAudioSession.sharedInstance().currentRoute.inputs
-            if !devs.isEmpty {
-                var outs = [AKDevice]()
-                for dev in devs {
-                    outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
-                }
-                return outs
-            }
-            return nil
-        #endif
-    }
-    /// Enumerate the list of available output devices.
-    open static var outputs: [AKDevice]? {
+    open static var outputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.outputDevices().map {
@@ -124,7 +106,7 @@ extension AVAudioEngine {
     /// The name of the current output device, if available.
     open static var outputDevice: AKDevice? {
         #if os(macOS)
-            if let dev = EZAudioDevice.currentInput() {
+            if let dev = EZAudioDevice.currentOutput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
             }
         #else
