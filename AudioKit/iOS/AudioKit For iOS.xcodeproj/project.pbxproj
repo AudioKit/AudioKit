@@ -819,6 +819,7 @@
 		F02767321E79C7690099CA47 /* AKSporthStack+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */; };
 		F02767341E79D1D20099CA47 /* AKCustomUgenInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */; };
 		F02767371E79D43B0099CA47 /* AKCustomUgenFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */; };
+		F4B7AEB11EB8DA6000594E86 /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B7AEB01EB8DA6000594E86 /* AKTuningTable+Brun.swift */; };
 		F4CA857F1EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA85781EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift */; };
 		F4CA85801EB666260066BE5C /* AKTuningTable+EqualTemperament.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA85791EB666260066BE5C /* AKTuningTable+EqualTemperament.swift */; };
 		F4CA85811EB666260066BE5C /* AKTuningTable+NorthIndianRaga.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA857A1EB666260066BE5C /* AKTuningTable+NorthIndianRaga.swift */; };
@@ -1649,6 +1650,7 @@
 		F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AKSporthStack+Internal.h"; path = "Sporth Custom Ugens/AKSporthStack+Internal.h"; sourceTree = "<group>"; };
 		F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKCustomUgenInfo.h; path = "Sporth Custom Ugens/AKCustomUgenInfo.h"; sourceTree = "<group>"; };
 		F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKCustomUgenFunction.h; path = "Sporth Custom Ugens/AKCustomUgenFunction.h"; sourceTree = "<group>"; };
+		F4B7AEB01EB8DA6000594E86 /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		F4CA85781EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+CombinationProductSet.swift"; sourceTree = "<group>"; };
 		F4CA85791EB666260066BE5C /* AKTuningTable+EqualTemperament.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+EqualTemperament.swift"; sourceTree = "<group>"; };
 		F4CA857A1EB666260066BE5C /* AKTuningTable+NorthIndianRaga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+NorthIndianRaga.swift"; sourceTree = "<group>"; };
@@ -3678,13 +3680,14 @@
 		F4CA85771EB666250066BE5C /* Microtonality */ = {
 			isa = PBXGroup;
 			children = (
+				F4CA857E1EB666260066BE5C /* AKTuningTable.swift */,
+				F4B7AEB01EB8DA6000594E86 /* AKTuningTable+Brun.swift */,
 				F4CA85781EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift */,
 				F4CA85791EB666260066BE5C /* AKTuningTable+EqualTemperament.swift */,
 				F4CA857A1EB666260066BE5C /* AKTuningTable+NorthIndianRaga.swift */,
 				F4CA857B1EB666260066BE5C /* AKTuningTable+RecurrenceRelation.swift */,
 				F4CA857C1EB666260066BE5C /* AKTuningTable+Scala.swift */,
 				F4CA857D1EB666260066BE5C /* AKTuningTable+Wilson.swift */,
-				F4CA857E1EB666260066BE5C /* AKTuningTable.swift */,
 			);
 			path = Microtonality;
 			sourceTree = "<group>";
@@ -4476,6 +4479,7 @@
 				C43E3ECA1DE97EE500D4D78C /* growl.c in Sources */,
 				C49351FD1C3CB93300A28D7F /* AKPanner.swift in Sources */,
 				C40C41CE1C40E4EE009D870B /* AKTester.swift in Sources */,
+				F4B7AEB11EB8DA6000594E86 /* AKTuningTable+Brun.swift in Sources */,
 				C4537F3C1C39FCF700A51738 /* AKPeakLimiter.swift in Sources */,
 				C4F8C8B71DCA8CE4001F38F2 /* bitwise.c in Sources */,
 				C40AD69B1C463B2600B638AF /* AKMIDIInstrument.swift in Sources */,
