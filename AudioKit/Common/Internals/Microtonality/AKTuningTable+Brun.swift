@@ -8,11 +8,11 @@
 
 extension AKTuningTable {
     
-    static func brunLevel_0_1_1_0(level l:Int, generator g:Double) -> (Int, Int) {
-        var zn = 0, zd = 0, infn = 1, infd = 0, fn = 0, fd = 0
+    // only public while developing...intend to make private
+    public static func brunLevel_0_1_1_0(level l:Int, generator g:Double) -> (numerator:Int, denominator:Int) {
+        var zn:Int = 0, zd:Int = 1, infn:Int = 1, infd:Int = 0, fn:Int = 0, fd:Int = 0
         
         for _ in 0..<l {
-            // zig zag pattern
             fn = zn + infn
             fd = zd + infd
             if g > Double(fn)/Double(fd) {
@@ -26,65 +26,34 @@ extension AKTuningTable {
         return (numerator:fn, denominator:fd)
     }
     
-    
-    static func brunArrayLevel(level l:Int, generator g:Double) -> [(numerator:Int,denominator:Int)]
-    {
-        var mosA:Double = 1
-        var mosB:Double = g
-        var mosX1:Int = 1
-        var mosX2:Int = 0
-        var mosY1:Int = 0
-        var mosY2:Int = 1
-        var num:Int = 1
-        var den:Int = 1
-        var tmpf:Double = 0
-        var tmpui:Int = 0
-        var retVal = [(numerator:Int,denominator:Int)]()
-        
-        for _ in 0..<(l + 1) {
-            retVal.append((num, den))
-            num = 2 * mosY1 + mosY2;
-            den = 2 * mosX1 + mosX2;
-            mosA = mosA - mosB;
-            mosX2 = mosX1 + mosX2;
-            mosY2 = mosY1 + mosY2;
-            if mosB > mosA {
-                tmpf = mosA;   mosA = mosB;   mosB = tmpf;
-                tmpui = mosX1; mosX1 = mosX2; mosX2 = tmpui;
-                tmpui = mosY1; mosY1 = mosY2; mosY2 = tmpui;
-            }
+    /// Creates a "Nested 2-interval pattern", or "Moment of Symmetry"
+    ///
+    /// - parameter generator: A Double on [0, 1]
+    /// - parameter level: An Int on [0, 7]
+    ///
+    public func momentOfSymmetry(generator g_in:Double, level l_in:Int) {
+        let g = (g_in > 1.0) ?1.0 :((g_in < 0.0) ?0.0 :g_in)
+        let l = (l_in > 7) ?7 :((l_in < 0) ?0 :l_in)
+        let d = AKTuningTable.brunLevel_0_1_1_0(level: l, generator: g)
+        let den = d.denominator
+        var f = [Frequency]()
+        for i in 0..<den {
+            let p = exp2( (Double(i)*g).truncatingRemainder(dividingBy: 1.0) )
+            f.append(Frequency(p))
         }
+        f = f.sorted { $0 < $1 }
         
-        return retVal;
+        tuningTable(fromFrequencies: f)
     }
 
-/*
- - (instancetype)initWithGenerator:(CGFloat)g desiredNotesPerOctave:(NSUInteger)npo
-    {
-    const NSUInteger defaultLevel = 4;
-    self = [self initWithMaxLevel:ABSOLUTE_MAX_BRUN_LEVEL level:defaultLevel generator:g murchana:0];
-    if (self)
-    {
-    [self update];
+    // Examples:
+    //
+    // 12ET:
+    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.583333, level: 5)
     
-    // LABEL ARRAY
-    NSUInteger level = defaultLevel; // good default
-    for (NSUInteger index = 0; index < _brunArray.count; index++)
-    {
-    Microtone* t = [_brunArray microtoneAtIndex:index];
-    const NSInteger den = [t denominator];
-    if (den > npo)
-    {
-    if (index > 2)
-    level = index-1;
+    // 9-tone scale
+    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.238186, level: 5)
     
-    break;
-    }
-    }
-    self.level = level;
-    [self update];
-    }
-    return self;
-    }
-*/
+    // 9-tone scale
+    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.264100, level: 5)
 }
