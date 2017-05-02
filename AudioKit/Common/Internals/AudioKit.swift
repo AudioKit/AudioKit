@@ -55,10 +55,18 @@ extension AVAudioEngine {
                 AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
             }
         #else
+            var returnDevices = [AKDevice]()
             if let devices = AVAudioSession.sharedInstance().availableInputs {
-                return devices.map {
-                    AKDevice(name: $0.portName, deviceID: $0.uid)
+                for device in devices {
+                    if device.dataSources!.isEmpty {
+                        returnDevices.append(AKDevice(name: device.portName, deviceID: device.uid))
+                    } else {
+                        for dataSource in device.dataSources! {
+                            returnDevices.append(AKDevice(name: device.portName, deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
+                        }
+                    }
                 }
+                return returnDevices
             }
             return nil
         #endif
@@ -132,9 +140,37 @@ extension AVAudioEngine {
                 &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
+                for device in devices {
+                    if device.dataSources!.isEmpty {
+                        if device.uid == input.deviceID {
+                            do {
+                                try AVAudioSession.sharedInstance().setPreferredInput(device)
+                            } catch {
+                                AKLog("Could not set the preferred input to \(input)")
+                            }
+                        }
+                    } else {
+                        for dataSource in device.dataSources! {
+                            if input.deviceID == "\(device.uid) \(dataSource.dataSourceName)" {
+                                do {
+                                    try AVAudioSession.sharedInstance().setInputDataSource(dataSource)
+                                } catch {
+                                    AKLog("Could not set the preferred input to \(input)")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for dev in devices {
                     if dev.uid == input.deviceID {
-                        try AVAudioSession.sharedInstance().setPreferredInput(dev)
+                        do {
+                            try AVAudioSession.sharedInstance().setPreferredInput(dev)
+                        } catch {
+                            AKLog("Could not set the preferred input to \(input)")
+                        }
                     }
                 }
             }
