@@ -46,7 +46,7 @@ extension AKTuningTable {
             f.append(Frequency(p))
         }
         
-        // murchana
+        // apply murchana then octave reduce
         let m = (m_in > den) ?(den-1) :((m_in < 0) ?0 :m_in)
         let murchana = f[m]
         f = f.map({(frequency:Frequency) -> Frequency in
