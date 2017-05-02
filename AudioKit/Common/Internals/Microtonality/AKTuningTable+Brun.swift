@@ -30,30 +30,53 @@ extension AKTuningTable {
     ///
     /// - parameter generator: A Double on [0, 1]
     /// - parameter level: An Int on [0, 7]
-    ///
-    public func momentOfSymmetry(generator g_in:Double, level l_in:Int) {
+    /// - parameter murchana: The mode of the scale...degrees are normalized by the frequency at this index
+    /// - returns: Number of notes per octave
+    public func momentOfSymmetry(generator g_in:Double = 7.0/12.0, level l_in:Int = 5, murchana m_in:Int = 0) -> Int {
+        // clamp
         let g = (g_in > 1.0) ?1.0 :((g_in < 0.0) ?0.0 :g_in)
         let l = (l_in > 7) ?7 :((l_in < 0) ?0 :l_in)
         let d = AKTuningTable.brunLevel_0_1_1_0(level: l, generator: g)
+        
+        // number of notes per octave (npo)
         let den = d.denominator
         var f = [Frequency]()
         for i in 0..<den {
             let p = exp2( (Double(i)*g).truncatingRemainder(dividingBy: 1.0) )
             f.append(Frequency(p))
         }
+        
+        // murchana
+        let m = (m_in > den) ?(den-1) :((m_in < 0) ?0 :m_in)
+        let murchana = f[m]
+        f = f.map({(frequency:Frequency) -> Frequency in
+            var ff = frequency/murchana
+            while ff < 1.0 {
+                ff = ff*2.0
+            }
+            while ff > 2.0 {
+                ff = ff/2.0
+            }
+            return ff
+        })
+        
+        // sort
         f = f.sorted { $0 < $1 }
         
+        // update tuning table
         tuningTable(fromFrequencies: f)
+        
+        return den
     }
 
     // Examples:
     //
     // 12ET:
-    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.583333, level: 5)
+    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.583333, level: 6) -> 12
     
     // 9-tone scale
-    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.238186, level: 5)
+    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.238186, level: 5) -> 9
     
     // 9-tone scale
-    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.264100, level: 5)
+    // AKPolyphonicNode.tuningTable.momentOfSymmetry(generator: 0.264100, level: 5) -> 9
 }
