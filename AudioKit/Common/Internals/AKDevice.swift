@@ -29,9 +29,11 @@ public typealias DeviceID = String
     public init(name: String, deviceID: DeviceID, dataSource: String = "") {
         self.name = name
         self.deviceID = deviceID
+        #if !os(macOS)
         if dataSource != "" {
             self.deviceID = "\(deviceID) \(dataSource)"
         }
+        #endif
         super.init()
     }
 
