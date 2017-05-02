@@ -26,7 +26,7 @@ extension AKTuningTable {
   /// Create an equal temperament with notesPerOctave
   ///
   /// - parameter notesPerOctave divides the octave equally by this many steps
-  ///
+  /// From Erv Wilson.  See http://anaphoria.com/MOSedo.pdf
   public func equalTemperament(notesPerOctave npo: Int) {
     var nf = [Frequency](repeatElement(1.0, count: npo))
     for i in 0 ..< npo {
