@@ -102,9 +102,12 @@ extension AVAudioEngine {
             if let dev = AVAudioSession.sharedInstance().preferredInput {
                 return AKDevice(name: dev.portName, deviceID: dev.uid)
             } else {
-                let devs = AVAudioSession.sharedInstance().currentRoute.inputs
-                if !devs.isEmpty {
-                    return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
+                let inputDevices = AVAudioSession.sharedInstance().currentRoute.inputs
+                if !inputDevices.isEmpty {
+                    for device in inputDevices {
+                        let id = "\(device.uid) \(String(describing: device.selectedDataSource))".trimmingCharacters(in: [" "])
+                        return AKDevice(name: device.portName, deviceID: id)
+                    }
                 }
             }
         #endif
