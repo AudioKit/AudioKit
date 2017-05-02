@@ -26,9 +26,12 @@ public typealias DeviceID = String
     ///   - name: The human-readable name for the device.
     ///   - deviceID: The device identifier.
     ///
-    public init(name: String, deviceID: DeviceID) {
+    public init(name: String, deviceID: DeviceID, dataSource: String = "") {
         self.name = name
         self.deviceID = deviceID
+        if dataSource != "" {
+            self.deviceID = "\(deviceID) \(dataSource)"
+        }
         super.init()
     }
 
