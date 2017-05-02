@@ -32,6 +32,7 @@ extension AKTuningTable {
     /// - parameter level: An Int on [0, 7]
     /// - parameter murchana: The mode of the scale...degrees are normalized by the frequency at this index
     /// - returns: Number of notes per octave
+    /// From Erv Wilson.  See http://anaphoria.com/wilsonintroMOS.html
     public func momentOfSymmetry(generator g_in:Double = 7.0/12.0, level l_in:Int = 5, murchana m_in:Int = 0) -> Int {
         // clamp
         let g = (g_in > 1.0) ?1.0 :((g_in < 0.0) ?0.0 :g_in)

@@ -7,8 +7,38 @@
 //
 
 extension AKTuningTable {
+  
+  /// Set tuning to 22 Indian Scale.
+  /// From Erv Wilson.  See http://anaphoria.com/Khiasmos.pdf
+  public func khiasmos22Indian() -> Int {
     
-    // From Erv Wilson
+    let masterSet: [Frequency] = [1 / 1,
+                                  256 / 243,
+                                  16 / 15,
+                                  10 / 9,
+                                  9 / 8,
+                                  32 / 27,
+                                  6 / 5,
+                                  5 / 4,
+                                  81 / 64,
+                                  4 / 3,
+                                  27 / 20,
+                                  45 / 32,
+                                  729 / 512,
+                                  3 / 2,
+                                  128 / 81,
+                                  8 / 5,
+                                  5 / 3,
+                                  405 / 240,
+                                  16 / 9,
+                                  9 / 5,
+                                  15 / 8,
+                                  243 / 128]
+    tuningTable(fromFrequencies: masterSet)
+    return masterSet.count
+  }
+  
+    // From Erv Wilson.  See http://anaphoria.com/genus.pdf
     static let persianNorthIndianMasterSet: [Frequency] = [
         1 / 1,
         135 / 128,
@@ -36,7 +66,7 @@ extension AKTuningTable {
         return retVal
     }
     
-    // From Erv Wilson
+    /// From Erv Wilson.  See http://anaphoria.com/genus.pdf
     public func presetPersian17NorthIndian00_17() -> Int {
         let h = helper([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
         tuningTable(fromFrequencies: h)

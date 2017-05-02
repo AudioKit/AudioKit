@@ -20,7 +20,7 @@ extension AKTuningTable {
     /// Create a hexany from 4 frequencies (4 choose 2)
     ///
     /// - parameter A, B, C, D: Master set of frequencies
-    ///
+    /// From Erv Wilson.  See http://anaphoria.com/dal.pdf and http://anaphoria.com/hexany.pdf
     public func hexany(_ A: Frequency, _ B: Frequency, _ C: Frequency, _ D: Frequency) -> Int {
         tuningTable(fromFrequencies: [A * B, A * C, A * D, B * C, B * D, C * D])
         return 6
