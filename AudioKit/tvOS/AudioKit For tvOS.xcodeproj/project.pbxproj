@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		524B77BA1CC4B060001D82D1 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524B77B91CC4B060001D82D1 /* AKNotifications.swift */; };
+		A8E996F61EB921D100116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F51EB921D100116ADA /* AKTuningTable+Brun.swift */; };
 		B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47ABD1DC54E0F00706A2F /* EZAudioFileMarker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1F47AC01DC54E0F00706A2F /* EZAudioFileMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F47ABE1DC54E0F00706A2F /* EZAudioFileMarker.m */; };
 		C40101D81DED741E000C5765 /* AKAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40101D61DED741E000C5765 /* AKAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -787,6 +788,7 @@
 
 /* Begin PBXFileReference section */
 		524B77B91CC4B060001D82D1 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
+		A8E996F51EB921D100116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B1F47ABD1DC54E0F00706A2F /* EZAudioFileMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFileMarker.h; sourceTree = "<group>"; };
 		B1F47ABE1DC54E0F00706A2F /* EZAudioFileMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFileMarker.m; sourceTree = "<group>"; };
 		C40101D61DED741E000C5765 /* AKAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnit.h; sourceTree = "<group>"; };
@@ -3175,13 +3177,14 @@
 		C4D4C4EC1EB7176600134B39 /* Microtonality */ = {
 			isa = PBXGroup;
 			children = (
+				C4D4C4F31EB7176600134B39 /* AKTuningTable.swift */,
+				A8E996F51EB921D100116ADA /* AKTuningTable+Brun.swift */,
 				C4D4C4ED1EB7176600134B39 /* AKTuningTable+CombinationProductSet.swift */,
 				C4D4C4EE1EB7176600134B39 /* AKTuningTable+EqualTemperament.swift */,
 				C4D4C4EF1EB7176600134B39 /* AKTuningTable+NorthIndianRaga.swift */,
 				C4D4C4F01EB7176600134B39 /* AKTuningTable+RecurrenceRelation.swift */,
 				C4D4C4F11EB7176600134B39 /* AKTuningTable+Scala.swift */,
 				C4D4C4F21EB7176600134B39 /* AKTuningTable+Wilson.swift */,
-				C4D4C4F31EB7176600134B39 /* AKTuningTable.swift */,
 			);
 			path = Microtonality;
 			sourceTree = "<group>";
@@ -4051,6 +4054,7 @@
 				C48C6A631D3C1574008EA51B /* bar.c in Sources */,
 				C48C6A611D3C1574008EA51B /* autowah.c in Sources */,
 				C48C6A891D3C1574008EA51B /* jcrev.c in Sources */,
+				A8E996F61EB921D100116ADA /* AKTuningTable+Brun.swift in Sources */,
 				C4A107601E696F490018848C /* brownianNoise.swift in Sources */,
 				C45382021C3A5CBD00A51738 /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C45381FE1C3A5CBD00A51738 /* AKCostelloReverb.swift in Sources */,
