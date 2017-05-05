@@ -113,7 +113,7 @@ let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
 
     // send note on for notes in the present
     let presentNN = nnCalc(performanceCounter)
-    let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber:presentNN)
+    let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: presentNN)
     osc.play(noteNumber: presentNN, velocity: 127, frequency: frequency)
 
     performanceCounter += 1
@@ -124,9 +124,7 @@ AudioKit.output = mixer
 AudioKit.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
-
-    var keyboard: AKKeyboardView!
+class PlaygroundView: AKPlaygroundView {
     
     override func setup() {
         addTitle("Microtonal Morphing Oscillator")
@@ -234,20 +232,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             color: AKColor.green
         ) { multiplier in
             osc.detuningMultiplier = multiplier
-        })
-
-        keyboard = AKKeyboardView(width: 440, height: 100)
-        keyboard.polyphonicMode = false
-        keyboard.delegate = self
-        addSubview(keyboard)
-
-        addSubview(AKButton(title: "Go Polyphonic") {
-            self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
-            if self.keyboard.polyphonicMode {
-                return "Go Monophonic"
-            } else {
-                return "Go Polyphonic"
-            }
         })
     }
 
