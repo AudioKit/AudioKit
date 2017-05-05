@@ -7,22 +7,22 @@
 //
 
 extension AKTuningTable {
-  
+
   // Default tuning table is 12ET.
   public func defaultTuning() {
     twelveToneEqualTemperament()
   }
-  
+
   /// Create 12-tone equal temperament
   public func twelveToneEqualTemperament() {
     equalTemperament(notesPerOctave: 12)
   }
-  
+
   /// Create 31-tone equal temperament
   public func thirtyOneEqualTemperament() {
     equalTemperament(notesPerOctave: 31)
   }
-  
+
   /// Create an equal temperament with notesPerOctave
   ///
   /// - parameter notesPerOctave divides the octave equally by this many steps
