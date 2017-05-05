@@ -34,10 +34,12 @@ extension AKTuningTable {
     /// - parameter murchana: The mode of the scale...degrees are normalized by the frequency at this index
     /// - returns: Number of notes per octave
     /// From Erv Wilson.  See http://anaphoria.com/wilsonintroMOS.html
-    public func momentOfSymmetry(generator g_in: Double = 7.0 / 12.0, level l_in: Int = 5, murchana m_in: Int = 0) -> Int {
+    public func momentOfSymmetry(generator gInput: Double = 7.0 / 12.0,
+                                 level lInput: Int = 5,
+                                 murchana mInput: Int = 0) -> Int {
         // clamp
-        let g = (g_in > 1.0) ?1.0 :((g_in < 0.0) ?0.0 :g_in)
-        let l = (l_in > 7) ?7 :((l_in < 0) ?0 :l_in)
+        let g = (gInput > 1.0) ? 1.0 : ((gInput < 0) ? 0.0 : gInput)
+        let l = (lInput > 7) ? 7 : ((lInput < 0) ? 0 : lInput)
         let d = AKTuningTable.brunLevel_0_1_1_0(level: l, generator: g)
 
         // number of notes per octave (npo)
@@ -49,15 +51,15 @@ extension AKTuningTable {
         }
 
         // apply murchana then octave reduce
-        let m = (m_in > den) ?(den - 1) :((m_in < 0) ?0 :m_in)
+        let m = (mInput > den) ? (den - 1) : ((mInput < 0) ? 0 : mInput)
         let murchana = f[m]
         f = f.map({(frequency: Frequency) -> Frequency in
             var ff = frequency / murchana
             while ff < 1.0 {
-                ff = ff * 2.0
+                ff *= 2.0
             }
             while ff >= 2.0 {
-                ff = ff / 2.0
+                ff /= 2.0
             }
             return ff
         })
