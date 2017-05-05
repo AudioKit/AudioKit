@@ -18,7 +18,6 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    //TODO: Add error checking...only 4 tables, all should be same length as in init()
     open var waveformArray = [AKTable]() {
         willSet {
             self.waveformArray = newValue
@@ -232,6 +231,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
+    /// stops all notes
+    open func reset() {
+        internalAU?.reset()
+    }
+    
     // MARK: - AKPolyphonic
 
     // Function to start, play, or activate the node at frequency
