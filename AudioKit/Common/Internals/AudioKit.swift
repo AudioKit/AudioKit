@@ -62,7 +62,8 @@ extension AVAudioEngine {
                         returnDevices.append(AKDevice(name: device.portName, deviceID: device.uid))
                     } else {
                         for dataSource in device.dataSources! {
-                            returnDevices.append(AKDevice(name: device.portName, deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
+                            returnDevices.append(AKDevice(name: device.portName,
+                                                          deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
                         }
                     }
                 }
