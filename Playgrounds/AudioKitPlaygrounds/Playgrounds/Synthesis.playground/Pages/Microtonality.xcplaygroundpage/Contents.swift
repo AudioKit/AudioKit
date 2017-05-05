@@ -5,7 +5,7 @@ import AudioKit
 
 // SEQUENCER PARAMETERS
 let playRate: Double = 4
-var transpose: Int = 0
+var transposition: Int = 0
 var performanceCounter: Int = 0
 
 // OSC
@@ -100,7 +100,7 @@ func nnCalc(_ counter: Int) -> MIDINoteNumber {
     note = sequencerPattern[note]
 
     let rootNN: Int = 60
-    let nn = MIDINoteNumber(note + rootNN + transpose)
+    let nn = MIDINoteNumber(note + rootNN + transposition)
     return nn
 }
 
@@ -124,8 +124,10 @@ AudioKit.output = mixer
 AudioKit.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
-class PlaygroundView: AKPlaygroundView {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
+    var keyboard: AKKeyboardView!
+    
     override func setup() {
         addTitle("Microtonal Morphing Oscillator")
 
@@ -139,12 +141,12 @@ class PlaygroundView: AKPlaygroundView {
         })
 
         addSubview(AKPropertySlider(
-            property: "MIDI Transpose",
+            property: "MIDI Transposition",
             format: "%.0f",
-            value: Double(transpose), minimum: -16, maximum: 16,
+            value: Double(transposition), minimum: -16, maximum: 16,
             color: AKColor.blue
         ) { xpose in
-            transpose = Int(xpose)
+            transposition = Int(xpose)
             osc.reset()
         })
 
