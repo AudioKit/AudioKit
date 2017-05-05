@@ -143,8 +143,8 @@ class PlaygroundView: AKPlaygroundView {
             format: "%.0f",
             value: Double(transposition), minimum: -16, maximum: 16,
             color: AKColor.blue
-        ) { xpose in
-            transposition = Int(xpose)
+        ) { sliderValue in
+            transposition = Int(sliderValue)
             osc.reset()
         })
 
@@ -152,8 +152,8 @@ class PlaygroundView: AKPlaygroundView {
             property: "OSC Morph Index",
             value: osc.index, minimum: 0, maximum: 3,
             color: AKColor.green
-        ) { index in
-            osc.index = index
+        ) { sliderValue in
+            osc.index = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -161,24 +161,24 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f",
             value: generatorBooster.gain, minimum: 0, maximum:4,
             color: AKColor.green
-        ) {gain in
-            generatorBooster.gain = gain
+        ) { sliderValue in
+            generatorBooster.gain = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "FILTER Frequency Cutoff",
             value: filter.cutoffFrequency, minimum: 1, maximum: 12_000,
             color: AKColor.red
-        ) { cutoffFrequency in
-            filter.cutoffFrequency = cutoffFrequency
+        ) { sliderValue in
+            filter.cutoffFrequency = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "FILTER Frequency Resonance",
             value: filter.resonance, minimum: 0, maximum: 4,
             color: AKColor.red
-        ) { resonance in
-            filter.resonance = resonance
+        ) { sliderValue in
+            filter.resonance = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -186,8 +186,8 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f s",
             value: osc.attackDuration, maximum: 2,
             color: AKColor.green
-        ) { duration in
-            osc.attackDuration = duration
+        ) { sliderValue in
+            osc.attackDuration = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -195,8 +195,8 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f s",
             value: osc.decayDuration, maximum: 2,
             color: AKColor.green
-        ) { duration in
-            osc.decayDuration = duration
+        ) { sliderValue in
+            osc.decayDuration = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -204,8 +204,8 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f s",
             value: osc.sustainLevel, maximum: 2,
             color: AKColor.green
-        ) { sustain in
-            osc.sustainLevel = sustain
+        ) { sliderValue in
+            osc.sustainLevel = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -213,8 +213,8 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.3f s",
             value: osc.releaseDuration, maximum: 2,
             color: AKColor.green
-        ) { duration in
-            osc.releaseDuration = duration
+        ) { sliderValue in
+            osc.releaseDuration = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -222,27 +222,17 @@ class PlaygroundView: AKPlaygroundView {
             format: "%0.1f Cents",
             value:  osc.detuningOffset, minimum: -1_200, maximum: 1_200,
             color: AKColor.green
-        ) { offset in
-            osc.detuningOffset = offset
+        ) { sliderValue in
+            osc.detuningOffset = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
             value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
             color: AKColor.green
-        ) { multiplier in
-            osc.detuningMultiplier = multiplier
+        ) { sliderValue in
+            osc.detuningMultiplier = sliderValue
         })
-    }
-
-    func noteOn(note: MIDINoteNumber) {
-        let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: note)
-        AKLog("playing \(note) at frequency:\(frequency)")
-        osc.play(noteNumber: note, velocity: 127, frequency: frequency)
-    }
-
-    func noteOff(note: MIDINoteNumber) {
-        osc.stop(noteNumber: note)
     }
 }
 
