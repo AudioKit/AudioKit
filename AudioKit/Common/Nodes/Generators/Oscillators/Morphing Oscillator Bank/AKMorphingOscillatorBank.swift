@@ -235,7 +235,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     open func reset() {
         internalAU?.reset()
     }
-    
+
     // MARK: - AKPolyphonic
 
     // Function to start, play, or activate the node at frequency

@@ -71,7 +71,7 @@ extension AVAudioEngine {
             return nil
         #endif
     }
-    
+
     /// Enumerate the list of available output devices.
     open static var outputDevices: [AKDevice]? {
         #if os(macOS)
