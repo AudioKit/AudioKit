@@ -1,6 +1,6 @@
 //
 //  AKTuningTable+Brun.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Marcus W. Hobbs on 5/2/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -8,8 +8,9 @@
 
 extension AKTuningTable {
     
-    // only public while developing...intend to make private
-    public static func brunLevel_0_1_1_0(level l:Int, generator g:Double) -> (numerator:Int, denominator:Int) {
+    // Viggo Brun algorithm
+    // return (numerator, denominator) approximation to generator after level iterations
+    fileprivate static func brunLevel_0_1_1_0(level l:Int, generator g:Double) -> (numerator:Int, denominator:Int) {
         var zn:Int = 0, zd:Int = 1, infn:Int = 1, infd:Int = 0, fn:Int = 0, fd:Int = 0
         
         for _ in 0..<l {

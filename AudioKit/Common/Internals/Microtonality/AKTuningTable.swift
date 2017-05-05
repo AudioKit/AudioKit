@@ -108,7 +108,7 @@
 
     // Assume frequencies are set and valid:  Process and update tuning table.
     private func updateTuningTable() {
-        AKLog("Frequencies: \(frequencies)")
+        //AKLog("Frequencies: \(frequencies)")
         for i in 0 ..< AKTuningTable.midiNoteCount {
             let ff = Frequency(i - Int(middleCNoteNumber)) / Frequency(frequencies.count)
             var ttOctaveFactor = Frequency(trunc(ff))
