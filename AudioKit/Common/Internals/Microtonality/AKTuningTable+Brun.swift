@@ -63,9 +63,7 @@ extension AKTuningTable {
             }
             return ff
         })
-
-        // sort
-        f = f.sorted { $0 < $1 }
+        f.sort()
 
         // update tuning table
         tuningTable(fromFrequencies: f)
