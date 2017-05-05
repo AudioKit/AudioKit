@@ -164,7 +164,6 @@ public:
         detuningMultiplierRamper.init();
     }
 
-    //TODO: Need to update all sp_oscmorph nft as we add waveforms?
     void setupWaveform(uint32_t waveform, uint32_t size) {
         tbl_size = size;
         sp_ftbl_create(sp, &ft_array[waveform], tbl_size);

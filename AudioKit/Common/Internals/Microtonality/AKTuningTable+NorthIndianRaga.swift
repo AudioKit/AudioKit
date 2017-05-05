@@ -158,7 +158,7 @@ extension AKTuningTable {
     }
     
     // From Erv Wilson
-    public func presetPersian17NorthIndian13NoName() -> Int {
+    @discardableResult public func presetPersian17NorthIndian13NoName() -> Int {
         let h = helper([0, 1, 4, 8, 10, 11, 14])
         tuningTable(fromFrequencies: h)
         return h.count
