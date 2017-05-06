@@ -57,19 +57,28 @@ extension AKMIDI {
     ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
-    public func openOutput(_ namedOutput: String = "") {
+    // Destination name (string) can be empty for some hardware device;
+    // So optional string is better for checking and targeting the device.
+    public func openOutput(_ namedOutput: String? = nil) {
         guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
             return
         }
         outputPort = tempPort
-
-        _ = zip(destinationNames, MIDIDestinations()).first { name, _ in
-            namedOutput.isEmpty || namedOutput == name
-        }.map {
-          endpoints[$0] = $1
+        
+        // To get all endpoints; and set in endpoints array (mapping without condition)
+        if namedOutput == nil {
+            _ = zip(destinationNames, MIDIDestinations()).map {
+                endpoints[$0] = $1
+            }
+        }else{
+            // To get only  endpoint with name provided in namedOutput (conditional mapping)
+            _ = zip(destinationNames, MIDIDestinations()).first { name, _ in
+                namedOutput! == name
+                }.map {
+                    endpoints[$0] = $1
+            }
         }
     }
-
     /// Send Message with data
     public func sendMessage(_ data: [MIDIByte]) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
