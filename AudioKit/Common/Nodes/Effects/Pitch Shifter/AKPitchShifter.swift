@@ -144,9 +144,4 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     open func stop() {
         internalAU?.stop()
     }
-    
-    // Disconnect the node
-    override open func disconnect() {
-        disconnect(nodes: [self.avAudioNode])
-    }
 }
