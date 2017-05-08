@@ -82,7 +82,7 @@ open class AKMixer: AKNode, AKToggleable {
             AudioKit.start()
         }
     }
-    
+
     /// Connnect multiple inputs after initialization
     ///
     /// - parameter inputs: A varaiadic list of AKNodes to connect
