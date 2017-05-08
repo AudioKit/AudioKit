@@ -46,6 +46,14 @@ extension AVAudioConnectionPoint {
         // Override this method in subclasses
         print("Error: Should not call disconnect on AKNode. Override this method in subclasses.")
     }
+    
+    open func disconnect(nodes: [AVAudioNode]) {
+        for node in nodes {
+            AudioKit.engine.disconnectNodeInput(node)
+            AudioKit.engine.disconnectNodeOutput(node)
+            AudioKit.engine.detach(node)
+        }
+    }
 
     deinit {
     }
