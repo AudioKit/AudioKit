@@ -380,6 +380,12 @@ extension AVAudioEngine {
             }
         }
     }
+    
+    // MARK: - Disconnect node inputs
+    
+    @objc open static func disconnectAllInputs() {
+        engine.disconnectNodeInput(finalMixer.avAudioNode)
+    }
 
     // MARK: - Deinitialization
 
