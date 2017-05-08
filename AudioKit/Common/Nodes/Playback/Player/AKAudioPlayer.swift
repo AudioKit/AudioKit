@@ -258,12 +258,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
         initialize()
     }
-
-    deinit {
-        AKLog("* AKAudioPlayer")
-        AudioKit.engine.detach(internalPlayer)
-    }
-
+    
     fileprivate var defaultBufferOptions: AVAudioPlayerNodeBufferOptions {
         return looping ? [.loops, .interrupts] : [.interrupts]
     }
@@ -564,5 +559,18 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             stop()
             completionHandler?()
         }
+    }
+    
+    // Disconnect the node
+    override open func disconnect() {
+        let nodes = [self.avAudioNode]
+        
+        for node in nodes {
+            AudioKit.engine.disconnectNodeInput(node)
+            AudioKit.engine.disconnectNodeOutput(node)
+            AudioKit.engine.detach(node)
+        }
+        
+        AudioKit.engine.detach(self.internalPlayer)
     }
 }
