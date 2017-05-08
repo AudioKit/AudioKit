@@ -41,10 +41,13 @@ extension AVAudioConnectionPoint {
                                 fromBus: bus,
                                 format: AudioKit.format)
     }
+    
+    open func disconnect() {
+        // Override this method in subclasses
+        print("Error: Should not call disconnect on AKNode. Override this method in subclasses.")
+    }
 
     deinit {
-        //AKLog("* AKNode")
-        AudioKit.engine.detach(self.avAudioNode)
     }
 }
 
