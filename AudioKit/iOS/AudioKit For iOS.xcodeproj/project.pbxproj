@@ -4425,11 +4425,8 @@
 				B1F47ABC1DC54DCA00706A2F /* EZAudioFileMarker.m in Sources */,
 				C4FF7CB01D9F7F0B001BB82C /* AudioUnit+Helpers.swift in Sources */,
 				C4F8C9031DCA8CE4001F38F2 /* port.c in Sources */,
-<<<<<<< HEAD
 				F4CA85851EB666260066BE5C /* AKTuningTable.swift in Sources */,
-=======
 				C425DB9F1EAECF01002675D2 /* AKInputDeviceAudioUnit.mm in Sources */,
->>>>>>> Initial version of EZMicrophone powered AKInputDevice
 				C48C6CA41D3C15F1008EA51B /* samphold.c in Sources */,
 				C48C6C951D3C15F1008EA51B /* port.c in Sources */,
 				C4F8C8EF1DCA8CE4001F38F2 /* metro.c in Sources */,
