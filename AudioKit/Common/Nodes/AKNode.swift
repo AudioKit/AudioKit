@@ -41,10 +41,10 @@ extension AVAudioConnectionPoint {
                                 fromBus: bus,
                                 format: AudioKit.format)
     }
-    
+
+    /// Disconnect the node
     open func disconnect() {
-        // Override this method in subclasses
-        print("Error: Should not call disconnect on AKNode. Override this method in subclasses.")
+        disconnect(nodes: [self.avAudioNode])
     }
     
     open func disconnect(nodes: [AVAudioNode]) {
