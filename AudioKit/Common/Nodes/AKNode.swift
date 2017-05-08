@@ -47,15 +47,13 @@ extension AVAudioConnectionPoint {
         disconnect(nodes: [self.avAudioNode])
     }
     
+    /// Disconnect an array of nodes
     open func disconnect(nodes: [AVAudioNode]) {
         for node in nodes {
             AudioKit.engine.disconnectNodeInput(node)
             AudioKit.engine.disconnectNodeOutput(node)
             AudioKit.engine.detach(node)
         }
-    }
-
-    deinit {
     }
 }
 
