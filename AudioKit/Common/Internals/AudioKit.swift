@@ -329,7 +329,7 @@ extension AVAudioEngine {
     // Restarts the engine after audio output has been changed, like headphones plugged in.
     @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         DispatchQueue.main.async {
-            if shouldBeRunning {
+            if shouldBeRunning && !engine.isRunning {
                 do {
                     try self.engine.start()
                     // Sends notification after restarting the engine, so it is safe to resume
