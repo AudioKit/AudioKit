@@ -35,7 +35,7 @@ internal struct MIDIDestinations: Collection {
     }
 
     subscript (index: Index) -> Element {
-      return MIDIGetDestination(index)
+        return MIDIGetDestination(index)
     }
 }
 
@@ -70,7 +70,7 @@ extension AKMIDI {
             _ = zip(destinationNames, MIDIDestinations()).map {
                 endpoints[$0] = $1
             }
-        }else{
+        } else {
             // To get only  endpoint with name provided in namedOutput (conditional mapping)
             _ = zip(destinationNames, MIDIDestinations()).first { name, _ in
                 namedOutput! == name
