@@ -83,6 +83,16 @@ open class AKMixer: AKNode, AKToggleable {
         }
     }
 
+    /// Connnect multiple inputs after initialization
+    ///
+    /// - parameter inputs: A varaiadic list of AKNodes to connect
+    ///
+    open func connect(_ inputs: AKNode?...) {
+        for input in inputs {
+            connect(input)
+        }
+    }
+
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
         if isStopped {

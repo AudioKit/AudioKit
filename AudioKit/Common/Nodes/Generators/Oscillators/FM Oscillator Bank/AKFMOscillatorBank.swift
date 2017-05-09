@@ -38,6 +38,8 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var detuningOffsetParameter: AUParameter?
     fileprivate var detuningMultiplierParameter: AUParameter?
 
+    fileprivate var noteStoppers: [MIDINoteNumber:Timer] = [:]
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -295,8 +297,24 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))
     }
 
+    /// Function to start, play, or activate the node with time at which it will be automatically stopped
+    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, stopAfter: Double) {
+        self.play(noteNumber: noteNumber, velocity: velocity)
+        noteStoppers[noteNumber]?.invalidate()
+        noteStoppers[noteNumber] = Timer.scheduledTimer(timeInterval: stopAfter,
+                                                        target: self,
+                                                        selector: #selector(stopFromTimer(_:)),
+                                                        userInfo: noteNumber,
+                                                        repeats: false)
+    }
+
     /// Function to stop or bypass the node, both are equivalent
     open override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber)
+    }
+
+    /// Callback to stop notes from noteStopper timers
+    func stopFromTimer(_ timer: Timer) {
+        internalAU?.stopNote(timer.userInfo as! MIDINoteNumber)
     }
 }

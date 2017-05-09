@@ -82,6 +82,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Generators
 #import "AKOperationGeneratorAudioUnit.h"
+#import "AKInputDeviceAudioUnit.h"
 
 // Generators / Noise
 #import "AKBrownianNoiseAudioUnit.h"
