@@ -43,18 +43,21 @@
 }
 
 - (void)microphone:(EZMicrophone *)microphone hasBufferList:(AudioBufferList *)bufferList withBufferSize:(UInt32)bufferSize withNumberOfChannels:(UInt32)numberOfChannels {
-    float trackedAmplitude = 0.0;
-    float trackedFrequency = 0.0;
-    for (int frameIndex = 0; frameIndex < bufferSize; ++frameIndex) {
-        
-        for (int channel = 0; channel < 1; ++channel) {
-            float *in  = (float *)bufferList->mBuffers[channel].mData  + frameIndex;
-            sp_ptrack_compute(sp, ptrack, in, &trackedFrequency, &trackedAmplitude);
-        }
-    }
-    self.frequency = trackedFrequency;
-    self.amplitude = trackedAmplitude;
     
+    __weak typeof (self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        float trackedAmplitude = 0.0;
+        float trackedFrequency = 0.0;
+        for (int frameIndex = 0; frameIndex < bufferSize; ++frameIndex) {
+            
+            for (int channel = 0; channel < 1; ++channel) {
+                float *in  = (float *)bufferList->mBuffers[channel].mData  + frameIndex;
+                sp_ptrack_compute(sp, ptrack, in, &trackedFrequency, &trackedAmplitude);
+            }
+        }
+        weakSelf.frequency = trackedFrequency;
+        weakSelf.amplitude = trackedAmplitude;
+    });
 }
 
 @end
