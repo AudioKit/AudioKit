@@ -112,6 +112,5 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     override open func disconnect() {
         stop()
         disconnect(nodes: [self.avAudioNode])
-        AudioKit.engine.detach(_Self.effect)
     }
 }

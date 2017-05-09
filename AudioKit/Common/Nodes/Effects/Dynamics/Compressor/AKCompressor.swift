@@ -83,7 +83,8 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect {
     fileprivate var inputGain: AKMixer? 
     fileprivate var effectGain: AKMixer?
     
-    fileprivate var compressorEffect: AVAudioUnitEffect
+    // Store the internal effect
+    fileprivate var internalEffect: AVAudioUnitEffect
     
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted = true
@@ -120,14 +121,14 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect {
             effectGain?.volume = 1
 
             let effect = _Self.effect
+            self.internalEffect = effect
+        
             AudioKit.engine.attach(effect)
             au = AUWrapper(effect)
             if let node = effectGain?.avAudioNode {
                 AudioKit.engine.connect(node, to: effect)
             }
             AudioKit.engine.connect(effect, to: mixer.avAudioNode)
-        
-            self.compressorEffect = effect
         
             super.init(avAudioNode: mixer.avAudioNode)
 
@@ -160,6 +161,6 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect {
         stop()
         
         disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
-        AudioKit.engine.detach(self.compressorEffect)
+        AudioKit.engine.detach(self.internalEffect)
     }
 }
