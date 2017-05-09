@@ -672,6 +672,9 @@
 		C4A107541E6967E70018848C /* brown.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A107531E6967E70018848C /* brown.c */; };
 		C4A107561E696C4F0018848C /* brown.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A107551E696C4F0018848C /* brown.c */; };
 		C4A107641E696F9B0018848C /* brownianNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A107631E696F9B0018848C /* brownianNoise.swift */; };
+		C4A579BA1EC1B7580072D48A /* AKMicrophoneTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A579B91EC1B7580072D48A /* AKMicrophoneTracker.swift */; };
+		C4A579BC1EC1B7B10072D48A /* AKMicrophoneTrackerEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A579BB1EC1B7B10072D48A /* AKMicrophoneTrackerEngine.m */; };
+		C4A579BE1EC1B87F0072D48A /* AKMicrophoneTrackerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A579BD1EC1B7C30072D48A /* AKMicrophoneTrackerEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4B8A2FE1E6583D9006432FA /* AKSampler+getAUPresetXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8A2FD1E6583D9006432FA /* AKSampler+getAUPresetXML.swift */; };
 		C4B8A3001E658405006432FA /* AKSampler+SoundFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8A2FF1E658405006432FA /* AKSampler+SoundFont.swift */; };
 		C4BA6E861DD99794002254EB /* AKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA6E851DD99794002254EB /* AKComponent.swift */; };
@@ -1510,6 +1513,9 @@
 		C4A107531E6967E70018848C /* brown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brown.c; sourceTree = "<group>"; };
 		C4A107551E696C4F0018848C /* brown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brown.c; sourceTree = "<group>"; };
 		C4A107631E696F9B0018848C /* brownianNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = brownianNoise.swift; sourceTree = "<group>"; };
+		C4A579B91EC1B7580072D48A /* AKMicrophoneTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKMicrophoneTracker.swift; path = "Microphone Tracker/AKMicrophoneTracker.swift"; sourceTree = "<group>"; };
+		C4A579BB1EC1B7B10072D48A /* AKMicrophoneTrackerEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKMicrophoneTrackerEngine.m; path = "Microphone Tracker/AKMicrophoneTrackerEngine.m"; sourceTree = "<group>"; };
+		C4A579BD1EC1B7C30072D48A /* AKMicrophoneTrackerEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKMicrophoneTrackerEngine.h; path = "Microphone Tracker/AKMicrophoneTrackerEngine.h"; sourceTree = "<group>"; };
 		C4B8A2FD1E6583D9006432FA /* AKSampler+getAUPresetXML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+getAUPresetXML.swift"; sourceTree = "<group>"; };
 		C4B8A2FF1E658405006432FA /* AKSampler+SoundFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+SoundFont.swift"; sourceTree = "<group>"; };
 		C4BA6E851DD99794002254EB /* AKComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKComponent.swift; sourceTree = "<group>"; };
@@ -1766,6 +1772,7 @@
 				C45662C61D448D7D00D26565 /* CoreAudio */,
 				C45662CD1D448D7D00D26565 /* EZAudio */,
 				C45662EE1D448D7D00D26565 /* Libraries */,
+				C4A579B81EC1B7000072D48A /* Microphone Tracker */,
 				C4D4C4DD1EB7175100134B39 /* Microtonality */,
 				C45662EF1D448D7D00D26565 /* Soundpipe */,
 				C45663741D448D7E00D26565 /* Sporth */,
@@ -3682,6 +3689,16 @@
 			path = "Brownian Noise";
 			sourceTree = "<group>";
 		};
+		C4A579B81EC1B7000072D48A /* Microphone Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				C4A579B91EC1B7580072D48A /* AKMicrophoneTracker.swift */,
+				C4A579BD1EC1B7C30072D48A /* AKMicrophoneTrackerEngine.h */,
+				C4A579BB1EC1B7B10072D48A /* AKMicrophoneTrackerEngine.m */,
+			);
+			name = "Microphone Tracker";
+			sourceTree = "<group>";
+		};
 		C4D35CB91E8A3D8000E42D93 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -3729,6 +3746,7 @@
 				C4A107471E6967850018848C /* AKBrownianNoiseDSPKernel.hpp in Headers */,
 				C45666C11D448D7E00D26565 /* EZAudioPlotGL.h in Headers */,
 				C456697B1D448D7E00D26565 /* AKOscillatorBankAudioUnit.h in Headers */,
+				C4A579BE1EC1B87F0072D48A /* AKMicrophoneTrackerEngine.h in Headers */,
 				C493909A1E088F4C009FEAA1 /* AKStereoFieldLimiterDSPKernel.hpp in Headers */,
 				C456694B1D448D7E00D26565 /* AKConvolutionDSPKernel.hpp in Headers */,
 				C45669371D448D7E00D26565 /* AKToneFilterAudioUnit.h in Headers */,
@@ -4311,6 +4329,7 @@
 				C45667161D448D7E00D26565 /* paulstretch.c in Sources */,
 				C45668A71D448D7E00D26565 /* AKMIDI+ReceivingMIDI.swift in Sources */,
 				C45669B51D448D7E00D26565 /* AKAudioPlayer.swift in Sources */,
+				C4A579BC1EC1B7B10072D48A /* AKMicrophoneTrackerEngine.m in Sources */,
 				C47047C21E78FA2D00D9906F /* AKShaker.swift in Sources */,
 				C4F8CA211DCA9256001F38F2 /* scrambler.c in Sources */,
 				C4F8CA2D1DCA9256001F38F2 /* tdiv.c in Sources */,
@@ -4397,6 +4416,7 @@
 				C4F8CA321DCA9256001F38F2 /* thresh.c in Sources */,
 				C4F8C9CE1DCA9255001F38F2 /* buthp.c in Sources */,
 				C45668B51D448D7E00D26565 /* AKDuration.swift in Sources */,
+				C4A579BA1EC1B7580072D48A /* AKMicrophoneTracker.swift in Sources */,
 				C45667541D448D7E00D26565 /* stack.c in Sources */,
 				C45669D01D448D7E00D26565 /* pinkNoise.swift in Sources */,
 				C45667261D448D7E00D26565 /* random.c in Sources */,
