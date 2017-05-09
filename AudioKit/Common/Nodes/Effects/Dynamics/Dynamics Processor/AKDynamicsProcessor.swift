@@ -99,6 +99,9 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     fileprivate var lastKnownMix: Double = 100
     fileprivate var inputGain: AKMixer?
     fileprivate var effectGain: AKMixer?
+    
+    // Store the internal effect
+    fileprivate var internalEffect: AVAudioUnitEffect
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted = true
@@ -147,6 +150,8 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
             effectGain?.volume = 1
 
             let effect = _Self.effect
+            self.internalEffect = effect
+        
             AudioKit.engine.attach(effect)
 
             au = AUWrapper(effect)
@@ -191,6 +196,6 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
         stop()
         
         disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])        
-        AudioKit.engine.detach(_Self.effect)
+        AudioKit.engine.detach(self.internalEffect)
     }
 }
