@@ -30,7 +30,6 @@
         sp_ptrack_init(sp, ptrack, 512, 20);
         
         ezmic = [EZMicrophone microphoneWithDelegate:self];
-        [self start];
     }
     return self;
 }
@@ -39,7 +38,7 @@
     [ezmic startFetchingAudio];
 }
 - (void)stop {
-    [ezmic startFetchingAudio];
+    [ezmic stopFetchingAudio];
 }
 
 - (void)microphone:(EZMicrophone *)microphone hasBufferList:(AudioBufferList *)bufferList withBufferSize:(UInt32)bufferSize withNumberOfChannels:(UInt32)numberOfChannels {
