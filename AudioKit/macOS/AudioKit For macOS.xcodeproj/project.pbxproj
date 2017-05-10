@@ -827,6 +827,7 @@
 		C4F8CA411DCA9256001F38F2 /* zeros.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C9BC1DCA9255001F38F2 /* zeros.c */; };
 		C4F8CA421DCA9256001F38F2 /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C9BD1DCA9255001F38F2 /* zitarev.c */; };
 		C4F8D0921D59516400D85987 /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */; };
+		C4FE68871EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FE68861EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1668,6 +1669,7 @@
 		C4F8C9BC1DCA9255001F38F2 /* zeros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zeros.c; sourceTree = "<group>"; };
 		C4F8C9BD1DCA9255001F38F2 /* zitarev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zitarev.c; sourceTree = "<group>"; };
 		C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
+		C4FE68861EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIEndpointInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2335,6 +2337,7 @@
 				C45664D71D448D7E00D26565 /* AKMIDI+ReceivingMIDI.swift */,
 				C45664D81D448D7E00D26565 /* AKMIDI+SendingMIDI.swift */,
 				C45664D91D448D7E00D26565 /* AKMIDI.swift */,
+				C4FE68861EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift */,
 				C45664DA1D448D7E00D26565 /* AKMIDIEvent.swift */,
 				C45664DB1D448D7E00D26565 /* AKMIDIInstrument.swift */,
 				C45664DC1D448D7E00D26565 /* AKMIDIListener.swift */,
@@ -4202,6 +4205,7 @@
 				A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */,
 				C4F8CA001DCA9256001F38F2 /* noise.c in Sources */,
 				C45669991D448D7E00D26565 /* AKMandolinAudioUnit.mm in Sources */,
+				C4FE68871EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift in Sources */,
 				C45667391D448D7E00D26565 /* tevent.c in Sources */,
 				C45667061D448D7E00D26565 /* jcrev.c in Sources */,
 				C45669101D448D7E00D26565 /* AKLowShelfParametricEqualizerFilter.swift in Sources */,
