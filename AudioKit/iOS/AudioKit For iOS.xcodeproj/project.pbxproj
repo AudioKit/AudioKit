@@ -808,6 +808,7 @@
 		C4FE687A1EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = C4FE68771EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4FE687B1EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE68781EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.m */; };
 		C4FF7CB01D9F7F0B001BB82C /* AudioUnit+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FF7CAF1D9F7F0B001BB82C /* AudioUnit+Helpers.swift */; };
+		DC7DDDC21EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7DDDC11EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift */; };
 		E4630B461D2BC73300437E75 /* AKMandolinPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B451D2BC73300437E75 /* AKMandolinPresets.swift */; };
 		E4630B4A1D2BC78600437E75 /* AKCostelloReverbPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B491D2BC78600437E75 /* AKCostelloReverbPresets.swift */; };
 		E4630B4C1D2BC79A00437E75 /* AKDistortionPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B4B1D2BC79A00437E75 /* AKDistortionPresets.swift */; };
@@ -1642,6 +1643,7 @@
 		C4FE68771EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMicrophoneTrackerEngine.h; sourceTree = "<group>"; };
 		C4FE68781EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMicrophoneTrackerEngine.m; sourceTree = "<group>"; };
 		C4FF7CAF1D9F7F0B001BB82C /* AudioUnit+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioUnit+Helpers.swift"; sourceTree = "<group>"; };
+		DC7DDDC11EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIEndpointInfo.swift; sourceTree = "<group>"; };
 		E4630B451D2BC73300437E75 /* AKMandolinPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMandolinPresets.swift; sourceTree = "<group>"; };
 		E4630B491D2BC78600437E75 /* AKCostelloReverbPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCostelloReverbPresets.swift; sourceTree = "<group>"; };
 		E4630B4B1D2BC79A00437E75 /* AKDistortionPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDistortionPresets.swift; sourceTree = "<group>"; };
@@ -2036,6 +2038,7 @@
 				C40B0FFA1C463A32000BE96E /* AKMIDI.swift */,
 				C48DB7A91CD554A000D1EC13 /* AKMIDI+ReceivingMIDI.swift */,
 				C48DB7AA1CD554A000D1EC13 /* AKMIDI+SendingMIDI.swift */,
+				DC7DDDC11EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift */,
 				C40AD6951C463B2600B638AF /* AKMIDIEvent.swift */,
 				FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */,
 				C40AD6961C463B2600B638AF /* AKMIDIInstrument.swift */,
@@ -4047,6 +4050,7 @@
 				C4F8C9151DCA8CE4001F38F2 /* scale.c in Sources */,
 				C4FE687B1EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.m in Sources */,
 				C4F8C8EE1DCA8CE4001F38F2 /* maytrig.c in Sources */,
+				DC7DDDC21EBE86A1004B73E7 /* AKMIDIEndpointInfo.swift in Sources */,
 				C40C41551C40E3A5009D870B /* EZAudioFFT.m in Sources */,
 				C40C416B1C40E3A5009D870B /* EZRecorder.m in Sources */,
 				C4F8C91F1DCA8CE4001F38F2 /* tabread.c in Sources */,
@@ -4659,7 +4663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -4707,7 +4711,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "AudioKit-Swift.h";
