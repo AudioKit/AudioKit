@@ -17,26 +17,28 @@ player.looping = true
 //: and open the timeline view to use the controls this playground sets up....
 
 class PlaygroundView: AKPlaygroundView {
-
+    
     // UI Elements we'll need to be able to access
     var inPositionSlider: AKPropertySlider?
     var outPositionSlider: AKPropertySlider?
     var playingPositionSlider: AKPropertySlider?
-
+    var fadeInSlider: AKPropertySlider?
+    var fadeOutSlider: AKPropertySlider?
+    
     override func setup() {
-
+        
         AKPlaygroundLoop(every: 1 / 60.0) {
             if player.duration > 0 {
                 self.playingPositionSlider?.value = player.playhead
             }
-
+            
         }
         addTitle("Audio Player")
-
+        
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
-
+        
         addSubview(AKButton(title: "Disable Looping") {
             player.looping = !player.looping
             if player.looping {
@@ -45,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
                 return "Enable Looping"
             }
         })
-
+        
         addSubview(AKButton(title: "Direction: ➡️") {
             if player.isPlaying {
                 player.stop()
@@ -57,7 +59,27 @@ class PlaygroundView: AKPlaygroundView {
                 return "Direction: ➡️"
             }
         })
-
+        
+        fadeInSlider = AKPropertySlider(
+            property: "Fade In",
+            format: "%0.2f s",
+            value: player.fadeInTime, maximum: 2,
+            color: AKColor.brown
+        ) { sliderValue in
+            player.fadeInTime = sliderValue
+        }
+        addSubview(fadeInSlider)
+        
+        fadeOutSlider = AKPropertySlider(
+            property: "Fade Out",
+            format: "%0.2f s",
+            value: player.fadeOutTime, maximum: 2,
+            color: AKColor.brown
+        ) { sliderValue in
+            player.fadeOutTime = sliderValue
+        }
+        addSubview(fadeOutSlider)
+        
         inPositionSlider = AKPropertySlider(
             property: "In Position",
             format: "%0.2f s",
@@ -67,7 +89,7 @@ class PlaygroundView: AKPlaygroundView {
             player.startTime = sliderValue
         }
         addSubview(inPositionSlider)
-
+        
         outPositionSlider = AKPropertySlider(
             property: "Out Position",
             format: "%0.2f s",
@@ -76,7 +98,7 @@ class PlaygroundView: AKPlaygroundView {
             player.endTime = sliderValue
         }
         addSubview(outPositionSlider)
-
+        
         playingPositionSlider = AKPropertySlider(
             property: "Position",
             format: "%0.2f s",

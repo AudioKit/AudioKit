@@ -379,8 +379,13 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         AKLog("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
     }
+    
+    /// Default play that will use the previously set startTime and endTime properties
+    open func play() {
+        play(from:self.startTime, to:self.endTime, when:0)
+    }
 
-    /// Play the file back from a certain time, to an end time (if set). 
+    /// Play the file back from a certain time, to an end time (if set).
     /// You can optionally set a scheduled time to play (in seconds).
     ///
     ///  - Parameters:
@@ -389,7 +394,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///    - when scheduledTime: use this when scheduled playback doesn't need to be in sync with other players
     ///         otherwise use the avTime signature.
     ///
-    open func play(from startTime: Double = 0, to endTime: Double = 0, when scheduledTime: Double = 0) {
+    open func play(from startTime: Double, to endTime: Double, when scheduledTime: Double) {
         let hostTime = mach_absolute_time()
         let avTime = AKAudioPlayer.secondsToAVAudioTime(hostTime:hostTime, time:scheduledTime)
         play(from:startTime, to:endTime, avTime:avTime)
