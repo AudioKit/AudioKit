@@ -6,8 +6,6 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import UIKit
-
 public struct EndpointInfo {
     public var name = ""
     public var displayName = ""
