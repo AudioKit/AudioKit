@@ -10,7 +10,8 @@
 #import "AKAudioUnit.h"
 
 @interface AKBoosterAudioUnit : AKAudioUnit
-@property (nonatomic) float gain;
+@property (nonatomic) float leftGain;
+@property (nonatomic) float rightGain;
 @end
 
 
