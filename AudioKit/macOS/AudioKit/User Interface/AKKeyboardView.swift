@@ -139,14 +139,11 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
-                polyphonic: Bool = false) {
+    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3, polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         size = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
-        midi.openInput()
-        midi.addListener(self)
         needsDisplay = true
     }
 
@@ -154,7 +151,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         super.init(coder: aDecoder)
     }
 
-    public func GetNoteName(note: Int) -> String {
+    public func getNoteName(note: Int) -> String {
         let keyInOctave = note % 12
         return notesWithSharps[keyInOctave]
     }
