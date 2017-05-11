@@ -7,6 +7,7 @@
         <page name='Editing Audio Files'/>
         <page name='Exporting files'/>
         <page name='MIDI Input'/>
+        <page name='MIDI Output'/>
         <page name='Phase-Locked Vocoder'/>
         <page name='Playback Speed'/>
         <page name='Processing Audio File Asynchronously'/>
