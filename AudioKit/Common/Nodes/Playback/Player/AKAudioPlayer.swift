@@ -53,6 +53,20 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             updatePCMBuffer()
         }
     }
+    
+    /// Set the fade in time
+    open dynamic var fadeInTime: Double = 0 {
+        didSet {
+            updatePCMBuffer()
+        }
+    }
+    
+    // Set the fade out time
+    open dynamic var fadeOutTime: Double = 0 {
+        didSet {
+            updatePCMBuffer()
+        }
+    }
 
     /// return the current played AKAudioFile
     open dynamic var audioFile: AKAudioFile {
@@ -513,8 +527,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             }
 
             // Now, we'll reverse the data in the buffer if desired...
-            if self.reversed {
+            if reversed {
                 reverseBuffer()
+            }
+            
+            if fadeInTime > 0 || fadeOutTime > 0 {
+                fadeBuffer(inTime: fadeInTime, outTime: fadeOutTime)
             }
 
         } else {
@@ -550,6 +568,75 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         // set the buffer now to be the reverse one
         audioFileBuffer = reverseBuffer
         // update this to the new value
+        audioFileBuffer?.frameLength = length
+    }
+    
+    /// Apply sample level fades to the internal buffer.
+    ///  - Parameters:
+    ///     - inTime specified in seconds, 0 if no fade
+    ///     - outTime specified in seconds, 0 if no fade
+    fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
+        guard audioFileBuffer != nil else {
+            return
+        }
+        
+        // do nothing in this case
+        if inTime == 0 && outTime == 0 {
+            AKLog("no fades specified.")
+            return
+        }
+        
+        let fadeBuffer = AVAudioPCMBuffer(
+            pcmFormat: internalAudioFile.processingFormat,
+            frameCapacity: audioFileBuffer!.frameCapacity )
+        
+        let length:UInt32 = audioFileBuffer!.frameLength
+        AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
+        
+        // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
+        var gain: Double = inTime > 0 ? 0.01 : 1
+        
+        let sampleTime: Double = 1.0 / internalAudioFile.processingFormat.sampleRate
+        //let natural_decay_factor:Double = exp(-sampleTime / outTime)
+        
+        // from -20db?
+        let fadeInPower: Double = exp(log(10) * sampleTime / inTime)
+        
+        // for decay to x% amplitude (-dB) over the given decay time
+        let fadeOutPower: Double = exp(-log(25) * sampleTime / outTime)
+        
+        // where in the buffer to end the fade in
+        let fadeInSamples = Int(internalAudioFile.processingFormat.sampleRate * inTime)
+        // where in the buffer to start the fade out
+        let fadeOutSamples = Int(Double(length) - (internalAudioFile.processingFormat.sampleRate * outTime))
+        
+        //Swift.print("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
+        
+        // i is the index in the buffer
+        for i in 0 ..< Int(length) {
+            // n is the channel
+            for n in 0 ..< Int(audioFileBuffer!.format.channelCount) {
+                
+                if i < fadeInSamples && inTime > 0 {
+                    gain *= fadeInPower
+                } else if i > fadeOutSamples && outTime > 0 {
+                    gain *= fadeOutPower
+                } else {
+                    gain = 1.0
+                }
+                
+                //sanity check
+                if gain > 1 {
+                    gain = 1
+                }
+                
+                let sample = audioFileBuffer!.floatChannelData![n][i] * Float(gain)
+                fadeBuffer.floatChannelData?[n][i] = sample
+            }
+        }
+        // set the buffer now to be the faded one
+        audioFileBuffer = fadeBuffer
+        // update this
         audioFileBuffer?.frameLength = length
     }
 
