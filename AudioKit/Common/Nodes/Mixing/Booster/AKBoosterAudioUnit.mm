@@ -20,8 +20,11 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setGain:(float)gain {
-    _kernel.setGain(gain);
+- (void)setLeftGain:(float)leftGain {
+    _kernel.setLeftGain(leftGain);
+}
+- (void)setRightGain:(float)rightGain {
+    _kernel.setRightGain(rightGain);
 }
 
 
@@ -31,22 +34,32 @@ standardKernelPassthroughs()
 
     standardSetup(Booster)
 
-    // Create a parameter object for the gain.
-    AUParameter *gainAUParameter = [AUParameter parameter:@"gain"
-                                                     name:@"Boosting amount."
-                                                  address:gainAddress
-                                                      min:0
-                                                      max:1
-                                                     unit:kAudioUnitParameterUnit_Generic];
-
+    // Create a parameter object for the left gain.
+    AUParameter *leftGainAUParameter = [AUParameter parameter:@"left gain"
+                                                         name:@"Left Boosting amount."
+                                                      address:leftGainAddress
+                                                          min:0
+                                                          max:1
+                                                         unit:kAudioUnitParameterUnit_Generic];
+    
+    AUParameter *rightGainAUParameter = [AUParameter parameter:@"right gain"
+                                                          name:@"Right Boosting amount."
+                                                       address:rightGainAddress
+                                                           min:0
+                                                           max:1
+                                                          unit:kAudioUnitParameterUnit_Generic];
+    
     // Initialize the parameter values.
-    gainAUParameter.value = 0;
+    leftGainAUParameter.value = 1;
+    rightGainAUParameter.value = 1;
 
-    _kernel.setParameter(gainAddress, gainAUParameter.value);
+    _kernel.setParameter(leftGainAddress, leftGainAUParameter.value);
+    _kernel.setParameter(rightGainAddress, rightGainAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        gainAUParameter
+        leftGainAUParameter,
+        rightGainAUParameter
     ]];
 
     parameterTreeBlock(Booster)

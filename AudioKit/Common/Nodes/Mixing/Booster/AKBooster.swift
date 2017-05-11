@@ -17,7 +17,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var gainParameter: AUParameter?
+    fileprivate var leftGainParameter: AUParameter?
+    fileprivate var rightGainParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -26,7 +27,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    fileprivate var lastKnownGain: Double = 1.0
+    fileprivate var lastKnownLeftGain: Double = 1.0
+    fileprivate var lastKnownRightGain: Double = 1.0
 
     /// Amplification Factor
     open dynamic var gain: Double = 1 {
@@ -34,10 +36,42 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        gainParameter?.setValue(Float(newValue), originator: existingToken)
+                        leftGainParameter?.setValue(Float(newValue), originator: existingToken)
+                        rightGainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.gain = Float(newValue)
+                    internalAU?.leftGain = Float(newValue)
+                    internalAU?.rightGain = Float(newValue)
+                }
+            }
+        }
+    }
+    
+    /// Left Channel Amplification Factor
+    open dynamic var leftGain: Double = 1 {
+        willSet {
+            if leftGain != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        leftGainParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.leftGain = Float(newValue)
+                }
+            }
+        }
+    }
+    
+    /// Right Channel Amplification Factor
+    open dynamic var rightGain: Double = 1 {
+        willSet {
+            if rightGain != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        rightGainParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.rightGain = Float(newValue)
                 }
             }
         }
@@ -70,7 +104,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         _ input: AKNode?,
         gain: Double = 1) {
 
-        self.gain = gain
+        self.leftGain = gain
+        self.rightGain = gain
 
         _Self.register()
 
@@ -87,17 +122,21 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             return
         }
 
-        gainParameter = tree["gain"]
+        leftGainParameter = tree["leftGain"]
+        rightGainParameter = tree["rightGain"]
 
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.gainParameter?.address {
-                    self?.gain = Double(value)
+                if address == self?.leftGainParameter?.address {
+                    self?.leftGain = Double(value)
+                } else if address == self?.rightGainParameter?.address {
+                    self?.rightGain = Double(value)
                 }
             }
         })
-        internalAU?.gain = Float(gain)
+        internalAU?.leftGain = Float(gain)
+        internalAU?.rightGain = Float(gain)
     }
 
     // MARK: - Control
@@ -105,15 +144,18 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
         if isStopped {
-            gain = lastKnownGain
+            leftGain = lastKnownLeftGain
+            rightGain = lastKnownRightGain
         }
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
         if isPlaying {
-            lastKnownGain = gain
-            gain = 1
+            lastKnownLeftGain = leftGain
+            lastKnownRightGain = rightGain
+            leftGain = 1
+            rightGain = 1
         }
     }
 }
