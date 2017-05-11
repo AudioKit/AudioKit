@@ -380,7 +380,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         AKLog("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
     }
     
-    
+    /// Default play that will use the previously set startTime and endTime properties
     open func play() {
         play(from:self.startTime, to:self.endTime, when:0)
     }
