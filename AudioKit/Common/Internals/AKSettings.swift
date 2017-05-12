@@ -105,7 +105,7 @@ extension AKSettings {
     open static func setSession(category: SessionCategory,
                                 with options: AVAudioSessionCategoryOptions = [.mixWithOthers]) throws {
 
-        if !AKSettings.disableAVAudioSessionCategoryManagement {
+        if ❗️AKSettings.disableAVAudioSessionCategoryManagement {
             do {
                 try session.setCategory("\(category)", with: options)
             } catch let error as NSError {

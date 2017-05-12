@@ -320,7 +320,7 @@ protocol Occupiable {
 // Give a default implementation of isNotEmpty, so conformance only requires one implementation
 extension Occupiable {
     var isNotEmpty: Bool {
-        return !isEmpty
+        return ❗️isEmpty
     }
 }
 
@@ -334,3 +334,9 @@ extension Set: Occupiable { }
 #if !os(macOS)
 extension AVAudioSessionCategoryOptions: Occupiable { }
 #endif
+
+prefix operator ❗️
+
+prefix public func ❗️(a: Bool) -> Bool{
+    return !a
+}

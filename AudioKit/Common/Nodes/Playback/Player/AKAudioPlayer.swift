@@ -282,11 +282,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Start playback
     open func start() {
 
-        if !playing {
+        if ❗️playing {
             if audioFileBuffer != nil {
                 // schedule it at some point in the future / or immediately if 0
                 // don't schedule the buffer if it is paused as it will overwrite what is in it
-                if !paused {
+                if ❗️paused {
                     scheduleBuffer(atTime: scheduledAVTime, options: defaultBufferOptions)
                 }
 
@@ -306,7 +306,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open func stop() {
         scheduledStopAction = nil
 
-        if !playing {
+        if ❗️playing {
             return
         }
 
@@ -320,7 +320,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Pause playback
     open func pause() {
         if playing {
-            if !paused {
+            if ❗️paused {
                 lastCurrentTime = currentTime
                 playing = false
                 paused = true
@@ -334,7 +334,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     open func resume() {
-        if !playing && paused {
+        if ❗️playing && paused {
             playing = true
             paused = false
             internalPlayer.play()
