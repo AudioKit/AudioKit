@@ -6,13 +6,13 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-class AKScheduledAction {
+public class AKScheduledAction {
 
     private var interval: TimeInterval
     private var block: (() -> Void)
     private var timer: Timer?
 
-    init(interval: TimeInterval, block: @escaping () -> Void) {
+    public init(interval: TimeInterval, block: @escaping () -> Void) {
         self.interval = interval
         self.block = block
         start()
