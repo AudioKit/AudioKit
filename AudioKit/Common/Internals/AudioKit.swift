@@ -82,7 +82,7 @@ extension AVAudioEngine {
             }
         #else
             let devs = AVAudioSession.sharedInstance().currentRoute.outputs
-            if !devs.isEmpty {
+            if devs.isNotEmpty {
                 var outs = [AKDevice]()
                 for dev in devs {
                     outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
@@ -104,7 +104,7 @@ extension AVAudioEngine {
                 return AKDevice(name: dev.portName, deviceID: dev.uid)
             } else {
                 let inputDevices = AVAudioSession.sharedInstance().currentRoute.inputs
-                if !inputDevices.isEmpty {
+                if inputDevices.isNotEmpty {
                     for device in inputDevices {
                         let id = "\(device.uid) \(String(describing: device.selectedDataSource))".trimmingCharacters(in: [" "])
                         return AKDevice(name: device.portName, deviceID: id)
@@ -123,7 +123,7 @@ extension AVAudioEngine {
             }
         #else
             let devs = AVAudioSession.sharedInstance().currentRoute.outputs
-            if !devs.isEmpty {
+            if devs.isNotEmpty {
                 return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
             }
 
@@ -252,7 +252,7 @@ extension AVAudioEngine {
                             try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
                         }
 
-                    } else if !AKSettings.bluetoothOptions.isEmpty {
+                    } else if AKSettings.bluetoothOptions.isNotEmpty {
                         let opts: AVAudioSessionCategoryOptions = [.mixWithOthers]
                         try AKSettings.setSession(category: .playAndRecord,
                                                   with: opts.union(AKSettings.bluetoothOptions))
@@ -380,9 +380,9 @@ extension AVAudioEngine {
             }
         }
     }
-    
+
     // MARK: - Disconnect node inputs
-    
+
     @objc open static func disconnectAllInputs() {
         engine.disconnectNodeInput(finalMixer.avAudioNode)
     }

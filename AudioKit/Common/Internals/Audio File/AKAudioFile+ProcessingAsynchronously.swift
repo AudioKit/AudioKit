@@ -26,6 +26,7 @@
 ///  So it can be used to convert any readable file (compressed or not) into a PCM Linear Encoded AKAudioFile
 ///  (That is not possible using AKAudioFile export method, that relies on AVAsset Export methods)
 ///
+
 extension AKAudioFile {
 
     /// typealias for AKAudioFile Async Process Completion Handler
@@ -365,7 +366,7 @@ extension AKAudioFile {
             // Check if directory exists
             let fileManager = FileManager.default
             if fileManager.fileExists(atPath: (directoryPath.absoluteString)) == false {
-                AKLog("ERROR AKAudioFile export: directory \"\(directoryPath)\" doesn't exists!...")
+                AKLog("ERROR AKAudioFile export: directory \"\(directoryPath)\" doesn't exist")
                 callback(nil,
                          NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             }
@@ -377,11 +378,11 @@ extension AKAudioFile {
                 do {
                     try fileManager.removeItem(atPath: nsurl.absoluteString)
                 } catch let error as NSError {
-                    AKLog("Error !!! AKAudioFile: couldn't delete file \"\(nsurl)\" !...")
+                    AKLog("Error: AKAudioFile: couldn't delete file \"\(nsurl)\"")
                     AKLog(error.localizedDescription)
                     callback(nil, error)
                 }
-                AKLog("AKAudioFile export: Output file has been deleted !")
+                AKLog("AKAudioFile export: Output file has been deleted")
             }
 
             internalExportSession.outputURL = URL(fileURLWithPath: filePath)
@@ -401,7 +402,7 @@ extension AKAudioFile {
             inFrame = abs(min(samplesCount, fromSample))
 
             if outFrame <= inFrame {
-                AKLog("ERROR AKAudioFile export: In time must be less than Out time!...")
+                AKLog("ERROR AKAudioFile export: In time must be less than Out time")
                 callback(nil,
                          NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             }
@@ -415,7 +416,7 @@ extension AKAudioFile {
             ExportFactory.queueExportSession(session: session)
 
         } else {
-            AKLog("ERROR AKAudioFile export: cannot create AVAssetExportSession!...")
+            AKLog("ERROR AKAudioFile export: cannot create AVAssetExportSession")
             callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             return
         }
@@ -700,7 +701,7 @@ extension AKAudioFile {
                             session.callback(nil, error)
                         }
                     } else {
-                        AKLog("ERROR AKAudioFile export: outputURL is nil!...")
+                        AKLog("ERROR AKAudioFile export: outputURL is nil")
                         session.callback(nil,
                                          NSError(
                                             domain: NSURLErrorDomain,
@@ -710,7 +711,7 @@ extension AKAudioFile {
                 }
                 AKLog("ExportFactory: session #\(session.id) Completed")
                 exportSessions.removeValue(forKey: currentExportProcessID)
-                if !exportSessions.isEmpty {
+                if exportSessions.isNotEmpty {
                     //currentExportProcessID = exportSessions.first!.0
                     currentExportProcessID += 1
                     AKLog("ExportFactory: exporting session #\(currentExportProcessID)")
@@ -723,7 +724,7 @@ extension AKAudioFile {
                     AKLog("ExportFactory: All exports have been completed")
                 }
             } else {
-                AKLog("ExportFactory: Error : sessionId:\(currentExportProcessID) doesn't exist!")
+                AKLog("ExportFactory: Error : sessionId:\(currentExportProcessID) doesn't exist")
             }
         }
 
@@ -739,7 +740,7 @@ extension AKAudioFile {
                     completionHandler: completionHandler
                 )
             } else {
-                AKLog("ExportFactory: is busy!")
+                AKLog("ExportFactory: is busy")
                 AKLog("ExportFactory: Queuing session #\(session.id)")
             }
         }

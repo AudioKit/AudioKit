@@ -22,6 +22,10 @@ open class AKMusicTrack {
     /// Pointer to the Music Track
     open var trackPointer: UnsafeMutablePointer<MusicTrack>
 
+    open var isNotEmpty: Bool {
+        return !isEmpty
+    }
+
     /// Total duration of the music track
     open var length: MusicTimeStamp {
         var size: UInt32 = 0
@@ -122,7 +126,7 @@ open class AKMusicTrack {
         }
         MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
 
-        if !isEmpty {
+        if isNotEmpty {
             MusicTrackCopyInsert(track, 0, durationAsMusicTimeStamp, newTrack, 0)
             clear()
             MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
@@ -191,7 +195,7 @@ open class AKMusicTrack {
     open func clear() {
         clearMetaEvents()
         if let track = internalMusicTrack {
-            if !isEmpty {
+            if isNotEmpty {
                 MusicTrackClear(track, 0, length)
             }
         }
@@ -293,7 +297,7 @@ open class AKMusicTrack {
         guard let track = internalMusicTrack else {
             return
         }
-        if !isEmpty {
+        if isNotEmpty {
             MusicTrackClear(track, start.beats, duration.beats)
         }
     }

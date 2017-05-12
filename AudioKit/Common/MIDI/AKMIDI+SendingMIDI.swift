@@ -64,7 +64,7 @@ extension AKMIDI {
             return
         }
         outputPort = tempPort
-        
+
         // To get all endpoints; and set in endpoints array (mapping without condition)
         if namedOutput == nil {
             _ = zip(destinationNames, MIDIDestinations()).map {

@@ -46,7 +46,7 @@ extension AVAudioConnectionPoint {
     open func disconnect() {
         disconnect(nodes: [self.avAudioNode])
     }
-    
+
     /// Disconnect an array of nodes
     open func disconnect(nodes: [AVAudioNode]) {
         for node in nodes {
