@@ -31,7 +31,7 @@ open class AKOperation: AKComputedParameter {
         }
 
         for elem in all {
-            if !added.contains(elem.inlineSporth) {
+            if ❗️added.contains(elem.inlineSporth) {
                 uniq.append(elem)
                 added.insert(elem.inlineSporth)
             }

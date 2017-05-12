@@ -221,7 +221,7 @@ public protocol AKKeyboardDelegate: class {
                 // verify that there isn't still a touch remaining on same key from another finger
                 if var otherTouches = event?.allTouches {
                     otherTouches.remove(touch)
-                    if !notesFromTouches(otherTouches).contains(note) {
+                    if ❗️notesFromTouches(otherTouches).contains(note) {
                         pressRemoved(note, touches: event?.allTouches)
                     }
                 }
@@ -249,13 +249,13 @@ public protocol AKKeyboardDelegate: class {
     // MARK: - Executing Key Presses
 
     private func pressAdded(_ newNote: MIDINoteNumber) {
-        if !polyphonicMode {
+        if ❗️polyphonicMode {
             for key in onKeys where key != newNote {
                 pressRemoved(key)
             }
         }
 
-        if !onKeys.contains(newNote) {
+        if ❗️onKeys.contains(newNote) {
             onKeys.insert(newNote)
             delegate?.noteOn(note: newNote)
         }
@@ -268,7 +268,7 @@ public protocol AKKeyboardDelegate: class {
         }
         onKeys.remove(note)
         delegate?.noteOff(note: note)
-        if !polyphonicMode {
+        if ❗️polyphonicMode {
             // in mono mode, replace with note from highest remaining touch, if it exists
             var remainingNotes = notesFromTouches(touches ?? Set<UITouch>())
             remainingNotes = remainingNotes.filter { $0 != note }
@@ -282,7 +282,7 @@ public protocol AKKeyboardDelegate: class {
         // check that current touches conforms to onKeys, remove stuck notes
         let notes = notesFromTouches(touches ?? Set<UITouch>() )
         let disjunct = onKeys.subtracting(notes)
-        if !disjunct.isEmpty {
+        if disjunct.isNotEmpty {
             for note in disjunct {
                 pressRemoved(note)
             }

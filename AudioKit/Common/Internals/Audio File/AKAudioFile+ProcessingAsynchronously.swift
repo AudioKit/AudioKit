@@ -312,7 +312,7 @@ extension AKAudioFile {
         var avExportPreset: String = ""
 
         if fromFileFormatIsCompressed {
-            if !outFileFormatIsCompressed {
+            if ❗️outFileFormatIsCompressed {
                 AKLog("ERROR AKAudioFile: cannot export from .\(fileExt) to .\(String(describing: exportFormat))")
                 callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             } else {
@@ -336,7 +336,7 @@ extension AKAudioFile {
             let fileExt = String(describing: exportFormat)
 
             // only add the file extension if it isn't already there
-            if !fileName.hasSuffix(fileExt) {
+            if ❗️fileName.hasSuffix(fileExt) {
                 fileName += "." + fileExt
             }
 
@@ -732,7 +732,7 @@ extension AKAudioFile {
         fileprivate static func queueExportSession(session: ExportSession) {
             exportSessions[session.id] = session
 
-            if !isExporting {
+            if ❗️isExporting {
                 isExporting = true
                 currentExportProcessID = session.id
                 AKLog("ExportFactory: exporting session #\(session.id)")
