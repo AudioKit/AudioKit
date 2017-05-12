@@ -98,7 +98,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
             isStarted = false
         }
     }
-    
+
     /// Disconnect the node
     override open func disconnect() {
         stop()

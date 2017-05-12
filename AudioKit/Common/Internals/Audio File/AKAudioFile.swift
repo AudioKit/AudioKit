@@ -33,11 +33,11 @@ extension AVAudioFile {
         return length
     }
 
-    /// strange that sampleRate is a Double and not an Integer !...
+    /// strange that sampleRate is a Double and not an Integer
     open var sampleRate: Double {
         return fileFormat.sampleRate
     }
-    /// Number of channels, 1 for mono, 2 for stereo...
+    /// Number of channels, 1 for mono, 2 for stereo
     open var channelCount: UInt32 {
         return fileFormat.channelCount
     }

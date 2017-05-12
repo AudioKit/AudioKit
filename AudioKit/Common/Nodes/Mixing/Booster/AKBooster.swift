@@ -46,7 +46,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    
+
     /// Left Channel Amplification Factor
     open dynamic var leftGain: Double = 1 {
         willSet {
@@ -61,7 +61,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    
+
     /// Right Channel Amplification Factor
     open dynamic var rightGain: Double = 1 {
         willSet {

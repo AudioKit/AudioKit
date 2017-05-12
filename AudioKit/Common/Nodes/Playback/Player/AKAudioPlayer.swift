@@ -53,14 +53,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             updatePCMBuffer()
         }
     }
-    
+
     /// Set the fade in time
     open dynamic var fadeInTime: Double = 0 {
         didSet {
             updatePCMBuffer()
         }
     }
-    
+
     // Set the fade out time
     open dynamic var fadeOutTime: Double = 0 {
         didSet {
@@ -252,7 +252,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             readFile = try AKAudioFile(forReading: file.url)
 
         } catch let error as NSError {
-            AKLog("AKAudioPlayer Error: cannot open file \(file.fileNamePlusExtension) for reading!...")
+            AKLog("AKAudioPlayer Error: cannot open file \(file.fileNamePlusExtension) for reading")
             AKLog("Error: \(error)")
             throw error
         }
@@ -272,7 +272,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
         initialize()
     }
-    
+
     fileprivate var defaultBufferOptions: AVAudioPlayerNodeBufferOptions {
         return looping ? [.loops, .interrupts] : [.interrupts]
     }
@@ -295,10 +295,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 internalPlayer.play()
 
             } else {
-                AKLog("AKAudioPlayer Warning: cannot play an empty buffer!...")
+                AKLog("AKAudioPlayer Warning: cannot play an empty buffer")
             }
         } else {
-            AKLog("AKAudioPlayer Warning: already playing!...")
+            AKLog("AKAudioPlayer Warning: already playing")
         }
     }
 
@@ -326,10 +326,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 paused = true
                 internalPlayer.pause()
             } else {
-                AKLog("AKAudioPlayer Warning: already paused!...")
+                AKLog("AKAudioPlayer Warning: already paused")
             }
         } else {
-            AKLog("AKAudioPlayer Warning: Cannot pause when not playing!...")
+            AKLog("AKAudioPlayer Warning: Cannot pause when not playing")
         }
     }
 
@@ -352,7 +352,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         do {
             newAudioFile = try AKAudioFile(forReading: internalAudioFile.url)
         } catch let error as NSError {
-            AKLog("AKAudioPlayer Error:Couldn't reLoadFile !...")
+            AKLog("AKAudioPlayer Error: Couldn't reLoadFile")
             AKLog("Error: \(error)")
             throw error
         }
@@ -374,17 +374,17 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         do {
             try reloadFile()
         } catch let error as NSError {
-            AKLog("AKAudioPlayer Error: Couldn't reload replaced File: \"\(file.fileNamePlusExtension)\" !...")
+            AKLog("AKAudioPlayer Error: Couldn't reload replaced File: \"\(file.fileNamePlusExtension)\"")
             AKLog("Error: \(error)")
         }
         AKLog("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
     }
-    
+
     /// Default play that will use the previously set startTime and endTime properties or the full file if both are 0
     open func play() {
         play(from:self.startTime, to:self.endTime, when:0)
     }
-    
+
     /// Play from startTime to endTime
     open func play(from startTime: Double, to endTime: Double) {
         play(from:startTime, to:endTime, when:0)
@@ -428,7 +428,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             start()
         } else {
             AKLog("ERROR AKaudioPlayer: cannot play, \(internalAudioFile.fileNamePlusExtension) " +
-                "is empty or segment is too short!")
+                "is empty or segment is too short")
         }
     }
 
@@ -540,7 +540,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             if reversed {
                 reverseBuffer()
             }
-            
+
             if fadeInTime > 0 || fadeOutTime > 0 {
                 fadeBuffer(inTime: fadeInTime, outTime: fadeOutTime)
             }
@@ -580,7 +580,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         // update this to the new value
         audioFileBuffer?.frameLength = length
     }
-    
+
     /// Apply sample level fades to the internal buffer.
     ///  - Parameters:
     ///     - inTime specified in seconds, 0 if no fade
@@ -589,44 +589,44 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         guard audioFileBuffer != nil else {
             return
         }
-        
+
         // do nothing in this case
         if inTime == 0 && outTime == 0 {
             AKLog("no fades specified.")
             return
         }
-        
+
         let fadeBuffer = AVAudioPCMBuffer(
             pcmFormat: internalAudioFile.processingFormat,
             frameCapacity: audioFileBuffer!.frameCapacity )
-        
-        let length:UInt32 = audioFileBuffer!.frameLength
+
+        let length: UInt32 = audioFileBuffer!.frameLength
         AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
-        
+
         // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
         var gain: Double = inTime > 0 ? 0.01 : 1
-        
+
         let sampleTime: Double = 1.0 / internalAudioFile.processingFormat.sampleRate
         //let natural_decay_factor:Double = exp(-sampleTime / outTime)
-        
+
         // from -20db?
         let fadeInPower: Double = exp(log(10) * sampleTime / inTime)
-        
+
         // for decay to x% amplitude (-dB) over the given decay time
         let fadeOutPower: Double = exp(-log(25) * sampleTime / outTime)
-        
+
         // where in the buffer to end the fade in
         let fadeInSamples = Int(internalAudioFile.processingFormat.sampleRate * inTime)
         // where in the buffer to start the fade out
         let fadeOutSamples = Int(Double(length) - (internalAudioFile.processingFormat.sampleRate * outTime))
-        
+
         //Swift.print("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
-        
+
         // i is the index in the buffer
         for i in 0 ..< Int(length) {
             // n is the channel
             for n in 0 ..< Int(audioFileBuffer!.format.channelCount) {
-                
+
                 if i < fadeInSamples && inTime > 0 {
                     gain *= fadeInPower
                 } else if i > fadeOutSamples && outTime > 0 {
@@ -634,12 +634,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 } else {
                     gain = 1.0
                 }
-                
+
                 //sanity check
                 if gain > 1 {
                     gain = 1
                 }
-                
+
                 let sample = audioFileBuffer!.floatChannelData![n][i] * Float(gain)
                 fadeBuffer.floatChannelData?[n][i] = sample
             }
@@ -657,7 +657,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             completionHandler?()
         }
     }
-    
+
     // Disconnect the node
     override open func disconnect() {
         disconnect(nodes: [self.avAudioNode])

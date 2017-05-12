@@ -90,7 +90,7 @@
     /// Start recording
     open func record() throws {
         if isRecording == true {
-            AKLog("AKNodeRecorder Warning: already recording !")
+            AKLog("AKNodeRecorder Warning: already recording")
             return
         }
 
@@ -153,7 +153,7 @@
     /// Stop recording
     open func stop() {
         if isRecording == false {
-            AKLog("AKNodeRecorder Warning: Cannot stop recording, already stopped !")
+            AKLog("AKNodeRecorder Warning: Cannot stop recording, already stopped")
             return
         }
 

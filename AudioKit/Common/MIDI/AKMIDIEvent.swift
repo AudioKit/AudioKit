@@ -197,7 +197,7 @@ public struct AKMIDIEvent {
                         || byte == AKMIDISystemCommand.sysexEnd.rawValue {
                         //end of message
                         messageJustFinished = true
-                        if !rawEvent.isEmpty {
+                        if rawEvent.isNotEmpty {
                             rawEvents.append(rawEvent)
                         }
                         rawEvent = [] //init raw Event

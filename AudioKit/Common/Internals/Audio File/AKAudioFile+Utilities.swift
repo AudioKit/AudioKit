@@ -26,7 +26,7 @@ extension AKAudioFile {
                               name: String = "") throws -> AKAudioFile {
 
         if samples < 0 {
-            AKLog( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count !")
+            AKLog( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
         } else if samples == 0 {
             let emptyFile = try AKAudioFile(writeIn: baseDir, name: name)

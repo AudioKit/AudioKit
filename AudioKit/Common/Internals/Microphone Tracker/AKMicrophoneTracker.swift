@@ -8,7 +8,7 @@
 
 public class AKMicrophoneTracker {
     var engine = AKMicrophoneTrackerEngine()
-    
+
     public var amplitude: Double {
         return Double(engine.amplitude)
     }
@@ -16,7 +16,7 @@ public class AKMicrophoneTracker {
     public var frequency: Double {
         return Double(engine.frequency)
     }
-    
+
     public func start() {
         engine.start()
     }

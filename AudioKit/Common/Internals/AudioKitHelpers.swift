@@ -310,3 +310,23 @@ extension AudioComponentDescription {
         }
     }
 }
+
+// Anything that can hold a value (strings, arrays, etc)
+protocol Occupiable {
+    var isEmpty: Bool { get }
+    var isNotEmpty: Bool { get }
+}
+
+// Give a default implementation of isNotEmpty, so conformance only requires one implementation
+extension Occupiable {
+    var isNotEmpty: Bool {
+        return !isEmpty
+    }
+}
+
+extension String: Occupiable { }
+
+// I can't think of a way to combine these collection types. Suggestions welcome.
+extension Array: Occupiable { }
+extension Dictionary: Occupiable { }
+extension Set: Occupiable { }
