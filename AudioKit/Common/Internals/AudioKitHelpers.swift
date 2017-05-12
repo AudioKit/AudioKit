@@ -330,3 +330,7 @@ extension String: Occupiable { }
 extension Array: Occupiable { }
 extension Dictionary: Occupiable { }
 extension Set: Occupiable { }
+
+#if !os(macOS)
+extension AVAudioSessionCategoryOptions: Occupiable { }
+#endif
