@@ -337,6 +337,6 @@ extension AVAudioSessionCategoryOptions: Occupiable { }
 
 prefix operator ❗️
 
-prefix public func ❗️(a: Bool) -> Bool{
+prefix public func ❗️(a: Bool) -> Bool {
     return !a
 }
