@@ -38,7 +38,7 @@ extension AKTuningTable {
             return nil
         }
 
-        let stringRange = NSMakeRange(0, string.characters.count)
+        let stringRange = NSRange(location: 0, length: string.characters.count)
         let trimmedString = regex?.stringByReplacingMatches(in: string,
                                                             options: NSRegularExpression.MatchingOptions.reportProgress,
                                                             range: stringRange,
@@ -129,7 +129,8 @@ extension AKTuningTable {
             // REGEX defined above this loop
             let rangeOfFirstMatch = regex?.rangeOfFirstMatch(in: lineStr,
                                                              options: NSRegularExpression.MatchingOptions.anchored,
-                                                             range: NSMakeRange(0, lineStr.characters.count))
+                                                             range: NSRange(location: 0,
+                                                                            length: lineStr.characters.count))
             var scaleDegree: Frequency = 0
             if ❗️NSEqualRanges(rangeOfFirstMatch!, NSRange(location: NSNotFound, length: 0)) {
                 let nsLineStr = lineStr as NSString?
