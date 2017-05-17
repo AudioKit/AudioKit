@@ -106,7 +106,8 @@ extension AVAudioEngine {
                 let inputDevices = AVAudioSession.sharedInstance().currentRoute.inputs
                 if inputDevices.isNotEmpty {
                     for device in inputDevices {
-                        let id = "\(device.uid) \(String(describing: device.selectedDataSource))".trimmingCharacters(in: [" "])
+                        let dataSourceString = device.selectedDataSource?.description ?? ""
+                        let id = "\(device.uid) \(dataSourceString)".trimmingCharacters(in: [" "])
                         return AKDevice(name: device.portName, deviceID: id)
                     }
                 }
@@ -261,15 +262,12 @@ extension AVAudioEngine {
                     }
                 #else
                     // tvOS
-
                     try AKSettings.setSession(category: .playAndRecord)
 
                 #endif
 
                 } else if AKSettings.playbackWhileMuted {
-
                     try AKSettings.setSession(category: .playback)
-
                 } else {
                     try AKSettings.setSession(category: .ambient)
 

@@ -9,7 +9,7 @@
 extension AKTuningTable {
 
     //swiftlint:disable variable_name
-    
+
     /// Create a hexany from 4 frequencies (4 choose 2)
     ///
     /// - parameter A, B, C, D: Master set of frequencies
