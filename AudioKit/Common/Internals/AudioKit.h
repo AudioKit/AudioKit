@@ -117,7 +117,11 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPannerAudioUnit.h"
 #import "AKStereoFieldLimiterAudioUnit.h"
 
+// Output
+#import "AKOfflineRenderAudioUnit.h"
+
 // Playback
+#import "AKFilePlayerAudioUnit.h"
 #import "AKPhaseLockedVocoderAudioUnit.h"
 
 // Testing
