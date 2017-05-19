@@ -127,45 +127,46 @@ extension AKTuningTable {
             /* The first note of 1/1 or 0.0 cents is implicit and not in the files.*/
 
             // REGEX defined above this loop
-            let rangeOfFirstMatch = regex?.rangeOfFirstMatch(in: lineStr,
-                                                             options: NSRegularExpression.MatchingOptions.anchored,
-                                                             range: NSRange(location: 0,
-                                                                            length: lineStr.characters.count))
-            var scaleDegree: Frequency = 0
-            if ❗️NSEqualRanges(rangeOfFirstMatch!, NSRange(location: NSNotFound, length: 0)) {
+            let rangeOfFirstMatch = regex?.rangeOfFirstMatch(
+                in: lineStr,
+                options: NSRegularExpression.MatchingOptions.anchored,
+                range: NSRange(location: 0, length: lineStr.characters.count)) ?? NSRange(location: 0, length: 0)
+
+            if ❗️NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) {
                 let nsLineStr = lineStr as NSString?
-                let substringForFirstMatch = nsLineStr?.substring(with: rangeOfFirstMatch!) as NSString?
-                if substringForFirstMatch?.range(of: ".").length != 0 {
-                    scaleDegree = Frequency(lineStr)!
-                    // ignore 0.0...same as 1.0, 2.0, etc.
-                    if scaleDegree != 0 {
-                        scaleDegree = fabs(scaleDegree)
-                        // convert from cents to frequency
-                        scaleDegree /= 1_200
-                        scaleDegree = pow(2, scaleDegree)
-                        scalaFrequencies.append(scaleDegree)
-                        actualFrequencyCount += 1
-                        continue
+                let substringForFirstMatch = nsLineStr?.substring(with: rangeOfFirstMatch) as NSString? ?? ""
+                if substringForFirstMatch.range(of: ".").length != 0 {
+                    if var scaleDegree = Frequency(lineStr) {
+                        // ignore 0.0...same as 1.0, 2.0, etc.
+                        if scaleDegree != 0 {
+                            scaleDegree = fabs(scaleDegree)
+                            // convert from cents to frequency
+                            scaleDegree /= 1_200
+                            scaleDegree = pow(2, scaleDegree)
+                            scalaFrequencies.append(scaleDegree)
+                            actualFrequencyCount += 1
+                            continue
+                        }
                     }
                 } else {
-                    if (substringForFirstMatch?.range(of: "/").length) != 0 {
-                        if (substringForFirstMatch?.range(of: "-").length) != 0 {
-                            AKLog("ERROR: invalid ratio: \(String(describing: substringForFirstMatch))")
+                    if (substringForFirstMatch.range(of: "/").length) != 0 {
+                        if (substringForFirstMatch.range(of: "-").length) != 0 {
+                            AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
                             parsedScala = false
                             break
                         }
                         // Parse rational numerator/denominator
-                        let slashPos = substringForFirstMatch?.range(of: "/")
-                        let numeratorStr = substringForFirstMatch?.substring(to: (slashPos?.location)!)
-                        let numerator = Int(numeratorStr!)
-                        let denominatorStr = substringForFirstMatch?.substring(from: (slashPos?.location)! + 1)
-                        let denominator = Int(denominatorStr!)
-                        if denominator == nil {
-                            AKLog("ERROR: invalid ratio: \(String(describing: substringForFirstMatch))")
+                        let slashPos = substringForFirstMatch.range(of: "/")
+                        let numeratorStr = substringForFirstMatch.substring(to: slashPos.location)
+                        let numerator = Int(numeratorStr) ?? 0
+                        let denominatorStr = substringForFirstMatch.substring(from: slashPos.location + 1)
+                        let denominator = Int(denominatorStr) ?? 0
+                        if denominator == 0 {
+                            AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
                             parsedScala = false
                             break
                         } else {
-                            let mt = Frequency(numerator!) / Frequency(denominator!)
+                            let mt = Frequency(numerator) / Frequency(denominator)
                             if mt == 1.0 || mt == 2.0 {
                                 // skip 1/1, 2/1
                                 continue
@@ -177,9 +178,9 @@ extension AKTuningTable {
                         }
                     } else {
                         // a whole number, treated as a rational with a denominator of 1
-                        if let whole = Int(substringForFirstMatch! as String) {
+                        if let whole = Int(substringForFirstMatch as String) {
                             if whole <= 0 {
-                                AKLog("ERROR: invalid ratio: \(String(describing: substringForFirstMatch))")
+                                AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
                                 parsedScala = false
                                 break
                             } else if whole == 1 || whole == 2 {
