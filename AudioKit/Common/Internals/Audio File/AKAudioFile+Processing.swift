@@ -185,7 +185,7 @@ extension AKAudioFile {
         let fixedTo: Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample, Int64(self.samplesCount))
         if fixedTo <= fixedFrom {
             AKLog("ERROR AKAudioFile: cannot extract, from must be less than to")
-            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
+            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
         }
 
         let arrays = self.floatChannelData ?? [[]]

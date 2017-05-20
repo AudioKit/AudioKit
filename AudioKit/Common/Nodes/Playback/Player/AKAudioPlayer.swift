@@ -211,7 +211,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open dynamic var scheduledTime: Double = 0 {
         didSet {
             let hostTime = mach_absolute_time()
-            scheduledAVTime = AKAudioPlayer.secondsToAVAudioTime(hostTime:hostTime, time:scheduledTime)
+            scheduledAVTime = AKAudioPlayer.secondsToAVAudioTime(hostTime: hostTime, time: scheduledTime)
         }
     }
 
@@ -382,12 +382,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Default play that will use the previously set startTime and endTime properties or the full file if both are 0
     open func play() {
-        play(from:self.startTime, to:self.endTime, when:0)
+        play(from: self.startTime, to: self.endTime, when: 0)
     }
 
     /// Play from startTime to endTime
     open func play(from startTime: Double, to endTime: Double) {
-        play(from:startTime, to:endTime, when:0)
+        play(from: startTime, to: endTime, when: 0)
     }
 
     /// Play the file back from a certain time, to an end time (if set).
@@ -401,8 +401,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     open func play(from startTime: Double, to endTime: Double, when scheduledTime: Double) {
         let hostTime = mach_absolute_time()
-        let avTime = AKAudioPlayer.secondsToAVAudioTime(hostTime:hostTime, time:scheduledTime)
-        play(from:startTime, to:endTime, avTime:avTime)
+        let avTime = AKAudioPlayer.secondsToAVAudioTime(hostTime: hostTime, time: scheduledTime)
+        play(from: startTime, to: endTime, avTime: avTime)
     }
 
     /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time 
@@ -607,7 +607,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         var gain: Double = inTime > 0 ? 0.01 : 1
 
         let sampleTime: Double = 1.0 / internalAudioFile.processingFormat.sampleRate
-        //let natural_decay_factor:Double = exp(-sampleTime / outTime)
+        //let natural_decay_factor: Double = exp(-sampleTime / outTime)
 
         // from -20db?
         let fadeInPower: Double = exp(log(10) * sampleTime / inTime)

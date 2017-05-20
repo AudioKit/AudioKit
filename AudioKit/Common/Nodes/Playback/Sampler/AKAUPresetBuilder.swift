@@ -219,7 +219,7 @@ open class AKAUPresetBuilder {
             }
         }
 
-        let str = AKAUPresetBuilder.buildInstrument(name: instrumentName, filerefs: sampleIDXML, layers:layerXML)
+        let str = AKAUPresetBuilder.buildInstrument(name: instrumentName, filerefs: sampleIDXML, layers: layerXML)
 
         //write to file
         do {
