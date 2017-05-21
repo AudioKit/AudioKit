@@ -87,9 +87,9 @@ public:
         rate = clamp(value, 0.0f, 10.0f);
         rateRamper.setImmediate(rate);
     }
+    
     void setLoop(bool value) {
         loop = value;
-        tabread->wrap = value;
     }
 
 
@@ -168,9 +168,8 @@ public:
                     tabread->index = position * percentLen + (startPoint / ftbl_size);
                     sp_tabread_compute(sp, tabread, NULL, outL);
                     *outR = *outL;
-                    if (!loop && position < lastPosition){
+                    if (!loop && position < lastPosition) {
                         started = false;
-                        printf("i'm done %f \n", position);
                     } else {
                         lastPosition = position;
                     }

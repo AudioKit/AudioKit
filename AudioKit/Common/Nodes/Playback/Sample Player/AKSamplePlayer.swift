@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias Sample = UInt32
+
 open class AKSamplePlayer: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
@@ -29,7 +31,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// startPoint in time. When non-changing it will do a spectral freeze of a the current point in time.
-    open dynamic var startPoint: Int = 0 {
+    open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +46,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// endPoint.
-    open dynamic var endPoint: Int = 1 {
+    open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -74,9 +76,9 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// Loop Enabled
-    open dynamic var loop: Bool = false {
+    open dynamic var loopEnabled: Bool = false {
         willSet {
-            internalAU?.loop = loop
+            internalAU?.loop = newValue
         }
     }
 
@@ -93,8 +95,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
     ///
     public init(
         file: AVAudioFile,
-        startPoint: Int = 0,
-        endPoint: Int = 1,
+        startPoint: Sample = 0,
+        endPoint: Sample = 0,
         rate: Double = 1) {
 
         self.startPoint = startPoint
@@ -124,9 +126,9 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
             DispatchQueue.main.async {
                 if address == self?.startPointParameter?.address {
-                    self?.startPoint = Int(value)
+                    self?.startPoint = Sample(value)
                 } else if address == self?.endPointParameter?.address {
-                    self?.endPoint = Int(value)
+                    self?.endPoint = Sample(value)
                 } else if address == self?.rateParameter?.address {
                     self?.rate = Double(value)
                 }
@@ -234,16 +236,19 @@ open class AKSamplePlayer: AKNode, AKComponent {
         internalAU?.stop()
     }
 
-    open func play(from: Int = 0) {
+    /// Play from a certain sample
+    open func play(from: Sample = 0) {
         startPoint = from
         start()
     }
-    open func play(from: Int = 0, length: Int = 0) {
+    
+    open func play(from: Sample = 0, length: Sample = 0) {
         startPoint = from
         endPoint = startPoint + length
         start()
     }
-    open func play(from: Int = 0, to: Int = 0) {
+    
+    open func play(from: Sample = 0, to: Sample = 0) {
         startPoint = from
         endPoint = to
         start()
