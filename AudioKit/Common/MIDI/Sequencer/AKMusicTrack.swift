@@ -369,6 +369,31 @@ open class AKMusicTrack {
             AKLog("Unable to insert raw midi data")
         }
     }
+    
+    /// Add Pitch Bend change to sequence
+    ///
+    /// - Parameters:
+    ///   - value: The value of pitchbend. The valid range of values is 0 to 16383 (128 ^ 2 values).  8192 is no pitch bend.
+    ///   - position: Where in the sequence to insert pitchbend info (expressed in beats)
+    ///   - channel: MIDI channel to insert pitch bend on
+    ///
+    open func addPitchBend(_ value: Int = 8_192, position: AKDuration, channel: MIDIChannel = 0) {
+        
+        guard let track = internalMusicTrack else {
+            return
+        }
+        
+        // Find least and most significant bytes, remembering they are 7 bit numbers.
+        let lsb = value & 0x7F
+        let msb = (value >> 7) & 0x7F
+        var pitchBendMessage = MIDIChannelMessage(status: UInt8(14 << 4) | UInt8((channel) & 0xf), data1: UInt8(lsb), data2: UInt8(msb), reserved: 0)
+        MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &pitchBendMessage)
+    }
+    
+    open func resetPitchBend(_ position: AKDuration, channel: MIDIChannel = 0) {
+        
+        addPitchBend(8_192, position: position, channel: channel)
+    }
 
     /// Copy this track to another track
     ///
