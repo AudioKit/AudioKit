@@ -112,7 +112,7 @@ extension AKAudioFile {
 
         fixedSettings[AVNumberOfChannelsKey] = channels
 
-        try self.init(writeIn: baseDir, name: name)
+        try self.init(writeIn: baseDir, name: name, settings: fixedSettings)
 
         // create buffer for floats
         let format = AVAudioFormat(standardFormatWithSampleRate: 44_100,
