@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='macos' display-mode='rendered'>
+<playground version='6.0' target-platform='macos' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Development'/>
+        <page name='Test'/>
+        <page name='Test2'/>
+        <page name='Test3'/>
     </pages>
 </playground>
