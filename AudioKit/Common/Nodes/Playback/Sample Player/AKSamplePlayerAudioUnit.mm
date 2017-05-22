@@ -36,7 +36,9 @@
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size {
     _kernel.setUpTable(data, size);
 }
-
+- (int)size {
+    return _kernel.ftbl_size;
+}
 standardKernelPassthroughs()
 
 - (void)createParameters {

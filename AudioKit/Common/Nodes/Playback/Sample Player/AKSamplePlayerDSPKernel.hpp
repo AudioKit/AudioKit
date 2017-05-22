@@ -189,7 +189,6 @@ private:
     sp_phasor *phasor;
     sp_tabread *tabread;
     sp_ftbl *ftbl;
-    UInt32 ftbl_size = 4096;
 
     float startPoint = 0;
     float endPoint = 1;
@@ -204,6 +203,7 @@ public:
     ParameterRamper startPointRamper = 0;
     ParameterRamper endPointRamper = 1;
     ParameterRamper rateRamper = 1;
+    UInt32 ftbl_size = 4096;
 };
 
 
