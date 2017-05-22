@@ -79,7 +79,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// Loop Enabled
+    /// Loop Enabled - if enabled, the sample will loop back to the startpoint when the endpoint is reached.
+    /// When disabled, the sample will play through once from startPoint to endPoint
     open dynamic var loopEnabled: Bool = false {
         willSet {
             internalAU?.loop = newValue
