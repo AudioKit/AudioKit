@@ -33,7 +33,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// startPoint in samples
+    /// startPoint in samples - where to start playing the sample from
     open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
@@ -48,7 +48,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// endPoint.
+    /// endPoint - this is where the sample will play to before stopping. 
+    /// A value less than the start point will play the sample backwards.
     open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
@@ -63,7 +64,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// playback rate. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
+    /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     open dynamic var rate: Double = 1 {
         willSet {
             if rate != newValue {
