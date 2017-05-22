@@ -142,12 +142,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(endPoint)
         internalAU?.rate = Float(rate)
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+        
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
@@ -156,7 +151,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             var extRef: ExtAudioFileRef?
             var theData: UnsafeMutablePointer<CChar>?
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
-
+            
             err = ExtAudioFileOpenURL(self.avAudiofile.url as CFURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
             // Get the audio data format
@@ -175,7 +170,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("Unsupported Format, channel count is greater than stereo")
                 break Exit
             }
-
+            
             theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
@@ -184,7 +179,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(MemoryLayout<Float>.stride)
             theOutputFormat.mFramesPerPacket = 1
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
-
+            
             // Set the desired client (output) data format
             err = ExtAudioFileSetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_ClientDataFormat,
@@ -194,7 +189,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)")
                 break Exit
             }
-
+            
             // Get the total frame count
             thePropertySize = UInt32(MemoryLayout.stride(ofValue: theFileLengthInFrames))
             err = ExtAudioFileGetProperty(externalAudioFileRef,
@@ -205,7 +200,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)")
                 break Exit
             }
-
+            
             // Read all the data into memory
             let dataSize = UInt32(theFileLengthInFrames) * theOutputFormat.mBytesPerFrame
             theData = UnsafeMutablePointer.allocate(capacity: Int(dataSize))
@@ -215,7 +210,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 bufferList.mBuffers.mDataByteSize = dataSize
                 bufferList.mBuffers.mNumberChannels = theOutputFormat.mChannelsPerFrame
                 bufferList.mBuffers.mData = UnsafeMutableRawPointer(theData)
-
+                
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
                 err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
@@ -225,7 +220,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
-                    internalAU?.start()
+                    //internalAU?.start()
                 } else {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
@@ -234,6 +229,13 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 }
             }
         }
+    }
+
+    // MARK: - Control
+
+    /// Function to start, play, or activate the node, all do the same thing
+    open func start() {
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
