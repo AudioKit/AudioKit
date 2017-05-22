@@ -39,10 +39,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
             if startPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        startPointParameter?.setValue(Float(newValue), originator: existingToken)
+                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
                 } else {
-                    internalAU?.startPoint = Float(newValue)
+                    internalAU?.startPoint = Float(safeSample(newValue))
                 }
             }
         }
@@ -54,10 +54,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
             if endPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        endPointParameter?.setValue(Float(newValue), originator: existingToken)
+                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
                 } else {
-                    internalAU?.endPoint = Float(newValue)
+                    internalAU?.endPoint = Float(safeSample(newValue))
                 }
             }
         }
@@ -255,5 +255,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
         startPoint = from
         endPoint = to
         start()
+    }
+    func safeSample(_ point:Sample)->Sample{
+        if point > size { return size }
+        //if point < 0 { return 0 } doesnt work cause we're using uint32 for sample
+        return point
     }
 }
