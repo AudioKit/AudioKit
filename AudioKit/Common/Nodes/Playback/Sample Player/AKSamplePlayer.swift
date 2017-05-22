@@ -11,6 +11,9 @@ import Foundation
 public typealias Sample = UInt32
 
 open class AKSamplePlayer: AKNode, AKComponent {
+    open var size: Sample {
+        return Sample(avAudiofile.samplesCount)
+    }
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
 
@@ -30,37 +33,38 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// startPoint in time. When non-changing it will do a spectral freeze of a the current point in time.
+    /// startPoint in samples - where to start playing the sample from
     open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        startPointParameter?.setValue(Float(newValue), originator: existingToken)
+                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
                 } else {
-                    internalAU?.startPoint = Float(newValue)
+                    internalAU?.startPoint = Float(safeSample(newValue))
                 }
             }
         }
     }
 
-    /// endPoint.
+    /// endPoint - this is where the sample will play to before stopping. 
+    /// A value less than the start point will play the sample backwards.
     open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        endPointParameter?.setValue(Float(newValue), originator: existingToken)
+                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
                 } else {
-                    internalAU?.endPoint = Float(newValue)
+                    internalAU?.endPoint = Float(safeSample(newValue))
                 }
             }
         }
     }
 
-    /// Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
+    /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     open dynamic var rate: Double = 1 {
         willSet {
             if rate != newValue {
@@ -75,7 +79,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// Loop Enabled
+    /// Loop Enabled - if enabled, the sample will loop back to the startpoint when the endpoint is reached.
+    /// When disabled, the sample will play through once from startPoint to endPoint
     open dynamic var loopEnabled: Bool = false {
         willSet {
             internalAU?.loop = newValue
@@ -137,12 +142,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(endPoint)
         internalAU?.rate = Float(rate)
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+        
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
@@ -151,7 +151,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             var extRef: ExtAudioFileRef?
             var theData: UnsafeMutablePointer<CChar>?
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
-
+            
             err = ExtAudioFileOpenURL(self.avAudiofile.url as CFURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
             // Get the audio data format
@@ -170,7 +170,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("Unsupported Format, channel count is greater than stereo")
                 break Exit
             }
-
+            
             theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
@@ -179,7 +179,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(MemoryLayout<Float>.stride)
             theOutputFormat.mFramesPerPacket = 1
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
-
+            
             // Set the desired client (output) data format
             err = ExtAudioFileSetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_ClientDataFormat,
@@ -189,7 +189,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)")
                 break Exit
             }
-
+            
             // Get the total frame count
             thePropertySize = UInt32(MemoryLayout.stride(ofValue: theFileLengthInFrames))
             err = ExtAudioFileGetProperty(externalAudioFileRef,
@@ -200,7 +200,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)")
                 break Exit
             }
-
+            
             // Read all the data into memory
             let dataSize = UInt32(theFileLengthInFrames) * theOutputFormat.mBytesPerFrame
             theData = UnsafeMutablePointer.allocate(capacity: Int(dataSize))
@@ -210,7 +210,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 bufferList.mBuffers.mDataByteSize = dataSize
                 bufferList.mBuffers.mNumberChannels = theOutputFormat.mChannelsPerFrame
                 bufferList.mBuffers.mData = UnsafeMutableRawPointer(theData)
-
+                
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
                 err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
@@ -220,7 +220,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
-                    internalAU?.start()
+                    //internalAU?.start()
                 } else {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
@@ -229,6 +229,13 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 }
             }
         }
+    }
+
+    // MARK: - Control
+
+    /// Function to start, play, or activate the node, all do the same thing
+    open func start() {
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
@@ -252,5 +259,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
         startPoint = from
         endPoint = to
         start()
+    }
+    func safeSample(_ point:Sample)->Sample{
+        if point > size { return size }
+        //if point < 0 { return 0 } doesnt work cause we're using uint32 for sample
+        return point
     }
 }
