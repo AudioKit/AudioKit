@@ -11,6 +11,9 @@ import Foundation
 public typealias Sample = UInt32
 
 open class AKSamplePlayer: AKNode, AKComponent {
+    open var size: Sample {
+        return Sample(avAudiofile.samplesCount)
+    }
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
 
@@ -30,7 +33,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// startPoint in time. When non-changing it will do a spectral freeze of a the current point in time.
+    /// startPoint in samples
     open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
@@ -60,7 +63,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
+    /// playback rate. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     open dynamic var rate: Double = 1 {
         willSet {
             if rate != newValue {
