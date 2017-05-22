@@ -241,13 +241,13 @@ open class AKSamplePlayer: AKNode, AKComponent {
         startPoint = from
         start()
     }
-    
+
     open func play(from: Sample = 0, length: Sample = 0) {
         startPoint = from
         endPoint = startPoint + length
         start()
     }
-    
+
     open func play(from: Sample = 0, to: Sample = 0) {
         startPoint = from
         endPoint = to

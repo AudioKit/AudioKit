@@ -12,15 +12,15 @@ AudioKit.output = samplePlayer
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var current = 0
     override func setup() {
         addTitle("Sample Player")
-        
+
         addSubview(AKButton(title: "Next") {
             self.current += 1
-            samplePlayer.play(from: Sample(44100 * (self.current % 26)),
-                              length: Sample(40000))
+            samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
+                              length: Sample(40_000))
             return "Next"
         })
         addSubview(AKButton(title: "Previous") {
@@ -28,11 +28,11 @@ class PlaygroundView: AKPlaygroundView {
             if self.current < 0 {
                 self.current += 26
             }
-            samplePlayer.play(from: Sample(44100 * (self.current % 26)),
-                              length: Sample(40000))
+            samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
+                              length: Sample(40_000))
             return "Previous"
         })
-        
+
         addSubview(AKPropertySlider(
         property: "Rate",
         value: 1, minimum: 0.1, maximum: 2) {
@@ -45,4 +45,3 @@ class PlaygroundView: AKPlaygroundView {
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
-
