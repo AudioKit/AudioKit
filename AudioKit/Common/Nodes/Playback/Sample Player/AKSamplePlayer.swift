@@ -142,7 +142,49 @@ open class AKSamplePlayer: AKNode, AKComponent {
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(endPoint)
         internalAU?.rate = Float(rate)
+        
+        load(file: self.avAudiofile)
+    }
 
+    // MARK: - Control
+
+    /// Function to start, play, or activate the node, all do the same thing
+    open func start() {
+        internalAU?.start()
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    open func stop() {
+        internalAU?.stop()
+    }
+
+    /// Play from a certain sample
+    open func play(from: Sample = 0) {
+        startPoint = from
+        start()
+    }
+
+    open func play(from: Sample = 0, length: Sample = 0) {
+        startPoint = from
+        endPoint = startPoint + length
+        start()
+    }
+
+    open func play(from: Sample = 0, to: Sample = 0) {
+        startPoint = from
+        endPoint = to
+        start()
+    }
+    func safeSample(_ point:Sample)->Sample{
+        if point > size { return size }
+        //if point < 0 { return 0 } doesnt work cause we're using uint32 for sample
+        return point
+    }
+    
+    open func loadSound(file: AVAudioFile){
+        load(file: file)
+    }
+    func load(file: AVAudioFile){
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
@@ -151,8 +193,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             var extRef: ExtAudioFileRef?
             var theData: UnsafeMutablePointer<CChar>?
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
-
-            err = ExtAudioFileOpenURL(self.avAudiofile.url as CFURL, &extRef)
+            err = ExtAudioFileOpenURL(file.url as CFURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
             // Get the audio data format
             guard let externalAudioFileRef = extRef else {
@@ -220,7 +261,6 @@ open class AKSamplePlayer: AKNode, AKComponent {
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
-                    //internalAU?.start()
                 } else {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
@@ -229,40 +269,5 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 }
             }
         }
-    }
-
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
-        internalAU?.stop()
-    }
-
-    /// Play from a certain sample
-    open func play(from: Sample = 0) {
-        startPoint = from
-        start()
-    }
-
-    open func play(from: Sample = 0, length: Sample = 0) {
-        startPoint = from
-        endPoint = startPoint + length
-        start()
-    }
-
-    open func play(from: Sample = 0, to: Sample = 0) {
-        startPoint = from
-        endPoint = to
-        start()
-    }
-    func safeSample(_ point: Sample) -> Sample {
-        if point > size { return size }
-        //if point < 0 { return 0 } doesnt work cause we're using uint32 for sample
-        return point
     }
 }
