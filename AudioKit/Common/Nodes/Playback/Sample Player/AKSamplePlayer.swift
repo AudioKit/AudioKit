@@ -105,9 +105,9 @@ open class AKSamplePlayer: AKNode, AKComponent {
         rate: Double = 1) {
 
         self.startPoint = startPoint
-        self.endPoint = endPoint
         self.rate = rate
         self.avAudiofile = file
+        self.endPoint = Sample(avAudiofile.samplesCount)
 
         _Self.register()
 
@@ -140,7 +140,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         })
         internalAU?.startPoint = Float(startPoint)
-        internalAU?.endPoint = Float(endPoint)
+        internalAU?.endPoint = Float(self.endPoint)
         internalAU?.rate = Float(rate)
         
         load(file: self.avAudiofile)
