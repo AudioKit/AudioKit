@@ -11,9 +11,7 @@ import Foundation
 public typealias Sample = UInt32
 
 open class AKSamplePlayer: AKNode, AKComponent {
-    open var size: Sample {
-        return Sample(avAudiofile.samplesCount)
-    }
+
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
     public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
 
@@ -87,6 +85,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
+    open var size: Sample {
+        return Sample(avAudiofile.samplesCount)
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
@@ -142,7 +144,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.rate = Float(rate)
-        
+
         load(file: self.avAudiofile)
     }
 
@@ -175,16 +177,18 @@ open class AKSamplePlayer: AKNode, AKComponent {
         endPoint = to
         start()
     }
-    func safeSample(_ point:Sample)->Sample{
+
+    func safeSample(_ point: Sample) -> Sample {
         if point > size { return size }
         //if point < 0 { return 0 } doesnt work cause we're using uint32 for sample
         return point
     }
-    
-    open func loadSound(file: AVAudioFile){
+
+    open func loadSound(file: AVAudioFile) {
         load(file: file)
     }
-    func load(file: AVAudioFile){
+
+    func load(file: AVAudioFile) {
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
