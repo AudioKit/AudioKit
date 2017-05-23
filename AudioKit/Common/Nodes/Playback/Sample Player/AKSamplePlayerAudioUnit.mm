@@ -39,6 +39,9 @@
 - (int)size {
     return _kernel.ftbl_size;
 }
+- (float)position {
+    return _kernel.position;
+}
 standardKernelPassthroughs()
 
 - (void)createParameters {
