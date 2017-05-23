@@ -265,6 +265,9 @@ open class AKSamplePlayer: AKNode, AKComponent {
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
+                    self.avAudiofile = file
+                    self.startPoint = 0
+                    self.endPoint = Sample(file.samplesCount)
                 } else {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
