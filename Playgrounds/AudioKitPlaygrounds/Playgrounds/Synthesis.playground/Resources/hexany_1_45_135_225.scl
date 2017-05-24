@@ -1,0 +1,23 @@
+!hexany_1_45_135_225.scl
+!
+Hexany (1,45,135,225)
+6
+!
+274.582431
+498.044989
+590.223750
+884.358725
+976.537451
+2/1
+! Created with the iOS app "Wilsonic" by Marcus Hobbs
+!
+! The 1/1 is explicitly added by the Scala tuning file format
+! There is no 1/1 in a Hexany so we normalize by the first term
+! 0.000000 ==> (1*135/1*135) ==> 1.05
+! 274.582431 ==> (45*225/1*135) ==> 1.23
+! 498.044989 ==> (1*45/1*135) ==> 1.40
+! 590.223750 ==> (45*135/1*135) ==> 1.48
+! 884.358725 ==> (1*225/1*135) ==> 1.75
+! 976.537451 ==> (135*225/1*135) ==> 1.85
+
+! Please see the Scala archives at: http://www.huygens-fokker.org/docs/scalesdir.txt

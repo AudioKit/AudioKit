@@ -290,7 +290,7 @@
 				C44760641DCD64A800628666 /* Audiobus.txt */,
 			);
 			name = Audiobus;
-			path = ../../../../AudioKit/iOS/Audiobus;
+			path = ../../Audiobus;
 			sourceTree = "<group>";
 		};
 		C4E8ED251C43AD650041965F /* AudioSystem */ = {

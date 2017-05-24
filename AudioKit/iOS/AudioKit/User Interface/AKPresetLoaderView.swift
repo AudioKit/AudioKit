@@ -50,7 +50,7 @@ open class AKPresetLoaderView: UIView {
     }
 
     required public init?(coder aDecoder: NSCoder) {
-        self.callback = {filename in return}
+        self.callback = { filename in return }
         self.presets = []
         super.init(coder: aDecoder)
     }

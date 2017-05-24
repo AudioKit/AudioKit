@@ -1,13 +1,13 @@
 //
-//  AKTelephoneView.swift
-//  AudioKit for macOS
+//  AKPhoneView.swift
+//  AudioKit Playgrounds (macOS)
 //
 //  Created by Aurelius Prochazka on 7/31/16.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 /// This is primarily for the telephone page in the Synthesis playground
-public class AKTelephoneView: NSView {
+public class AKPhoneView: NSView {
 
     var keyRects = [String: CGRect]()
     var callCirclePath = NSBezierPath()
@@ -80,51 +80,51 @@ public class AKTelephoneView: NSView {
         backgroundPath.fill()
 
         keyRects["1"] = setupKeyDrawing(context: context, x: 70, y: 494)
-        AKTelephoneView.drawKey(text: "\n", numeral: "1", isPressed: currentKey == "1")
+        AKPhoneView.drawKey(text: "\n", numeral: "1", isPressed: currentKey == "1")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["2"] = setupKeyDrawing(context: context, x: 179, y: 495)
-        AKTelephoneView.drawKey(text: "A B C", numeral: "2", isPressed: currentKey == "2")
+        AKPhoneView.drawKey(text: "A B C", numeral: "2", isPressed: currentKey == "2")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["3"] = setupKeyDrawing(context: context, x: 288, y: 495)
-        AKTelephoneView.drawKey(text: "D E F", numeral: "3", isPressed: currentKey == "3")
+        AKPhoneView.drawKey(text: "D E F", numeral: "3", isPressed: currentKey == "3")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["4"] = setupKeyDrawing(context: context, x: 70, y: 398)
-        AKTelephoneView.drawKey(text: "G H I", numeral: "4", isPressed: currentKey == "4")
+        AKPhoneView.drawKey(text: "G H I", numeral: "4", isPressed: currentKey == "4")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["5"] = setupKeyDrawing(context: context, x: 179, y: 398)
-        AKTelephoneView.drawKey(text: "J K L", numeral: "5", isPressed: currentKey == "5")
+        AKPhoneView.drawKey(text: "J K L", numeral: "5", isPressed: currentKey == "5")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["6"] = setupKeyDrawing(context: context, x: 288, y: 398)
-        AKTelephoneView.drawKey(text: "M N O", numeral: "6", isPressed: currentKey == "6")
+        AKPhoneView.drawKey(text: "M N O", numeral: "6", isPressed: currentKey == "6")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["7"] = setupKeyDrawing(context: context, x: 70, y: 303)
-        AKTelephoneView.drawKey(text: "P Q R S", numeral: "7", isPressed: currentKey == "7")
+        AKPhoneView.drawKey(text: "P Q R S", numeral: "7", isPressed: currentKey == "7")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["8"] = setupKeyDrawing(context: context, x: 179, y: 303)
-        AKTelephoneView.drawKey(text: "T U V", numeral: "8", isPressed: currentKey == "8")
+        AKPhoneView.drawKey(text: "T U V", numeral: "8", isPressed: currentKey == "8")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["9"] = setupKeyDrawing(context: context, x: 288, y: 303)
-        AKTelephoneView.drawKey(text: "W X Y Z", numeral: "9", isPressed: currentKey == "9")
+        AKPhoneView.drawKey(text: "W X Y Z", numeral: "9", isPressed: currentKey == "9")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["0"] = setupKeyDrawing(context: context, x: 179, y: 206)
-        AKTelephoneView.drawKey(text: "+", numeral: "0", isPressed: currentKey == "0")
+        AKPhoneView.drawKey(text: "+", numeral: "0", isPressed: currentKey == "0")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["*"] = setupKeyDrawing(context: context, x: 70, y: 206)
-        AKTelephoneView.drawCenteredKey(numeral: "*", isPressed: currentKey == "*")
+        AKPhoneView.drawCenteredKey(numeral: "*", isPressed: currentKey == "*")
         NSGraphicsContext.restoreGraphicsState()
 
         keyRects["#"] = setupKeyDrawing(context: context, x: 288, y: 206)
-        AKTelephoneView.drawCenteredKey(numeral: "#", isPressed: currentKey == "#")
+        AKPhoneView.drawCenteredKey(numeral: "#", isPressed: currentKey == "#")
         NSGraphicsContext.restoreGraphicsState()
 
         //// CallButton

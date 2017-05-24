@@ -103,8 +103,11 @@ public:
             ++kernel->playingNotesCount;
         }
         
-        void noteOn(int noteNumber, int velocity)
-        {
+        void noteOn(int noteNumber, int velocity) {
+            noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
+        }
+        
+        void noteOn(int noteNumber, int velocity, float frequency) {
             if (velocity == 0) {
                 if (stage == stageOn) {
                     stage = stageRelease;
@@ -112,7 +115,7 @@ public:
                 }
             } else {
                 if (stage == stageOff) { add(); }
-                phs->freq = (float)noteToHz(noteNumber);
+                phs->freq = frequency;
                 velocityAmp = (float)pow2(velocity / 127.);
                 stage = stageOn;
                 internalGate = 1;
@@ -188,6 +191,9 @@ public:
 
     void startNote(int note, int velocity) {
         noteStates[note].noteOn(note, velocity);
+    }
+    void startNote(int note, int velocity, float frequency) {
+        noteStates[note].noteOn(note, velocity, frequency);
     }
 
     void stopNote(int note) {

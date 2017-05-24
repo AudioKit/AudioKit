@@ -1,3 +1,6 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
 //: ## Playgrounds to Production
 //:
 //: The intention of most of the AudioKit Playgrounds is to highlight a particular
@@ -6,6 +9,8 @@
 //: different from production.  In general, to see best practices, you can check out
 //: the AudioKit examples project, but here in this playground we'll highlight some
 //: important ways playground code differs from production code.
+//:
+//: In production, you would only import AudioKit, not AudioKitPlaygrounds
 import AudioKitPlaygrounds
 import AudioKit
 
@@ -30,7 +35,7 @@ class BadAudioEngine {
 //: method completed.  Instead,  makensure it is declared as an instance variable:
 class AudioEngine {
     var oscillator: AKOscillator
-    
+
     init() {
         oscillator = AKOscillator()
         AudioKit.output = oscillator
@@ -51,3 +56,6 @@ do {
 } catch {
     AKLog("File Not Found")
 }
+
+//: ---
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
