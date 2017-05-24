@@ -16,6 +16,7 @@
 //: Then, moving on to working with AudioKit nodes:
 //:
 //: * [Connecting Nodes](Connecting%20Nodes)
+//: * [Connecting Nodes Part 2](Connecting%20Nodes%20Part%202)
 //: * [Mixing Nodes](Mixing%20Nodes)
 //: * [Splitting Nodes](Splitting%20Nodes)
 //: * [Dry Wet Mixer](Dry%20Wet%20Mixer)

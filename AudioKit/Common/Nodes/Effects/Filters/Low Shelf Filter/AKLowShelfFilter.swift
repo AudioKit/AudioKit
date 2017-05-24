@@ -43,6 +43,9 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 100
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
+    
+    // Store the internal effect
+    fileprivate var internalEffect: AVAudioUnitEffect
 
     // MARK: - Initialization
 
@@ -72,6 +75,8 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
         effectGain?.volume = 1
 
         let effect = _Self.effect
+        self.internalEffect = effect
+        
         au = AUWrapper(effect)
 
         super.init(avAudioNode: mixer.avAudioNode)
@@ -103,5 +108,13 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
             dryWetMix = 0
             isStarted = false
         }
+    }
+    
+    /// Disconnect the node
+    override open func disconnect() {
+        stop()
+        
+        disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.engine.detach(self.internalEffect)
     }
 }

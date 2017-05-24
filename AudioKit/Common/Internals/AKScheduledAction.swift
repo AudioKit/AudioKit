@@ -6,8 +6,6 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import Foundation
-
 class AKScheduledAction {
 
     private var interval: TimeInterval
@@ -35,7 +33,9 @@ class AKScheduledAction {
     }
 
     private dynamic func fire(timer: Timer) {
-        guard timer.isValid else { return }
+        guard timer.isValid else {
+            return
+        }
         self.block()
     }
 

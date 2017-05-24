@@ -39,7 +39,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Boolean indicating whether or not to loop the playback (Default false)
     open dynamic var looping: Bool {
         set {
-            guard  newValue != _looping else { return }
+            guard  newValue != _looping else {
+                return
+            }
             _looping = newValue
         }
         get { return _looping }
@@ -256,12 +258,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
         initialize()
     }
-
-    deinit {
-        AKLog("* AKAudioPlayer")
-        AudioKit.engine.detach(internalPlayer)
-    }
-
+    
     fileprivate var defaultBufferOptions: AVAudioPlayerNodeBufferOptions {
         return looping ? [.loops, .interrupts] : [.interrupts]
     }
@@ -562,5 +559,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             stop()
             completionHandler?()
         }
+    }
+    
+    // Disconnect the node
+    override open func disconnect() {
+        disconnect(nodes: [self.avAudioNode])
+        AudioKit.engine.detach(self.internalPlayer)
     }
 }

@@ -17,20 +17,20 @@ player.looping = true
 //: Route the audio player through the panner
 var panner = AKPanner(player)
 
-AudioKit.output = panner
-AudioKit.start()
-
-player.play()
-
 //: Adjust the pan to smoothly cycle left and right over time
-
 var time = 0.0
 let timeStep = 0.05
-AKPlaygroundLoop(every: timeStep) {
-    panner.pan
+let timer = AKPeriodicFunction(every: timeStep) {
     panner.pan = sin(time)
     time += timeStep
 }
+
+AudioKit.output = panner
+AudioKit.start(withPeriodicFunctions: timer)
+
+player.play()
+timer.start()
+timer.sporth
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

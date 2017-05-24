@@ -12,13 +12,10 @@ var delay = AKVariableDelay(player)
 delay.rampTime = 0.2
 AudioKit.output = delay
 
-AudioKit.start()
-player.play()
-
 var time = 0.0
 let timeStep = 0.1
 
-AKPlaygroundLoop(every: timeStep) {
+let modulation = AKPeriodicFunction(every: timeStep) {
 
     // Vary the delay time between 0.0 and 0.2 in a sinusoid at 2 hz
     let delayModulationHz = 0.1
@@ -30,6 +27,10 @@ AKPlaygroundLoop(every: timeStep) {
     delay.feedback = feedbackModulation
     time += timeStep
 }
+
+AudioKit.start(withPeriodicFunctions: modulation)
+player.play()
+modulation.start()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

@@ -48,4 +48,9 @@ open class AKDryWetMixer: AKNode {
         wetGain?.volume = balance
         mixer.connect(wetGain)
     }
+    
+    // Disconnect the node
+    override open func disconnect() {
+        disconnect(nodes: [mixer.avAudioNode, dryGain!.avAudioNode, wetGain!.avAudioNode])
+    }
 }

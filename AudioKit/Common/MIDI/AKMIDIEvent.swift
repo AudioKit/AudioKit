@@ -120,7 +120,7 @@ public struct AKMIDIEvent {
     ///
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
-    init(packet: MIDIPacket) {
+    public init(packet: MIDIPacket) {
         if packet.data.0 < 0xF0 {
             if let status = packet.status {
                 fillData(status: status,

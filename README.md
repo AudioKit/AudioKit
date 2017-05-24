@@ -54,7 +54,7 @@ In most cases, when building for iOS or tvOS, regardless of how you install the 
 ```
 
 ## Example Code
-There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.
+There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They simply play an oscillator and display the waveform.
 
 The examples rely on the frameworks being built so you can either download the precompiled frameworks or build them on your own:
 

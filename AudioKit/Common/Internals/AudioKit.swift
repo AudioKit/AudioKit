@@ -35,54 +35,46 @@ extension AVAudioEngine {
 
     static var shouldBeRunning = false
 
+    static var finalMixer = AKMixer()
+
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
-            if let existingOutput = output {
-                engine.connect(existingOutput.avAudioNode, to: engine.outputNode)
-            }
+            finalMixer.connect(output)
+            engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
     }
 
     // MARK: - Device Management
 
     /// Enumerate the list of available input devices.
-    open static var availableInputs: [AKDevice]? {
+    open static var inputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.inputDevices().map {
                 AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
             }
         #else
+            var returnDevices = [AKDevice]()
             if let devices = AVAudioSession.sharedInstance().availableInputs {
-                return devices.map {
-                    AKDevice(name: $0.portName, deviceID: $0.uid)
+                for device in devices {
+                    if device.dataSources!.isEmpty {
+                        returnDevices.append(AKDevice(name: device.portName, deviceID: device.uid))
+                    } else {
+                        for dataSource in device.dataSources! {
+                            returnDevices.append(AKDevice(name: device.portName,
+                                                          deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
+                        }
+                    }
                 }
+                return returnDevices
             }
             return nil
         #endif
     }
+
     /// Enumerate the list of available output devices.
-    open static var inputs: [AKDevice]? {
-        #if os(macOS)
-            EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-            return EZAudioDevice.inputDevices().map {
-                AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
-            }
-        #else
-            let devs = AVAudioSession.sharedInstance().currentRoute.inputs
-            if !devs.isEmpty {
-                var outs = [AKDevice]()
-                for dev in devs {
-                    outs.append(AKDevice(name: dev.portName, deviceID: dev.uid))
-                }
-                return outs
-            }
-            return nil
-        #endif
-    }
-    /// Enumerate the list of available output devices.
-    open static var outputs: [AKDevice]? {
+    open static var outputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.outputDevices().map {
@@ -111,9 +103,12 @@ extension AVAudioEngine {
             if let dev = AVAudioSession.sharedInstance().preferredInput {
                 return AKDevice(name: dev.portName, deviceID: dev.uid)
             } else {
-                let devs = AVAudioSession.sharedInstance().currentRoute.inputs
-                if !devs.isEmpty {
-                    return AKDevice(name: devs[0].portName, deviceID: devs[0].uid)
+                let inputDevices = AVAudioSession.sharedInstance().currentRoute.inputs
+                if !inputDevices.isEmpty {
+                    for device in inputDevices {
+                        let id = "\(device.uid) \(String(describing: device.selectedDataSource))".trimmingCharacters(in: [" "])
+                        return AKDevice(name: device.portName, deviceID: id)
+                    }
                 }
             }
         #endif
@@ -123,7 +118,7 @@ extension AVAudioEngine {
     /// The name of the current output device, if available.
     open static var outputDevice: AKDevice? {
         #if os(macOS)
-            if let dev = EZAudioDevice.currentInput() {
+            if let dev = EZAudioDevice.currentOutput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
             }
         #else
@@ -149,9 +144,37 @@ extension AVAudioEngine {
                 &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
+                for device in devices {
+                    if device.dataSources!.isEmpty {
+                        if device.uid == input.deviceID {
+                            do {
+                                try AVAudioSession.sharedInstance().setPreferredInput(device)
+                            } catch {
+                                AKLog("Could not set the preferred input to \(input)")
+                            }
+                        }
+                    } else {
+                        for dataSource in device.dataSources! {
+                            if input.deviceID == "\(device.uid) \(dataSource.dataSourceName)" {
+                                do {
+                                    try AVAudioSession.sharedInstance().setInputDataSource(dataSource)
+                                } catch {
+                                    AKLog("Could not set the preferred input to \(input)")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for dev in devices {
                     if dev.uid == input.deviceID {
-                        try AVAudioSession.sharedInstance().setPreferredInput(dev)
+                        do {
+                            try AVAudioSession.sharedInstance().setPreferredInput(dev)
+                        } catch {
+                            AKLog("Could not set the preferred input to \(input)")
+                        }
                     }
                 }
             }
@@ -175,6 +198,14 @@ extension AVAudioEngine {
     }
 
     // MARK: - Start/Stop
+
+    /// Start up the audio engine with periodic functions
+    open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) {
+        for function in functions {
+            finalMixer.connect(function)
+        }
+        start()
+    }
 
     /// Start up the audio engine
     open static func start() {
@@ -212,8 +243,10 @@ extension AVAudioEngine {
                     } else if AKSettings.useBluetooth {
 
                         if #available(iOS 10.0, *) {
-                            let opts: AVAudioSessionCategoryOptions = [.allowBluetooth, .allowBluetoothA2DP, .mixWithOthers]
-                            try AKSettings.setSession(category: .playAndRecord, with: opts)
+                            let options: AVAudioSessionCategoryOptions = [.allowBluetooth,
+                                                                          .allowBluetoothA2DP,
+                                                                          .mixWithOthers]
+                            try AKSettings.setSession(category: .playAndRecord, with: options)
                         } else {
                             // Fallback on earlier versions
                             try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
@@ -329,7 +362,7 @@ extension AVAudioEngine {
     // Restarts the engine after audio output has been changed, like headphones plugged in.
     @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         DispatchQueue.main.async {
-            if shouldBeRunning {
+            if shouldBeRunning && !engine.isRunning {
                 do {
                     try self.engine.start()
                     // Sends notification after restarting the engine, so it is safe to resume
@@ -346,6 +379,12 @@ extension AVAudioEngine {
                 }
             }
         }
+    }
+    
+    // MARK: - Disconnect node inputs
+    
+    @objc open static func disconnectAllInputs() {
+        engine.disconnectNodeInput(finalMixer.avAudioNode)
     }
 
     // MARK: - Deinitialization

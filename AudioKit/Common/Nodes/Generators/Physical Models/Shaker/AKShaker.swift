@@ -6,8 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-
-
 public enum AKShakerType: UInt8 {
     case maraca = 0
     case cabasa = 1
@@ -52,7 +50,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     open var type: AKShakerType = .maraca {
         willSet {
             if type != newValue {

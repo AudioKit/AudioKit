@@ -18,7 +18,16 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var waveformArray = [AKTable]()
+    open var waveformArray = [AKTable]() {
+        willSet {
+            self.waveformArray = newValue
+            for (i, waveform) in self.waveformArray.enumerated() {
+                for (j, sample) in waveform.enumerated() {
+                    self.internalAU?.setWaveform(UInt32(i), withValue: sample, at: UInt32(j))
+                }
+            }
+        }
+    }
 
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
@@ -222,11 +231,16 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
+    /// stops all notes
+    open func reset() {
+        internalAU?.reset()
+    }
+
     // MARK: - AKPolyphonic
 
-    /// Function to start, play, or activate the node, all do the same thing
-    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
-        internalAU?.startNote(noteNumber, velocity: velocity)
+    // Function to start, play, or activate the node at frequency
+    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
+        internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))
     }
 
     /// Function to stop or bypass the node, both are equivalent
