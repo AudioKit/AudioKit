@@ -18,6 +18,7 @@
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size;
 
 - (int)size;
+- (float)position;
 
 @end
 
