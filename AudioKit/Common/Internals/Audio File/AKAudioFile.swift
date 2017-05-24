@@ -33,11 +33,11 @@ extension AVAudioFile {
         return length
     }
 
-    /// strange that sampleRate is a Double and not an Integer !...
+    /// strange that sampleRate is a Double and not an Integer
     open var sampleRate: Double {
         return fileFormat.sampleRate
     }
-    /// Number of channels, 1 for mono, 2 for stereo...
+    /// Number of channels, 1 for mono, 2 for stereo
     open var channelCount: UInt32 {
         return fileFormat.channelCount
     }
@@ -272,7 +272,7 @@ extension AVAudioFile {
 
         if self.samplesCount > 0 {
             for c in 0..<Int(self.channelCount) {
-                let floats = UnsafeBufferPointer(start: buffer.floatChannelData?[c], count:Int(buffer.frameLength))
+                let floats = UnsafeBufferPointer(start: buffer.floatChannelData?[c], count: Int(buffer.frameLength))
                 let cmax = floats.max()
                 let cmin = floats.min()
 
@@ -363,7 +363,7 @@ extension AVAudioFile {
     /// with a floating Point encoding. As a consequence, such files will fail to record properly.
     /// So it's better to use .caf (or .aif) files for recording purpose.
     ///
-    public override init(forWriting fileURL: URL, settings: [String:Any]) throws {
+    public override init(forWriting fileURL: URL, settings: [String: Any]) throws {
         try super.init(forWriting: fileURL, settings: settings)
     }
 }

@@ -112,7 +112,7 @@ extension AKAudioFile {
 
         fixedSettings[AVNumberOfChannelsKey] = channels
 
-        try self.init(writeIn: baseDir, name: name)
+        try self.init(writeIn: baseDir, name: name, settings: fixedSettings)
 
         // create buffer for floats
         let format = AVAudioFormat(standardFormatWithSampleRate: 44_100,
@@ -146,7 +146,7 @@ extension AKAudioFile {
     /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
     ///
     /// - Parameters:
-    ///   - buffer: the :AVAudioPCMBuffer that will be used to fill the AKAudioFile
+    ///   - buffer: the AVAudioPCMBuffer that will be used to fill the AKAudioFile
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
     ///   - name: the name of the file without its extension (String).
     ///

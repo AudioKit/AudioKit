@@ -13,6 +13,7 @@
         <page name='Processing Audio File Asynchronously'/>
         <page name='Reading and Writing Audio Files'/>
         <page name='Recording Nodes'/>
+        <page name='Sample Player'/>
         <page name='Sampler'/>
         <page name='Sequencer'/>
         <page name='Time Stretching and Pitch Shifting'/>

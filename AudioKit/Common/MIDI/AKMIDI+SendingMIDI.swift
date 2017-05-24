@@ -64,7 +64,7 @@ extension AKMIDI {
             return
         }
         outputPort = tempPort
-        
+
         // To get all endpoints; and set in endpoints array (mapping without condition)
         if namedOutput == nil {
             _ = zip(destinationNames, MIDIDestinations()).map {
@@ -72,10 +72,8 @@ extension AKMIDI {
             }
         } else {
             // To get only  endpoint with name provided in namedOutput (conditional mapping)
-            _ = zip(destinationNames, MIDIDestinations()).first { name, _ in
-                namedOutput! == name
-                }.map {
-                    endpoints[$0] = $1
+            _ = zip(destinationNames, MIDIDestinations()).first { name, _ in namedOutput! == name }.map {
+                endpoints[$0] = $1
             }
         }
     }
