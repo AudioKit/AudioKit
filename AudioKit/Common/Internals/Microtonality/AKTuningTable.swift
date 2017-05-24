@@ -90,7 +90,7 @@
             return l2
         })
 
-        if !frequenciesAreValid {
+        if ❗️frequenciesAreValid {
             AKLog("Invalid input frequencies")
             return
         }

@@ -250,7 +250,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
             isStarted = false
         }
     }
-    
+
     /// Disconnect the node
     override open func disconnect() {
         stop()

@@ -86,7 +86,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 100
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
-    
+
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
 
@@ -131,7 +131,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
 
             let effect = _Self.effect
             self.internalEffect = effect
-        
+
             AudioKit.engine.attach(effect)
             au = AUWrapper(effect)
 
@@ -165,11 +165,11 @@ open class AKExpander: AKNode, AKToggleable, AUEffect {
             isStarted = false
         }
     }
-    
+
     /// Disconnect the node
     override open func disconnect() {
         stop()
-        
+
         disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }

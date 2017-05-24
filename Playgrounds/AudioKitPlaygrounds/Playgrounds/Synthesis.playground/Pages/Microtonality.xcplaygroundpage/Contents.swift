@@ -125,7 +125,7 @@ AudioKit.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Microtonal Morphing Oscillator")
 

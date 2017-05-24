@@ -190,7 +190,7 @@ open class AKSequencer {
     ///
     open func setLoopInfo(_ duration: AKDuration, numberOfLoops: Int) {
         if isAVSequencer {
-            AKLog("AKSequencer ERROR ! setLoopInfo only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR setLoopInfo only work if not isAVSequencer")
 
             //nothing yet
         } else {
@@ -313,7 +313,7 @@ open class AKSequencer {
     ///
     open func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
         if isAVSequencer {
-            AKLog("AKSequencer ERROR ! addTempoEventAt only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR addTempoEventAt only work if not isAVSequencer")
             return
         }
 
@@ -479,7 +479,7 @@ open class AKSequencer {
             }
         } else {
             //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
-            AKLog("AKSequencer ERROR ! setGlobalAVAudioUnitOutput only work if isAVSequencer ")
+            AKLog("AKSequencer ERROR setGlobalAVAudioUnitOutput only work if isAVSequencer")
         }
     }
 
@@ -573,7 +573,7 @@ open class AKSequencer {
     /// Get a new track
     open func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
         if isAVSequencer {
-            AKLog("AKSequencer ERROR ! newTrack only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR newTrack only work if not isAVSequencer")
             return nil
         }
 
@@ -600,7 +600,7 @@ open class AKSequencer {
     ///
     open func clearRange(start: AKDuration, duration: AKDuration) {
         if isAVSequencer {
-            AKLog("AKSequencer ERROR ! clearRange only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR clearRange only work if not isAVSequencer")
             return
         }
 
