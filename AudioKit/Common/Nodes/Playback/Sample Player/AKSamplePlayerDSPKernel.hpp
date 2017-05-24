@@ -193,7 +193,6 @@ private:
     float startPoint = 0;
     float endPoint = 1;
     float rate = 1;
-    float position = 0.0;
     float lastPosition = -1.0;
     bool loop = false;
 
@@ -204,6 +203,7 @@ public:
     ParameterRamper endPointRamper = 1;
     ParameterRamper rateRamper = 1;
     UInt32 ftbl_size = 4096;
+    float position = 0.0;
 };
 
 

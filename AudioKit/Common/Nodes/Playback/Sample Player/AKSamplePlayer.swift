@@ -84,9 +84,15 @@ open class AKSamplePlayer: AKNode, AKComponent {
             internalAU?.loop = newValue
         }
     }
-
+    
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
+    }
+    open var normalisedPosition: Double {
+        return Double(internalAU!.position())
+    }
+    open var position: Double {
+        return normalisedPosition * Double(size)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -107,9 +113,9 @@ open class AKSamplePlayer: AKNode, AKComponent {
         rate: Double = 1) {
 
         self.startPoint = startPoint
-        self.endPoint = endPoint
         self.rate = rate
         self.avAudiofile = file
+        self.endPoint = Sample(avAudiofile.samplesCount)
 
         _Self.register()
 
@@ -142,7 +148,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         })
         internalAU?.startPoint = Float(startPoint)
-        internalAU?.endPoint = Float(endPoint)
+        internalAU?.endPoint = Float(self.endPoint)
         internalAU?.rate = Float(rate)
 
         load(file: self.avAudiofile)
@@ -265,6 +271,9 @@ open class AKSamplePlayer: AKNode, AKComponent {
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
+                    self.avAudiofile = file
+                    self.startPoint = 0
+                    self.endPoint = Sample(file.samplesCount)
                 } else {
                     // failure
                     theData?.deallocate(capacity: Int(dataSize))
