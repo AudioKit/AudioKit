@@ -71,7 +71,6 @@ extension AKAudioFile {
             let filePath: String = try baseDir.create(file: extPath, write: true)
             let fileURL = URL(fileURLWithPath: filePath)
 
-            
             // Directory exists ?
             let absDirPath = fileURL.deletingLastPathComponent().path
 
