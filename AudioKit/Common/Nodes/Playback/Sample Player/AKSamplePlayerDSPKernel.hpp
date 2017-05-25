@@ -152,8 +152,7 @@ public:
             endPoint = double(endPointRamper.getAndStep());
             rate = double(rateRamper.getAndStep());
             
-            SPFLOAT dur;
-            dur = (SPFLOAT)ftbl_size / sp->sr;
+            SPFLOAT dur = (SPFLOAT)ftbl_size / sp->sr;
             
             //length of playableSample vs actual
             int subsectionLength = endPoint - startPoint;
@@ -170,6 +169,7 @@ public:
                     *outR = *outL;
                     if (!loop && position < lastPosition) {
                         started = false;
+                        completionHandler();
                     } else {
                         lastPosition = position;
                     }
@@ -202,6 +202,7 @@ public:
     ParameterRamper startPointRamper = 0;
     ParameterRamper endPointRamper = 1;
     ParameterRamper rateRamper = 1;
+    AKCCallback completionHandler = nullptr;
     UInt32 ftbl_size = 4096;
     float position = 0.0;
 };
