@@ -6,7 +6,9 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "alphabet.mp3", baseDir: .resources)
 
-let samplePlayer = AKSamplePlayer(file: file)
+let samplePlayer = AKSamplePlayer(file: file) {
+    print("Playback completed.")
+}
 
 AudioKit.output = samplePlayer
 AudioKit.start()
