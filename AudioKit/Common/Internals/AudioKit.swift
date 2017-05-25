@@ -12,7 +12,7 @@ import CoreAudioKit
 
 import Dispatch
 
-public typealias AKCallback = (Void) -> Void
+public typealias AKCallback = () -> Void
 
 extension AVAudioEngine {
     open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {

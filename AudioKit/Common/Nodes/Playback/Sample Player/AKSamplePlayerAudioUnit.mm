@@ -26,6 +26,10 @@
 - (void)setEndPoint:(float)endPoint {
     _kernel.setEndPoint(endPoint);
 }
+
+-(void)setCompletionHandler:(AKCCallback)handler {
+    _kernel.completionHandler = handler;
+}
 - (void)setRate:(float)rate {
     _kernel.setRate(rate);
 }
@@ -71,7 +75,6 @@ standardKernelPassthroughs()
                                                       min:0
                                                       max:10
                                                      unit:kAudioUnitParameterUnit_Generic];
-
     // Initialize the parameter values.
     startPointAUParameter.value = 0;
     endPointAUParameter.value = 1;

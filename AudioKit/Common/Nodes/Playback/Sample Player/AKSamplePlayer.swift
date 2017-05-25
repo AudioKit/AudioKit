@@ -10,6 +10,8 @@ import Foundation
 
 public typealias Sample = UInt32
 
+public typealias AKCCallback = @convention(block) () -> Void
+
 open class AKSamplePlayer: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
@@ -101,7 +103,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     fileprivate var avAudiofile: AVAudioFile
-
+    
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node
@@ -110,13 +112,13 @@ open class AKSamplePlayer: AKNode, AKComponent {
         file: AVAudioFile,
         startPoint: Sample = 0,
         endPoint: Sample = 0,
-        rate: Double = 1) {
+        rate: Double = 1,
+        completionHandler: @escaping AKCCallback = { }) {
 
         self.startPoint = startPoint
         self.rate = rate
         self.avAudiofile = file
         self.endPoint = Sample(avAudiofile.samplesCount)
-
         _Self.register()
 
         super.init()
@@ -125,6 +127,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self!.internalAU!.completionHandler = completionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {
