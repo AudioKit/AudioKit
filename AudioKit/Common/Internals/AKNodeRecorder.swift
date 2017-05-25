@@ -182,7 +182,7 @@
         let url = internalAudioFile.url
 
         do {
-            if let path = audioFile?.url.absoluteString {
+            if let path = audioFile?.url.path {
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
