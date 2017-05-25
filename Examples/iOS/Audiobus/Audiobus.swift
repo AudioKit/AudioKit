@@ -65,8 +65,8 @@ class Audiobus {
 
                 if type == kAudioUnitType_RemoteInstrument ||
                     type == kAudioUnitType_RemoteGenerator {
-                    self.controller.addSenderPort(
-                        ABSenderPort(
+                    self.controller.addAudioSenderPort(
+                        ABAudioSenderPort(
                             name: name,
                             title: name,
                             audioComponentDescription: AudioComponentDescription(
@@ -81,8 +81,8 @@ class Audiobus {
                     )
                 }
                 if type == kAudioUnitType_RemoteEffect {
-                    self.controller.addFilterPort(
-                        ABFilterPort(
+                    self.controller.addAudioFilterPort(
+                        ABAudioFilterPort(
                             name: name,
                             title: name,
                             audioComponentDescription: AudioComponentDescription(
@@ -115,7 +115,7 @@ class Audiobus {
     }
 
     var isConnectedToInput: Bool {
-        return controller.isConnectedToAudiobus(portOfType: ABPortTypeSender) ||
+        return controller.isConnectedToAudiobus(portOfType: ABPortTypeAudioSender) ||
             audioUnit.isConnectedToInterAppAudio(nodeOfType: kAudioUnitType_RemoteEffect)
     }
 
