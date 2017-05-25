@@ -69,10 +69,10 @@ extension AKAudioFile {
         throws {
             let extPath: String = "\(name ?? UUID().uuidString).caf"
             let filePath: String = try baseDir.create(file: extPath, write: true)
-            let nsurl = try URL(string: filePath) ?? .fileCreateError
+            let fileURL = URL(fileURLWithPath: filePath)
 
             // Directory exists ?
-            let absDirPath = nsurl.deletingLastPathComponent().absoluteString
+            let absDirPath = fileURL.deletingLastPathComponent().path
 
             _ = try FileManager.default.fileExists(atPath: absDirPath) || .fileCreateError
 
@@ -82,7 +82,7 @@ extension AKAudioFile {
             fixedSettings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
             do {
-                try self.init(forWriting: nsurl, settings: fixedSettings)
+                try self.init(forWriting: fileURL, settings: fixedSettings)
             } catch let error as NSError {
                 AKLog("ERROR AKAudioFile: Couldn't create an AKAudioFile...")
                 AKLog("Error: \(error)")
