@@ -17,6 +17,11 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Sample Player")
 
+        addSubview(AKButton(title: "Play") {
+            samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
+                              length: Sample(40_000))
+            return "Play"
+        })
         addSubview(AKButton(title: "Next") {
             self.current += 1
             samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
