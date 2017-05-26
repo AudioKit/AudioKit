@@ -32,7 +32,8 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_tabread_create(&tabread);
+        sp_tabread_create(&tabread1);
+        sp_tabread_create(&tabread2);
         sp_phasor_create(&phasor);
 
         startPointRamper.init();
@@ -44,11 +45,12 @@ public:
     void start() {
         started = true;
 
-        sp_tabread_init(sp, tabread, ftbl, 1);
+        sp_tabread_init(sp, tabread1, ftbl1, 1);
+        sp_tabread_init(sp, tabread2, ftbl2, 1);
         sp_phasor_init(sp, phasor, 0.0);
         
         SPFLOAT dur;
-        dur = (SPFLOAT)ftbl->size / sp->sr;
+        dur = (SPFLOAT)ftbl1->size / sp->sr;
         phasor->freq = 1.0 / dur * rate;
         lastPosition = -1.0;
     }
@@ -58,13 +60,25 @@ public:
     }
     
     void setUpTable(float *table, UInt32 size) {
-        ftbl_size = size;
-        sp_ftbl_create(sp, &ftbl, ftbl_size);
-        ftbl->tbl = table;
+        ftbl_size = size / 2;
+        sp_ftbl_create(sp, &ftbl1, ftbl_size);
+        sp_ftbl_create(sp, &ftbl2, ftbl_size);
+        int counter1 = 0;
+        int counter2 = 0;
+        for (int i = 0; i < size; i++) {
+            if (i % 2 == 0) {
+                ftbl1->tbl[counter1] = table[i];
+                counter1++;
+            } else {
+                ftbl2->tbl[counter2] = table[i];
+                counter2++;
+            }
+        }
     }
 
     void destroy() {
-        sp_tabread_destroy(&tabread);
+        sp_tabread_destroy(&tabread1);
+        sp_tabread_destroy(&tabread2);
         AKSoundpipeKernel::destroy();
     }
 
@@ -177,15 +191,19 @@ public:
             float percentLen = (float)subsectionLength / (float)ftbl_size;
             phasor->freq = fabs(1.0 / dur  * rate / percentLen);
             
-//            for (int channel = 0; channel < channels; ++channel) {
-                float *outL = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
-                float *outR = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
+            for (int channel = 0; channel < channels; ++channel) {
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
-                    sp_phasor_compute(sp, phasor, NULL, &position);
-                    tabread->index = position * percentLen + (startPoint / ftbl_size);
-                    sp_tabread_compute(sp, tabread, NULL, outL);
-                    *outL *= volume;
-                    *outR = *outL;
+                    if (channel == 0) {
+                        sp_phasor_compute(sp, phasor, NULL, &position);
+                        tabread1->index = position * percentLen + (startPoint / ftbl_size);
+                        tabread2->index = position * percentLen + (startPoint / ftbl_size);
+                        sp_tabread_compute(sp, tabread1, NULL, out);
+                    } else {
+                        sp_tabread_compute(sp, tabread2, NULL, out);
+                    }
+                    *out *= volume;
+
                     if (!loop && position < lastPosition) {
                         started = false;
                         completionHandler();
@@ -193,11 +211,10 @@ public:
                         lastPosition = position;
                     }
                 } else {
-                    *outL = 0;
-                    *outR = 0;
+                    *out = 0;
                 }
 
-//            }
+            }
         }
     }
 
@@ -206,8 +223,10 @@ public:
 private:
 
     sp_phasor *phasor;
-    sp_tabread *tabread;
-    sp_ftbl *ftbl;
+    sp_tabread *tabread1;
+    sp_tabread *tabread2;
+    sp_ftbl *ftbl1;
+    sp_ftbl *ftbl2;
 
     float startPoint = 0;
     float endPoint = 1;
