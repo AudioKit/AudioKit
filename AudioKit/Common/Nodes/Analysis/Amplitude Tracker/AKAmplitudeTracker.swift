@@ -6,6 +6,8 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+public typealias AKThresholdCallback = @convention(block) (Bool) -> Void
+
 /// Performs a "root-mean-square" on a signal to get overall amplitude of a
 /// signal. The output signal looks similar to that of a classic VU meter.
 ///
@@ -18,17 +20,6 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
-
-    /// Half-power point (in Hz) of internal lowpass filter.
-    open dynamic var halfPowerPoint: Double = 10 {
-        willSet {
-            if halfPowerPoint != newValue {
-                if let existingToken = token {
-                    halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
-                }
-            }
-        }
-    }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted: Bool {
@@ -43,6 +34,13 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
             return 0.0
         }
     }
+    
+    /// Threshold amplitude
+    open dynamic var threshold: Double = 1 {
+        willSet {
+            internalAU?.threshold = Float(newValue)
+        }
+    }
 
     // MARK: - Initialization
 
@@ -54,9 +52,9 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode?,
-        halfPowerPoint: Double = 10) {
-
-        self.halfPowerPoint = halfPowerPoint
+        halfPowerPoint: Double = 10,
+        threshold: Double = 1,
+        thresholdCallback: @escaping AKThresholdCallback = { _ in }) {
 
         _Self.register()
 
@@ -65,27 +63,15 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
+            self!.internalAU!.thresholdCallback = thresholdCallback
+            
+            if let au = self?.internalAU {
+                au.setHalfPowerPoint(Float(halfPowerPoint))
+            }
+            
             input?.addConnectionPoint(self!)
         }
 
-        guard let tree = internalAU?.parameterTree else {
-            return
-        }
-
-        halfPowerPointParameter = tree["halfPowerPoint"]
-
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
-
-            DispatchQueue.main.async {
-                if address == self?.halfPowerPointParameter?.address {
-                    self?.halfPowerPoint = Double(value)
-                }
-            }
-        })
-        if let existingToken = token {
-            halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: existingToken)
-        }
     }
 
     deinit {

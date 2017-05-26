@@ -10,7 +10,12 @@
 
 #import "AKAudioUnit.h"
 
+typedef void (^AKThresholdCallback)(BOOL);
+
 @interface AKAmplitudeTrackerAudioUnit : AKAudioUnit
 @property (readonly) float amplitude;
+@property (nonatomic) float threshold;
+@property (nonatomic) AKThresholdCallback thresholdCallback;
+- (void)setHalfPowerPoint:(float)halfPowerPoint;
 @end
 

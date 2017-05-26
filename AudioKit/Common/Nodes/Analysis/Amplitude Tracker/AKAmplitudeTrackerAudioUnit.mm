@@ -20,45 +20,28 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)start {
-    _kernel.start();
-}
-
-- (void)stop {
-    _kernel.stop();
-}
-
-- (BOOL)isPlaying {
-    return _kernel.started;
-}
-
 - (float)amplitude {
     return _kernel.trackedAmplitude;
 }
 
+- (void)setHalfPowerPoint:(float)halfPowerPoint {
+    _kernel.setHalfPowerPoint(halfPowerPoint);
+}
+
+- (void)setThreshold:(float)threshold {
+    _kernel.setThreshold(threshold);
+}
+
+-(void)setThresholdCallback:(AKThresholdCallback)thresholdCallback {
+    _kernel.thresholdCallback = thresholdCallback;
+}
+
+standardKernelPassthroughs()
+
 - (void)createParameters {
 
     standardSetup(AmplitudeTracker)
-
-    // Create a parameter object for the halfPowerPoint.
-    AUParameter *halfPowerPointAUParameter = [AUParameter parameter:@"halfPowerPoint"
-                                                               name:@"Half-power point (Hz)"
-                                                            address:halfPowerPointAddress
-                                                                min:0
-                                                                max:20000
-                                                               unit:kAudioUnitParameterUnit_Hertz];
-
-    // Initialize the parameter values.
-    halfPowerPointAUParameter.value = 10;
-
-    _kernel.setParameter(halfPowerPointAddress, halfPowerPointAUParameter.value);
-
-    // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        halfPowerPointAUParameter
-    ]];
-    
-    parameterTreeBlock(AmplitudeTracker)
+//    parameterTreeBlock(AmplitudeTracker)
 }
 
 AUAudioUnitOverrides(AmplitudeTracker)
