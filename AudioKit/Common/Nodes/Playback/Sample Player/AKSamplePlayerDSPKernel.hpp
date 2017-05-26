@@ -19,7 +19,8 @@ extern "C" {
 enum {
     startPointAddress = 0,
     endPointAddress = 1,
-    rateAddress = 2
+    rateAddress = 2,
+    gainAddress = 3
 };
 
 class AKSamplePlayerDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
@@ -37,6 +38,7 @@ public:
         startPointRamper.init();
         endPointRamper.init();
         rateRamper.init();
+        gainRamper.init();
     }
 
     void start() {
@@ -71,6 +73,7 @@ public:
         startPointRamper.reset();
         endPointRamper.reset();
         rateRamper.reset();
+        gainRamper.reset();
     }
 
     void setStartPoint(float value) {
@@ -87,7 +90,12 @@ public:
         rate = clamp(value, 0.0f, 10.0f);
         rateRamper.setImmediate(rate);
     }
-    
+
+    void setGain(float value) {
+        gain = clamp(value, 0.0f, 10.0f);
+        gainRamper.setImmediate(gain);
+    }
+
     void setLoop(bool value) {
         loop = value;
     }
@@ -107,6 +115,9 @@ public:
                 rateRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
+            case gainAddress:
+                gainRamper.setUIValue(clamp(value, 0.0f, 10.0f));
+                break;
         }
     }
 
@@ -121,6 +132,9 @@ public:
             case rateAddress:
                 return rateRamper.getUIValue();
 
+            case gainAddress:
+                return gainRamper.getUIValue();
+                
             default: return 0.0f;
         }
     }
@@ -139,6 +153,9 @@ public:
                 rateRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
+            case gainAddress:
+                gainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
+                break;
         }
     }
 
@@ -151,6 +168,7 @@ public:
             startPoint = double(startPointRamper.getAndStep());
             endPoint = double(endPointRamper.getAndStep());
             rate = double(rateRamper.getAndStep());
+            gain = double(gainRamper.getAndStep());
             
             SPFLOAT dur = (SPFLOAT)ftbl_size / sp->sr;
             
@@ -166,6 +184,7 @@ public:
                     sp_phasor_compute(sp, phasor, NULL, &position);
                     tabread->index = position * percentLen + (startPoint / ftbl_size);
                     sp_tabread_compute(sp, tabread, NULL, outL);
+                    *outL *= gain;
                     *outR = *outL;
                     if (!loop && position < lastPosition) {
                         started = false;
@@ -193,6 +212,7 @@ private:
     float startPoint = 0;
     float endPoint = 1;
     float rate = 1;
+    float gain = 1;
     float lastPosition = -1.0;
     bool loop = false;
 
@@ -202,6 +222,7 @@ public:
     ParameterRamper startPointRamper = 0;
     ParameterRamper endPointRamper = 1;
     ParameterRamper rateRamper = 1;
+    ParameterRamper gainRamper = 1;
     AKCCallback completionHandler = nullptr;
     UInt32 ftbl_size = 4096;
     float position = 0.0;
