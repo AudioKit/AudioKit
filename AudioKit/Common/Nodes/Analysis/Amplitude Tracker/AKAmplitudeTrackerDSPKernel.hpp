@@ -54,6 +54,10 @@ public:
     void setHalfPowerPoint(float value) {
         halfPowerPoint = value;
     }
+    
+//    void setSmoothness(float value) {
+//        smoothness = value;
+//    } //in development
 
     void setParameter(AUParameterAddress address, AUValue value) {
     }
@@ -87,13 +91,11 @@ public:
         
         bool wasAboveThreshold = isAboveThreshold;
         
-        if (trackedAmplitude > threshold * 1.05 && !wasAboveThreshold) {
-            printf("got to threshold %f\n",trackedAmplitude);
+        if (trackedAmplitude > threshold && !wasAboveThreshold) {
             isAboveThreshold = true;
             thresholdCallback(true);
         }
-        if (wasAboveThreshold && trackedAmplitude < threshold * 0.95) {
-            printf("dropped from threshold %f\n", trackedAmplitude);
+        if (wasAboveThreshold && trackedAmplitude < threshold) {
             isAboveThreshold = false;
             thresholdCallback(false);
         }
@@ -112,5 +114,6 @@ public:
     bool resetted = false;
     float trackedAmplitude = 0.0;
     bool isAboveThreshold = false;
+    //float smoothness = 0.05; //in development
     AKThresholdCallback thresholdCallback = nullptr;
 };
