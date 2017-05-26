@@ -25,6 +25,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?
     fileprivate var rateParameter: AUParameter?
+    fileprivate var gainParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -78,6 +79,21 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         }
     }
+    
+    /// Gain - amplitude adjustment
+    open dynamic var gain: Double = 1 {
+        willSet {
+            if gain != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        gainParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.gain = Float(newValue)
+                }
+            }
+        }
+    }
 
     /// Loop Enabled - if enabled, the sample will loop back to the startpoint when the endpoint is reached.
     /// When disabled, the sample will play through once from startPoint to endPoint
@@ -115,10 +131,12 @@ open class AKSamplePlayer: AKNode, AKComponent {
         startPoint: Sample = 0,
         endPoint: Sample = 0,
         rate: Double = 1,
+        gain: Double = 1,
         completionHandler: @escaping AKCCallback = { }) {
 
         self.startPoint = startPoint
         self.rate = rate
+        self.gain = gain
         self.avAudiofile = file
         self.endPoint = Sample(avAudiofile.samplesCount)
         _Self.register()
@@ -139,6 +157,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         startPointParameter = tree["startPoint"]
         endPointParameter = tree["endPoint"]
         rateParameter = tree["rate"]
+        gainParameter = tree["gain"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
@@ -149,12 +168,15 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     self?.endPoint = Sample(value)
                 } else if address == self?.rateParameter?.address {
                     self?.rate = Double(value)
+                } else if address == self?.gainParameter?.address {
+                    self?.gain = Double(value)
                 }
             }
         })
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.rate = Float(rate)
+        internalAU?.gain = Float(gain)
 
         load(file: self.avAudiofile)
     }

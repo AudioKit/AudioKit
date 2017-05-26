@@ -15,6 +15,7 @@ typedef void (^AKCCallback)();
 @property (nonatomic) float startPoint;
 @property (nonatomic) float endPoint;
 @property (nonatomic) float rate;
+@property (nonatomic) float gain;
 @property (nonatomic) BOOL loop;
 @property (nonatomic) AKCCallback completionHandler;
 
