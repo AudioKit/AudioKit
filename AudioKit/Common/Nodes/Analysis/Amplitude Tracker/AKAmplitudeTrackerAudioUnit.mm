@@ -31,6 +31,9 @@
 - (void)setThreshold:(float)threshold {
     _kernel.setThreshold(threshold);
 }
+//- (void)setSmoothness:(float)smoothness {
+//    _kernel.setSmoothness(smoothness);
+//} //in development
 
 -(void)setThresholdCallback:(AKThresholdCallback)thresholdCallback {
     _kernel.thresholdCallback = thresholdCallback;
