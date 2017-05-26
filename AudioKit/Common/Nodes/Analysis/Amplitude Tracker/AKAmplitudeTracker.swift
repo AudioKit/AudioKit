@@ -20,6 +20,11 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
+//    open var smoothness: Double = 1 { // should be 0 and above
+//        willSet {
+//            internalAU?.smoothness = 0.05 * Float(newValue)
+//        }
+//    } //in development
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted: Bool {
