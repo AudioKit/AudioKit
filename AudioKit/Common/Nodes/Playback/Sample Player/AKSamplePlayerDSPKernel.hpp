@@ -203,17 +203,15 @@ public:
                         sp_tabread_compute(sp, tabread2, NULL, out);
                     }
                     *out *= volume;
-
-                    if (!loop && position < lastPosition) {
-                        started = false;
-                        completionHandler();
-                    } else {
-                        lastPosition = position;
-                    }
                 } else {
                     *out = 0;
                 }
-
+            }
+            if (!loop && position < lastPosition) {
+                started = false;
+                completionHandler();
+            } else {
+                lastPosition = position;
             }
         }
     }
