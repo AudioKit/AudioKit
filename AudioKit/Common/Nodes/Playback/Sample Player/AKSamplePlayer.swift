@@ -90,11 +90,13 @@ open class AKSamplePlayer: AKNode, AKComponent {
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
     }
-    open var normalisedPosition: Double {
+    
+    open var normalizedPosition: Double {
         return Double(internalAU!.position())
     }
+    
     open var position: Double {
-        return normalisedPosition * Double(size)
+        return normalizedPosition * Double(size)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
