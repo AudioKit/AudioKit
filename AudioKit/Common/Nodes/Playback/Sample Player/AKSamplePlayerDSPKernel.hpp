@@ -20,7 +20,7 @@ enum {
     startPointAddress = 0,
     endPointAddress = 1,
     rateAddress = 2,
-    gainAddress = 3
+    volumeAddress = 3
 };
 
 class AKSamplePlayerDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
@@ -38,7 +38,7 @@ public:
         startPointRamper.init();
         endPointRamper.init();
         rateRamper.init();
-        gainRamper.init();
+        volumeRamper.init();
     }
 
     void start() {
@@ -73,7 +73,7 @@ public:
         startPointRamper.reset();
         endPointRamper.reset();
         rateRamper.reset();
-        gainRamper.reset();
+        volumeRamper.reset();
     }
 
     void setStartPoint(float value) {
@@ -91,9 +91,9 @@ public:
         rateRamper.setImmediate(rate);
     }
 
-    void setGain(float value) {
-        gain = clamp(value, 0.0f, 10.0f);
-        gainRamper.setImmediate(gain);
+    void setVolume(float value) {
+        volume = clamp(value, 0.0f, 10.0f);
+        volumeRamper.setImmediate(volume);
     }
 
     void setLoop(bool value) {
@@ -115,8 +115,8 @@ public:
                 rateRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
-            case gainAddress:
-                gainRamper.setUIValue(clamp(value, 0.0f, 10.0f));
+            case volumeAddress:
+                volumeRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
         }
     }
@@ -132,8 +132,8 @@ public:
             case rateAddress:
                 return rateRamper.getUIValue();
 
-            case gainAddress:
-                return gainRamper.getUIValue();
+            case volumeAddress:
+                return volumeRamper.getUIValue();
                 
             default: return 0.0f;
         }
@@ -153,8 +153,8 @@ public:
                 rateRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
-            case gainAddress:
-                gainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
+            case volumeAddress:
+                volumeRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
         }
     }
@@ -168,7 +168,7 @@ public:
             startPoint = double(startPointRamper.getAndStep());
             endPoint = double(endPointRamper.getAndStep());
             rate = double(rateRamper.getAndStep());
-            gain = double(gainRamper.getAndStep());
+            volume = double(volumeRamper.getAndStep());
             
             SPFLOAT dur = (SPFLOAT)ftbl_size / sp->sr;
             
@@ -184,7 +184,7 @@ public:
                     sp_phasor_compute(sp, phasor, NULL, &position);
                     tabread->index = position * percentLen + (startPoint / ftbl_size);
                     sp_tabread_compute(sp, tabread, NULL, outL);
-                    *outL *= gain;
+                    *outL *= volume;
                     *outR = *outL;
                     if (!loop && position < lastPosition) {
                         started = false;
@@ -212,7 +212,7 @@ private:
     float startPoint = 0;
     float endPoint = 1;
     float rate = 1;
-    float gain = 1;
+    float volume = 1;
     float lastPosition = -1.0;
     bool loop = false;
 
@@ -222,7 +222,7 @@ public:
     ParameterRamper startPointRamper = 0;
     ParameterRamper endPointRamper = 1;
     ParameterRamper rateRamper = 1;
-    ParameterRamper gainRamper = 1;
+    ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;
     UInt32 ftbl_size = 4096;
     float position = 0.0;

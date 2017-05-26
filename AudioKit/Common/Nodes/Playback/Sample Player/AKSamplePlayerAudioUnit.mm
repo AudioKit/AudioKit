@@ -33,8 +33,8 @@
 - (void)setRate:(float)rate {
     _kernel.setRate(rate);
 }
-- (void)setGain:(float)gain {
-    _kernel.setGain(gain);
+- (void)setVolume:(float)volume {
+    _kernel.setVolume(volume);
 }
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
@@ -79,30 +79,30 @@ standardKernelPassthroughs()
                                                       max:10
                                                      unit:kAudioUnitParameterUnit_Generic];
 
-    // Create a parameter object for the gain.
-    AUParameter *gainAUParameter = [AUParameter parameter:@"gain"
-                                                     name:@"gain"
-                                                  address:gainAddress
-                                                      min:0
-                                                      max:10
-                                                     unit:kAudioUnitParameterUnit_Generic];
+    // Create a parameter object for the volume.
+    AUParameter *volumeAUParameter = [AUParameter parameter:@"volume"
+                                                       name:@"volume"
+                                                    address:volumeAddress
+                                                        min:0
+                                                        max:10
+                                                       unit:kAudioUnitParameterUnit_Generic];
     // Initialize the parameter values.
     startPointAUParameter.value = 0;
     endPointAUParameter.value = 1;
     rateAUParameter.value = 1;
-    gainAUParameter.value = 1;
+    volumeAUParameter.value = 1;
 
     _kernel.setParameter(startPointAddress,   startPointAUParameter.value);
     _kernel.setParameter(endPointAddress,  endPointAUParameter.value);
     _kernel.setParameter(rateAddress, rateAUParameter.value);
-    _kernel.setParameter(gainAddress, gainAUParameter.value);
+    _kernel.setParameter(volumeAddress, volumeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
         startPointAUParameter,
         endPointAUParameter,
         rateAUParameter,
-        gainAUParameter
+        volumeAUParameter
     ]];
 
 	parameterTreeBlock(SamplePlayer)
