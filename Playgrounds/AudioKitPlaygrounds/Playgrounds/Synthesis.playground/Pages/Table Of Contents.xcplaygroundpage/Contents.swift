@@ -34,6 +34,9 @@
 //: * [Morphing Oscillator](Morphing%20Oscillator)
 //: * [Phase Distortion Oscillator](Phase%20Distortion%20Oscillator)
 //: * [Pulse Width Modulation Oscillator](PWM%20Oscillator)
+//: 
+//: New in AudioKit 3.7 is Microtonality capability:
+//: * [Microtonality](Microtonality)
 //:
 //: Oscillators are the basis of many synths which also usually have envelopes:
 //:
