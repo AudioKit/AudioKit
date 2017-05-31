@@ -18,19 +18,20 @@ class PlaygroundView: AKPlaygroundView {
         timeSlider = AKPropertySlider(
             property: "",
             value: 0,
-            color: AKColor.green
+            color: AKColor.yellow
         ) { _ in
             // Nothing
         }
         addSubview(timeSlider)
         
-        addSubview(AKButton(title: "Stop") {
+        addSubview(AKButton(title: "Stop", color: AKColor.red) {
             timer.stop()
             return ""
         })
         
         addSubview(AKButton(title: "Start") {
             timer.restart()
+            timer.parameters[2] = -1
             return ""
         })
         
@@ -58,13 +59,13 @@ let view = PlaygroundView()
 
 let callback: AKCallback = { _ in
     view.timeSlider.value = 1.0
-    view.timeSlider.property = "Beat \(1 + Int((timer.parameters[2] + 1).truncatingRemainder(dividingBy: 4)))"
+    view.timeSlider.property = "Beat \(1 + Int((timer.parameters[2] + 1).truncatingRemainder(dividingBy: timer.parameters[1])))"
 
     DispatchQueue.main.async {
         view.timeSlider.needsDisplay = true
     }
     
-    let deadlineTime = DispatchTime.now() + 0.1
+    let deadlineTime = DispatchTime.now() + (60/timer.parameters[0])/10.0
     DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
         view.timeSlider.value = 0.0
     }
