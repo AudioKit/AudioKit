@@ -597,6 +597,7 @@
 		C4A1073E1E6963C10018848C /* AKBrownianNoiseDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A1073A1E6963C10018848C /* AKBrownianNoiseDSPKernel.hpp */; };
 		C4A1075C1E696F2A0018848C /* brown.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A1075B1E696F2A0018848C /* brown.c */; };
 		C4A107621E696F8D0018848C /* brownianNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A107611E696F8D0018848C /* brownianNoise.swift */; };
+		C4A8A4C21EE3FFF400FDBE68 /* AKMetronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A8A4C11EE3FFF400FDBE68 /* AKMetronome.swift */; };
 		C4A916121C24ED23006C1A15 /* pluckedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916111C24ED23006C1A15 /* pluckedString.swift */; };
 		C4A9164E1C24F95E006C1A15 /* metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A9164A1C24F95E006C1A15 /* metronome.swift */; };
 		C4A9164F1C24F95E006C1A15 /* periodicTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A9164B1C24F95E006C1A15 /* periodicTrigger.swift */; };
@@ -1436,6 +1437,7 @@
 		C4A1073A1E6963C10018848C /* AKBrownianNoiseDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBrownianNoiseDSPKernel.hpp; sourceTree = "<group>"; };
 		C4A1075B1E696F2A0018848C /* brown.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brown.c; sourceTree = "<group>"; };
 		C4A107611E696F8D0018848C /* brownianNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = brownianNoise.swift; sourceTree = "<group>"; };
+		C4A8A4C11EE3FFF400FDBE68 /* AKMetronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKMetronome.swift; path = Metronome/AKMetronome.swift; sourceTree = "<group>"; };
 		C4A916111C24ED23006C1A15 /* pluckedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pluckedString.swift; sourceTree = "<group>"; };
 		C4A9164A1C24F95E006C1A15 /* metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = metronome.swift; sourceTree = "<group>"; };
 		C4A9164B1C24F95E006C1A15 /* periodicTrigger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = periodicTrigger.swift; sourceTree = "<group>"; };
@@ -2841,6 +2843,7 @@
 		C46303D91C2126A2009B44D9 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				C4A8A4C01EE3FF9D00FDBE68 /* Metronome */,
 				C4E13D271C42360C008F0A3C /* Phase-Locked Vocoder */,
 				C40C42AC1C420C1D009D870B /* Player */,
 				C40C42AE1C420C1D009D870B /* Sampler */,
@@ -3500,6 +3503,14 @@
 				C4A1073A1E6963C10018848C /* AKBrownianNoiseDSPKernel.hpp */,
 			);
 			path = "Brownian Noise";
+			sourceTree = "<group>";
+		};
+		C4A8A4C01EE3FF9D00FDBE68 /* Metronome */ = {
+			isa = PBXGroup;
+			children = (
+				C4A8A4C11EE3FFF400FDBE68 /* AKMetronome.swift */,
+			);
+			name = Metronome;
 			sourceTree = "<group>";
 		};
 		C4A916101C24ED23006C1A15 /* Physical Models */ = {
@@ -4216,6 +4227,7 @@
 				C4F8C8C11DCA8CE4001F38F2 /* clip.c in Sources */,
 				C4537FE21C3A438D00A51738 /* AKPeakingParametricEqualizerFilter.swift in Sources */,
 				6520FFC21D361B030052410C /* resonantFilter.swift in Sources */,
+				C4A8A4C21EE3FFF400FDBE68 /* AKMetronome.swift in Sources */,
 				8D0E46591D3827970000CCF8 /* AKAudioFile+Peripherals.swift in Sources */,
 				C453800C1C3A4CCE00A51738 /* AKReverb.swift in Sources */,
 				C4537F331C39D2A300A51738 /* AKTanhDistortion.swift in Sources */,
