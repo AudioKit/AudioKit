@@ -88,6 +88,5 @@
 //: Sporth is a simple but super-powerful stack-based audio processing language
 //: that you can run directly in AudioKit. This playground contains several examples of sound synthesis with Sporth.
 //:
-//: * [Metronome with Callback](Metronome%20with%20Callback)
 //: * [Sporth Based Generator](Sporth%20Based%20Generator)
 //:
