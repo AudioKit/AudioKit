@@ -156,7 +156,6 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
             for (i, sample) in waveform.enumerated() {
                 self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
-
         }
 
         guard let tree = internalAU?.parameterTree else {
