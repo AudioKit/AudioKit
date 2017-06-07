@@ -4,71 +4,80 @@
 //:
 //: ## Metronome
 //:
-//: Although AudioKit operations are a somewhat advanced topic, this
-//: is a simple example of creating a metronome with operations.
-//: It's just important that you know that operations that can do very
-//: complex synthesis and effect processing is capable in AudioKit.
+//: A metronome is a basic function that plays beeps and calls a callback on every beat.
 import AudioKitPlaygrounds
 import AudioKit
 
-var currentFrequency = 60.0
+let metronome = AKMetronome()
 
-let generator = AKOperationGenerator { parameters in
-
-    let metronome = AKOperation.metronome(frequency: parameters[0] / 60)
-
-    let count = metronome.count(maximum: parameters[1], looping: true)
-
-    let beep = AKOperation.sineWave(frequency: 480 * (2 - (count / parameters[1] + 0.49).round()))
-
-    let beeps = beep.triggeredWithEnvelope(
-        trigger: metronome,
-        attack: 0.01, hold: 0, release: 0.05)
-    return beeps
+metronome.callback = {
+    view.beatFlasher.value = 1.0
+    view.beatFlasher.property = "Beat \(metronome.currentBeat)"
+    
+    DispatchQueue.main.async {
+        view.beatFlasher.needsDisplay = true
+    }
+    
+    let deadlineTime = DispatchTime.now() + (60 / metronome.tempo) / 10.0
+    DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+        view.beatFlasher.value = 0.0
+    }
 }
 
-generator.parameters = [currentFrequency, 4]
-
-AudioKit.output = generator
+AudioKit.output = metronome
 AudioKit.start()
-generator.start()
+metronome.start()
 
 class PlaygroundView: AKPlaygroundView {
-
+    
+    var beatFlasher: AKPropertySlider!
+    
     override func setup() {
         addTitle("Metronome")
-
-        addSubview(AKButton(title: "Stop") {
-            generator.stop()
+        
+        beatFlasher = AKPropertySlider(
+            property: "",
+            value: 0,
+            color: AKColor.yellow
+        ) { _ in
+            // Nothing
+        }
+        addSubview(beatFlasher)
+        
+        addSubview(AKButton(title: "Stop", color: AKColor.red) {
+            metronome.stop()
+            metronome.reset()
             return ""
         })
-
+        
         addSubview(AKButton(title: "Start") {
-            generator.restart()
+            metronome.reset()
+            metronome.restart()
             return ""
         })
-
+        
         addSubview(AKPropertySlider(
             property: "Sudivision",
             format: "%0.0f",
             value: 4, minimum: 1, maximum: 10,
             color: AKColor.red
-        ) { sudivision in
-            generator.parameters[1] = round(sudivision)
+        ) { sliderValue in
+            metronome.subdivision = Int(round(sliderValue))
         })
-
+        
         addSubview(AKPropertySlider(
-            property: "Frequency",
+            property: "Tempo",
             format: "%0.2f BPM",
             value: 60, minimum: 40, maximum: 240,
             color: AKColor.green
-        ) { frequency in
-            generator.parameters[0] = frequency
+        ) { sliderValue in
+            metronome.tempo = sliderValue
         })
     }
 }
 
+let view = PlaygroundView()
+
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+PlaygroundPage.current.liveView = view

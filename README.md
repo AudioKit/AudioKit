@@ -1,4 +1,4 @@
-AudioKit V3.6
+AudioKit V3.7
 ===
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
@@ -118,7 +118,7 @@ github "audiokit/AudioKit"
 If you use CocoaPods, you can also easily get the latest AudioKit binary framework for your project. Use this in your `Podfile`:
 
 ```
-pod 'AudioKit', '~> 3.6'
+pod 'AudioKit', '~> 3.7'
 ```
 
 ## About Us
