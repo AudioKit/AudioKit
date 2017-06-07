@@ -130,6 +130,9 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Restart from scratch
     open func restart() {
         stop()
+        for ugen in customUgens {
+            internalAU?.add(ugen)
+        }
         internalAU?.setSporth(sporth)
         start()
     }
