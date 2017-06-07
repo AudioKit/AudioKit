@@ -18,21 +18,24 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     override public var isFlipped: Bool {
         return true
     }
-
-    let whiteKeyOff = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    let blackKeyOff = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-    let keyOnColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
-    let topWhiteKeyOff = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-
-    public weak var delegate: AKKeyboardDelegate?
-
+    
     var size = CGSize.zero
-    var topKeyHeightRatio: CGFloat = 0.5
+
+    @IBInspectable open var octaveCount: Int = 2
+    @IBInspectable open var firstOctave: Int = 4
+    
+    @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
+    @IBInspectable open var polyphonicButton: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    
+    @IBInspectable open var  whiteKeyOff: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable open var  blackKeyOff: AKColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var  keyOnColor: AKColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    
+    open weak var delegate: AKKeyboardDelegate?
+    
+    var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
-
-    var octaveCount = 3
-    var firstOctave = 4
 
     public var polyphonicMode = false {
         didSet {
@@ -99,7 +102,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
             return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ?
                 keyOnColor : blackKeyOff
         }
-        return topWhiteKeyOff
+        return whiteKeyOff
 
     }
 
