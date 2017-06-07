@@ -22,7 +22,7 @@ open class AKTimePitch: AKNode, AKToggleable {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted: Bool {
-        return pitch != 0.0 || rate != 1.0
+        return !timePitchAU.bypass
     }
 
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
@@ -40,9 +40,6 @@ open class AKTimePitch: AKNode, AKToggleable {
             timePitchAU.overlap = Float(overlap)
         }
     }
-
-    fileprivate var lastKnownRate: Double = 1.0
-    fileprivate var lastKnownPitch: Double = 0.0
 
     /// Initialize the time pitch node
     ///
@@ -62,9 +59,6 @@ open class AKTimePitch: AKNode, AKToggleable {
         self.pitch = pitch
         self.overlap = overlap
 
-        lastKnownPitch = pitch
-        lastKnownRate = rate
-
         super.init()
         self.avAudioNode = timePitchAU
         AudioKit.engine.attach(self.avAudioNode)
@@ -73,15 +67,11 @@ open class AKTimePitch: AKNode, AKToggleable {
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
-        rate = lastKnownRate
-        pitch = lastKnownPitch
+        timePitchAU.bypass = false
     }
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
-        lastKnownPitch = pitch
-        lastKnownRate = rate
-        pitch = 0.0
-        rate = 1.0
+        timePitchAU.bypass = true
     }
 }

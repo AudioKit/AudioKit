@@ -65,8 +65,8 @@ class Audiobus {
 
                 if type == kAudioUnitType_RemoteInstrument ||
                     type == kAudioUnitType_RemoteGenerator {
-                    self.controller.addSenderPort(
-                        ABSenderPort(
+                    self.controller.addAudioSenderPort(
+                        ABAudioSenderPort(
                             name: name,
                             title: name,
                             audioComponentDescription: AudioComponentDescription(
@@ -81,8 +81,8 @@ class Audiobus {
                     )
                 }
                 if type == kAudioUnitType_RemoteEffect {
-                    self.controller.addFilterPort(
-                        ABFilterPort(
+                    self.controller.addAudioFilterPort(
+                        ABAudioFilterPort(
                             name: name,
                             title: name,
                             audioComponentDescription: AudioComponentDescription(
@@ -115,7 +115,8 @@ class Audiobus {
     }
 
     var isConnectedToInput: Bool {
-        return controller.isConnectedToAudiobus(portOfType: ABPortTypeSender) || audioUnit.isConnectedToInterAppAudio(nodeOfType: kAudioUnitType_RemoteEffect)
+        return controller.isConnectedToAudiobus(portOfType: ABPortTypeAudioSender) ||
+            audioUnit.isConnectedToInterAppAudio(nodeOfType: kAudioUnitType_RemoteEffect)
     }
 
     // MARK: Connections
@@ -135,9 +136,10 @@ class Audiobus {
     }
 
     private func startObservingAudiobusConnections() {
-        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged, object: nil, queue: nil, using: { _ in
-            self.updateConnections()
-        })
+        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged,
+                                                       object: nil,
+                                                       queue: nil,
+                                                       using: { _ in self.updateConnections() })
     }
 
     private func stopObservingAudiobusConnections() {

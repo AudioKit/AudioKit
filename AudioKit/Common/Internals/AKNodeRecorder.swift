@@ -94,33 +94,6 @@
             return
         }
 
-        #if os(iOS)
-            // requestRecordPermission...
-            var permissionGranted: Bool = false
-
-            AKSettings.session.requestRecordPermission {
-                permissionGranted = $0
-            }
-
-            if !permissionGranted {
-                AKLog("AKNodeRecorder Error: Permission to record not granted")
-                throw NSError(domain: NSURLErrorDomain,
-                              code: NSURLErrorUnknown,
-                              userInfo: nil)
-            }
-
-            // Sets AVAudioSession Category to be Play and Record
-
-            if AKSettings.session.category != "\(AKSettings.SessionCategory.playAndRecord)" {
-                do {
-                    try AKSettings.setSession(category: .playAndRecord)
-                } catch let error as NSError {
-                    AKLog("AKNodeRecorder Error: Cannot set AVAudioSession Category to be .PlaybackAndRecord")
-                    throw error
-                }
-            }
-        #endif
-
         guard let node = node else {
             AKLog("AKNodeRecorder Error: input node is not available")
             return
@@ -182,7 +155,7 @@
         let url = internalAudioFile.url
 
         do {
-            if let path = audioFile?.url.absoluteString {
+            if let path = audioFile?.url.path {
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {

@@ -24,7 +24,7 @@ extension AKTuningTable {
                 infd = fd
             }
         }
-        return (numerator:fn, denominator:fd)
+        return (numerator: fn, denominator: fd)
     }
 
     /// Creates a "Nested 2-interval pattern", or "Moment of Symmetry"

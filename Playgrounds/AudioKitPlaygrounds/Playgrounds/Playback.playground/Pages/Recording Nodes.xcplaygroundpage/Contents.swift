@@ -62,6 +62,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 return "Stop"
             }
         })
+        
+        addSubview(AKButton(title: "Save") {
+            tape.exportAsynchronously(name: "test", baseDir: .documents, exportFormat: .caf) { [weak self] exportedFile, error in
+            }
+            return "Saved"
+        })
 
         addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
             self.recordLabel.text = "Tape Cleared!"

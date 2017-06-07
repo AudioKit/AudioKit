@@ -69,10 +69,10 @@ extension AKAudioFile {
         throws {
             let extPath: String = "\(name ?? UUID().uuidString).caf"
             let filePath: String = try baseDir.create(file: extPath, write: true)
-            let nsurl = try URL(string: filePath) ?? .fileCreateError
+            let fileURL = URL(fileURLWithPath: filePath)
 
             // Directory exists ?
-            let absDirPath = nsurl.deletingLastPathComponent().absoluteString
+            let absDirPath = fileURL.deletingLastPathComponent().path
 
             _ = try FileManager.default.fileExists(atPath: absDirPath) || .fileCreateError
 
@@ -82,7 +82,7 @@ extension AKAudioFile {
             fixedSettings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
             do {
-                try self.init(forWriting: nsurl, settings: fixedSettings)
+                try self.init(forWriting: fileURL, settings: fixedSettings)
             } catch let error as NSError {
                 AKLog("ERROR AKAudioFile: Couldn't create an AKAudioFile...")
                 AKLog("Error: \(error)")
@@ -112,7 +112,7 @@ extension AKAudioFile {
 
         fixedSettings[AVNumberOfChannelsKey] = channels
 
-        try self.init(writeIn: baseDir, name: name)
+        try self.init(writeIn: baseDir, name: name, settings: fixedSettings)
 
         // create buffer for floats
         let format = AVAudioFormat(standardFormatWithSampleRate: 44_100,
@@ -146,7 +146,7 @@ extension AKAudioFile {
     /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
     ///
     /// - Parameters:
-    ///   - buffer: the :AVAudioPCMBuffer that will be used to fill the AKAudioFile
+    ///   - buffer: the AVAudioPCMBuffer that will be used to fill the AKAudioFile
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
     ///   - name: the name of the file without its extension (String).
     ///
