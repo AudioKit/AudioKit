@@ -8,7 +8,7 @@
 
 open class AKFilePlayer: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFilePlayerAudioUnit
-    public static let ComponentDescription = AudioComponentDescription(generator: "bfpl")
+    public static let ComponentDescription = AudioComponentDescription(generator: "akfp")
     
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
@@ -41,8 +41,6 @@ open class AKFilePlayer: AKNode, AKToggleable, AKComponent {
         // Create a URL to output the file to
         let cfInputFileURL = inputFileURL as CFURL
         
-        print("Reading from: \(cfInputFileURL)")
-        
         // Set up audio file to write to
         self.internalAU?.setUpAudioInput(cfInputFileURL)
     }
@@ -70,8 +68,6 @@ open class AKFilePlayer: AKNode, AKToggleable, AKComponent {
     open func replace(file inputFileURL:URL) {
         // Create a URL to output the file to
         let cfInputFileURL = inputFileURL as CFURL
-        
-        print("Reading from: \(cfInputFileURL)")
         
         // Set up audio file to write to
         self.internalAU?.setUpAudioInput(cfInputFileURL)

@@ -330,8 +330,6 @@ public:
                 
                 float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 *out = output;
-                
-                
             }
         }
         
