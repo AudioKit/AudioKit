@@ -73,6 +73,24 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             metronome.tempo = sliderValue
         })
+        
+        addSubview(AKPropertySlider(
+            property: "Frequency 1",
+            format: "%0.1f Hz",
+            value: 2000, minimum: 200, maximum: 4000,
+            color: AKColor.green
+        ) { sliderValue in
+            metronome.frequency1 = sliderValue
+        })
+        
+        addSubview(AKPropertySlider(
+            property: "Frequency 2",
+            format: "%0.1f Hz",
+            value: 1000, minimum: 200, maximum: 4000,
+            color: AKColor.green
+        ) { sliderValue in
+            metronome.frequency2 = sliderValue
+        })
     }
 }
 
@@ -81,3 +99,4 @@ let view = PlaygroundView()
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = view
+
