@@ -9,8 +9,8 @@ int sporth_gen_line(sporth_stack *stack, void *ud)
 
     int size;
     sp_ftbl *ft;
-    char *str;
-    char *args;
+    const char *str;
+    const char *args;
 
     switch(pd->mode){
         case PLUMBER_CREATE:

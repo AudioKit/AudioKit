@@ -2,7 +2,7 @@
 int sporth_ref(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    char *str;
+    const char *str;
     switch(pd->mode) {
         case PLUMBER_CREATE: 
             plumber_add_ugen(pd, SPORTH_REF, NULL);

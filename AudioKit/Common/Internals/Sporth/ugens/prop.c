@@ -10,7 +10,7 @@ int sporth_prop(sporth_stack *stack, void *ud)
     SPFLOAT bpm;
     SPFLOAT out;
     sp_prop *data;
-    char *str;
+    const char *str;
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_prop_create(&data);
@@ -61,7 +61,7 @@ int sporth_tprop(sporth_stack *stack, void *ud)
     SPFLOAT out;
     SPFLOAT trig;
     sp_prop *data;
-    char *str;
+    const char *str;
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_prop_create(&data);

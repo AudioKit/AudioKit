@@ -8,7 +8,7 @@ typedef struct {
     int type;
     char label[128];
     SPFLOAT pval;
-    char *sval;
+    const char *sval;
 } sporth_print_d;
 
 
@@ -16,9 +16,9 @@ int sporth_prints(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     sporth_print_d *prnt;
-    char *str = NULL; 
+    const char *str;
     SPFLOAT val = 0;
-    char *sval = NULL;
+    const char *sval; 
     sporth_stack_val *stackval; 
     switch(pd->mode) {
         case PLUMBER_CREATE:
@@ -44,7 +44,7 @@ int sporth_prints(sporth_stack *stack, void *ud)
             } else if(prnt->type == SPORTH_STRING) {
                 sval = sporth_stack_pop_string(stack);
                 prnt->sval = sval;
-                sporth_stack_push_string(stack, &sval);
+                sporth_stack_push_string(stack, (char **)&sval);
             } else {
                 plumber_print(pd, "Print: unknown type\n");
                 return PLUMBER_NOTOK;
@@ -66,7 +66,7 @@ int sporth_prints(sporth_stack *stack, void *ud)
                 sporth_stack_push_float(stack, val);
             } else if(prnt->type == SPORTH_STRING) {
                 sval = sporth_stack_pop_string(stack);
-                sporth_stack_push_string(stack, &sval);
+                sporth_stack_push_string(stack, (char **)&sval);
             }
 
             break;

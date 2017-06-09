@@ -8,7 +8,7 @@ int sporth_eval(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
     plumbing *pipes;
 
-    char *str;
+    const char *str;
     int rc = PLUMBER_OK;
 
     switch(pd->mode){
