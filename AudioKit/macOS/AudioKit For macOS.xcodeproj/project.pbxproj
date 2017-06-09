@@ -619,6 +619,8 @@
 		C45F62861E8F40EC00F82CD4 /* AKZitaReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C45F62821E8F40EC00F82CD4 /* AKZitaReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C45F62871E8F40EC00F82CD4 /* AKZitaReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45F62831E8F40EC00F82CD4 /* AKZitaReverbAudioUnit.mm */; };
 		C45F62881E8F40EC00F82CD4 /* AKZitaReverbDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45F62841E8F40EC00F82CD4 /* AKZitaReverbDSPKernel.hpp */; };
+		C466150F1EEA18F10044A5FC /* voc.c in Sources */ = {isa = PBXBuildFile; fileRef = C466150E1EEA18F10044A5FC /* voc.c */; };
+		C46615111EEA1C740044A5FC /* voc.c in Sources */ = {isa = PBXBuildFile; fileRef = C46615101EEA1C740044A5FC /* voc.c */; };
 		C47047BE1E78FA2D00D9906F /* AKRhodesPiano.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47047B01E78FA2D00D9906F /* AKRhodesPiano.swift */; };
 		C47047BF1E78FA2D00D9906F /* AKRhodesPianoAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C47047B11E78FA2D00D9906F /* AKRhodesPianoAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47047C01E78FA2D00D9906F /* AKRhodesPianoAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47047B21E78FA2D00D9906F /* AKRhodesPianoAudioUnit.mm */; };
@@ -1462,6 +1464,8 @@
 		C45F62821E8F40EC00F82CD4 /* AKZitaReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKZitaReverbAudioUnit.h; sourceTree = "<group>"; };
 		C45F62831E8F40EC00F82CD4 /* AKZitaReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKZitaReverbAudioUnit.mm; sourceTree = "<group>"; };
 		C45F62841E8F40EC00F82CD4 /* AKZitaReverbDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKZitaReverbDSPKernel.hpp; sourceTree = "<group>"; };
+		C466150E1EEA18F10044A5FC /* voc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voc.c; sourceTree = "<group>"; };
+		C46615101EEA1C740044A5FC /* voc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voc.c; sourceTree = "<group>"; };
 		C47047B01E78FA2D00D9906F /* AKRhodesPiano.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRhodesPiano.swift; sourceTree = "<group>"; };
 		C47047B11E78FA2D00D9906F /* AKRhodesPianoAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRhodesPianoAudioUnit.h; sourceTree = "<group>"; };
 		C47047B21E78FA2D00D9906F /* AKRhodesPianoAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhodesPianoAudioUnit.mm; sourceTree = "<group>"; };
@@ -2053,6 +2057,7 @@
 				C45663671D448D7E00D26565 /* tseg.c */,
 				C45663681D448D7E00D26565 /* tseq.c */,
 				C45663691D448D7E00D26565 /* vdelay.c */,
+				C466150E1EEA18F10044A5FC /* voc.c */,
 				C456636B1D448D7E00D26565 /* waveset.c */,
 				C456636C1D448D7E00D26565 /* wpkorg35.c */,
 				C456636D1D448D7E00D26565 /* zitarev.c */,
@@ -2233,6 +2238,7 @@
 				C4F8C9B61DCA9255001F38F2 /* tseq.c */,
 				C4F8C9B71DCA9255001F38F2 /* v.c */,
 				C4F8C9B81DCA9255001F38F2 /* vdelay.c */,
+				C46615101EEA1C740044A5FC /* voc.c */,
 				C4F8C9B91DCA9255001F38F2 /* waveset.c */,
 				C4F8C9BA1DCA9255001F38F2 /* wpkorg35.c */,
 				C4F8C9BB1DCA9255001F38F2 /* writecode.c */,
@@ -4153,6 +4159,7 @@
 				C45669A41D448D7E00D26565 /* AKMicrophone.swift in Sources */,
 				C456695D1D448D7E00D26565 /* AKPinkNoise.swift in Sources */,
 				C45667DB1D448D7E00D26565 /* FileWvIn.cpp in Sources */,
+				C46615111EEA1C740044A5FC /* voc.c in Sources */,
 				C49A0A2F1D54298A007D8ADB /* pitchShift.swift in Sources */,
 				C45669761D448D7E00D26565 /* AKOscillator.swift in Sources */,
 				C45667181D448D7E00D26565 /* phaser.c in Sources */,
@@ -4451,6 +4458,7 @@
 				C45669CD1D448D7E00D26565 /* reverberateWithChowning.swift in Sources */,
 				C45667371D448D7E00D26565 /* tenv2.c in Sources */,
 				C456674A1D448D7E00D26565 /* test.c in Sources */,
+				C466150F1EEA18F10044A5FC /* voc.c in Sources */,
 				C4F8CA321DCA9256001F38F2 /* thresh.c in Sources */,
 				C4F8C9CE1DCA9255001F38F2 /* buthp.c in Sources */,
 				C45668B51D448D7E00D26565 /* AKDuration.swift in Sources */,

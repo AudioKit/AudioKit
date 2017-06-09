@@ -279,6 +279,8 @@
 		C45F3F801ED157AB00A75143 /* AKSamplePlayerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45F3F7C1ED157AB00A75143 /* AKSamplePlayerAudioUnit.mm */; };
 		C45F3F811ED157AB00A75143 /* AKSamplePlayerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45F3F7D1ED157AB00A75143 /* AKSamplePlayerDSPKernel.hpp */; };
 		C46402441DD99E8B005542E2 /* AKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46402431DD99E8B005542E2 /* AKComponent.swift */; };
+		C46615181EEA26670044A5FC /* voc.c in Sources */ = {isa = PBXBuildFile; fileRef = C46615171EEA26670044A5FC /* voc.c */; };
+		C466151A1EEA26890044A5FC /* voc.c in Sources */ = {isa = PBXBuildFile; fileRef = C46615191EEA26890044A5FC /* voc.c */; };
 		C46781AA1C1C277B0000BF29 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781A81C1C277B0000BF29 /* AKNodeFFTPlot.swift */; };
 		C46781AB1C1C277B0000BF29 /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781A91C1C277B0000BF29 /* AKNodeOutputPlot.swift */; };
 		C46809811CEED72800ADFC05 /* AKPitchShifter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C468097D1CEED72800ADFC05 /* AKPitchShifter.swift */; };
@@ -1063,6 +1065,8 @@
 		C45F3F7C1ED157AB00A75143 /* AKSamplePlayerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSamplePlayerAudioUnit.mm; sourceTree = "<group>"; };
 		C45F3F7D1ED157AB00A75143 /* AKSamplePlayerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSamplePlayerDSPKernel.hpp; sourceTree = "<group>"; };
 		C46402431DD99E8B005542E2 /* AKComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKComponent.swift; sourceTree = "<group>"; };
+		C46615171EEA26670044A5FC /* voc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voc.c; sourceTree = "<group>"; };
+		C46615191EEA26890044A5FC /* voc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voc.c; sourceTree = "<group>"; };
 		C46781A81C1C277B0000BF29 /* AKNodeFFTPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeFFTPlot.swift; sourceTree = "<group>"; };
 		C46781A91C1C277B0000BF29 /* AKNodeOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeOutputPlot.swift; sourceTree = "<group>"; };
 		C468097D1CEED72800ADFC05 /* AKPitchShifter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPitchShifter.swift; sourceTree = "<group>"; };
@@ -2738,6 +2742,7 @@
 				C48C69CA1D3C1574008EA51B /* tseg.c */,
 				C48C69CB1D3C1574008EA51B /* tseq.c */,
 				C48C69CC1D3C1574008EA51B /* vdelay.c */,
+				C46615171EEA26670044A5FC /* voc.c */,
 				C48C69CE1D3C1574008EA51B /* waveset.c */,
 				C48C69CF1D3C1574008EA51B /* wpkorg35.c */,
 				C48C69D01D3C1574008EA51B /* zitarev.c */,
@@ -2918,6 +2923,7 @@
 				C4F8CAC01DCA928A001F38F2 /* tseq.c */,
 				C4F8CAC11DCA928A001F38F2 /* v.c */,
 				C4F8CAC21DCA928A001F38F2 /* vdelay.c */,
+				C46615191EEA26890044A5FC /* voc.c */,
 				C4F8CAC31DCA928A001F38F2 /* waveset.c */,
 				C4F8CAC41DCA928A001F38F2 /* wpkorg35.c */,
 				C4F8CAC51DCA928A001F38F2 /* writecode.c */,
@@ -3920,6 +3926,7 @@
 				C48C6AAF1D3C1574008EA51B /* samphold.c in Sources */,
 				C4F8CB081DCA928B001F38F2 /* mode.c in Sources */,
 				C4F8CB391DCA928B001F38F2 /* tenv2.c in Sources */,
+				C466151A1EEA26890044A5FC /* voc.c in Sources */,
 				C48C6A9A1D3C1574008EA51B /* pdhalf.c in Sources */,
 				C4E752511C23888700688A1B /* max.swift in Sources */,
 				C4ABF5371C82AEC00078EE8E /* AKMetalBar.swift in Sources */,
@@ -4152,6 +4159,7 @@
 				C49DCD411D2100AB00BF018A /* AKFMOscillatorBank.swift in Sources */,
 				C4E752491C23888700688A1B /* phasor.swift in Sources */,
 				C4E7523D1C23888700688A1B /* highPassButterworthFilter.swift in Sources */,
+				C46615181EEA26670044A5FC /* voc.c in Sources */,
 				C4D4C4F71EB7176600134B39 /* AKTuningTable+RecurrenceRelation.swift in Sources */,
 				C45381AA1C3A5CBD00A51738 /* AKBandPassButterworthFilter.swift in Sources */,
 				C40C429F1C41CB7D009D870B /* AKDrip.swift in Sources */,
