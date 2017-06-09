@@ -230,7 +230,7 @@ private:
     float nasality = 0.0;
 
 public:
-    bool started = true;
+    bool started = false;
     bool resetted = false;
     ParameterRamper frequencyRamper = 160.0;
     ParameterRamper tonguePositionRamper = 0.5;
