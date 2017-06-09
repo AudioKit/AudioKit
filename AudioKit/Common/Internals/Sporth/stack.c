@@ -55,7 +55,8 @@ int sporth_stack_push_string(sporth_stack *stack, char **str)
     if(stack->pos < SPORTH_STACK_SIZE) {
         stack->pos++;
         pstack = &stack->stack[stack->pos - 1];
-        pstack->sval = *str;
+        /* TODO: can const strings work here? */
+        pstack->sval = (char *)*str;
         pstack->type = SPORTH_STRING;
         return SPORTH_OK;
     } else {
@@ -98,12 +99,12 @@ sporth_stack_val * sporth_stack_get_last(sporth_stack *stack)
     return &stack->stack[stack->pos - 1];
 }
 
-char * sporth_stack_pop_string(sporth_stack *stack)
+const char * sporth_stack_pop_string(sporth_stack *stack)
 {
-    if(stack->error > 0) return NULL;
-
-    char *str;
+    const char *str;
     sporth_stack_val *pstack;
+
+    if(stack->error > 0) return NULL;
 
     if(stack->pos == 0) {
        fprintf(stderr, "Stack is empty.\n");

@@ -9,7 +9,7 @@ typedef struct {
     int len;
 } slist_d;
 
-static int slist_parse(slist_d *sl, char *filename, uint32_t size)
+static int slist_parse(slist_d *sl, const char *filename, uint32_t size)
 {
     sl->len = 0;
     FILE *fp = fopen(filename, "r");
@@ -51,8 +51,8 @@ int sporth_slist(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    char *ftname;
-    char *filename;
+    const char *ftname;
+    const char *filename;
     uint32_t size;
     slist_d *sl;
 
@@ -104,7 +104,7 @@ int sporth_sget(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    char *ftname;
+    const char *ftname;
     uint32_t index = 0;
     slist_d *sl;
     char **str = NULL;
@@ -159,7 +159,7 @@ int sporth_slick(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    char *ftname;
+    const char *ftname;
     uint32_t index = 0;
     slist_d *sl;
     char **str = NULL;

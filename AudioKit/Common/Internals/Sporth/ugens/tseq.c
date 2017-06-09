@@ -8,7 +8,7 @@ int sporth_tseq(sporth_stack *stack, void *ud)
 
     plumber_data *pd = ud;
     SPFLOAT out = 0, trig = 0, shuf = 0;
-    char *ftname;
+    const char *ftname;
     sp_ftbl *ft;
     sp_tseq *tseq;
 
