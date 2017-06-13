@@ -38,7 +38,7 @@ extension AVAudioConnectionPoint {
         connectionPoints.append(AVAudioConnectionPoint(node, to: bus))
         AudioKit.engine.connect(avAudioNode,
                                 to: connectionPoints,
-                                fromBus: bus,
+                                fromBus: 0,
                                 format: AudioKit.format)
     }
 
