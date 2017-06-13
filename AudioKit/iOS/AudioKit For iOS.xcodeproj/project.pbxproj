@@ -646,6 +646,7 @@
 		C4D1FCFE1CE5BCC80043209E /* AKTremoloAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D1FCFA1CE5BCC80043209E /* AKTremoloAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D1FCFF1CE5BCC80043209E /* AKTremoloAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D1FCFB1CE5BCC80043209E /* AKTremoloAudioUnit.mm */; };
 		C4D1FD001CE5BCC80043209E /* AKTremoloDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D1FCFC1CE5BCC80043209E /* AKTremoloDSPKernel.hpp */; };
+		C4D3714E1EEFA78600B3DCA6 /* vocalTract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3714D1EEFA78600B3DCA6 /* vocalTract.swift */; };
 		C4DABC441D4E858100A8942F /* AKTelephoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DABC431D4E858100A8942F /* AKTelephoneView.swift */; };
 		C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDA221C21FCF50033494B /* squareWave.swift */; };
 		C4E120AA1D4D95AB00CD3572 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120A91D4D95AB00CD3572 /* AKPlaygroundView.swift */; };
@@ -1494,6 +1495,7 @@
 		C4D1FCFA1CE5BCC80043209E /* AKTremoloAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTremoloAudioUnit.h; sourceTree = "<group>"; };
 		C4D1FCFB1CE5BCC80043209E /* AKTremoloAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTremoloAudioUnit.mm; sourceTree = "<group>"; };
 		C4D1FCFC1CE5BCC80043209E /* AKTremoloDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTremoloDSPKernel.hpp; sourceTree = "<group>"; };
+		C4D3714D1EEFA78600B3DCA6 /* vocalTract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vocalTract.swift; sourceTree = "<group>"; };
 		C4DABC431D4E858100A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4DBDA221C21FCF50033494B /* squareWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = squareWave.swift; sourceTree = "<group>"; };
 		C4E120A91D4D95AB00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
@@ -3549,6 +3551,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A916111C24ED23006C1A15 /* pluckedString.swift */,
+				C4D3714D1EEFA78600B3DCA6 /* vocalTract.swift */,
 			);
 			path = "Physical Models";
 			sourceTree = "<group>";
@@ -4522,6 +4525,7 @@
 				C48C6CAD1D3C15F1008EA51B /* tdiv.c in Sources */,
 				C48C6C9B1D3C15F1008EA51B /* randh.c in Sources */,
 				C48C6C841D3C15F1008EA51B /* mincer.c in Sources */,
+				C4D3714E1EEFA78600B3DCA6 /* vocalTract.swift in Sources */,
 				C48C6C901D3C15F1008EA51B /* phaser.c in Sources */,
 				C48C6C661D3C15F1008EA51B /* compressor.c in Sources */,
 				C48C6CA11D3C15F1008EA51B /* revsc.c in Sources */,
