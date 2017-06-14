@@ -32,7 +32,7 @@ class BadAudioEngine {
 }
 
 //: It wouldn't work because the oscillator node would be lost right after the init
-//: method completed.  Instead,  makensure it is declared as an instance variable:
+//: method completed.  Instead,  make sure it is declared as an instance variable:
 class AudioEngine {
     var oscillator: AKOscillator
 
