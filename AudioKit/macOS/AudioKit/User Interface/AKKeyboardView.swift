@@ -30,6 +30,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     @IBInspectable open var  whiteKeyOff: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     @IBInspectable open var  blackKeyOff: AKColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
     @IBInspectable open var  keyOnColor: AKColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var  topWhiteKeyOff: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
     
     open weak var delegate: AKKeyboardDelegate?
     
@@ -102,7 +103,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
             return onKeys.contains(MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])) ?
                 keyOnColor : blackKeyOff
         }
-        return whiteKeyOff
+        return topWhiteKeyOff
 
     }
 
