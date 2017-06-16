@@ -19,6 +19,7 @@ open class AKTelephoneView: UIView {
     var currentKey = ""
     var callback: (String, String) -> Void
 
+    /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
@@ -44,6 +45,7 @@ open class AKTelephoneView: UIView {
         }
     }
 
+    /// Handle new touches
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if currentKey != "" {
             callback(currentKey, "up")
@@ -52,12 +54,14 @@ open class AKTelephoneView: UIView {
         setNeedsDisplay()
     }
 
+    /// Initialize the telephone view
     public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
                 callback: @escaping (String, String) -> Void) {
         self.callback = callback
         super.init(frame: frame)
     }
 
+    /// Initialize within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -71,6 +75,7 @@ open class AKTelephoneView: UIView {
         return keyRect
     }
 
+    /// Draw the telephone view
     override open func draw(_ rect: CGRect) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -302,6 +307,7 @@ open class AKTelephoneView: UIView {
         context?.restoreGState()
     }
 
+    /// Draw one key
     open class func drawCenteredKey(numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
