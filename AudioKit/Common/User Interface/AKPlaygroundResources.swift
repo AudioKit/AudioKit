@@ -10,9 +10,9 @@
 // keep track of the audio resources available to each playground set here
 
 public let processingPlaygroundFiles = [
-    "Acid Full.mp3",
-    "Acid Drums.mp3",
-    "Acid Bass.mp3",
+    "Acid Full Dry.mp3",
+    "Drums Dry.mp3",
+    "Acid Synth Dry.mp3",
     "80s Synth.mp3",
     "Lo-Fi Synth.mp3",
     "African.mp3",
