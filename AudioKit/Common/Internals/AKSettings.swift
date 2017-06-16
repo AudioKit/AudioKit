@@ -13,13 +13,29 @@
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
     @objc public enum BufferLength: Int {
+        
+        /// Shortest
         case shortest = 5
+        
+        /// Very Short
         case veryShort = 6
+        
+        /// Short
         case short = 7
+        
+        /// Medium
         case medium = 8
+        
+        /// Long
         case long = 9
+        
+        /// Very Long
         case veryLong = 10
+        
+        /// Huge
         case huge = 11
+        
+        /// Longest
         case longest = 12
 
         /// The buffer Length expressed as number of samples

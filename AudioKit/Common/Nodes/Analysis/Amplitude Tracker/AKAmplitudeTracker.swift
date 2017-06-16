@@ -13,6 +13,7 @@ public typealias AKThresholdCallback = @convention(block) (Bool) -> Void
 ///
 open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKAmplitudeTrackerAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
 
     // MARK: - Properties

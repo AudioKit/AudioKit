@@ -13,6 +13,7 @@
 ///
 open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
     // MARK: - Properties

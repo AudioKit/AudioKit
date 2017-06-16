@@ -70,12 +70,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// return the current played AKAudioFile
+    /// The current played AKAudioFile
     open dynamic var audioFile: AKAudioFile {
         return internalAudioFile
     }
 
-    // path to the currently loaded AKAudioFile
+    /// Path to the currently loaded AKAudioFile
     open dynamic var path: String {
         return audioFile.url.path
     }
@@ -217,6 +217,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
+    /// Sheduled time
     open dynamic var scheduledAVTime: AVAudioTime?
 
     // MARK: - Initialization
@@ -335,6 +336,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
+    /// Restart playback from current position
     open func resume() {
         if ❗️playing && paused {
             playing = true

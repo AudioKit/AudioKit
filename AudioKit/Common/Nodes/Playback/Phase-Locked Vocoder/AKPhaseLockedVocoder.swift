@@ -12,6 +12,7 @@
 ///
 open class AKPhaseLockedVocoder: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "minc")
 
     // MARK: - Properties

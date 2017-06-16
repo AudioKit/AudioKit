@@ -10,6 +10,7 @@
 ///
 open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKDynamicRangeCompressorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
 
     // MARK: - Properties

@@ -9,6 +9,7 @@
 /// Stereo Field Limiter
 open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKStereoFieldLimiterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
 
     // MARK: - Properties

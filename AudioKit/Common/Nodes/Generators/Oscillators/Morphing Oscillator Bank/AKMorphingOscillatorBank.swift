@@ -11,6 +11,7 @@
 ///
 open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorBankAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "morb")
 
     // MARK: - Properties

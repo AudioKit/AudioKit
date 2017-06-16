@@ -18,6 +18,7 @@ public typealias AKCCallback = @convention(block) () -> Void
 open class AKSamplePlayer: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
 
     // MARK: - Properties
