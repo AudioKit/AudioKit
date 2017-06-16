@@ -8,10 +8,10 @@
 
 /// Basic sequencer
 ///
-/// This  is currently in transistion from old c core audio apis, to the more
-/// modern avaudiosequencer setup. However, the new system is not as advanced as the
+/// This  is currently in transistion from old C Core Audio APIs, to the more
+/// modern AVAudioSequencer setup. However, the new system is not as advanced as the
 /// old, so we will keep both and have them interact. In addition, some of the features
-/// of the new AVAudioSequencer don't even work yet (midi sequencing).
+/// of the new AVAudioSequencer don't even work yet (MIDI sequencing).
 /// Still, both have their strengths and weaknesses so I am keeping them both.
 /// As such, there is some code hanging around while we iron it out.
 ///
@@ -89,7 +89,7 @@ open class AKSequencer {
         loadMIDIFile(filename)
     }
 
-    /// Initialize the sequence with a midi file and audioengine - on hold while technology is still unstable
+    /// Initialize the sequence with a MIDI file and audioengine - on hold while technology is still unstable
     ///
     /// - Parameters:
     ///   - filename: Location of the MIDI File
@@ -541,7 +541,7 @@ open class AKSequencer {
             do {
                 try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
             } catch _ {
-                AKLog("failed to load midi into avseq")
+                AKLog("failed to load MIDI into AVSequencer")
             }
         }
         initTracks()

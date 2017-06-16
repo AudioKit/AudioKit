@@ -103,7 +103,7 @@ extension AKMIDI {
         endpoints.removeAll()
     }
 
-    /// Send Messsage from midi event data
+    /// Send Messsage from MIDI event data
     public func sendEvent(_ event: AKMIDIEvent) {
         sendMessage(event.internalData)
     }
