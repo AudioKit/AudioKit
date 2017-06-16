@@ -11,6 +11,7 @@
 ///
 open class AKClipper: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKClipperAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
     // MARK: - Properties

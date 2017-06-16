@@ -21,6 +21,7 @@ import AVFoundation
 ///
 public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKVocalTractAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
 
     // MARK: - Properties

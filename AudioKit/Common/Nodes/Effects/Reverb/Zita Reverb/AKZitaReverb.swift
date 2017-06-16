@@ -10,6 +10,7 @@
 ///
 open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKZitaReverbAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
 
     // MARK: - Properties

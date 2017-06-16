@@ -9,6 +9,7 @@
 /// Operation-based generator
 open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOperationGeneratorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
 
     // MARK: - Properties

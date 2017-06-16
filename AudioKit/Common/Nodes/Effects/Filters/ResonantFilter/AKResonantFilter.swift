@@ -11,6 +11,7 @@
 ///
 open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKResonantFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
     // MARK: - Properties

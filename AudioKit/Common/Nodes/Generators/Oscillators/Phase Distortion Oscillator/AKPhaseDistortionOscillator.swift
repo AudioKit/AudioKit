@@ -10,6 +10,7 @@
 ///
 open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "phdo")
 
     // MARK: - Properties
