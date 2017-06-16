@@ -23,6 +23,7 @@ class AKBTMIDICentralViewController: CABTMIDICentralViewController {
     }
 }
 
+/// A button that will pull up a Bluetooth MIDI menu
 public class AKBluetoothMIDIButton: UIButton {
 
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

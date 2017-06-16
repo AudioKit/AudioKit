@@ -305,7 +305,7 @@ open class AKMusicTrack {
     /// Add Note to sequence
     ///
     /// - Parameters:
-    ///   - noteNumber: The midi note number to insert
+    ///   - noteNumber: The MIDI note number to insert
     ///   - velocity: The velocity to insert note at
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - duration: How long to hold the note (would be better if they let us just use noteOffs...oh well)
@@ -332,7 +332,7 @@ open class AKMusicTrack {
     /// Add Controller change to sequence
     ///
     /// - Parameters:
-    ///   - controller: The midi controller to insert
+    ///   - controller: The MIDI controller to insert
     ///   - value: The velocity to insert note at
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this note
@@ -352,7 +352,7 @@ open class AKMusicTrack {
     /// Add Sysex message to sequence
     ///
     /// - Parameters:
-    ///   - data: The midi data byte array - standard sysex start and end messages are added automatically
+    ///   - data: The MIDI data byte array - standard sysex start and end messages are added automatically
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///
     open func addSysex(_ data: [MIDIByte], position: AKDuration) {

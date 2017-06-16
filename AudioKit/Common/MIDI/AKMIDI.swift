@@ -10,7 +10,7 @@ import CoreMIDI
 
 /// MIDI input and output handler
 ///
-/// You add midi listeners like this:
+/// You add MIDI listeners like this:
 /// ```
 /// var midiIn = AKMIDI()
 /// midi.openInput()
@@ -74,7 +74,7 @@ open class AKMIDI {
                 }
             }
             if result != noErr {
-                AKLog("Error creating midi client : \(result)")
+                AKLog("Error creating MIDI client : \(result)")
             }
         }
     }
@@ -95,7 +95,7 @@ open class AKMIDI {
 
         let result = MIDIDestinationCreateWithBlock(client, virtualPortname as CFString, &virtualInput) { packetList, _ in
             for packet in packetList.pointee {
-                // a coremidi packet may contain multiple midi events
+                // a Core MIDI packet may contain multiple MIDI events
                 for event in packet {
                     self.handleMIDIMessage(event)
                 }

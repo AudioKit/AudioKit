@@ -15,18 +15,36 @@
             setNeedsDisplay()
         }
     }
+    
+    /// Minimum, left-most value
     @IBInspectable open var minimum: Double = 0
+    
+    /// Maximum, right-most value
     @IBInspectable open var maximum: Double = 1
+    
+    /// Text shown on the slider
     @IBInspectable open var property: String = "Property"
+    
+    /// Format for the number shown on the slider
     @IBInspectable open var format: String = "%0.3f"
+    
+    /// Background color
     @IBInspectable open var bgColor: UIColor = UIColor(colorLiteralRed: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+    
+    /// Slider overlay color
     @IBInspectable open var sliderColor: UIColor = .red
+    
+    /// Text color
     @IBInspectable open var textColor: UIColor = .black
+    
+    /// Font size
     @IBInspectable open var fontSize: CGFloat = 24
 
+    /// Function to call when value changes
     open var callback: ((Double) -> Void)?
-    open var lastTouch = CGPoint.zero
+    fileprivate var lastTouch = CGPoint.zero
 
+    /// Initialize the slider
     public init(property: String,
                 format: String = "%0.3f",
                 value: Double,
@@ -48,26 +66,31 @@
         setNeedsDisplay()
     }
 
+    /// Initialization with no details
     override public init(frame: CGRect) {
         super.init(frame: frame)
         contentMode = .redraw
     }
 
+    /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         self.isUserInteractionEnabled = true
         contentMode = .redraw
     }
 
+    /// Actions to perform to make sure the view is renderable in Interface Builder
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
 
+    /// Require constraint-based layout
     open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
+    /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
@@ -79,6 +102,7 @@
         }
     }
 
+    /// Handle moved touches
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
@@ -93,12 +117,14 @@
         }
     }
 
+    /// Give the slider a random value
     open func randomize() -> Double {
         value = random(minimum, maximum)
         setNeedsDisplay()
         return value
     }
 
+    /// Draw the slider
     override open func draw(_ rect: CGRect) {
         drawFlatSlider(currentValue: CGFloat(value),
             minimum: CGFloat(minimum),

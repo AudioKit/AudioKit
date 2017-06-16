@@ -173,7 +173,7 @@ public struct AKMIDIEvent {
             var rawEvents: [[MIDIByte]] = []
             if bluetoothData[1] < 128 {
                 //continuation of sysex from previous packet - handle separately 
-                //(probably needs a whole bluetooth midi class so we can see the previous packets)
+                //(probably needs a whole bluetooth MIDI class so we can see the previous packets)
             } else {
                 var rawEvent: [MIDIByte] = []
                 var lastStatus: MIDIByte = 0
@@ -219,7 +219,7 @@ public struct AKMIDIEvent {
     init(data: [MIDIByte]) {
         if let command = AKMIDISystemCommand(rawValue: data[0]) {
             internalData = []
-            //is sys command
+            // is sys command
             if command == .sysex {
                 for byte in data {
                     internalData.append(byte)
@@ -229,7 +229,7 @@ public struct AKMIDIEvent {
                 fillData(command: command, byte1: data[1], byte2: data[2])
             }
         } else if let status = statusFrom(rawByte: data[0]) {
-            //is regular midi status
+            // is regular MIDI status
             let channel = channelFrom(rawByte: data[0])
             fillData(status: status, channel: channel, byte1: data[1], byte2: data[2])
         }
