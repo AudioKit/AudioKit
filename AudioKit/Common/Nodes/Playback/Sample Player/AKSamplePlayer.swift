@@ -8,10 +8,13 @@
 
 import Foundation
 
+/// A Sample type, just a UInt32
 public typealias Sample = UInt32
 
+/// Callback function that can be called from C
 public typealias AKCCallback = @convention(block) () -> Void
 
+/// Audio player that loads a sample into memory
 open class AKSamplePlayer: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
@@ -103,14 +106,18 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
     
+    /// Number of sample in the audio stored in memory
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
     }
     
+    /// Position in the audio file from 0 - 1
     open var normalizedPosition: Double {
         return Double(internalAU!.position())
     }
     
+    /// Position in the audio in samples, but represented as a double since
+    /// you could conceivably be at a non-integer sample
     open var position: Double {
         return normalizedPosition * Double(size)
     }
@@ -201,12 +208,14 @@ open class AKSamplePlayer: AKNode, AKComponent {
         start()
     }
 
+    /// Play from a certain sample for a certain number of samples
     open func play(from: Sample = 0, length: Sample = 0) {
         startPoint = from
         endPoint = startPoint + length
         start()
     }
 
+    /// Play from a certain sample to an end sample
     open func play(from: Sample = 0, to: Sample = 0) {
         startPoint = from
         endPoint = to
@@ -219,6 +228,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         return point
     }
 
+    /// Load a new audio file into memory
     open func loadSound(file: AVAudioFile) {
         load(file: file)
     }

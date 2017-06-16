@@ -6,24 +6,31 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// A button, mainly used for playgrounds, but could be useful in your own projects
 open class AKButton: UIView {
     internal var callback: () -> (String)
+    
+    /// Text to display on the button
     open var title: String {
         didSet {
             setNeedsDisplay()
         }
     }
+    
+    /// Background color of the button
     open var color: UIColor {
         didSet {
             setNeedsDisplay()
         }
     }
 
+    /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let newTitle = callback()
         if newTitle != "" { title = newTitle }
     }
 
+    /// Initialize the button
     public init(title: String,
                 color: UIColor = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
@@ -34,6 +41,7 @@ open class AKButton: UIView {
         super.init(frame: frame)
     }
 
+    /// Initialize the button within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -71,6 +79,7 @@ open class AKButton: UIView {
 
     }
 
+    /// Draw the button
     override open func draw(_ rect: CGRect) {
         drawButton()
     }

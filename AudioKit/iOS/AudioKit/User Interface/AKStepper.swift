@@ -1,21 +1,27 @@
 //
 //  AKStepper.swift
-//  AudioKit
+//  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka on 3/11/17.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
 open class AKStepper: UIView {
 
-    var player: AKAudioPlayer?
     var plusPath = UIBezierPath()
     var minusPath = UIBezierPath()
 
+    /// Text / label to display
     open var text = "Value"
+    
+    /// Current value
     open var value: MIDIByte
+    
+    /// Function to call on change
     open var callback: (MIDIByte) -> Void
 
+    /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {            let touchLocation = touch.location(in: self)
             if minusPath.contains(touchLocation) {
@@ -33,6 +39,7 @@ open class AKStepper: UIView {
         }
     }
 
+    /// Initialize the stepper view
     public init(text: String,
                 value: MIDIByte,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
@@ -43,6 +50,7 @@ open class AKStepper: UIView {
         super.init(frame: frame)
     }
 
+    /// Initialize within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         self.callback = { filename in return }
         self.value = 0
@@ -50,6 +58,7 @@ open class AKStepper: UIView {
         super.init(coder: aDecoder)
     }
 
+    /// Draw the stepper
     override open func draw(_ rect: CGRect) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
