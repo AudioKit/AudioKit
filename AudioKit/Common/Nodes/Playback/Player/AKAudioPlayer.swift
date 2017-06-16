@@ -24,6 +24,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     fileprivate var scheduledStopAction: AKScheduledAction?
 
     // MARK: - Properties
+    
+    /// Buffer to be palyed
     open dynamic var audioFileBuffer: AVAudioPCMBuffer?
 
     /// Will be triggered when AKAudioPlayer has finished to play.
@@ -54,14 +56,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// Set the fade in time
+    /// Fade in duration
     open dynamic var fadeInTime: Double = 0 {
         didSet {
             updatePCMBuffer()
         }
     }
 
-    // Set the fade out time
+    /// Fade out duration
     open dynamic var fadeOutTime: Double = 0 {
         didSet {
             updatePCMBuffer()

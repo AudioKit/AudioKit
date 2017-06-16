@@ -10,6 +10,8 @@
 ///
 open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
+    
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
     // MARK: - Properties
