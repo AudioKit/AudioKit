@@ -9,7 +9,9 @@ import UIKit
 
 /// Delegate for keyboard events
 public protocol AKKeyboardDelegate: class {
+    /// Note on evenets
     func noteOn(note: MIDINoteNumber)
+    /// Note off events
     func noteOff(note: MIDINoteNumber)
 }
 

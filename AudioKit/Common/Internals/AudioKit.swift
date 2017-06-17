@@ -14,6 +14,7 @@ import Dispatch
 
 public typealias AKCallback = () -> Void
 
+/// Adding connection between nodes with default format
 extension AVAudioEngine {
     open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
         connect(node1, to: node2, format: AudioKit.format)

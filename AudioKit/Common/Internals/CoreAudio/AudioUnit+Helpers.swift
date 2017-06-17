@@ -12,6 +12,7 @@ import CoreAudio
 
 // MARK: - AudioUnit helpers
 
+/// Get, set, and listen to properties
 public extension AudioUnit {
 
     //swiftlint:disable force_try
@@ -50,6 +51,7 @@ public extension AudioUnit {
 
 // MARK: - AudioUnit callbacks
 
+/// Listener to properties in an audio unit
 public struct AudioUnitPropertyListener {
 
     public typealias AudioUnitPropertyListenerCallback = (
@@ -77,6 +79,7 @@ public struct AudioUnitPropertyListener {
 
 // MARK: - AudioUnit function wrappers
 
+/// Extension for getting and setting properties
 public extension AudioUnit {
 
     /// Get property information
@@ -123,6 +126,7 @@ public extension AudioUnit {
 
 // MARK: - AudioUnit function validation
 
+/// Extension to add a check function
 public extension OSStatus {
 
     /// Check for and throw an error 

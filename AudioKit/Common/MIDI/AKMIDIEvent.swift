@@ -166,6 +166,7 @@ public struct AKMIDIEvent {
         }
     }
 
+    /// Generate array of MIDI events from Bluetooth data
     public static func generateFrom(bluetoothData: [MIDIByte]) -> [AKMIDIEvent] {
         //1st byte timestamp coarse will always be > 128
         //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysex
