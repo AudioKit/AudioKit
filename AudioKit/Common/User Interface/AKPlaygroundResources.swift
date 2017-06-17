@@ -6,9 +6,9 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-// Since the AudioKit playgrounds are cross-platform, 
-// keep track of the audio resources available to each playground set here
+// Keep track of the audio resources available to each playground set here
 
+/// Audio files in the effects playgrounds
 public let processingPlaygroundFiles = [
     "Acid Full Dry.mp3",
     "Drums Dry.mp3",
@@ -19,6 +19,7 @@ public let processingPlaygroundFiles = [
     "mixloop.wav",
     "counting.mp3"]
 
+/// AUdio files in the playback playgrounds
 public let playbackPlaygroundFiles = [
     "poney.mp3",
     "mixloop.wav",
@@ -27,6 +28,7 @@ public let playbackPlaygroundFiles = [
     "guitarloop.wav",
     "leadloop.wav"]
 
+/// Audio files in the filter playgrounds
 public let filtersPlaygroundFiles = [
     "Drums.mp3",
     "Guitar.mp3",

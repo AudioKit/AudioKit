@@ -238,6 +238,7 @@ open class AKTelephoneView: UIView {
         context?.restoreGState()
     }
 
+    /// Draw one key
     open class func drawKey(text: String = "A B C", numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()

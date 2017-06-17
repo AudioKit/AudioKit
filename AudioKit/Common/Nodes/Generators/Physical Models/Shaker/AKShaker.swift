@@ -6,6 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// Type of shaker to use
 public enum AKShakerType: UInt8 {
     
     /// Maraca
@@ -98,6 +99,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
         }
     }
 
+    /// Type of shaker to use
     open var type: AKShakerType = .maraca {
         willSet {
             if type != newValue {

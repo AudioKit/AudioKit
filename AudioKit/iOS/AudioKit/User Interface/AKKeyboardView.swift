@@ -227,6 +227,7 @@ public protocol AKKeyboardDelegate: class {
 
     }
 
+    /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let notes = notesFromTouches(touches)
         for note in notes {
@@ -236,7 +237,7 @@ public protocol AKKeyboardDelegate: class {
         setNeedsDisplay()
     }
 
-    /// Handle new touches
+    /// Handle touches completed
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let note = noteFromTouchLocation(touch.location(in: self)) {

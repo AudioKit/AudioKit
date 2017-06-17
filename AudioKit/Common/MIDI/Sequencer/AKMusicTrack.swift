@@ -22,6 +22,7 @@ open class AKMusicTrack {
     /// Pointer to the Music Track
     open var trackPointer: UnsafeMutablePointer<MusicTrack>
 
+    /// Nicer function for not empty
     open var isNotEmpty: Bool {
         return !isEmpty
     }
@@ -229,6 +230,7 @@ open class AKMusicTrack {
         DisposeMusicEventIterator(iterator)
     }
 
+    /// Clear a specific note
     open func clearNote(_ note: MIDINoteNumber) {
         guard let track = internalMusicTrack else {
             return
@@ -260,6 +262,7 @@ open class AKMusicTrack {
         DisposeMusicEventIterator(iterator)
     }
 
+    /// Determine if the sequence is empty
     open var isEmpty: Bool {
         guard let track = internalMusicTrack else {
             return true
