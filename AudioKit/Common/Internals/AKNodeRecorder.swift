@@ -160,7 +160,6 @@
             }
         } catch let error as NSError {
             AKLog("AKNodeRecorder Error: cannot delete Recording file: \(audioFile?.fileNamePlusExtension ?? "nil")")
-            throw error
         }
 
         // Creates a blank new file
