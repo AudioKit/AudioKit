@@ -21,7 +21,7 @@
     /// True if we are recording.
     public private(set) dynamic var isRecording = false
 
-    // An optional duration for the recording to auto-stop when reached
+    /// An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0
 
     /// Duration of recording

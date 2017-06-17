@@ -73,7 +73,7 @@
     open static var useBluetooth: Bool = false
 
 #if !os(macOS)
-    // Additional control over the options to use for bluetooth
+    /// Additional control over the options to use for bluetooth
     open static var bluetoothOptions: AVAudioSessionCategoryOptions = []
 #endif
 
@@ -172,8 +172,8 @@ extension AKSettings {
         /// Audio is not silenced by silent switch and screen lock - audio is non mixable. 
         /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
         case playAndRecord
-        /// Disables playback and recording
         #if !os(tvOS)
+        /// Disables playback and recording
         case audioProcessing
         #endif
         /// Use to multi-route audio. May be used on input, output, or both.

@@ -85,16 +85,20 @@ public struct AKMIDIEvent {
         return 0
     }
 
+    /// MIDI Note Number
     public var noteNumber: MIDINoteNumber? {
         if status == .noteOn || status == .noteOff {
             return MIDINoteNumber(internalData[1])
         }
         return nil
     }
+    
+    /// First data byte
     public var data1: MIDIByte {
         return internalData[1]
     }
 
+    /// Second data byte
     public var data2: MIDIByte {
         return internalData[2]
     }
@@ -355,7 +359,7 @@ public struct AKMIDIEvent {
     ///   - velocity:   MIDI Note velocity (0-127)
     ///   - channel:    Channel on which the note appears
     ///
-  public init(noteOff noteNumber: MIDINoteNumber,
+    public init(noteOff noteNumber: MIDINoteNumber,
               velocity: MIDIVelocity,
               channel: MIDIChannel) {
         self.init(status: .noteOff,
@@ -394,6 +398,7 @@ public struct AKMIDIEvent {
                 byte2: value)
     }
 
+    /// Array of MIDI events from a MIDI packet list poionter
     static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
         return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
     }

@@ -438,6 +438,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Static Methods
 
+    /// Convert to AVAudioTime
     open class func secondsToAVAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()
@@ -492,6 +493,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
+    /// Stop playback after next loop completes
     open func stopAtNextLoopEnd() {
         guard playing else {
             return

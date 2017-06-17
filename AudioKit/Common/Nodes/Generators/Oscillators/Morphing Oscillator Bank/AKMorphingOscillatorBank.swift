@@ -19,6 +19,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
+    /// An array of tables to morph between
     open var waveformArray = [AKTable]() {
         willSet {
             self.waveformArray = newValue

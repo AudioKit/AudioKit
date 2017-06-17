@@ -19,6 +19,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
+    /// Waveform of the oscillator
     open var waveform: AKTable? {
         //TODO: Add error checking for table size...needs to match init()
         willSet {

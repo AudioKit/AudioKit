@@ -16,16 +16,19 @@ public extension AudioUnit {
 
     //swiftlint:disable force_try
 
+    /// Get value for a property
     func getValue<T>(forProperty property: AudioUnitPropertyID) -> T {
         let (dataSize, _) = try! getPropertyInfo(propertyID: property)
         return try! getProperty(propertyID: property, dataSize: dataSize)
     }
 
+    /// Set value for a property
     func setValue<T>(value: T, forProperty property: AudioUnitPropertyID) {
         let (dataSize, _) = try! getPropertyInfo(propertyID: property)
         return try! setProperty(propertyID: property, dataSize: dataSize, data: value)
     }
 
+    /// Add a listener to a property
     func add(listener: AudioUnitPropertyListener, toProperty property: AudioUnitPropertyID) {
         do {
             try addPropertyListener(listener: listener, toProperty: property)
@@ -34,6 +37,7 @@ public extension AudioUnit {
         }
     }
 
+    /// Remove a listener from a property
     func remove(listener: AudioUnitPropertyListener, fromProperty property: AudioUnitPropertyID) {
         do {
             try removePropertyListener(listener: listener, fromProperty: property)
@@ -55,6 +59,7 @@ public struct AudioUnitPropertyListener {
     let proc: AudioUnitPropertyListenerProc
     let procInput: UnsafeMutablePointer<AudioUnitPropertyListenerCallback>
 
+    /// Initialize the listener with a callback
     public init(callback: @escaping AudioUnitPropertyListenerCallback) {
         self.proc = { (inRefCon, inUnit, inID, inScope, inElement) in
 
@@ -74,6 +79,7 @@ public struct AudioUnitPropertyListener {
 
 public extension AudioUnit {
 
+    /// Get property information
     func getPropertyInfo(propertyID: AudioUnitPropertyID) throws -> (dataSize: UInt32, writable: Bool) {
         var dataSize: UInt32 = 0
         var writable: DarwinBoolean = false
@@ -83,6 +89,7 @@ public extension AudioUnit {
         return (dataSize: dataSize, writable: writable.boolValue)
     }
 
+    /// Get property
     func getProperty<T>(propertyID: AudioUnitPropertyID, dataSize: UInt32) throws -> T {
         var dataSize = dataSize
         var data = UnsafeMutablePointer<T>.allocate(capacity: Int(dataSize))
@@ -95,6 +102,7 @@ public extension AudioUnit {
         return data.pointee
     }
 
+    /// Set a property
     func setProperty<T>(propertyID: AudioUnitPropertyID, dataSize: UInt32, data: T) throws {
         var data = data
 
@@ -117,6 +125,7 @@ public extension AudioUnit {
 
 public extension OSStatus {
 
+    /// Check for and throw an error 
     func check() throws {
         if self != noErr {
             throw NSError(domain: NSOSStatusErrorDomain, code: Int(self), userInfo: nil)

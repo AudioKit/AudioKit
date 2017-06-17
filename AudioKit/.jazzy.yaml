@@ -169,8 +169,8 @@ custom_categories:
     children:
     - AKAudioPlayer
     - AKPhaseLockedVocoder
+    - AKSamplePlayer
     - AKSampler
-    - AKSequencer
     - AKTimePitch
     - AKVariSpeed
 

@@ -51,6 +51,7 @@ public struct AKTable: MutableCollection {
 
     private var content = [Element]()
 
+    /// Phase of the table
     public var phase: Float {
         didSet {
             phase = (0...1).clamp(phase)
@@ -130,6 +131,7 @@ public struct AKTable: MutableCollection {
         }
     }
 
+    /// Offset of the phase
     public var phaseOffset: Int {
         @inline(__always)
         get {

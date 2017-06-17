@@ -9,6 +9,7 @@
 import UIKit
 public typealias Label = UILabel
 
+/// UIView for playgrounds allowing live views to be generated easily
 open class AKPlaygroundView: UIView {
 
     /// Default standard element height (buttons, text)

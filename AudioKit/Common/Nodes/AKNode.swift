@@ -26,6 +26,7 @@ extension AVAudioConnectionPoint {
         self.avAudioNode = AVAudioNode()
     }
 
+    /// Initialize the node
     public init(avAudioNode: AVAudioNode, attach: Bool = false) {
       self.avAudioNode = avAudioNode
       if attach {
@@ -86,7 +87,7 @@ public protocol AKPolyphonic {
 /// Bare bones implementation of AKPolyphonic protocol
 @objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
 
-    // Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
+    /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     open static var tuningTable = AKTuningTable()
 
     /// Play a sound corresponding to a MIDI note with frequency
