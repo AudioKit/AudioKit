@@ -1323,6 +1323,7 @@ open class AKAUPresetBuilder {
 
 }
 
+/// Type of triggering to use
 public enum SampleTriggerMode: String {
     /// Hold
     case Hold = "hold"

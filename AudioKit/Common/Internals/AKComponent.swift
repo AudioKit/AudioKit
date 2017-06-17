@@ -6,10 +6,12 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// Helpful in reducing repetitive code in AudioKit
 public protocol Aliased {
     associatedtype _Self = Self
 }
 
+/// Helpful in reducing repetitive code in AudioKit
 public protocol AUComponent: class, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
 }
@@ -22,6 +24,7 @@ extension AUEffect {
     }
 }
 
+/// Helpful in reducing repetitive code in AudioKit
 public protocol AKComponent: AUComponent {
     associatedtype AKAudioUnitType: AnyObject
 }
@@ -42,6 +45,7 @@ extension AUParameterTree {
     }
 }
 
+/// Adding convenience initializers
 extension AudioComponentDescription {
     /// Initialize with type and sub-type
     public init(type: OSType, subType: OSType) {

@@ -6,7 +6,10 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// Adding description property
 extension AVAudioCommonFormat: CustomStringConvertible {
+    
+    /// Text version of the format
     public var description: String {
         switch self {
         case .otherFormat:
@@ -23,6 +26,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     }
 }
 
+/// Helpful additions for using AVAudioFiles within AudioKit
 extension AVAudioFile {
 
     // MARK: - Public Properties
