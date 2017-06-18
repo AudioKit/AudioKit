@@ -840,7 +840,6 @@
 		C4F8CA401DCA9256001F38F2 /* writecode.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C9BB1DCA9255001F38F2 /* writecode.c */; };
 		C4F8CA411DCA9256001F38F2 /* zeros.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C9BC1DCA9255001F38F2 /* zeros.c */; };
 		C4F8CA421DCA9256001F38F2 /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C9BD1DCA9255001F38F2 /* zitarev.c */; };
-		C4F8D0921D59516400D85987 /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */; };
 		C4FE68871EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FE68861EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift */; };
 /* End PBXBuildFile section */
 
@@ -1696,7 +1695,6 @@
 		C4F8C9BB1DCA9255001F38F2 /* writecode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = writecode.c; sourceTree = "<group>"; };
 		C4F8C9BC1DCA9255001F38F2 /* zeros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zeros.c; sourceTree = "<group>"; };
 		C4F8C9BD1DCA9255001F38F2 /* zitarev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zitarev.c; sourceTree = "<group>"; };
-		C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
 		C4FE68861EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIEndpointInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -3598,7 +3596,6 @@
 			children = (
 				C4D35CB91E8A3D8000E42D93 /* macOS */,
 				C45666951D448D7E00D26565 /* AKNodeFFTPlot.swift */,
-				C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */,
 				C45666961D448D7E00D26565 /* AKNodeOutputPlot.swift */,
 				C45666971D448D7E00D26565 /* AKOutputWaveformPlot.swift */,
 				C45666981D448D7E00D26565 /* AKRollingOutputPlot.swift */,
@@ -4679,7 +4676,6 @@
 				C45669301D448D7E00D26565 /* AKThreePoleLowpassFilterAudioUnit.mm in Sources */,
 				C4D35CC61E8A3D8000E42D93 /* AKBypassButton.swift in Sources */,
 				C4F8CA351DCA9256001F38F2 /* tin.c in Sources */,
-				C4F8D0921D59516400D85987 /* AKPlaygroundResources.swift in Sources */,
 				C456671A1D448D7E00D26565 /* pinknoise.c in Sources */,
 				C45669A01D448D7E00D26565 /* AKPluckedString.swift in Sources */,
 				C456692C1D448D7E00D26565 /* AKStringResonatorAudioUnit.mm in Sources */,
