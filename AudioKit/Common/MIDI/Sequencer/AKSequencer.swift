@@ -557,7 +557,9 @@ open class AKSequencer {
     open func loadMIDIFile(fromUrl fileURL: URL) {
         if let existingSequence = sequence {
             let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
-            AKLog("midi file url: \(fileURL), read status: \(status)")
+            if status != OSStatus(noErr) {
+                AKLog("error reading midi file url: \(fileURL), read status: \(status)")
+            }
         }
         if isAVSequencer {
             do {
@@ -568,7 +570,7 @@ open class AKSequencer {
         }
         initTracks()
     }
-
+    
 
     /// Initialize all tracks
     ///
