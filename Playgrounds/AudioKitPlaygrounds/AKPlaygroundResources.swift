@@ -19,7 +19,7 @@ public let processingPlaygroundFiles = [
     "mixloop.wav",
     "counting.mp3"]
 
-/// AUdio files in the playback playgrounds
+/// Audio files in the playback playgrounds
 public let playbackPlaygroundFiles = [
     "poney.mp3",
     "mixloop.wav",

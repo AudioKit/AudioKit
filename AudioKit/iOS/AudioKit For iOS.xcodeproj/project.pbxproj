@@ -812,7 +812,6 @@
 		C4F8C9371DCA8CE4001F38F2 /* zeros.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8AC1DCA8CE4001F38F2 /* zeros.c */; };
 		C4F8C9381DCA8CE4001F38F2 /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8AD1DCA8CE4001F38F2 /* zitarev.c */; };
 		C4F8D0901D588E0300D85987 /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D08F1D588E0300D85987 /* AKKeyboardView.swift */; };
-		C4F8D0941D5951C100D85987 /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D0931D5951C100D85987 /* AKPlaygroundResources.swift */; };
 		C4FE01631CED2DB40062B3A3 /* AKNodeRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FE01611CED2DB40062B3A3 /* AKNodeRecorder.swift */; };
 		C4FE68791EC1C1E5000B09B2 /* AKMicrophoneTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FE68761EC1C1E5000B09B2 /* AKMicrophoneTracker.swift */; };
 		C4FE687A1EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = C4FE68771EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1661,7 +1660,6 @@
 		C4F8C8AC1DCA8CE4001F38F2 /* zeros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zeros.c; sourceTree = "<group>"; };
 		C4F8C8AD1DCA8CE4001F38F2 /* zitarev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zitarev.c; sourceTree = "<group>"; };
 		C4F8D08F1D588E0300D85987 /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
-		C4F8D0931D5951C100D85987 /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
 		C4FE01611CED2DB40062B3A3 /* AKNodeRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeRecorder.swift; sourceTree = "<group>"; };
 		C4FE68761EC1C1E5000B09B2 /* AKMicrophoneTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMicrophoneTracker.swift; sourceTree = "<group>"; };
 		C4FE68771EC1C1E5000B09B2 /* AKMicrophoneTrackerEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMicrophoneTrackerEngine.h; sourceTree = "<group>"; };
@@ -1759,7 +1757,6 @@
 				C446B3E61D454AB6000AEFCA /* iOS */,
 				EA8BA9811C5E24AE00BBD469 /* AKView.swift */,
 				C46781AD1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift */,
-				C4F8D0931D5951C100D85987 /* AKPlaygroundResources.swift */,
 				C42ADFFD1C2C9E37000CEED2 /* AKRollingOutputPlot.swift */,
 				C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */,
 				C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */,
@@ -4319,7 +4316,6 @@
 				C486B3361DFE2A14009A25C4 /* gen_eval.c in Sources */,
 				C4F8C8D11DCA8CE4001F38F2 /* f.c in Sources */,
 				C42859061E90B6BC009B737D /* AKZitaReverbAudioUnit.mm in Sources */,
-				C4F8D0941D5951C100D85987 /* AKPlaygroundResources.swift in Sources */,
 				C40C426F1C41B22A009D870B /* AKPluckedString.swift in Sources */,
 				C4A107351E6962440018848C /* brown.c in Sources */,
 				C4C136EF1C2F94710026FD7A /* AKParameter.swift in Sources */,
