@@ -65,6 +65,8 @@ open class AKSequencer {
     }
 
     deinit {
+        AKLog("deinit:")
+        
         if let player = musicPlayer {
             DisposeMusicPlayer(player)
         }
@@ -527,15 +529,19 @@ open class AKSequencer {
         }
     }
 
-    /// Load a MIDI file
+    /// Load a MIDI file from the bundle
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
         guard let file = bundle.path(forResource: filename, ofType: "mid") else {
+            AKLog("filename is not in bundle: \(filename)")
             return
         }
         let fileURL = URL(fileURLWithPath: file)
         if let existingSequence = sequence {
-            MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
+            let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
+            if status != OSStatus(noErr) {
+                AKLog("status reading midi file: \(status)")
+            }
         }
         if isAVSequencer {
             do {
@@ -546,6 +552,23 @@ open class AKSequencer {
         }
         initTracks()
     }
+    
+    /// Load a MIDI file given a URL
+    open func loadMIDIFile(fromUrl fileURL: URL) {
+        if let existingSequence = sequence {
+            let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
+            AKLog("midi file url: \(fileURL), read status: \(status)")
+        }
+        if isAVSequencer {
+            do {
+                try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
+            } catch _ {
+                AKLog("failed to load midi into avseq")
+            }
+        }
+        initTracks()
+    }
+
 
     /// Initialize all tracks
     ///
