@@ -61,6 +61,10 @@
     return _kernel.resetted;
 }
 
+- (void)reset {
+    _kernel.reset();
+}
+
 - (void)createParameters {
 
     standardSetup(OscillatorBank)
