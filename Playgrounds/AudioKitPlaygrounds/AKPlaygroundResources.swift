@@ -1,6 +1,6 @@
 //
 //  AKPlaygroundResources.swift
-//  AudioKit
+//  AudioKit Playgrounds
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
@@ -33,4 +33,7 @@ public let filtersPlaygroundFiles = [
     "Drums.mp3",
     "Guitar.mp3",
     "Synth.mp3",
-    "Strings.mp3"]
+    "Strings.mp3",
+    "Acid Bass.mp3",
+    "Acid Drums.mp3",
+    "Acid Full.mp3"]
