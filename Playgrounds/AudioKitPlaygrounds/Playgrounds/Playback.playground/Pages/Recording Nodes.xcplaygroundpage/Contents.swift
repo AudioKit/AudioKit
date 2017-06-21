@@ -64,7 +64,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         })
 
         addSubview(AKButton(title: "Save") {
-            tape.exportAsynchronously(name: "test", baseDir: .documents, exportFormat: .caf) { [weak self] exportedFile, error in
+            tape.exportAsynchronously(name: "test",
+                                      baseDir: .documents,
+                                      exportFormat: .caf) { [weak self] exportedFile, error in
             }
             return "Saved"
         })

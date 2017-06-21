@@ -47,10 +47,9 @@ class PlaygroundView: AKPlaygroundView {
         })
 
         addSubview(AKPropertySlider(
-        property: "Rate",
-        value: 1, minimum: 0.1, maximum: 2) {
-                sliderValue in
-            samplePlayer.rate = sliderValue
+            property: "Rate",
+            value: 1, minimum: 0.1, maximum: 2) { sliderValue in
+                samplePlayer.rate = sliderValue
         })
     }
 }

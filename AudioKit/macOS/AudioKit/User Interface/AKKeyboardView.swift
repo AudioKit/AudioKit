@@ -1,6 +1,6 @@
 //
 //  AKKeyboardView.swift
-//  AudioKit
+//  AudioKit for macOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
@@ -25,12 +25,12 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     @IBInspectable open var firstOctave: Int = 4
 
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
-    @IBInspectable open var polyphonicButton: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable open var polyphonicButton: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
-    @IBInspectable open var  whiteKeyOff: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-    @IBInspectable open var  blackKeyOff: AKColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
-    @IBInspectable open var  keyOnColor: AKColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
-    @IBInspectable open var  topWhiteKeyOff: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
+    @IBInspectable open var  whiteKeyOff: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable open var  blackKeyOff: NSColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var  keyOnColor: NSColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var  topWhiteKeyOff: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
 
     open weak var delegate: AKKeyboardDelegate?
 
