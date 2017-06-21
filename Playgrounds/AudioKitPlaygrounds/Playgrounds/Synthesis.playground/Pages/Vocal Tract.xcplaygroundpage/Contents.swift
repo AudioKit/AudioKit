@@ -26,36 +26,31 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "Frequency",
-            value: voc.frequency, minimum: 0.0, maximum: 2_000) {
-                sliderValue in
+            value: voc.frequency, minimum: 0.0, maximum: 2_000) { sliderValue in
                 voc.frequency = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Tongue Position",
-            value: voc.tonguePosition, minimum: 0.0, maximum: 1) {
-                sliderValue in
+            value: voc.tonguePosition, minimum: 0.0, maximum: 1) { sliderValue in
                 voc.tonguePosition = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Tongue Diameter",
-            value: voc.tongueDiameter, minimum: 0.0, maximum: 1) {
-                sliderValue in
+            value: voc.tongueDiameter, minimum: 0.0, maximum: 1) { sliderValue in
                 voc.tongueDiameter = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Tenseness",
-            value: voc.tenseness, minimum: 0.0, maximum: 1) {
-                sliderValue in
+            value: voc.tenseness, minimum: 0.0, maximum: 1) { sliderValue in
                 voc.tenseness = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Nasality",
-            value: voc.nasality, minimum: 0.0, maximum: 1) {
-                sliderValue in
+            value: voc.nasality, minimum: 0.0, maximum: 1) { sliderValue in
                 voc.nasality = sliderValue
         })
 
