@@ -24,7 +24,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     fileprivate var scheduledStopAction: AKScheduledAction?
 
     // MARK: - Properties
-    
+
     /// Buffer to be palyed
     open dynamic var audioFileBuffer: AVAudioPCMBuffer?
 

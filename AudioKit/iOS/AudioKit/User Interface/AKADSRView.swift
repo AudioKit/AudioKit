@@ -75,7 +75,7 @@ import UIKit
     private var currentDragArea = ""
 
     //// Color Declarations
-    
+
     /// Color in the attack portion of the UI element
     @IBInspectable open var attackColor: UIColor = #colorLiteral(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
 
@@ -84,14 +84,14 @@ import UIKit
 
     /// Color in the sustain portion of the UI element
     @IBInspectable open var sustainColor: UIColor = #colorLiteral(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
-    
+
     /// Color in the release portion of the UI element
     @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
     let bgColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
     /// Width of the envelope curve
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
-    
+
     /// Color of the envelope curve
     @IBInspectable open var curveColor: UIColor = .black
 

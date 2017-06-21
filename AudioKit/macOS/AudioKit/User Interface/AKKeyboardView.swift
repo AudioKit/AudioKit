@@ -18,22 +18,22 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     override public var isFlipped: Bool {
         return true
     }
-    
+
     var size = CGSize.zero
 
     @IBInspectable open var octaveCount: Int = 2
     @IBInspectable open var firstOctave: Int = 4
-    
+
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
     @IBInspectable open var polyphonicButton: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-    
+
     @IBInspectable open var  whiteKeyOff: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     @IBInspectable open var  blackKeyOff: AKColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
     @IBInspectable open var  keyOnColor: AKColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
     @IBInspectable open var  topWhiteKeyOff: AKColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
-    
+
     open weak var delegate: AKKeyboardDelegate?
-    
+
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
@@ -154,22 +154,21 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     // MARK: - Storyboard Rendering
-    
+
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-        
+
         let width = Int(self.frame.width)
         let height = Int(self.frame.height)
         oneOctaveSize = CGSize(width: Double(width / octaveCount - width / (octaveCount * octaveCount * 7)),
                                height: Double(height))
     }
-    
+
     override open var intrinsicContentSize: CGSize {
         return CGSize(width: 1_024, height: 84)
     }
-    
 
     public func getNoteName(note: Int) -> String {
         let keyInOctave = note % 12

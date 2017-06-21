@@ -9,14 +9,14 @@
 /// A button, mainly used for playgrounds, but could be useful in your own projects
 open class AKButton: UIView {
     internal var callback: () -> (String)
-    
+
     /// Text to display on the button
     open var title: String {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     /// Background color of the button
     open var color: UIColor {
         didSet {

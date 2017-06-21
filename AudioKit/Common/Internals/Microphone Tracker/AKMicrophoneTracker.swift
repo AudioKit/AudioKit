@@ -8,7 +8,7 @@
 
 /// An easy to use class to do usual microphone tracking
 public class AKMicrophoneTracker {
-    
+
     var engine = AKMicrophoneTrackerEngine()
 
     /// Tracked amplitude
