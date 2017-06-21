@@ -13,7 +13,11 @@ let generator = AKOperationGenerator { _ in
     let diameter = AKOperation.sineWave(frequency: 0.2).scale()
     let tenseness = AKOperation.sineWave(frequency: 0.3).scale()
     let nasality = AKOperation.sineWave(frequency: 0.35).scale()
-    return AKOperation.vocalTract(frequency: frequency + jitter, tonguePosition: position, tongueDiameter: diameter, tenseness: tenseness, nasality: nasality)
+    return AKOperation.vocalTract(frequency: frequency + jitter,
+                                  tonguePosition: position,
+                                  tongueDiameter: diameter,
+                                  tenseness: tenseness,
+                                  nasality: nasality)
 }
 
 AudioKit.output = generator

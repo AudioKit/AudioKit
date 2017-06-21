@@ -53,7 +53,7 @@ open class AKPresetLoaderView: UIView {
 
     /// Initialize in Interface Builder
     required public init?(coder aDecoder: NSCoder) {
-        self.callback = {filename in return}
+        self.callback = { filename in return }
         self.presets = []
         super.init(coder: aDecoder)
     }
@@ -79,16 +79,25 @@ open class AKPresetLoaderView: UIView {
         let presetLabelWidth: CGFloat = 95 - 30 - 30 + 10
 
         // turboScroll area for touches
-        turboScrollPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: self.bounds.size.width - hitpointWidth, height: self.bounds.size.height))
+        turboScrollPath = UIBezierPath(rect: CGRect(x: 0,
+                                                    y: 0,
+                                                    width: self.bounds.size.width - hitpointWidth,
+                                                    height: self.bounds.size.height))
 
         //// background Drawing
-        let backgroundPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        let backgroundPath = UIBezierPath(rect: CGRect(x: 0,
+                                                       y: 0,
+                                                       width: self.bounds.size.width,
+                                                       height: self.bounds.size.height))
         darkgray.setFill()
         backgroundPath.fill()
 
         //// presetButton
         //// presetOuter Drawing
-        presetOuterPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: presetLabelWidth, height: self.bounds.size.height))
+        presetOuterPath = UIBezierPath(rect: CGRect(x: 0,
+                                                    y: 0,
+                                                    width: presetLabelWidth,
+                                                    height: self.bounds.size.height))
         expression.setFill()
         presetOuterPath.fill()
 
@@ -125,41 +134,60 @@ open class AKPresetLoaderView: UIView {
         //// upOuter Drawing
         let originX: CGFloat = 380 - 30 + 15 + 5
         let buttonX: CGFloat = self.bounds.size.width - hitpointWidth
-        upOuterPath = UIBezierPath(rect: CGRect(x: Int(buttonX + 381 - originX), y: 0, width: Int(hitpointWidth), height: Int(hitpointHeight2)))
+        upOuterPath = UIBezierPath(rect: CGRect(x: Int(buttonX + 381 - originX),
+                                                y: 0,
+                                                width: Int(hitpointWidth),
+                                                height: Int(hitpointHeight2)))
         gray.setFill()
         upOuterPath.fill()
 
         //// upInner Drawing
         let upInnerPath = UIBezierPath()
-        upInnerPath.move(to: CGPoint(x: Int(buttonX + 395.75 - originX), y: Int(2 * hitpointHeight2 * 22.5 / hitpointHeight)))
-        upInnerPath.addLine(to: CGPoint(x: Int(buttonX + 425.25 - originX), y: Int(2 * hitpointHeight2 * 22.5 / hitpointHeight)))
-        upInnerPath.addLine(to: CGPoint(x: Int(buttonX + 410.5 - originX), y: Int(2 * hitpointHeight2 * 7.5 / hitpointHeight)))
-        upInnerPath.addLine(to: CGPoint(x: Int(buttonX + 410.5 - originX), y: Int(2 * hitpointHeight2 * 7.5 / hitpointHeight)))
-        upInnerPath.addLine(to: CGPoint(x: Int(buttonX + 395.75 - originX), y: Int(2 * hitpointHeight2 * 22.5 / hitpointHeight)))
+        upInnerPath.move(to: CGPoint(x: Int(buttonX + 395.75 - originX),
+                                     y: Int(2 * hitpointHeight2 * 22.5 / hitpointHeight)))
+        upInnerPath.addLine(to: CGPoint(x: Int(buttonX + 425.25 - originX),
+                                        y: Int(2 * hitpointHeight2 * 22.5 / hitpointHeight)))
+        upInnerPath.addLine(to: CGPoint(x: Int(buttonX + 410.5 - originX),
+                                        y: Int(2 * hitpointHeight2 * 7.5 / hitpointHeight)))
+        upInnerPath.addLine(to: CGPoint(x: Int(buttonX + 410.5 - originX),
+                                        y: Int(2 * hitpointHeight2 * 7.5 / hitpointHeight)))
+        upInnerPath.addLine(to: CGPoint(x: Int(buttonX + 395.75 - originX),
+                                        y: Int(2 * hitpointHeight2 * 22.5 / hitpointHeight)))
         upInnerPath.close()
         dark.setFill()
         upInnerPath.fill()
 
         //// downButton
         //// downOuter Drawing
-        downOuterPath = UIBezierPath(rect: CGRect(x: Int(buttonX + 381 - originX), y: Int(hitpointHeight2), width: Int(hitpointWidth), height: Int(hitpointHeight2)))
+        downOuterPath = UIBezierPath(rect: CGRect(x: Int(buttonX + 381 - originX),
+                                                  y: Int(hitpointHeight2),
+                                                  width: Int(hitpointWidth),
+                                                  height: Int(hitpointHeight2)))
         gray.setFill()
         downOuterPath.fill()
 
         //// downInner Drawing
         let downInnerPath = UIBezierPath()
-        downInnerPath.move(to: CGPoint(x: Int(buttonX + 410.5 - originX), y: Int(2 * hitpointHeight2 * 52.5 / hitpointHeight)))
-        downInnerPath.addLine(to: CGPoint(x: Int(buttonX + 410.5 - originX), y: Int(2 * hitpointHeight2 * 52.5 / hitpointHeight)))
-        downInnerPath.addLine(to: CGPoint(x: Int(buttonX + 425.25 - originX), y: Int(2 * hitpointHeight2 * 37.5 / hitpointHeight)))
-        downInnerPath.addLine(to: CGPoint(x: Int(buttonX + 395.75 - originX), y: Int(2 * hitpointHeight2 * 37.5 / hitpointHeight)))
-        downInnerPath.addLine(to: CGPoint(x: Int(buttonX + 410.5 - originX), y: Int(2 * hitpointHeight2 * 52.5 / hitpointHeight)))
+        downInnerPath.move(to: CGPoint(x: Int(buttonX + 410.5 - originX),
+                                       y: Int(2 * hitpointHeight2 * 52.5 / hitpointHeight)))
+        downInnerPath.addLine(to: CGPoint(x: Int(buttonX + 410.5 - originX),
+                                          y: Int(2 * hitpointHeight2 * 52.5 / hitpointHeight)))
+        downInnerPath.addLine(to: CGPoint(x: Int(buttonX + 425.25 - originX),
+                                          y: Int(2 * hitpointHeight2 * 37.5 / hitpointHeight)))
+        downInnerPath.addLine(to: CGPoint(x: Int(buttonX + 395.75 - originX),
+                                          y: Int(2 * hitpointHeight2 * 37.5 / hitpointHeight)))
+        downInnerPath.addLine(to: CGPoint(x: Int(buttonX + 410.5 - originX),
+                                          y: Int(2 * hitpointHeight2 * 52.5 / hitpointHeight)))
         downInnerPath.close()
         dark.setFill()
         downInnerPath.fill()
 
         //// nameLabel Drawing
         // Font with fontName and fontSize
-        let nameLabelRect = CGRect(x: presetLabelWidth, y: 0, width: self.bounds.size.width - presetLabelWidth, height: hitpointHeight)
+        let nameLabelRect = CGRect(x: presetLabelWidth,
+                                   y: 0,
+                                   width: self.bounds.size.width - presetLabelWidth,
+                                   height: hitpointHeight)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
         let nameLabelFontAttributes = [NSFontAttributeName: finalFont,

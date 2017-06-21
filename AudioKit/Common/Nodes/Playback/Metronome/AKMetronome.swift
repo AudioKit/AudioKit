@@ -35,7 +35,7 @@ public class AKMetronome: AKOperationGenerator {
 
     /// The value of the current beat
     public var currentBeat: Int {
-        get { return 1 + Int((parameters[2] + 1).truncatingRemainder(dividingBy: Double(subdivision)))  }
+        get { return 1 + Int((parameters[2] + 1).truncatingRemainder(dividingBy: Double(subdivision))) }
         set(newValue) { parameters[2] = Double(newValue) }
     }
 
