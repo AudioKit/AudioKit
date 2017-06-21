@@ -14,10 +14,10 @@ open class AKStepper: UIView {
 
     /// Text / label to display
     open var text = "Value"
-    
+
     /// Current value
     open var value: MIDIByte
-    
+
     /// Function to call on change
     open var callback: (MIDIByte) -> Void
 

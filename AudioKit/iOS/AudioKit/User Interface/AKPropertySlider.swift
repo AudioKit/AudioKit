@@ -15,28 +15,28 @@
             setNeedsDisplay()
         }
     }
-    
+
     /// Minimum, left-most value
     @IBInspectable open var minimum: Double = 0
-    
+
     /// Maximum, right-most value
     @IBInspectable open var maximum: Double = 1
-    
+
     /// Text shown on the slider
     @IBInspectable open var property: String = "Property"
-    
+
     /// Format for the number shown on the slider
     @IBInspectable open var format: String = "%0.3f"
-    
+
     /// Background color
     @IBInspectable open var bgColor: UIColor = UIColor(colorLiteralRed: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-    
+
     /// Slider overlay color
     @IBInspectable open var sliderColor: UIColor = .red
-    
+
     /// Text color
     @IBInspectable open var textColor: UIColor = .black
-    
+
     /// Font size
     @IBInspectable open var fontSize: CGFloat = 24
 

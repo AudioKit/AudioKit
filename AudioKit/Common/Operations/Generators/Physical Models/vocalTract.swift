@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Karplus-Strong plucked string instrument.
     ///
     /// - Parameters:
@@ -23,7 +23,7 @@ extension AKOperation {
         tongueDiameter: AKParameter = 1.0,
         tenseness: AKParameter = 0.6,
         nasality: AKParameter = 0.0) -> AKOperation {
-        
+
         return AKOperation(module: "voc",
                            inputs: frequency, tonguePosition, tongueDiameter, tenseness, nasality)
     }

@@ -83,7 +83,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         }
     }
-    
+
     /// Volume - amplitude adjustment
     open dynamic var volume: Double = 1 {
         willSet {
@@ -106,17 +106,17 @@ open class AKSamplePlayer: AKNode, AKComponent {
             internalAU?.loop = newValue
         }
     }
-    
+
     /// Number of sample in the audio stored in memory
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
     }
-    
+
     /// Position in the audio file from 0 - 1
     open var normalizedPosition: Double {
         return Double(internalAU!.position())
     }
-    
+
     /// Position in the audio in samples, but represented as a double since
     /// you could conceivably be at a non-integer sample
     open var position: Double {
@@ -129,7 +129,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     fileprivate var avAudiofile: AVAudioFile
-    
+
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node

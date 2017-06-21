@@ -393,7 +393,10 @@ open class AKMusicTrack {
         // Find least and most significant bytes, remembering they are 7 bit numbers.
         let lsb = value & 0x7F
         let msb = (value >> 7) & 0x7F
-        var pitchBendMessage = MIDIChannelMessage(status: UInt8(14 << 4) | UInt8((channel) & 0xf), data1: UInt8(lsb), data2: UInt8(msb), reserved: 0)
+        var pitchBendMessage = MIDIChannelMessage(status: UInt8(14 << 4) | UInt8((channel) & 0xf),
+                                                  data1: UInt8(lsb),
+                                                  data2: UInt8(msb),
+                                                  reserved: 0)
         MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &pitchBendMessage)
     }
 

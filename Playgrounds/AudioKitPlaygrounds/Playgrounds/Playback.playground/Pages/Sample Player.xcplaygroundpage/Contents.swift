@@ -24,7 +24,7 @@ class PlaygroundView: AKPlaygroundView {
                               length: Sample(40_000))
             return "Play"
         })
-        
+
         addSubview(AKButton(title: "Play Reversed") {
             let start = Sample(44_100 * (self.current % 26))
             samplePlayer.play(from: start + 40_000, to: start)

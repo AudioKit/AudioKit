@@ -34,7 +34,6 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     fileprivate var tensenessParameter: AUParameter?
     fileprivate var nasalityParameter: AUParameter?
 
-
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -139,7 +138,6 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
         tenseness: Double = 0.6,
         nasality: Double = 0.0) {
 
-
         self.frequency = frequency
         self.tonguePosition = tonguePosition
         self.tongueDiameter = tongueDiameter
@@ -158,11 +156,11 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter      = tree.value(forKey: "frequency")      as? AUParameter
+        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
         tonguePositionParameter = tree.value(forKey: "tonguePosition") as? AUParameter
         tongueDiameterParameter = tree.value(forKey: "tongueDiameter") as? AUParameter
-        tensenessParameter      = tree.value(forKey: "tenseness")      as? AUParameter
-        nasalityParameter       = tree.value(forKey: "nasality")       as? AUParameter
+        tensenessParameter = tree.value(forKey: "tenseness") as? AUParameter
+        nasalityParameter = tree.value(forKey: "nasality") as? AUParameter
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 

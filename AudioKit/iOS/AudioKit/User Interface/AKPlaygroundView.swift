@@ -14,10 +14,10 @@ open class AKPlaygroundView: UIView {
 
     /// Default standard element height (buttons, text)
     open var elementHeight: CGFloat = 30
-    
+
     /// Current Y position
     open var yPosition: Int = 25
-    
+
     /// Spacing height between elements
     open var spacing = 25
 

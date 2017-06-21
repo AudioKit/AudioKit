@@ -40,7 +40,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
             return 0.0
         }
     }
-    
+
     /// Threshold amplitude
     open dynamic var threshold: Double = 1 {
         willSet {
@@ -70,11 +70,11 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self!.internalAU!.thresholdCallback = thresholdCallback
-            
+
             if let au = self?.internalAU {
                 au.setHalfPowerPoint(Float(halfPowerPoint))
             }
-            
+
             input?.addConnectionPoint(self!)
         }
 
