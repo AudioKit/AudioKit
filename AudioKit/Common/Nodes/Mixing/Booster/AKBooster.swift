@@ -95,7 +95,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize this gainner node
+    /// Initialize this booster node
     ///
     /// - Parameters:
     ///   - input: AKNode whose output will be amplified
