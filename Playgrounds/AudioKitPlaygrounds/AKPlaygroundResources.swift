@@ -6,34 +6,11 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-// Keep track of the audio resources available to each playground set here
-
-/// Audio files in the effects playgrounds
-public let processingPlaygroundFiles = [
-    "Acid Full Dry.mp3",
-    "Drums Dry.mp3",
-    "Acid Synth Dry.mp3",
-    "80s Synth.mp3",
-    "Lo-Fi Synth.mp3",
-    "African.mp3",
-    "mixloop.wav",
-    "counting.mp3"]
-
-/// Audio files in the playback playgrounds
-public let playbackPlaygroundFiles = [
-    "poney.mp3",
-    "mixloop.wav",
-    "bassloop.wav",
-    "drumloop.wav",
-    "guitarloop.wav",
-    "leadloop.wav"]
-
-/// Audio files in the filter playgrounds
-public let filtersPlaygroundFiles = [
-    "Drums.mp3",
-    "Guitar.mp3",
-    "Synth.mp3",
-    "Strings.mp3",
-    "Acid Bass.mp3",
-    "Acid Drums.mp3",
-    "Acid Full.mp3"]
+public var playgroundAudioFiles: [String] {
+    let mp3URLs = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: "", localization: "")
+    let wavURLs = Bundle.main.urls(forResourcesWithExtension: "wav", subdirectory: "", localization: "")
+    let aifURLs = Bundle.main.urls(forResourcesWithExtension: "aif", subdirectory: "", localization: "")
+    let m4aURLs = Bundle.main.urls(forResourcesWithExtension: "m4a", subdirectory: "", localization: "")
+    let fileURLs: [URL] = mp3URLs! + wavURLs! + aifURLs! + m4aURLs!
+    return fileURLs.flatMap{ $0.lastPathComponent }.sorted()
+}
