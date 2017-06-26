@@ -101,7 +101,13 @@
 
     /// Enable AudioKit AVAudioSession Category Management
     open static var disableAVAudioSessionCategoryManagement: Bool = false
-
+    
+    // If set to true, AudioKit will not handle the AVAudioSession route change 
+    // notification (AVAudioSessionRouteChange) and will not restart the AVAudioEngine
+    // instance when such notifications are posted. The developer can instead subscribe
+    // to these notifications and restart AudioKit after rebuiling their audio chain.
+    open static var disableRouteChangeHandling: Bool = false
+    
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
 }

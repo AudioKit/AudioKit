@@ -219,12 +219,13 @@ extension AVAudioEngine {
             self.engine.prepare()
 
             #if os(iOS)
-
-                NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(AudioKit.restartEngineAfterRouteChange),
-                    name: .AVAudioSessionRouteChange,
-                    object: nil)
+                if !AKSettings.disableRouteChangeHandling {
+                    NotificationCenter.default.addObserver(
+                        self,
+                        selector: #selector(AudioKit.restartEngineAfterRouteChange),
+                        name: .AVAudioSessionRouteChange,
+                        object: nil)
+                }
             #endif
             #if !os(macOS)
                 if AKSettings.audioInputEnabled {
