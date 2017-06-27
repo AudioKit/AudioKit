@@ -121,6 +121,17 @@ If you use CocoaPods, you can also easily get the latest AudioKit binary framewo
 pod 'AudioKit', '~> 3.7'
 ```
 
+## Ray Wenderlich's AudioKit Tutorial
+
+Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywenderlich.com/145770/audiokit-tutorial-getting-started). You’ll be taken on a fun and gentle journey through the framework via the history of sound synthesis and computer audio.
+
+## Contributing Code
+
+We welcome new contributors but we realize it can be daunting to suggest updates as a newcomer.  Here's what we are currently working on:  [AudioKit Works in Progress](https://github.com/audiokit/AudioKit/projects)
+
+Ready to send us a pull request? Please make sure your request is based on the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch of the repository as `master` only holds stable releases.
+
+
 ## About Us
 
 AudioKit was created by the following team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
@@ -134,31 +145,4 @@ AudioKit was created by the following team whose contributions are fully chronic
 * **[Nicholas Arner](https://github.com/narner)**: Longtime contributor to AudioKit and AudioKit's web site.
 * **[Paul Batchelor](https://github.com/PaulBatchelor)**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
 * **[Stephane Peter](https://github.com/megastep)**: Installation and configuration czar and code reviewer.
-
-## Contributing Code
-
-We welcome new contributors but we realize it can be daunting to suggest updates as a newcomer.  Here's what we are currently working on:  [AudioKit Works in Progress](http://audiokit.io/wip/)
-
-Here are some resources that we use to develop our coding choices and core philosophies:
-
-## Avoid code smell
-
-* [Code Smell in Swift](http://www.bartjacobs.com/five-code-smells-in-swift-and-objective-c/)
-* [Code Smell in Objective-C](http://qualitycoding.org/objective-c-code-smells/)
-* [Code Smell of the Preprocessor](http://qualitycoding.org/preprocessor/)
-
-## Be aware of how to code for an open-source framework
-
-* [Tips for Writing a Great iOS Framework](https://medium.com/@samjarman/tips-for-writing-a-great-ios-framework-8cf3452f6c5d#.wzejktd3l)
-* [Best practices running an iOS open source project on GitHub](https://www.cocoanetics.com/2014/10/best-practices-running-an-ios-open-source-project-on-github/)
-
-## GitHub Pull Request Policy
-
-Ready to send us a pull request? Please make sure your request is based on the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch of the repository as `master` only holds stable releases.
-
-## Interested in audio synthesis?
-
-* check out [Syntorial](http://www.syntorial.com/#a_aid=AudioKit), it's hands down the best way to learn about synthesis interactively, your best bet if you care about synthesis from the sound design point of view; an afternoon with this will help you understand more than any book or video
-
-* https://web.archive.org/web/20160403115835/http://www.soundonsound.com/sos/allsynthsecrets.htm very detailed, very thorough discussion of the topic of synthesis but almost too detailed on times
 
