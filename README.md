@@ -43,7 +43,7 @@ Taps use nodes as their data source, but do not redirect the audio signal away f
 
 ## Installation
 
-Installation can be achieved in the usual ways for a framework.  This is explained in more detail in the [INSTALL.md file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/INSTALL.md) in the Frameworks directory.
+Installation can be achieved in the usual ways for a framework. More details are found in the [Frameworks README file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md).
 
 An AudioKit package is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) and Carthage.
 
