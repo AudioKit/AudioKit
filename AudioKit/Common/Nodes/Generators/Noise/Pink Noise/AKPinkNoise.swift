@@ -10,6 +10,7 @@
 ///
 open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPinkNoiseAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pink")
 
     // MARK: - Properties

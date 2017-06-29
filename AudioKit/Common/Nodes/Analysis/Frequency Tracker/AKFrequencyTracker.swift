@@ -10,6 +10,7 @@
 ///
 open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFrequencyTrackerAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "ptrk")
 
     // MARK: - Properties

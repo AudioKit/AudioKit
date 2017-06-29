@@ -10,6 +10,7 @@
 ///
 open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKHighShelfParametricEqualizerFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "peq2")
 
     // MARK: - Properties

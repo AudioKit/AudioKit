@@ -10,6 +10,7 @@
 ///
 open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
 
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
 
     private var au: AUWrapper

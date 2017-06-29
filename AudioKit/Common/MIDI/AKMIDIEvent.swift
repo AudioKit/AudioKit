@@ -85,16 +85,20 @@ public struct AKMIDIEvent {
         return 0
     }
 
+    /// MIDI Note Number
     public var noteNumber: MIDINoteNumber? {
         if status == .noteOn || status == .noteOff {
             return MIDINoteNumber(internalData[1])
         }
         return nil
     }
+
+    /// First data byte
     public var data1: MIDIByte {
         return internalData[1]
     }
 
+    /// Second data byte
     public var data2: MIDIByte {
         return internalData[2]
     }
@@ -162,6 +166,7 @@ public struct AKMIDIEvent {
         }
     }
 
+    /// Generate array of MIDI events from Bluetooth data
     public static func generateFrom(bluetoothData: [MIDIByte]) -> [AKMIDIEvent] {
         //1st byte timestamp coarse will always be > 128
         //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysex
@@ -173,7 +178,7 @@ public struct AKMIDIEvent {
             var rawEvents: [[MIDIByte]] = []
             if bluetoothData[1] < 128 {
                 //continuation of sysex from previous packet - handle separately 
-                //(probably needs a whole bluetooth midi class so we can see the previous packets)
+                //(probably needs a whole bluetooth MIDI class so we can see the previous packets)
             } else {
                 var rawEvent: [MIDIByte] = []
                 var lastStatus: MIDIByte = 0
@@ -219,7 +224,7 @@ public struct AKMIDIEvent {
     init(data: [MIDIByte]) {
         if let command = AKMIDISystemCommand(rawValue: data[0]) {
             internalData = []
-            //is sys command
+            // is sys command
             if command == .sysex {
                 for byte in data {
                     internalData.append(byte)
@@ -229,7 +234,7 @@ public struct AKMIDIEvent {
                 fillData(command: command, byte1: data[1], byte2: data[2])
             }
         } else if let status = statusFrom(rawByte: data[0]) {
-            //is regular midi status
+            // is regular MIDI status
             let channel = channelFrom(rawByte: data[0])
             fillData(status: status, channel: channel, byte1: data[1], byte2: data[2])
         }
@@ -355,9 +360,9 @@ public struct AKMIDIEvent {
     ///   - velocity:   MIDI Note velocity (0-127)
     ///   - channel:    Channel on which the note appears
     ///
-  public init(noteOff noteNumber: MIDINoteNumber,
-              velocity: MIDIVelocity,
-              channel: MIDIChannel) {
+    public init(noteOff noteNumber: MIDINoteNumber,
+                velocity: MIDIVelocity,
+                channel: MIDIChannel) {
         self.init(status: .noteOff,
                   channel: channel,
                   byte1: noteNumber,
@@ -394,6 +399,7 @@ public struct AKMIDIEvent {
                 byte2: value)
     }
 
+    /// Array of MIDI events from a MIDI packet list poionter
     static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
         return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
     }

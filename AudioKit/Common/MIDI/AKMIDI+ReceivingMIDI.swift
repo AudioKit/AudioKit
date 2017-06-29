@@ -61,7 +61,7 @@ extension AKMIDI {
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     for packet in packetList.pointee {
-                        // a coremidi packet may contain multiple midi events
+                        // a CoreMIDI packet may contain multiple MIDI events
                         for event in packet {
                             self.handleMIDIMessage(event)
                         }
@@ -71,7 +71,7 @@ extension AKMIDI {
                 inputPorts[namedInput] = port
 
                 if result != noErr {
-                    AKLog("Error creating midiInPort : \(result)")
+                    AKLog("Error creating MIDI Input Port : \(result)")
                 }
                 MIDIPortConnectSource(port, src, nil)
                 endpoints[namedInput] = src
@@ -99,7 +99,7 @@ extension AKMIDI {
                 }
             }
         }
-//        The below code is not working properly - error closing midi port
+//        The below code is not working properly - error closing MIDI port
 //        for (key, endpoint) in inputPorts {
 //            if namedInput.isEmpty || key == namedInput {
 //                if let port = inputPorts[key] {

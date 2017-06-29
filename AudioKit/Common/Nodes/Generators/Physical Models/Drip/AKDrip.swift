@@ -11,6 +11,7 @@
 ///
 open class AKDrip: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKDripAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
     // MARK: - Properties

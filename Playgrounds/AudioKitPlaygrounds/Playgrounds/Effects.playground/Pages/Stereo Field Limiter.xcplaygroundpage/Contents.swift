@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
                            baseDir: .resources)
 var player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -23,7 +23,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: processingPlaygroundFiles))
+            filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: limitedOutput))
 

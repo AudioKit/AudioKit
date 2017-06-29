@@ -8,8 +8,8 @@ int sporth_loadspa(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
 
     sp_ftbl *ft;
-    char *str;
-    char *filename;
+    const char *str;
+    const char *filename;
 
     switch(pd->mode){
         case PLUMBER_CREATE:
@@ -30,8 +30,8 @@ int sporth_loadspa(sporth_stack *stack, void *ud)
             break;
 
         case PLUMBER_INIT:
-            filename = sporth_stack_pop_string(stack);
-            str = sporth_stack_pop_string(stack);
+            sporth_stack_pop_string(stack);
+            sporth_stack_pop_string(stack);
             break;
 
         case PLUMBER_COMPUTE:

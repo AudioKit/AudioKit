@@ -26,6 +26,7 @@ extension AVAudioConnectionPoint {
         self.avAudioNode = AVAudioNode()
     }
 
+    /// Initialize the node
     public init(avAudioNode: AVAudioNode, attach: Bool = false) {
       self.avAudioNode = avAudioNode
       if attach {
@@ -38,7 +39,7 @@ extension AVAudioConnectionPoint {
         connectionPoints.append(AVAudioConnectionPoint(node, to: bus))
         AudioKit.engine.connect(avAudioNode,
                                 to: connectionPoints,
-                                fromBus: bus,
+                                fromBus: 0,
                                 format: AudioKit.format)
     }
 
@@ -86,7 +87,7 @@ public protocol AKPolyphonic {
 /// Bare bones implementation of AKPolyphonic protocol
 @objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
 
-    // Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
+    /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     open static var tuningTable = AKTuningTable()
 
     /// Play a sound corresponding to a MIDI note with frequency
@@ -111,7 +112,7 @@ public protocol AKPolyphonic {
         // MARK: Microtonal pitch lookup
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
+//        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
         self.play(noteNumber: noteNumber, velocity: velocity, frequency: frequency)
     }
 

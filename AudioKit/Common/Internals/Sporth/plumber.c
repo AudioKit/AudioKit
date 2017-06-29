@@ -322,7 +322,7 @@ int plumber_reinit(plumber_data *plumb)
     return PLUMBER_OK;
 }
 
-int plumber_open_file(plumber_data *plumb, char *filename)
+int plumber_open_file(plumber_data *plumb, const char *filename)
 {
     plumb->fp = fopen(filename, "r");
     if(plumb->fp == NULL) {
@@ -363,6 +363,23 @@ int plumber_search(plumber_data *plumb, const char *str, plumber_ftbl **ft)
     }
     plumber_print(plumb,"Could not find an ftable match for %s.\n", str);
     return PLUMBER_NOTOK;
+}
+
+int plumber_add(plumber_data *plumb, const char *str, plumber_ftbl **ft)
+{
+    uint32_t pos = sporth_hash(str);
+    plumber_ftentry *entry = &plumb->ftmap[pos];
+    entry->nftbl++;
+    plumber_ftbl *new = malloc(sizeof(plumber_ftbl));
+    new->type = PTYPE_USERDATA;
+    new->to_delete = plumb->delete_ft;
+    new->name = malloc(sizeof(char) * strlen(str) + 1);
+    strcpy(new->name, str);
+    entry->last->next = new;
+    entry->last = new;
+
+    *ft = new;
+    return PLUMBER_OK;
 }
 
 int plumber_register(plumber_data *plumb)
