@@ -11,8 +11,8 @@ int sporth_loadfile(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
 
     sp_ftbl *ft;
-    char *str;
-    char *filename;
+    const char *str;
+    const char *filename;
 
     switch(pd->mode){
         case PLUMBER_CREATE:

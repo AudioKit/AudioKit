@@ -10,6 +10,7 @@
 ///
 open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")
 
     // MARK: - Properties

@@ -10,6 +10,7 @@
 ///
 open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
 
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
 
     private var mixer: AKMixer

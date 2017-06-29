@@ -14,6 +14,7 @@ open class AKBypassButton: UIView {
     var bypassOuterPath = UIBezierPath()
     var processOuterPath = UIBezierPath()
 
+    /// Hanldes new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
 

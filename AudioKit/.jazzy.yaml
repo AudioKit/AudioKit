@@ -13,7 +13,7 @@ custom_categories:
     - AudioKit
     - AKAudioFile
     - AKDevice
-    - AKMicrophoneRecorder
+    - AKMicrophoneTracker
     - AKNodeRecorder
     - AKSettings
     - AKTable
@@ -33,7 +33,6 @@ custom_categories:
     - AKMIDISystemCommand
     - MIDIPacket
     - MIDIPacketList
-    - MIDIPacketListGenerator
     - AKCallbackInstrument
 
   - name: Sequencer
@@ -170,8 +169,8 @@ custom_categories:
     children:
     - AKAudioPlayer
     - AKPhaseLockedVocoder
+    - AKSamplePlayer
     - AKSampler
-    - AKSequencer
     - AKTimePitch
     - AKVariSpeed
 
@@ -212,7 +211,6 @@ custom_categories:
   - name: Random Number Generators
     children:
     - random(_:_:)
-    - randomInt(_:)
 
   - name: Plotting Tools
     children:
@@ -233,7 +231,6 @@ custom_categories:
     - AKBypassButton
     - AKKeyboardView
     - AKKeyboardDelegate
-    - AKNotifications
     - AKPlaygroundLoop
     - AKPlaygroundView
     - AKPresetLoaderView

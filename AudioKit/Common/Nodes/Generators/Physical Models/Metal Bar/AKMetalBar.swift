@@ -10,6 +10,7 @@
 ///
 open class AKMetalBar: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKMetalBarAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 
     // MARK: - Properties

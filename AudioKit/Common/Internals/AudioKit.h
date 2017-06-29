@@ -110,6 +110,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKRhodesPianoAudioUnit.h"
 #import "AKShakerAudioUnit.h"
 #import "AKTubularBellsAudioUnit.h"
+#import "AKVocalTractAudioUnit.h"
 
 // Mixing
 #import "AKBalancerAudioUnit.h"

@@ -9,7 +9,7 @@ int sporth_zeros(sporth_stack *stack, void *ud)
 
     int size;
     sp_ftbl *ft;
-    char *str;
+    const char *str;
 
     switch(pd->mode){
         case PLUMBER_CREATE:

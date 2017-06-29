@@ -1323,10 +1323,18 @@ open class AKAUPresetBuilder {
 
 }
 
+/// Type of triggering to use
 public enum SampleTriggerMode: String {
+    /// Hold
     case Hold = "hold"
+
+    /// Trigger
     case Trigger = "trigger"
+
+    /// Loop
     case Loop = "loop"
+
+    /// Repeat
     case Repeat = "repeat"
 }
 /*

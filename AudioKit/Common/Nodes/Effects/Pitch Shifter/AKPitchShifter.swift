@@ -10,6 +10,7 @@
 ///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
     // MARK: - Properties

@@ -24,6 +24,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     fileprivate var scheduledStopAction: AKScheduledAction?
 
     // MARK: - Properties
+
+    /// Buffer to be palyed
     open dynamic var audioFileBuffer: AVAudioPCMBuffer?
 
     /// Will be triggered when AKAudioPlayer has finished to play.
@@ -54,26 +56,26 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// Set the fade in time
+    /// Fade in duration
     open dynamic var fadeInTime: Double = 0 {
         didSet {
             updatePCMBuffer()
         }
     }
 
-    // Set the fade out time
+    /// Fade out duration
     open dynamic var fadeOutTime: Double = 0 {
         didSet {
             updatePCMBuffer()
         }
     }
 
-    /// return the current played AKAudioFile
+    /// The current played AKAudioFile
     open dynamic var audioFile: AKAudioFile {
         return internalAudioFile
     }
 
-    // path to the currently loaded AKAudioFile
+    /// Path to the currently loaded AKAudioFile
     open dynamic var path: String {
         return audioFile.url.path
     }
@@ -215,6 +217,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
+    /// Sheduled time
     open dynamic var scheduledAVTime: AVAudioTime?
 
     // MARK: - Initialization
@@ -333,6 +336,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
+    /// Restart playback from current position
     open func resume() {
         if ❗️playing && paused {
             playing = true
@@ -434,6 +438,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Static Methods
 
+    /// Convert to AVAudioTime
     open class func secondsToAVAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()
@@ -488,6 +493,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
+    /// Stop playback after next loop completes
     open func stopAtNextLoopEnd() {
         guard playing else {
             return

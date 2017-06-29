@@ -19,7 +19,7 @@
  }
  */
 extension MIDIPacket: Sequence {
-    /// Generate a midi packet
+    /// Generate a MIDI packet
     public func makeIterator() -> AnyIterator<AKMIDIEvent> {
         let generator = generatorForTuple(self.data)
         var index: UInt16 = 0
@@ -66,7 +66,7 @@ extension MIDIPacket: Sequence {
                     }
                     switch  cmd {
                     case .sysex:
-                        // sysex - guaranteed by coremidi to be the entire packet
+                        // sysex - guaranteed by Core MIDI to be the entire packet
                         index = self.length
                         return AKMIDIEvent(packet: self)
                     case .songPosition:

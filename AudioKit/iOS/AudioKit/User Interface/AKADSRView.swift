@@ -75,31 +75,45 @@ import UIKit
     private var currentDragArea = ""
 
     //// Color Declarations
+
+    /// Color in the attack portion of the UI element
     @IBInspectable open var attackColor: UIColor = #colorLiteral(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
+
+    /// Color in the decay portion of the UI element
     @IBInspectable open var decayColor: UIColor = #colorLiteral(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
+
+    /// Color in the sustain portion of the UI element
     @IBInspectable open var sustainColor: UIColor = #colorLiteral(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
+
+    /// Color in the release portion of the UI element
     @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
     let bgColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
+    /// Width of the envelope curve
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
+
+    /// Color of the envelope curve
     @IBInspectable open var curveColor: UIColor = .black
 
     var lastPoint = CGPoint.zero
 
     // MARK: - Initialization
 
+    /// Initialize the view, usually with a callback
     public init(callback: ADSRCallback? = nil) {
         self.callback = callback
         super.init(frame: CGRect(x: 0, y: 0, width: 440, height: 150))
         backgroundColor = .white
     }
 
+    /// Initialization of the view from within interface builder
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
     // MARK: - Storyboard Rendering
 
+    /// Perform necessary operation to allow the view to be rendered in interface builder
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
@@ -107,16 +121,19 @@ import UIKit
         clipsToBounds = true
     }
 
+    /// Size of the view
     override open var intrinsicContentSize: CGSize {
         return CGSize(width: 440, height: 150)
     }
 
+    /// Requeire a constraint based layout with interface builder
     open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
     // MARK: - Touch Handling
 
+    /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
@@ -135,6 +152,7 @@ import UIKit
         setNeedsDisplay()
     }
 
+    /// Handle moving touches
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
@@ -171,6 +189,7 @@ import UIKit
 
     // MARK: - Drawing
 
+    /// Draw the ADSR envelope
     func drawCurveCanvas(size: CGSize = CGSize(width: 440, height: 151),
                          attackDurationMS: CGFloat = 449,
                          decayDurationMS: CGFloat = 262,
@@ -341,6 +360,7 @@ import UIKit
         context?.restoreGState()
     }
 
+    /// Draw the view
     override open func draw(_ rect: CGRect) {
         drawCurveCanvas(size: rect.size, attackDurationMS: attackTime,
                         decayDurationMS: decayTime,

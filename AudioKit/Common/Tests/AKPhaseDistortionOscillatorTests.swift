@@ -35,4 +35,5 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
         oscillator.detuningMultiplier = 1.234
         output = oscillator
         AKTestMD5("664e9b50ff633d1bb6bd8e173bec09e3")
-    }}
+    }
+}

@@ -58,7 +58,6 @@ opt_in_rules:
   - weak_delegate
   - force_cast
   - object_literal
-  - sorted_imports
   - line_length
   - attributes
   - force_unwrapping

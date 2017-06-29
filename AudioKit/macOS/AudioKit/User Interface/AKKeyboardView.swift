@@ -1,6 +1,6 @@
 //
 //  AKKeyboardView.swift
-//  AudioKit
+//  AudioKit for macOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
@@ -19,20 +19,24 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         return true
     }
 
-    let whiteKeyOff = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    let blackKeyOff = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-    let keyOnColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
-    let topWhiteKeyOff = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-
-    public weak var delegate: AKKeyboardDelegate?
-
     var size = CGSize.zero
-    var topKeyHeightRatio: CGFloat = 0.5
+
+    @IBInspectable open var octaveCount: Int = 2
+    @IBInspectable open var firstOctave: Int = 4
+
+    @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
+    @IBInspectable open var polyphonicButton: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+
+    @IBInspectable open var  whiteKeyOff: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable open var  blackKeyOff: NSColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var  keyOnColor: NSColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable open var  topWhiteKeyOff: NSColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
+
+    open weak var delegate: AKKeyboardDelegate?
+
+    var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
-
-    var octaveCount = 3
-    var firstOctave = 4
 
     public var polyphonicMode = false {
         didSet {
@@ -151,6 +155,21 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         super.init(coder: aDecoder)
     }
 
+    // MARK: - Storyboard Rendering
+
+    override open func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+
+        let width = Int(self.frame.width)
+        let height = Int(self.frame.height)
+        oneOctaveSize = CGSize(width: Double(width / octaveCount - width / (octaveCount * octaveCount * 7)),
+                               height: Double(height))
+    }
+
+    override open var intrinsicContentSize: CGSize {
+        return CGSize(width: 1_024, height: 84)
+    }
+
     public func getNoteName(note: Int) -> String {
         let keyInOctave = note % 12
         return notesWithSharps[keyInOctave]
@@ -233,11 +252,14 @@ public class AKKeyboardView: NSView, AKMIDIListener {
             self.needsDisplay = true
         })
     }
-    public func receivedMIDIController(controller: Int, value: Int, channel: MIDIChannel) {
-        if controller == Int(AKMIDIControl.damperOnOff.rawValue) && value == 0 {
+    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+        if controller == MIDIByte(AKMIDIControl.damperOnOff.rawValue) && value == 0 {
             for note in onKeys {
                 delegate?.noteOff(note: note)
             }
         }
+    }
+    public func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
+        // do nothing
     }
 }

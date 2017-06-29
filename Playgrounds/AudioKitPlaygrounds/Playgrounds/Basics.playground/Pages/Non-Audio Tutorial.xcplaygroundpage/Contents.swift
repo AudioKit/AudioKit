@@ -11,7 +11,8 @@
 //: AudioKit's functionality to the playground.
 import AudioKitPlaygrounds
 import AudioKit
-//: ALERT: This is also the line that most commonly shows an error "No such module" This just means you haven't built the framework yet, in which case pressing Cmd-B or
+//: ALERT: This is also the line that most commonly shows an error "No such module" 
+//: This just means you haven't built the framework yet, in which case pressing Cmd-B or
 //: accessing the "Product" menu and choosing "Build".  
 
 //:
