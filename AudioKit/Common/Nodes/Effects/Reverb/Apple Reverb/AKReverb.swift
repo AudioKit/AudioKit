@@ -62,4 +62,9 @@ open class AKReverb: AKNode, AKToggleable {
             isStarted = false
         }
     }
+    
+    // Clear delay lines
+    open func reset() {
+        reverbAU.reset()
+    }
 }

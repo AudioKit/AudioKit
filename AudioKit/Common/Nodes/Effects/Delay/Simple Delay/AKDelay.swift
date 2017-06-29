@@ -98,4 +98,9 @@ open class AKDelay: AKNode, AKToggleable {
             isStarted = false
         }
     }
+    
+    // Clear delay lines
+    open func reset() {
+        delayAU.reset()
+    }
 }
