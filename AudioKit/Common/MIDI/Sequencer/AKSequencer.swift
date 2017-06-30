@@ -15,7 +15,7 @@
 /// Still, both have their strengths and weaknesses so I am keeping them both.
 /// As such, there is some code hanging around while we iron it out.
 ///
-open class AKSequencer {
+@objc open class AKSequencer: NSObject {
 
     /// Music sequence
     open var sequence: MusicSequence?
@@ -52,7 +52,8 @@ open class AKSequencer {
     open var isAVSequencer: Bool = false
 
     /// Sequencer Initialization
-    public init() {
+    public override init() {
+        super.init()
         NewMusicSequence(&sequence)
         if let existingSequence = sequence {
             sequencePointer = UnsafeMutablePointer<MusicSequence>(existingSequence)
