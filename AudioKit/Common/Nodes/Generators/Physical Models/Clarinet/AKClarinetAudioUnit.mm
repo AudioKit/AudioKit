@@ -16,7 +16,7 @@
 @implementation AKClarinetAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKClarinetDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -38,7 +38,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(Clarinet)
+    standardGeneratorSetup(Clarinet)
 
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"

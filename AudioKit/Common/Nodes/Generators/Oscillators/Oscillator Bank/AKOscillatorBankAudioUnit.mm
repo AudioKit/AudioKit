@@ -16,7 +16,7 @@
 @implementation AKOscillatorBankAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKOscillatorBankDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -63,7 +63,7 @@
 
 - (void)createParameters {
 
-    standardSetup(OscillatorBank)
+    standardGeneratorSetup(OscillatorBank)
 
     AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;
 
