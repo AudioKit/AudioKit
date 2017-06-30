@@ -78,11 +78,7 @@ extension Double {
     ///   - maximum: Maximum of the source range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public func normalized(
-        minimum: Double,
-        maximum: Double,
-        taper: Double) -> Double {
-
+    public func normalized(minimum: Double, maximum: Double, taper: Double) -> Double {
         if taper > 0 {
             // algebraic taper
             return pow(((self - minimum) / (maximum - minimum)), (1.0 / taper))
@@ -110,9 +106,7 @@ extension Double {
     ///   - maximum: Maximum of the target range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public func denormalized(minimum: Double,
-                             maximum: Double,
-                             taper: Double) -> Double {
+    public func denormalized(minimum: Double, maximum: Double, taper: Double) -> Double {
 
         // Avoiding division by zero in this trivial case
         if maximum - minimum < 0.000_01 {
