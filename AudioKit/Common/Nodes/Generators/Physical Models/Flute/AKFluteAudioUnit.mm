@@ -16,7 +16,7 @@
 @implementation AKFluteAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKFluteDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -37,7 +37,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(Flute)
+    standardGeneratorSetup(Flute)
 
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter parameter:@"frequency"

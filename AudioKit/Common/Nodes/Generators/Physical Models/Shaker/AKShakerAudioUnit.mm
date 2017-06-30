@@ -16,7 +16,7 @@
 @implementation AKShakerAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKShakerDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -39,7 +39,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(Shaker)
+    standardGeneratorSetup(Shaker)
 
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
