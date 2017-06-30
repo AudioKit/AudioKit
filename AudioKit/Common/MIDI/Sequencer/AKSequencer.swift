@@ -535,6 +535,11 @@
             return
         }
         let fileURL = URL(fileURLWithPath: file)
+        self.loadMIDIURL(fileURL)
+    }
+    
+    // Load a MIDI file  
+    open func loadMIDIURL(_ fileURL: URL) {
         if let existingSequence = sequence {
             MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
         }
