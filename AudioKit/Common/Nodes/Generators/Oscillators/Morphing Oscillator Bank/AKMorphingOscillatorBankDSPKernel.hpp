@@ -380,7 +380,6 @@ public:
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
         }
-
         
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] *= .5f;

@@ -12,7 +12,7 @@
 open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorBankAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "oscb")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "oscb")
 
     // MARK: - Properties
 

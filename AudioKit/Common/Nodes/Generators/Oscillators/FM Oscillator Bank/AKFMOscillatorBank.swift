@@ -11,7 +11,7 @@
 open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorBankAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "fmob")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "fmob")
 
     // MARK: - Properties
 

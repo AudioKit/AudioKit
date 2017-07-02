@@ -11,7 +11,7 @@
 open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorBankAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "pwmb")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "pwmb")
 
     // MARK: - Properties
 
