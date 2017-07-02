@@ -138,8 +138,8 @@ public:
     case detuningOffsetAddress: \
         return detuningOffsetRamper.getUIValue(); \
     case detuningMultiplierAddress: \
-        return detuningMultiplierRamper.getUIValue();
-
+        return detuningMultiplierRamper.getUIValue(); \
+    default: return 0.0f;
 
 #define standardBankStartRamps() \
     case attackDurationAddress:\
