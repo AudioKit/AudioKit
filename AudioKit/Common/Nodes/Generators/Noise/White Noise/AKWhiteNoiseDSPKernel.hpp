@@ -8,13 +8,6 @@
 
 #pragma once
 #import "AKSoundpipeKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
 
 enum {
     amplitudeAddress = 0
