@@ -30,24 +30,7 @@
     _kernel.setModulationIndex(modulationIndex);
 }
 
-- (void)setAttackDuration:(float)attackDuration {
-    _kernel.setAttackDuration(attackDuration);
-}
-- (void)setDecayDuration:(float)decayDuration {
-    _kernel.setDecayDuration(decayDuration);
-}
-- (void)setSustainLevel:(float)sustainLevel {
-    _kernel.setSustainLevel(sustainLevel);
-}
-- (void)setReleaseDuration:(float)releaseDuration {
-    _kernel.setReleaseDuration(releaseDuration);
-}
-- (void)setDetuningOffset:(float)detuningOffset {
-    _kernel.setDetuningOffset(detuningOffset);
-}
-- (void)setDetuningMultiplier:(float)detuningMultiplier {
-    _kernel.setDetuningMultiplier(detuningMultiplier);
-}
+standardBankFunctions()
 
 - (void)setupWaveform:(int)size {
     _kernel.setupWaveform((uint32_t)size);
@@ -56,27 +39,12 @@
     _kernel.setWaveformValue(index, value);
 }
 
-- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {
-    _kernel.startNote(note, velocity);
-}
-- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency {
-    _kernel.startNote(note, velocity, frequency);
-}
-- (void)stopNote:(uint8_t)note {
-    _kernel.stopNote(note);
-}
-
-- (BOOL)isSetUp {
-    return _kernel.resetted;
-}
-
 - (void)createParameters {
 
     standardGeneratorSetup(FMOscillatorBank)
-
-    AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;
-
-    // Create a parameter object for the carrierMultiplier.
+    standardBankParameters()
+    
+    // Create a parameter object for the carrier multiplier.
     AUParameter *carrierMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"carrierMultiplier"
                                               name:@"Carrier Multiplier"
@@ -88,7 +56,8 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the modulatingMultiplier.
+    
+    // Create a parameter object for the modulating multiplier.
     AUParameter *modulatingMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulatingMultiplier"
                                               name:@"Modulating Multiplier"
@@ -100,7 +69,8 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the modulationIndex.
+    
+    // Create a parameter object for the modulation index.
     AUParameter *modulationIndexAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulationIndex"
                                               name:@"Modulation Index"
@@ -112,101 +82,17 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the attackDuration.
-    AUParameter *attackDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"attackDuration"
-                                              name:@"Attack time"
-                                           address:attackDurationAddress
-                                               min:0
-                                               max:99
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:flags
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the decayDuration.
-    AUParameter *decayDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"decayDuration"
-                                              name:@"Decay time"
-                                           address:decayDurationAddress
-                                               min:0
-                                               max:99
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:flags
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the sustainLevel.
-    AUParameter *sustainLevelAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"sustainLevel"
-                                              name:@"Sustain Level"
-                                           address:sustainLevelAddress
-                                               min:0
-                                               max:99
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:flags
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the releaseDuration.
-    AUParameter *releaseDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"releaseDuration"
-                                              name:@"Release time"
-                                           address:releaseDurationAddress
-                                               min:0
-                                               max:99
-                                              unit:kAudioUnitParameterUnit_Seconds
-                                          unitName:nil
-                                             flags:flags
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the detuningOffset.
-    AUParameter *detuningOffsetAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"detuningOffset"
-                                              name:@"Frequency offset (Hz)"
-                                           address:detuningOffsetAddress
-                                               min:-1000
-                                               max:1000
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the detuningMultiplier.
-    AUParameter *detuningMultiplierAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"detuningMultiplier"
-                                              name:@"Frequency detuning multiplier"
-                                           address:detuningMultiplierAddress
-                                               min:0.0
-                                               max:FLT_MAX
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+    
 
     // Initialize the parameter values.
     carrierMultiplierAUParameter.value = 1.0;
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
 
-    attackDurationAUParameter.value = 0.1;
-    decayDurationAUParameter.value = 0.1;
-    detuningOffsetAUParameter.value = 0;
-    detuningMultiplierAUParameter.value = 1;
-
-
     _kernel.setParameter(carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
     _kernel.setParameter(modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
     _kernel.setParameter(modulationIndexAddress,      modulationIndexAUParameter.value);
-
-    _kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value);
-    _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value);
-    _kernel.setParameter(sustainLevelAddress,    sustainLevelAUParameter.value);
-    _kernel.setParameter(releaseDurationAddress, releaseDurationAUParameter.value);
-    _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
-    _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         carrierMultiplierAUParameter,
