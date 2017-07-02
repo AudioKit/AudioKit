@@ -8,7 +8,7 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
+#import "AKSoundpipeKernel.hpp"
 #import "ParameterRamper.hpp"
 #import <vector>
 
