@@ -9,14 +9,6 @@
 #pragma once
 
 #import "AKSoundpipeKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
-
 
 class AKDCBlockDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
