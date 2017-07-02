@@ -11,7 +11,7 @@
 open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorBankAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "phdb")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "phdb")
 
     // MARK: - Properties
 

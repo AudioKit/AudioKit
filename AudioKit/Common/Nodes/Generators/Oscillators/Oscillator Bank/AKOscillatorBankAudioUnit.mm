@@ -70,10 +70,10 @@
     // Create a parameter object for the attackDuration.
     AUParameter *attackDurationAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"attackDuration"
-                                              name:@"Attack time"
+                                              name:@"Attack"
                                            address:attackDurationAddress
                                                min:0
-                                               max:99
+                                               max:1
                                               unit:kAudioUnitParameterUnit_Seconds
                                           unitName:nil
                                              flags:flags
@@ -82,10 +82,10 @@
     // Create a parameter object for the decayDuration.
     AUParameter *decayDurationAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"decayDuration"
-                                              name:@"Decay time"
+                                              name:@"Decay"
                                            address:decayDurationAddress
                                                min:0
-                                               max:99
+                                               max:1
                                               unit:kAudioUnitParameterUnit_Seconds
                                           unitName:nil
                                              flags:flags
@@ -97,7 +97,7 @@
                                               name:@"Sustain Level"
                                            address:sustainLevelAddress
                                                min:0
-                                               max:99
+                                               max:1
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:flags
@@ -106,10 +106,10 @@
     // Create a parameter object for the releaseDuration.
     AUParameter *releaseDurationAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"releaseDuration"
-                                              name:@"Release time"
+                                              name:@"Release"
                                            address:releaseDurationAddress
                                                min:0
-                                               max:99
+                                               max:1
                                               unit:kAudioUnitParameterUnit_Seconds
                                           unitName:nil
                                              flags:flags
@@ -118,7 +118,7 @@
     // Create a parameter object for the detuningOffset.
     AUParameter *detuningOffsetAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"detuningOffset"
-                                              name:@"Frequency offset (Hz)"
+                                              name:@"Detuning Offset"
                                            address:detuningOffsetAddress
                                                min:-1000
                                                max:1000
@@ -130,10 +130,10 @@
     // Create a parameter object for the detuningMultiplier.
     AUParameter *detuningMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"detuningMultiplier"
-                                              name:@"Frequency detuning multiplier"
+                                              name:@"Detuning Multiplier"
                                            address:detuningMultiplierAddress
-                                               min:0.0
-                                               max:FLT_MAX
+                                               min:0.1
+                                               max:2.0
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0

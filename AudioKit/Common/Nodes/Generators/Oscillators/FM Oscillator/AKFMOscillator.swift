@@ -15,7 +15,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
