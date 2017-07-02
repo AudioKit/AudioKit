@@ -184,6 +184,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             self?.avAudioNode = avAudioUnit
+            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             for (i, waveform) in waveformArray.enumerated() {

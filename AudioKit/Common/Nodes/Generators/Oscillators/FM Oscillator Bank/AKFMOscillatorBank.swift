@@ -230,6 +230,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
+            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             self?.internalAU?.setupWaveform(Int32(waveform.count))
