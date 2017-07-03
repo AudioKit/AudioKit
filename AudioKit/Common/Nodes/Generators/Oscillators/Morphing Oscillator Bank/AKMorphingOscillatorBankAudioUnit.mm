@@ -43,9 +43,23 @@ standardBankFunctions()
 
     standardGeneratorSetup(MorphingOscillatorBank)
     standardBankParameters()
+    
+    // Create a parameter object for the index.
+    AUParameter *indexAUParameter = [AUParameter parameter:@"index"
+                                                      name:@"Index"
+                                                   address:indexAddress
+                                                       min:0.0
+                                                       max:1.0
+                                                      unit:kAudioUnitParameterUnit_Generic];
+    
+    // Initialize the parameter values.
+    indexAUParameter.value = 0.0;
+    
+    _kernel.setParameter(indexAddress, indexAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
+        indexAUParameter,
         attackDurationAUParameter,
         decayDurationAUParameter,
         sustainLevelAUParameter,
