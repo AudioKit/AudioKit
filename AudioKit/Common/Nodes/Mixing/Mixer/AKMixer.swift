@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// AudioKit version of Apple's Mixer Node
+/// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of AKNodes.
 open class AKMixer: AKNode, AKToggleable {
     fileprivate let mixerAU = AVAudioMixerNode()
 

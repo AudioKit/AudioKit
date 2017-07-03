@@ -6,6 +6,8 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+// MARK: - SF2 SoundFonts extension
+
 extension AKSampler {
     fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
