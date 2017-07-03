@@ -10,7 +10,10 @@ try fmPianoSampler.loadWav("Samples/FM Piano")
 var bellSampler = AKSampler()
 try bellSampler.loadWav("Samples/Bell")
 
-var mixer = AKMixer(fmPianoSampler, bellSampler)
+
+var osc = AKPhaseDistortionOscillatorBank()
+
+var mixer = AKMixer(fmPianoSampler, bellSampler, osc)
 
 let reverb = AKCostelloReverb(mixer)
 
@@ -49,7 +52,7 @@ class PlaygroundView: AKPlaygroundView {
         })
         addSubview(AKButton(title: "Use Bell As Global Output", color: AKColor.red) {
             sequencer.stop()
-            sequencer.setGlobalAVAudioUnitOutput(bellSampler.samplerUnit)
+            sequencer.setGlobalAVAudioUnitOutput(<#T##audioUnit: AVAudioUnit##AVAudioUnit#>)
             self.updateButtons()
             sequencer.play()
             return ""

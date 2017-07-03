@@ -12,7 +12,7 @@
 open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorBankAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "morb")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "morb")
 
     // MARK: - Properties
 
@@ -30,7 +30,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    
+    fileprivate var indexParameter: AUParameter?
+    
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
@@ -48,8 +50,15 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     /// Index of the wavetable to use (fractional are okay).
     open dynamic var index: Double = 0.0 {
         willSet {
-            let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
-            internalAU?.index = Float(transformedValue)
+            if attackDuration != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        indexParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.index = Float(newValue)
+                }
+            }
         }
     }
 
@@ -67,6 +76,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
+    
     /// Decay time
     open dynamic var decayDuration: Double = 0.1 {
         willSet {
@@ -184,6 +194,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             self?.avAudioNode = avAudioUnit
+            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             for (i, waveform) in waveformArray.enumerated() {
@@ -197,7 +208,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         guard let tree = internalAU?.parameterTree else {
             return
         }
-
+        
+        indexParameter = tree["index"]
+        
         attackDurationParameter = tree["attackDuration"]
         decayDurationParameter = tree["decayDuration"]
         sustainLevelParameter = tree["sustainLevel"]
@@ -208,7 +221,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         token = tree.token (byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
-                if address == self?.attackDurationParameter?.address {
+                if address == self?.indexParameter?.address {
+                    self?.index = Double(value)
+                } else if address == self?.attackDurationParameter?.address {
                     self?.attackDuration = Double(value)
                 } else if address == self?.decayDurationParameter?.address {
                     self?.decayDuration = Double(value)
@@ -223,7 +238,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
                 }
             }
         })
-        internalAU?.index = Float(index) / Float(waveformArray.count - 1)
+        internalAU?.index = Float(index)
 
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)
