@@ -11,12 +11,13 @@
 #import "AKBankDSPKernel.hpp"
 
 enum {
-    attackDurationAddress = 0,
-    decayDurationAddress = 1,
-    sustainLevelAddress = 2,
-    releaseDurationAddress = 3,
-    detuningOffsetAddress = 4,
-    detuningMultiplierAddress = 5
+    indexAddress = 0,
+    attackDurationAddress = 1,
+    decayDurationAddress = 2,
+    sustainLevelAddress = 3,
+    releaseDurationAddress = 4,
+    detuningOffsetAddress = 5,
+    detuningMultiplierAddress = 6
 };
 
 
@@ -104,7 +105,7 @@ public:
             osc->freq *= kernel->detuningMultiplier;
             osc->freq += kernel->detuningOffset;
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
-            osc->wtpos = kernel->index;
+            osc->wtpos = kernel->index / 3.0;
             
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;
@@ -155,6 +156,7 @@ public:
             state.clear();
         }
         playingNotes = nullptr;
+        indexRamper.reset();
         AKBankDSPKernel::reset();
     }
     
@@ -162,18 +164,26 @@ public:
     
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
+            case indexAddress:
+                indexRamper.setUIValue(clamp(value, 0.0f, 3.0f));
+                break;
             standardBankSetParameters()
         }
     }
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
+            case indexAddress:
+                return indexRamper.getUIValue();
             standardBankGetParameters()
         }
     }
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
+            case indexAddress:
+                indexRamper.startRamp(clamp(value, 0.0f, 3.0f), duration);
+                break;
             standardBankStartRamps()
         }
     }
@@ -184,7 +194,8 @@ public:
 
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
-
+        
+        index = double(indexRamper.getAndStep());
         standardBankGetAndSteps()
         
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
@@ -216,6 +227,8 @@ private:
 
 public:
     NoteState* playingNotes = nullptr;
+    
+    ParameterRamper indexRamper = 0.0;
 };
 
 
