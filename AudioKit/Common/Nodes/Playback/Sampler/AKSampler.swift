@@ -11,10 +11,10 @@ import CoreAudio
 
 /// Sampler audio generation.
 ///
-/// 1) init the audio unit like this: var sampler = AKSampler()
-/// 2) load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
-/// 3) connect to the engine: AudioKit.output = sampler
-/// 4) start the engine AudioKit.start()
+/// 1. init the audio unit like this: var sampler = AKSampler()
+/// 2. load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
+/// 3. connect to the engine before starting the processing graph: AudioKit.output = sampler
+/// 4. start the engine AudioKit.start()
 ///
 open class AKSampler: AKNode {
 

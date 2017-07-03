@@ -528,7 +528,7 @@
         }
     }
 
-    /// Load a MIDI file
+    /// Load a MIDI file with a path as Main Bundle Resource
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
         guard let file = bundle.path(forResource: filename, ofType: "mid") else {
@@ -538,7 +538,7 @@
         self.loadMIDIURL(fileURL)
     }
     
-    // Load a MIDI file  
+    // Load a MIDI file from any File-URL
     open func loadMIDIURL(_ fileURL: URL) {
         if let existingSequence = sequence {
             MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
