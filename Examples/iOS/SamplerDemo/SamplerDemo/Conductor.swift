@@ -8,32 +8,39 @@
 
 import AudioKit
 
+enum Synthesizer {
+    case Arpeggio, Pad, Bass
+}
+
+enum Instrument {
+    case Arpeggio, Pad, Bass, Drum
+}
+
+enum Sound: String {
+    case Square
+    case Saw
+    case SlowPad
+    case Noisy
+}
+
 class Conductor {
-    private var sequencer: AKSimpleSequencer!
+    private var sequencer: AKSequencer!
     private var mixer = AKMixer()
-    private var arpeggioSynthesizer = AKSampler()
-    private var padSynthesizer = AKSampler()
-    private var bassSynthesizer = AKSampler()
-    private var drumKit = AKSampler()
-    private var arpeggioVolume: AKBooster?
-    private var padVolume: AKBooster?
-    private var bassVolume: AKBooster?
-    private var drumKitVolume: AKBooster?
+    private var arpeggioSynthesizer = AKMIDISampler()
+    private var padSynthesizer = AKMIDISampler()
+    private var bassSynthesizer = AKMIDISampler()
+    private var drumKit = AKMIDISampler()
     private var filter: AKMoogLadder?
 
     init() {
-        arpeggioVolume = AKBooster(arpeggioSynthesizer)
-        padVolume = AKBooster(padSynthesizer)
-        bassVolume = AKBooster(bassSynthesizer)
-        drumKitVolume = AKBooster(drumKit)
-        arpeggioVolume?.gain = 1
-        padVolume?.gain = 1
-        bassVolume?.gain = 1
-        drumKitVolume?.gain = 1
-        mixer.connect(arpeggioVolume)
-        mixer.connect(padVolume)
-        mixer.connect(bassVolume)
-        mixer.connect(drumKitVolume)
+        arpeggioSynthesizer.enableMIDI(AKMIDI().client, name: "arp")
+        padSynthesizer.enableMIDI(AKMIDI().client, name: "pad")
+        bassSynthesizer.enableMIDI(AKMIDI().client, name: "bass")
+        drumKit.enableMIDI(AKMIDI().client, name: "drums")
+        mixer.connect(arpeggioSynthesizer)
+        mixer.connect(padSynthesizer)
+        mixer.connect(bassSynthesizer)
+        mixer.connect(drumKit)
 
         filter = AKMoogLadder(mixer)
         filter?.cutoffFrequency = 20_000
@@ -49,26 +56,26 @@ class Conductor {
         }
         AudioKit.start()
 
-        sequencer = AKSimpleSequencer(filename: "seqDemo")
+        sequencer = AKSequencer(filename: "seqDemo")
         sequencer.enableLooping()
-        sequencer.tracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
-        sequencer.tracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
-        sequencer.tracks[3].destinationAudioUnit = padSynthesizer.samplerUnit
-        sequencer.tracks[4].destinationAudioUnit = drumKit.samplerUnit
-        sequencer.setLength(AKDuration(beats: 4))
+        sequencer.tracks[1].setMIDIOutput(arpeggioSynthesizer.midiIn)
+        sequencer.tracks[2].setMIDIOutput(bassSynthesizer.midiIn)
+        sequencer.tracks[3].setMIDIOutput(padSynthesizer.midiIn)
+        sequencer.tracks[4].setMIDIOutput(drumKit.midiIn)
+//        sequencer.setLength(AKDuration(beats: 4))
         sequencer.play()
     }
 
-    func adjustVolume(_ volume: Float, instrument: Instrument) {
+    func adjustVolume(_ volume: Double, instrument: Instrument) {
         switch instrument {
-        case Instrument.Arpeggio:
-            arpeggioVolume?.gain = Double(volume)
-        case Instrument.Pad:
-            padVolume?.gain = Double(volume)
-        case Instrument.Bass:
-            bassVolume?.gain = Double(volume)
-        case Instrument.Drum:
-            drumKitVolume?.gain = Double(volume)
+        case .Arpeggio:
+            arpeggioSynthesizer.volume = volume
+        case .Pad:
+            padSynthesizer.volume = volume
+        case .Bass:
+            bassSynthesizer.volume = volume
+        case .Drum:
+            drumKit.volume = volume
         }
     }
 
@@ -90,6 +97,7 @@ class Conductor {
     }
 
     func setLength(_ length: Double) {
+        AKLog("Settign Length \(length)")
         sequencer.setLength(AKDuration(beats: length))
         sequencer.rewind()
     }
@@ -97,13 +105,13 @@ class Conductor {
     func useSound(_ sound: Sound, synthesizer: Synthesizer) {
         let soundPath: String?
         switch sound {
-        case Sound.Square:
+        case .Square:
             soundPath = "Sounds/Sampler Instruments/sqrTone1"
-        case Sound.Saw:
+        case .Saw:
             soundPath = "Sounds/Sampler Instruments/sawPiano1"
-        case Sound.SlowPad:
+        case .SlowPad:
             soundPath = "Sounds/Sampler Instruments/sawPad1"
-        case Sound.Noisy:
+        case .Noisy:
             soundPath = "Sounds/Sampler Instruments/noisyRez"
         }
 
@@ -114,11 +122,11 @@ class Conductor {
 
         do {
             switch synthesizer {
-            case Synthesizer.Arpeggio:
+            case .Arpeggio:
                 try arpeggioSynthesizer.loadEXS24(path)
-            case Synthesizer.Pad:
+            case .Pad:
                 try padSynthesizer.loadEXS24(path)
-            case Synthesizer.Bass:
+            case .Bass:
                 try bassSynthesizer.loadEXS24(path)
             }
         } catch {
