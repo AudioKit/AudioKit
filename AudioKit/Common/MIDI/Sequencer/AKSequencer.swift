@@ -2,82 +2,27 @@
 //  AKSequencer.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper, revision history on Github.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// Basic sequencer
-///
-/// This  is currently in transistion from old C Core Audio APIs, to the more
-/// modern AVAudioSequencer setup. However, the new system is not as advanced as the
-/// old, so we will keep both and have them interact. In addition, some of the features
-/// of the new AVAudioSequencer don't even work yet (MIDI sequencing).
-/// Still, both have their strengths and weaknesses so I am keeping them both.
-/// As such, there is some code hanging around while we iron it out.
-///
+/// Sequencer based on the AV Audio Engine Sequencer
 open class AKSequencer {
 
-    /// Music sequence
-    open var sequence: MusicSequence?
-
-    /// Pointer to Music Sequence
-    open var sequencePointer: UnsafeMutablePointer<MusicSequence>?
-
-    /// AVAudioSequencer - on hold while technology is still unstable
     open var avSequencer = AVAudioSequencer()
-
+    open var tempo: Double = 120.0
+    
     /// Array of AudioKit Music Tracks
-    open var tracks = [AKMusicTrack]()
-
-    /// Array of AVMusicTracks
-    open var avTracks: [AVMusicTrack] {
-        if isAVSequencer {
-            return avSequencer.tracks
-        } else {
-            //this won't do anything if not using an AVSeq
-            AKLog("AKSequencer ERROR ! avTracks only work if isAVSequencer ")
-
-            let tracks = [AVMusicTrack]()
-            return tracks
-        }
+    open var tracks: [AVMusicTrack] {
+        return avSequencer.tracks
     }
 
-    /// Music Player
-    var musicPlayer: MusicPlayer?
-
     /// Loop control
-    open var loopEnabled: Bool = false
-
-    /// Are we using the AVAudioEngineSequencer?
-    open var isAVSequencer: Bool = false
+    public var loopEnabled: Bool = false
 
     /// Sequencer Initialization
     public init() {
-        NewMusicSequence(&sequence)
-        if let existingSequence = sequence {
-            sequencePointer = UnsafeMutablePointer<MusicSequence>(existingSequence)
-        }
-        //setup and attach to musicplayer
-        NewMusicPlayer(&musicPlayer)
-        if let existingMusicPlayer = musicPlayer {
-            MusicPlayerSetSequence(existingMusicPlayer, sequence)
-        }
-    }
-
-    deinit {
-        if let player = musicPlayer {
-            DisposeMusicPlayer(player)
-        }
-
-        if let seq = sequence {
-            for track in self.tracks {
-                if let intTrack = track.internalMusicTrack {
-                    MusicSequenceDisposeTrack(seq, intTrack)
-                }
-            }
-
-            DisposeMusicSequence(seq)
-        }
+        avSequencer = AVAudioSequencer(audioEngine: AudioKit.engine)
     }
 
     /// Initialize the sequence with a MIDI file
@@ -86,31 +31,8 @@ open class AKSequencer {
     ///
     public convenience init(filename: String) {
         self.init()
+        avSequencer = AVAudioSequencer(audioEngine: AudioKit.engine)
         loadMIDIFile(filename)
-    }
-
-    /// Initialize the sequence with a MIDI file and audioengine - on hold while technology is still unstable
-    ///
-    /// - Parameters:
-    ///   - filename: Location of the MIDI File
-    ///   - engine: reference to the AV Audio Engine
-    ///
-    public convenience init(filename: String, engine: AVAudioEngine) {
-        self.init()
-        isAVSequencer = true
-        avSequencer = AVAudioSequencer(audioEngine: engine)
-        loadMIDIFile(filename)
-    }
-
-    /// Initialize the sequence with an empty sequence and audioengine
-    /// (on hold while technology is still unstable)
-    ///
-    /// - parameter engine: reference to the AV Audio Engine
-    ///
-    public convenience init(engine: AVAudioEngine) {
-        self.init()
-        isAVSequencer = true
-        avSequencer = AVAudioSequencer(audioEngine: engine)
     }
 
     /// Load a sequence from data
@@ -122,17 +44,9 @@ open class AKSequencer {
 
         do {
             try avSequencer.load(from: data, options: options)
-            AKLog("should have loaded new sequence data")
         } catch {
             AKLog("cannot load from data \(error)")
             return
-        }
-    }
-
-    /// Preroll for the music player
-    open func preroll() {
-        if let existingMusicPlayer = musicPlayer {
-            MusicPlayerPreroll(existingMusicPlayer)
         }
     }
 
@@ -143,13 +57,9 @@ open class AKSequencer {
 
     /// Enable looping for all tracks - loops entire sequence
     open func enableLooping() {
-        if isAVSequencer {
-            for track in avSequencer.tracks {
-                track.isLoopingEnabled = true
-                track.loopRange = AVMakeBeatRange(0, self.length.beats)
-            }
-        } else {
-            setLoopInfo(length, numberOfLoops: 0)
+        for track in avSequencer.tracks {
+            track.isLoopingEnabled = true
+            track.loopRange = AVMakeBeatRange(0, self.length.beats)
         }
         loopEnabled = true
     }
@@ -158,47 +68,18 @@ open class AKSequencer {
     ///
     /// - parameter loopLength: Loop length in beats
     ///
-    open func enableLooping(_ loopLength: AKDuration) {
-        if isAVSequencer {
-            for track in avSequencer.tracks {
-                track.isLoopingEnabled = true
-                track.loopRange = AVMakeBeatRange(0, self.length.beats)
-            }
-        } else {
-            setLoopInfo(loopLength, numberOfLoops: 0)
+    public func enableLooping(_ loopLength: AKDuration) {
+        for track in avSequencer.tracks {
+            track.isLoopingEnabled = true
+            track.loopRange = AVMakeBeatRange(0, self.length.beats)
         }
         loopEnabled = true
     }
 
     /// Disable looping for all tracks
     open func disableLooping() {
-        if isAVSequencer {
-            for track in avSequencer.tracks {
-                track.isLoopingEnabled = false
-            }
-        } else {
-            setLoopInfo(AKDuration(beats: 0), numberOfLoops: 0)
-        }
+        avSequencer.tracks.forEach { track in track.isLoopingEnabled = false }
         loopEnabled = false
-    }
-
-    /// Set looping duration and count for all tracks
-    ///
-    /// - Parameters:
-    ///   - duration: Duration of the loop in beats
-    ///   - numberOfLoops: The number of time to repeat
-    ///
-    open func setLoopInfo(_ duration: AKDuration, numberOfLoops: Int) {
-        if isAVSequencer {
-            AKLog("AKSequencer ERROR setLoopInfo only work if not isAVSequencer")
-
-            //nothing yet
-        } else {
-            for track in tracks {
-                track.setLoopInfo(duration, numberOfLoops: numberOfLoops)
-            }
-        }
-        loopEnabled = true
     }
 
     /// Set length of all tracks
@@ -206,25 +87,9 @@ open class AKSequencer {
     /// - parameter length: Length of tracks in beats
     ///
     open func setLength(_ length: AKDuration) {
-        if isAVSequencer {
-            for track in avSequencer.tracks {
-                track.lengthInBeats = length.beats
-                track.loopRange = AVMakeBeatRange(0, length.beats)
-            }
-        } else {
-            for track in tracks {
-                track.setLength(length)
-            }
-
-            let size: UInt32 = 0
-            var len = length.musicTimeStamp
-            var tempoTrack: MusicTrack?
-            if let existingSequence = sequence {
-                MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-            }
-            if let existingTempoTrack = tempoTrack {
-                MusicTrackSetProperty(existingTempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
-            }
+        for track in avSequencer.tracks {
+            track.lengthInBeats = length.beats
+            track.loopRange = AVMakeBeatRange(0, length.beats)
         }
     }
 
@@ -234,16 +99,9 @@ open class AKSequencer {
         var length: MusicTimeStamp = 0
         var tmpLength: MusicTimeStamp = 0
 
-        for track in tracks {
-            tmpLength = track.length
+        for track in avSequencer.tracks {
+            tmpLength = track.lengthInBeats
             if tmpLength >= length { length = tmpLength }
-        }
-
-        if isAVSequencer {
-            for track in avSequencer.tracks {
-                tmpLength = track.lengthInBeats
-                if tmpLength >= length { length = tmpLength }
-            }
         }
         return  AKDuration(beats: length, tempo: tempo)
     }
@@ -253,262 +111,50 @@ open class AKSequencer {
     /// - parameter rate: Set the rate relative to the tempo of the track
     ///
     open func setRate(_ rate: Double) {
-        if isAVSequencer {
-            avSequencer.rate = Float(rate)
-        } else {
-            if let existingMusicPlayer = musicPlayer {
-                MusicPlayerSetPlayRateScalar(existingMusicPlayer, MusicTimeStamp(rate))
-            }
-        }
+        avSequencer.rate = Float(rate)
     }
 
     /// Rate relative to the default tempo (BPM) of the track
     open var rate: Double {
-        if isAVSequencer {
-            return Double(avSequencer.rate)
-        } else {
-            var rate = MusicTimeStamp(1.0)
-            if let existingMusicPlayer = musicPlayer {
-                MusicPlayerGetPlayRateScalar(existingMusicPlayer, &rate)
-            }
-            return rate
-        }
-    }
-
-    /// Set the tempo of the sequencer
-    open func setTempo(_ bpm: Double) {
-        if isAVSequencer {
-            return
-        }
-
-        let constrainedTempo = (10...280).clamp(bpm)
-
-        var tempoTrack: MusicTrack?
-
-        if let existingSequence = sequence {
-            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        }
-        if isPlaying {
-            var currTime: MusicTimeStamp = 0
-            if let existingMusicPlayer = musicPlayer {
-                MusicPlayerGetTime(existingMusicPlayer, &currTime)
-            }
-            currTime = fmod(currTime, length.beats)
-            if let existingTempoTrack = tempoTrack {
-                MusicTrackNewExtendedTempoEvent(existingTempoTrack, currTime, constrainedTempo)
-
-            }
-        }
-        if let existingTempoTrack = tempoTrack {
-            MusicTrackClear(existingTempoTrack, 0, length.beats)
-            MusicTrackNewExtendedTempoEvent(existingTempoTrack, 0, constrainedTempo)
-        }
-    }
-
-    /// Add a  tempo change to the score
-    ///
-    /// - Parameters:
-    ///   - bpm: Tempo in beats per minute
-    ///   - position: Point in time in beats
-    ///
-    open func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
-        if isAVSequencer {
-            AKLog("AKSequencer ERROR addTempoEventAt only work if not isAVSequencer")
-            return
-        }
-
-        let constrainedTempo = (10...280).clamp(bpm)
-
-        var tempoTrack: MusicTrack?
-
-        if let existingSequence = sequence {
-            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        }
-        if let existingTempoTrack = tempoTrack {
-            MusicTrackNewExtendedTempoEvent(existingTempoTrack, position.beats, constrainedTempo)
-        }
-
-    }
-
-    /// Tempo retrieved from the sequencer
-    open var tempo: Double {
-        var tempoOut: Double = 120.0
-
-        var tempoTrack: MusicTrack?
-        if let existingSequence = sequence {
-            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        }
-
-        var tempIterator: MusicEventIterator?
-        if let existingTempoTrack = tempoTrack {
-            NewMusicEventIterator(existingTempoTrack, &tempIterator)
-        }
-        guard let iterator = tempIterator else {
-            return 0.0
-        }
-
-        var eventTime: MusicTimeStamp = 0
-        var eventType: MusicEventType = kMusicEventType_ExtendedTempo
-        var eventData: UnsafeRawPointer?
-        var eventDataSize: UInt32 = 0
-
-        var hasPreviousEvent: DarwinBoolean = false
-        MusicEventIteratorSeek(iterator, currentPosition.beats)
-        MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
-        if hasPreviousEvent.boolValue {
-            MusicEventIteratorPreviousEvent(iterator)
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-            if eventType == kMusicEventType_ExtendedTempo {
-                if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
-                    let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
-                    tempoOut = tempoEventPointer.pointee.bpm
-                }
-            }
-        }
-        DisposeMusicEventIterator(iterator)
-        return tempoOut
-    }
-
-    var isTempoTrackEmpty: Bool {
-        var outBool = true
-        var tempIterator: MusicEventIterator?
-        var tempoTrack: MusicTrack?
-        if let existingSequence = sequence {
-            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        }
-
-        if let existingTempoTrack = tempoTrack {
-            NewMusicEventIterator(existingTempoTrack, &tempIterator)
-        }
-        guard let iterator = tempIterator else {
-            return true
-        }
-
-        var eventTime = MusicTimeStamp(0)
-        var eventType = MusicEventType()
-        var eventData: UnsafeRawPointer?
-        var eventDataSize: UInt32 = 0
-        var hasNextEvent: DarwinBoolean = false
-
-        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
-        while hasNextEvent.boolValue {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-
-            if eventType != 5 {
-                outBool = true
-            }
-            MusicEventIteratorNextEvent(iterator)
-            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
-        }
-        DisposeMusicEventIterator(iterator)
-        return outBool
-    }
-
-    /// Convert seconds into AKDuration
-    ///
-    /// - parameter seconds: time in seconds
-    ///
-    open func duration(seconds: Double) -> AKDuration {
-        let sign = seconds > 0 ? 1.0 : -1.0
-        let absoluteValueSeconds = fabs(seconds)
-        var outBeats = AKDuration(beats: MusicTimeStamp())
-        if let existingSequence = sequence {
-            MusicSequenceGetBeatsForSeconds(existingSequence, Float64(absoluteValueSeconds), &(outBeats.beats))
-        }
-        outBeats.beats *= sign
-        return outBeats
-    }
-
-    /// Convert beats into seconds
-    ///
-    /// - parameter duration: AKDuration
-    ///
-    open func seconds(duration: AKDuration) -> Double {
-        let sign = duration.beats > 0 ? 1.0 : -1.0
-        let absoluteValueBeats = fabs(duration.beats)
-        var outSecs: Double = MusicTimeStamp()
-        if let existingSequence = sequence {
-            MusicSequenceGetSecondsForBeats(existingSequence, absoluteValueBeats, &outSecs)
-        }
-        outSecs *= sign
-        return outSecs
+        return Double(avSequencer.rate)
     }
 
     /// Play the sequence
     open func play() {
-        if isAVSequencer {
-            do {
-                try avSequencer.start()
-            } catch _ {
-                AKLog("could not start avSeq")
-            }
-        } else {
-            if let existingMusicPlayer = musicPlayer {
-                MusicPlayerStart(existingMusicPlayer)
-            }
+        do {
+            try avSequencer.start()
+        } catch _ {
+            AKLog("Could not start the sequencer")
         }
     }
 
     /// Stop the sequence
     open func stop() {
-        if isAVSequencer {
-            avSequencer.stop()
-        } else {
-            if let existingMusicPlayer = musicPlayer {
-                MusicPlayerStop(existingMusicPlayer)
-            }
-        }
+        avSequencer.stop()
     }
 
     /// Rewind the sequence
     open func rewind() {
-        if isAVSequencer {
-            avSequencer.currentPositionInBeats = 0
-        } else {
-            if let existingMusicPlayer = musicPlayer {
-                MusicPlayerSetTime(existingMusicPlayer, 0)
-            }
-        }
+        avSequencer.currentPositionInBeats = 0
     }
 
     /// Set the Audio Unit output for all tracks - on hold while technology is still unstable
     open func setGlobalAVAudioUnitOutput(_ audioUnit: AVAudioUnit) {
-        if isAVSequencer {
-            for track in avSequencer.tracks {
-                track.destinationAudioUnit = audioUnit
-            }
-        } else {
-            //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
-            AKLog("AKSequencer ERROR setGlobalAVAudioUnitOutput only work if isAVSequencer")
+        for track in avSequencer.tracks {
+            track.destinationAudioUnit = audioUnit
         }
     }
 
     /// Wheter or not the sequencer is currently playing
     open var isPlaying: Bool {
-        if isAVSequencer {
-            return avSequencer.isPlaying
-        } else {
-            var isPlayingBool: DarwinBoolean = false
-            if let existingMusicPlayer = musicPlayer {
-                MusicPlayerIsPlaying(existingMusicPlayer, &isPlayingBool)
-            }
-            return isPlayingBool.boolValue
-        }
+        return avSequencer.isPlaying
     }
 
     /// Current Time
     open var currentPosition: AKDuration {
-        if isAVSequencer {
-            return AKDuration(beats: avSequencer.currentPositionInBeats)
-        } else {
-            var currentTime = MusicTimeStamp()
-            if let existingMusicPlayer = musicPlayer {
-                MusicPlayerGetTime(existingMusicPlayer, &currentTime)
-            }
-            let duration = AKDuration(beats: currentTime)
-            return duration
-        }
+        return AKDuration(beats: avSequencer.currentPositionInBeats)
     }
+    
     /// Current Time relative to sequencer length
     open var currentRelativePosition: AKDuration {
         return currentPosition % length //can switch to modTime func when/if % is removed
@@ -516,15 +162,7 @@ open class AKSequencer {
 
     /// Track count
     open var trackCount: Int {
-        if isAVSequencer {
-            return avSequencer.tracks.count
-        } else {
-            var count: UInt32 = 0
-            if let existingSequence = sequence {
-                MusicSequenceGetTrackCount(existingSequence, &count)
-            }
-            return Int(count)
-        }
+        return avSequencer.tracks.count
     }
 
     /// Load a MIDI file
@@ -534,132 +172,18 @@ open class AKSequencer {
             return
         }
         let fileURL = URL(fileURLWithPath: file)
-        if let existingSequence = sequence {
-            MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
-        }
-        if isAVSequencer {
-            do {
-                try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
-            } catch _ {
-                AKLog("failed to load MIDI into AVSequencer")
-            }
-        }
-        initTracks()
-    }
-
-    /// Initialize all tracks
-    ///
-    /// Clears the AKMusicTrack array, and rebuilds it based on actual contents of music sequence
-    ///
-    func initTracks() {
-        tracks.removeAll()
-
-        var count: UInt32 = 0
-        if let existingSequence = sequence {
-            MusicSequenceGetTrackCount(existingSequence, &count)
-        }
-
-        for i in 0 ..< count {
-            var musicTrack: MusicTrack?
-            if let existingSequence = sequence {
-                MusicSequenceGetIndTrack(existingSequence, UInt32(i), &musicTrack)
-            }
-            if let existingMusicTrack = musicTrack {
-                tracks.append(AKMusicTrack(musicTrack: existingMusicTrack, name: "InitializedTrack"))
-            }
-        }
-    }
-
-    /// Get a new track
-    open func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
-        if isAVSequencer {
-            AKLog("AKSequencer ERROR newTrack only work if not isAVSequencer")
-            return nil
-        }
-
-        var newMusicTrack: MusicTrack?
-        var count: UInt32 = 0
-        if let existingSequence = sequence {
-            MusicSequenceNewTrack(existingSequence, &newMusicTrack)
-            MusicSequenceGetTrackCount(existingSequence, &count)
-        }
-        if let existingNewMusicTrack = newMusicTrack {
-            tracks.append(AKMusicTrack(musicTrack: existingNewMusicTrack, name: name))
-        }
-
-        //AKLog("Calling initTracks() from newTrack")
-        //initTracks()
-        return tracks.last
-    }
-
-    /// Clear some events from the track
-    //
-    /// - Parameters:
-    ///   - start:    Starting position of clearing
-    ///   - duration: Length of time after the start position to clear
-    ///
-    open func clearRange(start: AKDuration, duration: AKDuration) {
-        if isAVSequencer {
-            AKLog("AKSequencer ERROR clearRange only work if not isAVSequencer")
-            return
-        }
-
-        for track in tracks {
-            track.clearRange(start: start, duration: duration)
-        }
-    }
-
-    /// Set the music player time directly
-    ///
-    /// - parameter time: Music time stamp to set
-    ///
-    open func setTime(_ time: MusicTimeStamp) {
-        if let existingMusicPlayer = musicPlayer {
-            MusicPlayerSetTime(existingMusicPlayer, time)
-        }
-    }
-
-    /// Generate NSData from the sequence
-    open func genData() -> Data? {
-        var status = noErr
-        var ns: Data = Data()
-        var data: Unmanaged<CFData>?
-        if let existingSequence = sequence {
-            status = MusicSequenceFileCreateData(existingSequence, .midiType, .eraseFile, 480, &data)
-
-            if status != noErr {
-                AKLog("error creating MusicSequence Data")
-                return nil
-            }
-        }
-        if let existingData = data {
-            ns = existingData.takeUnretainedValue() as Data
-        }
-        data?.release()
-        return ns
-    }
-
-    /// Print sequence to console
-    open func debug() {
-        if isAVSequencer {
-            AKLog("No debug information available for AVAudioEngine's sequencer.")
-        } else {
-            if let existingPointer = sequencePointer {
-                CAShow(existingPointer)
-            }
+        
+        do {
+            try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
+        } catch _ {
+            AKLog("failed to load MIDI into AVSequencer")
         }
     }
 
     /// Set the midi output for all tracks
     open func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
-        if isAVSequencer {
-            for track in avSequencer.tracks {
-                track.destinationMIDIEndpoint = midiEndpoint
-            }
-        } else {
-            for track in tracks {
-                track.setMIDIOutput(midiEndpoint)
-            }
+        for track in avSequencer.tracks {
+            track.destinationMIDIEndpoint = midiEndpoint
         }
     }
 
@@ -671,10 +195,8 @@ open class AKSequencer {
         let nextSpot = quantizationPositions[1]
         let diffToLastSpot = AKDuration(beats: noteOnTimeRel) - lastSpot
         let diffToNextSpot = nextSpot - AKDuration(beats: noteOnTimeRel)
-        let optimisedQuantTime = (diffToLastSpot < diffToNextSpot ? lastSpot : nextSpot)
-        //AKLog("last \(lastSpot.beats) - curr \(currentRelativePosition.beats) - next \(nextSpot.beats)")
-        //AKLog("nearest \(optimisedQuantTime.beats)")
-        return optimisedQuantTime
+        let optimizedQuantTime = (diffToLastSpot < diffToNextSpot ? lastSpot : nextSpot)
+        return optimizedQuantTime
     }
 
     /// The last quantized beat

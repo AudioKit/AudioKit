@@ -9,7 +9,7 @@
 import AudioKit
 
 class Conductor {
-    private var sequence: AKSequencer!
+    private var sequencer: AKSequencer!
     private var mixer = AKMixer()
     private var arpeggioSynthesizer = AKSampler()
     private var padSynthesizer = AKSampler()
@@ -48,13 +48,15 @@ class Conductor {
             print("A file was not found.")
         }
         AudioKit.start()
-        sequence = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
-        sequence.enableLooping()
-        sequence.avTracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
-        sequence.avTracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
-        sequence.avTracks[3].destinationAudioUnit = padSynthesizer.samplerUnit
-        sequence.avTracks[4].destinationAudioUnit = drumKit.samplerUnit
-        sequence.setLength(AKDuration(beats: 4))
+
+        sequencer = AKSequencer(filename: "seqDemo")
+        sequencer.enableLooping()
+        sequencer.tracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
+        sequencer.tracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
+        sequencer.tracks[3].destinationAudioUnit = padSynthesizer.samplerUnit
+        sequencer.tracks[4].destinationAudioUnit = drumKit.samplerUnit
+        sequencer.setLength(AKDuration(beats: 4))
+        sequencer.play()
     }
 
     func adjustVolume(_ volume: Float, instrument: Instrument) {
@@ -76,20 +78,20 @@ class Conductor {
     }
 
     func playSequence() {
-        sequence.play()
+        sequencer.play()
     }
 
     func stopSequence() {
-        sequence.stop()
+        sequencer.stop()
     }
 
     func rewindSequence() {
-        sequence.rewind()
+        sequencer.rewind()
     }
 
     func setLength(_ length: Double) {
-        sequence.setLength(AKDuration(beats: length))
-        sequence.rewind()
+        sequencer.setLength(AKDuration(beats: length))
+        sequencer.rewind()
     }
 
     func useSound(_ sound: Sound, synthesizer: Synthesizer) {
@@ -125,6 +127,6 @@ class Conductor {
     }
 
     func adjustTempo(_ tempo: Float) {
-        sequence?.setRate(Double(tempo))
+        sequencer?.setRate(Double(tempo))
     }
 }
