@@ -58,19 +58,19 @@ class ViewController: UIViewController {
     }
 
     func adjustArpeggioVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Arpeggio)
+        conductor.adjustVolume(newValue, instrument: Instrument.Arpeggio)
     }
 
     func adjustPadSynthesizerVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Pad)
+        conductor.adjustVolume(newValue, instrument: Instrument.Pad)
     }
 
     func adjustBassSynthesizerVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Bass)
+        conductor.adjustVolume(newValue, instrument: Instrument.Bass)
     }
 
     func adjustDrumKitVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Drum)
+        conductor.adjustVolume(newValue, instrument: Instrument.Drum)
     }
 
     func adjustFilterFrequency(newValue: Double) {
