@@ -8,7 +8,7 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
+#import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>

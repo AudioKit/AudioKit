@@ -45,7 +45,7 @@ create_package()
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
 	find -d Examples -name Pods -exec rm -rf {} \;
 	find Examples -name Podfile.lock -exec rm -rf {} \;
-	cp ../../README.md ../../VERSION ../../LICENSE ../INSTALL.md .
+	cp ../../README.md ../../VERSION ../../LICENSE ../README.md .
 	cp -a ../docs/docsets/AudioKit.docset .
 	find . -name .DS_Store -exec rm -rf {} \;
 	find -d . -name build -exec rm -rf {} \;

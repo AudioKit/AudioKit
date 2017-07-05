@@ -22,6 +22,7 @@ extension Collection where IndexDistance == Int {
         return index(startIndex, offsetBy: offset)
     }
 
+    /// Retrieve a random element from the collection
     public func randomElement() -> Iterator.Element {
         return self[randomIndex]
     }
@@ -77,11 +78,7 @@ extension Double {
     ///   - maximum: Maximum of the source range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public func normalized(
-        minimum: Double,
-        maximum: Double,
-        taper: Double) -> Double {
-
+    public func normalized(minimum: Double, maximum: Double, taper: Double) -> Double {
         if taper > 0 {
             // algebraic taper
             return pow(((self - minimum) / (maximum - minimum)), (1.0 / taper))
@@ -109,9 +106,7 @@ extension Double {
     ///   - maximum: Maximum of the target range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public func denormalized(minimum: Double,
-                             maximum: Double,
-                             taper: Double) -> Double {
+    public func denormalized(minimum: Double, maximum: Double, taper: Double) -> Double {
 
         // Avoiding division by zero in this trivial case
         if maximum - minimum < 0.000_01 {
@@ -246,6 +241,7 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
+/// Adding subscript
 extension AVAudioUnit {
     subscript (param: AudioUnitParameterID) -> Double {
         get {
@@ -274,6 +270,7 @@ internal struct AUWrapper {
     }
 }
 
+/// Adding instantiation with component and callback
 extension AVAudioUnit {
     class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
@@ -303,6 +300,7 @@ extension AUParameter {
     }
 }
 
+/// Adding instantiate with callback
 extension AudioComponentDescription {
     func instantiate(callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit._instantiate(with: self) {
@@ -337,6 +335,7 @@ extension AVAudioSessionCategoryOptions: Occupiable { }
 
 prefix operator ❗️
 
+/// Negative logic can be confusing, so we draw special attention to those cases
 prefix public func ❗️(a: Bool) -> Bool {
     return !a
 }

@@ -10,11 +10,12 @@
 ///
 open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    public var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?

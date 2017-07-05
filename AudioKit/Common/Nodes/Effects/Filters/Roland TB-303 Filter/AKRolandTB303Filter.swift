@@ -10,6 +10,7 @@
 ///
 open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKRolandTB303FilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
     // MARK: - Properties

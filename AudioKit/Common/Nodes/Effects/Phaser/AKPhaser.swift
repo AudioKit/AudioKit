@@ -11,6 +11,7 @@
 ///
 open class AKPhaser: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPhaserAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
     // MARK: - Properties

@@ -14,6 +14,7 @@ import Dispatch
 
 public typealias AKCallback = () -> Void
 
+/// Adding connection between nodes with default format
 extension AVAudioEngine {
     open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
         connect(node1, to: node2, format: AudioKit.format)
@@ -218,12 +219,13 @@ extension AVAudioEngine {
             self.engine.prepare()
 
             #if os(iOS)
-
-                NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(AudioKit.restartEngineAfterRouteChange),
-                    name: .AVAudioSessionRouteChange,
-                    object: nil)
+                if AKSettings.enableRouteChangeHandling {
+                    NotificationCenter.default.addObserver(
+                        self,
+                        selector: #selector(AudioKit.restartEngineAfterRouteChange),
+                        name: .AVAudioSessionRouteChange,
+                        object: nil)
+                }
             #endif
             #if !os(macOS)
                 if AKSettings.audioInputEnabled {
@@ -381,6 +383,7 @@ extension AVAudioEngine {
 
     // MARK: - Disconnect node inputs
 
+    /// Disconnect all inputs
     @objc open static func disconnectAllInputs() {
         engine.disconnectNodeInput(finalMixer.avAudioNode)
     }

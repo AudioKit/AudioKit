@@ -15,9 +15,6 @@
 		78524B891D2C3D3500804C0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78524B871D2C3D3500804C0B /* LaunchScreen.storyboard */; };
 		78524B911D2C3D6100804C0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78524B901D2C3D6100804C0B /* Main.storyboard */; };
 		78524B941D2C3D7B00804C0B /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78524B921D2C3D7B00804C0B /* Conductor.swift */; };
-		78524B951D2C3D7B00804C0B /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78524B931D2C3D7B00804C0B /* Instrument.swift */; };
-		78524B971D2C3DCC00804C0B /* Synthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78524B961D2C3DCC00804C0B /* Synthesizer.swift */; };
-		78524B9B1D2C3E0700804C0B /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78524B9A1D2C3E0700804C0B /* Sound.swift */; };
 		C474B4EF1D8CBC8900A33E67 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C474B4EE1D8CBC8900A33E67 /* AudioKit.framework */; };
 		EAD57BC81D8FF05800993F54 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C474B4EE1D8CBC8900A33E67 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -47,9 +44,6 @@
 		78524B8A1D2C3D3500804C0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78524B901D2C3D6100804C0B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		78524B921D2C3D7B00804C0B /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
-		78524B931D2C3D7B00804C0B /* Instrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
-		78524B961D2C3DCC00804C0B /* Synthesizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Synthesizer.swift; sourceTree = "<group>"; };
-		78524B9A1D2C3E0700804C0B /* Sound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		C474B4EE1D8CBC8900A33E67 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,9 +104,6 @@
 				7816C88B1D2CCE950030374D /* Sounds */,
 				78524B801D2C3D3500804C0B /* ViewController.swift */,
 				78524B921D2C3D7B00804C0B /* Conductor.swift */,
-				78524B9A1D2C3E0700804C0B /* Sound.swift */,
-				78524B931D2C3D7B00804C0B /* Instrument.swift */,
-				78524B961D2C3DCC00804C0B /* Synthesizer.swift */,
 				78524B901D2C3D6100804C0B /* Main.storyboard */,
 			);
 			path = SamplerDemo;
@@ -153,6 +144,11 @@
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -194,9 +190,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78524B971D2C3DCC00804C0B /* Synthesizer.swift in Sources */,
-				78524B9B1D2C3E0700804C0B /* Sound.swift in Sources */,
-				78524B951D2C3D7B00804C0B /* Instrument.swift in Sources */,
 				78524B811D2C3D3500804C0B /* ViewController.swift in Sources */,
 				78524B941D2C3D7B00804C0B /* Conductor.swift in Sources */,
 				78524B7F1D2C3D3500804C0B /* AppDelegate.swift in Sources */,

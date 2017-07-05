@@ -13,13 +13,29 @@
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
     @objc public enum BufferLength: Int {
+
+        /// Shortest
         case shortest = 5
+
+        /// Very Short
         case veryShort = 6
+
+        /// Short
         case short = 7
+
+        /// Medium
         case medium = 8
+
+        /// Long
         case long = 9
+
+        /// Very Long
         case veryLong = 10
+
+        /// Huge
         case huge = 11
+
+        /// Longest
         case longest = 12
 
         /// The buffer Length expressed as number of samples
@@ -57,7 +73,7 @@
     open static var useBluetooth: Bool = false
 
 #if !os(macOS)
-    // Additional control over the options to use for bluetooth
+    /// Additional control over the options to use for bluetooth
     open static var bluetoothOptions: AVAudioSessionCategoryOptions = []
 #endif
 
@@ -85,7 +101,13 @@
 
     /// Enable AudioKit AVAudioSession Category Management
     open static var disableAVAudioSessionCategoryManagement: Bool = false
-
+    
+    // If set to false, AudioKit will not handle the AVAudioSession route change
+    // notification (AVAudioSessionRouteChange) and will not restart the AVAudioEngine
+    // instance when such notifications are posted. The developer can instead subscribe
+    // to these notifications and restart AudioKit after rebuiling their audio chain.
+    open static var enableRouteChangeHandling: Bool = true
+    
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
 }
@@ -156,8 +178,8 @@ extension AKSettings {
         /// Audio is not silenced by silent switch and screen lock - audio is non mixable. 
         /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
         case playAndRecord
-        /// Disables playback and recording
         #if !os(tvOS)
+        /// Disables playback and recording
         case audioProcessing
         #endif
         /// Use to multi-route audio. May be used on input, output, or both.

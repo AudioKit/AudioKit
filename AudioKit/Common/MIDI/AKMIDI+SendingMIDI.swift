@@ -55,10 +55,11 @@ extension AKMIDI {
 
     /// Open a MIDI Output Port
     ///
+    /// Destination name (string) can be empty for some hardware device;
+    /// So optional string is better for checking and targeting the device.
+    ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
-    // Destination name (string) can be empty for some hardware device;
-    // So optional string is better for checking and targeting the device.
     public func openOutput(_ namedOutput: String? = nil) {
         guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
             return
@@ -103,7 +104,7 @@ extension AKMIDI {
         endpoints.removeAll()
     }
 
-    /// Send Messsage from midi event data
+    /// Send Messsage from MIDI event data
     public func sendEvent(_ event: AKMIDIEvent) {
         sendMessage(event.internalData)
     }

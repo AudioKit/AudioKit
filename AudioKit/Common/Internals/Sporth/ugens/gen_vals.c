@@ -9,7 +9,7 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
 
     sp_ftbl *ft;
-    char *str, *args;
+    const char *str, *args;
 
     switch(pd->mode){
         case PLUMBER_CREATE:

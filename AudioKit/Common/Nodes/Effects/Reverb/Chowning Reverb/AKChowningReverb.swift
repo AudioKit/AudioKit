@@ -16,6 +16,7 @@
 ///
 open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKChowningReverbAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
 
     // MARK: - Properties

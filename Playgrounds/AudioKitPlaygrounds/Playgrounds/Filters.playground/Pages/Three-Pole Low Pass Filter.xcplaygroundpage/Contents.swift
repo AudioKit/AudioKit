@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
                            baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -27,7 +27,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: filtersPlaygroundFiles))
+            filenames: playgroundAudioFiles))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",

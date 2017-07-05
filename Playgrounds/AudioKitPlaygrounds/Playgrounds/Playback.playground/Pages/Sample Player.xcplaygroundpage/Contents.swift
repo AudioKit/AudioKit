@@ -22,19 +22,16 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKButton(title: "Play") {
             samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
                               length: Sample(40_000))
-            return "Play"
         })
-        
+
         addSubview(AKButton(title: "Play Reversed") {
             let start = Sample(44_100 * (self.current % 26))
             samplePlayer.play(from: start + 40_000, to: start)
-            return "Play Reversed"
         })
         addSubview(AKButton(title: "Next") {
             self.current += 1
             samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
                               length: Sample(40_000))
-            return "Next"
         })
         addSubview(AKButton(title: "Previous") {
             self.current -= 1
@@ -43,14 +40,12 @@ class PlaygroundView: AKPlaygroundView {
             }
             samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
                               length: Sample(40_000))
-            return "Previous"
         })
 
         addSubview(AKPropertySlider(
-        property: "Rate",
-        value: 1, minimum: 0.1, maximum: 2) {
-                sliderValue in
-            samplePlayer.rate = sliderValue
+            property: "Rate",
+            value: 1, minimum: 0.1, maximum: 2) { sliderValue in
+                samplePlayer.rate = sliderValue
         })
     }
 }

@@ -16,7 +16,7 @@
 @implementation AKMetalBarAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKMetalBarDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -50,7 +50,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(MetalBar)
+    standardGeneratorSetup(MetalBar)
 
     // Create a parameter object for the leftBoundaryCondition.
     AUParameter *leftBoundaryConditionAUParameter = [AUParameter parameter:@"leftBoundaryCondition"

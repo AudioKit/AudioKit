@@ -9,6 +9,7 @@
 /// STK Clarinet
 ///
 open class AKClarinet: AKNode, AKToggleable, AKComponent {
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "flut")
     public typealias AKAudioUnitType = AKClarinetAudioUnit
     // MARK: - Properties

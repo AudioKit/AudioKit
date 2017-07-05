@@ -10,13 +10,15 @@
 ///
 open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorBankAudioUnit
-    public static let ComponentDescription = AudioComponentDescription(generator: "fmob")
+    /// Four letter unique description of the node
+    public static let ComponentDescription = AudioComponentDescription(instrument: "fmob")
 
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
+    /// Waveform of the oscillator
     open var waveform: AKTable? {
         //TODO: Add error checking for table size...needs to match init()
         willSet {
@@ -228,6 +230,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
+            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             self?.internalAU?.setupWaveform(Int32(waveform.count))

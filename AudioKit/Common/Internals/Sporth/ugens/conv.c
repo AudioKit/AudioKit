@@ -7,7 +7,7 @@ int sporth_conv(sporth_stack *stack, void *ud)
     SPFLOAT input;
     SPFLOAT out;
     
-    char *ftname; 
+    const char *ftname; 
     sp_ftbl *ft;
     SPFLOAT iPartLen;
     sp_conv *conv;

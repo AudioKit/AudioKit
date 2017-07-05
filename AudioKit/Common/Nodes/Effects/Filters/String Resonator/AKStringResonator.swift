@@ -15,6 +15,7 @@
 ///
 open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKStringResonatorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
     // MARK: - Properties

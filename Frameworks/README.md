@@ -1,4 +1,4 @@
-# AudioKit V3
+# AudioKit Framework
 
 Since version 3.0, AudioKit is now distributed as a universal dynamic framework with no further dependencies on all supported platforms. This makes it easy to integrate within your own projects.
 

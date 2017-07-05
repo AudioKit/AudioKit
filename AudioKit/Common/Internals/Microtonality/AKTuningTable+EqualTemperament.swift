@@ -8,7 +8,7 @@
 
 extension AKTuningTable {
 
-    // Default tuning table is 12ET.
+    /// Default tuning table is 12ET.
     public func defaultTuning() {
         twelveToneEqualTemperament()
     }

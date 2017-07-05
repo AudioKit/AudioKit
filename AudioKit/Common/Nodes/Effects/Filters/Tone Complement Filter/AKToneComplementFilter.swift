@@ -10,6 +10,7 @@
 ///
 open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKToneComplementFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
     // MARK: - Properties
