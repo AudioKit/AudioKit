@@ -10,6 +10,7 @@
 ///
 open class AKBooster: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBoosterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "gain")
 
     // MARK: - Properties
@@ -94,7 +95,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize this gainner node
+    /// Initialize this booster node
     ///
     /// - Parameters:
     ///   - input: AKNode whose output will be amplified

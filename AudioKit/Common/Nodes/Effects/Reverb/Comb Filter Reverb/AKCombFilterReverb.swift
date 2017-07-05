@@ -14,6 +14,7 @@
 ///
 open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKCombFilterReverbAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
 
     // MARK: - Properties

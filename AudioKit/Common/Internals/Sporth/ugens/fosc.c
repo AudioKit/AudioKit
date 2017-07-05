@@ -5,7 +5,7 @@ int sporth_fosc(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
     SPFLOAT out;
     sp_ftbl *tbl;
-    char *str;
+    const char *str;
     SPFLOAT freq;
     SPFLOAT amp;
     SPFLOAT car;

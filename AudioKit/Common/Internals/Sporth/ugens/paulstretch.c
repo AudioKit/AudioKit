@@ -5,7 +5,7 @@ int sporth_paulstretch(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     SPFLOAT out;
-    char *ftname;
+    const char *ftname;
     sp_ftbl * ft;
     SPFLOAT windowsize;
     SPFLOAT stretch;

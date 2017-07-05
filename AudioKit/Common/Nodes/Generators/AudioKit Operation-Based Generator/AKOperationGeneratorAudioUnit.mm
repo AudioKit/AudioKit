@@ -18,7 +18,7 @@
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKOperationGeneratorDSPKernel _kernel;
 
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -65,7 +65,7 @@
 }
 
 - (void)createParameters {
-    standardSetup(OperationGenerator)
+    standardGeneratorSetup(OperationGenerator)
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
 	parameterTreeBlock(OperationGenerator)

@@ -10,7 +10,7 @@ int sporth_gen_rand(sporth_stack *stack, void *ud)
 
     uint32_t size;
     sp_ftbl *ft;
-    char *str, *args;
+    const char *str, *args;
 
     switch(pd->mode){
         case PLUMBER_CREATE:

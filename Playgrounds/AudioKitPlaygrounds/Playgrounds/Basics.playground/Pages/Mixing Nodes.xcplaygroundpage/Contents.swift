@@ -55,7 +55,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Mixer")
 
-        addSubview(AKButton(title: "Stop All") {
+        addSubview(AKDynamicButton(title: "Stop All") {
             drums.isPlaying  ? drums.stop()  : drums.play()
             bass.isPlaying   ? bass.stop()   : bass.play()
             guitar.isPlaying ? guitar.stop() : guitar.play()

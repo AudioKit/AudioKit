@@ -9,29 +9,44 @@ import UIKit
 
 /// Delegate for keyboard events
 public protocol AKKeyboardDelegate: class {
+    /// Note on evenets
     func noteOn(note: MIDINoteNumber)
+    /// Note off events
     func noteOff(note: MIDINoteNumber)
 }
 
 /// Clickable keyboard mainly used for AudioKit playgrounds
 @IBDesignable open class AKKeyboardView: UIView, AKMIDIListener {
 
+    /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
+
+    /// Lowest octave dispayed
     @IBInspectable open var firstOctave: Int = 4
 
+    /// Relative measure of the height of the black keys
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
+
+    /// Color of the polyphonic toggle button
     @IBInspectable open var polyphonicButton: UIColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
+    /// White key color
     @IBInspectable open var  whiteKeyOff: UIColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+
+    /// Black key color
     @IBInspectable open var  blackKeyOff: UIColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+
+    /// Activated key color
     @IBInspectable open var  keyOnColor: UIColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
+    /// Class to handle user actions
     open weak var delegate: AKKeyboardDelegate?
 
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
 
+    /// Allows multiple notes to play concurrently
     open var polyphonicMode = false {
         didSet {
             for note in onKeys {
@@ -54,11 +69,13 @@ public protocol AKKeyboardDelegate: class {
 
     // MARK: - Initialization
 
+    /// Initialize the keyboard with default info
     public override init(frame: CGRect) {
         super.init(frame: frame)
         isMultipleTouchEnabled = true
     }
 
+    /// Initialize the keyboard
     public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
                 polyphonic: Bool = false) {
         self.octaveCount = octaveCount
@@ -70,6 +87,7 @@ public protocol AKKeyboardDelegate: class {
         setNeedsDisplay()
     }
 
+    /// Initialization within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         isMultipleTouchEnabled = true
@@ -77,6 +95,7 @@ public protocol AKKeyboardDelegate: class {
 
     // MARK: - Storyboard Rendering
 
+    /// Set up the view for rendering in Interface Builder
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
@@ -89,16 +108,19 @@ public protocol AKKeyboardDelegate: class {
         clipsToBounds = true
     }
 
+    /// Keyboard view size
     override open var intrinsicContentSize: CGSize {
         return CGSize(width: 1_024, height: 84)
     }
 
+    /// Require constraints
     open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
 
     // MARK: - Drawing
 
+    /// Draw the view
     override open func draw(_ rect: CGRect) {
 
         let width = Int(self.frame.width)
@@ -125,6 +147,7 @@ public protocol AKKeyboardDelegate: class {
 
     }
 
+    /// Draw one octave
     func drawOctaveCanvas(_ octaveNumber: Int) {
 
         let width = Int(self.frame.width)
@@ -206,6 +229,7 @@ public protocol AKKeyboardDelegate: class {
 
     }
 
+    /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let notes = notesFromTouches(touches)
         for note in notes {
@@ -215,6 +239,7 @@ public protocol AKKeyboardDelegate: class {
         setNeedsDisplay()
     }
 
+    /// Handle touches completed
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let note = noteFromTouchLocation(touch.location(in: self)) {
@@ -231,6 +256,7 @@ public protocol AKKeyboardDelegate: class {
         setNeedsDisplay()
     }
 
+    /// Handle moved touches
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if let key = noteFromTouchLocation(touch.location(in: self)),
@@ -242,6 +268,7 @@ public protocol AKKeyboardDelegate: class {
         setNeedsDisplay()
     }
 
+    /// Handle stopped touches
     override open func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         verifyTouches(event?.allTouches)
     }

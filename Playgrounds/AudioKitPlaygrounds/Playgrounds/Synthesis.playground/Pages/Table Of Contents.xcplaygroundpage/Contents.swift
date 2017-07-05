@@ -36,6 +36,7 @@
 //: * [Pulse Width Modulation Oscillator](PWM%20Oscillator)
 //: 
 //: New in AudioKit 3.7 is Microtonality capability:
+//:
 //: * [Microtonality](Microtonality)
 //:
 //: Oscillators are the basis of many synths which also usually have envelopes:
@@ -67,9 +68,11 @@
 //: * [Drawbar Organ](Drawbar%20Organ)
 //: * [Dripping Sounds](Dripping%20Sounds)
 //: * [Drum Synthesizers](Drum%20Synthesizers)
-//: * [Plucked String](Plucked%20String)
-//: * [Mandolin](Mandolin)
 //: * [Flute](Flute)
+//: * [Mandolin](Mandolin)
+//: * [Plucked String](Plucked%20String)
+//: * [Vocal Tract](Vocal%20Tract)
+//: * [Vocal Tract Operation](Vocal%20Tract%20Operation)
 //:
 //: ## Operations
 //:

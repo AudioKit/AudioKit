@@ -6,6 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// View to choose from audio files to use in playgrounds
 open class AKResourcesAudioFileLoaderView: UIView {
 
     var player: AKAudioPlayer?
@@ -17,6 +18,7 @@ open class AKResourcesAudioFileLoaderView: UIView {
     var currentIndex = 0
     var titles = [String]()
 
+    /// Handle touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             var isFileChanged = false
@@ -57,6 +59,7 @@ open class AKResourcesAudioFileLoaderView: UIView {
         }
     }
 
+    /// Initialize the resource loader
     public convenience init(player: AKAudioPlayer,
                             filenames: [String],
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
@@ -166,6 +169,7 @@ open class AKResourcesAudioFileLoaderView: UIView {
         context?.restoreGState()
     }
 
+    /// Draw the resource loader
     override open func draw(_ rect: CGRect) {
         drawAudioFileLoader(fileName: titles[currentIndex])
     }

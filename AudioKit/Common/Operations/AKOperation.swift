@@ -163,7 +163,7 @@ open class AKOperation: AKComputedParameter {
         return AKOperation(module: "round", inputs: self)
     }
 
-    /// Returns a frequency for a given midi note number
+    /// Returns a frequency for a given MIDI note number
     open func midiNoteToFrequency() -> AKOperation {
         return AKOperation(module: "mtof", inputs: self)
     }

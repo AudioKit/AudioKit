@@ -10,6 +10,7 @@
 ///
 open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKVariableDelayAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
     // MARK: - Properties

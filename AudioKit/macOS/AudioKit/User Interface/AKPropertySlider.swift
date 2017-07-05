@@ -10,7 +10,7 @@ public class AKPropertySlider: NSView {
     override public func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         return true
     }
-    var callback: (Double) -> Void
+    public var callback: (Double) -> Void
     var initialValue: Double = 0
     public var value: Double = 0 {
         didSet {
@@ -50,14 +50,15 @@ public class AKPropertySlider: NSView {
     }
 
     override public func mouseDown(with theEvent: NSEvent) {
-        let loc = theEvent.locationInWindow
+        let loc = convert(theEvent.locationInWindow, from: nil)
         let center = convert(loc, from: nil)
         value = Double(center.x / bounds.width) * (maximum - minimum) + minimum
         needsDisplay = true
         callback(value)
     }
     override public func mouseDragged(with theEvent: NSEvent) {
-        let loc = theEvent.locationInWindow
+        
+        let loc = convert(theEvent.locationInWindow, from: nil)
         let center = convert(loc, from: nil)
         value = Double(center.x / bounds.width) * (maximum - minimum) + minimum
         if value > maximum { value = maximum }
@@ -95,18 +96,20 @@ public class AKPropertySlider: NSView {
         let sliderColor = color // #colorLiteral(red: 1, green: 0, blue: 0.062, alpha: 1)
 
         //// Variable Declarations
+        let height: CGFloat = self.frame.height
+        let width: CGFloat = self.frame.width
         let currentWidth: CGFloat = currentValue < minimum ? 0 : (currentValue < maximum ?
             (currentValue - minimum) / (maximum - minimum) * self.frame.width : self.frame.width)
         let initialX: CGFloat = initialValue < minimum ? 9 : 9 + (initialValue < maximum ?
             (initialValue - minimum) / (maximum - minimum) * self.frame.width : self.frame.width)
 
         //// sliderArea Drawing
-        let sliderAreaPath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 440, height: 60))
+        let sliderAreaPath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: width, height: height))
         backgroundColor.setFill()
         sliderAreaPath.fill()
 
         //// valueRectangle Drawing
-        let valueRectanglePath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: currentWidth, height: 60))
+        let valueRectanglePath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: currentWidth, height: height))
         sliderColor.setFill()
         valueRectanglePath.fill()
 
@@ -115,7 +118,7 @@ public class AKPropertySlider: NSView {
         context.translateBy(x: (initialX - 8), y: 0)
 
         let initialValueBezierPath = NSBezierPath()
-        initialValueBezierPath.move(to: NSPoint(x: 0, y: 60))
+        initialValueBezierPath.move(to: NSPoint(x: 0, y: height))
         initialValueBezierPath.line(to: NSPoint(x: 0.25, y: 0))
         NSColor.white.setFill()
         initialValueBezierPath.fill()
@@ -127,7 +130,7 @@ public class AKPropertySlider: NSView {
         NSGraphicsContext.restoreGraphicsState()
 
         //// nameLabel Drawing
-        let nameLabelRect = NSRect(x: 0, y: 0, width: 440, height: 60)
+        let nameLabelRect = NSRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
@@ -152,7 +155,7 @@ public class AKPropertySlider: NSView {
         NSGraphicsContext.restoreGraphicsState()
 
         //// valueLabel Drawing
-        let valueLabelRect = NSRect(x: 0, y: 0, width: 440, height: 60)
+        let valueLabelRect = NSRect(x: 0, y: 0, width: width, height: height)
         let valueLabelStyle = NSMutableParagraphStyle()
         valueLabelStyle.alignment = .right
 

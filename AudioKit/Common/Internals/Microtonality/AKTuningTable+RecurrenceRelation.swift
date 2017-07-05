@@ -8,7 +8,7 @@
 
 extension AKTuningTable {
 
-    // From Erv Wilson
+    /// From Erv Wilson.  See http://anaphoria.com/genus.pdf
     public func presetRecurrenceRelation01() {
         tuningTable(fromFrequencies: [1, 34, 5, 21, 3, 13, 55])
     }

@@ -10,6 +10,7 @@
 ///
 open class AKMandolin: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKMandolinAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "mand")
 
     // MARK: - Properties

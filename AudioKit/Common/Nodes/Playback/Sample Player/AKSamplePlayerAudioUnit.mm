@@ -16,7 +16,7 @@
 @implementation AKSamplePlayerAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKSamplePlayerDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -53,7 +53,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(SamplePlayer)
+    standardGeneratorSetup(SamplePlayer)
     
     // Create a parameter object for the start.
     AUParameter *startPointAUParameter = [AUParameter parameter:@"startPoint"
