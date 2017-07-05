@@ -643,6 +643,8 @@
 		C4BEAA131DEC3A9800186C50 /* AKAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */; };
 		C4C136EF1C2F94710026FD7A /* AKParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C136EE1C2F94710026FD7A /* AKParameter.swift */; };
 		C4C136F11C2F94A00026FD7A /* AKStereoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C136F01C2F94A00026FD7A /* AKStereoOperation.swift */; };
+		C4C379031F0C63B80085F876 /* AKMusicSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C379021F0C63B80085F876 /* AKMusicSequencer.swift */; };
+		C4C379051F0C63CB0085F876 /* AKDeprecatedSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C379041F0C63CB0085F876 /* AKDeprecatedSequencer.swift */; };
 		C4CC34121D1DF4D30066DDCC /* AKMIDINode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC34111D1DF4D30066DDCC /* AKMIDINode.swift */; };
 		C4CDDD081D04F25E003EA1BD /* AK3DPanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CDDD071D04F25E003EA1BD /* AK3DPanner.swift */; };
 		C4D1FCFD1CE5BCC80043209E /* AKTremolo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1FCF91CE5BCC80043209E /* AKTremolo.swift */; };
@@ -1494,6 +1496,8 @@
 		C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioUnit.mm; sourceTree = "<group>"; };
 		C4C136EE1C2F94710026FD7A /* AKParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameter.swift; sourceTree = "<group>"; };
 		C4C136F01C2F94A00026FD7A /* AKStereoOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoOperation.swift; sourceTree = "<group>"; };
+		C4C379021F0C63B80085F876 /* AKMusicSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicSequencer.swift; sourceTree = "<group>"; };
+		C4C379041F0C63CB0085F876 /* AKDeprecatedSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDeprecatedSequencer.swift; sourceTree = "<group>"; };
 		C4CC34111D1DF4D30066DDCC /* AKMIDINode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDINode.swift; sourceTree = "<group>"; };
 		C4CDDD071D04F25E003EA1BD /* AK3DPanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AK3DPanner.swift; sourceTree = "<group>"; };
 		C4D1FCF91CE5BCC80043209E /* AKTremolo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTremolo.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -3395,7 +3399,9 @@
 			children = (
 				C49E9DF31D2B1F9100E5E8BF /* AKDuration.swift */,
 				C49E9DF41D2B1F9100E5E8BF /* AKMusicTrack.swift */,
+				C4C379021F0C63B80085F876 /* AKMusicSequencer.swift */,
 				C49E9DF51D2B1F9100E5E8BF /* AKSequencer.swift */,
+				C4C379041F0C63CB0085F876 /* AKDeprecatedSequencer.swift */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -4113,6 +4119,7 @@
 				C40716561D2116ED00665C02 /* Noise.cpp in Sources */,
 				C40716581D21171000665C02 /* FileWvIn.cpp in Sources */,
 				C40C41671C40E3A5009D870B /* EZOutput.m in Sources */,
+				C4C379031F0C63B80085F876 /* AKMusicSequencer.swift in Sources */,
 				C40C41631C40E3A5009D870B /* EZAudioUtilities.m in Sources */,
 				C4F8C8AE1DCA8CE4001F38F2 /* adsr.c in Sources */,
 				C4F8C8D61DCA8CE4001F38F2 /* ftsum.c in Sources */,
@@ -4262,6 +4269,7 @@
 				C4537FB11C3A438D00A51738 /* AKBandRejectButterworthFilter.swift in Sources */,
 				C4B8A2FB1E6569E3006432FA /* AKSampler+getAUPresetXML.swift in Sources */,
 				C48DB7C71CD56AC100D1EC13 /* AKMIDISystemCommand.swift in Sources */,
+				C4C379051F0C63CB0085F876 /* AKDeprecatedSequencer.swift in Sources */,
 				C46EECCF1C9FF3C8007FEA1B /* adsrEnvelope.swift in Sources */,
 				C49E9E351D2C2C6700E5E8BF /* stringResonator.swift in Sources */,
 				C4F8C92F1DCA8CE4001F38F2 /* tseg.c in Sources */,
