@@ -48,6 +48,14 @@ extension AKMIDI {
         listeners.removeAll()
     }
 
+    public func addTransformer(_ transformer: AKMIDITransformer) {
+        transformers.append(transformer)
+    }
+    
+    public func clearTransformers() {
+        transformers.removeAll()
+    }
+    
     /// Open a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
@@ -63,7 +71,7 @@ extension AKMIDI {
                     for packet in packetList.pointee {
                         // a CoreMIDI packet may contain multiple MIDI events
                         for event in packet {
-                            self.handleMIDIMessage(event)
+                            self.handleMIDIMessage(self.transformMIDIMessage(event))
                         }
                     }
                 }
@@ -161,5 +169,16 @@ extension AKMIDI {
                 break
             }
         }
+    }
+    
+    internal func transformMIDIMessage(_ event: AKMIDIEvent) -> AKMIDIEvent {
+        var eventToProcess = event
+        var processedEvent = event
+        
+        for transformer in transformers {
+            processedEvent = transformer.doTransform(event: eventToProcess)
+            eventToProcess = processedEvent
+        }
+        return processedEvent
     }
 }

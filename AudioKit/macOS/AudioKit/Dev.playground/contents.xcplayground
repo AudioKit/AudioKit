@@ -3,5 +3,6 @@
     <pages>
         <page name='Table Of Contents'/>
         <page name='Development'/>
+        <page name='MIDIScaleQuantize'/>
     </pages>
 </playground>
