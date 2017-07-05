@@ -9,7 +9,7 @@
 import AudioKit
 
 class Conductor {
-    private var sequencer: AKSequencer!
+    private var sequencer: AKSimpleSequencer!
     private var mixer = AKMixer()
     private var arpeggioSynthesizer = AKSampler()
     private var padSynthesizer = AKSampler()
@@ -49,7 +49,7 @@ class Conductor {
         }
         AudioKit.start()
 
-        sequencer = AKSequencer(filename: "seqDemo")
+        sequencer = AKSimpleSequencer(filename: "seqDemo")
         sequencer.enableLooping()
         sequencer.tracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
         sequencer.tracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
