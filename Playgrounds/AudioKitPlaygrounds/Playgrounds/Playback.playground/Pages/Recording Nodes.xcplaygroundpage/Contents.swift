@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addSubview(AKButton(title: "Record", color: AKColor.red) {
+        addSubview(AKDynamicButton(title: "Record", color: AKColor.red) {
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
                 self.recordLabel.text = "Stopped. (\(dur) recorded)"
@@ -63,7 +63,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             }
         })
 
-        addSubview(AKButton(title: "Save") {
+        addSubview(AKDynamicButton(title: "Save") {
             tape.exportAsynchronously(name: "test",
                                       baseDir: .documents,
                                       exportFormat: .caf) { [weak self] exportedFile, error in
@@ -71,7 +71,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             return "Saved"
         })
 
-        addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
+        addSubview(AKDynamicButton(title: "Reset Recording", color: AKColor.red) {
             self.recordLabel.text = "Tape Cleared!"
             do {
                 try recorder.reset()
@@ -83,7 +83,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         playLabel = addLabel("Press Play to playback...")
 
-        addSubview(AKButton(title: "Play") {
+        addSubview(AKDynamicButton(title: "Play") {
             if player.isPlaying {
                 self.playLabel.text = "Stopped playback!"
                 player.stop()

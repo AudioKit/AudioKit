@@ -708,6 +708,7 @@
 		C4D4C4E91EB7175100134B39 /* AKTuningTable+Scala.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4E21EB7175100134B39 /* AKTuningTable+Scala.swift */; };
 		C4D4C4EA1EB7175100134B39 /* AKTuningTable+Wilson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4E31EB7175100134B39 /* AKTuningTable+Wilson.swift */; };
 		C4D4C4EB1EB7175100134B39 /* AKTuningTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4E41EB7175100134B39 /* AKTuningTable.swift */; };
+		C4E589931F0C90530070C8AC /* AKDynamicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E589921F0C90530070C8AC /* AKDynamicButton.swift */; };
 		C4F8C8191DCA8959001F38F2 /* scrambler.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8171DCA8959001F38F2 /* scrambler.c */; };
 		C4F8C81A1DCA8959001F38F2 /* slice.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8181DCA8959001F38F2 /* slice.c */; };
 		C4F8C81C1DCA8968001F38F2 /* incr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C81B1DCA8968001F38F2 /* incr.c */; };
@@ -1568,6 +1569,7 @@
 		C4D4C4E21EB7175100134B39 /* AKTuningTable+Scala.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Scala.swift"; sourceTree = "<group>"; };
 		C4D4C4E31EB7175100134B39 /* AKTuningTable+Wilson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Wilson.swift"; sourceTree = "<group>"; };
 		C4D4C4E41EB7175100134B39 /* AKTuningTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTuningTable.swift; sourceTree = "<group>"; };
+		C4E589921F0C90530070C8AC /* AKDynamicButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynamicButton.swift; sourceTree = "<group>"; };
 		C4F8C8171DCA8959001F38F2 /* scrambler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scrambler.c; sourceTree = "<group>"; };
 		C4F8C8181DCA8959001F38F2 /* slice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = slice.c; sourceTree = "<group>"; };
 		C4F8C81B1DCA8968001F38F2 /* incr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = incr.c; sourceTree = "<group>"; };
@@ -3782,6 +3784,7 @@
 			children = (
 				C4D35CBA1E8A3D8000E42D93 /* AKADSRView.swift */,
 				C4D35CBB1E8A3D8000E42D93 /* AKButton.swift */,
+				C4E589921F0C90530070C8AC /* AKDynamicButton.swift */,
 				C4D35CBC1E8A3D8000E42D93 /* AKBypassButton.swift */,
 				C4D35CBD1E8A3D8000E42D93 /* AKKeyboardView.swift */,
 				C486FAAB1E9A11D800DEB790 /* AKPlaygroundLoop.swift */,
@@ -4429,6 +4432,7 @@
 				C42899A41D55498500B941B5 /* peaklim.c in Sources */,
 				C45669E51D448D7E00D26565 /* scale.swift in Sources */,
 				C47048231E7A6A6B00D9906F /* rspline.c in Sources */,
+				C4E589931F0C90530070C8AC /* AKDynamicButton.swift in Sources */,
 				C45666F71D448D7E00D26565 /* dtrig.c in Sources */,
 				C45669B71D448D7E00D26565 /* AKSampler.swift in Sources */,
 				C4F8C9C41DCA9255001F38F2 /* basic.c in Sources */,

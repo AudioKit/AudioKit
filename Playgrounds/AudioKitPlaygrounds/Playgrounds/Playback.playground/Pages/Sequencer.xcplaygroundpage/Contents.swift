@@ -45,31 +45,25 @@ class PlaygroundView: AKPlaygroundView {
             sequencer.setGlobalAVAudioUnitOutput(piano.samplerUnit)
             self.updateButtons()
             sequencer.play()
-            return ""
         })
         addSubview(AKButton(title: "Use Bell As Global Output", color: AKColor.red) {
             sequencer.stop()
             sequencer.setGlobalAVAudioUnitOutput(bell.samplerUnit)
             self.updateButtons()
             sequencer.play()
-            return ""
         })
         addLabel("Or set the tracks individually:")
         button1 = AKButton(title: "Track 1: FM Piano") {
             self.toggle(track: 1)
-            return ""
         }
         button2 = AKButton(title: "Track 2: FM Piano") {
             self.toggle(track: 2)
-            return ""
         }
         button3 = AKButton(title: "Track 3: FM Piano") {
             self.toggle(track: 3)
-            return ""
         }
         button4 = AKButton(title: "Track 4: FM Piano") {
             self.toggle(track: 4)
-            return ""
         }
         addSubview(button1)
         addSubview(button2)

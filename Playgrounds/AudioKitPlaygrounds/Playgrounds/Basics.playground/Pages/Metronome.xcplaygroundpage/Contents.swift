@@ -47,13 +47,11 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKButton(title: "Stop", color: AKColor.red) {
             metronome.stop()
             metronome.reset()
-            return ""
         })
 
         addSubview(AKButton(title: "Start") {
             metronome.reset()
             metronome.restart()
-            return ""
         })
 
         addSubview(AKPropertySlider(
