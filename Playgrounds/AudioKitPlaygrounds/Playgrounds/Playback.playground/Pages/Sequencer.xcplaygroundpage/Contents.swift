@@ -4,16 +4,13 @@ import AudioKitPlaygrounds
 import AudioKit
 
 //: Create some samplers, load different sounds, and connect it to a mixer and the output
-var fmPianoSampler = AKSampler()
-try fmPianoSampler.loadWav("Samples/FM Piano")
+var piano = AKSampler()
+try piano.loadWav("Samples/FM Piano")
 
-var bellSampler = AKSampler()
-try bellSampler.loadWav("Samples/Bell")
+var bell = AKSampler()
+try bell.loadWav("Samples/Bell")
 
-
-var osc = AKPhaseDistortionOscillatorBank()
-
-var mixer = AKMixer(fmPianoSampler, bellSampler, osc)
+var mixer = AKMixer(piano, bell)
 
 let reverb = AKCostelloReverb(mixer)
 
@@ -22,7 +19,7 @@ AudioKit.output = dryWetMixer
 
 //: Create the sequencer after AudioKit's output has been set
 //: Load in a midi file, and set the sequencer to the main audiokit engine
-var sequencer = AKSequencer(filename: "4tracks", engine: AudioKit.engine)
+var sequencer = AKSequencer(filename: "4tracks")
 
 //: Do some basic setup to make the sequence loop correctly
 sequencer.setLength(AKDuration(beats: 4))
@@ -45,33 +42,33 @@ class PlaygroundView: AKPlaygroundView {
         addLabel("Set the global output for the sequencer:")
         addSubview(AKButton(title: "Use FM Piano As Global Output") {
             sequencer.stop()
-            sequencer.setGlobalAVAudioUnitOutput(fmPianoSampler.samplerUnit)
+            sequencer.setGlobalAVAudioUnitOutput(piano.samplerUnit)
             self.updateButtons()
             sequencer.play()
             return ""
         })
         addSubview(AKButton(title: "Use Bell As Global Output", color: AKColor.red) {
             sequencer.stop()
-            sequencer.setGlobalAVAudioUnitOutput(<#T##audioUnit: AVAudioUnit##AVAudioUnit#>)
+            sequencer.setGlobalAVAudioUnitOutput(bell.samplerUnit)
             self.updateButtons()
             sequencer.play()
             return ""
         })
         addLabel("Or set the tracks individually:")
         button1 = AKButton(title: "Track 1: FM Piano") {
-            self.toggleTrack(trackNumber: 1)
+            self.toggle(track: 1)
             return ""
         }
         button2 = AKButton(title: "Track 2: FM Piano") {
-            self.toggleTrack(trackNumber: 2)
+            self.toggle(track: 2)
             return ""
         }
         button3 = AKButton(title: "Track 3: FM Piano") {
-            self.toggleTrack(trackNumber: 3)
+            self.toggle(track: 3)
             return ""
         }
         button4 = AKButton(title: "Track 4: FM Piano") {
-            self.toggleTrack(trackNumber: 4)
+            self.toggle(track: 4)
             return ""
         }
         addSubview(button1)
@@ -80,12 +77,12 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(button4)
     }
 
-    func toggleTrack(trackNumber: Int) {
+    func toggle(track: Int) {
         sequencer.stop()
-        if sequencer.avTracks[trackNumber].destinationAudioUnit == bellSampler.samplerUnit {
-            sequencer.avTracks[trackNumber].destinationAudioUnit = fmPianoSampler.samplerUnit
+        if sequencer.tracks[track].destinationAudioUnit == bell.samplerUnit {
+            sequencer.tracks[track].destinationAudioUnit = piano.samplerUnit
         } else {
-            sequencer.avTracks[trackNumber].destinationAudioUnit = bellSampler.samplerUnit
+            sequencer.tracks[track].destinationAudioUnit = bell.samplerUnit
         }
         updateButtons()
     }
@@ -93,7 +90,7 @@ class PlaygroundView: AKPlaygroundView {
     func updateButtons() {
         let buttons: [AKButton] = [button1, button2, button3, button4]
         for i in 0 ..< buttons.count {
-            if sequencer.avTracks[i + 1].destinationAudioUnit == bellSampler.samplerUnit {
+            if sequencer.tracks[i + 1].destinationAudioUnit == bell.samplerUnit {
                 buttons[i].title = "Track \(i + 1): Bell"
                 buttons[i].color = AKColor.red
 
