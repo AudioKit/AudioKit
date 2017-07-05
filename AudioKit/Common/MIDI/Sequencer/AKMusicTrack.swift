@@ -39,6 +39,29 @@ open class AKMusicTrack {
 
     // MARK: - Initialization
 
+    public init(name: String = "unnamed"){
+        self.name = name
+        MusicSequenceNewTrack(sequencer.sequence!, &internalMusicTrack)
+        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
+        
+        let data = [MIDIByte](name.utf8)
+        
+        var metaEvent = MIDIMetaEvent()
+        metaEvent.metaEventType = 3 // track or sequence name
+        metaEvent.dataLength = UInt32(data.count)
+        
+        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
+            for i in 0 ..< data.count {
+                pointer[i] = data[i]
+            }
+        })
+        
+        let result = MusicTrackNewMetaEvent(internalMusicTrack!, MusicTimeStamp(0), &metaEvent)
+        if result != 0 {
+            AKLog("Unable to name Track")
+        }
+    }
+    
     /// Initialize with a music track
     ///
     /// - parameter musicTrack: An Apple Music Track
@@ -182,13 +205,13 @@ open class AKMusicTrack {
 
     /// A less destructive and simpler way to set the length
     ///
-    /// - parameter duration: How long the loop will last, from the end of the track backwards
+    /// - parameter duration:
     ///
     open func setLengthSoft(_ duration: AKDuration) {
         let size: UInt32 = 0
         var durationAsMusicTimeStamp = duration.musicTimeStamp
         if let track = internalMusicTrack {
-            MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
+            let result = MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
         }
     }
 

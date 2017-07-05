@@ -116,7 +116,6 @@ open class AKSequencer {
         for track in tracks {
             track.setLength(length)
         }
-        
         let size: UInt32 = 0
         var len = length.musicTimeStamp
         var tempoTrack: MusicTrack?

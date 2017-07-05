@@ -31,6 +31,11 @@ class Conductor {
     private var bassSynthesizer = AKMIDISampler()
     private var drumKit = AKMIDISampler()
     private var filter: AKMoogLadder?
+    
+    private var originalArpTrack = AKMusicTrack()
+    private var originalBassTrack = AKMusicTrack()
+    private var originalPadTrack = AKMusicTrack()
+    private var originalDrumTrack = AKMusicTrack()
 
     init() {
         arpeggioSynthesizer.enableMIDI(AKMIDI().client, name: "arp")
@@ -62,6 +67,12 @@ class Conductor {
         sequencer.tracks[2].setMIDIOutput(bassSynthesizer.midiIn)
         sequencer.tracks[3].setMIDIOutput(padSynthesizer.midiIn)
         sequencer.tracks[4].setMIDIOutput(drumKit.midiIn)
+        
+        
+        sequencer.tracks[1].copyAndMergeTo(musicTrack: originalArpTrack)
+        sequencer.tracks[2].copyAndMergeTo(musicTrack: originalBassTrack)
+        sequencer.tracks[3].copyAndMergeTo(musicTrack: originalPadTrack)
+        sequencer.tracks[4].copyAndMergeTo(musicTrack: originalDrumTrack)
 //        sequencer.setLength(AKDuration(beats: 4))
         sequencer.play()
     }
@@ -98,7 +109,13 @@ class Conductor {
 
     func setLength(_ length: Double) {
         AKLog("Settign Length \(length)")
+        sequencer.setLength(AKDuration(beats: 16))
+        originalArpTrack.copyAndMergeTo(musicTrack: sequencer.tracks[1])
+        originalBassTrack.copyAndMergeTo(musicTrack: sequencer.tracks[2])
+        originalPadTrack.copyAndMergeTo(musicTrack: sequencer.tracks[3])
+        originalDrumTrack.copyAndMergeTo(musicTrack: sequencer.tracks[4])
         sequencer.setLength(AKDuration(beats: length))
+        sequencer.setLoopInfo(AKDuration(beats: length), numberOfLoops: 0)
         sequencer.rewind()
     }
 
