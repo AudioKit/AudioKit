@@ -4,5 +4,6 @@
         <page name='Table Of Contents'/>
         <page name='Development'/>
         <page name='MIDIScaleQuantize'/>
+        <page name='MIDIChords'/>
     </pages>
 </playground>
