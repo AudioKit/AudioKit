@@ -483,7 +483,7 @@ open class AKMusicTrack {
         if let existingInittrack = initMusicTrack {
             setLength(AKDuration(beats: initLength))
             let _ = MusicTrackSetProperty(existingInittrack, kSequenceTrackProperty_TrackLength, &initLengthCopy, 0)
-            MusicTrackMerge(existingInittrack, 0.0, length, existingInittrack, 0.0)
+            MusicTrackMerge(existingInittrack, 0.0, length, internalMusicTrack!, 0.0)
         }
     }
 
