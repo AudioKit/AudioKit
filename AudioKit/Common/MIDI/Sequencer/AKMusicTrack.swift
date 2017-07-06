@@ -10,9 +10,12 @@
 open class AKMusicTrack {
 
     // MARK: - Properties
-
+    
     /// The representation of Apple's underlying music track
     open var internalMusicTrack: MusicTrack?
+
+    /// A copy of the original track at init
+    open var initMusicTrack: MusicTrack?
 
     fileprivate var name: String = "Unnamed"
 
@@ -70,6 +73,7 @@ open class AKMusicTrack {
     public init(musicTrack: MusicTrack, name: String = "Unnamed") {
         self.name = name
         internalMusicTrack = musicTrack
+        initMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(musicTrack)
 
         let data = [MIDIByte](name.utf8)
@@ -432,17 +436,31 @@ open class AKMusicTrack {
     open func resetPitchBend(position: AKDuration, channel: MIDIChannel = 0) {
         addPitchBend(8_192, position: position, channel: channel)
     }
-
+    
     /// Copy this track to another track
     ///
     /// - parameter musicTrack: Destination track to copy this track to
     ///
     open func copyAndMergeTo(musicTrack: AKMusicTrack) {
         guard let track = internalMusicTrack,
-         let mergedToTrack = musicTrack.internalMusicTrack else {
-            return
+            let mergedToTrack = musicTrack.internalMusicTrack else {
+                return
         }
         MusicTrackMerge(track, 0.0, length, mergedToTrack, 0.0)
+    }
+    
+    /// Copy this track to another track
+    ///
+    /// - returns a copy of this track that can be edited independently
+    ///
+    open func copyOf()->AKMusicTrack {
+        let copiedTrack = AKMusicTrack()
+        MusicTrackMerge(internalMusicTrack!, 0.0, length, copiedTrack.internalMusicTrack!, 0.0)
+        return copiedTrack
+    }
+    
+    open func resetToInit(){
+        MusicTrackMerge(initMusicTrack!, 0.0, length, internalMusicTrack!, 0.0)
     }
 
     /// Set the MIDI Ouput
