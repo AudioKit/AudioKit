@@ -111,14 +111,9 @@ class Conductor {
         for track in sequencer.tracks {
             track.resetToInit()
         }
-//        originalArpTrack.copyAndMergeTo(musicTrack: sequencer.tracks[1])
-//        originalBassTrack.copyAndMergeTo(musicTrack: sequencer.tracks[2])
-//        originalPadTrack.copyAndMergeTo(musicTrack: sequencer.tracks[3])
-//        originalDrumTrack.copyAndMergeTo(musicTrack: sequencer.tracks[4])
         sequencer.setLength(AKDuration(beats: length))
         sequencer.setLoopInfo(AKDuration(beats: length), numberOfLoops: 0)
         sequencer.rewind()
-        sequencer.debug()
     }
 
     func useSound(_ sound: Sound, synthesizer: Synthesizer) {
