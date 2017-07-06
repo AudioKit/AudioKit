@@ -16,19 +16,19 @@
 /// As such, there is some code hanging around while we iron it out.
 ///
 open class AKDeprecatedSequencer {
-    
+
     /// Music sequence
     open var sequence: MusicSequence?
-    
+
     /// Pointer to Music Sequence
     open var sequencePointer: UnsafeMutablePointer<MusicSequence>?
-    
+
     /// AVAudioSequencer - on hold while technology is still unstable
     open var avSequencer = AVAudioSequencer()
-    
+
     /// Array of AudioKit Music Tracks
     open var tracks = [AKMusicTrack]()
-    
+
     /// Array of AVMusicTracks
     open var avTracks: [AVMusicTrack] {
         if isAVSequencer {
@@ -36,21 +36,21 @@ open class AKDeprecatedSequencer {
         } else {
             //this won't do anything if not using an AVSeq
             AKLog("AKSequencer ERROR ! avTracks only work if isAVSequencer ")
-            
+
             let tracks = [AVMusicTrack]()
             return tracks
         }
     }
-    
+
     /// Music Player
     var musicPlayer: MusicPlayer?
-    
+
     /// Loop control
     open var loopEnabled: Bool = false
-    
+
     /// Are we using the AVAudioEngineSequencer?
     open var isAVSequencer: Bool = false
-    
+
     /// Sequencer Initialization
     public init() {
         NewMusicSequence(&sequence)
@@ -63,23 +63,23 @@ open class AKDeprecatedSequencer {
             MusicPlayerSetSequence(existingMusicPlayer, sequence)
         }
     }
-    
+
     deinit {
         if let player = musicPlayer {
             DisposeMusicPlayer(player)
         }
-        
+
         if let seq = sequence {
             for track in self.tracks {
                 if let intTrack = track.internalMusicTrack {
                     MusicSequenceDisposeTrack(seq, intTrack)
                 }
             }
-            
+
             DisposeMusicSequence(seq)
         }
     }
-    
+
     /// Initialize the sequence with a MIDI file
     ///
     /// - parameter filename: Location of the MIDI File
@@ -88,7 +88,7 @@ open class AKDeprecatedSequencer {
         self.init()
         loadMIDIFile(filename)
     }
-    
+
     /// Initialize the sequence with a MIDI file and audioengine - on hold while technology is still unstable
     ///
     /// - Parameters:
@@ -101,7 +101,7 @@ open class AKDeprecatedSequencer {
         avSequencer = AVAudioSequencer(audioEngine: engine)
         loadMIDIFile(filename)
     }
-    
+
     /// Initialize the sequence with an empty sequence and audioengine
     /// (on hold while technology is still unstable)
     ///
@@ -112,14 +112,14 @@ open class AKDeprecatedSequencer {
         isAVSequencer = true
         avSequencer = AVAudioSequencer(audioEngine: engine)
     }
-    
+
     /// Load a sequence from data
     ///
     /// - parameter data: data to create sequence from
     ///
     open func sequenceFromData(_ data: Data) {
         let options = AVMusicSequenceLoadOptions()
-        
+
         do {
             try avSequencer.load(from: data, options: options)
             AKLog("should have loaded new sequence data")
@@ -128,19 +128,19 @@ open class AKDeprecatedSequencer {
             return
         }
     }
-    
+
     /// Preroll for the music player
     open func preroll() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerPreroll(existingMusicPlayer)
         }
     }
-    
+
     /// Set loop functionality of entire sequence
     open func toggleLoop() {
         (loopEnabled ? disableLooping() : enableLooping())
     }
-    
+
     /// Enable looping for all tracks - loops entire sequence
     open func enableLooping() {
         if isAVSequencer {
@@ -153,7 +153,7 @@ open class AKDeprecatedSequencer {
         }
         loopEnabled = true
     }
-    
+
     /// Enable looping for all tracks with specified length
     ///
     /// - parameter loopLength: Loop length in beats
@@ -169,7 +169,7 @@ open class AKDeprecatedSequencer {
         }
         loopEnabled = true
     }
-    
+
     /// Disable looping for all tracks
     open func disableLooping() {
         if isAVSequencer {
@@ -181,7 +181,7 @@ open class AKDeprecatedSequencer {
         }
         loopEnabled = false
     }
-    
+
     /// Set looping duration and count for all tracks
     ///
     /// - Parameters:
@@ -191,7 +191,7 @@ open class AKDeprecatedSequencer {
     open func setLoopInfo(_ duration: AKDuration, numberOfLoops: Int) {
         if isAVSequencer {
             AKLog("AKSequencer ERROR setLoopInfo only work if not isAVSequencer")
-            
+
             //nothing yet
         } else {
             for track in tracks {
@@ -200,7 +200,7 @@ open class AKDeprecatedSequencer {
         }
         loopEnabled = true
     }
-    
+
     /// Set length of all tracks
     ///
     /// - parameter length: Length of tracks in beats
@@ -215,7 +215,7 @@ open class AKDeprecatedSequencer {
             for track in tracks {
                 track.setLength(length)
             }
-            
+
             let size: UInt32 = 0
             var len = length.musicTimeStamp
             var tempoTrack: MusicTrack?
@@ -227,18 +227,18 @@ open class AKDeprecatedSequencer {
             }
         }
     }
-    
+
     /// Length of longest track in the sequence
     open var length: AKDuration {
-        
+
         var length: MusicTimeStamp = 0
         var tmpLength: MusicTimeStamp = 0
-        
+
         for track in tracks {
             tmpLength = track.length
             if tmpLength >= length { length = tmpLength }
         }
-        
+
         if isAVSequencer {
             for track in avSequencer.tracks {
                 tmpLength = track.lengthInBeats
@@ -247,7 +247,7 @@ open class AKDeprecatedSequencer {
         }
         return  AKDuration(beats: length, tempo: tempo)
     }
-    
+
     /// Set the rate of the sequencer
     ///
     /// - parameter rate: Set the rate relative to the tempo of the track
@@ -261,7 +261,7 @@ open class AKDeprecatedSequencer {
             }
         }
     }
-    
+
     /// Rate relative to the default tempo (BPM) of the track
     open var rate: Double {
         if isAVSequencer {
@@ -274,17 +274,17 @@ open class AKDeprecatedSequencer {
             return rate
         }
     }
-    
+
     /// Set the tempo of the sequencer
     open func setTempo(_ bpm: Double) {
         if isAVSequencer {
             return
         }
-        
+
         let constrainedTempo = (10...280).clamp(bpm)
-        
+
         var tempoTrack: MusicTrack?
-        
+
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
@@ -296,7 +296,7 @@ open class AKDeprecatedSequencer {
             currTime = fmod(currTime, length.beats)
             if let existingTempoTrack = tempoTrack {
                 MusicTrackNewExtendedTempoEvent(existingTempoTrack, currTime, constrainedTempo)
-                
+
             }
         }
         if let existingTempoTrack = tempoTrack {
@@ -304,7 +304,7 @@ open class AKDeprecatedSequencer {
             MusicTrackNewExtendedTempoEvent(existingTempoTrack, 0, constrainedTempo)
         }
     }
-    
+
     /// Add a  tempo change to the score
     ///
     /// - Parameters:
@@ -316,29 +316,29 @@ open class AKDeprecatedSequencer {
             AKLog("AKSequencer ERROR addTempoEventAt only work if not isAVSequencer")
             return
         }
-        
+
         let constrainedTempo = (10...280).clamp(bpm)
-        
+
         var tempoTrack: MusicTrack?
-        
+
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
         if let existingTempoTrack = tempoTrack {
             MusicTrackNewExtendedTempoEvent(existingTempoTrack, position.beats, constrainedTempo)
         }
-        
+
     }
-    
+
     /// Tempo retrieved from the sequencer
     open var tempo: Double {
         var tempoOut: Double = 120.0
-        
+
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
-        
+
         var tempIterator: MusicEventIterator?
         if let existingTempoTrack = tempoTrack {
             NewMusicEventIterator(existingTempoTrack, &tempIterator)
@@ -346,12 +346,12 @@ open class AKDeprecatedSequencer {
         guard let iterator = tempIterator else {
             return 0.0
         }
-        
+
         var eventTime: MusicTimeStamp = 0
         var eventType: MusicEventType = kMusicEventType_ExtendedTempo
         var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
-        
+
         var hasPreviousEvent: DarwinBoolean = false
         MusicEventIteratorSeek(iterator, currentPosition.beats)
         MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
@@ -368,7 +368,7 @@ open class AKDeprecatedSequencer {
         DisposeMusicEventIterator(iterator)
         return tempoOut
     }
-    
+
     var isTempoTrackEmpty: Bool {
         var outBool = true
         var tempIterator: MusicEventIterator?
@@ -376,24 +376,24 @@ open class AKDeprecatedSequencer {
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
-        
+
         if let existingTempoTrack = tempoTrack {
             NewMusicEventIterator(existingTempoTrack, &tempIterator)
         }
         guard let iterator = tempIterator else {
             return true
         }
-        
+
         var eventTime = MusicTimeStamp(0)
         var eventType = MusicEventType()
         var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
-        
+
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-            
+
             if eventType != 5 {
                 outBool = true
             }
@@ -403,7 +403,7 @@ open class AKDeprecatedSequencer {
         DisposeMusicEventIterator(iterator)
         return outBool
     }
-    
+
     /// Convert seconds into AKDuration
     ///
     /// - parameter seconds: time in seconds
@@ -418,7 +418,7 @@ open class AKDeprecatedSequencer {
         outBeats.beats *= sign
         return outBeats
     }
-    
+
     /// Convert beats into seconds
     ///
     /// - parameter duration: AKDuration
@@ -433,7 +433,7 @@ open class AKDeprecatedSequencer {
         outSecs *= sign
         return outSecs
     }
-    
+
     /// Play the sequence
     open func play() {
         if isAVSequencer {
@@ -448,7 +448,7 @@ open class AKDeprecatedSequencer {
             }
         }
     }
-    
+
     /// Stop the sequence
     open func stop() {
         if isAVSequencer {
@@ -459,7 +459,7 @@ open class AKDeprecatedSequencer {
             }
         }
     }
-    
+
     /// Rewind the sequence
     open func rewind() {
         if isAVSequencer {
@@ -470,7 +470,7 @@ open class AKDeprecatedSequencer {
             }
         }
     }
-    
+
     /// Set the Audio Unit output for all tracks - on hold while technology is still unstable
     open func setGlobalAVAudioUnitOutput(_ audioUnit: AVAudioUnit) {
         if isAVSequencer {
@@ -482,7 +482,7 @@ open class AKDeprecatedSequencer {
             AKLog("AKSequencer ERROR setGlobalAVAudioUnitOutput only work if isAVSequencer")
         }
     }
-    
+
     /// Wheter or not the sequencer is currently playing
     open var isPlaying: Bool {
         if isAVSequencer {
@@ -495,7 +495,7 @@ open class AKDeprecatedSequencer {
             return isPlayingBool.boolValue
         }
     }
-    
+
     /// Current Time
     open var currentPosition: AKDuration {
         if isAVSequencer {
@@ -513,7 +513,7 @@ open class AKDeprecatedSequencer {
     open var currentRelativePosition: AKDuration {
         return currentPosition % length //can switch to modTime func when/if % is removed
     }
-    
+
     /// Track count
     open var trackCount: Int {
         if isAVSequencer {
@@ -526,7 +526,7 @@ open class AKDeprecatedSequencer {
             return Int(count)
         }
     }
-    
+
     /// Load a MIDI file
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
@@ -546,19 +546,19 @@ open class AKDeprecatedSequencer {
         }
         initTracks()
     }
-    
+
     /// Initialize all tracks
     ///
     /// Clears the AKMusicTrack array, and rebuilds it based on actual contents of music sequence
     ///
     func initTracks() {
         tracks.removeAll()
-        
+
         var count: UInt32 = 0
         if let existingSequence = sequence {
             MusicSequenceGetTrackCount(existingSequence, &count)
         }
-        
+
         for i in 0 ..< count {
             var musicTrack: MusicTrack?
             if let existingSequence = sequence {
@@ -569,14 +569,14 @@ open class AKDeprecatedSequencer {
             }
         }
     }
-    
+
     /// Get a new track
     open func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
         if isAVSequencer {
             AKLog("AKSequencer ERROR newTrack only work if not isAVSequencer")
             return nil
         }
-        
+
         var newMusicTrack: MusicTrack?
         var count: UInt32 = 0
         if let existingSequence = sequence {
@@ -586,12 +586,12 @@ open class AKDeprecatedSequencer {
         if let existingNewMusicTrack = newMusicTrack {
             tracks.append(AKMusicTrack(musicTrack: existingNewMusicTrack, name: name))
         }
-        
+
         //AKLog("Calling initTracks() from newTrack")
         //initTracks()
         return tracks.last
     }
-    
+
     /// Clear some events from the track
     //
     /// - Parameters:
@@ -603,12 +603,12 @@ open class AKDeprecatedSequencer {
             AKLog("AKSequencer ERROR clearRange only work if not isAVSequencer")
             return
         }
-        
+
         for track in tracks {
             track.clearRange(start: start, duration: duration)
         }
     }
-    
+
     /// Set the music player time directly
     ///
     /// - parameter time: Music time stamp to set
@@ -618,7 +618,7 @@ open class AKDeprecatedSequencer {
             MusicPlayerSetTime(existingMusicPlayer, time)
         }
     }
-    
+
     /// Generate NSData from the sequence
     open func genData() -> Data? {
         var status = noErr
@@ -626,7 +626,7 @@ open class AKDeprecatedSequencer {
         var data: Unmanaged<CFData>?
         if let existingSequence = sequence {
             status = MusicSequenceFileCreateData(existingSequence, .midiType, .eraseFile, 480, &data)
-            
+
             if status != noErr {
                 AKLog("error creating MusicSequence Data")
                 return nil
@@ -638,7 +638,7 @@ open class AKDeprecatedSequencer {
         data?.release()
         return ns
     }
-    
+
     /// Print sequence to console
     open func debug() {
         if isAVSequencer {
@@ -649,7 +649,7 @@ open class AKDeprecatedSequencer {
             }
         }
     }
-    
+
     /// Set the midi output for all tracks
     open func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
         if isAVSequencer {
@@ -662,7 +662,7 @@ open class AKDeprecatedSequencer {
             }
         }
     }
-    
+
     /// Nearest time of quantized beat
     open func nearestQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         let noteOnTimeRel = currentRelativePosition.beats
@@ -676,17 +676,17 @@ open class AKDeprecatedSequencer {
         //AKLog("nearest \(optimisedQuantTime.beats)")
         return optimisedQuantTime
     }
-    
+
     /// The last quantized beat
     open func previousQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[0]
     }
-    
+
     /// Next quantized beat
     open func nextQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[1]
     }
-    
+
     /// An array of all quantization points
     func getQuantizationPositions(quantizationInBeats: Double) -> [AKDuration] {
         let noteOnTimeRel = currentRelativePosition.beats
@@ -695,7 +695,7 @@ open class AKDeprecatedSequencer {
         let nextSpot = AKDuration(beats: modTime(lastSpot.beats + quantizationInBeats))
         return [lastSpot, nextSpot]
     }
-    
+
     /// Time modulus
     func modTime(_ time: Double) -> Double {
         return time.truncatingRemainder(dividingBy: length.beats)

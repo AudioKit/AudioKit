@@ -18,12 +18,12 @@ public class AKDynamicButton: NSView {
             needsDisplay = true
         }
     }
-    
+
     override public func mouseDown(with theEvent: NSEvent) {
         let newTitle = callback()
         if newTitle != "" { title = newTitle }
     }
-    
+
     public init(title: String,
                 color: NSColor = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
@@ -33,27 +33,27 @@ public class AKDynamicButton: NSView {
         self.color = color
         super.init(frame: frame)
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func drawButton() {
         //// General Declarations
         let context = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
-        
+
         let outerPath = NSBezierPath(rect: CGRect(x: 0, y: 0, width: 440, height: 60))
         color.setFill()
         outerPath.fill()
-        
+
         let labelRect = CGRect(x: 0, y: 0, width: 440, height: 60)
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
-        
+
         let labelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 24),
                                    NSForegroundColorAttributeName: NSColor.black,
                                    NSParagraphStyleAttributeName: labelStyle]
-        
+
         let labelInset: CGRect = labelRect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(
             with: CGSize(width: labelInset.width, height: CGFloat.infinity),
@@ -68,9 +68,9 @@ public class AKDynamicButton: NSView {
                                                 height: labelTextHeight),
                                      withAttributes: labelFontAttributes)
         context.restoreGState()
-        
+
     }
-    
+
     override public func draw(_ rect: CGRect) {
         drawButton()
     }

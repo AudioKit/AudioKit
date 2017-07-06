@@ -10,7 +10,7 @@
 open class AKMusicTrack {
 
     // MARK: - Properties
-    
+
     /// The representation of Apple's underlying music track
     open var internalMusicTrack: MusicTrack?
 
@@ -30,7 +30,7 @@ open class AKMusicTrack {
     open var isNotEmpty: Bool {
         return !isEmpty
     }
-    
+
     /// Total duration of the music track
     open var length: MusicTimeStamp {
         var size: UInt32 = 0
@@ -52,31 +52,31 @@ open class AKMusicTrack {
 
     // MARK: - Initialization
 
-    public init(name: String = "unnamed"){
+    public init(name: String = "unnamed") {
         self.name = name
         MusicSequenceNewTrack(sequencer.sequence!, &internalMusicTrack)
         MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
         trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
         initTrackPointer = UnsafeMutablePointer<MusicTrack>(initMusicTrack!)
-        
+
         let data = [MIDIByte](name.utf8)
-        
+
         var metaEvent = MIDIMetaEvent()
         metaEvent.metaEventType = 3 // track or sequence name
         metaEvent.dataLength = UInt32(data.count)
-        
+
         withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
             for i in 0 ..< data.count {
                 pointer[i] = data[i]
             }
         })
-        
+
         let result = MusicTrackNewMetaEvent(internalMusicTrack!, MusicTimeStamp(0), &metaEvent)
         if result != 0 {
             AKLog("Unable to name Track")
         }
     }
-    
+
     /// Initialize with a music track
     ///
     /// - parameter musicTrack: An Apple Music Track
@@ -86,7 +86,7 @@ open class AKMusicTrack {
         self.name = name
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(musicTrack)
-        
+
         let data = [MIDIByte](name.utf8)
 
         var metaEvent = MIDIMetaEvent()
@@ -116,7 +116,7 @@ open class AKMusicTrack {
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(musicTrack)
         self.sequencer = sequencer
-        
+
         MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
         initTrackPointer = UnsafeMutablePointer<MusicTrack>(initMusicTrack!)
         MusicTrackMerge(internalMusicTrack!, 0.0, length, initMusicTrack!, 0.0)
@@ -454,7 +454,7 @@ open class AKMusicTrack {
     open func resetPitchBend(position: AKDuration, channel: MIDIChannel = 0) {
         addPitchBend(8_192, position: position, channel: channel)
     }
-    
+
     /// Copy this track to another track
     ///
     /// - parameter musicTrack: Destination track to copy this track to
@@ -466,24 +466,24 @@ open class AKMusicTrack {
         }
         MusicTrackMerge(track, 0.0, length, mergedToTrack, 0.0)
     }
-    
+
     /// Copy this track to another track
     ///
     /// - returns a copy of this track that can be edited independently
     ///
-    open func copyOf()->AKMusicTrack {
+    open func copyOf() -> AKMusicTrack {
         let copiedTrack = AKMusicTrack()
         MusicTrackMerge(internalMusicTrack!, 0.0, length, copiedTrack.internalMusicTrack!, 0.0)
         return copiedTrack
     }
-    
-    open func resetToInit(){
-        var initLengthCopy:Double = initLength
+
+    open func resetToInit() {
+        var initLengthCopy: Double = initLength
         clear()
-        if let track = initMusicTrack {
+        if let existingInittrack = initMusicTrack {
             setLength(AKDuration(beats: initLength))
-            let _ = MusicTrackSetProperty(internalMusicTrack!, kSequenceTrackProperty_TrackLength, &initLengthCopy, 0)
-            MusicTrackMerge(initMusicTrack!, 0.0, length, internalMusicTrack!, 0.0)
+            let _ = MusicTrackSetProperty(existingInittrack, kSequenceTrackProperty_TrackLength, &initLengthCopy, 0)
+            MusicTrackMerge(existingInittrack, 0.0, length, existingInittrack, 0.0)
         }
     }
 

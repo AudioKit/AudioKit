@@ -30,9 +30,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     fileprivate var indexParameter: AUParameter?
-    
+
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
@@ -76,7 +76,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Decay time
     open dynamic var decayDuration: Double = 0.1 {
         willSet {
@@ -208,9 +208,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         guard let tree = internalAU?.parameterTree else {
             return
         }
-        
+
         indexParameter = tree["index"]
-        
+
         attackDurationParameter = tree["attackDuration"]
         decayDurationParameter = tree["decayDuration"]
         sustainLevelParameter = tree["sustainLevel"]

@@ -143,7 +143,11 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3, polyphonic: Bool = false) {
+    public init(width: Int,
+                height: Int,
+                firstOctave: Int = 4,
+                octaveCount: Int = 3,
+                polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
@@ -237,7 +241,9 @@ public class AKKeyboardView: NSView, AKMIDIListener {
 
     // MARK: - MIDI
 
-    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
+                                   velocity: MIDIVelocity,
+                                   channel: MIDIChannel) {
         DispatchQueue.main.async(execute: {
             self.onKeys.insert(noteNumber)
             self.delegate?.noteOn(note: noteNumber)
@@ -245,14 +251,18 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         })
     }
 
-    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
+                                    velocity: MIDIVelocity,
+                                    channel: MIDIChannel) {
         DispatchQueue.main.async(execute: {
             self.onKeys.remove(noteNumber)
             self.delegate?.noteOff(note: noteNumber)
             self.needsDisplay = true
         })
     }
-    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+    public func receivedMIDIController(_ controller: MIDIByte,
+                                       value: MIDIByte,
+                                       channel: MIDIChannel) {
         if controller == MIDIByte(AKMIDIControl.damperOnOff.rawValue) && value == 0 {
             for note in onKeys {
                 delegate?.noteOff(note: note)
