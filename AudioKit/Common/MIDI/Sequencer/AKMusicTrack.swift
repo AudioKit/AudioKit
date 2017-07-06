@@ -478,7 +478,6 @@ open class AKMusicTrack {
     }
     
     open func resetToInit(){
-        debugInitTrack()
         var initLengthCopy:Double = initLength
         clear()
         if let track = initMusicTrack {
