@@ -9,7 +9,12 @@ AudioKit V3.7
 <img src="https://img.shields.io/badge/%20in-swift%203.0-orange.svg">
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
 
-AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
+AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
+
+* [AudioKitPro.com](http://audiokitpro.com/) - AudioKit Features, Blog, and Highlighted Apps
+* [AudioKit.io](http://audiokit.io/) - AudioKit Developer Documentation
+
+Did you already build an app with AudioKit?  Let us know and we'll highlight it on AudioKitPro.com.
 
 If you need support, the best thing to do is to join AudioKit's google group:
 
@@ -140,8 +145,8 @@ AudioKit was created by the following team whose contributions are fully chronic
 * **[Aurelius Prochazka](https://github.com/aure)**: Primary programmer of AudioKit. Lives for this stuff. Your life line if you need help.
 * **[Brandon Barber](https://github.com/roecrew/)**: Deep diver.  Contributed a lot of great pull requests.
 * **[Jeff Cooper](https://github.com/eljeff)**: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
-* **[Laurent Veliscek](https://github.com/laurentVeliscek/)**: Master of the AKAudioFile, AKAudioPlayer, and recording nodes.
-* **[Matthew Fecher](https://github.com/swiftcodex)**: Sound design, graphic design, and programming of the Analog Synth X example.
+* **[Laurent Veliscek](https://github.com/laurentVeliscek/)**: Creator of the AKAudioFile, AKAudioPlayer, and recording nodes.
+* **[Matthew Fecher](https://github.com/swiftcodex)**:  Synth examples including AudioKit Synth One & Analog Synth X, both websites, evangelist.
 * **[Nicholas Arner](https://github.com/narner)**: Longtime contributor to AudioKit and AudioKit's web site.
 * **[Paul Batchelor](https://github.com/PaulBatchelor)**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
 * **[Stephane Peter](https://github.com/megastep)**: Installation and configuration czar and code reviewer.
