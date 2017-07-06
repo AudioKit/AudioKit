@@ -109,12 +109,12 @@ class Conductor {
         AKLog("Setting Length \(length)")
         sequencer.setLength(AKDuration(beats: 16))
         for track in sequencer.tracks {
-            track.clear()
+            track.resetToInit()
         }
-        originalArpTrack.copyAndMergeTo(musicTrack: sequencer.tracks[1])
-        originalBassTrack.copyAndMergeTo(musicTrack: sequencer.tracks[2])
-        originalPadTrack.copyAndMergeTo(musicTrack: sequencer.tracks[3])
-        originalDrumTrack.copyAndMergeTo(musicTrack: sequencer.tracks[4])
+//        originalArpTrack.copyAndMergeTo(musicTrack: sequencer.tracks[1])
+//        originalBassTrack.copyAndMergeTo(musicTrack: sequencer.tracks[2])
+//        originalPadTrack.copyAndMergeTo(musicTrack: sequencer.tracks[3])
+//        originalDrumTrack.copyAndMergeTo(musicTrack: sequencer.tracks[4])
         sequencer.setLength(AKDuration(beats: length))
         sequencer.setLoopInfo(AKDuration(beats: length), numberOfLoops: 0)
         sequencer.rewind()
