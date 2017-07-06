@@ -24,17 +24,27 @@ open class AKMusicTrack {
 
     /// Pointer to the Music Track
     open var trackPointer: UnsafeMutablePointer<MusicTrack>
+    open var initTrackPointer: UnsafeMutablePointer<MusicTrack>
 
     /// Nicer function for not empty
     open var isNotEmpty: Bool {
         return !isEmpty
     }
-
+    
     /// Total duration of the music track
     open var length: MusicTimeStamp {
         var size: UInt32 = 0
         var lengthFromMusicTimeStamp = MusicTimeStamp(0)
         if let track = internalMusicTrack {
+            MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &lengthFromMusicTimeStamp, &size)
+        }
+        return lengthFromMusicTimeStamp
+    }
+    /// Total duration of the music track
+    open var initLength: MusicTimeStamp {
+        var size: UInt32 = 0
+        var lengthFromMusicTimeStamp = MusicTimeStamp(0)
+        if let track = initMusicTrack {
             MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &lengthFromMusicTimeStamp, &size)
         }
         return lengthFromMusicTimeStamp
@@ -45,7 +55,9 @@ open class AKMusicTrack {
     public init(name: String = "unnamed"){
         self.name = name
         MusicSequenceNewTrack(sequencer.sequence!, &internalMusicTrack)
+        MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
         trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
+        initTrackPointer = UnsafeMutablePointer<MusicTrack>(initMusicTrack!)
         
         let data = [MIDIByte](name.utf8)
         
@@ -73,9 +85,8 @@ open class AKMusicTrack {
     public init(musicTrack: MusicTrack, name: String = "Unnamed") {
         self.name = name
         internalMusicTrack = musicTrack
-        initMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(musicTrack)
-
+        
         let data = [MIDIByte](name.utf8)
 
         var metaEvent = MIDIMetaEvent()
@@ -92,6 +103,9 @@ open class AKMusicTrack {
         if result != 0 {
             AKLog("Unable to name Track")
         }
+        MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
+        initTrackPointer = UnsafeMutablePointer<MusicTrack>(initMusicTrack!)
+        MusicTrackMerge(internalMusicTrack!, 0.0, length, initMusicTrack!, 0.0)
     }
 
     /// Initialize with a music track and the AKSequence
@@ -102,6 +116,10 @@ open class AKMusicTrack {
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(musicTrack)
         self.sequencer = sequencer
+        
+        MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
+        initTrackPointer = UnsafeMutablePointer<MusicTrack>(initMusicTrack!)
+        MusicTrackMerge(internalMusicTrack!, 0.0, length, initMusicTrack!, 0.0)
     }
 
     /// Set the Node Output
@@ -460,7 +478,14 @@ open class AKMusicTrack {
     }
     
     open func resetToInit(){
-        MusicTrackMerge(initMusicTrack!, 0.0, length, internalMusicTrack!, 0.0)
+        debugInitTrack()
+        var initLengthCopy:Double = initLength
+        clear()
+        if let track = initMusicTrack {
+            setLength(AKDuration(beats: initLength))
+            let _ = MusicTrackSetProperty(internalMusicTrack!, kSequenceTrackProperty_TrackLength, &initLengthCopy, 0)
+            MusicTrackMerge(initMusicTrack!, 0.0, length, internalMusicTrack!, 0.0)
+        }
     }
 
     /// Set the MIDI Ouput
@@ -476,5 +501,8 @@ open class AKMusicTrack {
     /// Debug by showing the track pointer.
     open func debug() {
         CAShow(trackPointer)
+    }
+    open func debugInitTrack() {
+        CAShow(initTrackPointer)
     }
 }
