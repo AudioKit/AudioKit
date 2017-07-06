@@ -32,11 +32,6 @@ class Conductor {
     private var drumKit = AKMIDISampler()
     private var filter: AKMoogLadder?
 
-    private var originalArpTrack = AKMusicTrack()
-    private var originalBassTrack = AKMusicTrack()
-    private var originalPadTrack = AKMusicTrack()
-    private var originalDrumTrack = AKMusicTrack()
-
     init() {
         arpeggioSynthesizer.enableMIDI(AKMIDI().client, name: "arp")
         padSynthesizer.enableMIDI(AKMIDI().client, name: "pad")
@@ -67,11 +62,7 @@ class Conductor {
         sequencer.tracks[2].setMIDIOutput(bassSynthesizer.midiIn)
         sequencer.tracks[3].setMIDIOutput(padSynthesizer.midiIn)
         sequencer.tracks[4].setMIDIOutput(drumKit.midiIn)
-
-        originalArpTrack = sequencer.tracks[1].copyOf()
-        originalBassTrack = sequencer.tracks[2].copyOf()
-        originalPadTrack = sequencer.tracks[3].copyOf()
-        originalDrumTrack = sequencer.tracks[4].copyOf()
+        
         sequencer.play()
     }
 
