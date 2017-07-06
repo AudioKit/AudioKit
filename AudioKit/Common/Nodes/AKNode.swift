@@ -90,7 +90,7 @@ public protocol AKPolyphonic {
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     open static var tuningTable = AKTuningTable()
     open var midiInstrument: AVAudioUnitMIDIInstrument?
-    
+
     /// Play a sound corresponding to a MIDI note with frequency
     ///
     /// - Parameters:

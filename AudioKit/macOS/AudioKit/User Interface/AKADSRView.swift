@@ -94,14 +94,14 @@ public class AKADSRView: NSView {
                          maxADFraction: CGFloat = 0.75) {
         //// General Declarations
         let _ = NSGraphicsContext.current()?.cgContext
-        
+
         //// Color Declarations
         let attackColor = #colorLiteral(red: 0.767, green: 0, blue: 0, alpha: 1)
         let decayColor = #colorLiteral(red: 0.942, green: 0.648, blue: 0, alpha: 1)
         let sustainColor = #colorLiteral(red: 0.32, green: 0.8, blue: 0.616, alpha: 1)
         let releaseColor = #colorLiteral(red: 0.72, green: 0.519, blue: 0.888, alpha: 1)
         let backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
+
         self.wantsLayer = true
         self.layer?.backgroundColor = backgroundColor.cgColor
 
@@ -130,7 +130,7 @@ public class AKADSRView: NSView {
                                    y: sustainLevel * (size.height - buffer) + buffer)
         let sustainAxis = NSPoint(x: sustainPoint.x, y: size.height)
         let initialMax = NSPoint(x: 0, y: buffer)
-        
+
         let initialToHighControlPoint = NSPoint(x: initialPoint.x, y: highPoint.y)
         let highToSustainControlPoint = NSPoint(x: highPoint.x, y: sustainPoint.y)
         let releaseToEndControlPoint = NSPoint(x: releasePoint.x, y: endPoint.y)

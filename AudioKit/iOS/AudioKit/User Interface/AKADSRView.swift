@@ -87,7 +87,7 @@ import UIKit
 
     /// Color in the release portion of the UI element
     @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
-    
+
     /// Background color
     @IBInspectable open var bgColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 

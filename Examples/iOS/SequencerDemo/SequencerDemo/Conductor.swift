@@ -133,14 +133,14 @@ class Conductor {
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
         for i in 0 ..< numberOfSteps {
             let step = Double(i) * stepSize
-            
+
             sequencer.tracks[Sequence.bassDrum.rawValue].add(noteNumber: 60,
                                                              velocity: 100,
                                                              position: AKDuration(beats: step),
                                                              duration: AKDuration(beats: 1))
         }
     }
-    
+
     func generateSnareDrumSequence(_ stepSize: Float = 1, clear: Bool = true) {
         if clear { sequencer.tracks[2].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)

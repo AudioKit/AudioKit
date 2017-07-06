@@ -11,7 +11,7 @@ open class AKSimpleSequencer {
 
     open var avSequencer = AVAudioSequencer()
     open var tempo: Double = 120.0
-    
+
     /// Array of AudioKit Music Tracks
     open var tracks: [AVMusicTrack] {
         return avSequencer.tracks
@@ -154,7 +154,7 @@ open class AKSimpleSequencer {
     open var currentPosition: AKDuration {
         return AKDuration(beats: avSequencer.currentPositionInBeats)
     }
-    
+
     /// Current Time relative to sequencer length
     open var currentRelativePosition: AKDuration {
         return currentPosition % length //can switch to modTime func when/if % is removed
@@ -172,7 +172,7 @@ open class AKSimpleSequencer {
             return
         }
         let fileURL = URL(fileURLWithPath: file)
-        
+
         do {
             try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
         } catch _ {
