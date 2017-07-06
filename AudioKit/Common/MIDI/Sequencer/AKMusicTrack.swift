@@ -233,7 +233,7 @@ open class AKMusicTrack {
         let size: UInt32 = 0
         var durationAsMusicTimeStamp = duration.musicTimeStamp
         if let track = internalMusicTrack {
-            let result = MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
+            _ = MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
         }
     }
 
@@ -482,7 +482,7 @@ open class AKMusicTrack {
         clear()
         if let existingInittrack = initMusicTrack {
             setLength(AKDuration(beats: initLength))
-            let _ = MusicTrackSetProperty(existingInittrack, kSequenceTrackProperty_TrackLength, &initLengthCopy, 0)
+            _ = MusicTrackSetProperty(existingInittrack, kSequenceTrackProperty_TrackLength, &initLengthCopy, 0)
             MusicTrackMerge(existingInittrack, 0.0, length, internalMusicTrack!, 0.0)
         }
     }
