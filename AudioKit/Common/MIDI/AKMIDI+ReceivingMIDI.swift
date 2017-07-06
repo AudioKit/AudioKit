@@ -71,7 +71,10 @@ extension AKMIDI {
                     for packet in packetList.pointee {
                         // a CoreMIDI packet may contain multiple MIDI events
                         for event in packet {
-                            self.handleMIDIMessage(self.transformMIDIMessage(event))
+                            let transformedMidiEventList = self.transformMIDIMessage([event])
+                            for transformedEvent in transformedMidiEventList {
+                                self.handleMIDIMessage(transformedEvent)
+                            }
                         }
                     }
                 }
@@ -171,14 +174,14 @@ extension AKMIDI {
         }
     }
     
-    internal func transformMIDIMessage(_ event: AKMIDIEvent) -> AKMIDIEvent {
-        var eventToProcess = event
-        var processedEvent = event
+    internal func transformMIDIMessage(_ eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
+        var eventsToProcess = eventList
+        var processedEvents = eventList
         
         for transformer in transformers {
-            processedEvent = transformer.doTransform(event: eventToProcess)
-            eventToProcess = processedEvent
+            processedEvents = transformer.doTransform(eventList: eventsToProcess)
+            eventsToProcess = processedEvents
         }
-        return processedEvent
+        return processedEvents
     }
 }
