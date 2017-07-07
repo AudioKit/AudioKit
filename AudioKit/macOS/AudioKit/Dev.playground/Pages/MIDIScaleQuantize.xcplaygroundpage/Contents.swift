@@ -3,6 +3,18 @@
 
 import AudioKit
 
+let sampler = AKSampler()
+try sampler.loadWav("Samples/FM Piano")
+
+let reverb = AKReverb(sampler)
+reverb.loadFactoryPreset(.largeRoom)
+
+var mixer = AKMixer(reverb)
+mixer.volume = 5.0
+
+AudioKit.output = mixer
+AudioKit.start()
+
 let keys = ["C" : 0,
             "Db": 1,
             "D" : 2,
@@ -82,11 +94,14 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 }
 
 let scaleQuantizer = MIDIScaleQuantizer()
-
 midi.addTransformer(scaleQuantizer)
 
-//: By defining a class that is a MIDI Listener, but with no functions overridden, we just get the default behavior which is to print to the console.
 class PlaygroundMIDIListener: AKMIDIListener {
+    func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
+                            velocity: MIDIVelocity,
+                            channel: MIDIChannel) {
+        sampler.play(noteNumber: noteNumber)
+    }
 }
 
 let listener = PlaygroundMIDIListener()
