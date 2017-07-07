@@ -16,7 +16,7 @@
 @implementation AKPluckedStringAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKPluckedStringDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -37,7 +37,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(PluckedString)
+    standardGeneratorSetup(PluckedString)
 
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"

@@ -8,14 +8,7 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
+#import "AKSoundpipeKernel.hpp"
 
 class AKAmplitudeTrackerDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
@@ -91,11 +84,11 @@ public:
         
         bool wasAboveThreshold = isAboveThreshold;
         
-        if (trackedAmplitude > threshold && !wasAboveThreshold) {
+        if (trackedAmplitude > threshold * 1.05 && !wasAboveThreshold) {
             isAboveThreshold = true;
             thresholdCallback(true);
         }
-        if (wasAboveThreshold && trackedAmplitude < threshold) {
+        if (wasAboveThreshold && trackedAmplitude < threshold * 0.95) {
             isAboveThreshold = false;
             thresholdCallback(false);
         }

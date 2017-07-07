@@ -108,10 +108,6 @@ We have so many playground pages that it became difficult to maintain them in on
 
 Since AudioKit 3.6, we provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn the API in a fun way!
 
-## Tests
-
-We ensure all the included projects build by automatically testing them using Travis Continuous Integration.  There are also unit tests for many of the nodes and operations in AudioKit, which we run locally because at this time they don't quite work on Travis (but we'd love some help if you want to figure that one out!).
-
 ## Package Managers
 
 You can easily add the framework to your project by using [Carthage](https://github.com/Carthage/Carthage). Just use the following in your `Cartfile`:
