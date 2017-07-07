@@ -20,8 +20,8 @@ let modes = ["major": [0, 2, 4, 5, 7, 9, 11],
              "minor": [0, 2, 3, 5, 7, 8, 10]]
 
 // TODO:  Add UI to change key and mode
-let key = keys["G"]         // G Minor for testing
-let mode = modes["minor"]   // G Minor for testing
+let key:Int! = keys["G"]            // G Minor for testing
+let mode:[Int]! = modes["minor"]    // G Minor for testing
 
 let midi = AKMIDI()
 
@@ -39,33 +39,39 @@ class MIDIScaleQuantizer: AKMIDITransformer {
             }
             switch type {
             case .noteOn:
-                let normalizedNote = (Int(event.noteNumber!) - key!) % 12
-                let octave = (Int(event.noteNumber!) - key!) / 12
-                var inScaleNote:Int?
-                
-                for number in mode! {
-                    if number <= normalizedNote {
-                        inScaleNote = number
+                if event.noteNumber != nil {
+                    let normalizedNote = (Int(event.noteNumber!) - key) % 12
+                    let octave = (Int(event.noteNumber!) - key) / 12
+                    var inScaleNote:Int?
+                    
+                    for number in mode {
+                        if number <= normalizedNote {
+                            inScaleNote = number
+                        }
+                    }
+                    
+                    if inScaleNote != nil {
+                        let newNote = octave * 12 + inScaleNote! + key
+                        transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(newNote), velocity: event.data2, channel: event.channel!))
                     }
                 }
-                
-                let newNote = octave * 12 + inScaleNote! + key!
-                
-                transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(newNote), velocity: event.data2, channel: event.channel!))
-            case .noteOff:
-                let normalizedNote = (Int(event.noteNumber!) - key!) % 12
-                let octave = (Int(event.noteNumber!) - key!) / 12
-                var inScaleNote:Int?
-                
-                for number in mode! {
-                    if number <= normalizedNote {
-                        inScaleNote = number
+             case .noteOff:
+                if event.noteNumber != nil {
+                    let normalizedNote = (Int(event.noteNumber!) - key) % 12
+                    let octave = (Int(event.noteNumber!) - key) / 12
+                    var inScaleNote:Int?
+                    
+                    for number in mode {
+                        if number <= normalizedNote {
+                            inScaleNote = number
+                        }
+                    }
+                    
+                    if inScaleNote != nil {
+                        let newNote = octave * 12 + inScaleNote! + key
+                        transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(newNote), velocity: 0, channel: event.channel!))
                     }
                 }
-                
-                let newNote = octave * 12 + inScaleNote! + key!
-                
-                transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(newNote), velocity: 0, channel: event.channel!))
             default:
                 transformedList.append(event)
             }
