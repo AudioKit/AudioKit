@@ -29,7 +29,7 @@ midi.inputNames
 midi.openInput()
 
 class MIDIScaleQuantizer: AKMIDITransformer {
-    func doTransform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
+    func transform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
         var transformedList = [AKMIDIEvent]()
         
         for event in eventList {
