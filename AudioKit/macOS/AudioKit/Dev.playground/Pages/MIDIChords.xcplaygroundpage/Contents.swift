@@ -38,7 +38,7 @@ midi.inputNames
 midi.openInput()
 
 class MIDIScaleQuantizer: AKMIDITransformer {
-    func doTransform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
+    func transform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
         let mode:[Int]! = modes[scale]
         var transformedList = [AKMIDIEvent]()
         
@@ -92,7 +92,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 }
 
 class MIDIChordGenerator: AKMIDITransformer {
-    func doTransform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
+    func transform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
         let mode:[Int]! = modes[scale]
         let chordSet:[[Int]]! = chords[scale]
         var transformedList = [AKMIDIEvent]()

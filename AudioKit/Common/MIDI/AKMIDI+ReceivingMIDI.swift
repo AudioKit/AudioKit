@@ -48,10 +48,12 @@ extension AKMIDI {
         listeners.removeAll()
     }
 
+    /// Add a transformer to the transformers list
     public func addTransformer(_ transformer: AKMIDITransformer) {
         transformers.append(transformer)
     }
     
+    /// Remove all transformers
     public func clearTransformers() {
         transformers.removeAll()
     }
@@ -69,12 +71,10 @@ extension AKMIDI {
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     for packet in packetList.pointee {
-                        // a CoreMIDI packet may contain multiple MIDI events
-                        for event in packet {
-                            let transformedMidiEventList = self.transformMIDIMessage([event])
-                            for transformedEvent in transformedMidiEventList {
-                                self.handleMIDIMessage(transformedEvent)
-                            }
+                    // a CoreMIDI packet may contain multiple MIDI events - treat it like an array of events that can be transformed
+                        let transformedMIDIEventList = self.transformMIDIEventList([AKMIDIEvent](packet))
+                        for transformedEvent in transformedMIDIEventList {
+                            self.handleMIDIMessage(transformedEvent)
                         }
                     }
                 }
@@ -174,12 +174,13 @@ extension AKMIDI {
         }
     }
     
-    internal func transformMIDIMessage(_ eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
+    internal func transformMIDIEventList(_ eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
         var eventsToProcess = eventList
         var processedEvents = eventList
         
         for transformer in transformers {
-            processedEvents = transformer.doTransform(eventList: eventsToProcess)
+            processedEvents = transformer.transform(eventList: eventsToProcess)
+            // prepare for next transformer
             eventsToProcess = processedEvents
         }
         return processedEvents

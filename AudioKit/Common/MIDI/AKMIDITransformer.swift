@@ -8,12 +8,12 @@
 
 public protocol AKMIDITransformer {
     
-    func doTransform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent]
+    func transform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent]
 }
 
-/// Default transformer functions
+/// Default transformer function
 public extension AKMIDITransformer {
-    func doTransform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
+    func transform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
         AKLog("MIDI Transformer called")
         return eventList;
     }
