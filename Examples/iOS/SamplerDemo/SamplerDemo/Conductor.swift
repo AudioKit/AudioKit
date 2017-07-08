@@ -9,18 +9,15 @@
 import AudioKit
 
 enum Synthesizer {
-    case Arpeggio, Pad, Bass
+    case arpeggio, pad, bass
 }
 
 enum Instrument {
-    case Arpeggio, Pad, Bass, Drum
+    case arpeggio, pad, bass, drum
 }
 
 enum Sound: String {
-    case Square
-    case Saw
-    case SlowPad
-    case Noisy
+    case square, saw, pad, noisy
 }
 
 class Conductor {
@@ -47,9 +44,9 @@ class Conductor {
         AudioKit.output = filter
 
         do {
-            try arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
-            try padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
-            try bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
+            useSound(.square, synthesizer: .arpeggio)
+            useSound(.saw, synthesizer: .pad)
+            useSound(.saw, synthesizer: .bass)
             try drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
         } catch {
             print("A file was not found.")
@@ -67,15 +64,16 @@ class Conductor {
     }
 
     func adjustVolume(_ volume: Double, instrument: Instrument) {
+        let vol = volume * 2.0 // useful for gain
         switch instrument {
-        case .Arpeggio:
-            arpeggioSynthesizer.volume = volume
-        case .Pad:
-            padSynthesizer.volume = volume
-        case .Bass:
-            bassSynthesizer.volume = volume
-        case .Drum:
-            drumKit.volume = volume
+        case .arpeggio:
+            arpeggioSynthesizer.volume = vol
+        case .pad:
+            padSynthesizer.volume = vol
+        case .bass:
+            bassSynthesizer.volume = vol
+        case .drum:
+            drumKit.volume = vol
         }
     }
 
@@ -108,30 +106,25 @@ class Conductor {
     }
 
     func useSound(_ sound: Sound, synthesizer: Synthesizer) {
-        let soundPath: String?
+        var path = "Sounds/Sampler Instruments/"
         switch sound {
-        case .Square:
-            soundPath = "Sounds/Sampler Instruments/sqrTone1"
-        case .Saw:
-            soundPath = "Sounds/Sampler Instruments/sawPiano1"
-        case .SlowPad:
-            soundPath = "Sounds/Sampler Instruments/sawPad1"
-        case .Noisy:
-            soundPath = "Sounds/Sampler Instruments/noisyRez"
-        }
-
-        guard let path = soundPath else {
-            print("Type of sound wasn't detected")
-            return
+        case .square:
+            path += "sqrTone1"
+        case .saw:
+            path += "sawPiano1"
+        case .pad:
+            path += "sawPad1"
+        case .noisy:
+            path += "noisyRez"
         }
 
         do {
             switch synthesizer {
-            case .Arpeggio:
+            case .arpeggio:
                 try arpeggioSynthesizer.loadEXS24(path)
-            case .Pad:
+            case .pad:
                 try padSynthesizer.loadEXS24(path)
-            case .Bass:
+            case .bass:
                 try bassSynthesizer.loadEXS24(path)
             }
         } catch {
