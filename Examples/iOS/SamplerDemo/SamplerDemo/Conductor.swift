@@ -30,14 +30,7 @@ class Conductor {
     private var filter: AKMoogLadder?
 
     init() {
-        arpeggioSynthesizer.enableMIDI(AKMIDI().client, name: "arp")
-        padSynthesizer.enableMIDI(AKMIDI().client, name: "pad")
-        bassSynthesizer.enableMIDI(AKMIDI().client, name: "bass")
-        drumKit.enableMIDI(AKMIDI().client, name: "drums")
-        mixer.connect(arpeggioSynthesizer)
-        mixer.connect(padSynthesizer)
-        mixer.connect(bassSynthesizer)
-        mixer.connect(drumKit)
+        mixer = AKMixer(arpeggioSynthesizer, padSynthesizer, bassSynthesizer, drumKit)
 
         filter = AKMoogLadder(mixer)
         filter?.cutoffFrequency = 20_000
