@@ -30,10 +30,8 @@ let keys = ["C" : 0,
 
 let modes = ["major": [0, 2, 4, 5, 7, 9, 11],
              "minor": [0, 2, 3, 5, 7, 8, 10]]
-
-// TODO:  Add UI to change key and mode
-let key:Int! = keys["G"]            // G Minor for testing
-let mode:[Int]! = modes["minor"]    // G Minor for testing
+var key:Int!
+var mode:[Int]!
 
 let midi = AKMIDI()
 
@@ -51,7 +49,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
             }
             switch type {
             case .noteOn:
-                if event.noteNumber != nil {
+                if event.noteNumber != nil, mode != nil, key != nil {
                     let normalizedNote = (Int(event.noteNumber!) - key) % 12
                     let octave = (Int(event.noteNumber!) - key) / 12
                     var inScaleNote:Int?
@@ -68,7 +66,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
                     }
                 }
              case .noteOff:
-                if event.noteNumber != nil {
+                if event.noteNumber != nil, mode != nil, key != nil {
                     let normalizedNote = (Int(event.noteNumber!) - key) % 12
                     let octave = (Int(event.noteNumber!) - key) / 12
                     var inScaleNote:Int?
@@ -109,6 +107,57 @@ let listener = PlaygroundMIDIListener()
 //: Add the new class to the list of MIDI listeners
 midi.addListener(listener)
 
+class PlaygroundView: AKPlaygroundView {
+    
+    override func setup() {
+        addTitle("Scale Quantizer")
+        
+        let keyPresets = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+        addSubview(AKPresetLoaderView(presets: keyPresets) { preset in
+            switch preset {
+            case "C":
+                key = keys["C"]
+            case "Db":
+                key = keys["Db"]
+            case "D":
+                key = keys["D"]
+            case "Eb":
+                key = keys["Eb"]
+            case "E":
+                key = keys["E"]
+            case "F":
+                key = keys["F"]
+            case "Gb":
+                key = keys["Gb"]
+            case "G":
+                key = keys["G"]
+            case "Ab":
+                key = keys["Ab"]
+            case "A":
+                key = keys["A"]
+            case "Bb":
+                key = keys["Bb"]
+            case "B":
+                key = keys["B"]
+            default:
+                break
+            }
+        })
+        let modePresets = ["major", "minor"]
+        addSubview(AKPresetLoaderView(presets: modePresets) { preset in
+            switch preset {
+            case "major":
+                mode = modes["major"]
+            case "minor":
+                mode = modes["minor"]
+            default:
+                break
+            }
+        })
+    }
+}
+
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
 

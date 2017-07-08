@@ -38,11 +38,9 @@ let diminishedTriad = [0, 3, 6]
 let chords = ["major":[majorTriad, minorTriad, minorTriad, majorTriad, majorTriad, minorTriad, diminishedTriad],
               "minor":[minorTriad, diminishedTriad, majorTriad, minorTriad, minorTriad, majorTriad, majorTriad]]
 
-// TODO:  Add UI to change key and mode
-
-// C Major for testing
-let scale = "major"
-let key:Int! = keys["C"]
+var key:Int!
+var mode:[Int]!
+var chordSet:[[Int]]!
 
 let midi = AKMIDI()
 
@@ -51,7 +49,6 @@ midi.openInput()
 
 class MIDIScaleQuantizer: AKMIDITransformer {
     func transform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
-        let mode:[Int]! = modes[scale]
         var transformedList = [AKMIDIEvent]()
         
         for event in eventList {
@@ -61,7 +58,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
             }
             switch type {
             case .noteOn:
-                if event.noteNumber != nil {
+                if event.noteNumber != nil, mode != nil, key != nil {
                     let normalizedNote = (Int(event.noteNumber!) - key) % 12
                     let octave = (Int(event.noteNumber!) - key) / 12
                     var inScaleNote:Int?
@@ -78,7 +75,7 @@ class MIDIScaleQuantizer: AKMIDITransformer {
                     }
                 }
             case .noteOff:
-                if event.noteNumber != nil {
+                if event.noteNumber != nil, mode != nil, key != nil {
                     let normalizedNote = (Int(event.noteNumber!) - key) % 12
                     let octave = (Int(event.noteNumber!) - key) / 12
                     var inScaleNote:Int?
@@ -105,8 +102,6 @@ class MIDIScaleQuantizer: AKMIDITransformer {
 
 class MIDIChordGenerator: AKMIDITransformer {
     func transform(eventList:[AKMIDIEvent]) -> [AKMIDIEvent] {
-        let mode:[Int]! = modes[scale]
-        let chordSet:[[Int]]! = chords[scale]
         var transformedList = [AKMIDIEvent]()
         
         for event in eventList {
@@ -116,7 +111,7 @@ class MIDIChordGenerator: AKMIDITransformer {
             }
             switch type {
             case .noteOn:
-                if event.noteNumber != nil {
+                if event.noteNumber != nil, mode != nil, key != nil {
                     let normalizedNote = (Int(event.noteNumber!) - key) % 12
                     let scaleDegree:Int? = mode.index(of: normalizedNote)
                     if scaleDegree != nil {
@@ -129,7 +124,7 @@ class MIDIChordGenerator: AKMIDITransformer {
                     }
                 }
             case .noteOff:
-                if event.noteNumber != nil {
+                if event.noteNumber != nil, mode != nil, key != nil {
                     let normalizedNote = (Int(event.noteNumber!) - key) % 12
                     let scaleDegree:Int? = mode.index(of: normalizedNote)
                     if scaleDegree != nil {
@@ -168,6 +163,60 @@ let listener = PlaygroundMIDIListener()
 //: Add the new class to the list of MIDI listeners
 midi.addListener(listener)
 
+class PlaygroundView: AKPlaygroundView {
+    
+    override func setup() {
+        addTitle("Scale Quantizer")
+        
+        let keyPresets = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+        addSubview(AKPresetLoaderView(presets: keyPresets) { preset in
+            switch preset {
+            case "C":
+                key = keys["C"]
+            case "Db":
+                key = keys["Db"]
+            case "D":
+                key = keys["D"]
+            case "Eb":
+                key = keys["Eb"]
+            case "E":
+                key = keys["E"]
+            case "F":
+                key = keys["F"]
+            case "Gb":
+                key = keys["Gb"]
+            case "G":
+                key = keys["G"]
+            case "Ab":
+                key = keys["Ab"]
+            case "A":
+                key = keys["A"]
+            case "Bb":
+                key = keys["Bb"]
+            case "B":
+                key = keys["B"]
+            default:
+                break
+            }
+        })
+        let modePresets = ["major", "minor"]
+        addSubview(AKPresetLoaderView(presets: modePresets) { preset in
+            switch preset {
+            case "major":
+                mode = modes["major"]
+                chordSet = chords["major"]
+            case "minor":
+                mode = modes["minor"]
+                chordSet = chords["minor"]
+            default:
+                break
+            }
+        })
+    }
+}
+
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = PlaygroundView()
+
 
