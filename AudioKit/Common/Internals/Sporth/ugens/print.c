@@ -72,13 +72,16 @@ int sporth_prints(sporth_stack *stack, void *ud)
             break;
         case PLUMBER_COMPUTE:
             prnt = pd->last->ud;
-            prnt->init = 0;
             if(prnt->type == SPORTH_FLOAT) {
                 val = sporth_stack_pop_float(stack);
-                if(val != prnt->pval && prnt->init == 0) {
+                if(prnt->init) {
+                    prnt->init = 0;
+                    plumber_print(pd, "%s: \"%g\",\n", prnt->label, val);
+                    prnt->pval = val;
+                } else if(val != prnt->pval && prnt->init == 0) {
                     prnt->pval = val;
                     plumber_print(pd, "%s: \"%g\",\n", prnt->label, val);
-                }
+                } 
                 sporth_stack_push_float(stack, val);
             } 
             break;
