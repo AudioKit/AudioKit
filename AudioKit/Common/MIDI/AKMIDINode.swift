@@ -33,16 +33,17 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         internalNode = node
         super.init()
         avAudioNode = internalNode.avAudioNode
+        enableMIDI()
     }
 
     /// Enable MIDI input from a given MIDI client
-    /// This is not in the init function because it must be called AFTER you start audiokit
     ///
     /// - Parameters:
     ///   - midiClient: A refernce to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
+    open func enableMIDI(_ midiClient: MIDIClientRef = AKMIDI().client,
+                         name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)
