@@ -49,7 +49,7 @@ public class AKMetronome: AKOperationGenerator {
     /// Initialize the metronome
     public init() {
 
-        let sporth = "(0 p) bpm2rate metro (_callback f) dup 0.001 0.01 0.001 tenvx swap (1 p) 0 count dup 2 pset 0 eq (3 p) (4 p) branch 0.4 sine * dup"
+        let sporth = "(0 p) bpm2rate metro (_callback f) dup 0.001 0.01 0.001 tenvx swap (1 p) 0 count dup 2 pset 0 eq (4 p) (3 p) branch 0.4 sine * dup"
         callback = { _ in return }
         super.init(sporth: sporth, customUgens: [callbackUgen])
         parameters = [tempo, Double(subdivision), -1, frequency1, frequency2]

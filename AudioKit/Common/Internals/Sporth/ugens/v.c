@@ -14,6 +14,7 @@ int sporth_get(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             var = malloc(sizeof(SPFLOAT *));
+            *var = 0;
             plumber_add_ugen(pd, SPORTH_GET, var);
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
                plumber_print(pd,"Not enough arguments for get\n");
