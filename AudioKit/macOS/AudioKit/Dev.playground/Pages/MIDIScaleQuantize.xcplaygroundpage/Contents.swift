@@ -14,23 +14,56 @@ mixer.volume = 5.0
 AudioKit.output = mixer
 AudioKit.start()
 
-let keys = ["C": 0,
-            "Db": 1,
-            "D": 2,
-            "Eb": 3,
-            "E": 4,
-            "F": 5,
-            "Gb": 6,
-            "G": 7,
-            "Ab": 8,
-            "A": 9,
-            "Bb": 10,
-            "B": 11]
+enum Key {
+    case C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
+    
+    static func fromString(_ string: String) -> Key {
+        switch string {
+        case "C":
+            return .C
+        case "Db":
+            return .Db
+        case "D":
+            return .D
+        case "Eb":
+            return .Eb
+        case "E":
+            return .E
+        case "F":
+            return .F
+        case "Gb":
+            return .Gb
+        case "G":
+            return .G
+        case "Ab":
+            return .Ab
+        case "A":
+            return .A
+        case "Bb":
+            return .Bb
+        case "B":
+            return .B
+        default:
+            return .C
+        }
+    }
+}
 
-let modes = ["major": [0, 2, 4, 5, 7, 9, 11],
-             "minor": [0, 2, 3, 5, 7, 8, 10]]
-var key: Int!
-var mode: [Int]!
+enum Mode {
+    case major, minor
+    
+    var noteOffsets: [Int]  {
+        switch self {
+        case .major:
+            return [0, 2, 4, 5, 7, 9, 11]
+        case .minor:
+            return [0, 2, 3, 5, 7, 8, 10]
+        }
+    }
+}
+
+var key = Key.C
+var mode = Mode.major
 
 let midi = AKMIDI()
 
@@ -48,34 +81,34 @@ class MIDIScaleQuantizer: AKMIDITransformer {
             }
             switch type {
             case .noteOn:
-                if event.noteNumber != nil, mode != nil, key != nil {
-                    let normalizedNote = (Int(event.noteNumber!) - key) % 12
-                    let octave = (Int(event.noteNumber!) - key) / 12
+                if event.noteNumber != nil {
+                    let normalizedNote = (Int(event.noteNumber!) - key.hashValue) % 12
+                    let octave = (Int(event.noteNumber!) - key.hashValue) / 12
                     var inScaleNote: Int?
 
-                    for number in mode where number <= normalizedNote {
+                    for number in mode.noteOffsets where number <= normalizedNote {
                             inScaleNote = number
                     }
 
                     if inScaleNote != nil {
-                        let newNote = octave * 12 + inScaleNote! + key
+                        let newNote = octave * 12 + inScaleNote! + key.hashValue
                         transformedList.append(AKMIDIEvent(noteOn: MIDINoteNumber(newNote),
                                                            velocity: event.data2,
                                                            channel: event.channel!))
                     }
                 }
              case .noteOff:
-                if event.noteNumber != nil, mode != nil, key != nil {
-                    let normalizedNote = (Int(event.noteNumber!) - key) % 12
-                    let octave = (Int(event.noteNumber!) - key) / 12
+                if event.noteNumber != nil {
+                    let normalizedNote = (Int(event.noteNumber!) - key.hashValue) % 12
+                    let octave = (Int(event.noteNumber!) - key.hashValue) / 12
                     var inScaleNote: Int?
 
-                    for number in mode where number <= normalizedNote {
+                    for number in mode.noteOffsets where number <= normalizedNote {
                         inScaleNote = number
                     }
 
                     if inScaleNote != nil {
-                        let newNote = octave * 12 + inScaleNote! + key
+                        let newNote = octave * 12 + inScaleNote! + key.hashValue
                         transformedList.append(AKMIDIEvent(noteOff: MIDINoteNumber(newNote),
                                                            velocity: 0,
                                                            channel: event.channel!))
@@ -111,43 +144,15 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Scale Quantizer")
 
         let keyPresets = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
-        addSubview(AKPresetLoaderView(presets: keyPresets) { preset in
-            switch preset {
-            case "C":
-                key = keys["C"]
-            case "Db":
-                key = keys["Db"]
-            case "D":
-                key = keys["D"]
-            case "Eb":
-                key = keys["Eb"]
-            case "E":
-                key = keys["E"]
-            case "F":
-                key = keys["F"]
-            case "Gb":
-                key = keys["Gb"]
-            case "G":
-                key = keys["G"]
-            case "Ab":
-                key = keys["Ab"]
-            case "A":
-                key = keys["A"]
-            case "Bb":
-                key = keys["Bb"]
-            case "B":
-                key = keys["B"]
-            default:
-                break
-            }
+        addSubview(AKPresetLoaderView(presets: keyPresets) { preset in key = Key.fromString(preset)
         })
         let modePresets = ["major", "minor"]
         addSubview(AKPresetLoaderView(presets: modePresets) { preset in
             switch preset {
             case "major":
-                mode = modes["major"]
+                mode = .major
             case "minor":
-                mode = modes["minor"]
+                mode = .minor
             default:
                 break
             }
