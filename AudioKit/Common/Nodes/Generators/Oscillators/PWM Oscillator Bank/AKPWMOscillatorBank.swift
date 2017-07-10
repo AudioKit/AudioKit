@@ -138,9 +138,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    ///
-    /// - parameter frequency: In cycles per second, or Hz.
-    ///
     public convenience override init() {
         self.init(pulseWidth: 0.5)
     }
