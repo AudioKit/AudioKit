@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		075C6EC51F0D6C7C0075027C /* AKMIDITransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C6EC41F0D6C7C0075027C /* AKMIDITransformer.swift */; };
 		482DA1611DD91607009742BD /* AKClarinet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482DA15E1DD91607009742BD /* AKClarinet.swift */; };
 		482DA1621DD91607009742BD /* AKClarinetAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 482DA15F1DD91607009742BD /* AKClarinetAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		482DA1631DD91607009742BD /* AKClarinetAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 482DA1601DD91607009742BD /* AKClarinetAudioUnit.mm */; };
@@ -857,6 +858,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		075C6EC41F0D6C7C0075027C /* AKMIDITransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITransformer.swift; sourceTree = "<group>"; };
 		482DA15E1DD91607009742BD /* AKClarinet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AKClarinet.swift; path = Clarinet/AKClarinet.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		482DA15F1DD91607009742BD /* AKClarinetAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKClarinetAudioUnit.h; path = Clarinet/AKClarinetAudioUnit.h; sourceTree = "<group>"; };
 		482DA1601DD91607009742BD /* AKClarinetAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AKClarinetAudioUnit.mm; path = Clarinet/AKClarinetAudioUnit.mm; sourceTree = "<group>"; };
@@ -2374,6 +2376,7 @@
 				C45664DC1D448D7E00D26565 /* AKMIDIListener.swift */,
 				C45664DD1D448D7E00D26565 /* AKMIDINode.swift */,
 				C45664DE1D448D7E00D26565 /* AKMIDISampler.swift */,
+				075C6EC41F0D6C7C0075027C /* AKMIDITransformer.swift */,
 				C45664DF1D448D7E00D26565 /* Enums */,
 				C45664E31D448D7E00D26565 /* Packets */,
 				C45664E71D448D7E00D26565 /* Sequencer */,
@@ -4358,6 +4361,7 @@
 				C45667231D448D7E00D26565 /* randh.c in Sources */,
 				C45666E71D448D7E00D26565 /* bltriangle.c in Sources */,
 				C45666C81D448D7E00D26565 /* EZOutput.m in Sources */,
+				075C6EC51F0D6C7C0075027C /* AKMIDITransformer.swift in Sources */,
 				C45667171D448D7E00D26565 /* pdhalf.c in Sources */,
 				C42899941D552F9F00B941B5 /* lowPassButterworthFilter.swift in Sources */,
 				C4D4C4E61EB7175100134B39 /* AKTuningTable+EqualTemperament.swift in Sources */,
