@@ -1,5 +1,6 @@
 //: ## MIDI Scale Quantizer
-
+//: This playground demonstrates how to use an AKMIDITransformer to force 
+//: MIDI input to stay in a particular key
 import AudioKitPlaygrounds
 import AudioKit
 
@@ -50,6 +51,7 @@ enum Key {
     }
 }
 
+//:  Add additional modes or scales to the Mode enumeration
 enum Mode {
     case major, minor
     
@@ -137,7 +139,6 @@ class PlaygroundMIDIListener: AKMIDIListener {
 
 let listener = PlaygroundMIDIListener()
 
-//: Add the new class to the list of MIDI listeners
 midi.addListener(listener)
 
 class PlaygroundView: AKPlaygroundView {
