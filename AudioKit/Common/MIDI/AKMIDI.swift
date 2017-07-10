@@ -53,6 +53,8 @@ open class AKMIDI {
     /// Array of all listeners
     internal var listeners = [AKMIDIListener]()
 
+    internal var transformers = [AKMIDITransformer]()
+
     // MARK: - Initialization
 
     /// Initialize the AKMIDI system
