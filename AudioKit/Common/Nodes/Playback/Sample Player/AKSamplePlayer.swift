@@ -169,16 +169,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.startPointParameter?.address {
-                    self?.startPoint = Sample(value)
-                } else if address == self?.endPointParameter?.address {
-                    self?.endPoint = Sample(value)
-                } else if address == self?.rateParameter?.address {
-                    self?.rate = Double(value)
-                } else if address == self?.volumeParameter?.address {
-                    self?.volume = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.startPoint = Float(startPoint)

@@ -138,18 +138,12 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
         distortionParameter = tree["distortion"]
         resonanceAsymmetryParameter = tree["resonanceAsymmetry"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.cutoffFrequencyParameter?.address {
-                    self?.cutoffFrequency = Double(value)
-                } else if address == self?.resonanceParameter?.address {
-                    self?.resonance = Double(value)
-                } else if address == self?.distortionParameter?.address {
-                    self?.distortion = Double(value)
-                } else if address == self?.resonanceAsymmetryParameter?.address {
-                    self?.resonanceAsymmetry = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
