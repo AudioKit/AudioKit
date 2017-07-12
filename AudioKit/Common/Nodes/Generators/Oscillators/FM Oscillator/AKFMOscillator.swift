@@ -168,20 +168,12 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         modulationIndexParameter = tree["modulationIndex"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.baseFrequencyParameter?.address {
-                    self?.baseFrequency = Double(value)
-                } else if address == self?.carrierMultiplierParameter?.address {
-                    self?.carrierMultiplier = Double(value)
-                } else if address == self?.modulatingMultiplierParameter?.address {
-                    self?.modulatingMultiplier = Double(value)
-                } else if address == self?.modulationIndexParameter?.address {
-                    self?.modulationIndex = Double(value)
-                } else if address == self?.amplitudeParameter?.address {
-                    self?.amplitude = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.baseFrequency = Float(baseFrequency)

@@ -105,14 +105,12 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
         fundamentalFrequencyParameter = tree["fundamentalFrequency"]
         feedbackParameter = tree["feedback"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.fundamentalFrequencyParameter?.address {
-                    self?.fundamentalFrequency = Double(value)
-                } else if address == self?.feedbackParameter?.address {
-                    self?.feedback = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
