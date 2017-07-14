@@ -172,24 +172,12 @@ open class AKDrip: AKNode, AKComponent {
         secondResonantFrequencyParameter = tree["secondResonantFrequency"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.intensityParameter?.address {
-                    self?.intensity = Double(value)
-                } else if address == self?.dampingFactorParameter?.address {
-                    self?.dampingFactor = Double(value)
-                } else if address == self?.energyReturnParameter?.address {
-                    self?.energyReturn = Double(value)
-                } else if address == self?.mainResonantFrequencyParameter?.address {
-                    self?.mainResonantFrequency = Double(value)
-                } else if address == self?.firstResonantFrequencyParameter?.address {
-                    self?.firstResonantFrequency = Double(value)
-                } else if address == self?.secondResonantFrequencyParameter?.address {
-                    self?.secondResonantFrequency = Double(value)
-                } else if address == self?.amplitudeParameter?.address {
-                    self?.amplitude = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.intensity = Float(intensity)

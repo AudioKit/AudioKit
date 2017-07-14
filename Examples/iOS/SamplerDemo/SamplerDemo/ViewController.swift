@@ -36,7 +36,7 @@ class ViewController: UIViewController {
             return
         }
 
-        conductor.useSound(sound, synthesizer: Synthesizer.Arpeggio)
+        conductor.useSound(sound, synthesizer: .arpeggio)
     }
 
     @IBAction func useSoundForPad(_ sender: UIButton) {
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
             return
         }
 
-        conductor.useSound(sound, synthesizer: Synthesizer.Pad)
+        conductor.useSound(sound, synthesizer: .pad)
     }
 
     @IBAction func useSoundForBass(_ sender: UIButton) {
@@ -54,23 +54,23 @@ class ViewController: UIViewController {
             return
         }
 
-        conductor.useSound(sound, synthesizer: Synthesizer.Bass)
+        conductor.useSound(sound, synthesizer: .bass)
     }
 
     func adjustArpeggioVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Arpeggio)
+        conductor.adjustVolume(newValue, instrument: .arpeggio)
     }
 
     func adjustPadSynthesizerVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Pad)
+        conductor.adjustVolume(newValue, instrument: .pad)
     }
 
     func adjustBassSynthesizerVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Bass)
+        conductor.adjustVolume(newValue, instrument: .bass)
     }
 
     func adjustDrumKitVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Drum)
+        conductor.adjustVolume(newValue, instrument: .drum)
     }
 
     func adjustFilterFrequency(newValue: Double) {

@@ -57,7 +57,7 @@ public class AKPropertySlider: NSView {
         callback(value)
     }
     override public func mouseDragged(with theEvent: NSEvent) {
-        
+
         let loc = convert(theEvent.locationInWindow, from: nil)
         let center = convert(loc, from: nil)
         value = Double(center.x / bounds.width) * (maximum - minimum) + minimum

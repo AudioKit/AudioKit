@@ -11,8 +11,10 @@
 //:
 //: ## MIDI
 //:
-//: * [MIDI Input](MIDI Input)
-//: * [MIDI Output](MIDI Output)
+//: * [MIDI Input](MIDI%20Input)
+//: * [MIDI Output](MIDI%20Output)
+//: * [MIDI Scale Quantizer](MIDI%20Scale%20Quantizer)
+//: * [MIDI Chord Generator](MIDI%20Chord%20Generator)
 //:
 //: ## Playback pitch and speed
 //:

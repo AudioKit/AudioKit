@@ -6,7 +6,7 @@ int sporth_thresh(sporth_stack *stack, void *ud)
     SPFLOAT input;
     SPFLOAT trig;
     SPFLOAT threshold;
-    int mode;
+    SPFLOAT mode;
     sp_thresh *thresh;
 
     switch(pd->mode) {
@@ -34,7 +34,7 @@ int sporth_thresh(sporth_stack *stack, void *ud)
             plumber_print(pd, "thresh: Initialising\n");
 #endif
 
-            mode = (int)sporth_stack_pop_float(stack);
+            mode = sporth_stack_pop_float(stack);
             threshold = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
             thresh = pd->last->ud;
@@ -42,7 +42,7 @@ int sporth_thresh(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            mode = (int)sporth_stack_pop_float(stack);
+            mode = sporth_stack_pop_float(stack);
             threshold = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
             thresh = pd->last->ud;

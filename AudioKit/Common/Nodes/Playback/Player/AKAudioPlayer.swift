@@ -316,7 +316,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         lastCurrentTime = Double(startTime / internalAudioFile.sampleRate)
         playing = false
         paused = false
-        internalPlayer.stop()
+        DispatchQueue.main.async { [weak self] () -> Void in
+            self?.internalPlayer.stop()
+        }
 
     }
 

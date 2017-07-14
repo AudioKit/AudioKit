@@ -162,20 +162,12 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.frequencyParameter?.address {
-                    self?.frequency = Double(value)
-                } else if address == self?.amplitudeParameter?.address {
-                    self?.amplitude = Double(value)
-                } else if address == self?.pulseWidthParameter?.address {
-                    self?.pulseWidth = Double(value)
-                } else if address == self?.detuningOffsetParameter?.address {
-                    self?.detuningOffset = Double(value)
-                } else if address == self?.detuningMultiplierParameter?.address {
-                    self?.detuningMultiplier = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.frequency = Float(frequency)

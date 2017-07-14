@@ -135,18 +135,12 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         postiveShapeParameterParameter = tree["postiveShapeParameter"]
         negativeShapeParameterParameter = tree["negativeShapeParameter"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.pregainParameter?.address {
-                    self?.pregain = Double(value)
-                } else if address == self?.postgainParameter?.address {
-                    self?.postgain = Double(value)
-                } else if address == self?.postiveShapeParameterParameter?.address {
-                    self?.postiveShapeParameter = Double(value)
-                } else if address == self?.negativeShapeParameterParameter?.address {
-                    self?.negativeShapeParameter = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

@@ -138,9 +138,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    ///
-    /// - parameter frequency: In cycles per second, or Hz.
-    ///
     public convenience override init() {
         self.init(pulseWidth: 0.5)
     }
@@ -195,24 +192,12 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.pulseWidthParameter?.address {
-                    self?.pulseWidth = Double(value)
-                } else if address == self?.attackDurationParameter?.address {
-                    self?.attackDuration = Double(value)
-                } else if address == self?.decayDurationParameter?.address {
-                    self?.decayDuration = Double(value)
-                } else if address == self?.sustainLevelParameter?.address {
-                    self?.sustainLevel = Double(value)
-                } else if address == self?.releaseDurationParameter?.address {
-                    self?.releaseDuration = Double(value)
-                } else if address == self?.detuningOffsetParameter?.address {
-                    self?.detuningOffset = Double(value)
-                } else if address == self?.detuningMultiplierParameter?.address {
-                    self?.detuningMultiplier = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.pulseWidth = Float(pulseWidth)
