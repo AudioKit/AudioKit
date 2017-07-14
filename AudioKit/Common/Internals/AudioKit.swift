@@ -219,7 +219,7 @@ extension AVAudioEngine {
             self.engine.prepare()
 
             #if os(iOS)
-            
+
                 if AKSettings.enableRouteChangeHandling {
                     NotificationCenter.default.addObserver(
                         self,
@@ -227,7 +227,7 @@ extension AVAudioEngine {
                         name: .AVAudioSessionRouteChange,
                         object: nil)
                 }
-                
+
                 if AKSettings.enableCategoryChangeHandling {
                     NotificationCenter.default.addObserver(
                         self,
@@ -235,7 +235,7 @@ extension AVAudioEngine {
                         name: .AVAudioEngineConfigurationChange,
                         object: engine)
                 }
-                
+
             #endif
             #if !os(macOS)
                 if AKSettings.audioInputEnabled {
@@ -248,29 +248,32 @@ extension AVAudioEngine {
                         if #available(iOS 10.0, *) {
                             // Blueooth Options
                             // .allowBluetooth can only be set if the the categories .playAndRecord and .record
-                            // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or .playback
-                            //                     this option is cleared if the category is .record, or .multiRoute
-                            //                     if this option and .allowBluetooth are set and a device supports
-                            //                     Hands-Free Profile (HFP) and the Advanced Audio Distribution Profile (A2DP),
-                            //                     the Hands-Free ports will be given a higher priority for routing.
-                            if (AKSettings.bluetoothOptions.isNotEmpty) {
+                            // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or
+                            // .playback this option is cleared if the category is .record, or .multiRoute if this
+                            // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
+                            // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
+                            // priority for routing.
+                            if AKSettings.bluetoothOptions.isNotEmpty {
                                 options = options.union(AKSettings.bluetoothOptions)
-                            } else if (AKSettings.useBluetooth) {
-                                // If bluetoothOptions aren't specified but useBluetooth is then we will use these defaults
+                            } else if AKSettings.useBluetooth {
+                                // If bluetoothOptions aren't specified
+                                // but useBluetooth is then we will use these defaults
                                 options = options.union([.allowBluetooth,
                                                          .allowBluetoothA2DP])
                             }
-                            
+
                             // AirPlay
-                            if (AKSettings.allowAirPlay) {
+                            if AKSettings.allowAirPlay {
                                 options = options.union(.allowAirPlay)
                             }
-                        } else if (AKSettings.bluetoothOptions.isNotEmpty || AKSettings.useBluetooth || AKSettings.allowAirPlay) {
+                        } else if AKSettings.bluetoothOptions.isNotEmpty ||
+                                  AKSettings.useBluetooth ||
+                                  AKSettings.allowAirPlay {
                             AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
                         }
-                        
+
                         // Default to Speaker
-                        if (AKSettings.defaultToSpeaker) {
+                        if AKSettings.defaultToSpeaker {
                             options = options.union(.defaultToSpeaker)
                         }
 
