@@ -29,11 +29,6 @@ int sporth_delay(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            plumber_print(pd, "delay: Initialising\n");
-#endif
-
             time = sporth_stack_pop_float(stack);
             feedback = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
@@ -53,9 +48,6 @@ int sporth_delay(sporth_stack *stack, void *ud)
         case PLUMBER_DESTROY:
             delay = pd->last->ud;
             sp_delay_destroy(&delay);
-            break;
-        default:
-            plumber_print(pd, "delay: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

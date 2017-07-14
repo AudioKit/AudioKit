@@ -60,7 +60,6 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.carrierMultiplier = self.carrierMultiplierSlider.randomize()
             oscillator.modulatingMultiplier = self.modulatingMultiplierSlider.randomize()
             oscillator.modulationIndex = self.modulationIndexSlider.randomize()
-            return ""
         })
 
         frequencySlider = AKPropertySlider(

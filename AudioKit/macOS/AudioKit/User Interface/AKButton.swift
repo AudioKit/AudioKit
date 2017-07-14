@@ -7,7 +7,7 @@
 //
 
 public class AKButton: NSView {
-    internal var callback: () -> (String)
+    internal var callback: () -> Void
     public var title: String {
         didSet {
             needsDisplay = true
@@ -20,14 +20,13 @@ public class AKButton: NSView {
     }
 
     override public func mouseDown(with theEvent: NSEvent) {
-        let newTitle = callback()
-        if newTitle != "" { title = newTitle }
+        callback()
     }
 
     public init(title: String,
                 color: NSColor = #colorLiteral(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: @escaping () -> (String)) {
+                callback: @escaping () -> Void) {
         self.title = title
         self.callback = callback
         self.color = color

@@ -259,28 +259,10 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.delayParameter?.address {
-                    self?.delay = Double(value)
-                } else if address == self?.crossoverFrequencyParameter?.address {
-                    self?.crossoverFrequency = Double(value)
-                } else if address == self?.lowReleaseTimeParameter?.address {
-                    self?.lowReleaseTime = Double(value)
-                } else if address == self?.midReleaseTimeParameter?.address {
-                    self?.midReleaseTime = Double(value)
-                } else if address == self?.dampingFrequencyParameter?.address {
-                    self?.dampingFrequency = Double(value)
-                } else if address == self?.equalizerFrequency1Parameter?.address {
-                    self?.equalizerFrequency1 = Double(value)
-                } else if address == self?.equalizerLevel1Parameter?.address {
-                    self?.equalizerLevel1 = Double(value)
-                } else if address == self?.equalizerFrequency2Parameter?.address {
-                    self?.equalizerFrequency2 = Double(value)
-                } else if address == self?.equalizerLevel2Parameter?.address {
-                    self?.equalizerLevel2 = Double(value)
-                } else if address == self?.dryWetMixParameter?.address {
-                    self?.dryWetMix = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

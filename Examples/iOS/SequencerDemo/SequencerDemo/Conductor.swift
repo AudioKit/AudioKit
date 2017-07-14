@@ -9,7 +9,6 @@
 import AudioKit
 
 class Conductor {
-    let midi = AKMIDI()
 
     var fmOscillator = AKFMOscillatorBank()
     var melodicSound: AKMIDINode!
@@ -21,7 +20,7 @@ class Conductor {
     var snareMixer = AKMixer()
     var snareVerb: AKReverb!
 
-    var sequencer = AKMusicSequencer()
+    var sequencer = AKSequencer()
     var mixer = AKMixer()
     var pumper: AKCompressor!
 
@@ -40,17 +39,12 @@ class Conductor {
         fmOscillator.modulationIndex = 0.3
 
         melodicSound = AKMIDINode(node: fmOscillator)
-        melodicSound.enableMIDI(midi.client, name: "melodicSound midi in")
         verb = AKReverb2(melodicSound)
         verb.dryWetMix = 0.5
         verb.decayTimeAt0Hz = 7
         verb.decayTimeAtNyquist = 11
         verb.randomizeReflections = 600
         verb.gain = 1
-
-        bassDrum.enableMIDI(midi.client, name: "bassDrum midi in")
-        snareDrum.enableMIDI(midi.client, name: "snareDrum midi in")
-        snareGhost.enableMIDI(midi.client, name: "snareGhost midi in")
 
         snareMixer.connect(snareDrum)
         snareMixer.connect(snareGhost)
@@ -75,20 +69,20 @@ class Conductor {
     }
 
     func setupTracks() {
-        let _ = sequencer.newTrack()
+        _ = sequencer.newTrack()
         sequencer.setLength(sequenceLength)
         sequencer.tracks[Sequence.melody.rawValue].setMIDIOutput(melodicSound.midiIn)
         generateNewMelodicSequence(minor: false)
 
-        let _ = sequencer.newTrack()
+        _ = sequencer.newTrack()
         sequencer.tracks[Sequence.bassDrum.rawValue].setMIDIOutput(bassDrum.midiIn)
         generateBassDrumSequence()
 
-        let _ = sequencer.newTrack()
+        _ = sequencer.newTrack()
         sequencer.tracks[Sequence.snareDrum.rawValue].setMIDIOutput(snareDrum.midiIn)
         generateSnareDrumSequence()
 
-        let _ = sequencer.newTrack()
+        _ = sequencer.newTrack()
         sequencer.tracks[Sequence.snareGhost.rawValue].setMIDIOutput(snareGhost.midiIn)
         generateSnareDrumGhostSequence()
 
@@ -133,14 +127,14 @@ class Conductor {
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
         for i in 0 ..< numberOfSteps {
             let step = Double(i) * stepSize
-            
+
             sequencer.tracks[Sequence.bassDrum.rawValue].add(noteNumber: 60,
                                                              velocity: 100,
                                                              position: AKDuration(beats: step),
                                                              duration: AKDuration(beats: 1))
         }
     }
-    
+
     func generateSnareDrumSequence(_ stepSize: Float = 1, clear: Bool = true) {
         if clear { sequencer.tracks[2].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)

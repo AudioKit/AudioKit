@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='macos' display-mode='rendered'>
+<playground version='6.0' target-platform='macos' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Audio Player'/>
         <page name='Callback Instrument'/>
         <page name='Editing Audio Files'/>
         <page name='Exporting files'/>
+        <page name='MIDI Chord Generator'/>
         <page name='MIDI Input'/>
         <page name='MIDI Output'/>
+        <page name='MIDI Scale Quantizer'/>
         <page name='Phase-Locked Vocoder'/>
         <page name='Playback Speed'/>
         <page name='Processing Audio File Asynchronously'/>

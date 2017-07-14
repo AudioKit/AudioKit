@@ -117,16 +117,12 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         gainParameter = tree["gain"]
         qParameter = tree["q"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.cornerFrequencyParameter?.address {
-                    self?.cornerFrequency = Double(value)
-                } else if address == self?.gainParameter?.address {
-                    self?.gain = Double(value)
-                } else if address == self?.qParameter?.address {
-                    self?.q = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

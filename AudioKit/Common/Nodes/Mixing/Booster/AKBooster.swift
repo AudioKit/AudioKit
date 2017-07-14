@@ -126,14 +126,12 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         leftGainParameter = tree["leftGain"]
         rightGainParameter = tree["rightGain"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.leftGainParameter?.address {
-                    self?.leftGain = Double(value)
-                } else if address == self?.rightGainParameter?.address {
-                    self?.rightGain = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.leftGain = Float(gain)

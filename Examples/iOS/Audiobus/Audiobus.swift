@@ -101,7 +101,7 @@ class Audiobus {
 
         startObservingInterAppAudioConnections()
         startObservingAudiobusConnections()
-        
+
         controller.enableReceivingCoreMIDIBlock = { _ in return }
     }
 

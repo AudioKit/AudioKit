@@ -170,24 +170,12 @@ open class AKMetalBar: AKNode, AKComponent {
         strikeVelocityParameter = tree["strikeVelocity"]
         strikeWidthParameter = tree["strikeWidth"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.leftBoundaryConditionParameter?.address {
-                    self?.leftBoundaryCondition = Double(value)
-                } else if address == self?.rightBoundaryConditionParameter?.address {
-                    self?.rightBoundaryCondition = Double(value)
-                } else if address == self?.decayDurationParameter?.address {
-                    self?.decayDuration = Double(value)
-                } else if address == self?.scanSpeedParameter?.address {
-                    self?.scanSpeed = Double(value)
-                } else if address == self?.positionParameter?.address {
-                    self?.position = Double(value)
-                } else if address == self?.strikeVelocityParameter?.address {
-                    self?.strikeVelocity = Double(value)
-                } else if address == self?.strikeWidthParameter?.address {
-                    self?.strikeWidth = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.leftBoundaryCondition = Float(leftBoundaryCondition)
