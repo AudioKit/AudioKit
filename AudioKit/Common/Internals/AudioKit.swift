@@ -219,6 +219,7 @@ extension AVAudioEngine {
             self.engine.prepare()
 
             #if os(iOS)
+            
                 if AKSettings.enableRouteChangeHandling {
                     NotificationCenter.default.addObserver(
                         self,
@@ -226,43 +227,58 @@ extension AVAudioEngine {
                         name: .AVAudioSessionRouteChange,
                         object: nil)
                 }
+                
+                if AKSettings.enableCategoryChangeHandling {
+                    NotificationCenter.default.addObserver(
+                        self,
+                        selector: #selector(AudioKit.restartEngineAfterConfigurationChange),
+                        name: .AVAudioEngineConfigurationChange,
+                        object: engine)
+                }
+                
             #endif
             #if !os(macOS)
                 if AKSettings.audioInputEnabled {
 
                 #if os(iOS)
                     if AKSettings.defaultToSpeaker {
-                        try AKSettings.setSession(category: .playAndRecord,
-                                                  with: .defaultToSpeaker)
 
-                        // listen to AVAudioEngineConfigurationChangeNotification
-                        // and restart the engine if it is stopped.
-                        NotificationCenter.default.addObserver(
-                            self,
-                            selector: #selector(AudioKit.audioEngineConfigurationChange),
-                            name: .AVAudioEngineConfigurationChange,
-                            object: engine)
-
-                    } else if AKSettings.useBluetooth {
+                        var options: AVAudioSessionCategoryOptions = [.mixWithOthers]
 
                         if #available(iOS 10.0, *) {
-                            let options: AVAudioSessionCategoryOptions = [.allowBluetooth,
-                                                                          .allowBluetoothA2DP,
-                                                                          .mixWithOthers]
-                            try AKSettings.setSession(category: .playAndRecord, with: options)
-                        } else {
-                            // Fallback on earlier versions
-                            try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
+                            // Blueooth Options
+                            // .allowBluetooth can only be set if the the categories .playAndRecord and .record
+                            // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or .playback
+                            //                     this option is cleared if the category is .record, or .multiRoute
+                            //                     if this option and .allowBluetooth are set and a device supports
+                            //                     Hands-Free Profile (HFP) and the Advanced Audio Distribution Profile (A2DP),
+                            //                     the Hands-Free ports will be given a higher priority for routing.
+                            if (AKSettings.bluetoothOptions.isNotEmpty) {
+                                options = options.union(AKSettings.bluetoothOptions)
+                            } else if (AKSettings.useBluetooth) {
+                                // If bluetoothOptions aren't specified but useBluetooth is then we will use these defaults
+                                options = options.union([.allowBluetooth,
+                                                         .allowBluetoothA2DP])
+                            }
+                            
+                            // AirPlay
+                            if (AKSettings.allowAirPlay) {
+                                options = options.union(.allowAirPlay)
+                            }
+                        } else if (AKSettings.bluetoothOptions.isNotEmpty || AKSettings.useBluetooth || AKSettings.allowAirPlay) {
+                            AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
+                        }
+                        
+                        // Default to Speaker
+                        if (AKSettings.defaultToSpeaker) {
+                            options = options.union(.defaultToSpeaker)
                         }
 
-                    } else if AKSettings.bluetoothOptions.isNotEmpty {
-                        let opts: AVAudioSessionCategoryOptions = [.mixWithOthers]
                         try AKSettings.setSession(category: .playAndRecord,
-                                                  with: opts.union(AKSettings.bluetoothOptions))
-                    } else {
-                        try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
+                                                  with: options)
                     }
-                #else
+                    
+                #elseif os(tvOS)
                     // tvOS
                     try AKSettings.setSession(category: .playAndRecord)
 
@@ -272,21 +288,20 @@ extension AVAudioEngine {
                     try AKSettings.setSession(category: .playback)
                 } else {
                     try AKSettings.setSession(category: .ambient)
-
                 }
-            #if os(iOS)
-                try AVAudioSession.sharedInstance().setActive(true)
-            #endif
+                
+                #if os(iOS)
+                    try AVAudioSession.sharedInstance().setActive(true)
+                #endif
 
             #endif
 
             try self.engine.start()
-
             shouldBeRunning = true
+            
         } catch {
             fatalError("AudioKit: Could not start engine. error: \(error).")
         }
-
     }
 
     /// Stop the audio engine
@@ -347,7 +362,7 @@ extension AVAudioEngine {
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
-    @objc fileprivate static func audioEngineConfigurationChange(_ notification: Notification) {
+    @objc fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
         DispatchQueue.main.async {
             if shouldBeRunning && !engine.isRunning {
                 do {
