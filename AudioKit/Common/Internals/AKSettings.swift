@@ -76,7 +76,7 @@
     /// Additional control over the options to use for bluetooth
     open static var bluetoothOptions: AVAudioSessionCategoryOptions = []
 #endif
-    
+
     /// Whether AirPlay is enabled when audio input is enabled
     open static var allowAirPlay: Bool = false
 
@@ -116,7 +116,7 @@
     /// instance when such notifications are posted. The developer can instead subscribe
     /// to these notifications and restart AudioKit after rebuiling their audio chain.
     open static var enableCategoryChangeHandling: Bool = true
-    
+
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
 }

@@ -280,7 +280,7 @@ extension AVAudioEngine {
                         try AKSettings.setSession(category: .playAndRecord,
                                                   with: options)
                     }
-                    
+
                 #elseif os(tvOS)
                     // tvOS
                     try AKSettings.setSession(category: .playAndRecord)
@@ -292,7 +292,7 @@ extension AVAudioEngine {
                 } else {
                     try AKSettings.setSession(category: .ambient)
                 }
-                
+
                 #if os(iOS)
                     try AVAudioSession.sharedInstance().setActive(true)
                 #endif
