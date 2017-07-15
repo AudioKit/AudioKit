@@ -333,51 +333,53 @@ extension AVAudioEngine {
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
     open static func test(node: AKNode, duration: Double) {
-        let samples = Int(duration * AKSettings.sampleRate)
-
-        tester = AKTester(node, samples: samples)
-        output = tester
-
-        do {
-            // maximum number of frames the engine will be asked to render in any single render call
-            let maxNumberOfFrames: AVAudioFrameCount = 4096
-            engine.reset()
-            try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
-            try engine.start()
-        } catch {
-            fatalError("could not enable manual rendering mode, \(error)")
-        }
-
-        tester?.play()
-
-        let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)
-
-        while engine.manualRenderingSampleTime < samples {
+        if #available(iOS 11, *) {
+            let samples = Int(duration * AKSettings.sampleRate)
+            
+            tester = AKTester(node, samples: samples)
+            output = tester
+            
             do {
-                let framesToRender = buffer.frameCapacity
-                let status = try engine.renderOffline(framesToRender, to: buffer)
-                switch status {
-                case .success:
-                    // data rendered successfully
-                    break
-
-                case .insufficientDataFromInputNode:
-                    // applicable only if using the input node as one of the sources
-                    break
-
-                case .cannotDoInCurrentContext:
-                    // engine could not render in the current render call, retry in next iteration
-                    break
-
-                case .error:
-                    // error occurred while rendering
-                    fatalError("render failed")
-                }
+                // maximum number of frames the engine will be asked to render in any single render call
+                let maxNumberOfFrames: AVAudioFrameCount = 4096
+                engine.reset()
+                try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
+                try engine.start()
             } catch {
-                fatalError("render failed, \(error)")
+                fatalError("could not enable manual rendering mode, \(error)")
             }
+            
+            tester?.play()
+            
+            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)
+            
+            while engine.manualRenderingSampleTime < samples {
+                do {
+                    let framesToRender = buffer.frameCapacity
+                    let status = try engine.renderOffline(framesToRender, to: buffer)
+                    switch status {
+                    case .success:
+                        // data rendered successfully
+                        break
+                        
+                    case .insufficientDataFromInputNode:
+                        // applicable only if using the input node as one of the sources
+                        break
+                        
+                    case .cannotDoInCurrentContext:
+                        // engine could not render in the current render call, retry in next iteration
+                        break
+                        
+                    case .error:
+                        // error occurred while rendering
+                        fatalError("render failed")
+                    }
+                } catch {
+                    fatalError("render failed, \(error)")
+                }
+            }
+            tester?.stop()
         }
-        tester?.stop()
     }
 
     /// Audition the test to hear what it sounds like
