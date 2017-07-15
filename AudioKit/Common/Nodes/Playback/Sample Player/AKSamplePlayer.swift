@@ -1,6 +1,6 @@
 //
 //  AKSamplePlayer.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 5/20/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -167,7 +167,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {

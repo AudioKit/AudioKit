@@ -301,7 +301,7 @@ extension AVAudioEngine {
 
             try self.engine.start()
             shouldBeRunning = true
-            
+
         } catch {
             fatalError("AudioKit: Could not start engine. error: \(error).")
         }

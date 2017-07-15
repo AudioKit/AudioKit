@@ -26,7 +26,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         super.init()
         enableMIDI()
     }
-    
+
     /// Enable MIDI input from a given MIDI client
     ///
     /// - Parameters:
