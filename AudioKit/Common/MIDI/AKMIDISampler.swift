@@ -21,7 +21,7 @@ open class AKMIDISampler: AKSampler {
 
     /// Name of the instrument
     open var name = "AKMIDISampler"
-    
+
     /// Initialize the MIDI Sampler
     public override init() {
         super.init()

@@ -10,7 +10,7 @@ import AudioKit
 import XCTest
 
 class AKDynamicRangeCompressorTests: AKTestCase {
-    
+
     func testDefault() {
         let input = AKOscillator()
         output = AKDynamicRangeCompressor(input)
@@ -24,5 +24,5 @@ class AKDynamicRangeCompressorTests: AKTestCase {
 
         AKTestMD5("882c7029a5097769b85bd176f5752684")
     }
-    
+
 }

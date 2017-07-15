@@ -67,7 +67,7 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
 
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {

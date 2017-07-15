@@ -97,7 +97,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         centerFrequencyParameter = tree["centerFrequency"]
         bandwidthParameter = tree["bandwidth"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {

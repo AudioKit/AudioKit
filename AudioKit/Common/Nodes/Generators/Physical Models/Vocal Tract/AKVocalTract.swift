@@ -162,7 +162,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
         tensenessParameter = tree.value(forKey: "tenseness") as? AUParameter
         nasalityParameter = tree.value(forKey: "nasality") as? AUParameter
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {

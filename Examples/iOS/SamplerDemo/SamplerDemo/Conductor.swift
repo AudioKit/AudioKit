@@ -52,7 +52,7 @@ class Conductor {
         sequencer.tracks[2].setMIDIOutput(bassSynthesizer.midiIn)
         sequencer.tracks[3].setMIDIOutput(padSynthesizer.midiIn)
         sequencer.tracks[4].setMIDIOutput(drumKit.midiIn)
-        
+
         sequencer.play()
     }
 

@@ -137,7 +137,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent {
         attackTimeParameter = tree["attackTime"]
         releaseTimeParameter = tree["releaseTime"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
