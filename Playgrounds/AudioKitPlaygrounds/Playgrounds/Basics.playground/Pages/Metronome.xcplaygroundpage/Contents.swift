@@ -14,11 +14,11 @@ let view = PlaygroundView()
 metronome.callback = {
     view.beatFlasher.value = 1.0
     view.beatFlasher.property = "Beat \(metronome.currentBeat)"
-    
+
     DispatchQueue.main.async {
         view.beatFlasher.needsDisplay = true
     }
-    
+
     let deadlineTime = DispatchTime.now() + (60 / metronome.tempo) / 10.0
     DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
         view.beatFlasher.value = 0.0
@@ -92,7 +92,6 @@ class PlaygroundView: AKPlaygroundView {
         })
     }
 }
-
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

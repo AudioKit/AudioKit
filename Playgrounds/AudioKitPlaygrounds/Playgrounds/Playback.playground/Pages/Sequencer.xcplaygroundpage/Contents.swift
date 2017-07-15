@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
 
         addTitle("Sequencer")
-        
+
         for i in 0 ..< 4 {
             let button = AKButton(title: "Track \(i + 1): FM Piano") {
                 self.states[i] = self.states[i] == .bell ? .piano : .bell
@@ -52,7 +52,7 @@ class PlaygroundView: AKPlaygroundView {
             buttons.append(button)
         }
     }
-    
+
     func update() {
         sequencer.stop()
         for i in 0 ..< 4 {
@@ -64,7 +64,7 @@ class PlaygroundView: AKPlaygroundView {
                 sequencer.tracks[i + 1].setMIDIOutput(piano.midiIn)
                 buttons[i].title = "Track \(i + 1): FM Piano"
                 buttons[i].color = .green
-                
+
             }
         }
         sequencer.play()

@@ -10,19 +10,19 @@ tracker.start()
 
 //: User Interface
 class PlaygroundView: AKPlaygroundView {
-    
+
     var trackedAmplitudeSlider: AKPropertySlider?
     var trackedFrequencySlider: AKPropertySlider?
-    
+
     override func setup() {
-        
+
         AKPlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
             self.trackedFrequencySlider?.value = tracker.frequency
         }
-        
+
         addTitle("Tracking With Microphone Tracker")
-        
+
         trackedAmplitudeSlider = AKPropertySlider(
             property: "Tracked Amplitude",
             format: "%0.3f",
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider)
-        
+
         trackedFrequencySlider = AKPropertySlider(
             property: "Tracked Frequency",
             format: "%0.3f",
@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
             // Do nothing, just for display
         }
         addSubview(trackedFrequencySlider)
-        
+
     }
 }
 
