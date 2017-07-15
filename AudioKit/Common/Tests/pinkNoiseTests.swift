@@ -23,4 +23,11 @@ class PinkNoiseTests: AKTestCase {
         AKTestMD5("ddf3ff7735d85181d93abd7655b9658b")
     }
 
+    func testParameters() {
+        output = AKOperationGenerator { _ in
+            return AKOperation.pinkNoise(amplitude: 0.456)
+        }
+        AKTestMD5("225013a98880fabae9333b4b281dfbbe")
+    }
+
 }
