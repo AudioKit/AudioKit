@@ -39,6 +39,7 @@ class AKTestCase: XCTestCase {
 
     override func tearDown() {
         // This method is called after the invocation of each test method in the class.
+        AudioKit.disconnectAllInputs()
         AudioKit.stop()
         super.tearDown()
     }
