@@ -15,13 +15,13 @@ class AKDecimatorTests: AKTestCase {
         let input = AKOscillator()
         output = AKDecimator(input)
         input.start()
-        AKTestMD5("06415139391aca488441c521aea09726")
+        AKTestMD5("6cfdce459c60b32a796383335ae167d7")
     }
 
     func testParameters() {
         let input = AKOscillator()
         output = AKDecimator(input, decimation: 0.75, rounding: 0.5, mix: 0.5)
         input.start()
-        AKTestMD5("b1f53c4d7e4040362baf457352d3e6f4")
+        AKTestMD5("7bd8ec15e201a0be6962e633039a05bc")
     }
 }
