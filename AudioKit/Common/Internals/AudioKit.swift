@@ -369,7 +369,12 @@ extension AVAudioEngine {
         DispatchQueue.main.async {
             if shouldBeRunning && !engine.isRunning {
                 do {
-                    try engine.start()
+                    let appIsActive = UIApplication.shared.applicationState == .active
+                    if appIsActive || (!appIsActive && AKSettings.appSupportsBackgroundAudio) {
+                        try engine.start()
+                    } else {
+                        AKLog("engine not restarted after configuration change since app was not active and does not support background audio")
+                    }
                 } catch {
                     AKLog("couldn't start engine after configuration change \(error)")
                 }
@@ -382,15 +387,19 @@ extension AVAudioEngine {
         DispatchQueue.main.async {
             if shouldBeRunning && !engine.isRunning {
                 do {
-                    try self.engine.start()
-                    // Sends notification after restarting the engine, so it is safe to resume
-                    // AudioKit functions.
-                    if AKSettings.notificationsEnabled {
-                        NotificationCenter.default.post(
-                            name: .AKEngineRestartedAfterRouteChange,
-                            object: nil,
-                            userInfo: notification.userInfo)
-
+                    let appIsActive = UIApplication.shared.applicationState == .active
+                    if appIsActive || (!appIsActive && AKSettings.appSupportsBackgroundAudio) {
+                        try engine.start()
+                        // Sends notification after restarting the engine, so it is safe to resume
+                        // AudioKit functions.
+                        if AKSettings.notificationsEnabled {
+                            NotificationCenter.default.post(
+                                name: .AKEngineRestartedAfterRouteChange,
+                                object: nil,
+                                userInfo: notification.userInfo)
+                        }
+                    } else {
+                        AKLog("engine not restarted after route change since app was not active and does not support background audio")
                     }
                 } catch {
                     AKLog("error restarting engine after route change")
