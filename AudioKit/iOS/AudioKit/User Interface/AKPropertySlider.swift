@@ -26,6 +26,9 @@ public enum AKPropertySliderTheme {
 
 /// Simple slider interface for AudioKit properties
 @IBDesignable open class AKPropertySlider: UIView {
+    
+    // Default side
+    static var defaultSize = CGSize(width: 440.0, height: 60.0)
 
     // Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
@@ -111,7 +114,7 @@ public enum AKPropertySliderTheme {
                 minimum: Double = 0,
                 maximum: Double = 1,
                 color: UIColor = UIColor.red,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                frame: CGRect = CGRect(x: 0, y: 0, width: AKPropertySlider.defaultSize.width, height: AKPropertySlider.defaultSize.height),
                 callback: @escaping (_ x: Double) -> Void) {
         self.value = value
         self.minimum = minimum
