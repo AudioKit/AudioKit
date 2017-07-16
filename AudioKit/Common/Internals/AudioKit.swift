@@ -369,12 +369,27 @@ extension AVAudioEngine {
         DispatchQueue.main.async {
             if shouldBeRunning && !engine.isRunning {
                 do {
-                    let appIsActive = UIApplication.shared.applicationState == .active
-                    if appIsActive || (!appIsActive && AKSettings.appSupportsBackgroundAudio) {
-                        try engine.start()
-                    } else {
-                        AKLog("engine not restarted after configuration change since app was not active and does not support background audio")
+
+                    #if !os(macOS)
+                        let appIsNotActive = UIApplication.shared.applicationState != .active
+                        let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
+
+                        if appIsNotActive && appDoesNotSupportBackgroundAudio {
+                            AKLog("engine not restarted after configuration change since app was not active and does not support background audio")
+                            return
+                        }
+                    #endif
+
+                    try engine.start()
+
+                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
+                    if AKSettings.notificationsEnabled {
+                        NotificationCenter.default.post(
+                            name: .AKEngineRestartedAfterConfigurationChange,
+                            object: nil,
+                            userInfo: notification.userInfo)
                     }
+
                 } catch {
                     AKLog("couldn't start engine after configuration change \(error)")
                 }
@@ -399,8 +414,8 @@ extension AVAudioEngine {
                     #endif
 
                     try engine.start()
-                    // Sends notification after restarting the engine, so it is safe to resume
-                    // AudioKit functions.
+
+                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
                     if AKSettings.notificationsEnabled {
                         NotificationCenter.default.post(
                             name: .AKEngineRestartedAfterRouteChange,
