@@ -333,7 +333,7 @@ extension AVAudioEngine {
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
     open static func test(node: AKNode, duration: Double) {
-        if #available(iOS 11, macOS 10.13, *) {
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
             
             tester = AKTester(node, samples: samples)
