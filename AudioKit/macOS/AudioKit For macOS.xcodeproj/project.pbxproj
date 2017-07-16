@@ -675,8 +675,6 @@
 		C49A0A431D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A3F1D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49A0A441D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A401D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */; };
 		C49A0A451D543B34007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A411D543B34007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */; };
-		C49A0ABC1D5481D7007D8ADB /* AKOfflineRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C49A0ABA1D5481D7007D8ADB /* AKOfflineRenderer.m */; };
-		C49A0ABD1D548253007D8ADB /* AKOfflineRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0AB91D5481D7007D8ADB /* AKOfflineRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49A0AF51D548402007D8ADB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F36CC1C0582E6000E937C /* AudioKit.framework */; };
 		C49A0B001D54841A007D8ADB /* AKOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */; };
 		C4A107441E6967850018848C /* AKBrownianNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A107401E6967850018848C /* AKBrownianNoise.swift */; };
@@ -1536,8 +1534,6 @@
 		C49A0A3F1D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKKorgLowPassFilterAudioUnit.h; sourceTree = "<group>"; };
 		C49A0A401D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKKorgLowPassFilterAudioUnit.mm; sourceTree = "<group>"; };
 		C49A0A411D543B34007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKKorgLowPassFilterDSPKernel.hpp; sourceTree = "<group>"; };
-		C49A0AB91D5481D7007D8ADB /* AKOfflineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOfflineRenderer.h; sourceTree = "<group>"; };
-		C49A0ABA1D5481D7007D8ADB /* AKOfflineRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOfflineRenderer.m; sourceTree = "<group>"; };
 		C49A0AF01D548401007D8ADB /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49A0AF41D548402007D8ADB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscillatorTests.swift; path = ../../Common/Tests/AKOscillatorTests.swift; sourceTree = "<group>"; };
@@ -1801,7 +1797,6 @@
 				C45662C51D448D7D00D26565 /* AudioKitHelpers.swift */,
 				C45662C61D448D7D00D26565 /* CoreAudio */,
 				C45662CD1D448D7D00D26565 /* EZAudio */,
-				C45662EE1D448D7D00D26565 /* Libraries */,
 				C4A579B81EC1B7000072D48A /* Microphone Tracker */,
 				C4D4C4DD1EB7175100134B39 /* Microtonality */,
 				C45662EF1D448D7D00D26565 /* Soundpipe */,
@@ -1882,14 +1877,6 @@
 				C45662EC1D448D7D00D26565 /* TPCircularBuffer.c */,
 			);
 			path = EZAudio;
-			sourceTree = "<group>";
-		};
-		C45662EE1D448D7D00D26565 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Libraries;
-			path = LIbraries;
 			sourceTree = "<group>";
 		};
 		C45662EF1D448D7D00D26565 /* Soundpipe */ = {
@@ -2357,8 +2344,6 @@
 				C45664D21D448D7E00D26565 /* AKTesterAudioUnit.h */,
 				C45664D31D448D7E00D26565 /* AKTesterAudioUnit.mm */,
 				C45664D41D448D7E00D26565 /* AKTesterDSPKernel.hpp */,
-				C49A0AB91D5481D7007D8ADB /* AKOfflineRenderer.h */,
-				C49A0ABA1D5481D7007D8ADB /* AKOfflineRenderer.m */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -3860,7 +3845,6 @@
 				C45666B11D448D7E00D26565 /* EZAudioDevice.h in Headers */,
 				C45668E01D448D7E00D26565 /* AKAmplitudeEnvelopeAudioUnit.h in Headers */,
 				C45666AC1D448D7E00D26565 /* DSPKernel.hpp in Headers */,
-				C49A0ABD1D548253007D8ADB /* AKOfflineRenderer.h in Headers */,
 				C45F62861E8F40EC00F82CD4 /* AKZitaReverbAudioUnit.h in Headers */,
 				C45669A31D448D7E00D26565 /* AKPluckedStringDSPKernel.hpp in Headers */,
 				C45668F31D448D7E00D26565 /* AKBandRejectButterworthFilterDSPKernel.hpp in Headers */,
@@ -4075,7 +4059,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C42F36CB1C0582E6000E937C = {
@@ -4155,7 +4139,6 @@
 				C46615201EEA2E6A0044A5FC /* AKVocalTract.swift in Sources */,
 				C45669BC1D448D7E00D26565 /* AKParameter.swift in Sources */,
 				C45666CD1D448D7E00D26565 /* TPCircularBuffer.c in Sources */,
-				C49A0ABC1D5481D7007D8ADB /* AKOfflineRenderer.m in Sources */,
 				C45668A61D448D7E00D26565 /* AKCallbackInstrument.swift in Sources */,
 				C45668621D448D7E00D26565 /* PoleZero.cpp in Sources */,
 				C45669D11D448D7E00D26565 /* whiteNoise.swift in Sources */,
@@ -4789,14 +4772,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -4839,14 +4828,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
