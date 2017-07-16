@@ -11,7 +11,7 @@
 #import "AKSoundpipeKernel.hpp"
 
 enum {
-    delayAddress = 0,
+    predelayAddress = 0,
     crossoverFrequencyAddress = 1,
     lowReleaseTimeAddress = 2,
     midReleaseTimeAddress = 3,
@@ -45,7 +45,7 @@ public:
         *zitarev0->eq2_level = 0.0;
         *zitarev0->mix = 1.0;
 
-        delayRamper.init();
+        predelayRamper.init();
         crossoverFrequencyRamper.init();
         lowReleaseTimeRamper.init();
         midReleaseTimeRamper.init();
@@ -72,7 +72,7 @@ public:
 
     void reset() {
         resetted = true;
-        delayRamper.reset();
+        predelayRamper.reset();
         crossoverFrequencyRamper.reset();
         lowReleaseTimeRamper.reset();
         midReleaseTimeRamper.reset();
@@ -84,9 +84,9 @@ public:
         dryWetMixRamper.reset();
     }
 
-    void setDelay(float value) {
-        delay = clamp(value, 0.0f, 200.0f);
-        delayRamper.setImmediate(delay);
+    void setPredelay(float value) {
+        predelay = clamp(value, 0.0f, 200.0f);
+        predelayRamper.setImmediate(predelay);
     }
 
     void setCrossoverFrequency(float value) {
@@ -137,8 +137,8 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case delayAddress:
-                delayRamper.setUIValue(clamp(value, 0.0f, 200.0f));
+            case predelayAddress:
+                predelayRamper.setUIValue(clamp(value, 0.0f, 200.0f));
                 break;
 
             case crossoverFrequencyAddress:
@@ -182,8 +182,8 @@ public:
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case delayAddress:
-                return delayRamper.getUIValue();
+            case predelayAddress:
+                return predelayRamper.getUIValue();
 
             case crossoverFrequencyAddress:
                 return crossoverFrequencyRamper.getUIValue();
@@ -218,8 +218,8 @@ public:
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            case delayAddress:
-                delayRamper.startRamp(clamp(value, 0.0f, 200.0f), duration);
+            case predelayAddress:
+                predelayRamper.startRamp(clamp(value, 0.0f, 200.0f), duration);
                 break;
 
             case crossoverFrequencyAddress:
@@ -267,8 +267,8 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            delay = delayRamper.getAndStep();
-            *zitarev0->in_delay = (float)delay;
+            predelay = predelayRamper.getAndStep();
+            *zitarev0->in_delay = (float)predelay;
             crossoverFrequency = crossoverFrequencyRamper.getAndStep();
             *zitarev0->lf_x = (float)crossoverFrequency;
             lowReleaseTime = lowReleaseTimeRamper.getAndStep();
@@ -314,7 +314,7 @@ private:
 
     sp_zitarev *zitarev0;
 
-    float delay = 60.0;
+    float predelay = 60.0;
     float crossoverFrequency = 200.0;
     float lowReleaseTime = 3.0;
     float midReleaseTime = 2.0;
@@ -328,7 +328,7 @@ private:
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper delayRamper = 60.0;
+    ParameterRamper predelayRamper = 60.0;
     ParameterRamper crossoverFrequencyRamper = 200.0;
     ParameterRamper lowReleaseTimeRamper = 3.0;
     ParameterRamper midReleaseTimeRamper = 2.0;
