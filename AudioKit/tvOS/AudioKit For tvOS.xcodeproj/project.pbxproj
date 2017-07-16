@@ -498,8 +498,6 @@
 		C49A0A4E1D54464E007D8ADB /* AKKorgLowPassFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A4A1D54464E007D8ADB /* AKKorgLowPassFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49A0A4F1D54464E007D8ADB /* AKKorgLowPassFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A4B1D54464E007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */; };
 		C49A0A501D54464E007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A4C1D54464E007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */; };
-		C49A0AC01D5482A0007D8ADB /* AKOfflineRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0ABE1D5482A0007D8ADB /* AKOfflineRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C49A0AC11D5482A0007D8ADB /* AKOfflineRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C49A0ABF1D5482A0007D8ADB /* AKOfflineRenderer.m */; };
 		C49A0B0C1D548760007D8ADB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BDE8391C12FFBC00207DA9 /* AudioKit.framework */; };
 		C49DCD411D2100AB00BF018A /* AKFMOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DCD3D1D2100AB00BF018A /* AKFMOscillatorBank.swift */; };
 		C49DCD421D2100AB00BF018A /* AKFMOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49DCD3E1D2100AB00BF018A /* AKFMOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1300,8 +1298,6 @@
 		C49A0A4A1D54464E007D8ADB /* AKKorgLowPassFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKKorgLowPassFilterAudioUnit.h; sourceTree = "<group>"; };
 		C49A0A4B1D54464E007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKKorgLowPassFilterAudioUnit.mm; sourceTree = "<group>"; };
 		C49A0A4C1D54464E007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKKorgLowPassFilterDSPKernel.hpp; sourceTree = "<group>"; };
-		C49A0ABE1D5482A0007D8ADB /* AKOfflineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOfflineRenderer.h; sourceTree = "<group>"; };
-		C49A0ABF1D5482A0007D8ADB /* AKOfflineRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOfflineRenderer.m; sourceTree = "<group>"; };
 		C49A0B071D548760007D8ADB /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49DCD3D1D2100AB00BF018A /* AKFMOscillatorBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillatorBank.swift; sourceTree = "<group>"; };
 		C49DCD3E1D2100AB00BF018A /* AKFMOscillatorBankAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFMOscillatorBankAudioUnit.h; sourceTree = "<group>"; };
@@ -1704,8 +1700,6 @@
 				C40C420D1C40E5C2009D870B /* AKTesterAudioUnit.h */,
 				C40C420E1C40E5C2009D870B /* AKTesterAudioUnit.mm */,
 				C40C420F1C40E5C2009D870B /* AKTesterDSPKernel.hpp */,
-				C49A0ABE1D5482A0007D8ADB /* AKOfflineRenderer.h */,
-				C49A0ABF1D5482A0007D8ADB /* AKOfflineRenderer.m */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -3576,7 +3570,6 @@
 				C47048161E78FE9000D9906F /* FM.h in Headers */,
 				C45381841C3A5CBD00A51738 /* AKAmplitudeTrackerAudioUnit.h in Headers */,
 				C49F29351D1626B9000A2D2F /* AKFluteAudioUnit.h in Headers */,
-				C49A0AC01D5482A0007D8ADB /* AKOfflineRenderer.h in Headers */,
 				C453818F1C3A5CBD00A51738 /* AKOperationEffectDSPKernel.hpp in Headers */,
 				C45381F31C3A5CBD00A51738 /* AKToneComplementFilterDSPKernel.hpp in Headers */,
 				C40C421E1C40E5C2009D870B /* EZAudioFFT.h in Headers */,
@@ -4230,7 +4223,6 @@
 				C4E7523E1C23888700688A1B /* highPassFilter.swift in Sources */,
 				C48C6A861D3C1574008EA51B /* gbuzz.c in Sources */,
 				C4F8CB091DCA928B001F38F2 /* moogladder.c in Sources */,
-				C49A0AC11D5482A0007D8ADB /* AKOfflineRenderer.m in Sources */,
 				C4E752361C23888700688A1B /* AKOperation.swift in Sources */,
 				C453819B1C3A5CBD00A51738 /* AKClipperAudioUnit.mm in Sources */,
 				C40C42361C40E5C2009D870B /* TPCircularBuffer.c in Sources */,

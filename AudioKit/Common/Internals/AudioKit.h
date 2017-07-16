@@ -123,7 +123,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKSamplePlayerAudioUnit.h"
 
 // Testing
-#import "AKOfflineRenderer.h"
 #import "AKTesterAudioUnit.h"
 
 // Plots
