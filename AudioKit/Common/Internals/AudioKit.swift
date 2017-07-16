@@ -216,7 +216,7 @@ extension AVAudioEngine {
         }
         // Start the engine.
         do {
-            self.engine.prepare()
+            engine.prepare()
 
             #if os(iOS)
 
@@ -299,7 +299,7 @@ extension AVAudioEngine {
 
             #endif
 
-            try self.engine.start()
+            try engine.start()
             shouldBeRunning = true
 
         } catch {
@@ -310,7 +310,7 @@ extension AVAudioEngine {
     /// Stop the audio engine
     open static func stop() {
         // Stop the engine.
-        self.engine.stop()
+        engine.stop()
         shouldBeRunning = false
         #if os(iOS)
         do {
@@ -338,9 +338,9 @@ extension AVAudioEngine {
         tester = AKTester(node, samples: samples)
         output = tester
         start()
-        self.engine.pause()
+        engine.pause()
         tester?.play()
-        let renderer = AKOfflineRenderer(engine: self.engine)
+        let renderer = AKOfflineRenderer(engine: engine)
         renderer?.render(Int32(samples))
     }
 
