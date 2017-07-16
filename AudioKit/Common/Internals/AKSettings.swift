@@ -119,6 +119,15 @@
 
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
+
+    #if !os(macOS)
+    /// Checks the application's info.plist to see if UIBackgroundModes includes "audio".
+    /// If background audio is supported then the system will allow the AVAudioEngine to start even if the app is in,
+    /// or entering, a background state. This can help prevent a potential crash
+    /// (AVAudioSessionErrorCodeCannotStartPlaying aka error code 561015905) when a route/category change causes
+    /// AudioEngine to attempt to start while the app is not active and background audio is not supported.
+    open static let appSupportsBackgroundAudio = (Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String])?.contains("audio") ?? false
+    #endif
 }
 
 #if !os(macOS)
@@ -146,7 +155,6 @@ extension AKSettings {
         }
 
         // Preferred IO Buffer Duration
-
         do {
             try session.setPreferredIOBufferDuration(bufferLength.duration)
         } catch let error as NSError {
@@ -213,6 +221,6 @@ extension AKSettings {
             fatalError("unrecognized AVAudioSessionCategory \(self)")
 
       }
-  }
+   }
 }
 #endif
