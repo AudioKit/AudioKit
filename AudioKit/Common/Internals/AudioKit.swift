@@ -216,7 +216,7 @@ extension AVAudioEngine {
         }
         // Start the engine.
         do {
-            self.engine.prepare()
+            engine.prepare()
 
             #if os(iOS)
 
@@ -299,7 +299,7 @@ extension AVAudioEngine {
 
             #endif
 
-            try self.engine.start()
+            try engine.start()
             shouldBeRunning = true
 
         } catch {
@@ -310,7 +310,7 @@ extension AVAudioEngine {
     /// Stop the audio engine
     open static func stop() {
         // Stop the engine.
-        self.engine.stop()
+        engine.stop()
         shouldBeRunning = false
         #if os(iOS)
         do {
@@ -338,9 +338,9 @@ extension AVAudioEngine {
         tester = AKTester(node, samples: samples)
         output = tester
         start()
-        self.engine.pause()
+        engine.pause()
         tester?.play()
-        let renderer = AKOfflineRenderer(engine: self.engine)
+        let renderer = AKOfflineRenderer(engine: engine)
         renderer?.render(Int32(samples))
     }
 
@@ -369,7 +369,27 @@ extension AVAudioEngine {
         DispatchQueue.main.async {
             if shouldBeRunning && !engine.isRunning {
                 do {
+
+                    #if !os(macOS)
+                        let appIsNotActive = UIApplication.shared.applicationState != .active
+                        let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
+
+                        if appIsNotActive && appDoesNotSupportBackgroundAudio {
+                            AKLog("engine not restarted after configuration change since app was not active and does not support background audio")
+                            return
+                        }
+                    #endif
+
                     try engine.start()
+
+                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
+                    if AKSettings.notificationsEnabled {
+                        NotificationCenter.default.post(
+                            name: .AKEngineRestartedAfterConfigurationChange,
+                            object: nil,
+                            userInfo: notification.userInfo)
+                    }
+
                 } catch {
                     AKLog("couldn't start engine after configuration change \(error)")
                 }
@@ -382,15 +402,25 @@ extension AVAudioEngine {
         DispatchQueue.main.async {
             if shouldBeRunning && !engine.isRunning {
                 do {
-                    try self.engine.start()
-                    // Sends notification after restarting the engine, so it is safe to resume
-                    // AudioKit functions.
+
+                    #if !os(macOS)
+                    let appIsNotActive = UIApplication.shared.applicationState != .active
+                    let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
+
+                    if appIsNotActive && appDoesNotSupportBackgroundAudio {
+                        AKLog("engine not restarted after route change since app was not active and does not support background audio")
+                        return
+                    }
+                    #endif
+
+                    try engine.start()
+
+                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
                     if AKSettings.notificationsEnabled {
                         NotificationCenter.default.post(
                             name: .AKEngineRestartedAfterRouteChange,
                             object: nil,
                             userInfo: notification.userInfo)
-
                     }
                 } catch {
                     AKLog("error restarting engine after route change")
