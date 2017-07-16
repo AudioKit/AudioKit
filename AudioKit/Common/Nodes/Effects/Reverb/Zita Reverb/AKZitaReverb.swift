@@ -17,7 +17,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var delayParameter: AUParameter?
+    fileprivate var predelayParameter: AUParameter?
     fileprivate var crossoverFrequencyParameter: AUParameter?
     fileprivate var lowReleaseTimeParameter: AUParameter?
     fileprivate var midReleaseTimeParameter: AUParameter?
@@ -36,15 +36,15 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Delay in ms before reverberation begins.
-    open dynamic var delay: Double = 60.0 {
+    open dynamic var predelay: Double = 60.0 {
         willSet {
-            if delay != newValue {
+            if predelay != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        delayParameter?.setValue(Float(newValue), originator: existingToken)
+                        predelayParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.delay = Float(newValue)
+                    internalAU?.predelay = Float(newValue)
                 }
             }
         }
@@ -196,7 +196,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - delay: Delay in ms before reverberation begins.
+    ///   - predelay: Delay in ms before reverberation begins.
     ///   - crossoverFrequency: Crossover frequency separating low and middle frequencies (Hz).
     ///   - lowReleaseTime: Time (in seconds) to decay 60db in low-frequency band.
     ///   - midReleaseTime: Time (in seconds) to decay 60db in mid-frequency band.
@@ -209,7 +209,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     ///
     public init(
         _ input: AKNode?,
-        delay: Double = 60.0,
+        predelay: Double = 60.0,
         crossoverFrequency: Double = 200.0,
         lowReleaseTime: Double = 3.0,
         midReleaseTime: Double = 2.0,
@@ -220,7 +220,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
         equalizerLevel2: Double = 0.0,
         dryWetMix: Double = 1.0) {
 
-        self.delay = delay
+        self.predelay = predelay
         self.crossoverFrequency = crossoverFrequency
         self.lowReleaseTime = lowReleaseTime
         self.midReleaseTime = midReleaseTime
@@ -246,7 +246,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
             return
         }
 
-        delayParameter = tree["delay"]
+        predelayParameter = tree["predelay"]
         crossoverFrequencyParameter = tree["crossoverFrequency"]
         lowReleaseTimeParameter = tree["lowReleaseTime"]
         midReleaseTimeParameter = tree["midReleaseTime"]
@@ -266,7 +266,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
             }
         })
 
-        internalAU?.delay = Float(delay)
+        internalAU?.predelay = Float(predelay)
         internalAU?.crossoverFrequency = Float(crossoverFrequency)
         internalAU?.lowReleaseTime = Float(lowReleaseTime)
         internalAU?.midReleaseTime = Float(midReleaseTime)
