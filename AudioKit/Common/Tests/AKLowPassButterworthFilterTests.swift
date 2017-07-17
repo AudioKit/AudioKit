@@ -17,4 +17,11 @@ class AKLowPassButterworthFilterTests: AKTestCase {
         input.start()
         AKTestMD5("7d0ddc9ba1d709b22244737b17eafadb")
     }
+
+    func testCutoffFrequency() {
+        let input = AKOscillator()
+        output = AKLowPassButterworthFilter(input, cutoffFrequency: 500)
+        input.start()
+        AKTestMD5("1591bbcb5064ee70db40b8286435a424")
+    }
 }
