@@ -87,7 +87,7 @@ public enum AKPropertySliderTheme {
     @IBInspectable open var bubbleFontSize: CGFloat = 12
     
     // Slider style
-    @IBInspectable open var sliderStyle: AKPropertySliderStyle = AKPropertySliderStyle.roundIndicator
+    @IBInspectable open var sliderStyle: AKPropertySliderStyle = AKPropertySliderStyle.tabIndicator
     
     // Slider theme
     @IBInspectable open var sliderTheme: AKPropertySliderTheme = AKPropertySliderTheme.dark
