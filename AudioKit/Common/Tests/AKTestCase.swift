@@ -32,6 +32,14 @@ class AKTestCase: XCTestCase {
         XCTAssertTrue([md5, alternate].contains(localMD5), localMD5)
     }
 
+    func AKTestMD5Not(_ md5: String) {
+        if let existingOutput = output {
+            AudioKit.test(node: existingOutput, duration: duration)
+        }
+        let  localMD5 = MD5
+        XCTAssertFalse(md5 == localMD5, localMD5)
+    }
+
     override func setUp() {
         super.setUp()
         // This method is called before the invocation of each test method in the class.
