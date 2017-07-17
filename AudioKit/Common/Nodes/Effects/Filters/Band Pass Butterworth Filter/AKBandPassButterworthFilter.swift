@@ -68,8 +68,8 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - centerFrequency: Center frequency. (in Hertz)
-    ///   - bandwidth: Bandwidth. (in Hertz)
+    ///   - centerFrequency: Center frequency in Hz. (default: 2000 Hz)
+    ///   - bandwidth: Bandwidth in Hz. (default: 100 Hz)
     ///
     public init(
         _ input: AKNode?,
