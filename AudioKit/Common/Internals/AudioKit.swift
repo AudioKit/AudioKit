@@ -333,6 +333,7 @@ extension AVAudioEngine {
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
     open static func test(node: AKNode, duration: Double) {
+        #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
             
@@ -380,6 +381,7 @@ extension AVAudioEngine {
             }
             tester?.stop()
         }
+        #endif
     }
 
     /// Audition the test to hear what it sounds like
