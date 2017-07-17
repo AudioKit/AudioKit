@@ -17,4 +17,11 @@ class AKDCBlockTests: AKTestCase {
         input.start()
         AKTestMD5("9aa1ca63b47bc690651d5bb24b33c54f")
     }
+
+    func testActuallyProcessing() {
+        let input = AKOscillator(waveform: AKTable(.square))
+        output = input
+        input.start()
+        AKTestMD5Not("9aa1ca63b47bc690651d5bb24b33c54f")
+    }
 }

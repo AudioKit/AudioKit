@@ -36,4 +36,18 @@ class AKCostelloReverbTests: AKTestCase {
         input.start()
         AKTestMD5("4ac9c83b90ce86327198c3c428bf6922")
     }
+
+    func testFeedback() {
+        let input = AKOscillator()
+        output = AKCostelloReverb(input, feedback: 0.95)
+        input.start()
+        AKTestMD5("60d1654aa643afa53fee3206a883161a")
+    }
+
+    func testCutoffFrequency() {
+        let input = AKOscillator()
+        output = AKCostelloReverb(input, cutoffFrequency: 1_234)
+        input.start()
+        AKTestMD5("8d9e94a397d793d2a26d73d8a9dab970")
+    }
 }
