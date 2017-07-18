@@ -89,6 +89,12 @@
     
     private var frequencies = [Frequency]()
 
+    /// Notes Per Octave: The count of the frequency array
+    public var npo: Int {
+        get {
+            return frequencies.count
+        }
+    }
     /// Initialization for standard default 12 tone equal temperament
     public override init() {
         super.init()
@@ -193,12 +199,12 @@
                     let netnnpb = Int( (netnnpbf + 0.5) * (pitchBendHigh - pitchBendLow) + pitchBendLow )
                     etNNDictionary[MIDINoteNumber(i)] = (etNN: nnAs12ETNN, pitchBend: netnnpb)
                 } else {
-                    AKLog("this tuning's note number:\(i) is in range of 12ET note numbers:\(freqAs12ETNN) but pitch bend is not:\(etnnpbf)")
+                    //AKLog("this tuning's note number:\(i) is in range of 12ET note numbers:\(freqAs12ETNN) but pitch bend is not:\(etnnpbf)")
                 }
             } else {
-                AKLog("this tuning's note number:\(i) is out of range of 12ET note numbers:\(freqAs12ETNN)")
+                //AKLog("this tuning's note number:\(i) is out of range of 12ET note numbers:\(freqAs12ETNN)")
             }
         }
-        AKLog("etnn dictionary:\(etNNDictionary)")
+        //AKLog("etnn dictionary:\(etNNDictionary)")
     }
 }
