@@ -11,14 +11,19 @@ import XCTest
 
 class AKCompressorTests: AKTestCase {
 
+    override func setUp() {
+        super.setUp()
+        duration = 1.0
+    }
+
     func testDefault() {
         let input = AKOscillator()
         output = AKCompressor(input)
         input.start()
-        AKTestMD5("cf12ea8dbbe0a1bee2c4c83956c61a49")
+        AKTestMD5("ee2b005095e4583477cfa95157554b7a")
     }
 
-    func testParameters1() {
+    func testParameters() {
         let input = AKOscillator()
         output = AKCompressor(input,
                               threshold: -25,
@@ -27,19 +32,38 @@ class AKCompressorTests: AKTestCase {
                               releaseTime: 0.1,
                               masterGain: 1)
         input.start()
-        AKTestMD5("e83f89c8249e4044639328b7fad55628")
+        AKTestMD5("3b5627770864e08796fff929b5444d1d")
     }
 
-    func testParameters2() {
+    func testThreshold() {
         let input = AKOscillator()
-        output = AKCompressor(input,
-                              threshold: -30,
-                              headRoom: 20,
-                              attackTime: 0.01,
-                              releaseTime: 0.01,
-                              masterGain: -1)
+        output = AKCompressor(input, threshold: -25)
         input.start()
-        AKTestMD5("7ca40d7ff9964ceca52edc9835379a56")
+        AKTestMD5("f0880e74cc4140655806427fc2224258")
     }
+
+    func testHeadRoom() {
+        let input = AKOscillator()
+        output = AKCompressor(input, headRoom: 0)
+        input.start()
+        AKTestMD5("92467b961b1dbc9b37f78bd4ed937add")
+    }
+
+    func testAttackTime() {
+        let input = AKOscillator()
+        output = AKCompressor(input, attackTime: 0.1)
+        input.start()
+        AKTestMD5("e830095751ba5d061b7761462f6fad12")
+    }
+
+    // Release time is not currently tested
+
+    func testMasterGain() {
+        let input = AKOscillator()
+        output = AKCompressor(input, masterGain: 1)
+        input.start()
+        AKTestMD5("2b76f6283d951f245cc39230d3e9eb8c")
+    }
+
 
 }
