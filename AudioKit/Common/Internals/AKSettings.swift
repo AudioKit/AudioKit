@@ -66,7 +66,7 @@
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
 
-    /// Whether to DefaultToSpeaker when audio input is enabled
+    /// Whether to output to the speaker (rather than receiver) when audio input is enabled
     open static var defaultToSpeaker: Bool = false
 
     /// Whether to use bluetooth when audio input is enabled
