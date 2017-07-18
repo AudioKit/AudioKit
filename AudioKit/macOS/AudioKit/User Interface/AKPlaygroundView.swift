@@ -71,6 +71,7 @@ open class AKPlaygroundView: NSView {
         newLabel.isEditable = false
         newLabel.drawsBackground = false
         newLabel.isBezeled = false
+        newLabel.textColor = .white
         newLabel.font = NSFont.systemFont(ofSize: 18)
         self.addSubview(newLabel)
         return newLabel
