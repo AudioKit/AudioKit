@@ -15,7 +15,7 @@ class AKAutoWahTests: AKTestCase {
         let input = AKOscillator()
         output = AKAutoWah(input)
         input.start()
-        AKTestMD5("30e9a7639b3af4f8159e307bf48a2844")
+        AKTestNoEffect()
     }
 
     func testParamters() {

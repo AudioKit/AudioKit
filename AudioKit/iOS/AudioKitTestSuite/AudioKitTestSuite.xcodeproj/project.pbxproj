@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C427B01F1F1EF850002F2FA4 /* AKTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C427B01E1F1EF850002F2FA4 /* AKTableTests.swift */; };
 		C4289A151D56D20300B941B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4289A141D56D20300B941B5 /* AppDelegate.swift */; };
 		C42D30A61D5A9C5C00F92555 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C42D30A51D5A9C5C00F92555 /* Default-568h@2x.png */; };
 		C43BB2041D64FFEA00DB5A99 /* AKAmplitudeEnvelopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43BB1AC1D64FFEA00DB5A99 /* AKAmplitudeEnvelopeTests.swift */; };
@@ -140,6 +141,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C427B01E1F1EF850002F2FA4 /* AKTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKTableTests.swift; path = ../../../Common/Tests/AKTableTests.swift; sourceTree = "<group>"; };
 		C4289A111D56D20300B941B5 /* AudioKitTestSuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitTestSuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4289A141D56D20300B941B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4289A201D56D20300B941B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				C43BB1D61D64FFEA00DB5A99 /* AKRingModulatorTests.swift */,
 				C43BB1D71D64FFEA00DB5A99 /* AKRolandTB303FilterTests.swift */,
 				C43BB1D81D64FFEA00DB5A99 /* AKStringResonatorTests.swift */,
+				C427B01E1F1EF850002F2FA4 /* AKTableTests.swift */,
 				C43BB1D91D64FFEA00DB5A99 /* AKTanhDistortionTests.swift */,
 				C43BB1DA1D64FFEA00DB5A99 /* AKTestCase.swift */,
 				C43BB1DB1D64FFEA00DB5A99 /* AKThreePoleLowpassFilterTests.swift */,
@@ -524,6 +527,7 @@
 				C43BB21A1D64FFEA00DB5A99 /* AKHighShelfFilterTests.swift in Sources */,
 				C43BB23B1D64FFEA00DB5A99 /* clipTests.swift in Sources */,
 				C43BB2571D64FFEA00DB5A99 /* threePoleLowPassFilterTests.swift in Sources */,
+				C427B01F1F1EF850002F2FA4 /* AKTableTests.swift in Sources */,
 				C43BB2261D64FFEA00DB5A99 /* AKPeakingParametricEqualizerFilterTests.swift in Sources */,
 				C43BB21F1D64FFEA00DB5A99 /* AKLowShelfFilterTests.swift in Sources */,
 				C43BB2561D64FFEA00DB5A99 /* stringResonatorTests.swift in Sources */,
