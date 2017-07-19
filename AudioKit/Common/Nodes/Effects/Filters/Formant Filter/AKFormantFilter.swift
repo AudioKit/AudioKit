@@ -30,7 +30,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Center frequency.
+    /// x
     open dynamic var x: Double = 0 {
         willSet {
             if x != newValue {
@@ -44,7 +44,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Impulse response attack time (in seconds).
+    /// y
     open dynamic var y: Double = 0 {
         willSet {
             if y != newValue {
@@ -70,9 +70,8 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - centerFrequency: Center frequency.
-    ///   - attackDuration: Impulse response attack time (in seconds).
-    ///   - decayDuration: Impulse reponse decay time (in seconds)
+    ///   - x:
+    ///   - y:
     ///
     public init(
         _ input: AKNode?,
