@@ -79,7 +79,7 @@ When you want to modify AudioKit, check out the [develop](https://github.com/aud
 
 AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  [Matthew Fecher](https://github.com/swiftcodex) manages all of AudioKit's web sites and [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.  
 
-But, there are many more import people in our family:
+But, there are many other important people in our family:
 
 | Group | Description |
 |-------|-------------|
