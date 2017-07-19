@@ -32,7 +32,7 @@ public class AKTableView: NSView {
         let padding = 0.9
 
         let border = NSBezierPath(rect: NSRect(x: 0, y: 0, width: frame.width, height: frame.height))
-        let bgcolor = AKColorPalette.sharedInstance.next
+        let bgcolor = AKStylist.sharedInstance.nextColor
         bgcolor.setFill()
         border.fill()
         NSColor.black.setStroke()
