@@ -66,8 +66,8 @@ Hello World basically consists of just a few sections of code:
 
 We have so many playground pages that it became difficult to maintain them in one playground, so we separated them into categories:
 
-| Playgrounds |    |
-|--------|------------------------------------------------------------------------------------------------------------|
+| Playgrounds | |
+|-------------|-|
 | Basics | Making your first sounds and connecting components |
 | Synthesis | Oscillators, physical models, generative audio |
 | Playback | Audio files, Sequencing, Sampling |
@@ -90,18 +90,13 @@ Ready to send us a pull request? Please make sure your request is based on the [
 
 ## About Us
 
-AudioKit was created by the following team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
+AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  [Matthew Fecher](https://github.com/swiftcodex) manages all of AudioKit's web sites and [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.  
 
-| Contributors | |
-|--------------|-|
-| **[Adam Nemecek](https://github.com/adamnemecek)**| Lives by the motto "No code is better than no code" and tries to apply |hat to AudioKit.|
-| **[Aurelius Prochazka](https://github.com/aure)**| Primary programmer of AudioKit. Lives for this stuff. Your life line if |ou need help.|
-| **[Brandon Barber](https://github.com/roecrew)**| Deep diver.  Contributed a lot of great pull requests. |
-| **[Jeff Cooper](https://github.com/eljeff)**| Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.|
-| **[Laurent Veliscek](https://github.com/laurentVeliscek)**| Creator of the AKAudioFile, AKAudioPlayer, and recording nodes.|
-| **[Matthew Fecher](https://github.com/swiftcodex)**|  Synth examples including AudioKit Synth One & Analog Synth X, both websites, evangelist.|
-| **[Marcus Hobbs](https://github.com/marcussatellite)**| Created all the microtonal aspects of AudioKit. |
-| **[Nicholas Arner](https://github.com/narner)**| Longtime contributor to AudioKit and AudioKit's web site. |
-| **[Paul Batchelor](https://github.com/PaulBatchelor)**| The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe) and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.|
-| **[Stephane Peter](https://github.com/megastep)**| Installation and configuration czar and code reviewer. |
+But, there are many more import people in our family:
 
+| Group | Description |
+|-------|-------------|
+|[Core Team](https://github.com/orgs/AudioKit/people) | The biggest contributors to AudioKit |
+|[Slack](https://audiokit.slack.com) | Pro-level developer chat group, contact Aure for an in invitation. |
+|[Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors)| A list of all people who have submitted code to AudioKit.|
+|[Google Group](https://groups.google.com/forum/#!forum/audiokit)| Support forum for all users |
