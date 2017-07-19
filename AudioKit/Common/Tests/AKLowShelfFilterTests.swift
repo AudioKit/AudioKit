@@ -18,19 +18,11 @@ class AKLowShelfFilterTests: AKTestCase {
         AKTestNoEffect()
     }
 
-    func testParameters() {
+    func testCutoffFrequency() {
         let input = AKOscillator()
         output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)
         input.start()
         AKTestMD5("6b5611186ee54e8ede60ab68f5ada69d")
-    }
-
-
-    func testCutoffFrequency() {
-        let input = AKOscillator()
-        output = AKLowShelfFilter(input, cutoffFrequency: 100)
-        input.start()
-        AKTestMD5("30e9a7639b3af4f8159e307bf48a2844")
     }
 
     func testGain() {
