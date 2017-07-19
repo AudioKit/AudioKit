@@ -52,22 +52,16 @@ For Hello World you only need to understand a few lines of code:
 | `oscillator.stop()`                      | Stop the oscillator          |
 
 ## Playgrounds
-
-We have so many playground pages that it became difficult to maintain them in one playground, so we separated them into categories:
-
-| Playgrounds |                                                    |
-|-------------|----------------------------------------------------|
-| Basics      | Making your first sounds and connecting components |
-| Synthesis   | Oscillators, physical models, generative audio     |
-| Playback    | Audio files, Sequencing, Sampling                  |
-| Effects     | Processing sound                                   |
-| Filters     | Frequency range modification                       |
-| Analysis    | Pitch and loudness detection, FFT spectrum analysis|
+<img style="float: right; padding-left: 10px" src="http://audiokit.io/examples/playgrounds.jpg">
+Playgrounds contain bite-size examples of AudioKit and serve as tutorials for many of AudioKit's core concepts and capabilities.  There are over one hundred playgrounds from the most basic tutorials, to synthesis, physical modeling, file playback, MIDI, effects, filters, and analysis.
 
 Since AudioKit 3.6, we provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn the API in a fun way!
 
+We have made videos of most of the playgrounds in action, so you don't even need to run Xcode to check them out, just go to [AudioKit Playground Videos](http://audiokit.io/playgrounds/).
+<br clear=all>
 
 ## Ray Wenderlich's AudioKit Tutorial
+
 
 Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywenderlich.com/145770/audiokit-tutorial-getting-started). You’ll be taken on a fun and gentle journey through the framework via the history of sound synthesis and computer audio.
 
