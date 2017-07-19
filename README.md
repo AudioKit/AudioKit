@@ -29,11 +29,11 @@ The third major revision of AudioKit has been completely rewritten to offer the 
 * Can use opcodes from Faust, Chuck, STK, Csound, and others
 * Many included Xcode Swift playgrounds
 
-and quite a bit more. There are things that version 2 had that are not yet part of version 3, but rather than trying to support version 2, let us know what you need to do, and we'll port it over to version 3 upon request.
+and quite a bit more.
 
 ### Swift 3
 
-As of AudioKit 3.4, we have moved to support Swift 3 exclusively. You will therefore need to use Xcode 8 (or above) to compile or use AudioKit in your projects. You will additionally need to convert your Swift 2 projects to Swift 3.
+As of AudioKit 3.4, we have moved to support Swift 3 exclusively. You will therefore need to use Xcode 8 (or above) to compile or use AudioKit in your projects and convert your Swift 2 projects to Swift 3.
 
 ## Key Concepts
 
@@ -52,21 +52,11 @@ Installation can be achieved in the usual ways for a framework. More details are
 
 An AudioKit package is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) and Carthage.
 
-In most cases, when building for iOS or tvOS, regardless of how you install the framework, you will need to add a run phase to your project's target with the following script:
-
-```
-"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh"
-```
-
 ## Example Code
 There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They simply play an oscillator and display the waveform.
 
-The examples rely on the frameworks being built so you can either download the precompiled frameworks or build them on your own:
+The examples rely on the frameworks being built so you can either download the precompiled frameworks or [build them on your own](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
 
-```
-$ cd Frameworks
-$ ./build_frameworks.sh
-```
 Hello World basically consists of just a few sections of code:
 
 Creating the sound, in this case an oscillator:
