@@ -32,10 +32,10 @@ Installation can be achieved in the usual ways for a framework. More details are
 
 AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) and Carthage Package managers:
 
-| Package Manager | Config File | Contents |
-|-----------------|-------------|----------|
-| [Carthage](https://github.com/Carthage/Carthage) | `Cartfile` | `github "audiokit/AudioKit"` |
-| [Cocoapods](https://cocoapods.org/)              | `Podfile`  | `pod 'AudioKit', '~> 3.7'`   |
+| Package Manager                                  | Config File | Contents                     |
+|--------------------------------------------------|-------------|------------------------------|
+| [Carthage](https://github.com/Carthage/Carthage) | `Cartfile`  | `github "audiokit/AudioKit"` |
+| [Cocoapods](https://cocoapods.org/)              | `Podfile`   | `pod 'AudioKit', '~> 3.7'`   |
 
 ## Example Code
 There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display the waveform. The examples rely on the frameworks being built so you can either download the precompiled frameworks or [build them on your own](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
@@ -49,20 +49,20 @@ For Hello World you only need to understand a few lines of code:
 | `AudioKit.start()`                       | Start up AudioKit            |
 | `oscillator.start()`                     | Start the oscillator         |
 | `oscillator.frequency = random(220,880)` | Set oscillator parameters    |
-| `oscillator.start()`                     | Start the oscillator         |
+| `oscillator.stop()`                      | Stop the oscillator          |
 
 ## Playgrounds
 
 We have so many playground pages that it became difficult to maintain them in one playground, so we separated them into categories:
 
-| Playgrounds | |
-|-------------|-|
-| Basics | Making your first sounds and connecting components |
-| Synthesis | Oscillators, physical models, generative audio |
-| Playback | Audio files, Sequencing, Sampling |
-| Effects | Processing sound |
-| Filters | Frequency range modification |
-| Analysis | Pitch and loudness detection, FFT spectrum analysis|
+| Playgrounds |                                                    |
+|-------------|----------------------------------------------------|
+| Basics      | Making your first sounds and connecting components |
+| Synthesis   | Oscillators, physical models, generative audio     |
+| Playback    | Audio files, Sequencing, Sampling                  |
+| Effects     | Processing sound                                   |
+| Filters     | Frequency range modification                       |
+| Analysis    | Pitch and loudness detection, FFT spectrum analysis|
 
 Since AudioKit 3.6, we provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn the API in a fun way!
 
@@ -85,7 +85,7 @@ But, there are many other important people in our family:
 
 | Group | Description |
 |-------|-------------|
-|[Core Team](https://github.com/orgs/AudioKit/people) | The biggest contributors to AudioKit |
-|[Slack](https://audiokit.slack.com) | Pro-level developer chat group, contact Aure for an in invitation. |
+|[Core Team](https://github.com/orgs/AudioKit/people)                    | The biggest contributors to AudioKit! |
+|[Slack](https://audiokit.slack.com)                                     | Pro-level developer chat group, contact a core team member for an in invitation. |
 |[Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors)| A list of all people who have submitted code to AudioKit.|
-|[Google Group](https://groups.google.com/forum/#!forum/audiokit)| Support forum for all users |
+|[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | Support forum and mailing list for all users. |
