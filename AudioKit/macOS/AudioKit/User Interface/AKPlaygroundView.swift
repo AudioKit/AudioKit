@@ -44,7 +44,7 @@ open class AKPlaygroundView: NSView {
     open func setup() {}
 
     override open func draw(_ dirtyRect: NSRect) {
-        let backgroundColor = #colorLiteral(red: 0.1019607843, green: 0.1019607843, blue: 0.1019607843, alpha: 1)
+        let backgroundColor = AKStylist.sharedInstance.bgColor
         backgroundColor.setFill()
         NSRectFill(dirtyRect)
         super.draw(dirtyRect)
@@ -58,7 +58,7 @@ open class AKPlaygroundView: NSView {
         newLabel.drawsBackground = false
         newLabel.isBezeled = false
         newLabel.alignment = .center
-        newLabel.textColor = .white
+        newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = NSFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
         return newLabel
@@ -71,7 +71,7 @@ open class AKPlaygroundView: NSView {
         newLabel.isEditable = false
         newLabel.drawsBackground = false
         newLabel.isBezeled = false
-        newLabel.textColor = .white
+        newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = NSFont.systemFont(ofSize: 18)
         self.addSubview(newLabel)
         return newLabel

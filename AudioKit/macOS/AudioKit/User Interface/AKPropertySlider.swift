@@ -19,11 +19,6 @@ public enum AKPropertySliderStyle {
     }
 }
 
-public enum AKPropertySliderTheme {
-    case light
-    case dark
-}
-
 @IBDesignable public class AKPropertySlider: NSView {
     override public func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
         return true
@@ -87,11 +82,8 @@ public enum AKPropertySliderTheme {
     @IBInspectable open var bubbleFontSize: CGFloat = 12
     
     // Slider style
-    @IBInspectable open var sliderStyle: AKPropertySliderStyle = .tabIndicator
-    
-    // Slider theme
-    @IBInspectable open var sliderTheme: AKPropertySliderTheme = .light
-    
+    open var sliderStyle: AKPropertySliderStyle = .tabIndicator
+
     // Border width
     @IBInspectable open var sliderBorderWidth: CGFloat = 3.0
     
@@ -187,39 +179,39 @@ public enum AKPropertySliderTheme {
         }
     }
     
-    open func bgColorForTheme(_ theme: AKPropertySliderTheme) -> NSColor {
+    var bgColorForTheme: NSColor {
         if let bgColor = bgColor { return bgColor }
         
-        switch theme {
-        case .light: return NSColor(white: 0.7, alpha: 1.0)
-        case .dark: return NSColor(white: 0.3, alpha: 1.0)
+        switch AKStylist.sharedInstance.theme {
+        case .basic: return NSColor(white: 0.3, alpha: 1.0)
+        case .midnight: return NSColor(white: 0.7, alpha: 1.0)
         }
     }
     
-    open func indicatorBorderColorForTheme(_ theme: AKPropertySliderTheme) -> NSColor {
+    var indicatorBorderColorForTheme: NSColor {
         if let indicatorBorderColor = indicatorBorderColor { return indicatorBorderColor }
         
-        switch theme {
-        case .light: return NSColor.white
-        case .dark: return NSColor(white: 0.3, alpha: 1.0)
+        switch AKStylist.sharedInstance.theme {
+        case .basic: return NSColor(white: 0.3, alpha: 1.0)
+        case .midnight: return NSColor.white
         }
     }
     
-    open func sliderBorderColorForTheme(_ theme: AKPropertySliderTheme) -> NSColor {
+    var sliderBorderColorForTheme: NSColor {
         if let sliderBorderColor = sliderBorderColor { return sliderBorderColor }
         
-        switch theme {
-        case .light: return NSColor(white: 0.9, alpha: 1.0)
-        case .dark: return NSColor(white: 0.2, alpha: 1.0)
+        switch AKStylist.sharedInstance.theme {
+        case .basic: return NSColor(white: 0.2, alpha: 1.0)
+        case .midnight: return NSColor(white: 0.9, alpha: 1.0)
         }
     }
     
-    open func textColorForTheme(_ theme: AKPropertySliderTheme) -> NSColor {
+    var textColorForTheme: NSColor {
         if let textColor = textColor { return textColor }
         
-        switch theme {
-        case .light: return NSColor.white
-        case .dark: return NSColor(white: 0.3, alpha: 1.0)
+        switch AKStylist.sharedInstance.theme {
+        case .basic: return NSColor(white: 0.3, alpha: 1.0)
+        case .midnight: return NSColor.white
         }
     }
     /// Draw the slider
@@ -247,7 +239,7 @@ public enum AKPropertySliderTheme {
         let height = self.frame.height
         
         // Calculate name label height
-        let themeTextColor = textColorForTheme(sliderTheme)
+        let themeTextColor = textColorForTheme
         
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
@@ -292,7 +284,7 @@ public enum AKPropertySliderTheme {
         //// sliderArea Drawing
         let sliderAreaRect = NSRect(x: sliderBorderWidth / 2.0, y: sliderOrigin, width: width - sliderBorderWidth, height: sliderHeight)
         let sliderAreaPath = NSBezierPath(roundedRect: sliderAreaRect, xRadius: sliderCornerRadius, yRadius: sliderCornerRadius)
-        bgColorForTheme(sliderTheme).setFill()
+        bgColorForTheme.setFill()
         sliderAreaPath.fill()
         sliderAreaPath.lineWidth = sliderBorderWidth
         
@@ -304,7 +296,7 @@ public enum AKPropertySliderTheme {
         valueAreaPath.fill()
         
         // sliderArea Border
-        sliderBorderColorForTheme(sliderTheme).setStroke()
+        sliderBorderColorForTheme.setStroke()
         sliderAreaPath.stroke()
         
         // Indicator view drawing
@@ -313,7 +305,7 @@ public enum AKPropertySliderTheme {
         color.setFill()
         indicatorPath.fill()
         indicatorPath.lineWidth = sliderBorderWidth
-        indicatorBorderColorForTheme(sliderTheme).setStroke()
+        indicatorBorderColorForTheme.setStroke()
         indicatorPath.stroke()
         
         //// valueLabel Drawing
@@ -348,7 +340,7 @@ public enum AKPropertySliderTheme {
             color.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
-            indicatorBorderColorForTheme(sliderTheme).setStroke()
+            indicatorBorderColorForTheme.setStroke()
             bubblePath.stroke()
             
             context.saveGState()
