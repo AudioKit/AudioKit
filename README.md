@@ -18,22 +18,11 @@ Did you already build an app with AudioKit?  Let us know and we'll highlight it 
 
 If you need support, the best thing to do is to join [AudioKit's google group](https://groups.google.com/forum/#!forum/audiokit).
 
-### AudioKit Version 3, Swift 3
-The third major revision of AudioKit has been completely rewritten to offer the following improvements over previous versions:
-
-* Installation as a framework
-* Integrated with CoreAudio audio units from Apple
-* No external dependencies
-* Can use opcodes from Faust, Chuck, STK, Csound, and others
-* Many included Xcode Swift playgrounds
-
-As of AudioKit 3.4, we have moved to support Swift 3 exclusively. You will therefore need to use Xcode 8 (or above) to compile or use AudioKit in your projects and convert your Swift 2 projects to Swift 3.
-
 ## Key Concepts
 
 | Nodes | Operations | Taps |
 |-------|------------|------|
-| Nodes are interconnectable signal processing components.  Each node has at least an output and most likely also has parameters.  If it is processing another signal, the node will also have an input. | Operations are similar to nodes, except that they are a series of signal processing components that exist inside of a single node.  Operations can be used as parameters to other operations to create very complex processing results. | Taps use nodes as their data source, but do not redirect the audio signal away from the source nodes output into other nodes.   This allows a tap to be moved from node to node more freely and can be added after the audio signal path has started.
+| Nodes are interconnectable signal processing components.  Each node has an output and usually some parameters.  If the nodes processes another signal, the node will also have an `input`. | Operations are similar to nodes, except that they are signal processing components that exist inside of a single node.  Operations can be used as parameters to other operations to create very complex results. | Taps use nodes as their data source, but do not redirect the audio signal away from the source nodes output into other nodes. This allows a tap to be moved from node to node more freely and can be added after the audio signal path has started.
 
 ## Installation
 
@@ -47,11 +36,9 @@ AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) 
 | [Cocoapods](https://cocoapods.org/)              | `Podfile`  | `pod 'AudioKit', '~> 3.7'`   |
 
 ## Example Code
-There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They simply play an oscillator and display the waveform.
+There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display the waveform. The examples rely on the frameworks being built so you can either download the precompiled frameworks or [build them on your own](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
 
-The examples rely on the frameworks being built so you can either download the precompiled frameworks or [build them on your own](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
-
-Hello World basically consists of just a few sections of code:
+For Hello World you only need to understand a few lines of code:
 
 | Code                                     | Description                  |
 |------------------------------------------|------------------------------|
@@ -84,9 +71,9 @@ Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywend
 
 ## Contributing Code
 
-We welcome new contributors but we realize it can be daunting to suggest updates as a newcomer.  Here's what we are currently working on:  [AudioKit Works in Progress](https://github.com/audiokit/AudioKit/projects)
+AudioKit is always being improved by our core team and our users.   [This is a rough outline of what we're working on currently.](https://github.com/audiokit/AudioKit/projects)
 
-Ready to send us a pull request? Please make sure your request is based on the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch of the repository as `master` only holds stable releases.
+When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to master), make your changes, and send us a pull request.
 
 ## About Us
 
