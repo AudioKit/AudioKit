@@ -422,7 +422,8 @@
         channelCount += bufferList->mBuffers[i].mNumberChannels;
     }
     
-    free(bufferList), bufferList = NULL;
+    free(bufferList);
+    bufferList = NULL;
     
     return channelCount;
 }
