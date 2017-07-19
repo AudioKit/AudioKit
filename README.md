@@ -11,8 +11,10 @@ AudioKit V3.7
 
 AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
 
-* [AudioKitPro.com](http://audiokitpro.com/) - AudioKit Features, Blog, and Highlighted Apps
-* [AudioKit.io](http://audiokit.io/) - AudioKit Developer Documentation
+| [AudioKitPro.com](http://audiokitpro.com/)|[AudioKit.io](http://audiokit.io/)|
+|:--:|:--:|
+| [![AudioKitPro](http://audiokit.io/images/audiokitpro.png)](http://audiokitpro.com) | [![AudioKit.io](http://audiokit.io/images/audiokitio.png)](http://audiokit.io) |
+|AudioKit Features, Blog, and Highlighted Apps |AudioKit Developer Documentation |
 
 Did you already build an app with AudioKit?  Let us know and we'll highlight it on AudioKitPro.com.
 
