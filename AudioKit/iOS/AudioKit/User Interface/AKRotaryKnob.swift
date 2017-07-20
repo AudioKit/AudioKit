@@ -149,6 +149,14 @@ public enum AKRotaryKnobStyle {
         clipsToBounds = true
     }
     
+    
+    /// Give the slider a random value
+    open func randomize() -> Double {
+        value = random(minimum, maximum)
+        setNeedsDisplay()
+        return value
+    }
+    
     func angleBetween(pointA: CGPoint, pointB: CGPoint) -> Double {
         let dx = Double(pointB.x - pointA.x)
         let dy = Double(pointB.y - pointA.y)
