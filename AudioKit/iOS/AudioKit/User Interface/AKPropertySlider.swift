@@ -19,11 +19,6 @@ public enum AKPropertySliderStyle {
     }
 }
 
-public enum AKPropertySliderTheme {
-    case light
-    case dark
-}
-
 /// Simple slider interface for AudioKit properties
 @IBDesignable open class AKPropertySlider: UIView {
     
@@ -84,10 +79,7 @@ public enum AKPropertySliderTheme {
 
     // Slider style
     open var sliderStyle: AKPropertySliderStyle = AKPropertySliderStyle.tabIndicator
-    
-    // Slider theme
-    open var sliderTheme: AKPropertySliderTheme = AKPropertySliderTheme.light
-    
+
     // Border width
     @IBInspectable open var sliderBorderWidth: CGFloat = 3.0
     
@@ -211,39 +203,39 @@ public enum AKPropertySliderTheme {
         }
     }
     
-    open func bgColorForTheme(_ theme: AKPropertySliderTheme) -> UIColor {
+    var bgColorForTheme: AKColor {
         if let bgColor = bgColor { return bgColor }
-        
-        switch theme {
-            case .light: return UIColor(white: 0.7, alpha: 1.0)
-            case .dark: return UIColor(white: 0.3, alpha: 1.0)
+
+        switch AKStylist.sharedInstance.theme {
+        case .basic: return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight: return AKColor(white: 0.7, alpha: 1.0)
         }
     }
 
-    open func indicatorBorderColorForTheme(_ theme: AKPropertySliderTheme) -> UIColor {
+    var indicatorBorderColorForTheme: AKColor {
         if let indicatorBorderColor = indicatorBorderColor { return indicatorBorderColor }
-        
-        switch theme {
-            case .light: return UIColor.white
-            case .dark: return UIColor(white: 0.3, alpha: 1.0)
+
+        switch AKStylist.sharedInstance.theme {
+        case .basic: return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight: return AKColor.white
         }
     }
-    
-    open func sliderBorderColorForTheme(_ theme: AKPropertySliderTheme) -> UIColor {
+
+    var sliderBorderColorForTheme: AKColor {
         if let sliderBorderColor = sliderBorderColor { return sliderBorderColor }
-        
-        switch theme {
-        case .light: return UIColor(white: 0.9, alpha: 1.0)
-        case .dark: return UIColor(white: 0.2, alpha: 1.0)
+
+        switch AKStylist.sharedInstance.theme {
+        case .basic: return AKColor(white: 0.2, alpha: 1.0)
+        case .midnight: return AKColor(white: 0.9, alpha: 1.0)
         }
     }
-    
-    open func textColorForTheme(_ theme: AKPropertySliderTheme) -> UIColor {
+
+    var textColorForTheme: AKColor {
         if let textColor = textColor { return textColor }
-        
-        switch theme {
-        case .light: return UIColor.white
-        case .dark: return UIColor(white: 0.3, alpha: 1.0)
+
+        switch AKStylist.sharedInstance.theme {
+        case .basic: return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight: return AKColor.white
         }
     }
     
@@ -275,7 +267,7 @@ public enum AKPropertySliderTheme {
         let height = self.frame.height
         
         // Calculate name label height
-        let themeTextColor = textColorForTheme(sliderTheme)
+        let themeTextColor = textColorForTheme
         
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
@@ -318,7 +310,7 @@ public enum AKPropertySliderTheme {
         //// sliderArea Drawing
         let sliderAreaRect = CGRect(x: sliderBorderWidth / 2.0, y: sliderOrigin, width: width - sliderBorderWidth, height: sliderHeight)
         let sliderAreaPath = UIBezierPath(roundedRect: sliderAreaRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
-        bgColorForTheme(sliderTheme).setFill()
+        bgColorForTheme.setFill()
         sliderAreaPath.fill()
         sliderAreaPath.lineWidth = sliderBorderWidth
 
@@ -331,7 +323,7 @@ public enum AKPropertySliderTheme {
         valueAreaPath.fill()
         
         // sliderArea Border
-        sliderBorderColorForTheme(sliderTheme).setStroke()
+        sliderBorderColorForTheme.setStroke()
         sliderAreaPath.stroke()
         
         // Indicator view drawing
@@ -340,7 +332,7 @@ public enum AKPropertySliderTheme {
         sliderColor.setFill()
         indicatorPath.fill()
         indicatorPath.lineWidth = sliderBorderWidth
-        indicatorBorderColorForTheme(sliderTheme).setStroke()
+        indicatorBorderColorForTheme.setStroke()
         indicatorPath.stroke()
 
         //// valueLabel Drawing
@@ -375,7 +367,7 @@ public enum AKPropertySliderTheme {
             sliderColor.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
-            indicatorBorderColorForTheme(sliderTheme).setStroke()
+            indicatorBorderColorForTheme.setStroke()
             bubblePath.stroke()
             
             context.saveGState()
