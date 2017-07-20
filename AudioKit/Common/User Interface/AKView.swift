@@ -51,13 +51,17 @@ public class AKStylist {
         
         colorCycle = Dictionary()
         colorCycle[.basic] = [AKColor.red, AKColor.green]
-        colorCycle[.midnight] = [AKColor.orange, AKColor.lightGray]
+        colorCycle[.midnight] = [AKColor(red: 66.0/255.0, green: 129.0/255.0, blue: 164.0/244.0, alpha: 1.0),
+                                 AKColor(red: 254.0/255.0, green: 147.0/255.0, blue: 140.0/244.0, alpha: 1.0),
+                                 AKColor(red: 230.0/255.0, green: 184.0/255.0, blue: 156.0/244.0, alpha: 1.0),
+                                 AKColor(red: 234.0/255.0, green: 210.0/255.0, blue: 172.0/244.0, alpha: 1.0),
+                                 AKColor(red: 156.0/255.0, green: 175.0/255.0, blue: 183.0/244.0, alpha: 1.0)]
     }
 
     public var nextColor: AKColor {
         get {
             counter += 1
-            if counter >= colorCycle.count {
+            if counter >= colorCycle[theme]!.count {
                 counter = 0
             }
             return colorCycle[theme]![counter]
