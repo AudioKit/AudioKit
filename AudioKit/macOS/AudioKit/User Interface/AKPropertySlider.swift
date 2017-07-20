@@ -61,19 +61,19 @@ public enum AKPropertySliderStyle {
     @IBInspectable open var format: String = "%0.3f"
     
     /// Background color
-    @IBInspectable open var bgColor: NSColor?
+    @IBInspectable open var bgColor: AKColor?
     
     /// Slider border color
-    @IBInspectable open var sliderBorderColor: NSColor?
+    @IBInspectable open var sliderBorderColor: AKColor?
     
     /// Indicator border color
-    @IBInspectable open var indicatorBorderColor: NSColor?
+    @IBInspectable open var indicatorBorderColor: AKColor?
     
     /// Slider overlay color
-    @IBInspectable open var color: NSColor = .red
+    @IBInspectable open var color: AKColor = .red
     
     /// Text color
-    @IBInspectable open var textColor: NSColor?
+    @IBInspectable open var textColor: AKColor?
     
     /// Font size
     @IBInspectable open var fontSize: CGFloat = 20
@@ -108,7 +108,7 @@ public enum AKPropertySliderStyle {
                 value: Double,
                 minimum: Double = 0,
                 maximum: Double = 1,
-                color: NSColor = NSColor.red,
+                color: AKColor = AKColor.red,
                 frame: CGRect = CGRect(x: 0, y: 0, width: AKPropertySlider.defaultSize.width, height:  AKPropertySlider.defaultSize.height),
                 callback: @escaping (_ x: Double) -> Void) {
         self.value = value
@@ -179,39 +179,39 @@ public enum AKPropertySliderStyle {
         }
     }
     
-    var bgColorForTheme: NSColor {
+    var bgColorForTheme: AKColor {
         if let bgColor = bgColor { return bgColor }
         
         switch AKStylist.sharedInstance.theme {
-        case .basic: return NSColor(white: 0.3, alpha: 1.0)
-        case .midnight: return NSColor(white: 0.7, alpha: 1.0)
+        case .basic: return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight: return AKColor(white: 0.7, alpha: 1.0)
         }
     }
     
-    var indicatorBorderColorForTheme: NSColor {
+    var indicatorBorderColorForTheme: AKColor {
         if let indicatorBorderColor = indicatorBorderColor { return indicatorBorderColor }
         
         switch AKStylist.sharedInstance.theme {
-        case .basic: return NSColor(white: 0.3, alpha: 1.0)
-        case .midnight: return NSColor.white
+        case .basic: return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight: return AKColor.white
         }
     }
     
-    var sliderBorderColorForTheme: NSColor {
+    var sliderBorderColorForTheme: AKColor {
         if let sliderBorderColor = sliderBorderColor { return sliderBorderColor }
         
         switch AKStylist.sharedInstance.theme {
-        case .basic: return NSColor(white: 0.2, alpha: 1.0)
-        case .midnight: return NSColor(white: 0.9, alpha: 1.0)
+        case .basic: return AKColor(white: 0.2, alpha: 1.0)
+        case .midnight: return AKColor(white: 0.9, alpha: 1.0)
         }
     }
     
-    var textColorForTheme: NSColor {
+    var textColorForTheme: AKColor {
         if let textColor = textColor { return textColor }
         
         switch AKStylist.sharedInstance.theme {
-        case .basic: return NSColor(white: 0.3, alpha: 1.0)
-        case .midnight: return NSColor.white
+        case .basic: return AKColor(white: 0.3, alpha: 1.0)
+        case .midnight: return AKColor.white
         }
     }
     /// Draw the slider

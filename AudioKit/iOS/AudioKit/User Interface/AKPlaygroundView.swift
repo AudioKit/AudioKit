@@ -24,7 +24,7 @@ open class AKPlaygroundView: UIView {
     /// Initialize the playground view
     public override init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
-        self.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        self.backgroundColor = AKStylist.sharedInstance.bgColor
         setup()
     }
 
@@ -40,7 +40,7 @@ open class AKPlaygroundView: UIView {
     open func addTitle(_ text: String) -> UILabel {
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text
-        newLabel.textColor = .white
+        newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.textAlignment = .center
         newLabel.font = UIFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
@@ -53,7 +53,7 @@ open class AKPlaygroundView: UIView {
         let newLabel = UILabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text
-        newLabel.textColor = .white
+        newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.addSubview(newLabel)
 
