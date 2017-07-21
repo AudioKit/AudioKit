@@ -20,6 +20,8 @@ class AKTestCase: XCTestCase {
         return AudioKit.tester?.MD5 ?? ""
     }
 
+    var afterStart: ()->Void = {}
+
     func auditionTest() {
         if let existingOutput = output {
             AudioKit.auditionTest(node: existingOutput, duration: duration)
@@ -28,7 +30,7 @@ class AKTestCase: XCTestCase {
 
     func AKTestMD5(_ md5: String, alternate: String = "") {
         if let existingOutput = output {
-            AudioKit.test(node: existingOutput, duration: duration)
+            AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
         let  localMD5 = MD5
         XCTAssertTrue([md5, alternate].contains(localMD5) && localMD5 != sineOscillatorMD5 && localMD5 != "", localMD5)

@@ -330,7 +330,7 @@ extension AVAudioEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    open static func test(node: AKNode, duration: Double) {
+    open static func test(node: AKNode, duration: Double, afterStart: ()->Void = {}) {
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
@@ -347,7 +347,7 @@ extension AVAudioEngine {
             } catch {
                 fatalError("could not enable manual rendering mode, \(error)")
             }
-            
+            afterStart()
             tester?.play()
             
             let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)
