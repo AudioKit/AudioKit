@@ -12,9 +12,7 @@ import XCTest
 class AKFormantFilterTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKFormantFilter(input)
-        input.start()
         AKTestNoEffect()
     }
 }

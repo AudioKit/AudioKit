@@ -12,9 +12,7 @@ import XCTest
 class AKRingModulatorTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKRingModulator(input)
-        input.start()
         AKTestMD5("3dddbc3f835b614b4c08a312e7c5670d")
     }
 }

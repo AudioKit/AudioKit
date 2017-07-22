@@ -17,14 +17,11 @@ class AKZitaReverbTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKZitaReverb(input)
-        input.start()
         AKTestMD5("db8e3a4acca377528667c3babbd80bbe")
     }
 
     func testParametersSetOnInit() {
-        let input = AKOscillator()
         output = AKZitaReverb(input,
                               predelay: 10,
                               crossoverFrequency: 200,
@@ -37,12 +34,10 @@ class AKZitaReverbTests: AKTestCase {
                               equalizerLevel2: -1,
                               dryWetMix: 0.5)
 
-        input.start()
         AKTestMD5("699a91ae893b3899a2f4711f7edca067")
     }
 
     func testParametersSetAfterInit() {
-        let input = AKOscillator()
         let effect = AKZitaReverb(input)
         effect.predelay = 10
         effect.crossoverFrequency = 200
@@ -55,7 +50,6 @@ class AKZitaReverbTests: AKTestCase {
         effect.equalizerLevel2 = -1
         effect.dryWetMix = 0.5
         output = effect
-        input.start()
         AKTestMD5("699a91ae893b3899a2f4711f7edca067")
     }
 

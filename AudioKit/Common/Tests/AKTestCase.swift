@@ -16,6 +16,8 @@ class AKTestCase: XCTestCase {
 
     let sineOscillatorMD5 = "30e9a7639b3af4f8159e307bf48a2844"
 
+    var input = AKOscillator()
+
     var MD5: String {
         return AudioKit.tester?.MD5 ?? ""
     }
@@ -38,7 +40,7 @@ class AKTestCase: XCTestCase {
 
     func AKTestMD5Not(_ md5: String) {
         if let existingOutput = output {
-            AudioKit.test(node: existingOutput, duration: duration)
+            AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
         let  localMD5 = MD5
         XCTAssertFalse(md5 == localMD5, localMD5)
@@ -46,7 +48,7 @@ class AKTestCase: XCTestCase {
 
     func AKTestNoEffect() {
         if let existingOutput = output {
-            AudioKit.test(node: existingOutput, duration: duration)
+            AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
         let  localMD5 = MD5
         XCTAssertTrue(localMD5 == sineOscillatorMD5, localMD5)
@@ -54,6 +56,7 @@ class AKTestCase: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        afterStart = { self.input.start() }
         // This method is called before the invocation of each test method in the class.
     }
 

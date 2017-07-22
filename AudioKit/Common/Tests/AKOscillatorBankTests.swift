@@ -11,7 +11,7 @@ import XCTest
 
 class AKOscillatorBankTests: AKTestCase {
 
-    var input: AKOscillatorBank!
+    var inputBank: AKOscillatorBank!
 
     override func setUp() {
         super.setUp()
@@ -19,62 +19,62 @@ class AKOscillatorBankTests: AKTestCase {
         duration = 1.0
 
         afterStart = {
-            self.input.play(noteNumber: 60, velocity: 120)
-            self.input.play(noteNumber: 64, velocity: 110)
-            self.input.play(noteNumber: 67, velocity: 100)
+            self.inputBank.play(noteNumber: 60, velocity: 120)
+            self.inputBank.play(noteNumber: 64, velocity: 110)
+            self.inputBank.play(noteNumber: 67, velocity: 100)
         }
     }
 
     func testDefault() {
-        input = AKOscillatorBank()
-        output = input
+        inputBank = AKOscillatorBank()
+        output = inputBank
         AKTestMD5("0145ebc17e8d2c630c4e147dfc6fc91e")
     }
 
     func testParameters() {
-        input = AKOscillatorBank(waveform: AKTable(.square),
-                                 attackDuration: 0.123,
-                                 decayDuration: 0.234,
-                                 sustainLevel: 0.345,
-                                 detuningOffset: 1,
-                                 detuningMultiplier: 1.1)
-        output = input
+        inputBank = AKOscillatorBank(waveform: AKTable(.square),
+                                     attackDuration: 0.123,
+                                     decayDuration: 0.234,
+                                     sustainLevel: 0.345,
+                                     detuningOffset: 1,
+                                     detuningMultiplier: 1.1)
+        output = inputBank
         AKTestMD5("6444a94a67173f9dbc91a1ff9cfbee34")
     }
 
     func testWaveform() {
-        input = AKOscillatorBank(waveform: AKTable(.square))
-        output = input
+        inputBank = AKOscillatorBank(waveform: AKTable(.square))
+        output = inputBank
         AKTestMD5("9c29b663765865836602af149220f22c")
     }
 
     func testAttackDuration() {
-        input = AKOscillatorBank(waveform: AKTable(.square), attackDuration: 0.123)
-        output = input
+        inputBank = AKOscillatorBank(waveform: AKTable(.square), attackDuration: 0.123)
+        output = inputBank
         AKTestMD5("e364f86b7847ac402a64da3b323ac6ea")
     }
 
     func testDecayDuration() {
-        input = AKOscillatorBank(waveform: AKTable(.square), decayDuration: 0.234)
-        output = input
+        inputBank = AKOscillatorBank(waveform: AKTable(.square), decayDuration: 0.234)
+        output = inputBank
         AKTestMD5("4f288b9cd6cbfc85603166706e69baf2")
     }
 
     func testSustainLevel() {
-        input = AKOscillatorBank(waveform: AKTable(.square), sustainLevel: 0.345)
-        output = input
+        inputBank = AKOscillatorBank(waveform: AKTable(.square), sustainLevel: 0.345)
+        output = inputBank
         AKTestMD5("fd9e77b16aa056686c8802ff84f63e58")
     }
 
     func testDetuningOffset() {
-        input = AKOscillatorBank(waveform: AKTable(.square), detuningOffset: 1)
-        output = input
+        inputBank = AKOscillatorBank(waveform: AKTable(.square), detuningOffset: 1)
+        output = inputBank
         AKTestMD5("684403d76ed9051499e33a59509ac613")
     }
 
     func testDetuningMultiplier() {
-        input = AKOscillatorBank(waveform: AKTable(.square), detuningMultiplier: 1.1)
-        output = input
+        inputBank = AKOscillatorBank(waveform: AKTable(.square), detuningMultiplier: 1.1)
+        output = inputBank
         AKTestMD5("a9336ad1b3f5ffba40b89e7e2a6237e6")
     }
 }
