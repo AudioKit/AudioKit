@@ -45,7 +45,7 @@ class PlaygroundView: AKPlaygroundView {
             value: effect.parameters[1],
             color: AKColor.red
         ) { sliderValue in
-            effect.parameters[0] = sliderValue
+            effect.parameters[1] = sliderValue
         })
     }
 
