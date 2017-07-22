@@ -9,20 +9,49 @@
 import AudioKit
 import XCTest
 
-class SmoothDelayTests: AKTestCase {
+//class SmoothDelayTests: AKTestCase {
+//
+//    override func setUp() {
+//        super.setUp()
+//        duration = 4.0
+//    }
+//
+//    func testDefault() {
+//////        output = AKOperationEffect(input) { input, _ in
+//            return input.smoothDelay()
+//        }
+//        AKTestMD5("")
+//    }
+//
+//    func testParameters() {
+//////        output = AKOperationEffect(input) { input, _ in
+//            return input.smoothDelay(time: 0.1,
+//                                     samples: 512,
+//                                     feedback: 0.5,
+//                                     maximumDelayTime: 1)
+//        }
+//        AKTestMD5("")
+//    }
+//
+//    func testTime() {
+//////        output = AKOperationEffect(input) { input, _ in
+//            return input.smoothDelay(time: 0.1)
+//        }
+//        AKTestMD5("")
+//    }
+//
+//    func testSamples() {
+//////        output = AKOperationEffect(input) { input, _ in
+//            return input.smoothDelay(samples: 512)
+//        }
+//        AKTestMD5("")
+//    }
+//
+//    func testFeedback() {
+//////        output = AKOperationEffect(input) { input, _ in
+//            return input.smoothDelay(feedback: 0.5)
+//        }
+//        AKTestMD5("")
+//    }
+//}
 
-    override func setUp() {
-        super.setUp()
-        duration = 1.0
-    }
-
-    func testDefault() {
-        let input = AKOscillator()
-        input.start()
-        output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay(time: 0.1, maximumDelayTime: 0.1)
-        }
-        AKTestMD5("b8a3a30855ff5365fb5fd6b6cb48cfe3")
-    }
-
-}

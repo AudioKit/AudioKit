@@ -17,8 +17,6 @@ class HighPassFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.highPassFilter()
         }

@@ -5,8 +5,15 @@
 We ensure all the included projects build by automatically testing them using Travis Continuous Integration.  We use unit tests to ensure that the nodes and operations in AudioKit work perfectly.  If a change is made to AudioKit to breaks something, we're automatically emailed.
 
 Running the [test suite](https://github.com/AudioKit/AudioKit/tree/develop/AudioKit/Common/Tests) verifies the following test cases:
-
+<table>
+<tr>
+<th>Node Tests</th>
+<th>Operation Tests</th>
+</tr>
+<tr></tr>
+<td valign=top>
 <pre>
+
 AKAmplitudeEnvelopeTests
     ✓ testAttack
     ✓ testDecay
@@ -237,13 +244,17 @@ AKOscillatorBankTests
     ✓ testDecayDuration
     ✓ testDefault
     ✓ testDetuningMultiplier
+    ✓ testDetuningOffset
     ✓ testParameters
     ✓ testSustainLevel
     ✓ testWaveform
 
 AKOscillatorTests
+    ✓ testAmpitude
+    ✓ testDefault
+    ✓ testFrequency
+    ✓ testParameters
     ✓ testParametersSetAfterInit
-    ✓ testParametersSetOnInit
 
 AKPWMOscillatorBankTests
     ✓ testAttackDuration
@@ -256,9 +267,14 @@ AKPWMOscillatorBankTests
     ✓ testSustainLevel
 
 AKPWMOscillatorTests
+    ✓ testAmplitude
     ✓ testDefault
+    ✓ testDetuningMultiplier
+    ✓ testDetuningOffset
+    ✓ testFrequency
+    ✓ testParameters
     ✓ testParametersSetAfterInit
-    ✓ testParametersSetOnInit
+    ✓ testPulseWidth
 
 AKPeakLimiterTests
     ✓ testAttackTime
@@ -286,9 +302,14 @@ AKPhaseDistortionOscillatorBankTests
     ✓ testWaveform
 
 AKPhaseDistortionOscillatorTests
+    ✓ testAmplitude
     ✓ testDefault
+    ✓ testDetuningMultiplier
+    ✓ testDetuningOffset
+    ✓ testFrequency
+    ✓ testParameters
     ✓ testParametersSetAfterInit
-    ✓ testParametersSetOnInit
+    ✓ testPhaseDistortion
 
 AKPinkNoiseTests
     ✓ testAmplitude
@@ -376,8 +397,15 @@ AKZitaReverbTests
     ✓ testParametersSetAfterInit
     ✓ testParametersSetOnInit
 
+</pre>
+</td>
+<td valign=top>
+<pre>
+
 AutoWahTests
+    ✓ testAmplitude
     ✓ testDefault
+    ✓ testWah
 
 BitcrushTests
     ✓ testBitDepth
@@ -386,12 +414,10 @@ BitcrushTests
     ✓ testSampleRate
 
 ClipTests
+    ✓ testClip
     ✓ testDefault
 
 DCBlockTests
-    ✓ testDefault
-
-DelayTests
     ✓ testDefault
 
 DistortTests
@@ -403,6 +429,7 @@ FMOscillatorTests
 
 HighPassButterworthFilterTests
     ✓ testDefault
+
 HighPassFilterTests
     ✓ testDefault
 
@@ -441,7 +468,7 @@ ResonantFilterTests
 
 ReverberateWithChowningTests
     ✓ testDefault
-
+   
 ReverberateWithCombFilterTests
     ✓ testDefault
 
@@ -458,9 +485,6 @@ SawtoothWaveTests
     ✓ testDefault
 
 SineWaveTests
-    ✓ testDefault
-
-SmoothDelayTests
     ✓ testDefault
 
 SquareTests
@@ -488,6 +512,8 @@ WhiteNoiseTests
     ✓ testAmplitude
     ✓ testDefault
     ✓ testParameterSweep
-
-Executed 298 tests, with 0 failures (0 unexpected) in 5.504 (5.819) seconds
+</td>
+</tr>
+</table>
+Executed 312 tests, with 0 failures (0 unexpected) in 4.615 (5.032) seconds
 </pre>

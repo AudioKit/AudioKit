@@ -12,16 +12,12 @@ import XCTest
 class AKFlatFrequencyResponseReverbTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKFlatFrequencyResponseReverb(input)
-        input.start()
         AKTestMD5("628cf85086dfdbab1c4e98550b5e716c")
     }
 
     func testReverbDuration() {
-        let input = AKOscillator()
         output = AKFlatFrequencyResponseReverb(input, reverbDuration: 0.1)
-        input.start()
         AKTestMD5("df8f2efe60adaac9f29d73d1fab2223c")
     }
 }

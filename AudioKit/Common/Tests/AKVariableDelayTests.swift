@@ -17,26 +17,20 @@ class AKVariableDelayTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKVariableDelay(input)
-        input.start()
         AKTestMD5("9df204fbc98bb8965081cb30a89715fc")
     }
 
     func testParametersSetOnInit() {
-        let input = AKOscillator()
         output = AKVariableDelay(input, time: 0.123_4, feedback: 0.95)
-        input.start()
         AKTestMD5("0f1ceccfe3fdf76dffd588771b9baf6f")
     }
 
     func testParametersSetAfterInit() {
-        let input = AKOscillator()
         let effect = AKVariableDelay(input)
         effect.time = 0.123_4
         effect.feedback = 0.95
         output = effect
-        input.start()
         AKTestMD5("0f1ceccfe3fdf76dffd588771b9baf6f")
     }
 

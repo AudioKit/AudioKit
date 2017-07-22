@@ -12,8 +12,6 @@ import XCTest
 class BitcrushTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush()
         }
@@ -21,8 +19,6 @@ class BitcrushTests: AKTestCase {
     }
 
     func testParameters() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush(bitDepth: 7, sampleRate: 4000)
         }
@@ -30,8 +26,6 @@ class BitcrushTests: AKTestCase {
     }
 
     func testBitDepth() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush(bitDepth: 7)
         }
@@ -39,8 +33,6 @@ class BitcrushTests: AKTestCase {
     }
 
     func testSampleRate() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush(sampleRate: 4000)
         }
