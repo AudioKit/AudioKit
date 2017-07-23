@@ -194,7 +194,7 @@
                                             <action selector="filterToggled:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="9hw-rw-I2C"/>
                                         </connections>
                                     </button>
-                                    <view opaque="NO" tag="108" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1H-Yq-qu3" userLabel="OscMix Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="108" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1H-Yq-qu3" userLabel="OscMix Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="289" y="310" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="YJN-lS-ZMp"/>
@@ -257,7 +257,7 @@
                                             <constraint firstAttribute="height" constant="65" id="R8K-Hd-mfa"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="122" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6P-WU-WnB" userLabel="Master Vol Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="122" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6P-WU-WnB" userLabel="Master Vol Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="470" y="7" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="Nrc-4f-m47"/>
@@ -384,18 +384,6 @@
                                             <action selector="displayModeToggled:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="m5i-e6-vWT"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEz-py-yva" userLabel="AK Home Btn">
-                                        <rect key="frame" x="889" y="430" width="38" height="42"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="38" id="05s-To-Cdd"/>
-                                            <constraint firstAttribute="height" constant="42" id="2zB-4w-AKx"/>
-                                        </constraints>
-                                        <state key="normal" image="button_off"/>
-                                        <state key="selected" image="button_on"/>
-                                        <connections>
-                                            <action selector="cpuEfficientToggled:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="vkK-a5-Sk2"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="RIV-6A-HIE" secondAttribute="bottom" constant="19" id="0G9-lk-eNx"/>
@@ -413,7 +401,6 @@
                                     <constraint firstItem="nk5-8a-iP4" firstAttribute="top" secondItem="xur-qx-kBj" secondAttribute="top" constant="205" id="5Eq-AB-e7b"/>
                                     <constraint firstItem="rr9-Rn-niD" firstAttribute="leading" secondItem="pRy-Wi-Jgx" secondAttribute="trailing" constant="54" id="5tG-mp-DIt"/>
                                     <constraint firstAttribute="bottom" secondItem="X97-bN-ycd" secondAttribute="bottom" constant="16" id="67P-5r-QZV"/>
-                                    <constraint firstAttribute="trailing" secondItem="zEz-py-yva" secondAttribute="trailing" constant="97" id="6P0-i9-ofo"/>
                                     <constraint firstItem="QcX-GL-sr0" firstAttribute="top" secondItem="zlr-Av-4V5" secondAttribute="bottom" constant="65" id="6PU-rc-Lsq"/>
                                     <constraint firstItem="nk5-8a-iP4" firstAttribute="leading" secondItem="x1t-hx-AuC" secondAttribute="trailing" constant="26" id="6Sj-Tb-y7f"/>
                                     <constraint firstItem="Mop-oI-FMc" firstAttribute="top" secondItem="F1H-Yq-qu3" secondAttribute="bottom" constant="27" id="6p6-VF-f9R"/>
@@ -432,7 +419,6 @@
                                     <constraint firstItem="rye-rM-8x2" firstAttribute="leading" secondItem="RIV-6A-HIE" secondAttribute="trailing" constant="35" id="BLV-8Q-b28"/>
                                     <constraint firstItem="Say-Mi-dCy" firstAttribute="leading" secondItem="JOY-BQ-1lL" secondAttribute="trailing" constant="41" id="Bou-mQ-I99"/>
                                     <constraint firstItem="tls-4y-C4Y" firstAttribute="top" secondItem="xO4-Ns-PxZ" secondAttribute="bottom" constant="125" id="Bxe-lr-2Qv"/>
-                                    <constraint firstItem="zEz-py-yva" firstAttribute="leading" secondItem="1jN-nv-QXW" secondAttribute="trailing" constant="83" id="CMq-hf-5Tb"/>
                                     <constraint firstItem="rr9-Rn-niD" firstAttribute="top" secondItem="Tbf-ak-gFV" secondAttribute="bottom" constant="37" id="Cd7-QJ-lfW"/>
                                     <constraint firstItem="7Dg-ZX-e7h" firstAttribute="top" secondItem="xur-qx-kBj" secondAttribute="top" id="CkR-zT-xlv"/>
                                     <constraint firstItem="Nfd-4g-6lo" firstAttribute="leading" secondItem="7Dg-ZX-e7h" secondAttribute="trailing" id="DRH-Ya-ewF"/>
@@ -456,7 +442,6 @@
                                     <constraint firstItem="Y6r-D0-hzD" firstAttribute="leading" secondItem="xO4-Ns-PxZ" secondAttribute="trailing" constant="25" id="OBl-5s-Gy2"/>
                                     <constraint firstItem="Tbf-ak-gFV" firstAttribute="leading" secondItem="gUb-xS-52W" secondAttribute="trailing" constant="51" id="OOt-4Y-2zw"/>
                                     <constraint firstItem="F1H-Yq-qu3" firstAttribute="top" secondItem="Y6r-D0-hzD" secondAttribute="bottom" constant="40" id="OtE-UT-e75"/>
-                                    <constraint firstAttribute="bottom" secondItem="zEz-py-yva" secondAttribute="bottom" constant="14" id="P3N-aa-p6V"/>
                                     <constraint firstItem="Nfd-4g-6lo" firstAttribute="leading" secondItem="M0a-nf-wee" secondAttribute="trailing" constant="35" id="PZm-Gz-gyW"/>
                                     <constraint firstAttribute="bottom" secondItem="tls-4y-C4Y" secondAttribute="bottom" constant="16" id="PxN-fi-SXc"/>
                                     <constraint firstItem="M0a-nf-wee" firstAttribute="top" secondItem="zlr-Av-4V5" secondAttribute="bottom" constant="24" id="Qdi-bE-8Z5"/>
@@ -491,7 +476,6 @@
                                     <constraint firstItem="pRy-Wi-Jgx" firstAttribute="top" secondItem="gUb-xS-52W" secondAttribute="bottom" constant="37" id="ftb-02-mwL"/>
                                     <constraint firstItem="Mop-oI-FMc" firstAttribute="leading" secondItem="tls-4y-C4Y" secondAttribute="trailing" constant="83" id="gft-Ec-Utg"/>
                                     <constraint firstItem="Tbf-ak-gFV" firstAttribute="top" secondItem="xur-qx-kBj" secondAttribute="top" constant="34" id="gkn-TU-qOL"/>
-                                    <constraint firstItem="zEz-py-yva" firstAttribute="top" secondItem="35Z-L3-mdG" secondAttribute="bottom" constant="28" id="goA-Hr-cjN"/>
                                     <constraint firstItem="FQd-NM-6qF" firstAttribute="leading" secondItem="WR9-wM-ZDg" secondAttribute="trailing" constant="36" id="gpF-KI-LNq"/>
                                     <constraint firstItem="Say-Mi-dCy" firstAttribute="top" secondItem="pRy-Wi-Jgx" secondAttribute="bottom" constant="17" id="h52-kW-Nk6"/>
                                     <constraint firstItem="rye-rM-8x2" firstAttribute="top" secondItem="JOY-BQ-1lL" secondAttribute="bottom" constant="28" id="hCH-ba-aXl"/>
@@ -508,7 +492,6 @@
                                     <constraint firstItem="zlr-Av-4V5" firstAttribute="top" secondItem="UJk-4U-hhF" secondAttribute="bottom" constant="13" id="ndu-Lg-T7X"/>
                                     <constraint firstItem="WR9-wM-ZDg" firstAttribute="leading" secondItem="Y6r-D0-hzD" secondAttribute="trailing" constant="22" id="nea-Jx-N4y"/>
                                     <constraint firstItem="Mwk-FU-bNw" firstAttribute="leading" secondItem="UJk-4U-hhF" secondAttribute="trailing" constant="35" id="nfe-xv-wNy"/>
-                                    <constraint firstItem="zEz-py-yva" firstAttribute="leading" secondItem="1jN-nv-QXW" secondAttribute="trailing" constant="83" id="nw8-vU-aQo"/>
                                     <constraint firstItem="RIV-6A-HIE" firstAttribute="top" secondItem="M0a-nf-wee" secondAttribute="bottom" constant="90" id="oVj-bs-ugJ"/>
                                     <constraint firstItem="UJk-4U-hhF" firstAttribute="top" secondItem="z6P-WU-WnB" secondAttribute="bottom" constant="9" id="ouo-xl-lx9"/>
                                     <constraint firstItem="WR9-wM-ZDg" firstAttribute="top" secondItem="vhc-nf-ACm" secondAttribute="bottom" constant="42" id="p6U-fB-6cr"/>
