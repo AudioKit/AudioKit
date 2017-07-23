@@ -17,25 +17,25 @@ class SynthViewController: UIViewController {
 
     @IBOutlet fileprivate weak var statusLabel: UILabel!
     @IBOutlet fileprivate weak var octavePositionLabel: UILabel!
-    @IBOutlet fileprivate weak var oscMixKnob: KnobMedium!
-    @IBOutlet fileprivate weak var osc1SemitonesKnob: KnobMedium!
-    @IBOutlet fileprivate weak var osc2SemitonesKnob: KnobMedium!
-    @IBOutlet fileprivate weak var osc2DetuneKnob: KnobMedium!
-    @IBOutlet fileprivate weak var lfoAmtKnob: KnobMedium!
-    @IBOutlet fileprivate weak var lfoRateKnob: KnobMedium!
-    @IBOutlet fileprivate weak var crushAmtKnob: KnobMedium!
-    @IBOutlet fileprivate weak var delayTimeKnob: KnobMedium!
-    @IBOutlet fileprivate weak var delayMixKnob: KnobMedium!
-    @IBOutlet fileprivate weak var reverbAmtKnob: KnobMedium!
-    @IBOutlet fileprivate weak var reverbMixKnob: KnobMedium!
-    @IBOutlet fileprivate weak var cutoffKnob: KnobLarge!
-    @IBOutlet fileprivate weak var rezKnob: KnobSmall!
-    @IBOutlet fileprivate weak var subMixKnob: KnobSmall!
-    @IBOutlet fileprivate weak var fmMixKnob: KnobSmall!
-    @IBOutlet fileprivate weak var fmModKnob: KnobSmall!
-    @IBOutlet fileprivate weak var noiseMixKnob: KnobSmall!
-    @IBOutlet fileprivate weak var morphKnob: KnobSmall!
-    @IBOutlet fileprivate weak var masterVolKnob: KnobSmall!
+    @IBOutlet fileprivate weak var oscMixKnob: Knob!
+    @IBOutlet fileprivate weak var osc1SemitonesKnob: Knob!
+    @IBOutlet fileprivate weak var osc2SemitonesKnob: Knob!
+    @IBOutlet fileprivate weak var osc2DetuneKnob: Knob!
+    @IBOutlet fileprivate weak var lfoAmtKnob: Knob!
+    @IBOutlet fileprivate weak var lfoRateKnob: Knob!
+    @IBOutlet fileprivate weak var crushAmtKnob: Knob!
+    @IBOutlet fileprivate weak var delayTimeKnob: Knob!
+    @IBOutlet fileprivate weak var delayMixKnob: Knob!
+    @IBOutlet fileprivate weak var reverbAmtKnob: Knob!
+    @IBOutlet fileprivate weak var reverbMixKnob: Knob!
+    @IBOutlet fileprivate weak var cutoffKnob: Knob!
+    @IBOutlet fileprivate weak var rezKnob: Knob!
+    @IBOutlet fileprivate weak var subMixKnob: Knob!
+    @IBOutlet fileprivate weak var fmMixKnob: Knob!
+    @IBOutlet fileprivate weak var fmModKnob: Knob!
+    @IBOutlet fileprivate weak var noiseMixKnob: Knob!
+    @IBOutlet fileprivate weak var morphKnob: Knob!
+    @IBOutlet fileprivate weak var masterVolKnob: Knob!
     @IBOutlet fileprivate weak var attackSlider: VerticalSlider!
     @IBOutlet fileprivate weak var decaySlider: VerticalSlider!
     @IBOutlet fileprivate weak var sustainSlider: VerticalSlider!
@@ -535,7 +535,7 @@ class SynthViewController: UIViewController {
 // MARK: - 🎛 Knob Delegates
 //*****************************************************************
 
-extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeDelegate {
+extension SynthViewController: KnobDelegate {
 
     func updateKnobValue(_ value: Double, tag: Int) {
 

@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Z3O-nk-rpn">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F43c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Z3O-nk-rpn">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Synth View Controller-->
@@ -21,7 +26,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tf5-gm-MpM" userLabel="Build this Synth Btn" customClass="RoundedButton" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="821" y="8" width="193" height="30"/>
-                                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="193" id="3Oh-AL-bct"/>
                                             <constraint firstAttribute="height" constant="30" id="eNA-dI-67m"/>
@@ -39,12 +44,12 @@
                                             <constraint firstAttribute="height" constant="30" id="Nnu-sV-JAg"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
-                                        <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcu-W9-Pl6" userLabel="Panic Btn" customClass="RoundedButton" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="745" y="8" width="68" height="30"/>
-                                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="68" id="AhL-9e-1Ox"/>
                                             <constraint firstAttribute="height" constant="30" id="sLI-A0-M8H"/>
@@ -52,7 +57,7 @@
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
                                         <state key="normal" title="Panic"/>
                                         <state key="highlighted">
-                                            <color key="titleColor" red="0.90196078430000004" green="0.53333333329999999" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.90196078430000004" green="0.53333333329999999" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="midiPanicPressed:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="Gni-Ij-MJc"/>
@@ -65,11 +70,11 @@
                                             <constraint firstAttribute="height" constant="30" id="aTA-Cy-X8M"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
-                                        <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.066666666669999999" green="0.066666666669999999" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.066666666669999999" green="0.066666666669999999" blue="0.066666666669999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="tf5-gm-MpM" firstAttribute="leading" secondItem="bcu-W9-Pl6" secondAttribute="trailing" constant="8" id="4aN-aJ-vL2"/>
                                     <constraint firstAttribute="trailing" secondItem="tf5-gm-MpM" secondAttribute="trailing" constant="10" id="CdN-5z-EgL"/>
@@ -196,56 +201,56 @@
                                             <constraint firstAttribute="height" constant="75" id="jxP-MI-Td2"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="105" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q4I-ji-xFr" userLabel="VCO1 Semi Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="105" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q4I-ji-xFr" userLabel="VCO1 Semi Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="25" y="88" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="6O7-jA-QQ4"/>
                                             <constraint firstAttribute="width" constant="75" id="hTn-f9-kKL"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="106" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RhI-1x-viL" userLabel="VCO2 Semi Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="106" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RhI-1x-viL" userLabel="VCO2 Semi Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="212" y="88" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="PbX-Wq-qjM"/>
                                             <constraint firstAttribute="width" constant="75" id="lFx-O6-uQl"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="107" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhc-nf-ACm" userLabel="VCO2 Detune Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="107" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhc-nf-ACm" userLabel="VCO2 Detune Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="359" y="88" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="1WW-DE-Mz2"/>
                                             <constraint firstAttribute="height" constant="75" id="NgK-fC-Hzl"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="109" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x1t-hx-AuC" userLabel="Sub Amt Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="109" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x1t-hx-AuC" userLabel="Sub Amt Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="18" y="206" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="Ym5-pO-sit"/>
                                             <constraint firstAttribute="height" constant="65" id="vGL-Me-4IC"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="110" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nk5-8a-iP4" userLabel="FM Amt Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="110" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nk5-8a-iP4" userLabel="FM Amt Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="109" y="205" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="1f2-gm-Fwv"/>
                                             <constraint firstAttribute="width" constant="65" id="fgt-Lf-Q7l"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="111" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xO4-Ns-PxZ" userLabel="FM Mod Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="111" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xO4-Ns-PxZ" userLabel="FM Mod Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="185" y="205" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="4jk-fW-lqb"/>
                                             <constraint firstAttribute="height" constant="65" id="bQb-lJ-CHO"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="113" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WR9-wM-ZDg" userLabel="PWM Mod Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="113" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WR9-wM-ZDg" userLabel="PWM Mod Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="362" y="205" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="ARC-LJ-k9d"/>
                                             <constraint firstAttribute="width" constant="65" id="T04-t1-wzO"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="114" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6r-D0-hzD" userLabel="Noise Amt Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="114" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6r-D0-hzD" userLabel="Noise Amt Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="275" y="205" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="Amf-sa-bF5"/>
@@ -259,56 +264,56 @@
                                             <constraint firstAttribute="width" constant="65" id="rOq-cz-doe"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0a-nf-wee" userLabel="Rez Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0a-nf-wee" userLabel="Rez Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="563" y="281" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="8Ct-sL-bKH"/>
                                             <constraint firstAttribute="height" constant="65" id="MD1-te-qAF"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="117" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlr-Av-4V5" userLabel="Crush Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="117" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlr-Av-4V5" userLabel="Crush Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="531" y="182" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="6P6-xn-m5n"/>
                                             <constraint firstAttribute="width" constant="75" id="Afy-SO-M3X"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="118" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRy-Wi-Jgx" userLabel="Delay Time Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="118" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRy-Wi-Jgx" userLabel="Delay Time Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="739" y="235" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="7g4-c5-VDY"/>
                                             <constraint firstAttribute="height" constant="75" id="Og3-Ky-pO1"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="119" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rr9-Rn-niD" userLabel="Delay Mix Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="119" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rr9-Rn-niD" userLabel="Delay Mix Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="868" y="235" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="mkZ-rb-XfX"/>
                                             <constraint firstAttribute="height" constant="75" id="ntm-zH-Hi9"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="120" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Say-Mi-dCy" userLabel="Reverb Amt Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="120" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Say-Mi-dCy" userLabel="Reverb Amt Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="741" y="327" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="BeZ-C9-YD0"/>
                                             <constraint firstAttribute="height" constant="75" id="nPL-QQ-vsu"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="121" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35Z-L3-mdG" userLabel="Reverb Mix Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="121" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35Z-L3-mdG" userLabel="Reverb Mix Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="868" y="327" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="Kzz-eR-dcE"/>
                                             <constraint firstAttribute="height" constant="75" id="S3i-EM-hQf"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="115" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X97-bN-ycd" userLabel="LFO Amt Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="115" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X97-bN-ycd" userLabel="LFO Amt Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="19" y="395" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="EdE-py-lt2"/>
                                             <constraint firstAttribute="height" constant="75" id="mAN-Xy-58U"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QcX-GL-sr0" userLabel="Cutoff Knob" customClass="KnobLarge" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QcX-GL-sr0" userLabel="Cutoff Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="447" y="322" width="116" height="116"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="116" id="KlZ-Cp-S7F"/>
@@ -345,14 +350,14 @@
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UJk-4U-hhF" customClass="AKOutputWaveformPlot" customModule="AudioKit">
                                         <rect key="frame" x="446" y="81" width="190" height="88"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="88" id="Ilj-hC-BKG"/>
                                             <constraint firstAttribute="width" constant="190" id="hI8-Qr-Nbn"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                <color key="value" red="0.90196078430000004" green="0.53333333329999999" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.90196078430000004" green="0.53333333329999999" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="gain">
                                                 <real key="value" value="2"/>
@@ -360,7 +365,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="shouldFill" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view opaque="NO" tag="116" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tls-4y-C4Y" userLabel="LFO Rate Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
+                                    <view opaque="NO" tag="116" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tls-4y-C4Y" userLabel="LFO Rate Knob" customClass="Knob" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="138" y="395" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="DRM-wS-UvG"/>
@@ -558,7 +563,7 @@
                                             <constraint firstAttribute="height" constant="184" id="sJP-CL-C2J"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="3Rg-pY-bDq"/>
@@ -573,7 +578,7 @@
                                             <constraint firstAttribute="width" constant="67" id="dPa-gW-HRD"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="uVE-YI-HDL"/>
@@ -588,7 +593,7 @@
                                             <constraint firstAttribute="height" constant="184" id="zxM-Jc-ldD"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.69929956900000001" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.69929956900000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="HRO-E7-f8f"/>
@@ -603,7 +608,7 @@
                                             <constraint firstAttribute="width" constant="67" id="oPE-ka-43M"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="7JH-wM-8Tf"/>
@@ -618,7 +623,7 @@
                                             <constraint firstAttribute="width" constant="67" id="FsJ-Pn-cCh"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="7Dr-PZ-Nfd"/>
@@ -633,7 +638,7 @@
                                             <constraint firstAttribute="height" constant="184" id="nbj-yX-fqU"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="1zl-iy-tGf"/>
@@ -648,7 +653,7 @@
                                             <constraint firstAttribute="height" constant="184" id="VjW-65-1hY"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="1Ja-gT-u8o"/>
@@ -663,7 +668,7 @@
                                             <constraint firstAttribute="height" constant="184" id="QRr-Sh-rU6"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="LM3-eM-iLN"/>
@@ -678,7 +683,7 @@
                                             <constraint firstAttribute="width" constant="67" id="ybv-LI-lBS"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="5bj-Dh-m6z"/>
@@ -693,7 +698,7 @@
                                             <constraint firstAttribute="width" constant="67" id="dQk-cs-eND"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="ivq-IX-vE2"/>
@@ -708,7 +713,7 @@
                                             <constraint firstAttribute="height" constant="184" id="rsa-tC-KZX"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="uDM-10-7p3"/>
@@ -723,7 +728,7 @@
                                             <constraint firstAttribute="height" constant="184" id="vfF-5Z-KEm"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="0fT-IP-tZQ"/>
@@ -738,7 +743,7 @@
                                             <constraint firstAttribute="width" constant="67" id="GrL-Kl-bmI"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="uUm-1z-o2G"/>
@@ -753,7 +758,7 @@
                                             <constraint firstAttribute="height" constant="184" id="a9E-3y-E5L"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="EZq-dy-JOl"/>
@@ -769,7 +774,7 @@
                                             <constraint firstAttribute="width" constant="46" id="lEk-U1-D6R"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -791,7 +796,7 @@
                                             <constraint firstAttribute="height" constant="137" id="g3H-hK-R2V"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -814,7 +819,7 @@
                                             <constraint firstAttribute="height" constant="137" id="o5j-gw-SAo"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -837,7 +842,7 @@
                                             <constraint firstAttribute="height" constant="137" id="gg2-6f-M3w"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -860,7 +865,7 @@
                                             <constraint firstAttribute="height" constant="137" id="ysU-tA-OyB"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -883,7 +888,7 @@
                                             <constraint firstAttribute="height" constant="116" id="mP0-B9-uMZ"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -906,7 +911,7 @@
                                             <constraint firstAttribute="height" constant="116" id="wUh-Wf-NrM"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -929,7 +934,7 @@
                                             <constraint firstAttribute="height" constant="137" id="fzc-rB-dUU"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -952,7 +957,7 @@
                                             <constraint firstAttribute="height" constant="137" id="Qpi-E8-YPx"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -975,7 +980,7 @@
                                             <constraint firstAttribute="height" constant="116" id="yMj-af-TJ5"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -990,7 +995,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="BqB-9d-rPX" firstAttribute="top" secondItem="OaM-BV-trh" secondAttribute="top" id="0Y9-CR-fOj"/>
                                     <constraint firstItem="Wru-Me-n8S" firstAttribute="leading" secondItem="gEx-D6-Un8" secondAttribute="trailing" constant="1" id="0cX-UU-BBr"/>
@@ -1120,7 +1125,7 @@
                                             <constraint firstAttribute="width" constant="39" id="pVk-b1-YmS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="16"/>
-                                        <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHv-M8-3cw" userLabel="Mono Toggle">
@@ -1142,7 +1147,7 @@
                                             <constraint firstAttribute="width" constant="39" id="rIH-5i-iXf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="16"/>
-                                        <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDI-xy-TMY" userLabel="Keyboard Down">
@@ -1178,11 +1183,11 @@
                                             <constraint firstAttribute="height" constant="30" id="qUf-JE-Pkz"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="16"/>
-                                        <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.40290464739999998" green="0.40290464739999998" blue="0.40290464739999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.40290464739999998" green="0.40290464739999998" blue="0.40290464739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="DDI-xy-TMY" secondAttribute="bottom" constant="3" id="24X-NS-Vaf"/>
                                     <constraint firstItem="9bE-Z1-YxG" firstAttribute="leading" secondItem="oDt-1Q-B2k" secondAttribute="trailing" constant="5" id="6sG-t4-1qw"/>
@@ -1221,7 +1226,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ijd-H8-GXr" firstAttribute="top" secondItem="eD4-sa-hV8" secondAttribute="top" id="0pT-Nd-Shh"/>
                             <constraint firstItem="xur-qx-kBj" firstAttribute="leading" secondItem="eD4-sa-hV8" secondAttribute="leading" id="8vc-WZ-cfv"/>
@@ -1240,42 +1245,40 @@
                             <constraint firstItem="C8L-FG-8Cx" firstAttribute="top" secondItem="xur-qx-kBj" secondAttribute="bottom" id="xNZ-SG-Ugc"/>
                         </constraints>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="attackSlider" destination="Mwk-FU-bNw" id="Wwt-oR-h4x"/>
                         <outlet property="audioPlot" destination="UJk-4U-hhF" id="Hvv-7b-PDV"/>
                         <outlet property="bitcrushToggle" destination="FQd-NM-6qF" id="4jH-Ja-F06"/>
-                        <outlet property="crushAmtKnob" destination="zlr-Av-4V5" id="BdA-DU-j0N"/>
-                        <outlet property="cutoffKnob" destination="QcX-GL-sr0" id="f4d-92-eWX"/>
+                        <outlet property="crushAmtKnob" destination="zlr-Av-4V5" id="bx8-Bp-Tj7"/>
+                        <outlet property="cutoffKnob" destination="QcX-GL-sr0" id="u3V-At-q5k"/>
                         <outlet property="decaySlider" destination="gUb-xS-52W" id="RMa-2K-Yzh"/>
-                        <outlet property="delayMixKnob" destination="rr9-Rn-niD" id="y3E-qk-51J"/>
-                        <outlet property="delayTimeKnob" destination="pRy-Wi-Jgx" id="f0P-Hi-hY9"/>
+                        <outlet property="delayMixKnob" destination="rr9-Rn-niD" id="gr7-eZ-o7V"/>
+                        <outlet property="delayTimeKnob" destination="pRy-Wi-Jgx" id="fqu-J8-vEo"/>
                         <outlet property="delayToggle" destination="Nfd-4g-6lo" id="3FM-CS-Sho"/>
                         <outlet property="fattenToggle" destination="rye-rM-8x2" id="a3O-dr-WN9"/>
                         <outlet property="filterToggle" destination="RIV-6A-HIE" id="6M0-Ok-IG6"/>
-                        <outlet property="fmMixKnob" destination="nk5-8a-iP4" id="k1J-vv-llW"/>
-                        <outlet property="fmModKnob" destination="xO4-Ns-PxZ" id="nyB-YB-Kol"/>
+                        <outlet property="fmMixKnob" destination="nk5-8a-iP4" id="nC8-JL-gi5"/>
+                        <outlet property="fmModKnob" destination="xO4-Ns-PxZ" id="vkc-m1-IOb"/>
                         <outlet property="holdToggle" destination="7f0-Dd-x2R" id="qIJ-h2-5XX"/>
-                        <outlet property="lfoAmtKnob" destination="X97-bN-ycd" id="SlO-q1-GXJ"/>
-                        <outlet property="lfoRateKnob" destination="tls-4y-C4Y" id="jHA-l9-y9n"/>
+                        <outlet property="lfoAmtKnob" destination="X97-bN-ycd" id="f4h-7q-nyd"/>
+                        <outlet property="lfoRateKnob" destination="tls-4y-C4Y" id="vTN-yG-wSv"/>
                         <outlet property="masterVolKnob" destination="z6P-WU-WnB" id="ln5-rm-ylY"/>
                         <outlet property="monoToggle" destination="PHv-M8-3cw" id="pkX-A8-XY2"/>
-                        <outlet property="morphKnob" destination="WR9-wM-ZDg" id="Kwm-sa-1dU"/>
-                        <outlet property="noiseMixKnob" destination="Y6r-D0-hzD" id="Tia-Wu-uZg"/>
+                        <outlet property="morphKnob" destination="WR9-wM-ZDg" id="wRq-La-naI"/>
+                        <outlet property="noiseMixKnob" destination="Y6r-D0-hzD" id="erh-Tl-sg3"/>
                         <outlet property="octavePositionLabel" destination="9bE-Z1-YxG" id="0dh-jI-vCH"/>
-                        <outlet property="osc1SemitonesKnob" destination="q4I-ji-xFr" id="8ge-1A-nQe"/>
-                        <outlet property="osc2DetuneKnob" destination="vhc-nf-ACm" id="CYG-Jp-0nW"/>
-                        <outlet property="osc2SemitonesKnob" destination="RhI-1x-viL" id="TD8-SG-25z"/>
+                        <outlet property="osc1SemitonesKnob" destination="q4I-ji-xFr" id="XDQ-h2-dgf"/>
+                        <outlet property="osc2DetuneKnob" destination="vhc-nf-ACm" id="WsH-uT-eOE"/>
+                        <outlet property="osc2SemitonesKnob" destination="RhI-1x-viL" id="juc-ky-mSS"/>
                         <outlet property="oscMixKnob" destination="F1H-Yq-qu3" id="xzn-8i-NAx"/>
                         <outlet property="plotToggle" destination="1jN-nv-QXW" id="van-ci-yFg"/>
                         <outlet property="releaseSlider" destination="ozb-GC-i5H" id="nIv-zH-oPm"/>
-                        <outlet property="reverbAmtKnob" destination="Say-Mi-dCy" id="9rs-MP-cjR"/>
-                        <outlet property="reverbMixKnob" destination="35Z-L3-mdG" id="8uR-Zv-9wf"/>
+                        <outlet property="reverbAmtKnob" destination="Say-Mi-dCy" id="Vmn-FA-RcW"/>
+                        <outlet property="reverbMixKnob" destination="35Z-L3-mdG" id="cyV-iW-oqQ"/>
                         <outlet property="reverbToggle" destination="JOY-BQ-1lL" id="KWE-id-2Cp"/>
-                        <outlet property="rezKnob" destination="M0a-nf-wee" id="kTy-tT-zjD"/>
+                        <outlet property="rezKnob" destination="M0a-nf-wee" id="8CK-oL-5YD"/>
                         <outlet property="statusLabel" destination="JKQ-oU-stT" id="OpK-rA-WeZ"/>
-                        <outlet property="subMixKnob" destination="x1t-hx-AuC" id="7bz-3Z-DkT"/>
+                        <outlet property="subMixKnob" destination="x1t-hx-AuC" id="aLS-uj-Vus"/>
                         <outlet property="sustainSlider" destination="Tbf-ak-gFV" id="Iz5-Q7-B5k"/>
                         <outlet property="vco1Toggle" destination="Mop-oI-FMc" id="1Hm-hE-eov"/>
                         <outlet property="vco2Toggle" destination="ogn-C2-H7i" id="c8A-eH-V7y"/>
