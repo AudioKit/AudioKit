@@ -66,7 +66,7 @@ public enum AKPropertySliderStyle {
     @IBInspectable open var indicatorBorderColor: UIColor?
 
     /// Slider overlay color
-    @IBInspectable open var sliderColor: UIColor = .red
+    @IBInspectable open var sliderColor: UIColor = AKStylist.sharedInstance.nextColor
 
     /// Text color
     @IBInspectable open var textColor: UIColor?
