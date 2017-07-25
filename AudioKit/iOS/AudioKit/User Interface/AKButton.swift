@@ -64,15 +64,12 @@ public enum AKButtonStyle {
         }
     }
     
-    
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let newTitle = callback()
         if newTitle != "" { title = newTitle }
         
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
-        
-        
     }
     
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -92,6 +89,16 @@ public enum AKButtonStyle {
         clipsToBounds = true
     }
 
+    /// Initialization with no details
+    override public init(frame: CGRect) {
+        self.callback = { return "" }
+        self.title = "Title"
+        self.color = AKStylist.sharedInstance.nextColor
+        super.init(frame: frame)
+        
+        self.backgroundColor = AKColor.clear
+        contentMode = .redraw
+    }
     
     /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
@@ -102,8 +109,9 @@ public enum AKButtonStyle {
 
         self.clipsToBounds = true
         self.backgroundColor = AKColor.clear
+        contentMode = .redraw
     }
-    
+
     /// Actions to perform to make sure the view is renderable in Interface Builder
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()

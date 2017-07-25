@@ -70,7 +70,7 @@ public enum AKPropertySliderStyle {
     @IBInspectable open var indicatorBorderColor: AKColor?
     
     /// Slider overlay color
-    @IBInspectable open var color: AKColor = .red
+    @IBInspectable open var color: AKColor = AKStylist.sharedInstance.nextColor
     
     /// Text color
     @IBInspectable open var textColor: AKColor?
@@ -108,7 +108,7 @@ public enum AKPropertySliderStyle {
                 value: Double,
                 minimum: Double = 0,
                 maximum: Double = 1,
-                color: AKColor = AKColor.red,
+                color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: AKPropertySlider.defaultSize.width, height:  AKPropertySlider.defaultSize.height),
                 callback: @escaping (_ x: Double) -> Void) {
         self.value = value
@@ -214,6 +214,7 @@ public enum AKPropertySliderStyle {
         case .midnight: return AKColor.white
         }
     }
+    
     /// Draw the slider
     override open func draw(_ rect: NSRect) {
         drawFlatSlider(currentValue: CGFloat(value),
