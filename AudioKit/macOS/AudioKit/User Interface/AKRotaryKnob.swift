@@ -6,7 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import UIKit
 
 public enum AKRotaryKnobStyle {
     case round
@@ -19,7 +18,7 @@ public enum AKRotaryKnobStyle {
     // Default side
     static var defaultSize = CGSize(width: 150.0, height: 170.0)
     
-    // Default margin size 
+    // Default margin size
     static var marginSize: CGFloat = 30.0
     
     // Indicator point radius
@@ -36,11 +35,11 @@ public enum AKRotaryKnobStyle {
     
     // Maximum curvature value for polygon style knob
     static var maximumPolygonCurvature = 1.0
-
+    
     /// Current value of the slider
     @IBInspectable open var value: Double = 0 {
         didSet {
-            setNeedsDisplay()
+            needsDisplay = true
         }
     }
     
@@ -85,7 +84,7 @@ public enum AKRotaryKnobStyle {
     
     // Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
     open var knobStyle: AKRotaryKnobStyle = AKRotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
-
+    
     // Border width
     @IBInspectable open var knobBorderWidth: CGFloat = 8.0
     
@@ -111,7 +110,7 @@ public enum AKRotaryKnobStyle {
                 value: Double,
                 minimum: Double = 0,
                 maximum: Double = 1,
-                color: AKColor = AKStylist.sharedInstance.nextColor,
+                color: AKColor = AKColor.red,
                 frame: CGRect = CGRect(x: 0, y: 0, width: AKRotaryKnob.defaultSize.width, height: AKRotaryKnob.defaultSize.height),
                 callback: @escaping (_ x: Double) -> Void) {
         self.value = value
@@ -124,107 +123,94 @@ public enum AKRotaryKnobStyle {
         self.callback = callback
         super.init(frame: frame)
         
-        self.backgroundColor = AKColor.clear
+        self.wantsLayer = true
         
-        setNeedsDisplay()
+        needsDisplay = true
     }
     
     /// Initialization with no details
     override public init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = AKColor.clear
-        contentMode = .redraw
+        self.wantsLayer = true
     }
     
     /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        self.isUserInteractionEnabled = true
-        self.backgroundColor = AKColor.clear
-        contentMode = .redraw
+        self.wantsLayer = true
     }
     
     /// Actions to perform to make sure the view is renderable in Interface Builder
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-        clipsToBounds = true
+
+        self.wantsLayer = true
     }
     
     
     /// Give the slider a random value
     open func randomize() -> Double {
         value = random(minimum, maximum)
-        setNeedsDisplay()
+        needsDisplay = true
         return value
     }
     
     func angleBetween(pointA: CGPoint, pointB: CGPoint) -> Double {
         let dx = Double(pointB.x - pointA.x)
         let dy = Double(pointB.y - pointA.y)
-        let radians = atan2(-dx, dy)
+        let radians = atan2(-dx, -dy)
         let degrees = radians * 180 / Double.pi
         return degrees
     }
     
-    
-    /// Handle new touches
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            isDragging = true
-            let touchLocation = touch.location(in: self)
-            lastTouch = touchLocation
-            let angle = angleBetween(pointA: knobCenter, pointB: touchLocation)
-            if angle < 0.0 {
-                value = (maximum - minimum) * (0.5 + (180.0 + angle) / (260.0))
-            } else {
-                value = (maximum - minimum) * ((angle - 50.0) / 130.0) * 0.5
-            }
-            if usesDiscreteValues && discreteValueStep > 0.0 {
-                let step = Int(value / discreteValueStep)
-                let lowerValue = step * discreteValueStep
-                let higherValue = (step + 1) * (discreteValueStep)
-                value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
-            }
-            if value > maximum { value = maximum }
-            if value < minimum { value = minimum }
-            setNeedsDisplay()
-            callback?(value)
+    override open func mouseDown(with theEvent: NSEvent) {
+        isDragging = true
+        let loc = convert(theEvent.locationInWindow, from: nil)
+        lastTouch = loc
+        let angle = angleBetween(pointA: knobCenter, pointB: loc)
+        if angle < 0.0 {
+            value = (maximum - minimum) * (0.5 + 0.5 * (180.0 + angle) / (105.0))
+        } else {
+            value = (maximum - minimum) * ((angle - 75.0) / 110.0) * 0.5
         }
+        if usesDiscreteValues && discreteValueStep > 0.0 {
+            let step = Int(value / discreteValueStep)
+            let lowerValue = step * discreteValueStep
+            let higherValue = (step + 1) * (discreteValueStep)
+            value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
+        }
+        if value > maximum { value = maximum }
+        if value < minimum { value = minimum }
+        needsDisplay = true
+        callback?(value)
     }
     
-    /// Handle moved touches
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let touchLocation = touch.location(in: self)
-            if lastTouch.x != touchLocation.x {
-                let angle = angleBetween(pointA: knobCenter, pointB: touchLocation)
-                if angle < 0.0 {
-                    value = (maximum - minimum) * (0.5 + (180.0 + angle) / (260.0))
-                } else {
-                    value = (maximum - minimum) * ((angle - 50.0) / 130.0) * 0.5
-                }
-                if usesDiscreteValues && discreteValueStep > 0.0 {
-                    let step = Int(value / discreteValueStep)
-                    let lowerValue = step * discreteValueStep
-                    let higherValue = (step + 1) * (discreteValueStep)
-                    value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
-                }
-                if value > maximum { value = maximum }
-                if value < minimum { value = minimum }
-                setNeedsDisplay()
-                callback?(value)
-                lastTouch = touchLocation
-            }
+    override open func mouseDragged(with theEvent: NSEvent) {
+        let loc = convert(theEvent.locationInWindow, from: nil)
+        lastTouch = loc
+        let angle = angleBetween(pointA: knobCenter, pointB: loc)
+        if angle < 0.0 {
+            value = (maximum - minimum) * (0.5 + 0.5 * (180.0 + angle) / (105.0))
+        } else {
+            value = (maximum - minimum) * ((angle - 75.0) / 110.0) * 0.5
         }
+        if usesDiscreteValues && discreteValueStep > 0.0 {
+            let step = Int(value / discreteValueStep)
+            let lowerValue = step * discreteValueStep
+            let higherValue = (step + 1) * (discreteValueStep)
+            value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
+        }
+        if value > maximum { value = maximum }
+        if value < minimum { value = minimum }
+        needsDisplay = true
+        callback?(value)
     }
     
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if touches.first != nil {
-            isDragging = false
-            setNeedsDisplay()
-        }
+    open override func mouseUp(with theEvent: NSEvent) {
+        isDragging = false
+        needsDisplay = true
     }
     
     open func indicatorColorForTheme() -> AKColor {
@@ -254,7 +240,7 @@ public enum AKRotaryKnobStyle {
         }
     }
     
-    override open func draw(_ rect: CGRect) {
+    override open func draw(_ rect: NSRect) {
         drawKnob(currentValue: CGFloat(value),
                  minimum: minimum,
                  maximum: maximum,
@@ -270,7 +256,7 @@ public enum AKRotaryKnobStyle {
                   currentValueText: String = "0.0") {
         
         //// General Declarations
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        let context = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
         
         let width = self.frame.width
         let height = self.frame.height
@@ -281,7 +267,7 @@ public enum AKRotaryKnobStyle {
         
         let textColor = textColorForTheme()
         
-        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize),
+        let nameLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: fontSize),
                                        NSForegroundColorAttributeName: textColor,
                                        NSParagraphStyleAttributeName: nameLabelStyle] as [String : Any]
         
@@ -292,14 +278,12 @@ public enum AKRotaryKnobStyle {
             context: nil).size.height
         context.saveGState()
         
-        let knobHeight = height - nameLabelTextHeight
-        
         // Draw name label
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 0.0, dy: 0)
         context.clip(to: nameLabelInset)
         NSString(string: propertyName).draw(
             in: CGRect(x: nameLabelInset.minX,
-                       y: nameLabelInset.minY + knobHeight,
+                       y: nameLabelInset.minY,
                        width: nameLabelInset.width,
                        height: nameLabelTextHeight),
             withAttributes: nameLabelFontAttributes)
@@ -312,15 +296,15 @@ public enum AKRotaryKnobStyle {
         // Setup indicator
         let valuePercent = (value - minimum) / (maximum - minimum)
         let angle = Double.pi * ( 0.75 + valuePercent * 1.5)
-        let indicatorStart = CGPoint(x: (knobDiameter / 5.0) * CGFloat(cos(angle)), y: (knobDiameter / 5.0) * CGFloat(sin(angle)))
-        let indicatorEnd = CGPoint(x: (knobDiameter / 2.0) * CGFloat(cos(angle)), y: (knobDiameter / 2.0) * CGFloat(sin(angle)))
+        let indicatorStart = CGPoint(x: (knobDiameter / 5.0) * CGFloat(cos(angle)), y: nameLabelTextHeight - (knobDiameter / 5.0) * CGFloat(sin(angle)))
+        let indicatorEnd = CGPoint(x: (knobDiameter / 2.0) * CGFloat(cos(angle)), y: nameLabelTextHeight - (knobDiameter / 2.0) * CGFloat(sin(angle)))
         
         // Draw knob
-        let knobRect = CGRect(x: AKRotaryKnob.marginSize, y: AKRotaryKnob.marginSize, width: knobDiameter, height: knobDiameter)
-        let knobPath: UIBezierPath = {
+        let knobRect = CGRect(x: AKRotaryKnob.marginSize, y: nameLabelTextHeight + AKRotaryKnob.marginSize, width: knobDiameter, height: knobDiameter)
+        let knobPath: NSBezierPath = {
             switch self.knobStyle {
             case .round:
-                return UIBezierPath(roundedRect: knobRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: knobDiameter / 2.0, height: knobDiameter / 2.0))
+                return NSBezierPath(roundedRect: knobRect, xRadius: knobDiameter / 2.0, yRadius: knobDiameter / 2.0)
             case .polygon (let numberOfSides, let curvature):
                 return bezierPathWithPolygonInRect(knobRect, numberOfSides: numberOfSides, curvature: curvature, startPoint: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x, y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y), offsetAngle: angle)
             }
@@ -333,9 +317,9 @@ public enum AKRotaryKnobStyle {
         knobPath.fill()
         
         // Draw indicator
-        let indicatorPath = UIBezierPath()
+        let indicatorPath = NSBezierPath()
         indicatorPath.move(to: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.x, y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorStart.y))
-        indicatorPath.addLine(to: CGPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x, y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y))
+        indicatorPath.line(to: NSPoint(x: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.x, y: AKRotaryKnob.marginSize + knobDiameter / 2.0 + indicatorEnd.y))
         indicatorPath.lineWidth = knobBorderWidth / 2.0
         indicatorColorForTheme().setStroke()
         indicatorPath.stroke()
@@ -346,9 +330,9 @@ public enum AKRotaryKnobStyle {
             let pointPercent = Double(i) / Double(numberOfIndicatorPoints - 1)
             let pointAngle = Double.pi * ( 0.75 + pointPercent * 1.5)
             let pointX = AKRotaryKnob.marginSize + knobDiameter / 2.0 + (pointRadius) * CGFloat(cos(pointAngle)) - AKRotaryKnob.indicatorPointRadius
-            let pointY = AKRotaryKnob.marginSize + knobDiameter / 2.0 + (pointRadius) * CGFloat(sin(pointAngle)) - AKRotaryKnob.indicatorPointRadius
+            let pointY = AKRotaryKnob.marginSize + knobDiameter / 2.0 - (pointRadius) * CGFloat(sin(pointAngle)) - AKRotaryKnob.indicatorPointRadius + nameLabelTextHeight
             let pointRect = CGRect(x: pointX, y: pointY, width: AKRotaryKnob.indicatorPointRadius * 2.0, height: AKRotaryKnob.indicatorPointRadius * 2.0)
-            let pointPath = UIBezierPath(roundedRect: pointRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: AKRotaryKnob.indicatorPointRadius, height: AKRotaryKnob.indicatorPointRadius))
+            let pointPath = NSBezierPath(roundedRect: pointRect, xRadius: AKRotaryKnob.indicatorPointRadius, yRadius: AKRotaryKnob.indicatorPointRadius)
             if valuePercent > 0.0 && pointPercent <= valuePercent {
                 knobColor.setFill()
             } else {
@@ -363,7 +347,7 @@ public enum AKRotaryKnobStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
             
-            let valueLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: bubbleFontSize),
+            let valueLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: bubbleFontSize),
                                             NSForegroundColorAttributeName: textColor,
                                             NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
             
@@ -383,8 +367,10 @@ public enum AKRotaryKnobStyle {
                 bubbleOriginX = bounds.width - bubbleSize.width - valueBubbleBorderWidth
             }
             
-            var bubbleOriginY = (lastTouch.y - 3 * bubbleSize.height - valueBubbleBorderWidth)
-            if bubbleOriginY < 0.0 {
+            var bubbleOriginY = (lastTouch.y + bubbleSize.height/2.0 + valueBubbleBorderWidth)
+            if bubbleOriginY > height - bubbleSize.height {
+                bubbleOriginY = height - bubbleSize.height
+            } else if bubbleOriginY < 0.0 {
                 bubbleOriginY = 0.0
             }
             
@@ -392,7 +378,7 @@ public enum AKRotaryKnobStyle {
                                     y: bubbleOriginY,
                                     width: bubbleSize.width,
                                     height: bubbleSize.height)
-            let bubblePath = UIBezierPath(roundedRect: bubbleRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: AKRotaryKnob.bubbleCornerRadius, height: AKRotaryKnob.bubbleCornerRadius))
+            let bubblePath = NSBezierPath(roundedRect: bubbleRect, xRadius: AKRotaryKnob.bubbleCornerRadius, yRadius: AKRotaryKnob.bubbleCornerRadius)
             knobColor.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
@@ -411,19 +397,19 @@ public enum AKRotaryKnobStyle {
         }
     }
     
-    func bezierPathWithPolygonInRect(_ rect: CGRect, numberOfSides: Int, curvature: Double, startPoint: CGPoint, offsetAngle: Double) -> UIBezierPath {
+    func bezierPathWithPolygonInRect(_ rect: CGRect, numberOfSides: Int, curvature: Double, startPoint: CGPoint, offsetAngle: Double) -> NSBezierPath {
         guard numberOfSides > 2 else {
-            return UIBezierPath(rect: rect)
+            return NSBezierPath(rect: rect)
         }
         
-        let path = UIBezierPath()
+        let path = NSBezierPath()
         path.move(to: startPoint)
         for i in 0...numberOfSides {
             let angle = 2 * Double.pi * i / numberOfSides + offsetAngle
             let nextX = rect.midX + rect.width / 2.0 * CGFloat(cos(angle))
-            let nextY = rect.midY + rect.height / 2.0 * CGFloat(sin(angle))
+            let nextY = rect.midY - rect.height / 2.0 * CGFloat(sin(angle))
             if curvature == 0.0 {
-                path.addLine(to: CGPoint(x: nextX, y: nextY))
+                path.line(to: NSPoint(x: nextX, y: nextY))
             } else {
                 var actualCurvature = curvature
                 if (curvature > AKRotaryKnob.maximumPolygonCurvature) {
@@ -433,9 +419,9 @@ public enum AKRotaryKnobStyle {
                     actualCurvature = AKRotaryKnob.maximumPolygonCurvature * -1.0
                 }
                 let arcAngle = 2 * Double.pi * (i - 0.5) / numberOfSides + offsetAngle
-                let arcX = rect.midX + (rect.width * CGFloat(1.0 + actualCurvature*0.5)) / 2.0 * CGFloat(cos(arcAngle))
-                let arcY = rect.midY + (rect.height * CGFloat(1.0 + actualCurvature*0.5)) / 2.0 * CGFloat(sin(arcAngle))
-                path.addQuadCurve(to: CGPoint(x: nextX, y: nextY), controlPoint: CGPoint(x: arcX, y: arcY))
+                let arcX = rect.midX + (rect.width * CGFloat(1.0 + actualCurvature*0.25)) / 2.0 * CGFloat(cos(arcAngle))
+                let arcY = rect.midY - (rect.height * CGFloat(1.0 + actualCurvature*0.25)) / 2.0 * CGFloat(sin(arcAngle))
+                path.curve(to: NSPoint(x: nextX, y: nextY), controlPoint1: NSPoint(x: arcX, y: arcY), controlPoint2: NSPoint(x: arcX, y: arcY))
             }
         }
         path.close()
