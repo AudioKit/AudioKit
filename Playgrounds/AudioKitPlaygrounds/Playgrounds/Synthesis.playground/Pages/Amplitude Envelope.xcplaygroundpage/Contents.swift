@@ -11,16 +11,27 @@ import AudioKitPlaygrounds
 import AudioKit
 
 var fmWithADSR = AKOscillatorBank()
-AudioKit.output = AKBooster(fmWithADSR, gain: 5)
+var amplitudeTracker = AKAmplitudeTracker(fmWithADSR)
+AudioKit.output = AKBooster(amplitudeTracker, gain: 5)
 AudioKit.start()
+amplitudeTracker.start()
 
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var holdDuration = 1.0
+    var plot: AKOutputWaveformPlot!
 
     override func setup() {
+
+        let frame = CGRect(x: 0.0, y: 0.0, width: 440, height: 330)
+        plot = AKOutputWaveformPlot(frame: frame)
+
+        plot.plotType = .rolling
+        plot.backgroundColor = AKColor.clear
+        plot.shouldCenterYAxis = true
+
 
         addTitle("ADSR Envelope")
 
@@ -40,7 +51,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel = fmWithADSR.sustainLevel
         addSubview(adsrView)
 
-        let plot = AKRollingOutputPlot.createView(width: 440, height: 330)
         addSubview(plot)
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
@@ -52,6 +62,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     func noteOn(note: MIDINoteNumber) {
         DispatchQueue.main.async {
+            self.plot.resume()
             fmWithADSR.play(noteNumber: note, velocity: 80)
         }
     }
@@ -61,9 +72,16 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             fmWithADSR.stop(noteNumber: note)
         }
     }
+}
 
+let view = PlaygroundView()
+
+AKPlaygroundLoop(every: 1.0) {
+    if amplitudeTracker.amplitude < 0.001 {
+        view.plot.pause()
+    }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = view
