@@ -3,8 +3,8 @@
 int sporth_slice(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    char *vals_name;
-    char *buf_name;
+    const char *vals_name;
+    const char *buf_name;
     SPFLOAT trig;
     SPFLOAT out;
     sp_ftbl * vals;

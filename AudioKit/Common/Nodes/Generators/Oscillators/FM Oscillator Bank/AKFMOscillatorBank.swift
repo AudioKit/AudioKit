@@ -10,13 +10,15 @@
 ///
 open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKFMOscillatorBankAudioUnit
-    public static let ComponentDescription = AudioComponentDescription(generator: "fmob")
+    /// Four letter unique description of the node
+    public static let ComponentDescription = AudioComponentDescription(instrument: "fmob")
 
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
+    /// Waveform of the oscillator
     open var waveform: AKTable? {
         //TODO: Add error checking for table size...needs to match init()
         willSet {
@@ -200,12 +202,12 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     ///
     public init(
         waveform: AKTable,
-        carrierMultiplier: Double = 1.0,
+        carrierMultiplier: Double = 1,
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
-        sustainLevel: Double = 1.0,
+        sustainLevel: Double = 1,
         releaseDuration: Double = 0.1,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
@@ -228,6 +230,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
+            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             self?.internalAU?.setupWaveform(Int32(waveform.count))
@@ -251,28 +254,12 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.carrierMultiplierParameter?.address {
-                    self?.carrierMultiplier = Double(value)
-                } else if address == self?.modulatingMultiplierParameter?.address {
-                    self?.modulatingMultiplier = Double(value)
-                } else if address == self?.modulationIndexParameter?.address {
-                    self?.modulationIndex = Double(value)
-                } else if address == self?.attackDurationParameter?.address {
-                    self?.attackDuration = Double(value)
-                } else if address == self?.decayDurationParameter?.address {
-                    self?.decayDuration = Double(value)
-                } else if address == self?.sustainLevelParameter?.address {
-                    self?.sustainLevel = Double(value)
-                } else if address == self?.releaseDurationParameter?.address {
-                    self?.releaseDuration = Double(value)
-                } else if address == self?.detuningOffsetParameter?.address {
-                    self?.detuningOffset = Double(value)
-                } else if address == self?.detuningMultiplierParameter?.address {
-                    self?.detuningMultiplier = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

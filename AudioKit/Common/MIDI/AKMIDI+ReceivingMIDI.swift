@@ -48,6 +48,16 @@ extension AKMIDI {
         listeners.removeAll()
     }
 
+    /// Add a transformer to the transformers list
+    public func addTransformer(_ transformer: AKMIDITransformer) {
+        transformers.append(transformer)
+    }
+
+    /// Remove all transformers
+    public func clearTransformers() {
+        transformers.removeAll()
+    }
+
     /// Open a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
@@ -61,9 +71,11 @@ extension AKMIDI {
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     for packet in packetList.pointee {
-                        // a coremidi packet may contain multiple midi events
-                        for event in packet {
-                            self.handleMIDIMessage(event)
+                    // a CoreMIDI packet may contain multiple MIDI events - 
+                    // treat it like an array of events that can be transformed
+                        let transformedMIDIEventList = self.transformMIDIEventList([AKMIDIEvent](packet))
+                        for transformedEvent in transformedMIDIEventList {
+                            self.handleMIDIMessage(transformedEvent)
                         }
                     }
                 }
@@ -71,7 +83,7 @@ extension AKMIDI {
                 inputPorts[namedInput] = port
 
                 if result != noErr {
-                    AKLog("Error creating midiInPort : \(result)")
+                    AKLog("Error creating MIDI Input Port : \(result)")
                 }
                 MIDIPortConnectSource(port, src, nil)
                 endpoints[namedInput] = src
@@ -99,7 +111,7 @@ extension AKMIDI {
                 }
             }
         }
-//        The below code is not working properly - error closing midi port
+//        The below code is not working properly - error closing MIDI port
 //        for (key, endpoint) in inputPorts {
 //            if namedInput.isEmpty || key == namedInput {
 //                if let port = inputPorts[key] {
@@ -161,5 +173,17 @@ extension AKMIDI {
                 break
             }
         }
+    }
+
+    internal func transformMIDIEventList(_ eventList: [AKMIDIEvent]) -> [AKMIDIEvent] {
+        var eventsToProcess = eventList
+        var processedEvents = eventList
+
+        for transformer in transformers {
+            processedEvents = transformer.transform(eventList: eventsToProcess)
+            // prepare for next transformer
+            eventsToProcess = processedEvents
+        }
+        return processedEvents
     }
 }

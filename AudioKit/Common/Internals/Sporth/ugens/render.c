@@ -16,7 +16,7 @@ int sporth_render(sporth_stack *stack, void *ud)
     sporth_render_d *rend;
     FILE *tmp, *fp;
     plumber_ftentry *old_ftmap;
-    char *filename;
+    const char *filename;
     int rc = PLUMBER_OK;
 
     switch(pd->mode){

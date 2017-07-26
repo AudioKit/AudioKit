@@ -17,8 +17,6 @@ class ThreePoleLowPassFilterTests: AKTestCase {
     }
 
     func testParameterSweep() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             let ramp = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(),

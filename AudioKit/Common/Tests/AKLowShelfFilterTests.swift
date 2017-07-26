@@ -12,9 +12,17 @@ import XCTest
 class AKLowShelfFilterTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKLowShelfFilter(input)
-        input.start()
-        AKTestMD5("30e9a7639b3af4f8159e307bf48a2844")
+        AKTestNoEffect()
+    }
+
+    func testCutoffFrequency() {
+        output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)
+        AKTestMD5("6b5611186ee54e8ede60ab68f5ada69d")
+    }
+
+    func testGain() {
+        output = AKLowShelfFilter(input, gain: 1)
+        AKTestMD5("ef250915f7d4a375ef036cddd9ab2e89")
     }
 }

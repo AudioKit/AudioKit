@@ -12,9 +12,12 @@ import XCTest
 class AKToneFilterTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKToneFilter(input)
-        input.start()
         AKTestMD5("4f3b1309e39beed48f9e6b9bff0c401c")
+    }
+
+    func testHalfPowerPoint() {
+        output = AKToneFilter(input, halfPowerPoint: 599)
+        AKTestMD5("2b984096830ec4cc3ac8a81877eb7379")
     }
 }

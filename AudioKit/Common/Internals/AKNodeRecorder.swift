@@ -21,7 +21,7 @@
     /// True if we are recording.
     public private(set) dynamic var isRecording = false
 
-    // An optional duration for the recording to auto-stop when reached
+    /// An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0
 
     /// Duration of recording
@@ -94,33 +94,6 @@
             return
         }
 
-        #if os(iOS)
-            // requestRecordPermission...
-            var permissionGranted: Bool = false
-
-            AKSettings.session.requestRecordPermission {
-                permissionGranted = $0
-            }
-
-            if !permissionGranted {
-                AKLog("AKNodeRecorder Error: Permission to record not granted")
-                throw NSError(domain: NSURLErrorDomain,
-                              code: NSURLErrorUnknown,
-                              userInfo: nil)
-            }
-
-            // Sets AVAudioSession Category to be Play and Record
-
-            if AKSettings.session.category != "\(AKSettings.SessionCategory.playAndRecord)" {
-                do {
-                    try AKSettings.setSession(category: .playAndRecord)
-                } catch let error as NSError {
-                    AKLog("AKNodeRecorder Error: Cannot set AVAudioSession Category to be .PlaybackAndRecord")
-                    throw error
-                }
-            }
-        #endif
-
         guard let node = node else {
             AKLog("AKNodeRecorder Error: input node is not available")
             return
@@ -181,12 +154,11 @@
         let url = internalAudioFile.url
 
         do {
-            if let path = audioFile?.url.absoluteString {
+            if let path = audioFile?.url.path {
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
-            AKLog("AKNodeRecorder Error: cannot delete Recording file: \(audioFile?.fileNamePlusExtension ?? "nil")")
-            throw error
+            AKLog("Error: Can't delete: \(audioFile?.fileNamePlusExtension ?? "nil") \(error.localizedDescription)")
         }
 
         // Creates a blank new file
@@ -194,7 +166,7 @@
             internalAudioFile = try AKAudioFile(forWriting: url, settings: settings)
             AKLog("AKNodeRecorder: file has been cleared")
         } catch let error as NSError {
-            AKLog("AKNodeRecorder Error: cannot record to file: \(internalAudioFile.fileNamePlusExtension)")
+            AKLog("Error: Can't record to: \(internalAudioFile.fileNamePlusExtension)")
             throw error
         }
     }

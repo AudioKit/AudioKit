@@ -11,6 +11,7 @@
 ///
 open class AKPhaser: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPhaserAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
     // MARK: - Properties
@@ -237,28 +238,12 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent {
         invertedParameter = tree["inverted"]
         lfoBPMParameter = tree["lfoBPM"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.notchMinimumFrequencyParameter?.address {
-                    self?.notchMinimumFrequency = Double(value)
-                } else if address == self?.notchMaximumFrequencyParameter?.address {
-                    self?.notchMaximumFrequency = Double(value)
-                } else if address == self?.notchWidthParameter?.address {
-                    self?.notchWidth = Double(value)
-                } else if address == self?.notchFrequencyParameter?.address {
-                    self?.notchFrequency = Double(value)
-                } else if address == self?.vibratoModeParameter?.address {
-                    self?.vibratoMode = Double(value)
-                } else if address == self?.depthParameter?.address {
-                    self?.depth = Double(value)
-                } else if address == self?.feedbackParameter?.address {
-                    self?.feedback = Double(value)
-                } else if address == self?.invertedParameter?.address {
-                    self?.inverted = Double(value)
-                } else if address == self?.lfoBPMParameter?.address {
-                    self?.lfoBPM = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

@@ -10,6 +10,7 @@
 ///
 open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
 
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     private var au: AUWrapper

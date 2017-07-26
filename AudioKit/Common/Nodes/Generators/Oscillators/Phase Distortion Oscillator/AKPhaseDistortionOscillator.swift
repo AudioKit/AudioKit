@@ -10,6 +10,7 @@
 ///
 open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "phdo")
 
     // MARK: - Properties
@@ -156,7 +157,6 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
             for (i, sample) in waveform.enumerated() {
                 self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
-
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -169,20 +169,12 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.frequencyParameter?.address {
-                    self?.frequency = Double(value)
-                } else if address == self?.amplitudeParameter?.address {
-                    self?.amplitude = Double(value)
-                } else if address == self?.phaseDistortionParameter?.address {
-                    self?.phaseDistortion = Double(value)
-                } else if address == self?.detuningOffsetParameter?.address {
-                    self?.detuningOffset = Double(value)
-                } else if address == self?.detuningMultiplierParameter?.address {
-                    self?.detuningMultiplier = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.frequency = Float(frequency)

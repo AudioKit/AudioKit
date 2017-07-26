@@ -14,7 +14,7 @@ int sporth_osc(sporth_stack *stack, void *ud)
 
     plumber_data *pd = ud;
     SPFLOAT out = 0, amp, freq, phs;
-    char *ftname;
+    const char *ftname;
     sporth_osc_d *osc;
     switch(pd->mode){
         case PLUMBER_CREATE:

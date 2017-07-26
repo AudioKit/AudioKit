@@ -117,6 +117,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
 
     // MARK: - Overrides
 
+    /// Handle new touches
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
 
@@ -126,18 +127,21 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         update(touches)
     }
 
+    /// Handle moved touches
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesMoved(touches, with: event)
 
         update(touches)
     }
 
+    /// Handle cancelled touches
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesCancelled(touches, with: event)
 
         update(touches)
     }
 
+    /// Handle ended touches    
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesEnded(touches, with: event)
 

@@ -23,6 +23,7 @@
 //: * [Balancing Nodes](Balancing%20Nodes)
 //: * [Stereo Panning](Stereo%20Panning)
 //: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
+//: * [Tables](Tables)
 //:
 //: A gentle introduction to the power of AudioKit operations:
 //:
@@ -34,5 +35,6 @@
 //:
 //: And finally some notes about the differences between playground
 //: code and production code
+//:
 //: * [Playgrounds to Production](Playgrounds%20to%20Production)
 //:

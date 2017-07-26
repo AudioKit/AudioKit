@@ -12,9 +12,12 @@ import XCTest
 class AKLowPassButterworthFilterTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKLowPassButterworthFilter(input)
-        input.start()
         AKTestMD5("7d0ddc9ba1d709b22244737b17eafadb")
+    }
+
+    func testCutoffFrequency() {
+        output = AKLowPassButterworthFilter(input, cutoffFrequency: 500)
+        AKTestMD5("1591bbcb5064ee70db40b8286435a424")
     }
 }

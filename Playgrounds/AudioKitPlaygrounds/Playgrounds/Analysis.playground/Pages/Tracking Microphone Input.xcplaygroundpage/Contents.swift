@@ -11,7 +11,7 @@ let micCopy1 = AKBooster(mic)
 let micCopy2 = AKBooster(micCopy1)
 
 //: Set the microphone device if you need to
-if let inputs = AudioKit.availableInputs {
+if let inputs = AudioKit.inputDevices {
     try AudioKit.setInputDevice(inputs[0])
     try mic.setDevice(inputs[0])
 }

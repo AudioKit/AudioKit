@@ -5,7 +5,7 @@ int sporth_fog(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     SPFLOAT out;
-    char *wavstr, *winstr;
+    const char *wavstr, *winstr;
     sp_ftbl *wav;
     sp_ftbl *win;
     int iolaps;

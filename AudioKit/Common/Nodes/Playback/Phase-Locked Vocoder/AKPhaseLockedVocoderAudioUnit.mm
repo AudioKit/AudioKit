@@ -16,7 +16,7 @@
 @implementation AKPhaseLockedVocoderAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKPhaseLockedVocoderDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -38,7 +38,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(PhaseLockedVocoder)
+    standardGeneratorSetup(PhaseLockedVocoder)
 
     // Create a parameter object for the position.
     AUParameter *positionAUParameter = [AUParameter parameter:@"position"

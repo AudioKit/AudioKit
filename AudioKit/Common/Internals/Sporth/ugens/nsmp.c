@@ -8,7 +8,7 @@ int sporth_nsmp(sporth_stack *stack, void *ud)
 
     plumber_data *pd = ud;
     SPFLOAT out = 0, trig = 0, index = 0, sr = 0;
-    char *wav, *ini;
+    const char *wav, *ini;
     sp_ftbl *ft;
     sp_nsmp *nsmp;
     switch(pd->mode){

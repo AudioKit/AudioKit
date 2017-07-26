@@ -16,7 +16,7 @@
 @implementation AKPWMOscillatorAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKPWMOscillatorDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -40,7 +40,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(PWMOscillator)
+    standardGeneratorSetup(PWMOscillator)
 
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"

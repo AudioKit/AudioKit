@@ -26,7 +26,7 @@
     }
 
     /// Frequency of standard reference note
-    // equivalent to noteToHz: return 440. * exp2((60 - 69)/12.)
+    /// equivalent to noteToHz: return 440. * exp2((60 - 69)/12.)
     public var middleCFrequency: Frequency = 261.625_565_300_6 {
         didSet {
             updateTuningTable()

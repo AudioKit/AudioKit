@@ -81,7 +81,7 @@ public protocol AKMIDIListener {
     ///
     func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel)
 
-    /// Receive a midi system command (such as clock, sysex, etc)
+    /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
     /// - parameter data: Array of integers
     ///
@@ -141,7 +141,7 @@ public extension AKMIDIListener {
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
                                 channel: MIDIChannel) {
-        AKLog("channel: \(channel) midiAftertouch Note: \(noteNumber) pressure: \(pressure)")
+        AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) pressure: \(pressure)")
     }
 
     /// Receive global aftertouch
@@ -151,7 +151,7 @@ public extension AKMIDIListener {
     ///   - channel:  MIDI Channel (1-16)
     ///
     func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
-        AKLog("channel: \(channel) midiAfterTouch pressure: \(pressure)")
+        AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure)")
     }
 
     /// Receive pitch wheel value
@@ -174,7 +174,7 @@ public extension AKMIDIListener {
         AKLog("channel: \(channel) programChange: \(program)")
     }
 
-    /// Receive a midi system command (such as clock, sysex, etc)
+    /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
     /// - parameter data: Array of integers
     ///

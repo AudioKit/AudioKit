@@ -4,7 +4,7 @@
 typedef struct {
     sp_oscmorph *data;
     sp_ftbl **ft;
-    char **ftname;
+    const char **ftname;
     int nft;
     SPFLOAT phase;
     SPFLOAT freq;

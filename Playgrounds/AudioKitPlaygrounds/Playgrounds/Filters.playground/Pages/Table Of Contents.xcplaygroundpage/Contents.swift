@@ -9,6 +9,7 @@
 //: * [High Pass Butterworth Filter](High%20Pass%20Butterworth%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
+//: * [Korg Low Pass Filter](Korg%20Low%20Pass%20Filter)
 //: * [Low Pass Butterworth Filter](Low%20Pass%20Butterworth%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
@@ -23,6 +24,7 @@
 //: ## Operations
 //:
 //: * [High Pass Filter](High%20Pass%20Filter%20Operation)
+//: * [Korg Low Pass Filter](Korg%20Low%20Pass%20Filter%20Operation)
 //: * [Low Pass Filter](Low%20Pass%20Filter%20Operation)
 //: * [Modal Resonance Filter](Modal%20Resonance%20Filter%20Operation)
 //: * [Moog Ladder Filter](Moog%20Ladder%20Filter%20Operation)

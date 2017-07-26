@@ -11,6 +11,7 @@
 ///
 open class AKDCBlock: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKDCBlockAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
 
     // MARK: - Properties

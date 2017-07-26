@@ -8,7 +8,7 @@ int sporth_scrambler(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
 
     sp_ftbl *ft_s, *ft_d;
-    char *src, *dst;
+    const char *src, *dst;
 
     switch(pd->mode){
         case PLUMBER_CREATE:

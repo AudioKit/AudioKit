@@ -1,7 +1,7 @@
 #include <math.h>
 #include "plumber.h"
 
-int plumber_set_var(plumber_data *pd, char *name, SPFLOAT *var);
+int plumber_set_var(plumber_data *pd, const char *name, SPFLOAT *var);
 
 int sporth_p(sporth_stack *stack, void *ud)
 {
@@ -99,7 +99,7 @@ int sporth_pset(sporth_stack *stack, void *ud)
 int sporth_palias(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    char *name;
+    const char *name;
     int id;
     SPFLOAT *foo;
 

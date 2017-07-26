@@ -11,18 +11,27 @@ import XCTest
 
 class AutoWahTests: AKTestCase {
 
-    override func setUp() {
-        super.setUp()
-        duration = 1.0
-    }
-
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.autoWah()
         }
-        AKTestMD5("b1c90acd05dee35b6451311a2728b943")
+        AKTestMD5("59fbba3cba865cad6724234e76dc8fe7")
     }
+
+    func testWah() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.autoWah(wah: 0.5)
+        }
+        AKTestMD5("8f2c5dcb94caf856f9e75f81d0174cdf")
+    }
+
+    func testAmplitude() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.autoWah(wah: 0.5, amplitude: 0.5)
+        }
+        AKTestMD5("557d83fe62c2a80e161ed981b92c9105")
+    }
+
+
 
 }

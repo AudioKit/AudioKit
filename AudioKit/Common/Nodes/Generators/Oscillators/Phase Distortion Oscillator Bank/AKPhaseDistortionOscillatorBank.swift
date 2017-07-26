@@ -10,7 +10,8 @@
 ///
 open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorBankAudioUnit
-    public static let ComponentDescription = AudioComponentDescription(generator: "phdb")
+    /// Four letter unique description of the node
+    public static let ComponentDescription = AudioComponentDescription(instrument: "phdb")
 
     // MARK: - Properties
 
@@ -181,6 +182,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
+            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             self?.internalAU?.setupWaveform(Int32(waveform.count))
@@ -202,24 +204,12 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.phaseDistortionParameter?.address {
-                    self?.phaseDistortion = Double(value)
-                } else if address == self?.attackDurationParameter?.address {
-                    self?.attackDuration = Double(value)
-                } else if address == self?.decayDurationParameter?.address {
-                    self?.decayDuration = Double(value)
-                } else if address == self?.sustainLevelParameter?.address {
-                    self?.sustainLevel = Double(value)
-                } else if address == self?.releaseDurationParameter?.address {
-                    self?.releaseDuration = Double(value)
-                } else if address == self?.detuningOffsetParameter?.address {
-                    self?.detuningOffset = Double(value)
-                } else if address == self?.detuningMultiplierParameter?.address {
-                    self?.detuningMultiplier = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
