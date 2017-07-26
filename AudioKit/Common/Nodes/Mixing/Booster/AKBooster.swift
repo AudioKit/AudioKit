@@ -34,15 +34,26 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     open dynamic var gain: Double = 1 {
         willSet {
             if gain != newValue {
+                // ensure that the parameters aren't nil, 
+                // if they are we're using this class directly inline as an AKNode
+                var directAccess = true
+                
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        leftGainParameter?.setValue(Float(newValue), originator: existingToken)
-                        rightGainParameter?.setValue(Float(newValue), originator: existingToken)
+                        if leftGainParameter != nil && rightGainParameter != nil {
+                            leftGainParameter?.setValue(Float(newValue), originator: existingToken)
+                            rightGainParameter?.setValue(Float(newValue), originator: existingToken)
+                            directAccess = false
+                        }
                     }
-                } else {
+                }
+
+                // this means it's direct inline
+                if directAccess {
                     internalAU?.leftGain = Float(newValue)
                     internalAU?.rightGain = Float(newValue)
                 }
+                
             }
         }
     }
@@ -51,11 +62,18 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     open dynamic var leftGain: Double = 1 {
         willSet {
             if leftGain != newValue {
+                var directAccess = true
+                
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        leftGainParameter?.setValue(Float(newValue), originator: existingToken)
+                        if leftGainParameter != nil {
+                            leftGainParameter?.setValue(Float(newValue), originator: existingToken)
+                            directAccess = false
+                        }
                     }
-                } else {
+                }
+                
+                if directAccess {
                     internalAU?.leftGain = Float(newValue)
                 }
             }
@@ -66,11 +84,18 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     open dynamic var rightGain: Double = 1 {
         willSet {
             if rightGain != newValue {
+                var directAccess = true
+                
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        rightGainParameter?.setValue(Float(newValue), originator: existingToken)
+                        if rightGainParameter != nil {
+                            rightGainParameter?.setValue(Float(newValue), originator: existingToken)
+                            directAccess = false
+                        }
                     }
-                } else {
+                }
+                
+                if directAccess {
                     internalAU?.rightGain = Float(newValue)
                 }
             }
@@ -137,12 +162,14 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         })
         internalAU?.leftGain = Float(gain)
         internalAU?.rightGain = Float(gain)
+        
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
+        AKLog("start() \(isStopped)")
         if isStopped {
             leftGain = lastKnownLeftGain
             rightGain = lastKnownRightGain
@@ -151,6 +178,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
 
     /// Function to stop or bypass the node, both are equivalent
     open func stop() {
+        AKLog("stop() \(isPlaying)")
+
         if isPlaying {
             lastKnownLeftGain = leftGain
             lastKnownRightGain = rightGain
