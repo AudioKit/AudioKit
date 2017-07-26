@@ -34,72 +34,59 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     /// Amplification Factor
     open dynamic var gain: Double = 1 {
         willSet {
-            if gain != newValue {
-                // ensure that the parameters aren't nil, 
-                // if they are we're using this class directly inline as an AKNode
-                var directAccess = true
-                
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        if leftGainParameter != nil && rightGainParameter != nil {
-                            leftGainParameter?.setValue(Float(newValue), originator: existingToken)
-                            rightGainParameter?.setValue(Float(newValue), originator: existingToken)
-                            directAccess = false
-                        }
-                    }
-                }
-
-                // this means it's direct inline
-                if directAccess {
-                    internalAU?.leftGain = Float(newValue)
-                    internalAU?.rightGain = Float(newValue)
-                }
-                
+            if gain == newValue {
+                return
             }
+            
+            // ensure that the parameters aren't nil,
+            // if they are we're using this class directly inline as an AKNode
+            if internalAU?.isSetUp() ?? false {
+                if token != nil && leftGainParameter != nil && rightGainParameter != nil {
+                    leftGainParameter?.setValue(Float(newValue), originator: token!)
+                    rightGainParameter?.setValue(Float(newValue), originator: token!)
+                    return
+                }
+            }
+
+            // this means it's direct inline
+            internalAU?.leftGain = Float(newValue)
+            internalAU?.rightGain = Float(newValue)
         }
     }
 
     /// Left Channel Amplification Factor
     open dynamic var leftGain: Double = 1 {
         willSet {
-            if leftGain != newValue {
-                var directAccess = true
+            if leftGain == newValue {
+                return
+            }
                 
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        if leftGainParameter != nil {
-                            leftGainParameter?.setValue(Float(newValue), originator: existingToken)
-                            directAccess = false
-                        }
-                    }
-                }
-                
-                if directAccess {
-                    internalAU?.leftGain = Float(newValue)
+            if internalAU?.isSetUp() ?? false {
+                if token != nil && leftGainParameter != nil {
+                    leftGainParameter?.setValue(Float(newValue), originator: token!)
+                    return
                 }
             }
+            
+            internalAU?.leftGain = Float(newValue)
         }
     }
 
     /// Right Channel Amplification Factor
     open dynamic var rightGain: Double = 1 {
         willSet {
-            if rightGain != newValue {
-                var directAccess = true
-                
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        if rightGainParameter != nil {
-                            rightGainParameter?.setValue(Float(newValue), originator: existingToken)
-                            directAccess = false
-                        }
-                    }
-                }
-                
-                if directAccess {
-                    internalAU?.rightGain = Float(newValue)
+            if rightGain == newValue {
+                return
+            }
+
+            if internalAU?.isSetUp() ?? false {
+                if token != nil && rightGainParameter != nil {
+                    rightGainParameter?.setValue(Float(newValue), originator: token!)
+                    return
                 }
             }
+            
+            internalAU?.rightGain = Float(newValue)
         }
     }
 
