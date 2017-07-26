@@ -1,6 +1,6 @@
 //
 //  AKSamplePlayer.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 5/20/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -8,11 +8,17 @@
 
 import Foundation
 
+/// A Sample type, just a UInt32
 public typealias Sample = UInt32
 
+/// Callback function that can be called from C
+public typealias AKCCallback = @convention(block) () -> Void
+
+/// Audio player that loads a sample into memory
 open class AKSamplePlayer: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
 
     // MARK: - Properties
@@ -23,6 +29,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?
     fileprivate var rateParameter: AUParameter?
+    fileprivate var volumeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -77,6 +84,21 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
+    /// Volume - amplitude adjustment
+    open dynamic var volume: Double = 1 {
+        willSet {
+            if volume != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        volumeParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.volume = Float(newValue)
+                }
+            }
+        }
+    }
+
     /// Loop Enabled - if enabled, the sample will loop back to the startpoint when the endpoint is reached.
     /// When disabled, the sample will play through once from startPoint to endPoint
     open dynamic var loopEnabled: Bool = false {
@@ -84,15 +106,21 @@ open class AKSamplePlayer: AKNode, AKComponent {
             internalAU?.loop = newValue
         }
     }
-    
+
+    /// Number of sample in the audio stored in memory
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
     }
-    open var normalisedPosition: Double {
+
+    /// Position in the audio file from 0 - 1
+    open var normalizedPosition: Double {
         return Double(internalAU!.position())
     }
+
+    /// Position in the audio in samples, but represented as a double since
+    /// you could conceivably be at a non-integer sample
     open var position: Double {
-        return normalisedPosition * Double(size)
+        return normalizedPosition * Double(size)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -110,13 +138,15 @@ open class AKSamplePlayer: AKNode, AKComponent {
         file: AVAudioFile,
         startPoint: Sample = 0,
         endPoint: Sample = 0,
-        rate: Double = 1) {
+        rate: Double = 1,
+        volume: Double = 1,
+        completionHandler: @escaping AKCCallback = { }) {
 
         self.startPoint = startPoint
         self.rate = rate
+        self.volume = volume
         self.avAudiofile = file
         self.endPoint = Sample(avAudiofile.samplesCount)
-
         _Self.register()
 
         super.init()
@@ -125,6 +155,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            self!.internalAU!.completionHandler = completionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -134,22 +165,20 @@ open class AKSamplePlayer: AKNode, AKComponent {
         startPointParameter = tree["startPoint"]
         endPointParameter = tree["endPoint"]
         rateParameter = tree["rate"]
+        volumeParameter = tree["volume"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.startPointParameter?.address {
-                    self?.startPoint = Sample(value)
-                } else if address == self?.endPointParameter?.address {
-                    self?.endPoint = Sample(value)
-                } else if address == self?.rateParameter?.address {
-                    self?.rate = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.rate = Float(rate)
+        internalAU?.volume = Float(volume)
 
         load(file: self.avAudiofile)
     }
@@ -158,6 +187,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
+        internalAU?.startPoint = Float(safeSample(startPoint))
+        internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.start()
     }
 
@@ -172,12 +203,14 @@ open class AKSamplePlayer: AKNode, AKComponent {
         start()
     }
 
+    /// Play from a certain sample for a certain number of samples
     open func play(from: Sample = 0, length: Sample = 0) {
         startPoint = from
         endPoint = startPoint + length
         start()
     }
 
+    /// Play from a certain sample to an end sample
     open func play(from: Sample = 0, to: Sample = 0) {
         startPoint = from
         endPoint = to
@@ -190,6 +223,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         return point
     }
 
+    /// Load a new audio file into memory
     open func loadSound(file: AVAudioFile) {
         load(file: file)
     }
@@ -226,7 +260,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
             theOutputFormat.mBitsPerChannel = UInt32(MemoryLayout<Float>.stride) * 8
-            theOutputFormat.mChannelsPerFrame = 1 // Mono
+            theOutputFormat.mChannelsPerFrame = 2
             theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(MemoryLayout<Float>.stride)
             theOutputFormat.mFramesPerPacket = 1
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
@@ -270,7 +304,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
+                    internalAU?.setupAudioFileTable(data, size: ioNumberFrames * 2)
                     self.avAudiofile = file
                     self.startPoint = 0
                     self.endPoint = Sample(file.samplesCount)

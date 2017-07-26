@@ -10,6 +10,7 @@
 ///
 open class AKBooster: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBoosterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "gain")
 
     // MARK: - Properties
@@ -119,7 +120,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize this gainner node
+    /// Initialize this booster node
     ///
     /// - Parameters:
     ///   - input: AKNode whose output will be amplified
@@ -150,14 +151,12 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         leftGainParameter = tree["leftGain"]
         rightGainParameter = tree["rightGain"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.leftGainParameter?.address {
-                    self?.leftGain = Double(value)
-                } else if address == self?.rightGainParameter?.address {
-                    self?.rightGain = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.leftGain = Float(gain)

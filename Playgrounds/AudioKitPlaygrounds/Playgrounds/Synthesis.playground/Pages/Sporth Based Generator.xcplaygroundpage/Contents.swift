@@ -65,7 +65,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     regex = try NSRegularExpression(pattern: pattern,
                                                     options: .dotMatchesLineSeparators)
                 } catch {
-                    print("Regular expression failed")
+                    Swift.print("Regular expression failed")
                 }
 
                 let value = regex.stringByReplacingMatches(in: line,
@@ -79,7 +79,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     regex = try NSRegularExpression(pattern: pattern,
                                                     options: .dotMatchesLineSeparators)
                 } catch {
-                    print("Regular expression failed")
+                    Swift.print("Regular expression failed")
                 }
                 let currentControlText = regex.stringByReplacingMatches(in: line,
                                                                         options: .reportCompletion,
@@ -99,7 +99,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 }
                 if value != line {
                     if let doubleValue = Double(value) {
-                        print("GOt here")
                         generator.parameters[currentControl] = doubleValue
                         sliders[currentControl].value = doubleValue
                     }

@@ -12,7 +12,7 @@ let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise, _ in
 }
 
 //: Music Example
-let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
                            baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)

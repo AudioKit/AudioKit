@@ -16,7 +16,7 @@
 @implementation AKSamplePlayerAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKSamplePlayerDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -26,8 +26,15 @@
 - (void)setEndPoint:(float)endPoint {
     _kernel.setEndPoint(endPoint);
 }
+
+-(void)setCompletionHandler:(AKCCallback)handler {
+    _kernel.completionHandler = handler;
+}
 - (void)setRate:(float)rate {
     _kernel.setRate(rate);
+}
+- (void)setVolume:(float)volume {
+    _kernel.setVolume(volume);
 }
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
@@ -46,7 +53,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(SamplePlayer)
+    standardGeneratorSetup(SamplePlayer)
     
     // Create a parameter object for the start.
     AUParameter *startPointAUParameter = [AUParameter parameter:@"startPoint"
@@ -72,20 +79,30 @@ standardKernelPassthroughs()
                                                       max:10
                                                      unit:kAudioUnitParameterUnit_Generic];
 
+    // Create a parameter object for the volume.
+    AUParameter *volumeAUParameter = [AUParameter parameter:@"volume"
+                                                       name:@"volume"
+                                                    address:volumeAddress
+                                                        min:0
+                                                        max:10
+                                                       unit:kAudioUnitParameterUnit_Generic];
     // Initialize the parameter values.
     startPointAUParameter.value = 0;
     endPointAUParameter.value = 1;
     rateAUParameter.value = 1;
+    volumeAUParameter.value = 1;
 
     _kernel.setParameter(startPointAddress,   startPointAUParameter.value);
     _kernel.setParameter(endPointAddress,  endPointAUParameter.value);
     _kernel.setParameter(rateAddress, rateAUParameter.value);
+    _kernel.setParameter(volumeAddress, volumeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
         startPointAUParameter,
         endPointAUParameter,
-        rateAUParameter
+        rateAUParameter,
+        volumeAUParameter
     ]];
 
 	parameterTreeBlock(SamplePlayer)

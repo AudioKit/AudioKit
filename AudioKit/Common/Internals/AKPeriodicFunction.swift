@@ -6,6 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// A class to periodically perform a callback
 public class AKPeriodicFunction: AKOperationGenerator {
     fileprivate var internalHandler: () -> Void = {}
     private var duration = 1.0

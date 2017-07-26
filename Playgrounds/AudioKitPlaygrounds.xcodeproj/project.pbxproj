@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4356CAC1EF6535800F3149C /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */; };
 		C46EDA551E94F04D0099E238 /* AudioKitPlaygrounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46EDA621E94F0BF0099E238 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; };
 		C46EDA631E94F0C50099E238 /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -28,6 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
 		C46EDA501E94F04D0099E238 /* AudioKitPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKitPlaygrounds.h; sourceTree = "<group>"; };
 		C46EDA541E94F04D0099E238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				C46EDA611E94F0BF0099E238 /* AudioKit.framework */,
 				C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */,
 				C46EDA541E94F04D0099E238 /* Info.plist */,
+				C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */,
 				C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */,
 				C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */,
 			);
@@ -178,6 +181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4356CAC1EF6535800F3149C /* AKPlaygroundResources.swift in Sources */,
 				C486FAA41E9A0CA200DEB790 /* AKPhoneView.swift in Sources */,
 				C486FA8E1E98BD5200DEB790 /* AKPlaygroundUgens.swift in Sources */,
 			);

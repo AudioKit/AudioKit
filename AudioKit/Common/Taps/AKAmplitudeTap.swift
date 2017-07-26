@@ -1,5 +1,5 @@
 //
-//  AKRMS.swift
+//  AKAmplitudeTap.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.

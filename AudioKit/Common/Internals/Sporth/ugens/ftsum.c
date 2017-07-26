@@ -14,7 +14,7 @@ int sporth_ftsum(sporth_stack *stack, void *ud)
 
     plumber_data *pd = ud;
     uint32_t start, end, tmp, i;
-    char *ftname;
+    const char *ftname;
     sporth_ftsum_d *ftsum;
     SPFLOAT out = 0;
     switch(pd->mode){

@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
 
-        addSubview(AKButton(title: "Disable Looping") {
+        addSubview(AKDynamicButton(title: "Disable Looping") {
             player.looping = !player.looping
             if player.looping {
                 return "Disable Looping"
@@ -48,7 +48,7 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        addSubview(AKButton(title: "Direction: ➡️") {
+        addSubview(AKDynamicButton(title: "Direction: ➡️") {
             if player.isPlaying {
                 player.stop()
             }

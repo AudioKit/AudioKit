@@ -25,9 +25,12 @@
         sp_create(&sp);
         sp->sr = 44100;
         sp->nchan = 1;
+        
+        int hopSize = 4096;
+        int peakCount = 20;
 
         sp_ptrack_create(&ptrack);
-        sp_ptrack_init(sp, ptrack, 512, 20);
+        sp_ptrack_init(sp, ptrack, hopSize, peakCount);
         
         ezmic = [EZMicrophone microphoneWithDelegate:self];
     }

@@ -10,6 +10,7 @@
 ///
 open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKKorgLowPassFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
     // MARK: - Properties
@@ -114,16 +115,12 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         resonanceParameter = tree["resonance"]
         saturationParameter = tree["saturation"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.cutoffFrequencyParameter?.address {
-                    self?.cutoffFrequency = Double(value)
-                } else if address == self?.resonanceParameter?.address {
-                    self?.resonance = Double(value)
-                } else if address == self?.saturationParameter?.address {
-                    self?.saturation = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

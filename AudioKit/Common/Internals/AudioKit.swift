@@ -12,8 +12,9 @@ import CoreAudioKit
 
 import Dispatch
 
-public typealias AKCallback = (Void) -> Void
+public typealias AKCallback = () -> Void
 
+/// Adding connection between nodes with default format
 extension AVAudioEngine {
     open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
         connect(node1, to: node2, format: AudioKit.format)
@@ -215,52 +216,70 @@ extension AVAudioEngine {
         }
         // Start the engine.
         do {
-            self.engine.prepare()
+            engine.prepare()
 
             #if os(iOS)
 
-                NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(AudioKit.restartEngineAfterRouteChange),
-                    name: .AVAudioSessionRouteChange,
-                    object: nil)
+                if AKSettings.enableRouteChangeHandling {
+                    NotificationCenter.default.addObserver(
+                        self,
+                        selector: #selector(AudioKit.restartEngineAfterRouteChange),
+                        name: .AVAudioSessionRouteChange,
+                        object: nil)
+                }
+
+                if AKSettings.enableCategoryChangeHandling {
+                    NotificationCenter.default.addObserver(
+                        self,
+                        selector: #selector(AudioKit.restartEngineAfterConfigurationChange),
+                        name: .AVAudioEngineConfigurationChange,
+                        object: engine)
+                }
+
             #endif
             #if !os(macOS)
                 if AKSettings.audioInputEnabled {
 
                 #if os(iOS)
-                    if AKSettings.defaultToSpeaker {
-                        try AKSettings.setSession(category: .playAndRecord,
-                                                  with: .defaultToSpeaker)
 
-                        // listen to AVAudioEngineConfigurationChangeNotification
-                        // and restart the engine if it is stopped.
-                        NotificationCenter.default.addObserver(
-                            self,
-                            selector: #selector(AudioKit.audioEngineConfigurationChange),
-                            name: .AVAudioEngineConfigurationChange,
-                            object: engine)
+                    var options: AVAudioSessionCategoryOptions = [.mixWithOthers]
 
-                    } else if AKSettings.useBluetooth {
-
-                        if #available(iOS 10.0, *) {
-                            let options: AVAudioSessionCategoryOptions = [.allowBluetooth,
-                                                                          .allowBluetoothA2DP,
-                                                                          .mixWithOthers]
-                            try AKSettings.setSession(category: .playAndRecord, with: options)
-                        } else {
-                            // Fallback on earlier versions
-                            try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
+                    if #available(iOS 10.0, *) {
+                        // Blueooth Options
+                        // .allowBluetooth can only be set with the categories .playAndRecord and .record
+                        // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or
+                        // .playback. This option is cleared if the category is .record, or .multiRoute. If this
+                        // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
+                        // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
+                        // priority for routing.
+                        if AKSettings.bluetoothOptions.isNotEmpty {
+                            options = options.union(AKSettings.bluetoothOptions)
+                        } else if AKSettings.useBluetooth {
+                            // If bluetoothOptions aren't specified
+                            // but useBluetooth is then we will use these defaults
+                            options = options.union([.allowBluetooth,
+                                                     .allowBluetoothA2DP])
                         }
 
-                    } else if AKSettings.bluetoothOptions.isNotEmpty {
-                        let opts: AVAudioSessionCategoryOptions = [.mixWithOthers]
-                        try AKSettings.setSession(category: .playAndRecord,
-                                                  with: opts.union(AKSettings.bluetoothOptions))
-                    } else {
-                        try AKSettings.setSession(category: .playAndRecord, with: .mixWithOthers)
+                        // AirPlay
+                        if AKSettings.allowAirPlay {
+                            options = options.union(.allowAirPlay)
+                        }
+                    } else if AKSettings.bluetoothOptions.isNotEmpty ||
+                              AKSettings.useBluetooth ||
+                              AKSettings.allowAirPlay {
+                        AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
                     }
-                #else
+
+                    // Default to Speaker
+                    if AKSettings.defaultToSpeaker {
+                        options = options.union(.defaultToSpeaker)
+                    }
+
+                    try AKSettings.setSession(category: .playAndRecord,
+                                              with: options)
+
+                #elseif os(tvOS)
                     // tvOS
                     try AKSettings.setSession(category: .playAndRecord)
 
@@ -270,27 +289,26 @@ extension AVAudioEngine {
                     try AKSettings.setSession(category: .playback)
                 } else {
                     try AKSettings.setSession(category: .ambient)
-
                 }
-            #if os(iOS)
-                try AVAudioSession.sharedInstance().setActive(true)
-            #endif
+
+                #if os(iOS)
+                    try AVAudioSession.sharedInstance().setActive(true)
+                #endif
 
             #endif
 
-            try self.engine.start()
-
+            try engine.start()
             shouldBeRunning = true
+
         } catch {
             fatalError("AudioKit: Could not start engine. error: \(error).")
         }
-
     }
 
     /// Stop the audio engine
     open static func stop() {
         // Stop the engine.
-        self.engine.stop()
+        engine.stop()
         shouldBeRunning = false
         #if os(iOS)
         do {
@@ -312,16 +330,56 @@ extension AVAudioEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    open static func test(node: AKNode, duration: Double) {
-        let samples = Int(duration * AKSettings.sampleRate)
-
-        tester = AKTester(node, samples: samples)
-        output = tester
-        start()
-        self.engine.pause()
-        tester?.play()
-        let renderer = AKOfflineRenderer(engine: self.engine)
-        renderer?.render(Int32(samples))
+    open static func test(node: AKNode, duration: Double, afterStart: ()->Void = {}) {
+        #if swift(>=3.2)
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+            let samples = Int(duration * AKSettings.sampleRate)
+            
+            tester = AKTester(node, samples: samples)
+            output = tester
+            
+            do {
+                // maximum number of frames the engine will be asked to render in any single render call
+                let maxNumberOfFrames: AVAudioFrameCount = 4096
+                engine.reset()
+                try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
+                try engine.start()
+            } catch {
+                fatalError("could not enable manual rendering mode, \(error)")
+            }
+            afterStart()
+            tester?.play()
+            
+            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)
+            
+            while engine.manualRenderingSampleTime < samples {
+                do {
+                    let framesToRender = buffer.frameCapacity
+                    let status = try engine.renderOffline(framesToRender, to: buffer)
+                    switch status {
+                    case .success:
+                        // data rendered successfully
+                        break
+                        
+                    case .insufficientDataFromInputNode:
+                        // applicable only if using the input node as one of the sources
+                        break
+                        
+                    case .cannotDoInCurrentContext:
+                        // engine could not render in the current render call, retry in next iteration
+                        break
+                        
+                    case .error:
+                        // error occurred while rendering
+                        fatalError("render failed")
+                    }
+                } catch {
+                    fatalError("render failed, \(error)")
+                }
+            }
+            tester?.stop()
+        }
+        #endif
     }
 
     /// Audition the test to hear what it sounds like
@@ -345,11 +403,31 @@ extension AVAudioEngine {
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
-    @objc fileprivate static func audioEngineConfigurationChange(_ notification: Notification) {
+    @objc fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
         DispatchQueue.main.async {
             if shouldBeRunning && !engine.isRunning {
                 do {
+
+                    #if !os(macOS)
+                        let appIsNotActive = UIApplication.shared.applicationState != .active
+                        let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
+
+                        if appIsNotActive && appDoesNotSupportBackgroundAudio {
+                            AKLog("engine not restarted after configuration change since app was not active and does not support background audio")
+                            return
+                        }
+                    #endif
+
                     try engine.start()
+
+                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
+                    if AKSettings.notificationsEnabled {
+                        NotificationCenter.default.post(
+                            name: .AKEngineRestartedAfterConfigurationChange,
+                            object: nil,
+                            userInfo: notification.userInfo)
+                    }
+
                 } catch {
                     AKLog("couldn't start engine after configuration change \(error)")
                 }
@@ -362,15 +440,25 @@ extension AVAudioEngine {
         DispatchQueue.main.async {
             if shouldBeRunning && !engine.isRunning {
                 do {
-                    try self.engine.start()
-                    // Sends notification after restarting the engine, so it is safe to resume
-                    // AudioKit functions.
+
+                    #if !os(macOS)
+                    let appIsNotActive = UIApplication.shared.applicationState != .active
+                    let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
+
+                    if appIsNotActive && appDoesNotSupportBackgroundAudio {
+                        AKLog("engine not restarted after route change since app was not active and does not support background audio")
+                        return
+                    }
+                    #endif
+
+                    try engine.start()
+
+                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
                     if AKSettings.notificationsEnabled {
                         NotificationCenter.default.post(
                             name: .AKEngineRestartedAfterRouteChange,
                             object: nil,
                             userInfo: notification.userInfo)
-
                     }
                 } catch {
                     AKLog("error restarting engine after route change")
@@ -381,6 +469,7 @@ extension AVAudioEngine {
 
     // MARK: - Disconnect node inputs
 
+    /// Disconnect all inputs
     @objc open static func disconnectAllInputs() {
         engine.disconnectNodeInput(finalMixer.avAudioNode)
     }

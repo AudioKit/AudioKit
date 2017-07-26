@@ -1042,7 +1042,7 @@ int sporth_branch(sporth_stack *stack, void *ud)
             v1 = sporth_stack_pop_float(stack);
             v2 = sporth_stack_pop_float(stack);
             cond = sporth_stack_pop_float(stack);
-            sporth_stack_push_float(stack, (cond != 0 ? v2 : v1));
+            sporth_stack_push_float(stack, (cond != 0 ? v1 : v2));
             break;
         case PLUMBER_DESTROY:
             break;
@@ -1414,6 +1414,37 @@ int sporth_inv(sporth_stack *stack, void *ud)
             stack->error++;
             return PLUMBER_NOTOK;
             break;
+    }
+    return PLUMBER_OK;
+}
+
+int sporth_sqrt(sporth_stack *stack, void *ud)
+{
+    plumber_data *pd = ud;
+    SPFLOAT val;
+    switch(pd->mode){
+        case PLUMBER_CREATE:
+            plumber_add_ugen(pd, SPORTH_SQRT, NULL);
+            if(sporth_check_args(stack, "f") != SPORTH_OK) {
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            val = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, (SPFLOAT)sqrt(val));
+            break;
+        case PLUMBER_INIT:
+            val = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, (SPFLOAT)sqrt(val));
+            break;
+        case PLUMBER_COMPUTE:
+            val = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, sqrt(val));
+            break;
+        case PLUMBER_DESTROY:
+            break;
+        default:
+            stack->error++;
+            return PLUMBER_NOTOK;
     }
     return PLUMBER_OK;
 }

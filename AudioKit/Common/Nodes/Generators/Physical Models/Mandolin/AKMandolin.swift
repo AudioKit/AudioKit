@@ -10,6 +10,7 @@
 ///
 open class AKMandolin: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKMandolinAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "mand")
 
     // MARK: - Properties
@@ -94,14 +95,12 @@ open class AKMandolin: AKNode, AKComponent {
         detuneParameter = tree["detune"]
         bodySizeParameter = tree["bodySize"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.detuneParameter?.address {
-                    self?.detune = Double(value)
-                } else if address == self?.bodySizeParameter?.address {
-                    self?.bodySize = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.detune = Float(detune)
