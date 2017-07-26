@@ -106,15 +106,15 @@
         node.avAudioNode.installTap(
             onBus: 0,
             bufferSize: recordingBufferLength,
-            format: internalAudioFile.processingFormat) { (buffer: AVAudioPCMBuffer!, _) -> Void in
+            format: internalAudioFile.processingFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
                 do {
-                    self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
-                    try self.internalAudioFile.write(from: buffer)
-                    AKLog("AKNodeRecorder writing (file duration: \(self.internalAudioFile.duration) seconds)")
+                    self!.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
+                    try self!.internalAudioFile.write(from: buffer)
+                    //AKLog("AKNodeRecorder writing (file duration: \(self!.internalAudioFile.duration) seconds)")
 
                     // allow an optional timed stop
-                    if self.durationToRecord != 0 && self.internalAudioFile.duration >= self.durationToRecord {
-                        self.stop()
+                    if self!.durationToRecord != 0 && self!.internalAudioFile.duration >= self!.durationToRecord {
+                        self!.stop()
                     }
 
                 } catch let error as NSError {
@@ -138,7 +138,6 @@
             usleep(delay)
         }
         node?.avAudioNode.removeTap(onBus: 0)
-
     }
 
     /// Reset the AKAudioFile to clear previous recordings
