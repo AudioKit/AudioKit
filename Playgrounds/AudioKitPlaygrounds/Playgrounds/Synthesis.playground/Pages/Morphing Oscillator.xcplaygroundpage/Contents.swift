@@ -28,16 +28,14 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Frequency",
             format: "%0.2f Hz",
-            value: morph.frequency, minimum: 220, maximum: 880,
-            color: AKColor.yellow
+            value: morph.frequency, minimum: 220, maximum: 880
         ) { frequency in
             morph.frequency = frequency
         })
 
         addSubview(AKPropertySlider(
             property: "Amplitude",
-            value: morph.amplitude,
-            color: AKColor.magenta
+            value: morph.amplitude
         ) { amplitude in
             morph.amplitude = amplitude
         })
@@ -46,8 +44,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "Morph Index",
-            value: morph.index, maximum: 3,
-            color: AKColor.red
+            value: morph.index, maximum: 3
         ) { index in
             morph.index = index
         })

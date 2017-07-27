@@ -16,58 +16,34 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         addSubview(AKPropertySlider(
             property: "Morph Index",
-            value: osc.index, maximum: 3,
-            color: AKColor.red
+            value: osc.index, maximum: 3
         ) { sliderValue in
             osc.index = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Attack",
-            format: "%0.3f s",
-            value: osc.attackDuration, maximum: 2,
-            color: AKColor.green
-        ) { sliderValue in
-            osc.attackDuration = sliderValue
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Release",
-            format: "%0.3f s",
-            value: osc.releaseDuration, maximum: 2,
-            color: AKColor.green
-        ) { sliderValue in
-            osc.releaseDuration = sliderValue
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.1f Cents",
-            value:  osc.releaseDuration, minimum: -1_200, maximum: 1_200,
-            color: AKColor.green
-        ) { sliderValue in
-            osc.detuningOffset = sliderValue
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
-            color: AKColor.green
-        ) { sliderValue in
-            osc.detuningMultiplier = sliderValue
-        })
+        let adsrView = AKADSRView { att, dec, sus, rel in
+            osc.attackDuration = att
+            osc.decayDuration = dec
+            osc.sustainLevel = sus
+            osc.releaseDuration = rel
+        }
+        adsrView.attackDuration = osc.attackDuration
+        adsrView.decayDuration = osc.decayDuration
+        adsrView.releaseDuration = osc.releaseDuration
+        adsrView.sustainLevel = osc.sustainLevel
+        addSubview(adsrView)
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
         addSubview(keyboard)
 
-        addSubview(AKDynamicButton(title: "Go Polyphonic") {
+        addSubview(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
-                return "Go Monophonic"
+                button.title = "Go Monophonic"
             } else {
-                return "Go Polyphonic"
+                button.title = "Go Polyphonic"
             }
         })
     }

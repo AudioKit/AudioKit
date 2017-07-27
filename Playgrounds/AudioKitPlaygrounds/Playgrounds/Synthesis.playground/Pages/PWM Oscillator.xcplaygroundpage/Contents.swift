@@ -23,16 +23,14 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
-            value: currentAmplitude,
-            color: AKColor.purple
+            value: currentAmplitude
         ) { amplitude in
             currentAmplitude = amplitude
         })
 
         addSubview(AKPropertySlider(
             property: "Pulse Width",
-            value: oscillator.pulseWidth,
-            color: AKColor.red
+            value: oscillator.pulseWidth
         ) { amount in
             oscillator.pulseWidth = amount
         })
@@ -40,8 +38,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Ramp Time",
             format: "%0.3f s",
-            value: currentRampTime, maximum: 2,
-            color: AKColor.orange
+            value: currentRampTime, maximum: 2
         ) { time in
             currentRampTime = time
         })

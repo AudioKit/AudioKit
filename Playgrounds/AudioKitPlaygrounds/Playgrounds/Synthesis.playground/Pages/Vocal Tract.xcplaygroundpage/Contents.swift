@@ -14,51 +14,55 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Vocal Tract")
 
-        addSubview(AKDynamicButton(title: "Start") {
+        addSubview(AKButton(title: "Start") {
             if voc.isStarted {
                 voc.stop()
-                return "Start"
+                button.title = "Start"
             } else {
                 voc.start()
-                return "Stop"
+                button.title = "Stop"
             }
         })
 
         addSubview(AKPropertySlider(
             property: "Frequency",
-            value: voc.frequency, minimum: 0.0, maximum: 2_000) { sliderValue in
+            value: voc.frequency, maximum: 2_000
+        ) { sliderValue in
                 voc.frequency = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Tongue Position",
-            value: voc.tonguePosition, minimum: 0.0, maximum: 1) { sliderValue in
+            value: voc.tonguePosition
+        ) { sliderValue in
                 voc.tonguePosition = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Tongue Diameter",
-            value: voc.tongueDiameter, minimum: 0.0, maximum: 1) { sliderValue in
+            value: voc.tongueDiameter
+        ) { sliderValue in
                 voc.tongueDiameter = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Tenseness",
-            value: voc.tenseness, minimum: 0.0, maximum: 1) { sliderValue in
+            value: voc.tenseness
+        ) { sliderValue in
                 voc.tenseness = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Nasality",
-            value: voc.nasality, minimum: 0.0, maximum: 1) { sliderValue in
+            value: voc.nasality
+        ) { sliderValue in
                 voc.nasality = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Ramp Time",
             format: "%0.3f s",
-            value: voc.rampTime, maximum: 10,
-            color: AKColor.orange
+            value: voc.rampTime, maximum: 10
         ) { time in
             voc.rampTime = time
         })

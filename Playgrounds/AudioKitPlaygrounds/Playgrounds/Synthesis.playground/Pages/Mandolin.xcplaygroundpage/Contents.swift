@@ -55,8 +55,7 @@ class PlaygroundView: AKPlaygroundView {
         detuneSlider = AKPropertySlider(
             property: "Detune",
             format: "%0.2f",
-            value: mandolin.detune, minimum: 0.5, maximum: 2,
-            color: AKColor.magenta
+            value: mandolin.detune, minimum: 0.5, maximum: 2
         ) { detune in
             mandolin.detune = detune
         }
@@ -65,8 +64,7 @@ class PlaygroundView: AKPlaygroundView {
         bodySizeSlider = AKPropertySlider(
             property: "Body Size",
             format: "%0.2f",
-            value: mandolin.bodySize, minimum: 0.2, maximum: 3,
-            color: AKColor.cyan
+            value: mandolin.bodySize, minimum: 0.2, maximum: 3
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
@@ -75,8 +73,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Pluck Position",
             format: "%0.2f",
-            value: pluckPosition,
-            color: AKColor.red
+            value: pluckPosition
         ) { position in
             pluckPosition = position
         })

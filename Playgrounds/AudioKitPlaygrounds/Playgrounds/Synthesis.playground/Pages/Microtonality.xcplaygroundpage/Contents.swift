@@ -140,8 +140,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "MIDI Transposition",
             format: "%.0f",
-            value: Double(transposition), minimum: -16, maximum: 16,
-            color: AKColor.blue
+            value: Double(transposition), minimum: -16, maximum: 16
         ) { sliderValue in
             transposition = Int(sliderValue)
             osc.reset()
@@ -149,8 +148,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "OSC Morph Index",
-            value: osc.index, minimum: 0, maximum: 3,
-            color: AKColor.green
+            value: osc.index, minimum: 0, maximum: 3
         ) { sliderValue in
             osc.index = sliderValue
         })
@@ -158,24 +156,21 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "OSC Gain",
             format: "%0.3f",
-            value: generatorBooster.gain, minimum: 0, maximum:4,
-            color: AKColor.green
+            value: generatorBooster.gain, minimum: 0, maximum:4
         ) { sliderValue in
             generatorBooster.gain = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "FILTER Frequency Cutoff",
-            value: filter.cutoffFrequency, minimum: 1, maximum: 12_000,
-            color: AKColor.red
+            value: filter.cutoffFrequency, minimum: 1, maximum: 12_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "FILTER Frequency Resonance",
-            value: filter.resonance, minimum: 0, maximum: 4,
-            color: AKColor.red
+            value: filter.resonance, minimum: 0, maximum: 4
         ) { sliderValue in
             filter.resonance = sliderValue
         })
@@ -183,8 +178,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "OSC Amp Attack",
             format: "%0.3f s",
-            value: osc.attackDuration, maximum: 2,
-            color: AKColor.green
+            value: osc.attackDuration, maximum: 2
         ) { sliderValue in
             osc.attackDuration = sliderValue
         })
@@ -192,8 +186,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "OSC Amp Decay",
             format: "%0.3f s",
-            value: osc.decayDuration, maximum: 2,
-            color: AKColor.green
+            value: osc.decayDuration, maximum: 2
         ) { sliderValue in
             osc.decayDuration = sliderValue
         })
@@ -201,8 +194,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "OSC Amp Sustain",
             format: "%0.3f s",
-            value: osc.sustainLevel, maximum: 2,
-            color: AKColor.green
+            value: osc.sustainLevel, maximum: 2
         ) { sliderValue in
             osc.sustainLevel = sliderValue
         })
@@ -210,8 +202,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "OSC Amp Release",
             format: "%0.3f s",
-            value: osc.releaseDuration, maximum: 2,
-            color: AKColor.green
+            value: osc.releaseDuration, maximum: 2
         ) { sliderValue in
             osc.releaseDuration = sliderValue
         })
@@ -219,16 +210,14 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Detuning Offset",
             format: "%0.1f Cents",
-            value:  osc.detuningOffset, minimum: -1_200, maximum: 1_200,
-            color: AKColor.green
+            value:  osc.detuningOffset, minimum: -1_200, maximum: 1_200
         ) { sliderValue in
             osc.detuningOffset = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
-            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
-            color: AKColor.green
+            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0
         ) { sliderValue in
             osc.detuningMultiplier = sliderValue
         })

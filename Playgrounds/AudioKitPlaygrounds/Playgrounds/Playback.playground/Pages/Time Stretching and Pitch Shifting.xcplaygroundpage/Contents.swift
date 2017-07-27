@@ -5,8 +5,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -27,9 +26,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Time/Pitch")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addLabel("Time/Pitch Parameters")
 
@@ -38,8 +35,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Rate",
             format: "%0.3f",
-            value: timePitch.rate, minimum: 0.312_5, maximum: 5,
-            color: AKColor.green
+            value: timePitch.rate, minimum: 0.312_5, maximum: 5
         ) { sliderValue in
             timePitch.rate = sliderValue
         })
@@ -47,16 +43,14 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Pitch",
             format: "%0.3f Cents",
-            value: timePitch.pitch, minimum: -2_400, maximum: 2_400,
-            color: AKColor.red
+            value: timePitch.pitch, minimum: -2_400, maximum: 2_400
         ) { sliderValue in
             timePitch.pitch = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Overlap",
-            value: timePitch.overlap, minimum: 3, maximum: 32,
-            color: AKColor.cyan
+            value: timePitch.overlap, minimum: 3, maximum: 32
         ) { sliderValue in
             timePitch.overlap = sliderValue
         })

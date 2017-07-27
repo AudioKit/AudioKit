@@ -1,6 +1,6 @@
 //
 //  AKButton.swift
-//  AudioKit for iOS
+//  AudioKit for macOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
@@ -20,7 +20,7 @@ public enum AKButtonStyle {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
     
-    public var callback: () -> (String)
+    public var callback: (AKButton) -> Void = { _ in }
     
     /// Text to display on the button
     @IBInspectable open var title: String {
@@ -65,14 +65,14 @@ public enum AKButtonStyle {
     }
     
     open override func mouseDown(with event: NSEvent) {
-        let _ = callback()
+        callback(self)
     }
         
     /// Initialize the button
     public init(title: String,
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: AKButton.defaultSize.width, height: AKButton.defaultSize.height),
-                callback: @escaping () -> (String)) {
+                callback: @escaping (AKButton) -> Void) {
         self.title = title
         self.callback = callback
         self.color = color
@@ -83,7 +83,6 @@ public enum AKButtonStyle {
     
     /// Initialization with no details
     override public init(frame: CGRect) {
-        self.callback = { return "" }
         self.title = "Title"
         self.color = AKStylist.sharedInstance.nextColor
         super.init(frame: frame)
@@ -93,7 +92,6 @@ public enum AKButtonStyle {
     
     /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
-        self.callback = { return "" }
         self.title = "Title"
         self.color = AKStylist.sharedInstance.nextColor
         super.init(coder: coder)

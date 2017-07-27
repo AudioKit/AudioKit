@@ -70,8 +70,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: synth.cutoff, maximum: 5_000,
-            color: AKColor.red
+            value: synth.cutoff, maximum: 5_000
         ) { frequency in
             synth.cutoff = frequency
         })

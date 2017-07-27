@@ -12,8 +12,7 @@ let metronome = AKMetronome()
 let view = PlaygroundView()
 
 metronome.callback = {
-    view.beatFlasher.value = 1.0
-    view.beatFlasher.property = "Beat \(metronome.currentBeat)"
+    view.beatFlasher.color = .white
 
     DispatchQueue.main.async {
         view.beatFlasher.needsDisplay = true
@@ -21,7 +20,7 @@ metronome.callback = {
 
     let deadlineTime = DispatchTime.now() + (60 / metronome.tempo) / 10.0
     DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
-        view.beatFlasher.value = 0.0
+        view.beatFlasher.color = .red
     }
 }
 
@@ -31,35 +30,31 @@ metronome.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var beatFlasher: AKPropertySlider!
+    var beatFlasher: AKButton!
 
     override func setup() {
         addTitle("Metronome")
 
-        beatFlasher = AKPropertySlider(
-            property: "",
-            value: 0,
-            color: AKColor.yellow
-        ) { _ in
-            // Nothing
+        beatFlasher =  AKButton(title: "Stop", color: AKColor.red) { button in
+            if metronome.isPlaying {
+                button.title = "Start"
+                button.color = #colorLiteral(red: 0, green: 0.5859588462, blue: 0, alpha: 1)
+                metronome.stop()
+                metronome.reset()
+            } else {
+                button.title = "Stop"
+                button.color = .red
+                metronome.reset()
+                metronome.restart()
+            }
         }
+
         addSubview(beatFlasher)
-
-        addSubview(AKButton(title: "Stop", color: AKColor.red) {
-            metronome.stop()
-            metronome.reset()
-        })
-
-        addSubview(AKButton(title: "Start") {
-            metronome.reset()
-            metronome.restart()
-        })
 
         addSubview(AKPropertySlider(
             property: "Sudivision",
             format: "%0.0f",
-            value: 4, minimum: 1, maximum: 10,
-            color: AKColor.red
+            value: 4, minimum: 1, maximum: 10
         ) { sliderValue in
             metronome.subdivision = Int(round(sliderValue))
         })
@@ -67,8 +62,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Tempo",
             format: "%0.2f BPM",
-            value: 60, minimum: 40, maximum: 240,
-            color: AKColor.green
+            value: 60, minimum: 40, maximum: 240
         ) { sliderValue in
             metronome.tempo = sliderValue
         })
@@ -76,8 +70,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Frequency 1",
             format: "%0.1f Hz",
-            value: 2_000, minimum: 200, maximum: 4_000,
-            color: AKColor.green
+            value: 2_000, minimum: 200, maximum: 4_000
         ) { sliderValue in
             metronome.frequency1 = sliderValue
         })
@@ -85,8 +78,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Frequency 2",
             format: "%0.1f Hz",
-            value: 1_000, minimum: 200, maximum: 4_000,
-            color: AKColor.green
+            value: 1_000, minimum: 200, maximum: 4_000
         ) { sliderValue in
             metronome.frequency2 = sliderValue
         })

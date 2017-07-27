@@ -30,21 +30,15 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking An Audio File")
 
-        trackedAmplitudeSlider = AKPropertySlider(
-            property: "Tracked Amplitude",
-            format: "%0.3f",
-            value: 0, maximum: 0.55,
-            color: AKColor.green
-        ) { _ in
+        trackedAmplitudeSlider = AKPropertySlider(property: "Tracked Amplitude", value: 0, maximum: 0.55) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKPropertySlider(
-            property: "Tracked Frequency",
-            format: "%0.3f",
-            value: 0, maximum: 1_000,
-            color: AKColor.red
+        trackedFrequencySlider = AKPropertySlider(property: "Tracked Frequency",
+                                                  format: "%0.3f Hz",
+                                                  value: 0,
+                                                  maximum: 1_000
         ) { _ in
             // Do nothing, just for display
         }

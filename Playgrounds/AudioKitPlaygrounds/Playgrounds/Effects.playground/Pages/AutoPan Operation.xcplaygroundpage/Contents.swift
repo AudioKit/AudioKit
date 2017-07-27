@@ -22,9 +22,7 @@ extension AKOperationEffect {
 
 //: Use the struct and the extension to refer to the autopan parameters by name
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
-
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -44,9 +42,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("AutoPan")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKPropertySlider(
             property: "Speed",

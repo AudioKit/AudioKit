@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -24,17 +23,14 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("High Shelf Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: highShelfFilter))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: highShelfFilter.cutoffFrequency, minimum: 20, maximum: 22_050,
-            color: AKColor.green
+            value: highShelfFilter.cutoffFrequency, minimum: 20, maximum: 22_050
         ) { sliderValue in
             highShelfFilter.cutoffFrequency = sliderValue
         })
@@ -42,8 +38,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Gain",
             format: "%0.1f dB",
-            value: highShelfFilter.gain, minimum: -40, maximum: 40,
-            color: AKColor.red
+            value: highShelfFilter.gain, minimum: -40, maximum: 40
         ) { sliderValue in
             highShelfFilter.gain = sliderValue
         })
