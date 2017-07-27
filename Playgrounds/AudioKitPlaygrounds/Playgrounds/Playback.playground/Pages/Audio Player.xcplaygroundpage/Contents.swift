@@ -48,7 +48,7 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        addSubview(AKButton(title: "Direction: ➡️") {
+        addSubview(AKButton(title: "Direction: ➡️") { button in
             if player.isPlaying {
                 player.stop()
             }
