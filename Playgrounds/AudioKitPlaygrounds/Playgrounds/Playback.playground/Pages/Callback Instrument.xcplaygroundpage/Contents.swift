@@ -48,10 +48,10 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKButton(title: "Play") { _ in
             sequencer.play()
         })
-        addSubview(AKButton(title: "Pause") {
+        addSubview(AKButton(title: "Pause") { _ in
             sequencer.stop()
         })
-        addSubview(AKButton(title: "Rewind") {
+        addSubview(AKButton(title: "Rewind") { _ in
             sequencer.rewind()
         })
         addLabel("Open the console log to show output.")

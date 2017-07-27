@@ -14,7 +14,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Vocal Tract")
 
-        addSubview(AKButton(title: "Start") {
+        addSubview(AKButton(title: "Start") { button in
             if voc.isStarted {
                 voc.stop()
                 button.title = "Start"
