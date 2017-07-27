@@ -74,18 +74,30 @@ extension Double {
     /// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
     ///
     /// - Parameters:
+    ///   - range: Source range (cannot include zero if taper is not positive)
+    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///
+    public func normalized(range: ClosedRange<Double>, taper: Double) -> Double {
+        assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
+
+        if taper > 0 {
+            // algebraic taper
+            return pow(((self - range.lowerBound ) / (range.upperBound - range.lowerBound)), (1.0 / taper))
+        } else {
+            // exponential taper
+            return range.lowerBound * exp(log(range.upperBound  / range.lowerBound) * self)
+        }
+    }
+
+    /// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
+    ///
+    /// - Parameters:
     ///   - minimum: Minimum of the source range (cannot be zero if taper is not positive)
     ///   - maximum: Maximum of the source range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
     public func normalized(minimum: Double, maximum: Double, taper: Double) -> Double {
-        if taper > 0 {
-            // algebraic taper
-            return pow(((self - minimum) / (maximum - minimum)), (1.0 / taper))
-        } else {
-            // exponential taper
-            return minimum * exp(log(maximum / minimum) * self)
-        }
+        return self.normalized(range: minimum...maximum, taper: taper)
     }
 
     /// Convert a value on [minimum, maximum] to a [0, 1] range, according to a taper
@@ -95,8 +107,37 @@ extension Double {
     ///   - maximum: Maximum of the source range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func normalize(_ minimum: Double, maximum: Double, taper: Double) {
+    public mutating func normalize(minimum: Double, maximum: Double, taper: Double) {
         self = self.normalized(minimum: minimum, maximum: maximum, taper: taper)
+    }
+
+    /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
+    ///
+    /// - Parameters:
+    ///   - range: Target range (cannot contain zero if taper is not positive)
+    ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///
+    public func denormalized(range: ClosedRange<Double>, taper: Double) -> Double {
+
+        assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
+
+        // Avoiding division by zero in this trivial case
+        if range.upperBound - range.lowerBound < 0.000_01 {
+            return range.lowerBound
+        }
+
+        if taper > 0 {
+            // algebraic taper
+            return range.lowerBound + (range.upperBound - range.lowerBound) * pow(self, taper)
+        } else {
+            // exponential taper
+            var adjustedMinimum: Double = 0.0
+            var adjustedMaximum: Double = 0.0
+            if range.lowerBound == 0 { adjustedMinimum = 0.000_000_000_01 }
+            if range.upperBound == 0 { adjustedMaximum = 0.000_000_000_01 }
+
+            return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
+        }
     }
 
     /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
@@ -107,24 +148,7 @@ extension Double {
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
     public func denormalized(minimum: Double, maximum: Double, taper: Double) -> Double {
-
-        // Avoiding division by zero in this trivial case
-        if maximum - minimum < 0.000_01 {
-            return minimum
-        }
-
-        if taper > 0 {
-            // algebraic taper
-            return minimum + (maximum - minimum) * pow(self, taper)
-        } else {
-            // exponential taper
-            var adjustedMinimum: Double = 0.0
-            var adjustedMaximum: Double = 0.0
-            if minimum == 0 { adjustedMinimum = 0.000_000_000_01 }
-            if maximum == 0 { adjustedMaximum = 0.000_000_000_01 }
-
-            return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
-        }
+        return self.denormalized(range: minimum ... maximum, taper: taper)
     }
 
     /// Convert a value on [0, 1] to a [min, max] range, according to a taper
