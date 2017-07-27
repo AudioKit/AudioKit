@@ -39,32 +39,31 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
 
-        addSubview(AKDynamicButton(title: "Disable Looping") {
+        addSubview(AKButton(title: "Disable Looping") { button in
             player.looping = !player.looping
             if player.looping {
-                return "Disable Looping"
+                button.title = "Disable Looping"
             } else {
-                return "Enable Looping"
+                button.title = "Enable Looping"
             }
         })
 
-        addSubview(AKDynamicButton(title: "Direction: ➡️") {
+        addSubview(AKButton(title: "Direction: ➡️") {
             if player.isPlaying {
                 player.stop()
             }
             player.reversed = !player.reversed
             if player.reversed {
-                return "Direction: ⬅️"
+                button.title = "Direction: ⬅️"
             } else {
-                return "Direction: ➡️"
+                button.title = "Direction: ➡️"
             }
         })
 
         fadeInSlider = AKPropertySlider(
             property: "Fade In",
             format: "%0.2f s",
-            value: player.fadeInTime, maximum: 2,
-            color: AKColor.brown
+            value: player.fadeInTime, maximum: 2
         ) { sliderValue in
             player.fadeInTime = sliderValue
         }
@@ -73,8 +72,7 @@ class PlaygroundView: AKPlaygroundView {
         fadeOutSlider = AKPropertySlider(
             property: "Fade Out",
             format: "%0.2f s",
-            value: player.fadeOutTime, maximum: 2,
-            color: AKColor.brown
+            value: player.fadeOutTime, maximum: 2
         ) { sliderValue in
             player.fadeOutTime = sliderValue
         }
@@ -83,8 +81,7 @@ class PlaygroundView: AKPlaygroundView {
         inPositionSlider = AKPropertySlider(
             property: "In Position",
             format: "%0.2f s",
-            value: player.startTime, maximum: 3.428,
-            color: AKColor.green
+            value: player.startTime, maximum: 3.428
         ) { sliderValue in
             player.startTime = sliderValue
         }
@@ -102,8 +99,7 @@ class PlaygroundView: AKPlaygroundView {
         playingPositionSlider = AKPropertySlider(
             property: "Position",
             format: "%0.2f s",
-            value: player.playhead, maximum: 3.428,
-            color: AKColor.yellow
+            value: player.playhead, maximum: 3.428
         ) { _ in
             // Can't do player.playhead = sliderValue
         }

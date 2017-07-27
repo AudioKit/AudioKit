@@ -6,8 +6,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -25,17 +24,14 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Korg Low Pass Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: lowPassFilter))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: lowPassFilter.cutoffFrequency, minimum: 20, maximum: 5_000,
-            color: AKColor.green
+            value: lowPassFilter.cutoffFrequency, minimum: 20, maximum: 5_000
         ) { sliderValue in
             lowPassFilter.cutoffFrequency = sliderValue
         })
@@ -43,8 +39,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Resonance",
             format: "%0.3f",
-            value: lowPassFilter.resonance, minimum: 0, maximum: 2,
-            color: AKColor.red
+            value: lowPassFilter.resonance, minimum: 0, maximum: 2
         ) { sliderValue in
             lowPassFilter.resonance = sliderValue
         })
@@ -52,8 +47,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Saturation",
             format: "%0.3f",
-            value: lowPassFilter.resonance, minimum: 0, maximum: 2,
-            color: AKColor.cyan
+            value: lowPassFilter.resonance, minimum: 0, maximum: 2
         ) { sliderValue in
             lowPassFilter.resonance = sliderValue
         })

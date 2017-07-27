@@ -7,8 +7,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -29,17 +28,14 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Band Pass Butterworth Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: filter))
 
         addSubview(AKPropertySlider(
             property: "Center Frequency",
             format: "%0.1f Hz",
-            value: filter.centerFrequency, minimum: 20, maximum: 22_050,
-            color: AKColor.green
+            value: filter.centerFrequency, minimum: 20, maximum: 22_050
         ) { sliderValue in
             filter.centerFrequency = sliderValue
         })
@@ -47,8 +43,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Bandwidth",
             format: "%0.1f Hz",
-            value: filter.bandwidth, minimum: 100, maximum: 1_200,
-            color: AKColor.red
+            value: filter.bandwidth, minimum: 100, maximum: 1_200
         ) { sliderValue in
             filter.bandwidth = sliderValue
         })

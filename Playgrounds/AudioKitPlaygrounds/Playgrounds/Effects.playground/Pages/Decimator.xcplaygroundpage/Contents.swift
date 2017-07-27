@@ -5,8 +5,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -28,31 +27,17 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Decimator")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Decimation",
-            value: decimator.decimation,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Decimation", value: decimator.decimation) { sliderValue in
             decimator.decimation = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Rounding",
-            value: decimator.rounding,
-            color: AKColor.red
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Rounding", value: decimator.rounding) { sliderValue in
             decimator.rounding = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Mix",
-            value: decimator.mix,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Mix", value: decimator.mix) { sliderValue in
             decimator.mix = sliderValue
         })
 

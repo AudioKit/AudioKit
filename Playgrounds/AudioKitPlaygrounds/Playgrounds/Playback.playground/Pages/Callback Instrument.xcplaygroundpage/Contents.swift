@@ -45,13 +45,13 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Callback Instrument")
 
-        addSubview(AKButton(title: "Play") {
+        addSubview(AKButton(title: "Play") { _ in
             sequencer.play()
         })
-        addSubview(AKButton(title: "Pause", color: AKColor.red) {
+        addSubview(AKButton(title: "Pause") {
             sequencer.stop()
         })
-        addSubview(AKButton(title: "Rewind", color: AKColor.cyan) {
+        addSubview(AKButton(title: "Rewind") {
             sequencer.rewind()
         })
         addLabel("Open the console log to show output.")

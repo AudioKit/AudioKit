@@ -6,8 +6,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -32,17 +31,14 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Dynamics Processor")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: effect))
 
         addSubview(AKPropertySlider(
             property: "Threshold",
             format: "%0.2f dB",
-            value: effect.threshold, minimum: -40, maximum: 20,
-            color: AKColor.green
+            value: effect.threshold, minimum: -40, maximum: 20
         ) { sliderValue in
             effect.threshold = sliderValue
         })
@@ -50,24 +46,21 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Head Room",
             format: "%0.2f dB",
-            value: effect.headRoom, minimum: 0.1, maximum: 40,
-            color: AKColor.green
+            value: effect.headRoom, minimum: 0.1, maximum: 40
         ) { sliderValue in
             effect.headRoom = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Expansion Ratio",
-            value: effect.expansionRatio, minimum: 1, maximum: 50,
-            color: AKColor.green
+            value: effect.expansionRatio, minimum: 1, maximum: 50
         ) { sliderValue in
             effect.expansionRatio = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Expansion Threshold",
-            value: effect.expansionThreshold, minimum: 1, maximum: 50,
-            color: AKColor.green
+            value: effect.expansionThreshold, minimum: 1, maximum: 50
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
         })
@@ -75,8 +68,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Attack Time",
             format: "%0.3f s",
-            value: effect.attackTime, minimum: 0.000_1, maximum: 0.2,
-            color: AKColor.green
+            value: effect.attackTime, minimum: 0.000_1, maximum: 0.2
         ) { sliderValue in
             effect.attackTime = sliderValue
         })
@@ -84,8 +76,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Release Time",
             format: "%0.3f s",
-            value: effect.releaseTime, minimum: 0.01, maximum: 3,
-            color: AKColor.green
+            value: effect.releaseTime, minimum: 0.01, maximum: 3
         ) { sliderValue in
             effect.releaseTime = sliderValue
         })
@@ -93,8 +84,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Master Gain",
             format: "%0.2f dB",
-            value: effect.masterGain, minimum: -40, maximum: 40,
-            color: AKColor.green
+            value: effect.masterGain, minimum: -40, maximum: 40
         ) { sliderValue in
             effect.masterGain = sliderValue
         })

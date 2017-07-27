@@ -46,8 +46,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Update Rate",
             format: "%0.3f Hz",
-            value: generator.parameters[0], minimum: 0.1, maximum: 10,
-            color: AKColor.red
+            value: generator.parameters[0], minimum: 0.1, maximum: 10
         ) { rate in
             generator.parameters[0] = rate
             delay.time = 0.25 / rate

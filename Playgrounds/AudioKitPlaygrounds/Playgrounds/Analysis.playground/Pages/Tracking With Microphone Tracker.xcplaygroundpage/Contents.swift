@@ -23,21 +23,15 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking With Microphone Tracker")
 
-        trackedAmplitudeSlider = AKPropertySlider(
-            property: "Tracked Amplitude",
-            format: "%0.3f",
-            value: 0, maximum: 0.8,
-            color: AKColor.green
-        ) { _ in
+        trackedAmplitudeSlider = AKPropertySlider(property: "Tracked Amplitude", value: 0, maximum: 0.8) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKPropertySlider(
-            property: "Tracked Frequency",
-            format: "%0.3f",
-            value: 0, maximum: 2_400,
-            color: AKColor.red
+        trackedFrequencySlider = AKPropertySlider(property: "Tracked Frequency",
+                                                  format: "%0.3f Hz",
+                                                  value: 0,
+                                                  maximum: 2_400
         ) { _ in
             // Do nothing, just for display
         }

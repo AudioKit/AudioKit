@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "guitarloop.wav",
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .resources)
 let phaseLockedVocoder = AKPhaseLockedVocoder(file: file)
 
 AudioKit.output = phaseLockedVocoder
@@ -27,8 +26,7 @@ class PlaygroundView: AKPlaygroundView {
         playingPositionSlider = AKPropertySlider(
             property: "Position",
             format: "%0.2f s",
-            value: phaseLockedVocoder.position, maximum: 3.428,
-            color: AKColor.yellow
+            value: phaseLockedVocoder.position, maximum: 3.428
         ) { sliderValue in
             phaseLockedVocoder.position = sliderValue
         }

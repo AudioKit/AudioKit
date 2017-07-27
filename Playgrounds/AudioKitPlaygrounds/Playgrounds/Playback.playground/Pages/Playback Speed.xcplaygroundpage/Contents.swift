@@ -5,8 +5,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -24,17 +23,14 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Playback Speed")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: variSpeed))
 
         addSubview(AKPropertySlider(
             property: "Rate",
             format: "%0.3f",
-            value: variSpeed.rate, minimum: 0.312_5, maximum: 5,
-            color: AKColor.green
+            value: variSpeed.rate, minimum: 0.312_5, maximum: 5
         ) { sliderValue in
             variSpeed.rate = sliderValue
         })

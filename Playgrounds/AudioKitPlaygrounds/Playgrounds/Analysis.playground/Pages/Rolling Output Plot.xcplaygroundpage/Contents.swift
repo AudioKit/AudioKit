@@ -24,11 +24,10 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Playback Speed")
 
-        addSubview(AKPropertySlider(
-            property: "Rate",
-            format: "%0.3f",
-            value: variSpeed.rate, minimum: 0.312_5, maximum: 5,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Rate",
+                                    value: variSpeed.rate,
+                                    minimum: 0.312_5,
+                                    maximum: 5,
         ) { sliderValue in
             variSpeed.rate = sliderValue
         })

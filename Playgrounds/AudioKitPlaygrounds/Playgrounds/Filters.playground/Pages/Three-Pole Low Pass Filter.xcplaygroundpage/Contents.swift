@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -25,23 +24,19 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Three Pole Low Pass Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
-            value: filter.cutoffFrequency, maximum: 5_000,
-            color: AKColor.green
+            value: filter.cutoffFrequency, maximum: 5_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Resonance",
-            value: filter.resonance,
-            color: AKColor.red
+            value: filter.resonance
         ) { sliderValue in
             filter.resonance = sliderValue
         })

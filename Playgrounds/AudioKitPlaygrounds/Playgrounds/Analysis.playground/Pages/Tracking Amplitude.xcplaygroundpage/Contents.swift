@@ -36,12 +36,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking Amplitude")
 
-        trackedAmplitudeSlider = AKPropertySlider(
-            property: "Tracked Amplitude",
-            format: "%0.3f",
-            value: 0, maximum: 0.55,
-            color: AKColor.green
-        ) { _ in
+        trackedAmplitudeSlider = AKPropertySlider(property: "Tracked Amplitude", value: 0, maximum: 0.55) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider)
