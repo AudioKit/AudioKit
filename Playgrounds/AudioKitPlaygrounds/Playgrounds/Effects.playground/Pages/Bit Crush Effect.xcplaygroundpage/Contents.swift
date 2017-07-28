@@ -31,18 +31,17 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Bit Depth",
-            format: "%0.2f",
-            value: bitcrusher.bitDepth, minimum: 1, maximum: 24
+        addSubview(AKPropertySlider(property: "Bit Depth",
+                                    value: bitcrusher.bitDepth,
+                                    range: 1 ... 24
         ) { sliderValue in
             bitcrusher.bitDepth = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Sample Rate",
-            format: "%0.1f Hz",
-            value: bitcrusher.sampleRate, maximum: 16_000
+        addSubview(AKPropertySlider(property: "Sample Rate",
+                                    value: bitcrusher.sampleRate,
+                                    range: 1 ... 16_000,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             bitcrusher.sampleRate = sliderValue
         })

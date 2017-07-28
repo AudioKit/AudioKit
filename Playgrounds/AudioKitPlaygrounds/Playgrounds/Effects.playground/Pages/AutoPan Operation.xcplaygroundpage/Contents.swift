@@ -27,8 +27,7 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = AKOperationEffect(player) { input, parameters in
-    let oscillator = AKOperation.sineWave(frequency: parameters[speedIndex],
-                                          amplitude: parameters[depthIndex])
+    let oscillator = AKOperation.sineWave(frequency: parameters[speedIndex], amplitude: parameters[depthIndex])
     return input.pan(oscillator)
 }
 
@@ -44,19 +43,11 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Speed",
-            value: effect.speed, minimum: 0.1, maximum: 25,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Speed", value: effect.speed, range: 0.1 ... 25) { sliderValue in
             effect.speed = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Depth",
-            value: effect.depth,
-            color: AKColor.red
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Depth", value: effect.depth) { sliderValue in
             effect.depth = sliderValue
         })
     }

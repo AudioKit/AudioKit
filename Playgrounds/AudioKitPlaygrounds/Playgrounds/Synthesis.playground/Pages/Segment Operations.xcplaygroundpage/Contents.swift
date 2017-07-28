@@ -9,18 +9,16 @@ let generator = AKOperationGenerator { parameters in
     // Vary the starting frequency and duration randomly
     let start = AKOperation.randomNumberPulse() * 2_000 + 300
     let duration = AKOperation.randomNumberPulse()
-    let frequency = AKOperation.lineSegment(
-        trigger: AKOperation.metronome(frequency: updateRate),
-        start: start,
-        end: 0,
-        duration: duration)
+    let frequency = AKOperation.lineSegment(trigger: AKOperation.metronome(frequency: updateRate),
+                                            start: start,
+                                            end: 0,
+                                            duration: duration)
 
     // Decrease the amplitude exponentially
-    let amplitude = AKOperation.exponentialSegment(
-        trigger: AKOperation.metronome(frequency: updateRate),
-        start: 0.3,
-        end: 0.01,
-        duration: 1.0 / updateRate)
+    let amplitude = AKOperation.exponentialSegment(trigger: AKOperation.metronome(frequency: updateRate),
+                                                   start: 0.3,
+                                                   end: 0.01,
+                                                   duration: 1.0 / updateRate)
     return AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
 }
 
@@ -43,13 +41,13 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Segment Operations")
 
-        addSubview(AKPropertySlider(
-            property: "Update Rate",
-            format: "%0.3f Hz",
-            value: generator.parameters[0], minimum: 0.1, maximum: 10
-        ) { rate in
-            generator.parameters[0] = rate
-            delay.time = 0.25 / rate
+        addSubview(AKPropertySlider(property: "Update Rate",
+                                    value: generator.parameters[0],
+                                    range: 0.1 ... 10,
+                                    format: "%0.3f Hz"
+        ) { sliderValue in
+            generator.parameters[0] = sliderValue
+            delay.time = 0.25 / sliderValue
         })
     }
 }

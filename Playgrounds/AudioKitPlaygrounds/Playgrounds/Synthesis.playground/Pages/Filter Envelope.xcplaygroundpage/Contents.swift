@@ -37,18 +37,17 @@ extension AKOperationGenerator {
 
 let synth = AKOperationGenerator { _ in
 
-    let oscillator = AKOperation.fmOscillator(
-        baseFrequency: Synth.frequency,
-        carrierMultiplier: 3,
-        modulatingMultiplier: 0.7,
-        modulationIndex: 2,
-        amplitude: 0.1)
-    let cutoff = Synth.cutoff.gatedADSREnvelope(
-        gate: Synth.gate,
-        attack: 0.1,
-        decay: 0.01,
-        sustain: 1,
-        release: 0.6)
+    let oscillator = AKOperation.fmOscillator(baseFrequency: Synth.frequency,
+                                              carrierMultiplier: 3,
+                                              modulatingMultiplier: 0.7,
+                                              modulationIndex: 2,
+                                              amplitude: 0.1)
+
+    let cutoff = Synth.cutoff.gatedADSREnvelope(gate: Synth.gate,
+                                                attack: 0.1,
+                                                decay: 0.01,
+                                                sustain: 1,
+                                                release: 0.6)
 
     return oscillator.moogLadderFilter(cutoffFrequency: cutoff,
         resonance: 0.9)
@@ -67,16 +66,15 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Filter Envelope")
 
-        addSubview(AKPropertySlider(
-            property: "Cutoff Frequency",
-            format: "%0.1f Hz",
-            value: synth.cutoff, maximum: 5_000
+        addSubview(AKPropertySlider(property: "Cutoff Frequency",
+                                    value: synth.cutoff,
+                                    range: 20 ... 5_000,
+                                    format: "%0.1f Hz"
         ) { frequency in
             synth.cutoff = frequency
         })
 
-        let keyboard = AKKeyboardView(width: playgroundWidth - 60,
-                                      height: 100)
+        let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
         addSubview(keyboard)
     }

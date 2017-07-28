@@ -14,10 +14,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Morphing Oscillator Bank")
 
-        addSubview(AKPropertySlider(
-            property: "Morph Index",
-            value: osc.index, maximum: 3
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
             osc.index = sliderValue
         })
 

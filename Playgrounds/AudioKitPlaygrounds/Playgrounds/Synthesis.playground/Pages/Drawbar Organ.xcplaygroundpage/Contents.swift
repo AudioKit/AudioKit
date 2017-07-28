@@ -28,8 +28,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             addSubview(slider)
         }
 
-        let keyboard = AKKeyboardView(width: 440,
-                                      height: 100)
+        let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
         addSubview(keyboard)
 

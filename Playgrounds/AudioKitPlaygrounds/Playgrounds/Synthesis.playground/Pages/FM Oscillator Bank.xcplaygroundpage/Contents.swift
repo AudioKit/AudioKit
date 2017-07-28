@@ -19,21 +19,21 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         addSubview(AKPropertySlider(property: "Carrier Multiplier",
                                     value: fmBank.carrierMultiplier,
-                                    maximum: 2
+                                    range: 0 ... 2
         ) { multiplier in
             fmBank.carrierMultiplier = multiplier
         })
 
         addSubview(AKPropertySlider(property: "Modulating Multiplier",
                                     value: fmBank.modulatingMultiplier,
-                                    maximum: 2
+                                    range: 0 ... 2
         ) { multiplier in
             fmBank.modulatingMultiplier = multiplier
         })
 
         addSubview(AKPropertySlider(property: "Modulation Index",
                                     value: fmBank.modulationIndex,
-                                    maximum: 20
+                                    range: 0 ... 20
         ) { index in
             fmBank.modulationIndex = index
         })
@@ -77,3 +77,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
+
+

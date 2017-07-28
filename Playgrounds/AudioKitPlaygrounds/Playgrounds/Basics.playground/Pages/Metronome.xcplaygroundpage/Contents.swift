@@ -51,34 +51,34 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(beatFlasher)
 
-        addSubview(AKPropertySlider(
-            property: "Sudivision",
-            format: "%0.0f",
-            value: 4, minimum: 1, maximum: 10
+        addSubview(AKPropertySlider(property: "Sudivision",
+                                    value: 4,
+                                    range: 1 ... 10,
+                                    format: "%0.0f"
         ) { sliderValue in
             metronome.subdivision = Int(round(sliderValue))
         })
 
-        addSubview(AKPropertySlider(
-            property: "Tempo",
-            format: "%0.2f BPM",
-            value: 60, minimum: 40, maximum: 240
+        addSubview(AKPropertySlider(property: "Tempo",
+                                    value: 60,
+                                    range: 40 ... 240,
+                                    format: "%0.1f BPM"
         ) { sliderValue in
             metronome.tempo = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Frequency 1",
-            format: "%0.1f Hz",
-            value: 2_000, minimum: 200, maximum: 4_000
+        addSubview(AKPropertySlider(property: "Frequency 1",
+                                    value: 2_000,
+                                    range: 200 ... 4_000,
+                                    format: "%0.0f Hz"
         ) { sliderValue in
             metronome.frequency1 = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Frequency 2",
-            format: "%0.1f Hz",
-            value: 1_000, minimum: 200, maximum: 4_000
+        addSubview(AKPropertySlider(property: "Frequency 2",
+                                    value: 1_000,
+                                    range: 200 ... 4_000,
+                                    format: "%0.0f Hz"
         ) { sliderValue in
             metronome.frequency2 = sliderValue
         })
