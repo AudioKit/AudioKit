@@ -49,14 +49,13 @@ class PlaygroundView: AKPlaygroundView {
         })
         addSubview(AKPropertySlider(
             property: "Base Bit Depth",
-            format: "%0.3f",
             value: effect.parameters[2], minimum: 1, maximum: 24
         ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
         addSubview(AKPropertySlider(
             property: "Bit Depth Variation",
-            format: "%0.3f",
+            format: "%0.3f Hz",
             value: effect.parameters[3], minimum: 0, maximum: 12
         ) { sliderValue in
             effect.parameters[3] = sliderValue

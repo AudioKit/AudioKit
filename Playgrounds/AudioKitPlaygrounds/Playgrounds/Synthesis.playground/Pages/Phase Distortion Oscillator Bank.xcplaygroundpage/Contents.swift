@@ -14,11 +14,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Phase Distortion Oscillator Bank")
 
-        addSubview(AKPropertySlider(
-            property: "Phase Distortion",
-            value: osc.phaseDistortion
-        ) { amount in
-            osc.phaseDistortion = amount
+        addSubview(AKPropertySlider(property: "Phase Distortion",
+                                    value: osc.phaseDistortion) { sliderValue in
+            osc.phaseDistortion = sliderValue
         })
 
         let adsrView = AKADSRView { att, dec, sus, rel in
@@ -33,19 +31,20 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel = osc.sustainLevel
         addSubview(adsrView)
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.1f Cents",
-            value:  osc.releaseDuration, minimum: -1_200, maximum: 1_200
-        ) { offset in
-            osc.detuningOffset = offset
+        addSubview(AKPropertySlider(property: "Detuning Offset",
+                                    value:  osc.releaseDuration,
+                                    range: -1_200 ... 1_200,
+                                    format: "%0.1f Cents"
+        ) { sliderValue in
+            osc.detuningOffset = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0
-        ) { multiplier in
-            osc.detuningMultiplier = multiplier
+        addSubview(AKPropertySlider(property: "Detuning Multiplier",
+                                    value:  osc.detuningMultiplier,
+                                    range: 0.5 ... 2.0,
+                                    taper: log(3) / log(2)
+        ) { sliderValue in
+            osc.detuningMultiplier = sliderValue
         })
 
         keyboard = AKKeyboardView(width: 440, height: 100)

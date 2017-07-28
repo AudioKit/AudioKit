@@ -44,16 +44,27 @@ public enum AKPropertySliderStyle {
     /// Current value of the slider
     @IBInspectable open var value: Double = 0 {
         didSet {
+            value = range.clamp(value)
+            value = onlyIntegers ? round(value) : value
+
+            val = value.normalized(range: range, taper: taper)
+        }
+    }
+
+    private var val: Double = 0 {
+        didSet {
             needsDisplay = true
         }
     }
-    
-    /// Minimum, left-most value
-    @IBInspectable open var minimum: Double = 0
-    
-    /// Maximum, right-most value
-    @IBInspectable open var maximum: Double = 1
-    
+
+    open var range: ClosedRange<Double> = 0 ... 1 {
+        didSet {
+            val = value.normalized(range: range, taper: taper)
+        }
+    }
+
+    open var taper: Double = 1 // Default Linear
+
     /// Text shown on the slider
     @IBInspectable open var property: String = "Property"
     
@@ -92,6 +103,9 @@ public enum AKPropertySliderStyle {
     
     // Value bubble border width
     @IBInspectable open var valueBubbleBorderWidth: CGFloat = 1.0
+
+    // Only integer
+    @IBInspectable open var onlyIntegers: Bool = false
     
     // Current dragging state, used to show/hide the value bubble
     private var isDragging: Bool = false
@@ -100,28 +114,33 @@ public enum AKPropertySliderStyle {
     private var sliderHeight: CGFloat = 0.0
     
     /// Function to call when value changes
-    public var callback: ((Double) -> Void)?
+    public var callback: ((Double) -> Void) = { _ in }
     fileprivate var lastTouch = CGPoint.zero
     
     public init(property: String,
-                format: String = "%0.3f",
                 value: Double,
-                minimum: Double = 0,
-                maximum: Double = 1,
+                range: ClosedRange<Double> = 0 ... 1,
+                taper: Double = 1,
+                format: String = "%0.3f",
                 color: AKColor = AKStylist.sharedInstance.nextColor,
-                frame: CGRect = CGRect(x: 0, y: 0, width: AKPropertySlider.defaultSize.width, height:  AKPropertySlider.defaultSize.height),
-                callback: @escaping (_ x: Double) -> Void) {
+                frame: CGRect = CGRect(x: 0,
+                                       y: 0,
+                                       width: AKPropertySlider.defaultSize.width,
+                                       height: AKPropertySlider.defaultSize.height),
+                callback: @escaping (_ x: Double) -> Void = { _ in } ) {
         self.value = value
         self.initialValue = value
-        self.minimum = minimum
-        self.maximum = maximum
+        self.range = range
+        self.taper = taper
         self.property = property
         self.format = format
         self.color = color
 
         self.callback = callback
         super.init(frame: frame)
-        
+
+        self.val = value.normalized(range: range, taper: taper)
+
         self.wantsLayer = true
 
         needsDisplay = true
@@ -142,32 +161,26 @@ public enum AKPropertySliderStyle {
     
     override public func mouseDown(with theEvent: NSEvent) {
         isDragging = true
-        let loc = convert(theEvent.locationInWindow, from: nil)
-        let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-        value = Double((loc.x - sliderMargin) / (bounds.width - sliderMargin * 2.0)) * (maximum - minimum) + minimum
-        if value > maximum { value = maximum }
-        if value < minimum { value = minimum }
-        needsDisplay = true
-        callback?(value)
+        mouseDragged(with: theEvent)
     }
     
     override public func mouseDragged(with theEvent: NSEvent) {
         let loc = convert(theEvent.locationInWindow, from: nil)
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-        value = Double((loc.x - sliderMargin) / (bounds.width - sliderMargin * 2.0)) * (maximum - minimum) + minimum
-        if value > maximum { value = maximum }
-        if value < minimum { value = minimum }
-        needsDisplay = true
-        callback?(value)
+
+        val = (0 ... 1).clamp(Double( (loc.x - sliderMargin) / (bounds.width - sliderMargin * 2.0) ))
+
+        value = val.denormalized(range: range, taper: taper)
+        callback(value)
     }
     
     public override func mouseUp(with theEvent: NSEvent) {
         isDragging = false
         needsDisplay = true
     }
-    
+
     public func randomize() -> Double {
-        value = random(minimum, maximum)
+        value = random(range.lowerBound, range.upperBound)
         needsDisplay = true
         return value
     }
@@ -217,9 +230,7 @@ public enum AKPropertySliderStyle {
     
     /// Draw the slider
     override open func draw(_ rect: NSRect) {
-        drawFlatSlider(currentValue: CGFloat(value),
-                       minimum: CGFloat(minimum),
-                       maximum: CGFloat(maximum),
+        drawFlatSlider(currentValue: CGFloat(val),
                        propertyName: property,
                        currentValueText: String(format: format, value)
         )

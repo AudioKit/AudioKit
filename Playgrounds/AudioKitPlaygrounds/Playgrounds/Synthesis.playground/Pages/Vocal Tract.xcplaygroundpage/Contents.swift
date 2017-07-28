@@ -24,45 +24,33 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        addSubview(AKPropertySlider(
-            property: "Frequency",
-            value: voc.frequency, maximum: 2_000
+        addSubview(AKPropertySlider(property: "Frequency",
+                                    value: voc.frequency,
+                                    range: 0 ... 2_000
         ) { sliderValue in
                 voc.frequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Tongue Position",
-            value: voc.tonguePosition
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Tongue Position", value: voc.tonguePosition) { sliderValue in
                 voc.tonguePosition = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Tongue Diameter",
-            value: voc.tongueDiameter
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Tongue Diameter", value: voc.tongueDiameter) { sliderValue in
                 voc.tongueDiameter = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Tenseness",
-            value: voc.tenseness
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Tenseness", value: voc.tenseness) { sliderValue in
                 voc.tenseness = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Nasality",
-            value: voc.nasality
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Nasality", value: voc.nasality) { sliderValue in
                 voc.nasality = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Ramp Time",
-            format: "%0.3f s",
-            value: voc.rampTime, maximum: 10
+        addSubview(AKPropertySlider(property: "Ramp Time",
+                                    value: voc.rampTime,
+                                    range: 0 ... 10,
+                                    format: "%0.3f s"
         ) { time in
             voc.rampTime = time
         })

@@ -28,17 +28,18 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel = bank.sustainLevel
         addSubview(adsrView)
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.3f Hz",
-            value:  bank.releaseDuration, minimum: -1_200, maximum: 1_200
+        addSubview(AKPropertySlider(property: "Detuning Offset",
+                                    value: bank.detuningOffset,
+                                    range: -1_200 ... 1_200,
+                                    format: "%0.3f Hz"
         ) { offset in
             bank.detuningOffset = offset
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            value:  bank.releaseDuration, minimum: 0.5, maximum: 2.0
+        addSubview(AKPropertySlider(property: "Detuning Multiplier",
+                                    value: bank.detuningMultiplier,
+                                    range: 0.5 ... 2.0,
+                                    taper: log(3) / log(2)
         ) { multiplier in
             bank.detuningMultiplier = multiplier
         })

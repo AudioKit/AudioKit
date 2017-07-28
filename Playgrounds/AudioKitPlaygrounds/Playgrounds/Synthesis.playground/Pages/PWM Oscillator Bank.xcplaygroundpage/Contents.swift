@@ -14,11 +14,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("PWM Oscillator Bank")
 
-        addSubview(AKPropertySlider(
-            property: "Pulse Width",
-            value: osc.pulseWidth
-        ) { amount in
-            osc.pulseWidth = amount
+        addSubview(AKPropertySlider(property: "Pulse Width", value: osc.pulseWidth) { sliderValue in
+            osc.pulseWidth = sliderValue
         })
 
         let adsrView = AKADSRView { att, dec, sus, rel in
@@ -33,23 +30,23 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel = osc.sustainLevel
         addSubview(adsrView)
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.1f Cents",
-            value:  osc.releaseDuration, minimum: -100, maximum: 100
-        ) { offset in
-            osc.detuningOffset = offset
+        addSubview(AKPropertySlider(property: "Detuning Offset",
+                                    value:  osc.releaseDuration,
+                                    range: -100 ... 100,
+                                    format: "%0.1f Cents"
+        ) { sliderValue in
+            osc.detuningOffset = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0
-        ) { multiplier in
-            osc.detuningMultiplier = multiplier
+        addSubview(AKPropertySlider(property: "Detuning Multiplier",
+                                    value:  osc.detuningMultiplier,
+                                    range: 0.5 ... 2.0,
+                                    taper: log(3) / log(2)
+        ) { sliderValue in
+            osc.detuningMultiplier = sliderValue
         })
 
-        keyboard = AKKeyboardView(width: 440, height: 100,
-                                  firstOctave: 3, octaveCount: 3)
+        keyboard = AKKeyboardView(width: 440, height: 100, firstOctave: 3, octaveCount: 3)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
         addSubview(keyboard)

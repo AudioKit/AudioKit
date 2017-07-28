@@ -52,28 +52,27 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Mandolin")
 
-        detuneSlider = AKPropertySlider(
-            property: "Detune",
-            format: "%0.2f",
-            value: mandolin.detune, minimum: 0.5, maximum: 2
+        detuneSlider = AKPropertySlider(property: "Detune",
+                                        value: mandolin.detune,
+                                        range: 0.5 ... 2,
+                                        format: "%0.2f"
         ) { detune in
             mandolin.detune = detune
         }
         addSubview(detuneSlider)
 
-        bodySizeSlider = AKPropertySlider(
-            property: "Body Size",
-            format: "%0.2f",
-            value: mandolin.bodySize, minimum: 0.2, maximum: 3
+        bodySizeSlider = AKPropertySlider(property: "Body Size",
+                                          value: mandolin.bodySize,
+                                          range: 0.2 ... 3,
+                                          format: "%0.2f"
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
         addSubview(bodySizeSlider)
 
-        addSubview(AKPropertySlider(
-            property: "Pluck Position",
-            format: "%0.2f",
-            value: pluckPosition
+        addSubview(AKPropertySlider(property: "Pluck Position",
+                                    value: pluckPosition,
+                                    format: "%0.2f"
         ) { position in
             pluckPosition = position
         })

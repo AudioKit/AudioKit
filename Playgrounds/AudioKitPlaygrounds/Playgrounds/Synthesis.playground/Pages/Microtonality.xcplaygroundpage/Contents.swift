@@ -137,87 +137,81 @@ class PlaygroundView: AKPlaygroundView {
             sequencerPattern = sequencerPatterns[preset]!
         })
 
-        addSubview(AKPropertySlider(
-            property: "MIDI Transposition",
-            format: "%.0f",
-            value: Double(transposition), minimum: -16, maximum: 16
+        addSubview(AKPropertySlider(property: "MIDI Transposition",
+                                    value: Double(transposition),
+                                    range: -16 ... 16,
+                                    format: "%.0f"
         ) { sliderValue in
             transposition = Int(sliderValue)
             osc.reset()
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Morph Index",
-            value: osc.index, minimum: 0, maximum: 3
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
             osc.index = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Gain",
-            format: "%0.3f",
-            value: generatorBooster.gain, minimum: 0, maximum:4
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "OSC Gain", value: generatorBooster.gain, range: 0 ... 4) { sliderValue in
             generatorBooster.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "FILTER Frequency Cutoff",
-            value: filter.cutoffFrequency, minimum: 1, maximum: 12_000
+        addSubview(AKPropertySlider(property: "FILTER Frequency Cutoff",
+                                    value: filter.cutoffFrequency,
+                                    range: 1 ... 12_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "FILTER Frequency Resonance",
-            value: filter.resonance, minimum: 0, maximum: 4
+        addSubview(AKPropertySlider(property: "FILTER Frequency Resonance",
+                                    value: filter.resonance,
+                                    range: 0 ... 4
         ) { sliderValue in
             filter.resonance = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Attack",
-            format: "%0.3f s",
-            value: osc.attackDuration, maximum: 2
+        addSubview(AKPropertySlider(property: "OSC Amp Attack",
+                                    value: osc.attackDuration,
+                                    range: 0 ... 2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             osc.attackDuration = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Decay",
-            format: "%0.3f s",
-            value: osc.decayDuration, maximum: 2
+        addSubview(AKPropertySlider(property: "OSC Amp Decay",
+                                    value: osc.decayDuration,
+                                    range: 0 ... 2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             osc.decayDuration = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Sustain",
-            format: "%0.3f s",
-            value: osc.sustainLevel, maximum: 2
+        addSubview(AKPropertySlider(property: "OSC Amp Sustain",
+                                    value: osc.sustainLevel,
+                                    range: 0 ... 2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             osc.sustainLevel = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Release",
-            format: "%0.3f s",
-            value: osc.releaseDuration, maximum: 2
+        addSubview(AKPropertySlider(property: "OSC Amp Release",
+                                    value: osc.releaseDuration,
+                                    range: 0 ... 2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             osc.releaseDuration = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.1f Cents",
-            value:  osc.detuningOffset, minimum: -1_200, maximum: 1_200
+        addSubview(AKPropertySlider(property: "Detuning Offset",
+                                    value: osc.detuningOffset,
+                                    range: -1_200 ... 1_200,
+                                    format: "%0.1f Cents"
         ) { sliderValue in
             osc.detuningOffset = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0
+        addSubview(AKPropertySlider(property: "Detuning Multiplier",
+                                    value: osc.detuningMultiplier,
+                                    range: 0.5 ... 2.0,
+                                    taper: log(3) / log(2)
         ) { sliderValue in
             osc.detuningMultiplier = sliderValue
         })

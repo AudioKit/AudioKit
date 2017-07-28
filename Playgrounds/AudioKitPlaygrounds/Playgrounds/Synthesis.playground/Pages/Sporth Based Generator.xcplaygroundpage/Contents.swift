@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 let filePath = Bundle.main.path(forResource: filename, ofType: "sp"),
                 let contentData = FileManager.default.contents(atPath: filePath),
                 let sporth = String(data: contentData, encoding: .utf8) else {
-                return
+                    return
             }
 
             Swift.print("\n\n\n\n\n\n\(sporth)")
@@ -87,10 +87,10 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                                                                        length: line.characters.count),
                                                                         withTemplate: "$1")
                 let title = regex.stringByReplacingMatches(in: line,
-                                                       options: .reportCompletion,
-                                                       range: NSRange(location: 0,
-                                                                      length: line.characters.count),
-                                                       withTemplate: "$2")
+                                                           options: .reportCompletion,
+                                                           range: NSRange(location: 0,
+                                                                          length: line.characters.count),
+                                                           withTemplate: "$2")
 
                 if title != line {
                     currentControl = (Int(currentControlText) ?? 0) - 1
@@ -108,34 +108,22 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         })
         addLabel("Open up the console view to see the Sporth code.")
 
-        p0Slider = AKPropertySlider(
-            property: "Parameter 0",
-            value: generator.parameters[0]
-        ) { sliderValue in
-                generator.parameters[0] = sliderValue
+        p0Slider = AKPropertySlider(property: "Parameter 0", value: generator.parameters[0]) { sliderValue in
+            generator.parameters[0] = sliderValue
         }
         p0Slider?.isHidden = true
         addSubview(p0Slider)
-        p1Slider = AKPropertySlider(
-            property: "Parameter 1",
-            value: generator.parameters[1]
-        ) { sliderValue in
+        p1Slider = AKPropertySlider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
             generator.parameters[1] = sliderValue
         }
         p1Slider?.isHidden = true
         addSubview(p1Slider)
-        p2Slider = AKPropertySlider(
-            property: "Parameter 2",
-            value: generator.parameters[2]
-        ) { sliderValue in
+        p2Slider = AKPropertySlider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
             generator.parameters[2] = sliderValue
         }
         p2Slider?.isHidden = true
         addSubview(p2Slider)
-        p3Slider = AKPropertySlider(
-            property: "Parameter 3",
-        value: generator.parameters[3]
-        ) { sliderValue in
+        p3Slider = AKPropertySlider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
             generator.parameters[3] = sliderValue
         }
         p3Slider?.isHidden = true

@@ -27,10 +27,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Wah",
-            value: wah.wah
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Wah", value: wah.wah) { sliderValue in
             wah.wah = sliderValue
         })
     }
