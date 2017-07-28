@@ -30,27 +30,27 @@ class PlaygroundView: AKPlaygroundView {
 
         addLabel("Equalizer Gains")
 
-        addSubview(AKPropertySlider(property: "32Hz", value: filterBand2.gain, maximum: 2) { sliderValue in
+        addSubview(AKPropertySlider(property: "32Hz", value: filterBand2.gain, range: 0 ... 2) { sliderValue in
             filterBand2.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "64Hz", value: filterBand3.gain, maximum: 2) { sliderValue in
+        addSubview(AKPropertySlider(property: "64Hz", value: filterBand3.gain, range: 0 ... 2) { sliderValue in
             filterBand3.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "125Hz", value: filterBand4.gain, maximum: 2) { sliderValue in
+        addSubview(AKPropertySlider(property: "125Hz", value: filterBand4.gain, range: 0 ... 2) { sliderValue in
             filterBand4.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "250Hz", value: filterBand5.gain, maximum: 2) { sliderValue in
+        addSubview(AKPropertySlider(property: "250Hz", value: filterBand5.gain, range: 0 ... 2) { sliderValue in
             filterBand5.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "500Hz", value: filterBand6.gain, maximum: 2) { sliderValue in
+        addSubview(AKPropertySlider(property: "500Hz", value: filterBand6.gain, range: 0 ... 2) { sliderValue in
             filterBand6.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "1000Hz", value: filterBand7.gain, maximum: 2) { sliderValue in
+        addSubview(AKPropertySlider(property: "1000Hz", value: filterBand7.gain, range: 0 ... 2) { sliderValue in
             filterBand7.gain = sliderValue
         })
     }

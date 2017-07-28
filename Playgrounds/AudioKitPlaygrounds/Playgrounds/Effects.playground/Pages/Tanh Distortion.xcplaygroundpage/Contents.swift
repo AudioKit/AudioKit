@@ -29,30 +29,24 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: distortion))
 
-        addSubview(AKPropertySlider(
-            property: "Pre-gain",
-            value: distortion.pregain, maximum: 10
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Pre-gain", value: distortion.pregain, range: 0 ... 10) { sliderValue in
             distortion.pregain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Post-gain",
-            value: distortion.postgain, maximum: 10
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Post-gain", value: distortion.postgain, range: 0 ... 10) { sliderValue in
             distortion.postgain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Postive Shape Parameter",
-            value: distortion.postiveShapeParameter, minimum: -10, maximum: 10
+        addSubview(AKPropertySlider(property: "Postive Shape Parameter",
+                                    value: distortion.postiveShapeParameter,
+                                    range: -10 ... 10
         ) { sliderValue in
             distortion.postiveShapeParameter = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Negative Shape Parameter",
-            value: distortion.negativeShapeParameter, minimum: -10, maximum: 10
+        addSubview(AKPropertySlider(property: "Negative Shape Parameter",
+                                    value: distortion.negativeShapeParameter,
+                                    range: -10 ... 10
         ) { sliderValue in
             distortion.negativeShapeParameter = sliderValue
         })

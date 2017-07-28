@@ -33,37 +33,37 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Bit Crush Operation")
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Base Sample Rate",
-            format: "%0.1f Hz",
-            value: effect.parameters[0], minimum: 300, maximum: 22_050
+        addSubview(AKPropertySlider(property: "Base Sample Rate",
+                                    value: effect.parameters[0],
+                                    range: 300 ... 22_050,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Sample Rate Variation",
-            format: "%0.1f Hz",
-            value: effect.parameters[1], minimum: 0, maximum: 8_000
+        addSubview(AKPropertySlider(property: "Sample Rate Variation",
+                                    value: effect.parameters[1],
+                                    range: 0 ... 8_000,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Base Bit Depth",
-            value: effect.parameters[2], minimum: 1, maximum: 24
+        addSubview(AKPropertySlider(property: "Base Bit Depth",
+                                    value: effect.parameters[2],
+                                    range: 1 ... 24
         ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Bit Depth Variation",
-            format: "%0.3f Hz",
-            value: effect.parameters[3], minimum: 0, maximum: 12
+        addSubview(AKPropertySlider(property: "Bit Depth Variation",
+                                    value: effect.parameters[3],
+                                    range: 0 ...12,
+                                    format: "%0.3f Hz"
         ) { sliderValue in
             effect.parameters[3] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Frequency",
-            format: "%0.3f Hz",
-            value: effect.parameters[4], minimum: 0, maximum: 5
+        addSubview(AKPropertySlider(property: "Frequency",
+                                    value: effect.parameters[4],
+                                    range: 0 ... 5,
+                                    format: "%0.3f Hz"
         ) { sliderValue in
             effect.parameters[4] = sliderValue
         })

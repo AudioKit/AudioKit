@@ -30,26 +30,26 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: peakLimiter))
 
-        addSubview(AKPropertySlider(
-            property: "Attack Time",
-            format:  "%0.3f s",
-            value: peakLimiter.attackTime, minimum: 0.001, maximum: 0.03
+        addSubview(AKPropertySlider(property: "Attack Time",
+                                    value: peakLimiter.attackTime,
+                                    range: 0.001 ... 0.03,
+                                    format:  "%0.3f s"
         ) { sliderValue in
             peakLimiter.attackTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Decay Time",
-            format:  "%0.3f s",
-            value: peakLimiter.decayTime, minimum: 0.001, maximum: 0.03
+        addSubview(AKPropertySlider(property: "Decay Time",
+                                    value: peakLimiter.decayTime,
+                                    range: 0.001 ... 0.03,
+                                    format:  "%0.3f s"
         ) { sliderValue in
             peakLimiter.decayTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Pre-gain",
-            format:  "%0.1f dB",
-            value: peakLimiter.preGain, minimum: -40, maximum: 40
+        addSubview(AKPropertySlider(property: "Pre-gain",
+                                    value: peakLimiter.preGain,
+                                    range: -40 ... 40,
+                                    format:  "%0.1f dB"
         ) { sliderValue in
             peakLimiter.preGain = sliderValue
         })

@@ -40,9 +40,9 @@ class PlaygroundView: AKPlaygroundView {
         }
         addSubview(feedbackSlider)
 
-        lowPassCutoffFrequencySlider = AKPropertySlider(
-            property: "Low Pass Cutoff",
-            value: delay.lowPassCutoff, maximum: 22_050
+        lowPassCutoffFrequencySlider = AKPropertySlider(property: "Low Pass Cutoff",
+                                                        value: delay.lowPassCutoff,
+                                                        range: 0 ... 22_050
         ) { sliderValue in
             delay.lowPassCutoff = sliderValue
         }
