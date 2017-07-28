@@ -23,10 +23,10 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Phase Locked Vocoder")
 
-        playingPositionSlider = AKPropertySlider(
-            property: "Position",
-            format: "%0.2f s",
-            value: phaseLockedVocoder.position, maximum: 3.428
+        playingPositionSlider = AKPropertySlider(property: "Position",
+                                                 value: phaseLockedVocoder.position,
+                                                 range: 0 ... 3.428,
+                                                 format: "%0.2f s"
         ) { sliderValue in
             phaseLockedVocoder.position = sliderValue
         }

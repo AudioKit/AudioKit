@@ -44,9 +44,7 @@ class PlaygroundView: AKPlaygroundView {
                               length: Sample(40_000))
         })
 
-        addSubview(AKPropertySlider(
-            property: "Rate",
-            value: 1, minimum: 0.1, maximum: 2) { sliderValue in
+        addSubview(AKPropertySlider(property: "Rate", value: 1, range: 0.1 ... 2) { sliderValue in
                 samplePlayer.rate = sliderValue
         })
     }

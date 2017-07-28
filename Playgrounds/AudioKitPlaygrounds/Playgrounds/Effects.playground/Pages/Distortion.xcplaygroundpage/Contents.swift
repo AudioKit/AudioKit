@@ -45,18 +45,18 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: distortion))
 
-        delaySlider = AKPropertySlider(
-            property: "Delay",
-            format: "%0.3f ms",
-            value: distortion.delay, minimum: 0.1, maximum: 500
+        delaySlider = AKPropertySlider(property: "Delay",
+                                       value: distortion.delay,
+                                       range: 0.1 ... 500,
+                                       format: "%0.3f ms",
         ) { sliderValue in
             distortion.delay = sliderValue
         }
         addSubview(delaySlider)
 
-        decaySlider = AKPropertySlider(
-            property: "Decay Rate",
-            value: distortion.decay, minimum: 0.1, maximum: 50
+        decaySlider = AKPropertySlider(property: "Decay Rate",
+                                       value: distortion.decay,
+                                       range: 0.1 ... 50
         ) { sliderValue in
             distortion.decay = sliderValue
         }
@@ -82,10 +82,10 @@ class PlaygroundView: AKPlaygroundView {
             distortion.polynomialMix = sliderValue
         })
 
-        softClipGainSlider = AKPropertySlider(
-            property: "Soft Clip Gain",
-            format: "%0.3f dB",
-            value: distortion.softClipGain, minimum: -80, maximum: 20
+        softClipGainSlider = AKPropertySlider(property: "Soft Clip Gain",
+                                              value: distortion.softClipGain,
+                                              range: -80 ... 20,
+                                              format: "%0.3f dB"
         ) { sliderValue in
             distortion.softClipGain = sliderValue
         }

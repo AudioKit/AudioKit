@@ -27,18 +27,18 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Frequency",
-            format: "%0.1f Hz",
-            value: filter.frequency, maximum: 5_000
+        addSubview(AKPropertySlider(property: "Frequency",
+                                    value: filter.frequency,
+                                    range: 0 ... 5_000,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             filter.frequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Quality Factor",
-            format: "%0.1f",
-            value: filter.qualityFactor, minimum: 0.1, maximum: 20
+        addSubview(AKPropertySlider(property: "Quality Factor",
+                                    value: filter.qualityFactor,
+                                    range: 0.1 ... 20,
+                                    format: "%0.1f"
         ) { sliderValue in
             filter.qualityFactor = sliderValue
         })

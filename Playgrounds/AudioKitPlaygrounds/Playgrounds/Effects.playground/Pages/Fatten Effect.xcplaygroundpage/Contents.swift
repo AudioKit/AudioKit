@@ -35,10 +35,10 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Time",
-            format:  "%0.3f s",
-            value: fatten.parameters[0], minimum: 0.03, maximum: 0.1
+        addSubview(AKPropertySlider(property: "Time",
+                                    value: fatten.parameters[0],
+                                    range: 0.03 ... 0.1,
+                                    format:  "%0.3f s"
         ) { sliderValue in
             fatten.parameters[0] = sliderValue
         })

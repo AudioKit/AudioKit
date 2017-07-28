@@ -23,10 +23,10 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Tremolo")
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Frequency",
-            format: "%0.3f Hz",
-            value: tremolo.frequency, maximum: 20
+        addSubview(AKPropertySlider(property: "Frequency",
+                                    value: tremolo.frequency,
+                                    range: 0 ... 20,
+                                    format: "%0.3f Hz"
         ) { sliderValue in
             tremolo.frequency = sliderValue
         })

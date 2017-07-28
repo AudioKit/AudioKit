@@ -29,10 +29,10 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        cutoffFrequencySlider = AKPropertySlider(
-            property: "Cutoff Frequency",
-            format: "%0.1f Hz",
-            value: reverb.cutoffFrequency, maximum: 5_000
+        cutoffFrequencySlider = AKPropertySlider(property: "Cutoff Frequency",
+                                                 value: reverb.cutoffFrequency,
+                                                 range: 20 ... 5_000,
+                                                 format: "%0.1f Hz"
         ) { sliderValue in
             reverb.cutoffFrequency = sliderValue
         }

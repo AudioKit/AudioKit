@@ -26,18 +26,15 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Fundamental Frequency",
-            format: "%0.1f Hz",
-            value: stringResonator.fundamentalFrequency, maximum: 5_000
+        addSubview(AKPropertySlider(property: "Fundamental Frequency",
+                                    value: stringResonator.fundamentalFrequency,
+                                    range: 0 ... 5_000,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             stringResonator.fundamentalFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Feedback",
-            value: stringResonator.feedback
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Feedback", value: stringResonator.feedback) { sliderValue in
             stringResonator.feedback = sliderValue
         })
     }

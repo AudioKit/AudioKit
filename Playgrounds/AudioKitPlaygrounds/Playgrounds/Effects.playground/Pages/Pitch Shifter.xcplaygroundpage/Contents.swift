@@ -26,10 +26,10 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: pitchshifter))
 
-        addSubview(AKPropertySlider(
-            property: "Pitch",
-            format: "%0.3f Semitones",
-            value: pitchshifter.shift, minimum: -24, maximum: 24
+        addSubview(AKPropertySlider(property: "Pitch",
+                                    value: pitchshifter.shift,
+                                    range: -24 ... 24,
+                                    format: "%0.3f Semitones"
         ) { sliderValue in
             pitchshifter.shift = sliderValue
         })

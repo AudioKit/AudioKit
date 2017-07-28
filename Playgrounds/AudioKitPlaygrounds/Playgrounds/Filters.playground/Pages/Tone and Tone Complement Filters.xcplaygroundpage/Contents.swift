@@ -27,9 +27,9 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: toneFilter))
 
-        addSubview(AKPropertySlider(
-            property: "Half Power Point",
-            value: toneFilter.halfPowerPoint, maximum: 10_000
+        addSubview(AKPropertySlider(property: "Half Power Point",
+                                    value: toneFilter.halfPowerPoint,
+                                    range: 0 ... 10_000
         ) { sliderValue in
             toneFilter.halfPowerPoint = sliderValue
         })
@@ -38,9 +38,9 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: toneComplement))
 
-        addSubview(AKPropertySlider(
-            property: "Half Power Point",
-            value: toneComplement.halfPowerPoint, maximum: 10_000
+        addSubview(AKPropertySlider(property: "Half Power Point",
+                                    value: toneComplement.halfPowerPoint,
+                                    range: 0 ... 10_000
         ) { sliderValue in
             toneComplement.halfPowerPoint = sliderValue
         })

@@ -26,18 +26,15 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Cutoff Frequency",
-            format: "%0.1f Hz",
-            value: filter.cutoffFrequency, maximum: 5_000
+        addSubview(AKPropertySlider(property: "Cutoff Frequency",
+                                    value: filter.cutoffFrequency,
+                                    range: 0 ... 5_000,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Resonance",
-            value: filter.resonance
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Resonance", value: filter.resonance) { sliderValue in
             filter.resonance = sliderValue
         })
 

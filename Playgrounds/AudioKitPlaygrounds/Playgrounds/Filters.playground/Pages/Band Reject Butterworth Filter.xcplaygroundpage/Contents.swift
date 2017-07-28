@@ -25,18 +25,18 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: filter))
 
-        addSubview(AKPropertySlider(
-            property: "Center Frequency",
-            format: "%0.1f Hz",
-            value: filter.centerFrequency, minimum: 20, maximum: 22_050
+        addSubview(AKPropertySlider(property: "Center Frequency",
+                                    value: filter.centerFrequency,
+                                    range: 20 ... 22_050,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             filter.centerFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Bandwidth",
-            format: "%0.1f Hz",
-            value: filter.bandwidth, minimum: 100, maximum: 12_000
+        addSubview(AKPropertySlider(property: "Bandwidth",
+                                    value: filter.bandwidth,
+                                    range: 100 ... 12_000,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             filter.bandwidth = sliderValue
         })

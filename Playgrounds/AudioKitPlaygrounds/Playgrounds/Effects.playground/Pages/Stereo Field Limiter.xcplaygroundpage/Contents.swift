@@ -24,11 +24,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: limitedOutput))
 
-        addSubview(AKPropertySlider(
-            property: "Amount",
-            format: "%0.3f",
-            value: limitedOutput.amount
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Amount", value: limitedOutput.amount) { sliderValue in
             limitedOutput.amount = sliderValue
         })
     }

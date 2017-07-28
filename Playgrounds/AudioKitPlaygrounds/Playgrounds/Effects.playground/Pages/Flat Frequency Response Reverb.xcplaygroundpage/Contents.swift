@@ -24,7 +24,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Duration", value: reverb.reverbDuration, maximum: 5) { sliderValue in
+        addSubview(AKPropertySlider(property: "Duration", value: reverb.reverbDuration, range: 0 ... 5) { sliderValue in
             reverb.reverbDuration = sliderValue
         })
     }

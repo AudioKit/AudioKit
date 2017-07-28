@@ -30,18 +30,18 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: lowPassFilter))
 
-        addSubview(AKPropertySlider(
-            property: "Cutoff Frequency",
-            format: "%0.1f Hz",
-            value: lowPassFilter.cutoffFrequency, minimum: 20, maximum: 22_050
+        addSubview(AKPropertySlider(property: "Cutoff Frequency",
+                                    value: lowPassFilter.cutoffFrequency,
+                                    range: 20 ... 22_050,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             lowPassFilter.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Resonance",
-            format: "%0.1f dB",
-            value: lowPassFilter.resonance, minimum: -20, maximum: 40
+        addSubview(AKPropertySlider(property: "Resonance",
+                                    value: lowPassFilter.resonance,
+                                    range: -20 ... 40,
+                                    format: "%0.1f dB"
         ) { sliderValue in
             lowPassFilter.resonance = sliderValue
         })

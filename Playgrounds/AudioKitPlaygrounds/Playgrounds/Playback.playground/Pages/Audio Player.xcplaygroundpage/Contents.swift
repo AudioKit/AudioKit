@@ -60,46 +60,46 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        fadeInSlider = AKPropertySlider(
-            property: "Fade In",
-            format: "%0.2f s",
-            value: player.fadeInTime, maximum: 2
+        fadeInSlider = AKPropertySlider(property: "Fade In",
+                                        value: player.fadeInTime,
+                                        range: 0 ... 2,
+                                        format: "%0.2f s"
         ) { sliderValue in
             player.fadeInTime = sliderValue
         }
         addSubview(fadeInSlider)
 
-        fadeOutSlider = AKPropertySlider(
-            property: "Fade Out",
-            format: "%0.2f s",
-            value: player.fadeOutTime, maximum: 2
+        fadeOutSlider = AKPropertySlider(property: "Fade Out",
+                                         value: player.fadeOutTime,
+                                         range: 0 ... 2,
+                                         format: "%0.2f s"
         ) { sliderValue in
             player.fadeOutTime = sliderValue
         }
         addSubview(fadeOutSlider)
 
-        inPositionSlider = AKPropertySlider(
-            property: "In Position",
-            format: "%0.2f s",
-            value: player.startTime, maximum: 3.428
+        inPositionSlider = AKPropertySlider(property: "In Position",
+                                            value: player.startTime,
+                                            range: 0 ... 3.428,
+                                            format: "%0.2f s"
         ) { sliderValue in
             player.startTime = sliderValue
         }
         addSubview(inPositionSlider)
 
-        outPositionSlider = AKPropertySlider(
-            property: "Out Position",
-            format: "%0.2f s",
-            value: player.endTime, maximum: 3.428
+        outPositionSlider = AKPropertySlider(property: "Out Position",
+                                             value: player.endTime,
+                                             range: 0 ... 3.428,
+                                             format: "%0.2f s"
         ) { sliderValue in
             player.endTime = sliderValue
         }
         addSubview(outPositionSlider)
 
-        playingPositionSlider = AKPropertySlider(
-            property: "Position",
-            format: "%0.2f s",
-            value: player.playhead, maximum: 3.428
+        playingPositionSlider = AKPropertySlider(property: "Position",
+                                                 value: player.playhead,
+                                                 range: 0 ... 3.428,
+                                                 format: "%0.2f s"
         ) { _ in
             // Can't do player.playhead = sliderValue
         }
