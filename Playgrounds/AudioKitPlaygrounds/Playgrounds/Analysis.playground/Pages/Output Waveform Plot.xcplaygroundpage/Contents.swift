@@ -18,30 +18,30 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Output Waveform Plot")
 
         addSubview(AKPropertySlider(property: "Frequency",
-                                    format: "%0.2f Hz",
                                     value: oscillator.baseFrequency,
-                                    maximum: 800,
+                                    range: 0 ... 800,
+                                    format: "%0.2f Hz"
         ) { frequency in
             oscillator.baseFrequency = frequency
         })
 
         addSubview(AKPropertySlider(property: "Carrier Multiplier",
                                     value: oscillator.carrierMultiplier,
-                                    maximum: 3
+                                    range: 0 ... 3
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         })
 
         addSubview(AKPropertySlider(property: "Modulating Multiplier",
                                     value: oscillator.modulatingMultiplier,
-                                    maximum: 3
+                                    range: 0 ... 3
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         })
 
         addSubview(AKPropertySlider(property: "Modulation Index",
                                     value: oscillator.modulationIndex,
-                                    maximum: 3
+                                    range: 0 ... 3
         ) { index in
             oscillator.modulationIndex = index
         })
