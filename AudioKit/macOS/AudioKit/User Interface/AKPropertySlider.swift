@@ -118,7 +118,7 @@ public enum AKPropertySliderStyle {
     fileprivate var lastTouch = CGPoint.zero
     
     public init(property: String,
-                value: Double,
+                value: Double = 0.0,
                 range: ClosedRange<Double> = 0 ... 1,
                 taper: Double = 1,
                 format: String = "%0.3f",
