@@ -30,7 +30,8 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(property: "Cutoff Frequency",
                                     value: filter.cutoffFrequency,
-                                    range: 20 ... 22_050,
+                                    range: 20 ... 10_000,
+                                    taper: 5,
                                     format: "%0.1f Hz"
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue

@@ -35,7 +35,8 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(property: "Cutoff Frequency",
                                     value: moogLadder.cutoffFrequency,
-                                    range: 0 ... 5_000,
+                                    range: 40 ... 5_000,
+                                    taper: 4,
                                     format: "%0.1f Hz"
         ) { sliderValue in
             moogLadder.cutoffFrequency = sliderValue

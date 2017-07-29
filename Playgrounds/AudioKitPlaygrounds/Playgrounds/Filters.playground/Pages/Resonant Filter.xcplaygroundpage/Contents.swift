@@ -30,6 +30,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(property: "Frequency",
                                     value: filter.frequency,
                                     range: 20 ... 22_050,
+                                    taper: 5,
                                     format: "%0.1f Hz"
         ) { sliderValue in
             filter.frequency = sliderValue
