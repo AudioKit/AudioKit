@@ -1732,6 +1732,13 @@
 			name = Clarinet;
 			sourceTree = "<group>";
 		};
+		B1C452E41F2A55AF001AD289 /* AudioUnit Host */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "AudioUnit Host";
+			sourceTree = "<group>";
+		};
 		C42F36C21C0582E6000E937C = {
 			isa = PBXGroup;
 			children = (
@@ -1787,10 +1794,11 @@
 				C42858EB1E90B5BE009B737D /* AKScheduledAction.swift */,
 				C45662B81D448D7D00D26565 /* AKSettings.swift */,
 				C45662B91D448D7D00D26565 /* AKTable.swift */,
-				C45662BB1D448D7D00D26565 /* Audio File */,
 				C45662C31D448D7D00D26565 /* AudioKit.h */,
 				C45662C41D448D7D00D26565 /* AudioKit.swift */,
 				C45662C51D448D7D00D26565 /* AudioKitHelpers.swift */,
+				C45662BB1D448D7D00D26565 /* Audio File */,
+				B1C452E41F2A55AF001AD289 /* AudioUnit Host */,
 				C45662C61D448D7D00D26565 /* CoreAudio */,
 				C45662CD1D448D7D00D26565 /* EZAudio */,
 				C4A579B81EC1B7000072D48A /* Microphone Tracker */,
@@ -4060,7 +4068,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4976,7 +4984,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
