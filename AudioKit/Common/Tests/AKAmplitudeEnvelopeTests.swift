@@ -22,12 +22,12 @@ class AKAmplitudeEnvelopeTests: AKTestCase {
     }
 
     func testParameters() {
-        output = AKAmplitudeEnvelope(input, attackDuration: 0.1234, decayDuration: 0.234, sustainLevel: 0.345)
+        output = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
         AKTestMD5("9a788f314cdfd0cb8834837246b7b2d9")
     }
 
     func testAttack() {
-        output = AKAmplitudeEnvelope(input, attackDuration: 0.1234)
+        output = AKAmplitudeEnvelope(input, attackDuration: 0.123_4)
         AKTestMD5("6d1bd9d118a9a51accb1a8d077ba3b8f")
     }
 

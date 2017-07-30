@@ -78,5 +78,3 @@ class AKPWMOscillatorBankTests: AKTestCase {
         AKTestMD5("3c6b4eed56b165ebf40a2d86dc6cb985")
     }
 }
-
-

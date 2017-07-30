@@ -615,7 +615,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         var gain: Double = inTime > 0 ? 0.01 : 1
 
         let sampleTime: Double = 1.0 / internalAudioFile.processingFormat.sampleRate
-        
+
         // from -20db?
         let fadeInPower: Double = exp(log(10) * sampleTime / inTime)
 

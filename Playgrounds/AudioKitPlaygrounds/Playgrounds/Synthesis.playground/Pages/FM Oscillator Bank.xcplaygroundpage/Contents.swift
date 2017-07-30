@@ -77,5 +77,3 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
-
-

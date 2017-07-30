@@ -72,7 +72,7 @@ class PlaygroundView: AKPlaygroundView {
             drums.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Bass Volume",value: bass.volume) { sliderValue in
+        addSubview(AKPropertySlider(property: "Bass Volume", value: bass.volume) { sliderValue in
             bass.volume = sliderValue
         })
         addSubview(AKPropertySlider(property: "Bass Pan", value: bass.pan, range: -1 ... 1) { sliderValue in

@@ -36,5 +36,4 @@ class AKTableTests: AKTestCase {
         AKTestMD5("c8069e19df9a82e3c4dc5811c55bc73c")
     }
 
-
 }

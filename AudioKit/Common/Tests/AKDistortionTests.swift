@@ -42,7 +42,6 @@ class AKDistortionTests: AKTestCase {
         AKTestMD5("a1732b3b9d4d1915e31bda4e5406ffdb")
     }
 
-
     func testDelay() {
         output = AKDistortion(input, delay: 0.2)
         AKTestMD5("c85cfde3be324f1a9e51843d9bb2e3c8")

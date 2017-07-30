@@ -37,7 +37,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             if gain == newValue {
                 return
             }
-            
+
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
             if internalAU?.isSetUp() ?? false {
@@ -60,14 +60,14 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             if leftGain == newValue {
                 return
             }
-                
+
             if internalAU?.isSetUp() ?? false {
                 if token != nil && leftGainParameter != nil {
                     leftGainParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
-            
+
             internalAU?.leftGain = Float(newValue)
         }
     }
@@ -85,7 +85,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
                     return
                 }
             }
-            
+
             internalAU?.rightGain = Float(newValue)
         }
     }
@@ -148,7 +148,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
         })
         internalAU?.leftGain = Float(gain)
         internalAU?.rightGain = Float(gain)
-        
+
     }
 
     // MARK: - Control

@@ -36,5 +36,4 @@ class AKAutoWahTests: AKTestCase {
         AKTestMD5("bcbe1de4b3a467d1f423c1783c11588c")
     }
 
-
 }

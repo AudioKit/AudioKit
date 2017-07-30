@@ -51,7 +51,6 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
         AKTestMD5("41332aab84da42575572efa17fc040c2")
     }
 
-
     func testParametersSetAfterInit() {
         let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square))
         oscillator.frequency = 1_234

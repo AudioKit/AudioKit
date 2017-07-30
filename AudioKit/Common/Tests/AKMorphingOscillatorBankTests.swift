@@ -43,7 +43,7 @@ class AKMorphingOscillatorBankTests: AKTestCase {
         output = inputBank
         AKTestMD5("445f2962ea295e2ca26d72269e9e371e")
     }
-    
+
     func testWaveformArray() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms)
         output = inputBank
@@ -86,4 +86,3 @@ class AKMorphingOscillatorBankTests: AKTestCase {
         AKTestMD5("8b79539a87192bb627f21857de7d9a77")
     }
 }
-

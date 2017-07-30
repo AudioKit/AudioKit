@@ -32,7 +32,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         plot.backgroundColor = AKColor.clear
         plot.shouldCenterYAxis = true
 
-
         addTitle("ADSR Envelope")
 
         let adsrView = AKADSRView { att, dec, sus, rel in

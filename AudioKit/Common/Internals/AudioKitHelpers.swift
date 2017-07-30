@@ -85,7 +85,7 @@ extension Double {
             return pow(((self - range.lowerBound ) / (range.upperBound - range.lowerBound)), (1.0 / taper))
         } else {
             // exponential taper
-            return range.lowerBound * exp(log(range.upperBound  / range.lowerBound) * self)
+            return range.lowerBound * exp(log(range.upperBound / range.lowerBound) * self)
         }
     }
 

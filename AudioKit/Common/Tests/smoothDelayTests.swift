@@ -10,7 +10,7 @@ import AudioKit
 import XCTest
 
 class SmoothDelayTests: AKTestCase {
-    
+
     override func setUp() {
         super.setUp()
         duration = 4.0
@@ -27,7 +27,7 @@ class SmoothDelayTests: AKTestCase {
         }
         AKTestMD5("5fad6c750dd3493bec59167606a51c59")
     }
-    
+
 //    func testDefault() {
 //        output = AKOperationEffect(input) { input, _ in
 //            return input.smoothDelay()
@@ -66,4 +66,3 @@ class SmoothDelayTests: AKTestCase {
 //        AKTestMD5("")
 //    }
 }
-

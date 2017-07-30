@@ -17,7 +17,7 @@ class AKBitCrusherTests: AKTestCase {
     }
 
     func testParameters() {
-        output = AKBitCrusher(input, bitDepth: 12, sampleRate: 2400)
+        output = AKBitCrusher(input, bitDepth: 12, sampleRate: 2_400)
         AKTestMD5("016a569c401187b65a8f9e6e5680c27a")
     }
 
@@ -26,9 +26,8 @@ class AKBitCrusherTests: AKTestCase {
         AKTestMD5("88eb95a6c826ddafd6e3e33f660ec99d")
     }
 
-
     func testSampleRate() {
-        output = AKBitCrusher(input, sampleRate: 2400)
+        output = AKBitCrusher(input, sampleRate: 2_400)
         AKTestMD5("84fcd2b2368aa607c644c9131f568285")
     }
 

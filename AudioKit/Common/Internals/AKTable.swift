@@ -108,7 +108,7 @@
         self.content = [Element](zeros: count)
 
         super.init()
-        
+
         switch type {
         case .sine:
             self.standardSineWave()

@@ -35,7 +35,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Metronome")
 
-        beatFlasher =  AKButton(title: "Stop", color: AKColor.red) { button in
+        beatFlasher = AKButton(title: "Stop", color: AKColor.red) { button in
             if metronome.isPlaying {
                 button.title = "Start"
                 button.color = #colorLiteral(red: 0, green: 0.5859588462, blue: 0, alpha: 1)

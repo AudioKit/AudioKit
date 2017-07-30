@@ -48,14 +48,14 @@ public class AKStylist {
         bgColors = Dictionary()
         bgColors[.basic] = AKColor.white
         bgColors[.midnight] = #colorLiteral(red: 0.1019607843, green: 0.1019607843, blue: 0.1019607843, alpha: 1)
-        
+
         colorCycle = Dictionary()
         colorCycle[.basic] = [AKColor.red, AKColor.green]
-        colorCycle[.midnight] = [AKColor(red: 66.0/255.0, green: 129.0/255.0, blue: 164.0/244.0, alpha: 1.0),
-                                 AKColor(red: 254.0/255.0, green: 147.0/255.0, blue: 140.0/244.0, alpha: 1.0),
-                                 AKColor(red: 230.0/255.0, green: 184.0/255.0, blue: 156.0/244.0, alpha: 1.0),
-                                 AKColor(red: 234.0/255.0, green: 210.0/255.0, blue: 172.0/244.0, alpha: 1.0),
-                                 AKColor(red: 156.0/255.0, green: 175.0/255.0, blue: 183.0/244.0, alpha: 1.0)]
+        colorCycle[.midnight] = [AKColor(red: 66.0 / 255.0, green: 129.0 / 255.0, blue: 164.0 / 244.0, alpha: 1.0),
+                                 AKColor(red: 254.0 / 255.0, green: 147.0 / 255.0, blue: 140.0 / 244.0, alpha: 1.0),
+                                 AKColor(red: 230.0 / 255.0, green: 184.0 / 255.0, blue: 156.0 / 244.0, alpha: 1.0),
+                                 AKColor(red: 234.0 / 255.0, green: 210.0 / 255.0, blue: 172.0 / 244.0, alpha: 1.0),
+                                 AKColor(red: 156.0 / 255.0, green: 175.0 / 255.0, blue: 183.0 / 244.0, alpha: 1.0)]
     }
 
     public var nextColor: AKColor {
@@ -68,4 +68,3 @@ public class AKStylist {
         }
     }
 }
-

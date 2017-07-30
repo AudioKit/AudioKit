@@ -10,7 +10,7 @@ import AudioKit
 import XCTest
 
 class AKFMOscillatorBankTests: AKTestCase {
-    
+
     var inputBank: AKFMOscillatorBank!
 
     override func setUp() {
