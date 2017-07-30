@@ -46,12 +46,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addSubview(AKDynamicButton(title: "Record", color: AKColor.red) {
+        addSubview(AKButton(title: "Record", color: AKColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
                 self.recordLabel.text = "Stopped. (\(dur) recorded)"
                 recorder.stop()
-                return "Record"
+                button.title = "Record"
             } else {
                 self.recordLabel.text = "Recording..."
                 do {
@@ -59,35 +59,35 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 } catch {
                     AKLog("Couldn't record")
                 }
-                return "Stop"
+                button.title = "Stop"
             }
         })
 
-        addSubview(AKDynamicButton(title: "Save") {
+        addSubview(AKButton(title: "Save") { button in
             tape.exportAsynchronously(name: "test",
                                       baseDir: .documents,
                                       exportFormat: .caf) { [weak self] exportedFile, error in
             }
-            return "Saved"
+            button.title = "Saved"
         })
 
-        addSubview(AKDynamicButton(title: "Reset Recording", color: AKColor.red) {
+        addSubview(AKButton(title: "Reset Recording") { button in
             self.recordLabel.text = "Tape Cleared!"
             do {
                 try recorder.reset()
             } catch {
                 AKLog("Couldn't reset.")
             }
-            return "Reset Recording"
+            button.title = "Reset Recording"
         })
 
         playLabel = addLabel("Press Play to playback...")
 
-        addSubview(AKDynamicButton(title: "Play") {
+        addSubview(AKButton(title: "Play") { button in
             if player.isPlaying {
                 self.playLabel.text = "Stopped playback!"
                 player.stop()
-                return "Play"
+                button.title = "Play"
             } else {
                 do {
                     try player.reloadFile()
@@ -102,7 +102,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 } else {
                     self.playLabel.text = "Tape is empty!..."
                 }
-                return "Stop"
+                button.title = "Stop"
             }
         })
 

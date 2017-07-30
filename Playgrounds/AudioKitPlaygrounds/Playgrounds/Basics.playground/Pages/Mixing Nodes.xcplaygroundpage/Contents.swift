@@ -11,9 +11,7 @@ import AudioKit
 //: This section prepares the players
 let drumFile = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
 let bassFile = try AKAudioFile(readFileName: "bassloop.wav", baseDir: .resources)
-
 let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .resources)
-
 let leadFile = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
 
 var drums = try AKAudioPlayer(file: drumFile)
@@ -55,75 +53,43 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Mixer")
 
-        addSubview(AKDynamicButton(title: "Stop All") {
+        addSubview(AKButton(title: "Stop All") { button in
             drums.isPlaying  ? drums.stop()  : drums.play()
             bass.isPlaying   ? bass.stop()   : bass.play()
             guitar.isPlaying ? guitar.stop() : guitar.play()
             lead.isPlaying   ? lead.stop()   : lead.play()
 
             if drums.isPlaying {
-                return "Stop All"
+                button.title = "Stop All"
             }
-            return "Start All"
+            button.title = "Start All"
         })
 
-        addSubview(AKPropertySlider(
-            property: "Drums Volume",
-            value: drums.volume,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Drums Volume", value: drums.volume) { sliderValue in
             drums.volume = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Drums Pan",
-            value: drums.pan, minimum: -1, maximum: 1,
-            color: AKColor.red
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Drums Pan", value: drums.pan, range: -1 ... 1) { sliderValue in
             drums.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Bass Volume",
-            value: bass.volume,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Bass Volume",value: bass.volume) { sliderValue in
             bass.volume = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Bass Pan",
-            value: bass.pan, minimum: -1, maximum: 1,
-            color: AKColor.red
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Bass Pan", value: bass.pan, range: -1 ... 1) { sliderValue in
             bass.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Guitar Volume",
-            value: guitar.volume,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Guitar Volume", value: guitar.volume) { sliderValue in
             guitar.volume = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Guitar Pan",
-            value: guitar.pan, minimum: -1, maximum: 1,
-            color: AKColor.red
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Guitar Pan", value: guitar.pan, range: -1 ... 1) { sliderValue in
             guitar.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Lead Volume",
-            value: lead.volume,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Lead Volume", value: lead.volume) { sliderValue in
             lead.volume = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Lead Pan",
-            value: lead.pan, minimum: -1, maximum: 1,
-            color: AKColor.red
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Lead Pan", value: lead.pan, range: -1 ... 1) { sliderValue in
             lead.pan = sliderValue
         })
     }
