@@ -6,8 +6,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -32,69 +31,60 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Dynamics Processor")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: effect))
 
-        addSubview(AKPropertySlider(
-            property: "Threshold",
-            format: "%0.2f dB",
-            value: effect.threshold, minimum: -40, maximum: 20,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Threshold",
+                                    value: effect.threshold,
+                                    range: -40 ... 20,
+                                    format: "%0.2f dB"
         ) { sliderValue in
             effect.threshold = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Head Room",
-            format: "%0.2f dB",
-            value: effect.headRoom, minimum: 0.1, maximum: 40,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Head Room",
+                                    value: effect.headRoom,
+                                    range: 0.1 ... 40,
+                                    format: "%0.2f dB"
         ) { sliderValue in
             effect.headRoom = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Expansion Ratio",
-            value: effect.expansionRatio, minimum: 1, maximum: 50,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Expansion Ratio",
+                                    value: effect.expansionRatio,
+                                    range: 1 ... 50
         ) { sliderValue in
             effect.expansionRatio = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Expansion Threshold",
-            value: effect.expansionThreshold, minimum: 1, maximum: 50,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Expansion Threshold",
+                                    value: effect.expansionThreshold,
+                                    range: 1 ... 50
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Attack Time",
-            format: "%0.3f s",
-            value: effect.attackTime, minimum: 0.000_1, maximum: 0.2,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Attack Time",
+                                    value: effect.attackTime,
+                                    range: 0.000_1 ... 0.2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             effect.attackTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Release Time",
-            format: "%0.3f s",
-            value: effect.releaseTime, minimum: 0.01, maximum: 3,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Release Time",
+                                    value: effect.releaseTime,
+                                    range: 0.01 ... 3,
+                                    format: "%0.3f s"
         ) { sliderValue in
             effect.releaseTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Master Gain",
-            format: "%0.2f dB",
-            value: effect.masterGain, minimum: -40, maximum: 40,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Master Gain",
+                                    value: effect.masterGain,
+                                    range: -40 ... 40,
+                                    format: "%0.2f dB"
         ) { sliderValue in
             effect.masterGain = sliderValue
         })

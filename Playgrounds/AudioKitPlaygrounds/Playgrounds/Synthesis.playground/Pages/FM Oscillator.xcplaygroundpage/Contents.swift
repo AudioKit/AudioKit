@@ -55,68 +55,55 @@ class PlaygroundView: AKPlaygroundView {
             self.rampTimeSlider?.value = oscillator.rampTime
         })
 
-        addSubview(AKButton(title: "Randomize") {
+        addSubview(AKButton(title: "Randomize") { _ in
             oscillator.baseFrequency = self.frequencySlider.randomize()
             oscillator.carrierMultiplier = self.carrierMultiplierSlider.randomize()
             oscillator.modulatingMultiplier = self.modulatingMultiplierSlider.randomize()
             oscillator.modulationIndex = self.modulationIndexSlider.randomize()
         })
 
-        frequencySlider = AKPropertySlider(
-            property: "Frequency",
-            format: "%0.2f Hz",
-            value: oscillator.baseFrequency, maximum: 800,
-            color: AKColor.yellow
+        frequencySlider = AKPropertySlider(property: "Frequency",
+                                           value: oscillator.baseFrequency,
+                                           range: 0 ... 800,
+                                           format: "%0.2f Hz"
         ) { frequency in
             oscillator.baseFrequency = frequency
         }
         addSubview(frequencySlider)
 
-        carrierMultiplierSlider = AKPropertySlider(
-            property: "Carrier Multiplier",
-            format: "%0.3f",
-            value: oscillator.carrierMultiplier, maximum: 20,
-            color: AKColor.red
+        carrierMultiplierSlider = AKPropertySlider(property: "Carrier Multiplier",
+                                                   value: oscillator.carrierMultiplier,
+                                                   range: 0 ... 20
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         }
         addSubview(carrierMultiplierSlider)
 
-        modulatingMultiplierSlider = AKPropertySlider(
-            property: "Modulating Multiplier",
-            format: "%0.3f",
-            value: oscillator.modulatingMultiplier, maximum: 20,
-            color: AKColor.green
+        modulatingMultiplierSlider = AKPropertySlider(property: "Modulating Multiplier",
+                                                      value: oscillator.modulatingMultiplier,
+                                                      range: 0 ... 20
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         }
         addSubview(modulatingMultiplierSlider)
 
-        modulationIndexSlider = AKPropertySlider(
-            property: "Modulation Index",
-            format: "%0.3f",
-            value: oscillator.modulationIndex, maximum: 100,
-            color: AKColor.cyan
+        modulationIndexSlider = AKPropertySlider(property: "Modulation Index",
+                                                 value: oscillator.modulationIndex,
+                                                 range: 0 ... 100
         ) { index in
             oscillator.modulationIndex = index
         }
         addSubview(modulationIndexSlider)
 
-        amplitudeSlider = AKPropertySlider(
-            property: "Amplitude",
-            format: "%0.3f",
-            value: oscillator.amplitude,
-            color: AKColor.purple
-        ) { amplitude in
+        amplitudeSlider = AKPropertySlider(property: "Amplitude",value: oscillator.amplitude) { amplitude in
             oscillator.amplitude = amplitude
         }
         addSubview(amplitudeSlider)
 
-        rampTimeSlider = AKPropertySlider(
-            property: "Ramp Time",
-            format: "%0.3f s",
-            value: oscillator.rampTime, maximum: 10,
-            color: AKColor.orange
+        rampTimeSlider = AKPropertySlider(property: "Ramp Time",
+                                          value: oscillator.rampTime,
+                                          range: 0 ... 10,
+                                          format: "%0.3f s"
         ) { time in
             oscillator.rampTime = time
         }

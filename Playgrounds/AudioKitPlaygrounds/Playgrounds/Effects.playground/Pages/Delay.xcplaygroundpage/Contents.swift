@@ -4,8 +4,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -29,42 +28,27 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Delay")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        timeSlider = AKPropertySlider(
-            property: "Time",
-            value: delay.time,
-            color: AKColor.green
-        ) { sliderValue in
+        timeSlider = AKPropertySlider(property: "Time", value: delay.time) { sliderValue in
             delay.time = sliderValue
         }
         addSubview(timeSlider)
 
-        feedbackSlider = AKPropertySlider(
-            property: "Feedback",
-            value: delay.feedback,
-            color: AKColor.red
-        ) { sliderValue in
+        feedbackSlider = AKPropertySlider(property: "Feedback", value: delay.feedback) { sliderValue in
             delay.feedback = sliderValue
         }
         addSubview(feedbackSlider)
 
-        lowPassCutoffFrequencySlider = AKPropertySlider(
-            property: "Low Pass Cutoff",
-            value: delay.lowPassCutoff, maximum: 22_050,
-            color: AKColor.magenta
+        lowPassCutoffFrequencySlider = AKPropertySlider(property: "Low Pass Cutoff",
+                                                        value: delay.lowPassCutoff,
+                                                        range: 0 ... 22_050
         ) { sliderValue in
             delay.lowPassCutoff = sliderValue
         }
         addSubview(lowPassCutoffFrequencySlider)
 
-        dryWetMixSlider = AKPropertySlider(
-            property: "Mix",
-            value: delay.dryWetMix,
-            color: AKColor.cyan
-        ) { sliderValue in
+        dryWetMixSlider = AKPropertySlider(property: "Mix", value: delay.dryWetMix) { sliderValue in
             delay.dryWetMix = sliderValue
         }
         addSubview(dryWetMixSlider)

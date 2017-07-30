@@ -4,8 +4,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -34,28 +33,20 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Analog Synth X Fatten")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Time",
-            format:  "%0.3f s",
-            value: fatten.parameters[0], minimum: 0.03, maximum: 0.1,
-            color: AKColor.cyan
+        addSubview(AKPropertySlider(property: "Time",
+                                    value: fatten.parameters[0],
+                                    range: 0.03 ... 0.1,
+                                    format:  "%0.3f s"
         ) { sliderValue in
             fatten.parameters[0] = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Mix",
-            value: fatten.parameters[1],
-            color: AKColor.cyan
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Mix", value: fatten.parameters[1]) { sliderValue in
             fatten.parameters[1] = sliderValue
         })
     }
-
 }
 
 import PlaygroundSupport

@@ -1,8 +1,8 @@
 //
 //  AKSampler+SoundFont.swift
-//  AudioKit For iOS
+//  AudioKit
 //
-//  Created by Aurelius Prochazka on 2/28/17.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
