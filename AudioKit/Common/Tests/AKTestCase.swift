@@ -22,7 +22,7 @@ class AKTestCase: XCTestCase {
         return AudioKit.tester?.MD5 ?? ""
     }
 
-    var afterStart: ()->Void = {}
+    var afterStart: () -> Void = {}
 
     func auditionTest() {
         if let existingOutput = output {
@@ -68,4 +68,3 @@ class AKTestCase: XCTestCase {
     }
 
 }
-

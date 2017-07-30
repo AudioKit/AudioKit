@@ -9,7 +9,7 @@
 public enum AKPropertySliderStyle {
     case roundIndicator
     case tabIndicator
-    
+
     // Factor for calculating the corner radius of the slider based on the width of the slider indicator
     var cornerRadiusFactor: CGFloat {
         switch self {
@@ -21,22 +21,19 @@ public enum AKPropertySliderStyle {
 
 /// Simple slider interface for AudioKit properties
 @IBDesignable open class AKPropertySlider: UIView {
-    
-    // Default side
-    static var defaultSize = CGSize(width: 440.0, height: 60.0)
 
     // Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
-    
+
     // Padding surrounding the text inside the value bubble
     static var bubblePadding: CGSize = CGSize(width: 10.0, height: 2.0)
-    
+
     // Margin between the top of the tap and the value bubble
     static var bubbleMargin: CGFloat = 10.0
-    
+
     // Corner radius for the value bubble
     static var bubbleCornerRadius: CGFloat = 2.0
-    
+
     /// Current value of the slider
     @IBInspectable open var value: Double = 0 {
         didSet {
@@ -61,7 +58,7 @@ public enum AKPropertySliderStyle {
 
     /// Slider border color
     @IBInspectable open var sliderBorderColor: UIColor?
-    
+
     /// Indicator border color
     @IBInspectable open var indicatorBorderColor: UIColor?
 
@@ -82,19 +79,19 @@ public enum AKPropertySliderStyle {
 
     // Border width
     @IBInspectable open var sliderBorderWidth: CGFloat = 3.0
-    
+
     // Show value bubble
     @IBInspectable open var showsValueBubble: Bool = false
 
     // Value bubble border width
     @IBInspectable open var valueBubbleBorderWidth: CGFloat = 1.0
-    
+
     // Current dragging state, used to show/hide the value bubble
     private var isDragging: Bool = false
-    
+
     // Calculated height of the slider based on text size and view bounds
     private var sliderHeight: CGFloat = 0.0
-    
+
     /// Function to call when value changes
     open var callback: ((Double) -> Void)?
     fileprivate var lastTouch = CGPoint.zero
@@ -106,7 +103,7 @@ public enum AKPropertySliderStyle {
                 minimum: Double = 0,
                 maximum: Double = 1,
                 color: UIColor = UIColor.red,
-                frame: CGRect = CGRect(x: 0, y: 0, width: AKPropertySlider.defaultSize.width, height: AKPropertySlider.defaultSize.height),
+                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping (_ x: Double) -> Void) {
         self.value = value
         self.minimum = minimum
@@ -126,7 +123,7 @@ public enum AKPropertySliderStyle {
     /// Initialization with no details
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         self.backgroundColor = UIColor.clear
         contentMode = .redraw
     }
@@ -134,7 +131,7 @@ public enum AKPropertySliderStyle {
     /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.clear
         contentMode = .redraw
@@ -181,7 +178,7 @@ public enum AKPropertySliderStyle {
             }
         }
     }
-    
+
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
@@ -195,14 +192,14 @@ public enum AKPropertySliderStyle {
         setNeedsDisplay()
         return value
     }
-    
+
     private var indicatorWidth: CGFloat {
         switch sliderStyle {
         case .roundIndicator: return sliderHeight
         case .tabIndicator: return AKPropertySlider.tabIndicatorWidth
         }
     }
-    
+
     var bgColorForTheme: AKColor {
         if let bgColor = bgColor { return bgColor }
 
@@ -238,12 +235,12 @@ public enum AKPropertySliderStyle {
         case .midnight: return AKColor.white
         }
     }
-    
+
     /// Draw the slider
     override open func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         context.clear(rect)
-        
+
         drawFlatSlider(currentValue: CGFloat(value),
             minimum: CGFloat(minimum),
             maximum: CGFloat(maximum),
@@ -258,32 +255,31 @@ public enum AKPropertySliderStyle {
                         maximum: CGFloat = 1,
                         propertyName: String = "Property Name",
                         currentValueText: String = "0.0") {
-        
-        
+
         //// General Declarations
         guard let context = UIGraphicsGetCurrentContext() else { return }
 
         let width = self.frame.width
         let height = self.frame.height
-        
+
         // Calculate name label height
         let themeTextColor = textColorForTheme
-        
+
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
-        
+
         let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize),
                                        NSForegroundColorAttributeName: themeTextColor,
                                        NSParagraphStyleAttributeName: nameLabelStyle] as [String : Any]
-        
+
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes,
             context: nil).size.height
         context.saveGState()
-        
+
         // Calculate slider height and other values based on expected label height
         let sliderTextMargin: CGFloat = 5.0
         let sliderOrigin = nameLabelTextHeight + sliderTextMargin
@@ -308,8 +304,13 @@ public enum AKPropertySliderStyle {
             (currentValue < maximum ? (currentValue - minimum) / (maximum - minimum) * (width - (sliderMargin * 2.0)) + sliderMargin : width - sliderMargin)
 
         //// sliderArea Drawing
-        let sliderAreaRect = CGRect(x: sliderBorderWidth / 2.0, y: sliderOrigin, width: width - sliderBorderWidth, height: sliderHeight)
-        let sliderAreaPath = UIBezierPath(roundedRect: sliderAreaRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
+        let sliderAreaRect = CGRect(x: sliderBorderWidth / 2.0,
+                                    y: sliderOrigin,
+                                    width: width - sliderBorderWidth,
+                                    height: sliderHeight)
+        let sliderAreaPath = UIBezierPath(roundedRect: sliderAreaRect,
+                                          byRoundingCorners: .allCorners,
+                                          cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
         bgColorForTheme.setFill()
         sliderAreaPath.fill()
         sliderAreaPath.lineWidth = sliderBorderWidth
@@ -317,18 +318,26 @@ public enum AKPropertySliderStyle {
         //// valueRectangle Drawing
         let valueWidth = currentWidth < indicatorSize.width ? indicatorSize.width : currentWidth
         let valueCorners = currentWidth < indicatorSize.width ? UIRectCorner.allCorners : [.topLeft, .bottomLeft]
-        let valueAreaRect = CGRect(x: sliderBorderWidth / 2.0, y: sliderOrigin + sliderBorderWidth / 2.0, width: valueWidth, height: sliderHeight - sliderBorderWidth)
-        let valueAreaPath = UIBezierPath(roundedRect: valueAreaRect, byRoundingCorners: valueCorners, cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
+        let valueAreaRect = CGRect(x: sliderBorderWidth / 2.0,
+                                   y: sliderOrigin + sliderBorderWidth / 2.0,
+                                   width: valueWidth,
+                                   height: sliderHeight - sliderBorderWidth)
+        let valueAreaPath = UIBezierPath(roundedRect: valueAreaRect,
+                                         byRoundingCorners: valueCorners,
+                                         cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
         sliderColor.withAlphaComponent(0.6).setFill()
         valueAreaPath.fill()
-        
+
         // sliderArea Border
         sliderBorderColorForTheme.setStroke()
         sliderAreaPath.stroke()
-        
+
         // Indicator view drawing
-        let indicatorRect = CGRect(x: currentWidth - indicatorSize.width / 2.0, y: sliderOrigin, width: indicatorSize.width, height: indicatorSize.height)
-        let indicatorPath = UIBezierPath(roundedRect: indicatorRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
+        let indicatorRect = CGRect(x: currentWidth - indicatorSize.width / 2.0,
+                                   y: sliderOrigin, width: indicatorSize.width, height: indicatorSize.height)
+        let indicatorPath = UIBezierPath(roundedRect: indicatorRect,
+                                         byRoundingCorners: .allCorners,
+                                         cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
         sliderColor.setFill()
         indicatorPath.fill()
         indicatorPath.lineWidth = sliderBorderWidth
@@ -340,11 +349,11 @@ public enum AKPropertySliderStyle {
             let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
-            
+
             let valueLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: bubbleFontSize),
                                             NSForegroundColorAttributeName: themeTextColor,
                                             NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
-            
+
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
@@ -352,7 +361,8 @@ public enum AKPropertySliderStyle {
                 attributes: valueLabelFontAttributes,
                 context: nil).size
 
-            let bubbleSize = CGSize(width: valueLabelTextSize.width + AKPropertySlider.bubblePadding.width, height: valueLabelTextSize.height + AKPropertySlider.bubblePadding.height)
+            let bubbleSize = CGSize(width: valueLabelTextSize.width + AKPropertySlider.bubblePadding.width,
+                                    height: valueLabelTextSize.height + AKPropertySlider.bubblePadding.height)
             var bubbleOriginX = (currentWidth - bubbleSize.width / 2.0 - valueBubbleBorderWidth)
             if bubbleOriginX < 0.0 {
                 bubbleOriginX = valueBubbleBorderWidth
@@ -363,32 +373,36 @@ public enum AKPropertySliderStyle {
                                     y: sliderOrigin - valueLabelTextSize.height - AKPropertySlider.bubbleMargin,
                                     width: bubbleSize.width,
                                     height: bubbleSize.height)
-            let bubblePath = UIBezierPath(roundedRect: bubbleRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: AKPropertySlider.bubbleCornerRadius, height: AKPropertySlider.bubbleCornerRadius))
+            let bubblePath = UIBezierPath(roundedRect: bubbleRect,
+                                          byRoundingCorners: .allCorners,
+                                          cornerRadii: CGSize(width: AKPropertySlider.bubbleCornerRadius,
+                                                              height: AKPropertySlider.bubbleCornerRadius))
             sliderColor.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
             indicatorBorderColorForTheme.setStroke()
             bubblePath.stroke()
-            
+
             context.saveGState()
             context.clip(to: valueLabelInset)
             NSString(string: currentValueText).draw(
                 in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
-                           y: sliderOrigin - valueLabelTextSize.height - AKPropertySlider.bubbleMargin + AKPropertySlider.bubblePadding.height/2.0,
+                           y: sliderOrigin - valueLabelTextSize.height - AKPropertySlider.bubbleMargin +
+                            AKPropertySlider.bubblePadding.height / 2.0,
                            width: valueLabelTextSize.width,
                            height: valueLabelTextSize.height),
                 withAttributes: valueLabelFontAttributes)
             context.restoreGState()
-            
+
         } else if showsValueBubble == false {
             let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .right
-            
+
             let valueLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize),
                                             NSForegroundColorAttributeName: themeTextColor,
                                             NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
-            
+
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: sliderCornerRadius, dy: 0)
             let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),

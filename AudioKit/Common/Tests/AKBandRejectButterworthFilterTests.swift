@@ -17,12 +17,12 @@ class AKBandRejectButterworthFilterTests: AKTestCase {
     }
 
     func testParameters() {
-        output = AKBandRejectButterworthFilter(input, centerFrequency: 1500, bandwidth: 200)
+        output = AKBandRejectButterworthFilter(input, centerFrequency: 1_500, bandwidth: 200)
         AKTestMD5("3d8544b345c1018f416a56ad4fca647c")
     }
 
     func testCenterFrequency() {
-        output = AKBandRejectButterworthFilter(input, centerFrequency: 1500)
+        output = AKBandRejectButterworthFilter(input, centerFrequency: 1_500)
         AKTestMD5("a6d6903210e6fa26798f038e87fb331f")
     }
 

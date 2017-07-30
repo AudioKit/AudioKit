@@ -20,7 +20,7 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("Tone Filters")
-        
+
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addLabel("Tone Filter: ")

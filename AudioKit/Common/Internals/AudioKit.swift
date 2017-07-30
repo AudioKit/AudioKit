@@ -330,17 +330,17 @@ extension AVAudioEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    open static func test(node: AKNode, duration: Double, afterStart: ()->Void = {}) {
+    open static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) {
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
-            
+
             tester = AKTester(node, samples: samples)
             output = tester
-            
+
             do {
                 // maximum number of frames the engine will be asked to render in any single render call
-                let maxNumberOfFrames: AVAudioFrameCount = 4096
+                let maxNumberOfFrames: AVAudioFrameCount = 4_096
                 engine.reset()
                 try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
                 try engine.start()
@@ -349,9 +349,9 @@ extension AVAudioEngine {
             }
             afterStart()
             tester?.play()
-            
+
             let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)
-            
+
             while engine.manualRenderingSampleTime < samples {
                 do {
                     let framesToRender = buffer.frameCapacity
@@ -360,15 +360,15 @@ extension AVAudioEngine {
                     case .success:
                         // data rendered successfully
                         break
-                        
+
                     case .insufficientDataFromInputNode:
                         // applicable only if using the input node as one of the sources
                         break
-                        
+
                     case .cannotDoInCurrentContext:
                         // engine could not render in the current render call, retry in next iteration
                         break
-                        
+
                     case .error:
                         // error occurred while rendering
                         fatalError("render failed")

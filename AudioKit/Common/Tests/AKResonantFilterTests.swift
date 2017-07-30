@@ -17,12 +17,12 @@ class AKResonantFilterTests: AKTestCase {
     }
 
     func testParameters() {
-        output = AKResonantFilter(input, frequency: 1000, bandwidth: 500)
+        output = AKResonantFilter(input, frequency: 1_000, bandwidth: 500)
         AKTestMD5("71418107bbd1efbda3cef4c8e49a6971")
     }
 
     func testFrequency() {
-        output = AKResonantFilter(input, frequency: 1000)
+        output = AKResonantFilter(input, frequency: 1_000)
         AKTestMD5("0376ea4eace86e3fe6a5041dff6f6045")
     }
 

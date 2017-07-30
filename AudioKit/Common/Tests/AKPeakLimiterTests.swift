@@ -21,7 +21,6 @@ class AKPeakLimiterTests: AKTestCase {
         AKTestMD5("fcb613b8b2f63a58eae537f8a90c9003")
     }
 
-
     func testAttackTime() {
         output = AKPeakLimiter(input, attackTime: 0.02)
         AKTestMD5("b28af37f6ceafd2468faf639c55c59cf")

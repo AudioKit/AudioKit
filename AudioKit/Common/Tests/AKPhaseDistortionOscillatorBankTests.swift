@@ -85,4 +85,3 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
         AKTestMD5("d251fd32a650e87f6cd27f4f3804051c")
     }
 }
-

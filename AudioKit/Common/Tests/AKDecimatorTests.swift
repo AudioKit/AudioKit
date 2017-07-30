@@ -26,7 +26,6 @@ class AKDecimatorTests: AKTestCase {
         AKTestMD5("cd23f7b94ce4a7e23ec6688e5e772990")
     }
 
-
     func testRounding() {
         output = AKDecimator(input, rounding: 0.5)
         AKTestMD5("b163c75e0fbb253c10146135f8b85079")

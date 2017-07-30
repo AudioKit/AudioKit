@@ -14,12 +14,9 @@ public enum AKButtonStyle {
 }
 
 @IBDesignable open class AKButton: UIView {
-    // Default side
-    static var defaultSize = CGSize(width: 440.0, height: 60.0)
-    
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
-    
+
     public var callback: () -> (String)
 
     /// Text to display on the button
@@ -28,50 +25,49 @@ public enum AKButtonStyle {
             setNeedsDisplay()
         }
     }
-    
+
     /// Background color of the button
-    @IBInspectable open var color: AKColor {
+    @IBInspectable open var color: UIColor {
         didSet {
             setNeedsDisplay()
         }
     }
 
     /// Button border color
-    @IBInspectable open var borderColor: AKColor? {
+    @IBInspectable open var borderColor: UIColor? {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     // Button border width
     @IBInspectable open var borderWidth: CGFloat = 3.0 {
         didSet {
             setNeedsDisplay()
         }
     }
-    
-    
+
     /// Text color
-    @IBInspectable open var textColor: AKColor? {
+    @IBInspectable open var textColor: UIColor? {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     open var style: AKButtonStyle = .standard {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let newTitle = callback()
         if newTitle != "" { title = newTitle }
-        
+
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
     }
-    
+
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         transform = CGAffineTransform.identity
     }
@@ -79,13 +75,13 @@ public enum AKButtonStyle {
     /// Initialize the button
     public init(title: String,
                 color: AKColor = AKStylist.sharedInstance.nextColor,
-                frame: CGRect = CGRect(x: 0, y: 0, width: AKButton.defaultSize.width, height: AKButton.defaultSize.height),
+                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping () -> (String)) {
         self.title = title
         self.callback = callback
         self.color = color
         super.init(frame: frame)
-        
+
         clipsToBounds = true
     }
 
@@ -95,11 +91,11 @@ public enum AKButtonStyle {
         self.title = "Title"
         self.color = AKStylist.sharedInstance.nextColor
         super.init(frame: frame)
-        
+
         self.backgroundColor = AKColor.clear
         contentMode = .redraw
     }
-    
+
     /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
         self.callback = { return "" }
@@ -115,29 +111,29 @@ public enum AKButtonStyle {
     /// Actions to perform to make sure the view is renderable in Interface Builder
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-        
+
         clipsToBounds = true
     }
-    
+
     /// Require constraint-based layout
     open class override var requiresConstraintBasedLayout: Bool {
         return true
     }
-    
+
     // Default border color per theme
     var borderColorForTheme: AKColor {
         if let borderColor = borderColor { return borderColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0)
         case .midnight: return AKColor.white
         }
     }
-    
+
     // Default text color per theme
     var textColorForTheme: AKColor {
         if let textColor = textColor { return textColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0)
         case .midnight: return AKColor.white
@@ -156,17 +152,22 @@ public enum AKButtonStyle {
         let cornerRadius: CGFloat = {
             switch self.style {
             case .standard: return AKButton.standardCornerRadius
-            case .round: return rect.height/2.0
+            case .round: return rect.height / 2.0
             }
         }()
-        
-        let outerRect = CGRect(x: rect.origin.x + borderWidth / 2.0, y: rect.origin.y + borderWidth / 2.0, width: rect.width - borderWidth, height: rect.height - borderWidth)
-        let outerPath = UIBezierPath(roundedRect: outerRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+
+        let outerRect = CGRect(x: rect.origin.x + borderWidth / 2.0,
+                               y: rect.origin.y + borderWidth / 2.0,
+                               width: rect.width - borderWidth,
+                               height: rect.height - borderWidth)
+        let outerPath = UIBezierPath(roundedRect: outerRect,
+                                     byRoundingCorners: .allCorners,
+                                     cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
         color.setFill()
         outerPath.fill()
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
-        outerPath.stroke()        
+        outerPath.stroke()
 
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center

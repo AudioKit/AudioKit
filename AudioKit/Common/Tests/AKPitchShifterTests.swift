@@ -17,7 +17,7 @@ class AKPitchShifterTests: AKTestCase {
     }
 
     func testParameters() {
-        output = AKPitchShifter(input, shift: 7, windowSize: 2048, crossfade: 1024)
+        output = AKPitchShifter(input, shift: 7, windowSize: 2_048, crossfade: 1_024)
         AKTestMD5("cc5745def2343c7d1b37c7371ce79a81")
     }
 
@@ -27,12 +27,12 @@ class AKPitchShifterTests: AKTestCase {
     }
 
     func testWindowSize() {
-        output = AKPitchShifter(input, shift: 7, windowSize: 2048)
+        output = AKPitchShifter(input, shift: 7, windowSize: 2_048)
         AKTestMD5("6cc09d4840bd6aaca5ec70385e470158")
     }
 
     func testCrossfade() {
-        output = AKPitchShifter(input, shift: 7, crossfade: 1024)
+        output = AKPitchShifter(input, shift: 7, crossfade: 1_024)
         AKTestMD5("f757f7f66ca27d5d5f30b435423f7eda")
     }
 

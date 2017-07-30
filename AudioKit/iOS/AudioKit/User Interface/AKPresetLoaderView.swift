@@ -30,7 +30,7 @@ open class AKPresetLoaderView: UIView {
     @IBInspectable open var fontSize: CGFloat = 24
 
     /// Font
-    @IBInspectable open var font: UIFont = UIFont.boldSystemFont(ofSize: 24)
+    open var font = UIFont.boldSystemFont(ofSize: 24)
 
     /// Initialize the preset loader view
     public init(presets: [String],

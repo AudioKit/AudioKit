@@ -13,7 +13,7 @@ open class AKMixer: AKNode, AKToggleable {
 
     /// How many inputs have been connected to this mixer in its lifespan
     private var connectionCounter: Int = 0
-    
+
     /// Output Volume (Default 1)
     open dynamic var volume: Double = 1.0 {
         didSet {
@@ -58,7 +58,7 @@ open class AKMixer: AKNode, AKToggleable {
             connect(input)
         }
     }
-    
+
     private func initialize() {
         mixerAU = AVAudioMixerNode()
         self.avAudioNode = mixerAU!
@@ -73,13 +73,13 @@ open class AKMixer: AKNode, AKToggleable {
     /// don't overwrite an existing channel with an active node that is active.
     open func connect(_ input: AKNode?, bus: Int? = nil) {
         guard mixerAU != nil else { return }
-        
+
         var wasRunning = false
         if AudioKit.engine.isRunning {
             wasRunning = true
             AudioKit.stop()
         }
-        
+
         let chan = bus ?? mixerAU!.nextAvailableInputBus
 
         if let existingInput = input {
@@ -88,16 +88,16 @@ open class AKMixer: AKNode, AKToggleable {
                                     to: existingInput.connectionPoints,
                                     fromBus: 0,
                                     format: AudioKit.format)
-            
+
             connectionCounter += 1
-            
+
             AKLog("AKMixer.connect() input: \(existingInput) on bus \(chan), Mixer now has \(mixerAU!.numberOfInputs) total inputs and \(connectionCounter) recent connections.")
 
         }
         if wasRunning {
             AudioKit.start()
         }
-        
+
     }
 
     /// Function to start, play, or activate the node, all do the same thing

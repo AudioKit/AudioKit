@@ -95,7 +95,7 @@ class PlaygroundView: AKPlaygroundView {
         }
         addSubview(modulationIndexSlider)
 
-        amplitudeSlider = AKPropertySlider(property: "Amplitude",value: oscillator.amplitude) { amplitude in
+        amplitudeSlider = AKPropertySlider(property: "Amplitude", value: oscillator.amplitude) { amplitude in
             oscillator.amplitude = amplitude
         }
         addSubview(amplitudeSlider)
