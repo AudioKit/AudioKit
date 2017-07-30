@@ -80,7 +80,7 @@ open class AKMixer: AKNode, AKToggleable {
             AudioKit.stop()
         }
         
-        let chan = bus != nil ? bus! : mixerAU!.nextAvailableInputBus
+        let chan = bus ?? mixerAU!.nextAvailableInputBus
 
         if let existingInput = input {
             existingInput.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU!, bus: chan))
