@@ -68,17 +68,10 @@ open class AKMixer: AKNode, AKToggleable {
     /// Connnect another input after initialization
     ///
     /// - parameter input: AKNode to connect
-    open func connect(_ input: AKNode?) {
-        connect(input, bus: -1)
-    }
-
-    /// Connnect another input after initialization
-    ///
-    /// - parameter input: AKNode to connect
     /// - parameter bus: what channel of the mixer to connect on. 
     /// If you use this it is up to your application to keep track of what inputs are in use to make sure you
-    /// don't overwrite an existing channel with an active node you're still using.
-    open func connect(_ input: AKNode?, bus: Int = -1) {
+    /// don't overwrite an existing channel with an active node that is active.
+    open func connect(_ input: AKNode?, bus: Int? = nil) {
         guard mixerAU != nil else { return }
         
         var wasRunning = false
@@ -87,14 +80,9 @@ open class AKMixer: AKNode, AKToggleable {
             AudioKit.stop()
         }
         
-        var chan = bus
+        let chan = bus != nil ? bus! : mixerAU!.nextAvailableInputBus
 
         if let existingInput = input {
-            // If the channel index isn't passed in, so let the mixer choose the next input bus. This seems to be an ever-increasing counter.
-            if chan == -1 {
-                chan = mixerAU!.nextAvailableInputBus
-            }
-            
             existingInput.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU!, bus: chan))
             AudioKit.engine.connect(existingInput.avAudioNode,
                                     to: existingInput.connectionPoints,
