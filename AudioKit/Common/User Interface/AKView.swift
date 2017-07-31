@@ -50,12 +50,16 @@ public class AKStylist {
         bgColors[.midnight] = #colorLiteral(red: 0.1019607843, green: 0.1019607843, blue: 0.1019607843, alpha: 1)
 
         colorCycle = Dictionary()
-        colorCycle[.basic] = [AKColor.red, AKColor.green]
-        colorCycle[.midnight] = [AKColor(red: 66.0 / 255.0, green: 129.0 / 255.0, blue: 164.0 / 244.0, alpha: 1.0),
-                                 AKColor(red: 254.0 / 255.0, green: 147.0 / 255.0, blue: 140.0 / 244.0, alpha: 1.0),
-                                 AKColor(red: 230.0 / 255.0, green: 184.0 / 255.0, blue: 156.0 / 244.0, alpha: 1.0),
-                                 AKColor(red: 234.0 / 255.0, green: 210.0 / 255.0, blue: 172.0 / 244.0, alpha: 1.0),
-                                 AKColor(red: 156.0 / 255.0, green: 175.0 / 255.0, blue: 183.0 / 244.0, alpha: 1.0)]
+        colorCycle[.basic] = [AKColor(red: 165.0 / 255.0, green: 26.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0),
+                                 AKColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
+                                 AKColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),
+                                 AKColor(red: 36.0 / 255.0, green: 110.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0),
+                                 AKColor(red: 14.0 / 255.0, green: 173.0 / 255.0, blue: 105.0 / 255.0, alpha: 1.0)]
+        colorCycle[.midnight] = [AKColor(red: 165.0 / 255.0, green: 26.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0),
+                                 AKColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
+                                 AKColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),
+                                 AKColor(red: 36.0 / 255.0, green: 110.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0),
+                                 AKColor(red: 14.0 / 255.0, green: 173.0 / 255.0, blue: 105.0 / 255.0, alpha: 1.0)]
     }
 
     public var nextColor: AKColor {
@@ -65,6 +69,20 @@ public class AKStylist {
                 counter = 0
             }
             return colorCycle[theme]![counter]
+        }
+    }
+    
+    public var colorForTrueValue: AKColor {
+        switch theme {
+        case .basic: return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
+        case .midnight: return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
+        }
+    }
+    
+    public var colorForFalseValue: AKColor {
+        switch theme {
+        case .basic: return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
+        case .midnight: return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
         }
     }
 }
