@@ -1,5 +1,5 @@
 //
-//  AKBypassButton.swift
+//  AKRotaryKnob.swift
 //  AudioKit for macOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -20,7 +20,7 @@ public enum AKRotaryKnobStyle {
     static var indicatorPointRadius: CGFloat = 3.0
 
     // Padding surrounding the text inside the value bubble
-    static var bubblePadding: CGSize = CGSize(width: 10.0, height: 2.0)
+    static var bubblePadding = CGSize(width: 10.0, height: 2.0)
 
     // Margin between the top of the tap and the value bubble
     static var bubbleMargin: CGFloat = 3.0
@@ -78,7 +78,7 @@ public enum AKRotaryKnobStyle {
     @IBInspectable open var bubbleFontSize: CGFloat = 12
 
     // Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
-    open var knobStyle: AKRotaryKnobStyle = AKRotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
+    open var knobStyle = AKRotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
 
     // Border width
     @IBInspectable open var knobBorderWidth: CGFloat = 8.0
@@ -186,7 +186,7 @@ public enum AKRotaryKnobStyle {
         lastTouch = loc
         let angle = angleBetween(pointA: knobCenter, pointB: loc)
         if angle < 0.0 {
-            value = (maximum - minimum) * (0.5 + 0.5 * (180.0 + angle) / (105.0))
+            value = (maximum - minimum) * (0.5 + 0.5 * (180.0 + angle) / 105.0)
         } else {
             value = (maximum - minimum) * ((angle - 75.0) / 110.0) * 0.5
         }
@@ -393,6 +393,7 @@ public enum AKRotaryKnobStyle {
                                     y: bubbleOriginY,
                                     width: bubbleSize.width,
                                     height: bubbleSize.height)
+
             let bubblePath = NSBezierPath(roundedRect: bubbleRect,
                                           xRadius: AKRotaryKnob.bubbleCornerRadius,
                                           yRadius: AKRotaryKnob.bubbleCornerRadius)
