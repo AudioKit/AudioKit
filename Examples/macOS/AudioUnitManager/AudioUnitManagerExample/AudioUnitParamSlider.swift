@@ -2,7 +2,7 @@
 //  AUParamSlider.swift
 //
 //  Created by Ryan Francesconi on 6/28/17.
-//  Copyright © 2017 Spongefork. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import Cocoa
