@@ -52,18 +52,15 @@ class AudioUnitGenericView: NSView {
         nameField.backgroundColor = NSColor.white.withAlphaComponent(0)
         nameField.stringValue = "\(au.manufacturerName): \(au.name)"
         nameField.frame = NSMakeRect(0, 4, 400, 20)
-
         addSubview(nameField)
         
         guard let tree = au.auAudioUnit.parameterTree else { return }
         
         var y = 5
-        
         for param in tree.allParameters {
             y += 24
 
             let slider = AudioUnitParamSlider(audioUnit: au, param: param )
-            //slider.setFrameSize(NSMakeSize(300, 20))
             slider.setFrameOrigin(NSPoint(x: 10, y: y))
 
             addSubview(slider)
@@ -71,9 +68,7 @@ class AudioUnitGenericView: NSView {
                 slider.updateValue()
             }
         }
-        
         preferredHeight = CGFloat(y + 50)
-        
     }
     
     func handleChange(_ sender: NSSlider) {
