@@ -13,6 +13,9 @@ let triangle = AKTable(.triangle, count: 128)
 let sawtooth = AKTable(.sawtooth, count: 128)
 let sine = AKTable(.sine, count: 256)
 
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let fileTable = AKTable(file: file)
+
 var custom = AKTable(.sine, count: 256)
 for i in custom.indices {
     custom[i] += Float(random(-0.3, 0.3) + Double(i) / 2_048.0)
@@ -35,6 +38,9 @@ class PlaygroundView: AKPlaygroundView {
 
         addLabel("Sine")
         addSubview(AKTableView(sine))
+
+        addLabel("File")
+        addSubview(AKTableView(fileTable))
 
         addLabel("Custom")
         addSubview(AKTableView(custom))
