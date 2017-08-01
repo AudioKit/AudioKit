@@ -3,7 +3,7 @@
 //  AudioUnitManagerExample
 //
 //  Created by Ryan Francesconi on 7/14/17.
-//  Copyright © 2017 Ryan Francesconi. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import Cocoa
