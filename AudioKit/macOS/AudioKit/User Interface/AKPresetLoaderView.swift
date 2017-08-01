@@ -31,7 +31,7 @@ public class AKPresetLoaderView: NSView {
             needsDisplay = true
         }
     }
-    
+
     open var borderColor: AKColor? {
         didSet {
             needsDisplay = true
@@ -43,7 +43,7 @@ public class AKPresetLoaderView: NSView {
             needsDisplay = true
         }
     }
-    
+
     public init(presets: [String],
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping (String) -> Void) {
@@ -51,11 +51,11 @@ public class AKPresetLoaderView: NSView {
         self.presets = presets
         super.init(frame: frame)
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override public func mouseDown(with theEvent: NSEvent) {
         isPresetLoaded = false
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
@@ -79,7 +79,7 @@ public class AKPresetLoaderView: NSView {
     // Default background color per theme
     var bgColorForTheme: AKColor {
         if let bgColor = bgColor { return bgColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.8, alpha: 1.0)
         case .midnight: return AKColor(white: 0.7, alpha: 1.0)
@@ -89,17 +89,17 @@ public class AKPresetLoaderView: NSView {
     // Default border color per theme
     var borderColorForTheme: AKColor {
         if let borderColor = borderColor { return borderColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
         case .midnight: return AKColor.white.withAlphaComponent(0.8)
         }
     }
-    
+
     // Default text color per theme
     var textColorForTheme: AKColor {
         if let textColor = textColor { return textColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0)
         case .midnight: return AKColor.white
@@ -110,9 +110,9 @@ public class AKPresetLoaderView: NSView {
         //// General Declarations
         let rect = self.bounds
         let _ = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
-        
-        let cornerRadius: CGFloat = AKPresetLoaderView.standardCornerRadius        
-        
+
+        let cornerRadius: CGFloat = AKPresetLoaderView.standardCornerRadius
+
         //// Color Declarations
         let green = AKStylist.sharedInstance.colorForTrueValue
         let red = AKStylist.sharedInstance.colorForFalseValue
@@ -131,7 +131,7 @@ public class AKPresetLoaderView: NSView {
         presetOuterPath = NSBezierPath(rect: NSRect(x: borderWidth, y: borderWidth, width: rect.width * 0.25, height: rect.height - borderWidth * 2.0))
         expression.setFill()
         presetOuterPath.fill()
-        
+
         // presetButton border Path
         let presetButtonBorderPath = NSBezierPath()
         presetButtonBorderPath.move(to: NSPoint(x: rect.width * 0.25 + borderWidth, y: borderWidth))
@@ -141,7 +141,7 @@ public class AKPresetLoaderView: NSView {
         presetButtonBorderPath.stroke()
 
         //// presetLabel Drawing
-        let presetLabelRect = NSRect(x: 0, y: 0, width: rect.width*0.25, height: rect.height)
+        let presetLabelRect = NSRect(x: 0, y: 0, width: rect.width * 0.25, height: rect.height)
         let presetLabelTextContent = NSString(string: "Preset")
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .center
@@ -185,7 +185,7 @@ public class AKPresetLoaderView: NSView {
         upInnerPath.stroke()
 
         downOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.9, y: 0, width: rect.width * 0.07, height: rect.height * 0.5))
-        
+
         //// downInner Drawing
         let downArrowRect = NSRect(x: rect.width * 0.9, y: rect.height * 0.12, width: rect.width * 0.07, height: rect.height * 0.3)
         let downInnerPath = NSBezierPath()
@@ -201,7 +201,7 @@ public class AKPresetLoaderView: NSView {
         downInnerPath.stroke()
 
         //// nameLabel Drawing
-        let nameLabelRect = NSRect(x: rect.width*0.25, y: 0, width: rect.width*0.75, height: rect.height)
+        let nameLabelRect = NSRect(x: rect.width * 0.25, y: 0, width: rect.width * 0.75, height: rect.height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
@@ -224,16 +224,16 @@ public class AKPresetLoaderView: NSView {
         NSString(string: presetName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                           withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
-        
+
         let outerRect = CGRect(x: rect.origin.x + borderWidth / 2.0,
                                y: rect.origin.y + borderWidth / 2.0,
                                width: rect.width - borderWidth,
                                height: rect.height - borderWidth)
-        
+
         let outerPath = NSBezierPath(roundedRect: outerRect, xRadius: cornerRadius, yRadius: cornerRadius)
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
-        outerPath.stroke()    
+        outerPath.stroke()
     }
 
     override public func draw(_ rect: CGRect) {

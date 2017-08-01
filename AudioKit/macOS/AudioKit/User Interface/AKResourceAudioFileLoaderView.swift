@@ -21,25 +21,25 @@ public class AKResourcesAudioFileLoaderView: NSView {
 
     var currentIndex = 0
     var titles = [String]()
-    
+
     open var bgColor: AKColor? {
         didSet {
             needsDisplay = true
         }
     }
-    
+
     open var textColor: AKColor? {
         didSet {
             needsDisplay = true
         }
     }
-    
+
     open var borderColor: AKColor? {
         didSet {
             needsDisplay = true
         }
     }
-    
+
     open var borderWidth: CGFloat = 3.0 {
         didSet {
             needsDisplay = true
@@ -54,7 +54,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         self.player = player
         self.titles = filenames
     }
-    
+
     /// Handle click
     override public func mouseDown(with theEvent: NSEvent) {
         var isFileChanged = false
@@ -97,33 +97,33 @@ public class AKResourcesAudioFileLoaderView: NSView {
     // Default background color per theme
     var bgColorForTheme: AKColor {
         if let bgColor = bgColor { return bgColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.8, alpha: 1.0)
         case .midnight: return AKColor(white: 0.7, alpha: 1.0)
         }
     }
-    
+
     // Default border color per theme
     var borderColorForTheme: AKColor {
         if let borderColor = borderColor { return borderColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
         case .midnight: return AKColor.white.withAlphaComponent(0.8)
         }
     }
-    
+
     // Default text color per theme
     var textColorForTheme: AKColor {
         if let textColor = textColor { return textColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0)
         case .midnight: return AKColor.white
         }
     }
-    
+
     func drawAudioFileLoader(sliderColor: NSColor = AKStylist.sharedInstance.colorForFalseValue,
                              fileName: String = "None") {
         //// General Declarations
@@ -138,44 +138,67 @@ public class AKResourcesAudioFileLoaderView: NSView {
         let dark = textColorForTheme
 
         //// background Drawing
-        let backgroundPath = NSBezierPath(rect: NSRect(x: borderWidth, y: borderWidth, width: rect.width - borderWidth * 2.0, height: rect.height - borderWidth * 2.0))
+        let backgroundPath = NSBezierPath(rect: NSRect(x: borderWidth,
+                                                       y: borderWidth,
+                                                       width: rect.width - borderWidth * 2.0,
+                                                       height: rect.height - borderWidth * 2.0))
         backgroundColor.setFill()
         backgroundPath.fill()
 
         //// stopButton
         //// stopOuter Drawing
-        stopOuterPath = NSBezierPath(rect: NSRect(x: borderWidth, y: borderWidth, width: rect.width * 0.13, height: rect.height - borderWidth * 2.0))
+        stopOuterPath = NSBezierPath(rect: NSRect(x: borderWidth,
+                                                  y: borderWidth,
+                                                  width: rect.width * 0.13,
+                                                  height: rect.height - borderWidth * 2.0))
         sliderColor.setFill()
         stopOuterPath.fill()
 
         //// stopInner Drawing
-        let stopInnerPath = NSBezierPath(roundedRect: NSRect(x: (rect.width * 0.13 - rect.height * 0.5)/2.0 + cornerRadius, y: rect.height * 0.25, width: rect.height * 0.5, height: rect.height * 0.5), xRadius: cornerRadius, yRadius: cornerRadius)
+        let stopInnerPath = NSBezierPath(roundedRect: NSRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
+                                                             y: rect.height * 0.25,
+                                                             width: rect.height * 0.5,
+                                                             height: rect.height * 0.5),
+                                         xRadius: cornerRadius,
+                                         yRadius: cornerRadius)
         dark.setFill()
         stopInnerPath.fill()
-        
+
         //// playButton
         //// playOuter Drawing
-        playOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.13 + borderWidth, y: borderWidth, width: rect.width * 0.13, height: rect.height - borderWidth * 2.0))
+        playOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.13 + borderWidth,
+                                                  y: borderWidth,
+                                                  width: rect.width * 0.13,
+                                                  height: rect.height - borderWidth * 2.0))
         color.setFill()
         playOuterPath.fill()
 
         //// playInner Drawing
-        let playRect = NSRect(x: (rect.width * 0.13 - rect.height * 0.5)/2.0 + borderWidth + rect.width * 0.13 + borderWidth, y: rect.height * 0.25, width: rect.height * 0.5, height: rect.height * 0.5)
+        let playRect = NSRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + borderWidth + rect.width * 0.13 + borderWidth,
+                              y: rect.height * 0.25,
+                              width: rect.height * 0.5,
+                              height: rect.height * 0.5)
         let playInnerPath = NSBezierPath()
         playInnerPath.move(to: NSPoint(x: playRect.minX + cornerRadius / 2.0, y: playRect.maxY))
         playInnerPath.line(to: NSPoint(x: playRect.maxX - cornerRadius / 2.0, y: playRect.midY + cornerRadius / 2.0))
-        playInnerPath.curve(to: NSPoint(x: playRect.maxX - cornerRadius / 2.0, y: playRect.midY - cornerRadius / 2.0), controlPoint1: NSPoint(x: playRect.maxX, y: playRect.midY), controlPoint2: NSPoint(x: playRect.maxX, y: playRect.midY))
+        playInnerPath.curve(to: NSPoint(x: playRect.maxX - cornerRadius / 2.0,
+                                        y: playRect.midY - cornerRadius / 2.0),
+                            controlPoint1: NSPoint(x: playRect.maxX, y: playRect.midY),
+                            controlPoint2: NSPoint(x: playRect.maxX, y: playRect.midY))
         playInnerPath.line(to: NSPoint(x: playRect.minX + cornerRadius / 2.0, y: playRect.minY))
-        playInnerPath.curve(to: NSPoint(x: playRect.minX, y: playRect.minY + cornerRadius / 2.0), controlPoint1: NSPoint(x: playRect.minX, y: playRect.minY), controlPoint2: NSPoint(x: playRect.minX, y: playRect.minY))
+        playInnerPath.curve(to: NSPoint(x: playRect.minX, y: playRect.minY + cornerRadius / 2.0),
+                            controlPoint1: NSPoint(x: playRect.minX, y: playRect.minY),
+                            controlPoint2: NSPoint(x: playRect.minX, y: playRect.minY))
         playInnerPath.line(to: NSPoint(x: playRect.minX, y: playRect.maxY - cornerRadius / 2.0))
-        playInnerPath.curve(to: NSPoint(x: playRect.minX + cornerRadius / 2.0, y: playRect.maxY), controlPoint1: NSPoint(x: playRect.minX, y: playRect.maxY), controlPoint2: NSPoint(x: playRect.minX, y: playRect.maxY))
+        playInnerPath.curve(to: NSPoint(x: playRect.minX + cornerRadius / 2.0, y: playRect.maxY),
+                            controlPoint1: NSPoint(x: playRect.minX, y: playRect.maxY),
+                            controlPoint2: NSPoint(x: playRect.minX, y: playRect.maxY))
         playInnerPath.close()
         dark.setFill()
         playInnerPath.fill()
         dark.setStroke()
         playInnerPath.stroke()
-        
-        
+
         // stopButton border Path
         let stopButtonBorderPath = NSBezierPath()
         stopButtonBorderPath.move(to: NSPoint(x: rect.width * 0.13 + borderWidth, y: borderWidth))
@@ -183,7 +206,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         borderColorForTheme.setStroke()
         stopButtonBorderPath.lineWidth = borderWidth / 2.0
         stopButtonBorderPath.stroke()
-        
+
         // playButton border Path
         let playButtonBorderPath = NSBezierPath()
         playButtonBorderPath.move(to: NSPoint(x: rect.width * 0.13 * 2.0 + borderWidth, y: borderWidth))
@@ -194,38 +217,71 @@ public class AKResourcesAudioFileLoaderView: NSView {
 
         //// upButton
         //// upOuter Drawing
-        upOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.9, y: rect.height * 0.5, width: rect.width * 0.07, height: rect.height * 0.5))
-        
+        upOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.9,
+                                                y: rect.height * 0.5,
+                                                width: rect.width * 0.07,
+                                                height: rect.height * 0.5))
+
         //// upInner Drawing
-        let upperArrowRect = NSRect(x: rect.width * 0.9, y: rect.height * 0.58, width: rect.width * 0.07, height: rect.height * 0.3)
+        let upperArrowRect = NSRect(x: rect.width * 0.9,
+                                    y: rect.height * 0.58,
+                                    width: rect.width * 0.07,
+                                    height: rect.height * 0.3)
         let upInnerPath = NSBezierPath()
         upInnerPath.move(to: NSPoint(x: upperArrowRect.minX + cornerRadius / 2.0, y: upperArrowRect.minY))
         upInnerPath.line(to: NSPoint(x: upperArrowRect.maxX - cornerRadius / 2.0, y: upperArrowRect.minY))
-        upInnerPath.curve(to: NSPoint(x: upperArrowRect.maxX - cornerRadius / 2.0, y: upperArrowRect.minY + cornerRadius / 2.0), controlPoint1: NSPoint(x: upperArrowRect.maxX, y: upperArrowRect.minY), controlPoint2: NSPoint(x: upperArrowRect.maxX, y: upperArrowRect.minY))
-        upInnerPath.line(to: NSPoint(x: upperArrowRect.midX + cornerRadius / 2.0, y: upperArrowRect.maxY - cornerRadius / 2.0))
-        upInnerPath.curve(to: NSPoint(x: upperArrowRect.midX - cornerRadius / 2.0, y: upperArrowRect.maxY - cornerRadius / 2.0), controlPoint1: NSPoint(x: upperArrowRect.midX, y: upperArrowRect.maxY), controlPoint2: NSPoint(x: upperArrowRect.midX, y: upperArrowRect.maxY))
-        upInnerPath.line(to: NSPoint(x: upperArrowRect.minX + cornerRadius / 2.0, y: upperArrowRect.minY + cornerRadius / 2.0))
-        upInnerPath.curve(to: NSPoint(x: upperArrowRect.minX + cornerRadius / 2.0, y: upperArrowRect.minY), controlPoint1: NSPoint(x: upperArrowRect.minX, y: upperArrowRect.minY), controlPoint2: NSPoint(x: upperArrowRect.minX, y: upperArrowRect.minY))
+        upInnerPath.curve(to: NSPoint(x: upperArrowRect.maxX - cornerRadius / 2.0,
+                                      y: upperArrowRect.minY + cornerRadius / 2.0),
+                          controlPoint1: NSPoint(x: upperArrowRect.maxX, y: upperArrowRect.minY),
+                          controlPoint2: NSPoint(x: upperArrowRect.maxX, y: upperArrowRect.minY))
+        upInnerPath.line(to: NSPoint(x: upperArrowRect.midX + cornerRadius / 2.0,
+                                     y: upperArrowRect.maxY - cornerRadius / 2.0))
+        upInnerPath.curve(to: NSPoint(x: upperArrowRect.midX - cornerRadius / 2.0,
+                                      y: upperArrowRect.maxY - cornerRadius / 2.0),
+                          controlPoint1: NSPoint(x: upperArrowRect.midX, y: upperArrowRect.maxY),
+                          controlPoint2: NSPoint(x: upperArrowRect.midX, y: upperArrowRect.maxY))
+        upInnerPath.line(to: NSPoint(x: upperArrowRect.minX + cornerRadius / 2.0,
+                                     y: upperArrowRect.minY + cornerRadius / 2.0))
+        upInnerPath.curve(to: NSPoint(x: upperArrowRect.minX + cornerRadius / 2.0, y: upperArrowRect.minY),
+                          controlPoint1: NSPoint(x: upperArrowRect.minX, y: upperArrowRect.minY),
+                          controlPoint2: NSPoint(x: upperArrowRect.minX, y: upperArrowRect.minY))
         textColorForTheme.setStroke()
         upInnerPath.lineWidth = borderWidth
         upInnerPath.stroke()
-        
-        downOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.9, y: 0, width: rect.width * 0.07, height: rect.height * 0.5))
-        
+
+        downOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.9,
+                                                  y: 0,
+                                                  width: rect.width * 0.07,
+                                                  height: rect.height * 0.5))
+
         //// downInner Drawing
-        let downArrowRect = NSRect(x: rect.width * 0.9, y: rect.height * 0.12, width: rect.width * 0.07, height: rect.height * 0.3)
+        let downArrowRect = NSRect(x: rect.width * 0.9,
+                                   y: rect.height * 0.12,
+                                   width: rect.width * 0.07,
+                                   height: rect.height * 0.3)
         let downInnerPath = NSBezierPath()
         downInnerPath.move(to: NSPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.maxY))
         downInnerPath.line(to: NSPoint(x: downArrowRect.maxX - cornerRadius / 2.0, y: downArrowRect.maxY))
-        downInnerPath.curve(to: NSPoint(x: downArrowRect.maxX - cornerRadius / 2.0, y: downArrowRect.maxY - cornerRadius / 2.0), controlPoint1: NSPoint(x: downArrowRect.maxX, y: downArrowRect.maxY), controlPoint2: NSPoint(x: downArrowRect.maxX, y: downArrowRect.maxY))
-        downInnerPath.line(to: NSPoint(x: downArrowRect.midX + cornerRadius / 2.0, y: downArrowRect.minY + cornerRadius / 2.0))
-        downInnerPath.curve(to: NSPoint(x: downArrowRect.midX - cornerRadius / 2.0, y: downArrowRect.minY + cornerRadius / 2.0), controlPoint1: NSPoint(x: downArrowRect.midX, y: downArrowRect.minY), controlPoint2: NSPoint(x: downArrowRect.midX, y: downArrowRect.minY))
-        downInnerPath.line(to: NSPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.maxY - cornerRadius / 2.0))
-        downInnerPath.curve(to: NSPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.maxY), controlPoint1: NSPoint(x: downArrowRect.minX, y: downArrowRect.maxY), controlPoint2: NSPoint(x: downArrowRect.minX, y: downArrowRect.maxY))
+        downInnerPath.curve(to: NSPoint(x: downArrowRect.maxX - cornerRadius / 2.0,
+                                        y: downArrowRect.maxY - cornerRadius / 2.0),
+                            controlPoint1: NSPoint(x: downArrowRect.maxX, y: downArrowRect.maxY),
+                            controlPoint2: NSPoint(x: downArrowRect.maxX, y: downArrowRect.maxY))
+        downInnerPath.line(to: NSPoint(x: downArrowRect.midX + cornerRadius / 2.0,
+                                       y: downArrowRect.minY + cornerRadius / 2.0))
+        downInnerPath.curve(to: NSPoint(x: downArrowRect.midX - cornerRadius / 2.0,
+                                        y: downArrowRect.minY + cornerRadius / 2.0),
+                            controlPoint1: NSPoint(x: downArrowRect.midX, y: downArrowRect.minY),
+                            controlPoint2: NSPoint(x: downArrowRect.midX, y: downArrowRect.minY))
+        downInnerPath.line(to: NSPoint(x: downArrowRect.minX + cornerRadius / 2.0,
+                                       y: downArrowRect.maxY - cornerRadius / 2.0))
+        downInnerPath.curve(to: NSPoint(x: downArrowRect.minX + cornerRadius / 2.0,
+                                        y: downArrowRect.maxY),
+                            controlPoint1: NSPoint(x: downArrowRect.minX, y: downArrowRect.maxY),
+                            controlPoint2: NSPoint(x: downArrowRect.minX, y: downArrowRect.maxY))
         textColorForTheme.setStroke()
         downInnerPath.lineWidth = borderWidth
         downInnerPath.stroke()
-        
+
         //// nameLabel Drawing
         let nameLabelRect = NSRect(x: 120, y: 0, width: 320, height: 60)
         let nameLabelStyle = NSMutableParagraphStyle()
@@ -250,7 +306,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                         withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
-        
+
         let outerRect = CGRect(x: rect.origin.x + borderWidth / 2.0,
                                y: rect.origin.y + borderWidth / 2.0,
                                width: rect.width - borderWidth,

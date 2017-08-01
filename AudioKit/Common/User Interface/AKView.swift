@@ -71,14 +71,14 @@ public class AKStylist {
             return colorCycle[theme]![counter]
         }
     }
-    
+
     public var colorForTrueValue: AKColor {
         switch theme {
         case .basic: return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
         case .midnight: return AKColor(red: 35.0 / 255.0, green: 206.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
         }
     }
-    
+
     public var colorForFalseValue: AKColor {
         switch theme {
         case .basic: return AKColor(red: 255.0 / 255.0, green: 22.0 / 255.0, blue: 22.0 / 255.0, alpha: 1.0)
