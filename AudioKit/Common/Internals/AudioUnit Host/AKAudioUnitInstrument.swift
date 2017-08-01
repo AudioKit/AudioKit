@@ -1,7 +1,8 @@
 //
 //  AKAudioUnitInstrument.swift
+//  AudioKit
 //
-//  Created by Ryan Francesconi on 7/27/17.
+//  Created by Ryan Francesconi, revision history on Github.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
@@ -17,6 +18,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         self.avAudioNode = audioUnit
         
         self.name = audioUnit.name
+        
     }
     
     open func play(noteNumber: MIDINoteNumber,
