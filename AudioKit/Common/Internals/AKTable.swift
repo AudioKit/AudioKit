@@ -133,6 +133,18 @@
         }
     }
 
+    /// Create table from audio file
+    public convenience init(file: AKAudioFile) {
+        let size = Int(file.samplesCount)
+        self.init(count: size)
+
+        if let data = file.floatChannelData?[0] {
+            for i in 0 ..< size {
+                self[i] = data[i]
+            }
+        }
+    }
+
     /// Offset of the phase
     public var phaseOffset: Int {
         @inline(__always)
