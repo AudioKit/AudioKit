@@ -49,7 +49,6 @@ class AudioUnitParamSlider: NSView {
             unitsField.frame = NSMakeRect(249, 2, 40, 20)
             addSubview(unitsField)
         }
-        
         frame = NSMakeRect(0, 0, 352, 20)
     }
     
