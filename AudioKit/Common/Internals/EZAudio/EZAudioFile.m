@@ -608,6 +608,7 @@ typedef struct
 
 //------------------------------------------------------------------------------
 
+/// return the markers in this file. This will be a NSArray of EZAudioFileMarkers
 - (NSArray *)markers
 {
     // get size of markers property (dictionary)
@@ -769,6 +770,52 @@ typedef struct
                                 rightMin:0.0f
                                 rightMax:[self totalFrames]];
     [self seekToFrame:frame];
+}
+
+//------------------------------------------------------------------------------
+
+/// add an Array of EZAudioFileMarkers into this file
+- (void) setMarkers:(NSArray *)markerArray {
+    
+    AudioFileMarkerList editedMarkerList[markerArray.count];
+    
+    editedMarkerList->mNumberMarkers = (UInt32)markerArray.count;
+    
+    for (int i=0; i < markerArray.count; i++) {
+        EZAudioFileMarker *ezafm = (EZAudioFileMarker *) [markerArray objectAtIndex:(i)];
+        
+        AudioFileMarker afm;
+        afm.mName = (__bridge CFStringRef _Nullable)(ezafm.name);
+        afm.mFramePosition = [ezafm.framePosition doubleValue];
+        afm.mMarkerID = [ezafm.markerID intValue];
+        afm.mType = [ezafm.type intValue];
+        
+        editedMarkerList->mMarkers[i] = afm;
+        
+        NSLog(@"Adding marker: %@\n", ezafm.name );
+    }
+    
+    UInt32 propSize = (UInt32)NumAudioFileMarkersToNumBytes(markerArray.count);
+    
+    OSStatus err = noErr;
+    AudioFileID fileID  = nil;
+    
+    err = AudioFileOpenURL( (__bridge CFURLRef _Nonnull)(self.url), kAudioFileReadWritePermission, 0, &fileID );
+    
+    if ( err != noErr ) {
+        NSLog( @"AudioFileOpenURL failed" );
+        return;
+    }
+    
+    err = AudioFileSetProperty( fileID,
+                               kAudioFilePropertyMarkerList,
+                               propSize,
+                               &editedMarkerList);
+    
+    if ( err != noErr ) {
+        NSLog(@"AudioFileSetProperty failed err: %d\n", err );
+    }
+    
 }
 
 //------------------------------------------------------------------------------
