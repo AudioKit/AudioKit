@@ -20,6 +20,8 @@
 		4871D4681DD913800046A768 /* AKClarinetDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4871D4641DD913800046A768 /* AKClarinetDSPKernel.hpp */; };
 		7078DE4D1F260A3600F1DC67 /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
+		B19AE76D1F30F58500F9DC25 /* AKAudioUnitInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */; };
+		B19AE76E1F30F58500F9DC25 /* AKAudioUnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76C1F30F58500F9DC25 /* AKAudioUnitManager.swift */; };
 		B1F47AB71DC5385500706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47AB51DC5385500706A2F /* EZAudioFileMarker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1F47AB81DC5385500706A2F /* EZAudioFileMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F47AB61DC5385500706A2F /* EZAudioFileMarker.m */; };
 		C40101D41DED705B000C5765 /* AKAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40101D21DED705B000C5765 /* AKAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -867,6 +869,8 @@
 		4871D4641DD913800046A768 /* AKClarinetDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AKClarinetDSPKernel.hpp; path = Clarinet/AKClarinetDSPKernel.hpp; sourceTree = "<group>"; };
 		7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
+		B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitInstrument.swift; path = "AudioUnit Host/AKAudioUnitInstrument.swift"; sourceTree = "<group>"; };
+		B19AE76C1F30F58500F9DC25 /* AKAudioUnitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitManager.swift; path = "AudioUnit Host/AKAudioUnitManager.swift"; sourceTree = "<group>"; };
 		B1F47AB51DC5385500706A2F /* EZAudioFileMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFileMarker.h; sourceTree = "<group>"; };
 		B1F47AB61DC5385500706A2F /* EZAudioFileMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFileMarker.m; sourceTree = "<group>"; };
 		C40101D21DED705B000C5765 /* AKAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnit.h; sourceTree = "<group>"; };
@@ -1733,6 +1737,8 @@
 		B1C452E41F2A55AF001AD289 /* AudioUnit Host */ = {
 			isa = PBXGroup;
 			children = (
+				B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */,
+				B19AE76C1F30F58500F9DC25 /* AKAudioUnitManager.swift */,
 			);
 			name = "AudioUnit Host";
 			sourceTree = "<group>";
@@ -4385,6 +4391,7 @@
 				C45666A71D448D7E00D26565 /* AudioKit.swift in Sources */,
 				C456672C1D448D7E00D26565 /* samphold.c in Sources */,
 				C45669AF1D448D7E00D26565 /* AKPannerAudioUnit.mm in Sources */,
+				B19AE76E1F30F58500F9DC25 /* AKAudioUnitManager.swift in Sources */,
 				C4F8CA361DCA9256001F38F2 /* tog.c in Sources */,
 				C45669861D448D7E00D26565 /* AKPWMOscillator.swift in Sources */,
 				C45666F01D448D7E00D26565 /* count.c in Sources */,
@@ -4556,6 +4563,7 @@
 				C45667131D448D7E00D26565 /* pan2.c in Sources */,
 				C45669CA1D448D7E00D26565 /* moogLadderFilter.swift in Sources */,
 				C45668DB1D448D7E00D26565 /* AKCompressor.swift in Sources */,
+				B19AE76D1F30F58500F9DC25 /* AKAudioUnitInstrument.swift in Sources */,
 				C45668AF1D448D7E00D26565 /* AKMIDIControl.swift in Sources */,
 				C45666EE1D448D7E00D26565 /* compressor.c in Sources */,
 				C4F8C9FD1DCA9256001F38F2 /* mincer.c in Sources */,
