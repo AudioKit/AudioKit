@@ -12,6 +12,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Private variables
     fileprivate var internalAudioFile: AKAudioFile
     fileprivate var internalPlayer = AVAudioPlayerNode()
+    fileprivate var internalMixer = AVAudioMixerNode()
     fileprivate var totalFrameCount: UInt32 = 0
     fileprivate var startingFrame: UInt32 = 0
     fileprivate var endingFrame: UInt32 = 0
@@ -265,12 +266,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         super.init()
         self.looping = looping
         AudioKit.engine.attach(internalPlayer)
-        let mixer = AVAudioMixerNode()
-        AudioKit.engine.attach(mixer)
+        AudioKit.engine.attach(internalMixer)
         let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate,
                                    channels: internalAudioFile.channelCount)
-        AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
-        avAudioNode = mixer
+        AudioKit.engine.connect(internalPlayer, to: internalMixer, format: format)
+        avAudioNode = internalMixer
         internalPlayer.volume = 1.0
 
         initialize()
@@ -367,6 +367,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             internalAudioFile = newFile
         }
         internalPlayer.reset()
+        
+        let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate, channels: internalAudioFile.channelCount)
+        AudioKit.engine.connect(internalPlayer, to: internalMixer, format: format)
+        
         initialize()
 
         if wasPlaying {
