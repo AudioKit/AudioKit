@@ -1,0 +1,671 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		42B5F7491F33860A00F92B8D /* Ableton_Link_Badge-Black.eps in Resources */ = {isa = PBXBuildFile; fileRef = 42B5F73F1F33860A00F92B8D /* Ableton_Link_Badge-Black.eps */; };
+		42B5F74A1F33860A00F92B8D /* Ableton_Link_Badge-White.eps in Resources */ = {isa = PBXBuildFile; fileRef = 42B5F7401F33860A00F92B8D /* Ableton_Link_Badge-White.eps */; };
+		42B5F74B1F33860A00F92B8D /* Ableton_Link_Button_disabled.eps in Resources */ = {isa = PBXBuildFile; fileRef = 42B5F7411F33860A00F92B8D /* Ableton_Link_Button_disabled.eps */; };
+		42B5F74C1F33860A00F92B8D /* Ableton_Link_Button_enabled.eps in Resources */ = {isa = PBXBuildFile; fileRef = 42B5F7421F33860A00F92B8D /* Ableton_Link_Button_enabled.eps */; };
+		42B5F74D1F33860A00F92B8D /* libABLLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B5F7481F33860A00F92B8D /* libABLLink.a */; };
+		42B5F7501F33866D00F92B8D /* AbletonLinkWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B5F74F1F33866D00F92B8D /* AbletonLinkWrapper.swift */; };
+		42B5F7531F3387FE00F92B8D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B5F7521F3387FE00F92B8D /* libc++.tbd */; };
+		42D7FE401F1A7D43009CC8C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7FE3F1F1A7D43009CC8C8 /* AppDelegate.swift */; };
+		42D7FE421F1A7D43009CC8C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7FE411F1A7D43009CC8C8 /* ViewController.swift */; };
+		42D7FE451F1A7D43009CC8C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D7FE431F1A7D43009CC8C8 /* Main.storyboard */; };
+		42D7FE471F1A7D43009CC8C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42D7FE461F1A7D43009CC8C8 /* Assets.xcassets */; };
+		42D7FE4A1F1A7D43009CC8C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D7FE481F1A7D43009CC8C8 /* LaunchScreen.storyboard */; };
+		42D7FE551F1A7D43009CC8C8 /* AbletonLinkDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7FE541F1A7D43009CC8C8 /* AbletonLinkDemoTests.swift */; };
+		42D7FE601F1A7D44009CC8C8 /* AbletonLinkDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7FE5F1F1A7D44009CC8C8 /* AbletonLinkDemoUITests.swift */; };
+		42D7FE6E1F1A7F0F009CC8C8 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7FE6D1F1A7F0F009CC8C8 /* Conductor.swift */; };
+		42D7FE701F1A8392009CC8C8 /* AKSequencer+AbletonLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D7FE6F1F1A8392009CC8C8 /* AKSequencer+AbletonLink.swift */; };
+		42D7FE721F1A8474009CC8C8 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D7FE711F1A8474009CC8C8 /* AudioKit.framework */; };
+		42D7FE731F1A8474009CC8C8 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42D7FE711F1A8474009CC8C8 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		42D7FE511F1A7D43009CC8C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42D7FE341F1A7D43009CC8C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42D7FE3B1F1A7D43009CC8C8;
+			remoteInfo = AbletonLinkDemo;
+		};
+		42D7FE5C1F1A7D44009CC8C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42D7FE341F1A7D43009CC8C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42D7FE3B1F1A7D43009CC8C8;
+			remoteInfo = AbletonLinkDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		42D7FE741F1A8474009CC8C8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				42D7FE731F1A8474009CC8C8 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		42B5F73F1F33860A00F92B8D /* Ableton_Link_Badge-Black.eps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ableton_Link_Badge-Black.eps"; sourceTree = "<group>"; };
+		42B5F7401F33860A00F92B8D /* Ableton_Link_Badge-White.eps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ableton_Link_Badge-White.eps"; sourceTree = "<group>"; };
+		42B5F7411F33860A00F92B8D /* Ableton_Link_Button_disabled.eps */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ableton_Link_Button_disabled.eps; sourceTree = "<group>"; };
+		42B5F7421F33860A00F92B8D /* Ableton_Link_Button_enabled.eps */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ableton_Link_Button_enabled.eps; sourceTree = "<group>"; };
+		42B5F7441F33860A00F92B8D /* ABLLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABLLink.h; sourceTree = "<group>"; };
+		42B5F7451F33860A00F92B8D /* ABLLinkSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABLLinkSettingsViewController.h; sourceTree = "<group>"; };
+		42B5F7461F33860A00F92B8D /* ABLLinkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABLLinkUtils.h; sourceTree = "<group>"; };
+		42B5F7481F33860A00F92B8D /* libABLLink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libABLLink.a; sourceTree = "<group>"; };
+		42B5F74E1F33866D00F92B8D /* AbletonLinkDemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbletonLinkDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		42B5F74F1F33866D00F92B8D /* AbletonLinkWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbletonLinkWrapper.swift; sourceTree = "<group>"; };
+		42B5F7521F3387FE00F92B8D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		42D7FE3C1F1A7D43009CC8C8 /* AbletonLinkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AbletonLinkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42D7FE3F1F1A7D43009CC8C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		42D7FE411F1A7D43009CC8C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		42D7FE441F1A7D43009CC8C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		42D7FE461F1A7D43009CC8C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		42D7FE491F1A7D43009CC8C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		42D7FE4B1F1A7D43009CC8C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42D7FE501F1A7D43009CC8C8 /* AbletonLinkDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AbletonLinkDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		42D7FE541F1A7D43009CC8C8 /* AbletonLinkDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbletonLinkDemoTests.swift; sourceTree = "<group>"; };
+		42D7FE561F1A7D43009CC8C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42D7FE5B1F1A7D44009CC8C8 /* AbletonLinkDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AbletonLinkDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		42D7FE5F1F1A7D44009CC8C8 /* AbletonLinkDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbletonLinkDemoUITests.swift; sourceTree = "<group>"; };
+		42D7FE611F1A7D44009CC8C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42D7FE6D1F1A7F0F009CC8C8 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
+		42D7FE6F1F1A8392009CC8C8 /* AKSequencer+AbletonLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSequencer+AbletonLink.swift"; sourceTree = "<group>"; };
+		42D7FE711F1A8474009CC8C8 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		42D7FE391F1A7D43009CC8C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42B5F7531F3387FE00F92B8D /* libc++.tbd in Frameworks */,
+				42D7FE721F1A8474009CC8C8 /* AudioKit.framework in Frameworks */,
+				42B5F74D1F33860A00F92B8D /* libABLLink.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42D7FE4D1F1A7D43009CC8C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42D7FE581F1A7D44009CC8C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		42B5F73D1F33860A00F92B8D /* LinkKit */ = {
+			isa = PBXGroup;
+			children = (
+				42B5F73E1F33860A00F92B8D /* assets */,
+				42B5F7431F33860A00F92B8D /* include */,
+				42B5F7471F33860A00F92B8D /* lib */,
+			);
+			path = LinkKit;
+			sourceTree = "<group>";
+		};
+		42B5F73E1F33860A00F92B8D /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				42B5F73F1F33860A00F92B8D /* Ableton_Link_Badge-Black.eps */,
+				42B5F7401F33860A00F92B8D /* Ableton_Link_Badge-White.eps */,
+				42B5F7411F33860A00F92B8D /* Ableton_Link_Button_disabled.eps */,
+				42B5F7421F33860A00F92B8D /* Ableton_Link_Button_enabled.eps */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		42B5F7431F33860A00F92B8D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				42B5F7441F33860A00F92B8D /* ABLLink.h */,
+				42B5F7451F33860A00F92B8D /* ABLLinkSettingsViewController.h */,
+				42B5F7461F33860A00F92B8D /* ABLLinkUtils.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		42B5F7471F33860A00F92B8D /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				42B5F7481F33860A00F92B8D /* libABLLink.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		42B5F7511F3387FD00F92B8D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				42B5F7521F3387FE00F92B8D /* libc++.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42D7FE331F1A7D43009CC8C8 = {
+			isa = PBXGroup;
+			children = (
+				42D7FE711F1A8474009CC8C8 /* AudioKit.framework */,
+				42D7FE3E1F1A7D43009CC8C8 /* AbletonLinkDemo */,
+				42D7FE531F1A7D43009CC8C8 /* AbletonLinkDemoTests */,
+				42D7FE5E1F1A7D44009CC8C8 /* AbletonLinkDemoUITests */,
+				42D7FE3D1F1A7D43009CC8C8 /* Products */,
+				42B5F7511F3387FD00F92B8D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		42D7FE3D1F1A7D43009CC8C8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				42D7FE3C1F1A7D43009CC8C8 /* AbletonLinkDemo.app */,
+				42D7FE501F1A7D43009CC8C8 /* AbletonLinkDemoTests.xctest */,
+				42D7FE5B1F1A7D44009CC8C8 /* AbletonLinkDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		42D7FE3E1F1A7D43009CC8C8 /* AbletonLinkDemo */ = {
+			isa = PBXGroup;
+			children = (
+				42B5F74E1F33866D00F92B8D /* AbletonLinkDemo-Bridging-Header.h */,
+				42B5F74F1F33866D00F92B8D /* AbletonLinkWrapper.swift */,
+				42B5F73D1F33860A00F92B8D /* LinkKit */,
+				42D7FE3F1F1A7D43009CC8C8 /* AppDelegate.swift */,
+				42D7FE411F1A7D43009CC8C8 /* ViewController.swift */,
+				42D7FE431F1A7D43009CC8C8 /* Main.storyboard */,
+				42D7FE461F1A7D43009CC8C8 /* Assets.xcassets */,
+				42D7FE481F1A7D43009CC8C8 /* LaunchScreen.storyboard */,
+				42D7FE4B1F1A7D43009CC8C8 /* Info.plist */,
+				42D7FE6D1F1A7F0F009CC8C8 /* Conductor.swift */,
+				42D7FE6F1F1A8392009CC8C8 /* AKSequencer+AbletonLink.swift */,
+			);
+			path = AbletonLinkDemo;
+			sourceTree = "<group>";
+		};
+		42D7FE531F1A7D43009CC8C8 /* AbletonLinkDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				42D7FE541F1A7D43009CC8C8 /* AbletonLinkDemoTests.swift */,
+				42D7FE561F1A7D43009CC8C8 /* Info.plist */,
+			);
+			path = AbletonLinkDemoTests;
+			sourceTree = "<group>";
+		};
+		42D7FE5E1F1A7D44009CC8C8 /* AbletonLinkDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				42D7FE5F1F1A7D44009CC8C8 /* AbletonLinkDemoUITests.swift */,
+				42D7FE611F1A7D44009CC8C8 /* Info.plist */,
+			);
+			path = AbletonLinkDemoUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42D7FE3B1F1A7D43009CC8C8 /* AbletonLinkDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42D7FE641F1A7D44009CC8C8 /* Build configuration list for PBXNativeTarget "AbletonLinkDemo" */;
+			buildPhases = (
+				42D7FE381F1A7D43009CC8C8 /* Sources */,
+				42D7FE391F1A7D43009CC8C8 /* Frameworks */,
+				42D7FE3A1F1A7D43009CC8C8 /* Resources */,
+				42D7FE741F1A8474009CC8C8 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AbletonLinkDemo;
+			productName = AbletonLinkDemo;
+			productReference = 42D7FE3C1F1A7D43009CC8C8 /* AbletonLinkDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		42D7FE4F1F1A7D43009CC8C8 /* AbletonLinkDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42D7FE671F1A7D44009CC8C8 /* Build configuration list for PBXNativeTarget "AbletonLinkDemoTests" */;
+			buildPhases = (
+				42D7FE4C1F1A7D43009CC8C8 /* Sources */,
+				42D7FE4D1F1A7D43009CC8C8 /* Frameworks */,
+				42D7FE4E1F1A7D43009CC8C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				42D7FE521F1A7D43009CC8C8 /* PBXTargetDependency */,
+			);
+			name = AbletonLinkDemoTests;
+			productName = AbletonLinkDemoTests;
+			productReference = 42D7FE501F1A7D43009CC8C8 /* AbletonLinkDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		42D7FE5A1F1A7D44009CC8C8 /* AbletonLinkDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42D7FE6A1F1A7D44009CC8C8 /* Build configuration list for PBXNativeTarget "AbletonLinkDemoUITests" */;
+			buildPhases = (
+				42D7FE571F1A7D44009CC8C8 /* Sources */,
+				42D7FE581F1A7D44009CC8C8 /* Frameworks */,
+				42D7FE591F1A7D44009CC8C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				42D7FE5D1F1A7D44009CC8C8 /* PBXTargetDependency */,
+			);
+			name = AbletonLinkDemoUITests;
+			productName = AbletonLinkDemoUITests;
+			productReference = 42D7FE5B1F1A7D44009CC8C8 /* AbletonLinkDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		42D7FE341F1A7D43009CC8C8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Joshua Thompson";
+				TargetAttributes = {
+					42D7FE3B1F1A7D43009CC8C8 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = XPYTM2G2L5;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+					42D7FE4F1F1A7D43009CC8C8 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = XPYTM2G2L5;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 42D7FE3B1F1A7D43009CC8C8;
+					};
+					42D7FE5A1F1A7D44009CC8C8 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = XPYTM2G2L5;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 42D7FE3B1F1A7D43009CC8C8;
+					};
+				};
+			};
+			buildConfigurationList = 42D7FE371F1A7D43009CC8C8 /* Build configuration list for PBXProject "AbletonLinkDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 42D7FE331F1A7D43009CC8C8;
+			productRefGroup = 42D7FE3D1F1A7D43009CC8C8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42D7FE3B1F1A7D43009CC8C8 /* AbletonLinkDemo */,
+				42D7FE4F1F1A7D43009CC8C8 /* AbletonLinkDemoTests */,
+				42D7FE5A1F1A7D44009CC8C8 /* AbletonLinkDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		42D7FE3A1F1A7D43009CC8C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42B5F74C1F33860A00F92B8D /* Ableton_Link_Button_enabled.eps in Resources */,
+				42B5F7491F33860A00F92B8D /* Ableton_Link_Badge-Black.eps in Resources */,
+				42D7FE4A1F1A7D43009CC8C8 /* LaunchScreen.storyboard in Resources */,
+				42B5F74B1F33860A00F92B8D /* Ableton_Link_Button_disabled.eps in Resources */,
+				42D7FE471F1A7D43009CC8C8 /* Assets.xcassets in Resources */,
+				42B5F74A1F33860A00F92B8D /* Ableton_Link_Badge-White.eps in Resources */,
+				42D7FE451F1A7D43009CC8C8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42D7FE4E1F1A7D43009CC8C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42D7FE591F1A7D44009CC8C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		42D7FE381F1A7D43009CC8C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42D7FE421F1A7D43009CC8C8 /* ViewController.swift in Sources */,
+				42D7FE701F1A8392009CC8C8 /* AKSequencer+AbletonLink.swift in Sources */,
+				42D7FE6E1F1A7F0F009CC8C8 /* Conductor.swift in Sources */,
+				42B5F7501F33866D00F92B8D /* AbletonLinkWrapper.swift in Sources */,
+				42D7FE401F1A7D43009CC8C8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42D7FE4C1F1A7D43009CC8C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42D7FE551F1A7D43009CC8C8 /* AbletonLinkDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42D7FE571F1A7D44009CC8C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42D7FE601F1A7D44009CC8C8 /* AbletonLinkDemoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		42D7FE521F1A7D43009CC8C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42D7FE3B1F1A7D43009CC8C8 /* AbletonLinkDemo */;
+			targetProxy = 42D7FE511F1A7D43009CC8C8 /* PBXContainerItemProxy */;
+		};
+		42D7FE5D1F1A7D44009CC8C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42D7FE3B1F1A7D43009CC8C8 /* AbletonLinkDemo */;
+			targetProxy = 42D7FE5C1F1A7D44009CC8C8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		42D7FE431F1A7D43009CC8C8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42D7FE441F1A7D43009CC8C8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		42D7FE481F1A7D43009CC8C8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42D7FE491F1A7D43009CC8C8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		42D7FE621F1A7D44009CC8C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		42D7FE631F1A7D44009CC8C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		42D7FE651F1A7D44009CC8C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XPYTM2G2L5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = AbletonLinkDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AbletonLinkDemo/LinkKit/lib",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AbletonLinkDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AbletonLinkDemo/AbletonLinkDemo-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/AbletonLinkDemo/LinkKit/include";
+			};
+			name = Debug;
+		};
+		42D7FE661F1A7D44009CC8C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XPYTM2G2L5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = AbletonLinkDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AbletonLinkDemo/LinkKit/lib",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AbletonLinkDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AbletonLinkDemo/AbletonLinkDemo-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/AbletonLinkDemo/LinkKit/include";
+			};
+			name = Release;
+		};
+		42D7FE681F1A7D44009CC8C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = XPYTM2G2L5;
+				INFOPLIST_FILE = AbletonLinkDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AbletonLinkDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AbletonLinkDemo.app/AbletonLinkDemo";
+			};
+			name = Debug;
+		};
+		42D7FE691F1A7D44009CC8C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = XPYTM2G2L5;
+				INFOPLIST_FILE = AbletonLinkDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AbletonLinkDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AbletonLinkDemo.app/AbletonLinkDemo";
+			};
+			name = Release;
+		};
+		42D7FE6B1F1A7D44009CC8C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = XPYTM2G2L5;
+				INFOPLIST_FILE = AbletonLinkDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AbletonLinkDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = AbletonLinkDemo;
+			};
+			name = Debug;
+		};
+		42D7FE6C1F1A7D44009CC8C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = XPYTM2G2L5;
+				INFOPLIST_FILE = AbletonLinkDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AbletonLinkDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = AbletonLinkDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		42D7FE371F1A7D43009CC8C8 /* Build configuration list for PBXProject "AbletonLinkDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42D7FE621F1A7D44009CC8C8 /* Debug */,
+				42D7FE631F1A7D44009CC8C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42D7FE641F1A7D44009CC8C8 /* Build configuration list for PBXNativeTarget "AbletonLinkDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42D7FE651F1A7D44009CC8C8 /* Debug */,
+				42D7FE661F1A7D44009CC8C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42D7FE671F1A7D44009CC8C8 /* Build configuration list for PBXNativeTarget "AbletonLinkDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42D7FE681F1A7D44009CC8C8 /* Debug */,
+				42D7FE691F1A7D44009CC8C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42D7FE6A1F1A7D44009CC8C8 /* Build configuration list for PBXNativeTarget "AbletonLinkDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42D7FE6B1F1A7D44009CC8C8 /* Debug */,
+				42D7FE6C1F1A7D44009CC8C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 42D7FE341F1A7D43009CC8C8 /* Project object */;
+}
