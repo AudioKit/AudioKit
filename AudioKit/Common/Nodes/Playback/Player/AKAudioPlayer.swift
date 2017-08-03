@@ -423,13 +423,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///              important that this value be the same for all of them as a reference point.
     ///
     open func play(from time: Double, to endTime: Double, avTime: AVAudioTime? ) {
+        stop()
+        
         if endTime > 0 {
             self.endTime = endTime
         }
         self.startTime = time
 
         if endingFrame > startingFrame {
-            stop()
             scheduledAVTime = avTime
             start()
         } else {
