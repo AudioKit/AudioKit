@@ -150,11 +150,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         set {
             // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
-            if newValue == internalStartTime {
-                //AKLog("startTime is the same, so returning: \(newValue)")
-                return
-
-            } else if newValue > Double(endingFrame) / internalAudioFile.sampleRate && endingFrame > 0 {
+            if newValue > Double(endingFrame) / internalAudioFile.sampleRate && endingFrame > 0 {
                 AKLog("ERROR: AKAudioPlayer cannot set a startTime bigger than the endTime: " +
                     "\(Double(endingFrame) / internalAudioFile.sampleRate) seconds")
 
