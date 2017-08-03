@@ -150,11 +150,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         set {
             // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
-            if newValue == internalStartTime {
-                //AKLog("startTime is the same, so returning: \(newValue)")
-                return
-
-            } else if newValue > Double(endingFrame) / internalAudioFile.sampleRate && endingFrame > 0 {
+            if newValue > Double(endingFrame) / internalAudioFile.sampleRate && endingFrame > 0 {
                 AKLog("ERROR: AKAudioPlayer cannot set a startTime bigger than the endTime: " +
                     "\(Double(endingFrame) / internalAudioFile.sampleRate) seconds")
 
@@ -293,9 +289,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                     scheduleBuffer(atTime: scheduledAVTime, options: defaultBufferOptions)
                 }
 
+                internalPlayer.play()
+                
                 playing = true
                 paused = false
-                internalPlayer.play()
 
             } else {
                 AKLog("AKAudioPlayer Warning: cannot play an empty buffer")
@@ -316,10 +313,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         lastCurrentTime = Double(startTime / internalAudioFile.sampleRate)
         playing = false
         paused = false
-        DispatchQueue.main.async { [weak self] () -> Void in
-            self?.internalPlayer.stop()
-        }
 
+        internalPlayer.stop()
     }
 
     /// Pause playback
@@ -388,12 +383,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Default play that will use the previously set startTime and endTime properties or the full file if both are 0
     open func play() {
-        play(from: self.startTime, to: self.endTime, when: 0)
+        play(from: self.startTime, to: self.endTime, avTime: nil)
     }
 
     /// Play from startTime to endTime
     open func play(from startTime: Double, to endTime: Double) {
-        play(from: startTime, to: endTime, when: 0)
+        play(from: startTime, to: endTime, avTime: nil)
     }
 
     /// Play the file back from a certain time, to an end time (if set).
@@ -423,13 +418,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///              important that this value be the same for all of them as a reference point.
     ///
     open func play(from time: Double, to endTime: Double, avTime: AVAudioTime? ) {
+        stop()
+        
         if endTime > 0 {
             self.endTime = endTime
         }
         self.startTime = time
 
         if endingFrame > startingFrame {
-            stop()
             scheduledAVTime = avTime
             start()
         } else {
