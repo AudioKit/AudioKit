@@ -388,12 +388,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Default play that will use the previously set startTime and endTime properties or the full file if both are 0
     open func play() {
-        play(from: self.startTime, to: self.endTime, when: 0)
+        play(from: self.startTime, to: self.endTime, avTime: nil)
     }
 
     /// Play from startTime to endTime
     open func play(from startTime: Double, to endTime: Double) {
-        play(from: startTime, to: endTime, when: 0)
+        play(from: startTime, to: endTime, avTime: nil)
     }
 
     /// Play the file back from a certain time, to an end time (if set).
