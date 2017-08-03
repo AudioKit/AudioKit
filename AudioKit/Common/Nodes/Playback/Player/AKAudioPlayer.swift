@@ -293,9 +293,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                     scheduleBuffer(atTime: scheduledAVTime, options: defaultBufferOptions)
                 }
 
+                internalPlayer.play()
+                
                 playing = true
                 paused = false
-                internalPlayer.play()
 
             } else {
                 AKLog("AKAudioPlayer Warning: cannot play an empty buffer")
@@ -316,10 +317,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         lastCurrentTime = Double(startTime / internalAudioFile.sampleRate)
         playing = false
         paused = false
-        DispatchQueue.main.async { [weak self] () -> Void in
-            self?.internalPlayer.stop()
-        }
 
+        internalPlayer.stop()
     }
 
     /// Pause playback
