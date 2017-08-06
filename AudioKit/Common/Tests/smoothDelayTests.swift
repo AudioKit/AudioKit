@@ -23,7 +23,7 @@ class SmoothDelayTests: AKTestCase {
                 start: 0,
                 end: 0.1,
                 duration: self.duration)
-            return input.smoothDelay(time: 0.01 + ramp, samples: 512 + 512 * ramp, feedback: 0.99 - ramp)
+            return input.smoothDelay(time: 0.01 + ramp, feedback: 0.99 - ramp, samples: 512)
         }
         AKTestMD5("27ada204f2cda9e35b0d8146d9023bef")
     }
@@ -37,7 +37,7 @@ class SmoothDelayTests: AKTestCase {
 
     func testParameters() {
         output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay(time: 0.05, samples: 256, feedback: 0.66)
+            return input.smoothDelay(time: 0.05, feedback: 0.66, samples: 256)
         }
         AKTestMD5("906e6762253b38a8044ffe1e3bc7e932")
     }
