@@ -25,44 +25,34 @@ class SmoothDelayTests: AKTestCase {
                 duration: self.duration)
             return input.smoothDelay(time: 0.01 + ramp, samples: 512 + 512 * ramp, feedback: 0.99 - ramp)
         }
-        AKTestMD5("5fad6c750dd3493bec59167606a51c59")
+        AKTestMD5("27ada204f2cda9e35b0d8146d9023bef")
     }
 
-//    func testDefault() {
-//        output = AKOperationEffect(input) { input, _ in
-//            return input.smoothDelay()
-//        }
-//        AKTestMD5("")
-//    }
-//
-//    func testParameters() {
-//        output = AKOperationEffect(input) { input, _ in
-//            return input.smoothDelay(time: 0.1,
-//                                     samples: 512,
-//                                     feedback: 0.5,
-//                                     maximumDelayTime: 1)
-//        }
-//        AKTestMD5("")
-//    }
-//
-//    func testTime() {
-//        output = AKOperationEffect(input) { input, _ in
-//            return input.smoothDelay(time: 0.1)
-//        }
-//        AKTestMD5("")
-//    }
-//
-//    func testSamples() {
-//        output = AKOperationEffect(input) { input, _ in
-//            return input.smoothDelay(samples: 512)
-//        }
-//        AKTestMD5("")
-//    }
-//
-//    func testFeedback() {
-//        output = AKOperationEffect(input) { input, _ in
-//            return input.smoothDelay(feedback: 0.5)
-//        }
-//        AKTestMD5("")
-//    }
+    func testDefault() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.smoothDelay()
+        }
+        AKTestMD5("7d4cc8cdd65fdf1faa7dc9891a7c6a16")
+    }
+
+    func testParameters() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.smoothDelay(time: 0.05, samples: 256, feedback: 0.66)
+        }
+        AKTestMD5("906e6762253b38a8044ffe1e3bc7e932")
+    }
+
+    func testTime() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.smoothDelay(time: 0.05)
+        }
+        AKTestMD5("b56006b891059151be4e34848c3f196f")
+    }
+
+    func testFeedback() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.smoothDelay(feedback: 0.66)
+        }
+        AKTestMD5("7d4cc8cdd65fdf1faa7dc9891a7c6a16")
+    }
 }
