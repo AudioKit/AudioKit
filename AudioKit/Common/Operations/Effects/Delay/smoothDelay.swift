@@ -19,8 +19,8 @@ extension AKComputedParameter {
     ///
     public func smoothDelay(
         time: AKParameter = 1.0,
-        samples: AKParameter = 1_024,
         feedback: AKParameter = 0.0,
+        samples: Int = 1_024,
         maximumDelayTime: Double = 5.0
         ) -> AKOperation {
         return AKOperation(module: "smoothdelay",
