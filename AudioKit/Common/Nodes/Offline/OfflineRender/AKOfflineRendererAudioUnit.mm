@@ -157,7 +157,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     ts.mFlags = kAudioTimeStampSampleHostTimeValid;
     
     int samplesRemaining = sampleCount;
-    int maxBufferLen = floor(AVAudioSession.sharedInstance.IOBufferDuration * self.defaultFormat.sampleRate);
+    int maxBufferLen = 1024;
     
     pthread_mutex_lock(&renderLock);
     while (samplesRemaining) {
