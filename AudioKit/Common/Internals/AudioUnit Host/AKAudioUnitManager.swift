@@ -13,12 +13,7 @@ open class AKAudioUnitManager: NSObject {
 
     /// All possible types of notifications this class may generate
     public enum Notification {
-        public static let effectsAvailable = "effectsAvailable"
-        public static let instrumentsAvailable = "instrumentsAvailable"
-
-        public static let changed = "changed"
-        public static let crashed = "crashed"
-        public static let added = "added"
+        case effectsAvailable, instrumentsAvailable, changed, crashed, added
     }
 
     /// make this variable on init()
@@ -34,13 +29,13 @@ open class AKAudioUnitManager: NSObject {
     open var output: AKNode?
 
     // Serializes all access to `availableEffects`.
-    private let availableEffectsAccessQueue = DispatchQueue(label: "AudioUnitManager.availableEffectsAccessQueue")
+    private let availableEffectsAccessQueue = DispatchQueue(label: "AKAudioUnitManager.availableEffectsAccessQueue")
 
     // List of available audio unit components.
     private var _availableEffects = [AVAudioUnitComponent]()
 
     // Serializes all access to `_availableInstruments`.
-    private let availableInstrumentsAccessQueue = DispatchQueue(label: "AudioUnitManager.availableInstrumentsAccessQueue")
+    private let availableInstrumentsAccessQueue = DispatchQueue(label: "AKAudioUnitManager.availableInstrumentsAccessQueue")
 
     // List of available audio unit components.
     private var _availableInstruments = [AVAudioUnitComponent]()
@@ -434,6 +429,6 @@ open class AKAudioUnitManager: NSObject {
 }
 
 public protocol AKAudioUnitManagerDelegate: class {
-    func handleAudioUnitNotification(type: String, object: Any?)
+    func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?)
     func handleEffectAdded(at auIndex: Int)
 }
