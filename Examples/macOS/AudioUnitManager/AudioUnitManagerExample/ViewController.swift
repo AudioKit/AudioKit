@@ -533,8 +533,6 @@ extension ViewController:  AKAudioUnitManagerDelegate {
 
         guard mixer != nil else { return }
 
-        AKLog("\(auIndex)")
-
         // is FM playing?
         if fm != nil && fm!.isStarted {
             auManager!.connectEffects(firstNode: fm, lastNode: mixer)
