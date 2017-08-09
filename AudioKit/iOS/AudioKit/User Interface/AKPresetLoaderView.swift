@@ -135,9 +135,7 @@
     
     func drawPresetLoader(presetName: String = "None", isPresetLoaded: Bool = false) {
         //// General Declarations
-        let rect = self.bounds
-        let context = UIGraphicsGetCurrentContext()
-        
+        let rect = self.bounds        
         let cornerRadius: CGFloat = AKPresetLoaderView.standardCornerRadius
         
         //// Color Declarations
