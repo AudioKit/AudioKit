@@ -13,12 +13,7 @@ open class AKAudioUnitManager: NSObject {
 
     /// All possible types of notifications this class may generate
     public enum Notification {
-        public static let effectsAvailable = "effectsAvailable"
-        public static let instrumentsAvailable = "instrumentsAvailable"
-
-        public static let changed = "changed"
-        public static let crashed = "crashed"
-        public static let added = "added"
+        case effectsAvailable, instrumentsAvailable, changed, crashed, added
     }
 
     /// make this variable on init()
@@ -434,6 +429,6 @@ open class AKAudioUnitManager: NSObject {
 }
 
 public protocol AKAudioUnitManagerDelegate: class {
-    func handleAudioUnitNotification(type: String, object: Any?)
+    func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?)
     func handleEffectAdded(at auIndex: Int)
 }
