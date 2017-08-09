@@ -29,13 +29,13 @@ open class AKAudioUnitManager: NSObject {
     open var output: AKNode?
 
     // Serializes all access to `availableEffects`.
-    private let availableEffectsAccessQueue = DispatchQueue(label: "AudioUnitManager.availableEffectsAccessQueue")
+    private let availableEffectsAccessQueue = DispatchQueue(label: "AKAudioUnitManager.availableEffectsAccessQueue")
 
     // List of available audio unit components.
     private var _availableEffects = [AVAudioUnitComponent]()
 
     // Serializes all access to `_availableInstruments`.
-    private let availableInstrumentsAccessQueue = DispatchQueue(label: "AudioUnitManager.availableInstrumentsAccessQueue")
+    private let availableInstrumentsAccessQueue = DispatchQueue(label: "AKAudioUnitManager.availableInstrumentsAccessQueue")
 
     // List of available audio unit components.
     private var _availableInstruments = [AVAudioUnitComponent]()
