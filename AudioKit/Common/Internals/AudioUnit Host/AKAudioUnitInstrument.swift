@@ -48,5 +48,5 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         guard self.midiInstrument != nil else { return }
         self.midiInstrument!.stopNote(noteNumber, onChannel: channel)
     }
-    
+
 }

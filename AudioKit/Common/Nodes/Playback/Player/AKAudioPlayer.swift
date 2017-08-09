@@ -290,7 +290,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 }
 
                 internalPlayer.play()
-                
+
                 playing = true
                 paused = false
 
@@ -362,10 +362,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             internalAudioFile = newFile
         }
         internalPlayer.reset()
-        
+
         let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate, channels: internalAudioFile.channelCount)
         AudioKit.engine.connect(internalPlayer, to: internalMixer, format: format)
-        
+
         initialize()
 
         if wasPlaying {
@@ -423,7 +423,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     open func play(from time: Double, to endTime: Double, avTime: AVAudioTime? ) {
         stop()
-        
+
         if endTime > 0 {
             self.endTime = endTime
         }
