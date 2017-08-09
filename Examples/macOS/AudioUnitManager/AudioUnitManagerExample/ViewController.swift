@@ -518,7 +518,7 @@ extension ViewController: AKMIDIListener {
 }
 
 extension ViewController:  AKAudioUnitManagerDelegate {
-    func handleAudioUnitNotification(type: String, object: Any?) {
+    func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
         guard auManager != nil else { return }
 
         if type == AKAudioUnitManager.Notification.changed {
