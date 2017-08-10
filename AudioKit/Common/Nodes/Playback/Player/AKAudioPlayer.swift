@@ -442,10 +442,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             self.endTime = endTime
         }
         self.startTime = time
-
-        if endingFrame > startingFrame {
-            scheduledAVTime = avTime
-        }
+        scheduledAVTime = avTime
     }
 
     // MARK: - Static Methods
