@@ -44,5 +44,4 @@ class AKVariableDelayTests: AKTestCase {
         AKTestMD5("aba6459050d8369fa584f3fefe2d47c2")
     }
 
-
 }

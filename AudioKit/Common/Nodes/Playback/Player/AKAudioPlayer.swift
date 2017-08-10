@@ -280,6 +280,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Start playback
     open func start() {
+        play(at:nil)
+    }
+
+    open func play(at when: AVAudioTime?) {
 
         if ❗️playing {
             if audioFileBuffer != nil {
@@ -289,8 +293,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                     scheduleBuffer(atTime: scheduledAVTime, options: defaultBufferOptions)
                 }
 
-                internalPlayer.play()
-                
+                internalPlayer.play(at: when)
+
                 playing = true
                 paused = false
 
@@ -362,10 +366,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             internalAudioFile = newFile
         }
         internalPlayer.reset()
-        
+
         let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate, channels: internalAudioFile.channelCount)
         AudioKit.engine.connect(internalPlayer, to: internalMixer, format: format)
-        
+
         initialize()
 
         if wasPlaying {
@@ -422,20 +426,23 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///              important that this value be the same for all of them as a reference point.
     ///
     open func play(from time: Double, to endTime: Double, avTime: AVAudioTime? ) {
-        stop()
-        
-        if endTime > 0 {
-            self.endTime = endTime
-        }
-        self.startTime = time
-
+        schedule(from: time, to: endTime, avTime: avTime)
         if endingFrame > startingFrame {
-            scheduledAVTime = avTime
             start()
         } else {
             AKLog("ERROR AKaudioPlayer: cannot play, \(internalAudioFile.fileNamePlusExtension) " +
                 "is empty or segment is too short")
         }
+    }
+
+    open func schedule(from time: Double, to endTime: Double, avTime: AVAudioTime? ) {
+        stop()
+
+        if endTime > 0 {
+            self.endTime = endTime
+        }
+        self.startTime = time
+        scheduledAVTime = avTime
     }
 
     // MARK: - Static Methods
