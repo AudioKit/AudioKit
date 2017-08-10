@@ -39,12 +39,12 @@
         case longest = 12
 
         /// The buffer Length expressed as number of samples
-        var samplesCount: AVAudioFrameCount {
+        public var samplesCount: AVAudioFrameCount {
             return AVAudioFrameCount(pow(2.0, Double(rawValue)))
         }
 
         /// The buffer Length expressed as a duration in seconds
-        var duration: Double {
+        public var duration: Double {
             return Double(samplesCount) / AKSettings.sampleRate
         }
     }
