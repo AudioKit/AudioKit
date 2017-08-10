@@ -18,9 +18,16 @@ class LoopsViewController: UIViewController {
     }
 
     fileprivate func playNew(loop: String) {
-        songProcessor.audioFile = try? AKAudioFile(readFileName: "\(loop)loop.wav", baseDir: .resources)
-        let _ = try? songProcessor.audioFilePlayer?.replace(file: songProcessor.audioFile!)
-        songProcessor.audioFilePlayer?.play()
+        if loop == "mix" {
+            songProcessor.playersDo{ $0.volume = 1 }
+        } else {
+            guard let player = songProcessor.players[loop] else { return }
+            songProcessor.playersDo{ $0.volume = $0 == player ? 1 : 0 }
+        }
+        if !songProcessor.loopsPlaying {
+            songProcessor.rewindLoops()
+        }
+        songProcessor.loopsPlaying = true
     }
 
     @IBAction func playMix(_ sender: UIButton) {
@@ -44,7 +51,8 @@ class LoopsViewController: UIViewController {
     }
 
     @IBAction func stop(_ sender: UIButton) {
-        songProcessor.audioFilePlayer?.stop()
+        songProcessor.iTunesFilePlayer?.stop()
+        songProcessor.loopsPlaying = false
     }
 
 }
