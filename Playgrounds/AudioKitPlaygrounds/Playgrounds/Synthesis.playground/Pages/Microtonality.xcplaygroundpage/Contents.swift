@@ -43,30 +43,29 @@ reverbBooster.gain = 0.746_7
 let mixer = AKMixer(generatorBooster, reverbBooster)
 
 // MICROTONAL PRESETS
-typealias presetClosure = () -> Void
-var presetDictionary: [String: presetClosure] = [String: presetClosure]()
+var presetDictionary = [String: () -> Void]()
 let tuningTable = AKPolyphonicNode.tuningTable
-presetDictionary["Madhubanti"] = {() -> Void in _ = tuningTable.presetPersian17NorthIndian17Madhubanti()}
-presetDictionary["Nat Bhairav"] = {() -> Void in _ = tuningTable.presetPersian17NorthIndian18NatBhairav()}
-presetDictionary["Ahir Bhairav"] = {() -> Void in _ = tuningTable.presetPersian17NorthIndian19AhirBhairav()}
-presetDictionary["Chandra Kanada"] = {() -> Void in _ = tuningTable.presetPersian17NorthIndian20ChandraKanada()}
-presetDictionary["Basant Mukhari"] = {() -> Void in _ = tuningTable.presetPersian17NorthIndian21BasantMukhari()}
-presetDictionary["Champakali"] = {() -> Void in _ = tuningTable.presetPersian17NorthIndian22Champakali()}
-presetDictionary["Patdeep"] = {() -> Void in _ = tuningTable.presetPersian17NorthIndian23Patdeep()}
-presetDictionary["Mohan Kauns"] = {() -> Void in _ = tuningTable.presetPersian17NorthIndian24MohanKauns()}
-presetDictionary["MOS 0.2381 9 tones"] = {() -> Void in _ = tuningTable.momentOfSymmetry(generator: 0.238_186, level: 6)}
-presetDictionary["MOS 0.2641 7 tones"] = {() -> Void in _ = tuningTable.momentOfSymmetry(generator: 0.264_100, level: 5)}
-presetDictionary["Tetrany Major (1,5,9,15)"] = {() -> Void in _ = tuningTable.majorTetrany(1, 5, 9, 15)}
-presetDictionary["Hexany (1,5,9,15)"] = {() -> Void in _ = tuningTable.hexany(1, 5, 9, 15)}
-presetDictionary["Tetrany Minor (1,5,9,15)"] = {() -> Void in _ = tuningTable.minorTetrany(1, 5, 9, 15)}
-presetDictionary["Hexany (3,4.,7.,10.)"] = {() -> Void in _ = tuningTable.hexany(3, 4.051, 7.051, 10.051)}
-presetDictionary["MOS 0.2926 7 tones"] = {() -> Void in _ = tuningTable.momentOfSymmetry(generator: 0.292_626, level: 5, murchana: 3)}
-presetDictionary["MOS 0.5833 7 tones"] = {() -> Void in _ = tuningTable.momentOfSymmetry(generator: 0.583_333, level: 5)}
-presetDictionary["MOS 0.5833 7 tones, Mode 2"] = {() -> Void in _ = tuningTable.momentOfSymmetry(generator: 0.583_333, level: 5, murchana: 2)}
-presetDictionary["ET 5"] = {() -> Void in tuningTable.equalTemperament(notesPerOctave: 5)}
-presetDictionary["Highland Bagpipes"] = {() -> Void in _ = tuningTable.presetHighlandBagPipes()}
-presetDictionary["Diaphonic Tetrachhord"] = {() -> Void in _ = tuningTable.presetDiaphonicTetrachord()}
-presetDictionary["Recurrence Relation"] = {() -> Void in _ = tuningTable.presetRecurrenceRelation01()}
+presetDictionary["Ahir Bhairav"] = { tuningTable.presetPersian17NorthIndian19AhirBhairav() }
+presetDictionary["Basant Mukhari"] = { tuningTable.presetPersian17NorthIndian21BasantMukhari() }
+presetDictionary["Champakali"] = { tuningTable.presetPersian17NorthIndian22Champakali() }
+presetDictionary["Chandra Kanada"] = { tuningTable.presetPersian17NorthIndian20ChandraKanada() }
+presetDictionary["Diaphonic Tetrachhord"] = { tuningTable.presetDiaphonicTetrachord() }
+presetDictionary["ET 5"] = { tuningTable.equalTemperament(notesPerOctave: 5) }
+presetDictionary["Hexany (1,5,9,15)"] = { tuningTable.hexany(1, 5, 9, 15) }
+presetDictionary["Hexany (3,4.,7.,10.)"] = { tuningTable.hexany(3, 4.051, 7.051, 10.051) }
+presetDictionary["Highland Bagpipes"] = { tuningTable.presetHighlandBagPipes() }
+presetDictionary["Madhubanti"] = { tuningTable.presetPersian17NorthIndian17Madhubanti() }
+presetDictionary["Mohan Kauns"] = { tuningTable.presetPersian17NorthIndian24MohanKauns() }
+presetDictionary["MOS 0.2381 9 tones"] = { tuningTable.momentOfSymmetry(generator: 0.238_186, level: 6) }
+presetDictionary["MOS 0.2641 7 tones"] = { tuningTable.momentOfSymmetry(generator: 0.264_100, level: 5) }
+presetDictionary["MOS 0.2926 7 tones"] = { tuningTable.momentOfSymmetry(generator: 0.292_626, level: 5, murchana: 3) }
+presetDictionary["MOS 0.5833 7 tones"] = { tuningTable.momentOfSymmetry(generator: 0.583_333, level: 5) }
+presetDictionary["MOS 0.5833 7 tones Mode 2"] = { tuningTable.momentOfSymmetry(generator: 0.583_333, level: 5, murchana: 2) }
+presetDictionary["Nat Bhairav"] = { tuningTable.presetPersian17NorthIndian18NatBhairav() }
+presetDictionary["Patdeep"] = { tuningTable.presetPersian17NorthIndian23Patdeep() }
+presetDictionary["Recurrence Relation"] = { tuningTable.presetRecurrenceRelation01() }
+presetDictionary["Tetrany Major (1,5,9,15)"] = { tuningTable.majorTetrany(1, 5, 9, 15) }
+presetDictionary["Tetrany Minor (1,5,9,15)"] = { tuningTable.minorTetrany(1, 5, 9, 15) }
 
 let presetArray = presetDictionary.keys.sorted()
 let numTunings = presetArray.count
@@ -138,98 +137,81 @@ class PlaygroundView: AKPlaygroundView {
             sequencerPattern = sequencerPatterns[preset]!
         })
 
-        addSubview(AKPropertySlider(
-            property: "MIDI Transposition",
-            format: "%.0f",
-            value: Double(transposition), minimum: -16, maximum: 16,
-            color: AKColor.blue
+        addSubview(AKPropertySlider(property: "MIDI Transposition",
+                                    value: Double(transposition),
+                                    range: -16 ... 16,
+                                    format: "%.0f"
         ) { sliderValue in
             transposition = Int(sliderValue)
             osc.reset()
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Morph Index",
-            value: osc.index, minimum: 0, maximum: 3,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
             osc.index = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Gain",
-            format: "%0.3f",
-            value: generatorBooster.gain, minimum: 0, maximum:4,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "OSC Gain", value: generatorBooster.gain, range: 0 ... 4) { sliderValue in
             generatorBooster.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "FILTER Frequency Cutoff",
-            value: filter.cutoffFrequency, minimum: 1, maximum: 12_000,
-            color: AKColor.red
+        addSubview(AKPropertySlider(property: "FILTER Frequency Cutoff",
+                                    value: filter.cutoffFrequency,
+                                    range: 1 ... 12_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "FILTER Frequency Resonance",
-            value: filter.resonance, minimum: 0, maximum: 4,
-            color: AKColor.red
+        addSubview(AKPropertySlider(property: "FILTER Frequency Resonance",
+                                    value: filter.resonance,
+                                    range: 0 ... 4
         ) { sliderValue in
             filter.resonance = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Attack",
-            format: "%0.3f s",
-            value: osc.attackDuration, maximum: 2,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "OSC Amp Attack",
+                                    value: osc.attackDuration,
+                                    range: 0 ... 2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             osc.attackDuration = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Decay",
-            format: "%0.3f s",
-            value: osc.decayDuration, maximum: 2,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "OSC Amp Decay",
+                                    value: osc.decayDuration,
+                                    range: 0 ... 2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             osc.decayDuration = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Sustain",
-            format: "%0.3f s",
-            value: osc.sustainLevel, maximum: 2,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "OSC Amp Sustain",
+                                    value: osc.sustainLevel,
+                                    range: 0 ... 2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             osc.sustainLevel = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Release",
-            format: "%0.3f s",
-            value: osc.releaseDuration, maximum: 2,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "OSC Amp Release",
+                                    value: osc.releaseDuration,
+                                    range: 0 ... 2,
+                                    format: "%0.3f s"
         ) { sliderValue in
             osc.releaseDuration = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.1f Cents",
-            value:  osc.detuningOffset, minimum: -1_200, maximum: 1_200,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Detuning Offset",
+                                    value: osc.detuningOffset,
+                                    range: -1_200 ... 1_200,
+                                    format: "%0.1f Cents"
         ) { sliderValue in
             osc.detuningOffset = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Detuning Multiplier",
+                                    value: osc.detuningMultiplier,
+                                    range: 0.5 ... 2.0,
+                                    taper: log(3) / log(2)
         ) { sliderValue in
             osc.detuningMultiplier = sliderValue
         })

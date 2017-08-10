@@ -35,18 +35,18 @@ standardKernelPassthroughs()
     standardSetup(Booster)
 
     // Create a parameter object for the left gain.
-    AUParameter *leftGainAUParameter = [AUParameter parameter:@"left gain"
+    AUParameter *leftGainAUParameter = [AUParameter parameter:@"leftGain"
                                                          name:@"Left Boosting amount."
                                                       address:leftGainAddress
                                                           min:0
-                                                          max:1
+                                                          max:2
                                                          unit:kAudioUnitParameterUnit_Generic];
     
-    AUParameter *rightGainAUParameter = [AUParameter parameter:@"right gain"
+    AUParameter *rightGainAUParameter = [AUParameter parameter:@"rightGain"
                                                           name:@"Right Boosting amount."
                                                        address:rightGainAddress
                                                            min:0
-                                                           max:1
+                                                           max:2
                                                           unit:kAudioUnitParameterUnit_Generic];
     
     // Initialize the parameter values.

@@ -34,7 +34,6 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     fileprivate var tensenessParameter: AUParameter?
     fileprivate var nasalityParameter: AUParameter?
 
-
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -139,7 +138,6 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
         tenseness: Double = 0.6,
         nasality: Double = 0.0) {
 
-
         self.frequency = frequency
         self.tonguePosition = tonguePosition
         self.tongueDiameter = tongueDiameter
@@ -158,26 +156,18 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter      = tree.value(forKey: "frequency")      as? AUParameter
+        frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
         tonguePositionParameter = tree.value(forKey: "tonguePosition") as? AUParameter
         tongueDiameterParameter = tree.value(forKey: "tongueDiameter") as? AUParameter
-        tensenessParameter      = tree.value(forKey: "tenseness")      as? AUParameter
-        nasalityParameter       = tree.value(forKey: "nasality")       as? AUParameter
+        tensenessParameter = tree.value(forKey: "tenseness") as? AUParameter
+        nasalityParameter = tree.value(forKey: "nasality") as? AUParameter
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.frequencyParameter?.address {
-                    self?.frequency = Double(value)
-                } else if address == self?.tonguePositionParameter?.address {
-                    self?.tonguePosition = Double(value)
-                } else if address == self?.tongueDiameterParameter?.address {
-                    self?.tongueDiameter = Double(value)
-                } else if address == self?.tensenessParameter?.address {
-                    self?.tenseness = Double(value)
-                } else if address == self?.nasalityParameter?.address {
-                    self?.nasality = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.frequency = Float(frequency)

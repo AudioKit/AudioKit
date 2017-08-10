@@ -6,7 +6,7 @@ import AudioKit
 let pulse = 0.23 // seconds
 
 let sampler = AKSampler()
-try sampler.loadWav("FM Piano")
+try sampler.loadWav("Samples/FM Piano")
 
 var delay = AKDelay(sampler)
 delay.time = pulse * 1.5
@@ -23,7 +23,7 @@ AudioKit.output = mixer
 AudioKit.start()
 
 //: This is a loop to send a random note to the sampler
-AKPlaygroundLoop(every: pulse) { _ in
+AKPlaygroundLoop(every: pulse) {
     let scale = [0, 2, 4, 5, 7, 9, 11, 12]
     var note = scale.randomElement()
     let octave = [3, 4, 5, 6, 7].randomElement() * 12

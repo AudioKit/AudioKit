@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -25,24 +24,17 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("String Resonator")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: processingPlaygroundFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Fundamental Frequency",
-            format: "%0.1f Hz",
-            value: stringResonator.fundamentalFrequency, maximum: 5_000,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Fundamental Frequency",
+                                    value: stringResonator.fundamentalFrequency,
+                                    range: 0 ... 5_000,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             stringResonator.fundamentalFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Feedback",
-            value: stringResonator.feedback,
-            color: AKColor.red
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Feedback", value: stringResonator.feedback) { sliderValue in
             stringResonator.feedback = sliderValue
         })
     }

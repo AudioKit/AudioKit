@@ -17,8 +17,6 @@ class KorgLowPassFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.korgLowPassFilter()
         }
@@ -26,8 +24,6 @@ class KorgLowPassFilterTests: AKTestCase {
     }
 
     func testParameters() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.korgLowPassFilter(cutoffFrequency: 2_000, resonance: 0.9, saturation: 0.5)
         }

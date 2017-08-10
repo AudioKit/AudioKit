@@ -20,22 +20,22 @@ public protocol AKKeyboardDelegate: class {
 
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
-    
+
     /// Lowest octave dispayed
     @IBInspectable open var firstOctave: Int = 4
 
     /// Relative measure of the height of the black keys
     @IBInspectable open var topKeyHeightRatio: CGFloat = 0.55
-    
+
     /// Color of the polyphonic toggle button
     @IBInspectable open var polyphonicButton: UIColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
     /// White key color
     @IBInspectable open var  whiteKeyOff: UIColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-    
+
     /// Black key color
     @IBInspectable open var  blackKeyOff: UIColor = #colorLiteral(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
-    
+
     /// Activated key color
     @IBInspectable open var  keyOnColor: UIColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
 

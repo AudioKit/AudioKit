@@ -16,7 +16,7 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
         AKTestMD5("9bb6df5a3b0bd5587b19e6acf8f6943d")
     }
 
-    func testParametersSetOnInit() {
+    func testParameters() {
         output = AKPhaseDistortionOscillator(waveform: AKTable(.square),
                                              frequency: 1_234,
                                              amplitude: 0.5,
@@ -24,6 +24,31 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
                                              detuningOffset: 1.234,
                                              detuningMultiplier: 1.234)
         AKTestMD5("664e9b50ff633d1bb6bd8e173bec09e3")
+    }
+
+    func testFrequency() {
+        output = AKPhaseDistortionOscillator(waveform: AKTable(.square), frequency: 1_234)
+        AKTestMD5("095709fff34023e66b3f27e2f97d6dbd")
+    }
+
+    func testAmplitude() {
+        output = AKPhaseDistortionOscillator(waveform: AKTable(.square), amplitude: 0.5)
+        AKTestMD5("4eeefb56d24b9ad39ec824e34acdcd55")
+    }
+
+    func testPhaseDistortion() {
+        output = AKPhaseDistortionOscillator(waveform: AKTable(.square), phaseDistortion: 1.234)
+        AKTestMD5("066f3baeb08af73a5d9ae909a7b43a4e")
+    }
+
+    func testDetuningOffset() {
+        output = AKPhaseDistortionOscillator(waveform: AKTable(.square), detuningOffset: 1.234)
+        AKTestMD5("a63567f271a6d1d5d6b2ba22e80d64ca")
+    }
+
+    func testDetuningMultiplier() {
+        output = AKPhaseDistortionOscillator(waveform: AKTable(.square), detuningMultiplier: 1.234)
+        AKTestMD5("41332aab84da42575572efa17fc040c2")
     }
 
     func testParametersSetAfterInit() {

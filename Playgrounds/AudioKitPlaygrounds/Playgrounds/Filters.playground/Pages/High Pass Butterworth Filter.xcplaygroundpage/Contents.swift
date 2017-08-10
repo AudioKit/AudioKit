@@ -6,8 +6,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -26,17 +25,15 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("High Pass Butterworth Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: filtersPlaygroundFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: highPassFilter))
 
-        addSubview(AKPropertySlider(
-            property: "Cutoff Frequency",
-            format: "%0.1f Hz",
-            value: highPassFilter.cutoffFrequency, minimum: 20, maximum: 22_050,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Cutoff Frequency",
+                                    value: highPassFilter.cutoffFrequency,
+                                    range: 20 ... 22_050,
+                                    taper: 5,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             highPassFilter.cutoffFrequency = sliderValue
         })

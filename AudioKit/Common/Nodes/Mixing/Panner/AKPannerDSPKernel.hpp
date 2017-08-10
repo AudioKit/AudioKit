@@ -8,14 +8,7 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
+#import "AKSoundpipeKernel.hpp"
 
 enum {
     panAddress = 0
@@ -97,7 +90,7 @@ public:
             pan = panRamper.getAndStep();
             panst->pan = (float)pan;
 
-            if (!started) {
+            if (!started || AKSettings.numberOfChannels != 2) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
                 outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
                 return;

@@ -16,7 +16,7 @@
 @implementation AKFMOscillatorAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKFMOscillatorDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -47,7 +47,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(FMOscillator)
+    standardGeneratorSetup(FMOscillator)
 
     // Create a parameter object for the baseFrequency.
     AUParameter *baseFrequencyAUParameter = [AUParameter frequency:@"baseFrequency"

@@ -53,6 +53,8 @@ open class AKMIDI {
     /// Array of all listeners
     internal var listeners = [AKMIDIListener]()
 
+    internal var transformers = [AKMIDITransformer]()
+
     // MARK: - Initialization
 
     /// Initialize the AKMIDI system
@@ -93,7 +95,9 @@ open class AKMIDI {
         destroyVirtualPorts()
         let virtualPortname = ((name != nil) ? name! : String(clientName))
 
-        let result = MIDIDestinationCreateWithBlock(client, virtualPortname as CFString, &virtualInput) { packetList, _ in
+        let result = MIDIDestinationCreateWithBlock(client,
+                                                    virtualPortname as CFString,
+                                                    &virtualInput) { packetList, _ in
             for packet in packetList.pointee {
                 // a Core MIDI packet may contain multiple MIDI events
                 for event in packet {

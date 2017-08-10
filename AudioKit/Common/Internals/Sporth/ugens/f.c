@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#ifndef NO_LIBDL
 #include <dlfcn.h>
+#endif
 #include "plumber.h"
 
 typedef struct {
@@ -10,6 +12,10 @@ typedef struct {
 int sporth_fload(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
+#ifdef NO_LIBDL
+    plumber_print(pd, "fload is not implemented in this version of Sporth\n");
+    return PLUMBER_NOTOK;
+#else
     sporth_fload_d *fload;
     char buf[512];
     switch(pd->mode) {
@@ -33,9 +39,9 @@ int sporth_fload(sporth_stack *stack, void *ud)
                 sprintf(buf, "%s/%s", 
                         getenv("SPORTH_PLUGIN_PATH"),
                         fload->filename);
-                fload->handle = dlopen(buf, RTLD_NOW);
+                fload->handle = dlopen(buf, RTLD_NOW | RTLD_GLOBAL);
             } else {
-                fload->handle = dlopen(fload->filename, RTLD_NOW);
+                fload->handle = dlopen(fload->filename, RTLD_NOW | RTLD_GLOBAL);
             }
             if(fload->handle == NULL) {
                 plumber_print(pd, "Error loading %s: %s\n", fload->name, dlerror());
@@ -67,11 +73,16 @@ int sporth_fload(sporth_stack *stack, void *ud)
             break;
     }
     return PLUMBER_OK;
+#endif
 }
 
 int sporth_fclose(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
+#ifdef NO_LIBDL
+    plumber_print(pd, "fclose is not implemented in this version of Sporth\n");
+    return PLUMBER_NOTOK;
+#else
     sporth_fclose_d *fclose;
     sporth_fload_d *fload;
     switch(pd->mode) {
@@ -121,6 +132,7 @@ int sporth_fclose(sporth_stack *stack, void *ud)
             break;
     }
     return PLUMBER_OK;
+#endif
 }
 
 int sporth_fexec(sporth_stack *stack, void *ud)
@@ -182,6 +194,10 @@ int sporth_fexec(sporth_stack *stack, void *ud)
 int sporth_floadi(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
+#ifdef NO_LIBDL
+    plumber_print(pd, "floadi is not implemented in this version of Sporth\n");
+    return PLUMBER_NOTOK;
+#else
     sporth_fload_d *fload;
     char buf[512];
     int num;
@@ -238,4 +254,5 @@ int sporth_floadi(sporth_stack *stack, void *ud)
             break;
     }
     return PLUMBER_OK;
+#endif
 }

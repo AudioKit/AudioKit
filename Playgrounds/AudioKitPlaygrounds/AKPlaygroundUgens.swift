@@ -27,14 +27,14 @@ public let throttleUgen =
         }
         userData = nextValue
         stack.push(nextValue)
-}
+    }
 
 public let tanhdistUgen =
     AKCustomUgen(name: "tanhdist", argTypes: "ff") { _, stack, _ in
         let parameter = stack.popFloat()
         let input = stack.popFloat()
         stack.push(tanh(input * parameter) * 0.7)
-}
+    }
 
 public let callbackUgen =
     AKCustomUgen(name: "callback", argTypes: "f") { _, stack, userData in
@@ -45,7 +45,7 @@ public let callbackUgen =
             }
         }
         stack.push(trigger)
-}
+    }
 
 public let callbackWithValueUgen =
     AKCustomUgen(name: "callbackWithValue", argTypes: "ff") { _, stack, userData in
@@ -58,5 +58,4 @@ public let callbackWithValueUgen =
         }
         stack.push(trigger)
         stack.push(value)
-}
-
+    }

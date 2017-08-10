@@ -6,8 +6,10 @@
         <page name='Callback Instrument'/>
         <page name='Editing Audio Files'/>
         <page name='Exporting files'/>
+        <page name='MIDI Chord Generator'/>
         <page name='MIDI Input'/>
         <page name='MIDI Output'/>
+        <page name='MIDI Scale Quantizer'/>
         <page name='Phase-Locked Vocoder'/>
         <page name='Playback Speed'/>
         <page name='Processing Audio File Asynchronously'/>

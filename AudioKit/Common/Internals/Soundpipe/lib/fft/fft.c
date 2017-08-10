@@ -2467,7 +2467,8 @@ static void frstage(SPFLOAT *ioptr, int M, SPFLOAT *Utbl)
 
     u0r = Utbl + POW2(M - 3);
 
-    w0r = *u0r, f0r = *(p0r);
+    w0r = *u0r;
+    f0r = *(p0r);
     f0i = *(p0r + 1);
     f4r = *(p0r + pos);
     f4i = *(p0r + posi);
@@ -2503,7 +2504,8 @@ static void frstage(SPFLOAT *ioptr, int M, SPFLOAT *Utbl)
     u0r = Utbl + 1;
     u0i = Utbl + (POW2(M - 2) - 1);
 
-    w0r = *u0r, w0i = *u0i;
+    w0r = *u0r;
+    w0i = *u0i;
 
     p0r = (ioptr + 2);
     p1r = (ioptr + (POW2(M - 2) - 1) * 2);
@@ -2930,7 +2932,8 @@ static void ifrstage(SPFLOAT *ioptr, int M, SPFLOAT *Utbl)
 
     u0r = Utbl + POW2(M - 3);
 
-    w0r = *u0r, f0r = *(p0r);
+    w0r = *u0r;
+    f0r = *(p0r);
     f0i = *(p0r + 1);
     f4r = *(p0r + pos);
     f4i = *(p0r + posi);
@@ -2966,7 +2969,8 @@ static void ifrstage(SPFLOAT *ioptr, int M, SPFLOAT *Utbl)
     u0r = Utbl + 1;
     u0i = Utbl + (POW2(M - 2) - 1);
 
-    w0r = *u0r, w0i = *u0i;
+    w0r = *u0r;
+    w0i = *u0i;
 
     p0r = (ioptr + 2);
     p1r = (ioptr + (POW2(M - 2) - 1) * 2);

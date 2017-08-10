@@ -68,8 +68,8 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - centerFrequency: Center frequency. (in Hertz)
-    ///   - bandwidth: Bandwidth. (in Hertz)
+    ///   - centerFrequency: Center frequency in Hz. (default: 2000 Hz)
+    ///   - bandwidth: Bandwidth in Hz. (default: 100 Hz)
     ///
     public init(
         _ input: AKNode?,
@@ -97,14 +97,12 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         centerFrequencyParameter = tree["centerFrequency"]
         bandwidthParameter = tree["bandwidth"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.centerFrequencyParameter?.address {
-                    self?.centerFrequency = Double(value)
-                } else if address == self?.bandwidthParameter?.address {
-                    self?.bandwidth = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

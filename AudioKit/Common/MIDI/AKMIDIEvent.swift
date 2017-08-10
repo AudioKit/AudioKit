@@ -92,7 +92,7 @@ public struct AKMIDIEvent {
         }
         return nil
     }
-    
+
     /// First data byte
     public var data1: MIDIByte {
         return internalData[1]
@@ -361,8 +361,8 @@ public struct AKMIDIEvent {
     ///   - channel:    Channel on which the note appears
     ///
     public init(noteOff noteNumber: MIDINoteNumber,
-              velocity: MIDIVelocity,
-              channel: MIDIChannel) {
+                velocity: MIDIVelocity,
+                channel: MIDIChannel) {
         self.init(status: .noteOff,
                   channel: channel,
                   byte1: noteNumber,

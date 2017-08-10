@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -24,15 +23,9 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Reverb")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: processingPlaygroundFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Mix",
-            value: reverb.dryWetMix,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
             reverb.dryWetMix = sliderValue
         })
 

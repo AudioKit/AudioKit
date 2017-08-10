@@ -1,6 +1,6 @@
 //
 //  AKSamplePlayer.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 5/20/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -83,7 +83,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         }
     }
-    
+
     /// Volume - amplitude adjustment
     open dynamic var volume: Double = 1 {
         willSet {
@@ -106,17 +106,17 @@ open class AKSamplePlayer: AKNode, AKComponent {
             internalAU?.loop = newValue
         }
     }
-    
+
     /// Number of sample in the audio stored in memory
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
     }
-    
+
     /// Position in the audio file from 0 - 1
     open var normalizedPosition: Double {
         return Double(internalAU!.position())
     }
-    
+
     /// Position in the audio in samples, but represented as a double since
     /// you could conceivably be at a non-integer sample
     open var position: Double {
@@ -129,7 +129,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     fileprivate var avAudiofile: AVAudioFile
-    
+
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node
@@ -167,18 +167,12 @@ open class AKSamplePlayer: AKNode, AKComponent {
         rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.startPointParameter?.address {
-                    self?.startPoint = Sample(value)
-                } else if address == self?.endPointParameter?.address {
-                    self?.endPoint = Sample(value)
-                } else if address == self?.rateParameter?.address {
-                    self?.rate = Double(value)
-                } else if address == self?.volumeParameter?.address {
-                    self?.volume = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.startPoint = Float(startPoint)

@@ -18,12 +18,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard.delegate = self
         addSubview(keyboard)
 
-        addSubview(AKButton(title: "Go Polyphonic") {
+        addSubview(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
-                return "Go Monophonic"
+                button.title = "Go Monophonic"
             } else {
-                return "Go Polyphonic"
+                button.title = "Go Polyphonic"
             }
         })
     }

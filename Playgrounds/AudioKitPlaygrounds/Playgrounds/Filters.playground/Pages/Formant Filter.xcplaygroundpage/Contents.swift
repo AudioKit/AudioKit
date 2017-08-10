@@ -19,21 +19,11 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Formant Filter")
 
-        addSubview(AKPropertySlider(
-            property: "x",
-            format: "%0.3f",
-            value: filter.x,
-            color: AKColor.yellow
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "x", format: "%0.3f", value: filter.x) { sliderValue in
             filter.x = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "y",
-            format: "%0.3f",
-            value: filter.y,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "y", format: "%0.3f", value: filter.y) { sliderValue in
             filter.y = sliderValue
         })
     }
