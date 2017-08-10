@@ -12,13 +12,16 @@ custom_categories:
     children:
     - AudioKit
     - AKAudioFile
+    - AKCustomUgen
     - AKDevice
     - AKMicrophoneTracker
     - AKNodeRecorder
+    - AKPeriodicFunction
     - AKSettings
     - AKTable
     - AKTableType
     - AKTester
+    - AKTuningTable
 
   - name: MIDI
     children:
@@ -33,6 +36,7 @@ custom_categories:
     - AKMIDISystemCommand
     - MIDIPacket
     - MIDIPacketList
+    - AKBluetoothMIDIButton
     - AKCallbackInstrument
 
   - name: Sequencer
@@ -72,12 +76,14 @@ custom_categories:
     children:
     - AKCompressor
     - AKDynamicsProcessor
+    - AKDynamicRangeCompressor
     - AKExpander
     - AKPeakLimiter
 
   - name: Effects Nodes
     children:
     - AKOperationEffect
+    - AKPhaser
     - AKPitchShifter
 
   - name: Envelopes
@@ -121,9 +127,11 @@ custom_categories:
     - AKFlatFrequencyResponseReverb
     - AKReverb
     - AKReverb2
+    - AKZitaReverb
 
   - name: Noise Generator Nodes
     children:
+    - AKBrownianNoise
     - AKPinkNoise
     - AKWhiteNoise
 
@@ -148,8 +156,12 @@ custom_categories:
     - AKMandolin
     - AKMetalBar
     - AKPluckedString
+    - AKRhodesPiano
+    - AKShaker
     - AKSynthKick
     - AKSynthSnare
+    - AKTubularBells
+    - AKVocalTract
 
   - name: Input Node
     children:
@@ -164,10 +176,12 @@ custom_categories:
     - AKDryWetMixer
     - AKMixer
     - AKPanner
+    - AKStereoFieldLimiter
 
   - name: Playback Nodes
     children:
     - AKAudioPlayer
+    - AKMetronome
     - AKPhaseLockedVocoder
     - AKSamplePlayer
     - AKSampler
@@ -236,4 +250,6 @@ custom_categories:
     - AKPresetLoaderView
     - AKPropertySlider
     - AKResourcesAudioFileLoaderView
+    - AKStepper
     - AKTelephoneView
+    - MultitouchGestureRecognizer

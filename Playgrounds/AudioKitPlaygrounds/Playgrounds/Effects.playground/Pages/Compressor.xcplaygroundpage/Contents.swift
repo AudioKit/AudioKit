@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -21,43 +20,41 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Compressor")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: processingPlaygroundFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: compressor))
-        addSubview(AKPropertySlider(
-            property: "Threshold",
-            format: "%0.2f dB",
-            value: compressor.threshold, minimum: -40, maximum: 20
+        addSubview(AKPropertySlider(property: "Threshold",
+                                    value: compressor.threshold,
+                                    range: -40 ... 20,
+                                    format: "%0.2f dB"
         ) { sliderValue in
             compressor.threshold = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Headroom",
-            format: "%0.2f dB",
-            value: compressor.headRoom, minimum: 0.1, maximum: 40
+        addSubview(AKPropertySlider(property: "Headroom",
+                                    value: compressor.headRoom,
+                                    range: 0.1 ... 40,
+                                    format: "%0.2f dB"
         ) { sliderValue in
             compressor.headRoom = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Attack Time",
-            format: "%0.4f s",
-            value: compressor.attackTime, minimum: 0.001, maximum: 0.2
+        addSubview(AKPropertySlider(property: "Attack Time",
+                                    value: compressor.attackTime,
+                                    range: 0.001 ... 0.2,
+                                    format: "%0.4f s"
         ) { sliderValue in
             compressor.attackTime = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Release Time",
-            format: "%0.3f s",
-            value: compressor.releaseTime, minimum: 0.01, maximum: 3
+        addSubview(AKPropertySlider(property: "Release Time",
+                                    value: compressor.releaseTime,
+                                    range: 0.01 ... 3,
+                                    format: "%0.3f s"
         ) { sliderValue in
             compressor.releaseTime = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Master Gain",
-            format: "%0.2f dB",
-            value: compressor.masterGain, minimum: -40, maximum: 40
+        addSubview(AKPropertySlider(property: "Master Gain",
+                                    value: compressor.masterGain,
+                                    range: -40 ... 40,
+                                    format: "%0.2f dB"
         ) { sliderValue in
             compressor.masterGain = sliderValue
         })

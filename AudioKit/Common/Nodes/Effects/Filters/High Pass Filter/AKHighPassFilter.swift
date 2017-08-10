@@ -32,7 +32,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
         }
     }
 
-    /// Dry/Wet Mix (Default 100)
+    /// Dry/Wet Mix (Default: 100)
     open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)

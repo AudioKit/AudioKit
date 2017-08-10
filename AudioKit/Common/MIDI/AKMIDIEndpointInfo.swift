@@ -8,22 +8,22 @@
 
 /// MIDI Endpoint Information
 public struct EndpointInfo {
-    
+
     /// Unique name
     public var name = ""
-    
+
     /// Dispaly name
     public var displayName = ""
-    
+
     /// Model information
     public var model = ""
-    
+
     /// Manufacturer
     public var manufacturer = ""
-    
+
     /// Image?
     public var image = ""
-    
+
     /// Driver Owner
     public var driverOwner = ""
 }

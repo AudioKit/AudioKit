@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -24,26 +23,23 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Resonant Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: filtersPlaygroundFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: filter))
 
-        addSubview(AKPropertySlider(
-            property: "Frequency",
-            format: "%0.1f Hz",
-            value: filter.frequency, minimum: 20, maximum: 22_050,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Frequency",
+                                    value: filter.frequency,
+                                    range: 20 ... 22_050,
+                                    taper: 5,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             filter.frequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Bandwidth",
-            format: "%0.1f Hz",
-            value: filter.bandwidth, minimum: 100, maximum: 1_200,
-            color: AKColor.red
+        addSubview(AKPropertySlider(property: "Bandwidth",
+                                    value: filter.bandwidth,
+                                    range: 100 ... 1_200,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             filter.bandwidth = sliderValue
         })

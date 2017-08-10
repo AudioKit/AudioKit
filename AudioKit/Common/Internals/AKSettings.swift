@@ -13,28 +13,28 @@
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
     @objc public enum BufferLength: Int {
-        
+
         /// Shortest
         case shortest = 5
-        
+
         /// Very Short
         case veryShort = 6
-        
+
         /// Short
         case short = 7
-        
+
         /// Medium
         case medium = 8
-        
+
         /// Long
         case long = 9
-        
+
         /// Very Long
         case veryLong = 10
-        
+
         /// Huge
         case huge = 11
-        
+
         /// Longest
         case longest = 12
 
@@ -66,7 +66,7 @@
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
 
-    /// Whether to DefaultToSpeaker when audio input is enabled
+    /// Whether to output to the speaker (rather than receiver) when audio input is enabled
     open static var defaultToSpeaker: Bool = false
 
     /// Whether to use bluetooth when audio input is enabled
@@ -76,6 +76,9 @@
     /// Additional control over the options to use for bluetooth
     open static var bluetoothOptions: AVAudioSessionCategoryOptions = []
 #endif
+
+    /// Whether AirPlay is enabled when audio input is enabled
+    open static var allowAirPlay: Bool = false
 
     /// Global default rampTime value
     open static var rampTime: Double = 0.000_2
@@ -102,8 +105,29 @@
     /// Enable AudioKit AVAudioSession Category Management
     open static var disableAVAudioSessionCategoryManagement: Bool = false
 
+    /// If set to false, AudioKit will not handle the AVAudioSession route change
+    /// notification (AVAudioSessionRouteChange) and will not restart the AVAudioEngine
+    /// instance when such notifications are posted. The developer can instead subscribe
+    /// to these notifications and restart AudioKit after rebuiling their audio chain.
+    open static var enableRouteChangeHandling: Bool = true
+
+    /// If set to false, AudioKit will not handle the AVAudioSession category change
+    /// notification (AVAudioEngineConfigurationChange) and will not restart the AVAudioEngine
+    /// instance when such notifications are posted. The developer can instead subscribe
+    /// to these notifications and restart AudioKit after rebuiling their audio chain.
+    open static var enableCategoryChangeHandling: Bool = true
+
     /// Turn off AudioKit logging
     open static var enableLogging: Bool = true
+
+    #if !os(macOS)
+    /// Checks the application's info.plist to see if UIBackgroundModes includes "audio".
+    /// If background audio is supported then the system will allow the AVAudioEngine to start even if the app is in,
+    /// or entering, a background state. This can help prevent a potential crash
+    /// (AVAudioSessionErrorCodeCannotStartPlaying aka error code 561015905) when a route/category change causes
+    /// AudioEngine to attempt to start while the app is not active and background audio is not supported.
+    open static let appSupportsBackgroundAudio = (Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String])?.contains("audio") ?? false
+    #endif
 }
 
 #if !os(macOS)
@@ -131,7 +155,6 @@ extension AKSettings {
         }
 
         // Preferred IO Buffer Duration
-
         do {
             try session.setPreferredIOBufferDuration(bufferLength.duration)
         } catch let error as NSError {
@@ -198,6 +221,6 @@ extension AKSettings {
             fatalError("unrecognized AVAudioSessionCategory \(self)")
 
       }
-  }
+   }
 }
 #endif

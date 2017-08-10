@@ -23,6 +23,7 @@
 //: * [Balancing Nodes](Balancing%20Nodes)
 //: * [Stereo Panning](Stereo%20Panning)
 //: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
+//: * [Tables](Tables)
 //:
 //: A gentle introduction to the power of AudioKit operations:
 //:

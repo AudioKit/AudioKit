@@ -21,16 +21,14 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         for i in 0 ..< noteCount {
             let slider = AKPropertySlider(
                 property: "Amplitude \(names[i])",
-                value: amplitudes[i],
-                color: AKColor.green
+                value: amplitudes[i]
             ) { amp in
                 amplitudes[i] = amp
             }
             addSubview(slider)
         }
 
-        let keyboard = AKKeyboardView(width: 440,
-                                      height: 100)
+        let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
         addSubview(keyboard)
 

@@ -30,7 +30,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Center frequency.
+    /// x
     open dynamic var x: Double = 0 {
         willSet {
             if x != newValue {
@@ -44,7 +44,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Impulse response attack time (in seconds).
+    /// y
     open dynamic var y: Double = 0 {
         willSet {
             if y != newValue {
@@ -70,9 +70,8 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - centerFrequency: Center frequency.
-    ///   - attackDuration: Impulse response attack time (in seconds).
-    ///   - decayDuration: Impulse reponse decay time (in seconds)
+    ///   - x:
+    ///   - y:
     ///
     public init(
         _ input: AKNode?,
@@ -100,14 +99,12 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         xParameter = tree["x"]
         yParameter = tree["y"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.xParameter?.address {
-                    self?.x = Double(value)
-                } else if address == self?.yParameter?.address {
-                    self?.y = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

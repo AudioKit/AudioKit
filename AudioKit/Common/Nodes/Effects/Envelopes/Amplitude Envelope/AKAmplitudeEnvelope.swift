@@ -10,7 +10,7 @@
 ///
 open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
@@ -135,18 +135,12 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
         sustainLevelParameter = tree["sustainLevel"]
         releaseDurationParameter = tree["releaseDuration"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.attackDurationParameter?.address {
-                    self?.attackDuration = Double(value)
-                } else if address == self?.decayDurationParameter?.address {
-                    self?.decayDuration = Double(value)
-                } else if address == self?.sustainLevelParameter?.address {
-                    self?.sustainLevel = Double(value)
-                } else if address == self?.releaseDurationParameter?.address {
-                    self?.releaseDuration = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

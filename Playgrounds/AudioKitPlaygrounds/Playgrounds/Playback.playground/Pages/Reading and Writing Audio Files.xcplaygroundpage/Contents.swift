@@ -5,8 +5,7 @@ import AudioKitPlaygrounds
 import AudioKit
 
 // Let's create an AKaudioFile :
-let akAudioFile = try AKAudioFile(readFileName: "click.wav",
-                                  baseDir: .resources)
+let akAudioFile = try AKAudioFile(readFileName: "Samples/click.wav", baseDir: .resources)
 
 // converted in an AVAudioFile
 let avAudioFile = akAudioFile as AVAudioFile
@@ -26,8 +25,7 @@ let drumloop = try AKAudioFile(readFileName: "drumloop.wav")
 //: As AKAudioFile is an optional, it will be set to nil if a problem occurs.
 //: Notice that an error message is printed in the debug area, and an error is thrown...
 do {
-    let nonExistentFile = try AKAudioFile(readFileName: "nonExistent.wav",
-                                          baseDir: .resources)
+    let nonExistentFile = try AKAudioFile(readFileName: "nonExistent.wav", baseDir: .resources)
 } catch let error as NSError {
     print("There's an error: \(error)")
 }

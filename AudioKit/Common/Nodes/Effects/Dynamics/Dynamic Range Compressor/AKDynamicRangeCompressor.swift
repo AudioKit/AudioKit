@@ -137,18 +137,12 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent {
         attackTimeParameter = tree["attackTime"]
         releaseTimeParameter = tree["releaseTime"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else { return } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.ratioParameter?.address {
-                    self?.ratio = Double(value)
-                } else if address == self?.thresholdParameter?.address {
-                    self?.threshold = Double(value)
-                } else if address == self?.attackTimeParameter?.address {
-                    self?.attackTime = Double(value)
-                } else if address == self?.releaseTimeParameter?.address {
-                    self?.releaseTime = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 

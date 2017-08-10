@@ -84,9 +84,9 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - wah: Wah Amount
-    ///   - mix: Dry/Wet Mix
-    ///   - amplitude: Overall level
+    ///   - wah: Wah Amount (Default 0.0)
+    ///   - mix: Dry/Wet Mix (Default 1.0)
+    ///   - amplitude: Overall level (Default 0.1)
     ///
     public init(
         _ input: AKNode?,

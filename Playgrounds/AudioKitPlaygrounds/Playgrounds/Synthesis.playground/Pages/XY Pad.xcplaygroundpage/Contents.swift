@@ -18,7 +18,7 @@ class TouchView: NSView {
     var (path, currentPath) = (NSBezierPath(), NSBezierPath())
 
     override func draw(_ dirtyRect: NSRect) {
-        guard let contextPtr = NSGraphicsContext.current()?.graphicsPort else {
+        guard let contextPtr = NSGraphicsContext.current?.graphicsPort else {
             return
         }
         let context = unsafeBitCast(contextPtr, to: CGContext.self)

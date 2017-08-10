@@ -20,8 +20,8 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setDelay:(float)delay {
-    _kernel.setDelay(delay);
+- (void)setPredelay:(float)predelay {
+    _kernel.setPredelay(predelay);
 }
 - (void)setCrossoverFrequency:(float)crossoverFrequency {
     _kernel.setCrossoverFrequency(crossoverFrequency);
@@ -57,14 +57,14 @@ standardKernelPassthroughs()
 
     standardSetup(ZitaReverb)
 
-    // Create a parameter object for the delay.
-    AUParameter *delayAUParameter =
-    [AUParameter parameter:@"delay"
+    // Create a parameter object for the predelay.
+    AUParameter *predelayAUParameter =
+    [AUParameter parameter:@"predelay"
                       name:@"Delay in ms before reverberation begins."
-                   address:delayAddress
+                   address:predelayAddress
                        min:0.0
                        max:200.0
-                      unit:kAudioUnitParameterUnit_Generic];
+                      unit:kAudioUnitParameterUnit_Milliseconds];
     // Create a parameter object for the crossoverFrequency.
     AUParameter *crossoverFrequencyAUParameter =
     [AUParameter parameter:@"crossoverFrequency"
@@ -140,7 +140,7 @@ standardKernelPassthroughs()
 
 
     // Initialize the parameter values.
-    delayAUParameter.value = 60.0;
+    predelayAUParameter.value = 60.0;
     crossoverFrequencyAUParameter.value = 200.0;
     lowReleaseTimeAUParameter.value = 3.0;
     midReleaseTimeAUParameter.value = 2.0;
@@ -151,7 +151,7 @@ standardKernelPassthroughs()
     equalizerLevel2AUParameter.value = 0.0;
     dryWetMixAUParameter.value = 1.0;
 
-    _kernel.setParameter(delayAddress,               delayAUParameter.value);
+    _kernel.setParameter(predelayAddress,            predelayAUParameter.value);
     _kernel.setParameter(crossoverFrequencyAddress,  crossoverFrequencyAUParameter.value);
     _kernel.setParameter(lowReleaseTimeAddress,      lowReleaseTimeAUParameter.value);
     _kernel.setParameter(midReleaseTimeAddress,      midReleaseTimeAUParameter.value);
@@ -164,7 +164,7 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        delayAUParameter,
+        predelayAUParameter,
         crossoverFrequencyAUParameter,
         lowReleaseTimeAUParameter,
         midReleaseTimeAUParameter,

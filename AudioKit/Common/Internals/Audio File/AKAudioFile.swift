@@ -8,7 +8,7 @@
 
 /// Adding description property
 extension AVAudioCommonFormat: CustomStringConvertible {
-    
+
     /// Text version of the format
     public var description: String {
         switch self {
