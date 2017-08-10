@@ -14,8 +14,7 @@ class SongProcessor {
 
     static let sharedInstance = SongProcessor()
 
-    var audioFile: AKAudioFile!
-    var audioFilePlayer: AKAudioPlayer!
+    var iTunesFilePlayer: AKAudioPlayer?
     var variableDelay: AKVariableDelay!
     var delayMixer: AKDryWetMixer!
     var moogLadder: AKMoogLadder!
@@ -28,8 +27,19 @@ class SongProcessor {
     var bitCrushMixer: AKDryWetMixer!
     var playerBooster: AKBooster!
 
-    var currentSong: MPMediaItem?
-    var isPlaying: Bool?
+    var iTunesPlaying: Bool {
+        set{
+            if newValue {
+                guard let iTunesFilePlayer = iTunesFilePlayer else { return }
+                if !iTunesFilePlayer.isPlaying { iTunesFilePlayer.play() }
+            } else {
+                iTunesFilePlayer?.stop()
+            }
+        }
+        get{
+            return iTunesFilePlayer?.isPlaying ?? false
+        }
+    }
     var loopsPlaying: Bool {
         set{
             if newValue {
@@ -48,11 +58,6 @@ class SongProcessor {
     var playerMixer = AKMixer()
     
     init() {
-        audioFile = try? AKAudioFile(readFileName: "mixloop.wav",
-                                     baseDir: .resources)
-        audioFilePlayer = try? AKAudioPlayer(file: audioFile)
-        audioFilePlayer?.looping = true
-        playerMixer.connect(audioFilePlayer)
         
         for name in ["bass","drum","guitar","lead"]{
             do{
