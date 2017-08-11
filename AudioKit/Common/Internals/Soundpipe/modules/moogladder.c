@@ -30,8 +30,8 @@ static double my_tanh(double x)
        and for small x tanh(x) =~ x
        So giving a cheap approximation */
     int sign = 1;
-    if (x<0) {
-        sign=-1;
+    if (x<0) { 
+        sign=-1; 
         x= -x;
     }
     if (x>=4.0) {
