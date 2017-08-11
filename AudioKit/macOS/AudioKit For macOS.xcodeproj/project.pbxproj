@@ -36,7 +36,7 @@
 		C4146D441F3E4731001AAE11 /* AKDynaRageCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4146D401F3E472A001AAE11 /* AKDynaRageCompressor.swift */; };
 		C4146D451F3E4734001AAE11 /* AKDynaRageCompressorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4146D411F3E472A001AAE11 /* AKDynaRageCompressorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4146D461F3E473A001AAE11 /* AKDynaRageCompressorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4146D421F3E472A001AAE11 /* AKDynaRageCompressorAudioUnit.mm */; };
-		C4146D471F3E473E001AAE11 /* AKDynaRageCompressorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4146D431F3E472A001AAE11 /* AKDynaRageCompressorDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4146D471F3E473E001AAE11 /* AKDynaRageCompressorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4146D431F3E472A001AAE11 /* AKDynaRageCompressorDSPKernel.hpp */; };
 		C4146D841F3E47F9001AAE11 /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = C4146D5C1F3E47F0001AAE11 /* Array.h */; };
 		C4146D851F3E47F9001AAE11 /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4146D5D1F3E47F0001AAE11 /* Array.hpp */; };
 		C4146D861F3E47F9001AAE11 /* CombFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4146D5E1F3E47F0001AAE11 /* CombFilter.cpp */; };

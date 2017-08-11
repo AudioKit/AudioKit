@@ -15,16 +15,16 @@ class LoopsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Share", style: .plain, target: self, action: #selector(share(barButton:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share(barButton:)))
 
     }
 
     fileprivate func playNew(loop: String) {
         if loop == "mix" {
-            songProcessor.playersDo{ $0.volume = 1 }
+            songProcessor.playersDo { $0.volume = 1 }
         } else {
             guard let player = songProcessor.players[loop] else { return }
-            songProcessor.playersDo{ $0.volume = $0 == player ? 1 : 0 }
+            songProcessor.playersDo { $0.volume = $0 == player ? 1 : 0 }
         }
         if !songProcessor.loopsPlaying {
             songProcessor.rewindLoops()
@@ -56,7 +56,7 @@ class LoopsViewController: UIViewController {
         songProcessor.iTunesFilePlayer?.stop()
         songProcessor.loopsPlaying = false
     }
-    @objc func share(barButton: UIBarButtonItem){
+    @objc func share(barButton: UIBarButtonItem) {
         renderAndShare { docController in
             guard let canOpen = docController?.presentOpenInMenu(from: barButton, animated: true) else { return }
             if !canOpen {
