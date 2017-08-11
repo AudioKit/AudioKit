@@ -21,7 +21,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     fileprivate var lowGainParameter: AUParameter?
     fileprivate var midGainParameter: AUParameter?
     fileprivate var highGainParameter: AUParameter?
-    fileprivate var distTypeParameter: AUParameter?
+    //fileprivate var distTypeParameter: AUParameter?
     fileprivate var distAmountParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
@@ -107,24 +107,24 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     }
 
     /// Distortion Type
-    open dynamic var distType: Double = 1 {
-        willSet {
-            if distType != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        distTypeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.distType = Float(newValue)
-                }
-            }
-        }
-    }
+//    open dynamic var distType: Double = 1 {
+//        willSet {
+//            if distType != newValue {
+//                if internalAU?.isSetUp() ?? false {
+//                    if let existingToken = token {
+//                        distTypeParameter?.setValue(Float(newValue), originator: existingToken)
+//                    }
+//                } else {
+//                    internalAU?.distType = Float(newValue)
+//                }
+//            }
+//        }
+//    }
     
     /// Distortion Amount
     open dynamic var distAmount: Double = 1.0 {
         willSet {
-            if distType != newValue {
+            if distAmount != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
                         distAmountParameter?.setValue(Float(newValue), originator: existingToken)
@@ -170,7 +170,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
         self.lowGain = lowGain
         self.midGain = midGain
         self.highGain = highGain
-        self.distType = distType
+        //self.distType = distType
         self.distAmount = distAmount
 
         _Self.register()
@@ -193,7 +193,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
         lowGainParameter = tree["lowGain"]
         midGainParameter = tree["midGain"]
         highGainParameter = tree["highGain"]
-        distTypeParameter = tree["distType"]
+        //distTypeParameter = tree["distType"]
         distAmountParameter = tree["distAmount"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
@@ -209,8 +209,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
                     self?.midGain = Double(value)
                 } else if address == self?.highGainParameter?.address {
                     self?.highGain = Double(value)
-                } else if address == self?.distTypeParameter?.address {
-                    self?.distType = Double(value)
                 } else if address == self?.distAmountParameter?.address{
                     self?.distAmount = Double(value)
                 }
