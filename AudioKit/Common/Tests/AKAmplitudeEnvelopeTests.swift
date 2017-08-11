@@ -16,29 +16,29 @@ class AKAmplitudeEnvelopeTests: AKTestCase {
         duration = 1.0
     }
 
-    func testDefault() {
-        output = AKAmplitudeEnvelope(input)
-        AKTestMD5("bfaf1f674bd86c1e45fdac3b96e96fe8")
-    }
-
-    func testParameters() {
-        output = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
-        AKTestMD5("9a788f314cdfd0cb8834837246b7b2d9")
-    }
-
     func testAttack() {
         output = AKAmplitudeEnvelope(input, attackDuration: 0.123_4)
-        AKTestMD5("6d1bd9d118a9a51accb1a8d077ba3b8f")
+        AKTestMD5("73731f4bd688af999e29938ff02e9c0d")
     }
 
     func testDecay() {
         output = AKAmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
-        AKTestMD5("1723f29dc04272525bdfe6cce82a7179")
+        AKTestMD5("7ae70f11c78ea07a57d29fc93a42b53d")
+    }
+
+    func testDefault() {
+        output = AKAmplitudeEnvelope(input)
+        AKTestMD5("ed96eabba9ccc7b2ebc3c7d48f7f3abc")
+    }
+
+    func testParameters() {
+        output = AKAmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
+        AKTestMD5("c25e1343ea146ceff27ce83885e4b61a")
     }
 
     func testSustain() {
         output = AKAmplitudeEnvelope(input, sustainLevel: 0.345)
-        AKTestMD5("47820ec698e568481eff7e744f21657f")
+        AKTestMD5("74ce58757e70947544ed8353e2477e63")
     }
 
     // Release is not tested at this time since there is no sample accurate way to define release point
