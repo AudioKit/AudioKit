@@ -33,25 +33,25 @@
 
     /// Font
     @IBInspectable open var font = UIFont.boldSystemFont(ofSize: 24)
-    
+
     @IBInspectable open var bgColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     @IBInspectable open var textColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     @IBInspectable open var borderColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     @IBInspectable open var borderWidth: CGFloat = 3.0 {
         didSet {
             setNeedsDisplay()
@@ -70,23 +70,23 @@
         self.font = font
         self.fontSize = fontSize
         super.init(frame: frame)
-        
+
         self.backgroundColor = UIColor.clear
-        
+
         if !self.presets.isEmpty && initialIndex < self.presets.count {
             isPresetLoaded = true
             self.currentIndex = initialIndex
             setNeedsDisplay()
         }
     }
-    
+
     /// Initialization with no details
     override public init(frame: CGRect) {
         self.callback = { filename in return }
         self.presets = ["Preset One", "Preset Two", "Preset Three"]
-        
+
         super.init(frame: frame)
-        
+
         self.backgroundColor = UIColor.clear
         contentMode = .redraw
     }
@@ -95,68 +95,67 @@
     required public init?(coder aDecoder: NSCoder) {
         self.callback = { filename in return }
         self.presets = ["Preset One", "Preset Two", "Preset Three"]
-        
+
         super.init(coder: aDecoder)
-        
+
         self.backgroundColor = UIColor.clear
         contentMode = .redraw
     }
-    
-    
+
     // Default background color per theme
     var bgColorForTheme: AKColor {
         if let bgColor = bgColor { return bgColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.8, alpha: 1.0)
         case .midnight: return AKColor(white: 0.7, alpha: 1.0)
         }
     }
-    
+
     // Default border color per theme
     var borderColorForTheme: AKColor {
         if let borderColor = borderColor { return borderColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
         case .midnight: return AKColor.white.withAlphaComponent(0.8)
         }
     }
-    
+
     // Default text color per theme
     var textColorForTheme: AKColor {
         if let textColor = textColor { return textColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0)
         case .midnight: return AKColor.white
         }
     }
-    
+
     func drawPresetLoader(presetName: String = "None", isPresetLoaded: Bool = false) {
         //// General Declarations
-        let rect = self.bounds        
+        let rect = self.bounds
         let cornerRadius: CGFloat = AKPresetLoaderView.standardCornerRadius
-        
+
         //// Color Declarations
         let green = AKStylist.sharedInstance.colorForTrueValue
         let red = AKStylist.sharedInstance.colorForFalseValue
         let gray = bgColorForTheme
-        
+
         //// Variable Declarations
         let expression: AKColor = isPresetLoaded ? green : red
-        
+
         //// background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: borderWidth, y: borderWidth, width: rect.width - borderWidth * 2.0, height: rect.height - borderWidth * 2.0))
         gray.setFill()
         backgroundPath.fill()
-        
+
         //// presetButton
         //// presetOuter Drawing
         presetOuterPath = UIBezierPath(rect: CGRect(x: borderWidth, y: borderWidth, width: rect.width * 0.25, height: rect.height - borderWidth * 2.0))
         expression.setFill()
         presetOuterPath.fill()
-        
+
         // presetButton border Path
         let presetButtonBorderPath = UIBezierPath()
         presetButtonBorderPath.move(to: CGPoint(x: rect.width * 0.25 + borderWidth, y: borderWidth))
@@ -164,17 +163,17 @@
         borderColorForTheme.setStroke()
         presetButtonBorderPath.lineWidth = borderWidth / 2.0
         presetButtonBorderPath.stroke()
-        
+
         //// presetLabel Drawing
         let presetLabelRect = CGRect(x: 0, y: 0, width: rect.width * 0.25, height: rect.height)
         let presetLabelTextContent = NSString(string: label)
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .center
-        
+
         let presetLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
                                          NSForegroundColorAttributeName: textColorForTheme,
                                          NSParagraphStyleAttributeName: presetLabelStyle]
-        
+
         let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
         let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
             with: CGSize(width: presetLabelInset.width, height: CGFloat.infinity),
@@ -187,11 +186,11 @@
             height: presetLabelTextHeight)
         presetLabelTextContent.draw(in: presetLabelTextRect.offsetBy(dx: 0, dy: 0),
                                     withAttributes: presetLabelFontAttributes)
-        
+
         //// upButton
         //// upOuter Drawing
         downOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9, y: rect.height * 0.5, width: rect.width * 0.07, height: rect.height * 0.5))
-        
+
         //// upInner Drawing
         let downArrowRect = CGRect(x: rect.width * 0.9, y: rect.height * 0.58, width: rect.width * 0.07, height: rect.height * 0.3)
         let downInnerPath = UIBezierPath()
@@ -205,9 +204,9 @@
         textColorForTheme.setStroke()
         downInnerPath.lineWidth = borderWidth
         downInnerPath.stroke()
-        
+
         upOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9, y: 0, width: rect.width * 0.07, height: rect.height * 0.5))
-        
+
         //// downInner Drawing
         let upArrowRect = CGRect(x: rect.width * 0.9, y: rect.height * 0.12, width: rect.width * 0.07, height: rect.height * 0.3)
         let upInnerPath = UIBezierPath()
@@ -221,16 +220,16 @@
         textColorForTheme.setStroke()
         upInnerPath.lineWidth = borderWidth
         upInnerPath.stroke()
-        
+
         //// nameLabel Drawing
         let nameLabelRect = CGRect(x: rect.width * 0.25, y: 0, width: rect.width * 0.75, height: rect.height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
-        
+
         let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
                                        NSForegroundColorAttributeName: textColorForTheme,
                                        NSParagraphStyleAttributeName: nameLabelStyle]
-        
+
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: rect.width * 0.04, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(
             with: CGSize(width: nameLabelInset.width, height: CGFloat.infinity),
@@ -243,7 +242,7 @@
             height: nameLabelTextHeight)
         NSString(string: presetName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                           withAttributes: nameLabelFontAttributes)
-        
+
         let outerRect = CGRect(x: rect.origin.x + borderWidth / 2.0,
                                y: rect.origin.y + borderWidth / 2.0,
                                width: rect.width - borderWidth,
@@ -253,7 +252,7 @@
         outerPath.lineWidth = borderWidth
         outerPath.stroke()
     }
-    
+
     open override func draw(_ rect: CGRect) {
         let presetName = isPresetLoaded ? presets[currentIndex] : "None"
         drawPresetLoader(presetName: presetName, isPresetLoaded: isPresetLoaded)

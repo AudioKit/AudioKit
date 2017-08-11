@@ -120,7 +120,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
 //            }
 //        }
 //    }
-    
+
     /// Distortion Amount
     open dynamic var distAmount: Double = 1.0 {
         willSet {
@@ -209,7 +209,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
                     self?.midGain = Double(value)
                 } else if address == self?.highGainParameter?.address {
                     self?.highGain = Double(value)
-                } else if address == self?.distAmountParameter?.address{
+                } else if address == self?.distAmountParameter?.address {
                     self?.distAmount = Double(value)
                 }
             }
