@@ -249,12 +249,12 @@ public:
             _leftEqHi->calc_filter_coeffs(6, 10000.f, sampleRate, 5.f, (90.f * highGain), true);
             _rightEqHi->calc_filter_coeffs(6, 10000.f, sampleRate, 5.f, (90.f * highGain), true);
 
-            
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
+                    *in = *in * (preGain / 5.0);
                     if (channel == 0) {
                         const float r_Sig = _leftRageProcessor->doRage(*in, distAmount, distAmount);
                         const float e_Sig = _leftEqLo->filter(_leftEqMi->filter(_leftEqHi->filter(r_Sig)));
