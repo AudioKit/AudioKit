@@ -39,8 +39,14 @@ void Equalisator::calc_filter_coeffs(int const type,double const frequency,doubl
     double const temp_pi=3.1415926535897932384626433832795;
     
     // temp coef vars
-    double alpha,a0,a1,a2,b0,b1,b2;
-    
+    double alpha;
+    double a0 = 0;
+    double a1 = 0;
+    double a2 = 0;
+    double b0 = 0;
+    double b1 = 0;
+    double b2 = 0;
+
     // peaking, lowshelf and hishelf
     if(type>=6)
     {
