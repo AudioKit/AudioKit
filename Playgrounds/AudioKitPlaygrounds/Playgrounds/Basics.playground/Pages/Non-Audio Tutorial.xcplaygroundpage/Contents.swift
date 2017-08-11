@@ -12,16 +12,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 //: ALERT: This is also the line that most commonly shows an error "No such module" 
-//: This just means you haven't built the framework yet, in which case pressing Cmd-B or
-//: accessing the "Product" menu and choosing "Build".  
+//: This just means you haven't built AudioKitPlaygrounds yet, in which case pressing Cmd-B or
+//: accessing the "Product" menu and choosing "Build".
 
-//:
-//: This main bundle line just helps the playground find the files (such as audio clips)
-//: it will be able to play and process.
-let bundle = Bundle.main
-
-//: To reference a file, you use the bundle from about and the `pathForResource`
-//: method that includes the name with the extension given in the `ofType` parameter.
+//: To use a file, copy it intot playground's "Resources" folder and refer to it by name:
 let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
 
 //: You are not limited to using the sound files provided with AudioKit, in fact
@@ -41,7 +35,7 @@ let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
 let player = try AKAudioPlayer(file: file)
 let effect = AKMoogLadder(player)
 
-//: The following line keeps a playground executing even after the last line is
+//: The following lines keep a playground executing even after the last line is
 //: run so that the audio elements that were started have time to play and make
 //: sounds for us to listen to.
 import PlaygroundSupport

@@ -131,3 +131,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Plots
 #import "EZAudio.h"
+
+//Offline
+#import "AKOfflineRenderAudioUnit.h"
