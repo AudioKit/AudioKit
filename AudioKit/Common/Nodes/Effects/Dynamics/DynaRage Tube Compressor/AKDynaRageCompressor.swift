@@ -18,16 +18,16 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    
+
     // Compressor Processor
     fileprivate var ratioParameter: AUParameter?
     fileprivate var thresholdParameter: AUParameter?
     fileprivate var attackTimeParameter: AUParameter?
     fileprivate var releaseTimeParameter: AUParameter?
-    
+
     // Rage Processor
     fileprivate var rageAmountParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -94,7 +94,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    
+
     /// Rage Amount
     open dynamic var rageAmount: Double = 0.1 {
         willSet {
@@ -109,14 +109,13 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    
+
     /// Rage ON/OFF Switch
     open dynamic var rageIsOn: Bool = true {
         willSet {
             internalAU?.rageIsOn = newValue
         }
     }
-
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted: Bool {
@@ -141,8 +140,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
         attackTime: Double = 0.1,
         releaseTime: Double = 0.1,
         rageAmount: Double = 0.1,
-        rageIsOn: Bool = true)
-                                {
+        rageIsOn: Bool = true) {
 
         self.ratio = ratio
         self.threshold = threshold
@@ -185,7 +183,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
                     self?.releaseTime = Double(value)
                 } else if address == self?.rageAmountParameter?.address {
                     self?.rageAmount = Double(value)
-                } 
+                }
             }
         })
 
@@ -195,7 +193,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent {
         internalAU?.releaseTime = Float(releaseTime)
         internalAU?.rageAmount = Float(rageAmount)
         internalAU?.rageIsOn = Bool(rageIsOn)
-            
+
     }
 
     // MARK: - Control
