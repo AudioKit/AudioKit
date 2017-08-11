@@ -19,7 +19,7 @@ open class AKOfflineRenderNode: AKNode, AKComponent {
         set { internalAU!.internalRenderEnabled = newValue }
     }
     
-    open func renderToURL(url: URL, seconds: Double, settings: [String : Any]? = nil) throws {
+    open func renderToURL(_ url: URL, seconds: Double, settings: [String : Any]? = nil) throws {
         return try internalAU!.render(toFile: url, seconds: seconds, settings: settings)
     }
     open func renderToBuffer(seconds: Double) throws -> AVAudioPCMBuffer {
