@@ -15,6 +15,8 @@ class LoopsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Share", style: .plain, target: self, action: #selector(share(barButton:)))
+
     }
 
     fileprivate func playNew(loop: String) {
@@ -54,5 +56,12 @@ class LoopsViewController: UIViewController {
         songProcessor.iTunesFilePlayer?.stop()
         songProcessor.loopsPlaying = false
     }
-
+    @objc func share(barButton: UIBarButtonItem){
+        renderAndShare { docController in
+            guard let canOpen = docController?.presentOpenInMenu(from: barButton, animated: true) else { return }
+            if !canOpen {
+                self.present(self.alertForShareFail(), animated: true, completion: nil)
+            }
+        }
+    }
 }

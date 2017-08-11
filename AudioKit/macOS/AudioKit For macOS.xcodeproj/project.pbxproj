@@ -18,6 +18,9 @@
 		4871D45D1DD912E70046A768 /* OneZero.h in Headers */ = {isa = PBXBuildFile; fileRef = 4871D45C1DD912E70046A768 /* OneZero.h */; };
 		4871D45F1DD912F20046A768 /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4871D45E1DD912F20046A768 /* OneZero.cpp */; };
 		4871D4681DD913800046A768 /* AKClarinetDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4871D4641DD913800046A768 /* AKClarinetDSPKernel.hpp */; };
+		552CD4901F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 552CD48D1F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		552CD4911F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 552CD48E1F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm */; };
+		552CD4921F3BBA34005762E9 /* AKOfflineRenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552CD48F1F3BBA34005762E9 /* AKOfflineRenderNode.swift */; };
 		7078DE4D1F260A3600F1DC67 /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
 		B19AE76D1F30F58500F9DC25 /* AKAudioUnitInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */; };
@@ -867,6 +870,9 @@
 		4871D45C1DD912E70046A768 /* OneZero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneZero.h; sourceTree = "<group>"; };
 		4871D45E1DD912F20046A768 /* OneZero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OneZero.cpp; sourceTree = "<group>"; };
 		4871D4641DD913800046A768 /* AKClarinetDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AKClarinetDSPKernel.hpp; path = Clarinet/AKClarinetDSPKernel.hpp; sourceTree = "<group>"; };
+		552CD48D1F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKOfflineRenderAudioUnit.h; path = Offline/OfflineRender/AKOfflineRenderAudioUnit.h; sourceTree = "<group>"; };
+		552CD48E1F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AKOfflineRendererAudioUnit.mm; path = Offline/OfflineRender/AKOfflineRendererAudioUnit.mm; sourceTree = "<group>"; };
+		552CD48F1F3BBA34005762E9 /* AKOfflineRenderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOfflineRenderNode.swift; path = Offline/OfflineRender/AKOfflineRenderNode.swift; sourceTree = "<group>"; };
 		7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitInstrument.swift; path = "AudioUnit Host/AKAudioUnitInstrument.swift"; sourceTree = "<group>"; };
@@ -1734,6 +1740,16 @@
 			name = Clarinet;
 			sourceTree = "<group>";
 		};
+		552CD48C1F3BBA1B005762E9 /* Offline */ = {
+			isa = PBXGroup;
+			children = (
+				552CD48D1F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h */,
+				552CD48E1F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm */,
+				552CD48F1F3BBA34005762E9 /* AKOfflineRenderNode.swift */,
+			);
+			name = Offline;
+			sourceTree = "<group>";
+		};
 		B1C452E41F2A55AF001AD289 /* AudioUnit Host */ = {
 			isa = PBXGroup;
 			children = (
@@ -2418,6 +2434,7 @@
 				C45666291D448D7E00D26565 /* Input */,
 				C456662B1D448D7E00D26565 /* Mixing */,
 				C456663F1D448D7E00D26565 /* Playback */,
+				552CD48C1F3BBA1B005762E9 /* Offline */,
 			);
 			name = Nodes;
 			path = ../Common/Nodes;
@@ -3805,6 +3822,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552CD4901F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h in Headers */,
 				B1F47AB71DC5385500706A2F /* EZAudioFileMarker.h in Headers */,
 				C46615211EEA2E6A0044A5FC /* AKVocalTractAudioUnit.h in Headers */,
 				C47047C11E78FA2D00D9906F /* AKRhodesPianoDSPKernel.hpp in Headers */,
@@ -4071,7 +4089,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4220,6 +4238,7 @@
 				C45666AB1D448D7E00D26565 /* CheckError.swift in Sources */,
 				C45669AC1D448D7E00D26565 /* AKMixer.swift in Sources */,
 				C47AC6151D5D49430005E485 /* AKBooster.swift in Sources */,
+				552CD4911F3BBA34005762E9 /* AKOfflineRendererAudioUnit.mm in Sources */,
 				C456694A1D448D7E00D26565 /* AKConvolutionAudioUnit.mm in Sources */,
 				C4F8CA241DCA9256001F38F2 /* slist.c in Sources */,
 				C45666E81D448D7E00D26565 /* butbp.c in Sources */,
@@ -4485,6 +4504,7 @@
 				C45669F61D448D7E00D26565 /* AKView.swift in Sources */,
 				C45668931D448D7E00D26565 /* SineWave.cpp in Sources */,
 				C4F8C9C81DCA9255001F38F2 /* blsaw.c in Sources */,
+				552CD4921F3BBA34005762E9 /* AKOfflineRenderNode.swift in Sources */,
 				C45668AB1D448D7E00D26565 /* AKMIDIInstrument.swift in Sources */,
 				C456669C1D448D7E00D26565 /* AKNotifications.swift in Sources */,
 				C42899961D5543E400B941B5 /* korgLowPassFilter.swift in Sources */,
@@ -4988,7 +5008,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
