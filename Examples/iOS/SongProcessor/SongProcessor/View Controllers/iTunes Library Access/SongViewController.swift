@@ -24,7 +24,7 @@ class SongViewController: UIViewController {
     var song: MPMediaItem? {
         didSet {
             songProcessor.iTunesFilePlayer?.stop()
-            
+
             let fail = {
                 let alert = UIAlertController(title: "Couldn't load song", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
@@ -32,11 +32,11 @@ class SongViewController: UIViewController {
                 }))
                 self.present(alert, animated: true, completion: nil)
             }
-            
+
             guard let newSong = song else {
                 return fail()
             }
-            
+
             DispatchQueue.global(qos: .default).async {
                 let docDirs: [NSString] = NSSearchPathForDirectoriesInDomains(.documentDirectory,
                                                                               .userDomainMask,
@@ -44,20 +44,20 @@ class SongViewController: UIViewController {
                 let docDir = docDirs[0]
                 let tmp = docDir.appendingPathComponent("exported") as NSString
                 self.exportPath = tmp.appendingPathExtension("caf")!
-                
+
                 self.exporter = SongExporter(exportPath: self.exportPath)
-                self.exporter?.exportSong(newSong, completion:{ success in
+                self.exporter?.exportSong(newSong, completion: { success in
                     DispatchQueue.main.async {
                         if success {
-                            
+
                             self.loadSong()
-                            self.playButton.isUserInteractionEnabled = true;
+                            self.playButton.isUserInteractionEnabled = true
                             self.playButton.setTitle("Play", for: UIControlState())
-                            
+
                         } else {
                             fail()
                         }
-                        
+
                     }
                 })
             }
@@ -67,11 +67,9 @@ class SongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-
         playButton.setTitle("Loading", for: UIControlState())
-        playButton.isUserInteractionEnabled = false;
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Share", style: .plain, target: self, action: #selector(share(barButton:)))
+        playButton.isUserInteractionEnabled = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share(barButton:)))
 
     }
 
@@ -87,34 +85,30 @@ class SongViewController: UIViewController {
     }
 
     func loadSong() {
-        
-        let url = URL.init(fileURLWithPath: exportPath)
-        
-        
+
+        let url = URL(fileURLWithPath: exportPath)
+
         if FileManager.default.fileExists(atPath: url.path) == false {
             print("exportPath: \(exportPath)")
             print("File does not exist.")
             return
         }
 
-        
-        do{
-            let exportedFile = try AKAudioFile.init(forReading:url)
+        do {
+            let exportedFile = try AKAudioFile(forReading:url)
             if songProcessor.iTunesFilePlayer == nil {
                 songProcessor.iTunesFilePlayer = try AKAudioPlayer(file:exportedFile)
                 songProcessor.playerMixer.connect(songProcessor.iTunesFilePlayer!)
             }
             guard let iTunesFilePlayer = songProcessor.iTunesFilePlayer else { return }
-            
+
             try iTunesFilePlayer.replace(file: exportedFile)
         } catch {
             print(error)
         }
-        
-        
 
     }
-    @objc func share(barButton: UIBarButtonItem){
+    @objc func share(barButton: UIBarButtonItem) {
         renderAndShare { docController in
             guard let canOpen = docController?.presentOpenInMenu(from: barButton, animated: true) else { return }
             if !canOpen {
@@ -123,9 +117,3 @@ class SongViewController: UIViewController {
         }
     }
 }
-
-
-
-
-
-

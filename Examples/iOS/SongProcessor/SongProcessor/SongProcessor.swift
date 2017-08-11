@@ -27,13 +27,13 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
     var bitCrushMixer: AKDryWetMixer!
     var playerBooster: AKBooster!
     var offlineRender: AKOfflineRenderNode!
-    var players = [String:AKAudioPlayer]()
+    var players = [String: AKAudioPlayer]()
     var playerMixer = AKMixer()
-    
+
     fileprivate var docController: UIDocumentInteractionController?
 
     var iTunesPlaying: Bool {
-        set{
+        set {
             if newValue {
                 guard let iTunesFilePlayer = iTunesFilePlayer else { return }
                 if !iTunesFilePlayer.isPlaying { iTunesFilePlayer.play() }
@@ -41,12 +41,12 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
                 iTunesFilePlayer?.stop()
             }
         }
-        get{
+        get {
             return iTunesFilePlayer?.isPlaying ?? false
         }
     }
     var loopsPlaying: Bool {
-        set{
+        set {
             if newValue {
                 guard let firtPlayer = players.values.first else { return }
                 if !firtPlayer.isPlaying { playLoops() }
@@ -54,26 +54,23 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
                 stopLoops()
             }
         }
-        get{
+        get {
             return players.values.first?.isPlaying ?? false
         }
     }
-    
-    
-    
+
     override init() {
         super.init()
-        for name in ["bass","drum","guitar","lead"]{
-            do{
+        for name in ["bass", "drum", "guitar", "lead"] {
+            do {
                 let audioFile = try AKAudioFile(readFileName: name+"loop.wav", baseDir: .resources)
-                players[name] = try AKAudioPlayer(file: audioFile,looping: true)
+                players[name] = try AKAudioPlayer(file: audioFile, looping: true)
                 playerMixer.connect(players[name])
             } catch {
                 fatalError(String(describing: error))
             }
         }
 
-        
         startVariableDelay()  //Was AKVariableDelay, but it wasn't offline render friendly!  Need to rename
         startMoogLadder()
         startCostelloReverb()
@@ -82,8 +79,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
 
         //Booster for Volume
         playerBooster = AKBooster(bitCrushMixer, gain: 0.5)
-        
-        
+
         offlineRender = AKOfflineRenderNode(playerBooster)
         AudioKit.output = offlineRender
         AudioKit.start()
@@ -117,57 +113,54 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
         bitCrusher?.sampleRate = 3_333
         bitCrushMixer = AKDryWetMixer(pitchMixer, bitCrusher, balance: 0)
     }
-    func rewindLoops(){
-        playersDo{ $0.schedule(from: 0, to: $0.duration, avTime: nil)}
+    func rewindLoops() {
+        playersDo { $0.schedule(from: 0, to: $0.duration, avTime: nil)}
     }
     func playLoops(at when: AVAudioTime? = nil) {
         let startTime = when ?? SongProcessor.twoRendersFromNow()
-        playersDo{ $0.play(at: startTime) }
+        playersDo { $0.play(at: startTime) }
     }
-    func stopLoops(){
-        playersDo{ $0.stop() }
+    func stopLoops() {
+        playersDo { $0.stop() }
     }
-    func playersDo(_ action: @escaping (AKAudioPlayer) -> Void){
+    func playersDo(_ action: @escaping (AKAudioPlayer) -> Void) {
         for player in players.values { action(player) }
     }
     private class func twoRendersFromNow() -> AVAudioTime {
         let twoRenders = AVAudioTime.hostTime(forSeconds: AKSettings.bufferLength.duration * 2)
-        return AVAudioTime.init(hostTime: mach_absolute_time() + twoRenders)
+        return AVAudioTime(hostTime: mach_absolute_time() + twoRenders)
     }
-    
-    enum ShareTarget{
+
+    enum ShareTarget {
         case iTunes
         case loops
     }
-    
 
-    
-    
     fileprivate func mixDownItunes(url: URL) throws {
-        
-        offlineRender.internalRenderEnabled = false;
-        
+
+        offlineRender.internalRenderEnabled = false
+
         guard let player = iTunesFilePlayer else {
-            offlineRender.internalRenderEnabled = true;
-            throw NSError(domain: "SongProcessor", code: 1, userInfo: [NSLocalizedDescriptionKey:"Target itunes but no player exists"])
+            offlineRender.internalRenderEnabled = true
+            throw NSError(domain: "SongProcessor", code: 1, userInfo: [NSLocalizedDescriptionKey: "Target itunes but no player exists"])
         }
         let duration = player.duration
         player.schedule(from: 0, to: duration, avTime: nil)
         let timeZero = AVAudioTime(sampleTime: 0, atRate: offlineRender.avAudioNode.inputFormat(forBus: 0).sampleRate)
-        
+
         player.play(at:timeZero)
         try offlineRender.renderToURL(url, seconds: duration)
         player.stop()
-        offlineRender.internalRenderEnabled = true;
-        
+        offlineRender.internalRenderEnabled = true
+
     }
     fileprivate func mixDownLoops(url: URL, loops: Int) throws {
-        
-        offlineRender.internalRenderEnabled = false;
-        
+
+        offlineRender.internalRenderEnabled = false
+
         guard let player = players.values.first else {
-            offlineRender.internalRenderEnabled = true;
-            throw NSError(domain: "SongProcessor", code: 1, userInfo: [NSLocalizedDescriptionKey:"No loop players!"])
+            offlineRender.internalRenderEnabled = true
+            throw NSError(domain: "SongProcessor", code: 1, userInfo: [NSLocalizedDescriptionKey: "No loop players!"])
         }
         let duration = player.duration * Double(loops)
         let timeZero = AVAudioTime(sampleTime: 0, atRate: offlineRender.avAudioNode.inputFormat(forBus: 0).sampleRate)
@@ -176,8 +169,8 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
         try offlineRender.renderToURL(url, seconds: duration)
         rewindLoops()
         stopLoops()
-        offlineRender.internalRenderEnabled = true;
-        
+        offlineRender.internalRenderEnabled = true
+
     }
     func documentInteractionController(_ controller: UIDocumentInteractionController, didEndSendingToApplication application: String?) {
         docController = nil
@@ -190,19 +183,16 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
     }
     var mixDownURL: URL = {
         let tempDir = NSURL.fileURL(withPath: NSTemporaryDirectory(), isDirectory: true)
-        return tempDir.appendingPathComponent("mixDown.m4a");
+        return tempDir.appendingPathComponent("mixDown.m4a")
     }()
 }
 
-
 extension UIViewController {
-    func renderAndShare(completion: @escaping (UIDocumentInteractionController?) -> Void){
+    func renderAndShare(completion: @escaping (UIDocumentInteractionController?) -> Void) {
         let songProcessor = SongProcessor.sharedInstance
         let url = songProcessor.mixDownURL
-        
-        
 
-        let cleanup: (Error)->() = { error in
+        let cleanup: (Error) -> Void = { error in
             if FileManager.default.fileExists(atPath: url.path) {
                 do { try FileManager.default.removeItem(at: url) } catch {
                     print(error)
@@ -211,36 +201,34 @@ extension UIViewController {
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             self.present(alert, animated: true, completion: {completion(nil)})
         }
-        
-        
+
         let success = {
             let docController = UIDocumentInteractionController(url: url)
             docController.delegate = songProcessor
             songProcessor.docController = docController
             completion(docController)
         }
-        
-        
+
         let shareLoops = {
             let alert = UIAlertController(title: "How many loops?", message: nil, preferredStyle: .alert)
             alert.addTextField { (textField) in
                 textField.keyboardType = .decimalPad
                 textField.text = String(1)
             }
-            alert.addAction(.init(title: "OK", style: .default, handler: { (action) in
+            alert.addAction(.init(title: "OK", style: .default, handler: { (_) in
                 let text = alert.textFields?.first?.text
                 guard let countText = text,
                     let count = Int(countText),
                     count > 0 else {
-                    
+
                     let message = text == nil ? "Need a count" : text! + " isn't a vaild loop count!"
-                    cleanup(NSError(domain: "SongProcessor",code: 1, userInfo: [NSLocalizedDescriptionKey:message]))
+                    cleanup(NSError(domain: "SongProcessor", code: 1, userInfo: [NSLocalizedDescriptionKey: message]))
                     return
                 }
                 do {
                     try songProcessor.mixDownLoops(url: url, loops: count)
                     success()
-                    
+
                 } catch {
                     cleanup(error)
                 }
@@ -249,8 +237,7 @@ extension UIViewController {
             alert.addAction(.init(title: "Cancel", style: .cancel, handler:nil))
             self.present(alert, animated: true, completion: nil)
         }
-        
-        
+
         if songProcessor.iTunesFilePlayer != nil {
             let alert = UIAlertController(title: "Export Song or Loops?", message: nil, preferredStyle: .alert)
             alert.addAction(.init(title: "Song", style: .default, handler: { (action) in
@@ -261,7 +248,7 @@ extension UIViewController {
                     cleanup(error)
                 }
             }))
-            alert.addAction(.init(title: "Loops", style: .default, handler: { (action) in
+            alert.addAction(.init(title: "Loops", style: .default, handler: { (_) in
                 shareLoops()
             }))
             alert.addAction(.init(title: "Cancel", style: .cancel, handler:nil))
@@ -269,27 +256,22 @@ extension UIViewController {
         } else {
             shareLoops()
         }
-        
-        
-        
+
     }
-    
-    func alertForShareFail() -> UIAlertController{
+
+    func alertForShareFail() -> UIAlertController {
         let message = TARGET_OS_SIMULATOR == 0 ? nil : "Try using a device instead of the simulator :)"
         let alert = UIAlertController(title: "No Applications to share with", message: message, preferredStyle: .alert)
         alert.addAction(.init(title: "OK", style: .default, handler: nil))
         return alert
     }
-    
+
 }
 
-
 struct Platform {
-    
+
     static var isSimulator: Bool {
         return TARGET_OS_SIMULATOR != 0
     }
-    
+
 }
-
-

@@ -112,4 +112,3 @@ int sp_smoothdelay_compute(sp_data *sp, sp_smoothdelay *p, SPFLOAT *in, SPFLOAT 
     }
     return SP_OK;
 }
-

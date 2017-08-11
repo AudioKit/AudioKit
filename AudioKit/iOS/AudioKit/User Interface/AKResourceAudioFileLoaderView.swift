@@ -8,7 +8,7 @@
 
 /// View to choose from audio files to use in playgrounds
 @IBDesignable open class AKResourcesAudioFileLoaderView: UIView {
-    
+
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
@@ -20,25 +20,25 @@
 
     var currentIndex = 0
     var titles = [String]()
-    
+
     open var bgColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     open var textColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     open var borderColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
-    
+
     open var borderWidth: CGFloat = 3.0 {
         didSet {
             setNeedsDisplay()
@@ -98,64 +98,64 @@
     /// Initialization with no details
     override public init(frame: CGRect) {
         self.titles = ["File One", "File Two", "File Three"]
-        
+
         super.init(frame: frame)
-        
+
         self.backgroundColor = UIColor.clear
         contentMode = .redraw
     }
-    
+
     /// Initialize in Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         self.titles = ["File One", "File Two", "File Three"]
-        
+
         super.init(coder: aDecoder)
-        
+
         self.backgroundColor = UIColor.clear
         contentMode = .redraw
     }
-    
+
     // Default background color per theme
     var bgColorForTheme: AKColor {
         if let bgColor = bgColor { return bgColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.8, alpha: 1.0)
         case .midnight: return AKColor(white: 0.7, alpha: 1.0)
         }
     }
-    
+
     // Default border color per theme
     var borderColorForTheme: AKColor {
         if let borderColor = borderColor { return borderColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
         case .midnight: return AKColor.white.withAlphaComponent(0.8)
         }
     }
-    
+
     // Default text color per theme
     var textColorForTheme: AKColor {
         if let textColor = textColor { return textColor }
-        
+
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0)
         case .midnight: return AKColor.white
         }
     }
-    
+
     func drawAudioFileLoader(sliderColor: AKColor = AKStylist.sharedInstance.colorForFalseValue,
                              fileName: String = "None") {
         //// General Declarations
         let rect = bounds
         let cornerRadius: CGFloat = AKResourcesAudioFileLoaderView.standardCornerRadius
-        
+
         //// Color Declarations
         let backgroundColor = bgColorForTheme
         let color = AKStylist.sharedInstance.colorForTrueValue
         let dark = textColorForTheme
-        
+
         //// background Drawing
         let backgroundPath = UIBezierPath(rect: CGRect(x: borderWidth,
                                                        y: borderWidth,
@@ -163,7 +163,7 @@
                                                        height: rect.height - borderWidth * 2.0))
         backgroundColor.setFill()
         backgroundPath.fill()
-        
+
         //// stopButton
         //// stopOuter Drawing
         stopOuterPath = UIBezierPath(rect: CGRect(x: borderWidth,
@@ -172,7 +172,7 @@
                                                   height: rect.height - borderWidth * 2.0))
         sliderColor.setFill()
         stopOuterPath.fill()
-        
+
         //// stopInner Drawing
         let stopInnerPath = UIBezierPath(roundedRect: CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
                                                              y: rect.height * 0.25,
@@ -180,7 +180,7 @@
                                                              height: rect.height * 0.5), cornerRadius: cornerRadius)
         dark.setFill()
         stopInnerPath.fill()
-        
+
         //// playButton
         //// playOuter Drawing
         playOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.13 + borderWidth,
@@ -189,7 +189,7 @@
                                                   height: rect.height - borderWidth * 2.0))
         color.setFill()
         playOuterPath.fill()
-        
+
         //// playInner Drawing
         let playRect = CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + borderWidth + rect.width * 0.13 + borderWidth,
                               y: rect.height * 0.25,
@@ -215,7 +215,7 @@
         playInnerPath.fill()
         dark.setStroke()
         playInnerPath.stroke()
-        
+
         // stopButton border Path
         let stopButtonBorderPath = UIBezierPath()
         stopButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 + borderWidth, y: borderWidth))
@@ -223,7 +223,7 @@
         borderColorForTheme.setStroke()
         stopButtonBorderPath.lineWidth = borderWidth / 2.0
         stopButtonBorderPath.stroke()
-        
+
         // playButton border Path
         let playButtonBorderPath = UIBezierPath()
         playButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth, y: borderWidth))
@@ -231,14 +231,14 @@
         borderColorForTheme.setStroke()
         playButtonBorderPath.lineWidth = borderWidth / 2.0
         playButtonBorderPath.stroke()
-        
+
         //// upButton
         //// upOuter Drawing
         downOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9,
                                                 y: rect.height * 0.5,
                                                 width: rect.width * 0.07,
                                                 height: rect.height * 0.5))
-        
+
         //// upInner Drawing
         let downArrowRect = CGRect(x: rect.width * 0.9,
                                     y: rect.height * 0.58,
@@ -265,12 +265,12 @@
         textColorForTheme.setStroke()
         downInnerPath.lineWidth = borderWidth
         downInnerPath.stroke()
-        
+
         upOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9,
                                                   y: 0,
                                                   width: rect.width * 0.07,
                                                   height: rect.height * 0.5))
-        
+
         //// downInner Drawing
         let upperArrowRect = CGRect(x: rect.width * 0.9,
                                    y: rect.height * 0.12,
@@ -298,16 +298,16 @@
         textColorForTheme.setStroke()
         upInnerPath.lineWidth = borderWidth
         upInnerPath.stroke()
-        
+
         //// nameLabel Drawing
         let nameLabelRect = CGRect(x: 120, y: 0, width: 320, height: 60)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
-        
+
         let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24.0),
                                        NSForegroundColorAttributeName: textColorForTheme,
                                        NSParagraphStyleAttributeName: nameLabelStyle]
-        
+
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
             with: CGSize(width: nameLabelInset.width, height: CGFloat.infinity),
@@ -320,18 +320,18 @@
             height: nameLabelTextHeight)
         NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                         withAttributes: nameLabelFontAttributes)
-        
+
         let outerRect = CGRect(x: rect.origin.x + borderWidth / 2.0,
                                y: rect.origin.y + borderWidth / 2.0,
                                width: rect.width - borderWidth,
                                height: rect.height - borderWidth)
-        
+
         let outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: cornerRadius)
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
         outerPath.stroke()
     }
-    
+
     open override func draw(_ rect: CGRect) {
         drawAudioFileLoader(fileName: titles[currentIndex])
     }
