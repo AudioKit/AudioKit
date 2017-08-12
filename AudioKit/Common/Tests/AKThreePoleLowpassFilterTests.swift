@@ -11,28 +11,28 @@ import XCTest
 
 class AKThreePoleLowpassFilterTests: AKTestCase {
 
-    func testDefault() {
-        output = AKThreePoleLowpassFilter(input)
-        AKTestMD5("8c459009f9b7a720bd2b7207ae41749f")
+    func testCutoffFrequency() {
+        output = AKThreePoleLowpassFilter(input, cutoffFrequency: 500)
+        AKTestMD5("ec26496e6ee4da9945fd4f2c2df9d6a1")
     }
 
-    func testParameters() {
-        output = AKThreePoleLowpassFilter(input, distortion: 1, cutoffFrequency: 500, resonance: 1)
-        AKTestMD5("8444cb9f343b3d2fd1f000b4311e507f")
+    func testDefault() {
+        output = AKThreePoleLowpassFilter(input)
+        AKTestMD5("787ed3c7631adee9af6bd9603a6a7e56")
     }
 
     func testDistortion() {
         output = AKThreePoleLowpassFilter(input, distortion: 1)
-        AKTestMD5("13de898944214b2c9ef90673c38c5d9d")
+        AKTestMD5("39e2f904606600640b5b83a680457c2b")
     }
 
-    func testCutoffFrequency() {
-        output = AKThreePoleLowpassFilter(input, cutoffFrequency: 500)
-        AKTestMD5("e06aa835939a83cad47af2187341eb65")
+    func testParameters() {
+        output = AKThreePoleLowpassFilter(input, distortion: 1, cutoffFrequency: 500, resonance: 1)
+        AKTestMD5("15a8a9a91615e0c1f72f3b83e3526729")
     }
 
     func testResonance() {
         output = AKThreePoleLowpassFilter(input, resonance: 1)
-        AKTestMD5("dac3c4ccd10c34296d6551652c8d172c")
+        AKTestMD5("98ad6f5f4327410317ec4e277ee5cf2c")
     }
 }

@@ -25,7 +25,7 @@ class VariableDelayTests: AKTestCase {
                 duration: self.duration)
             return input.variableDelay(time: 0.1 * ramp, feedback: 0.9 * ramp)
         }
-        AKTestMD5("f08aaa089d2da078191c75174e010fbb")
+        AKTestMD5("8403729b6af476b361c20004d5ee6df2")
     }
 
 }

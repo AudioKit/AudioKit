@@ -11,28 +11,28 @@ import XCTest
 
 class AKPeakingParametricEqualizerFilterTests: AKTestCase {
 
-    func testDefault() {
-        output = AKPeakingParametricEqualizerFilter(input)
-        AKTestMD5("d1003d6785e625834b6c9772a32017ee")
-    }
-
-    func testParameters() {
-        output = AKPeakingParametricEqualizerFilter(input, centerFrequency: 500, gain: 2, q: 1.414)
-        AKTestMD5("c5366c3dc9ff5d5c537a3e11559833e3")
-    }
-
     func testCenterFrequency() {
         output = AKPeakingParametricEqualizerFilter(input, centerFrequency: 500)
-        AKTestMD5("20dcdb74b4f4ae3b76a200ac806bbb51")
+        AKTestMD5("a541c9bca732bf16b662720bba0c4f92")
+    }
+
+    func testDefault() {
+        output = AKPeakingParametricEqualizerFilter(input)
+        AKTestMD5("9e4ed2b0de91979bc0db2fc390bee945")
     }
 
     func testGain() {
         output = AKPeakingParametricEqualizerFilter(input, gain: 2)
-        AKTestMD5("77ac53e71064e3d1131b2255652cf9b0")
+        AKTestMD5("7fb1bd650162fa83b50cc0f26ba65e5c")
+    }
+
+    func testParameters() {
+        output = AKPeakingParametricEqualizerFilter(input, centerFrequency: 500, gain: 2, q: 1.414)
+        AKTestMD5("490256c941007f13200b95e8d9046415")
     }
 
     func testQ() {
         output = AKPeakingParametricEqualizerFilter(input, q: 1.415)
-        AKTestMD5("0f99832ccebc4975f820598d23a6f3d9")
+        AKTestMD5("6661b6f2b2fda4bcdf8fb6e56c1b120f")
     }
 }

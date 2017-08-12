@@ -13,11 +13,11 @@ class AKTremoloTests: AKTestCase {
 
     func testDefault() {
         output = AKTremolo(input)
-        AKTestMD5("818247cd8c1dee732a22633878ec81d4")
+        AKTestMD5("77fc5be08f1a46f4106fc88e5573c632")
     }
 
     func testFrequency() {
         output = AKTremolo(input, frequency: 20)
-        AKTestMD5("9509d8064efdd22d7d507a41cf97af17")
+        AKTestMD5("5d33fc3f7bd4f467c464fa51cb7edbd5")
     }
 }

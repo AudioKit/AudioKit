@@ -47,12 +47,12 @@ extension AKNode: AKOutput {
 
 //Deprecated
 extension AKNode {
-    
+
     @available(*, deprecated, renamed: "detach")
     open func disconnect() {
         detach()
     }
-    
+
     @available(*, deprecated, message: "Use AudioKit.dettach(nodes:) instead")
     open func disconnect(nodes: [AVAudioNode]) {
         AudioKit.detach(nodes: nodes)

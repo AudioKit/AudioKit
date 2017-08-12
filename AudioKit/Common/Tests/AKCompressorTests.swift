@@ -16,9 +16,24 @@ class AKCompressorTests: AKTestCase {
         duration = 1.0
     }
 
+    func testAttackTime() {
+        output = AKCompressor(input, attackTime: 0.1)
+        AKTestMD5("6845eab70c0b672ace59845cb28c404e")
+    }
+
     func testDefault() {
         output = AKCompressor(input)
-        AKTestMD5("ee2b005095e4583477cfa95157554b7a")
+        AKTestMD5("4a0832f24a7096bd9384a76f8bd9db01")
+    }
+
+    func testHeadRoom() {
+        output = AKCompressor(input, headRoom: 0)
+        AKTestMD5("2bd03fd22113e7df4ff3e610aac1f3a1")
+    }
+
+    func testMasterGain() {
+        output = AKCompressor(input, masterGain: 1)
+        AKTestMD5("28f9437589641f6ab28c8e989e9444d0")
     }
 
     func testParameters() {
@@ -28,28 +43,14 @@ class AKCompressorTests: AKTestCase {
                               attackTime: 0.1,
                               releaseTime: 0.1,
                               masterGain: 1)
-        AKTestMD5("3b5627770864e08796fff929b5444d1d")
-    }
-
-    func testThreshold() {
-        output = AKCompressor(input, threshold: -25)
-        AKTestMD5("f0880e74cc4140655806427fc2224258")
-    }
-
-    func testHeadRoom() {
-        output = AKCompressor(input, headRoom: 0)
-        AKTestMD5("92467b961b1dbc9b37f78bd4ed937add")
-    }
-
-    func testAttackTime() {
-        output = AKCompressor(input, attackTime: 0.1)
-        AKTestMD5("e830095751ba5d061b7761462f6fad12")
+        AKTestMD5("b5ce91252b050c6875b07232bae29a93")
     }
 
     // Release time is not currently tested
 
-    func testMasterGain() {
-        output = AKCompressor(input, masterGain: 1)
-        AKTestMD5("2b76f6283d951f245cc39230d3e9eb8c")
+    func testThreshold() {
+        output = AKCompressor(input, threshold: -25)
+        AKTestMD5("3d3d402e24582ac17f47c72e8315fffb")
     }
+
 }

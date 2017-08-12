@@ -11,18 +11,18 @@ import XCTest
 
 class AKLowShelfFilterTests: AKTestCase {
 
+    func testCutoffFrequency() {
+        output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)
+        AKTestMD5("68e04198919d35f039c160f630c558c3")
+    }
+
     func testDefault() {
         output = AKLowShelfFilter(input)
         AKTestNoEffect()
     }
 
-    func testCutoffFrequency() {
-        output = AKLowShelfFilter(input, cutoffFrequency: 100, gain: 1)
-        AKTestMD5("6b5611186ee54e8ede60ab68f5ada69d")
-    }
-
     func testGain() {
         output = AKLowShelfFilter(input, gain: 1)
-        AKTestMD5("ef250915f7d4a375ef036cddd9ab2e89")
+        AKTestMD5("fd5c5287d9a7a39277eb735ceaa22d9c")
     }
 }

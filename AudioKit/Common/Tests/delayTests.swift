@@ -20,14 +20,21 @@ class DelayTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.delay()
         }
-        AKTestMD5("33b78eb124aee08f135973c4e9d57f8c")
+        AKTestMD5("e1f204032e3e37c75551f9bd6bc53e89")
+    }
+
+    func testFeedback() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.delay(feedback: 0.99)
+        }
+        AKTestMD5("5422eea539cebf3530b7b4f665214cce")
     }
 
     func testParameters() {
         output = AKOperationEffect(input) { input, _ in
             return input.delay(time: 0.01, feedback: 0.99)
         }
-        AKTestMD5("d02eb163c7d1cde255dabeddb810acc6")
+        AKTestMD5("34c508d5ce57651024935660f7e3c877")
     }
 
     func testParameterSweep() {
@@ -39,20 +46,14 @@ class DelayTests: AKTestCase {
                 duration: self.duration)
             return input.delay(time: 0.01, feedback: 0.99 - ramp)
         }
-        AKTestMD5("a533a9264e5ed94a98524c1f57256f44")
+        AKTestMD5("8651d1e86981da1759ceae7756eebc39")
     }
 
     func testTime() {
         output = AKOperationEffect(input) { input, _ in
             return input.delay(time: 0.01)
         }
-        AKTestMD5("4293fae437009d21fe989288289e1918")
+        AKTestMD5("102a6ed78dc39aec1a209302008800ef")
     }
 
-    func testFeedback() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.delay(feedback: 0.99)
-        }
-        AKTestMD5("cb55f9619ef98e69356a4f23cbe52d9a")
-    }
 }
