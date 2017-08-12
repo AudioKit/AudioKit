@@ -36,9 +36,9 @@ extension AVAudioConnectionPoint {
 extension AKNode {
 
     /// An array of all connections
-    open var connectionPoints: [AVAudioConnectionPoint]{
-        get{ return AudioKit.engine.outputConnectionPoints(for: avAudioNode, outputBus: 0) }
-        set{ AudioKit.connect(avAudioNode, to: newValue, fromBus: 0, format: AudioKit.format) }
+    open var connectionPoints: [AVAudioConnectionPoint] {
+        get { return AudioKit.engine.outputConnectionPoints(for: avAudioNode, outputBus: 0) }
+        set { AudioKit.connect(avAudioNode, to: newValue, fromBus: 0, format: AudioKit.format) }
     }
     /// Connect this node to another
     open func addConnectionPoint(_ node: AKNode, bus: Int = 0) {
@@ -64,12 +64,12 @@ extension AKNode {
 
 //Deprecated
 extension AKNode {
-    
+
     @available(*, deprecated, renamed: "detach")
     open func disconnect() {
         detach()
     }
-    
+
     @available(*, deprecated, message: "Use AudioKit.dettach(nodes:) instead")
     open func disconnect(nodes: [AVAudioNode]) {
         AudioKit.detach(nodes: nodes)

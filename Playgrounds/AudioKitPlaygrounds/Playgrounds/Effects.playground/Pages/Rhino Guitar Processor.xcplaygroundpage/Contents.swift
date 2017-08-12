@@ -7,7 +7,7 @@ var rhino: AKRhinoGuitarProcessor!
 
 do {
     let mixloop = try AKAudioFile(readFileName: "guitar.wav", baseDir: .resources)
-    
+
     let player = try AKAudioPlayer(file: mixloop) {
         print("completion callback has been triggered!")
     }
@@ -22,14 +22,12 @@ do {
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Rhino Guitar Processor")
-        
-        
-        
+
         addSubview(AKBypassButton(node: rhino))
-        
+
         addSubview(AKPropertySlider(property: "Pre Gain",
                                     value: rhino.preGain,
                                     range: 0.0 ... 10.0,
@@ -37,7 +35,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             rhino.preGain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(property: "Dist. Amount",
                                     value: rhino.distAmount,
                                     range: 1.0 ... 20.0,
@@ -45,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             rhino.distAmount = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(property: "Lows",
                                     value: rhino.lowGain,
                                     range: -1.0 ... 1.0,
@@ -53,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             rhino.lowGain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(property: "Mids",
                                     value: rhino.midGain,
                                     range: -1.0 ... 1.0,
@@ -61,7 +59,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             rhino.midGain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(property: "Highs",
                                     value: rhino.highGain,
                                     range: -1.0 ... 1.0,
@@ -69,7 +67,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             rhino.highGain = sliderValue
         })
-        
+
         addSubview(AKPropertySlider(property: "Output Gain",
                                     value: rhino.postGain,
                                     range: 0.0 ... 1.0,
