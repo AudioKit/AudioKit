@@ -57,6 +57,7 @@
 		52145B691F3C5B1A0069C88B /* RageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52145B411F3C5B1A0069C88B /* RageProcessor.cpp */; };
 		52145B6A1F3C5B1A0069C88B /* RageProcessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 52145B421F3C5B1A0069C88B /* RageProcessor.h */; };
 		5251477B1CC4AD7E00421C52 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251477A1CC4AD7E00421C52 /* AKNotifications.swift */; };
+		552FBD431F3F6A5600C02C08 /* AKConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552FBD421F3F6A5600C02C08 /* AKConnection.swift */; };
 		55F29C091E90654C00A2151F /* AKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F29C081E90654C00A2151F /* AKScheduledAction.swift */; };
 		6520FFC21D361B030052410C /* resonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC11D361B030052410C /* resonantFilter.swift */; };
 		701E04861F1B7CB500A7A2D8 /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E04851F1B7CB500A7A2D8 /* AKRotaryKnob.swift */; };
@@ -956,6 +957,7 @@
 		52145B411F3C5B1A0069C88B /* RageProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RageProcessor.cpp; sourceTree = "<group>"; };
 		52145B421F3C5B1A0069C88B /* RageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RageProcessor.h; sourceTree = "<group>"; };
 		5251477A1CC4AD7E00421C52 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
+		552FBD421F3F6A5600C02C08 /* AKConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConnection.swift; sourceTree = "<group>"; };
 		55F29C081E90654C00A2151F /* AKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKScheduledAction.swift; sourceTree = "<group>"; };
 		6520FFC11D361B030052410C /* resonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resonantFilter.swift; sourceTree = "<group>"; };
 		701E04851F1B7CB500A7A2D8 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
@@ -2284,6 +2286,7 @@
 			isa = PBXGroup;
 			children = (
 				C46960171C0F8C3900A65FBF /* AKNode.swift */,
+				552FBD421F3F6A5600C02C08 /* AKConnection.swift */,
 				C42F35471C057F4C000E937C /* Analysis */,
 				C42F356C1C057F4C000E937C /* Effects */,
 				C42F35531C057F4C000E937C /* Generators */,
@@ -4513,6 +4516,7 @@
 				C4537FDB1C3A438D00A51738 /* AKModalResonanceFilterAudioUnit.mm in Sources */,
 				C40C412A1C40E344009D870B /* DSPKernel.mm in Sources */,
 				C44243061D4B0FEE00C4182C /* AKPropertySlider.swift in Sources */,
+				552FBD431F3F6A5600C02C08 /* AKConnection.swift in Sources */,
 				C4F8C9341DCA8CE4001F38F2 /* waveset.c in Sources */,
 				C4FE01631CED2DB40062B3A3 /* AKNodeRecorder.swift in Sources */,
 				C4F8C8FD1DCA8CE4001F38F2 /* phaser.c in Sources */,
