@@ -485,3 +485,31 @@ extension AVAudioEngine {
         #endif
     }
 }
+
+
+//This extension makes connect calls shorter, and safer by attaching nodes if not already attached.
+extension AudioKit {
+    private static func safeAttach(_ nodes: [AVAudioNode]){
+        _ = nodes.filter{ $0.engine == nil }.map { engine.attach($0) }
+    }
+    @objc open static func connect(_ sourceNode: AVAudioNode, to destNodes: [AVAudioConnectionPoint], fromBus sourceBus: AVAudioNodeBus, format: AVAudioFormat?){
+        let connectionsWithNodes = destNodes.filter{ $0.node != nil}
+        safeAttach([sourceNode] + connectionsWithNodes.map{ $0.node! })
+        engine.connect(sourceNode, to: connectionsWithNodes, fromBus: sourceBus, format: format)
+    }
+
+    @objc open static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, fromBus bus1: AVAudioNodeBus, toBus bus2: AVAudioNodeBus, format: AVAudioFormat?){
+        safeAttach([node1,node2])
+        engine.connect(node1, to: node2, fromBus: bus1, toBus: bus2, format: format)
+    }
+
+    @objc open static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
+        connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
+    }
+    //Convenience
+    @objc open static func detach(nodes: [AVAudioNode]) {
+        for node in nodes {
+            engine.detach(node)
+        }
+    }
+}

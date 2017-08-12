@@ -84,11 +84,6 @@ open class AKMixer: AKNode, AKToggleable {
 
         if let existingInput = input {
             existingInput.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU!, bus: chan))
-            AudioKit.engine.connect(existingInput.avAudioNode,
-                                    to: existingInput.connectionPoints,
-                                    fromBus: 0,
-                                    format: AudioKit.format)
-
             connectionCounter += 1
 
             AKLog("AKMixer.connect() input: \(existingInput) on bus \(chan), Mixer now has \(mixerAU!.numberOfInputs) total inputs and \(connectionCounter) recent connections.")

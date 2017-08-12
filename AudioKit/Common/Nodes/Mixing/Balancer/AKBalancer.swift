@@ -45,7 +45,6 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
             input?.addConnectionPoint(self!)
 
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self!.avAudioNode, bus: 1))
-            AudioKit.engine.connect(comparator.avAudioNode, to: comparator.connectionPoints, fromBus: 0, format: nil)
         }
     }
 
