@@ -44,15 +44,8 @@ extension AKNode {
     open func addConnectionPoint(_ node: AKNode, bus: Int = 0) {
         connectionPoints.append(AVAudioConnectionPoint(node, to: bus))
     }
-
-    open func disconnectInput() {
-        AudioKit.engine.disconnectNodeInput(avAudioNode)
-    }
     open func disconnectOutput() {
         AudioKit.engine.disconnectNodeOutput(avAudioNode)
-    }
-    open func disconnectInput(bus: Int) {
-        AudioKit.engine.disconnectNodeInput(avAudioNode, bus: bus)
     }
     open func disconnectOutput(bus: Int) {
         AudioKit.engine.disconnectNodeOutput(avAudioNode, bus: bus)
