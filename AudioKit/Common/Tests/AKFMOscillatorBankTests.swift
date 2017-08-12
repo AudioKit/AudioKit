@@ -25,10 +25,52 @@ class AKFMOscillatorBankTests: AKTestCase {
         }
     }
 
+    func testAttackDuration() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), attackDuration: 0.123)
+        output = inputBank
+        AKTestMD5("27d7352154c2abbe3f00a7f66aa1a2ae")
+    }
+
+    func testCarrierMultiplier() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), carrierMultiplier: 1.1)
+        output = inputBank
+        AKTestMD5("04f54473a8adb63d75bd6f7e7f670736")
+    }
+
+    func testDecayDuration() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), decayDuration: 0.234)
+        output = inputBank
+        AKTestMD5("221a728592f2aab5f0b174eb6ce4fcae")
+    }
+
     func testDefault() {
         inputBank = AKFMOscillatorBank()
         output = inputBank
-        AKTestMD5("c6512da384e4c6e5666b33508b7ac703")
+        AKTestMD5("b06c09a1f2da0383337362b724a73d8e")
+    }
+
+    func testDetuningMultiplier() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), detuningMultiplier: 1.1)
+        output = inputBank
+        AKTestMD5("40b7cf906b465a90292cf031659cdb53")
+    }
+
+    func testDetuningOffset() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), detuningOffset: 1)
+        output = inputBank
+        AKTestMD5("75062f8f0b460b7cd99c3562276a5074")
+    }
+
+    func testModulatingMultiplier() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), modulatingMultiplier: 1.2)
+        output = inputBank
+        AKTestMD5("07831f95ab5e7cab6db3cdfe4c01bfa6")
+    }
+
+    func testModulationIndex() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), modulationIndex:  1.3)
+        output = inputBank
+        AKTestMD5("0cdbe4e0546a81e0ac1ab929c71cf864")
     }
 
     func testParameters() {
@@ -42,60 +84,18 @@ class AKFMOscillatorBankTests: AKTestCase {
                                        detuningOffset: 1,
                                        detuningMultiplier: 1.1)
         output = inputBank
-        AKTestMD5("32f8bc76e7aed877dbca785aa299a4af")
-    }
-
-    func testWaveform() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square))
-        output = inputBank
-        AKTestMD5("78ca214908b919242aec85df8a84c615")
-    }
-
-    func testCarrierMultiplier() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), carrierMultiplier: 1.1)
-        output = inputBank
-        AKTestMD5("51c7856d579d781a815397545bae4eef")
-    }
-
-    func testModulatingMultiplier() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), modulatingMultiplier: 1.2)
-        output = inputBank
-        AKTestMD5("2c177c989884f299440e57fd1fb15ddc")
-    }
-
-    func testModulationIndex() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), modulationIndex:  1.3)
-        output = inputBank
-        AKTestMD5("341fc9150e43200ff38c2e779776d57c")
-    }
-
-    func testAttackDuration() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), attackDuration: 0.123)
-        output = inputBank
-        AKTestMD5("0c7a25ba45d8d92252636ae0aadf9e34")
-    }
-
-    func testDecayDuration() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), decayDuration: 0.234)
-        output = inputBank
-        AKTestMD5("1ced7e6a3c241852d872774784688aa7")
+        AKTestMD5("ccec3f3a959e59a84867a0b95bfed237")
     }
 
     func testSustainLevel() {
         inputBank = AKFMOscillatorBank(waveform: AKTable(.square), sustainLevel: 0.345)
         output = inputBank
-        AKTestMD5("762395c5b02e2885b02b37171ebd0acf")
+        AKTestMD5("af8765a1937447caed4461e30fdea889")
     }
 
-    func testDetuningOffset() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), detuningOffset: 1)
+    func testWaveform() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square))
         output = inputBank
-        AKTestMD5("034579f3dcd2f1a523d66c12dc034637")
-    }
-
-    func testDetuningMultiplier() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), detuningMultiplier: 1.1)
-        output = inputBank
-        AKTestMD5("bb0b0f92c108de7b02581508aa735624")
+        AKTestMD5("0c0d418d740c1cc53a9afd232122bb44")
     }
 }

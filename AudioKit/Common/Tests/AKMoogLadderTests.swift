@@ -11,24 +11,24 @@ import XCTest
 
 class AKMoogLadderTests: AKTestCase {
 
+    func testCutoffFrequency() {
+        output = AKMoogLadder(input, cutoffFrequency: 500)
+        AKTestMD5("f8a072dc406a73d9dbdd18f1affdd39f")
+    }
+
     func testDefault() {
         output = AKMoogLadder(input)
-        AKTestMD5("d35b507249824188ed4907dd5ae243f2")
+        AKTestMD5("e9881ac2030dab7b083d19fd0a536d2b")
     }
 
     func testParameters() {
         output = AKMoogLadder(input, cutoffFrequency: 500, resonance: 0.9)
-        AKTestMD5("f7ff6900210175305fc13e1ef56af8ea")
-    }
-
-    func testCutoffFrequency() {
-        output = AKMoogLadder(input, cutoffFrequency: 500)
-        AKTestMD5("7eedd15a6ba4d4cbab4e5aae0a2d9427")
+        AKTestMD5("983f6f432ad2e84c1d337f6900fdf257")
     }
 
     func testResonance() {
         output = AKMoogLadder(input, resonance: 0.9)
-        AKTestMD5("8e7dff73adf308d5fb3540ea59386a63")
+        AKTestMD5("846d7e6648e3252d6668b76a477371e2")
     }
 
 }
