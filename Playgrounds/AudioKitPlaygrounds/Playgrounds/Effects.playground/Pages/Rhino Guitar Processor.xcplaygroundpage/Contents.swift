@@ -1,4 +1,4 @@
-//: [Previous](@previous)
+//: ## Rhino Guitar Processor
 
 import AudioKitPlaygrounds
 import AudioKit
@@ -82,4 +82,3 @@ import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
 
-//: [Next](@next)
