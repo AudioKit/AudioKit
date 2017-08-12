@@ -78,6 +78,9 @@ public protocol AKInput: AKOutput {
 }
 
 extension AKInput {
+    var inputNode: AVAudioNode {
+        return outputNode
+    }
     func disconnectInput(){
         AudioKit.engine.disconnectNodeInput(inputNode)
     }
