@@ -11,28 +11,28 @@ import XCTest
 
 class AKKorgLowPassFilterTests: AKTestCase {
 
+    func testCutoffFrequency() {
+        output = AKKorgLowPassFilter(input, cutoffFrequency: 500)
+        AKTestMD5("fbf3766bebe59477f0d32cb7cf9711f5")
+    }
+
     func testDefault() {
         output = AKKorgLowPassFilter(input)
-        AKTestMD5("60784c8de74c0ce230d4eb460dbd3904")
+        AKTestMD5("48a0ef99290f24af691818f28b2a214a")
     }
 
     func testParameters() {
         output = AKKorgLowPassFilter(input, cutoffFrequency: 500, resonance: 0.5, saturation: 1)
-        AKTestMD5("05297ca14e31523c00cf53c0e6208703")
-    }
-
-    func testCutoffFrequency() {
-        output = AKKorgLowPassFilter(input, cutoffFrequency: 500)
-        AKTestMD5("04565dcae478792f33ba0e53fdcf8010")
+        AKTestMD5("b1a571b7cb02b511aa2ab6896bcaa807")
     }
 
     func testResonance() {
         output = AKKorgLowPassFilter(input, resonance: 0.5)
-        AKTestMD5("28917fb20e85e744b04466b96d60452d")
+        AKTestMD5("97e034e7c8ae33a61cb9a8dbe7534c55")
     }
 
     func testSaturation() {
         output = AKKorgLowPassFilter(input, saturation: 1)
-        AKTestMD5("232f7ce656fb1b781afacb460b15d165")
+        AKTestMD5("5fff20b333cc2575c08f7bec53dc33e0")
     }
 }
