@@ -13,11 +13,11 @@ class AKToneComplementFilterTests: AKTestCase {
 
     func testDefault() {
         output = AKToneComplementFilter(input)
-        AKTestMD5("00dab98d5e1e1d2febb5e036dd96d497")
+        AKTestMD5("666ebfe690f1f76d4bc0917fff9ae1f8")
     }
 
     func testHalfPowerPoint() {
         output = AKToneComplementFilter(input, halfPowerPoint: 500)
-        AKTestMD5("0cf0221f8bd572309f7499f62ee18bba")
+        AKTestMD5("ac3cbc24c7f419e207081174f5eabf9f")
     }
 }
