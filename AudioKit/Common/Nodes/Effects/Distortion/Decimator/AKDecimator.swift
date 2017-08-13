@@ -103,6 +103,6 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     /// Disconnect the node
     override open func disconnect() {
         stop()
-        disconnect(nodes: [self.avAudioNode])
+        AudioKit.detach(nodes: [self.avAudioNode])
     }
 }
