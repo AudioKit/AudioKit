@@ -17,7 +17,7 @@ public enum AKButtonStyle {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    public var callback: () -> (String)
+    public var callback: (AKButton) -> Void = { _ in }
     
     private var isHighlighted = false {
         didSet {
@@ -74,8 +74,7 @@ public enum AKButtonStyle {
 
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let newTitle = callback()
-        if newTitle != "" { title = newTitle }
+        callback(self)
 
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
         isHighlighted = true
@@ -90,9 +89,8 @@ public enum AKButtonStyle {
     public init(title: String,
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: @escaping () -> (String)) {
+                callback: @escaping (AKButton) -> Void) {
         self.title = title
-        self.callback = callback
         self.color = color
         super.init(frame: frame)
 
@@ -101,8 +99,7 @@ public enum AKButtonStyle {
 
     /// Initialization with no details
     override public init(frame: CGRect) {
-        self.callback = { return "" }
-        self.title = "Title"
+        self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
         super.init(frame: frame)
 
@@ -112,8 +109,7 @@ public enum AKButtonStyle {
 
     /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
-        self.callback = { return "" }
-        self.title = "Title"
+        self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
         super.init(coder: coder)
 
