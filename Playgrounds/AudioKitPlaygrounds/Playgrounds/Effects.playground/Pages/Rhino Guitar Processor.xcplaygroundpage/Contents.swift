@@ -6,7 +6,7 @@ import AudioKit
 var rhino: AKRhinoGuitarProcessor!
 
 do {
-    let mixloop = try AKAudioFile(readFileName: "guitar.wav", baseDir: .resources)
+    let mixloop = try AKAudioFile(readFileName: "guitar.wav")
 
     let player = try AKAudioPlayer(file: mixloop) {
         print("completion callback has been triggered!")
