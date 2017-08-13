@@ -25,6 +25,9 @@ public enum AKButtonStyle {
         }
     }
 
+    private var highlightAnimationTimer: Timer?
+    private var highlightAnimationAlpha: CGFloat = 1.0
+
     /// Text to display on the button
     @IBInspectable open var title: String {
         didSet {
@@ -83,6 +86,22 @@ public enum AKButtonStyle {
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         transform = CGAffineTransform.identity
         isHighlighted = false
+        
+        if let highlightAnimationTimer = highlightAnimationTimer {
+            highlightAnimationTimer.invalidate()
+            self.highlightAnimationTimer = nil
+        }
+        self.highlightAnimationAlpha = 0.6
+        highlightAnimationTimer = Timer.scheduledTimer(timeInterval: 0.002, target: self, selector: #selector(highlightAnimationTimerDidFire), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func highlightAnimationTimerDidFire() {
+        highlightAnimationAlpha += 0.01
+        setNeedsDisplay()
+        if highlightAnimationAlpha == 1.0, let highlightAnimationTimer = highlightAnimationTimer {
+            highlightAnimationTimer.invalidate()
+            self.highlightAnimationTimer = nil
+        }
     }
 
     /// Initialize the button
@@ -182,7 +201,11 @@ public enum AKButtonStyle {
                 color.withAlphaComponent(0.6).setFill()
             }
         } else {
-            color.setFill()
+            if highlightAnimationTimer != nil {
+                color.withAlphaComponent(highlightAnimationAlpha).setFill()
+            } else {
+                color.setFill()
+            }
         }
         
         outerPath.fill()
