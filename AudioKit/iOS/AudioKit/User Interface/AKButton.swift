@@ -18,6 +18,12 @@ public enum AKButtonStyle {
     static var standardCornerRadius: CGFloat = 3.0
 
     public var callback: () -> (String)
+    
+    private var isHighlighted = false {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
     /// Text to display on the button
     @IBInspectable open var title: String {
@@ -35,6 +41,12 @@ public enum AKButtonStyle {
 
     /// Button border color
     @IBInspectable open var borderColor: UIColor? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable open var highlightedColor: UIColor? {
         didSet {
             setNeedsDisplay()
         }
@@ -66,10 +78,12 @@ public enum AKButtonStyle {
         if newTitle != "" { title = newTitle }
 
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
+        isHighlighted = true
     }
 
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         transform = CGAffineTransform.identity
+        isHighlighted = false
     }
 
     /// Initialize the button
@@ -163,7 +177,18 @@ public enum AKButtonStyle {
         let outerPath = UIBezierPath(roundedRect: outerRect,
                                      byRoundingCorners: .allCorners,
                                      cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
-        color.setFill()
+        
+        // Set fill color based on highlight state
+        if isHighlighted {
+            if let highlightedColor = highlightedColor {
+                highlightedColor.setFill()
+            } else {
+                color.withAlphaComponent(0.6).setFill()
+            }
+        } else {
+            color.setFill()
+        }
+        
         outerPath.fill()
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
