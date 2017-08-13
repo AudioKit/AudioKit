@@ -17,8 +17,15 @@ public enum AKButtonStyle {
 
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
-
+    
     public var callback: (AKButton) -> Void = { _ in }
+    
+    private var isHighlighted = false {
+        didSet {
+            needsDisplay = true
+        }
+    }
+
 
     /// Text to display on the button
     @IBInspectable open var title: String {
@@ -27,8 +34,15 @@ public enum AKButtonStyle {
         }
     }
 
-    /// Background color of the button
+    /// Button fill color
     @IBInspectable open var color: NSColor {
+        didSet {
+            needsDisplay = true
+        }
+    }
+    
+    /// Button fill color when highlighted
+    @IBInspectable open var highlightedColor: NSColor? {
         didSet {
             needsDisplay = true
         }
@@ -63,6 +77,11 @@ public enum AKButtonStyle {
 
     open override func mouseDown(with event: NSEvent) {
         callback(self)
+        isHighlighted = true
+    }
+    
+    open override func mouseUp(with event: NSEvent) {
+        isHighlighted = false
     }
 
     /// Initialize the button
@@ -141,7 +160,18 @@ public enum AKButtonStyle {
                                width: rect.width - borderWidth,
                                height: rect.height - borderWidth)
         let outerPath = NSBezierPath(roundedRect: outerRect, xRadius: cornerRadius, yRadius: cornerRadius)
-        color.setFill()
+        
+        // Set fill color based on highlight state
+        if isHighlighted {
+            if let highlightedColor = highlightedColor {
+                highlightedColor.setFill()
+            } else {
+                color.withAlphaComponent(0.6).setFill()
+            }
+        } else {
+            color.setFill()
+        }
+        
         outerPath.fill()
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
