@@ -146,7 +146,6 @@
 				TargetAttributes = {
 					B1756EA61F411D5A00792670 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = AL5THFEQGA;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -318,7 +317,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = AL5THFEQGA;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioUnitManagerExample-iOS",
@@ -336,7 +335,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = AL5THFEQGA;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioUnitManagerExample-iOS",
