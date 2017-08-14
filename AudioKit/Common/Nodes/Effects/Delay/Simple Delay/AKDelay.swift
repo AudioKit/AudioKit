@@ -74,7 +74,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
             self.dryWetMix = dryWetMix
 
             super.init(avAudioNode: delayAU, attach: true)
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
 
             delayAU.delayTime = self.time
             delayAU.feedback = Float(feedback) * 100.0

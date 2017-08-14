@@ -69,7 +69,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
             self?.avAudioNode = $0
             self?.internalAU = $0.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

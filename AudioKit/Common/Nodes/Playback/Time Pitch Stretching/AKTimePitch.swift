@@ -62,7 +62,7 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
         super.init()
         self.avAudioNode = timePitchAU
         AudioKit.engine.attach(self.avAudioNode)
-        input?.addConnectionPoint(self)
+        input?.connect(to: self)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

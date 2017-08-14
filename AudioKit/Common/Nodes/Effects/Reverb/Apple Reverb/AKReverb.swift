@@ -36,7 +36,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
 
         self.avAudioNode = reverbAU
         AudioKit.engine.attach(self.avAudioNode)
-        input?.addConnectionPoint(self)
+        input?.connect(to: self)
 
         reverbAU.wetDryMix = Float(dryWetMix) * 100.0
     }

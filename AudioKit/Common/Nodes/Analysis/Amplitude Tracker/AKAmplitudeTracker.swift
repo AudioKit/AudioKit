@@ -75,7 +75,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
                 au.setHalfPowerPoint(Float(halfPowerPoint))
             }
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
     }
