@@ -40,10 +40,9 @@ class ViewController: UIViewController {
             player = try? AKAudioPlayer(file: audioFile)
             player?.looping = true
             
-            // insert effects here
-            
             mixer.connect(player)
             
+            // setup the initial input/output connections
             auManager?.input = player
             auManager?.output = mixer
             
@@ -53,7 +52,7 @@ class ViewController: UIViewController {
         
     }
     
-    private func getEffectsButtonFromIdentifier(_ id: Int ) -> UIButton? {
+    private func getEffectsButton(_ id: Int ) -> UIButton? {
         guard view != nil else { return nil }
         
         for sv in view.subviews {
@@ -69,7 +68,7 @@ class ViewController: UIViewController {
     private func initDropDowns() {
         for i in 0 ..< 3 {
             
-            if let button = getEffectsButtonFromIdentifier(i) {
+            if let button = getEffectsButton(i) {
                 effectButtons[i] = button
             }
             
