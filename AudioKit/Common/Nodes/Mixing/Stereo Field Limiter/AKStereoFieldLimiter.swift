@@ -7,7 +7,7 @@
 //
 
 /// Stereo Field Limiter
-open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
+open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKStereoFieldLimiterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
@@ -57,7 +57,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent {
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         amount: Double = 1) {
 
         self.amount = amount

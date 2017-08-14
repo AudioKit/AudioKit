@@ -8,7 +8,7 @@
 
 /// Emulation of the Roland TB-303 filter
 ///
-open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
+open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKRolandTB303FilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
@@ -107,7 +107,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent {
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         cutoffFrequency: Double = 500,
         resonance: Double = 0.5,
         distortion: Double = 2.0,

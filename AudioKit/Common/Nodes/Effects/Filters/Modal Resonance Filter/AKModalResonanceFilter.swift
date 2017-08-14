@@ -10,7 +10,7 @@
 /// can be created using  passing an impulse through a combination of modal
 /// filters.
 ///
-open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
+open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKModalResonanceFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
@@ -74,7 +74,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
     ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         frequency: Double = 500.0,
         qualityFactor: Double = 50.0) {
 

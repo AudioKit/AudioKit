@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 /// 
-open class AKVariSpeed: AKNode, AKToggleable {
+open class AKVariSpeed: AKNode, AKToggleable, AKInput {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 
@@ -33,7 +33,7 @@ open class AKVariSpeed: AKNode, AKToggleable {
     ///   - input: Input node to process
     ///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
     ///
-    public init(_ input: AKNode?, rate: Double = 1.0) {
+    public init(_ input: AKNode? = nil, rate: Double = 1.0) {
         self.rate = rate
         lastKnownRate = rate
 

@@ -22,9 +22,7 @@ class EffectsViewController: UIViewController {
 
         volumeSlider.maximum = 10.0
 
-        if let volume = songProcessor.playerBooster?.gain {
-            volumeSlider.value = volume
-        }
+        volumeSlider.value = songProcessor.playerBooster.gain
         volumeSlider.callback = updateVolume
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share(barButton:)))
     }
@@ -35,7 +33,7 @@ class EffectsViewController: UIViewController {
     }
 
     func updateVolume(value: Double) {
-        songProcessor.playerBooster?.gain = value
+        songProcessor.playerBooster.gain = value
     }
 
     @objc func share(barButton: UIBarButtonItem) {
@@ -46,5 +44,5 @@ class EffectsViewController: UIViewController {
             }
         }
     }
-
+    
 }

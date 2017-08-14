@@ -20,17 +20,11 @@ class VariableDelayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let time = songProcessor.variableDelay?.time {
-            timeSlider.value = time
-        }
+        timeSlider.value = songProcessor.variableDelay.time
 
-        if let feedback = songProcessor.variableDelay?.feedback {
-            feedbackSlider.value = feedback
-        }
+        feedbackSlider.value = songProcessor.variableDelay.feedback
 
-        if let balance = songProcessor.delayMixer?.balance {
-            mixSlider.value = balance
-        }
+        mixSlider.value = songProcessor.delayMixer.balance
 
         timeSlider.callback = updateTime
         feedbackSlider.callback = updateFeedback
@@ -38,15 +32,15 @@ class VariableDelayViewController: UIViewController {
     }
 
     func updateTime(value: Double) {
-        songProcessor.variableDelay?.time = value
+        songProcessor.variableDelay.time = value
     }
 
     func updateFeedback(value: Double) {
-        songProcessor.variableDelay?.feedback = value
+        songProcessor.variableDelay.feedback = value
     }
 
     func updateMix(value: Double) {
-       songProcessor.delayMixer?.balance = value
+        songProcessor.delayMixer.balance = value
     }
-
+    
 }

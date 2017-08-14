@@ -8,7 +8,7 @@
 
 /// Guitar head and cab simulator.
 ///
-open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
+open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKRhinoGuitarProcessorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
 
@@ -156,7 +156,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent {
     ///   - distAmount: Distortion Amount
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         preGain: Double = 5.0,
         postGain: Double = 0.7,
         lowGain: Double = 0.0,

@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
+open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
 
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
@@ -52,6 +52,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 100
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
+    private var inputMixer = AKMixer()
 
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
@@ -68,7 +69,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         attackTime: Double = 0.012,
         decayTime: Double = 0.024,
         preGain: Double = 0) {
@@ -77,12 +78,15 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
             self.decayTime = decayTime
             self.preGain = preGain
 
-            inputGain = AKMixer(input)
+            inputGain = AKMixer()
             inputGain?.volume = 0
             mixer = AKMixer(inputGain)
 
-            effectGain = AKMixer(input)
+            effectGain = AKMixer()
             effectGain?.volume = 1
+
+            input?.connect(to: inputMixer)
+            inputMixer.connect(to: [inputGain!, effectGain!])
 
             let effect = _Self.effect
             self.internalEffect = effect
@@ -102,6 +106,9 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
             au[kLimiterParam_PreGain] = preGain
     }
 
+    public var inputNode: AVAudioNode {
+        return inputMixer.avAudioNode
+    }
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -125,7 +132,10 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect {
     override open func disconnect() {
         stop()
 
-        AudioKit.detach(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputMixer.avAudioNode,
+                                inputGain!.avAudioNode,
+                                effectGain!.avAudioNode,
+                                mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }

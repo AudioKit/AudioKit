@@ -8,7 +8,7 @@
 
 /// Stereo Booster
 ///
-open class AKBooster: AKNode, AKToggleable, AKComponent {
+open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBoosterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "gain")
@@ -114,7 +114,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         gain: Double = 1) {
 
         self.leftGain = gain
