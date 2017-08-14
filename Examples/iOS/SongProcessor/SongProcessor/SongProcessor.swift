@@ -15,18 +15,18 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
     static let sharedInstance = SongProcessor()
 
     var iTunesFilePlayer: AKAudioPlayer?
-    var variableDelay: AKDelay!  //Was AKVariableDelay, but it wasn't offline render friendly!
-    var delayMixer: AKDryWetMixer!
-    var moogLadder: AKMoogLadder!
-    var filterMixer: AKDryWetMixer!
-    var reverb: AKCostelloReverb!
-    var reverbMixer: AKDryWetMixer!
-    var pitchShifter: AKPitchShifter!
-    var pitchMixer: AKDryWetMixer!
-    var bitCrusher: AKBitCrusher!
-    var bitCrushMixer: AKDryWetMixer!
-    var playerBooster: AKBooster!
-    var offlineRender: AKOfflineRenderNode!
+    var variableDelay = AKDelay()  //Was AKVariableDelay, but it wasn't offline render friendly!
+    var delayMixer = AKDryWetMixer()
+    var moogLadder = AKMoogLadder()
+    var filterMixer = AKDryWetMixer()
+    var reverb = AKCostelloReverb()
+    var reverbMixer = AKDryWetMixer()
+    var pitchShifter = AKPitchShifter()
+    var pitchMixer = AKDryWetMixer()
+    var bitCrusher = AKBitCrusher()
+    var bitCrushMixer = AKDryWetMixer()
+    var playerBooster = AKBooster()
+    var offlineRender = AKOfflineRenderNode()
     var players = [String: AKAudioPlayer]()
     var playerMixer = AKMixer()
 
@@ -65,54 +65,51 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
             do {
                 let audioFile = try AKAudioFile(readFileName: name+"loop.wav", baseDir: .resources)
                 players[name] = try AKAudioPlayer(file: audioFile, looping: true)
-                playerMixer.connect(players[name])
+                players[name]?.connect(to: playerMixer)
             } catch {
                 fatalError(String(describing: error))
             }
         }
 
-        startVariableDelay()  //Was AKVariableDelay, but it wasn't offline render friendly!  Need to rename
-        startMoogLadder()
-        startCostelloReverb()
-        startPitchShifting()
-        startBitCrushing()
+        playerMixer >>>
+            delayMixer >>>
+            filterMixer >>>
+            reverbMixer >>>
+            pitchMixer >>>
+            bitCrushMixer >>>
+            playerBooster >>>
+        offlineRender
+
+        AudioKit.output = offlineRender
+
+        playerMixer >>> variableDelay >>> delayMixer.wetInput
+        delayMixer >>> moogLadder >>> filterMixer.wetInput
+        filterMixer >>> reverb >>> reverbMixer.wetInput
+        reverbMixer >>> pitchShifter >>> pitchMixer.wetInput
+        pitchMixer >>> bitCrusher >>> bitCrushMixer.wetInput
+
+
+        AudioKit.output = offlineRender
+        initParameters()
+        AudioKit.start()
+
+
+    }
+    func initParameters(){
+
+        delayMixer.balance = 0
+        filterMixer.balance = 0
+        reverbMixer.balance = 0
+        pitchMixer.balance = 0
+
+        bitCrushMixer.balance = 0
+        bitCrusher.bitDepth = 16
+        bitCrusher.sampleRate = 3_333
 
         //Booster for Volume
-        playerBooster = AKBooster(bitCrushMixer, gain: 0.5)
-
-        offlineRender = AKOfflineRenderNode(playerBooster)
-        AudioKit.output = offlineRender
-        AudioKit.start()
+        playerBooster.gain = 0.5
     }
 
-    func startVariableDelay() {
-        variableDelay = AKDelay(playerMixer)
-//        variableDelay?.rampTime = 0.2
-        delayMixer = AKDryWetMixer(playerMixer, variableDelay, balance: 0)
-    }
-
-    func startMoogLadder() {
-        moogLadder = AKMoogLadder(delayMixer)
-        filterMixer = AKDryWetMixer(delayMixer, moogLadder, balance: 0)
-
-    }
-
-    func startCostelloReverb() {
-        reverb = AKCostelloReverb(filterMixer)
-        reverbMixer = AKDryWetMixer(filterMixer, reverb, balance: 0)
-    }
-
-    func startPitchShifting() {
-        pitchShifter = AKPitchShifter(reverbMixer)
-        pitchMixer = AKDryWetMixer(reverbMixer, pitchShifter, balance: 0)
-    }
-
-    func startBitCrushing() {
-        bitCrusher = AKBitCrusher(pitchMixer)
-        bitCrusher?.bitDepth = 16
-        bitCrusher?.sampleRate = 3_333
-        bitCrushMixer = AKDryWetMixer(pitchMixer, bitCrusher, balance: 0)
-    }
     func rewindLoops() {
         playersDo { $0.schedule(from: 0, to: $0.duration, avTime: nil)}
     }
@@ -221,9 +218,9 @@ extension UIViewController {
                     let count = Int(countText),
                     count > 0 else {
 
-                    let message = text == nil ? "Need a count" : text! + " isn't a vaild loop count!"
-                    cleanup(NSError(domain: "SongProcessor", code: 1, userInfo: [NSLocalizedDescriptionKey: message]))
-                    return
+                        let message = text == nil ? "Need a count" : text! + " isn't a vaild loop count!"
+                        cleanup(NSError(domain: "SongProcessor", code: 1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        return
                 }
                 do {
                     try songProcessor.mixDownLoops(url: url, loops: count)
@@ -265,13 +262,6 @@ extension UIViewController {
         alert.addAction(.init(title: "OK", style: .default, handler: nil))
         return alert
     }
-
+    
 }
 
-struct Platform {
-
-    static var isSimulator: Bool {
-        return TARGET_OS_SIMULATOR != 0
-    }
-
-}
