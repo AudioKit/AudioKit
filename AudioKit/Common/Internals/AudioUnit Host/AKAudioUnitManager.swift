@@ -315,12 +315,12 @@ open class AKAudioUnitManager: NSObject {
 
                     self._effectsChain[index] = audioUnit
 
+                    self.connectEffects()
+                    
                     if self.delegate != nil {
                         AKLog("effectsChanged: \(self._effectsChain)")
                         self.delegate!.handleEffectAdded(at: index)
                     }
-
-                    self.connectEffects()
                 })
             }
         }
