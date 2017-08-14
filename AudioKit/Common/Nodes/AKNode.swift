@@ -40,6 +40,8 @@ extension AKNode: AKOutput {
     public var outputNode: AVAudioNode {
         return avAudioNode
     }
+
+    @available(*, deprecated, renamed: "connect(to:bus:)")
     open func addConnectionPoint(_ node: AKNode, bus: Int = 0) {
         connectionPoints.append(AVAudioConnectionPoint(node, to: bus))
     }

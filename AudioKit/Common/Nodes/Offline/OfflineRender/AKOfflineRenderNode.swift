@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class AKOfflineRenderNode: AKNode, AKComponent {
+open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
 
     public typealias AKAudioUnitType = AKOfflineRenderAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "mnrn")

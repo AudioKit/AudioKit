@@ -7,7 +7,7 @@
 //
 
 /// Operation-based effect
-open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
+open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKOperationEffectAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")

@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-open class AKDelay: AKNode, AKToggleable {
+open class AKDelay: AKNode, AKToggleable, AKInput {
     let delayAU = AVAudioUnitDelay()
 
     fileprivate var lastKnownMix: Double = 0.5
@@ -62,7 +62,7 @@ open class AKDelay: AKNode, AKToggleable {
     ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         time: Double = 1,
         feedback: Double = 0.5,
         lowPassCutoff: Double = 15_000,

@@ -8,7 +8,7 @@
 
 /// Distortion using a modified hyperbolic tangent function.
 ///
-open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
+open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
@@ -104,7 +104,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         pregain: Double = 2.0,
         postgain: Double = 0.5,
         postiveShapeParameter: Double = 0.0,

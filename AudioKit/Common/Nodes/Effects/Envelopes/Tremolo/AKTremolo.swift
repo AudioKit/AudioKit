@@ -8,7 +8,7 @@
 
 /// Table-lookup tremolo with linear interpolation
 ///
-open class AKTremolo: AKNode, AKToggleable, AKComponent {
+open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKTremoloAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
@@ -75,7 +75,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     ///   - waveform:  Shape of the tremolo (default to sine)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         frequency: Double = 10,
         depth: Double = 1.0,
         waveform: AKTable = AKTable(.positiveSine)) {

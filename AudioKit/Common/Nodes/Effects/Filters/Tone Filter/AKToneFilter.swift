@@ -8,7 +8,7 @@
 
 /// A first-order recursive low-pass filter with variable frequency response.
 ///
-open class AKToneFilter: AKNode, AKToggleable, AKComponent {
+open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKToneFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
@@ -56,7 +56,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent {
     ///   - halfPowerPoint: The response curve's half-power point, in Hz. Half power is defined as peak power / root 2.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         halfPowerPoint: Double = 1_000.0) {
 
         self.halfPowerPoint = halfPowerPoint

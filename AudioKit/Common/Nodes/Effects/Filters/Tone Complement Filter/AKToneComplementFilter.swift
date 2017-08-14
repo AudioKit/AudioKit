@@ -8,7 +8,7 @@
 
 /// A complement to the AKLowPassFilter.
 ///
-open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
+open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKToneComplementFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
@@ -56,7 +56,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         halfPowerPoint: Double = 1_000.0) {
 
         self.halfPowerPoint = halfPowerPoint

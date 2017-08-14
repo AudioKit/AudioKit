@@ -14,7 +14,7 @@
 /// three series allpass units, followed by four parallel comb filters, and two
 /// decorrelation delay lines in parallel at the output.
 ///
-open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
+open class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKChowningReverbAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
@@ -34,7 +34,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter input: Input node to process
     ///
-    public init(_ input: AKNode?) {
+    public init(_ input: AKNode? = nil) {
         _Self.register()
 
         super.init()

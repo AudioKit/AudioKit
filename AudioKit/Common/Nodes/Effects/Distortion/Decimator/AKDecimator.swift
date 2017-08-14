@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
-open class AKDecimator: AKNode, AKToggleable, AUEffect {
+open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput{
     // MARK: - Properties
 
     /// Four letter unique description of the node
@@ -55,7 +55,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         decimation: Double = 0.5,
         rounding: Double = 0,
         mix: Double = 1) {

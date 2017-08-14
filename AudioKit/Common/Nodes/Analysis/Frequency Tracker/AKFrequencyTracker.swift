@@ -8,7 +8,7 @@
 
 /// This is based on an algorithm originally created by Miller Puckette.
 ///
-open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
+open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKFrequencyTrackerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "ptrk")
@@ -41,7 +41,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     /// - parameter peakCount: Number of peaks.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         hopSize: Double = 512,
         peakCount: Double = 20) {
 
