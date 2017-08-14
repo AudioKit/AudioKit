@@ -11,7 +11,7 @@ public typealias AKThresholdCallback = @convention(block) (Bool) -> Void
 /// Performs a "root-mean-square" on a signal to get overall amplitude of a
 /// signal. The output signal looks similar to that of a classic VU meter.
 ///
-open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
+open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKAmplitudeTrackerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
@@ -57,7 +57,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         halfPowerPoint: Double = 10,
         threshold: Double = 1,
         thresholdCallback: @escaping AKThresholdCallback = { _ in }) {

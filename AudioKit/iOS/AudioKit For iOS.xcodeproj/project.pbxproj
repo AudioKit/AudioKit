@@ -2449,9 +2449,9 @@
 		C44DD59D1F3E459300919962 /* OfflineRender */ = {
 			isa = PBXGroup;
 			children = (
+				C44DD5A01F3E459300919962 /* AKOfflineRenderNode.swift */,
 				C44DD59E1F3E459300919962 /* AKOfflineRenderAudioUnit.h */,
 				C44DD59F1F3E459300919962 /* AKOfflineRendererAudioUnit.mm */,
-				C44DD5A01F3E459300919962 /* AKOfflineRenderNode.swift */,
 			);
 			path = OfflineRender;
 			sourceTree = "<group>";

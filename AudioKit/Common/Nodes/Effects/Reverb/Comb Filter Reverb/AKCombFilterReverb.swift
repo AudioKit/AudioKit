@@ -12,7 +12,7 @@
 /// for a signal to decay to 1/1000, or 60dB down from its original amplitude).
 /// Output from a comb filter will appear only after loopDuration seconds.
 ///
-open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
+open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKCombFilterReverbAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "comb")
@@ -63,7 +63,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent {
     ///            Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         reverbDuration: Double = 1.0,
         loopDuration: Double = 0.1) {
 
