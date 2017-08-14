@@ -9,10 +9,10 @@ import AudioKitPlaygrounds
 import AudioKit
 
 //: This section prepares the players
-let drumFile = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
-let bassFile = try AKAudioFile(readFileName: "bassloop.wav", baseDir: .resources)
-let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .resources)
-let leadFile = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
+let drumFile = try AKAudioFile(readFileName: "drumloop.wav")
+let bassFile = try AKAudioFile(readFileName: "bassloop.wav")
+let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav")
+let leadFile = try AKAudioFile(readFileName: "leadloop.wav")
 
 var drums = try AKAudioPlayer(file: drumFile)
 var bass = try AKAudioPlayer(file: bassFile)

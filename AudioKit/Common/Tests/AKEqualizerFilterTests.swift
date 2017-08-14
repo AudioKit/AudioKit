@@ -11,28 +11,29 @@ import XCTest
 
 class AKEqualizerFilterTests: AKTestCase {
 
-    func testDefault() {
-        output = AKEqualizerFilter(input)
-        AKTestMD5("73f1363cf9b147982222f6fbf9220d54")
-    }
-
-    func testParameters() {
-        output = AKEqualizerFilter(input, centerFrequency: 500, bandwidth: 50, gain: 5)
-        AKTestMD5("aa8dfc9bae0b87396a19ea348bb93e0d")
+    func testBandwidth() {
+        output = AKEqualizerFilter(input, bandwidth: 50)
+        AKTestMD5("e1df5bd2c1798844109c8d6c9df29eca")
     }
 
     func testCenterFrequency() {
         output = AKEqualizerFilter(input, centerFrequency: 500)
-        AKTestMD5("653eb91a5de56e485f5fb0a9eafec1af")
+        AKTestMD5("f656c4cfd0054dcb2020339859e1ffe3")
     }
 
-    func testBandwidth() {
-        output = AKEqualizerFilter(input, bandwidth: 50)
-        AKTestMD5("61c77eabbb5ecbeb54874a397e21fa39")
+    func testDefault() {
+        output = AKEqualizerFilter(input)
+        AKTestMD5("7fcd0d089f479c4512fac9d885461702")
     }
 
     func testGain() {
         output = AKEqualizerFilter(input, gain: 5)
-        AKTestMD5("3eb6bc39abf442688af24817e9f9e3ba")
+        AKTestMD5("8dfb042339d7a5a6e51885ea199ab9f3")
     }
+
+    func testParameters() {
+        output = AKEqualizerFilter(input, centerFrequency: 500, bandwidth: 50, gain: 5)
+        AKTestMD5("9248dab9b07bec2957d9c7ce39d22e0c")
+    }
+
 }

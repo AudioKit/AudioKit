@@ -14,7 +14,7 @@ class AKTestCase: XCTestCase {
     var duration = 0.1
     var output: AKNode?
 
-    let sineOscillatorMD5 = "30e9a7639b3af4f8159e307bf48a2844"
+    let sineOscillatorMD5 = "6ee413495f949542432eb00d32ecd903"
 
     var input = AKOscillator()
 
