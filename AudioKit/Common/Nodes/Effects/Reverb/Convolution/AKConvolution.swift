@@ -9,7 +9,7 @@
 /// This module will perform partitioned convolution on an input signal using an
 /// audio file as an impulse response.
 ///
-open class AKConvolution: AKNode, AKToggleable, AKComponent {
+open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKConvolutionAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
@@ -36,7 +36,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent {
     ///                      at the cost of requiring more CPU power.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         impulseResponseFileURL: URL,
         partitionLength: Int = 2_048) {
 

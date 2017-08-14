@@ -8,7 +8,7 @@
 
 /// A delay line with cubic interpolation.
 ///
-open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
+open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKVariableDelayAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
@@ -73,7 +73,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent {
     ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         time: Double = 1,
         feedback: Double = 0,
         maximumDelayTime: Double = 5) {
