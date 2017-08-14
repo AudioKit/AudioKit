@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
+open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
 
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter)
@@ -44,6 +44,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 100
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
+    var inputMixer = AKMixer()
 
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
@@ -61,19 +62,22 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
     ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         cutoffFrequency: Double = 6_900,
         resonance: Double = 0) {
 
             self.cutoffFrequency = cutoffFrequency
             self.resonance = resonance
 
-            inputGain = AKMixer(input)
+            inputGain = AKMixer()
             inputGain?.volume = 0
             mixer = AKMixer(inputGain)
 
-            effectGain = AKMixer(input)
+            effectGain = AKMixer()
             effectGain?.volume = 1
+
+            input?.connect(to: inputMixer)
+            inputMixer.connect(to: [inputGain!, effectGain!])
 
             let effect = _Self.effect
             self.internalEffect = effect
@@ -91,7 +95,9 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
             au[kHipassParam_CutoffFrequency] = cutoffFrequency
             au[kHipassParam_Resonance] = resonance
     }
-
+    public var inputNode: AVAudioNode {
+        return inputMixer.avAudioNode
+    }
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -115,7 +121,10 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect {
     override open func disconnect() {
         stop()
 
-        AudioKit.detach(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputMixer.avAudioNode,
+                                inputGain!.avAudioNode,
+                                effectGain!.avAudioNode,
+                                mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }
