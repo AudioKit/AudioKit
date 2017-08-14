@@ -42,7 +42,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
 
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self!.avAudioNode, bus: 1))
         }

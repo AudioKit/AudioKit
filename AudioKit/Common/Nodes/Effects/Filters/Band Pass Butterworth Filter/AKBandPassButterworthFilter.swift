@@ -87,7 +87,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

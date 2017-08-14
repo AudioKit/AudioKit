@@ -68,7 +68,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput{
             au = AUWrapper(effect)
             super.init(avAudioNode: effect, attach: true)
 
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
 
             // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
 

@@ -213,7 +213,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
 
             super.init(avAudioNode: effect, attach: true)
 
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
 
             au[kDistortionParam_Delay] = delay
             au[kDistortionParam_Decay] = decay

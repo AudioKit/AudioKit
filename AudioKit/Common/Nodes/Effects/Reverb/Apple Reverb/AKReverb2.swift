@@ -186,7 +186,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
             super.init()
             self.avAudioNode = internalEffect
             AudioKit.engine.attach(self.avAudioNode)
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
             internalAU = internalEffect.audioUnit
 
             if let audioUnit = internalAU {

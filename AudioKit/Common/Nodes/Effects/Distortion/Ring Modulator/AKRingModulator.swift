@@ -80,7 +80,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
 
             super.init(avAudioNode: effect, attach: true)
 
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
 
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
             au[kDistortionParam_RingModMix] = 100

@@ -102,7 +102,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
             for ugen in self?.customUgens ?? [] {
               self?.internalAU?.add(ugen)
             }

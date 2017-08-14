@@ -43,7 +43,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
     }
 
