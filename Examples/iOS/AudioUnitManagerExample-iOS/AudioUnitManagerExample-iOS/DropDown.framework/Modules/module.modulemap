@@ -1,0 +1,10 @@
+framework module DropDown {
+  umbrella header "DropDown.h"
+
+  export *
+  module * { export * }
+}
+
+module DropDown.Swift {
+    header "DropDown-Swift.h"
+}
