@@ -13,6 +13,6 @@ class AKRingModulatorTests: AKTestCase {
 
     func testDefault() {
         output = AKRingModulator(input)
-        AKTestMD5("3dddbc3f835b614b4c08a312e7c5670d")
+        AKTestMD5("520a74712df06dddac638878d474010e")
     }
 }

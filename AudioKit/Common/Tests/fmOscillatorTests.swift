@@ -20,7 +20,7 @@ class FMOscillatorTests: AKTestCase {
         output = AKOperationGenerator { _ in
             return AKOperation.fmOscillator()
         }
-        AKTestMD5("7b67fe4fc2ac128d6010cc93e47250ed")
+        AKTestMD5("8d80fc784da9e2f0457870f9ebdfd17f")
     }
 
     func testFMOscillatorOperation() {
@@ -35,7 +35,7 @@ class FMOscillatorTests: AKTestCase {
                 modulationIndex: line * 6,
                 amplitude: line / 5)
         }
-        AKTestMD5("c89e8a75eba1f867cd6e4fb7a3a267f2")
+        AKTestMD5("4a09613948839bbe5fe458524de8176a")
     }
 
 }

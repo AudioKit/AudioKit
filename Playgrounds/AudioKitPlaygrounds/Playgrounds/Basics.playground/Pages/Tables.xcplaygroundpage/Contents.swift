@@ -13,7 +13,7 @@ let triangle = AKTable(.triangle, count: 128)
 let sawtooth = AKTable(.sawtooth, count: 128)
 let sine = AKTable(.sine, count: 256)
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 let fileTable = AKTable(file: file)
 
 var custom = AKTable(.sine, count: 256)

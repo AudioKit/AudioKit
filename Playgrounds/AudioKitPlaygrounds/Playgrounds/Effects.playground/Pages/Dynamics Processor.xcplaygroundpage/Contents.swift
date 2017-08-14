@@ -1,12 +1,12 @@
 //: ## Dynamics Processor
-//: The AKDynamicsProcessoris both a compressor and an expander based on
+//: The AKDynamicsProcessor is both a compressor and an expander based on
 //: Apple's Dynamics Processor audio unit. threshold and headRoom (similar to
 //: 'ratio' you might be more familiar with) are specific to the compressor,
 //: expansionRatio and expansionThreshold control the expander.
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true

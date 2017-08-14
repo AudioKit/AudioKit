@@ -11,27 +11,21 @@ import XCTest
 
 class AKOscillatorTests: AKTestCase {
 
+    func testAmpitude() {
+        input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
+        output = input
+        AKTestMD5("24c58d48adb46e273d63088f6ca30208")
+    }
+
     func testDefault() {
         output = input
         AKTestNoEffect()
     }
 
-    func testParameters() {
-        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
-        output = input
-        AKTestMD5("f6e65ca01b18cd5ee413d12a9287ca71")
-    }
-
     func testFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400)
         output = input
-        AKTestMD5("8fe098a1d2762bc664076a9ca7256762")
-    }
-
-    func testAmpitude() {
-        input = AKOscillator(waveform: AKTable(.square), amplitude: 0.5)
-        output = input
-        AKTestMD5("45f2860b48e277b81c04d606874f3488")
+        AKTestMD5("8827c22f2ccd32e59f14de86f1f00706")
     }
 
     func testParametersSetAfterInit() {
@@ -39,6 +33,13 @@ class AKOscillatorTests: AKTestCase {
         input.frequency = 400
         input.amplitude = 0.5
         output = input
-        AKTestMD5("f6e65ca01b18cd5ee413d12a9287ca71")
+        AKTestMD5("857cc2e5bd6ed2b8387966cadf44c9c1")
     }
+
+    func testParameters() {
+        input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
+        output = input
+        AKTestMD5("857cc2e5bd6ed2b8387966cadf44c9c1")
+    }
+
 }

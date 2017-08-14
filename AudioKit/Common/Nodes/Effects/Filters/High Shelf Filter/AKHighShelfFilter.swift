@@ -114,7 +114,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     override open func disconnect() {
         stop()
 
-        disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }

@@ -11,23 +11,24 @@ import XCTest
 
 class AKStringResonatorTests: AKTestCase {
 
-    func testDefault() {
-        output = AKStringResonator(input)
-        AKTestMD5("82e87c2d67c4c79e29d3a49979858c11")
+    func testBandwidth() {
+        output = AKResonantFilter(input, bandwidth: 100)
+        AKTestMD5("aa6aa3854202de9e8c3cb7ba554c8759")
     }
 
-    func testParameters() {
-        output = AKResonantFilter(input, frequency: 500, bandwidth: 100)
-        AKTestMD5("8717b10fc4302b77268594bf4824572e")
+    func testDefault() {
+        output = AKStringResonator(input)
+        AKTestMD5("5fc8b14ba7b0df5076091e45b2f7b7b9")
     }
 
     func testFrequency() {
         output = AKResonantFilter(input, frequency: 500)
-        AKTestMD5("d5e3678658a738e2c59fa107168f80e7")
+        AKTestMD5("2babbee0a60e94aae872efc10ecb60b4")
     }
 
-    func testBandwidth() {
-        output = AKResonantFilter(input, bandwidth: 100)
-        AKTestMD5("87266783be2532b3d69022644635c350")
+    func testParameters() {
+        output = AKResonantFilter(input, frequency: 500, bandwidth: 100)
+        AKTestMD5("eef32378620a18fa71acb0d1af81f11b")
     }
+
 }
