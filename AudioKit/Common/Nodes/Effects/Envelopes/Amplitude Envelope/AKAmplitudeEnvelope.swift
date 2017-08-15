@@ -8,7 +8,7 @@
 
 /// Triggerable classic ADSR envelope
 ///
-open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
+open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
 
     /// Four letter unique description of the node
@@ -104,7 +104,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
     ///   - releaseDuration: Release time
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
         sustainLevel: Double = 1.0,
@@ -123,7 +123,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

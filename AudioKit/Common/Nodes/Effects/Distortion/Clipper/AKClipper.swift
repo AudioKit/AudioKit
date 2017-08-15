@@ -9,7 +9,7 @@
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-open class AKClipper: AKNode, AKToggleable, AKComponent {
+open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKClipperAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
@@ -57,7 +57,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
     ///   - limit: Threshold / limiting value.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         limit: Double = 1.0) {
 
         self.limit = limit
@@ -69,7 +69,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = $0
             self?.internalAU = $0.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

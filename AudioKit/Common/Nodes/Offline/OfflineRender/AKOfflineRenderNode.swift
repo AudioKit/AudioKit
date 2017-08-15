@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class AKOfflineRenderNode: AKNode, AKComponent {
+open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
 
     public typealias AKAudioUnitType = AKOfflineRenderAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "mnrn")
@@ -34,7 +34,7 @@ open class AKOfflineRenderNode: AKNode, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
     }
 

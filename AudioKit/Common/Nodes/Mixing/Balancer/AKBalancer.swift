@@ -13,7 +13,7 @@
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-open class AKBalancer: AKNode, AKToggleable, AKComponent {
+open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBalancerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
@@ -34,7 +34,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
     ///   - input: Input node to process
     ///   - comparator: Audio to match power with
     ///
-    public init( _ input: AKNode?, comparator: AKNode) {
+    public init( _ input: AKNode? = nil, comparator: AKNode) {
         _Self.register()
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
@@ -42,7 +42,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
 
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self!.avAudioNode, bus: 1))
         }

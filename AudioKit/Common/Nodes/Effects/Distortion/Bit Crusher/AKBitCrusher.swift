@@ -8,7 +8,7 @@
 
 /// This will digitally degrade a signal.
 ///
-open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
+open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBitCrusherAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
@@ -71,7 +71,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     ///   - sampleRate: The sample rate of signal output.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         bitDepth: Double = 8,
         sampleRate: Double = 10_000) {
 
@@ -87,7 +87,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

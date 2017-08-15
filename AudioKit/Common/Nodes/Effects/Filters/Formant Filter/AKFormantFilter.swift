@@ -10,7 +10,7 @@
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
+open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
@@ -74,7 +74,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///   - y:
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         x: Double = 0,
         y: Double = 0) {
 
@@ -89,7 +89,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

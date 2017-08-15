@@ -8,7 +8,7 @@
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
 ///
-open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
+open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKThreePoleLowpassFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
@@ -94,7 +94,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     ///                effect.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         distortion: Double = 0.5,
         cutoffFrequency: Double = 1_500,
         resonance: Double = 0.5) {
@@ -111,7 +111,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

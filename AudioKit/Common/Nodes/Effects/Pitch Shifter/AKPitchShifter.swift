@@ -8,7 +8,7 @@
 
 /// Faust-based pitch shfiter
 ///
-open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
+open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
@@ -88,7 +88,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     ///   - crossfade: Crossfade (in samples)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         shift: Double = 0,
         windowSize: Double = 1_024,
         crossfade: Double = 512) {
@@ -105,7 +105,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

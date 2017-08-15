@@ -8,7 +8,7 @@
 
 /// Dynamic range compressor from Faust
 ///
-open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent {
+open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKDynamicRangeCompressorAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
@@ -106,7 +106,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent {
     ///   - releaseTime: Release time
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         ratio: Double = 1,
         threshold: Double = 0.0,
         attackTime: Double = 0.1,
@@ -125,7 +125,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

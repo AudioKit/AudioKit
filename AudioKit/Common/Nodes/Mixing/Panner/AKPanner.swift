@@ -8,7 +8,7 @@
 
 /// Stereo Panner
 ///
-open class AKPanner: AKNode, AKToggleable, AKComponent {
+open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPannerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
@@ -56,7 +56,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         pan: Double = 0) {
 
         self.pan = pan
@@ -69,7 +69,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
