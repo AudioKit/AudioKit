@@ -12,7 +12,7 @@
 
 enum {
     standardBankEnumElements(),
-    phaseDistortionAddress = 6
+    phaseDistortionAddress = numberOfBankEnumElements
 };
 
 class AKPhaseDistortionOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {

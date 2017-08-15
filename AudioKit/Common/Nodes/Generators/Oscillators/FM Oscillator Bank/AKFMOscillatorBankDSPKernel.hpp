@@ -12,9 +12,9 @@
 
 enum {
     standardBankEnumElements(),
-    carrierMultiplierAddress = 6,
-    modulatingMultiplierAddress = 7,
-    modulationIndexAddress = 8
+    carrierMultiplierAddress = numberOfBankEnumElements,
+    modulatingMultiplierAddress = numberOfBankEnumElements + 1,
+    modulationIndexAddress = numberOfBankEnumElements + 2
 };
 
 class AKFMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
