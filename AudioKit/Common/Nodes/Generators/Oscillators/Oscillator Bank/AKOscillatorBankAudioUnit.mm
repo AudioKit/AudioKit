@@ -36,12 +36,7 @@ standardBankFunctions()
     
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
+        standardBankAUParameterList()
     ]];
 
 	parameterTreeBlock(OscillatorBank)

@@ -23,8 +23,15 @@
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;
 - (void)stopNote:(uint8_t)note;
 
-
 @end
+
+#define standardBankAUParameterList() \
+    attackDurationAUParameter, \
+    decayDurationAUParameter, \
+    sustainLevelAUParameter, \
+    releaseDurationAUParameter, \
+    detuningOffsetAUParameter, \
+    detuningMultiplierAUParameter
 
 #define standardBankFunctions() \
 - (BOOL)isSetUp { return _kernel.resetted; } \
