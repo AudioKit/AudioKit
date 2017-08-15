@@ -59,8 +59,8 @@ standardBankFunctions()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        indexAUParameter,
-        standardBankAUParameterList()
+        standardBankAUParameterList(),
+        indexAUParameter
     ]];
 	parameterTreeBlock(MorphingOscillatorBank)
 }
