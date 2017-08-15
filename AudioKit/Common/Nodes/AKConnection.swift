@@ -35,6 +35,9 @@ extension AKOutput{
     public func disconnectOutput() {
         AudioKit.engine.disconnectNodeOutput(outputNode)
     }
+    public func disconnectOutput(from: AKInput) {
+        connectionPoints = connectionPoints.filter({ $0.node != from.inputNode })
+    }
     public func disconnectOutput(bus: Int) {
         AudioKit.engine.disconnectNodeOutput(outputNode, bus: bus)
     }
@@ -67,6 +70,9 @@ extension AKOutput{
 
 
     //Set connection, this will remove existing connections from the output.
+    @discardableResult public func setOutput(to node: AKInput) -> AKInput {
+        return setOutput(to: node, bus: node.nextInput.bus, format: AudioKit.format)
+    }
     @discardableResult public func setOutput(to node: AKInput, bus: Int, format: AVAudioFormat) -> AKInput {
         AudioKit.connect(outputNode, to: node.inputNode, fromBus: 0, toBus: bus, format: format)
         return node
