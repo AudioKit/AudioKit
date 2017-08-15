@@ -147,6 +147,11 @@
 					B1756EA61F411D5A00792670 = {
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -318,10 +323,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/AudioUnitManagerExample-iOS",
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"../../../Frameworks/AudioKit-iOS",
+					"$(PROJECT_DIR)/AudioUnitManagerExample-iOS",
 				);
 				INFOPLIST_FILE = "AudioUnitManagerExample-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -337,7 +342,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
+					"../../../Frameworks/AudioKit-iOS",
 					"$(PROJECT_DIR)/AudioUnitManagerExample-iOS",
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "../../../Frameworks/AudioKit-iOS";
