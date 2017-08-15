@@ -12,7 +12,7 @@
 
 enum {
     standardBankEnumElements(),
-    pulseWidthAddress = 6
+    pulseWidthAddress = numberOfBankEnumElements
 };
 
 class AKPWMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {

@@ -12,7 +12,7 @@
 
 enum {
     standardBankEnumElements(),
-    indexAddress = 6
+    indexAddress = numberOfBankEnumElements
 };
 
 
