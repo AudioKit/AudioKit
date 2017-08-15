@@ -98,12 +98,7 @@ standardBankFunctions()
         carrierMultiplierAUParameter,
         modulatingMultiplierAUParameter,
         modulationIndexAUParameter,
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
+        standardBankAUParameterList()
     ]];
 	parameterTreeBlock(FMOscillatorBank)
 }

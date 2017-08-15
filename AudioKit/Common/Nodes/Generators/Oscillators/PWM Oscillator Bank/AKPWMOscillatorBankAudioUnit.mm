@@ -46,12 +46,7 @@ standardBankFunctions()
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         pulseWidthAUParameter,
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
+        standardBankAUParameterList()
     ]];
 
 	parameterTreeBlock(PWMOscillatorBank)
