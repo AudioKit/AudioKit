@@ -1,6 +1,6 @@
 //
 //  AKBankDSPKernel.hpp
-//  AudioKit For macOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/1/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
