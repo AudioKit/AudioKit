@@ -44,7 +44,10 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///   - noteNumber: MIDI note number to stop
     ///   - channel: MIDI channel to stop the note on
     ///
-    override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
+    override open func stop(noteNumber: MIDINoteNumber) {
+        stop(noteNumber: noteNumber, channel: 0)
+    }
+    override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         guard self.midiInstrument != nil else { return }
         self.midiInstrument!.stopNote(noteNumber, onChannel: channel)
     }
