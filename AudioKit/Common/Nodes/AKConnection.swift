@@ -134,7 +134,16 @@ extension AKInput {
 
 }
 
-
+extension AVAudioNode: AKInput {
+    public var outputNode: AVAudioNode {
+        return self
+    }
+}
+extension AVAudioMixerNode {
+    public var nextInput: AKInputConnection {
+        return AKInputConnection(node: self, bus: nextAvailableInputBus)
+    }
+}
 
 // Set output connection(s)
 infix operator >>>: AdditionPrecedence
