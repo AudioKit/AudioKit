@@ -37,77 +37,77 @@
 - (void)stopNote:(uint8_t)note { _kernel.stopNote(note); } \
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity { _kernel.startNote(note, velocity); } \
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency { \
-_kernel.startNote(note, velocity, frequency); \
+    _kernel.startNote(note, velocity, frequency); \
 }
 
 #define standardBankParameters() \
 AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;\
 AUParameter *attackDurationAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"attackDuration" \
-name:@"Attack" \
-address:attackDurationAddress \
-min:0 \
-max:1 \
-unit:kAudioUnitParameterUnit_Seconds \
-unitName:nil \
-flags:flags \
-valueStrings:nil \
-dependentParameters:nil]; \
+                                          name:@"Attack" \
+                                       address:attackDurationAddress \
+                                           min:0 \
+                                           max:1 \
+                                          unit:kAudioUnitParameterUnit_Seconds \
+                                      unitName:nil \
+                                         flags:flags \
+                                  valueStrings:nil \
+                           dependentParameters:nil]; \
 AUParameter *decayDurationAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"decayDuration" \
-name:@"Decay" \
-address:decayDurationAddress \
-min:0 \
-max:1 \
-unit:kAudioUnitParameterUnit_Seconds \
-unitName:nil \
-flags:flags \
-valueStrings:nil \
-dependentParameters:nil]; \
+                                          name:@"Decay" \
+                                       address:decayDurationAddress \
+                                           min:0 \
+                                           max:1 \
+                                          unit:kAudioUnitParameterUnit_Seconds \
+                                      unitName:nil \
+                                         flags:flags \
+                                  valueStrings:nil \
+                           dependentParameters:nil]; \
 AUParameter *sustainLevelAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"sustainLevel" \
-name:@"Sustain Level" \
-address:sustainLevelAddress \
-min:0 \
-max:1 \
-unit:kAudioUnitParameterUnit_Generic \
-unitName:nil \
-flags:flags \
-valueStrings:nil \
-dependentParameters:nil]; \
+                                          name:@"Sustain Level" \
+                                       address:sustainLevelAddress \
+                                           min:0 \
+                                           max:1 \
+                                          unit:kAudioUnitParameterUnit_Generic \
+                                      unitName:nil \
+                                         flags:flags \
+                                  valueStrings:nil \
+                           dependentParameters:nil]; \
 AUParameter *releaseDurationAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"releaseDuration" \
-name:@"Release" \
-address:releaseDurationAddress \
-min:0 \
-max:1 \
-unit:kAudioUnitParameterUnit_Seconds \
-unitName:nil \
-flags:flags \
-valueStrings:nil \
-dependentParameters:nil]; \
+                                          name:@"Release" \
+                                       address:releaseDurationAddress \
+                                           min:0 \
+                                           max:1 \
+                                          unit:kAudioUnitParameterUnit_Seconds \
+                                      unitName:nil \
+                                         flags:flags \
+                                  valueStrings:nil \
+                           dependentParameters:nil]; \
 AUParameter *detuningOffsetAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"detuningOffset" \
-name:@"Detuning Offset" \
-address:detuningOffsetAddress \
-min:-1000 \
-max:1000 \
-unit:kAudioUnitParameterUnit_Hertz \
-unitName:nil \
-flags:0 \
-valueStrings:nil \
-dependentParameters:nil]; \
+                                          name:@"Detuning Offset" \
+                                       address:detuningOffsetAddress \
+                                           min:-1000 \
+                                           max:1000 \
+                                          unit:kAudioUnitParameterUnit_Hertz \
+                                      unitName:nil \
+                                         flags:0 \
+                                  valueStrings:nil \
+                           dependentParameters:nil]; \
 AUParameter *detuningMultiplierAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"detuningMultiplier" \
-name:@"Detuning Multiplier" \
-address:detuningMultiplierAddress \
-min:0.1 \
-max:2.0 \
-unit:kAudioUnitParameterUnit_Generic \
-unitName:nil \
-flags:0 \
-valueStrings:nil \
-dependentParameters:nil]; \
+                                          name:@"Detuning Multiplier" \
+                                       address:detuningMultiplierAddress \
+                                           min:0.1 \
+                                           max:2.0 \
+                                          unit:kAudioUnitParameterUnit_Generic \
+                                      unitName:nil \
+                                         flags:0 \
+                                  valueStrings:nil \
+                           dependentParameters:nil]; \
 attackDurationAUParameter.value = 0.1; \
 decayDurationAUParameter.value = 0.1; \
 sustainLevelAUParameter.value = 1.0; \
