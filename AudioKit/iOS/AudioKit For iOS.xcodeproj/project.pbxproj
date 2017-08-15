@@ -713,6 +713,8 @@
 		C4E13D2D1C42360C008F0A3C /* AKPhaseLockedVocoderAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E13D291C42360C008F0A3C /* AKPhaseLockedVocoderAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E13D2E1C42360C008F0A3C /* AKPhaseLockedVocoderAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D2A1C42360C008F0A3C /* AKPhaseLockedVocoderAudioUnit.mm */; };
 		C4E13D2F1C42360C008F0A3C /* AKPhaseLockedVocoderDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E13D2B1C42360C008F0A3C /* AKPhaseLockedVocoderDSPKernel.hpp */; };
+		C4E3D2171F434BB00040190E /* AKBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E3D2161F434B350040190E /* AKBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4E3D2191F434E0E0040190E /* AKBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E3D2181F434E0E0040190E /* AKBankAudioUnit.mm */; };
 		C4E729861D382A3A00E0647E /* AKResonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E729821D382A3A00E0647E /* AKResonantFilter.swift */; };
 		C4E729871D382A3A00E0647E /* AKResonantFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E729831D382A3A00E0647E /* AKResonantFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E729881D382A3A00E0647E /* AKResonantFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E729841D382A3A00E0647E /* AKResonantFilterAudioUnit.mm */; };
@@ -1619,6 +1621,8 @@
 		C4E13D291C42360C008F0A3C /* AKPhaseLockedVocoderAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhaseLockedVocoderAudioUnit.h; sourceTree = "<group>"; };
 		C4E13D2A1C42360C008F0A3C /* AKPhaseLockedVocoderAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaseLockedVocoderAudioUnit.mm; sourceTree = "<group>"; };
 		C4E13D2B1C42360C008F0A3C /* AKPhaseLockedVocoderDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPhaseLockedVocoderDSPKernel.hpp; sourceTree = "<group>"; };
+		C4E3D2161F434B350040190E /* AKBankAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKBankAudioUnit.h; sourceTree = "<group>"; };
+		C4E3D2181F434E0E0040190E /* AKBankAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBankAudioUnit.mm; sourceTree = "<group>"; };
 		C4E729821D382A3A00E0647E /* AKResonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C4E729831D382A3A00E0647E /* AKResonantFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKResonantFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4E729841D382A3A00E0647E /* AKResonantFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKResonantFilterAudioUnit.mm; sourceTree = "<group>"; };
@@ -1983,6 +1987,8 @@
 			children = (
 				C4BEAA101DEC3A9800186C50 /* AKAudioUnit.h */,
 				C4BEAA111DEC3A9800186C50 /* AKAudioUnit.mm */,
+				C4E3D2161F434B350040190E /* AKBankAudioUnit.h */,
+				C4E3D2181F434E0E0040190E /* AKBankAudioUnit.mm */,
 				C40C128E1F08AFFB00F4C7F1 /* AKBankDSPKernel.hpp */,
 				C40C128F1F08AFFB00F4C7F1 /* AKDSPKernel.hpp */,
 				C40C41231C40E344009D870B /* BufferedAudioBus.hpp */,
@@ -4052,6 +4058,7 @@
 				C4537FBE1C3A438D00A51738 /* AKEqualizerFilterAudioUnit.h in Headers */,
 				C40C41601C40E3A5009D870B /* EZAudioPlotGL.h in Headers */,
 				C4537F2D1C39D2A300A51738 /* AKClipperAudioUnit.h in Headers */,
+				C4E3D2171F434BB00040190E /* AKBankAudioUnit.h in Headers */,
 				C40C416D1C40E3A5009D870B /* TPCircularBuffer.h in Headers */,
 				C487B60E1DD9236E00C56B59 /* Envelope.h in Headers */,
 				C47047941E76998600D9906F /* TwoZero.h in Headers */,
@@ -4466,6 +4473,7 @@
 				C4F8C8EA1DCA8CE4001F38F2 /* lpf18.c in Sources */,
 				C4F8C8C41DCA8CE4001F38F2 /* count.c in Sources */,
 				C45380421C3A599F00A51738 /* AKFrequencyTrackerAudioUnit.mm in Sources */,
+				C4E3D2191F434E0E0040190E /* AKBankAudioUnit.mm in Sources */,
 				C453803D1C3A599F00A51738 /* AKAmplitudeTrackerAudioUnit.mm in Sources */,
 				C47047701E7685A800D9906F /* Shakers.cpp in Sources */,
 				C4537FDF1C3A438D00A51738 /* AKMoogLadderAudioUnit.mm in Sources */,
