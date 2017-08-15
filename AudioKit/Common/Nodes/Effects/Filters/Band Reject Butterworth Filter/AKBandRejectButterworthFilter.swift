@@ -9,7 +9,7 @@
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
+open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBandRejectButterworthFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btbr")
@@ -73,7 +73,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
     ///   - bandwidth: Bandwidth. (in Hertz)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         centerFrequency: Double = 3_000.0,
         bandwidth: Double = 2_000.0) {
 
@@ -88,7 +88,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

@@ -12,7 +12,7 @@
 /// 1/1000, or 60dB down from its original amplitude).  Output will begin to
 /// appear immediately.
 ///
-open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
+open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKFlatFrequencyResponseReverbAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
@@ -63,7 +63,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     ///                   delay time or “echo density” of the reverberation.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         reverbDuration: Double = 0.5,
         loopDuration: Double = 0.1) {
 
@@ -77,7 +77,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
             if let au = self?.internalAU {
                 au.setLoopDuration(Float(loopDuration))
             }

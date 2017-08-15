@@ -9,7 +9,7 @@
 /// The output for reson appears to be very hot, so take caution when using this
 /// module.
 ///
-open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
+open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKResonantFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
@@ -72,7 +72,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
     /// - parameter bandwidth: Bandwidth of the filter.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         frequency: Double = 4_000.0,
         bandwidth: Double = 1_000.0) {
 
@@ -87,7 +87,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class AKDistortion: AKNode, AKToggleable, AUEffect {
+open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
 
     // MARK: - Properties
 
@@ -173,7 +173,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         delay: Double = 0.1,
         decay: Double = 1.0,
         delayMix: Double = 0.5,
@@ -213,7 +213,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
 
             super.init(avAudioNode: effect, attach: true)
 
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
 
             au[kDistortionParam_Delay] = delay
             au[kDistortionParam_Decay] = decay

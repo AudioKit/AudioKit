@@ -9,7 +9,7 @@
 /// A stereo phaser This is a stereo phaser, generated from Faust code taken
 /// from the Guitarix project.
 ///
-open class AKPhaser: AKNode, AKToggleable, AKComponent {
+open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPhaserAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
@@ -192,7 +192,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent {
     ///   - lfoBPM: Between 24 and 360
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         notchMinimumFrequency: Double = 100,
         notchMaximumFrequency: Double = 800,
         notchWidth: Double = 1_000,
@@ -221,7 +221,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
-open class AKRingModulator: AKNode, AKToggleable, AUEffect {
+open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
 
     // MARK: - Properties
 
@@ -64,7 +64,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         frequency1: Double = 100,
         frequency2: Double = 100,
         balance: Double = 0.5,
@@ -80,7 +80,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
 
             super.init(avAudioNode: effect, attach: true)
 
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
 
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
             au[kDistortionParam_RingModMix] = 100

@@ -41,7 +41,7 @@ extension AVAudioEngine {
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
-            finalMixer.connect(output)
+            output?.connect(to: finalMixer)
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
     }
@@ -204,7 +204,7 @@ extension AVAudioEngine {
     /// Start up the audio engine with periodic functions
     open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) {
         for function in functions {
-            finalMixer.connect(function)
+            function.connect(to: finalMixer)
         }
         start()
     }
