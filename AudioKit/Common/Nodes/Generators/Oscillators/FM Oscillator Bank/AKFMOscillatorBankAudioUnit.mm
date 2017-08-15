@@ -95,10 +95,10 @@ standardBankFunctions()
     
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
+        standardBankAUParameterList(),
         carrierMultiplierAUParameter,
         modulatingMultiplierAUParameter,
-        modulationIndexAUParameter,
-        standardBankAUParameterList()
+        modulationIndexAUParameter
     ]];
 	parameterTreeBlock(FMOscillatorBank)
 }

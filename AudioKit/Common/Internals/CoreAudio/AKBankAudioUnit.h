@@ -25,6 +25,14 @@
 
 @end
 
+#define standardBankEnumElements() \
+    attackDurationAddress = 0, \
+    decayDurationAddress = 1, \
+    sustainLevelAddress = 2, \
+    releaseDurationAddress = 3, \
+    detuningOffsetAddress = 4, \
+    detuningMultiplierAddress = 5
+
 #define standardBankAUParameterList() \
     attackDurationAUParameter, \
     decayDurationAUParameter, \
