@@ -763,6 +763,7 @@
 		C4D4C4EB1EB7175100134B39 /* AKTuningTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4E41EB7175100134B39 /* AKTuningTable.swift */; };
 		C4E3D21C1F4351340040190E /* AKBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E3D21A1F4351340040190E /* AKBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E3D21D1F4351340040190E /* AKBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E3D21B1F4351340040190E /* AKBankAudioUnit.mm */; };
+		C4F5F2641F443AF400BF7572 /* fwavblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C47047D71E78FB9B00D9906F /* fwavblnk.raw */; };
 		C4F8C8191DCA8959001F38F2 /* scrambler.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8171DCA8959001F38F2 /* scrambler.c */; };
 		C4F8C81A1DCA8959001F38F2 /* slice.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8181DCA8959001F38F2 /* slice.c */; };
 		C4F8C81C1DCA8968001F38F2 /* incr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C81B1DCA8968001F38F2 /* incr.c */; };
@@ -4346,6 +4347,7 @@
 				C45668791D448D7E00D26565 /* mand6.raw in Resources */,
 				C456687D1D448D7E00D26565 /* mandpluk.raw in Resources */,
 				C45668751D448D7E00D26565 /* mand2.raw in Resources */,
+				C4F5F2641F443AF400BF7572 /* fwavblnk.raw in Resources */,
 				C45668781D448D7E00D26565 /* mand5.raw in Resources */,
 				C456687B1D448D7E00D26565 /* mand8.raw in Resources */,
 				C45668721D448D7E00D26565 /* mand10.raw in Resources */,
