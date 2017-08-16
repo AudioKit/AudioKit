@@ -59,11 +59,20 @@ public func AKLog(_ string: String, fname: String = #function) {
 ///   - minimum: Lower bound of randomization
 ///   - maximum: Upper bound of randomization
 ///
+@available(*, deprecated, renamed: "randomIn(range:)")
 public func random(_ minimum: Double, _ maximum: Double) -> Double {
-    let precision = 1_000_000
-    let width = maximum - minimum
+    return randomIn(range: minimum ... maximum)
+}
 
-    return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + minimum
+/// Random double in range
+///
+/// - parameter range: Range of randomization
+///
+public func randomIn(range: ClosedRange<Double>) -> Double {
+    let precision = 1_000_000
+    let width = range.upperBound - range.lowerBound
+
+    return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + range.lowerBound
 }
 
 // MARK: - Normalization Helpers

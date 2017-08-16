@@ -41,11 +41,8 @@ public enum AKPropertySliderStyle {
         }
     }
 
-    /// Minimum, left-most value
-    @IBInspectable open var minimum: Double = 0
-
-    /// Maximum, right-most value
-    @IBInspectable open var maximum: Double = 1
+    /// Range of output
+    @IBInspectable open var range: ClosedRange<Double> = 0 ... 1
 
     /// Text shown on the slider
     @IBInspectable open var property: String = "Property"
@@ -100,14 +97,12 @@ public enum AKPropertySliderStyle {
     public init(property: String,
                 format: String = "%0.3f",
                 value: Double,
-                minimum: Double = 0,
-                maximum: Double = 1,
+                range: ClosedRange<Double> = 0 ... 1,
                 color: UIColor = UIColor.red,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping (_ x: Double) -> Void) {
         self.value = value
-        self.minimum = minimum
-        self.maximum = maximum
+        self.range = range
         self.property = property
         self.format = format
         self.sliderColor = color
@@ -155,9 +150,9 @@ public enum AKPropertySliderStyle {
             let touchLocation = touch.location(in: self)
             lastTouch = touchLocation
             let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-            value = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin)) * (maximum - minimum) + minimum
-            if value > maximum { value = maximum }
-            if value < minimum { value = minimum }
+            value = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin)) *
+                (range.upperBound - range.lowerBound) + range.lowerBound
+            value = range.clamp(value)
             setNeedsDisplay()
             callback?(value)
         }
@@ -169,9 +164,9 @@ public enum AKPropertySliderStyle {
             let touchLocation = touch.location(in: self)
             if lastTouch.x != touchLocation.x {
                 let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-                value = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin)) * (maximum - minimum) + minimum
-                if value > maximum { value = maximum }
-                if value < minimum { value = minimum }
+                value = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin)) *
+                    (range.upperBound - range.lowerBound) + range.lowerBound
+                value = range.clamp(value)
                 setNeedsDisplay()
                 callback?(value)
                 lastTouch = touchLocation
@@ -188,7 +183,7 @@ public enum AKPropertySliderStyle {
 
     /// Give the slider a random value
     open func randomize() -> Double {
-        value = random(minimum, maximum)
+        value = randomIn(range: range)
         setNeedsDisplay()
         return value
     }
@@ -242,8 +237,8 @@ public enum AKPropertySliderStyle {
         context.clear(rect)
 
         drawFlatSlider(currentValue: CGFloat(value),
-            minimum: CGFloat(minimum),
-            maximum: CGFloat(maximum),
+            minimum: CGFloat(range.lowerBound),
+            maximum: CGFloat(range.upperBound),
             propertyName: property,
             currentValueText: String(format: format, value)
         )
