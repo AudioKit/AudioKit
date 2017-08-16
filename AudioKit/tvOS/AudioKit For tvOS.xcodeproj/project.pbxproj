@@ -696,6 +696,7 @@
 		C4E8ED1D1C43A5ED0041965F /* AKConvolutionAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E8ED191C43A5ED0041965F /* AKConvolutionAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E8ED1E1C43A5ED0041965F /* AKConvolutionAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED1A1C43A5ED0041965F /* AKConvolutionAudioUnit.mm */; };
 		C4E8ED1F1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E8ED1B1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp */; };
+		C4F5F2651F443CCB00BF7572 /* fwavblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C47047E41E78FCB800D9906F /* fwavblnk.raw */; };
 		C4F8C81E1DCA89DD001F38F2 /* incr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C81D1DCA89DD001F38F2 /* incr.c */; };
 		C4F8C8201DCA89EC001F38F2 /* scrambler.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C81F1DCA89EC001F38F2 /* scrambler.c */; };
 		C4F8C8221DCA89F4001F38F2 /* slice.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8211DCA89F4001F38F2 /* slice.c */; };
@@ -4066,6 +4067,7 @@
 				C4E377371D1357D900FDB70D /* mand2.raw in Resources */,
 				C4E377341D1357D900FDB70D /* mand10.raw in Resources */,
 				C4E3773A1D1357D900FDB70D /* mand5.raw in Resources */,
+				C4F5F2651F443CCB00BF7572 /* fwavblnk.raw in Resources */,
 				C4E377361D1357D900FDB70D /* mand12.raw in Resources */,
 				C4E3773F1D1357D900FDB70D /* mandpluk.raw in Resources */,
 				C4E377351D1357D900FDB70D /* mand11.raw in Resources */,
