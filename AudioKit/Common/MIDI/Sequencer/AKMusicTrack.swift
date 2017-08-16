@@ -50,11 +50,18 @@ open class AKMusicTrack {
         metaEvent.metaEventType = 3 // track or sequence name
         metaEvent.dataLength = UInt32(data.count)
 
-        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
-            for i in 0 ..< data.count {
-                pointer[i] = data[i]
-            }
-        })
+//        BUG This code below gives EXC_BAD_ACCESS code=1 in certain circumstance
+//        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
+//            for i in 0 ..< data.count {
+//                pointer[i] = data[i]
+//            }
+//        })
+        
+//        FIX by Trevor Sonic
+        for i in 0 ..< data.count {
+            metaEvent.data = data[i]
+        }
+        
 
         let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), &metaEvent)
         if result != 0 {
