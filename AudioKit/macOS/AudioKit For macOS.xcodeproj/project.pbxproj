@@ -106,6 +106,7 @@
 		C45231031DCDC21900A4F0DC /* count.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45231001DCDC21900A4F0DC /* count.swift */; };
 		C45231041DCDC21900A4F0DC /* increment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45231011DCDC21900A4F0DC /* increment.swift */; };
 		C45231051DCDC21900A4F0DC /* save.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45231021DCDC21900A4F0DC /* save.swift */; };
+		C452CC3F1F44173500F02AB1 /* sinewave.raw in Resources */ = {isa = PBXBuildFile; fileRef = C47047CA1E78FB2600D9906F /* sinewave.raw */; };
 		C456669A1D448D7E00D26565 /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B51D448D7D00D26565 /* AKDevice.swift */; };
 		C456669B1D448D7E00D26565 /* AKNodeRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */; };
 		C456669C1D448D7E00D26565 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B71D448D7D00D26565 /* AKNotifications.swift */; };
@@ -4351,6 +4352,7 @@
 				C45668731D448D7E00D26565 /* mand11.raw in Resources */,
 				C45668761D448D7E00D26565 /* mand3.raw in Resources */,
 				C45668771D448D7E00D26565 /* mand4.raw in Resources */,
+				C452CC3F1F44173500F02AB1 /* sinewave.raw in Resources */,
 				C456687C1D448D7E00D26565 /* mand9.raw in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
