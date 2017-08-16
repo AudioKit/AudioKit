@@ -27,7 +27,7 @@ public protocol AKOutput: class {
 extension AKOutput{
 
     public var connectionPoints: [AVAudioConnectionPoint]{
-        get{ return AudioKit.engine.outputConnectionPoints(for: outputNode, outputBus: 0) }
+        get{ return outputNode.engine?.outputConnectionPoints(for: outputNode, outputBus: 0) ?? [] }
         set{ AudioKit.connect(outputNode, to: newValue, fromBus: 0, format: AudioKit.format) }
     }
 
