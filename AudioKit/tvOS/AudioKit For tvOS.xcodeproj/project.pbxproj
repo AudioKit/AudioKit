@@ -621,6 +621,7 @@
 		C4E13D401C42703C008F0A3C /* AKPhaseLockedVocoderDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E13D341C42703C008F0A3C /* AKPhaseLockedVocoderDSPKernel.hpp */; };
 		C4E13D411C42703C008F0A3C /* AKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D361C42703C008F0A3C /* AKAudioPlayer.swift */; };
 		C4E13D441C42703C008F0A3C /* AKTimePitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D3C1C42703C008F0A3C /* AKTimePitch.swift */; };
+		C4E1B3BE1F441AE600A5803D /* sinewave.raw in Resources */ = {isa = PBXBuildFile; fileRef = C47047E51E78FCC000D9906F /* sinewave.raw */; };
 		C4E375A11D13575C00FDB70D /* AKMandolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3759D1D13575C00FDB70D /* AKMandolin.swift */; };
 		C4E375A21D13575C00FDB70D /* AKMandolinAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E3759E1D13575C00FDB70D /* AKMandolinAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E375A31D13575C00FDB70D /* AKMandolinAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E3759F1D13575C00FDB70D /* AKMandolinAudioUnit.mm */; };
@@ -4071,6 +4072,7 @@
 				C4E3773B1D1357D900FDB70D /* mand6.raw in Resources */,
 				C4E3773E1D1357D900FDB70D /* mand9.raw in Resources */,
 				C4E377391D1357D900FDB70D /* mand4.raw in Resources */,
+				C4E1B3BE1F441AE600A5803D /* sinewave.raw in Resources */,
 				C4E377381D1357D900FDB70D /* mand3.raw in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
