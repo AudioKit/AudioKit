@@ -25,6 +25,8 @@
 
 @end
 
+#define numberOfBankEnumElements 7
+
 #define standardBankEnumElements() \
     attackDurationAddress = 0, \
     decayDurationAddress = 1, \
