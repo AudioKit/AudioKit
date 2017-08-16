@@ -145,7 +145,7 @@ public enum AKRotaryKnobStyle {
 
     /// Give the slider a random value
     open func randomize() -> Double {
-        value = randomIn(range: range)
+        value = random(in: range)
         setNeedsDisplay()
         return value
     }

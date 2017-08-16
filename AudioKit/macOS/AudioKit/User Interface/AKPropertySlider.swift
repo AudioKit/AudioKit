@@ -174,7 +174,7 @@ public enum AKPropertySliderStyle {
     }
 
     public func randomize() -> Double {
-        value = random(range.lowerBound, range.upperBound)
+        value = random(in: range)
         needsDisplay = true
         return value
     }
