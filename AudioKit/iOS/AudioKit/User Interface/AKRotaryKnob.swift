@@ -40,11 +40,8 @@ public enum AKRotaryKnobStyle {
         }
     }
 
-    /// Minimum, left-most value
-    @IBInspectable open var minimum: Double = 0
-
-    /// Maximum, right-most value
-    @IBInspectable open var maximum: Double = 1
+    /// Range of output value
+    @IBInspectable open var range: ClosedRange<Double> = 0 ... 1
 
     // Should the knob uses discrete values
     @IBInspectable open var usesDiscreteValues: Bool = false
@@ -105,14 +102,12 @@ public enum AKRotaryKnobStyle {
     public init(property: String,
                 format: String = "%0.3f",
                 value: Double,
-                minimum: Double = 0,
-                maximum: Double = 1,
+                range: ClosedRange<Double> = 0 ... 1,
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
                 callback: @escaping (_ x: Double) -> Void) {
         self.value = value
-        self.minimum = minimum
-        self.maximum = maximum
+        self.range = range
         self.property = property
         self.format = format
         self.knobColor = color
@@ -150,7 +145,7 @@ public enum AKRotaryKnobStyle {
 
     /// Give the slider a random value
     open func randomize() -> Double {
-        value = random(minimum, maximum)
+        value = randomIn(range: range)
         setNeedsDisplay()
         return value
     }
@@ -171,9 +166,9 @@ public enum AKRotaryKnobStyle {
             lastTouch = touchLocation
             let angle = angleBetween(pointA: knobCenter, pointB: touchLocation)
             if angle < 0.0 {
-                value = (maximum - minimum) * (0.5 + (180.0 + angle) / (260.0))
+                value = (range.upperBound - range.lowerBound) * (0.5 + (180.0 + angle) / 260.0)
             } else {
-                value = (maximum - minimum) * ((angle - 50.0) / 130.0) * 0.5
+                value = (range.upperBound - range.lowerBound) * ((angle - 50.0) / 130.0) * 0.5
             }
             if usesDiscreteValues && discreteValueStep > 0.0 {
                 let step = Int(value / discreteValueStep)
@@ -181,8 +176,7 @@ public enum AKRotaryKnobStyle {
                 let higherValue = (step + 1) * (discreteValueStep)
                 value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
             }
-            if value > maximum { value = maximum }
-            if value < minimum { value = minimum }
+            value = range.clamp(value)
             setNeedsDisplay()
             callback?(value)
         }
@@ -195,9 +189,9 @@ public enum AKRotaryKnobStyle {
             if lastTouch.x != touchLocation.x {
                 let angle = angleBetween(pointA: knobCenter, pointB: touchLocation)
                 if angle < 0.0 {
-                    value = (maximum - minimum) * (0.5 + (180.0 + angle) / (260.0))
+                    value = (range.upperBound - range.lowerBound) * (0.5 + (180.0 + angle) / 260.0)
                 } else {
-                    value = (maximum - minimum) * ((angle - 50.0) / 130.0) * 0.5
+                    value = (range.upperBound - range.lowerBound) * ((angle - 50.0) / 130.0) * 0.5
                 }
                 if usesDiscreteValues && discreteValueStep > 0.0 {
                     let step = Int(value / discreteValueStep)
@@ -205,8 +199,7 @@ public enum AKRotaryKnobStyle {
                     let higherValue = (step + 1) * (discreteValueStep)
                     value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
                 }
-                if value > maximum { value = maximum }
-                if value < minimum { value = minimum }
+                value = range.clamp(value)
                 setNeedsDisplay()
                 callback?(value)
                 lastTouch = touchLocation
@@ -250,8 +243,8 @@ public enum AKRotaryKnobStyle {
 
     override open func draw(_ rect: CGRect) {
         drawKnob(currentValue: CGFloat(value),
-                 minimum: minimum,
-                 maximum: maximum,
+                 minimum: range.lowerBound,
+                 maximum: range.upperBound,
                  propertyName: property,
                  currentValueText: String(format: format, value))
     }
