@@ -61,8 +61,9 @@ class PlaygroundView: AKPlaygroundView {
 
             if drums.isPlaying {
                 button.title = "Stop All"
+            } else {
+                button.title = "Start All"
             }
-            button.title = "Start All"
         })
 
         addSubview(AKPropertySlider(property: "Drums Volume", value: drums.volume) { sliderValue in
