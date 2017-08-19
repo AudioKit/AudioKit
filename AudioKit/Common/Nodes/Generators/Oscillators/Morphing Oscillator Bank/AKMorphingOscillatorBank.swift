@@ -37,8 +37,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
     fileprivate var releaseDurationParameter: AUParameter?
-    fileprivate var detuningOffsetParameter: AUParameter?
-    fileprivate var detuningMultiplierParameter: AUParameter?
+    fileprivate var pitchBendParameter: AUParameter?
+    fileprivate var vibratoDepthParameter: AUParameter?
+    fileprivate var vibratoRateParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -120,31 +121,46 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-    /// Frequency offset in Hz.
-    open dynamic var detuningOffset: Double = 0 {
+    /// Pitch Bend as number of semitones
+    open dynamic var pitchBend: Double = 0 {
         willSet {
-            if detuningOffset != newValue {
+            if pitchBend != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
+                        pitchBendParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.detuningOffset = Float(newValue)
+                    internalAU?.pitchBend = Float(newValue)
                 }
             }
         }
     }
 
-    /// Frequency detuning multiplier
-    open dynamic var detuningMultiplier: Double = 1 {
+    /// Vibrato Depth in semitones
+    open dynamic var vibratoDepth: Double = 0 {
         willSet {
-            if detuningMultiplier != newValue {
+            if vibratoDepth != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                        vibratoDepthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.detuningMultiplier = Float(newValue)
+                    internalAU?.vibratoDepth = Float(newValue)
+                }
+            }
+        }
+    }
+
+    /// Vibrato Rate in Hz
+    open dynamic var vibratoRate: Double = 0 {
+        willSet {
+            if vibratoRate != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        vibratoRateParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.vibratoRate = Float(newValue)
                 }
             }
         }
@@ -176,8 +192,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         decayDuration: Double = 0.1,
         sustainLevel: Double = 1.0,
         releaseDuration: Double = 0.1,
-        detuningOffset: Double = 0,
-        detuningMultiplier: Double = 1) {
+        pitchBend: Double = 0,
+        vibratoDepth: Double = 0,
+        vibratoRate: Double = 0) {
 
         self.waveformArray = waveformArray
         self.index = index
@@ -186,8 +203,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         self.decayDuration = decayDuration
         self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
-        self.detuningOffset = detuningOffset
-        self.detuningMultiplier = detuningMultiplier
+        self.pitchBend = pitchBend
+        self.vibratoDepth = vibratoDepth
+        self.vibratoRate = vibratoRate
 
         _Self.register()
 
@@ -215,8 +233,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         decayDurationParameter = tree["decayDuration"]
         sustainLevelParameter = tree["sustainLevel"]
         releaseDurationParameter = tree["releaseDuration"]
-        detuningOffsetParameter = tree["detuningOffset"]
-        detuningMultiplierParameter = tree["detuningMultiplier"]
+        pitchBendParameter = tree["pitchBend"]
+        vibratoDepthParameter = tree["vibratoDepth"]
+        vibratoRateParameter = tree["vibratoRate"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -232,8 +251,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.decayDuration = Float(decayDuration)
         internalAU?.sustainLevel = Float(sustainLevel)
         internalAU?.releaseDuration = Float(releaseDuration)
-        internalAU?.detuningOffset = Float(detuningOffset)
-        internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        internalAU?.pitchBend = Float(pitchBend)
+        internalAU?.vibratoDepth = Float(vibratoDepth)
+        internalAU?.vibratoRate = Float(vibratoRate)
     }
 
     /// stops all notes

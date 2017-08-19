@@ -104,8 +104,7 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = phs->freq;
-            phs->freq *= kernel->detuningMultiplier;
-            phs->freq += kernel->detuningOffset;
+            phs->freq *= powf(2, kernel->pitchBend / 12.0);
             phs->freq = clamp(phs->freq, 0.0f, 22050.0f);
             pdhalf->amount = kernel->phaseDistortion;
 

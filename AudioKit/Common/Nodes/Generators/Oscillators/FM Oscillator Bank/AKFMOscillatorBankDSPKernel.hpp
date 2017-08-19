@@ -98,8 +98,7 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = fosc->freq;
-            fosc->freq *= kernel->detuningMultiplier;
-            fosc->freq += kernel->detuningOffset;
+            fosc->freq *= powf(2, kernel->pitchBend / 12.0);
             fosc->freq = clamp(fosc->freq, 0.0f, 22050.0f);
             fosc->car = kernel->carrierMultiplier;
             fosc->mod = kernel->modulatingMultiplier;
