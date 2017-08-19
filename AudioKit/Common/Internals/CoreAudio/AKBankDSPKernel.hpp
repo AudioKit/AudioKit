@@ -33,8 +33,9 @@ public:
         decayDurationRamper.init();
         sustainLevelRamper.init();
         releaseDurationRamper.init();
-        detuningOffsetRamper.init();
-        detuningMultiplierRamper.init();
+        pitchBendRamper.init();
+        vibratoDepthRamper.init();
+        vibratoRateRamper.init();
     }
     
     void reset() {
@@ -45,8 +46,9 @@ public:
         decayDurationRamper.reset();
         sustainLevelRamper.reset();
         releaseDurationRamper.reset();
-        detuningOffsetRamper.reset();
-        detuningMultiplierRamper.reset();
+        pitchBendRamper.reset();
+        vibratoDepthRamper.reset();
+        vibratoRateRamper.reset();
     }
     
     double frequencyScale = 2. * M_PI / sampleRate;
@@ -55,9 +57,11 @@ public:
     float decayDuration = 0.1;
     float sustainLevel = 1.0;
     float releaseDuration = 0.1;
-    
-    float detuningOffset = 0;
-    float detuningMultiplier = 1;
+
+    float pitchBend = 0;
+    float vibratoDepth = 0;
+    float vibratoRate = 1;
+    float vibratoValue = 0;
 
     int playingNotesCount = 0;
     bool resetted = false;
@@ -66,9 +70,9 @@ public:
     ParameterRamper decayDurationRamper = 0.1;
     ParameterRamper sustainLevelRamper = 1.0;
     ParameterRamper releaseDurationRamper = 0.1;
-    
-    ParameterRamper detuningOffsetRamper = 0;
-    ParameterRamper detuningMultiplierRamper = 1;
+    ParameterRamper pitchBendRamper = 0;
+    ParameterRamper vibratoDepthRamper = 0;
+    ParameterRamper vibratoRateRamper = 0;
 };
 
 #define standardBankKernelFunctions() \
@@ -97,13 +101,17 @@ public:
         releaseDuration = clamp(value, 0.0f, 99.0f); \
         releaseDurationRamper.setImmediate(releaseDuration); \
     } \
-    void setDetuningOffset(float value) { \
-        detuningOffset = clamp(value, (float)-1000, (float)1000); \
-        detuningOffsetRamper.setImmediate(detuningOffset); \
+    void setPitchBend(float value) { \
+        pitchBend = clamp(value, (float)-48, (float)48); \
+        pitchBendRamper.setImmediate(pitchBend); \
     } \
-    void setDetuningMultiplier(float value) { \
-        detuningMultiplier = value; \
-        detuningMultiplierRamper.setImmediate(detuningMultiplier); \
+    void setVibratoDepth(float value) { \
+        vibratoDepth = clamp(value, (float)0, (float)24); \
+        vibratoDepthRamper.setImmediate(vibratoDepth); \
+    } \
+    void setVibratoRate(float value) { \
+        vibratoRate = clamp(value, (float)0, (float)600); \
+        vibratoRateRamper.setImmediate(vibratoRate); \
     }
 
 #define standardBankSetParameters() \
@@ -119,11 +127,14 @@ public:
     case releaseDurationAddress: \
         releaseDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f)); \
         break; \
-    case detuningOffsetAddress: \
-        detuningOffsetRamper.setUIValue(clamp(value, (float)-1000, (float)1000)); \
+    case pitchBendAddress: \
+        pitchBendRamper.setUIValue(clamp(value, (float)-24, (float)24)); \
         break; \
-    case detuningMultiplierAddress: \
-        detuningMultiplierRamper.setUIValue(value); \
+    case vibratoDepthAddress: \
+        vibratoDepthRamper.setUIValue(clamp(value, (float)0, (float)24)); \
+        break; \
+    case vibratoRateAddress: \
+        vibratoRateRamper.setUIValue(clamp(value, (float)0, (float)600)); \
         break;
 
 #define standardBankGetParameters() \
@@ -135,10 +146,12 @@ public:
         return sustainLevelRamper.getUIValue(); \
     case releaseDurationAddress: \
         return releaseDurationRamper.getUIValue(); \
-    case detuningOffsetAddress: \
-        return detuningOffsetRamper.getUIValue(); \
-    case detuningMultiplierAddress: \
-        return detuningMultiplierRamper.getUIValue(); \
+    case pitchBendAddress: \
+        return pitchBendRamper.getUIValue(); \
+    case vibratoDepthAddress: \
+        return vibratoDepthRamper.getUIValue(); \
+    case vibratoRateAddress: \
+        return vibratoRateRamper.getUIValue(); \
     default: return 0.0f;
 
 #define standardBankStartRamps() \
@@ -154,11 +167,14 @@ public:
     case releaseDurationAddress: \
         releaseDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration); \
         break; \
-    case detuningOffsetAddress: \
-        detuningOffsetRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration); \
+    case pitchBendAddress: \
+        pitchBendRamper.startRamp(clamp(value, (float)-24, (float)24), duration); \
         break; \
-    case detuningMultiplierAddress: \
-        detuningMultiplierRamper.startRamp(value, duration); \
+    case vibratoDepthAddress: \
+        vibratoDepthRamper.startRamp(clamp(value, (float)0, (float)24), duration); \
+        break; \
+    case vibratoRateAddress: \
+        vibratoRateRamper.startRamp(clamp(value, (float)0, (float)600), duration); \
         break;
 
 
@@ -201,6 +217,7 @@ public:
     decayDuration = decayDurationRamper.getAndStep(); \
     sustainLevel = sustainLevelRamper.getAndStep(); \
     releaseDuration = releaseDurationRamper.getAndStep(); \
-    detuningOffset = double(detuningOffsetRamper.getAndStep()); \
-    detuningMultiplier = double(detuningMultiplierRamper.getAndStep()); \
+    pitchBend = double(pitchBendRamper.getAndStep()); \
+    vibratoDepth = double(vibratoDepthRamper.getAndStep()); \
+    vibratoRate = double(vibratoRateRamper.getAndStep()); 
 

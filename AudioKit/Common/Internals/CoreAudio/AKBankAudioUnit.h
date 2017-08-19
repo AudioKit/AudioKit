@@ -16,8 +16,9 @@
 @property (nonatomic) float decayDuration;
 @property (nonatomic) float sustainLevel;
 @property (nonatomic) float releaseDuration;
-@property (nonatomic) float detuningOffset;
-@property (nonatomic) float detuningMultiplier;
+@property (nonatomic) float pitchBend;
+@property (nonatomic) float vibratoDepth;
+@property (nonatomic) float vibratoRate;
 
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;
@@ -32,16 +33,18 @@
     decayDurationAddress = 1, \
     sustainLevelAddress = 2, \
     releaseDurationAddress = 3, \
-    detuningOffsetAddress = 4, \
-    detuningMultiplierAddress = 5
+    pitchBendAddress = 4, \
+    vibratoDepthAddress = 5, \
+    vibratoRateAddress = 6
 
 #define standardBankAUParameterList() \
     attackDurationAUParameter, \
     decayDurationAUParameter, \
     sustainLevelAUParameter, \
     releaseDurationAUParameter, \
-    detuningOffsetAUParameter, \
-    detuningMultiplierAUParameter
+    pitchBendAUParameter, \
+    vibratoDepthAUParameter, \
+    vibratoRateAUParameter
 
 #define standardBankFunctions() \
 - (BOOL)isSetUp { return _kernel.resetted; } \
@@ -49,8 +52,9 @@
 - (void)setDecayDuration:(float)decayDuration { _kernel.setDecayDuration(decayDuration); } \
 - (void)setSustainLevel:(float)sustainLevel { _kernel.setSustainLevel(sustainLevel); } \
 - (void)setReleaseDuration:(float)releaseDuration { _kernel.setReleaseDuration(releaseDuration); } \
-- (void)setDetuningOffset:(float)detuningOffset { _kernel.setDetuningOffset(detuningOffset); } \
-- (void)setDetuningMultiplier:(float)detuningMultiplier { _kernel.setDetuningMultiplier(detuningMultiplier); } \
+- (void)setPitchBend:(float)pitchBend { _kernel.setPitchBend(pitchBend); } \
+- (void)setVibratoDepth:(float)vibratoDepth { _kernel.setVibratoDepth(vibratoDepth); } \
+- (void)setVibratoRate:(float)vibratoRate { _kernel.setVibratoRate(vibratoRate); } \
 - (void)stopNote:(uint8_t)note { _kernel.stopNote(note); } \
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity { _kernel.startNote(note, velocity); } \
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency { \
@@ -103,24 +107,35 @@ AUParameter *releaseDurationAUParameter = \
                                          flags:flags \
                                   valueStrings:nil \
                            dependentParameters:nil]; \
-AUParameter *detuningOffsetAUParameter = \
-[AUParameterTree createParameterWithIdentifier:@"detuningOffset" \
-                                          name:@"Detuning Offset" \
-                                       address:detuningOffsetAddress \
-                                           min:-1000 \
-                                           max:1000 \
-                                          unit:kAudioUnitParameterUnit_Hertz \
+AUParameter *pitchBendAUParameter = \
+[AUParameterTree createParameterWithIdentifier:@"pitchBend" \
+                                          name:@"Pitch Bend" \
+                                       address:pitchBendAddress \
+                                           min:-48 \
+                                           max:48 \
+                                          unit:kAudioUnitParameterUnit_RelativeSemiTones \
                                       unitName:nil \
                                          flags:0 \
                                   valueStrings:nil \
                            dependentParameters:nil]; \
-AUParameter *detuningMultiplierAUParameter = \
-[AUParameterTree createParameterWithIdentifier:@"detuningMultiplier" \
-                                          name:@"Detuning Multiplier" \
-                                       address:detuningMultiplierAddress \
-                                           min:0.1 \
-                                           max:2.0 \
-                                          unit:kAudioUnitParameterUnit_Generic \
+AUParameter *vibratoDepthAUParameter = \
+[AUParameterTree createParameterWithIdentifier:@"vibratoDepth" \
+                                          name:@"Vibrato Depth" \
+                                       address:vibratoDepthAddress \
+                                           min:0 \
+                                           max:24 \
+                                          unit:kAudioUnitParameterUnit_RelativeSemiTones \
+                                      unitName:nil \
+                                         flags:0 \
+                                  valueStrings:nil \
+                           dependentParameters:nil]; \
+AUParameter *vibratoRateAUParameter = \
+[AUParameterTree createParameterWithIdentifier:@"vibratoRate" \
+                                          name:@"Vibrato Rate" \
+                                       address:vibratoRateAddress \
+                                           min:0 \
+                                           max:600 \
+                                          unit:kAudioUnitParameterUnit_Hertz \
                                       unitName:nil \
                                          flags:0 \
                                   valueStrings:nil \
@@ -129,11 +144,13 @@ attackDurationAUParameter.value = 0.1; \
 decayDurationAUParameter.value = 0.1; \
 sustainLevelAUParameter.value = 1.0; \
 releaseDurationAUParameter.value = 0.1; \
-detuningOffsetAUParameter.value = 0; \
-detuningMultiplierAUParameter.value = 1; \
+pitchBendAUParameter.value = 0; \
+vibratoDepthAUParameter.value = 0; \
+vibratoRateAUParameter.value = 0; \
 _kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value); \
 _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value); \
 _kernel.setParameter(sustainLevelAddress,    sustainLevelAUParameter.value); \
 _kernel.setParameter(releaseDurationAddress, releaseDurationAUParameter.value); \
-_kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value); \
-_kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
+_kernel.setParameter(pitchBendAddress,       pitchBendAUParameter.value); \
+_kernel.setParameter(vibratoDepthAddress,    vibratoDepthAUParameter.value);\
+_kernel.setParameter(vibratoRateAddress,     vibratoRateAUParameter.value);

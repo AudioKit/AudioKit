@@ -15,8 +15,10 @@
 - (void)setDecayDuration:(float)decayDuration {};
 - (void)setSustainLevel:(float)sustainLevel {};
 - (void)setReleaseDuration:(float)releaseDuration {};
-- (void)setDetuningOffset:(float)detuningOffset {};
-- (void)setDetuningMultiplier:(float)detuningMultiplier {};
+- (void)setPitchBend:(float)pitchBend {} ;
+- (void)setVibratoDepth:(float)vibratoDepth {};
+- (void)setVibratoRate:(float)vibratoRate {};
+
 - (void)stopNote:(uint8_t)note {};
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity {};
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency {};

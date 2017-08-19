@@ -93,8 +93,7 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = *blsquare->freq;
-            *blsquare->freq *= kernel->detuningMultiplier;
-            *blsquare->freq += kernel->detuningOffset;
+            *blsquare->freq *= powf(2, kernel->pitchBend / 12.0);
             *blsquare->freq = clamp(*blsquare->freq, 0.0f, 22050.0f);
             *blsquare->width = kernel->pulseWidth;
             
