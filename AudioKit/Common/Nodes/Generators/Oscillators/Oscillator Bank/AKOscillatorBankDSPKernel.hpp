@@ -96,6 +96,7 @@ public:
         {
             float originalFrequency = osc->freq;
             osc->freq *= powf(2, kernel->pitchBend / 12.0);
+            osc->freq *= powf(2, kernel->vibratoValue);
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
             
             adsr->atk = (float)kernel->attackDuration;
@@ -132,6 +133,8 @@ public:
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
+        sp_phasor_create(&phasor);
+        sp_phasor_init(sp, phasor, 0);
     }
 
     void setWaveformValue(uint32_t index, float value) {
@@ -173,6 +176,9 @@ public:
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         standardBankGetAndSteps()
+        phasor->freq = vibratoRate;
+        sp_phasor_compute(sp, phasor, nil, &vibratoValue);
+        vibratoValue = vibratoDepth / 12.0 * sin(vibratoValue * M_PI * 2.0);
         
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
@@ -198,6 +204,8 @@ private:
 
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
+
+    sp_phasor *phasor;
 
 public:
     NoteState* playingNotes = nullptr;
