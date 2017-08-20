@@ -666,9 +666,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Triggered when the player reaches the end of its playing range
     fileprivate func internalCompletionHandler() {
-        if playing {
-            stop()
-            completionHandler?()
+        DispatchQueue.main.async {
+            if self.isPlaying {
+                self.stop()
+                self.completionHandler?()
+            }
         }
     }
 
