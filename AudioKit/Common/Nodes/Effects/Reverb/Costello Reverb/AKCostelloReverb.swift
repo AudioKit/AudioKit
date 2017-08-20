@@ -12,6 +12,7 @@
 ///
 open class AKCostelloReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKCostelloReverbAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
     // MARK: - Properties

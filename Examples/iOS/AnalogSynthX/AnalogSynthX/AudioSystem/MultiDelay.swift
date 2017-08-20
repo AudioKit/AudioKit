@@ -15,7 +15,7 @@ class MultiDelay: AKNode {
     var delayPannedLeft: AKPanner!
     var delayPannedRight: AKPanner!
     var mixer: AKMixer!
-    
+
     var time: Double = 0.0 {
         didSet {
             leftTimes = [1, 2, 3].map { t -> Double in t * time }

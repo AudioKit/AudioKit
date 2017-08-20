@@ -19,6 +19,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     var currentIndex = 0
     var titles = [String]()
 
+    /// Handle click
     override public func mouseDown(with theEvent: NSEvent) {
         var isFileChanged = false
         guard let isPlayerPlaying = player?.isPlaying else {
@@ -57,6 +58,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         needsDisplay = true
     }
 
+    /// Initialize the resource loader
     public convenience init(player: AKAudioPlayer,
                             filenames: [String],
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
@@ -165,6 +167,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         NSGraphicsContext.restoreGraphicsState()
     }
 
+    /// Draw the resource loader
     override public func draw(_ rect: CGRect) {
         drawAudioFileLoader(fileName: titles[currentIndex])
     }

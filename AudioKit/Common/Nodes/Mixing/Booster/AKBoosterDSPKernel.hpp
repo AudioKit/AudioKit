@@ -14,7 +14,8 @@
 #import <AudioKit/AudioKit-Swift.h>
 
 enum {
-    gainAddress = 0
+    leftGainAddress = 0,
+    rightGainAddress = 1
 };
 
 class AKBoosterDSPKernel : public AKDSPKernel, public AKBuffered {
@@ -25,7 +26,8 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
-        gainRamper.init();
+        leftGainRamper.init();
+        rightGainRamper.init();
     }
 
     void start() {
@@ -41,19 +43,28 @@ public:
     
     void reset() {
         resetted = true;
-        gainRamper.reset();
+        leftGainRamper.reset();
+        rightGainRamper.reset();
     }
 
-    void setGain(float value) {
-        gain = clamp(value, -100000.0f, 100000.0f);
-        gainRamper.setImmediate(gain);
+    void setLeftGain(float value) {
+        leftGain = clamp(value, -100000.0f, 100000.0f);
+        leftGainRamper.setImmediate(leftGain);
+    }
+
+    void setRightGain(float value) {
+        rightGain = clamp(value, -100000.0f, 100000.0f);
+        rightGainRamper.setImmediate(rightGain);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case gainAddress:
-                gainRamper.setUIValue(clamp(value, -100000.0f, 100000.0f));
+            case leftGainAddress:
+                leftGainRamper.setUIValue(clamp(value, -100000.0f, 100000.0f));
+                break;
+            case rightGainAddress:
+                rightGainRamper.setUIValue(clamp(value, -100000.0f, 100000.0f));
                 break;
 
         }
@@ -61,8 +72,10 @@ public:
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case gainAddress:
-                return gainRamper.getUIValue();
+            case leftGainAddress:
+                return leftGainRamper.getUIValue();
+            case rightGainAddress:
+                return rightGainRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -70,8 +83,11 @@ public:
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            case gainAddress:
-                gainRamper.startRamp(clamp(value, -100000.0f, 100000.0f), duration);
+            case leftGainAddress:
+                leftGainRamper.startRamp(clamp(value, -100000.0f, 100000.0f), duration);
+                break;
+            case rightGainAddress:
+                rightGainRamper.startRamp(clamp(value, -100000.0f, 100000.0f), duration);
                 break;
 
         }
@@ -83,7 +99,8 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            gain = gainRamper.getAndStep();
+            leftGain = leftGainRamper.getAndStep();
+            rightGain = rightGainRamper.getAndStep();
 
             if (!started) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
@@ -94,7 +111,11 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                *out = *in * gain;
+                if (channel == 0) {
+                    *out = *in * leftGain;
+                } else {
+                    *out = *in * rightGain;
+                }
             }
         }
     }
@@ -103,11 +124,13 @@ public:
 
 private:
 
-    float gain = 1.0;
+    float leftGain = 1.0;
+    float rightGain = 1.0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper gainRamper = 0;
+    ParameterRamper leftGainRamper = 1;
+    ParameterRamper rightGainRamper = 1;
 };
 

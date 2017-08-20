@@ -6,7 +6,7 @@ int sporth_tabread(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     SPFLOAT out;
-    char *ftname;
+    const char *ftname;
     sp_ftbl *ft;
     SPFLOAT index;
     SPFLOAT mode;

@@ -15,6 +15,7 @@
 ///
 open class AKBalancer: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBalancerAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
     // MARK: - Properties

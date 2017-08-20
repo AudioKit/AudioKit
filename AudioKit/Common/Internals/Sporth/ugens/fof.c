@@ -8,7 +8,7 @@ int sporth_fof(sporth_stack *stack, void *ud)
     sp_ftbl *sine;
     sp_ftbl *win;
 
-    char *sinestr, *winstr;
+    const char *sinestr, *winstr;
 
     int iolaps;
     SPFLOAT iphs;

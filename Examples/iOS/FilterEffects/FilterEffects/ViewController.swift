@@ -18,10 +18,10 @@ class ViewController: UIViewController {
     var booster: AKBooster!
 
     let input = AKStereoInput()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         delay = AKVariableDelay(input)
         delay.rampTime = 0.5 // Allows for some cool effects
         delayMixer = AKDryWetMixer(input, delay)

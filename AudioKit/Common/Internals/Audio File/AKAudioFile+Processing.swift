@@ -103,7 +103,7 @@ extension AKAudioFile {
         var appendedBuffer = file.pcmBuffer
 
         if self.fileFormat != file.fileFormat {
-            AKLog("WARNING AKAudioFile.append: appended file should be of same format as source file!")
+            AKLog("WARNING AKAudioFile.append: appended file should be of same format as source file")
             AKLog("WARNING AKAudioFile.append: trying to fix by converting files...")
             // We use extract method to get a .CAF file with the right format for appending
             // So sourceFile and appended File formats should match
@@ -120,19 +120,19 @@ extension AKAudioFile {
                         appendedBuffer = convertedAppendFile.pcmBuffer
                         AKLog("AKAudioFile.append: appended file has been successfully converted")
                     } catch let error as NSError {
-                        AKLog("ERROR AKAudioFile.append: cannot set append file format match source file format!...")
+                        AKLog("ERROR AKAudioFile.append: cannot set append file format match source file format")
                         throw error
                     }
                 }
             } catch let error as NSError {
-                AKLog("ERROR AKAudioFile: Cannot convert sourceFile to .CAF!")
+                AKLog("ERROR AKAudioFile: Cannot convert sourceFile to .CAF")
                 throw error
             }
         }
 
         // We check that both pcm buffers share the same format
         if appendedBuffer.format != sourceBuffer.format {
-            AKLog("ERROR AKAudioFile.append: Couldn't match source file format with appended file format!...")
+            AKLog("ERROR AKAudioFile.append: Couldn't match source file format with appended file format")
             let userInfo: [AnyHashable: Any] = [
                 NSLocalizedDescriptionKey: NSLocalizedString(
                     "AKAudioFile append process Error",
@@ -184,8 +184,8 @@ extension AKAudioFile {
         let fixedFrom = abs(fromSample)
         let fixedTo: Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample, Int64(self.samplesCount))
         if fixedTo <= fixedFrom {
-            AKLog("ERROR AKAudioFile: cannot extract, from must be less than to !")
-            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
+            AKLog("ERROR AKAudioFile: cannot extract, from must be less than to")
+            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
         }
 
         let arrays = self.floatChannelData ?? [[]]

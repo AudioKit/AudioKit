@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
                            baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -26,7 +26,7 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Pitch Shift Operation")
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: processingPlaygroundFiles))
+            filenames: playgroundAudioFiles))
 
         addSubview(AKPropertySlider(
             property: "Base Shift",

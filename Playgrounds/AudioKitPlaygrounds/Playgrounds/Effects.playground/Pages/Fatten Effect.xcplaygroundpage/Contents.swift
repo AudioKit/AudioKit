@@ -1,10 +1,10 @@
 //: ## Fatten Effect
-//: This is a cool fattening effect that Matthew Flecher wanted for the
+//: This is a cool stereo fattening effect that Matthew Fecher wanted for the
 //: Analog Synth X project, so it was developed here in a playground first.
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
                            baseDir: .resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: processingPlaygroundFiles))
+            filenames: playgroundAudioFiles))
 
         addSubview(AKPropertySlider(
             property: "Time",

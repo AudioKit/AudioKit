@@ -10,6 +10,7 @@
 ///
 open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBrownianNoiseAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "bron")
 
     // MARK: - Properties

@@ -14,6 +14,7 @@
 ///
 open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFlatFrequencyResponseReverbAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
     // MARK: - Properties

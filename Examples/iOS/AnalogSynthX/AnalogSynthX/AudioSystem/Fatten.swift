@@ -14,7 +14,7 @@ class Fatten: AKNode {
     var pannedDelay: AKPanner
     var pannedSource: AKPanner
     var wet: AKMixer
-    
+
     init(_ input: AKNode) {
         delay = AKDelay(input, time: 0.05, dryWetMix: 0.5)
         pannedDelay = AKPanner(delay, pan: 1)

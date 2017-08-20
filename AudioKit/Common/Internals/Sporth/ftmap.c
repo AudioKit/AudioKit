@@ -17,43 +17,19 @@ int plumber_ftmap_init(plumber_data *plumb)
 
 int plumber_ftmap_add(plumber_data *plumb, const char *str, sp_ftbl *ft)
 {
-    uint32_t pos = sporth_hash(str);
-#ifdef DEBUG_MODE
-    plumber_print(plumb, "ftmap_add: Adding new table %s, position %d\n", str, pos);
-#endif
-    plumber_ftentry *entry = &plumb->ftmap[pos];
-    entry->nftbl++;
-    plumber_ftbl *new = malloc(sizeof(plumber_ftbl));
+    plumber_ftbl *new;
+    plumber_add(plumb, str, &new);
     new->ud = (void *)ft;
     new->type = PTYPE_TABLE;
-    new->to_delete = plumb->delete_ft;
-    new->name = malloc(sizeof(char) * strlen(str) + 1);
-    strcpy(new->name, str);
-    entry->last->next = new;
-    entry->last = new;
     return PLUMBER_OK;
 }
 
 int plumber_ftmap_add_userdata(plumber_data *plumb, const char *str, void *ud)
 {
-    uint32_t pos = sporth_hash(str);
-#ifdef DEBUG_MODE
-    plumber_print(plumb, "ftmap_add_userdata: Adding new generic table %s, position %d\n", str, pos);
-#endif
-    plumber_ftentry *entry = &plumb->ftmap[pos];
-    entry->nftbl++;
-#ifdef DEBUG_MODE
-    plumber_print(plumb, "ftmap_add_userdata: there are now %d in position %d\n", 
-            entry->nftbl, pos);
-#endif
-    plumber_ftbl *new = malloc(sizeof(plumber_ftbl));
+    plumber_ftbl *new;
+    plumber_add(plumb, str, &new);
     new->ud = ud;
     new->type = PTYPE_USERDATA;
-    new->to_delete = plumb->delete_ft;
-    new->name = malloc(sizeof(char) * strlen(str) + 1);
-    strcpy(new->name, str);
-    entry->last->next = new;
-    entry->last = new;
     return PLUMBER_OK;
 }
 

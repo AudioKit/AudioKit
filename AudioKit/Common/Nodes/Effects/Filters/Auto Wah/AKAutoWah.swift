@@ -10,6 +10,7 @@
 ///
 open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKAutoWahAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
     // MARK: - Properties

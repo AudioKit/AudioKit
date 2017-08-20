@@ -6,7 +6,10 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// Adding description property
 extension AVAudioCommonFormat: CustomStringConvertible {
+
+    /// Text version of the format
     public var description: String {
         switch self {
         case .otherFormat:
@@ -23,6 +26,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     }
 }
 
+/// Helpful additions for using AVAudioFiles within AudioKit
 extension AVAudioFile {
 
     // MARK: - Public Properties
@@ -33,11 +37,11 @@ extension AVAudioFile {
         return length
     }
 
-    /// strange that sampleRate is a Double and not an Integer !...
+    /// strange that sampleRate is a Double and not an Integer
     open var sampleRate: Double {
         return fileFormat.sampleRate
     }
-    /// Number of channels, 1 for mono, 2 for stereo...
+    /// Number of channels, 1 for mono, 2 for stereo
     open var channelCount: UInt32 {
         return fileFormat.channelCount
     }
@@ -161,7 +165,7 @@ extension AVAudioFile {
 }
 
 /// Audio file, inherits from AVAudioFile and adds functionality
-open class AKAudioFile: AVAudioFile {
+@objc open class AKAudioFile: AVAudioFile {
 
     // MARK: - embedded enums
 
@@ -272,7 +276,7 @@ open class AKAudioFile: AVAudioFile {
 
         if self.samplesCount > 0 {
             for c in 0..<Int(self.channelCount) {
-                let floats = UnsafeBufferPointer(start: buffer.floatChannelData?[c], count:Int(buffer.frameLength))
+                let floats = UnsafeBufferPointer(start: buffer.floatChannelData?[c], count: Int(buffer.frameLength))
                 let cmax = floats.max()
                 let cmin = floats.min()
 
@@ -363,7 +367,7 @@ open class AKAudioFile: AVAudioFile {
     /// with a floating Point encoding. As a consequence, such files will fail to record properly.
     /// So it's better to use .caf (or .aif) files for recording purpose.
     ///
-    public override init(forWriting fileURL: URL, settings: [String:Any]) throws {
+    public override init(forWriting fileURL: URL, settings: [String: Any]) throws {
         try super.init(forWriting: fileURL, settings: settings)
     }
 }

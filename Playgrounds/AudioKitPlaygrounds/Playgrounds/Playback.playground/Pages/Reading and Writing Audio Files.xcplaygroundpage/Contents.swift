@@ -5,7 +5,7 @@ import AudioKitPlaygrounds
 import AudioKit
 
 // Let's create an AKaudioFile :
-let akAudioFile = try AKAudioFile(readFileName: "click.wav",
+let akAudioFile = try AKAudioFile(readFileName: "Samples/click.wav",
                                   baseDir: .resources)
 
 // converted in an AVAudioFile

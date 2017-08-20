@@ -10,7 +10,7 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
     sp_tblrec *td;
     sp_ftbl *ft;
-    char *ftname;
+    const char *ftname;
     SPFLOAT trig = 0;
     SPFLOAT in = 0;
     SPFLOAT out = 0;

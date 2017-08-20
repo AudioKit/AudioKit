@@ -11,6 +11,7 @@
 ///
 open class AKConvolution: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKConvolutionAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
     // MARK: - Properties

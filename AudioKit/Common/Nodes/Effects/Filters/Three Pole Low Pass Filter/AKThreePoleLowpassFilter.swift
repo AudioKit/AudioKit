@@ -10,6 +10,7 @@
 ///
 open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKThreePoleLowpassFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
     // MARK: - Properties

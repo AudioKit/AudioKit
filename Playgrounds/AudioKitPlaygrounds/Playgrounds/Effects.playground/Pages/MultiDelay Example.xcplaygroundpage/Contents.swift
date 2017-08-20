@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
                            baseDir: .resources)
 
 var player = try AKAudioPlayer(file: file)
@@ -14,7 +14,7 @@ var counter = 0
 
 func multitapDelay(_ input: AKNode?, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
-    
+
     zip(times, gains).forEach { (time, gain) -> Void in
         delays.append(AKVariableDelay(input, time: time))
         mix.connect(AKBooster(delays[counter], gain: gain))

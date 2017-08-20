@@ -10,6 +10,7 @@
 ///
 open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "phdo")
 
     // MARK: - Properties
@@ -156,7 +157,6 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
             for (i, sample) in waveform.enumerated() {
                 self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
-
         }
 
         guard let tree = internalAU?.parameterTree else {

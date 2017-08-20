@@ -97,6 +97,11 @@ public:
         
         void noteOn(int noteNumber, int velocity)
         {
+            noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
+        }
+        
+        void noteOn(int noteNumber, int velocity, float frequency)
+        {
             if (velocity == 0) {
                 if (stage == stageOn) {
                     stage = stageRelease;
@@ -104,7 +109,7 @@ public:
                 }
             } else {
                 if (stage == stageOff) { add(); }
-                fosc->freq = (float)noteToHz(noteNumber);
+                fosc->freq = frequency;
                 fosc->amp = (float)pow2(velocity / 127.);
                 stage = stageOn;
                 internalGate = 1;
@@ -172,11 +177,13 @@ public:
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
-
+    
     void startNote(int note, int velocity) {
         noteStates[note].noteOn(note, velocity);
     }
-
+    void startNote(int note, int velocity, float frequency) {
+        noteStates[note].noteOn(note, velocity, frequency);
+    }
     void stopNote(int note) {
         noteStates[note].noteOn(note, 0);
     }

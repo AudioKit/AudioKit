@@ -6,7 +6,7 @@ int sporth_mincer(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
     SPFLOAT out = 0;
     sp_ftbl * ft = NULL;
-    char *ftname = NULL;
+    const char *ftname = NULL;
     SPFLOAT time = 0;
     SPFLOAT amp = 0;
     SPFLOAT pitch = 0;

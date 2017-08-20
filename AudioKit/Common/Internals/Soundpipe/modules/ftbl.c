@@ -21,6 +21,7 @@ int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size)
     ftp->lobits = log2(SP_FT_MAXLEN / size);
     ftp->lomask = (2^ftp->lobits) - 1;
     ftp->lodiv = 1.0 / pow(2, ftp->lobits);
+    ftp->del = 1;
     return SP_OK;
 }
 
@@ -34,13 +35,14 @@ int sp_ftbl_bind(sp_data *sp, sp_ftbl **ft, SPFLOAT *tbl, size_t size)
     ftp->lobits = log2(SP_FT_MAXLEN / size);
     ftp->lomask = (2^ftp->lobits) - 1;
     ftp->lodiv = 1.0 / pow(2, ftp->lobits);
+    ftp->del = 0;
     return SP_OK;
 }
 
 int sp_ftbl_destroy(sp_ftbl **ft)
 {
     sp_ftbl *ftp = *ft;
-    free(ftp->tbl);
+    if(ftp->del) free(ftp->tbl);
     free(*ft);
     return SP_OK;
 }

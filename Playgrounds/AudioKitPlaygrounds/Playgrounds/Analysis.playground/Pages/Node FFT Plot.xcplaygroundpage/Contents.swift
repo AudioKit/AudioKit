@@ -1,38 +1,29 @@
 //: ## Node FFT Plot
 //: An FFT plot displays a signal as relative amplitudes across the frequency spectrum.
-//: This playground creates spikes in the plot by playing an oscillator at a specific frequency.
+//: This playground uses the microphone input to perform the FFT on and displays the plot in the playground's timeline view.
 import AudioKitPlaygrounds
 import AudioKit
 
-var oscillator = AKOscillator(waveform: AKTable(.sine, count: 4_096))
+var microphone = AKMicrophone()
 
-AudioKit.output = oscillator
+//: Zero out the microphone to prevent feedback
+AudioKit.output = AKBooster(microphone, gain: 0.0)
 AudioKit.start()
 
-oscillator.start()
-var multiplier = 1.1
+public class PlaygroundView: AKPlaygroundView {
+    public override func setup() {
+        addTitle("Node FFT Plot")
 
-AKPlaygroundLoop(frequency: 10) {
-    if oscillator.frequency > 10_000 {
-        oscillator.frequency = 10_000
-        multiplier = 0.9
+        let plot = AKNodeFFTPlot(microphone, frame: CGRect(x: 0, y: 0, width: 500, height: 500))
+        plot.shouldFill = true
+        plot.shouldMirror = false
+        plot.shouldCenterYAxis = false
+        plot.color = AKColor.purple
+        plot.gain = 100
+        addSubview(plot)
     }
-
-    if oscillator.frequency < 100 {
-        oscillator.frequency = 100
-        multiplier = 1.1
-    }
-
-    oscillator.frequency *= multiplier
-    oscillator.amplitude = 0.2
 }
 
-let plot = AKNodeFFTPlot(oscillator, frame: CGRect(x: 0, y: 0, width: 500, height: 500))
-plot.shouldFill = true
-plot.shouldMirror = false
-plot.shouldCenterYAxis = false
-plot.color = AKColor.purple
-
 import PlaygroundSupport
-PlaygroundPage.current.liveView = plot
+PlaygroundPage.current.liveView = PlaygroundView()
 PlaygroundPage.current.needsIndefiniteExecution = true

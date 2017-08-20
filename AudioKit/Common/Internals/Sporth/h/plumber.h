@@ -107,8 +107,9 @@ typedef struct {
     sporth_func_d *fd;
     plumber_dyn_func fun;
     plumber_dyn_func (*getter)();
-    char *filename;
-    char *name;
+    int (*getter_multi)(int, plumber_dyn_func *);
+    const char *filename;
+    const char *name;
     void *handle;
     void *ud;
 } sporth_fload_d; 
@@ -129,9 +130,6 @@ typedef struct {
     void *ud;
 } plumber_ptr;
 
-typedef struct scheme scheme;
-typedef struct cell *pointer;
-
 int plumber_init(plumber_data *plumb);
 int plumber_register(plumber_data *plumb);
 int plumber_clean(plumber_data *plumb);
@@ -143,7 +141,7 @@ int plumber_add_ugen(plumber_data *plumb, uint32_t id, void *ud);
 int plumber_compute(plumber_data *plumb, int mode);
 
 int plumber_parse(plumber_data *plumb);
-int plumber_parse_string(plumber_data *plumb, char *str);
+int plumber_parse_string(plumber_data *plumb, const char *str);
 
 int plumber_recompile(plumber_data *plumb);
 int plumber_recompile_string(plumber_data *plumb, char *str);
@@ -158,7 +156,7 @@ int plumber_recompile_string_v2(plumber_data *plumb,
         void *ud,
         int (*callback)(plumber_data *, void *));
 int plumber_swap(plumber_data *plumb, int error);
-int plumber_open_file(plumber_data *plumb, char *filename);
+int plumber_open_file(plumber_data *plumb, const char *filename);
 int plumber_close_file(plumber_data *plumb);
 
 int plumber_gettype(plumber_data *plumb, char *str, int mode);
@@ -177,6 +175,7 @@ int plumber_ftmap_delete(plumber_data *plumb, char mode);
 void plumber_ftmap_dump(plumber_ftentry *ft);
 plumbing * plumber_get_pipes(plumber_data *plumb);
 int plumber_search(plumber_data *plumb, const char *str, plumber_ftbl **ft);
+int plumber_add(plumber_data *plumb, const char *str, plumber_ftbl **ft);
 
 void sporth_run(plumber_data *pd, int argc, char *argv[],
     void *ud, void (*process)(sp_data *, void *));
@@ -188,13 +187,13 @@ int plumbing_destroy(plumbing *pipes);
 int plumbing_add_pipe(plumbing *pipes, plumber_pipe *pipe);
 int plumbing_compute(plumber_data *plumb, plumbing *pipes, int mode);
 int plumbing_parse(plumber_data *plumb, plumbing *pipes);
-int plumbing_parse_string(plumber_data *plumb, plumbing *pipes, char *str);
+int plumbing_parse_string(plumber_data *plumb, plumbing *pipes, const char *str);
 void plumbing_show_pipes(plumber_data *plumb, plumbing *pipes);
 void plumbing_write_code(plumber_data *plumb, plumbing *pipes, FILE *fp);
 void plumber_write_code(plumber_data *plumb, FILE *fp);
 int plumber_process_null(sp_data *sp, void *ud, void (*callback)(sp_data *, void *));
 
-int plumber_create_var(plumber_data *pd, char *name, SPFLOAT **var);
+int plumber_create_var(plumber_data *pd, const char *name, SPFLOAT **var);
 
 int plumber_get_userdata(plumber_data *plumb, const char *name, plumber_ptr **p);
 int polysporth_eval(plumber_ptr *p, const char *str);

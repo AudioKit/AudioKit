@@ -11,6 +11,7 @@
 open class AKDecimator: AKNode, AKToggleable, AUEffect {
     // MARK: - Properties
 
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
 
     private var au: AUWrapper
@@ -97,5 +98,11 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect {
             mix = 0
             isStarted = false
         }
+    }
+
+    /// Disconnect the node
+    override open func disconnect() {
+        stop()
+        disconnect(nodes: [self.avAudioNode])
     }
 }

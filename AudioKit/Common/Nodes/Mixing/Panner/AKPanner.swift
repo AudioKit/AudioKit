@@ -10,6 +10,7 @@
 ///
 open class AKPanner: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPannerAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
     // MARK: - Properties

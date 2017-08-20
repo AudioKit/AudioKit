@@ -11,6 +11,7 @@
 ///
 open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKHighPassButterworthFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "bthp")
 
     // MARK: - Properties

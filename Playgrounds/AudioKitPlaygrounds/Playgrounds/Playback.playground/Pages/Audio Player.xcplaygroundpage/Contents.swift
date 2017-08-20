@@ -22,6 +22,8 @@ class PlaygroundView: AKPlaygroundView {
     var inPositionSlider: AKPropertySlider?
     var outPositionSlider: AKPropertySlider?
     var playingPositionSlider: AKPropertySlider?
+    var fadeInSlider: AKPropertySlider?
+    var fadeOutSlider: AKPropertySlider?
 
     override func setup() {
 
@@ -57,6 +59,26 @@ class PlaygroundView: AKPlaygroundView {
                 return "Direction: ➡️"
             }
         })
+
+        fadeInSlider = AKPropertySlider(
+            property: "Fade In",
+            format: "%0.2f s",
+            value: player.fadeInTime, maximum: 2,
+            color: AKColor.brown
+        ) { sliderValue in
+            player.fadeInTime = sliderValue
+        }
+        addSubview(fadeInSlider)
+
+        fadeOutSlider = AKPropertySlider(
+            property: "Fade Out",
+            format: "%0.2f s",
+            value: player.fadeOutTime, maximum: 2,
+            color: AKColor.brown
+        ) { sliderValue in
+            player.fadeOutTime = sliderValue
+        }
+        addSubview(fadeOutSlider)
 
         inPositionSlider = AKPropertySlider(
             property: "In Position",

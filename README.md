@@ -1,4 +1,4 @@
-AudioKit V3.6
+AudioKit V3.7
 ===
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
@@ -9,7 +9,12 @@ AudioKit V3.6
 <img src="https://img.shields.io/badge/%20in-swift%203.0-orange.svg">
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
 
-AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
+AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
+
+* [AudioKitPro.com](http://audiokitpro.com/) - AudioKit Features, Blog, and Highlighted Apps
+* [AudioKit.io](http://audiokit.io/) - AudioKit Developer Documentation
+
+Did you already build an app with AudioKit?  Let us know and we'll highlight it on AudioKitPro.com.
 
 If you need support, the best thing to do is to join AudioKit's google group:
 
@@ -43,7 +48,7 @@ Taps use nodes as their data source, but do not redirect the audio signal away f
 
 ## Installation
 
-Installation can be achieved in the usual ways for a framework.  This is explained in more detail in the [INSTALL.md file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/INSTALL.md) in the Frameworks directory.
+Installation can be achieved in the usual ways for a framework. More details are found in the [Frameworks README file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md).
 
 An AudioKit package is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) and Carthage.
 
@@ -54,7 +59,7 @@ In most cases, when building for iOS or tvOS, regardless of how you install the 
 ```
 
 ## Example Code
-There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.
+There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They simply play an oscillator and display the waveform.
 
 The examples rely on the frameworks being built so you can either download the precompiled frameworks or build them on your own:
 
@@ -118,8 +123,19 @@ github "audiokit/AudioKit"
 If you use CocoaPods, you can also easily get the latest AudioKit binary framework for your project. Use this in your `Podfile`:
 
 ```
-pod 'AudioKit', '~> 3.6'
+pod 'AudioKit', '~> 3.7'
 ```
+
+## Ray Wenderlich's AudioKit Tutorial
+
+Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywenderlich.com/145770/audiokit-tutorial-getting-started). You’ll be taken on a fun and gentle journey through the framework via the history of sound synthesis and computer audio.
+
+## Contributing Code
+
+We welcome new contributors but we realize it can be daunting to suggest updates as a newcomer.  Here's what we are currently working on:  [AudioKit Works in Progress](https://github.com/audiokit/AudioKit/projects)
+
+Ready to send us a pull request? Please make sure your request is based on the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch of the repository as `master` only holds stable releases.
+
 
 ## About Us
 
@@ -129,36 +145,9 @@ AudioKit was created by the following team whose contributions are fully chronic
 * **[Aurelius Prochazka](https://github.com/aure)**: Primary programmer of AudioKit. Lives for this stuff. Your life line if you need help.
 * **[Brandon Barber](https://github.com/roecrew/)**: Deep diver.  Contributed a lot of great pull requests.
 * **[Jeff Cooper](https://github.com/eljeff)**: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
-* **[Laurent Veliscek](https://github.com/laurentVeliscek/)**: Master of the AKAudioFile, AKAudioPlayer, and recording nodes.
-* **[Matthew Fecher](https://github.com/swiftcodex)**: Sound design, graphic design, and programming of the Analog Synth X example.
+* **[Laurent Veliscek](https://github.com/laurentVeliscek/)**: Creator of the AKAudioFile, AKAudioPlayer, and recording nodes.
+* **[Matthew Fecher](https://github.com/swiftcodex)**:  Synth examples including AudioKit Synth One & Analog Synth X, both websites, evangelist.
 * **[Nicholas Arner](https://github.com/narner)**: Longtime contributor to AudioKit and AudioKit's web site.
 * **[Paul Batchelor](https://github.com/PaulBatchelor)**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
 * **[Stephane Peter](https://github.com/megastep)**: Installation and configuration czar and code reviewer.
-
-## Contributing Code
-
-We welcome new contributors but we realize it can be daunting to suggest updates as a newcomer.  Here's what we are currently working on:  [AudioKit Works in Progress](http://audiokit.io/wip/)
-
-Here are some resources that we use to develop our coding choices and core philosophies:
-
-## Avoid code smell
-
-* [Code Smell in Swift](http://www.bartjacobs.com/five-code-smells-in-swift-and-objective-c/)
-* [Code Smell in Objective-C](http://qualitycoding.org/objective-c-code-smells/)
-* [Code Smell of the Preprocessor](http://qualitycoding.org/preprocessor/)
-
-## Be aware of how to code for an open-source framework
-
-* [Tips for Writing a Great iOS Framework](https://medium.com/@samjarman/tips-for-writing-a-great-ios-framework-8cf3452f6c5d#.wzejktd3l)
-* [Best practices running an iOS open source project on GitHub](https://www.cocoanetics.com/2014/10/best-practices-running-an-ios-open-source-project-on-github/)
-
-## GitHub Pull Request Policy
-
-Ready to send us a pull request? Please make sure your request is based on the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch of the repository as `master` only holds stable releases.
-
-## Interested in audio synthesis?
-
-* check out [Syntorial](http://www.syntorial.com/#a_aid=AudioKit), it's hands down the best way to learn about synthesis interactively, your best bet if you care about synthesis from the sound design point of view; an afternoon with this will help you understand more than any book or video
-
-* https://web.archive.org/web/20160403115835/http://www.soundonsound.com/sos/allsynthsecrets.htm very detailed, very thorough discussion of the topic of synthesis but almost too detailed on times
 

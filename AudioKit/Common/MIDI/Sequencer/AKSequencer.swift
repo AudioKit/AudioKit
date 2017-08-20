@@ -8,10 +8,10 @@
 
 /// Basic sequencer
 ///
-/// This  is currently in transistion from old c core audio apis, to the more
-/// modern avaudiosequencer setup. However, the new system is not as advanced as the
+/// This  is currently in transistion from old C Core Audio APIs, to the more
+/// modern AVAudioSequencer setup. However, the new system is not as advanced as the
 /// old, so we will keep both and have them interact. In addition, some of the features
-/// of the new AVAudioSequencer don't even work yet (midi sequencing).
+/// of the new AVAudioSequencer don't even work yet (MIDI sequencing).
 /// Still, both have their strengths and weaknesses so I am keeping them both.
 /// As such, there is some code hanging around while we iron it out.
 ///
@@ -89,7 +89,7 @@ open class AKSequencer {
         loadMIDIFile(filename)
     }
 
-    /// Initialize the sequence with a midi file and audioengine - on hold while technology is still unstable
+    /// Initialize the sequence with a MIDI file and audioengine - on hold while technology is still unstable
     ///
     /// - Parameters:
     ///   - filename: Location of the MIDI File
@@ -190,7 +190,7 @@ open class AKSequencer {
     ///
     open func setLoopInfo(_ duration: AKDuration, numberOfLoops: Int) {
         if isAVSequencer {
-            AKLog("AKSequencer ERROR ! setLoopInfo only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR setLoopInfo only work if not isAVSequencer")
 
             //nothing yet
         } else {
@@ -264,16 +264,14 @@ open class AKSequencer {
 
     /// Rate relative to the default tempo (BPM) of the track
     open var rate: Double {
-        get {
-            if isAVSequencer {
-                return Double(avSequencer.rate)
-            } else {
-                var rate = MusicTimeStamp(1.0)
-                if let existingMusicPlayer = musicPlayer {
-                    MusicPlayerGetPlayRateScalar(existingMusicPlayer, &rate)
-                }
-                return rate
+        if isAVSequencer {
+            return Double(avSequencer.rate)
+        } else {
+            var rate = MusicTimeStamp(1.0)
+            if let existingMusicPlayer = musicPlayer {
+                MusicPlayerGetPlayRateScalar(existingMusicPlayer, &rate)
             }
+            return rate
         }
     }
 
@@ -315,7 +313,7 @@ open class AKSequencer {
     ///
     open func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
         if isAVSequencer {
-            AKLog("AKSequencer ERROR ! addTempoEventAt only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR addTempoEventAt only work if not isAVSequencer")
             return
         }
 
@@ -481,7 +479,7 @@ open class AKSequencer {
             }
         } else {
             //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
-            AKLog("AKSequencer ERROR ! setGlobalAVAudioUnitOutput only work if isAVSequencer ")
+            AKLog("AKSequencer ERROR setGlobalAVAudioUnitOutput only work if isAVSequencer")
         }
     }
 
@@ -543,7 +541,7 @@ open class AKSequencer {
             do {
                 try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
             } catch _ {
-                AKLog("failed to load midi into avseq")
+                AKLog("failed to load MIDI into AVSequencer")
             }
         }
         initTracks()
@@ -575,7 +573,7 @@ open class AKSequencer {
     /// Get a new track
     open func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
         if isAVSequencer {
-            AKLog("AKSequencer ERROR ! newTrack only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR newTrack only work if not isAVSequencer")
             return nil
         }
 
@@ -602,7 +600,7 @@ open class AKSequencer {
     ///
     open func clearRange(start: AKDuration, duration: AKDuration) {
         if isAVSequencer {
-            AKLog("AKSequencer ERROR ! clearRange only work if not isAVSequencer ")
+            AKLog("AKSequencer ERROR clearRange only work if not isAVSequencer")
             return
         }
 

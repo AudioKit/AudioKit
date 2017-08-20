@@ -94,6 +94,11 @@ public:
         
         void noteOn(int noteNumber, int velocity)
         {
+            noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
+        }
+        
+        void noteOn(int noteNumber, int velocity, float frequency)
+        {
             if (velocity == 0) {
                 if (stage == stageOn) {
                     stage = stageRelease;
@@ -101,13 +106,13 @@ public:
                 }
             } else {
                 if (stage == stageOff) { add(); }
-                osc->freq = (float)noteToHz(noteNumber);
+                osc->freq = frequency;
                 osc->amp = (float)pow2(velocity / 127.);
                 stage = stageOn;
                 internalGate = 1;
             }
         }
-        
+
         
         void run(int frameCount, float* outL, float* outR)
         {
@@ -169,11 +174,14 @@ public:
     }
     
     void setIndex(float value) {
-        index = clamp(value, 0.0f, 1000.0f);
+        index = clamp(value, 0.0f, 3.0f);
     }
 
     void startNote(int note, int velocity) {
         noteStates[note].noteOn(note, velocity);
+    }    
+    void startNote(int note, int velocity, float frequency) {
+        noteStates[note].noteOn(note, velocity, frequency);
     }
 
     void stopNote(int note) {

@@ -9,6 +9,7 @@
 /// Testing node
 open class AKTester: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKTesterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tstr")
 
     // MARK: - Properties

@@ -15,14 +15,9 @@ var filter = AKMoogLadder(noise)
 
 filter.resonance = 0.94
 
-AudioKit.output = filter
-AudioKit.start()
-
-noise.start()
-
 var counter = 0
 
-AKPlaygroundLoop(frequency: 2.66) {
+let toggling = AKPeriodicFunction(frequency: 2.66) {
     let frequencyToggle = counter % 2
     if frequencyToggle > 0 {
         filter.cutoffFrequency = 111
@@ -31,6 +26,12 @@ AKPlaygroundLoop(frequency: 2.66) {
     }
     counter += 1
 }
+
+AudioKit.output = filter
+AudioKit.start(withPeriodicFunctions: toggling)
+
+noise.start()
+toggling.start()
 
 //: User Interface Set up
 

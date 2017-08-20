@@ -10,6 +10,7 @@
 ///
 open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKBitCrusherAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
     // MARK: - Properties

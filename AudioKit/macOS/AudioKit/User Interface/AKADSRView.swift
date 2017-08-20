@@ -6,7 +6,6 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-import Foundation
 public typealias ADSRCallback = (Double, Double, Double, Double) -> Void
 
 public class AKADSRView: NSView {

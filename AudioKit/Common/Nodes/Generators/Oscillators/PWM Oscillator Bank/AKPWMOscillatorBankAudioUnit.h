@@ -20,6 +20,7 @@
 @property (nonatomic) float detuningMultiplier;
 
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
+- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;
 - (void)stopNote:(uint8_t)note;
 
 @end

@@ -10,6 +10,7 @@
 ///
 open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPluckedStringAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 
     // MARK: - Properties

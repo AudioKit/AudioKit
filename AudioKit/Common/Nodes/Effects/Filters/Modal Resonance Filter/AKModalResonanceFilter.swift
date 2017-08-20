@@ -12,6 +12,7 @@
 ///
 open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKModalResonanceFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 
     // MARK: - Properties

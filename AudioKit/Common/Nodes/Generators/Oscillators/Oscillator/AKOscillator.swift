@@ -11,6 +11,7 @@
 ///
 open class AKOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKOscillatorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
     // MARK: - Properties

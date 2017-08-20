@@ -11,6 +11,7 @@
 ///
 open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKMorphingOscillatorAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
     // MARK: - Properties

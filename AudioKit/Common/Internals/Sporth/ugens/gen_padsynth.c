@@ -9,7 +9,7 @@ int sporth_gen_padsynth(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
 
     sp_ftbl *ft, *amps;
-    char *ftname, *ampname;
+    const char *ftname, *ampname;
     uint32_t size;
     SPFLOAT freq, bw;
 
