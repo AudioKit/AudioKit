@@ -6,7 +6,7 @@ int sporth_posc3(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
     SPFLOAT out;
     sp_ftbl *tbl;
-    char *str;
+    const char *str;
     SPFLOAT freq;
     SPFLOAT amp;
     sp_posc3 *posc3;

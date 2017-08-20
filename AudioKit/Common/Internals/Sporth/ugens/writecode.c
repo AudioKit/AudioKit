@@ -6,7 +6,7 @@
 int sporth_writecode(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    char *file;
+    const char *file;
     FILE *fp;
     switch(pd->mode){
         case PLUMBER_CREATE:

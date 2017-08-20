@@ -11,8 +11,8 @@ int sporth_gen_eval(sporth_stack *stack, void *ud)
     uint32_t size;
     sp_data *sp;
     sp_ftbl *ft;
-    char *ftname;
-    char *str;
+    const char *ftname;
+    const char *str;
     uint32_t n;
 
     switch(pd->mode){

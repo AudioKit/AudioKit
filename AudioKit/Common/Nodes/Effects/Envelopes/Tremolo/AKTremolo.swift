@@ -10,6 +10,7 @@
 ///
 open class AKTremolo: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKTremoloAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
     // MARK: - Properties

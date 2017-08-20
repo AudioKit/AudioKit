@@ -5,10 +5,10 @@ import AudioKit
 
 //: Create some samplers, load different sounds, and connect it to a mixer and the output
 var fmPianoSampler = AKSampler()
-try fmPianoSampler.loadWav("FM Piano")
+try fmPianoSampler.loadWav("Samples/FM Piano")
 
 var bellSampler = AKSampler()
-try bellSampler.loadWav("Bell")
+try bellSampler.loadWav("Samples/Bell")
 
 var mixer = AKMixer(fmPianoSampler, bellSampler)
 

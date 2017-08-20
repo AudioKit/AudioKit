@@ -5,12 +5,11 @@
 
 #include "plumber.h"
 
-
 int sporth_get(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    char *ftname;
+    const char *ftname;
     SPFLOAT **var;
     switch(pd->mode){
         case PLUMBER_CREATE:
@@ -56,7 +55,7 @@ int sporth_set(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    char *ftname;
+    const char *ftname;
     SPFLOAT **var;
     SPFLOAT val;
     switch(pd->mode){
@@ -107,7 +106,7 @@ int sporth_var(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
 
     SPFLOAT *var;
-    char *str;
+    const char *str;
 
     switch(pd->mode){
         case PLUMBER_CREATE:
@@ -148,7 +147,7 @@ int sporth_varset(sporth_stack *stack, void *ud)
 
     SPFLOAT *var;
     SPFLOAT val;
-    char *str;
+    const char *str;
 
     switch(pd->mode){
         case PLUMBER_CREATE:
@@ -186,7 +185,7 @@ int sporth_varset(sporth_stack *stack, void *ud)
     return PLUMBER_OK;
 }
 
-int plumber_create_var(plumber_data *pd, char *name, SPFLOAT **var)
+int plumber_create_var(plumber_data *pd, const char *name, SPFLOAT **var)
 {
     SPFLOAT *ptr = malloc(sizeof(SPFLOAT));
     plumber_ftmap_add_userdata(pd, name, ptr);
@@ -194,7 +193,7 @@ int plumber_create_var(plumber_data *pd, char *name, SPFLOAT **var)
     return PLUMBER_OK;
 }
 
-int plumber_set_var(plumber_data *pd, char *name, SPFLOAT *var)
+int plumber_set_var(plumber_data *pd, const char *name, SPFLOAT *var)
 {
     plumber_ftmap_add_userdata(pd, name, var);
     return PLUMBER_OK;

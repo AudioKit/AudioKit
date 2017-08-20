@@ -21,13 +21,9 @@ delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 
-AudioKit.output = reverb
-AudioKit.start()
-pluckNode.start()
-
 let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
-AKPlaygroundLoop(frequency: playRate) {
+let performance = AKPeriodicFunction(frequency: playRate) {
     var note = scale.randomElement()
     let octave = [0, 1, 2, 3].randomElement() * 12
     if random(0, 10) < 1.0 { note += 1 }
@@ -38,6 +34,11 @@ AKPlaygroundLoop(frequency: playRate) {
         pluckNode.trigger()
     }
 }
+
+AudioKit.output = reverb
+AudioKit.start(withPeriodicFunctions: performance)
+pluckNode.start()
+performance.start()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

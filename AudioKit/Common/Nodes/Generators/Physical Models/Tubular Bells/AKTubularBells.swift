@@ -9,6 +9,7 @@
 /// STK TubularBells
 ///
 open class AKTubularBells: AKNode, AKToggleable, AKComponent {
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "rhod")
     public typealias AKAudioUnitType = AKTubularBellsAudioUnit
     // MARK: - Properties

@@ -16,7 +16,7 @@ int sporth_tget(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
 
     sporth_tbl_d *td;
-    char *ftname;
+    const char *ftname;
 
     switch(pd->mode){
         case PLUMBER_CREATE:
@@ -66,7 +66,7 @@ int sporth_tset(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
 
     sporth_tbl_d *td;
-    char *ftname;
+    const char *ftname;
 
     switch(pd->mode){
         case PLUMBER_CREATE:
@@ -118,7 +118,7 @@ int sporth_tblsize(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    char *ftname;
+    const char *ftname;
     sp_ftbl *ft;
     size_t *tsize;
 
@@ -167,7 +167,7 @@ int sporth_tbldur(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    char *ftname;
+    const char *ftname;
     sp_ftbl *ft;
     SPFLOAT *tlen;
 
@@ -216,8 +216,8 @@ int sporth_talias(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    char *ftname;
-    char *varname;
+    const char *ftname;
+    const char *varname;
     uint32_t index;
     SPFLOAT *var;
     sp_ftbl *ft;

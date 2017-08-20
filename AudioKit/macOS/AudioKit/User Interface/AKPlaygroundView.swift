@@ -56,7 +56,7 @@ open class AKPlaygroundView: NSView {
         newLabel.isEditable = false
         newLabel.drawsBackground = false
         newLabel.isBezeled = false
-        newLabel.alignment = NSCenterTextAlignment
+        newLabel.alignment = .center
         newLabel.font = NSFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
         return newLabel

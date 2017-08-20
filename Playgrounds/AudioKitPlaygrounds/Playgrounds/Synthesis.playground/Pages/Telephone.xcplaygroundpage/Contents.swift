@@ -81,7 +81,7 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("Telephone")
-        addSubview(AKTelephoneView { key, state in
+        addSubview(AKPhoneView { key, state in
             switch key {
             case "CALL":
                 if state == "down" {

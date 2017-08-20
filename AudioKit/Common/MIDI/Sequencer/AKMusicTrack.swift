@@ -22,6 +22,11 @@ open class AKMusicTrack {
     /// Pointer to the Music Track
     open var trackPointer: UnsafeMutablePointer<MusicTrack>
 
+    /// Nicer function for not empty
+    open var isNotEmpty: Bool {
+        return !isEmpty
+    }
+
     /// Total duration of the music track
     open var length: MusicTimeStamp {
         var size: UInt32 = 0
@@ -129,7 +134,7 @@ open class AKMusicTrack {
         }
         MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
 
-        if !isEmpty {
+        if isNotEmpty {
             MusicTrackCopyInsert(track, 0, durationAsMusicTimeStamp, newTrack, 0)
             clear()
             MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
@@ -198,7 +203,7 @@ open class AKMusicTrack {
     open func clear() {
         clearMetaEvents()
         if let track = internalMusicTrack {
-            if !isEmpty {
+            if isNotEmpty {
                 MusicTrackClear(track, 0, length)
             }
         }
@@ -232,6 +237,7 @@ open class AKMusicTrack {
         DisposeMusicEventIterator(iterator)
     }
 
+    /// Clear a specific note
     open func clearNote(_ note: MIDINoteNumber) {
         guard let track = internalMusicTrack else {
             return
@@ -263,6 +269,7 @@ open class AKMusicTrack {
         DisposeMusicEventIterator(iterator)
     }
 
+    /// Determine if the sequence is empty
     open var isEmpty: Bool {
         guard let track = internalMusicTrack else {
             return true
@@ -300,7 +307,7 @@ open class AKMusicTrack {
         guard let track = internalMusicTrack else {
             return
         }
-        if !isEmpty {
+        if isNotEmpty {
             MusicTrackClear(track, start.beats, duration.beats)
         }
     }
@@ -308,7 +315,7 @@ open class AKMusicTrack {
     /// Add Note to sequence
     ///
     /// - Parameters:
-    ///   - noteNumber: The midi note number to insert
+    ///   - noteNumber: The MIDI note number to insert
     ///   - velocity: The velocity to insert note at
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - duration: How long to hold the note (would be better if they let us just use noteOffs...oh well)
@@ -335,7 +342,7 @@ open class AKMusicTrack {
     /// Add Controller change to sequence
     ///
     /// - Parameters:
-    ///   - controller: The midi controller to insert
+    ///   - controller: The MIDI controller to insert
     ///   - value: The velocity to insert note at
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this note
@@ -355,7 +362,7 @@ open class AKMusicTrack {
     /// Add Sysex message to sequence
     ///
     /// - Parameters:
-    ///   - data: The midi data byte array - standard sysex start and end messages are added automatically
+    ///   - data: The MIDI data byte array - standard sysex start and end messages are added automatically
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///
     open func addSysex(_ data: [MIDIByte], position: AKDuration) {
@@ -375,6 +382,39 @@ open class AKMusicTrack {
         if result != 0 {
             AKLog("Unable to insert raw midi data")
         }
+    }
+
+    /// Add Pitch Bend change to sequence
+    ///
+    /// - Parameters:
+    ///   - value: The value of pitchbend. The valid range of values is 0 to 16383 (128 ^ 2 values).
+    ///   - 8192 is no pitch bend.
+    ///   - position: Where in the sequence to insert pitchbend info (expressed in beats)
+    ///   - channel: MIDI channel to insert pitch bend on
+    ///
+    open func addPitchBend(_ value: Int = 8_192, position: AKDuration, channel: MIDIChannel = 0) {
+
+        guard let track = internalMusicTrack else {
+            return
+        }
+        // Find least and most significant bytes, remembering they are 7 bit numbers.
+        let lsb = value & 0x7F
+        let msb = (value >> 7) & 0x7F
+        var pitchBendMessage = MIDIChannelMessage(status: UInt8(14 << 4) | UInt8((channel) & 0xf),
+                                                  data1: UInt8(lsb),
+                                                  data2: UInt8(msb),
+                                                  reserved: 0)
+        MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &pitchBendMessage)
+    }
+
+    /// Add Pitch Bend reset to sequence
+    ///
+    /// - Parameters:
+    ///   - position: Where in the sequence to insert pitchbend info (expressed in beats)
+    ///   - channel: MIDI channel to insert pitch bend reset on
+    ///
+    open func resetPitchBend(position: AKDuration, channel: MIDIChannel = 0) {
+        addPitchBend(8_192, position: position, channel: channel)
     }
 
     /// Copy this track to another track

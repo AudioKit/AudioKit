@@ -10,6 +10,7 @@
 ///
 open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
 
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighShelfFilter)
 
     private var au: AUWrapper
@@ -44,6 +45,9 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
 
+    // Store the internal effect
+    fileprivate var internalEffect: AVAudioUnitEffect
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted = true
 
@@ -72,6 +76,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
             effectGain?.volume = 1
 
             let effect = _Self.effect
+            self.internalEffect = effect
 
             au = AUWrapper(effect)
             super.init(avAudioNode: mixer.avAudioNode)
@@ -103,5 +108,13 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect {
             dryWetMix = 0
             isStarted = false
         }
+    }
+
+    /// Disconnect the node
+    override open func disconnect() {
+        stop()
+
+        disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.engine.detach(self.internalEffect)
     }
 }

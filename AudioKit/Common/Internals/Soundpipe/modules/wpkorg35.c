@@ -78,6 +78,7 @@ int sp_wpkorg35_init(sp_data *sp, sp_wpkorg35 *p)
     p->lpf2_z = 0.0;
 
     p->nonlinear = 0;
+    p->saturation = 0;
 
     /* update filters */
     update(sp, p);

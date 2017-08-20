@@ -102,7 +102,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     public var multitouchState: State {
         if touches.isEmpty {
             return .ready
-        } else if !touches.filter({ $0.phase != .ended }).isEmpty {
+        } else if touches.filter({ $0.phase != .ended }).isNotEmpty {
             return .live
         } else {
             return .sustained
@@ -117,6 +117,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
 
     // MARK: - Overrides
 
+    /// Handle new touches
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
 
@@ -126,18 +127,21 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         update(touches)
     }
 
+    /// Handle moved touches
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesMoved(touches, with: event)
 
         update(touches)
     }
 
+    /// Handle cancelled touches
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesCancelled(touches, with: event)
 
         update(touches)
     }
 
+    /// Handle ended touches    
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesEnded(touches, with: event)
 
@@ -214,7 +218,7 @@ extension MultitouchGestureRecognizer {
 
     /// The average of all touch locations in the current view.
     public var centroid: CGPoint? {
-        guard let view = view, !touches.isEmpty else {
+        guard let view = view, touches.isNotEmpty else {
             return nil
         }
 
@@ -232,7 +236,7 @@ extension MultitouchGestureRecognizer {
 
     /// The average of all previous touch locations in the current view.
     public var previousCentroid: CGPoint? {
-        guard let view = view, !touches.isEmpty else {
+        guard let view = view, touches.isNotEmpty else {
             return nil
         }
 

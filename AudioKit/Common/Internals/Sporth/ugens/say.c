@@ -6,7 +6,7 @@
 int sporth_say(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    char *str = NULL;
+    const char *str;
     switch(pd->mode) {
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_SAY, NULL);

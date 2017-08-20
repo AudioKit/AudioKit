@@ -10,11 +10,9 @@ let clarinet = AKClarinet()
 
 let reverb = AKReverb(clarinet)
 
-AudioKit.output = reverb
-AudioKit.start()
 let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
-AKPlaygroundLoop(frequency: playRate) {
+let performance = AKPeriodicFunction(frequency: playRate) {
     var note = scale.randomElement()
     let octave = (2..<6).randomElement() * 12
     if random(0, 10) < 1.0 { note += 1 }
@@ -27,5 +25,9 @@ AKPlaygroundLoop(frequency: playRate) {
         clarinet.stop()
     }
 }
+
+AudioKit.output = reverb
+AudioKit.start(withPeriodicFunctions: performance)
+performance.start()
 
 PlaygroundPage.current.needsIndefiniteExecution = true

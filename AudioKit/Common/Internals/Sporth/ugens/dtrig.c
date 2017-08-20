@@ -7,7 +7,7 @@ int sporth_dtrig(sporth_stack *stack, void *ud)
     SPFLOAT trig;
     SPFLOAT out;
     sp_ftbl * ft;
-    char *ftname;
+    const char *ftname;
     int loop;
     SPFLOAT delay, scale;
     sp_dtrig *dtrig;

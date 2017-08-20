@@ -18,8 +18,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             property: "Morph Index",
             value: osc.index, maximum: 3,
             color: AKColor.red
-        ) { index in
-            osc.index = index
+        ) { sliderValue in
+            osc.index = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -27,8 +27,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             format: "%0.3f s",
             value: osc.attackDuration, maximum: 2,
             color: AKColor.green
-        ) { duration in
-            osc.attackDuration = duration
+        ) { sliderValue in
+            osc.attackDuration = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -36,8 +36,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             format: "%0.3f s",
             value: osc.releaseDuration, maximum: 2,
             color: AKColor.green
-        ) { duration in
-            osc.releaseDuration = duration
+        ) { sliderValue in
+            osc.releaseDuration = sliderValue
         })
 
         addSubview(AKPropertySlider(
@@ -45,16 +45,16 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             format: "%0.1f Cents",
             value:  osc.releaseDuration, minimum: -1_200, maximum: 1_200,
             color: AKColor.green
-        ) { offset in
-            osc.detuningOffset = offset
+        ) { sliderValue in
+            osc.detuningOffset = sliderValue
         })
 
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
             value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
             color: AKColor.green
-        ) { multiplier in
-            osc.detuningMultiplier = multiplier
+        ) { sliderValue in
+            osc.detuningMultiplier = sliderValue
         })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
@@ -73,11 +73,15 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 
     func noteOn(note: MIDINoteNumber) {
-        osc.play(noteNumber: note, velocity: 80)
+        DispatchQueue.main.async {
+            osc.play(noteNumber: note, velocity: 80)
+        }
     }
 
     func noteOff(note: MIDINoteNumber) {
-        osc.stop(noteNumber: note)
+        DispatchQueue.main.async {
+            osc.stop(noteNumber: note)
+        }
     }
 }
 

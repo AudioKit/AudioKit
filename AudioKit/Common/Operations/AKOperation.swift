@@ -31,7 +31,7 @@ open class AKOperation: AKComputedParameter {
         }
 
         for elem in all {
-            if !added.contains(elem.inlineSporth) {
+            if ❗️added.contains(elem.inlineSporth) {
                 uniq.append(elem)
                 added.insert(elem.inlineSporth)
             }
@@ -72,7 +72,7 @@ open class AKOperation: AKComputedParameter {
     internal var sporth: String {
         let rd = recursiveDependencies
         var str = ""
-        if !rd.isEmpty {
+        if rd.isNotEmpty {
             str = "\"ak\" \""
             for _ in rd {
                 str += "0 "
@@ -163,7 +163,7 @@ open class AKOperation: AKComputedParameter {
         return AKOperation(module: "round", inputs: self)
     }
 
-    /// Returns a frequency for a given midi note number
+    /// Returns a frequency for a given MIDI note number
     open func midiNoteToFrequency() -> AKOperation {
         return AKOperation(module: "mtof", inputs: self)
     }

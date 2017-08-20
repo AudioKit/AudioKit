@@ -9,6 +9,7 @@
 /// AudioKit Compressor based on Apple's DynamicsProcessor Audio Unit
 ///
 open class AKCompressor: AKNode, AKToggleable, AUEffect {
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     private var au: AUWrapper
@@ -83,6 +84,9 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect {
     fileprivate var inputGain: AKMixer?
     fileprivate var effectGain: AKMixer?
 
+    // Store the internal effect
+    fileprivate var internalEffect: AVAudioUnitEffect
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     open dynamic var isStarted = true
 
@@ -118,6 +122,8 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect {
             effectGain?.volume = 1
 
             let effect = _Self.effect
+            self.internalEffect = effect
+
             AudioKit.engine.attach(effect)
             au = AUWrapper(effect)
             if let node = effectGain?.avAudioNode {
@@ -149,5 +155,13 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect {
             dryWetMix = 0
             isStarted = false
         }
+    }
+
+    /// Disconnect the node
+    override open func disconnect() {
+        stop()
+
+        disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.engine.detach(self.internalEffect)
     }
 }

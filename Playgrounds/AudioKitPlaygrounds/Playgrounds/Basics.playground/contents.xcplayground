@@ -5,6 +5,7 @@
         <page name='Introduction and Hello World'/>
         <page name='Non-Audio Tutorial'/>
         <page name='Connecting Nodes'/>
+        <page name='Connecting Nodes Part 2'/>
         <page name='Mixing Nodes'/>
         <page name='Splitting Nodes'/>
         <page name='Dry Wet Mixer'/>

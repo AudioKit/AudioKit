@@ -29,8 +29,6 @@ This may be the preferred method if you need to debug code using AudioKit, as Xc
 You may obtain the source code archive directly from [GitHub](http://github.com/AudioKit/AudioKit), or you may also clone the official repository.
 
 * Drag and drop the `AudioKit For {platform}.xcodeproj` file to your project in Xcode. The file is located within the `AudioKit/{platform}` subdirectory in the repository, where `{platform}` is one of **iOS**, **macOS** or **tvOS**.
-* Go to the project settings for the target of your project using AudioKit, go to the **Build Phases** tab, and expand the **Target Dependencies** to add a dependency on the AudioKit target.
-* In the **Link Binary With Libraries** section, make sure to add the `AudioKit.framework` dependency.
 * In the **General** tab, also add `AudioKit.framework` in **Embedded Binaries**.
 
 

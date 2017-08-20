@@ -12,6 +12,7 @@
 ///
 open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
     // MARK: - Properties

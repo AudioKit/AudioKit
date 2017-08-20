@@ -9,7 +9,7 @@ int sporth_load(sporth_stack *stack, void *ud)
     plumbing *pipes;
 
     FILE *tmp, *fp;
-    char *filename;
+    const char *filename;
     int rc = PLUMBER_OK;
 
     switch(pd->mode){

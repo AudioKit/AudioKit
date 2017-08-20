@@ -10,6 +10,7 @@
 ///
 open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPeakingParametricEqualizerFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")
 
     // MARK: - Properties

@@ -59,7 +59,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     break search
                 }
 
-                
                 var regex = NSRegularExpression()
                 var pattern = "# default ([.0-9]+)"
                 do {
@@ -68,13 +67,13 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 } catch {
                     print("Regular expression failed")
                 }
-                
+
                 let value = regex.stringByReplacingMatches(in: line,
                                                            options: .reportCompletion,
                                                            range: NSRange(location: 0,
                                                                           length: line.characters.count),
                                                            withTemplate: "$1")
-                
+
                 pattern = "##: - Control ([1-4]): ([^\n]+)"
                 do {
                     regex = try NSRegularExpression(pattern: pattern,
@@ -92,7 +91,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                                        range: NSRange(location: 0,
                                                                       length: line.characters.count),
                                                        withTemplate: "$2")
-                
+
                 if title != line {
                     currentControl = (Int(currentControlText) ?? 0) - 1
                     sliders[currentControl].isHidden = false

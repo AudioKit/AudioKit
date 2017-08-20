@@ -22,6 +22,7 @@ extension Collection where IndexDistance == Int {
         return index(startIndex, offsetBy: offset)
     }
 
+    /// Retrieve a random element from the collection
     public func randomElement() -> Iterator.Element {
         return self[randomIndex]
     }
@@ -246,6 +247,7 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
+/// Adding subscript
 extension AVAudioUnit {
     subscript (param: AudioUnitParameterID) -> Double {
         get {
@@ -274,6 +276,7 @@ internal struct AUWrapper {
     }
 }
 
+/// Adding instantiation with component and callback
 extension AVAudioUnit {
     class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
@@ -303,10 +306,42 @@ extension AUParameter {
     }
 }
 
+/// Adding instantiate with callback
 extension AudioComponentDescription {
     func instantiate(callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit._instantiate(with: self) {
             callback($0)
         }
     }
+}
+
+// Anything that can hold a value (strings, arrays, etc)
+protocol Occupiable {
+    var isEmpty: Bool { get }
+    var isNotEmpty: Bool { get }
+}
+
+// Give a default implementation of isNotEmpty, so conformance only requires one implementation
+extension Occupiable {
+    var isNotEmpty: Bool {
+        return ❗️isEmpty
+    }
+}
+
+extension String: Occupiable { }
+
+// I can't think of a way to combine these collection types. Suggestions welcome.
+extension Array: Occupiable { }
+extension Dictionary: Occupiable { }
+extension Set: Occupiable { }
+
+#if !os(macOS)
+extension AVAudioSessionCategoryOptions: Occupiable { }
+#endif
+
+prefix operator ❗️
+
+/// Negative logic can be confusing, so we draw special attention to those cases
+prefix public func ❗️(a: Bool) -> Bool {
+    return !a
 }

@@ -10,6 +10,7 @@
 ///
 open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKKorgLowPassFilterAudioUnit
+    /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
     // MARK: - Properties
