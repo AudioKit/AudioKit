@@ -95,17 +95,20 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = osc->freq;
+
             osc->freq *= powf(2, kernel->pitchBend / 12.0);
-            osc->freq *= powf(2, kernel->vibratoValue);
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
-            
+            float bentFrequency = osc->freq;
+
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
 
+
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
+                osc->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
                 sp_osc_compute(kernel->sp, osc, nil, &x);
                 *outL++ += amp * x;
@@ -133,8 +136,10 @@ public:
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
-        sp_phasor_create(&phasor);
-        sp_phasor_init(sp, phasor, 0);
+        sp_ftbl_create(sp, &vibratoShapeTable, ftbl_size);
+        sp_gen_sine(sp, vibratoShapeTable);
+        sp_osc_create(&vibrato);
+        sp_osc_init(sp, vibrato, vibratoShapeTable, 0);
     }
 
     void setWaveformValue(uint32_t index, float value) {
@@ -176,13 +181,13 @@ public:
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         standardBankGetAndSteps()
-        phasor->freq = vibratoRate;
-        sp_phasor_compute(sp, phasor, nil, &vibratoValue);
-        vibratoValue = vibratoDepth / 12.0 * sin(vibratoValue * M_PI * 2.0);
-        
+        vibrato->freq = vibratoRate;
+        vibrato->amp = vibratoDepth / 12.0;
+
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
+            sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
         }
         
         NoteState* noteState = playingNotes;
@@ -205,7 +210,8 @@ private:
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
 
-    sp_phasor *phasor;
+    sp_ftbl *vibratoShapeTable;
+    sp_osc *vibrato;
 
 public:
     NoteState* playingNotes = nullptr;
