@@ -39,7 +39,7 @@ public enum AKRotaryKnobStyle {
     }
 
     /// Range of output value
-    @IBInspectable open var range: ClosedRange<Double> = 0 ... 1
+    open var range: ClosedRange<Double> = 0 ... 1
 
     // Should the knob uses discrete values
     @IBInspectable open var usesDiscreteValues: Bool = false
