@@ -36,6 +36,12 @@ public:
         pitchBendRamper.init();
         vibratoDepthRamper.init();
         vibratoRateRamper.init();
+
+        sp_ftbl_create(sp, &vibratoShapeTable, 1024);
+        sp_gen_sine(sp, vibratoShapeTable);
+        sp_osc_create(&vibrato);
+        sp_osc_init(sp, vibrato, vibratoShapeTable, 0);
+
     }
     
     void reset() {
@@ -62,6 +68,9 @@ public:
     float vibratoDepth = 0;
     float vibratoRate = 1;
     float vibratoValues[512] = { 0 };
+
+    sp_ftbl *vibratoShapeTable;
+    sp_osc *vibrato;
 
     int playingNotesCount = 0;
     bool resetted = false;
@@ -219,5 +228,8 @@ public:
     releaseDuration = releaseDurationRamper.getAndStep(); \
     pitchBend = double(pitchBendRamper.getAndStep()); \
     vibratoDepth = double(vibratoDepthRamper.getAndStep()); \
-    vibratoRate = double(vibratoRateRamper.getAndStep()); 
+    vibratoRate = double(vibratoRateRamper.getAndStep()); \
+    vibrato->freq = vibratoRate; \
+    vibrato->amp = vibratoDepth / 12.0;
+
 

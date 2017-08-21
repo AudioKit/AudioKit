@@ -95,6 +95,8 @@ public:
             float originalFrequency = *blsquare->freq;
             *blsquare->freq *= powf(2, kernel->pitchBend / 12.0);
             *blsquare->freq = clamp(*blsquare->freq, 0.0f, 22050.0f);
+            float bentFrequency = *blsquare->freq;
+
             *blsquare->width = kernel->pulseWidth;
             
             adsr->atk = (float)kernel->attackDuration;
@@ -104,6 +106,7 @@ public:
             
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
+                *blsquare->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
                 sp_blsquare_compute(kernel->sp, blsquare, nil, &x);
                 *outL++ += amp * x;
@@ -191,6 +194,7 @@ public:
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
+            sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
         }
         
         NoteState* noteState = playingNotes;

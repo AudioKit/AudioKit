@@ -131,15 +131,12 @@ public:
         for (NoteState& state : noteStates) {
             state.kernel = this;
         }
+
     }
 
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
-        sp_ftbl_create(sp, &vibratoShapeTable, ftbl_size);
-        sp_gen_sine(sp, vibratoShapeTable);
-        sp_osc_create(&vibrato);
-        sp_osc_init(sp, vibrato, vibratoShapeTable, 0);
     }
 
     void setWaveformValue(uint32_t index, float value) {
@@ -181,8 +178,6 @@ public:
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         standardBankGetAndSteps()
-        vibrato->freq = vibratoRate;
-        vibrato->amp = vibratoDepth / 12.0;
 
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
@@ -209,9 +204,6 @@ private:
 
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
-
-    sp_ftbl *vibratoShapeTable;
-    sp_osc *vibrato;
 
 public:
     NoteState* playingNotes = nullptr;
