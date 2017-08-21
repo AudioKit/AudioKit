@@ -9,9 +9,6 @@
 #if !os(tvOS)
 import CoreAudioKit
 #endif
-#if os(iOS)
-import CoreTelephony
-#endif
 
 import Dispatch
 
@@ -48,15 +45,6 @@ extension AVAudioEngine {
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
     }
-	
-	#if os(iOS)
-	private static let cx = CTCallCenter()
-	private static var microphoneLocked: Bool {
-		return cx.currentCalls?.count ?? 0 > 0
-	}
-	#else
-	private static let microphoneLocked = false
-	#endif
 
     // MARK: - Device Management
 
@@ -450,7 +438,7 @@ extension AVAudioEngine {
     // Restarts the engine after audio output has been changed, like headphones plugged in.
     @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         DispatchQueue.main.async {
-            if !microphoneLocked && shouldBeRunning && !engine.isRunning {
+            if shouldBeRunning && !engine.isRunning {
                 do {
 
                     #if !os(macOS)
