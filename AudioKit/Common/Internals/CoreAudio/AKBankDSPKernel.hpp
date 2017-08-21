@@ -61,7 +61,7 @@ public:
     float pitchBend = 0;
     float vibratoDepth = 0;
     float vibratoRate = 1;
-    float vibratoValue = 0;
+    float vibratoValues[512] = { 0 };
 
     int playingNotesCount = 0;
     bool resetted = false;
