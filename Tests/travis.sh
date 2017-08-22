@@ -62,8 +62,8 @@ xcodebuild -project Examples/macOS/MidiMonitor/MidiMonitor.xcodeproj -scheme Mid
 echo "Building macOS SporthEditor"
 xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj  -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 17
 
-echo "AudioKitParticles - requires hardware"
-xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16
+echo "Skipping AudioKitParticles - requires hardware"
+#xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16
 
 echo "Building iOS Sender Synth"
 cd Examples/iOS/SenderSynth; pod install; cd ../../..
