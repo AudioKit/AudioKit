@@ -8,7 +8,7 @@ PROJECT_NAME=AudioKit
 CONFIGURATION=Release
 BUILD_DIR="$PWD/build"
 VERSION=`cat ../VERSION`
-PLATFORMS=${PLATFORMS:-"iOS"} # Temporarily leaving off macOS and tvOS for Travis
+PLATFORMS=${PLATFORMS:-"macOS iOS"} # Temporarily leaving off tvOS for Travis
 
 if test "$TRAVIS" = true;
 then
