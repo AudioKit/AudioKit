@@ -34,15 +34,32 @@ public enum AKPropertySliderStyle {
     // Corner radius for the value bubble
     static var bubbleCornerRadius: CGFloat = 2.0
 
+    var initialValue: Double = 0
+
     /// Current value of the slider
     @IBInspectable open var value: Double = 0 {
+        didSet {
+            value = range.clamp(value)
+            value = onlyIntegers ? round(value) : value
+
+            val = value.normalized(range: range, taper: taper)
+        }
+    }
+
+    private var val: Double = 0 {
         didSet {
             setNeedsDisplay()
         }
     }
 
     /// Range of output
-    @IBInspectable open var range: ClosedRange<Double> = 0 ... 1
+    open var range: ClosedRange<Double> = 0 ... 1 {
+        didSet {
+            val = value.normalized(range: range, taper: taper)
+        }
+    }
+
+    open var taper: Double = 1 // Default Linear
 
     /// Text shown on the slider
     @IBInspectable open var property: String = "Property"
@@ -60,7 +77,7 @@ public enum AKPropertySliderStyle {
     @IBInspectable open var indicatorBorderColor: UIColor?
 
     /// Slider overlay color
-    @IBInspectable open var sliderColor: UIColor = AKStylist.sharedInstance.nextColor
+    @IBInspectable open var color: UIColor = AKStylist.sharedInstance.nextColor
 
     /// Text color
     @IBInspectable open var textColor: UIColor?
@@ -70,6 +87,9 @@ public enum AKPropertySliderStyle {
 
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
+
+    // Only integer
+    @IBInspectable open var onlyIntegers: Bool = false
 
     // Slider style
     open var sliderStyle: AKPropertySliderStyle = AKPropertySliderStyle.tabIndicator
@@ -95,20 +115,25 @@ public enum AKPropertySliderStyle {
 
     /// Initialize the slider
     public init(property: String,
-                format: String = "%0.3f",
-                value: Double,
+                value: Double = 0.0,
                 range: ClosedRange<Double> = 0 ... 1,
-                color: UIColor = UIColor.red,
+                taper: Double = 1,
+                format: String = "%0.3f",
+                color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: @escaping (_ x: Double) -> Void) {
+                callback: @escaping (_ x: Double) -> Void = { _ in }) {
         self.value = value
+        self.initialValue = value
         self.range = range
+        self.taper = taper
         self.property = property
         self.format = format
-        self.sliderColor = color
+        self.color = color
 
         self.callback = callback
         super.init(frame: frame)
+
+        self.val = value.normalized(range: range, taper: taper)
 
         self.backgroundColor = UIColor.clear
 
@@ -320,7 +345,7 @@ public enum AKPropertySliderStyle {
         let valueAreaPath = UIBezierPath(roundedRect: valueAreaRect,
                                          byRoundingCorners: valueCorners,
                                          cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
-        sliderColor.withAlphaComponent(0.6).setFill()
+        color.withAlphaComponent(0.6).setFill()
         valueAreaPath.fill()
 
         // sliderArea Border
@@ -333,7 +358,7 @@ public enum AKPropertySliderStyle {
         let indicatorPath = UIBezierPath(roundedRect: indicatorRect,
                                          byRoundingCorners: .allCorners,
                                          cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
-        sliderColor.setFill()
+        color.setFill()
         indicatorPath.fill()
         indicatorPath.lineWidth = sliderBorderWidth
         indicatorBorderColorForTheme.setStroke()
@@ -372,7 +397,7 @@ public enum AKPropertySliderStyle {
                                           byRoundingCorners: .allCorners,
                                           cornerRadii: CGSize(width: AKPropertySlider.bubbleCornerRadius,
                                                               height: AKPropertySlider.bubbleCornerRadius))
-            sliderColor.setFill()
+            color.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
             indicatorBorderColorForTheme.setStroke()
