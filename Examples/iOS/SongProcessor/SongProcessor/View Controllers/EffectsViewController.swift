@@ -20,7 +20,7 @@ class EffectsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        volumeSlider.maximum = 10.0
+        volumeSlider.range = 0 ... 10.0
 
         volumeSlider.value = songProcessor.playerBooster.gain
         volumeSlider.callback = updateVolume
