@@ -29,11 +29,11 @@ class ViewController: NSViewController {
             oscillator2.stop()
             sender.title = "Play Sine Waves"
         } else {
-            oscillator.amplitude = random(0.5, 1)
-            oscillator.frequency = random(220, 880)
+            oscillator.amplitude = random(in: 0.5 ... 1)
+            oscillator.frequency = random(in: 220 ... 880)
             oscillator.start()
-            oscillator2.amplitude = random(0.5, 1)
-            oscillator2.frequency = random(220, 880)
+            oscillator2.amplitude = random(in: 0.5 ... 1)
+            oscillator2.frequency = random(in: 220 ... 880)
             oscillator2.start()
             sender.title = "Stop \(Int(oscillator.frequency))Hz & \(Int(oscillator2.frequency))Hz"
         }

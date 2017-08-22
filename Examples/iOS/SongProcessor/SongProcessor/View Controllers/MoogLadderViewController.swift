@@ -20,8 +20,7 @@ class MoogLadderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        cutoffFrequncySlider.minimum = 12.0
-        cutoffFrequncySlider.maximum = 10_000.0
+        cutoffFrequncySlider.range = 12.0 ... 10_000.0
 
         cutoffFrequncySlider.value = songProcessor.moogLadder.cutoffFrequency
 

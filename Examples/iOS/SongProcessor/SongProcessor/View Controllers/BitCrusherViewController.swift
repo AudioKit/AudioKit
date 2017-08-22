@@ -20,9 +20,8 @@ class BitCrusherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bitDepthSlider.minimum = 1
-        bitDepthSlider.maximum = 24
-        sampleRateSlider.maximum = 16_000
+        bitDepthSlider.range = 1 ... 24
+        sampleRateSlider.range = 0 ... 16_000
 
         bitDepthSlider.value = songProcessor.bitCrusher.bitDepth
         sampleRateSlider.value = songProcessor.bitCrusher.sampleRate
