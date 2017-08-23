@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by David O'Neill on 8/16/17.
-//  Copyright © 2017 O'Neill. All rights reserved.
+//  Copyright © AudioKit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
