@@ -1,6 +1,6 @@
 //
-//  AVLazyTap.h
-//  AVLazyTap
+//  AKLazyTap.h
+//  AudioKit
 //
 //  Created by David O'Neill on 8/16/17.
 //  Copyright © 2017 O'Neill. All rights reserved.
@@ -14,7 +14,7 @@
 -(double)max;
 @end
 
-@interface AVLazyTap : NSObject
+@interface AKLazyTap : NSObject
 
 
 /*!
@@ -24,7 +24,7 @@
  * The render notify will be removed on dealloc.
  *
  * @param node The AVAudioNode that will the tap will pull buffers from.
- * @return An AVLazyTap if sucessful in adding the renderNotify.
+ * @return An AKLazyTap if sucessful in adding the renderNotify.
  */
 -(instancetype _Nullable )initWithNode:(AVAudioNode * _Nonnull)node;
 
@@ -36,7 +36,7 @@
  *
  * @param node The AVAudioNode that will the tap will pull buffers from.
  * @param seconds Minumum seconds of audio that the tap will hold.
- * @return An AVLazyTap if sucessful in adding the renderNotify.
+ * @return An AKLazyTap if sucessful in adding the renderNotify.
  */
 -(instancetype _Nullable)initWithNode:(AVAudioNode * _Nonnull)node queueTime:(double)seconds;
 
@@ -47,9 +47,10 @@
  *
  * @param audioUnit The audioUnit that the tap will pull buffers from.
  * @param seconds Minumum seconds of audio that the tap will hold.
- * @return An AVLazyTap if sucessful in adding the renderNotify.
+ * @return An AKLazyTap if sucessful in adding the renderNotify.
  */
 -(instancetype _Nullable)initWithAudioUnit:(AudioUnit _Nonnull)audioUnit queueTime:(double)seconds NS_DESIGNATED_INITIALIZER;
+
 -(instancetype _Nonnull )init NS_UNAVAILABLE;
 
 /*!

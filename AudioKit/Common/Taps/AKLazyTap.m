@@ -1,17 +1,17 @@
 //
-//  AVLazyTap.m
-//  AVLazyTap
+//  AKLazyTap.m
+//  AudioKit
 //
 //  Created by David O'Neill on 8/16/17.
 //  Copyright © 2017 O'Neill. All rights reserved.
 //
 
-#import "AVLazyTap.h"
+#import "AKLazyTap.h"
 #import "TPCircularBuffer+AudioBufferList.h"
 #import <pthread/pthread.h>
 
 
-@implementation AVLazyTap{
+@implementation AKLazyTap{
     AudioUnit _audioUnit;
     AudioStreamBasicDescription asbd;
     AVAudioFormat *format;
@@ -21,6 +21,7 @@
     TPCircularBuffer circularBuffer;
     pthread_mutex_t consumerLock;
 }
+
 -(instancetype _Nullable)initWithAudioUnit:(AudioUnit)audioUnit queueTime:(double)seconds {
     self = [super init];
     if (self) {
@@ -59,9 +60,11 @@
     }
     return self;
 }
+
 -(instancetype)initWithNode:(AVAudioNode *)node{
     return [self initWithNode:node queueTime:0];
 }
+
 -(instancetype)initWithNode:(AVAudioNode *)node queueTime:(double)seconds{
     AVAudioUnit *avAudioUnit = (AVAudioUnit *)node;
     if (![avAudioUnit respondsToSelector:@selector(audioUnit)]) {
@@ -70,11 +73,13 @@
     }
     return [self initWithAudioUnit:avAudioUnit.audioUnit queueTime:seconds];
 }
+
 -(void)clear {
     pthread_mutex_lock(&consumerLock);
     TPCircularBufferClear(&circularBuffer);
     pthread_mutex_unlock(&consumerLock);
 }
+
 - (void)dealloc {
 
     OSStatus status = AudioUnitRemoveRenderNotify(_audioUnit, renderCallback, (__bridge void *)self);
@@ -91,7 +96,6 @@
         pthread_mutex_destroy(&lock);
     });
 }
-
 
 -(BOOL)copyNextBufferList:(AudioBufferList *)bufferlistOut timeStamp:(AudioTimeStamp *)timeStamp{
     pthread_mutex_lock(&consumerLock);
@@ -143,7 +147,7 @@ static OSStatus renderCallback(void                         * inRefCon,
         return noErr;
     }
 
-    AVLazyTap *self = (__bridge __unsafe_unretained AVLazyTap *)inRefCon;
+    AKLazyTap *self = (__bridge __unsafe_unretained AKLazyTap *)inRefCon;
 
     UInt32 space = TPCircularBufferGetAvailableSpace(&self->circularBuffer, &self->asbd);
     if (space < self->headRoom) {
@@ -165,24 +169,4 @@ static OSStatus renderCallback(void                         * inRefCon,
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
