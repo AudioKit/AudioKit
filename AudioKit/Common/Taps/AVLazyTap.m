@@ -9,7 +9,6 @@
 #import "AVLazyTap.h"
 #import "TPCircularBuffer+AudioBufferList.h"
 #import <pthread/pthread.h>
-#import <objc/runtime.h>
 
 
 @implementation AVLazyTap{
