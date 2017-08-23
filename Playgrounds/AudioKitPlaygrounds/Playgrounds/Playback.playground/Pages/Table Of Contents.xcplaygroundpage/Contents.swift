@@ -26,7 +26,9 @@
 //:
 //: * [Recording Nodes](Recording%20Nodes)
 //:
-//: ## Sequencing
+//: ## Drums and Sequencing
 //:
+//: * [Drums](Drums)
+//: * [Drum Sequencer](Drum%20Sequencer)
 //: * [Sampler](Sampler)
 //: * [Sequencer](Sequencer)
