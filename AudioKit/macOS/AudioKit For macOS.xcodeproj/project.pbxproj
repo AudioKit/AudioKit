@@ -26,8 +26,8 @@
 		558D80801F4D2A3D001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D807C1F4D2A3D001E7BC1 /* TPCircularBuffer+AudioBufferList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		558D80811F4D2A3D001E7BC1 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 558D807D1F4D2A3D001E7BC1 /* TPCircularBuffer.c */; };
 		558D80821F4D2A3D001E7BC1 /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D807E1F4D2A3D001E7BC1 /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		558D80851F4D2B0C001E7BC1 /* AVLazyTap.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D80831F4D2B0C001E7BC1 /* AVLazyTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		558D80861F4D2B0D001E7BC1 /* AVLazyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 558D80841F4D2B0C001E7BC1 /* AVLazyTap.m */; };
+		558D80A31F4D440F001E7BC1 /* AKLazyTap.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D80A11F4D440F001E7BC1 /* AKLazyTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		558D80A41F4D440F001E7BC1 /* AKLazyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 558D80A21F4D440F001E7BC1 /* AKLazyTap.m */; };
 		7078DE4D1F260A3600F1DC67 /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
 		B19AE76D1F30F58500F9DC25 /* AKAudioUnitInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */; };
@@ -935,8 +935,8 @@
 		558D807C1F4D2A3D001E7BC1 /* TPCircularBuffer+AudioBufferList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+AudioBufferList.h"; sourceTree = "<group>"; };
 		558D807D1F4D2A3D001E7BC1 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		558D807E1F4D2A3D001E7BC1 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
-		558D80831F4D2B0C001E7BC1 /* AVLazyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVLazyTap.h; sourceTree = "<group>"; };
-		558D80841F4D2B0C001E7BC1 /* AVLazyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVLazyTap.m; sourceTree = "<group>"; };
+		558D80A11F4D440F001E7BC1 /* AKLazyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLazyTap.h; sourceTree = "<group>"; };
+		558D80A21F4D440F001E7BC1 /* AKLazyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLazyTap.m; sourceTree = "<group>"; };
 		7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitInstrument.swift; path = "AudioUnit Host/AKAudioUnitInstrument.swift"; sourceTree = "<group>"; };
@@ -3817,8 +3817,8 @@
 			children = (
 				C45666921D448D7E00D26565 /* AKAmplitudeTap.swift */,
 				C45666931D448D7E00D26565 /* AKFFTTap.swift */,
-				558D80831F4D2B0C001E7BC1 /* AVLazyTap.h */,
-				558D80841F4D2B0C001E7BC1 /* AVLazyTap.m */,
+				558D80A11F4D440F001E7BC1 /* AKLazyTap.h */,
+				558D80A21F4D440F001E7BC1 /* AKLazyTap.m */,
 			);
 			name = Taps;
 			path = ../Common/Taps;
@@ -4029,7 +4029,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				558D80851F4D2B0C001E7BC1 /* AVLazyTap.h in Headers */,
+				558D80A31F4D440F001E7BC1 /* AKLazyTap.h in Headers */,
 				558D80801F4D2A3D001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */,
 				558D80821F4D2A3D001E7BC1 /* TPCircularBuffer.h in Headers */,
 				552CD4901F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h in Headers */,
@@ -4549,7 +4549,6 @@
 				C45669CF1D448D7E00D26565 /* reverberateWithFlatFrequencyResponse.swift in Sources */,
 				C4F8CA2E1DCA9256001F38F2 /* tenv.c in Sources */,
 				A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */,
-				558D80861F4D2B0D001E7BC1 /* AVLazyTap.m in Sources */,
 				C4F8CA001DCA9256001F38F2 /* noise.c in Sources */,
 				C45669991D448D7E00D26565 /* AKMandolinAudioUnit.mm in Sources */,
 				C4FE68871EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift in Sources */,
@@ -4837,6 +4836,7 @@
 				C45667131D448D7E00D26565 /* pan2.c in Sources */,
 				C45669CA1D448D7E00D26565 /* moogLadderFilter.swift in Sources */,
 				C45668DB1D448D7E00D26565 /* AKCompressor.swift in Sources */,
+				558D80A41F4D440F001E7BC1 /* AKLazyTap.m in Sources */,
 				B19AE76D1F30F58500F9DC25 /* AKAudioUnitInstrument.swift in Sources */,
 				C45668AF1D448D7E00D26565 /* AKMIDIControl.swift in Sources */,
 				C45666EE1D448D7E00D26565 /* compressor.c in Sources */,
