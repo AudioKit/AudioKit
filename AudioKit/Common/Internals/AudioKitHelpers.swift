@@ -343,14 +343,14 @@ extension AudioComponentDescription {
 }
 
 // Anything that can hold a value (strings, arrays, etc)
-protocol Occupiable {
+public protocol Occupiable {
     var isEmpty: Bool { get }
     var isNotEmpty: Bool { get }
 }
 
 // Give a default implementation of isNotEmpty, so conformance only requires one implementation
 extension Occupiable {
-    var isNotEmpty: Bool {
+    public var isNotEmpty: Bool {
         return ❗️isEmpty
     }
 }

@@ -129,7 +129,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Testing
 #import "AKTesterAudioUnit.h"
 
-// Plots
+// EZAudio
 #import "EZAudio.h"
 
 //Offline

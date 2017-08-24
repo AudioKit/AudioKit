@@ -1,10 +1,11 @@
 //
 //  AKNodeOutputPlot.swift
-//  AudioKit
+//  AudioKitUI
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
+import AudioKit
 
 /// Plot the output from any node in an signal processing graph
 @IBDesignable
