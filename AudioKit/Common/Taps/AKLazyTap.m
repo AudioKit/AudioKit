@@ -13,17 +13,13 @@
 
 @implementation AKLazyTap{
     AudioUnit _audioUnit;
-    AudioStreamBasicDescription asbd;
     AVAudioFormat *format;
     int headRoom;
-
-    //Need cleanup
     TPCircularBuffer circularBuffer;
     pthread_mutex_t consumerLock;
 }
-
 -(instancetype _Nullable)initWithAudioUnit:(AudioUnit)audioUnit queueTime:(double)seconds {
-    self = [super init];
+    self = [super initWithAudioUnit:audioUnit];
     if (self) {
 
         seconds = seconds <= 0 ?: 0.25;
@@ -31,6 +27,7 @@
         _audioUnit = audioUnit;
 
         UInt32 propSize = sizeof(AudioStreamBasicDescription);
+        AudioStreamBasicDescription asbd;
         OSStatus status = AudioUnitGetProperty(audioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &asbd, &propSize);
         if (status) {
             printf("%s OSStatus %d %d\n",__FILE__,status,__LINE__);
@@ -41,8 +38,6 @@
         //Need to use a lock as the Producer thread will also try to consume if buffer is too full.
         pthread_mutex_init(&consumerLock, nil);
 
-        asbd = *format.streamDescription;
-
         //Minimum of samples buffer should hold at any given time.
         int capacity = asbd.mSampleRate * seconds;
 
@@ -52,19 +47,16 @@
         int32_t frameSize = asbd.mBytesPerFrame * asbd.mChannelsPerFrame;
         TPCircularBufferInit(&circularBuffer, (capacity + headRoom) * frameSize);
 
-        status = AudioUnitAddRenderNotify(audioUnit, renderCallback, (__bridge void *)self);
-        if (status) {
-            printf("%s OSStatus %d %d\n",__FILE__,status,__LINE__);
-            return nil;
-        }
+        [self start:nil];
     }
     return self;
 }
-
+-(instancetype)initWithAudioUnit:(AudioUnit)audioUnit {
+    return [self initWithAudioUnit:audioUnit queueTime:0];
+}
 -(instancetype)initWithNode:(AVAudioNode *)node{
     return [self initWithNode:node queueTime:0];
 }
-
 -(instancetype)initWithNode:(AVAudioNode *)node queueTime:(double)seconds{
     AVAudioUnit *avAudioUnit = (AVAudioUnit *)node;
     if (![avAudioUnit respondsToSelector:@selector(audioUnit)]) {
@@ -73,18 +65,12 @@
     }
     return [self initWithAudioUnit:avAudioUnit.audioUnit queueTime:seconds];
 }
-
 -(void)clear {
     pthread_mutex_lock(&consumerLock);
     TPCircularBufferClear(&circularBuffer);
     pthread_mutex_unlock(&consumerLock);
 }
-
 - (void)dealloc {
-
-    OSStatus status = AudioUnitRemoveRenderNotify(_audioUnit, renderCallback, (__bridge void *)self);
-    if (status) printf("%s OSStatus %d %d\n",__FILE__,status,__LINE__);
-
     //Cleanup should happen after at least two render cycles so that nothing is deallocated mid-render
     double timeFromNow = 0.2;
 
@@ -96,6 +82,7 @@
         pthread_mutex_destroy(&lock);
     });
 }
+
 
 -(BOOL)copyNextBufferList:(AudioBufferList *)bufferlistOut timeStamp:(AudioTimeStamp *)timeStamp{
     pthread_mutex_lock(&consumerLock);
@@ -111,6 +98,7 @@
     pthread_mutex_unlock(&consumerLock);
     return nextBuffer != nil;
 }
+
 -(BOOL)fillNextBuffer:(AVAudioPCMBuffer * _Nonnull)buffer timeStamp:(AudioTimeStamp *)timeStamp{
 
     NSAssert([format isEqual:buffer.format],@"Lazy tap format doesn't match buffer in fillNextBuffer");
@@ -119,6 +107,8 @@
     buffer.frameLength = 0;
 
     AudioBufferList *bufferlist = TPCircularBufferNextBufferList(&circularBuffer, timeStamp);
+    AudioStreamBasicDescription asbd = *format.streamDescription;
+
     while (bufferlist && buffer.frameLength < buffer.frameCapacity) {
 
         AudioBufferList *dst = buffer.mutableAudioBufferList;
@@ -136,37 +126,39 @@
     pthread_mutex_unlock(&consumerLock);
     return buffer.frameLength != 0;
 }
-static OSStatus renderCallback(void                         * inRefCon,
-                               AudioUnitRenderActionFlags   * ioActionFlags,
-                               const AudioTimeStamp         * inTimeStamp,
-                               UInt32                       inBusNumber,
-                               UInt32                       inNumberFrames,
-                               AudioBufferList              * ioData) {
+-(AKRenderNotifyBlock)renderNotifyBlock {
 
-    if (!(*ioActionFlags & kAudioUnitRenderAction_PostRender)) {
-        return noErr;
-    }
+    TPCircularBuffer *buffer = &self->circularBuffer;
+    pthread_mutex_t *lock = &consumerLock;
+    AudioStreamBasicDescription asbd = *format.streamDescription;
+    int headroom = headRoom;
 
-    AKLazyTap *self = (__bridge __unsafe_unretained AKLazyTap *)inRefCon;
+    return ^(AudioUnitRenderActionFlags *ioActionFlags,
+             const AudioTimeStamp       *inTimeStamp,
+             UInt32                     inBusNumber,
+             UInt32                     inNumberFrames,
+             AudioBufferList            *ioData) {
 
-    UInt32 space = TPCircularBufferGetAvailableSpace(&self->circularBuffer, &self->asbd);
-    if (space < self->headRoom) {
-        if (pthread_mutex_trylock(&self->consumerLock) == 0){
-            while (space < self->headRoom) {
-                TPCircularBufferConsumeNextBufferList(&self->circularBuffer);
-                space = TPCircularBufferGetAvailableSpace(&self->circularBuffer, &self->asbd);
-            }
-            pthread_mutex_unlock(&self->consumerLock);
+        if (!(*ioActionFlags & kAudioUnitRenderAction_PostRender)) {
+            return;
         }
 
-    }
-    if (space >= inNumberFrames) {
-        TPCircularBufferCopyAudioBufferList(&self->circularBuffer, ioData, inTimeStamp, inNumberFrames, &self->asbd);
-    } else {
-        printf("AVLazy tap error in render callback - No Room!\n");
-    }
-    return noErr;
+        UInt32 space = TPCircularBufferGetAvailableSpace(buffer, &asbd);
+        if (space < headroom) {
+            if (pthread_mutex_trylock(lock) == 0){
+                while (space < headroom) {
+                    TPCircularBufferConsumeNextBufferList(buffer);
+                    space = TPCircularBufferGetAvailableSpace(buffer, &asbd);
+                }
+                pthread_mutex_unlock(lock);
+            }
+        }
+        if (space >= inNumberFrames) {
+            TPCircularBufferCopyAudioBufferList(buffer, ioData, inTimeStamp, inNumberFrames, &asbd);
+        } else {
+            printf("AVLazy tap error in render callback - No Room!\n");
+        }
+    };
 }
 
 @end
-
