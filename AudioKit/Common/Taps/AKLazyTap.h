@@ -11,7 +11,28 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AKRenderTap.h"
 
-@interface AKLazyTap : AKRenderTap
+@interface AKLazyTap : NSObject
+
+/*!
+ * Initializes a tap by adding a render notify callback to the node's
+ * underlying audioUnit.
+ *
+ * The render notify will be removed on dealloc.
+ *
+ * @param node The AVAudioNode that will the tap will pull buffers from.
+ * @return An AKLazyTap if sucessful in adding the renderNotify.
+ */
+-(instancetype _Nullable)initWithNode:(AVAudioNode * _Nonnull)node;
+
+/*!
+ * Initializes a tap by adding a render notify callback to the audioUnit.
+ *
+ * The render notify will be removed on dealloc.
+ *
+ * @param audioUnit The audioUnit that the tap will pull buffers from.
+ * @return An AKLazyTap if sucessful in adding the renderNotify.
+ */
+-(instancetype _Nullable)initWithAudioUnit:(AudioUnit _Nonnull)audioUnit;
 
 /*!
  * Initializes a tap by adding a render notify callback to the node's
