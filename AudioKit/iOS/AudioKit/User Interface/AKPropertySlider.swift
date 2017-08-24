@@ -53,13 +53,13 @@ public enum AKPropertySliderStyle {
     }
 
     /// Range of output
-    open var range: ClosedRange<Double> = 0 ... 1 {
+    @IBInspectable open var range: ClosedRange<Double> = 0 ... 1 {
         didSet {
             val = value.normalized(range: range, taper: taper)
         }
     }
 
-    open var taper: Double = 1 // Default Linear
+    @IBInspectable open var taper: Double = 1 // Default Linear
 
     /// Text shown on the slider
     @IBInspectable open var property: String = "Property"
