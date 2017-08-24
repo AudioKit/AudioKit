@@ -28,6 +28,8 @@
 		558D80821F4D2A3D001E7BC1 /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D807E1F4D2A3D001E7BC1 /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		558D80A31F4D440F001E7BC1 /* AKLazyTap.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D80A11F4D440F001E7BC1 /* AKLazyTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		558D80A41F4D440F001E7BC1 /* AKLazyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 558D80A21F4D440F001E7BC1 /* AKLazyTap.m */; };
+		55E25CD11F4E76B100F5AF08 /* AKRenderTap.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E25CCF1F4E76B100F5AF08 /* AKRenderTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55E25CD21F4E76B100F5AF08 /* AKRenderTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E25CD01F4E76B100F5AF08 /* AKRenderTap.m */; };
 		7078DE4D1F260A3600F1DC67 /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
 		B19AE76D1F30F58500F9DC25 /* AKAudioUnitInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */; };
@@ -937,6 +939,8 @@
 		558D807E1F4D2A3D001E7BC1 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		558D80A11F4D440F001E7BC1 /* AKLazyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLazyTap.h; sourceTree = "<group>"; };
 		558D80A21F4D440F001E7BC1 /* AKLazyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLazyTap.m; sourceTree = "<group>"; };
+		55E25CCF1F4E76B100F5AF08 /* AKRenderTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRenderTap.h; sourceTree = "<group>"; };
+		55E25CD01F4E76B100F5AF08 /* AKRenderTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRenderTap.m; sourceTree = "<group>"; };
 		7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitInstrument.swift; path = "AudioUnit Host/AKAudioUnitInstrument.swift"; sourceTree = "<group>"; };
@@ -3817,6 +3821,8 @@
 			children = (
 				C45666921D448D7E00D26565 /* AKAmplitudeTap.swift */,
 				C45666931D448D7E00D26565 /* AKFFTTap.swift */,
+				55E25CCF1F4E76B100F5AF08 /* AKRenderTap.h */,
+				55E25CD01F4E76B100F5AF08 /* AKRenderTap.m */,
 				558D80A11F4D440F001E7BC1 /* AKLazyTap.h */,
 				558D80A21F4D440F001E7BC1 /* AKLazyTap.m */,
 			);
@@ -4030,6 +4036,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				558D80A31F4D440F001E7BC1 /* AKLazyTap.h in Headers */,
+				55E25CD11F4E76B100F5AF08 /* AKRenderTap.h in Headers */,
 				558D80801F4D2A3D001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */,
 				558D80821F4D2A3D001E7BC1 /* TPCircularBuffer.h in Headers */,
 				552CD4901F3BBA34005762E9 /* AKOfflineRenderAudioUnit.h in Headers */,
@@ -4708,6 +4715,7 @@
 				C4F8CA051DCA9256001F38F2 /* pan.c in Sources */,
 				C47047CE1E78FB4500D9906F /* Shakers.cpp in Sources */,
 				7078DE4D1F260A3600F1DC67 /* AKRotaryKnob.swift in Sources */,
+				55E25CD21F4E76B100F5AF08 /* AKRenderTap.m in Sources */,
 				C45669EC1D448D7E00D26565 /* periodicTrigger.swift in Sources */,
 				C4F8CA011DCA9256001F38F2 /* nsmp.c in Sources */,
 				C49390991E088F4C009FEAA1 /* AKStereoFieldLimiterAudioUnit.mm in Sources */,
