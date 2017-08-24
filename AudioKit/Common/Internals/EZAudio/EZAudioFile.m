@@ -810,7 +810,7 @@ typedef struct
                                &editedMarkerList);
     
     if ( err != noErr ) {
-        NSLog(@"AudioFileSetProperty failed err: %d\n", err );
+        NSLog(@"AudioFileSetProperty failed err: %d\n", (int)err );
     }
     
 }
