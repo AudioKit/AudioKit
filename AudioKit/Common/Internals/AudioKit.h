@@ -134,3 +134,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 //Offline
 #import "AKOfflineRenderAudioUnit.h"
+
+//Taps
+#import "AKRenderTap.h"
+#import "AKLazyTap.h"
