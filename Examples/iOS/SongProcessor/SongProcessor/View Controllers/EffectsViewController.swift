@@ -44,5 +44,5 @@ class EffectsViewController: UIViewController {
             }
         }
     }
-    
+
 }

@@ -36,5 +36,5 @@ class PitchShifterViewController: UIViewController {
     func updateMix(value: Double) {
         songProcessor.pitchMixer.balance = value
     }
-    
+
 }
