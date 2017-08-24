@@ -77,7 +77,7 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
             effectGain?.volume = 1
 
             input?.connect(to: inputMixer)
-            inputMixer.connect(to: [inputGain!,effectGain!])
+            inputMixer.connect(to: [inputGain!, effectGain!])
             let effect = _Self.effect
             self.internalEffect = effect
 

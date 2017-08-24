@@ -18,7 +18,7 @@ public enum AKButtonStyle {
     static var standardCornerRadius: CGFloat = 3.0
 
     public var callback: (AKButton) -> Void = { _ in }
-    
+
     private var isHighlighted = false {
         didSet {
             setNeedsDisplay()
@@ -48,7 +48,7 @@ public enum AKButtonStyle {
             setNeedsDisplay()
         }
     }
-    
+
     @IBInspectable open var highlightedColor: UIColor? {
         didSet {
             setNeedsDisplay()
@@ -86,7 +86,7 @@ public enum AKButtonStyle {
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         transform = CGAffineTransform.identity
         isHighlighted = false
-        
+
         if let highlightAnimationTimer = highlightAnimationTimer {
             highlightAnimationTimer.invalidate()
             self.highlightAnimationTimer = nil
@@ -94,7 +94,7 @@ public enum AKButtonStyle {
         self.highlightAnimationAlpha = 0.6
         highlightAnimationTimer = Timer.scheduledTimer(timeInterval: 0.002, target: self, selector: #selector(highlightAnimationTimerDidFire), userInfo: nil, repeats: true)
     }
-    
+
     @objc private func highlightAnimationTimerDidFire() {
         highlightAnimationAlpha += 0.01
         setNeedsDisplay()
@@ -192,7 +192,7 @@ public enum AKButtonStyle {
         let outerPath = UIBezierPath(roundedRect: outerRect,
                                      byRoundingCorners: .allCorners,
                                      cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
-        
+
         // Set fill color based on highlight state
         if isHighlighted {
             if let highlightedColor = highlightedColor {
@@ -207,7 +207,7 @@ public enum AKButtonStyle {
                 color.setFill()
             }
         }
-        
+
         outerPath.fill()
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
