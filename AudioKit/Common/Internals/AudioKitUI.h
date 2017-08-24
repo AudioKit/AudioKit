@@ -6,7 +6,12 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#elif TARGET_OS_MAC
+#import <Cocoa/Cocoa.h>
+#endif
 
 //! Project version number for AudioKitUI.
 FOUNDATION_EXPORT double AudioKitUIVersionNumber;

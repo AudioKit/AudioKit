@@ -171,7 +171,7 @@ FOUNDATION_EXPORT Float64 const EZOutputDefaultSampleRate;
 /**
  Class method to create a new instance of the EZOutput and allows the caller to specify an EZOutputDataSource.
  @param dataSource The EZOutputDataSource that will be used to pull the audio data for the output callback.
- @param audioStreamBasicDescription The AudioStreamBasicDescription of the EZOutput.
+ @param inputFormat The AudioStreamBasicDescription of the EZOutput.
  @warning AudioStreamBasicDescriptions that are invalid will cause the EZOutput to fail to initialize
  @return A newly created instance of the EZOutput class.
  */
