@@ -33,7 +33,7 @@
         UInt32 propSize = sizeof(AudioStreamBasicDescription);
         OSStatus status = AudioUnitGetProperty(audioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &asbd, &propSize);
         if (status) {
-            printf("%s OSStatus %d %d\n",__FILE__,status,__LINE__);
+            printf("%s OSStatus %d %d\n",__FILE__,(int)status,__LINE__);
             return nil;
         }
         format = [[AVAudioFormat alloc]initWithStreamDescription:&asbd];
@@ -54,7 +54,7 @@
 
         status = AudioUnitAddRenderNotify(audioUnit, renderCallback, (__bridge void *)self);
         if (status) {
-            printf("%s OSStatus %d %d\n",__FILE__,status,__LINE__);
+            printf("%s OSStatus %d %d\n",__FILE__,(int)status,__LINE__);
             return nil;
         }
     }
@@ -83,7 +83,7 @@
 - (void)dealloc {
 
     OSStatus status = AudioUnitRemoveRenderNotify(_audioUnit, renderCallback, (__bridge void *)self);
-    if (status) printf("%s OSStatus %d %d\n",__FILE__,status,__LINE__);
+    if (status) printf("%s OSStatus %d %d\n",__FILE__,(int)status,__LINE__);
 
     //Cleanup should happen after at least two render cycles so that nothing is deallocated mid-render
     double timeFromNow = 0.2;
