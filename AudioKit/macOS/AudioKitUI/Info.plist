@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -16,12 +16,10 @@
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
 	<string>3.8</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2016 AudioKit. All rights reserved.</string>
+	<string>Copyright © 2017 AudioKit. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>
