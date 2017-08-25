@@ -44,7 +44,7 @@ public enum AKPropertySliderStyle {
             value = range.clamp(value)
             value = onlyIntegers ? round(value) : value
 
-            val = value.normalized(range: range, taper: taper)
+            val = value.normalized(from: range, taper: taper)
         }
     }
 
@@ -56,7 +56,7 @@ public enum AKPropertySliderStyle {
 
     open var range: ClosedRange<Double> = 0 ... 1 {
         didSet {
-            val = value.normalized(range: range, taper: taper)
+            val = value.normalized(from: range, taper: taper)
         }
     }
 
@@ -133,7 +133,7 @@ public enum AKPropertySliderStyle {
         self.callback = callback
         super.init(frame: frame)
 
-        self.val = value.normalized(range: range, taper: taper)
+        self.val = value.normalized(from: range, taper: taper)
 
         self.wantsLayer = true
 
@@ -164,7 +164,7 @@ public enum AKPropertySliderStyle {
 
         val = (0 ... 1).clamp(Double( (loc.x - sliderMargin) / (bounds.width - sliderMargin * 2.0) ))
 
-        value = val.denormalized(range: range, taper: taper)
+        value = val.denormalized(to: range, taper: taper)
         callback(value)
     }
 

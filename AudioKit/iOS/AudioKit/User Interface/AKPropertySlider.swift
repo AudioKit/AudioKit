@@ -42,7 +42,7 @@ public enum AKPropertySliderStyle {
             value = range.clamp(value)
             value = onlyIntegers ? round(value) : value
 
-            val = value.normalized(range: range, taper: taper)
+            val = value.normalized(from: range, taper: taper)
         }
     }
 
@@ -55,7 +55,7 @@ public enum AKPropertySliderStyle {
     /// Range of output
     open var range: ClosedRange<Double> = 0 ... 1 {
         didSet {
-            val = value.normalized(range: range, taper: taper)
+            val = value.normalized(from: range, taper: taper)
         }
     }
 
@@ -133,7 +133,7 @@ public enum AKPropertySliderStyle {
         self.callback = callback
         super.init(frame: frame)
 
-        self.val = value.normalized(range: range, taper: taper)
+        self.val = value.normalized(from: range, taper: taper)
 
         self.backgroundColor = UIColor.clear
 
@@ -177,7 +177,7 @@ public enum AKPropertySliderStyle {
             let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
             val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
             val = (0 ... 1).clamp(val)
-            value = val.denormalized(range: range, taper: taper)
+            value = val.denormalized(to: range, taper: taper)
            setNeedsDisplay()
             callback?(value)
         }
@@ -191,7 +191,7 @@ public enum AKPropertySliderStyle {
                 let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
                 val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
                 val = (0 ... 1).clamp(val)
-                value = val.denormalized(range: range, taper: taper)
+                value = val.denormalized(to: range, taper: taper)
                 setNeedsDisplay()
                 callback?(value)
                 lastTouch = touchLocation

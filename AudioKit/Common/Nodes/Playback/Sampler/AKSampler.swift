@@ -138,7 +138,7 @@ open class AKSampler: AKNode {
     /// Normalized Output Volume. Range: 0 -> 1, Default: 1
     open dynamic var volume: Double = 1 {
         didSet {
-            let newGain = volume.denormalized(minimum: -90.0, maximum: 0.0, taper: 1)
+            let newGain = volume.denormalized(to: -90.0 ... 0.0)
             samplerUnit.masterGain = Float(newGain)
         }
     }
