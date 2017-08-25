@@ -138,3 +138,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 //Taps
 #import "AKRenderTap.h"
 #import "AKLazyTap.h"
+
+//Utilities
+#import "TPCircularBuffer.h"
+#import "TPCircularBuffer+Unit.h"
+#import "TPCircularBuffer+AudioBufferList.h"
+
