@@ -175,10 +175,10 @@ public enum AKPropertySliderStyle {
             let touchLocation = touch.location(in: self)
             lastTouch = touchLocation
             let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-            value = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin)) *
-                (range.upperBound - range.lowerBound) + range.lowerBound
-            value = range.clamp(value)
-            setNeedsDisplay()
+            val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
+            val = (0 ... 1).clamp(val)
+            value = val.denormalized(range: range, taper: taper)
+           setNeedsDisplay()
             callback?(value)
         }
     }
@@ -189,9 +189,9 @@ public enum AKPropertySliderStyle {
             let touchLocation = touch.location(in: self)
             if lastTouch.x != touchLocation.x {
                 let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-                value = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin)) *
-                    (range.upperBound - range.lowerBound) + range.lowerBound
-                value = range.clamp(value)
+                val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
+                val = (0 ... 1).clamp(val)
+                value = val.denormalized(range: range, taper: taper)
                 setNeedsDisplay()
                 callback?(value)
                 lastTouch = touchLocation
@@ -261,9 +261,7 @@ public enum AKPropertySliderStyle {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         context.clear(rect)
 
-        drawFlatSlider(currentValue: CGFloat(value),
-            minimum: CGFloat(range.lowerBound),
-            maximum: CGFloat(range.upperBound),
+        drawFlatSlider(currentValue: CGFloat(val),
             propertyName: property,
             currentValueText: String(format: format, value)
         )
@@ -282,7 +280,6 @@ public enum AKPropertySliderStyle {
         let width = self.frame.width
         let height = self.frame.height
 
-        // Calculate name label height
         let themeTextColor = textColorForTheme
 
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
