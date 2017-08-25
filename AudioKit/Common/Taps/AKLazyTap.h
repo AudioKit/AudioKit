@@ -9,13 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-
-@interface AVAudioPCMBuffer (max)
--(double)max;
-@end
+#import "AKRenderTap.h"
 
 @interface AKLazyTap : NSObject
-
 
 /*!
  * Initializes a tap by adding a render notify callback to the node's
@@ -26,7 +22,17 @@
  * @param node The AVAudioNode that will the tap will pull buffers from.
  * @return An AKLazyTap if sucessful in adding the renderNotify.
  */
--(instancetype _Nullable )initWithNode:(AVAudioNode * _Nonnull)node;
+-(instancetype _Nullable)initWithNode:(AVAudioNode * _Nonnull)node;
+
+/*!
+ * Initializes a tap by adding a render notify callback to the audioUnit.
+ *
+ * The render notify will be removed on dealloc.
+ *
+ * @param audioUnit The audioUnit that the tap will pull buffers from.
+ * @return An AKLazyTap if sucessful in adding the renderNotify.
+ */
+-(instancetype _Nullable)initWithAudioUnit:(AudioUnit _Nonnull)audioUnit;
 
 /*!
  * Initializes a tap by adding a render notify callback to the node's
@@ -50,7 +56,6 @@
  * @return An AKLazyTap if sucessful in adding the renderNotify.
  */
 -(instancetype _Nullable)initWithAudioUnit:(AudioUnit _Nonnull)audioUnit queueTime:(double)seconds NS_DESIGNATED_INITIALIZER;
-
 -(instancetype _Nonnull )init NS_UNAVAILABLE;
 
 /*!
@@ -63,11 +68,12 @@
  * it to bufferlistOut.
  *
  * @param bufferlistOut An audioBufferList that the audio will be copied
- * to,  Should be allocated to store at least one render cylce of audio.  
+ * to,  Should be allocated to store at least one render cylce of audio.
  * @param timeStamp On output, the timeStamp for the audioBufferlist.
  * @return True if audio was copied, false if no audio to copy.
  */
 -(BOOL)copyNextBufferList:(AudioBufferList * _Nonnull)bufferlistOut timeStamp:(inout AudioTimeStamp * _Nullable)timeStamp;
+
 /*!
  * Will fill the suplied buffer with as much audio as it can hold or
  * as much audio as the internal buffer contains, whichever is less.
@@ -78,19 +84,5 @@
  * @return True if audio was copied, false if no audio to copy.
  */
 -(BOOL)fillNextBuffer:(AVAudioPCMBuffer * _Nonnull)buffer timeStamp:(inout AudioTimeStamp * _Nullable)timeStamp;
+
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
