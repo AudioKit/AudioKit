@@ -34,5 +34,5 @@ class CostelloReverbViewController: UIViewController {
     func updateMix(value: Double) {
         songProcessor.reverbMixer.balance = value
     }
-    
+
 }

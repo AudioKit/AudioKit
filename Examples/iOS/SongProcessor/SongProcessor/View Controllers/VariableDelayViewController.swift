@@ -43,5 +43,5 @@ class VariableDelayViewController: UIViewController {
     func updateMix(value: Double) {
         songProcessor.delayMixer.balance = value
     }
-    
+
 }

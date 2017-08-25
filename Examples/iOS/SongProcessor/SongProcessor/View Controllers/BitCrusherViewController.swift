@@ -45,5 +45,5 @@ class BitCrusherViewController: UIViewController {
     func updateMix(value: Double) {
         songProcessor.bitCrushMixer.balance = value
     }
-    
+
 }

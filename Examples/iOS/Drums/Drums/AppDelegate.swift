@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  AudioUnitManagerExample-iOS
+//  Drums
 //
-//  Created by Ryan Francesconi on 8/13/17.
-//  Copyright © 2017 Ryan Francesconi. All rights reserved.
+//  Created by Aurelius Prochazka on 8/13/17.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import UIKit

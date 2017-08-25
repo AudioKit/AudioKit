@@ -17,7 +17,6 @@ let midTomFile = try AKAudioFile(readFileName: "Samples/Drums/mid_tom_B1.wav")
 let openHiHatFile = try AKAudioFile(readFileName: "Samples/Drums/open_hi_hat_A#1.wav")
 let snareDrumFile = try AKAudioFile(readFileName: "Samples/Drums/snare_D1.wav")
 
-
 try drums.loadAudioFiles([bassDrumFile,
                           clapFile,
                           closedHiHatFile,
@@ -66,7 +65,7 @@ class PlaygroundView: AKPlaygroundView {
 
         sequencer.tracks[3].add(noteNumber: 26, velocity: 127, position: AKDuration(beats: 2), duration: AKDuration(beats: 1))
 
-        addSubview(AKButton(title: "Randomize Hi-hats") { button in
+        addSubview(AKButton(title: "Randomize Hi-hats") { _ in
 
             sequencer.tracks[2].clearRange(start: AKDuration(beats: 0), duration: AKDuration(beats: 4))
             for i in 0 ... 15 {
@@ -83,7 +82,6 @@ class PlaygroundView: AKPlaygroundView {
             sliderValue in
             sequencer.setTempo(sliderValue)
         })
-
 
     }
 }
