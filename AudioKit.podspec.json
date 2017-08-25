@@ -27,18 +27,45 @@
 	"ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES"
     },
     "osx": {
-        "source_files": "macOS/AudioKit.framework/Versions/A/Headers/*.h",
-        "public_header_files": "macOS/AudioKit.framework/Versions/A/Headers/*.h",
-        "vendored_frameworks": "macOS/AudioKit.framework"
+        "source_files": [
+		"macOS/AudioKit.framework/Versions/A/Headers/*.h",
+		"macOS/AudioKitUI.framework/Versions/A/Headers/*.h"
+	],
+        "public_header_files": [
+		"macOS/AudioKit.framework/Versions/A/Headers/*.h",
+		"macOS/AudioKitUI.framework/Versions/A/Headers/*.h"
+	],
+        "vendored_frameworks": [
+		"macOS/AudioKit.framework",
+		"macOS/AudioKitUI.framework"
+	]
     },
     "ios": {
-        "source_files": "iOS/AudioKit.framework/Headers/*.h",
-        "public_header_files": "iOS/AudioKit.framework/Headers/*.h",
-        "vendored_frameworks": "iOS/AudioKit.framework"
+       "source_files": [
+		"iOS/AudioKit.framework/Versions/A/Headers/*.h",
+		"iOS/AudioKitUI.framework/Versions/A/Headers/*.h"
+	],
+        "public_header_files": [
+		"iOS/AudioKit.framework/Versions/A/Headers/*.h",
+		"iOS/AudioKitUI.framework/Versions/A/Headers/*.h"
+	],
+        "vendored_frameworks": [
+		"iOS/AudioKit.framework",
+		"iOS/AudioKitUI.framework"
+	]
     },
     "tvos": {
-        "source_files": "tvOS/AudioKit.framework/Headers/*.h",
-        "public_header_files": "tvOS/AudioKit.framework/Headers/*.h",
-        "vendored_frameworks": "tvOS/AudioKit.framework"
+        "source_files": [
+		"tvOS/AudioKit.framework/Versions/A/Headers/*.h",
+		"tvOS/AudioKitUI.framework/Versions/A/Headers/*.h"
+	],
+        "public_header_files": [
+		"tvOS/AudioKit.framework/Versions/A/Headers/*.h",
+		"tvOS/AudioKitUI.framework/Versions/A/Headers/*.h"
+	],
+        "vendored_frameworks": [
+		"tvOS/AudioKit.framework",
+		"tvOS/AudioKitUI.framework"
+	]
     }
 }
