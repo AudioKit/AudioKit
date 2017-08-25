@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
@@ -20,7 +21,6 @@ class ViewController: UIViewController {
 
         AudioKit.output = oscillator
         AudioKit.start()
-
     }
 
     @IBAction func toggleSound(_ sender: UIButton) {
@@ -28,8 +28,8 @@ class ViewController: UIViewController {
             oscillator.stop()
             sender.setTitle("Play Sine Wave", for: UIControlState())
         } else {
-            oscillator.amplitude = random(0.5, 1)
-            oscillator.frequency = random(220, 880)
+            oscillator.amplitude = random(in: 0.5 ... 1)
+            oscillator.frequency = random(in: 220 ... 880)
             oscillator.start()
             sender.setTitle("Stop Sine Wave at \(Int(oscillator.frequency))Hz", for: .normal)
         }
