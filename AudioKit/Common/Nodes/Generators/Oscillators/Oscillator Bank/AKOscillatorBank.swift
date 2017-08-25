@@ -148,7 +148,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults

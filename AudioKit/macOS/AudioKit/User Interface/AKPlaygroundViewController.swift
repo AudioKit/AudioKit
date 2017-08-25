@@ -33,7 +33,6 @@ public class AKLiveViewController: NSViewController {
         // Override in subclass
     }
 
-
     public func addTitle(_ text: String) {
         let newLabel = NSTextField()
         newLabel.stringValue = text

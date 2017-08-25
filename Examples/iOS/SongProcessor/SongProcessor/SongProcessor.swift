@@ -88,14 +88,12 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
         reverbMixer >>> pitchShifter >>> pitchMixer.wetInput
         pitchMixer >>> bitCrusher >>> bitCrushMixer.wetInput
 
-
         AudioKit.output = offlineRender
         initParameters()
         AudioKit.start()
 
-
     }
-    func initParameters(){
+    func initParameters() {
 
         delayMixer.balance = 0
         filterMixer.balance = 0
@@ -262,6 +260,5 @@ extension UIViewController {
         alert.addAction(.init(title: "OK", style: .default, handler: nil))
         return alert
     }
-    
-}
 
+}

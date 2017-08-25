@@ -99,12 +99,11 @@ open class AKMusicTrack {
 //                pointer[i] = data[i]
 //            }
 //        })
-        
+
 //        FIX by Trevor Sonic
         for i in 0 ..< data.count {
             metaEvent.data = data[i]
         }
-        
 
         let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), &metaEvent)
         if result != 0 {

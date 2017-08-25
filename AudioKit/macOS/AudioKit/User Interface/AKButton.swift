@@ -17,15 +17,15 @@ public enum AKButtonStyle {
 
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
-    
+
     public var callback: (AKButton) -> Void = { _ in }
-    
+
     private var isHighlighted = false {
         didSet {
             needsDisplay = true
         }
     }
-    
+
     private var highlightAnimationTimer: Timer?
     private var highlightAnimationAlpha: CGFloat = 1.0
 
@@ -42,7 +42,7 @@ public enum AKButtonStyle {
             needsDisplay = true
         }
     }
-    
+
     /// Button fill color when highlighted
     @IBInspectable open var highlightedColor: NSColor? {
         didSet {
@@ -81,10 +81,10 @@ public enum AKButtonStyle {
         callback(self)
         isHighlighted = true
     }
-    
+
     open override func mouseUp(with event: NSEvent) {
         isHighlighted = false
-        
+
         if let highlightAnimationTimer = highlightAnimationTimer {
             highlightAnimationTimer.invalidate()
             self.highlightAnimationTimer = nil
@@ -92,7 +92,7 @@ public enum AKButtonStyle {
         self.highlightAnimationAlpha = 0.6
         highlightAnimationTimer = Timer.scheduledTimer(timeInterval: 0.002, target: self, selector: #selector(highlightAnimationTimerDidFire), userInfo: nil, repeats: true)
     }
-    
+
     @objc private func highlightAnimationTimerDidFire() {
         highlightAnimationAlpha += 0.01
         needsDisplay = true
@@ -178,7 +178,7 @@ public enum AKButtonStyle {
                                width: rect.width - borderWidth,
                                height: rect.height - borderWidth)
         let outerPath = NSBezierPath(roundedRect: outerRect, xRadius: cornerRadius, yRadius: cornerRadius)
-        
+
         // Set fill color based on highlight state
         if isHighlighted {
             if let highlightedColor = highlightedColor {
@@ -193,7 +193,7 @@ public enum AKButtonStyle {
                 color.setFill()
             }
         }
-        
+
         outerPath.fill()
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth

@@ -517,7 +517,7 @@ extension AudioKit {
     @objc open static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
         connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
     }
-    
+
     //Convenience
     @objc open static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
