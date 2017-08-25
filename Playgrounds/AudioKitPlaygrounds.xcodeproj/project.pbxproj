@@ -13,6 +13,7 @@
 		C46EDA631E94F0C50099E238 /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C486FA8E1E98BD5200DEB790 /* AKPlaygroundUgens.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */; };
 		C486FAA41E9A0CA200DEB790 /* AKPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */; };
+		EAC9C5A21F5015B400B01FF7 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C5A11F5015B400B01FF7 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,7 @@
 		C4F1DB471E94F5ED000D5022 /* Filters.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Filters.playground; sourceTree = "<group>"; };
 		C4F1DB481E94F5ED000D5022 /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playback.playground; sourceTree = "<group>"; };
 		C4F1DB491E94F5ED000D5022 /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Synthesis.playground; sourceTree = "<group>"; };
+		EAC9C5A11F5015B400B01FF7 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAC9C5A21F5015B400B01FF7 /* AudioKitUI.framework in Frameworks */,
 				C46EDA621E94F0BF0099E238 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +65,7 @@
 				C4F1DB431E94F5ED000D5022 /* Playgrounds */,
 				C46EDA521E94F04D0099E238 /* AudioKitPlaygrounds */,
 				C46EDA511E94F04D0099E238 /* Products */,
+				EAC9C5A01F5015B400B01FF7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +102,14 @@
 			);
 			name = Playgrounds;
 			path = AudioKitPlaygrounds/Playgrounds;
+			sourceTree = "<group>";
+		};
+		EAC9C5A01F5015B400B01FF7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAC9C5A11F5015B400B01FF7 /* AudioKitUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

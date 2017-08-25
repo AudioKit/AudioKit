@@ -12,6 +12,8 @@ AudioKit.output = oscillator
 AudioKit.start()
 oscillator.start()
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {

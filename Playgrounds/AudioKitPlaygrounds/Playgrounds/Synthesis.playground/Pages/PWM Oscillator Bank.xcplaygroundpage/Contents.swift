@@ -1,6 +1,7 @@
 //: ## PWM Oscillator Bank
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let bank = AKPWMOscillatorBank(pulseWidth: 0.5)
 

@@ -26,6 +26,8 @@ try drums.loadAudioFiles([bassDrumFile,
                           openHiHatFile,
                           snareDrumFile])
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {

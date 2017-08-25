@@ -4,6 +4,7 @@
 
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 var oscillator = AKFMOscillator()
 oscillator.amplitude = 0.1

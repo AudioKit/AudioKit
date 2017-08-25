@@ -2,6 +2,7 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 //: Choose the waveform shape here
 

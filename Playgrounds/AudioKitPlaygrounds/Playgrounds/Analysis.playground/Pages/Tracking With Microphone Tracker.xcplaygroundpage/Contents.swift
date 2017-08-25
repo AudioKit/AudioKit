@@ -9,6 +9,8 @@ let tracker = AKMicrophoneTracker()
 tracker.start()
 
 //: User Interface
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     var trackedAmplitudeSlider: AKPropertySlider?

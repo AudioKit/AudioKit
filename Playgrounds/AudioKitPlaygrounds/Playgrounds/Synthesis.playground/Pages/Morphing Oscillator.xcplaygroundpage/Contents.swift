@@ -2,6 +2,7 @@
 //: Oscillator with four different waveforms built in.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 var morph = AKMorphingOscillator(waveformArray: [AKTable(.sine),
                                                  AKTable(.triangle),

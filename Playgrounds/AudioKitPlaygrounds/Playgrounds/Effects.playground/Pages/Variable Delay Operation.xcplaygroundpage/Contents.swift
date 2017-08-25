@@ -24,6 +24,7 @@ AudioKit.start()
 player.play()
 
 //: User Interface
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 

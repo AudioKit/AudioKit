@@ -3,6 +3,7 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 var oscillator = AKOscillatorBank()
 AudioKit.output = oscillator

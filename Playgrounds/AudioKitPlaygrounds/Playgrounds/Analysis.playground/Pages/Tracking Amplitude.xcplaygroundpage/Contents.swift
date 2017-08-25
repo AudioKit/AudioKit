@@ -23,6 +23,7 @@ AudioKit.start()
 oscillatorNode.start()
 
 //: User Interface
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 
