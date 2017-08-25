@@ -17,6 +17,7 @@ AudioKit.start()
 amplitudeTracker.start()
 
 //: User Interface Set up
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 

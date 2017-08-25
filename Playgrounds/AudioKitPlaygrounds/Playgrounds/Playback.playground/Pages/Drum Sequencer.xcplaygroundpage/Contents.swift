@@ -33,6 +33,8 @@ sequencer.setGlobalMIDIOutput(drums.midiIn)
 sequencer.enableLooping(AKDuration(beats: 4))
 sequencer.setTempo(150)
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {

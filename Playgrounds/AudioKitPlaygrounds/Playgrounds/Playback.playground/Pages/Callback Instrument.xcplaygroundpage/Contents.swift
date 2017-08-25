@@ -40,6 +40,7 @@ sequencer.setTempo(tempo)
 //AudioKit.start()
 
 //: Create a simple user interface
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
     override func setup() {

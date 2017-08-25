@@ -7,7 +7,6 @@
 //: feeding operations into each other in sequential order? To do that, you'll need a mixer.
 import AudioKitPlaygrounds
 import AudioKit
-
 //: This section prepares the players
 let drumFile = try AKAudioFile(readFileName: "drumloop.wav")
 let bassFile = try AKAudioFile(readFileName: "bassloop.wav")
@@ -47,6 +46,7 @@ guitar.pan = 0.2
 lead.pan   = -0.2
 
 //: User Interface Set up
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 

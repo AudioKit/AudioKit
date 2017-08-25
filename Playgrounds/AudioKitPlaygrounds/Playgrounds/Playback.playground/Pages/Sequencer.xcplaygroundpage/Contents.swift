@@ -30,6 +30,7 @@ AudioKit.start()
 sequencer.play()
 
 //: Set up a basic UI for setting outputs of tracks
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 

@@ -2,6 +2,7 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 var oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.sawtooth))
 oscillator.phaseDistortion = 0.0
