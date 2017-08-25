@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,7 +28,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cw9-hR-FIa">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mvh-eW-Whe" customClass="AKNodeOutputPlot" customModule="AudioKit">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mvh-eW-Whe" customClass="AKNodeOutputPlot" customModule="AudioKitUI">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="92.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Input" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pC-9a-Sim">
@@ -41,7 +41,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgW-Jo-05K" customClass="AKOutputWaveformPlot" customModule="AudioKit">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgW-Jo-05K" customClass="AKOutputWaveformPlot" customModule="AudioKitUI">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="92.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Output" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDS-El-WQh">
@@ -117,12 +117,12 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p52-OE-9Do">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-Jb-A4X" customClass="AKPropertySlider" customModule="AudioKit">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-Jb-A4X" customClass="AKPropertySlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                         <color key="backgroundColor" red="0.95223861932754517" green="0.60029435157775879" blue="0.44777637720108032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="property" value="Frequency"/>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                                 <color key="value" red="0.84599064086294418" green="0.53136391558737928" blue="0.40266739235328336" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="value">
@@ -151,11 +151,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHI-vx-jqU">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1W-4C-cmC" customClass="AKPropertySlider" customModule="AudioKit">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1W-4C-cmC" customClass="AKPropertySlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                         <color key="backgroundColor" red="0.90007048845291138" green="0.62913995981216431" blue="0.40531009435653687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                                 <color key="value" red="0.79747689708235303" green="0.56115238746497687" blue="0.36739377423484609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">

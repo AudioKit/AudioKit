@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioKit
+import AudioKitUI
 import DropDown
 
 /// This example demonstrates how to use two different input sources
