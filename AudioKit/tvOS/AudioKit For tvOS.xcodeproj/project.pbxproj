@@ -64,7 +64,7 @@
 		C40C422D1C40E5C2009D870B /* EZAudioUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C42001C40E5C2009D870B /* EZAudioUtilities.m */; };
 		C40C422E1C40E5C2009D870B /* EZMicrophone.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C42011C40E5C2009D870B /* EZMicrophone.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C422F1C40E5C2009D870B /* EZMicrophone.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C42021C40E5C2009D870B /* EZMicrophone.m */; };
-		C40C42301C40E5C2009D870B /* EZOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C42031C40E5C2009D870B /* EZOutput.h */; };
+		C40C42301C40E5C2009D870B /* EZOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C42031C40E5C2009D870B /* EZOutput.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C42311C40E5C2009D870B /* EZOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C42041C40E5C2009D870B /* EZOutput.m */; };
 		C40C42341C40E5C2009D870B /* EZRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C42071C40E5C2009D870B /* EZRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C42351C40E5C2009D870B /* EZRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C42081C40E5C2009D870B /* EZRecorder.m */; };
