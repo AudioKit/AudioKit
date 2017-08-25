@@ -18,6 +18,8 @@
 		C4EDA0F21DA8C91A008C1827 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA0F11DA8C91A008C1827 /* Audiobus.txt */; };
 		C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */; };
 		C4F3ADE41DD43073009AF0BE /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA10E16B1F4FA078003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */; };
+		EA10E16C1F4FA078003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EA10E16C1F4FA078003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
 				C4F3ADE41DD43073009AF0BE /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -51,6 +54,7 @@
 		C4EDA0EF1DA8C36A008C1827 /* Audiobus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Audiobus.swift; path = ../../Audiobus/Audiobus.swift; sourceTree = "<group>"; };
 		C4EDA0F11DA8C91A008C1827 /* Audiobus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Audiobus.txt; sourceTree = "<group>"; };
 		C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */,
+				EA10E16B1F4FA078003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				5AA8FAB1B31D46B6F51CB8EB /* Pods_SenderSynth.framework in Frameworks */,
 				C4EDA0E91DA88F2E008C1827 /* AudioToolbox.framework in Frameworks */,
 			);
@@ -70,6 +75,7 @@
 		2FE01482DB8AE647315372E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */,
 				C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */,
 				C4EDA0E81DA88F2E008C1827 /* AudioToolbox.framework */,
 				05EC8DBAF471D37313BC4EE4 /* Pods_SenderSynth.framework */,
