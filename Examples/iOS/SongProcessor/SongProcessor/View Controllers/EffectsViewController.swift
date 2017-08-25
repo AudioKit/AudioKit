@@ -11,7 +11,7 @@ import UIKit
 
 class EffectsViewController: UIViewController {
 
-    @IBOutlet private weak var volumeSlider: AKPropertySlider!
+    @IBOutlet private var volumeSlider: AKPropertySlider!
 
     var docController: UIDocumentInteractionController?
 
@@ -19,6 +19,8 @@ class EffectsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        AKStylist.sharedInstance.theme = .basic
 
         volumeSlider.range = 0 ... 10.0
 
