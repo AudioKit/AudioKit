@@ -12,19 +12,18 @@
 
 
 @implementation AKLazyTap{
-    AudioUnit _audioUnit;
     AVAudioFormat *format;
     int headRoom;
     TPCircularBuffer circularBuffer;
     pthread_mutex_t consumerLock;
+    AKRenderTap *tap;
 }
+
 -(instancetype _Nullable)initWithAudioUnit:(AudioUnit)audioUnit queueTime:(double)seconds {
-    self = [super initWithAudioUnit:audioUnit];
+    self = [super init];
     if (self) {
 
         seconds = seconds <= 0 ?: 0.25;
-
-        _audioUnit = audioUnit;
 
         UInt32 propSize = sizeof(AudioStreamBasicDescription);
         AudioStreamBasicDescription asbd;
@@ -47,7 +46,8 @@
         int32_t frameSize = asbd.mBytesPerFrame * asbd.mChannelsPerFrame;
         TPCircularBufferInit(&circularBuffer, (capacity + headRoom) * frameSize);
 
-        [self start:nil];
+//        [self start:nil];
+        tap = [[AKRenderTap alloc]initWithAudioUnit:audioUnit renderNotify:[self renderNotifyBlock]];
     }
     return self;
 }
