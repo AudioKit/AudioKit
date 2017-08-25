@@ -11,6 +11,8 @@
 		C472E1941CD40E2000C748F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C472E1931CD40E2000C748F4 /* ViewController.swift */; };
 		C472E1961CD40E2000C748F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C472E1951CD40E2000C748F4 /* Assets.xcassets */; };
 		C472E1991CD40E2000C748F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C472E1971CD40E2000C748F4 /* Main.storyboard */; };
+		EAC9C5AF1F5029A000B01FF7 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B40D1D455799000AEFCA /* AudioKit.framework */; };
+		EAC9C5B11F5029A500B01FF7 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C446B40D1D455799000AEFCA /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -20,6 +22,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EAC9C5B11F5029A500B01FF7 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAC9C5AF1F5029A000B01FF7 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
