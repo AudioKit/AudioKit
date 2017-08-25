@@ -232,8 +232,6 @@ public enum AKPropertySliderStyle {
 
     func drawFlatSlider(currentValue: CGFloat = 0,
                         initialValue: CGFloat = 0,
-                        minimum: CGFloat = 0,
-                        maximum: CGFloat = 1,
                         propertyName: String = "Property Name",
                         currentValueText: String = "0.0") {
 
@@ -282,9 +280,9 @@ public enum AKPropertySliderStyle {
 
         //// Variable Declarations
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-        let currentWidth: CGFloat = currentValue < minimum ? sliderMargin :
-            (currentValue < maximum ?
-                (currentValue - minimum) / (maximum - minimum) * (width - (sliderMargin * 2.0)) + sliderMargin :
+        let currentWidth: CGFloat = currentValue < 0 ? sliderMargin :
+            (currentValue < 1 ?
+                currentValue  * (width - (sliderMargin * 2.0)) + sliderMargin :
                 width - sliderMargin)
 
         //// sliderArea Drawing
