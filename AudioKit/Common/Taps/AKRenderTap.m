@@ -20,7 +20,7 @@
 -(instancetype)initWithNode:(AVAudioNode *)node renderNotify:(AKRenderNotifyBlock)block {
     AVAudioUnit *avAudioUnit = (AVAudioUnit *)node;
     if (![avAudioUnit respondsToSelector:@selector(audioUnit)]) {
-        NSLog(@"%@ doesn't have an accessible audioUnit",NSStringFromClass(node.class));
+        NSLog(@"%@ doesn't have an accessible audioUnit", NSStringFromClass(node.class));
         return nil;
     }
     return [self initWithAudioUnit:avAudioUnit.audioUnit renderNotify:block];
@@ -36,7 +36,7 @@
         _audioUnit = audioUnit;
         OSStatus status = AudioUnitAddRenderNotify(_audioUnit, renderNotify, (__bridge void *)_renderNotifyBlock);
         if (status) {
-            NSLog(@"AKRenderTap AudioUnitAddRenderNotify error %i",status);
+            NSLog(@"AKRenderTap AudioUnitAddRenderNotify error %i", (int)status);
             return nil;
         }
     }
@@ -48,7 +48,7 @@
 
     OSStatus status = AudioUnitRemoveRenderNotify(_audioUnit, renderNotify, (__bridge void *)_renderNotifyBlock);
     if (status) {
-        printf("%s OSStatus %d %d\n",NSStringFromClass(self.class).UTF8String,status,__LINE__);
+        printf("%s OSStatus %d %d\n",NSStringFromClass(self.class).UTF8String, (int)status, __LINE__);
     }
 
     //Cleanup should happen after at least two render cycles so that nothing is deallocated mid-render

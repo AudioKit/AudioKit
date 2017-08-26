@@ -22,6 +22,7 @@ class MoogLadderViewController: UIViewController {
         super.viewDidLoad()
 
         cutoffFrequncySlider.range = 12.0 ... 10_000.0
+        cutoffFrequncySlider.taper = 3
 
         cutoffFrequncySlider.value = songProcessor.moogLadder.cutoffFrequency
 
