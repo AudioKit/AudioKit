@@ -42,7 +42,7 @@ public enum AKPropertySliderStyle {
             value = range.clamp(value)
             value = onlyIntegers ? round(value) : value
 
-            val = value.normalized(range: range, taper: taper)
+            val = value.normalized(from: range, taper: taper)
         }
     }
 
@@ -55,7 +55,7 @@ public enum AKPropertySliderStyle {
     /// Range of output
     @IBInspectable open var range: ClosedRange<Double> = 0 ... 1 {
         didSet {
-            val = value.normalized(range: range, taper: taper)
+            val = value.normalized(from: range, taper: taper)
         }
     }
 
@@ -133,7 +133,7 @@ public enum AKPropertySliderStyle {
         self.callback = callback
         super.init(frame: frame)
 
-        self.val = value.normalized(range: range, taper: taper)
+        self.val = value.normalized(from: range, taper: taper)
 
         self.backgroundColor = UIColor.clear
 
@@ -175,10 +175,10 @@ public enum AKPropertySliderStyle {
             let touchLocation = touch.location(in: self)
             lastTouch = touchLocation
             let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-            value = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin)) *
-                (range.upperBound - range.lowerBound) + range.lowerBound
-            value = range.clamp(value)
-            setNeedsDisplay()
+            val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
+            val = (0 ... 1).clamp(val)
+            value = val.denormalized(to: range, taper: taper)
+           setNeedsDisplay()
             callback?(value)
         }
     }
@@ -189,9 +189,9 @@ public enum AKPropertySliderStyle {
             let touchLocation = touch.location(in: self)
             if lastTouch.x != touchLocation.x {
                 let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-                value = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin)) *
-                    (range.upperBound - range.lowerBound) + range.lowerBound
-                value = range.clamp(value)
+                val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
+                val = (0 ... 1).clamp(val)
+                value = val.denormalized(to: range, taper: taper)
                 setNeedsDisplay()
                 callback?(value)
                 lastTouch = touchLocation
@@ -261,9 +261,7 @@ public enum AKPropertySliderStyle {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         context.clear(rect)
 
-        drawFlatSlider(currentValue: CGFloat(value),
-            minimum: CGFloat(range.lowerBound),
-            maximum: CGFloat(range.upperBound),
+        drawFlatSlider(currentValue: CGFloat(val),
             propertyName: property,
             currentValueText: String(format: format, value)
         )
@@ -271,8 +269,6 @@ public enum AKPropertySliderStyle {
 
     func drawFlatSlider(currentValue: CGFloat = 0,
                         initialValue: CGFloat = 0,
-                        minimum: CGFloat = 0,
-                        maximum: CGFloat = 1,
                         propertyName: String = "Property Name",
                         currentValueText: String = "0.0") {
 
@@ -282,7 +278,6 @@ public enum AKPropertySliderStyle {
         let width = self.frame.width
         let height = self.frame.height
 
-        // Calculate name label height
         let themeTextColor = textColorForTheme
 
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
@@ -320,8 +315,8 @@ public enum AKPropertySliderStyle {
 
         //// Variable Declarations
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-        let currentWidth: CGFloat = currentValue < minimum ? sliderMargin :
-            (currentValue < maximum ? (currentValue - minimum) / (maximum - minimum) * (width - (sliderMargin * 2.0)) + sliderMargin : width - sliderMargin)
+        let currentWidth: CGFloat = currentValue < 0 ? sliderMargin :
+            (currentValue < 1 ? currentValue  * (width - (sliderMargin * 2.0)) + sliderMargin : width - sliderMargin)
 
         //// sliderArea Drawing
         let sliderAreaRect = CGRect(x: sliderBorderWidth / 2.0,
