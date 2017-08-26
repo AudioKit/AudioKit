@@ -9,14 +9,14 @@ PROJECT_UI_NAME=AudioKitUI
 CONFIGURATION=Release
 BUILD_DIR="$PWD/build"
 VERSION=`cat ../VERSION`
-PLATFORMS=${PLATFORMS:-"macOS iOS tvOS"}
+PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
 if test "$TRAVIS" = true;
 then
 	echo "Travis detected, build #$TRAVIS_BUILD_NUMBER"
 	ACTIVE_ARCH=YES
 	XCSUFFIX="-travis"
-	PLATFORMS="macOS iOS" # Skipping tvOS?
+	PLATFORMS="iOS macOS" # Skipping tvOS?
 else
 	ACTIVE_ARCH=NO
 	XCSUFFIX=""
