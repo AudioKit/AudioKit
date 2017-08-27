@@ -88,7 +88,7 @@ open class AKSampler: AKNode {
 
     /// Load an array of AKAudioFiles
     ///
-    /// - parameter file: an array of AKAudioFile
+    /// - parameter files: An array of AKAudioFiles
     ///
     /// If a file name ends with a note name (ex: "violinC3.wav")
     /// The file will be set to this note

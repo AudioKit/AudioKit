@@ -115,8 +115,6 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
 
     /// Initialize the oscillator with defaults
     ///
-    /// - parameter frequency: In cycles per second, or Hz.
-    ///
     public convenience override init() {
         self.init(frequency: 440)
     }
