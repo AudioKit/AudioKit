@@ -182,8 +182,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - decayDuration:      Decay time
     ///   - sustainLevel:       Sustain Level
     ///   - releaseDuration:    Release time
-    ///   - detuningOffset:     Frequency offset in Hz.
-    ///   - detuningMultiplier: Frequency detuning multiplier
+    ///   - pitchBend:          Change of pitch in semitones
+    ///   - vibratoDepth:       Vibrato size in semitones
+    ///   - vibratoRate:        Frequency of vibrato in Hz
     ///
     public init(
         waveformArray: [AKTable],
