@@ -34,12 +34,27 @@ public enum AKRotaryKnobStyle {
     /// Current value of the slider
     @IBInspectable open var value: Double = 0 {
         didSet {
+            value = range.clamp(value)
+            value = usesDiscreteValues ? round(value) : value
+
+            val = value.normalized(from: range, taper: taper)
+        }
+    }
+
+    private var val: Double = 0 {
+        didSet {
             needsDisplay = true
         }
     }
 
     /// Range of output value
-    open var range: ClosedRange<Double> = 0 ... 1
+    open var range: ClosedRange<Double> = 0 ... 1 {
+        didSet {
+            val = value.normalized(from: range, taper: taper)
+        }
+    }
+
+    open var taper: Double = 1 // Default Linear
 
     // Should the knob uses discrete values
     @IBInspectable open var usesDiscreteValues: Bool = false
@@ -98,20 +113,24 @@ public enum AKRotaryKnobStyle {
 
     /// Initialize the slider
     public init(property: String,
-                format: String = "%0.3f",
                 value: Double,
                 range: ClosedRange<Double> = 0 ... 1,
+                taper: Double = 1,
+                format: String = "%0.3f",
                 color: AKColor = AKColor.red,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
                 callback: @escaping (_ x: Double) -> Void) {
         self.value = value
         self.range = range
+        self.taper = taper
         self.property = property
         self.format = format
         self.knobColor = color
 
         self.callback = callback
         super.init(frame: frame)
+
+        self.val = value.normalized(from: range, taper: taper)
 
         self.wantsLayer = true
 
@@ -156,23 +175,7 @@ public enum AKRotaryKnobStyle {
 
     override open func mouseDown(with theEvent: NSEvent) {
         isDragging = true
-        let loc = convert(theEvent.locationInWindow, from: nil)
-        lastTouch = loc
-        let angle = angleBetween(pointA: knobCenter, pointB: loc)
-        if angle < 0.0 {
-            value = (range.upperBound - range.lowerBound) * (0.5 + 0.5 * (180.0 + angle) / (105.0))
-        } else {
-            value = (range.upperBound - range.lowerBound) * ((angle - 75.0) / 110.0) * 0.5
-        }
-        if usesDiscreteValues && discreteValueStep > 0.0 {
-            let step = Int(value / discreteValueStep)
-            let lowerValue = step * discreteValueStep
-            let higherValue = (step + 1) * (discreteValueStep)
-            value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
-        }
-        value = range.clamp(value)
-        needsDisplay = true
-        callback?(value)
+        mouseDragged(with: theEvent)
     }
 
     override open func mouseDragged(with theEvent: NSEvent) {
@@ -180,18 +183,17 @@ public enum AKRotaryKnobStyle {
         lastTouch = loc
         let angle = angleBetween(pointA: knobCenter, pointB: loc)
         if angle < 0.0 {
-            value = (range.upperBound - range.lowerBound) * (0.5 + 0.5 * (180.0 + angle) / 105.0)
+            val = (0.5 + 0.5 * (180.0 + angle) / 105.0)
         } else {
-            value = (range.upperBound - range.lowerBound) * ((angle - 75.0) / 110.0) * 0.5
+            val = ((angle - 75.0) / 110.0) * 0.5
         }
         if usesDiscreteValues && discreteValueStep > 0.0 {
             let step = Int(value / discreteValueStep)
             let lowerValue = step * discreteValueStep
             let higherValue = (step + 1) * (discreteValueStep)
-            value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
+            val = abs(val - lowerValue) < abs(higherValue - val) ? lowerValue : higherValue
         }
-        value = range.clamp(value)
-        needsDisplay = true
+        value = val.denormalized(to: range, taper: taper)
         callback?(value)
     }
 
@@ -228,17 +230,13 @@ public enum AKRotaryKnobStyle {
     }
 
     override open func draw(_ rect: NSRect) {
-        drawKnob(currentValue: CGFloat(value),
-                 minimum: range.lowerBound,
-                 maximum: range.upperBound,
+        drawKnob(currentValue: CGFloat(val),
                  propertyName: property,
                  currentValueText: String(format: format, value))
     }
 
     func drawKnob(currentValue: CGFloat = 0,
                   initialValue: CGFloat = 0,
-                  minimum: Double = 0,
-                  maximum: Double = 1,
                   propertyName: String = "Property Name",
                   currentValueText: String = "0.0") {
 
@@ -282,7 +280,7 @@ public enum AKRotaryKnobStyle {
                              y: AKRotaryKnob.marginSize + knobDiameter / 2.0)
 
         // Setup indicator
-        let valuePercent = (value - minimum) / (maximum - minimum)
+        let valuePercent = val
         let angle = Double.pi * ( 0.75 + valuePercent * 1.5)
         let indicatorStart = CGPoint(x: (knobDiameter / 5.0) * CGFloat(cos(angle)),
                                      y: nameLabelTextHeight - (knobDiameter / 5.0) * CGFloat(sin(angle)))
