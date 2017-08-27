@@ -403,9 +403,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// You can optionally set a scheduled time to play (in seconds).
     ///
     ///  - Parameters:
-    ///    - from startTime: Time into the file at which to start playing back
-    ///    - to endTime: Time into the file at which to playing back will stop / Loop
-    ///    - when scheduledTime: use this when scheduled playback doesn't need to be in sync with other players
+    ///    - from: Time into the file at which to start playing back
+    ///    - to: Time into the file at which to playing back will stop / Loop
+    ///    - when: use this when scheduled playback doesn't need to be in sync with other players
     ///         otherwise use the avTime signature.
     ///
     open func play(from startTime: Double, to endTime: Double, when scheduledTime: Double) {
@@ -418,8 +418,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// to play (in seconds).
     ///
     ///  - Parameters:
-    ///    - from startTime: Time into the file at which to start playing back
-    ///    - to endTime: Time into the file at which to playing back will stop / Loop
+    ///    - from: Time into the file at which to start playing back
+    ///    - to: Time into the file at which to playing back will stop / Loop
     ///    - avTime: an AVAudioTime object specifying when to schedule the playback. You can create this using the 
     ///              helper function AKAudioPlayer.secondToAVAudioTime(hostTime:time). hostTime is a call to 
     ///              mach_absolute_time(). When you have a group of players which you want to sync together it's 

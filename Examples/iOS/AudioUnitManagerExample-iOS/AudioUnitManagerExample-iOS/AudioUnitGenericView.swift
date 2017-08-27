@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import AudioKit
+import AudioKitUI
 
 /// Creates a simple list of parameters linked to sliders
 class AudioUnitGenericView: UIView {
@@ -21,10 +22,9 @@ class AudioUnitGenericView: UIView {
         var y = 5
         for param in tree.allParameters {
             let slider = AKPropertySlider(property: param.displayName,
-                                          format: "%0.1f",
                                           value: Double(param.value),
-                                          minimum: Double(param.minValue),
-                                          maximum: Double(param.maxValue),
+                                          range: Double(param.minValue) ... Double(param.maxValue),
+                                          format: "%0.1f",
                                           color: UIColor.darkGray,
                                           frame: CGRect(x: 20, y: y, width: 250, height: 50),
                                           callback: { (value) -> Void in
@@ -39,7 +39,7 @@ class AudioUnitGenericView: UIView {
 
             slider.textColor = UIColor.black
             slider.fontSize = 10
-            slider.sliderColor = UIColor.random()
+            slider.sliderBorderColor = UIColor.random()
 
             addSubview(slider)
 

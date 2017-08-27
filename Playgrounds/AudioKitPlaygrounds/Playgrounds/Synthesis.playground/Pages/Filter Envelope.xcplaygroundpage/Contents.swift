@@ -61,6 +61,8 @@ synth.start()
 //: Setup the user interface
 let playgroundWidth = 500
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     override func setup() {

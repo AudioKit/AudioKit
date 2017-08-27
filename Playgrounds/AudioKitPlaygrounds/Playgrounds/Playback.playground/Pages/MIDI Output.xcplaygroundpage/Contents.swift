@@ -7,6 +7,8 @@ let midi = AKMIDI()
 
 midi.openOutput()
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView!

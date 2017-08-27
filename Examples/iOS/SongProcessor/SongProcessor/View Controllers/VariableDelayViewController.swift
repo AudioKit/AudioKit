@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class VariableDelayViewController: UIViewController {

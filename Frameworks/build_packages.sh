@@ -36,7 +36,7 @@ create_package()
 	DIR="AudioKit-$1"
 	rm -f ${DIR}-${VERSION}.zip
 	mkdir -p "Carthage/$os"
-	cp -a "$DIR/AudioKit.framework" "Carthage/$os/"
+	cp -a "$DIR/AudioKit.framework" "$DIR/AudioKitUI.framework" "Carthage/$os/"
 	cd $DIR
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* Examples/
@@ -59,7 +59,7 @@ create_playgrounds()
 	echo "Packaging AudioKit Playgrounds version $VERSION ..."
 	cp -a ../Playgrounds AudioKitPlaygrounds
 	cd AudioKitPlaygrounds
-	cp -a ../AudioKit-macOS/AudioKit.framework AudioKitPlaygrounds/
+	cp -a ../AudioKit-macOS/AudioKit.framework ../AudioKit-macOS/AudioKitUI.framework AudioKitPlaygrounds/
 	gsed -i "s/\.\.\/\.\.\/Frameworks\/AudioKit-macOS/\./g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS//g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	cp ../../README.md ../../LICENSE .

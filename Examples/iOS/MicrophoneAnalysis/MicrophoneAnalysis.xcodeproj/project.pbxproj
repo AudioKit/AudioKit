@@ -14,6 +14,8 @@
 		789CA9BB1D0A01F500D6EFF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9B91D0A01F500D6EFF1 /* Main.storyboard */; };
 		789CA9BD1D0A01F500D6EFF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9BC1D0A01F500D6EFF1 /* Assets.xcassets */; };
 		789CA9C01D0A01F500D6EFF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9BE1D0A01F500D6EFF1 /* LaunchScreen.storyboard */; };
+		EA10E1521F4F93AB003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1511F4F93AB003F0CA9 /* AudioKitUI.framework */; };
+		EA10E1541F4F93B2003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1511F4F93AB003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,6 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EA10E1541F4F93B2003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
 				7881F8311D0C01F0007E62A3 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -39,6 +42,7 @@
 		789CA9BC1D0A01F500D6EFF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		789CA9BF1D0A01F500D6EFF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		789CA9C11D0A01F500D6EFF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA10E1511F4F93AB003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA10E1521F4F93AB003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				7881F8301D0C01F0007E62A3 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,6 +91,7 @@
 		78E189C41D0C059B006474D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA10E1511F4F93AB003F0CA9 /* AudioKitUI.framework */,
 				7881F82F1D0C01F0007E62A3 /* AudioKit.framework */,
 			);
 			name = Frameworks;

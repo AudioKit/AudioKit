@@ -1,6 +1,7 @@
 //: ## Morphing Oscillator Bank
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let bank = AKMorphingOscillatorBank()
 

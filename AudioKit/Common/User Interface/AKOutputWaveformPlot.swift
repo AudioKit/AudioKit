@@ -1,10 +1,11 @@
 //
 //  AKOutputWaveformPlot
-//  AudioKit
+//  AudioKitUI
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
+import AudioKit
 
 /// Wrapper class for plotting audio from the final mix in a waveform plot
 @IBDesignable

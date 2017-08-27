@@ -15,6 +15,7 @@ player.looping = true
 
 //: Don't forget to show the "debug area" to see what messages are printed by the player
 //: and open the timeline view to use the controls this playground sets up....
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 

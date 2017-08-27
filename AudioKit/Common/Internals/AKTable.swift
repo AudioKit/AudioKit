@@ -96,8 +96,9 @@
     /// Initialize and set up the default table
     ///
     /// - Parameters:
-    ///   - tableType: AKTableType of teh new table
-    ///   - size: Size of the table (multiple of 2)
+    ///   - type: AKTableType of the new table
+    ///   - phase: Phase offset
+    ///   - count: Size of the table (multiple of 2)
     ///
     public init(_ type: AKTableType = .sine,
                 phase: Float = 0,

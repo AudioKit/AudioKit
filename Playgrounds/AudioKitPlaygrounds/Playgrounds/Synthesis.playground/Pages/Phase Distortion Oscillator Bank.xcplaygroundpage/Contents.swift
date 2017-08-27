@@ -1,6 +1,7 @@
 //: ## Phase Distortion Oscillator Bank
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let bank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
 

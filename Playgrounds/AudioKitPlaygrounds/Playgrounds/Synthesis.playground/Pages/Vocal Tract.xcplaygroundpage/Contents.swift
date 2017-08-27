@@ -2,6 +2,7 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let voc = AKVocalTract()
 

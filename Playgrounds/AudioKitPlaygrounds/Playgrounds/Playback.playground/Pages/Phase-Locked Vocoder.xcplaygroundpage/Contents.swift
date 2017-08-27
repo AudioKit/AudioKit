@@ -14,6 +14,8 @@ phaseLockedVocoder.pitchRatio = 1
 
 var timeStep = 0.1
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     // UI Elements we'll need to be able to access

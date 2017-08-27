@@ -34,6 +34,7 @@ noise.start()
 toggling.start()
 
 //: User Interface Set up
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 
