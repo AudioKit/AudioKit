@@ -70,8 +70,8 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - x:
-    ///   - y:
+    ///   - x: X Value
+    ///   - y: Y Value
     ///
     public init(
         _ input: AKNode? = nil,

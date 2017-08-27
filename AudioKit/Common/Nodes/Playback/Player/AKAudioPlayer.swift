@@ -403,9 +403,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// You can optionally set a scheduled time to play (in seconds).
     ///
     ///  - Parameters:
-    ///    - from: Time into the file at which to start playing back
-    ///    - to: Time into the file at which to playing back will stop / Loop
-    ///    - when: use this when scheduled playback doesn't need to be in sync with other players
+    ///    - startTime: Time into the file at which to start playing back
+    ///    - endTime: Time into the file at which to playing back will stop / Loop
+    ///    - scheduledTime: use this when scheduled playback doesn't need to be in sync with other players
     ///         otherwise use the avTime signature.
     ///
     open func play(from startTime: Double, to endTime: Double, when scheduledTime: Double) {
@@ -418,15 +418,15 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// to play (in seconds).
     ///
     ///  - Parameters:
-    ///    - from: Time into the file at which to start playing back
-    ///    - to: Time into the file at which to playing back will stop / Loop
+    ///    - startTime: Time into the file at which to start playing back
+    ///    - endTime: Time into the file at which to playing back will stop / Loop
     ///    - avTime: an AVAudioTime object specifying when to schedule the playback. You can create this using the 
     ///              helper function AKAudioPlayer.secondToAVAudioTime(hostTime:time). hostTime is a call to 
     ///              mach_absolute_time(). When you have a group of players which you want to sync together it's 
     ///              important that this value be the same for all of them as a reference point.
     ///
-    open func play(from time: Double, to endTime: Double, avTime: AVAudioTime? ) {
-        schedule(from: time, to: endTime, avTime: avTime)
+    open func play(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
+        schedule(from: startTime, to: endTime, avTime: avTime)
         if endingFrame > startingFrame {
             start()
         } else {
@@ -435,13 +435,13 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    open func schedule(from time: Double, to endTime: Double, avTime: AVAudioTime? ) {
+    open func schedule(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
         stop()
 
         if endTime > 0 {
             self.endTime = endTime
         }
-        self.startTime = time
+        self.startTime = startTime
         scheduledAVTime = avTime
     }
 

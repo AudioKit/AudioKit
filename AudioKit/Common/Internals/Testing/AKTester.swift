@@ -39,7 +39,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: AKNode to test
-    ///   - sample: Number of sample to product
+    ///   - samples: Number of samples to produce
     ///
     public init(_ input: AKNode?, samples: Int) {
 
