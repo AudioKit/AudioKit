@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioKit
+import AudioKitUI
 
 class ViewController: UIViewController {
 

@@ -3,6 +3,7 @@
 //: or with one of the defaults.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let square = AKTable(.square, count: 256)
 let triangle = AKTable(.triangle, count: 256)

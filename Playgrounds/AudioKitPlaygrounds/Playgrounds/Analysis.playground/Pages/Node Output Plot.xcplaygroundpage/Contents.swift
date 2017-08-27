@@ -18,6 +18,8 @@ AudioKit.output = delay
 AudioKit.start()
 player.play()
 
+import AudioKitUI
+
 public class PlaygroundView: AKPlaygroundView {
     public override func setup() {
         addTitle("Node Output Plots")

@@ -28,6 +28,8 @@ AudioKit.output = metronome
 AudioKit.start()
 metronome.start()
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     var beatFlasher: AKButton!

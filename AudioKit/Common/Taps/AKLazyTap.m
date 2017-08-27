@@ -29,7 +29,7 @@
         AudioStreamBasicDescription asbd;
         OSStatus status = AudioUnitGetProperty(audioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &asbd, &propSize);
         if (status) {
-            printf("%s OSStatus %d %d\n",__FILE__,status,__LINE__);
+            printf("%s OSStatus %d %d\n",__FILE__,(int)status,__LINE__);
             return nil;
         }
         format = [[AVAudioFormat alloc]initWithStreamDescription:&asbd];

@@ -13,6 +13,8 @@ let samplePlayer = AKSamplePlayer(file: file) {
 AudioKit.output = samplePlayer
 AudioKit.start()
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     var current = 0

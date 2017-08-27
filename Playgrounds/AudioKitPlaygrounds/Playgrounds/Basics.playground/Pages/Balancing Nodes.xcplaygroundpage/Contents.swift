@@ -8,6 +8,7 @@
 //: Such an application is perfect for the AKBalancer node.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 //: This section prepares the players
 let file = try AKAudioFile(readFileName: "drumloop.wav")

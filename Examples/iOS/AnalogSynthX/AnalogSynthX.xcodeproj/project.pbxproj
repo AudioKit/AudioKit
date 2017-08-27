@@ -37,6 +37,8 @@
 		C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */; };
 		C4E8ED2D1C43B2540041965F /* Fatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2C1C43B2540041965F /* Fatten.swift */; };
 		D2A6182F1E2C00FF7F5D2205 /* Pods_AnalogSynthX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */; };
+		EA10E15F1F4F9833003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */; };
+		EA10E1601F4F9833003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAF0A5B71C4F943E00F37994 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0A5B61C4F943E00F37994 /* AudioKit.framework */; };
 		EAF0A5B81C4F943E00F37994 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0A5B61C4F943E00F37994 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -57,6 +59,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EA10E1601F4F9833003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
 				EAF0A5B81C4F943E00F37994 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -101,6 +104,7 @@
 		C4E8ED281C43ADA10041965F /* FilterSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterSection.swift; path = AudioSystem/FilterSection.swift; sourceTree = "<group>"; };
 		C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiDelay.swift; path = AudioSystem/MultiDelay.swift; sourceTree = "<group>"; };
 		C4E8ED2C1C43B2540041965F /* Fatten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fatten.swift; path = AudioSystem/Fatten.swift; sourceTree = "<group>"; };
+		EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		EAF0A5B61C4F943E00F37994 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +114,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF0A5B71C4F943E00F37994 /* AudioKit.framework in Frameworks */,
+				EA10E15F1F4F9833003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				D2A6182F1E2C00FF7F5D2205 /* Pods_AnalogSynthX.framework in Frameworks */,
 				C44760681DCD65ED00628666 /* AudioToolbox.framework in Frameworks */,
 			);
@@ -299,6 +304,7 @@
 		EA127F471C42097600289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */,
 				C44760671DCD65ED00628666 /* AudioToolbox.framework */,
 				EAF0A5B61C4F943E00F37994 /* AudioKit.framework */,
 				11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */,

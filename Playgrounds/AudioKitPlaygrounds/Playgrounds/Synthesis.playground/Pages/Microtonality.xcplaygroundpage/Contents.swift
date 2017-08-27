@@ -123,6 +123,8 @@ AudioKit.output = mixer
 AudioKit.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {

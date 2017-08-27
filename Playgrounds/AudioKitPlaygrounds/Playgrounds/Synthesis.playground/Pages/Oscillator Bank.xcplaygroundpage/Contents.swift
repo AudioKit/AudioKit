@@ -1,6 +1,7 @@
 //: ## Oscillator Bank
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let bank = AKOscillatorBank(waveform: AKTable(.sine),
                             attackDuration: 0.1,

@@ -3,7 +3,7 @@
 //: ## Working with AKAudioFile:
 //:
 //: * [Audio Player](Audio%20Player)
-//: * [Sample Player](Sample%20Player) (New in AudioKit 3.7)
+//: * [Sample Player](Sample%20Player)
 //: * [Editing Audio Files](Editing%20Audio%20Files)
 //: * [Exporting Files](Exporting%20Files)
 //: * [Processing Audio File Asynchronously](Processing%20Audio%20File%20Asynchronously)

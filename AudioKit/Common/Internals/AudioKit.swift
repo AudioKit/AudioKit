@@ -10,6 +10,9 @@
 import CoreAudioKit
 #endif
 
+#if !os(macOS)
+import UIKit
+#endif
 import Dispatch
 
 public typealias AKCallback = () -> Void

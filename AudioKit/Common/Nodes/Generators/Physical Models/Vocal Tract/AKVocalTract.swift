@@ -13,12 +13,6 @@ import AVFoundation
 /// based on the classic Kelly-Lochbaum segmented cylindrical 1d waveguide
 /// model, and the glottal pulse wave is a LF glottal pulse model.
 ///
-/// - parameter frequency: Glottal frequency.
-/// - parameter tonguePosition: Tongue position (0-1)
-/// - parameter tongueDiameter: Tongue diameter (0-1)
-/// - parameter tenseness: Vocal tenseness. 0 = all breath. 1=fully saturated.
-/// - parameter nasality: Sets the velum size. Larger values of this creates more nasally sounds.
-///
 public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKVocalTractAudioUnit
     /// Four letter unique description of the node

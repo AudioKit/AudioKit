@@ -1,6 +1,6 @@
 //
 //  AKView.swift
-//  AudioKit
+//  AudioKitUI
 //
 //  Created by Stéphane Peter, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.

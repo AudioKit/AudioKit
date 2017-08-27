@@ -44,6 +44,8 @@ AudioKit.output = reverb
 AudioKit.start(withPeriodicFunctions: performance)
 performance.start()
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     var detuneSlider: AKPropertySlider!

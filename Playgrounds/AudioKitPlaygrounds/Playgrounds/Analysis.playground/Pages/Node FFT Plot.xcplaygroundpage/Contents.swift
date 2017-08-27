@@ -10,6 +10,8 @@ var microphone = AKMicrophone()
 AudioKit.output = AKBooster(microphone, gain: 0.0)
 AudioKit.start()
 
+import AudioKitUI
+
 public class PlaygroundView: AKPlaygroundView {
     public override func setup() {
         addTitle("Node FFT Plot")

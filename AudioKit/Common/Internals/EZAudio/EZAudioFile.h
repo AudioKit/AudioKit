@@ -357,7 +357,6 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 
 /**
  Synchronously pulls the waveform amplitude data into a float array for the receiver. This returns a waveform with a default resolution of 1024, meaning there are 1024 data points to plot the waveform.
- @param numberOfPoints A UInt32 representing the number of data points you need. The higher the number of points the more detailed the waveform will be.
  @return A EZAudioFloatData instance containing the audio data for all channels of the audio.
  */
 - (EZAudioFloatData *)getWaveformData;

@@ -2,7 +2,6 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
-
 //: This first section sets up parameter naming in such a way
 //: to make the operation code easier to read below.
 
@@ -35,6 +34,8 @@ effect.parameters = [10, 1]
 AudioKit.output = effect
 AudioKit.start()
 player.play()
+
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 
