@@ -5,8 +5,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -27,35 +26,30 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Peak Limiter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: peakLimiter))
 
-        addSubview(AKPropertySlider(
-            property: "Attack Time",
-            format:  "%0.3f s",
-            value: peakLimiter.attackTime, minimum: 0.001, maximum: 0.03,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Attack Time",
+                                    value: peakLimiter.attackTime,
+                                    range: 0.001 ... 0.03,
+                                    format:  "%0.3f s"
         ) { sliderValue in
             peakLimiter.attackTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Decay Time",
-            format:  "%0.3f s",
-            value: peakLimiter.decayTime, minimum: 0.001, maximum: 0.03,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Decay Time",
+                                    value: peakLimiter.decayTime,
+                                    range: 0.001 ... 0.03,
+                                    format:  "%0.3f s"
         ) { sliderValue in
             peakLimiter.decayTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Pre-gain",
-            format:  "%0.1f dB",
-            value: peakLimiter.preGain, minimum: -40, maximum: 40,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Pre-gain",
+                                    value: peakLimiter.preGain,
+                                    range: -40 ... 40,
+                                    format:  "%0.1f dB"
         ) { sliderValue in
             peakLimiter.preGain = sliderValue
         })

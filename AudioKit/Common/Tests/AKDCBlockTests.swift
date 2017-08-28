@@ -11,17 +11,15 @@ import XCTest
 
 class AKDCBlockTests: AKTestCase {
 
-    func testDefault() {
-        let input = AKOscillator()
-        output = AKDCBlock(input)
-        input.start()
-        AKTestMD5("9aa1ca63b47bc690651d5bb24b33c54f")
-    }
-
     func testActuallyProcessing() {
         let input = AKOscillator(waveform: AKTable(.square))
         output = input
-        input.start()
-        AKTestMD5Not("9aa1ca63b47bc690651d5bb24b33c54f")
+        AKTestMD5Not("cdca0c19d803bbf2cce357df5fca3013")
     }
+
+    func testDefault() {
+        output = AKDCBlock(input)
+        AKTestMD5("cdca0c19d803bbf2cce357df5fca3013")
+    }
+
 }

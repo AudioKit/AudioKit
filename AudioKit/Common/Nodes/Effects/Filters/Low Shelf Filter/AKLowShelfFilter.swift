@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
-open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
+open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
 
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
@@ -44,6 +44,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 100
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
+    var inputMixer = AKMixer()
 
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
@@ -61,19 +62,22 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         cutoffFrequency: Double = 80,
         gain: Double = 0) {
 
         self.cutoffFrequency = cutoffFrequency
         self.gain = gain
 
-        inputGain = AKMixer(input)
+        inputGain = AKMixer()
         inputGain?.volume = 0
         mixer = AKMixer(inputGain)
 
-        effectGain = AKMixer(input)
+        effectGain = AKMixer()
         effectGain?.volume = 1
+
+        input?.connect(to: inputMixer)
+        inputMixer.connect(to: [inputGain!, effectGain!])
 
         let effect = _Self.effect
         self.internalEffect = effect
@@ -92,6 +96,9 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
         au[kAULowShelfParam_Gain] = gain
     }
 
+    public var inputNode: AVAudioNode {
+        return inputMixer.avAudioNode
+    }
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -115,7 +122,10 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     override open func disconnect() {
         stop()
 
-        disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputMixer.avAudioNode,
+                                inputGain!.avAudioNode,
+                                effectGain!.avAudioNode,
+                                mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }

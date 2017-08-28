@@ -4,9 +4,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
-
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -27,40 +25,28 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Tanh Distortion")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: distortion))
 
-        addSubview(AKPropertySlider(
-            property: "Pre-gain",
-            value: distortion.pregain, maximum: 10,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Pre-gain", value: distortion.pregain, range: 0 ... 10) { sliderValue in
             distortion.pregain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Post-gain",
-            value: distortion.postgain, maximum: 10,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Post-gain", value: distortion.postgain, range: 0 ... 10) { sliderValue in
             distortion.postgain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Postive Shape Parameter",
-            value: distortion.postiveShapeParameter, minimum: -10, maximum: 10,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Postive Shape Parameter",
+                                    value: distortion.postiveShapeParameter,
+                                    range: -10 ... 10
         ) { sliderValue in
             distortion.postiveShapeParameter = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Negative Shape Parameter",
-            value: distortion.negativeShapeParameter, minimum: -10, maximum: 10,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Negative Shape Parameter",
+                                    value: distortion.negativeShapeParameter,
+                                    range: -10 ... 10
         ) { sliderValue in
             distortion.negativeShapeParameter = sliderValue
         })

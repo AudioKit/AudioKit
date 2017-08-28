@@ -11,15 +11,10 @@
 #import "AKBankDSPKernel.hpp"
 
 enum {
-    carrierMultiplierAddress = 0,
-    modulatingMultiplierAddress = 1,
-    modulationIndexAddress = 2,
-    attackDurationAddress = 3,
-    decayDurationAddress = 4,
-    sustainLevelAddress = 5,
-    releaseDurationAddress = 6,
-    detuningOffsetAddress = 7,
-    detuningMultiplierAddress = 8
+    standardBankEnumElements(),
+    carrierMultiplierAddress = numberOfBankEnumElements,
+    modulatingMultiplierAddress = numberOfBankEnumElements + 1,
+    modulationIndexAddress = numberOfBankEnumElements + 2
 };
 
 class AKFMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {

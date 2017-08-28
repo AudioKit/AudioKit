@@ -8,8 +8,17 @@
 
 public class AKTableView: NSView {
 
-    var table: AKTable
-    var absmax: Double = 1.0
+    public var table: AKTable {
+        didSet {
+            let max = Double(table.max() ?? 1.0)
+            let min = Double(table.min() ?? -1.0)
+            absmax = [max, abs(min)].max() ?? 1.0
+            needsDisplay = true
+        }
+    }
+
+    public var absmax: Double = 1.0
+
     public init(_ table: AKTable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150)) {
         self.table = table
         super.init(frame: frame)
@@ -32,7 +41,7 @@ public class AKTableView: NSView {
         let padding = 0.9
 
         let border = NSBezierPath(rect: NSRect(x: 0, y: 0, width: frame.width, height: frame.height))
-        let bgcolor = AKColorPalette.sharedInstance.next
+        let bgcolor = AKStylist.sharedInstance.nextColor
         bgcolor.setFill()
         border.fill()
         NSColor.black.setStroke()
@@ -47,18 +56,20 @@ public class AKTableView: NSView {
         midline.stroke()
 
         let bezierPath = NSBezierPath()
-        bezierPath.move(to: NSPoint(x: 0.0, y: (1.0 - table[0] / absmax)  * height))
+        bezierPath.move(to: NSPoint(x: 0.0, y: (1.0 - table[0] / absmax) * height))
 
-        for i in 1..<table.count {
+        let strideWidth = max(1, Int(Double(table.count) / Double(frame.width)))
 
-            let x = Double(i) / table.count  * width
+        for i in  stride(from: 0, to: table.count, by: strideWidth) {
+
+            let x = Double(i) / table.count * width
 
             let y = (1.0 - table[i] / absmax * padding) * height
 
             bezierPath.line(to: NSPoint(x: x, y: y))
         }
 
-        bezierPath.line(to: NSPoint(x: Double(frame.width), y: (1.0 - table[0] / absmax * padding)  * height))
+        bezierPath.line(to: NSPoint(x: Double(frame.width), y: (1.0 - table[0] / absmax * padding) * height))
 
         NSColor.black.setStroke()
         bezierPath.lineWidth = 2

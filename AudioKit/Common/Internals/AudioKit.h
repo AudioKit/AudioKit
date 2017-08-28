@@ -39,6 +39,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Dynamics
 #import "AKDynamicRangeCompressorAudioUnit.h"
+#import "AKDynaRageCompressorAudioUnit.h"
 
 // Effects / Envelopes
 #import "AKAmplitudeEnvelopeAudioUnit.h"
@@ -66,6 +67,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKThreePoleLowpassFilterAudioUnit.h"
 #import "AKToneComplementFilterAudioUnit.h"
 #import "AKToneFilterAudioUnit.h"
+
+// Effects / Guitar Processors
+#import "AKRhinoGuitarProcessorAudioUnit.h"
 
 // Effects / Phaser
 #import "AKPhaserAudioUnit.h"
@@ -127,3 +131,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Plots
 #import "EZAudio.h"
+
+//Offline
+#import "AKOfflineRenderAudioUnit.h"

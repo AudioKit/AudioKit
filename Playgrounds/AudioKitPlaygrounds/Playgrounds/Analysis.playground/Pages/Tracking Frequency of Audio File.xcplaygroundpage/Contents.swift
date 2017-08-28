@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "leadloop.wav")
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -30,21 +30,14 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking An Audio File")
 
-        trackedAmplitudeSlider = AKPropertySlider(
-            property: "Tracked Amplitude",
-            format: "%0.3f",
-            value: 0, maximum: 0.55,
-            color: AKColor.green
-        ) { _ in
+        trackedAmplitudeSlider = AKPropertySlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKPropertySlider(
-            property: "Tracked Frequency",
-            format: "%0.3f",
-            value: 0, maximum: 1_000,
-            color: AKColor.red
+        trackedFrequencySlider = AKPropertySlider(property: "Tracked Frequency",
+                                                  range: 0 ... 1_000,
+                                                  format: "%0.3f Hz"
         ) { _ in
             // Do nothing, just for display
         }

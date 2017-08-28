@@ -7,7 +7,7 @@
 //
 
 /// Operation-based effect
-open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
+open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKOperationEffectAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
@@ -102,7 +102,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
             for ugen in self?.customUgens ?? [] {
               self?.internalAU?.add(ugen)
             }

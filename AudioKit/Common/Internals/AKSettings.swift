@@ -39,12 +39,12 @@
         case longest = 12
 
         /// The buffer Length expressed as number of samples
-        var samplesCount: AVAudioFrameCount {
+        public var samplesCount: AVAudioFrameCount {
             return AVAudioFrameCount(pow(2.0, Double(rawValue)))
         }
 
         /// The buffer Length expressed as a duration in seconds
-        var duration: Double {
+        public var duration: Double {
             return Double(samplesCount) / AKSettings.sampleRate
         }
     }
@@ -66,7 +66,7 @@
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
 
-    /// Whether to DefaultToSpeaker when audio input is enabled
+    /// Whether to output to the speaker (rather than receiver) when audio input is enabled
     open static var defaultToSpeaker: Bool = false
 
     /// Whether to use bluetooth when audio input is enabled

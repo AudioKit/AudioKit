@@ -53,13 +53,8 @@ standardBankFunctions()
     
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        phaseDistortionAUParameter,
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
+        standardBankAUParameterList(),
+        phaseDistortionAUParameter
     ]];
 	parameterTreeBlock(PhaseDistortionOscillatorBank)
 }

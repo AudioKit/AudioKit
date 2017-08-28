@@ -17,12 +17,10 @@ class ModalResonanceFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.modalResonanceFilter()
         }
-        AKTestMD5("ab262d09590e6c7e9f9861489af21f4e")
+        AKTestMD5("cdb0a984578ebb01f292eef9c295b5c9")
     }
 
 }

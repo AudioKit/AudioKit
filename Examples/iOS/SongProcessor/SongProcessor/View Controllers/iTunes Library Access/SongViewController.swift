@@ -23,15 +23,43 @@ class SongViewController: UIViewController {
 
     var song: MPMediaItem? {
         didSet {
-            if song?.persistentID != songProcessor.currentSong?.persistentID {
+            songProcessor.iTunesFilePlayer?.stop()
 
-                songProcessor.audioFilePlayer?.stop()
-                songProcessor.isPlaying = false
-                songProcessor.currentSong = song!
-                startTime = 0
+            let fail = {
+                let alert = UIAlertController(title: "Couldn't load song", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
 
-            } else { // the same song again.
-                exporter?.isReadyToPlay = true
+            guard let newSong = song else {
+                return fail()
+            }
+
+            DispatchQueue.global(qos: .default).async {
+                let docDirs: [NSString] = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                                              .userDomainMask,
+                                                                              true) as [NSString]
+                let docDir = docDirs[0]
+                let tmp = docDir.appendingPathComponent("exported") as NSString
+                self.exportPath = tmp.appendingPathExtension("caf")!
+
+                self.exporter = SongExporter(exportPath: self.exportPath)
+                self.exporter?.exportSong(newSong, completion: { success in
+                    DispatchQueue.main.async {
+                        if success {
+
+                            self.loadSong()
+                            self.playButton.isUserInteractionEnabled = true
+                            self.playButton.setTitle("Play", for: UIControlState())
+
+                        } else {
+                            fail()
+                        }
+
+                    }
+                })
             }
         }
     }
@@ -39,72 +67,53 @@ class SongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let art = songProcessor.currentSong!.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork {
-            albumImageView.image = art.image(at: self.view.bounds.size)
-        }
-
-        if songProcessor.isPlaying! {
-            playButton.setTitle("Pause", for: UIControlState())
-        } else {
-            if exporter?.isReadyToPlay == false {
-                playButton.setTitle("Loading", for: UIControlState())
-            }
-            playButton.setTitle("Play", for: UIControlState())
-
-        }
+        playButton.setTitle("Loading", for: UIControlState())
+        playButton.isUserInteractionEnabled = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share(barButton:)))
 
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let docDirs: [NSString] = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                                      .userDomainMask,
-                                                                      true) as [NSString]
-        let docDir = docDirs[0]
-        let tmp = docDir.appendingPathComponent("exported") as NSString
-        exportPath = tmp.appendingPathExtension("wav")!
-
-        exporter = SongExporter(exportPath: exportPath)
-        print("Exporting song")
-        exporter?.exportSong(song!)
+    override func viewDidAppear(_ animated: Bool) {
+        if let art = song?.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork {
+            self.albumImageView.image = art.image(at: self.view.bounds.size)
+        }
     }
 
     @IBAction func play(_ sender: UIButton) {
-        /*
-        if exporter?.isReadyToPlay == false {
-            print("Not Ready")
-            playButton.setTitle("Loading", for: UIControlState())
-        } else {
-            playButton.setTitle("Play", for: UIControlState())
-        }
-        */
-        if sender.titleLabel!.text == "Play" {
-            loadSong()
-            playButton.setTitle("Stop", for: UIControlState())
-            songProcessor.audioFilePlayer!.play()
-            songProcessor.isPlaying = true
-
-        } else {
-            playButton.setTitle("Play", for: UIControlState())
-            songProcessor.audioFilePlayer!.stop()
-            songProcessor.isPlaying = false
-        }
+        songProcessor.iTunesPlaying = !songProcessor.iTunesPlaying
+        playButton.setTitle(songProcessor.iTunesPlaying ? "Stop" : "Play", for: UIControlState())
     }
 
     func loadSong() {
 
-        if FileManager.default.fileExists(atPath: exportPath) == false {
+        let url = URL(fileURLWithPath: exportPath)
+
+        if FileManager.default.fileExists(atPath: url.path) == false {
             print("exportPath: \(exportPath)")
             print("File does not exist.")
             return
         }
 
-        playButton.isHidden = false
+        do {
+            let exportedFile = try AKAudioFile(forReading:url)
+            if songProcessor.iTunesFilePlayer == nil {
+                songProcessor.iTunesFilePlayer = try AKAudioPlayer(file:exportedFile)
+                songProcessor.playerMixer.connect(songProcessor.iTunesFilePlayer!)
+            }
+            guard let iTunesFilePlayer = songProcessor.iTunesFilePlayer else { return }
 
-        songProcessor.audioFile = try? AKAudioFile(readFileName: "exported.wav", baseDir: .documents)
-
-        try? songProcessor.audioFilePlayer?.replace(file: songProcessor.audioFile!)
+            try iTunesFilePlayer.replace(file: exportedFile)
+        } catch {
+            print(error)
+        }
 
     }
-
+    @objc func share(barButton: UIBarButtonItem) {
+        renderAndShare { docController in
+            guard let canOpen = docController?.presentOpenInMenu(from: barButton, animated: true) else { return }
+            if !canOpen {
+                self.present(self.alertForShareFail(), animated: true, completion: nil)
+            }
+        }
+    }
 }

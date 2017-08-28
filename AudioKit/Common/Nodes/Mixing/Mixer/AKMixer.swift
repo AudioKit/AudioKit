@@ -7,8 +7,9 @@
 //
 
 /// AudioKit version of Apple's Mixer Node
-open class AKMixer: AKNode, AKToggleable {
-    fileprivate let mixerAU = AVAudioMixerNode()
+open class AKMixer: AKNode, AKToggleable, AKInput {
+    /// The internal mixer node
+    fileprivate var mixerAU = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
     open dynamic var volume: Double = 1.0 {
@@ -26,63 +27,34 @@ open class AKMixer: AKNode, AKToggleable {
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    ///
-    /// - parameter inputs: A varaiadic list of AKNodes
-    ///
     public override init() {
-        super.init()
-        self.avAudioNode = mixerAU
-        AudioKit.engine.attach(self.avAudioNode)
+        super.init(avAudioNode: mixerAU, attach: true)
     }
 
     /// Initialize the mixer node with multiple inputs
     ///
-    /// - parameter inputs: A varaiadic list of AKNodes
+    /// - parameter inputs: A variadic list of AKNodes
     ///
-    public init(_ inputs: AKNode?...) {
-        super.init()
-        self.avAudioNode = mixerAU
-        AudioKit.engine.attach(self.avAudioNode)
-        for input in inputs {
-            connect(input)
-        }
+    //swiftlint:disable force_unwrapping
+    public convenience init(_ inputs: AKNode?...) {
+        self.init(inputs.filter { $0 != nil }.map { $0! })
     }
+    //swiftlint:enable force_unwrapping
 
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: An array of AKNodes
     ///
-    public init(_ inputs: [AKNode]) {
-        super.init()
-        self.avAudioNode = mixerAU
-        AudioKit.engine.attach(self.avAudioNode)
+    public convenience init(_ inputs: [AKNode]) {
+        self.init()
         for input in inputs {
-            connect(input)
+            input.connect(to: self)
         }
     }
 
-    /// Connnect another input after initialization
-    ///
-    /// - parameter input: AKNode to connect
-    ///
-    open func connect(_ input: AKNode?) {
-        var wasRunning = false
-        if AudioKit.engine.isRunning {
-            wasRunning = true
-            AudioKit.stop()
-        }
-        if let existingInput = input {
-            existingInput.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU, bus: mixerAU.numberOfInputs))
-            AudioKit.engine.connect(existingInput.avAudioNode,
-                                    to: existingInput.connectionPoints,
-                                    fromBus: 0,
-                                    format: AudioKit.format)
-        }
-        if wasRunning {
-            AudioKit.start()
-        }
+    public var nextInput: AKInputConnection {
+        return AKInputConnection(node: self, bus: mixerAU.nextAvailableInputBus)
     }
-
     /// Function to start, play, or activate the node, all do the same thing
     open func start() {
         if isStopped {
@@ -97,4 +69,19 @@ open class AKMixer: AKNode, AKToggleable {
             volume = 0
         }
     }
+
+    /// Connnect another input after initialization // Deprecated
+    ///
+    /// - parameter input: AKNode to connect
+    /// - parameter bus: what channel of the mixer to connect on.
+    /// If you use this it is up to your application to keep track of what inputs are in use to make sure you
+    /// don't overwrite an existing channel with an active node that is active.
+
+    //swiftlint:disable line_length
+    @available(*, deprecated, message: "use connect(to:AKNode) or connect(to:AKNode, bus:Int) from the upstream node instead")
+    open func connect(_ input: AKNode?, bus: Int? = nil) {
+        input?.connect(to: self, bus: bus ?? nextInput.bus)
+    }
+    //swiftlint:enable line_length
+
 }

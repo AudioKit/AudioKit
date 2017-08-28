@@ -71,6 +71,7 @@
 //: * [Flute](Flute)
 //: * [Mandolin](Mandolin)
 //: * [Plucked String](Plucked%20String)
+//: * [Tubular Bells](Tubular%20Bells)
 //: * [Vocal Tract](Vocal%20Tract)
 //: * [Vocal Tract Operation](Vocal%20Tract%20Operation)
 //:

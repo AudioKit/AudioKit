@@ -11,38 +11,29 @@ import XCTest
 
 class AKDelayTests: AKTestCase {
 
-    func testParameters() {
-        let input = AKOscillator()
-        output = AKDelay(input, time: 0.0123, feedback: 0.345, lowPassCutoff: 1234, dryWetMix: 0.456)
-        input.start()
-        AKTestMD5("ff81a83a9a4335432029e8457a27cf6d")
-    }
-
-    func testTime() {
-        let input = AKOscillator()
-        output = AKDelay(input, time: 0.0123)
-        input.start()
-        AKTestMD5("d881533816a1a2fbbd507cbb9788f84e")
+    func testDryWetMix() {
+        output = AKDelay(input, time: 0.012_3, dryWetMix: 0.456)
+        AKTestMD5("ecb2a1a36fe3e396f9295df8f28e6eb0")
     }
 
     func testFeedback() {
-        let input = AKOscillator()
-        output = AKDelay(input, time: 0.0123, feedback: 0.345)
-        input.start()
-        AKTestMD5("a9056289ba3e2b693d410b2f35d2f1e2")
+        output = AKDelay(input, time: 0.012_3, feedback: 0.345)
+        AKTestMD5("97af0bb6ad8c9b3c6cf0d78215505ebc")
     }
 
     func testLowpassCutoff() {
-        let input = AKOscillator()
-        output = AKDelay(input, time: 0.0123, lowPassCutoff: 1234)
-        input.start()
-        AKTestMD5("826cb9f7f2286fd078fd42ce055d3a8b")
+        output = AKDelay(input, time: 0.012_3, lowPassCutoff: 1_234)
+        AKTestMD5("cc4e9be96f1c5a8b8fc445b7e82de209")
     }
 
-    func testDryWetMix() {
-        let input = AKOscillator()
-        output = AKDelay(input, time: 0.0123, dryWetMix: 0.456)
-        input.start()
-        AKTestMD5("e92f43ca934cd0e63163e02149ad92ad")
+    func testParameters() {
+        output = AKDelay(input, time: 0.012_3, feedback: 0.345, lowPassCutoff: 1_234, dryWetMix: 0.456)
+        AKTestMD5("d80d89be33aa882b7070ffd13a3a0b43")
     }
+
+    func testTime() {
+        output = AKDelay(input, time: 0.012_3)
+        AKTestMD5("84cd91433f217ff4a52980a5f6a62431")
+    }
+
 }

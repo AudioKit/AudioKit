@@ -4,8 +4,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -43,23 +42,13 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Convolution")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Dry Audio to Convolved",
-            value: dryWetMixer.balance,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Dry Audio to Convolved", value: dryWetMixer.balance) { sliderValue in
             dryWetMixer.balance = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Stairwell to Dish",
-            value: mixer.balance,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Stairwell to Dish", value: mixer.balance) { sliderValue in
             mixer.balance = sliderValue
         })
     }

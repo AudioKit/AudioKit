@@ -7,7 +7,7 @@
 //
 
 /// Testing node
-open class AKTester: AKNode, AKToggleable, AKComponent {
+open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKTesterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tstr")
@@ -54,7 +54,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
             self?.internalAU?.samples = Int32(samples)
         }
     }

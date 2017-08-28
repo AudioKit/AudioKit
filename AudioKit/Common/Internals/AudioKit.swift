@@ -9,6 +9,9 @@
 #if !os(tvOS)
 import CoreAudioKit
 #endif
+#if os(iOS)
+import CoreTelephony
+#endif
 
 import Dispatch
 
@@ -41,10 +44,19 @@ extension AVAudioEngine {
     /// An audio output operation that most applications will need to use last
     open static var output: AKNode? {
         didSet {
-            finalMixer.connect(output)
+            output?.connect(to: finalMixer)
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
     }
+	
+	#if os(iOS)
+	private static let cx = CTCallCenter()
+	private static var microphoneLocked: Bool {
+		return cx.currentCalls?.count ?? 0 > 0
+	}
+	#else
+	private static let microphoneLocked = false
+	#endif
 
     // MARK: - Device Management
 
@@ -204,7 +216,7 @@ extension AVAudioEngine {
     /// Start up the audio engine with periodic functions
     open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) {
         for function in functions {
-            finalMixer.connect(function)
+            function.connect(to: finalMixer)
         }
         start()
     }
@@ -241,45 +253,43 @@ extension AVAudioEngine {
                 if AKSettings.audioInputEnabled {
 
                 #if os(iOS)
-                    if AKSettings.defaultToSpeaker {
 
-                        var options: AVAudioSessionCategoryOptions = [.mixWithOthers]
+                    var options: AVAudioSessionCategoryOptions = [.mixWithOthers]
 
-                        if #available(iOS 10.0, *) {
-                            // Blueooth Options
-                            // .allowBluetooth can only be set if the the categories .playAndRecord and .record
-                            // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or
-                            // .playback this option is cleared if the category is .record, or .multiRoute if this
-                            // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
-                            // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
-                            // priority for routing.
-                            if AKSettings.bluetoothOptions.isNotEmpty {
-                                options = options.union(AKSettings.bluetoothOptions)
-                            } else if AKSettings.useBluetooth {
-                                // If bluetoothOptions aren't specified
-                                // but useBluetooth is then we will use these defaults
-                                options = options.union([.allowBluetooth,
-                                                         .allowBluetoothA2DP])
-                            }
-
-                            // AirPlay
-                            if AKSettings.allowAirPlay {
-                                options = options.union(.allowAirPlay)
-                            }
-                        } else if AKSettings.bluetoothOptions.isNotEmpty ||
-                                  AKSettings.useBluetooth ||
-                                  AKSettings.allowAirPlay {
-                            AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
+                    if #available(iOS 10.0, *) {
+                        // Blueooth Options
+                        // .allowBluetooth can only be set with the categories .playAndRecord and .record
+                        // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or
+                        // .playback. This option is cleared if the category is .record, or .multiRoute. If this
+                        // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
+                        // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
+                        // priority for routing.
+                        if AKSettings.bluetoothOptions.isNotEmpty {
+                            options = options.union(AKSettings.bluetoothOptions)
+                        } else if AKSettings.useBluetooth {
+                            // If bluetoothOptions aren't specified
+                            // but useBluetooth is then we will use these defaults
+                            options = options.union([.allowBluetooth,
+                                                     .allowBluetoothA2DP])
                         }
 
-                        // Default to Speaker
-                        if AKSettings.defaultToSpeaker {
-                            options = options.union(.defaultToSpeaker)
+                        // AirPlay
+                        if AKSettings.allowAirPlay {
+                            options = options.union(.allowAirPlay)
                         }
-
-                        try AKSettings.setSession(category: .playAndRecord,
-                                                  with: options)
+                    } else if AKSettings.bluetoothOptions.isNotEmpty ||
+                              AKSettings.useBluetooth ||
+                              AKSettings.allowAirPlay {
+                        AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
                     }
+
+                    // Default to Speaker
+                    if AKSettings.defaultToSpeaker {
+                        options = options.union(.defaultToSpeaker)
+                    }
+
+                    try AKSettings.setSession(category: .playAndRecord,
+                                              with: options)
 
                 #elseif os(tvOS)
                     // tvOS
@@ -332,28 +342,28 @@ extension AVAudioEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    open static func test(node: AKNode, duration: Double) {
+    open static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) {
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
-            
+
             tester = AKTester(node, samples: samples)
             output = tester
-            
+
             do {
                 // maximum number of frames the engine will be asked to render in any single render call
-                let maxNumberOfFrames: AVAudioFrameCount = 4096
+                let maxNumberOfFrames: AVAudioFrameCount = 4_096
                 engine.reset()
                 try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
                 try engine.start()
             } catch {
                 fatalError("could not enable manual rendering mode, \(error)")
             }
-            
+            afterStart()
             tester?.play()
-            
+
             let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)
-            
+
             while engine.manualRenderingSampleTime < samples {
                 do {
                     let framesToRender = buffer.frameCapacity
@@ -362,15 +372,15 @@ extension AVAudioEngine {
                     case .success:
                         // data rendered successfully
                         break
-                        
+
                     case .insufficientDataFromInputNode:
                         // applicable only if using the input node as one of the sources
                         break
-                        
+
                     case .cannotDoInCurrentContext:
                         // engine could not render in the current render call, retry in next iteration
                         break
-                        
+
                     case .error:
                         // error occurred while rendering
                         fatalError("render failed")
@@ -440,7 +450,7 @@ extension AVAudioEngine {
     // Restarts the engine after audio output has been changed, like headphones plugged in.
     @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         DispatchQueue.main.async {
-            if shouldBeRunning && !engine.isRunning {
+            if !microphoneLocked && shouldBeRunning && !engine.isRunning {
                 do {
 
                     #if !os(macOS)
@@ -485,5 +495,42 @@ extension AVAudioEngine {
                 name: .AKEngineRestartedAfterRouteChange,
                 object: nil)
         #endif
+    }
+}
+
+//This extension makes connect calls shorter, and safer by attaching nodes if not already attached.
+extension AudioKit {
+
+    private static func safeAttach(_ nodes: [AVAudioNode]) {
+        _ = nodes.filter { $0.engine == nil }.map { engine.attach($0) }
+    }
+
+    @objc open static func connect(_ sourceNode: AVAudioNode,
+                                   to destNodes: [AVAudioConnectionPoint],
+                                   fromBus sourceBus: AVAudioNodeBus,
+                                   format: AVAudioFormat?) {
+        let connectionsWithNodes = destNodes.filter { $0.node != nil }
+        safeAttach([sourceNode] + connectionsWithNodes.map { $0.node! })
+        engine.connect(sourceNode, to: connectionsWithNodes, fromBus: sourceBus, format: format)
+    }
+
+    @objc open static func connect(_ node1: AVAudioNode,
+                                   to node2: AVAudioNode,
+                                   fromBus bus1: AVAudioNodeBus,
+                                   toBus bus2: AVAudioNodeBus,
+                                   format: AVAudioFormat?) {
+        safeAttach([node1, node2])
+        engine.connect(node1, to: node2, fromBus: bus1, toBus: bus2, format: format)
+    }
+
+    @objc open static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
+        connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
+    }
+    
+    //Convenience
+    @objc open static func detach(nodes: [AVAudioNode]) {
+        for node in nodes {
+            engine.detach(node)
+        }
     }
 }

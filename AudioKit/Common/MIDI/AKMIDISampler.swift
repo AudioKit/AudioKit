@@ -20,7 +20,7 @@ open class AKMIDISampler: AKSampler {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "AKMIDISampler"
+    open var name = "MIDI Sampler"
 
     /// Initialize the MIDI Sampler
     public override init() {
@@ -36,7 +36,7 @@ open class AKMIDISampler: AKSampler {
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef = AKMIDI().client,
-                         name: String = "Unnamed") {
+                         name: String = "MIDI Sampler") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)

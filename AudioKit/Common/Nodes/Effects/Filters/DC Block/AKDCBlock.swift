@@ -9,7 +9,7 @@
 /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])
 /// Based on work by Perry Cook.
 ///
-open class AKDCBlock: AKNode, AKToggleable, AKComponent {
+open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKDCBlockAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
@@ -30,7 +30,7 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter input: Input node to process
     ///
-    public init( _ input: AKNode?) {
+    public init( _ input: AKNode? = nil) {
         _Self.register()
 
         super.init()
@@ -39,7 +39,7 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
     }
 

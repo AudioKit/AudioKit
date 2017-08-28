@@ -12,24 +12,18 @@ import XCTest
 class AKClipperTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKClipper(input)
-        input.start()
-        AKTestMD5("c29feeb240b68c3230dade9346c5b2cd")
+        AKTestMD5("2084113bc50e7eca946d48ca608d3276")
     }
 
     func testParameters1() {
-        let input = AKOscillator()
         output = AKClipper(input, limit: 0.1)
-        input.start()
-        AKTestMD5("78ca0e2e5de5a71b6ab03617be82101d")
+        AKTestMD5("a829fdfaf9c8912f3a060b4389a6b819")
     }
 
     func testParameters2() {
-        let input = AKOscillator()
         output = AKClipper(input, limit: 0.5)
-        input.start()
-        AKTestMD5("082b5cbd01b7e2c2fb660277f9499159")
+        AKTestMD5("419dbbd117255b0856047e0565a079ba")
     }
 
 }

@@ -11,7 +11,7 @@
 /// a peak at the center frequency with a width dependent on bandwidth. If gain
 /// is less than 1, a notch is formed around the center frequency.
 ///
-open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
+open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKEqualizerFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
@@ -91,7 +91,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
     ///   - gain: The peak/notch gain
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         centerFrequency: Double = 1_000.0,
         bandwidth: Double = 100.0,
         gain: Double = 10.0) {
@@ -108,7 +108,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

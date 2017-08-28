@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Sequencer")
 
         for i in 0 ..< 4 {
-            let button = AKButton(title: "Track \(i + 1): FM Piano") {
+            let button = AKButton(title: "Track \(i + 1): FM Piano") { _ in
                 self.states[i] = self.states[i] == .bell ? .piano : .bell
                 self.update()
             }

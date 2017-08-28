@@ -27,19 +27,11 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         addTitle("General Purpose Oscillator")
 
-        addSubview(AKPropertySlider(
-            property: "Amplitude",
-            value: currentAmplitude,
-            color: AKColor.red
-        ) { amplitude in
+        addSubview(AKPropertySlider(property: "Amplitude", value: currentAmplitude) { amplitude in
             currentAmplitude = amplitude
         })
 
-        addSubview(AKPropertySlider(
-            property: "Ramp Time",
-            value: currentRampTime,
-            color: AKColor.cyan
-        ) { time in
+        addSubview(AKPropertySlider(property: "Ramp Time", value: currentRampTime) { time in
             currentRampTime = time
         })
 

@@ -10,8 +10,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -30,24 +29,19 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Bit Crusher")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Bit Depth",
-            format: "%0.2f",
-            value: bitcrusher.bitDepth, minimum: 1, maximum: 24,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Bit Depth",
+                                    value: bitcrusher.bitDepth,
+                                    range: 1 ... 24
         ) { sliderValue in
             bitcrusher.bitDepth = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Sample Rate",
-            format: "%0.1f Hz",
-            value: bitcrusher.sampleRate, maximum: 16_000,
-            color: AKColor.red
+        addSubview(AKPropertySlider(property: "Sample Rate",
+                                    value: bitcrusher.sampleRate,
+                                    range: 1 ... 16_000,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             bitcrusher.sampleRate = sliderValue
         })

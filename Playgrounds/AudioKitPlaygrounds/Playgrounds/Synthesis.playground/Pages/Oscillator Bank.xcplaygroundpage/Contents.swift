@@ -16,56 +16,30 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Oscillator Bank")
 
-        addSubview(AKPropertySlider(
-            property: "Attack",
-            format: "%0.3f",
-            value: bank.attackDuration, maximum: 2,
-            color: AKColor.green
-        ) { duration in
-            bank.attackDuration = duration
-        })
+        let adsrView = AKADSRView { att, dec, sus, rel in
+            bank.attackDuration = att
+            bank.decayDuration = dec
+            bank.sustainLevel = sus
+            bank.releaseDuration = rel
+        }
+        adsrView.attackDuration = bank.attackDuration
+        adsrView.decayDuration = bank.decayDuration
+        adsrView.releaseDuration = bank.releaseDuration
+        adsrView.sustainLevel = bank.sustainLevel
+        addSubview(adsrView)
 
-        addSubview(AKPropertySlider(
-            property: "Decay",
-            format: "%0.3f",
-            value: bank.decayDuration, maximum: 2,
-            color: AKColor.cyan
-        ) { duration in
-            bank.decayDuration = duration
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Sustain Level",
-            format: "%0.3f",
-            value: bank.sustainLevel,
-            color: AKColor.yellow
-        ) { level in
-            bank.sustainLevel = level
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Release",
-            format: "%0.3f",
-            value:  bank.releaseDuration, maximum: 2,
-            color: AKColor.green
-        ) { duration in
-            bank.releaseDuration = duration
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.3f",
-            value:  bank.releaseDuration, minimum: -1_200, maximum: 1_200,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Detuning Offset",
+                                    value: bank.detuningOffset,
+                                    range: -1_200 ... 1_200,
+                                    format: "%0.3f Hz"
         ) { offset in
             bank.detuningOffset = offset
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            format: "%0.3f",
-            value:  bank.releaseDuration, minimum: 0.5, maximum: 2.0,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Detuning Multiplier",
+                                    value: bank.detuningMultiplier,
+                                    range: 0.5 ... 2.0,
+                                    taper: log(3) / log(2)
         ) { multiplier in
             bank.detuningMultiplier = multiplier
         })
@@ -75,12 +49,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard.delegate = self
         addSubview(keyboard)
 
-        addSubview(AKDynamicButton(title: "Go Polyphonic") {
+        addSubview(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
-                return "Go Monophonic"
+                button.title = "Go Monophonic"
             } else {
-                return "Go Polyphonic"
+                button.title = "Go Polyphonic"
             }
         })
     }

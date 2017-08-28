@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -22,19 +22,11 @@ public class PlaygroundView: AKPlaygroundView {
     public override func setup() {
         addTitle("Node Output Plots")
 
-        addSubview(AKPropertySlider(
-            property: "Time",
-            value: delay.time,
-            color: AKColor.green
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Time", value: delay.time) { sliderValue in
             delay.time = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Feedback",
-            value: delay.feedback,
-            color: AKColor.red
-        ) { sliderValue in
+        addSubview(AKPropertySlider(property: "Feedback", value: delay.feedback) { sliderValue in
             delay.feedback = sliderValue
         })
 

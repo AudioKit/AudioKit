@@ -13,7 +13,7 @@
 /// fundamentalFrequency.  This operation can be used to simulate sympathetic
 /// resonances to an input signal.
 ///
-open class AKStringResonator: AKNode, AKToggleable, AKComponent {
+open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKStringResonatorAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
@@ -80,7 +80,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     ///               filter frequency, typical values are > .9.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         fundamentalFrequency: Double = 100,
         feedback: Double = 0.95) {
 
@@ -95,7 +95,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
