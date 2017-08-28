@@ -19,6 +19,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
                                                   bufferSize: bufferSize,
                                                   format: nil) { [weak self] (buffer, _) in
                 guard let strongSelf = self else {
+                    AKLog("Unable to create strong ref to self")
                     return
                 }
                 buffer.frameLength = strongSelf.bufferSize
