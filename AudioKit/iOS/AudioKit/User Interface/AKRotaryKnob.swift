@@ -270,7 +270,10 @@ public enum AKRotaryKnobStyle {
                   currentValueText: String = "0.0") {
 
         //// General Declarations
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard let context = UIGraphicsGetCurrentContext() else {
+            AKLog("No current graphics context")
+            return
+        }
 
         let width = self.frame.width
         let height = self.frame.height

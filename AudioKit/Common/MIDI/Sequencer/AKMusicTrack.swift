@@ -168,12 +168,14 @@ open class AKMusicTrack {
 
         NewMusicSequence(&tempSequence)
         guard let newSequence = tempSequence else {
+            AKLog("Unable to create temp sequence in setLength")
             return
         }
 
         MusicSequenceNewTrack(newSequence, &tempTrack)
         guard let newTrack = tempTrack,
             let track = internalMusicTrack else {
+                AKLog("internalMusicTrack does not exist")
             return
         }
         MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &durationAsMusicTimeStamp, size)
@@ -188,6 +190,7 @@ open class AKMusicTrack {
             var tempIterator: MusicEventIterator?
             NewMusicEventIterator(track, &tempIterator)
             guard let iterator = tempIterator else {
+                AKLog("Unable to create iterator in setLength")
                 return
             }
             var eventTime = MusicTimeStamp(0)
@@ -208,6 +211,7 @@ open class AKMusicTrack {
                         let note = data?.pointee.note,
                         let velocity = data?.pointee.velocity,
                         let dur = data?.pointee.duration else {
+                            AKLog("Problem with raw midi note message")
                             return
                     }
 
@@ -255,11 +259,13 @@ open class AKMusicTrack {
 
     func clearMetaEvents() {
         guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
             return
         }
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
+            AKLog("Unable to create iterator in clearMetaEvents")
             return
         }
         var eventTime = MusicTimeStamp(0)
@@ -284,11 +290,13 @@ open class AKMusicTrack {
     /// Clear a specific note
     open func clearNote(_ note: MIDINoteNumber) {
         guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
             return
         }
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
+            AKLog("Unable to create iterator in clearNote")
             return
         }
         var eventTime = MusicTimeStamp(0)
@@ -316,11 +324,13 @@ open class AKMusicTrack {
     /// Determine if the sequence is empty
     open var isEmpty: Bool {
         guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
             return true
         }
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
+            AKLog("Unable to create iterator in isEmpty")
             return true
         }
         var outBool = true
@@ -349,6 +359,7 @@ open class AKMusicTrack {
     ///
     open func clearRange(start: AKDuration, duration: AKDuration) {
         guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
             return
         }
         if isNotEmpty {
@@ -371,6 +382,7 @@ open class AKMusicTrack {
                   duration: AKDuration,
                   channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
             return
         }
 
@@ -394,6 +406,7 @@ open class AKMusicTrack {
     open func addController(_ controller: MIDIByte, value: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
 
         guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
             return
         }
         var controlMessage = MIDIChannelMessage(status: MIDIByte(11 << 4) | MIDIByte((channel) & 0xf),
@@ -411,6 +424,7 @@ open class AKMusicTrack {
     ///
     open func addSysex(_ data: [MIDIByte], position: AKDuration) {
         guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
             return
         }
         var midiData = MIDIRawData()
@@ -439,6 +453,7 @@ open class AKMusicTrack {
     open func addPitchBend(_ value: Int = 8_192, position: AKDuration, channel: MIDIChannel = 0) {
 
         guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
             return
         }
         // Find least and most significant bytes, remembering they are 7 bit numbers.
@@ -468,6 +483,7 @@ open class AKMusicTrack {
     open func copyAndMergeTo(musicTrack: AKMusicTrack) {
         guard let track = internalMusicTrack,
             let mergedToTrack = musicTrack.internalMusicTrack else {
+                AKLog("internalMusicTrack does not exist")
                 return
         }
         MusicTrackMerge(track, 0.0, length, mergedToTrack, 0.0)
