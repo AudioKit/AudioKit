@@ -133,18 +133,16 @@ public struct AKMIDIEvent {
                          byte2: packet.data.2)
             }
         } else {
-
-            guard let existingLength = length else {
-                return
-            }
+        
             if packet.isSysex {
                 internalData = [] //reset internalData
-                length = MIDIByte(0)
+                var computedLength = MIDIByte(0)
                 //voodoo
                 let mirrorData = Mirror(reflecting: packet.data)
                 for (_, value) in mirrorData.children {
-                    length = existingLength + 1
+                    computedLength += 1
                     guard let byte = value as? MIDIByte else {
+                        AKLog("unable to create sysex midi byte")
                         return
                     }
                     internalData.append(byte)
@@ -152,6 +150,7 @@ public struct AKMIDIEvent {
                         break
                     }
                 }
+                length = computedLength
 
             } else {
                 if let cmd = packet.command {
@@ -161,9 +160,7 @@ public struct AKMIDIEvent {
                 }
             }
         }
-        if let existingLength = length {
-            internalData = Array(internalData.prefix(Int(existingLength)))
-        }
+        internalData = Array(internalData.prefix(Int(length!)))
     }
 
     /// Generate array of MIDI events from Bluetooth data
