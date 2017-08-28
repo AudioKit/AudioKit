@@ -136,9 +136,11 @@ extension AKMIDI {
     internal func handleMIDIMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
             guard let eventChannel = event.channel else {
+                AKLog("No channel detected in handleMIDIMessage")
                 return
             }
             guard let type = event.status else {
+                AKLog("No status detected in handleMIDIMessage")
                 return
             }
             switch type {

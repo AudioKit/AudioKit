@@ -49,7 +49,10 @@ open class AKAudioUnitManager: NSObject {
         }
 
         set {
-            guard newValue.count == AKAudioUnitManager.maxInserts else { return }
+            guard newValue.count == AKAudioUnitManager.maxInserts else {
+                AKLog("number of newValues doesnt match number of inserts")
+                return
+            }
 
             var unitsCreated: Int = 0
 
@@ -139,7 +142,10 @@ open class AKAudioUnitManager: NSObject {
         var name = NSNotification.Name(rawValue: kAudioComponentRegistrationsChangedNotification as String)
         NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil) { [weak self] _ in
 
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                AKLog("Unable to create strong ref to self")
+                return
+            }
 
             AKLog("* Audio Units available changed *")
 
@@ -151,7 +157,10 @@ open class AKAudioUnitManager: NSObject {
         // Sign up for a notification when an audio unit crashes. Note that we handle this on the main queue for thread-safety.
         name = NSNotification.Name(String(kAudioComponentInstanceInvalidationNotification))
         NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil) { [weak self] notification in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                AKLog("Unable to create strong ref to self")
+                return
+            }
             /*
              If the crashed audio unit was that of our type, remove it from
              the signal chain. Note: we should notify the UI at this point.
@@ -302,7 +311,10 @@ open class AKAudioUnitManager: NSObject {
                 AKLog("#\(index) \(name) -- \(acd)")
 
                 createEffectAudioUnit(acd, completionHandler: { au in
-                    guard let audioUnit = au else { return }
+                    guard let audioUnit = au else {
+                        AKLog("Unable to create audioUnit")
+                        return
+                    }
 
                     if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
                         // Dialog.showInformation(title: "Mono Effects aren't supported",
@@ -335,7 +347,10 @@ open class AKAudioUnitManager: NSObject {
                 AKLog("\(name) -- \(acd)")
 
                 createInstrumentAudioUnit(acd, completionHandler: { au in
-                    guard let audioUnit = au else { return }
+                    guard let audioUnit = au else {
+                        AKLog("Unable to create audioUnit")
+                        return
+                    }
 
                     if completionHandler != nil {
                         completionHandler!( audioUnit )
@@ -378,8 +393,14 @@ open class AKAudioUnitManager: NSObject {
             self.output = lastNode
         }
 
-        guard self.input != nil else { return }
-        guard self.output != nil else { return }
+        guard self.input != nil else {
+            AKLog("self.input is nil")
+            return
+        }
+        guard self.output != nil else {
+            AKLog("output is nil")
+            return
+        }
 
         // it's an effects sandwich
         let inputAV = self.input!.avAudioNode
