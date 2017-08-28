@@ -17,6 +17,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
                                       format: nil) { [weak self] (buffer, _) in
 
             guard let strongSelf = self else {
+                AKLog("Unable to create strong reference to self")
                 return
             }
             buffer.frameLength = strongSelf.bufferSize
