@@ -148,7 +148,10 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
 
         }
 
-        guard let tree = internalAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
+            return
+        }
 
         frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
         tonguePositionParameter = tree.value(forKey: "tonguePosition") as? AUParameter
