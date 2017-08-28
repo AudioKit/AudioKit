@@ -159,6 +159,7 @@ open class AKMetalBar: AKNode, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 

@@ -73,6 +73,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 

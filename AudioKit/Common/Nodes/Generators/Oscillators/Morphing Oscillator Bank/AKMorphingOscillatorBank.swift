@@ -225,6 +225,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 

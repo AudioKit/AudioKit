@@ -89,6 +89,7 @@ open class AKMandolin: AKNode, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
