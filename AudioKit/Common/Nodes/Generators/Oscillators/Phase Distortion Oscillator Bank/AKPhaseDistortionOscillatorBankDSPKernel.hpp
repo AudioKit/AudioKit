@@ -11,13 +11,8 @@
 #import "AKBankDSPKernel.hpp"
 
 enum {
-    phaseDistortionAddress = 0,
-    attackDurationAddress = 1,
-    decayDurationAddress = 2,
-    sustainLevelAddress = 3,
-    releaseDurationAddress = 4,
-    detuningOffsetAddress = 5,
-    detuningMultiplierAddress = 6
+    standardBankEnumElements(),
+    phaseDistortionAddress = numberOfBankEnumElements
 };
 
 class AKPhaseDistortionOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {

@@ -171,10 +171,12 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Trigger the sound with an optional set of parameters
     /// - amplitude amplitude: Volume
     ///
-    open func trigger(amplitude: Double = 0.5) {
-        self.amplitude = amplitude
+    open func trigger(amplitude: Double = -1) {
+        if amplitude != -1 {
+            self.amplitude = amplitude
+        }
         internalAU?.start()
-        internalAU?.triggerType(type.rawValue, amplitude: Float(amplitude))
+        internalAU?.triggerType(type.rawValue, amplitude: Float(self.amplitude))
     }
 
     /// Function to start, play, or activate the node, all do the same thing

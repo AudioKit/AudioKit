@@ -18,9 +18,6 @@ extension AVAudioConnectionPoint {
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
 
-    /// An array of all connections
-    internal var connectionPoints = [AVAudioConnectionPoint]()
-
     /// Create the node
     override public init() {
         self.avAudioNode = AVAudioNode()
@@ -33,28 +30,34 @@ extension AVAudioConnectionPoint {
         AudioKit.engine.attach(avAudioNode)
       }
     }
+    //Subclasses should override to detach all internal nodes
+    open func detach() {
+        AudioKit.detach(nodes: [avAudioNode])
+    }
+}
 
-    /// Connect this node to another
+extension AKNode: AKOutput {
+    public var outputNode: AVAudioNode {
+        return avAudioNode
+    }
+
+    @available(*, deprecated, renamed: "connect(to:bus:)")
     open func addConnectionPoint(_ node: AKNode, bus: Int = 0) {
         connectionPoints.append(AVAudioConnectionPoint(node, to: bus))
-        AudioKit.engine.connect(avAudioNode,
-                                to: connectionPoints,
-                                fromBus: 0,
-                                format: AudioKit.format)
     }
+}
 
-    /// Disconnect the node
+//Deprecated
+extension AKNode {
+
+    @available(*, deprecated, renamed: "detach")
     open func disconnect() {
-        disconnect(nodes: [self.avAudioNode])
+        detach()
     }
 
-    /// Disconnect an array of nodes
+    @available(*, deprecated, message: "Use AudioKit.dettach(nodes:) instead")
     open func disconnect(nodes: [AVAudioNode]) {
-        for node in nodes {
-            AudioKit.engine.disconnectNodeInput(node)
-            AudioKit.engine.disconnectNodeOutput(node)
-            AudioKit.engine.detach(node)
-        }
+        AudioKit.detach(nodes: nodes)
     }
 }
 

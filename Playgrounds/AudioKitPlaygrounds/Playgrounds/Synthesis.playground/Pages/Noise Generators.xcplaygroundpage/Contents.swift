@@ -21,28 +21,25 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Noise Generators")
 
-        addSubview(AKPropertySlider(
-            property: "Brownian Volume",
-            format: "%0.2f",
-            value: brownian.amplitude,
-            color: AKColor.brown
+        addSubview(AKPropertySlider(property: "Brownian Volume",
+                                    value: brownian.amplitude,
+                                    format: "%0.2f",
+                                    color: AKColor.brown
         ) { amplitude in
             brownian.amplitude = amplitude
         })
 
-        addSubview(AKPropertySlider(
-            property: "Pink Volume",
-            format: "%0.2f",
-            value: pink.amplitude,
-            color: AKColor.magenta
+        addSubview(AKPropertySlider(property: "Pink Volume",
+                                    value: pink.amplitude,
+                                    format: "%0.2f",
+                                    color: AKColor.magenta
         ) { amplitude in
             pink.amplitude = amplitude
         })
-        addSubview(AKPropertySlider(
-            property: "White Volume",
-            format: "%0.2f",
-            value: white.amplitude,
-            color: AKColor.white
+        addSubview(AKPropertySlider(property: "White Volume",
+                                    value: white.amplitude,
+                                    format: "%0.2f",
+                                    color: AKColor.white
         ) { amplitude in
             white.amplitude = amplitude
         })

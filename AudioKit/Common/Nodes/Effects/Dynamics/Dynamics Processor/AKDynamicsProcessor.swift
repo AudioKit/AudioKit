@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
-open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
+open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
 
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
@@ -100,6 +100,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     fileprivate var lastKnownMix: Double = 100
     fileprivate var inputGain: AKMixer?
     fileprivate var effectGain: AKMixer?
+    fileprivate var inputMixer = AKMixer()
 
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
@@ -123,7 +124,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     ///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         threshold: Double = -20,
         headRoom: Double = 5,
         expansionRatio: Double = 2,
@@ -143,12 +144,15 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
             self.releaseTime = releaseTime
             self.masterGain = masterGain
 
-            inputGain = AKMixer(input)
+            inputGain = AKMixer()
             inputGain?.volume = 0
             mixer = AKMixer(inputGain)
 
-            effectGain = AKMixer(input)
+            effectGain = AKMixer()
             effectGain?.volume = 1
+
+            input?.connect(to: inputMixer)
+            inputMixer.connect(to: [inputGain!, effectGain!])
 
             let effect = _Self.effect
             self.internalEffect = effect
@@ -171,6 +175,10 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
             au[kDynamicsProcessorParam_AttackTime] = attackTime
             au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
             au[kDynamicsProcessorParam_MasterGain] = masterGain
+    }
+
+    public var inputNode: AVAudioNode {
+        return inputMixer.avAudioNode
     }
 
     // MARK: - Control
@@ -196,7 +204,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect {
     override open func disconnect() {
         stop()
 
-        disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputMixer.avAudioNode, inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }

@@ -8,7 +8,7 @@
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
+open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPeakingParametricEqualizerFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")
@@ -88,7 +88,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         centerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
@@ -105,7 +105,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

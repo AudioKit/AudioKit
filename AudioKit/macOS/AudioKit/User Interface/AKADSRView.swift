@@ -100,7 +100,7 @@ public class AKADSRView: NSView {
         let decayColor = #colorLiteral(red: 0.942, green: 0.648, blue: 0, alpha: 1)
         let sustainColor = #colorLiteral(red: 0.32, green: 0.8, blue: 0.616, alpha: 1)
         let releaseColor = #colorLiteral(red: 0.72, green: 0.519, blue: 0.888, alpha: 1)
-        let backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        let backgroundColor = AKStylist.sharedInstance.bgColor
 
         self.wantsLayer = true
         self.layer?.backgroundColor = backgroundColor.cgColor

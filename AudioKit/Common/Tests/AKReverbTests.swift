@@ -11,29 +11,23 @@ import XCTest
 
 class AKReverbTests: AKTestCase {
 
-    func testDefault() {
-        let input = AKOscillator()
-        output = AKReverb(input)
-        input.start()
-        AKTestMD5("85cf66a4a60a8910a11b9e0188452e8b")
-    }
-
     func testCathedral() {
-        let input = AKOscillator()
         let effect = AKReverb(input)
         output = effect
-        input.start()
         effect.loadFactoryPreset(.cathedral)
-        AKTestMD5("db9e5c29696457cefd6b7525be6a6cbc")
+        AKTestMD5("7281cc33badbdeec0280dc1711bb92ce")
+    }
+
+    func testDefault() {
+        output = AKReverb(input)
+        AKTestMD5("b9351188e123ed02502c7a5559a1499c")
     }
 
     func testSmallRoom() {
-        let input = AKOscillator()
         let effect = AKReverb(input)
         output = effect
-        input.start()
         effect.loadFactoryPreset(.smallRoom)
-        AKTestMD5("6a45dbf872a4de21675e008ea4bf757c")
+        AKTestMD5("da887657fae100779db2f244ee142638")
     }
 
 }

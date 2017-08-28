@@ -17,12 +17,10 @@ class ReverberateWithFlatFrequencyResponseTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.reverberateWithFlatFrequencyResponse()
         }
-        AKTestMD5("c4d24a25085c972e54a290ba7367ef18")
+        AKTestMD5("81986911704e817a55f6259c3dc94904")
     }
 
 }

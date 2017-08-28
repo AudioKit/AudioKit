@@ -17,12 +17,10 @@ class ReverberateWithCombFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.reverberateWithCombFilter()
         }
-        AKTestMD5("f158deceefbed8b03d69efbdeb76df2b")
+        AKTestMD5("01de6f7cde6eeb46183411d5d0102ac7")
     }
 
 }

@@ -11,13 +11,8 @@
 #import "AKBankDSPKernel.hpp"
 
 enum {
-    pulseWidthAddress = 0,
-    attackDurationAddress = 1,
-    decayDurationAddress = 2,
-    sustainLevelAddress = 3,
-    releaseDurationAddress = 4,
-    detuningOffsetAddress = 5,
-    detuningMultiplierAddress = 6
+    standardBankEnumElements(),
+    pulseWidthAddress = numberOfBankEnumElements
 };
 
 class AKPWMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {

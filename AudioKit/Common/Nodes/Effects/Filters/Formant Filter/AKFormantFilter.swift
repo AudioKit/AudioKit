@@ -10,7 +10,7 @@
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
+open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
@@ -30,7 +30,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// Center frequency.
+    /// x
     open dynamic var x: Double = 0 {
         willSet {
             if x != newValue {
@@ -44,7 +44,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             }
         }
     }
-    /// Impulse response attack time (in seconds).
+    /// y
     open dynamic var y: Double = 0 {
         willSet {
             if y != newValue {
@@ -70,12 +70,11 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - centerFrequency: Center frequency.
-    ///   - attackDuration: Impulse response attack time (in seconds).
-    ///   - decayDuration: Impulse reponse decay time (in seconds)
+    ///   - x:
+    ///   - y:
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         x: Double = 0,
         y: Double = 0) {
 
@@ -90,7 +89,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

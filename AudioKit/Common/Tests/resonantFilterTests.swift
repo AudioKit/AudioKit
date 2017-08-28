@@ -17,12 +17,10 @@ class ResonantFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.resonantFilter()
         }
-        AKTestMD5("467ff2e714a8ead024cee521d959cb87")
+        AKTestMD5("63b1c6599a5efafd457cc9464073943f")
     }
 
 }

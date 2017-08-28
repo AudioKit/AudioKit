@@ -22,24 +22,20 @@ class PitchShifterViewController: UIViewController {
         pitchSlider.minimum = -24
         pitchSlider.maximum = 24
 
-        if let pitch = songProcessor.pitchShifter?.shift {
-            pitchSlider.value = pitch
-        }
-        if let balance = songProcessor.pitchMixer?.balance {
-            mixSlider.value = balance
-        }
+        pitchSlider.value = songProcessor.pitchShifter.shift
 
+        mixSlider.value = songProcessor.pitchMixer.balance
         mixSlider.callback = updateMix
         pitchSlider.callback = updatePitch
 
     }
 
     func updatePitch(value: Double) {
-        songProcessor.pitchShifter?.shift = value
+        songProcessor.pitchShifter.shift = value
     }
 
     func updateMix(value: Double) {
-        songProcessor.pitchMixer?.balance = value
+        songProcessor.pitchMixer.balance = value
     }
-
+    
 }

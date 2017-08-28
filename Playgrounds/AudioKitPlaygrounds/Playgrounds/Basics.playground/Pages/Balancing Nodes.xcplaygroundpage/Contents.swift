@@ -10,7 +10,7 @@ import AudioKitPlaygrounds
 import AudioKit
 
 //: This section prepares the players
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 var source = try AKAudioPlayer(file: file)
 source.looping = true
 

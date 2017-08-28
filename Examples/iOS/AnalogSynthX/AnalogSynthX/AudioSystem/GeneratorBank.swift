@@ -139,7 +139,7 @@ class GeneratorBank: AKPolyphonicNode {
         let square = AKTable(.square)
         let sawtooth = AKTable(.sawtooth)
 
-        var squareWithHighPWM = AKTable()
+        let squareWithHighPWM = AKTable()
         let count = squareWithHighPWM.count
         for i in squareWithHighPWM.indices {
             if i < count / 8 {

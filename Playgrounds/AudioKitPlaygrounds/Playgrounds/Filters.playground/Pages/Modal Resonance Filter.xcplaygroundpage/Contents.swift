@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -26,24 +25,21 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Modal Resonance Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Frequency",
-            format: "%0.1f Hz",
-            value: filter.frequency, maximum: 5_000,
-            color: AKColor.green
+        addSubview(AKPropertySlider(property: "Frequency",
+                                    value: filter.frequency,
+                                    range: 0 ... 5_000,
+                                    taper: 3,
+                                    format: "%0.1f Hz"
         ) { sliderValue in
             filter.frequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Quality Factor",
-            format: "%0.1f",
-            value: filter.qualityFactor, minimum: 0.1, maximum: 20,
-            color: AKColor.red
+        addSubview(AKPropertySlider(property: "Quality Factor",
+                                    value: filter.qualityFactor,
+                                    range: 0.1 ... 20,
+                                    format: "%0.1f"
         ) { sliderValue in
             filter.qualityFactor = sliderValue
         })

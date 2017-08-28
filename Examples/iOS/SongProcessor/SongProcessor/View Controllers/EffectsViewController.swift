@@ -13,6 +13,8 @@ class EffectsViewController: UIViewController {
 
     @IBOutlet private weak var volumeSlider: AKPropertySlider!
 
+    var docController: UIDocumentInteractionController?
+
     let songProcessor = SongProcessor.sharedInstance
 
     override func viewDidLoad() {
@@ -20,10 +22,9 @@ class EffectsViewController: UIViewController {
 
         volumeSlider.maximum = 10.0
 
-        if let volume = songProcessor.playerBooster?.gain {
-            volumeSlider.value = volume
-        }
+        volumeSlider.value = songProcessor.playerBooster.gain
         volumeSlider.callback = updateVolume
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share(barButton:)))
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +33,16 @@ class EffectsViewController: UIViewController {
     }
 
     func updateVolume(value: Double) {
-        songProcessor.playerBooster?.gain = value
+        songProcessor.playerBooster.gain = value
     }
 
+    @objc func share(barButton: UIBarButtonItem) {
+        renderAndShare { docController in
+            guard let canOpen = docController?.presentOpenInMenu(from: barButton, animated: true) else { return }
+            if !canOpen {
+                self.present(self.alertForShareFail(), animated: true, completion: nil)
+            }
+        }
+    }
+    
 }

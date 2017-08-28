@@ -17,12 +17,10 @@ class DistortTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.distort()
         }
-        AKTestMD5("cf2d30b232f4a234730d1594055c32d3")
+        AKTestMD5("5f38e5319cad3899cae5f4d5e7cef11b")
     }
 
 }

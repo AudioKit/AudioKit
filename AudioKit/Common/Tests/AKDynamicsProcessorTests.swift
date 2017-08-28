@@ -12,9 +12,8 @@ import XCTest
 class AKDynamicsProcessorTests: AKTestCase {
 
     func testDefault() {
-        let input = AKOscillator()
         output = AKDynamicsProcessor(input)
-        input.start()
-        AKTestMD5("7394f7fa840b20c1cd0f50eebec28b2e")
+        AKTestMD5("0a3ded76baa047969bb90eae8fc1f7a9")
     }
+
 }

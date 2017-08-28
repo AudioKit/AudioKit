@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-open class AKReverb2: AKNode, AKToggleable {
+open class AKReverb2: AKNode, AKToggleable, AKInput {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -164,7 +164,7 @@ open class AKReverb2: AKNode, AKToggleable {
     ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         dryWetMix: Double = 0.5,
         gain: Double = 0,
         minDelayTime: Double = 0.008,
@@ -186,7 +186,7 @@ open class AKReverb2: AKNode, AKToggleable {
             super.init()
             self.avAudioNode = internalEffect
             AudioKit.engine.attach(self.avAudioNode)
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
             internalAU = internalEffect.audioUnit
 
             if let audioUnit = internalAU {

@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
+let mixloop = try AKAudioFile(readFileName: "mixloop.wav")
 
 let player = try AKAudioPlayer(file: mixloop) {
     print("completion callback has been triggered!")
@@ -39,71 +39,67 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
 
-        addSubview(AKDynamicButton(title: "Disable Looping") {
+        addSubview(AKButton(title: "Disable Looping") { button in
             player.looping = !player.looping
             if player.looping {
-                return "Disable Looping"
+                button.title = "Disable Looping"
             } else {
-                return "Enable Looping"
+                button.title = "Enable Looping"
             }
         })
 
-        addSubview(AKDynamicButton(title: "Direction: ➡️") {
+        addSubview(AKButton(title: "Direction: ➡️") { button in
             if player.isPlaying {
                 player.stop()
             }
             player.reversed = !player.reversed
             if player.reversed {
-                return "Direction: ⬅️"
+                button.title = "Direction: ⬅️"
             } else {
-                return "Direction: ➡️"
+                button.title = "Direction: ➡️"
             }
         })
 
-        fadeInSlider = AKPropertySlider(
-            property: "Fade In",
-            format: "%0.2f s",
-            value: player.fadeInTime, maximum: 2,
-            color: AKColor.brown
+        fadeInSlider = AKPropertySlider(property: "Fade In",
+                                        value: player.fadeInTime,
+                                        range: 0 ... 2,
+                                        format: "%0.2f s"
         ) { sliderValue in
             player.fadeInTime = sliderValue
         }
         addSubview(fadeInSlider)
 
-        fadeOutSlider = AKPropertySlider(
-            property: "Fade Out",
-            format: "%0.2f s",
-            value: player.fadeOutTime, maximum: 2,
-            color: AKColor.brown
+        fadeOutSlider = AKPropertySlider(property: "Fade Out",
+                                         value: player.fadeOutTime,
+                                         range: 0 ... 2,
+                                         format: "%0.2f s"
         ) { sliderValue in
             player.fadeOutTime = sliderValue
         }
         addSubview(fadeOutSlider)
 
-        inPositionSlider = AKPropertySlider(
-            property: "In Position",
-            format: "%0.2f s",
-            value: player.startTime, maximum: 3.428,
-            color: AKColor.green
+        inPositionSlider = AKPropertySlider(property: "In Position",
+                                            value: player.startTime,
+                                            range: 0 ... 3.428,
+                                            format: "%0.2f s"
         ) { sliderValue in
             player.startTime = sliderValue
         }
         addSubview(inPositionSlider)
 
-        outPositionSlider = AKPropertySlider(
-            property: "Out Position",
-            format: "%0.2f s",
-            value: player.endTime, maximum: 3.428
+        outPositionSlider = AKPropertySlider(property: "Out Position",
+                                             value: player.endTime,
+                                             range: 0 ... 3.428,
+                                             format: "%0.2f s"
         ) { sliderValue in
             player.endTime = sliderValue
         }
         addSubview(outPositionSlider)
 
-        playingPositionSlider = AKPropertySlider(
-            property: "Position",
-            format: "%0.2f s",
-            value: player.playhead, maximum: 3.428,
-            color: AKColor.yellow
+        playingPositionSlider = AKPropertySlider(property: "Position",
+                                                 value: player.playhead,
+                                                 range: 0 ... 3.428,
+                                                 format: "%0.2f s"
         ) { _ in
             // Can't do player.playhead = sliderValue
         }
