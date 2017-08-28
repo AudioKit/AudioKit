@@ -47,6 +47,7 @@ open class AK3DPanner: AKNode, AKInput {
         super.init(avAudioNode: environmentNode, attach: true)
 
         guard let inputNode = input else {
+            AKLog("Unable to create inputNode")
             return
         }
         input?.connect(to: inputMixer)

@@ -262,7 +262,10 @@ public enum AKPropertySliderStyle {
 
     /// Draw the slider
     override open func draw(_ rect: CGRect) {
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard let context = UIGraphicsGetCurrentContext() else {
+            AKLog("No current graphics context")
+            return
+        }
         context.clear(rect)
 
         drawFlatSlider(currentValue: CGFloat(val),
@@ -277,7 +280,10 @@ public enum AKPropertySliderStyle {
                         currentValueText: String = "0.0") {
 
         //// General Declarations
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard let context = UIGraphicsGetCurrentContext() else {
+            AKLog("No current graphics context")
+            return
+        }
 
         let width = self.frame.width
         let height = self.frame.height

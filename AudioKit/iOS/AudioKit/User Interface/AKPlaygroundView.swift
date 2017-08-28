@@ -63,6 +63,7 @@ open class AKPlaygroundView: UIView {
     /// Add the subview, and move the Y Position down
     open override func addSubview(_ potentialView: UIView?) {
         guard let view = potentialView else {
+            AKLog("Unable to create view in addSubview")
             return
         }
         view.frame.origin.y = CGFloat(yPosition)
