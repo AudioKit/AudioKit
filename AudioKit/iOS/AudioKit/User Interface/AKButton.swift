@@ -6,13 +6,13 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// A button, mainly used for playgrounds, but could be useful in your own projects
-
+/// Different looks the button can have
 public enum AKButtonStyle {
     case standard
     case round
 }
 
+/// A button, mainly used for playgrounds, but could be useful in your own projects
 @IBDesignable open class AKButton: UIView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
@@ -49,13 +49,14 @@ public enum AKButtonStyle {
         }
     }
 
+    /// Color when the button is highlighted
     @IBInspectable open var highlightedColor: UIColor? {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    // Button border width
+    /// Button border width
     @IBInspectable open var borderWidth: CGFloat = 3.0 {
         didSet {
             setNeedsDisplay()
@@ -69,6 +70,7 @@ public enum AKButtonStyle {
         }
     }
 
+    /// Button style
     open var style: AKButtonStyle = .standard {
         didSet {
             setNeedsDisplay()
@@ -83,6 +85,7 @@ public enum AKButtonStyle {
         isHighlighted = true
     }
 
+    /// Handle touch events
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         transform = CGAffineTransform.identity
         isHighlighted = false
