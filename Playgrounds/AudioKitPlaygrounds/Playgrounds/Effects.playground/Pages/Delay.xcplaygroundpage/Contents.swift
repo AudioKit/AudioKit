@@ -3,6 +3,7 @@
 //: varying length delay times and feedback amounts
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 

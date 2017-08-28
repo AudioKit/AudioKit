@@ -3,6 +3,7 @@
 //: What's this good for?  We don't know, but hey it's cool. :)
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 var playRate = 2.0
 

@@ -21,6 +21,8 @@ for i in custom.indices {
     custom[i] += Float(random(-0.3, 0.3) + Double(i) / 2_048.0)
 }
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {

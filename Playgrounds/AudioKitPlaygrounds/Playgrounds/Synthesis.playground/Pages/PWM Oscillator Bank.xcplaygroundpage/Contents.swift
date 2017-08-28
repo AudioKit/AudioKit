@@ -1,10 +1,11 @@
 //: ## PWM Oscillator Bank
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-let osc = AKPWMOscillatorBank(pulseWidth: 0.5)
+let bank = AKPWMOscillatorBank(pulseWidth: 0.5)
 
-AudioKit.output = osc
+AudioKit.output = bank
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
@@ -14,36 +15,44 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("PWM Oscillator Bank")
 
-        addSubview(AKPropertySlider(property: "Pulse Width", value: osc.pulseWidth) { sliderValue in
-            osc.pulseWidth = sliderValue
+        addSubview(AKPropertySlider(property: "Pulse Width", value: bank.pulseWidth) { sliderValue in
+            bank.pulseWidth = sliderValue
         })
 
         let adsrView = AKADSRView { att, dec, sus, rel in
-            osc.attackDuration = att
-            osc.decayDuration = dec
-            osc.sustainLevel = sus
-            osc.releaseDuration = rel
+            bank.attackDuration = att
+            bank.decayDuration = dec
+            bank.sustainLevel = sus
+            bank.releaseDuration = rel
         }
-        adsrView.attackDuration = osc.attackDuration
-        adsrView.decayDuration = osc.decayDuration
-        adsrView.releaseDuration = osc.releaseDuration
-        adsrView.sustainLevel = osc.sustainLevel
+        adsrView.attackDuration = bank.attackDuration
+        adsrView.decayDuration = bank.decayDuration
+        adsrView.releaseDuration = bank.releaseDuration
+        adsrView.sustainLevel = bank.sustainLevel
         addSubview(adsrView)
 
-        addSubview(AKPropertySlider(property: "Detuning Offset",
-                                    value:  osc.releaseDuration,
-                                    range: -100 ... 100,
-                                    format: "%0.1f Cents"
+        addSubview(AKPropertySlider(property: "Pitch Bend",
+                                    value: bank.pitchBend,
+                                    range: -12 ... 12,
+                                    format: "%0.2f semitones"
         ) { sliderValue in
-            osc.detuningOffset = sliderValue
+            bank.pitchBend = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Detuning Multiplier",
-                                    value:  osc.detuningMultiplier,
-                                    range: 0.5 ... 2.0,
-                                    taper: log(3) / log(2)
+        addSubview(AKPropertySlider(property: "Vibrato Depth",
+                                    value: bank.vibratoDepth,
+                                    range: 0 ... 2,
+                                    format: "%0.2f semitones"
         ) { sliderValue in
-            osc.detuningMultiplier = sliderValue
+            bank.vibratoDepth = sliderValue
+        })
+
+        addSubview(AKPropertySlider(property: "Vibrato Rate",
+                                    value: bank.vibratoRate,
+                                    range: 0 ... 10,
+                                    format: "%0.2f Hz"
+        ) { sliderValue in
+            bank.vibratoRate = sliderValue
         })
 
         keyboard = AKKeyboardView(width: 440, height: 100, firstOctave: 3, octaveCount: 3)
@@ -62,11 +71,11 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 
     func noteOn(note: MIDINoteNumber) {
-        osc.play(noteNumber: note, velocity: 80)
+        bank.play(noteNumber: note, velocity: 80)
     }
 
     func noteOff(note: MIDINoteNumber) {
-        osc.stop(noteNumber: note)
+        bank.stop(noteNumber: note)
     }
 
 }

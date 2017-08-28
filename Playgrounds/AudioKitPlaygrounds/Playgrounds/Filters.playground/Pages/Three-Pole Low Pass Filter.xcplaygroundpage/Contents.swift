@@ -19,6 +19,8 @@ AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {

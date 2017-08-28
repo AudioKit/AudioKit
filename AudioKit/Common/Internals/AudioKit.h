@@ -129,8 +129,18 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Testing
 #import "AKTesterAudioUnit.h"
 
-// Plots
+// EZAudio
 #import "EZAudio.h"
 
 //Offline
 #import "AKOfflineRenderAudioUnit.h"
+
+//Taps
+#import "AKRenderTap.h"
+#import "AKLazyTap.h"
+
+//Utilities
+#import "TPCircularBuffer.h"
+#import "TPCircularBuffer+Unit.h"
+#import "TPCircularBuffer+AudioBufferList.h"
+

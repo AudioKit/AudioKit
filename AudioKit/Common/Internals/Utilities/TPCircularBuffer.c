@@ -35,7 +35,7 @@
 #define reportResult(result,operation) (_reportResult((result),(operation),strrchr(__FILE__, '/')+1,__LINE__))
 static inline bool _reportResult(kern_return_t result, const char *operation, const char* file, int line) {
     if ( result != ERR_SUCCESS ) {
-        printf("%s:%d: %s: %s\n", file, line, operation, mach_error_string(result));
+        printf("%s:%d: %s: %s\n", file, line, operation, mach_error_string(result)); 
         return false;
     }
     return true;
@@ -53,9 +53,9 @@ bool _TPCircularBufferInit(TPCircularBuffer *buffer, int32_t length, size_t stru
     // Keep trying until we get our buffer, needed to handle race conditions
     int retries = 3;
     while ( true ) {
-        
+
         buffer->length = (int32_t)round_page(length);    // We need whole page sizes
-        
+
         // Temporarily allocate twice the length, so we have the contiguous address space to
         // support a second instance of the buffer directly after
         vm_address_t bufferAddress;
@@ -116,7 +116,7 @@ bool _TPCircularBufferInit(TPCircularBuffer *buffer, int32_t length, size_t stru
                 printf("Couldn't map buffer memory to end of buffer\n");
                 return false;
             }
-            
+
             vm_deallocate(mach_task_self(), virtualAddress, buffer->length);
             vm_deallocate(mach_task_self(), bufferAddress, buffer->length);
             continue;

@@ -95,17 +95,20 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = osc->freq;
-            osc->freq *= kernel->detuningMultiplier;
-            osc->freq += kernel->detuningOffset;
+
+            osc->freq *= powf(2, kernel->pitchBend / 12.0);
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
-            
+            float bentFrequency = osc->freq;
+
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
 
+
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
+                osc->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
                 sp_osc_compute(kernel->sp, osc, nil, &x);
                 *outL++ += amp * x;
@@ -128,6 +131,7 @@ public:
         for (NoteState& state : noteStates) {
             state.kernel = this;
         }
+
     }
 
     void setupWaveform(uint32_t size) {
@@ -174,10 +178,11 @@ public:
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         standardBankGetAndSteps()
-        
+
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
+            sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
         }
         
         NoteState* noteState = playingNotes;

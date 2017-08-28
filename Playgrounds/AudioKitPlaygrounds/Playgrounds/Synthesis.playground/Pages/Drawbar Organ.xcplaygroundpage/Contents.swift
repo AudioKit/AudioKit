@@ -3,6 +3,7 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 var oscillator = AKOscillatorBank()
 AudioKit.output = oscillator
@@ -48,7 +49,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     func stopAll() {
         for i in 0 ..< noteCount {
-            oscillator.stop(noteNumber: MIDINoteNumber(Int(baseNote) + offsets[i]))
+            if Int(baseNote) + offsets[i] > 0 {
+                oscillator.stop(noteNumber: MIDINoteNumber(Int(baseNote) + offsets[i]))
+            }
         }
     }
 

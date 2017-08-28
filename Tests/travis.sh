@@ -10,7 +10,7 @@ cd Frameworks
 ./build_frameworks.sh || exit 1
 cd ..
 
-echo "Skipping iOS Unit Tests During Beta 5"
+echo "Running iOS Unit Tests"
 #xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.0' | xcpretty -c || exit 3
 
 echo "Building iOS HelloWorld"

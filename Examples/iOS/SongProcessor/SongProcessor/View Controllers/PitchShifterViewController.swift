@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class PitchShifterViewController: UIViewController {
@@ -19,8 +20,7 @@ class PitchShifterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pitchSlider.minimum = -24
-        pitchSlider.maximum = 24
+        pitchSlider.range = -24 ... 24
 
         pitchSlider.value = songProcessor.pitchShifter.shift
 
@@ -37,5 +37,5 @@ class PitchShifterViewController: UIViewController {
     func updateMix(value: Double) {
         songProcessor.pitchMixer.balance = value
     }
-    
+
 }

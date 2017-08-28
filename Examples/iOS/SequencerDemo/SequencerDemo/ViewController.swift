@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
@@ -24,8 +25,7 @@ class ViewController: UIViewController {
             $0?.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
         })
         tempoSlider.callback = updateTempo
-        tempoSlider.minimum = 40
-        tempoSlider.maximum = 200
+        tempoSlider.range = 40 ... 200
         tempoSlider.value = 110
         tempoSlider.format = "%0.1f BPM"
     }

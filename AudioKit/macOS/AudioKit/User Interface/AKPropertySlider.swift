@@ -44,7 +44,7 @@ public enum AKPropertySliderStyle {
             value = range.clamp(value)
             value = onlyIntegers ? round(value) : value
 
-            val = value.normalized(range: range, taper: taper)
+            val = value.normalized(from: range, taper: taper)
         }
     }
 
@@ -56,7 +56,7 @@ public enum AKPropertySliderStyle {
 
     open var range: ClosedRange<Double> = 0 ... 1 {
         didSet {
-            val = value.normalized(range: range, taper: taper)
+            val = value.normalized(from: range, taper: taper)
         }
     }
 
@@ -133,7 +133,7 @@ public enum AKPropertySliderStyle {
         self.callback = callback
         super.init(frame: frame)
 
-        self.val = value.normalized(range: range, taper: taper)
+        self.val = value.normalized(from: range, taper: taper)
 
         self.wantsLayer = true
 
@@ -164,7 +164,7 @@ public enum AKPropertySliderStyle {
 
         val = (0 ... 1).clamp(Double( (loc.x - sliderMargin) / (bounds.width - sliderMargin * 2.0) ))
 
-        value = val.denormalized(range: range, taper: taper)
+        value = val.denormalized(to: range, taper: taper)
         callback(value)
     }
 
@@ -232,8 +232,6 @@ public enum AKPropertySliderStyle {
 
     func drawFlatSlider(currentValue: CGFloat = 0,
                         initialValue: CGFloat = 0,
-                        minimum: CGFloat = 0,
-                        maximum: CGFloat = 1,
                         propertyName: String = "Property Name",
                         currentValueText: String = "0.0") {
 
@@ -282,9 +280,9 @@ public enum AKPropertySliderStyle {
 
         //// Variable Declarations
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-        let currentWidth: CGFloat = currentValue < minimum ? sliderMargin :
-            (currentValue < maximum ?
-                (currentValue - minimum) / (maximum - minimum) * (width - (sliderMargin * 2.0)) + sliderMargin :
+        let currentWidth: CGFloat = currentValue < 0 ? sliderMargin :
+            (currentValue < 1 ?
+                currentValue  * (width - (sliderMargin * 2.0)) + sliderMargin :
                 width - sliderMargin)
 
         //// sliderArea Drawing

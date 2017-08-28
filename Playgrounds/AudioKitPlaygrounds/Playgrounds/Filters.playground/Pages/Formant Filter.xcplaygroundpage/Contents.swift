@@ -13,6 +13,7 @@ AudioKit.start()
 osc.play()
 
 //: User Interface Set up
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 

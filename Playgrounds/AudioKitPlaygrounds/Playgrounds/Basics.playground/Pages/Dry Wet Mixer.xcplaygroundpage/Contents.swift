@@ -11,7 +11,6 @@
 //: AKDryWetMixer to blend your signals.
 import AudioKitPlaygrounds
 import AudioKit
-
 //: This section prepares the players
 let file = try AKAudioFile(readFileName: "drumloop.wav")
 var drums = try AKAudioPlayer(file: file)
@@ -34,6 +33,7 @@ AudioKit.start()
 drums.play()
 
 //: User Interface Set up
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 

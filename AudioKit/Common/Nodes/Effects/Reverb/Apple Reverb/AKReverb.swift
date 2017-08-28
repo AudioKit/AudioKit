@@ -28,7 +28,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     ///
     /// - Parameters:
     ///   - input: AKNode to reverberate
-    ///   - dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
+    ///   - dryWetMix: Amount of processed signal (Default: 0.5, Range: 0 - 1)
     ///
     public init(_ input: AKNode? = nil, dryWetMix: Double = 0.5) {
         self.dryWetMix = dryWetMix

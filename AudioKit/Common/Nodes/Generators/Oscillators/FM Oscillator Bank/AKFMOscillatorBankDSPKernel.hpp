@@ -98,9 +98,10 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = fosc->freq;
-            fosc->freq *= kernel->detuningMultiplier;
-            fosc->freq += kernel->detuningOffset;
+            fosc->freq *= powf(2, kernel->pitchBend / 12.0);
             fosc->freq = clamp(fosc->freq, 0.0f, 22050.0f);
+            float bentFrequency = fosc->freq;
+
             fosc->car = kernel->carrierMultiplier;
             fosc->mod = kernel->modulatingMultiplier;
             fosc->indx = kernel->modulationIndex;
@@ -112,6 +113,7 @@ public:
 
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
+                fosc->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
                 sp_fosc_compute(kernel->sp, fosc, nil, &x);
                 *outL++ += amp * x;
@@ -239,6 +241,7 @@ public:
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
+            sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
         }
         
         NoteState* noteState = playingNotes;

@@ -9,6 +9,7 @@
 //: rather interesting digital distortion effects.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 

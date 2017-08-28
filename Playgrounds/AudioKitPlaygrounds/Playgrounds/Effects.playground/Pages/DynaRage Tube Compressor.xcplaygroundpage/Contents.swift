@@ -21,6 +21,7 @@ AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 
@@ -86,4 +87,3 @@ class PlaygroundView: AKPlaygroundView {
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = PlaygroundView()
-

@@ -24,6 +24,7 @@ AudioKit.output = silence
 AudioKit.start()
 
 //: User Interface
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 

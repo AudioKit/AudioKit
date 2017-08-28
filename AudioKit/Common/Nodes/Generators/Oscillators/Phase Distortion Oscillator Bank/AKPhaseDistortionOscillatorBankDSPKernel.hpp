@@ -104,9 +104,10 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = phs->freq;
-            phs->freq *= kernel->detuningMultiplier;
-            phs->freq += kernel->detuningOffset;
+            phs->freq *= powf(2, kernel->pitchBend / 12.0);
             phs->freq = clamp(phs->freq, 0.0f, 22050.0f);
+            float bentFrequency = phs->freq;
+
             pdhalf->amount = kernel->phaseDistortion;
 
             adsr->atk = (float)kernel->attackDuration;
@@ -118,6 +119,7 @@ public:
                 float temp = 0;
                 float pd = 0;
                 float ph = 0;
+                phs->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
 
                 sp_phasor_compute(kernel->sp, phs, NULL, &ph);
@@ -214,6 +216,7 @@ public:
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
+            sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
         }
         
         NoteState* noteState = playingNotes;
