@@ -31,5 +31,4 @@ class AKResonantFilterTests: AKTestCase {
         AKTestMD5("294c083b6980ee6c63c2b83e55f89d9d")
     }
 
-
 }

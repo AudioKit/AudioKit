@@ -88,7 +88,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     /// Initialize this Phase-Locked Vocoder node
     ///
     /// - Parameters:
-    ///   - audioFileURL: Location of the audio file to use.
+    ///   - file: Location of the audio file to use.
     ///   - position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     ///   - amplitude: Amplitude.
     ///   - pitchRatio: Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.

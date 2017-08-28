@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class CostelloReverbViewController: UIViewController {
@@ -33,5 +34,5 @@ class CostelloReverbViewController: UIViewController {
     func updateMix(value: Double) {
         songProcessor.reverbMixer.balance = value
     }
-    
+
 }

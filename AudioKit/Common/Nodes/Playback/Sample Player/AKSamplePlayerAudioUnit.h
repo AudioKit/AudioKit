@@ -9,7 +9,7 @@
 #pragma once
 #import "AKAudioUnit.h"
 
-typedef void (^AKCCallback)();
+typedef void (^AKCCallback)(void);
 
 @interface AKSamplePlayerAudioUnit : AKAudioUnit
 @property (nonatomic) float startPoint;

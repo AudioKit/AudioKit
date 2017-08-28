@@ -35,6 +35,7 @@ AudioKit.start()
 let recorder = try AKNodeRecorder(node: oscMixer, file: tape)
 
 //: Build our User interface
+import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 

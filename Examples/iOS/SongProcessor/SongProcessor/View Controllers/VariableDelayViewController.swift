@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class VariableDelayViewController: UIViewController {
@@ -42,5 +43,5 @@ class VariableDelayViewController: UIViewController {
     func updateMix(value: Double) {
         songProcessor.delayMixer.balance = value
     }
-    
+
 }

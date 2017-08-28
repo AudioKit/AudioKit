@@ -25,13 +25,13 @@ public class AKPeriodicFunction: AKOperationGenerator {
 
     /// Repeat this loop at a given period with a code block
     ///
-    /// - parameter every: Period, or interval between block executions
+    /// - parameter period: Interval between block executions
     /// - parameter handler: Code block to execute
     ///
-    public init(every dur: Double, handler: @escaping () -> Void) {
-        duration = dur
+    public init(every period: Double, handler: @escaping () -> Void) {
+        duration = period
         internalHandler = handler
-        super.init(sporth: "\(dur) dmetro (_triggerFunction fe) 0 0", customUgens: [triggerFunctionUgen] )
+        super.init(sporth: "\(period) dmetro (_triggerFunction fe) 0 0", customUgens: [triggerFunctionUgen] )
         triggerFunctionUgen.userData = self
     }
 

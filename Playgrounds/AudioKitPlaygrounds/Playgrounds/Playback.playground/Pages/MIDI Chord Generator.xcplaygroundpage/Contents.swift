@@ -207,6 +207,8 @@ let listener = PlaygroundMIDIListener()
 //: Add the new class to the list of MIDI listeners
 midi.addListener(listener)
 
+import AudioKitUI
+
 class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Scale Quantizer")

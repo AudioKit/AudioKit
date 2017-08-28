@@ -14,8 +14,10 @@
 		78ADAA0F1D255FB90095C0C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78ADAA0D1D255FB90095C0C7 /* LaunchScreen.storyboard */; };
 		78ADAA271D2564210095C0C7 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA261D2564210095C0C7 /* Conductor.swift */; };
 		78ADAA291D2569810095C0C7 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA281D2569810095C0C7 /* Sequence.swift */; };
-		78C61D541D26A68C00D5B296 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C61D531D26A68C00D5B296 /* AudioKit.framework */; };
-		78C61D551D26A68C00D5B296 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 78C61D531D26A68C00D5B296 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4B130851F4D443C009D9008 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B130841F4D4430009D9008 /* AudioKit.framework */; };
+		C4B130861F4D443C009D9008 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4B130841F4D4430009D9008 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA10E16F1F4FA117003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */; };
+		EA10E1711F4FA11A003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,7 +27,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				78C61D551D26A68C00D5B296 /* AudioKit.framework in Embed Frameworks */,
+				EA10E1711F4FA11A003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
+				C4B130861F4D443C009D9008 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,7 +45,8 @@
 		78ADAA101D255FB90095C0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78ADAA261D2564210095C0C7 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		78ADAA281D2569810095C0C7 /* Sequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
-		78C61D531D26A68C00D5B296 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C4B130841F4D4430009D9008 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78C61D541D26A68C00D5B296 /* AudioKit.framework in Frameworks */,
+				EA10E16F1F4FA117003F0CA9 /* AudioKitUI.framework in Frameworks */,
+				C4B130851F4D443C009D9008 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,9 +65,9 @@
 		78ADA9F81D255FB90095C0C7 = {
 			isa = PBXGroup;
 			children = (
-				78C61D561D26A70500D5B296 /* Frameworks */,
 				78ADAA031D255FB90095C0C7 /* SequencerDemo */,
 				78ADAA021D255FB90095C0C7 /* Products */,
+				EA10E16D1F4FA0D3003F0CA9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,10 +94,11 @@
 			path = SequencerDemo;
 			sourceTree = "<group>";
 		};
-		78C61D561D26A70500D5B296 /* Frameworks */ = {
+		EA10E16D1F4FA0D3003F0CA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				78C61D531D26A68C00D5B296 /* AudioKit.framework */,
+				EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */,
+				C4B130841F4D4430009D9008 /* AudioKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -300,6 +306,7 @@
 		78ADAA141D255FB90095C0C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -310,7 +317,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SequencerDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SequencerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -322,6 +329,7 @@
 		78ADAA151D255FB90095C0C7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -332,7 +340,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SequencerDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SequencerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

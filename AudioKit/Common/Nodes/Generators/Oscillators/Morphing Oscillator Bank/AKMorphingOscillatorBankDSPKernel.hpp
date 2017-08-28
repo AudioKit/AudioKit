@@ -97,9 +97,9 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = osc->freq;
-            osc->freq *= kernel->detuningMultiplier;
-            osc->freq += kernel->detuningOffset;
+            osc->freq *= powf(2, kernel->pitchBend / 12.0);
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
+            float bentFrequency = osc->freq;
             osc->wtpos = kernel->index / 3.0;
             
             adsr->atk = (float)kernel->attackDuration;
@@ -109,6 +109,7 @@ public:
 
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
+                osc->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
                 sp_oscmorph_compute(kernel->sp, osc, nil, &x);
                 *outL++ += amp * x;
@@ -192,10 +193,11 @@ public:
         
         index = double(indexRamper.getAndStep());
         standardBankGetAndSteps()
-        
+
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
+            sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
         }
         
         NoteState* noteState = playingNotes;

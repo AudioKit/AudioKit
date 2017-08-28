@@ -18,6 +18,8 @@
 		C4EDA12B1DA9A3D7008C1827 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA12A1DA9A3D7008C1827 /* Audiobus.txt */; };
 		C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */; };
 		C4F3ADC71DD3B448009AF0BE /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA10E1621F4F998A003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */; };
+		EA10E1641F4F9992003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EA10E1641F4F9992003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
 				C4F3ADC71DD3B448009AF0BE /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -50,6 +53,7 @@
 		C4EDA12A1DA9A3D7008C1827 /* Audiobus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Audiobus.txt; sourceTree = "<group>"; };
 		C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		CC61B7F5557A1A87795829BE /* Pods-FilterEffects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterEffects.release.xcconfig"; path = "Pods/Target Support Files/Pods-FilterEffects/Pods-FilterEffects.release.xcconfig"; sourceTree = "<group>"; };
+		EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FilterEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -58,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA10E1621F4F998A003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */,
 				C4EDA1231DA96F26008C1827 /* AudioToolbox.framework in Frameworks */,
 				68BB9CD8D8D7356D0B2C19DB /* Pods_FilterEffects.framework in Frameworks */,
@@ -114,6 +119,7 @@
 		C4EDA1211DA96F26008C1827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */,
 				C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */,
 				C4EDA1221DA96F26008C1827 /* AudioToolbox.framework */,
 				FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */,
@@ -238,13 +244,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FilterEffects-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

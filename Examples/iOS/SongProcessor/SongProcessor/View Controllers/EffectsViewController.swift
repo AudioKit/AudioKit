@@ -7,11 +7,12 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class EffectsViewController: UIViewController {
 
-    @IBOutlet private weak var volumeSlider: AKPropertySlider!
+    @IBOutlet private var volumeSlider: AKPropertySlider!
 
     var docController: UIDocumentInteractionController?
 
@@ -20,7 +21,9 @@ class EffectsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        volumeSlider.maximum = 10.0
+        AKStylist.sharedInstance.theme = .basic
+
+        volumeSlider.range = 0 ... 10.0
 
         volumeSlider.value = songProcessor.playerBooster.gain
         volumeSlider.callback = updateVolume
@@ -44,5 +47,5 @@ class EffectsViewController: UIViewController {
             }
         }
     }
-    
+
 }

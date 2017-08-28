@@ -1,6 +1,7 @@
 //: ## Oscillator Bank
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let bank = AKOscillatorBank(waveform: AKTable(.sine),
                             attackDuration: 0.1,
@@ -28,20 +29,28 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel = bank.sustainLevel
         addSubview(adsrView)
 
-        addSubview(AKPropertySlider(property: "Detuning Offset",
-                                    value: bank.detuningOffset,
-                                    range: -1_200 ... 1_200,
-                                    format: "%0.3f Hz"
-        ) { offset in
-            bank.detuningOffset = offset
+        addSubview(AKPropertySlider(property: "Pitch Bend",
+                                    value: bank.pitchBend,
+                                    range: -12 ... 12,
+                                    format: "%0.2f semitones"
+        ) { sliderValue in
+            bank.pitchBend = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Detuning Multiplier",
-                                    value: bank.detuningMultiplier,
-                                    range: 0.5 ... 2.0,
-                                    taper: log(3) / log(2)
-        ) { multiplier in
-            bank.detuningMultiplier = multiplier
+        addSubview(AKPropertySlider(property: "Vibrato Depth",
+                                    value: bank.vibratoDepth,
+                                    range: 0 ... 2,
+                                    format: "%0.2f semitones"
+        ) { sliderValue in
+            bank.vibratoDepth = sliderValue
+        })
+
+        addSubview(AKPropertySlider(property: "Vibrato Rate",
+                                    value: bank.vibratoRate,
+                                    range: 0 ... 10,
+                                    format: "%0.2f Hz"
+        ) { sliderValue in
+            bank.vibratoRate = sliderValue
         })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
