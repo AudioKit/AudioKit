@@ -60,7 +60,7 @@ open class AKAUPresetBuilder {
     ///   - attack:         Attack time in seconds
     ///   - release:        Release time in seconds
     ///
-    static open func createAUPreset(dict: NSDictionary,
+    static open func createAUPreset(dict: [NSMutableDictionary],
                                     path: String,
                                     instrumentName: String,
                                     attack: Double? = 0,
@@ -79,9 +79,7 @@ open class AKAUPresetBuilder {
 
         //iterate over the sounds
         for i in 0 ..< dict.count {
-            guard let sound = dict.allValues[i] as? NSMutableDictionary else {
-                return
-            }
+            let sound = dict[i]
             var soundDict: NSMutableDictionary
             var alreadyLoaded = false
             var sampleNum = 0
