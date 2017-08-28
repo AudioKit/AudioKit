@@ -63,6 +63,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
         }
 
                 guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 

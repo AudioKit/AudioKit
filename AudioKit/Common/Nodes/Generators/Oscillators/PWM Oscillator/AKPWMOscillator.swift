@@ -151,6 +151,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 

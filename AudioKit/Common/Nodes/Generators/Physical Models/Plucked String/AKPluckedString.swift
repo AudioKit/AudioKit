@@ -91,6 +91,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
