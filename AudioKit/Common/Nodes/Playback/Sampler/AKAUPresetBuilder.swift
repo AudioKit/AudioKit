@@ -1326,16 +1326,16 @@ open class AKAUPresetBuilder {
 
 /// Type of triggering to use
 public enum SampleTriggerMode: String {
-    /// Hold
+    /// Hold - play the sample on note on, and stop the sample on note-off
     case Hold = "hold"
 
-    /// Trigger
+    /// Trigger - play the sample on note on, ignore note-off
     case Trigger = "trigger"
 
-    /// Loop
+    /// Loop - play the sample on note on, loop the sample playback until note-off received
     case Loop = "loop"
 
-    /// Repeat
+    /// Repeat - useful for 'note-repeat' type applications. Works with a sequencer to repeat note at intervals
     case Repeat = "repeat"
 }
 /*
