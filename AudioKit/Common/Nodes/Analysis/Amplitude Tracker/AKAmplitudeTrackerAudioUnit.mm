@@ -20,8 +20,12 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (float)amplitude {
-    return _kernel.trackedAmplitude;
+- (float)leftAmplitude {
+    return _kernel.leftAmplitude;
+}
+
+- (float)rightAmplitude {
+    return _kernel.rightAmplitude;
 }
 
 - (void)setHalfPowerPoint:(float)halfPowerPoint {
@@ -44,7 +48,6 @@ standardKernelPassthroughs()
 - (void)createParameters {
 
     standardSetup(AmplitudeTracker)
-//    parameterTreeBlock(AmplitudeTracker)
 }
 
 AUAudioUnitOverrides(AmplitudeTracker)
