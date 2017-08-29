@@ -69,3 +69,10 @@ public:
         
     }
 };
+
+
+
+class AKDSPKernelWithParams : DSPKernel, AKParametricKernel {
+    
+   
+};
