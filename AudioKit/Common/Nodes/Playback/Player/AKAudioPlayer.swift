@@ -569,6 +569,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Turn the buffer around!
     fileprivate func reverseBuffer() {
         guard let buffer = audioFileBuffer else {
+            AKLog("Unable to create buffer in reverseBuffer")
             return
         }
 
@@ -602,6 +603,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///     - outTime specified in seconds, 0 if no fade
     fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
         guard audioFileBuffer != nil else {
+            AKLog("audioFileBuffer is nil")
             return
         }
 

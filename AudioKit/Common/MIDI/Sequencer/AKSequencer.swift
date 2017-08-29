@@ -369,6 +369,7 @@ open class AKSequencer {
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
         guard let file = bundle.path(forResource: filename, ofType: "mid") else {
+            AKLog("No midi file found")
             return
         }
         let fileURL = URL(fileURLWithPath: file)

@@ -6,6 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// Different looks the slider can have
 public enum AKPropertySliderStyle {
     case roundIndicator
     case tabIndicator
@@ -59,6 +60,7 @@ public enum AKPropertySliderStyle {
         }
     }
 
+    /// For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     @IBInspectable open var taper: Double = 1 // Default Linear
 
     /// Text shown on the slider
@@ -88,19 +90,19 @@ public enum AKPropertySliderStyle {
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
 
-    // Only integer
+    /// Only integer
     @IBInspectable open var onlyIntegers: Bool = false
 
-    // Slider style
+    /// Slider style
     open var sliderStyle: AKPropertySliderStyle = AKPropertySliderStyle.tabIndicator
 
     // Border width
     @IBInspectable open var sliderBorderWidth: CGFloat = 3.0
 
-    // Show value bubble
+    /// Show value bubble
     @IBInspectable open var showsValueBubble: Bool = false
 
-    // Value bubble border width
+    /// Value bubble border width
     @IBInspectable open var valueBubbleBorderWidth: CGFloat = 1.0
 
     // Current dragging state, used to show/hide the value bubble
@@ -111,6 +113,7 @@ public enum AKPropertySliderStyle {
 
     /// Function to call when value changes
     open var callback: ((Double) -> Void)?
+
     fileprivate var lastTouch = CGPoint.zero
 
     /// Initialize the slider
@@ -199,6 +202,7 @@ public enum AKPropertySliderStyle {
         }
     }
 
+    /// Handle touches ended
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
@@ -258,7 +262,10 @@ public enum AKPropertySliderStyle {
 
     /// Draw the slider
     override open func draw(_ rect: CGRect) {
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard let context = UIGraphicsGetCurrentContext() else {
+            AKLog("No current graphics context")
+            return
+        }
         context.clear(rect)
 
         drawFlatSlider(currentValue: CGFloat(val),
@@ -273,7 +280,10 @@ public enum AKPropertySliderStyle {
                         currentValueText: String = "0.0") {
 
         //// General Declarations
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard let context = UIGraphicsGetCurrentContext() else {
+            AKLog("No current graphics context")
+            return
+        }
 
         let width = self.frame.width
         let height = self.frame.height

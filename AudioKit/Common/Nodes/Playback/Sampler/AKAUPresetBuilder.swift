@@ -60,7 +60,7 @@ open class AKAUPresetBuilder {
     ///   - attack:         Attack time in seconds
     ///   - release:        Release time in seconds
     ///
-    static open func createAUPreset(dict: NSDictionary,
+    static open func createAUPreset(dict: [NSMutableDictionary],
                                     path: String,
                                     instrumentName: String,
                                     attack: Double? = 0,
@@ -79,9 +79,7 @@ open class AKAUPresetBuilder {
 
         //iterate over the sounds
         for i in 0 ..< dict.count {
-            guard let sound = dict.allValues[i] as? NSMutableDictionary else {
-                return
-            }
+            let sound = dict[i]
             var soundDict: NSMutableDictionary
             var alreadyLoaded = false
             var sampleNum = 0
@@ -91,11 +89,13 @@ open class AKAUPresetBuilder {
             for loadedSoundDict in loadSoundsArr {
                 guard let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as? String,
                     let newLoadingSound: String = soundDict.object(forKey: filenameKey) as? String else {
+                        AKLog("Unable to load new sound in PresetBuilder")
                         return
                 }
                 if alreadyLoadedSound == newLoadingSound {
                     alreadyLoaded = true
                     guard let temp = loadedSoundDict.object(forKey: "sampleNum") as? Int else {
+                        AKLog("No sampleNum provided in PresetBuilder")
                         return
                     }
                     sampleNum = temp
@@ -117,6 +117,7 @@ open class AKAUPresetBuilder {
             if ❗️alreadyLoaded { //if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
                 guard let samplePath = (sound as AnyObject).object(forKey: "filename") as? String else {
+                    AKLog("No filename provided in PresetBuilder")
                     return
                 }
                 let idXML = AKAUPresetBuilder.generateFileRef(wavRef: sampleNum, samplePath: samplePath)
