@@ -8,11 +8,15 @@
 
 import UIKit
 
+/// Style of knob to use
 public enum AKRotaryKnobStyle {
+    /// Circular knob
     case round
+    /// Polygon knob with curvature inwards or outwards to make lots of shapes
     case polygon(numberOfSides: Int, curvature: Double)
 }
 
+/// Round control for a property
 @IBDesignable open class AKRotaryKnob: AKView {
 
     // Default margin size 
@@ -56,12 +60,13 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     open var taper: Double = 1 // Default Linear
 
-    // Should the knob uses discrete values
+    /// Should the knob uses discrete values
     @IBInspectable open var usesDiscreteValues: Bool = false
 
-    // The step for each discrete value
+    /// The step for each discrete value
     @IBInspectable open var discreteValueStep: Double = 0.1
 
     /// Text shown on the knob
@@ -91,22 +96,22 @@ public enum AKRotaryKnobStyle {
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
 
-    // Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
+    /// Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
     open var knobStyle: AKRotaryKnobStyle = AKRotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
 
-    // Border width
+    /// Border width
     @IBInspectable open var knobBorderWidth: CGFloat = 8.0
 
-    // Value bubble border width
+    /// Value bubble border width
     @IBInspectable open var valueBubbleBorderWidth: CGFloat = 1.0
 
-    // Number of indicator points
+    /// Number of indicator points
     @IBInspectable open var numberOfIndicatorPoints: Int = 11
 
     // Current dragging state, used to show/hide the value bubble
     private var isDragging: Bool = false
 
-    // Calculate knob center
+    /// Calculate knob center
     private var knobCenter: CGPoint = CGPoint.zero
 
     /// Function to call when value changes
@@ -224,6 +229,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Handle touches ending
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
@@ -231,6 +237,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Color for the arrow on the knob for the current theme
     open func indicatorColorForTheme() -> AKColor {
         if let indicatorColor = indicatorColor { return indicatorColor }
 
@@ -240,6 +247,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Color for the border for the current theme
     open func knobBorderColorForTheme() -> AKColor {
         if let knobBorderColor = knobBorderColor { return knobBorderColor }
 
@@ -249,6 +257,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Text color for the current theme
     open func textColorForTheme() -> AKColor {
         if let textColor = textColor { return textColor }
 
@@ -258,6 +267,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Draw the knob
     override open func draw(_ rect: CGRect) {
         drawKnob(currentValue: CGFloat(val),
                  propertyName: property,
