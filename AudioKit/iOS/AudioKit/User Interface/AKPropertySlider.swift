@@ -8,7 +8,10 @@
 
 /// Different looks the slider can have
 public enum AKPropertySliderStyle {
+    /// Uses a circle for the touch point
     case roundIndicator
+
+    /// Uses a rectange for the touch point
     case tabIndicator
 
     // Factor for calculating the corner radius of the slider based on the width of the slider indicator
@@ -23,16 +26,16 @@ public enum AKPropertySliderStyle {
 /// Simple slider interface for AudioKit properties
 @IBDesignable open class AKPropertySlider: UIView {
 
-    // Width for the tab indicator
+    /// Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
 
-    // Padding surrounding the text inside the value bubble
+    /// Padding surrounding the text inside the value bubble
     static var bubblePadding: CGSize = CGSize(width: 10.0, height: 2.0)
 
-    // Margin between the top of the tap and the value bubble
+    /// Margin between the top of the tap and the value bubble
     static var bubbleMargin: CGFloat = 10.0
 
-    // Corner radius for the value bubble
+    /// Corner radius for the value bubble
     static var bubbleCornerRadius: CGFloat = 2.0
 
     var initialValue: Double = 0
