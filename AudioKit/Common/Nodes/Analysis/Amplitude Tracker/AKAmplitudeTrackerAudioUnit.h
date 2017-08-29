@@ -13,7 +13,8 @@
 typedef void (^AKThresholdCallback)(BOOL);
 
 @interface AKAmplitudeTrackerAudioUnit : AKAudioUnit
-@property (readonly) float amplitude;
+@property (readonly) float leftAmplitude;
+@property (readonly) float rightAmplitude;
 @property (nonatomic) float threshold;
 //@property (nonatomic) float smoothness; //in development
 @property (nonatomic) AKThresholdCallback thresholdCallback;

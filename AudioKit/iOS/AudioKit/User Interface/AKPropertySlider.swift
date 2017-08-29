@@ -6,8 +6,12 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+/// Different looks the slider can have
 public enum AKPropertySliderStyle {
+    /// Uses a circle for the touch point
     case roundIndicator
+
+    /// Uses a rectange for the touch point
     case tabIndicator
 
     // Factor for calculating the corner radius of the slider based on the width of the slider indicator
@@ -22,16 +26,16 @@ public enum AKPropertySliderStyle {
 /// Simple slider interface for AudioKit properties
 @IBDesignable open class AKPropertySlider: UIView {
 
-    // Width for the tab indicator
+    /// Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
 
-    // Padding surrounding the text inside the value bubble
+    /// Padding surrounding the text inside the value bubble
     static var bubblePadding: CGSize = CGSize(width: 10.0, height: 2.0)
 
-    // Margin between the top of the tap and the value bubble
+    /// Margin between the top of the tap and the value bubble
     static var bubbleMargin: CGFloat = 10.0
 
-    // Corner radius for the value bubble
+    /// Corner radius for the value bubble
     static var bubbleCornerRadius: CGFloat = 2.0
 
     var initialValue: Double = 0
@@ -59,6 +63,7 @@ public enum AKPropertySliderStyle {
         }
     }
 
+    /// For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     @IBInspectable open var taper: Double = 1 // Default Linear
 
     /// Text shown on the slider
@@ -88,19 +93,19 @@ public enum AKPropertySliderStyle {
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
 
-    // Only integer
+    /// Only integer
     @IBInspectable open var onlyIntegers: Bool = false
 
-    // Slider style
+    /// Slider style
     open var sliderStyle: AKPropertySliderStyle = AKPropertySliderStyle.tabIndicator
 
     // Border width
     @IBInspectable open var sliderBorderWidth: CGFloat = 3.0
 
-    // Show value bubble
+    /// Show value bubble
     @IBInspectable open var showsValueBubble: Bool = false
 
-    // Value bubble border width
+    /// Value bubble border width
     @IBInspectable open var valueBubbleBorderWidth: CGFloat = 1.0
 
     // Current dragging state, used to show/hide the value bubble
@@ -111,6 +116,7 @@ public enum AKPropertySliderStyle {
 
     /// Function to call when value changes
     open var callback: ((Double) -> Void)?
+
     fileprivate var lastTouch = CGPoint.zero
 
     /// Initialize the slider
@@ -199,6 +205,7 @@ public enum AKPropertySliderStyle {
         }
     }
 
+    /// Handle touches ended
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
