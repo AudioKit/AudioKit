@@ -11,7 +11,7 @@
 #include <math.h>
 #include <assert.h>
 #include <pthread.h>
-#include <libc.h>
+#include <unistd.h>
 
 const AudioTimeStamp AudioTimeZero = {};
 
