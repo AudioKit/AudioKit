@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		524B77BA1CC4B060001D82D1 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524B77B91CC4B060001D82D1 /* AKNotifications.swift */; };
-		5551E7F41F55320C00757781 /* AKTimeLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 5551E7F21F55320C00757781 /* AKTimeLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5551E7F51F55320C00757781 /* AKTimeLine.c in Sources */ = {isa = PBXBuildFile; fileRef = 5551E7F31F55320C00757781 /* AKTimeLine.c */; };
+		5551E7F41F55320C00757781 /* AKTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 5551E7F21F55320C00757781 /* AKTimeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5551E7F51F55320C00757781 /* AKTimeline.c in Sources */ = {isa = PBXBuildFile; fileRef = 5551E7F31F55320C00757781 /* AKTimeline.c */; };
 		558D80991F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.c in Sources */ = {isa = PBXBuildFile; fileRef = 558D80951F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.c */; };
 		558D809A1F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D80961F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		558D809B1F4D3D5C001E7BC1 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 558D80971F4D3D5C001E7BC1 /* TPCircularBuffer.c */; };
@@ -880,8 +880,8 @@
 
 /* Begin PBXFileReference section */
 		524B77B91CC4B060001D82D1 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
-		5551E7F21F55320C00757781 /* AKTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimeLine.h; sourceTree = "<group>"; };
-		5551E7F31F55320C00757781 /* AKTimeLine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AKTimeLine.c; sourceTree = "<group>"; };
+		5551E7F21F55320C00757781 /* AKTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimeline.h; sourceTree = "<group>"; };
+		5551E7F31F55320C00757781 /* AKTimeline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AKTimeline.c; sourceTree = "<group>"; };
 		558D80951F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+AudioBufferList.c"; sourceTree = "<group>"; };
 		558D80961F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+AudioBufferList.h"; sourceTree = "<group>"; };
 		558D80971F4D3D5C001E7BC1 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
@@ -1775,8 +1775,8 @@
 				55E25D641F4F3BA200F5AF08 /* TPCircularBuffer+Unit.h */,
 				558D80971F4D3D5C001E7BC1 /* TPCircularBuffer.c */,
 				558D80981F4D3D5C001E7BC1 /* TPCircularBuffer.h */,
-				5551E7F21F55320C00757781 /* AKTimeLine.h */,
-				5551E7F31F55320C00757781 /* AKTimeLine.c */,
+				5551E7F21F55320C00757781 /* AKTimeline.h */,
+				5551E7F31F55320C00757781 /* AKTimeline.c */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -3850,7 +3850,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5551E7F41F55320C00757781 /* AKTimeLine.h in Headers */,
+				5551E7F41F55320C00757781 /* AKTimeline.h in Headers */,
 				558D80A71F4D443A001E7BC1 /* AKLazyTap.h in Headers */,
 				558D809A1F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */,
 				55E25D661F4F3BA200F5AF08 /* TPCircularBuffer+Unit.h in Headers */,
@@ -4621,7 +4621,7 @@
 				C453818C1C3A5CBD00A51738 /* AKOperationEffect.swift in Sources */,
 				C4E7523A1C23888700688A1B /* distort.swift in Sources */,
 				C43FF29B1CBDA00600B3C05A /* AKFMOscillatorPresets.swift in Sources */,
-				5551E7F51F55320C00757781 /* AKTimeLine.c in Sources */,
+				5551E7F51F55320C00757781 /* AKTimeline.c in Sources */,
 				C47AE4E21D39CCC60091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm in Sources */,
 				C4E752391C23888700688A1B /* clip.swift in Sources */,
 				C42FFBDC1C3D039C00823BD4 /* AKPannerAudioUnit.mm in Sources */,
