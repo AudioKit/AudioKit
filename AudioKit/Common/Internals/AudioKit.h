@@ -143,4 +143,5 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "TPCircularBuffer.h"
 #import "TPCircularBuffer+Unit.h"
 #import "TPCircularBuffer+AudioBufferList.h"
+#import "AKTimeline.h"
 
