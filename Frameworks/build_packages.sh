@@ -23,6 +23,7 @@ fi
 if test "$SKIP_JAZZY" = ""; 
 then
 	jazzy -c --theme apple --source-directory ../AudioKit/iOS/ \
+		-x -target,AudioKitDocs \
 		--module-version $VERSION \
 		--github-file-prefix https://github.com/audiokit/AudioKit/tree/v$VERSION \
 	|| exit 1
