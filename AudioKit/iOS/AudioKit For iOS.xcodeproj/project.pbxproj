@@ -70,6 +70,9 @@
 		55E25CCD1F4E6C2F00F5AF08 /* AKRenderTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E25CCB1F4E6C2F00F5AF08 /* AKRenderTap.m */; };
 		55E25CD91F4E8D5700F5AF08 /* TPCircularBuffer+Unit.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E25CD71F4E8D5700F5AF08 /* TPCircularBuffer+Unit.c */; };
 		55E25CDA1F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E25CD81F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55E4F4F51F5776260088018A /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F4F21F5776260088018A /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55E4F4F61F5776260088018A /* AKPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F4F31F5776260088018A /* AKPresetManager.m */; };
+		55E4F4F71F5776260088018A /* Skeleton.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 55E4F4F41F5776260088018A /* Skeleton.aupreset */; };
 		55F29C091E90654C00A2151F /* AKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F29C081E90654C00A2151F /* AKScheduledAction.swift */; };
 		6520FFC21D361B030052410C /* resonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC11D361B030052410C /* resonantFilter.swift */; };
 		898DED261C6944430026FCC3 /* AKVariSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DED251C6944430026FCC3 /* AKVariSpeed.swift */; };
@@ -994,6 +997,9 @@
 		55E25CCB1F4E6C2F00F5AF08 /* AKRenderTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRenderTap.m; sourceTree = "<group>"; };
 		55E25CD71F4E8D5700F5AF08 /* TPCircularBuffer+Unit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+Unit.c"; sourceTree = "<group>"; };
 		55E25CD81F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+Unit.h"; sourceTree = "<group>"; };
+		55E4F4F21F5776260088018A /* AKPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPresetManager.h; sourceTree = "<group>"; };
+		55E4F4F31F5776260088018A /* AKPresetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPresetManager.m; sourceTree = "<group>"; };
+		55E4F4F41F5776260088018A /* Skeleton.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Skeleton.aupreset; sourceTree = "<group>"; };
 		55F29C081E90654C00A2151F /* AKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKScheduledAction.swift; sourceTree = "<group>"; };
 		6520FFC11D361B030052410C /* resonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resonantFilter.swift; sourceTree = "<group>"; };
 		701E04851F1B7CB500A7A2D8 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
@@ -2164,6 +2170,9 @@
 				C4B8A2FA1E6569E3006432FA /* AKSampler+getAUPresetXML.swift */,
 				C4B8A2F81E65696A006432FA /* AKSampler+SoundFont.swift */,
 				FE52FEEE1CB70A8500A35B63 /* AKAUPresetBuilder.swift */,
+				55E4F4F21F5776260088018A /* AKPresetManager.h */,
+				55E4F4F31F5776260088018A /* AKPresetManager.m */,
+				55E4F4F41F5776260088018A /* Skeleton.aupreset */,
 				FEE48A451C967A6800DD788C /* TemplateAUPreset.h */,
 			);
 			path = Sampler;
@@ -4098,6 +4107,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E4F4F51F5776260088018A /* AKPresetManager.h in Headers */,
 				5551E7ED1F55316400757781 /* AKTimeLine.h in Headers */,
 				558D80921F4D2DC8001E7BC1 /* AKLazyTap.h in Headers */,
 				55E25CDA1F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h in Headers */,
@@ -4451,6 +4461,7 @@
 				C4A929621D1343AE0095E429 /* mand3.raw in Resources */,
 				C4A9295D1D1343AE0095E429 /* mand1.raw in Resources */,
 				C4A929631D1343AE0095E429 /* mand4.raw in Resources */,
+				55E4F4F71F5776260088018A /* Skeleton.aupreset in Resources */,
 				C47047961E7699E600D9906F /* sinewave.raw in Resources */,
 				C4A9295E1D1343AE0095E429 /* mand10.raw in Resources */,
 			);
@@ -4900,6 +4911,7 @@
 				C48C6C971D3C15F1008EA51B /* progress.c in Sources */,
 				C48C6C801D3C15F1008EA51B /* line.c in Sources */,
 				C48C6C9E1D3C15F1008EA51B /* random.c in Sources */,
+				55E4F4F61F5776260088018A /* AKPresetManager.m in Sources */,
 				C47047A71E76A25200D9906F /* AKTubularBells.swift in Sources */,
 				C48C6C851D3C15F1008EA51B /* mode.c in Sources */,
 				C470479E1E76A24A00D9906F /* AKRhodesPiano.swift in Sources */,
