@@ -319,6 +319,12 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     AKLog("Error = \(err)"); break Exit
                 }
             }
+            /* potential memory leak?
+            theData?.deallocate(capacity: Int(dataSize))
+            theData = nil // make sure to return NULL
+            ExtAudioFileDispose(extRef!)
+            ExtAudioFileDispose(externalAudioFileRef)
+             */
         }
     }
 }
