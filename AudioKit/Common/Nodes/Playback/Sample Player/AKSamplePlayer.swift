@@ -129,24 +129,36 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     fileprivate var avAudiofile: AVAudioFile
+    fileprivate var maximumSamples: Int = 0
 
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node
     ///
-    public init(
-        file: AVAudioFile,
-        startPoint: Sample = 0,
-        endPoint: Sample = 0,
-        rate: Double = 1,
-        volume: Double = 1,
-        completionHandler: @escaping AKCCallback = { }) {
+    /// - Parameters:
+    ///   - file: Initial file to load (defining maximum size unless maximum samples are also set
+    ///   - startPoint: Point in samples from which to start playback
+    ///   - endPoint: Point in samples at which to stop playback
+    ///   - rate: Multiplication factor from original speed (Default: 1)
+    ///   - volume: Multiplication factor of the overall amplitude (Default: 1)
+    ///   - maximumSamples: Largest number of samples that will be loaded into the sample player
+    ///   - completionHandler: Callback to run when the sample playback is completed
+    ///
+    public init(file: AVAudioFile,
+                startPoint: Sample = 0,
+                endPoint: Sample = 0,
+                rate: Double = 1,
+                volume: Double = 1,
+                maximumSamples: Int = 0,
+                completionHandler: @escaping AKCCallback = { }) {
 
         self.startPoint = startPoint
         self.rate = rate
         self.volume = volume
         self.avAudiofile = file
         self.endPoint = Sample(avAudiofile.samplesCount)
+        self.maximumSamples = maximumSamples
+
         _Self.register()
 
         super.init()
@@ -308,7 +320,14 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    internalAU?.setupAudioFileTable(data, size: ioNumberFrames * 2)
+                    if maximumSamples == 0 {
+                        internalAU?.setupAudioFileTable(ioNumberFrames * 2)
+                    } else {
+                        internalAU?.setupAudioFileTable(UInt32(maximumSamples * 2))
+                    }
+
+                    internalAU?.loadAudioData(data, size: ioNumberFrames * 2)
+
                     self.avAudiofile = file
                     self.startPoint = 0
                     self.endPoint = Sample(file.samplesCount)
@@ -319,6 +338,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     AKLog("Error = \(err)"); break Exit
                 }
             }
+            theData?.deallocate(capacity: Int(dataSize))
+            theData = nil // make sure to return NULL
+            ExtAudioFileDispose(externalAudioFileRef)
+            ExtAudioFileDispose(extRef!)
         }
     }
 }
