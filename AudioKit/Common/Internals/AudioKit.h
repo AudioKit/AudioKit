@@ -125,6 +125,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Playback
 #import "AKPhaseLockedVocoderAudioUnit.h"
 #import "AKSamplePlayerAudioUnit.h"
+#import "AKPresetManager.h"
 
 // Testing
 #import "AKTesterAudioUnit.h"
