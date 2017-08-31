@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EAC4F86C1F5645BA003B692B"
-               BuildableName = "AudioKitDocs.framework"
+               BuildableName = "AudioKit.framework"
                BlueprintName = "AudioKitDocs"
                ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
             </BuildableReference>
@@ -26,6 +26,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -36,6 +37,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -46,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EAC4F86C1F5645BA003B692B"
-            BuildableName = "AudioKitDocs.framework"
+            BuildableName = "AudioKit.framework"
             BlueprintName = "AudioKitDocs"
             ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
          </BuildableReference>
@@ -64,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EAC4F86C1F5645BA003B692B"
-            BuildableName = "AudioKitDocs.framework"
+            BuildableName = "AudioKit.framework"
             BlueprintName = "AudioKitDocs"
             ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
          </BuildableReference>
