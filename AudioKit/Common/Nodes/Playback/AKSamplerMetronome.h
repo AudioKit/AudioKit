@@ -3,7 +3,7 @@
 //  AKMetronomeTest
 //
 //  Created by David O'Neill on 8/24/17.
-//  Copyright © 2017 O'Neill. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import <AVFoundation/AVFoundation.h>
@@ -23,20 +23,26 @@
 /// Is metronome playing.
 @property (readonly) BOOL isPlaying;
 
+///The beat sound url.
+@property NSURL * _Nullable sound;
+
+///The down beat sound url.
+@property NSURL * _Nullable downBeatSound;
+
 /** 
  Initialize with metronome sound and downbeat sound.
 
- @param soundURL: The sound URL
- @param downBeatSoundURL: The down beat sound URL, will use soundURL for down beat if nil
+ @param soundURL The sound URL
+ @param downBeatSoundURL The down beat sound URL, will use soundURL for down beat if nil
  */
--(instancetype _Nullable )initWithSound:(NSURL * _Nonnull)soundURL downBeatSound:(NSURL * _Nullable)downBeatSoundURL NS_DESIGNATED_INITIALIZER;
+-(instancetype _Nonnull )initWithSound:(NSURL * _Nullable)soundURL downBeatSound:(NSURL * _Nullable)downBeatSoundURL NS_DESIGNATED_INITIALIZER;
 
 /** 
  Initialize with metronome sound
 
  @param soundURL The sound URL
  */
--(instancetype _Nullable )initWithSound:(NSURL * _Nonnull)soundURL;
+-(instancetype _Nonnull )initWithSound:(NSURL * _Nullable)soundURL;
 
 /// Starts playback
 -(void)play;
