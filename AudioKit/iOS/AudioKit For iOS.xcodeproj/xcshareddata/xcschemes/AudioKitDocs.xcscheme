@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0900"
-   version = "1.8">
+   LastUpgradeVersion = "0830"
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C42F34FF1C057E03000E937C"
+               BlueprintIdentifier = "EAC4F86C1F5645BA003B692B"
                BuildableName = "AudioKit.framework"
-               BlueprintName = "AudioKit"
+               BlueprintName = "AudioKitDocs"
                ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -46,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C42F34FF1C057E03000E937C"
+            BlueprintIdentifier = "EAC4F86C1F5645BA003B692B"
             BuildableName = "AudioKit.framework"
-            BlueprintName = "AudioKit"
+            BlueprintName = "AudioKitDocs"
             ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C42F34FF1C057E03000E937C"
+            BlueprintIdentifier = "EAC4F86C1F5645BA003B692B"
             BuildableName = "AudioKit.framework"
-            BlueprintName = "AudioKit"
+            BlueprintName = "AudioKitDocs"
             ReferencedContainer = "container:AudioKit For iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -26,7 +26,6 @@
 - (void)setEndPoint:(float)endPoint {
     _kernel.setEndPoint(endPoint);
 }
-
 -(void)setCompletionHandler:(AKCCallback)handler {
     _kernel.completionHandler = handler;
 }
@@ -39,9 +38,11 @@
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
 }
-
-- (void)setupAudioFileTable:(float *)data size:(UInt32)size {
-    _kernel.setUpTable(data, size);
+- (void)setupAudioFileTable:(UInt32)size {
+    _kernel.setUpTable(size);
+}
+- (void)loadAudioData:(float *)data size:(UInt32)size {
+    _kernel.loadAudioData(data, size);
 }
 - (int)size {
     return _kernel.ftbl_size;

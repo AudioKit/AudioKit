@@ -8,7 +8,9 @@
 
 /// Different looks the button can have
 public enum AKButtonStyle {
+    /// Rectangular button
     case standard
+    /// Button with rounded ends
     case round
 }
 
