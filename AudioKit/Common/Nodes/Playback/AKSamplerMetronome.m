@@ -3,7 +3,7 @@
 //  AKMetronomeTest
 //
 //  Created by David O'Neill on 8/24/17.
-//  Copyright © 2017 O'Neill. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import "AKSamplerMetronome.h"
@@ -20,22 +20,35 @@
     double _sampleRate;
     int _beatCount;
     double _triggers[32];
+    BOOL _hasSound;
+    BOOL _hasDownBeatSound;
+    NSURL *_soundURL;
+    NSURL *_downBeatSoundURL;
 }
 
+-(instancetype)init {
+    return [self initWithSound:nil downBeatSound:nil];
+}
 -(instancetype)initWithSound:(NSURL *)soundURL downBeatSound:(NSURL *)downBeatSoundURL {
     self = [super init];
     if (self) {
         _sampleRate = [self outputFormatForBus:0].sampleRate;
+        _soundURL = soundURL;
+        _downBeatSoundURL = downBeatSoundURL;
 
-        downBeatSoundURL = downBeatSoundURL ?: soundURL;
-
-        self.preset = [AKPresetManager presetWithFilePaths:@[soundURL.path ,downBeatSoundURL.path] oneShot:true];
-        
+        if (soundURL && ![NSFileManager.defaultManager fileExistsAtPath:soundURL.path]) {
+            NSLog(@"File doesn't exist at %@",soundURL.path);
+        };
+        if (downBeatSoundURL && ![NSFileManager.defaultManager fileExistsAtPath:downBeatSoundURL.path]) {
+            NSLog(@"File doesn't exist at %@",downBeatSoundURL.path);
+        };
+        if (![self setPresetWithSound:soundURL andDownBeatSound:downBeatSoundURL]) {
+            [self loadDefaultSounds];
+        }
         tap = [[AKTimelineTap alloc]initWithNode:self timelineBlock:[self timlineBlock]];
         tap.preRender = true;
         _beatCount = 4;
         [self setTempo:60];
-
     }
     return self;
 }
@@ -48,12 +61,17 @@
     AudioUnit sampler = self.audioUnit;
     double *triggers = _triggers;
     int *triggerCount = &_beatCount;
+    BOOL *hasSound = &_hasSound;
 
     return ^(AKTimeline         *timeline,
              AudioTimeStamp     *timeStamp,
              UInt32             offset,
              UInt32             inNumberFrames,
              AudioBufferList    *ioData) {
+
+        if (!*hasSound) {
+            return;
+        }
 
         Float64 startSample = timeStamp->mSampleTime;
         Float64 endSample = startSample + inNumberFrames;
@@ -170,10 +188,116 @@
 -(void)stop {
     AKTimelineStop(tap.timeline);
 }
+-(void)setSound:(NSURL *)soundURL {
+    _soundURL = soundURL;
+    if (![NSFileManager.defaultManager fileExistsAtPath:soundURL.path]) {
+        NSLog(@"File doesn't exist at %@",soundURL.path);
+    }
+    [self setPresetWithSound:_soundURL andDownBeatSound:_downBeatSoundURL];
+}
+-(NSURL *)sound {
+    return _soundURL;
+}
+-(void)setDownBeatSound:(NSURL *)downBeatSoundURL {
+    _downBeatSoundURL = downBeatSoundURL;
+    if (![NSFileManager.defaultManager fileExistsAtPath:downBeatSoundURL.path]) {
+        NSLog(@"File doesn't exist at %@",downBeatSoundURL.path);
+    }
+    [self setPresetWithSound:_soundURL andDownBeatSound:_downBeatSoundURL];
+}
+-(NSURL *)downBeatSound {
+    return _downBeatSoundURL;
+}
+
+// Will use the valid sound for both sounds if one is invalid.
+-(BOOL)setPresetWithSound:(NSURL *)soundURL andDownBeatSound:(NSURL *)downBeatSoundURL {
+    BOOL soundValid = soundURL && [NSFileManager.defaultManager fileExistsAtPath:soundURL.path];
+    BOOL downBeatValid = downBeatSoundURL && [NSFileManager.defaultManager fileExistsAtPath:downBeatSoundURL.path];
+
+    _hasSound = soundValid || downBeatValid;
+
+    if (!_hasSound) {
+        return false;
+    }
+
+    soundURL = soundValid ? soundURL : downBeatSoundURL;
+    downBeatSoundURL = downBeatValid ? downBeatSoundURL : soundURL;
+
+    self.preset = [AKPresetManager presetWithFilePaths:@[soundURL.path ,downBeatSoundURL.path] oneShot:true];
+
+    return true;
+}
+static float releasecurve(float scaler){
+    return -1 * scaler * (scaler - 2.f);
+}
+
+//Creates a few beeps for sounds in temp, loads them, deletes them.
+-(void)loadDefaultSounds {
+    float a = 0.004, s = 0.005, r = 0.03;
+    float highHz = 2093;
+    float lowHz = highHz / 2.0;
+    float samplerate = 44100.0;
+    int frames = (a + s + r) * samplerate;
+
+    AVAudioFormat *format = [[AVAudioFormat alloc]initStandardFormatWithSampleRate:44100 channels:1];
+    AVAudioFormat *fileFormat = [[AVAudioFormat alloc]initWithCommonFormat:format.commonFormat sampleRate:format.sampleRate channels:format.channelCount interleaved:true];
+
+    AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc]initWithPCMFormat:format frameCapacity:frames];
+
+    BOOL(^writeToTemp)(NSURL *) = ^BOOL(NSURL *url) {
+        NSError *error = nil;
+        AVAudioFile *audioFile = [[AVAudioFile alloc]initForWriting:url settings:fileFormat.settings error:&error];
+        if (error) {
+            NSLog(@"%@",error);
+            return false;
+        }
+        return [audioFile writeFromBuffer:buffer error:&error];
+    };
+
+    NSURL *highURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"highBeep.caf"]];
+    NSURL *lowURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"lowBeep.caf"]];
+
+    makeBeep(buffer.mutableAudioBufferList->mBuffers[0].mData, a, s, r, highHz, samplerate, 1);
+    buffer.frameLength = frames;
+    writeToTemp(highURL);
+
+    makeBeep(buffer.mutableAudioBufferList->mBuffers[0].mData, a, s, r, lowHz, samplerate, 0.75);
+    buffer.frameLength = frames;
+    writeToTemp(lowURL);
+
+    [self setPresetWithSound:lowURL andDownBeatSound:highURL];
+    [NSFileManager.defaultManager removeItemAtPath:highURL.path error:NULL];
+    [NSFileManager.defaultManager removeItemAtPath:lowURL.path error:NULL];
+
+}
+
+static int makeBeep(float *buffer, float attack, float sustain, float release, float hz, float samplerate, float volume){
+
+    float totalTime = attack + sustain + release;
+    float totalSamples = totalTime * samplerate;
+    float samplesPerCyle = samplerate / hz;
+
+    for (int i = 0; i < totalSamples; i++) {
+        buffer[i] = sinf(M_PI * (i / samplesPerCyle)) * volume;
+    }
+    int attackSampleCount = attack * samplerate;
+    for (int i = 0; i < attackSampleCount; i++) {
+        float fadeIn = i / (float)attackSampleCount;
+        buffer[i] *= fadeIn;
+    }
+    int decaySamplesCount = release * samplerate;
+
+    int decayStart = totalSamples - decaySamplesCount;
+    float *fadeOut = buffer + decayStart;
+    for (int i = 0; i < decaySamplesCount; i++) {
+        float fader = 1 - releasecurve(i / (float)decaySamplesCount);
+        fadeOut[i] *= fader;
+    }
+    return totalSamples;
+}
 
 
-
-static AudioTimeStamp AudioTimeNow() {
+static AudioTimeStamp AudioTimeNow(void) {
     return (AudioTimeStamp){
         .mHostTime = mach_absolute_time(),
         .mFlags = kAudioTimeStampHostTimeValid
