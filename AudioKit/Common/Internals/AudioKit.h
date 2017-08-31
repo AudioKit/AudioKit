@@ -125,6 +125,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Playback
 #import "AKPhaseLockedVocoderAudioUnit.h"
 #import "AKSamplePlayerAudioUnit.h"
+#import "AKPresetManager.h"
 
 // Testing
 #import "AKTesterAudioUnit.h"
@@ -143,6 +144,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "TPCircularBuffer.h"
 #import "TPCircularBuffer+Unit.h"
 #import "TPCircularBuffer+AudioBufferList.h"
+#import "AKTimeline.h"
 
 #ifdef JAZZY_HACK
 // Hack to get jazzy to see the UI classes, please ignore

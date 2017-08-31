@@ -333,8 +333,6 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     self.endPoint = Sample(file.samplesCount)
                 } else {
                     // failure
-                    theData?.deallocate(capacity: Int(dataSize))
-                    theData = nil // make sure to return NULL
                     AKLog("Error = \(err)"); break Exit
                 }
             }
