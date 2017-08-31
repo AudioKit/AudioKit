@@ -79,6 +79,8 @@ public:
     void destroy() {
         sp_tabread_destroy(&tabread1);
         sp_tabread_destroy(&tabread2);
+        sp_ftbl_destroy(&ftbl1);
+        sp_ftbl_destroy(&ftbl2);
         AKSoundpipeKernel::destroy();
     }
 
