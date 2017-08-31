@@ -241,7 +241,11 @@ public:
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
-            sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
+            if (vibratoDepth != 0 && vibratoRate != 0 && &(vibrato->tbl) != nullptr) {
+                sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
+            } else {
+                vibratoValues[i] = 0;
+            }
         }
         
         NoteState* noteState = playingNotes;
