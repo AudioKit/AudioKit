@@ -11,7 +11,7 @@
 #include <math.h>
 #include <assert.h>
 #include <pthread.h>
-#include <libc.h>
+#include <unistd.h>
 
 const AudioTimeStamp AudioTimeZero = {};
 
@@ -29,7 +29,7 @@ static AudioTimeStamp TimeStampOffset(AudioTimeStamp timeStamp, SInt64 samples, 
 static Boolean SampleAndHostTimeValid(AudioTimeStamp timeStamp);
 static Boolean SampleTimeValid(AudioTimeStamp timeStamp);
 static Boolean HostTimeValid(AudioTimeStamp timeStamp);
-static AudioTimeStamp AudioTimeNow();
+static AudioTimeStamp AudioTimeNow(void);
 static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 hostTime);
 static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp anchorTime, double sampleRate);
 static SInt64 safeSubtract(UInt64 a, UInt64 b);
@@ -184,13 +184,11 @@ void ABLOffset(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescript
     int offset = frames * format.mBytesPerFrame;
     for (int i = 0; i < bufferlist->mNumberBuffers; i++) {
         bufferlist->mBuffers[i].mData = (char *)bufferlist->mBuffers[i].mData + offset;
-        bufferlist->mBuffers[i].mDataByteSize -= offset;
     }
 }
-void ABLSetFrames(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
-    int offset = frames * format.mBytesPerFrame;
+void ABLSetByteSize(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
     for (int i = 0; i < bufferlist->mNumberBuffers; i++) {
-        bufferlist->mBuffers[i].mDataByteSize -= offset;
+        bufferlist->mBuffers[i].mDataByteSize = frames * format.mBytesPerFrame;
     }
 }
 void AdvanceRenderState(AudioTimeStamp *timeStamp, AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
@@ -263,6 +261,7 @@ void AKTimelineRender(AKTimeline            *timeline,
     // If non looping, render remaining frames.
     if (!timeline->_loopEnd) {
         if (timeline->callBack) {
+            ABLSetByteSize(bufferlist, framesToRender, timeline->format);
             timeline->callBack(timeline->callbackRef, &playerTime, framesToRender, 0, bufferlist);
         }
         return;
@@ -277,9 +276,10 @@ void AKTimelineRender(AKTimeline            *timeline,
         int frames = timeline->_loopEnd - playerTime.mSampleTime;
         frames = frames > framesToRender ? framesToRender : frames;
         if (timeline->callBack) {
+            ABLSetByteSize(bufferlist, frames, timeline->format);
             timeline->callBack(timeline->callbackRef, &playerTime, frames, inNumberFrames - framesToRender, bufferlist);
         }
-        //        playerTime = TimeStampOffset(playerTime, frames, timeline->format.mSampleRate);
+
         AdvanceRenderState(&playerTime, bufferlist, frames, timeline->format);
 
         framesToRender -= frames;
@@ -312,7 +312,7 @@ static Boolean SampleTimeValid(AudioTimeStamp timeStamp) {
 static Boolean HostTimeValid(AudioTimeStamp timeStamp) {
     return timeStamp.mFlags & kAudioTimeStampHostTimeValid;
 }
-static AudioTimeStamp AudioTimeNow() {
+static AudioTimeStamp AudioTimeNow(void) {
     return (AudioTimeStamp) {
         .mHostTime = mach_absolute_time(),
         .mFlags = kAudioTimeStampHostTimeValid
@@ -346,7 +346,7 @@ static SInt64 safeSubtract(UInt64 a, UInt64 b) {
     return a >= b ? a - b : -(b - a);
 }
 
-static double ticksToSeconds(){
+static double ticksToSeconds(void) {
     static double ticksToSeconds = 0;
     if (!ticksToSeconds) {
         double timecon;

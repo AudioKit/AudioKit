@@ -43,7 +43,7 @@ public:
         sp_phasor_init(sp, phasor, 0.0);
         
         SPFLOAT dur;
-        dur = (SPFLOAT)ftbl1->size / sp->sr;
+        dur = (SPFLOAT)current_size / sp->sr;
         phasor->freq = 1.0 / dur * rate;
         lastPosition = -1.0;
     }
@@ -52,17 +52,24 @@ public:
         started = false;
     }
     
-    void setUpTable(float *table, UInt32 size) {
-        ftbl_size = size / 2;
-        sp_ftbl_create(sp, &ftbl1, ftbl_size);
-        sp_ftbl_create(sp, &ftbl2, ftbl_size);
+    void setUpTable(UInt32 size) {
+        if (current_size <= 2) {
+            current_size = size / 2;
+            ftbl_size = size / 2;
+            sp_ftbl_create(sp, &ftbl1, ftbl_size);
+            sp_ftbl_create(sp, &ftbl2, ftbl_size);
+        }
+    }
+
+    void loadAudioData(float *table, UInt32 size) {
+        current_size = fmin(size / 2, ftbl_size / 2);
         int counter1 = 0;
         int counter2 = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < current_size; i++) {
             if (i % 2 == 0) {
-                ftbl1->tbl[counter1] = table[i];
                 counter1++;
             } else {
+                ftbl1->tbl[counter1] = table[i];
                 ftbl2->tbl[counter2] = table[i];
                 counter2++;
             }
@@ -177,20 +184,20 @@ public:
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
             
-            SPFLOAT dur = (SPFLOAT)ftbl_size / sp->sr;
+            SPFLOAT dur = (SPFLOAT)current_size / sp->sr;
             
             //length of playableSample vs actual
             int subsectionLength = endPoint - startPoint;
-            float percentLen = (float)subsectionLength / (float)ftbl_size;
-            phasor->freq = fabs(1.0 / dur  * rate / percentLen);
+            float percentLen = (float)subsectionLength / (float)current_size;
+            phasor->freq = fabs(1.0 / dur  * rate / percentLen / 2);
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &position);
-                        tabread1->index = position * percentLen + (startPoint / ftbl_size);
-                        tabread2->index = position * percentLen + (startPoint / ftbl_size);
+                        tabread1->index = position * percentLen + (startPoint / current_size);
+                        tabread2->index = position * percentLen + (startPoint / current_size);
                         sp_tabread_compute(sp, tabread1, NULL, out);
                     } else {
                         sp_tabread_compute(sp, tabread2, NULL, out);
@@ -234,7 +241,8 @@ public:
     ParameterRamper rateRamper = 1;
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;
-    UInt32 ftbl_size = 4096;
+    UInt32 ftbl_size = 2;
+    UInt32 current_size = 2;
     float position = 0.0;
 };
 
