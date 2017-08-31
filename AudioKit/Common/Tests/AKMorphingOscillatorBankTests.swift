@@ -44,18 +44,6 @@ class AKMorphingOscillatorBankTests: AKTestCase {
         AKTestMD5("17345f26560ce643990c5a269ab74a43")
     }
 
-    func testDetuningMultiplier() {
-        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, detuningMultiplier: 1.1)
-        output = inputBank
-        AKTestMD5("effb427b8635ec021ca792d7ff2a0832")
-    }
-
-    func testDetuningOffset() {
-        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, detuningOffset: 1)
-        output = inputBank
-        AKTestMD5("4be5ef808007fcdcc73f74dfb7603216")
-    }
-
     func testIndex() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, index: 1.7)
         output = inputBank
@@ -68,17 +56,32 @@ class AKMorphingOscillatorBankTests: AKTestCase {
                                              attackDuration: 0.123,
                                              decayDuration: 0.234,
                                              sustainLevel: 0.345,
-                                             detuningOffset: 1,
-                                             detuningMultiplier: 1.1)
+                                             pitchBend: 1,
+                                             vibratoDepth: 1.1,
+                                             vibratoRate: 1.2)
         output = inputBank
         AKTestMD5("cf78944a8431b5ee0440fa7b1b124493")
     }
+
+    func testPitchBend() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, pitchBend: 1.1)
+        output = inputBank
+        AKTestMD5("effb427b8635ec021ca792d7ff2a0832")
+    }
+
 
     func testSustainLevel() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, sustainLevel: 0.345)
         output = inputBank
         AKTestMD5("37a2084b030c5b29a3553a00c30aa61a")
     }
+
+    func testVibrato() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, vibratoDepth: 1, vibratoRate: 10)
+        output = inputBank
+        AKTestMD5("4be5ef808007fcdcc73f74dfb7603216")
+    }
+
 
     func testWaveformArray() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms)
