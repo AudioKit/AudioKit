@@ -48,7 +48,7 @@
         tap = [[AKTimelineTap alloc]initWithNode:self timelineBlock:[self timlineBlock]];
         tap.preRender = true;
         _beatCount = 4;
-        [self setTempo:60];
+        [self setTempo:120];
     }
     return self;
 }
