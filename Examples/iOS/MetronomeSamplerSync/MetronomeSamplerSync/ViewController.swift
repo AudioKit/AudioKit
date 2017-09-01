@@ -10,12 +10,9 @@ import UIKit
 import AudioKitUI
 import AudioKit
 
-
 /**
  This Example is to demonstrate how to syncronize the AKSamplerMetronome using AVAudioTime.
  */
-
-
 class ViewController: UIViewController {
     var metronome1 = AKSamplerMetronome()
     var metronome2 = AKSamplerMetronome()
@@ -29,8 +26,8 @@ class ViewController: UIViewController {
             let countSoundUrl = Bundle.main.url(forResource: "closed_hi_hat_F#1", withExtension: "wav") else {
                 fatalError()
         }
-        metronome1.sound = countSoundUrl;
-        metronome1.downBeatSound = oneSoundUrl;
+        metronome1.sound = countSoundUrl
+        metronome1.downBeatSound = oneSoundUrl
 
         metronome1 >>> mixer
         metronome2 >>> mixer
@@ -40,7 +37,6 @@ class ViewController: UIViewController {
         setUpUI()
     }
 
-
     func beatsSelected(segmentedControl: UISegmentedControl) {
         let beatCount = Int32(segmentedControl.selectedSegmentIndex + 1)
         let now = AVAudioTime(hostTime: mach_absolute_time())
@@ -49,10 +45,10 @@ class ViewController: UIViewController {
     }
 
     func beatsSlider(slider: UISlider) {
-        let beatCount = Int32(1 + slider.value * 7);
+        let beatCount = Int32(1 + slider.value * 7)
 
         if metronome1.beatCount != beatCount {
-            let now = AVAudioTime(hostTime: mach_absolute_time());
+            let now = AVAudioTime(hostTime: mach_absolute_time())
             metronome1.setBeatCount(beatCount, at: now)
             metronome2.setBeatCount(beatCount, at: now)
         }
@@ -60,7 +56,7 @@ class ViewController: UIViewController {
 
     func setUpUI() {
 
-        func startStopAction(met: AKSamplerMetronome, otherMet: AKSamplerMetronome) -> (AKButton)->Void {
+        func startStopAction(met: AKSamplerMetronome, otherMet: AKSamplerMetronome) -> (AKButton) -> Void {
             return { button in
                 // Stop if playing, Start if not playing.
                 if met.isPlaying {
@@ -68,9 +64,9 @@ class ViewController: UIViewController {
                 } else {
                     //If other metronome is playing, sync to it, else just play.
                     if otherMet.isPlaying {
-                        let now = AVAudioTime(hostTime: mach_absolute_time());
+                        let now = AVAudioTime(hostTime: mach_absolute_time())
                         let beatAtNow = otherMet.beatTime(at: now)
-                        met.setBeatTime(beatAtNow, at: now);
+                        met.setBeatTime(beatAtNow, at: now)
                     } else {
                         met.play()
                     }
@@ -88,14 +84,14 @@ class ViewController: UIViewController {
 
         addView(AKPropertySlider(property: "Tempo",
                                  value: metronome1.tempo,
-                                 range: ClosedRange<Double>(uncheckedBounds: (30.0,4000.0)),
+                                 range: ClosedRange<Double>(uncheckedBounds: (30.0, 4000.0)),
                                  taper: 1,
                                  format: "%0.3f",
                                  color: .blue,
                                  frame: CGRect(),
-                                 callback: {[weak self] tempo in
+                                 callback: { [weak self] tempo in
 
-                                    let now = AVAudioTime(hostTime: mach_absolute_time());
+                                    let now = AVAudioTime(hostTime: mach_absolute_time())
                                     self?.metronome1.setTempo(tempo, at: now)
                                     self?.metronome2.setTempo(tempo, at: now)
 
@@ -122,7 +118,7 @@ class ViewController: UIViewController {
                                height: elemHeight)
 
         for view in views {
-            view.frame = nextFrame;
+            view.frame = nextFrame
             print("frame " + String(describing: nextFrame.origin.y))
             nextFrame = nextFrame.offsetBy(dx: 0, dy: nextFrame.size.height + inset)
         }
