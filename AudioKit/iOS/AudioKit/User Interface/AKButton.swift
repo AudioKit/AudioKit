@@ -116,6 +116,7 @@ public enum AKButtonStyle {
                 callback: @escaping (AKButton) -> Void) {
         self.title = title
         self.color = color
+        self.callback = callback
         super.init(frame: frame)
 
         clipsToBounds = true

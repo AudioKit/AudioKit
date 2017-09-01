@@ -1,8 +1,8 @@
 //
-//  AUPresetManager.m
+//  AKPresetManager.m
 //
 //  Created by David O'Neill on 1/8/17.
-//  Copyright © 2017 David O'Neill. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import "AKPresetManager.h"
