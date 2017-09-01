@@ -51,6 +51,30 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel = fmBank.sustainLevel
         addSubview(adsrView)
 
+        addSubview(AKPropertySlider(property: "Pitch Bend",
+                                    value: fmBank.pitchBend,
+                                    range: -12 ... 12,
+                                    format: "%0.2f semitones"
+        ) { sliderValue in
+            fmBank.pitchBend = sliderValue
+        })
+
+        addSubview(AKPropertySlider(property: "Vibrato Depth",
+                                    value: fmBank.vibratoDepth,
+                                    range: 0 ... 2,
+                                    format: "%0.2f semitones"
+        ) { sliderValue in
+            fmBank.vibratoDepth = sliderValue
+        })
+
+        addSubview(AKPropertySlider(property: "Vibrato Rate",
+                                    value: fmBank.vibratoRate,
+                                    range: 0 ... 10,
+                                    format: "%0.2f Hz"
+        ) { sliderValue in
+            fmBank.vibratoRate = sliderValue
+        })
+
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
