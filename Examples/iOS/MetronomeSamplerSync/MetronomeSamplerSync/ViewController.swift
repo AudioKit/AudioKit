@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     var metronome1 = AKSamplerMetronome()
     var metronome2 = AKSamplerMetronome()
     var mixer = AKMixer()
-    var renderTap: AKLazyTap?
     var views = [UIView]()
     override func viewDidLoad() {
         super.viewDidLoad()
