@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(property: "Resonance",
                                     value: moogLadder.resonance,
-                                    resonance: 0 ... 0.98
+                                    range: 0 ... 0.98
         ) { sliderValue in
             moogLadder.resonance = sliderValue
         })
