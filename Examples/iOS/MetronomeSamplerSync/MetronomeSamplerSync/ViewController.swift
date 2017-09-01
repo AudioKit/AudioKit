@@ -83,7 +83,7 @@ class ViewController: UIViewController {
 
         addView(AKPropertySlider(property: "Tempo",
                                  value: metronome1.tempo,
-                                 range: ClosedRange<Double>(uncheckedBounds: (30.0, 4000.0)),
+                                 range: 30 ... 4000,
                                  taper: 1,
                                  format: "%0.3f",
                                  color: .blue,

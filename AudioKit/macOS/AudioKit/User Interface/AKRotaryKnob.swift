@@ -11,7 +11,7 @@ public enum AKRotaryKnobStyle {
     case polygon(numberOfSides: Int, curvature: Double)
 }
 
-@IBDesignable open class AKRotaryKnob: AKView {
+@IBDesignable open class AKRotaryKnob: AKPropertyControl {
 
     // Default margin size
     static var marginSize: CGFloat = 30.0
@@ -31,43 +31,6 @@ public enum AKRotaryKnobStyle {
     // Maximum curvature value for polygon style knob
     static var maximumPolygonCurvature = 1.0
 
-    /// Current value of the slider
-    @IBInspectable open var value: Double = 0 {
-        didSet {
-            value = range.clamp(value)
-            value = usesDiscreteValues ? round(value) : value
-
-            val = value.normalized(from: range, taper: taper)
-        }
-    }
-
-    private var val: Double = 0 {
-        didSet {
-            needsDisplay = true
-        }
-    }
-
-    /// Range of output value
-    open var range: ClosedRange<Double> = 0 ... 1 {
-        didSet {
-            val = value.normalized(from: range, taper: taper)
-        }
-    }
-
-    open var taper: Double = 1 // Default Linear
-
-    // Should the knob uses discrete values
-    @IBInspectable open var usesDiscreteValues: Bool = false
-
-    // The step for each discrete value
-    @IBInspectable open var discreteValueStep: Double = 0.1
-
-    /// Text shown on the knob
-    @IBInspectable open var property: String = "Property"
-
-    /// Format for the number shown on the knob
-    @IBInspectable open var format: String = "%0.3f"
-
     /// Background color
     @IBInspectable open var bgColor: NSColor?
 
@@ -82,9 +45,6 @@ public enum AKRotaryKnobStyle {
 
     /// Text color
     @IBInspectable open var textColor: NSColor?
-
-    /// Font size
-    @IBInspectable open var fontSize: CGFloat = 20
 
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
@@ -101,47 +61,29 @@ public enum AKRotaryKnobStyle {
     // Number of indicator points
     @IBInspectable open var numberOfIndicatorPoints: Int = 11
 
-    // Current dragging state, used to show/hide the value bubble
-    private var isDragging: Bool = false
-
     // Calculate knob center
     private var knobCenter: CGPoint = CGPoint.zero
 
-    /// Function to call when value changes
-    open var callback: ((Double) -> Void)?
-    fileprivate var lastTouch = CGPoint.zero
-
     /// Initialize the slider
     public init(property: String,
-                value: Double,
+                value: Double = 0.0,
                 range: ClosedRange<Double> = 0 ... 1,
                 taper: Double = 1,
                 format: String = "%0.3f",
-                color: AKColor = AKColor.red,
+                color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
-                callback: @escaping (_ x: Double) -> Void) {
-        self.value = value
-        self.range = range
-        self.taper = taper
-        self.property = property
-        self.format = format
+                callback: @escaping (_ x: Double) -> Void = { _ in }) {
+
         self.knobColor = color
 
-        self.callback = callback
-        super.init(frame: frame)
-
-        self.val = value.normalized(from: range, taper: taper)
-
-        self.wantsLayer = true
-
-        needsDisplay = true
-    }
-
-    /// Initialization with no details
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-
-        self.wantsLayer = true
+        super.init(property: property,
+                   value: value,
+                   range: range,
+                   taper: taper,
+                   format: format,
+                   frame: frame,
+                   callback: callback)
+        
     }
 
     /// Initialization within Interface Builder
@@ -149,20 +91,6 @@ public enum AKRotaryKnobStyle {
         super.init(coder: coder)
 
         self.wantsLayer = true
-    }
-
-    /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-
-        self.wantsLayer = true
-    }
-
-    /// Give the slider a random value
-    open func randomize() -> Double {
-        value = random(in: range)
-        needsDisplay = true
-        return value
     }
 
     func angleBetween(pointA: CGPoint, pointB: CGPoint) -> Double {
@@ -187,14 +115,8 @@ public enum AKRotaryKnobStyle {
         } else {
             val = ((angle - 75.0) / 110.0) * 0.5
         }
-        if usesDiscreteValues && discreteValueStep > 0.0 {
-            let step = Int(value / discreteValueStep)
-            let lowerValue = step * discreteValueStep
-            let higherValue = (step + 1) * (discreteValueStep)
-            val = abs(val - lowerValue) < abs(higherValue - val) ? lowerValue : higherValue
-        }
         value = val.denormalized(to: range, taper: taper)
-        callback?(value)
+        callback(value)
     }
 
     open override func mouseUp(with theEvent: NSEvent) {
