@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C41FC8A81F5249D50030D3EB /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */; };
 		C4356CAC1EF6535800F3149C /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */; };
+		C447D43A1F593B9300B32EEC /* AudioKitUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C46EDA551E94F04D0099E238 /* AudioKitPlaygrounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46EDA621E94F0BF0099E238 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; };
 		C46EDA631E94F0C50099E238 /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -23,6 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C447D43A1F593B9300B32EEC /* AudioKitUI.framework in CopyFiles */,
 				C46EDA631E94F0C50099E238 /* AudioKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
