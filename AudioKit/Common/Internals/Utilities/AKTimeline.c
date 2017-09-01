@@ -33,7 +33,7 @@ static AudioTimeStamp AudioTimeNow(void);
 static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 hostTime);
 static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp anchorTime, double sampleRate);
 static SInt64 safeSubtract(UInt64 a, UInt64 b);
-static double ticksToSeconds();
+static double ticksToSeconds(void);
 static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage message);
 void AKTimelineSyncronize(AKTimeline *timeline);
 
