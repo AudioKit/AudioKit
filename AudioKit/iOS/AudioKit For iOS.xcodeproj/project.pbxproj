@@ -73,6 +73,10 @@
 		55E4F4F71F5776260088018A /* Skeleton.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 55E4F4F41F5776260088018A /* Skeleton.aupreset */; };
 		55E4F50E1F578BAC0088018A /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F50C1F578BAC0088018A /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F50F1F578BAC0088018A /* AKPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F50D1F578BAC0088018A /* AKPresetManager.m */; };
+		55E4F51D1F57CA6F0088018A /* AKTimelineTap.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F51B1F57CA6F0088018A /* AKTimelineTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55E4F51E1F57CA6F0088018A /* AKTimelineTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F51C1F57CA6F0088018A /* AKTimelineTap.m */; };
+		55E4F5211F57CB540088018A /* AKSamplerMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F51F1F57CB540088018A /* AKSamplerMetronome.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55E4F5221F57CB540088018A /* AKSamplerMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5201F57CB540088018A /* AKSamplerMetronome.m */; };
 		55F29C091E90654C00A2151F /* AKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F29C081E90654C00A2151F /* AKScheduledAction.swift */; };
 		6520FFC21D361B030052410C /* resonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC11D361B030052410C /* resonantFilter.swift */; };
 		898DED261C6944430026FCC3 /* AKVariSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DED251C6944430026FCC3 /* AKVariSpeed.swift */; };
@@ -1909,6 +1913,10 @@
 		55E4F4F41F5776260088018A /* Skeleton.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Skeleton.aupreset; sourceTree = "<group>"; };
 		55E4F50C1F578BAC0088018A /* AKPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPresetManager.h; sourceTree = "<group>"; };
 		55E4F50D1F578BAC0088018A /* AKPresetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPresetManager.m; sourceTree = "<group>"; };
+		55E4F51B1F57CA6F0088018A /* AKTimelineTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimelineTap.h; sourceTree = "<group>"; };
+		55E4F51C1F57CA6F0088018A /* AKTimelineTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTimelineTap.m; sourceTree = "<group>"; };
+		55E4F51F1F57CB540088018A /* AKSamplerMetronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSamplerMetronome.h; sourceTree = "<group>"; };
+		55E4F5201F57CB540088018A /* AKSamplerMetronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSamplerMetronome.m; sourceTree = "<group>"; };
 		55F29C081E90654C00A2151F /* AKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKScheduledAction.swift; sourceTree = "<group>"; };
 		6520FFC11D361B030052410C /* resonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resonantFilter.swift; sourceTree = "<group>"; };
 		701E04851F1B7CB500A7A2D8 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
@@ -3186,6 +3194,8 @@
 				55E25CCB1F4E6C2F00F5AF08 /* AKRenderTap.m */,
 				558D80901F4D2DC8001E7BC1 /* AKLazyTap.h */,
 				558D80911F4D2DC8001E7BC1 /* AKLazyTap.m */,
+				55E4F51B1F57CA6F0088018A /* AKTimelineTap.h */,
+				55E4F51C1F57CA6F0088018A /* AKTimelineTap.m */,
 			);
 			name = Taps;
 			path = ../../Common/Taps;
@@ -4770,6 +4780,8 @@
 			isa = PBXGroup;
 			children = (
 				C4A8A4C11EE3FFF400FDBE68 /* AKMetronome.swift */,
+				55E4F51F1F57CB540088018A /* AKSamplerMetronome.h */,
+				55E4F5201F57CB540088018A /* AKSamplerMetronome.m */,
 			);
 			name = Metronome;
 			sourceTree = "<group>";
@@ -5029,7 +5041,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E4F5211F57CB540088018A /* AKSamplerMetronome.h in Headers */,
 				55E4F50E1F578BAC0088018A /* AKPresetManager.h in Headers */,
+				55E4F51D1F57CA6F0088018A /* AKTimelineTap.h in Headers */,
 				5551E7ED1F55316400757781 /* AKTimeline.h in Headers */,
 				558D80921F4D2DC8001E7BC1 /* AKLazyTap.h in Headers */,
 				55E25CDA1F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h in Headers */,
@@ -6142,6 +6156,7 @@
 				C48C6CA41D3C15F1008EA51B /* samphold.c in Sources */,
 				C48C6C951D3C15F1008EA51B /* port.c in Sources */,
 				C4F8C8EF1DCA8CE4001F38F2 /* metro.c in Sources */,
+				55E4F51E1F57CA6F0088018A /* AKTimelineTap.m in Sources */,
 				C43ABE021E5BFD9A00165053 /* saturator.c in Sources */,
 				C48C6C781D3C15F1008EA51B /* foo.c in Sources */,
 				C48C6C741D3C15F1008EA51B /* fof.c in Sources */,
@@ -6153,6 +6168,7 @@
 				C48C6C791D3C15F1008EA51B /* fosc.c in Sources */,
 				C4F8C8B91DCA8CE4001F38F2 /* blsquare.c in Sources */,
 				C4F8C8D51DCA8CE4001F38F2 /* fosc.c in Sources */,
+				55E4F5221F57CB540088018A /* AKSamplerMetronome.m in Sources */,
 				C48C6CAD1D3C15F1008EA51B /* tdiv.c in Sources */,
 				C48C6C9B1D3C15F1008EA51B /* randh.c in Sources */,
 				C48C6C841D3C15F1008EA51B /* mincer.c in Sources */,
