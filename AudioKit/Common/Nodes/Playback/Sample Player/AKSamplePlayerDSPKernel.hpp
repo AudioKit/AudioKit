@@ -181,8 +181,8 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
             
-            startPoint = double(startPointRamper.getAndStep());
-            endPoint = double(endPointRamper.getAndStep());
+            startPoint = double(startPointRamper.getAndStep()) / 2;
+            endPoint = double(endPointRamper.getAndStep()) / 2;
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
             
