@@ -23,18 +23,18 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKButton(title: "Play") { _ in
             samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
-                              length: Sample(40_000))
+                              length: Sample(44_100))
         })
 
         addSubview(AKButton(title: "Play Reversed") { _ in
             let start = Sample(44_100 * (self.current % 26))
-            samplePlayer.play(from: start + 40_000, to: start)
+            samplePlayer.play(from: start + 44_100, to: start)
         })
 
         addSubview(AKButton(title: "Next") { _ in
             self.current += 1
             samplePlayer.play(from: Sample(44_100 * (self.current % 26)),
-                              length: Sample(40_000))
+                              length: Sample(44_100))
         })
 
         addSubview(AKButton(title: "Previous") { _ in

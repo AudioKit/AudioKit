@@ -181,11 +181,11 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
             
-            startPoint = double(startPointRamper.getAndStep()) / 2;
-            endPoint = double(endPointRamper.getAndStep()) / 2;
+            startPoint = double(startPointRamper.getAndStep());
+            endPoint = double(endPointRamper.getAndStep());
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
-            
+
             SPFLOAT dur = (SPFLOAT)current_size / sp->sr;
             
             //length of playableSample vs actual
@@ -199,8 +199,8 @@ public:
                 if (started) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &position);
-                        tabread1->index = position * percentLen + (startPoint / current_size);
-                        tabread2->index = position * percentLen + (startPoint / current_size);
+                        tabread1->index = position * percentLen + startPoint / ftbl_size;
+                        tabread2->index = position * percentLen + startPoint / ftbl_size;
                         sp_tabread_compute(sp, tabread1, NULL, out);
                     } else {
                         sp_tabread_compute(sp, tabread2, NULL, out);
@@ -210,7 +210,7 @@ public:
                     *out = 0;
                 }
             }
-            if (!loop && position < lastPosition) {
+            if (!loop && position < lastPosition && started) {
                 started = false;
                 completionHandler();
             } else {
