@@ -33,19 +33,19 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: timePitch))
 
-        addSubview(AKPropertySlider(property: "Rate", value: timePitch.rate, range: 0.312_5 ... 5) { sliderValue in
+        addSubview(AKSlider(property: "Rate", value: timePitch.rate, range: 0.312_5 ... 5) { sliderValue in
             timePitch.rate = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Pitch",
-                                    value: timePitch.pitch,
-                                    range: -2_400 ... 2_400,
-                                    format: "%0.3f Cents"
+        addSubview(AKSlider(property: "Pitch",
+                            value: timePitch.pitch,
+                            range: -2_400 ... 2_400,
+                            format: "%0.3f Cents"
         ) { sliderValue in
             timePitch.pitch = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Overlap", value: timePitch.overlap, range: 3 ... 32) { sliderValue in
+        addSubview(AKSlider(property: "Overlap", value: timePitch.overlap, range: 3 ... 32) { sliderValue in
             timePitch.overlap = sliderValue
         })
     }

@@ -44,11 +44,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: drums))
 
-        addSubview(AKPropertySlider(
-            property: "Balance",
-            value: mixture.balance,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addSubview(AKSlider(property: "Balance", value: mixture.balance) { sliderValue in
             mixture.balance = sliderValue
         })
     }

@@ -18,23 +18,23 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("FM Oscillator Bank")
 
-        addSubview(AKPropertySlider(property: "Carrier Multiplier",
-                                    value: fmBank.carrierMultiplier,
-                                    range: 0 ... 2
+        addSubview(AKSlider(property: "Carrier Multiplier",
+                            value: fmBank.carrierMultiplier,
+                            range: 0 ... 2
         ) { multiplier in
             fmBank.carrierMultiplier = multiplier
         })
 
-        addSubview(AKPropertySlider(property: "Modulating Multiplier",
-                                    value: fmBank.modulatingMultiplier,
-                                    range: 0 ... 2
+        addSubview(AKSlider(property: "Modulating Multiplier",
+                            value: fmBank.modulatingMultiplier,
+                            range: 0 ... 2
         ) { multiplier in
             fmBank.modulatingMultiplier = multiplier
         })
 
-        addSubview(AKPropertySlider(property: "Modulation Index",
-                                    value: fmBank.modulationIndex,
-                                    range: 0 ... 20
+        addSubview(AKSlider(property: "Modulation Index",
+                            value: fmBank.modulationIndex,
+                            range: 0 ... 20
         ) { index in
             fmBank.modulationIndex = index
         })
@@ -51,26 +51,26 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel = fmBank.sustainLevel
         addSubview(adsrView)
 
-        addSubview(AKPropertySlider(property: "Pitch Bend",
-                                    value: fmBank.pitchBend,
-                                    range: -12 ... 12,
-                                    format: "%0.2f semitones"
+        addSubview(AKSlider(property: "Pitch Bend",
+                            value: fmBank.pitchBend,
+                            range: -12 ... 12,
+                            format: "%0.2f semitones"
         ) { sliderValue in
             fmBank.pitchBend = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Vibrato Depth",
-                                    value: fmBank.vibratoDepth,
-                                    range: 0 ... 2,
-                                    format: "%0.2f semitones"
+        addSubview(AKSlider(property: "Vibrato Depth",
+                            value: fmBank.vibratoDepth,
+                            range: 0 ... 2,
+                            format: "%0.2f semitones"
         ) { sliderValue in
             fmBank.vibratoDepth = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Vibrato Rate",
-                                    value: fmBank.vibratoRate,
-                                    range: 0 ... 10,
-                                    format: "%0.2f Hz"
+        addSubview(AKSlider(property: "Vibrato Rate",
+                            value: fmBank.vibratoRate,
+                            range: 0 ... 10,
+                            format: "%0.2f Hz"
         ) { sliderValue in
             fmBank.vibratoRate = sliderValue
         })

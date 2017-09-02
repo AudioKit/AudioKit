@@ -31,19 +31,19 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: highPassFilter))
 
-        addSubview(AKPropertySlider(property: "Cutoff Frequency",
-                                    value: highPassFilter.cutoffFrequency,
-                                    range: 20 ... 22_050,
-                                    taper: 5,
-                                    format: "%0.1f Hz"
+        addSubview(AKSlider(property: "Cutoff Frequency",
+                            value: highPassFilter.cutoffFrequency,
+                            range: 20 ... 22_050,
+                            taper: 5,
+                            format: "%0.1f Hz"
         ) { sliderValue in
             highPassFilter.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Resonance",
-                                    value: highPassFilter.resonance,
-                                    range: -20 ... 40,
-                                    format: "%0.1f dB"
+        addSubview(AKSlider(property: "Resonance",
+                            value: highPassFilter.resonance,
+                            range: -20 ... 40,
+                            format: "%0.1f dB"
         ) { sliderValue in
             highPassFilter.resonance = sliderValue
         })

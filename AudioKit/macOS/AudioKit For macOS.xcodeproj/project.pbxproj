@@ -906,7 +906,7 @@
 		EAFECED01F4EBD8E00A2B046 /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAAB1E9A11D800DEB790 /* AKPlaygroundLoop.swift */; };
 		EAFECED11F4EBD8E00A2B046 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAA91E9A118F00DEB790 /* AKPlaygroundView.swift */; };
 		EAFECED21F4EBD8E00A2B046 /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CC01E8A3D8000E42D93 /* AKPresetLoaderView.swift */; };
-		EAFECED31F4EBD8E00A2B046 /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CC11E8A3D8000E42D93 /* AKPropertySlider.swift */; };
+		EAFECED31F4EBD8E00A2B046 /* AKSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CC11E8A3D8000E42D93 /* AKSlider.swift */; };
 		EAFECED41F4EBD8E00A2B046 /* AKResourceAudioFileLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CC21E8A3D8000E42D93 /* AKResourceAudioFileLoaderView.swift */; };
 		EAFECED51F4EBD8E00A2B046 /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */; };
 		EAFECED81F4EBE1A00A2B046 /* AudioKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAFECED61F4EBE1300A2B046 /* AudioKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1711,7 +1711,7 @@
 		C4D35CBC1E8A3D8000E42D93 /* AKBypassButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBypassButton.swift; sourceTree = "<group>"; };
 		C4D35CBD1E8A3D8000E42D93 /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
 		C4D35CC01E8A3D8000E42D93 /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
-		C4D35CC11E8A3D8000E42D93 /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
+		C4D35CC11E8A3D8000E42D93 /* AKSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSlider.swift; sourceTree = "<group>"; };
 		C4D35CC21E8A3D8000E42D93 /* AKResourceAudioFileLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResourceAudioFileLoaderView.swift; sourceTree = "<group>"; };
 		C4D4C4DE1EB7175100134B39 /* AKTuningTable+CombinationProductSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+CombinationProductSet.swift"; sourceTree = "<group>"; };
 		C4D4C4DF1EB7175100134B39 /* AKTuningTable+EqualTemperament.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+EqualTemperament.swift"; sourceTree = "<group>"; };
@@ -4065,9 +4065,9 @@
 				C486FAA91E9A118F00DEB790 /* AKPlaygroundView.swift */,
 				C4D35CC01E8A3D8000E42D93 /* AKPresetLoaderView.swift */,
 				C45717AC1F5942FF0012DE53 /* AKPropertyControl.swift */,
-				C4D35CC11E8A3D8000E42D93 /* AKPropertySlider.swift */,
 				C4D35CC21E8A3D8000E42D93 /* AKResourceAudioFileLoaderView.swift */,
 				7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */,
+				C4D35CC11E8A3D8000E42D93 /* AKSlider.swift */,
 			);
 			name = macOS;
 			path = "AudioKit/User Interface";
@@ -5163,7 +5163,7 @@
 				EAFECEE41F4EBEE900A2B046 /* EZPlot.m in Sources */,
 				EAFECED51F4EBD8E00A2B046 /* AKRotaryKnob.swift in Sources */,
 				EAFECECB1F4EBD8E00A2B046 /* AKADSRView.swift in Sources */,
-				EAFECED31F4EBD8E00A2B046 /* AKPropertySlider.swift in Sources */,
+				EAFECED31F4EBD8E00A2B046 /* AKSlider.swift in Sources */,
 				EAFECECE1F4EBD8E00A2B046 /* AKBypassButton.swift in Sources */,
 				EAFECEDE1F4EBEB700A2B046 /* EZAudioDisplayLink.m in Sources */,
 				EAFECED01F4EBD8E00A2B046 /* AKPlaygroundLoop.swift in Sources */,

@@ -35,18 +35,18 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Cutoff Frequency",
-                                    value: moogLadder.cutoffFrequency,
-                                    range: 40 ... 5_000,
-                                    taper: 4,
-                                    format: "%0.1f Hz"
+        addSubview(AKSlider(property: "Cutoff Frequency",
+                            value: moogLadder.cutoffFrequency,
+                            range: 40 ... 5_000,
+                            taper: 4,
+                            format: "%0.1f Hz"
         ) { sliderValue in
             moogLadder.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Resonance",
-                                    value: moogLadder.resonance,
-                                    range: 0 ... 0.98
+        addSubview(AKSlider(property: "Resonance",
+                            value: moogLadder.resonance,
+                            range: 0 ... 0.98
         ) { sliderValue in
             moogLadder.resonance = sliderValue
         })

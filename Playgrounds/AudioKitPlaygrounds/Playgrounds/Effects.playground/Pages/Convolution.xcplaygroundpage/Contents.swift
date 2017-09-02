@@ -45,11 +45,11 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Dry Audio to Convolved", value: dryWetMixer.balance) { sliderValue in
+        addSubview(AKSlider(property: "Dry Audio to Convolved", value: dryWetMixer.balance) { sliderValue in
             dryWetMixer.balance = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Stairwell to Dish", value: mixer.balance) { sliderValue in
+        addSubview(AKSlider(property: "Stairwell to Dish", value: mixer.balance) { sliderValue in
             mixer.balance = sliderValue
         })
     }

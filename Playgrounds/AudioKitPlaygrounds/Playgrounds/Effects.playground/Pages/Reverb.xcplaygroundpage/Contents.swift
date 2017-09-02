@@ -26,7 +26,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
+        addSubview(AKSlider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
             reverb.dryWetMix = sliderValue
         })
 

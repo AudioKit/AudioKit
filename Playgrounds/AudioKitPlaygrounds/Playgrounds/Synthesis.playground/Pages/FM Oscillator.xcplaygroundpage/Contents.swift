@@ -15,12 +15,12 @@ AudioKit.start()
 class PlaygroundView: AKPlaygroundView {
 
     // UI Elements we'll need to be able to access
-    var frequencySlider: AKPropertySlider!
-    var carrierMultiplierSlider: AKPropertySlider!
-    var modulatingMultiplierSlider: AKPropertySlider!
-    var modulationIndexSlider: AKPropertySlider!
-    var amplitudeSlider: AKPropertySlider!
-    var rampTimeSlider: AKPropertySlider!
+    var frequencySlider: AKSlider!
+    var carrierMultiplierSlider: AKSlider!
+    var modulatingMultiplierSlider: AKSlider!
+    var modulationIndexSlider: AKSlider!
+    var amplitudeSlider: AKSlider!
+    var rampTimeSlider: AKSlider!
 
     override func setup() {
         addTitle("FM Oscillator")
@@ -63,48 +63,48 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.modulationIndex = self.modulationIndexSlider.randomize()
         })
 
-        frequencySlider = AKPropertySlider(property: "Frequency",
-                                           value: oscillator.baseFrequency,
-                                           range: 0 ... 800,
-                                           format: "%0.2f Hz"
+        frequencySlider = AKSlider(property: "Frequency",
+                                   value: oscillator.baseFrequency,
+                                   range: 0 ... 800,
+                                   format: "%0.2f Hz"
         ) { frequency in
             oscillator.baseFrequency = frequency
         }
         addSubview(frequencySlider)
 
-        carrierMultiplierSlider = AKPropertySlider(property: "Carrier Multiplier",
-                                                   value: oscillator.carrierMultiplier,
-                                                   range: 0 ... 20
+        carrierMultiplierSlider = AKSlider(property: "Carrier Multiplier",
+                                           value: oscillator.carrierMultiplier,
+                                           range: 0 ... 20
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         }
         addSubview(carrierMultiplierSlider)
 
-        modulatingMultiplierSlider = AKPropertySlider(property: "Modulating Multiplier",
-                                                      value: oscillator.modulatingMultiplier,
-                                                      range: 0 ... 20
+        modulatingMultiplierSlider = AKSlider(property: "Modulating Multiplier",
+                                              value: oscillator.modulatingMultiplier,
+                                              range: 0 ... 20
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         }
         addSubview(modulatingMultiplierSlider)
 
-        modulationIndexSlider = AKPropertySlider(property: "Modulation Index",
-                                                 value: oscillator.modulationIndex,
-                                                 range: 0 ... 100
+        modulationIndexSlider = AKSlider(property: "Modulation Index",
+                                         value: oscillator.modulationIndex,
+                                         range: 0 ... 100
         ) { index in
             oscillator.modulationIndex = index
         }
         addSubview(modulationIndexSlider)
 
-        amplitudeSlider = AKPropertySlider(property: "Amplitude", value: oscillator.amplitude) { amplitude in
+        amplitudeSlider = AKSlider(property: "Amplitude", value: oscillator.amplitude) { amplitude in
             oscillator.amplitude = amplitude
         }
         addSubview(amplitudeSlider)
 
-        rampTimeSlider = AKPropertySlider(property: "Ramp Time",
-                                          value: oscillator.rampTime,
-                                          range: 0 ... 10,
-                                          format: "%0.3f s"
+        rampTimeSlider = AKSlider(property: "Ramp Time",
+                                  value: oscillator.rampTime,
+                                  range: 0 ... 10,
+                                  format: "%0.3f s"
         ) { time in
             oscillator.rampTime = time
         }

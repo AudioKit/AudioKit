@@ -42,10 +42,10 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Segment Operations")
 
-        addSubview(AKPropertySlider(property: "Update Rate",
-                                    value: generator.parameters[0],
-                                    range: 0.1 ... 10,
-                                    format: "%0.3f Hz"
+        addSubview(AKSlider(property: "Update Rate",
+                            value: generator.parameters[0],
+                            range: 0.1 ... 10,
+                            format: "%0.3f Hz"
         ) { sliderValue in
             generator.parameters[0] = sliderValue
             delay.time = 0.25 / sliderValue

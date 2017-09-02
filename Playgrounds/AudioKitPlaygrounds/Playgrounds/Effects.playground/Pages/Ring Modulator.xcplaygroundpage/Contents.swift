@@ -30,27 +30,27 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: ringModulator))
 
-        addSubview(AKPropertySlider(property: "Frequency 1",
-                                    value: ringModulator.frequency1,
-                                    range: 0.5 ... 8_000,
-                                    format: "%0.2f Hz"
+        addSubview(AKSlider(property: "Frequency 1",
+                            value: ringModulator.frequency1,
+                            range: 0.5 ... 8_000,
+                            format: "%0.2f Hz"
         ) { sliderValue in
             ringModulator.frequency1 = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Frequency 2",
-                                    value: ringModulator.frequency2,
-                                    range: 0.5 ... 8_000,
-                                    format: "%0.2f Hz"
+        addSubview(AKSlider(property: "Frequency 2",
+                            value: ringModulator.frequency2,
+                            range: 0.5 ... 8_000,
+                            format: "%0.2f Hz"
         ) { sliderValue in
             ringModulator.frequency2 = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Balance", value: ringModulator.balance) { sliderValue in
+        addSubview(AKSlider(property: "Balance", value: ringModulator.balance) { sliderValue in
             ringModulator.balance = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Mix", value: ringModulator.mix) { sliderValue in
+        addSubview(AKSlider(property: "Mix", value: ringModulator.mix) { sliderValue in
             ringModulator.mix = sliderValue
         })
     }

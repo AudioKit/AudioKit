@@ -24,7 +24,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Limit", value: clipper.limit) { sliderValue in
+        addSubview(AKSlider(property: "Limit", value: clipper.limit) { sliderValue in
             clipper.limit = sliderValue
         })
     }

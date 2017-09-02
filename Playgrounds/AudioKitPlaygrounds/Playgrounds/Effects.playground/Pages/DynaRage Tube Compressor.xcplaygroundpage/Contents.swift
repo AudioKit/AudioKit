@@ -32,42 +32,42 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: effect))
 
-        addSubview(AKPropertySlider(property: "Threshold",
-                                    value: effect.threshold,
-                                    range: -100.0 ... 0.0,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Threshold",
+                            value: effect.threshold,
+                            range: -100.0 ... 0.0,
+                            format: "%0.2f dB"
         ) { sliderValue in
             effect.threshold = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Ratio",
-                                    value: effect.ratio,
-                                    range: 1.0 ... 20.0,
-                                    format: "%0.0f:1"
+        addSubview(AKSlider(property: "Ratio",
+                            value: effect.ratio,
+                            range: 1.0 ... 20.0,
+                            format: "%0.0f:1"
         ) { sliderValue in
             effect.ratio = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Attack Time",
-                                    value: effect.attackTime,
-                                    range: 0.1 ... 500.0,
-                                    format: "%0.2f ms"
+        addSubview(AKSlider(property: "Attack Time",
+                            value: effect.attackTime,
+                            range: 0.1 ... 500.0,
+                            format: "%0.2f ms"
         ) { sliderValue in
             effect.attackTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Release Time",
-                                    value: effect.releaseTime,
-                                    range: 0.01 ... 500.0,
-                                    format: "%0.2f ms"
+        addSubview(AKSlider(property: "Release Time",
+                            value: effect.releaseTime,
+                            range: 0.01 ... 500.0,
+                            format: "%0.2f ms"
         ) { sliderValue in
             effect.releaseTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Rage Amount",
-                                    value: effect.rageAmount,
-                                    range: 1 ... 20,
-                                    format: "%0.2f"
+        addSubview(AKSlider(property: "Rage Amount",
+                            value: effect.rageAmount,
+                            range: 1 ... 20,
+                            format: "%0.2f"
         ) { sliderValue in
             effect.rageAmount = sliderValue
         })

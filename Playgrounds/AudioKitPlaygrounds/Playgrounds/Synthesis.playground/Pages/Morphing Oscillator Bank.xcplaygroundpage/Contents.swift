@@ -15,7 +15,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Morphing Oscillator Bank")
 
-        addSubview(AKPropertySlider(property: "Morph Index", value: bank.index, range: 0 ... 3) { sliderValue in
+        addSubview(AKSlider(property: "Morph Index", value: bank.index, range: 0 ... 3) { sliderValue in
             bank.index = sliderValue
         })
 
@@ -31,26 +31,26 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel = bank.sustainLevel
         addSubview(adsrView)
 
-        addSubview(AKPropertySlider(property: "Pitch Bend",
-                                    value: bank.pitchBend,
-                                    range: -12 ... 12,
-                                    format: "%0.2f semitones"
+        addSubview(AKSlider(property: "Pitch Bend",
+                            value: bank.pitchBend,
+                            range: -12 ... 12,
+                            format: "%0.2f semitones"
         ) { sliderValue in
             bank.pitchBend = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Vibrato Depth",
-                                    value: bank.vibratoDepth,
-                                    range: 0 ... 2,
-                                    format: "%0.2f semitones"
+        addSubview(AKSlider(property: "Vibrato Depth",
+                            value: bank.vibratoDepth,
+                            range: 0 ... 2,
+                            format: "%0.2f semitones"
         ) { sliderValue in
             bank.vibratoDepth = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Vibrato Rate",
-                                    value: bank.vibratoRate,
-                                    range: 0 ... 10,
-                                    format: "%0.2f Hz"
+        addSubview(AKSlider(property: "Vibrato Rate",
+                            value: bank.vibratoRate,
+                            range: 0 ... 10,
+                            format: "%0.2f Hz"
         ) { sliderValue in
             bank.vibratoRate = sliderValue
         })

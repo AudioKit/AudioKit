@@ -36,56 +36,56 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: effect))
 
-        addSubview(AKPropertySlider(property: "Threshold",
-                                    value: effect.threshold,
-                                    range: -40 ... 20,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Threshold",
+                            value: effect.threshold,
+                            range: -40 ... 20,
+                            format: "%0.2f dB"
         ) { sliderValue in
             effect.threshold = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Head Room",
-                                    value: effect.headRoom,
-                                    range: 0.1 ... 40,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Head Room",
+                            value: effect.headRoom,
+                            range: 0.1 ... 40,
+                            format: "%0.2f dB"
         ) { sliderValue in
             effect.headRoom = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Expansion Ratio",
-                                    value: effect.expansionRatio,
-                                    range: 1 ... 50
+        addSubview(AKSlider(property: "Expansion Ratio",
+                            value: effect.expansionRatio,
+                            range: 1 ... 50
         ) { sliderValue in
             effect.expansionRatio = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Expansion Threshold",
-                                    value: effect.expansionThreshold,
-                                    range: 1 ... 50
+        addSubview(AKSlider(property: "Expansion Threshold",
+                            value: effect.expansionThreshold,
+                            range: 1 ... 50
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Attack Time",
-                                    value: effect.attackTime,
-                                    range: 0.000_1 ... 0.2,
-                                    format: "%0.3f s"
+        addSubview(AKSlider(property: "Attack Time",
+                            value: effect.attackTime,
+                            range: 0.000_1 ... 0.2,
+                            format: "%0.3f s"
         ) { sliderValue in
             effect.attackTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Release Time",
-                                    value: effect.releaseTime,
-                                    range: 0.01 ... 3,
-                                    format: "%0.3f s"
+        addSubview(AKSlider(property: "Release Time",
+                            value: effect.releaseTime,
+                            range: 0.01 ... 3,
+                            format: "%0.3f s"
         ) { sliderValue in
             effect.releaseTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Master Gain",
-                                    value: effect.masterGain,
-                                    range: -40 ... 40,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Master Gain",
+                            value: effect.masterGain,
+                            range: -40 ... 40,
+                            format: "%0.2f dB"
         ) { sliderValue in
             effect.masterGain = sliderValue
         })

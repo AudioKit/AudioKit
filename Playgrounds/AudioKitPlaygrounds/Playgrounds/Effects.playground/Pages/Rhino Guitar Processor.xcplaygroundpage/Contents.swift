@@ -29,50 +29,50 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: rhino))
 
-        addSubview(AKPropertySlider(property: "Pre Gain",
-                                    value: rhino.preGain,
-                                    range: 0.0 ... 10.0,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Pre Gain",
+                            value: rhino.preGain,
+                            range: 0.0 ... 10.0,
+                            format: "%0.2f dB"
         ) { sliderValue in
             rhino.preGain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Dist. Amount",
-                                    value: rhino.distAmount,
-                                    range: 1.0 ... 20.0,
-                                    format: "%0.1f"
+        addSubview(AKSlider(property: "Dist. Amount",
+                            value: rhino.distAmount,
+                            range: 1.0 ... 20.0,
+                            format: "%0.1f"
         ) { sliderValue in
             rhino.distAmount = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Lows",
-                                    value: rhino.lowGain,
-                                    range: -1.0 ... 1.0,
-                                    format: "%0.1f"
+        addSubview(AKSlider(property: "Lows",
+                            value: rhino.lowGain,
+                            range: -1.0 ... 1.0,
+                            format: "%0.1f"
         ) { sliderValue in
             rhino.lowGain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Mids",
-                                    value: rhino.midGain,
-                                    range: -1.0 ... 1.0,
-                                    format: "%0.1f"
+        addSubview(AKSlider(property: "Mids",
+                            value: rhino.midGain,
+                            range: -1.0 ... 1.0,
+                            format: "%0.1f"
         ) { sliderValue in
             rhino.midGain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Highs",
-                                    value: rhino.highGain,
-                                    range: -1.0 ... 1.0,
-                                    format: "%0.1f"
+        addSubview(AKSlider(property: "Highs",
+                            value: rhino.highGain,
+                            range: -1.0 ... 1.0,
+                            format: "%0.1f"
         ) { sliderValue in
             rhino.highGain = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Output Gain",
-                                    value: rhino.postGain,
-                                    range: 0.0 ... 1.0,
-                                    format: "%0.1f"
+        addSubview(AKSlider(property: "Output Gain",
+                            value: rhino.postGain,
+                            range: 0.0 ... 1.0,
+                            format: "%0.1f"
         ) { sliderValue in
             rhino.postGain = sliderValue
         })

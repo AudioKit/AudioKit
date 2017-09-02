@@ -19,16 +19,16 @@ import AudioKitUI
 class PlaygroundView: AKPlaygroundView {
 
     // UI Elements we'll need to be able to access
-    var playingPositionSlider: AKPropertySlider?
+    var playingPositionSlider: AKSlider?
 
     override func setup() {
 
         addTitle("Phase Locked Vocoder")
 
-        playingPositionSlider = AKPropertySlider(property: "Position",
-                                                 value: phaseLockedVocoder.position,
-                                                 range: 0 ... 3.428,
-                                                 format: "%0.2f s"
+        playingPositionSlider = AKSlider(property: "Position",
+                                         value: phaseLockedVocoder.position,
+                                         range: 0 ... 3.428,
+                                         format: "%0.2f s"
         ) { sliderValue in
             phaseLockedVocoder.position = sliderValue
         }

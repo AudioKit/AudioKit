@@ -24,38 +24,38 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: compressor))
-        addSubview(AKPropertySlider(property: "Threshold",
-                                    value: compressor.threshold,
-                                    range: -40 ... 20,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Threshold",
+                            value: compressor.threshold,
+                            range: -40 ... 20,
+                            format: "%0.2f dB"
         ) { sliderValue in
             compressor.threshold = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Headroom",
-                                    value: compressor.headRoom,
-                                    range: 0.1 ... 40,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Headroom",
+                            value: compressor.headRoom,
+                            range: 0.1 ... 40,
+                            format: "%0.2f dB"
         ) { sliderValue in
             compressor.headRoom = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Attack Time",
-                                    value: compressor.attackTime,
-                                    range: 0.001 ... 0.2,
-                                    format: "%0.4f s"
+        addSubview(AKSlider(property: "Attack Time",
+                            value: compressor.attackTime,
+                            range: 0.001 ... 0.2,
+                            format: "%0.4f s"
         ) { sliderValue in
             compressor.attackTime = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Release Time",
-                                    value: compressor.releaseTime,
-                                    range: 0.01 ... 3,
-                                    format: "%0.3f s"
+        addSubview(AKSlider(property: "Release Time",
+                            value: compressor.releaseTime,
+                            range: 0.01 ... 3,
+                            format: "%0.3f s"
         ) { sliderValue in
             compressor.releaseTime = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Master Gain",
-                                    value: compressor.masterGain,
-                                    range: -40 ... 40,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Master Gain",
+                            value: compressor.masterGain,
+                            range: -40 ... 40,
+                            format: "%0.2f dB"
         ) { sliderValue in
             compressor.masterGain = sliderValue
         })

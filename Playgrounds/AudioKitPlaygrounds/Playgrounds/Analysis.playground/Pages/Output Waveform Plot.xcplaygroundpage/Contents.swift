@@ -19,36 +19,36 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Output Waveform Plot")
 
-        addSubview(AKPropertySlider(property: "Frequency",
-                                    value: oscillator.baseFrequency,
-                                    range: 0 ... 800,
-                                    format: "%0.2f Hz"
+        addSubview(AKSlider(property: "Frequency",
+                            value: oscillator.baseFrequency,
+                            range: 0 ... 800,
+                            format: "%0.2f Hz"
         ) { frequency in
             oscillator.baseFrequency = frequency
         })
 
-        addSubview(AKPropertySlider(property: "Carrier Multiplier",
-                                    value: oscillator.carrierMultiplier,
-                                    range: 0 ... 3
+        addSubview(AKSlider(property: "Carrier Multiplier",
+                            value: oscillator.carrierMultiplier,
+                            range: 0 ... 3
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         })
 
-        addSubview(AKPropertySlider(property: "Modulating Multiplier",
-                                    value: oscillator.modulatingMultiplier,
-                                    range: 0 ... 3
+        addSubview(AKSlider(property: "Modulating Multiplier",
+                            value: oscillator.modulatingMultiplier,
+                            range: 0 ... 3
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         })
 
-        addSubview(AKPropertySlider(property: "Modulation Index",
-                                    value: oscillator.modulationIndex,
-                                    range: 0 ... 3
+        addSubview(AKSlider(property: "Modulation Index",
+                            value: oscillator.modulationIndex,
+                            range: 0 ... 3
         ) { index in
             oscillator.modulationIndex = index
         })
 
-        addSubview(AKPropertySlider(property: "Amplitude", value: oscillator.amplitude) { amplitude in
+        addSubview(AKSlider(property: "Amplitude", value: oscillator.amplitude) { amplitude in
             oscillator.amplitude = amplitude
         })
 

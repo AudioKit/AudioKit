@@ -12,10 +12,10 @@ import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var p0Slider: AKPropertySlider!
-    var p1Slider: AKPropertySlider!
-    var p2Slider: AKPropertySlider!
-    var p3Slider: AKPropertySlider!
+    var p0Slider: AKSlider!
+    var p1Slider: AKSlider!
+    var p2Slider: AKSlider!
+    var p3Slider: AKSlider!
     var keyboard: AKKeyboardView!
     var currentMIDINote: MIDINoteNumber = 0
 
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             Swift.print("\n\n\n\n\n\n\(sporth)")
             generator.sporth = sporth
 
-            let sliders: [AKPropertySlider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
+            let sliders: [AKSlider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
             // Reset UI Eleements
             self.keyboard.isHidden = true
@@ -109,22 +109,22 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         })
         addLabel("Open up the console view to see the Sporth code.")
 
-        p0Slider = AKPropertySlider(property: "Parameter 0", value: generator.parameters[0]) { sliderValue in
+        p0Slider = AKSlider(property: "Parameter 0", value: generator.parameters[0]) { sliderValue in
             generator.parameters[0] = sliderValue
         }
         p0Slider?.isHidden = true
         addSubview(p0Slider)
-        p1Slider = AKPropertySlider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
+        p1Slider = AKSlider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
             generator.parameters[1] = sliderValue
         }
         p1Slider?.isHidden = true
         addSubview(p1Slider)
-        p2Slider = AKPropertySlider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
+        p2Slider = AKSlider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
             generator.parameters[2] = sliderValue
         }
         p2Slider?.isHidden = true
         addSubview(p2Slider)
-        p3Slider = AKPropertySlider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
+        p3Slider = AKSlider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
             generator.parameters[3] = sliderValue
         }
         p3Slider?.isHidden = true

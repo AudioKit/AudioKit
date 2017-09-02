@@ -27,18 +27,18 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: lowShelfFilter))
 
-        addSubview(AKPropertySlider(property: "Cutoff Frequency",
-                                    value: lowShelfFilter.cutoffFrequency,
-                                    range: 10 ... 200,
-                                    format: "%0.1f Hz"
+        addSubview(AKSlider(property: "Cutoff Frequency",
+                            value: lowShelfFilter.cutoffFrequency,
+                            range: 10 ... 200,
+                            format: "%0.1f Hz"
         ) { sliderValue in
             lowShelfFilter.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Gain",
-                                    value: lowShelfFilter.gain,
-                                    range: -40 ... 40,
-                                    format: "%0.1f dB"
+        addSubview(AKSlider(property: "Gain",
+                            value: lowShelfFilter.gain,
+                            range: -40 ... 40,
+                            format: "%0.1f dB"
         ) { sliderValue in
             lowShelfFilter.gain = sliderValue
         })
