@@ -274,7 +274,6 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("Unsupported Format, channel count is greater than stereo")
                 break Exit
             }
-            let originalChannels = UInt32(theFileFormat.mChannelsPerFrame)
             
             theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
@@ -334,7 +333,6 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     self.avAudiofile = file
                     self.startPoint = 0
                     self.endPoint = Sample(file.samplesCount)
-                    print("numSampls is \(file.samplesCount)")
                 } else {
                     // failure
                     AKLog("Error = \(err)"); break Exit
