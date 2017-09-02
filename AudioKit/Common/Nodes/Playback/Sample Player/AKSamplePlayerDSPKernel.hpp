@@ -199,9 +199,10 @@ public:
             
             //length of playableSample vs actual
             int subsectionLength = endPoint - startPoint;
-            float percentLen = (float)subsectionLength / (float)current_size;
-            phasor->freq = fabs(1.0 / dur  * rate / percentLen);
-            
+            float percentLen = (float)subsectionLength / (float)ftbl_size;
+            float speedFactor = (float)current_size / (float)ftbl_size;
+            phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
+        
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {

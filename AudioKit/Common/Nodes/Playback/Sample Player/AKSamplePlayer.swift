@@ -196,6 +196,9 @@ open class AKSamplePlayer: AKNode, AKComponent {
         internalAU?.rate = Float(rate)
         internalAU?.volume = Float(volume)
 
+        if maximumSamples != 0 {
+            internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
+        }
         load(file: self.avAudiofile)
     }
 
@@ -321,13 +324,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
+                    
                     if maximumSamples == 0 {
-                        internalAU?.setupAudioFileTable(ioNumberFrames * 2)
-                        if ioNumberFrames > 2 {
-                            maximumSamples = Int(ioNumberFrames)
-                        }
-                    } else {
-                        internalAU?.setupAudioFileTable(UInt32(file.samplesCount) * 2)
+                        maximumSamples = Int(ioNumberFrames * 2)
+                        internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
                     }
                     internalAU?.loadAudioData(data, size: ioNumberFrames * 2)
 
