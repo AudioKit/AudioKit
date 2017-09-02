@@ -271,7 +271,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("Unsupported Format, channel count is greater than stereo")
                 break Exit
             }
-
+            let originalChannels = UInt32(theFileFormat.mChannelsPerFrame)
+            
             theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
@@ -311,7 +312,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 bufferList.mBuffers.mDataByteSize = dataSize
                 bufferList.mBuffers.mNumberChannels = theOutputFormat.mChannelsPerFrame
                 bufferList.mBuffers.mData = UnsafeMutableRawPointer(theData)
-
+                
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
                 err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
@@ -322,15 +323,18 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     )
                     if maximumSamples == 0 {
                         internalAU?.setupAudioFileTable(ioNumberFrames * 2)
+                        if ioNumberFrames > 2 {
+                            maximumSamples = Int(ioNumberFrames)
+                        }
                     } else {
-                        internalAU?.setupAudioFileTable(UInt32(maximumSamples * 2))
+                        internalAU?.setupAudioFileTable(UInt32(file.samplesCount) * 2)
                     }
-
                     internalAU?.loadAudioData(data, size: ioNumberFrames * 2)
 
                     self.avAudiofile = file
                     self.startPoint = 0
                     self.endPoint = Sample(file.samplesCount)
+                    print("numSampls is \(file.samplesCount)")
                 } else {
                     // failure
                     AKLog("Error = \(err)"); break Exit
