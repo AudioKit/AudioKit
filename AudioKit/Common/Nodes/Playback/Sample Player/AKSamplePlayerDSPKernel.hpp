@@ -62,14 +62,14 @@ public:
     }
 
     void loadAudioData(float *table, UInt32 size) {
-        current_size = fmin(size / 2, ftbl_size / 2);
+        current_size = fmin(size / 2, ftbl_size);
         int counter1 = 0;
         int counter2 = 0;
-        for (int i = 0; i < current_size; i++) {
+        for (int i = 0; i < 2 * current_size; i++) {
             if (i % 2 == 0) {
+                ftbl1->tbl[counter1] = table[i];
                 counter1++;
             } else {
-                ftbl1->tbl[counter1] = table[i];
                 ftbl2->tbl[counter2] = table[i];
                 counter2++;
             }
@@ -190,9 +190,10 @@ public:
             
             //length of playableSample vs actual
             int subsectionLength = endPoint - startPoint;
-            float percentLen = (float)subsectionLength / (float)current_size;
-            phasor->freq = fabs(1.0 / dur  * rate / percentLen / 2);
-            
+            float percentLen = (float)subsectionLength / (float)ftbl_size;
+            float speedFactor = (float)current_size / (float)ftbl_size;
+            phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
+        
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
