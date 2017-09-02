@@ -19,10 +19,7 @@ public enum AKPropertySliderStyle {
     }
 }
 
-@IBDesignable public class AKPropertySlider: NSView {
-    override public func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
-        return true
-    }
+@IBDesignable public class AKPropertySlider: AKPropertyControl {
 
     // Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
@@ -36,83 +33,38 @@ public enum AKPropertySliderStyle {
     // Corner radius for the value bubble
     static var bubbleCornerRadius: CGFloat = 2.0
 
-    var initialValue: Double = 0
-
-    /// Current value of the slider
-    @IBInspectable open var value: Double = 0 {
-        didSet {
-            value = range.clamp(value)
-            value = onlyIntegers ? round(value) : value
-
-            val = value.normalized(from: range, taper: taper)
-        }
-    }
-
-    private var val: Double = 0 {
-        didSet {
-            needsDisplay = true
-        }
-    }
-
-    open var range: ClosedRange<Double> = 0 ... 1 {
-        didSet {
-            val = value.normalized(from: range, taper: taper)
-        }
-    }
-
-    open var taper: Double = 1 // Default Linear
-
-    /// Text shown on the slider
-    @IBInspectable open var property: String = "Property"
-
-    /// Format for the number shown on the slider
-    @IBInspectable open var format: String = "%0.3f"
-
     /// Background color
-    @IBInspectable open var bgColor: NSColor?
+    @IBInspectable public var bgColor: NSColor?
 
     /// Slider border color
-    @IBInspectable open var sliderBorderColor: NSColor?
+    @IBInspectable public var sliderBorderColor: NSColor?
 
     /// Indicator border color
-    @IBInspectable open var indicatorBorderColor: NSColor?
+    @IBInspectable public var indicatorBorderColor: NSColor?
 
     /// Slider overlay color
-    @IBInspectable open var color: NSColor = AKStylist.sharedInstance.nextColor
+    @IBInspectable public var color: NSColor = AKStylist.sharedInstance.nextColor
 
     /// Text color
-    @IBInspectable open var textColor: NSColor?
-
-    /// Font size
-    @IBInspectable open var fontSize: CGFloat = 20
+    @IBInspectable public var textColor: NSColor?
 
     /// Bubble font size
-    @IBInspectable open var bubbleFontSize: CGFloat = 12
+    @IBInspectable public var bubbleFontSize: CGFloat = 12
 
     // Slider style
     open var sliderStyle: AKPropertySliderStyle = .tabIndicator
 
     // Border width
-    @IBInspectable open var sliderBorderWidth: CGFloat = 3.0
+    @IBInspectable public var sliderBorderWidth: CGFloat = 3.0
 
     // Show value bubble
-    @IBInspectable open var showsValueBubble: Bool = false
+    @IBInspectable public var showsValueBubble: Bool = false
 
     // Value bubble border width
-    @IBInspectable open var valueBubbleBorderWidth: CGFloat = 1.0
-
-    // Only integer
-    @IBInspectable open var onlyIntegers: Bool = false
-
-    // Current dragging state, used to show/hide the value bubble
-    private var isDragging: Bool = false
+    @IBInspectable public var valueBubbleBorderWidth: CGFloat = 1.0
 
     // Calculated height of the slider based on text size and view bounds
     private var sliderHeight: CGFloat = 0.0
-
-    /// Function to call when value changes
-    public var callback: ((Double) -> Void) = { _ in }
-    fileprivate var lastTouch = CGPoint.zero
 
     public init(property: String,
                 value: Double = 0.0,
@@ -122,22 +74,17 @@ public enum AKPropertySliderStyle {
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping (_ x: Double) -> Void = { _ in }) {
-        self.value = value
-        self.initialValue = value
-        self.range = range
-        self.taper = taper
-        self.property = property
-        self.format = format
+
         self.color = color
 
-        self.callback = callback
-        super.init(frame: frame)
+        super.init(property: property,
+                   value: value,
+                   range: range,
+                   taper: taper,
+                   format: format,
+                   frame: frame,
+                   callback: callback)
 
-        self.val = value.normalized(from: range, taper: taper)
-
-        self.wantsLayer = true
-
-        needsDisplay = true
     }
 
     /// Initialization within Interface Builder
@@ -145,17 +92,6 @@ public enum AKPropertySliderStyle {
         super.init(coder: coder)
 
         self.wantsLayer = true
-    }
-
-    public override func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-
-        self.wantsLayer = true
-    }
-
-    override public func mouseDown(with theEvent: NSEvent) {
-        isDragging = true
-        mouseDragged(with: theEvent)
     }
 
     override public func mouseDragged(with theEvent: NSEvent) {
@@ -166,17 +102,6 @@ public enum AKPropertySliderStyle {
 
         value = val.denormalized(to: range, taper: taper)
         callback(value)
-    }
-
-    public override func mouseUp(with theEvent: NSEvent) {
-        isDragging = false
-        needsDisplay = true
-    }
-
-    public func randomize() -> Double {
-        value = random(in: range)
-        needsDisplay = true
-        return value
     }
 
     private var indicatorWidth: CGFloat {
@@ -223,7 +148,7 @@ public enum AKPropertySliderStyle {
     }
 
     /// Draw the slider
-    override open func draw(_ rect: NSRect) {
+    override public func draw(_ rect: NSRect) {
         drawFlatSlider(currentValue: CGFloat(val),
                        propertyName: property,
                        currentValueText: String(format: format, value)

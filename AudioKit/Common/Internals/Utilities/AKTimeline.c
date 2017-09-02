@@ -1,12 +1,12 @@
 //
-//  AKTimeLine.c
+//  AKTimeline.c
 //  AudioKit
 //
 //  Created by David O'Neill on 8/28/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-#include "AKTimeLine.h"
+#include "AKTimeline.h"
 #include <mach/mach_time.h>
 #include <math.h>
 #include <assert.h>
@@ -22,7 +22,7 @@ typedef struct {
     Float64         loopEnd;
     AudioTimeStamp  baseTime;
     AudioTimeStamp  waitStart;
-}AKTimeLineMessage;
+}AKTimelineMessage;
 
 
 static AudioTimeStamp TimeStampOffset(AudioTimeStamp timeStamp, SInt64 samples, double sampleRate);
@@ -34,25 +34,28 @@ static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 ho
 static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp anchorTime, double sampleRate);
 static SInt64 safeSubtract(UInt64 a, UInt64 b);
 static double ticksToSeconds(void);
-static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimeLineMessage message);
+static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage message);
 void AKTimelineSyncronize(AKTimeline *timeline);
 
 
 
-void AKTimeLineInit(AKTimeline *timeline, double sampleRate, AKTimeLineCallback callback, void *callbackRef) {
+void AKTimelineInit(AKTimeline *timeline, AudioStreamBasicDescription format, AKTimelineCallback callback, void *callbackRef) {
     memset(timeline, 0, sizeof(AKTimeline));
-    timeline->sampleRate = sampleRate;
-    TPCircularBufferInit(&timeline->messageQueue, sizeof(AKTimeLineMessage) * 32);
+    timeline->format = format;
+    TPCircularBufferInit(&timeline->messageQueue, sizeof(AKTimelineMessage) * 32);
     pthread_mutex_init(&timeline->messageQueueLock, NULL);
     timeline->callBack = callback;
     timeline->callbackRef = callbackRef;
 }
 
 void AKTimelineStart(AKTimeline *timeline) {
+    if (AKTimelineIsStarted(timeline)) {
+        return;
+    }
     while (!timeline->lastRenderFrames) {
         usleep(1000);
     }
-    AudioTimeStamp nextRender = TimeStampOffset(timeline->lastRenderTime, timeline->lastRenderFrames, timeline->sampleRate);
+    AudioTimeStamp nextRender = TimeStampOffset(timeline->lastRenderTime, timeline->lastRenderFrames, timeline->format.mSampleRate);
     AKTimelineStartAtTime(timeline, nextRender);
 }
 void AKTimelineStartAtTime(AKTimeline *timeline, AudioTimeStamp audioTime) {
@@ -60,7 +63,7 @@ void AKTimelineStartAtTime(AKTimeline *timeline, AudioTimeStamp audioTime) {
         return;
     }
     if (SampleAndHostTimeValid(timeline->anchorTime)) {
-        audioTime = extrapolateTime(audioTime, timeline->anchorTime, timeline->sampleRate);
+        audioTime = extrapolateTime(audioTime, timeline->anchorTime, timeline->format.mSampleRate);
     }
     timeline->waitStart = audioTime;
     AKTimelineSetState(timeline, timeline->idleTime, timeline->loopStart, timeline->loopEnd, audioTime);
@@ -80,16 +83,16 @@ Float64 AKTimelineTimeAtTime(AKTimeline *timeline, AudioTimeStamp audioTime) {
     }
 
     if (!SampleTimeValid(timeline->baseTime)) {
-        timeline->baseTime = extrapolateTime(timeline->baseTime, timeline->anchorTime, timeline->sampleRate);
+        timeline->baseTime = extrapolateTime(timeline->baseTime, timeline->anchorTime, timeline->format.mSampleRate);
     }
     if (!SampleTimeValid(audioTime)) {
-        audioTime = extrapolateTime(audioTime, timeline->anchorTime, timeline->sampleRate);
+        audioTime = extrapolateTime(audioTime, timeline->anchorTime, timeline->format.mSampleRate);
     }
-    Float64 sampleTimeTotal = audioTime.mSampleTime - timeline->_baseTime.mSampleTime;
-    if (!timeline->_loopEnd || sampleTimeTotal <= timeline->loopEnd) {
-        return audioTime.mSampleTime - timeline->_baseTime.mSampleTime;
+    Float64 sampleTimeTotal = audioTime.mSampleTime - timeline->baseTime.mSampleTime;
+    if (!timeline->loopEnd || sampleTimeTotal < timeline->loopEnd) {
+        return audioTime.mSampleTime - timeline->baseTime.mSampleTime;
     }
-    return timeline->_loopStart + fmod(sampleTimeTotal - timeline->_loopStart, timeline->_loopEnd - timeline->loopStart);
+    return timeline->loopStart + fmod(sampleTimeTotal - timeline->loopStart, timeline->loopEnd - timeline->loopStart);
 }
 Float64 AKTimelineTime(AKTimeline *timeline) {
     return AKTimelineTimeAtTime(timeline, AudioTimeNow());
@@ -101,7 +104,7 @@ void AKTimelineStop(AKTimeline *timeline) {
     AKTimelineSyncronize(timeline);
 }
 void AKTimelineSyncronize(AKTimeline *timeline) {
-    AKTimelineSendMessage(timeline, (AKTimeLineMessage) {
+    AKTimelineSendMessage(timeline, (AKTimelineMessage) {
         .loopStart = timeline->loopStart,
         .loopEnd = timeline->loopEnd,
         .baseTime = timeline->baseTime,
@@ -124,10 +127,11 @@ Boolean AKTimelineIsStarted(AKTimeline *timeline) {
 }
 void AKTimelineSetState(AKTimeline *timeline, SInt64 sampleTime, UInt32 loopSampleStart, UInt32 loopSampleEnd, AudioTimeStamp audioTime) {
     assert(SampleTimeValid(audioTime) || HostTimeValid(audioTime));
-    audioTime = TimeStampOffset(audioTime, -sampleTime, timeline->sampleRate);
+    audioTime = TimeStampOffset(audioTime, -sampleTime, timeline->format.mSampleRate);
     if (SampleAndHostTimeValid(timeline->anchorTime)) {
-        audioTime = extrapolateTime(audioTime, timeline->anchorTime, timeline->sampleRate);
+        audioTime = extrapolateTime(audioTime, timeline->anchorTime, timeline->format.mSampleRate);
     }
+
     timeline->baseTime = audioTime;
     timeline->loopStart = loopSampleStart;
     timeline->loopEnd = loopSampleEnd;
@@ -135,9 +139,9 @@ void AKTimelineSetState(AKTimeline *timeline, SInt64 sampleTime, UInt32 loopSamp
 }
 void AKTimelineSetRenderState(AKTimeline *timeline, Float64 sampleTime, Float64 loopStart, Float64 loopEnd, AudioTimeStamp audioTime) {
     assert(SampleTimeValid(audioTime) || HostTimeValid(audioTime));
-    audioTime = TimeStampOffset(audioTime, -sampleTime, timeline->sampleRate);
+    audioTime = TimeStampOffset(audioTime, -sampleTime, timeline->format.mSampleRate);
     if (SampleAndHostTimeValid(timeline->anchorTime)) {
-        audioTime = extrapolateTime(audioTime, timeline->anchorTime, timeline->sampleRate);
+        audioTime = extrapolateTime(audioTime, timeline->anchorTime, timeline->format.mSampleRate);
     }
     timeline->_baseTime = timeline->baseTime = audioTime;
     timeline->_loopStart = timeline->loopStart = loopStart;
@@ -145,24 +149,59 @@ void AKTimelineSetRenderState(AKTimeline *timeline, Float64 sampleTime, Float64 
     timeline->_waitStart = timeline->waitStart = AudioTimeZero;
 
 }
-static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimeLineMessage message) {
-    AKTimeLineMessage *head = TPCircularBufferUnitHead(&timeLine->messageQueue, NULL, sizeof(AKTimeLineMessage));
+AudioTimeStamp AKTimelineAudioTimeAtTime(AKTimeline *timeline, Float64 time) {
+    if (!AKTimelineIsStarted(timeline) || !SampleAndHostTimeValid(timeline->baseTime)) {
+        return AudioTimeZero;
+    }
+
+    Float64 loopAdjusted = time;
+    if (timeline->loopEnd && time >= timeline->loopEnd) {
+        loopAdjusted = timeline->loopStart + fmod(time - timeline->loopStart, timeline->loopEnd - timeline->loopStart);
+    }
+    return TimeStampOffset(timeline->baseTime, loopAdjusted, timeline->format.mSampleRate);
+
+}
+static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage message) {
+    AKTimelineMessage *head = TPCircularBufferUnitHead(&timeLine->messageQueue, NULL, sizeof(AKTimelineMessage));
     if (!head) {
         pthread_mutex_lock(&timeLine->messageQueueLock);
         while (!head) {
             TPCircularBufferUnitConsume(&timeLine->messageQueue);
-            head = TPCircularBufferUnitHead(&timeLine->messageQueue, NULL, sizeof(AKTimeLineMessage));
+            head = TPCircularBufferUnitHead(&timeLine->messageQueue, NULL, sizeof(AKTimelineMessage));
         }
         pthread_mutex_unlock(&timeLine->messageQueueLock);
     }
     *head = message;
     TPCircularBufferUnitProduce(&timeLine->messageQueue);
 }
-
-void AKTimeLineRender(AKTimeline *timeline, const AudioTimeStamp *inTimeStamp, UInt32 inNumberFrames) {
+int ABLSize(int bufferCount) {
+    return sizeof(AudioBufferList) + sizeof(AudioBuffer) * (bufferCount - 1);
+}
+void ABLOffset(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
+    if (!frames) {
+        return;
+    }
+    int offset = frames * format.mBytesPerFrame;
+    for (int i = 0; i < bufferlist->mNumberBuffers; i++) {
+        bufferlist->mBuffers[i].mData = (char *)bufferlist->mBuffers[i].mData + offset;
+    }
+}
+void ABLSetByteSize(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
+    for (int i = 0; i < bufferlist->mNumberBuffers; i++) {
+        bufferlist->mBuffers[i].mDataByteSize = frames * format.mBytesPerFrame;
+    }
+}
+void AdvanceRenderState(AudioTimeStamp *timeStamp, AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
+    if(timeStamp) *timeStamp = TimeStampOffset(*timeStamp, frames, format.mSampleRate);
+    if(bufferlist) ABLOffset(bufferlist, frames, format);
+}
+void AKTimelineRender(AKTimeline            *timeline,
+                      const AudioTimeStamp  *inTimeStamp,
+                      UInt32                inNumberFrames,
+                      AudioBufferList       *ioData) {
 
     if(pthread_mutex_trylock(&timeline->messageQueueLock) == 0) {
-        AKTimeLineMessage *message = TPCircularBufferUnitTail(&timeline->messageQueue, NULL, NULL);
+        AKTimelineMessage *message = TPCircularBufferUnitTail(&timeline->messageQueue, NULL, NULL);
         while (message) {
             timeline->_baseTime = message->baseTime;
             timeline->_loopStart = message->loopStart;
@@ -184,14 +223,14 @@ void AKTimeLineRender(AKTimeline *timeline, const AudioTimeStamp *inTimeStamp, U
     }
 
     if (!SampleAndHostTimeValid(timeline->_baseTime)) {
-        timeline->_baseTime = extrapolateTime(timeline->_baseTime, *inTimeStamp, timeline->sampleRate);
+        timeline->_baseTime = extrapolateTime(timeline->_baseTime, *inTimeStamp, timeline->format.mSampleRate);
     }
 
     Float64 waitStart = 0;
     if (SampleTimeValid(timeline->_waitStart)) {
         waitStart = timeline->_waitStart.mSampleTime - timeline->_baseTime.mSampleTime;
     } else if (HostTimeValid(timeline->_waitStart)) {
-        timeline->_waitStart = extrapolateTime(timeline->_waitStart, timeline->anchorTime, timeline->sampleRate);
+        timeline->_waitStart = extrapolateTime(timeline->_waitStart, timeline->anchorTime, timeline->format.mSampleRate);
         waitStart = timeline->_waitStart.mSampleTime - timeline->_baseTime.mSampleTime;
     }
 
@@ -202,9 +241,11 @@ void AKTimeLineRender(AKTimeline *timeline, const AudioTimeStamp *inTimeStamp, U
 
     UInt32 framesToRender = inNumberFrames;
 
-//    Float64 samplesBelowZero = playerTime.mSampleTime < 0 ? -playerTime.mSampleTime : 0;
-    Float64 samplesBelowZero = playerTime.mSampleTime < startSample ? startSample - playerTime.mSampleTime : 0;
+    char mem[ABLSize(ioData->mNumberBuffers)];
+    AudioBufferList *bufferlist = (AudioBufferList *)mem;
+    memcpy(bufferlist, ioData, sizeof(mem));
 
+    Float64 samplesBelowZero = playerTime.mSampleTime < startSample ? startSample - playerTime.mSampleTime : 0;
     if (samplesBelowZero) {
         if (samplesBelowZero >= inNumberFrames) {
             //Won't reach zero
@@ -212,13 +253,16 @@ void AKTimeLineRender(AKTimeline *timeline, const AudioTimeStamp *inTimeStamp, U
         }
         //Advance playerTime to zero
         framesToRender -= samplesBelowZero ;
-        playerTime = TimeStampOffset(playerTime, samplesBelowZero, timeline->sampleRate);
+        //        playerTime = TimeStampOffset(playerTime, samplesBelowZero, timeline->format.mSampleRate);
+        AdvanceRenderState(&playerTime, bufferlist, samplesBelowZero, timeline->format);
+
     }
 
     // If non looping, render remaining frames.
     if (!timeline->_loopEnd) {
         if (timeline->callBack) {
-            timeline->callBack(&playerTime, framesToRender, timeline->callbackRef);
+            ABLSetByteSize(bufferlist, framesToRender, timeline->format);
+            timeline->callBack(timeline->callbackRef, &playerTime, framesToRender, 0, bufferlist);
         }
         return;
     }
@@ -232,9 +276,12 @@ void AKTimeLineRender(AKTimeline *timeline, const AudioTimeStamp *inTimeStamp, U
         int frames = timeline->_loopEnd - playerTime.mSampleTime;
         frames = frames > framesToRender ? framesToRender : frames;
         if (timeline->callBack) {
-            timeline->callBack(&playerTime, frames, timeline->callbackRef);
+            ABLSetByteSize(bufferlist, frames, timeline->format);
+            timeline->callBack(timeline->callbackRef, &playerTime, frames, inNumberFrames - framesToRender, bufferlist);
         }
-        playerTime = TimeStampOffset(playerTime, frames, timeline->sampleRate);
+
+        AdvanceRenderState(&playerTime, bufferlist, frames, timeline->format);
+
         framesToRender -= frames;
         unlooped += frames;
     }

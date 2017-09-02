@@ -44,7 +44,10 @@ class PlaygroundView: AKPlaygroundView {
             moogLadder.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Resonance", value: moogLadder.resonance) { sliderValue in
+        addSubview(AKPropertySlider(property: "Resonance",
+                                    value: moogLadder.resonance,
+                                    range: 0 ... 0.98
+        ) { sliderValue in
             moogLadder.resonance = sliderValue
         })
     }

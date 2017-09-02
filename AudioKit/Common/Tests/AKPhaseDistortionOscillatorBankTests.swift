@@ -24,6 +24,18 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
             self.inputBank.play(noteNumber: 67, velocity: 100)
         }
     }
+    
+    func testAttackDuration() {
+        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), attackDuration: 0.123)
+        output = inputBank
+        AKTestMD5("112fb874aff5f0677cf5f950ef62159f")
+    }
+
+    func testDecayDuration() {
+        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), decayDuration: 0.234)
+        output = inputBank
+        AKTestMD5("7b7a097bf819f4dce3cbc816735cc87b")
+    }
 
     func testDefault() {
         inputBank = AKPhaseDistortionOscillatorBank()
@@ -37,16 +49,11 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
                                                     attackDuration: 0.123,
                                                     decayDuration: 0.234,
                                                     sustainLevel: 0.345,
-                                                    detuningOffset: 1,
-                                                    detuningMultiplier: 1.1)
+                                                    pitchBend: 1,
+                                                    vibratoDepth: 1.1,
+                                                    vibratoRate: 1.2)
         output = inputBank
         AKTestMD5("7fff8695bccf0cda763f090cda22f6bc")
-    }
-
-    func testWaveform() {
-        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
-        output = inputBank
-        AKTestMD5("0bb6f474701b0fc62ac64160819fc4ce")
     }
 
     func testPhaseDistortion() {
@@ -55,16 +62,10 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
         AKTestMD5("27c8b60b25d8dd4146c4c90d45ff632f")
     }
 
-    func testAttackDuration() {
-        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), attackDuration: 0.123)
+    func testPitchBend() {
+        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), pitchBend: 1)
         output = inputBank
-        AKTestMD5("112fb874aff5f0677cf5f950ef62159f")
-    }
-
-    func testDecayDuration() {
-        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), decayDuration: 0.234)
-        output = inputBank
-        AKTestMD5("7b7a097bf819f4dce3cbc816735cc87b")
+        AKTestMD5("5d2250ac42904e9a4739b04dded59bf1")
     }
 
     func testSustainLevel() {
@@ -73,15 +74,16 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
         AKTestMD5("555e3b76a46be2c1dd619cfaec306a92")
     }
 
-    func testDetuningOffset() {
-        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), detuningOffset: 1)
-        output = inputBank
-        AKTestMD5("5d2250ac42904e9a4739b04dded59bf1")
-    }
-
-    func testDetuningMultiplier() {
-        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), detuningMultiplier: 1.1)
+    func testVibrato() {
+        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), vibratoDepth: 1.1, vibratoRate: 10)
         output = inputBank
         AKTestMD5("d251fd32a650e87f6cd27f4f3804051c")
     }
+
+    func testWaveform() {
+        inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
+        output = inputBank
+        AKTestMD5("0bb6f474701b0fc62ac64160819fc4ce")
+    }
+
 }

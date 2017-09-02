@@ -49,18 +49,6 @@ class AKFMOscillatorBankTests: AKTestCase {
         AKTestMD5("b06c09a1f2da0383337362b724a73d8e")
     }
 
-    func testDetuningMultiplier() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), detuningMultiplier: 1.1)
-        output = inputBank
-        AKTestMD5("40b7cf906b465a90292cf031659cdb53")
-    }
-
-    func testDetuningOffset() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), detuningOffset: 1)
-        output = inputBank
-        AKTestMD5("75062f8f0b460b7cd99c3562276a5074")
-    }
-
     func testModulatingMultiplier() {
         inputBank = AKFMOscillatorBank(waveform: AKTable(.square), modulatingMultiplier: 1.2)
         output = inputBank
@@ -81,16 +69,29 @@ class AKFMOscillatorBankTests: AKTestCase {
                                        attackDuration: 0.123,
                                        decayDuration: 0.234,
                                        sustainLevel: 0.345,
-                                       detuningOffset: 1,
-                                       detuningMultiplier: 1.1)
+                                       pitchBend: 1,
+                                       vibratoDepth: 1.1,
+                                       vibratoRate: 1.2)
         output = inputBank
         AKTestMD5("ccec3f3a959e59a84867a0b95bfed237")
     }
 
+    func testPitchBend() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), pitchBend: 1.1)
+        output = inputBank
+        AKTestMD5("40b7cf906b465a90292cf031659cdb53")
+    }
+    
     func testSustainLevel() {
         inputBank = AKFMOscillatorBank(waveform: AKTable(.square), sustainLevel: 0.345)
         output = inputBank
         AKTestMD5("af8765a1937447caed4461e30fdea889")
+    }
+
+    func testVibrato() {
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), vibratoDepth: 1, vibratoRate: 10)
+        output = inputBank
+        AKTestMD5("75062f8f0b460b7cd99c3562276a5074")
     }
 
     func testWaveform() {
