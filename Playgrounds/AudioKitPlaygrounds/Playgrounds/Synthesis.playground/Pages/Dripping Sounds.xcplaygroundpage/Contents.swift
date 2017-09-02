@@ -26,43 +26,43 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Dripping Sounds")
 
-        addSubview(AKPropertySlider(property: "Intensity",
-                                    value: drip.intensity,
-                                    range: 0 ... 300
+        addSubview(AKSlider(property: "Intensity",
+                            value: drip.intensity,
+                            range: 0 ... 300
         ) { sliderValue in
             drip.intensity = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Damping Factor",
-                                    value: drip.dampingFactor,
-                                    range: 0 ... 2
+        addSubview(AKSlider(property: "Damping Factor",
+                            value: drip.dampingFactor,
+                            range: 0 ... 2
         ) { sliderValue in
             drip.dampingFactor = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Energy Return",
-                                    value: drip.energyReturn,
-                                    range: 0 ... 5
+        addSubview(AKSlider(property: "Energy Return",
+                            value: drip.energyReturn,
+                            range: 0 ... 5
         ) { sliderValue in
             drip.energyReturn = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Main Resonant Frequency",
-                                    value: drip.mainResonantFrequency,
-                                    range: 0 ... 800,
-                                    format: "%0.1f Hz"
+        addSubview(AKSlider(property: "Main Resonant Frequency",
+                            value: drip.mainResonantFrequency,
+                            range: 0 ... 800,
+                            format: "%0.1f Hz"
         ) { sliderValue in
             drip.mainResonantFrequency = sliderValue
         })
-        addSubview(AKPropertySlider(property: "1st Resonant Frequency",
-                                    value: drip.firstResonantFrequency,
-                                    range: 0 ... 800,
-                                    format: "%0.1f Hz"
+        addSubview(AKSlider(property: "1st Resonant Frequency",
+                            value: drip.firstResonantFrequency,
+                            range: 0 ... 800,
+                            format: "%0.1f Hz"
         ) { sliderValue in
             drip.firstResonantFrequency = sliderValue
         })
-        addSubview(AKPropertySlider(property: "2nd Resonant Frequency",
-                                    value: drip.secondResonantFrequency,
-                                    range: 0 ... 800,
-                                    format: "%0.1f Hz"
+        addSubview(AKSlider(property: "2nd Resonant Frequency",
+                            value: drip.secondResonantFrequency,
+                            range: 0 ... 800,
+                            format: "%0.1f Hz"
         ) { sliderValue in
             drip.secondResonantFrequency = sliderValue
         })

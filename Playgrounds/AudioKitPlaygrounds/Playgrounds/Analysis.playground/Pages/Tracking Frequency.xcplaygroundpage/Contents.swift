@@ -33,8 +33,8 @@ import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 
-    var trackedAmplitudeSlider: AKPropertySlider?
-    var trackedFrequencySlider: AKPropertySlider?
+    var trackedAmplitudeSlider: AKSlider?
+    var trackedFrequencySlider: AKSlider?
 
     override func setup() {
 
@@ -47,14 +47,14 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking Frequency")
 
-        trackedAmplitudeSlider = AKPropertySlider(property: "Tracked Amplitude", range: 0 ... 0.8) { _ in
+        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.8) { _ in
             // Do nothing, just for display
         }
         addSubview(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKPropertySlider(property: "Tracked Frequency",
-                                                  range: 0 ... 2_400,
-                                                  format: "%0.3f Hz"
+        trackedFrequencySlider = AKSlider(property: "Tracked Frequency",
+                                          range: 0 ... 2_400,
+                                          format: "%0.3f Hz"
         ) { _ in
             // Do nothing, just for display
         }

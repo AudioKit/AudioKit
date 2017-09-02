@@ -44,11 +44,11 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Speed", value: effect.speed, range: 0.1 ... 25) { sliderValue in
+        addSubview(AKSlider(property: "Speed", value: effect.speed, range: 0.1 ... 25) { sliderValue in
             effect.speed = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Depth", value: effect.depth) { sliderValue in
+        addSubview(AKSlider(property: "Depth", value: effect.depth) { sliderValue in
             effect.depth = sliderValue
         })
     }

@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Parameter Ramp Time")
 
-        addSubview(AKPropertySlider(property: "Ramp Time", value: filter.rampTime, format: "%0.3f s") { sliderValue in
+        addSubview(AKSlider(property: "Ramp Time", value: filter.rampTime, format: "%0.3f s") { sliderValue in
             filter.rampTime = sliderValue
         })
     }

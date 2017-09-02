@@ -24,39 +24,39 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addSubview(AKBypassButton(node: expander))
-        addSubview(AKPropertySlider(property: "Ratio",
-                                    value: expander.expansionRatio,
-                                    range: 1 ... 50,
-                                    format: "%0.2f"
+        addSubview(AKSlider(property: "Ratio",
+                            value: expander.expansionRatio,
+                            range: 1 ... 50,
+                            format: "%0.2f"
         ) { sliderValue in
             expander.expansionRatio = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Threshold",
-                                    value: expander.expansionThreshold,
-                                    range: 1 ... 50,
-                                    format: "%0.2f"
+        addSubview(AKSlider(property: "Threshold",
+                            value: expander.expansionThreshold,
+                            range: 1 ... 50,
+                            format: "%0.2f"
         ) { sliderValue in
             expander.expansionThreshold = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Attack Time",
-                                    value: expander.attackTime,
-                                    range: 0.001 ... 0.2,
-                                    format: "%0.4f s"
+        addSubview(AKSlider(property: "Attack Time",
+                            value: expander.attackTime,
+                            range: 0.001 ... 0.2,
+                            format: "%0.4f s"
         ) { sliderValue in
             expander.attackTime = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Release Time",
-                                    value: expander.releaseTime,
-                                    range: 0.01 ... 3,
-                                    format: "%0.3f s"
+        addSubview(AKSlider(property: "Release Time",
+                            value: expander.releaseTime,
+                            range: 0.01 ... 3,
+                            format: "%0.3f s"
         ) { sliderValue in
             expander.releaseTime = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Master Gain",
-                                    value: expander.masterGain,
-                                    range: -40 ... 40,
-                                    format: "%0.2f dB"
+        addSubview(AKSlider(property: "Master Gain",
+                            value: expander.masterGain,
+                            range: -40 ... 40,
+                            format: "%0.2f dB"
         ) { sliderValue in
             expander.masterGain = sliderValue
         })

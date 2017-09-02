@@ -66,31 +66,31 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        addSubview(AKPropertySlider(property: "Drums Volume", value: drums.volume) { sliderValue in
+        addSubview(AKSlider(property: "Drums Volume", value: drums.volume) { sliderValue in
             drums.volume = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Drums Pan", value: drums.pan, range: -1 ... 1) { sliderValue in
+        addSubview(AKSlider(property: "Drums Pan", value: drums.pan, range: -1 ... 1) { sliderValue in
             drums.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Bass Volume", value: bass.volume) { sliderValue in
+        addSubview(AKSlider(property: "Bass Volume", value: bass.volume) { sliderValue in
             bass.volume = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Bass Pan", value: bass.pan, range: -1 ... 1) { sliderValue in
+        addSubview(AKSlider(property: "Bass Pan", value: bass.pan, range: -1 ... 1) { sliderValue in
             bass.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Guitar Volume", value: guitar.volume) { sliderValue in
+        addSubview(AKSlider(property: "Guitar Volume", value: guitar.volume) { sliderValue in
             guitar.volume = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Guitar Pan", value: guitar.pan, range: -1 ... 1) { sliderValue in
+        addSubview(AKSlider(property: "Guitar Pan", value: guitar.pan, range: -1 ... 1) { sliderValue in
             guitar.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Lead Volume", value: lead.volume) { sliderValue in
+        addSubview(AKSlider(property: "Lead Volume", value: lead.volume) { sliderValue in
             lead.volume = sliderValue
         })
-        addSubview(AKPropertySlider(property: "Lead Pan", value: lead.pan, range: -1 ... 1) { sliderValue in
+        addSubview(AKSlider(property: "Lead Pan", value: lead.pan, range: -1 ... 1) { sliderValue in
             lead.pan = sliderValue
         })
     }

@@ -24,11 +24,11 @@ public class PlaygroundView: AKPlaygroundView {
     public override func setup() {
         addTitle("Node Output Plots")
 
-        addSubview(AKPropertySlider(property: "Time", value: delay.time) { sliderValue in
+        addSubview(AKSlider(property: "Time", value: delay.time) { sliderValue in
             delay.time = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Feedback", value: delay.feedback) { sliderValue in
+        addSubview(AKSlider(property: "Feedback", value: delay.feedback) { sliderValue in
             delay.feedback = sliderValue
         })
 

@@ -31,11 +31,11 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Time", value: effect.parameters[0]) { sliderValue in
+        addSubview(AKSlider(property: "Time", value: effect.parameters[0]) { sliderValue in
             effect.parameters[0] = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Feedback", value: effect.parameters[1]) { sliderValue in
+        addSubview(AKSlider(property: "Feedback", value: effect.parameters[1]) { sliderValue in
             effect.parameters[1] = sliderValue
         })
     }

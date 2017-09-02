@@ -19,18 +19,18 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Phase Distortion Oscillator")
 
-        addSubview(AKPropertySlider(property: "Amplitude", value: currentAmplitude) { sliderValue in
+        addSubview(AKSlider(property: "Amplitude", value: currentAmplitude) { sliderValue in
             currentAmplitude = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Phase Distortion", value: oscillator.phaseDistortion) { sliderValue in
+        addSubview(AKSlider(property: "Phase Distortion", value: oscillator.phaseDistortion) { sliderValue in
             oscillator.phaseDistortion = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Ramp Time",
-                                    value: currentRampTime,
-                                    range: 0 ... 10,
-                                    format: "%0.3f s"
+        addSubview(AKSlider(property: "Ramp Time",
+                            value: currentRampTime,
+                            range: 0 ... 10,
+                            format: "%0.3f s"
         ) { time in
             currentRampTime = time
         })

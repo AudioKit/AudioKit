@@ -80,7 +80,7 @@ class PlaygroundView: AKPlaygroundView {
 
         })
 
-        addSubview(AKPropertySlider(property: "Tempo", value: 150, range: 60 ... 300, format: "%0.0f") {
+        addSubview(AKSlider(property: "Tempo", value: 150, range: 60 ... 300, format: "%0.0f") {
             sliderValue in
             sequencer.setTempo(sliderValue)
         })

@@ -22,24 +22,24 @@ import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 
-    var cutoffFrequencySlider: AKPropertySlider?
-    var feedbackSlider: AKPropertySlider?
+    var cutoffFrequencySlider: AKSlider?
+    var feedbackSlider: AKSlider?
 
     override func setup() {
         addTitle("Sean Costello Reverb")
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        cutoffFrequencySlider = AKPropertySlider(property: "Cutoff Frequency",
-                                                 value: reverb.cutoffFrequency,
-                                                 range: 20 ... 5_000,
-                                                 format: "%0.1f Hz"
+        cutoffFrequencySlider = AKSlider(property: "Cutoff Frequency",
+                                         value: reverb.cutoffFrequency,
+                                         range: 20 ... 5_000,
+                                         format: "%0.1f Hz"
         ) { sliderValue in
             reverb.cutoffFrequency = sliderValue
         }
         addSubview(cutoffFrequencySlider)
 
-        feedbackSlider = AKPropertySlider(property: "Feedback", value: reverb.feedback) { sliderValue in
+        feedbackSlider = AKSlider(property: "Feedback", value: reverb.feedback) { sliderValue in
             reverb.feedback = sliderValue
         }
         addSubview(feedbackSlider)

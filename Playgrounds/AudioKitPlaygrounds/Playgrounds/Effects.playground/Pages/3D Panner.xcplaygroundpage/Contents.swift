@@ -23,15 +23,15 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "X", value: panner.x, range: -10 ... 10) { sliderValue in
+        addSubview(AKSlider(property: "X", value: panner.x, range: -10 ... 10) { sliderValue in
             panner.x = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Y", value: panner.y, range: -10 ... 10) { sliderValue in
+        addSubview(AKSlider(property: "Y", value: panner.y, range: -10 ... 10) { sliderValue in
             panner.y = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Z", value: panner.z, range: -10 ... 10) { sliderValue in
+        addSubview(AKSlider(property: "Z", value: panner.z, range: -10 ... 10) { sliderValue in
             panner.z = sliderValue
         })
     }

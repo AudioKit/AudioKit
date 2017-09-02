@@ -20,11 +20,11 @@ import AudioKitUI
 class PlaygroundView: AKPlaygroundView {
 
     // UI Elements we'll need to be able to access
-    var inPositionSlider: AKPropertySlider?
-    var outPositionSlider: AKPropertySlider?
-    var playingPositionSlider: AKPropertySlider?
-    var fadeInSlider: AKPropertySlider?
-    var fadeOutSlider: AKPropertySlider?
+    var inPositionSlider: AKSlider?
+    var outPositionSlider: AKSlider?
+    var playingPositionSlider: AKSlider?
+    var fadeInSlider: AKSlider?
+    var fadeOutSlider: AKSlider?
 
     override func setup() {
 
@@ -61,46 +61,46 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        fadeInSlider = AKPropertySlider(property: "Fade In",
-                                        value: player.fadeInTime,
-                                        range: 0 ... 2,
-                                        format: "%0.2f s"
+        fadeInSlider = AKSlider(property: "Fade In",
+                                value: player.fadeInTime,
+                                range: 0 ... 2,
+                                format: "%0.2f s"
         ) { sliderValue in
             player.fadeInTime = sliderValue
         }
         addSubview(fadeInSlider)
 
-        fadeOutSlider = AKPropertySlider(property: "Fade Out",
-                                         value: player.fadeOutTime,
-                                         range: 0 ... 2,
-                                         format: "%0.2f s"
+        fadeOutSlider = AKSlider(property: "Fade Out",
+                                 value: player.fadeOutTime,
+                                 range: 0 ... 2,
+                                 format: "%0.2f s"
         ) { sliderValue in
             player.fadeOutTime = sliderValue
         }
         addSubview(fadeOutSlider)
 
-        inPositionSlider = AKPropertySlider(property: "In Position",
-                                            value: player.startTime,
-                                            range: 0 ... 3.428,
-                                            format: "%0.2f s"
+        inPositionSlider = AKSlider(property: "In Position",
+                                    value: player.startTime,
+                                    range: 0 ... 3.428,
+                                    format: "%0.2f s"
         ) { sliderValue in
             player.startTime = sliderValue
         }
         addSubview(inPositionSlider)
 
-        outPositionSlider = AKPropertySlider(property: "Out Position",
-                                             value: player.endTime,
-                                             range: 0 ... 3.428,
-                                             format: "%0.2f s"
+        outPositionSlider = AKSlider(property: "Out Position",
+                                     value: player.endTime,
+                                     range: 0 ... 3.428,
+                                     format: "%0.2f s"
         ) { sliderValue in
             player.endTime = sliderValue
         }
         addSubview(outPositionSlider)
 
-        playingPositionSlider = AKPropertySlider(property: "Position",
-                                                 value: player.playhead,
-                                                 range: 0 ... 3.428,
-                                                 format: "%0.2f s"
+        playingPositionSlider = AKSlider(property: "Position",
+                                         value: player.playhead,
+                                         range: 0 ... 3.428,
+                                         format: "%0.2f s"
         ) { _ in
             // Can't do player.playhead = sliderValue
         }

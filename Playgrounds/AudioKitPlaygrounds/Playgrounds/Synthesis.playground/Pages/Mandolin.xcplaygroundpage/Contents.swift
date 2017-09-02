@@ -48,33 +48,33 @@ import AudioKitUI
 
 class PlaygroundView: AKPlaygroundView {
 
-    var detuneSlider: AKPropertySlider!
-    var bodySizeSlider: AKPropertySlider!
+    var detuneSlider: AKSlider!
+    var bodySizeSlider: AKSlider!
 
     override func setup() {
         addTitle("Mandolin")
 
-        detuneSlider = AKPropertySlider(property: "Detune",
-                                        value: mandolin.detune,
-                                        range: 0.5 ... 2,
-                                        format: "%0.2f"
+        detuneSlider = AKSlider(property: "Detune",
+                                value: mandolin.detune,
+                                range: 0.5 ... 2,
+                                format: "%0.2f"
         ) { detune in
             mandolin.detune = detune
         }
         addSubview(detuneSlider)
 
-        bodySizeSlider = AKPropertySlider(property: "Body Size",
-                                          value: mandolin.bodySize,
-                                          range: 0.2 ... 3,
-                                          format: "%0.2f"
+        bodySizeSlider = AKSlider(property: "Body Size",
+                                  value: mandolin.bodySize,
+                                  range: 0.2 ... 3,
+                                  format: "%0.2f"
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
         addSubview(bodySizeSlider)
 
-        addSubview(AKPropertySlider(property: "Pluck Position",
-                                    value: pluckPosition,
-                                    format: "%0.2f"
+        addSubview(AKSlider(property: "Pluck Position",
+                            value: pluckPosition,
+                            format: "%0.2f"
         ) { position in
             pluckPosition = position
         })

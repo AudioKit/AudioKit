@@ -30,15 +30,15 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Decimation", value: decimator.decimation) { sliderValue in
+        addSubview(AKSlider(property: "Decimation", value: decimator.decimation) { sliderValue in
             decimator.decimation = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Rounding", value: decimator.rounding) { sliderValue in
+        addSubview(AKSlider(property: "Rounding", value: decimator.rounding) { sliderValue in
             decimator.rounding = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Mix", value: decimator.mix) { sliderValue in
+        addSubview(AKSlider(property: "Mix", value: decimator.mix) { sliderValue in
             decimator.mix = sliderValue
         })
 

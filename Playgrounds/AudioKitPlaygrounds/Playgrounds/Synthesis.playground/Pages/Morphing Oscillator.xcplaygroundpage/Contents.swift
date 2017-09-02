@@ -28,21 +28,21 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKBypassButton(node: morph))
 
-        addSubview(AKPropertySlider(property: "Frequency",
-                                    value: morph.frequency,
-                                    range: 220 ... 880,
-                                    format: "%0.2f Hz"
+        addSubview(AKSlider(property: "Frequency",
+                            value: morph.frequency,
+                            range: 220 ... 880,
+                            format: "%0.2f Hz"
         ) { frequency in
             morph.frequency = frequency
         })
 
-        addSubview(AKPropertySlider(property: "Amplitude", value: morph.amplitude) { amplitude in
+        addSubview(AKSlider(property: "Amplitude", value: morph.amplitude) { amplitude in
             morph.amplitude = amplitude
         })
 
         addLabel("Index: Sine = 0, Triangle = 1, Sawtooth = 2, Square = 3")
 
-        addSubview(AKPropertySlider(property: "Morph Index", value: morph.index, range: 0 ... 3) { index in
+        addSubview(AKSlider(property: "Morph Index", value: morph.index, range: 0 ... 3) { index in
             morph.index = index
         })
 

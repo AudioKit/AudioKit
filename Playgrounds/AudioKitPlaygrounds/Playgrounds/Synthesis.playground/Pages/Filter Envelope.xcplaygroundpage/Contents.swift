@@ -68,10 +68,10 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Filter Envelope")
 
-        addSubview(AKPropertySlider(property: "Cutoff Frequency",
-                                    value: synth.cutoff,
-                                    range: 20 ... 5_000,
-                                    format: "%0.1f Hz"
+        addSubview(AKSlider(property: "Cutoff Frequency",
+                            value: synth.cutoff,
+                            range: 20 ... 5_000,
+                            format: "%0.1f Hz"
         ) { frequency in
             synth.cutoff = frequency
         })

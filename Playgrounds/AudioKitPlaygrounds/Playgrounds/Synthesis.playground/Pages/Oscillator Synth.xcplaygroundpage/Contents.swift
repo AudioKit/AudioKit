@@ -24,16 +24,16 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Oscillator Synth")
 
-        addSubview(AKPropertySlider(property: "Amplitude",
-                                    value: oscillator.amplitude,
-                                    format: "%0.3f"
+        addSubview(AKSlider(property: "Amplitude",
+                            value: oscillator.amplitude,
+                            format: "%0.3f"
         ) { amplitude in
             currentAmplitude = amplitude
         })
 
-        addSubview(AKPropertySlider(property: "Ramp Time",
-                                    value: oscillator.rampTime,
-                                    format: "%0.3f s"
+        addSubview(AKSlider(property: "Ramp Time",
+                            value: oscillator.rampTime,
+                            format: "%0.3f s"
         ) { time in
             currentRampTime = time
         })

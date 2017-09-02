@@ -21,18 +21,18 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("PWM Oscillator")
 
-        addSubview(AKPropertySlider(property: "Amplitude", value: currentAmplitude) { sliderValue in
+        addSubview(AKSlider(property: "Amplitude", value: currentAmplitude) { sliderValue in
             currentAmplitude = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Pulse Width", value: oscillator.pulseWidth) { sliderValue in
+        addSubview(AKSlider(property: "Pulse Width", value: oscillator.pulseWidth) { sliderValue in
             oscillator.pulseWidth = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Ramp Time",
-                                    value: currentRampTime,
-                                    range: 0 ... 2,
-                                    format: "%0.3f s"
+        addSubview(AKSlider(property: "Ramp Time",
+                            value: currentRampTime,
+                            range: 0 ... 2,
+                            format: "%0.3f s"
         ) { sliderValue in
             currentRampTime = sliderValue
         })

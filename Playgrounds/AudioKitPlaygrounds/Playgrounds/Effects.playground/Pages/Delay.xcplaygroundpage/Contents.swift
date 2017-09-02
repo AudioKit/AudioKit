@@ -21,35 +21,35 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var timeSlider: AKPropertySlider?
-    var feedbackSlider: AKPropertySlider?
-    var lowPassCutoffFrequencySlider: AKPropertySlider?
-    var dryWetMixSlider: AKPropertySlider?
+    var timeSlider: AKSlider?
+    var feedbackSlider: AKSlider?
+    var lowPassCutoffFrequencySlider: AKSlider?
+    var dryWetMixSlider: AKSlider?
 
     override func setup() {
         addTitle("Delay")
 
         addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        timeSlider = AKPropertySlider(property: "Time", value: delay.time) { sliderValue in
+        timeSlider = AKSlider(property: "Time", value: delay.time) { sliderValue in
             delay.time = sliderValue
         }
         addSubview(timeSlider)
 
-        feedbackSlider = AKPropertySlider(property: "Feedback", value: delay.feedback) { sliderValue in
+        feedbackSlider = AKSlider(property: "Feedback", value: delay.feedback) { sliderValue in
             delay.feedback = sliderValue
         }
         addSubview(feedbackSlider)
 
-        lowPassCutoffFrequencySlider = AKPropertySlider(property: "Low Pass Cutoff",
-                                                        value: delay.lowPassCutoff,
-                                                        range: 0 ... 22_050
+        lowPassCutoffFrequencySlider = AKSlider(property: "Low Pass Cutoff",
+                                                value: delay.lowPassCutoff,
+                                                range: 0 ... 22_050
         ) { sliderValue in
             delay.lowPassCutoff = sliderValue
         }
         addSubview(lowPassCutoffFrequencySlider)
 
-        dryWetMixSlider = AKPropertySlider(property: "Mix", value: delay.dryWetMix) { sliderValue in
+        dryWetMixSlider = AKSlider(property: "Mix", value: delay.dryWetMix) { sliderValue in
             delay.dryWetMix = sliderValue
         }
         addSubview(dryWetMixSlider)

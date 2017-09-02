@@ -20,7 +20,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Drawbar Organ")
         for i in 0 ..< noteCount {
-            let slider = AKPropertySlider(
+            let slider = AKSlider(
                 property: "Amplitude \(names[i])",
                 value: amplitudes[i]
             ) { amp in

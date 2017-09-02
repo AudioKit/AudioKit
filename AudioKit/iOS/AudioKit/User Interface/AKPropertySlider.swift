@@ -57,7 +57,7 @@ public enum AKPropertySliderStyle {
     }
 
     /// Range of output
-    @IBInspectable open var range: ClosedRange<Double> = 0 ... 1 {
+    open var range: ClosedRange<Double> = 0 ... 1 {
         didSet {
             val = value.normalized(from: range, taper: taper)
         }
