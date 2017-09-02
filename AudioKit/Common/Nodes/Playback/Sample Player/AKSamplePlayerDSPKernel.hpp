@@ -35,11 +35,6 @@ public:
         volumeRamper.init();
     }
 
-    void printSizes(){
-        printf("size %i\n",ftbl_size);
-        printf("current size %i\n",current_size);
-    }
-    
     void start() {
         started = true;
 
@@ -67,22 +62,18 @@ public:
     }
 
     void loadAudioData(float *table, UInt32 size) {
-        printf("passing in size %i (div2 %i)\n", size, size/2);
         current_size = fmin(size / 2, ftbl_size);
         int counter1 = 0;
         int counter2 = 0;
         for (int i = 0; i < 2 * current_size; i++) {
             if (i % 2 == 0) {
                 ftbl1->tbl[counter1] = table[i];
-                //printf("i = %i - L %f\n",i,ftbl1->tbl[counter1]);
                 counter1++;
             } else {
                 ftbl2->tbl[counter2] = table[i];
-                //printf("i = %i - R %f\n",i,ftbl2->tbl[counter2]);
                 counter2++;
             }
         }
-        printSizes();
     }
 
     void destroy() {
