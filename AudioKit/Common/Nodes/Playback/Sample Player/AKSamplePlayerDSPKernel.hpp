@@ -35,6 +35,11 @@ public:
         volumeRamper.init();
     }
 
+    void printSizes(){
+        printf("size %i\n",ftbl_size);
+        printf("current size %i\n",current_size);
+    }
+    
     void start() {
         started = true;
 
@@ -65,15 +70,16 @@ public:
         current_size = fmin(size / 2, ftbl_size / 2);
         int counter1 = 0;
         int counter2 = 0;
-        for (int i = 0; i < current_size; i++) {
+        for (int i = 0; i < size; i++) { //or current_size?
             if (i % 2 == 0) {
+                ftbl1->tbl[counter1] = table[i];
                 counter1++;
             } else {
-                ftbl1->tbl[counter1] = table[i];
                 ftbl2->tbl[counter2] = table[i];
                 counter2++;
             }
         }
+        printSizes();
     }
 
     void destroy() {
@@ -191,7 +197,7 @@ public:
             //length of playableSample vs actual
             int subsectionLength = endPoint - startPoint;
             float percentLen = (float)subsectionLength / (float)current_size;
-            phasor->freq = fabs(1.0 / dur  * rate / percentLen / 2);
+            phasor->freq = fabs(1.0 / dur  * rate / percentLen);
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
