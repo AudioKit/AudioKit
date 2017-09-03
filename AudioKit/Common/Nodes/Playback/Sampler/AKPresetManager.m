@@ -122,7 +122,7 @@
                                             code:(int)status
                                         userInfo:@{NSLocalizedDescriptionKey:@"Set sampler preset fail"}];
         } else {
-            NSLog(@"Set sampler preset fail OSStatus %i",status);
+            NSLog(@"Set sampler preset fail OSStatus %i", (int)status);
         }
         return false;
     }
@@ -154,7 +154,7 @@ NSMutableDictionary *mutableSkeleton(){
     NSMutableDictionary *_instrument = _preset[@"Instrument"] = [_preset[@"Instrument"] mutableCopy];
     NSMutableArray *layers = _instrument[@"Layers"] = [_instrument[@"Layers"]mutableCopy];
     NSMutableDictionary *layersObject = layers[0] = [layers[0] mutableCopy];
-    layersObject[@"Zones"] = [layersObject[@"Zones"]mutableCopy];
+    layersObject[@"Zones"] = [layersObject[@"Zones"] mutableCopy];
     return _preset;
 }
 @end
