@@ -16,13 +16,19 @@
     AKTimelineBlock _block;
     AudioUnitRenderActionFlags actionFlags;
 }
--(instancetype _Nullable )initWithAudioUnit:(AudioUnit _Nonnull)audioUnit timelineBlock:(AKTimelineBlock _Nullable )block {
+-(instancetype _Nullable )initWithAudioUnit:(AudioUnit _Nonnull)audioUnit
+                              timelineBlock:(AKTimelineBlock _Nullable )block {
     self = [super init];
     if (self) {
         UInt32 propSize = sizeof(AudioStreamBasicDescription);
-        OSStatus status = AudioUnitGetProperty(audioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &asbd, &propSize);
+        OSStatus status = AudioUnitGetProperty(audioUnit,
+                                               kAudioUnitProperty_StreamFormat,
+                                               kAudioUnitScope_Output,
+                                               0,
+                                               &asbd,
+                                               &propSize);
         if (status) {
-            NSLog(@"AKTimingTap initWithAudioUnit get kAudioUnitProperty_StreamFormat status = %i",status);
+            NSLog(@"AKTimingTap initWithAudioUnit get kAudioUnitProperty_StreamFormat status = %i", (int)status);
             return nil;
         }
         actionFlags = kAudioUnitRenderAction_PostRender;
@@ -65,7 +71,11 @@
     return [self initWithAudioUnit:avAudioUnit.audioUnit timelineBlock:block];
 }
 
-static void TimingCallback(void *refCon, AudioTimeStamp *timeStamp, UInt32 inNumberFrames, UInt32 renderStartOffset, AudioBufferList *ioData) {
+static void TimingCallback(void *refCon,
+                           AudioTimeStamp *timeStamp,
+                           UInt32 inNumberFrames,
+                           UInt32 renderStartOffset,
+                           AudioBufferList *ioData) {
 
     __unsafe_unretained AKTimelineTap *self = (__bridge AKTimelineTap *)refCon;
     __unsafe_unretained AKTimelineBlock timelineBlock = self->_block;
