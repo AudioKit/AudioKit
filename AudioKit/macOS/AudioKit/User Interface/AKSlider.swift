@@ -161,7 +161,7 @@ public enum AKSliderStyle {
                         currentValueText: String = "0.0") {
 
         //// General Declarations
-        let context = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
+        let context = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
 
         let width = self.frame.width
         let height = self.frame.height
@@ -173,15 +173,14 @@ public enum AKSliderStyle {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: fontSize),
-                                       NSForegroundColorAttributeName: themeTextColor,
-                                       NSParagraphStyleAttributeName: nameLabelStyle] as [String : Any]
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: fontSize),
+                                       NSAttributedStringKey.foregroundColor: themeTextColor,
+                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: nameLabelFontAttributes,
-            context: nil).size.height
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
+            attributes: nameLabelFontAttributes).size.height
         context.saveGState()
 
         // Calculate slider height and other values based on expected label height
@@ -258,16 +257,15 @@ public enum AKSliderStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSForegroundColorAttributeName: themeTextColor,
-                                            NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
+            let valueLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: bubbleFontSize),
+                                            NSAttributedStringKey.foregroundColor: themeTextColor,
+                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: NSRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
-                options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                attributes: valueLabelFontAttributes,
-                context: nil).size
+                options: NSString.DrawingOptions.usesLineFragmentOrigin,
+                attributes: valueLabelFontAttributes).size
 
             let bubbleSize = CGSize(width: valueLabelTextSize.width + AKSlider.bubblePadding.width,
                                     height: valueLabelTextSize.height + AKSlider.bubblePadding.height)
@@ -305,16 +303,15 @@ public enum AKSliderStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .right
 
-            let valueLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: fontSize),
-                                            NSForegroundColorAttributeName: themeTextColor,
-                                            NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
+            let valueLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: fontSize),
+                                            NSAttributedStringKey.foregroundColor: themeTextColor,
+                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: sliderCornerRadius, dy: sliderOrigin * 2.0)
             let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
-                options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                attributes: valueLabelFontAttributes,
-                context: nil).size.height
+                options: NSString.DrawingOptions.usesLineFragmentOrigin,
+                attributes: valueLabelFontAttributes).size.height
             context.saveGState()
             context.clip(to: valueLabelInset)
             NSString(string: currentValueText).draw(
