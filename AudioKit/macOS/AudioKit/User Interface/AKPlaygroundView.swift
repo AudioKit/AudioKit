@@ -46,7 +46,7 @@ open class AKPlaygroundView: NSView {
     override open func draw(_ dirtyRect: NSRect) {
         let backgroundColor = AKStylist.sharedInstance.bgColor
         backgroundColor.setFill()
-        NSRectFill(dirtyRect)
+        __NSRectFill(dirtyRect)
         super.draw(dirtyRect)
     }
 
