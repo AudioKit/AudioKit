@@ -21,26 +21,26 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Modal Resonance Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKSlider(property: "Frequency",
-                            value: filter.frequency,
-                            range: 0 ... 5_000,
-                            taper: 3,
-                            format: "%0.1f Hz"
+        addView(AKSlider(property: "Frequency",
+                         value: filter.frequency,
+                         range: 0 ... 5_000,
+                         taper: 3,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             filter.frequency = sliderValue
         })
-
-        addSubview(AKSlider(property: "Quality Factor",
-                            value: filter.qualityFactor,
-                            range: 0.1 ... 20,
-                            format: "%0.1f"
+        
+        addView(AKSlider(property: "Quality Factor",
+                         value: filter.qualityFactor,
+                         range: 0.1 ... 20,
+                         format: "%0.1f"
         ) { sliderValue in
             filter.qualityFactor = sliderValue
         })
@@ -50,4 +50,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -48,12 +48,12 @@ lead.pan   = -0.2
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Mixer")
 
-        addSubview(AKButton(title: "Stop All") { button in
+        addView(AKButton(title: "Stop All") { button in
             drums.isPlaying  ? drums.stop()  : drums.play()
             bass.isPlaying   ? bass.stop()   : bass.play()
             guitar.isPlaying ? guitar.stop() : guitar.play()
@@ -66,31 +66,31 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        addSubview(AKSlider(property: "Drums Volume", value: drums.volume) { sliderValue in
+        addView(AKSlider(property: "Drums Volume", value: drums.volume) { sliderValue in
             drums.volume = sliderValue
         })
-        addSubview(AKSlider(property: "Drums Pan", value: drums.pan, range: -1 ... 1) { sliderValue in
+        addView(AKSlider(property: "Drums Pan", value: drums.pan, range: -1 ... 1) { sliderValue in
             drums.pan = sliderValue
         })
 
-        addSubview(AKSlider(property: "Bass Volume", value: bass.volume) { sliderValue in
+        addView(AKSlider(property: "Bass Volume", value: bass.volume) { sliderValue in
             bass.volume = sliderValue
         })
-        addSubview(AKSlider(property: "Bass Pan", value: bass.pan, range: -1 ... 1) { sliderValue in
+        addView(AKSlider(property: "Bass Pan", value: bass.pan, range: -1 ... 1) { sliderValue in
             bass.pan = sliderValue
         })
 
-        addSubview(AKSlider(property: "Guitar Volume", value: guitar.volume) { sliderValue in
+        addView(AKSlider(property: "Guitar Volume", value: guitar.volume) { sliderValue in
             guitar.volume = sliderValue
         })
-        addSubview(AKSlider(property: "Guitar Pan", value: guitar.pan, range: -1 ... 1) { sliderValue in
+        addView(AKSlider(property: "Guitar Pan", value: guitar.pan, range: -1 ... 1) { sliderValue in
             guitar.pan = sliderValue
         })
 
-        addSubview(AKSlider(property: "Lead Volume", value: lead.volume) { sliderValue in
+        addView(AKSlider(property: "Lead Volume", value: lead.volume) { sliderValue in
             lead.volume = sliderValue
         })
-        addSubview(AKSlider(property: "Lead Pan", value: lead.pan, range: -1 ... 1) { sliderValue in
+        addView(AKSlider(property: "Lead Pan", value: lead.pan, range: -1 ... 1) { sliderValue in
             lead.pan = sliderValue
         })
     }
@@ -98,5 +98,5 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

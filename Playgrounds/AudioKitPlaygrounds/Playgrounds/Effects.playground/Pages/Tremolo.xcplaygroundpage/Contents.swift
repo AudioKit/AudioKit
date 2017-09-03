@@ -19,21 +19,21 @@ player.play()
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Tremolo")
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addSubview(AKSlider(property: "Frequency",
-                            value: tremolo.frequency,
-                            range: 0 ... 20,
-                            format: "%0.3f Hz"
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        
+        addView(AKSlider(property: "Frequency",
+                         value: tremolo.frequency,
+                         range: 0 ... 20,
+                         format: "%0.3f Hz"
         ) { sliderValue in
             tremolo.frequency = sliderValue
         })
-
-        addSubview(AKSlider(property: "Depth", value: tremolo.depth) { sliderValue in
+        
+        addView(AKSlider(property: "Depth", value: tremolo.depth) { sliderValue in
             tremolo.depth = sliderValue
         })
     }
@@ -41,4 +41,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

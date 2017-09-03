@@ -28,43 +28,43 @@ AudioKit.output = effect
 AudioKit.start()
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Bit Crush Operation")
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKSlider(property: "Base Sample Rate",
-                            value: effect.parameters[0],
-                            range: 300 ... 22_050,
-                            format: "%0.1f Hz"
+        addView(AKSlider(property: "Base Sample Rate",
+                         value: effect.parameters[0],
+                         range: 300 ... 22_050,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addSubview(AKSlider(property: "Sample Rate Variation",
-                            value: effect.parameters[1],
-                            range: 0 ... 8_000,
-                            format: "%0.1f Hz"
+        addView(AKSlider(property: "Sample Rate Variation",
+                         value: effect.parameters[1],
+                         range: 0 ... 8_000,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addSubview(AKSlider(property: "Base Bit Depth",
-                            value: effect.parameters[2],
-                            range: 1 ... 24
+        addView(AKSlider(property: "Base Bit Depth",
+                         value: effect.parameters[2],
+                         range: 1 ... 24
         ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
-        addSubview(AKSlider(property: "Bit Depth Variation",
-                            value: effect.parameters[3],
-                            range: 0 ...12,
-                            format: "%0.3f Hz"
+        addView(AKSlider(property: "Bit Depth Variation",
+                         value: effect.parameters[3],
+                         range: 0 ...12,
+                         format: "%0.3f Hz"
         ) { sliderValue in
             effect.parameters[3] = sliderValue
         })
-        addSubview(AKSlider(property: "Frequency",
-                            value: effect.parameters[4],
-                            range: 0 ... 5,
-                            format: "%0.3f Hz"
+        addView(AKSlider(property: "Frequency",
+                         value: effect.parameters[4],
+                         range: 0 ... 5,
+                         format: "%0.3f Hz"
         ) { sliderValue in
             effect.parameters[4] = sliderValue
         })
@@ -74,4 +74,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

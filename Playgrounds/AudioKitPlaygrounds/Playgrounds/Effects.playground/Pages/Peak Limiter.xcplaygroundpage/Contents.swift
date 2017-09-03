@@ -22,35 +22,39 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
-
-    override func setup() {
+class LiveView: AKLiveViewController {
+    
+    override func viewDidLoad() {
         addTitle("Peak Limiter")
-
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addSubview(AKBypassButton(node: peakLimiter))
-
-        addSubview(AKSlider(property: "Attack Time",
-                            value: peakLimiter.attackTime,
-                            range: 0.001 ... 0.03,
-                            format:  "%0.3f s"
+        
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        
+        addView(AKButton(title: "Stop Limiter") { button in
+            let node = peakLimiter
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Limiter" : "Start Limiter"
+        })
+        
+        addView(AKSlider(property: "Attack Time",
+                         value: peakLimiter.attackTime,
+                         range: 0.001 ... 0.03,
+                         format:  "%0.3f s"
         ) { sliderValue in
             peakLimiter.attackTime = sliderValue
         })
-
-        addSubview(AKSlider(property: "Decay Time",
-                            value: peakLimiter.decayTime,
-                            range: 0.001 ... 0.03,
-                            format:  "%0.3f s"
+        
+        addView(AKSlider(property: "Decay Time",
+                         value: peakLimiter.decayTime,
+                         range: 0.001 ... 0.03,
+                         format:  "%0.3f s"
         ) { sliderValue in
             peakLimiter.decayTime = sliderValue
         })
-
-        addSubview(AKSlider(property: "Pre-gain",
-                            value: peakLimiter.preGain,
-                            range: -40 ... 40,
-                            format:  "%0.1f dB"
+        
+        addView(AKSlider(property: "Pre-gain",
+                         value: peakLimiter.preGain,
+                         range: -40 ... 40,
+                         format:  "%0.1f dB"
         ) { sliderValue in
             peakLimiter.preGain = sliderValue
         })
@@ -59,4 +63,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

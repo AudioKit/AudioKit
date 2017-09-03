@@ -27,7 +27,7 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     var delaySlider: AKSlider?
     var decaySlider: AKSlider?
@@ -39,12 +39,16 @@ class PlaygroundView: AKPlaygroundView {
     var softClipGainSlider: AKSlider?
     var finalMixSlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Distortion")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: distortion))
+        addView(AKButton(title: "Stop Distortion") { button in
+            let node = distortion
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Distortion" : "Start Distortion"
+        })
 
         delaySlider = AKSlider(property: "Delay",
                                value: distortion.delay,
@@ -53,7 +57,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.delay = sliderValue
         }
-        addSubview(delaySlider)
+        addView(delaySlider)
 
         decaySlider = AKSlider(property: "Decay Rate",
                                value: distortion.decay,
@@ -61,25 +65,25 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.decay = sliderValue
         }
-        addSubview(decaySlider)
+        addView(decaySlider)
 
-        addSubview(AKSlider(property: "Delay Mix", value: distortion.delayMix) { sliderValue in
+        addView(AKSlider(property: "Delay Mix", value: distortion.delayMix) { sliderValue in
             distortion.delayMix = sliderValue
         })
 
-        addSubview(AKSlider(property: "Linear Term", value: distortion.linearTerm) { sliderValue in
+        addView(AKSlider(property: "Linear Term", value: distortion.linearTerm) { sliderValue in
             distortion.linearTerm = sliderValue
         })
 
-        addSubview(AKSlider(property: "Squared Term", value: distortion.squaredTerm) { sliderValue in
+        addView(AKSlider(property: "Squared Term", value: distortion.squaredTerm) { sliderValue in
             distortion.squaredTerm = sliderValue
         })
 
-        addSubview(AKSlider(property: "Cubic Term", value: distortion.cubicTerm) { sliderValue in
+        addView(AKSlider(property: "Cubic Term", value: distortion.cubicTerm) { sliderValue in
             distortion.cubicTerm = sliderValue
         })
 
-        addSubview(AKSlider(property: "Polynomial Mix", value: distortion.polynomialMix) { sliderValue in
+        addView(AKSlider(property: "Polynomial Mix", value: distortion.polynomialMix) { sliderValue in
             distortion.polynomialMix = sliderValue
         })
 
@@ -90,9 +94,9 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.softClipGain = sliderValue
         }
-        addSubview(softClipGainSlider)
+        addView(softClipGainSlider)
 
-        addSubview(AKSlider(property: "Final Mix", value: distortion.finalMix) { sliderValue in
+        addView(AKSlider(property: "Final Mix", value: distortion.finalMix) { sliderValue in
             distortion.finalMix = sliderValue
         })
     }
@@ -100,4 +104,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

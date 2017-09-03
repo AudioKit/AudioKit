@@ -19,30 +19,30 @@ AudioKit.start()
 
 let playgroundWidth = 500
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Oscillator Synth")
 
-        addSubview(AKSlider(property: "Amplitude",
-                            value: oscillator.amplitude,
-                            format: "%0.3f"
+        addView(AKSlider(property: "Amplitude",
+                         value: oscillator.amplitude,
+                         format: "%0.3f"
         ) { amplitude in
             currentAmplitude = amplitude
         })
-
-        addSubview(AKSlider(property: "Ramp Time",
-                            value: oscillator.rampTime,
-                            format: "%0.3f s"
+        
+        addView(AKSlider(property: "Ramp Time",
+                         value: oscillator.rampTime,
+                         format: "%0.3f s"
         ) { time in
             currentRampTime = time
         })
-
+        
         let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100, firstOctave: 3, octaveCount: 3)
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
     }
-
+    
     func noteOn(note: MIDINoteNumber) {
         currentMIDINote = note
         // start from the correct note if amplitude is zero
@@ -66,4 +66,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

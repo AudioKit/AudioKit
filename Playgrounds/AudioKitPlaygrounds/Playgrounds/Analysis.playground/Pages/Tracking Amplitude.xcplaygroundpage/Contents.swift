@@ -25,11 +25,11 @@ oscillatorNode.start()
 //: User Interface
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     var trackedAmplitudeSlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
 
         AKPlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = trackedAmplitude.amplitude
@@ -40,14 +40,14 @@ class PlaygroundView: AKPlaygroundView {
         trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedAmplitudeSlider)
+        addView(trackedAmplitudeSlider)
 
-        addSubview(AKRollingOutputPlot.createView())
+        addView(AKRollingOutputPlot.createView())
     }
 }
 
 import PlaygroundSupport
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 
 //: This keeps the playground running so that audio can play for a long time
 PlaygroundPage.current.needsIndefiniteExecution = true

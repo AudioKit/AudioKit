@@ -37,18 +37,18 @@ player.play()
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("AutoPan")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKSlider(property: "Speed", value: effect.speed, range: 0.1 ... 25) { sliderValue in
+        addView(AKSlider(property: "Speed", value: effect.speed, range: 0.1 ... 25) { sliderValue in
             effect.speed = sliderValue
         })
 
-        addSubview(AKSlider(property: "Depth", value: effect.depth) { sliderValue in
+        addView(AKSlider(property: "Depth", value: effect.depth) { sliderValue in
             effect.depth = sliderValue
         })
     }
@@ -56,4 +56,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

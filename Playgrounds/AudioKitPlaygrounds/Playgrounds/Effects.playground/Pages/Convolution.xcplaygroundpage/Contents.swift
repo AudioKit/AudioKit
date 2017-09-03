@@ -38,18 +38,18 @@ dishConvolution.start()
 
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Convolution")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKSlider(property: "Dry Audio to Convolved", value: dryWetMixer.balance) { sliderValue in
+        addView(AKSlider(property: "Dry Audio to Convolved", value: dryWetMixer.balance) { sliderValue in
             dryWetMixer.balance = sliderValue
         })
 
-        addSubview(AKSlider(property: "Stairwell to Dish", value: mixer.balance) { sliderValue in
+        addView(AKSlider(property: "Stairwell to Dish", value: mixer.balance) { sliderValue in
             mixer.balance = sliderValue
         })
     }
@@ -57,4 +57,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

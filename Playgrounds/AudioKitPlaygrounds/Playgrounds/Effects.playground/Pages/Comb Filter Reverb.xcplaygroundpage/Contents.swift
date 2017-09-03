@@ -18,14 +18,14 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Comb Filter Reverb")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKSlider(property: "Duration", value: filter.reverbDuration, range: 0 ... 5) { sliderValue in
+        addView(AKSlider(property: "Duration", value: filter.reverbDuration, range: 0 ... 5) { sliderValue in
             filter.reverbDuration = sliderValue
         })
     }
@@ -33,4 +33,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

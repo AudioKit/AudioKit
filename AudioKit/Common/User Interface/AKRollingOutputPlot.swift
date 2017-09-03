@@ -30,7 +30,7 @@ open class AKRollingOutputPlot: EZAudioPlot {
     }
 
     /// Useful to reconnect after connecting to Audiobus or IAA
-    public func reconnect() {
+    @objc public func reconnect() {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
         setupNode()
     }

@@ -10,7 +10,7 @@ AudioKit.start()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var p0Slider: AKSlider!
     var p1Slider: AKSlider!
@@ -19,7 +19,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     var keyboard: AKKeyboardView!
     var currentMIDINote: MIDINoteNumber = 0
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Sporth Generators")
 
         addLabel("Choose one of the Sporth files:")
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                            "kLtz",
                            "Scheale",
                            "Simple Keyboard"]
-        addSubview(AKPresetLoaderView(presets: sporthFiles) { filename in
+        addView(AKPresetLoaderView(presets: sporthFiles) { filename in
             guard
                 let filePath = Bundle.main.path(forResource: filename, ofType: "sp"),
                 let contentData = FileManager.default.contents(atPath: filePath),
@@ -113,28 +113,28 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             generator.parameters[0] = sliderValue
         }
         p0Slider?.isHidden = true
-        addSubview(p0Slider)
+        addView(p0Slider)
         p1Slider = AKSlider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
             generator.parameters[1] = sliderValue
         }
         p1Slider?.isHidden = true
-        addSubview(p1Slider)
+        addView(p1Slider)
         p2Slider = AKSlider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
             generator.parameters[2] = sliderValue
         }
         p2Slider?.isHidden = true
-        addSubview(p2Slider)
+        addView(p2Slider)
         p3Slider = AKSlider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
             generator.parameters[3] = sliderValue
         }
         p3Slider?.isHidden = true
-        addSubview(p3Slider)
+        addView(p3Slider)
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
         keyboard.isHidden = true
-        addSubview(keyboard)
+        addView(keyboard)
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -153,4 +153,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

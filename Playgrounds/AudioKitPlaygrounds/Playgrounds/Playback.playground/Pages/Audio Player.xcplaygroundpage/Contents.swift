@@ -17,7 +17,7 @@ player.looping = true
 //: and open the timeline view to use the controls this playground sets up....
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     // UI Elements we'll need to be able to access
     var inPositionSlider: AKSlider?
@@ -26,7 +26,7 @@ class PlaygroundView: AKPlaygroundView {
     var fadeInSlider: AKSlider?
     var fadeOutSlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
 
         AKPlaygroundLoop(every: 1 / 60.0) {
             if player.duration > 0 {
@@ -36,11 +36,11 @@ class PlaygroundView: AKPlaygroundView {
         }
         addTitle("Audio Player")
 
-        addSubview(AKResourcesAudioFileLoaderView(
+        addView(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
 
-        addSubview(AKButton(title: "Disable Looping") { button in
+        addView(AKButton(title: "Disable Looping") { button in
             player.looping = !player.looping
             if player.looping {
                 button.title = "Disable Looping"
@@ -49,7 +49,7 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        addSubview(AKButton(title: "Direction: ➡️") { button in
+        addView(AKButton(title: "Direction: ➡️") { button in
             if player.isPlaying {
                 player.stop()
             }
@@ -68,7 +68,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             player.fadeInTime = sliderValue
         }
-        addSubview(fadeInSlider)
+        addView(fadeInSlider)
 
         fadeOutSlider = AKSlider(property: "Fade Out",
                                  value: player.fadeOutTime,
@@ -77,7 +77,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             player.fadeOutTime = sliderValue
         }
-        addSubview(fadeOutSlider)
+        addView(fadeOutSlider)
 
         inPositionSlider = AKSlider(property: "In Position",
                                     value: player.startTime,
@@ -86,7 +86,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             player.startTime = sliderValue
         }
-        addSubview(inPositionSlider)
+        addView(inPositionSlider)
 
         outPositionSlider = AKSlider(property: "Out Position",
                                      value: player.endTime,
@@ -95,7 +95,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             player.endTime = sliderValue
         }
-        addSubview(outPositionSlider)
+        addView(outPositionSlider)
 
         playingPositionSlider = AKSlider(property: "Position",
                                          value: player.playhead,
@@ -104,10 +104,10 @@ class PlaygroundView: AKPlaygroundView {
         ) { _ in
             // Can't do player.playhead = sliderValue
         }
-        addSubview(playingPositionSlider)
+        addView(playingPositionSlider)
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -16,16 +16,20 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Stereo Field Limiter")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: limitedOutput))
+        addView(AKButton(title: "Stop") { button in
+            let node = limitedOutput
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop" : "Start"
+        })
 
-        addSubview(AKSlider(property: "Amount", value: limitedOutput.amount) { sliderValue in
+        addView(AKSlider(property: "Amount", value: limitedOutput.amount) { sliderValue in
             limitedOutput.amount = sliderValue
         })
     }
@@ -33,4 +37,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

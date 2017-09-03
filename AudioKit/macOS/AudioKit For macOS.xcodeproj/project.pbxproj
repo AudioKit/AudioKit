@@ -757,6 +757,7 @@
 		C4D4C4EB1EB7175100134B39 /* AKTuningTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4E41EB7175100134B39 /* AKTuningTable.swift */; };
 		C4E3D21C1F4351340040190E /* AKBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E3D21A1F4351340040190E /* AKBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E3D21D1F4351340040190E /* AKBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E3D21B1F4351340040190E /* AKBankAudioUnit.mm */; };
+		C4EDF5F81F5B871300A45815 /* AKLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDFAA61F5B81370029A371 /* AKLiveViewController.swift */; };
 		C4F5F2641F443AF400BF7572 /* fwavblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C47047D71E78FB9B00D9906F /* fwavblnk.raw */; };
 		C4F8C8191DCA8959001F38F2 /* scrambler.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8171DCA8959001F38F2 /* scrambler.c */; };
 		C4F8C81A1DCA8959001F38F2 /* slice.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8181DCA8959001F38F2 /* slice.c */; };
@@ -901,7 +902,6 @@
 		EAFECECB1F4EBD8E00A2B046 /* AKADSRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CBA1E8A3D8000E42D93 /* AKADSRView.swift */; };
 		EAFECECC1F4EBD8E00A2B046 /* AKTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B25E001F1B433F00CF24C0 /* AKTableView.swift */; };
 		EAFECECD1F4EBD8E00A2B046 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CBB1E8A3D8000E42D93 /* AKButton.swift */; };
-		EAFECECE1F4EBD8E00A2B046 /* AKBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CBC1E8A3D8000E42D93 /* AKBypassButton.swift */; };
 		EAFECECF1F4EBD8E00A2B046 /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CBD1E8A3D8000E42D93 /* AKKeyboardView.swift */; };
 		EAFECED01F4EBD8E00A2B046 /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAAB1E9A11D800DEB790 /* AKPlaygroundLoop.swift */; };
 		EAFECED11F4EBD8E00A2B046 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAA91E9A118F00DEB790 /* AKPlaygroundView.swift */; };
@@ -1708,7 +1708,6 @@
 		C4C378FE1F0C55640085F876 /* AKSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencer.swift; sourceTree = "<group>"; };
 		C4D35CBA1E8A3D8000E42D93 /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
 		C4D35CBB1E8A3D8000E42D93 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
-		C4D35CBC1E8A3D8000E42D93 /* AKBypassButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBypassButton.swift; sourceTree = "<group>"; };
 		C4D35CBD1E8A3D8000E42D93 /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
 		C4D35CC01E8A3D8000E42D93 /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
 		C4D35CC11E8A3D8000E42D93 /* AKSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSlider.swift; sourceTree = "<group>"; };
@@ -1722,6 +1721,7 @@
 		C4D4C4E41EB7175100134B39 /* AKTuningTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTuningTable.swift; sourceTree = "<group>"; };
 		C4E3D21A1F4351340040190E /* AKBankAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBankAudioUnit.h; sourceTree = "<group>"; };
 		C4E3D21B1F4351340040190E /* AKBankAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBankAudioUnit.mm; sourceTree = "<group>"; };
+		C4EDFAA61F5B81370029A371 /* AKLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKLiveViewController.swift; sourceTree = "<group>"; };
 		C4F8C8171DCA8959001F38F2 /* scrambler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scrambler.c; sourceTree = "<group>"; };
 		C4F8C8181DCA8959001F38F2 /* slice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = slice.c; sourceTree = "<group>"; };
 		C4F8C81B1DCA8968001F38F2 /* incr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = incr.c; sourceTree = "<group>"; };
@@ -4059,8 +4059,8 @@
 				C4D35CBA1E8A3D8000E42D93 /* AKADSRView.swift */,
 				C4B25E001F1B433F00CF24C0 /* AKTableView.swift */,
 				C4D35CBB1E8A3D8000E42D93 /* AKButton.swift */,
-				C4D35CBC1E8A3D8000E42D93 /* AKBypassButton.swift */,
 				C4D35CBD1E8A3D8000E42D93 /* AKKeyboardView.swift */,
+				C4EDFAA61F5B81370029A371 /* AKLiveViewController.swift */,
 				C486FAAB1E9A11D800DEB790 /* AKPlaygroundLoop.swift */,
 				C486FAA91E9A118F00DEB790 /* AKPlaygroundView.swift */,
 				C4D35CC01E8A3D8000E42D93 /* AKPresetLoaderView.swift */,
@@ -5164,12 +5164,12 @@
 				EAFECED51F4EBD8E00A2B046 /* AKRotaryKnob.swift in Sources */,
 				EAFECECB1F4EBD8E00A2B046 /* AKADSRView.swift in Sources */,
 				EAFECED31F4EBD8E00A2B046 /* AKSlider.swift in Sources */,
-				EAFECECE1F4EBD8E00A2B046 /* AKBypassButton.swift in Sources */,
 				EAFECEDE1F4EBEB700A2B046 /* EZAudioDisplayLink.m in Sources */,
 				EAFECED01F4EBD8E00A2B046 /* AKPlaygroundLoop.swift in Sources */,
 				EAFECEC61F4EBD7D00A2B046 /* AKNodeFFTPlot.swift in Sources */,
 				EAFECEC71F4EBD7D00A2B046 /* AKNodeOutputPlot.swift in Sources */,
 				EAFECED21F4EBD8E00A2B046 /* AKPresetLoaderView.swift in Sources */,
+				C4EDF5F81F5B871300A45815 /* AKLiveViewController.swift in Sources */,
 				EAFECED11F4EBD8E00A2B046 /* AKPlaygroundView.swift in Sources */,
 				EAFECED41F4EBD8E00A2B046 /* AKResourceAudioFileLoaderView.swift in Sources */,
 				EAFECEC91F4EBD7D00A2B046 /* AKRollingOutputPlot.swift in Sources */,
@@ -5291,7 +5291,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5341,7 +5341,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5432,7 +5432,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.2;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -5460,7 +5460,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.2;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
