@@ -15,9 +15,9 @@ var offsets = [-12, 7, 0, 12, 19, 24, 28, 31, 36]
 var names = ["16", "5 1/3", "8", "4", "2 2/3", "2", "1 3/5", "1 1/3", "1"]
 var baseNote: MIDINoteNumber = 0
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Drawbar Organ")
         for i in 0 ..< noteCount {
             let slider = AKSlider(
@@ -26,12 +26,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             ) { amp in
                 amplitudes[i] = amp
             }
-            addSubview(slider)
+            addView(slider)
         }
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
 
     }
 
@@ -65,4 +65,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

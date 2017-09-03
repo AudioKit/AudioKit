@@ -11,30 +11,30 @@ let fmBank = AKFMOscillatorBank()
 AudioKit.output = fmBank
 AudioKit.start()
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("FM Oscillator Bank")
 
-        addSubview(AKSlider(property: "Carrier Multiplier",
-                            value: fmBank.carrierMultiplier,
-                            range: 0 ... 2
+        addView(AKSlider(property: "Carrier Multiplier",
+                         value: fmBank.carrierMultiplier,
+                         range: 0 ... 2
         ) { multiplier in
             fmBank.carrierMultiplier = multiplier
         })
 
-        addSubview(AKSlider(property: "Modulating Multiplier",
-                            value: fmBank.modulatingMultiplier,
-                            range: 0 ... 2
+        addView(AKSlider(property: "Modulating Multiplier",
+                         value: fmBank.modulatingMultiplier,
+                         range: 0 ... 2
         ) { multiplier in
             fmBank.modulatingMultiplier = multiplier
         })
 
-        addSubview(AKSlider(property: "Modulation Index",
-                            value: fmBank.modulationIndex,
-                            range: 0 ... 20
+        addView(AKSlider(property: "Modulation Index",
+                         value: fmBank.modulationIndex,
+                         range: 0 ... 20
         ) { index in
             fmBank.modulationIndex = index
         })
@@ -49,28 +49,28 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.decayDuration = fmBank.decayDuration
         adsrView.releaseDuration = fmBank.releaseDuration
         adsrView.sustainLevel = fmBank.sustainLevel
-        addSubview(adsrView)
+        addView(adsrView)
 
-        addSubview(AKSlider(property: "Pitch Bend",
-                            value: fmBank.pitchBend,
-                            range: -12 ... 12,
-                            format: "%0.2f semitones"
+        addView(AKSlider(property: "Pitch Bend",
+                         value: fmBank.pitchBend,
+                         range: -12 ... 12,
+                         format: "%0.2f semitones"
         ) { sliderValue in
             fmBank.pitchBend = sliderValue
         })
 
-        addSubview(AKSlider(property: "Vibrato Depth",
-                            value: fmBank.vibratoDepth,
-                            range: 0 ... 2,
-                            format: "%0.2f semitones"
+        addView(AKSlider(property: "Vibrato Depth",
+                         value: fmBank.vibratoDepth,
+                         range: 0 ... 2,
+                         format: "%0.2f semitones"
         ) { sliderValue in
             fmBank.vibratoDepth = sliderValue
         })
 
-        addSubview(AKSlider(property: "Vibrato Rate",
-                            value: fmBank.vibratoRate,
-                            range: 0 ... 10,
-                            format: "%0.2f Hz"
+        addView(AKSlider(property: "Vibrato Rate",
+                         value: fmBank.vibratoRate,
+                         range: 0 ... 10,
+                         format: "%0.2f Hz"
         ) { sliderValue in
             fmBank.vibratoRate = sliderValue
         })
@@ -78,9 +78,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
 
-        addSubview(AKButton(title: "Go Polyphonic") { button in
+        addView(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
                 button.title = "Go Monophonic"
@@ -101,4 +101,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

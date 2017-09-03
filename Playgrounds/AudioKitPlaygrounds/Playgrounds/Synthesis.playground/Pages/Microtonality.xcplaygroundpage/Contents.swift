@@ -125,95 +125,95 @@ sequencerFunction.start()
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Microtonal Morphing Oscillator")
 
-        addSubview(AKPresetLoaderView(presets: presetArray) { preset in
+        addView(AKPresetLoaderView(presets: presetArray) { preset in
             presetDictionary[preset]?()
         })
 
-        addSubview(AKPresetLoaderView(presets: sequencerPatternPresets) { preset in
+        addView(AKPresetLoaderView(presets: sequencerPatternPresets) { preset in
             osc.reset()
             sequencerPattern = sequencerPatterns[preset]!
         })
-
-        addSubview(AKSlider(property: "MIDI Transposition",
-                            value: Double(transposition),
-                            range: -16 ... 16,
-                            format: "%.0f"
+        
+        addView(AKSlider(property: "MIDI Transposition",
+                         value: Double(transposition),
+                         range: -16 ... 16,
+                         format: "%.0f"
         ) { sliderValue in
             transposition = Int(sliderValue)
             osc.reset()
         })
-
-        addSubview(AKSlider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
+        
+        addView(AKSlider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
             osc.index = sliderValue
         })
-
-        addSubview(AKSlider(property: "OSC Gain", value: generatorBooster.gain, range: 0 ... 4) { sliderValue in
+        
+        addView(AKSlider(property: "OSC Gain", value: generatorBooster.gain, range: 0 ... 4) { sliderValue in
             generatorBooster.gain = sliderValue
         })
-
-        addSubview(AKSlider(property: "FILTER Frequency Cutoff",
-                            value: filter.cutoffFrequency,
-                            range: 1 ... 12_000
+        
+        addView(AKSlider(property: "FILTER Frequency Cutoff",
+                         value: filter.cutoffFrequency,
+                         range: 1 ... 12_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
-
-        addSubview(AKSlider(property: "FILTER Frequency Resonance",
-                            value: filter.resonance,
-                            range: 0 ... 4
+        
+        addView(AKSlider(property: "FILTER Frequency Resonance",
+                         value: filter.resonance,
+                         range: 0 ... 4
         ) { sliderValue in
             filter.resonance = sliderValue
         })
-
-        addSubview(AKSlider(property: "OSC Amp Attack",
-                            value: osc.attackDuration,
-                            range: 0 ... 2,
-                            format: "%0.3f s"
+        
+        addView(AKSlider(property: "OSC Amp Attack",
+                         value: osc.attackDuration,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
         ) { sliderValue in
             osc.attackDuration = sliderValue
         })
-
-        addSubview(AKSlider(property: "OSC Amp Decay",
-                            value: osc.decayDuration,
-                            range: 0 ... 2,
-                            format: "%0.3f s"
+        
+        addView(AKSlider(property: "OSC Amp Decay",
+                         value: osc.decayDuration,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
         ) { sliderValue in
             osc.decayDuration = sliderValue
         })
-
-        addSubview(AKSlider(property: "OSC Amp Sustain",
-                            value: osc.sustainLevel,
-                            range: 0 ... 2,
-                            format: "%0.3f s"
+        
+        addView(AKSlider(property: "OSC Amp Sustain",
+                         value: osc.sustainLevel,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
         ) { sliderValue in
             osc.sustainLevel = sliderValue
         })
-
-        addSubview(AKSlider(property: "OSC Amp Release",
-                            value: osc.releaseDuration,
-                            range: 0 ... 2,
-                            format: "%0.3f s"
+        
+        addView(AKSlider(property: "OSC Amp Release",
+                         value: osc.releaseDuration,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
         ) { sliderValue in
             osc.releaseDuration = sliderValue
         })
-
-        addSubview(AKSlider(property: "Detuning Offset",
-                            value: osc.detuningOffset,
-                            range: -1_200 ... 1_200,
-                            format: "%0.1f Cents"
+        
+        addView(AKSlider(property: "Detuning Offset",
+                         value: osc.detuningOffset,
+                         range: -1_200 ... 1_200,
+                         format: "%0.1f Cents"
         ) { sliderValue in
             osc.detuningOffset = sliderValue
         })
-
-        addSubview(AKSlider(property: "Detuning Multiplier",
-                            value: osc.detuningMultiplier,
-                            range: 0.5 ... 2.0,
-                            taper: log(3) / log(2)
+        
+        addView(AKSlider(property: "Detuning Multiplier",
+                         value: osc.detuningMultiplier,
+                         range: 0.5 ... 2.0,
+                         taper: log(3) / log(2)
         ) { sliderValue in
             osc.detuningMultiplier = sliderValue
         })
@@ -222,4 +222,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -16,22 +16,22 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("3D Panner")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKSlider(property: "X", value: panner.x, range: -10 ... 10) { sliderValue in
+        addView(AKSlider(property: "X", value: panner.x, range: -10 ... 10) { sliderValue in
             panner.x = sliderValue
         })
 
-        addSubview(AKSlider(property: "Y", value: panner.y, range: -10 ... 10) { sliderValue in
+        addView(AKSlider(property: "Y", value: panner.y, range: -10 ... 10) { sliderValue in
             panner.y = sliderValue
         })
 
-        addSubview(AKSlider(property: "Z", value: panner.z, range: -10 ... 10) { sliderValue in
+        addView(AKSlider(property: "Z", value: panner.z, range: -10 ... 10) { sliderValue in
             panner.z = sliderValue
         })
     }
@@ -39,4 +39,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -46,12 +46,12 @@ performance.start()
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     var detuneSlider: AKSlider!
     var bodySizeSlider: AKSlider!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Mandolin")
 
         detuneSlider = AKSlider(property: "Detune",
@@ -61,7 +61,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { detune in
             mandolin.detune = detune
         }
-        addSubview(detuneSlider)
+        addView(detuneSlider)
 
         bodySizeSlider = AKSlider(property: "Body Size",
                                   value: mandolin.bodySize,
@@ -70,17 +70,14 @@ class PlaygroundView: AKPlaygroundView {
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
-        addSubview(bodySizeSlider)
+        addView(bodySizeSlider)
 
-        addSubview(AKSlider(property: "Pluck Position",
-                            value: pluckPosition,
-                            format: "%0.2f"
-        ) { position in
+        addView(AKSlider(property: "Pluck Position", value: pluckPosition, format: "%0.2f") { position in
             pluckPosition = position
         })
 
         let presets = ["Large, Resonant", "Electric Guitar-ish", "Small-Bodied, Distorted", "Acid Mandolin"]
-        addSubview(AKPresetLoaderView(presets: presets) { preset in
+        addView(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Large, Resonant":
                 mandolin.presetLargeResonantMandolin()
@@ -103,5 +100,5 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 import PlaygroundSupport
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 PlaygroundPage.current.needsIndefiniteExecution = true

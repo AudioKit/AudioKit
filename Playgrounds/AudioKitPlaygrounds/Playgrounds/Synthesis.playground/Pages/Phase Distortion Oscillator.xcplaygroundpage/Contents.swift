@@ -14,46 +14,46 @@ AudioKit.start()
 
 let playgroundWidth = 500
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
-
-    override func setup() {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
+    
+    override func viewDidLoad() {
         addTitle("Phase Distortion Oscillator")
-
-        addSubview(AKSlider(property: "Amplitude", value: currentAmplitude) { sliderValue in
+        
+        addView(AKSlider(property: "Amplitude", value: currentAmplitude) { sliderValue in
             currentAmplitude = sliderValue
         })
-
-        addSubview(AKSlider(property: "Phase Distortion", value: oscillator.phaseDistortion) { sliderValue in
+        
+        addView(AKSlider(property: "Phase Distortion", value: oscillator.phaseDistortion) { sliderValue in
             oscillator.phaseDistortion = sliderValue
         })
-
-        addSubview(AKSlider(property: "Ramp Time",
-                            value: currentRampTime,
-                            range: 0 ... 10,
-                            format: "%0.3f s"
+        
+        addView(AKSlider(property: "Ramp Time",
+                         value: currentRampTime,
+                         range: 0 ... 10,
+                         format: "%0.3f s"
         ) { time in
             currentRampTime = time
         })
-
+        
         let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
-        addSubview(keyboard)
-
+        addView(keyboard)
+        
     }
-
+    
     func noteOn(note: MIDINoteNumber) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
             oscillator.rampTime = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
-
+        
         // Still use rampTime for volume
         oscillator.rampTime = currentRampTime
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
-
+    
     func noteOff(note: MIDINoteNumber) {
         oscillator.amplitude = 0
     }
@@ -61,4 +61,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

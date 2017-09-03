@@ -23,34 +23,34 @@ for i in custom.indices {
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
 
         addTitle("Tables")
 
         addLabel("Square")
-        addSubview(AKTableView(square))
+        addView(AKTableView(square))
 
         addLabel("Triangle")
-        addSubview(AKTableView(triangle))
+        addView(AKTableView(triangle))
 
         addLabel("Sawtooth")
-        addSubview(AKTableView(sawtooth))
+        addView(AKTableView(sawtooth))
 
         addLabel("Sine")
-        addSubview(AKTableView(sine))
+        addView(AKTableView(sine))
 
         addLabel("File")
-        addSubview(AKTableView(fileTable))
+        addView(AKTableView(fileTable))
 
         addLabel("Custom")
-        addSubview(AKTableView(custom))
+        addView(AKTableView(custom))
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

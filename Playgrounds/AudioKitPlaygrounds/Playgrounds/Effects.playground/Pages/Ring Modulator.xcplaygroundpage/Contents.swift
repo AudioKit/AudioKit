@@ -21,36 +21,40 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
-
-    override func setup() {
+class LiveView: AKLiveViewController {
+    
+    override func viewDidLoad() {
         addTitle("Ring Modulator")
-
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addSubview(AKBypassButton(node: ringModulator))
-
-        addSubview(AKSlider(property: "Frequency 1",
-                            value: ringModulator.frequency1,
-                            range: 0.5 ... 8_000,
-                            format: "%0.2f Hz"
+        
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        
+        addView(AKButton(title: "Stop Ring Modulator") { button in
+            let node = ringModulator
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Ring Modulator" : "Start Ring Modulator"
+        })
+        
+        addView(AKSlider(property: "Frequency 1",
+                         value: ringModulator.frequency1,
+                         range: 0.5 ... 8_000,
+                         format: "%0.2f Hz"
         ) { sliderValue in
             ringModulator.frequency1 = sliderValue
         })
-
-        addSubview(AKSlider(property: "Frequency 2",
-                            value: ringModulator.frequency2,
-                            range: 0.5 ... 8_000,
-                            format: "%0.2f Hz"
+        
+        addView(AKSlider(property: "Frequency 2",
+                         value: ringModulator.frequency2,
+                         range: 0.5 ... 8_000,
+                         format: "%0.2f Hz"
         ) { sliderValue in
             ringModulator.frequency2 = sliderValue
         })
-
-        addSubview(AKSlider(property: "Balance", value: ringModulator.balance) { sliderValue in
+        
+        addView(AKSlider(property: "Balance", value: ringModulator.balance) { sliderValue in
             ringModulator.balance = sliderValue
         })
-
-        addSubview(AKSlider(property: "Mix", value: ringModulator.mix) { sliderValue in
+        
+        addView(AKSlider(property: "Mix", value: ringModulator.mix) { sliderValue in
             ringModulator.mix = sliderValue
         })
     }
@@ -58,4 +62,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

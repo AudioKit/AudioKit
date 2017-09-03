@@ -20,49 +20,40 @@ AudioKit.output = AKBooster(reverb, gain: 0.4)
 AudioKit.start(withPeriodicFunctions: drips)
 drips.start()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
 
         addTitle("Dripping Sounds")
 
-        addSubview(AKSlider(property: "Intensity",
-                            value: drip.intensity,
-                            range: 0 ... 300
-        ) { sliderValue in
+        addView(AKSlider(property: "Intensity", value: drip.intensity, range: 0 ... 300) { sliderValue in
             drip.intensity = sliderValue
         })
 
-        addSubview(AKSlider(property: "Damping Factor",
-                            value: drip.dampingFactor,
-                            range: 0 ... 2
-        ) { sliderValue in
+        addView(AKSlider(property: "Damping Factor", value: drip.dampingFactor, range: 0 ... 2) { sliderValue in
             drip.dampingFactor = sliderValue
         })
-        addSubview(AKSlider(property: "Energy Return",
-                            value: drip.energyReturn,
-                            range: 0 ... 5
-        ) { sliderValue in
+        addView(AKSlider(property: "Energy Return", value: drip.energyReturn, range: 0 ... 5) { sliderValue in
             drip.energyReturn = sliderValue
         })
-        addSubview(AKSlider(property: "Main Resonant Frequency",
-                            value: drip.mainResonantFrequency,
-                            range: 0 ... 800,
-                            format: "%0.1f Hz"
+        addView(AKSlider(property: "Main Resonant Frequency",
+                         value: drip.mainResonantFrequency,
+                         range: 0 ... 800,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             drip.mainResonantFrequency = sliderValue
         })
-        addSubview(AKSlider(property: "1st Resonant Frequency",
-                            value: drip.firstResonantFrequency,
-                            range: 0 ... 800,
-                            format: "%0.1f Hz"
+        addView(AKSlider(property: "1st Resonant Frequency",
+                         value: drip.firstResonantFrequency,
+                         range: 0 ... 800,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             drip.firstResonantFrequency = sliderValue
         })
-        addSubview(AKSlider(property: "2nd Resonant Frequency",
-                            value: drip.secondResonantFrequency,
-                            range: 0 ... 800,
-                            format: "%0.1f Hz"
+        addView(AKSlider(property: "2nd Resonant Frequency",
+                         value: drip.secondResonantFrequency,
+                         range: 0 ... 800,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             drip.secondResonantFrequency = sliderValue
         })
@@ -72,4 +63,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

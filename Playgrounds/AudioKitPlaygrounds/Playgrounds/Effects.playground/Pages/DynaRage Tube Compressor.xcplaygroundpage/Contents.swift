@@ -23,56 +23,60 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
-
-    override func setup() {
+class LiveView: AKLiveViewController {
+    
+    override func viewDidLoad() {
         addTitle("DynaRage Tube Compressor")
-
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addSubview(AKBypassButton(node: effect))
-
-        addSubview(AKSlider(property: "Threshold",
-                            value: effect.threshold,
-                            range: -100.0 ... 0.0,
-                            format: "%0.2f dB"
+        
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        
+        addView(AKButton(title: "Stop Compressor") { button in
+            let node = effect
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Compressor" : "Start Compressor"
+        })
+        
+        addView(AKSlider(property: "Threshold",
+                         value: effect.threshold,
+                         range: -100.0 ... 0.0,
+                         format: "%0.2f dB"
         ) { sliderValue in
             effect.threshold = sliderValue
         })
-
-        addSubview(AKSlider(property: "Ratio",
-                            value: effect.ratio,
-                            range: 1.0 ... 20.0,
-                            format: "%0.0f:1"
+        
+        addView(AKSlider(property: "Ratio",
+                         value: effect.ratio,
+                         range: 1.0 ... 20.0,
+                         format: "%0.0f:1"
         ) { sliderValue in
             effect.ratio = sliderValue
         })
-
-        addSubview(AKSlider(property: "Attack Time",
-                            value: effect.attackTime,
-                            range: 0.1 ... 500.0,
-                            format: "%0.2f ms"
+        
+        addView(AKSlider(property: "Attack Time",
+                         value: effect.attackTime,
+                         range: 0.1 ... 500.0,
+                         format: "%0.2f ms"
         ) { sliderValue in
             effect.attackTime = sliderValue
         })
-
-        addSubview(AKSlider(property: "Release Time",
-                            value: effect.releaseTime,
-                            range: 0.01 ... 500.0,
-                            format: "%0.2f ms"
+        
+        addView(AKSlider(property: "Release Time",
+                         value: effect.releaseTime,
+                         range: 0.01 ... 500.0,
+                         format: "%0.2f ms"
         ) { sliderValue in
             effect.releaseTime = sliderValue
         })
-
-        addSubview(AKSlider(property: "Rage Amount",
-                            value: effect.rageAmount,
-                            range: 1 ... 20,
-                            format: "%0.2f"
+        
+        addView(AKSlider(property: "Rage Amount",
+                         value: effect.rageAmount,
+                         range: 1 ... 20,
+                         format: "%0.2f"
         ) { sliderValue in
             effect.rageAmount = sliderValue
         })
-
-        addSubview(AKButton(title: "Rage Off") { button in
+        
+        addView(AKButton(title: "Rage Off") { button in
             effect.rageIsOn = !effect.rageIsOn
             if effect.rageIsOn {
                 button.title = "Rage Off"
@@ -80,10 +84,10 @@ class PlaygroundView: AKPlaygroundView {
                 button.title = "Rage On"
             }
         })
-
+        
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

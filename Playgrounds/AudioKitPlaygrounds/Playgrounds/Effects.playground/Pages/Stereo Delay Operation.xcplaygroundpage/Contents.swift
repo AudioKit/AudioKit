@@ -22,30 +22,30 @@ player.play()
 //: User Interface
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
-
-    override func setup() {
+class LiveView: AKLiveViewController {
+    
+    override func viewDidLoad() {
         addTitle("Stereo Delay Operation")
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-
-        addSubview(AKSlider(property: "Left Delay",
-                            value: effect.parameters[0],
-                            range: 0 ... 0.3,
-                            format: "%0.3f s"
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        
+        addView(AKSlider(property: "Left Delay",
+                         value: effect.parameters[0],
+                         range: 0 ... 0.3,
+                         format: "%0.3f s"
         ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addSubview(AKSlider(property: "Left Feedback", value: effect.parameters[1]) { sliderValue in
+        addView(AKSlider(property: "Left Feedback", value: effect.parameters[1]) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addSubview(AKSlider(property: "Right Delay",
-                            value: effect.parameters[2],
-                            range: 0 ... 0.3,
-                            format: "%0.3f s"
+        addView(AKSlider(property: "Right Delay",
+                         value: effect.parameters[2],
+                         range: 0 ... 0.3,
+                         format: "%0.3f s"
         ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
-        addSubview(AKSlider(property: "Left Feedback", value: effect.parameters[3]) { sliderValue in
+        addView(AKSlider(property: "Left Feedback", value: effect.parameters[3]) { sliderValue in
             effect.parameters[3] = sliderValue
         })
     }
@@ -53,4 +53,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

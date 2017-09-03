@@ -11,49 +11,52 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-var lowPassFilter = AKKorgLowPassFilter(player)
+var filter = AKKorgLowPassFilter(player)
 
-AudioKit.output = lowPassFilter
+AudioKit.output = filter
 AudioKit.start()
 player.play()
 
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Korg Low Pass Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: lowPassFilter))
-
-        addSubview(AKSlider(property: "Cutoff Frequency",
-                            value: lowPassFilter.cutoffFrequency,
-                            range: 20 ... 5_000,
-                            taper: 4,
-                            format: "%0.1f Hz"
-        ) { sliderValue in
-            lowPassFilter.cutoffFrequency = sliderValue
+        addView(AKButton(title: "Stop") { button in
+            filter.isStarted ? filter.stop() : filter.play()
+            button.title = filter.isStarted ? "Stop" : "Start"
         })
 
-        addSubview(AKSlider(property: "Resonance",
-                            value: lowPassFilter.resonance,
-                            range: 0 ... 2
+        addView(AKSlider(property: "Cutoff Frequency",
+                         value: filter.cutoffFrequency,
+                         range: 20 ... 5_000,
+                         taper: 4,
+                         format: "%0.1f Hz"
         ) { sliderValue in
-            lowPassFilter.resonance = sliderValue
+            filter.cutoffFrequency = sliderValue
         })
-
-        addSubview(AKSlider(property: "Saturation",
-                            value: lowPassFilter.saturation,
-                            range: 0 ... 2
+        
+        addView(AKSlider(property: "Resonance",
+                         value: filter.resonance,
+                         range: 0 ... 2
         ) { sliderValue in
-            lowPassFilter.saturation = sliderValue
+            filter.resonance = sliderValue
+        })
+        
+        addView(AKSlider(property: "Saturation",
+                         value: filter.saturation,
+                         range: 0 ... 2
+        ) { sliderValue in
+            filter.saturation = sliderValue
         })
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

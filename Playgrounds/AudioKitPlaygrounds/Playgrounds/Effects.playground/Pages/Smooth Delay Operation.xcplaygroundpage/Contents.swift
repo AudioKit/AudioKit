@@ -24,18 +24,18 @@ player.play()
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Smooth Delay Operation")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKSlider(property: "Time", value: effect.parameters[0]) { sliderValue in
+        addView(AKSlider(property: "Time", value: effect.parameters[0]) { sliderValue in
             effect.parameters[0] = sliderValue
         })
 
-        addSubview(AKSlider(property: "Feedback", value: effect.parameters[1]) { sliderValue in
+        addView(AKSlider(property: "Feedback", value: effect.parameters[1]) { sliderValue in
             effect.parameters[1] = sliderValue
         })
     }
@@ -43,5 +43,5 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 import PlaygroundSupport
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 PlaygroundPage.current.needsIndefiniteExecution = true

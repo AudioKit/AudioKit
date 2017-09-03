@@ -21,33 +21,37 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Tanh Distortion")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: distortion))
+        addView(AKButton(title: "Stop Distortion") { button in
+            let node = distortion
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Distortion" : "Start Distortion"
+        })
 
-        addSubview(AKSlider(property: "Pre-gain", value: distortion.pregain, range: 0 ... 10) { sliderValue in
+        addView(AKSlider(property: "Pre-gain", value: distortion.pregain, range: 0 ... 10) { sliderValue in
             distortion.pregain = sliderValue
         })
 
-        addSubview(AKSlider(property: "Post-gain", value: distortion.postgain, range: 0 ... 10) { sliderValue in
+        addView(AKSlider(property: "Post-gain", value: distortion.postgain, range: 0 ... 10) { sliderValue in
             distortion.postgain = sliderValue
         })
-
-        addSubview(AKSlider(property: "Postive Shape Parameter",
-                            value: distortion.postiveShapeParameter,
-                            range: -10 ... 10
+        
+        addView(AKSlider(property: "Postive Shape Parameter",
+                         value: distortion.postiveShapeParameter,
+                         range: -10 ... 10
         ) { sliderValue in
             distortion.postiveShapeParameter = sliderValue
         })
-
-        addSubview(AKSlider(property: "Negative Shape Parameter",
-                            value: distortion.negativeShapeParameter,
-                            range: -10 ... 10
+        
+        addView(AKSlider(property: "Negative Shape Parameter",
+                         value: distortion.negativeShapeParameter,
+                         range: -10 ... 10
         ) { sliderValue in
             distortion.negativeShapeParameter = sliderValue
         })
@@ -56,4 +60,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

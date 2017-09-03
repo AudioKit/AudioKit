@@ -16,12 +16,12 @@ var timeStep = 0.1
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     // UI Elements we'll need to be able to access
     var playingPositionSlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
 
         addTitle("Phase Locked Vocoder")
 
@@ -32,10 +32,10 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             phaseLockedVocoder.position = sliderValue
         }
-        addSubview(playingPositionSlider)
+        addView(playingPositionSlider)
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
