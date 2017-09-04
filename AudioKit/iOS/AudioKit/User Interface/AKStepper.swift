@@ -77,9 +77,9 @@ open class AKStepper: UIView {
         let textLabelRect = CGRect(x: 68, y: 0, width: 304, height: 60)
         let textLabelStyle = NSMutableParagraphStyle()
         textLabelStyle.alignment = .left
-        let textLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
-                                       NSForegroundColorAttributeName: UIColor.black,
-                                       NSParagraphStyleAttributeName: textLabelStyle]
+        let textLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
+                                       NSAttributedStringKey.foregroundColor: UIColor.black,
+                                       NSAttributedStringKey.paragraphStyle: textLabelStyle]
 
         let textLabelInset: CGRect = textLabelRect.insetBy(dx: 10, dy: 0)
         let textLabelTextHeight: CGFloat = text.boundingRect(with: CGSize(width: textLabelInset.width,

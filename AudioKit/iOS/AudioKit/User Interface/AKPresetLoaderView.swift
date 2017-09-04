@@ -146,13 +146,19 @@
         let expression: AKColor = isPresetLoaded ? green : red
 
         //// background Drawing
-        let backgroundPath = UIBezierPath(rect: CGRect(x: borderWidth, y: borderWidth, width: rect.width - borderWidth * 2.0, height: rect.height - borderWidth * 2.0))
+        let backgroundPath = UIBezierPath(rect: CGRect(x: borderWidth,
+                                                       y: borderWidth,
+                                                       width: rect.width - borderWidth * 2.0,
+                                                       height: rect.height - borderWidth * 2.0))
         gray.setFill()
         backgroundPath.fill()
 
         //// presetButton
         //// presetOuter Drawing
-        presetOuterPath = UIBezierPath(rect: CGRect(x: borderWidth, y: borderWidth, width: rect.width * 0.25, height: rect.height - borderWidth * 2.0))
+        presetOuterPath = UIBezierPath(rect: CGRect(x: borderWidth,
+                                                    y: borderWidth,
+                                                    width: rect.width * 0.25,
+                                                    height: rect.height - borderWidth * 2.0))
         expression.setFill()
         presetOuterPath.fill()
 
@@ -170,9 +176,9 @@
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .center
 
-        let presetLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
-                                         NSForegroundColorAttributeName: textColorForTheme,
-                                         NSParagraphStyleAttributeName: presetLabelStyle]
+        let presetLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
+                                         NSAttributedStringKey.foregroundColor: textColorForTheme,
+                                         NSAttributedStringKey.paragraphStyle: presetLabelStyle]
 
         let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
         let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
@@ -189,18 +195,27 @@
 
         //// upButton
         //// upOuter Drawing
-        downOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9, y: rect.height * 0.5, width: rect.width * 0.07, height: rect.height * 0.5))
+        downOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9,
+                                                  y: rect.height * 0.5,
+                                                  width: rect.width * 0.07,
+                                                  height: rect.height * 0.5))
 
         //// upInner Drawing
         let downArrowRect = CGRect(x: rect.width * 0.9, y: rect.height * 0.58, width: rect.width * 0.07, height: rect.height * 0.3)
         let downInnerPath = UIBezierPath()
         downInnerPath.move(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY))
         downInnerPath.addLine(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0, y: downArrowRect.minY))
-        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0, y: downArrowRect.minY + cornerRadius / 2.0), controlPoint1: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY), controlPoint2: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY))
+        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0, y: downArrowRect.minY + cornerRadius / 2.0),
+                               controlPoint1: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY),
+                               controlPoint2: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY))
         downInnerPath.addLine(to: CGPoint(x: downArrowRect.midX + cornerRadius / 2.0, y: downArrowRect.maxY - cornerRadius / 2.0))
-        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.midX - cornerRadius / 2.0, y: downArrowRect.maxY - cornerRadius / 2.0), controlPoint1: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY), controlPoint2: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY))
+        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.midX - cornerRadius / 2.0, y: downArrowRect.maxY - cornerRadius / 2.0),
+                               controlPoint1: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY),
+                               controlPoint2: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY))
         downInnerPath.addLine(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY + cornerRadius / 2.0))
-        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY), controlPoint1: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY), controlPoint2: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY))
+        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY),
+                               controlPoint1: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY),
+                               controlPoint2: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY))
         textColorForTheme.setStroke()
         downInnerPath.lineWidth = borderWidth
         downInnerPath.stroke()
@@ -212,11 +227,17 @@
         let upInnerPath = UIBezierPath()
         upInnerPath.move(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0, y: upArrowRect.maxY))
         upInnerPath.addLine(to: CGPoint(x: upArrowRect.maxX - cornerRadius / 2.0, y: upArrowRect.maxY))
-        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.maxX - cornerRadius / 2.0, y: upArrowRect.maxY - cornerRadius / 2.0), controlPoint1: CGPoint(x: upArrowRect.maxX, y: upArrowRect.maxY), controlPoint2: CGPoint(x: upArrowRect.maxX, y: upArrowRect.maxY))
+        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.maxX - cornerRadius / 2.0, y: upArrowRect.maxY - cornerRadius / 2.0),
+                             controlPoint1: CGPoint(x: upArrowRect.maxX, y: upArrowRect.maxY),
+                             controlPoint2: CGPoint(x: upArrowRect.maxX, y: upArrowRect.maxY))
         upInnerPath.addLine(to: CGPoint(x: upArrowRect.midX + cornerRadius / 2.0, y: upArrowRect.minY + cornerRadius / 2.0))
-        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.midX - cornerRadius / 2.0, y: upArrowRect.minY + cornerRadius / 2.0), controlPoint1: CGPoint(x: upArrowRect.midX, y: upArrowRect.minY), controlPoint2: CGPoint(x: upArrowRect.midX, y: upArrowRect.minY))
+        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.midX - cornerRadius / 2.0, y: upArrowRect.minY + cornerRadius / 2.0),
+                             controlPoint1: CGPoint(x: upArrowRect.midX, y: upArrowRect.minY),
+                             controlPoint2: CGPoint(x: upArrowRect.midX, y: upArrowRect.minY))
         upInnerPath.addLine(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0, y: upArrowRect.maxY - cornerRadius / 2.0))
-        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0, y: upArrowRect.maxY), controlPoint1: CGPoint(x: upArrowRect.minX, y: upArrowRect.maxY), controlPoint2: CGPoint(x: upArrowRect.minX, y: upArrowRect.maxY))
+        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0, y: upArrowRect.maxY),
+                             controlPoint1: CGPoint(x: upArrowRect.minX, y: upArrowRect.maxY),
+                             controlPoint2: CGPoint(x: upArrowRect.minX, y: upArrowRect.maxY))
         textColorForTheme.setStroke()
         upInnerPath.lineWidth = borderWidth
         upInnerPath.stroke()
@@ -226,9 +247,9 @@
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
-                                       NSForegroundColorAttributeName: textColorForTheme,
-                                       NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
+                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
+                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: rect.width * 0.04, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(
@@ -247,7 +268,9 @@
                                y: rect.origin.y + borderWidth / 2.0,
                                width: rect.width - borderWidth,
                                height: rect.height - borderWidth)
-        let outerPath = UIBezierPath(roundedRect: outerRect, byRoundingCorners: UIRectCorner.allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+        let outerPath = UIBezierPath(roundedRect: outerRect,
+                                     byRoundingCorners: UIRectCorner.allCorners,
+                                     cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
         outerPath.stroke()
