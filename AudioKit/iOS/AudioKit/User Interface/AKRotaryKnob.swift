@@ -294,9 +294,9 @@ public enum AKRotaryKnobStyle {
 
         let textColor = textColorForTheme()
 
-        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize),
-                                       NSForegroundColorAttributeName: textColor,
-                                       NSParagraphStyleAttributeName: nameLabelStyle] as [String : Any]
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize),
+                                       NSAttributedStringKey.foregroundColor: textColor,
+                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
@@ -399,9 +399,9 @@ public enum AKRotaryKnobStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSForegroundColorAttributeName: textColor,
-                                            NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
+            let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: bubbleFontSize),
+                                            NSAttributedStringKey.foregroundColor: textColor,
+                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(

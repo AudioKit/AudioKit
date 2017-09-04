@@ -119,7 +119,7 @@ extension AKAudioFile {
                                    channels: AVAudioChannelCount(channels))
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format!,
-                                      frameCapacity:  AVAudioFrameCount(floatsArrays[0].count))
+                                      frameCapacity: AVAudioFrameCount(floatsArrays[0].count))
 
         // Fill the buffers
 

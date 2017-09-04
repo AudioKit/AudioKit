@@ -353,7 +353,8 @@ extension AVAudioEngine {
             afterStart()
             tester?.play()
 
-            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)!
+            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
+                                                            frameCapacity: engine.manualRenderingMaximumFrameCount)!
 
             while engine.manualRenderingSampleTime < samples {
                 do {

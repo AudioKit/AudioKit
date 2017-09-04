@@ -304,9 +304,9 @@
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24.0),
-                                       NSForegroundColorAttributeName: textColorForTheme,
-                                       NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24.0),
+                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
+                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(

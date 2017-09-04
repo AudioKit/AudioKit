@@ -72,9 +72,9 @@ open class AKBypassButton: UIView {
         let bypassLabelStyle = NSMutableParagraphStyle()
         bypassLabelStyle.alignment = .center
 
-        let bypassLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
-                                         NSForegroundColorAttributeName: UIColor.black,
-                                         NSParagraphStyleAttributeName: bypassLabelStyle]
+        let bypassLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
+                                         NSAttributedStringKey.foregroundColor: UIColor.black,
+                                         NSAttributedStringKey.paragraphStyle: bypassLabelStyle]
 
         let bypassLabelInset: CGRect = bypassLabelRect.insetBy(dx: 10, dy: 0)
         let bypassLabelTextHeight: CGFloat = NSString(string: bypassedText).boundingRect(
@@ -103,9 +103,9 @@ open class AKBypassButton: UIView {
         let processLabelStyle = NSMutableParagraphStyle()
         processLabelStyle.alignment = .center
 
-        let processLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
-                                          NSForegroundColorAttributeName: UIColor.black,
-                                          NSParagraphStyleAttributeName: processLabelStyle]
+        let processLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
+                                          NSAttributedStringKey.foregroundColor: UIColor.black,
+                                          NSAttributedStringKey.paragraphStyle: processLabelStyle]
 
         let processLabelInset: CGRect = processLabelRect.insetBy(dx: 10, dy: 0)
         let processLabelTextHeight: CGFloat = NSString(string: processingText).boundingRect(
