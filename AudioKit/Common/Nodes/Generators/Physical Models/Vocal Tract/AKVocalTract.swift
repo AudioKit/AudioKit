@@ -29,14 +29,14 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     fileprivate var nasalityParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = rampTime
         }
     }
 
     /// Glottal frequency.
-    open dynamic var frequency: Double = 160.0 {
+    @objc open dynamic var frequency: Double = 160.0 {
         willSet {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -51,7 +51,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tongue position (0-1)
-    open dynamic var tonguePosition: Double = 0.5 {
+    @objc open dynamic var tonguePosition: Double = 0.5 {
         willSet {
             if tonguePosition != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -66,7 +66,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tongue diameter (0-1)
-    open dynamic var tongueDiameter: Double = 1.0 {
+    @objc open dynamic var tongueDiameter: Double = 1.0 {
         willSet {
             if tongueDiameter != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -81,7 +81,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
-    open dynamic var tenseness: Double = 0.6 {
+    @objc open dynamic var tenseness: Double = 0.6 {
         willSet {
             if tenseness != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -96,7 +96,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
-    open dynamic var nasality: Double = 0.0 {
+    @objc open dynamic var nasality: Double = 0.0 {
         willSet {
             if nasality != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -111,7 +111,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

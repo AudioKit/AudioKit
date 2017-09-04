@@ -28,18 +28,18 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
 //    } //in development
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     /// Detected amplitude
-    open dynamic var amplitude: Double {
+    @objc open dynamic var amplitude: Double {
         return (leftAmplitude + rightAmplitude) / 2.0
     }
 
 
     /// Detected amplitude
-    open dynamic var leftAmplitude: Double {
+    @objc open dynamic var leftAmplitude: Double {
         if let amp = internalAU?.leftAmplitude {
             return Double(amp) / sqrt(2.0) * 2.0
         } else {
@@ -48,7 +48,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Detected right amplitude
-    open dynamic var rightAmplitude: Double {
+    @objc open dynamic var rightAmplitude: Double {
         if let amp = internalAU?.rightAmplitude {
             return Double(amp) / sqrt(2.0) * 2.0
         } else {
@@ -57,7 +57,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Threshold amplitude
-    open dynamic var threshold: Double = 1 {
+    @objc open dynamic var threshold: Double = 1 {
         willSet {
             internalAU?.threshold = Float(newValue)
         }

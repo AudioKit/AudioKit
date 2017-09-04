@@ -23,14 +23,14 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var crossfadeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Pitch shift (in semitones)
-    open dynamic var shift: Double = 0 {
+    @objc open dynamic var shift: Double = 0 {
         willSet {
             if shift != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Window size (in samples)
-    open dynamic var windowSize: Double = 1_024 {
+    @objc open dynamic var windowSize: Double = 1_024 {
         willSet {
             if windowSize != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Crossfade (in samples)
-    open dynamic var crossfade: Double = 512 {
+    @objc open dynamic var crossfade: Double = 512 {
         willSet {
             if crossfade != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -73,7 +73,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

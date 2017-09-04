@@ -26,14 +26,14 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var gainParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency. (in Hertz)
-    open dynamic var centerFrequency: Double = 1_000.0 {
+    @objc open dynamic var centerFrequency: Double = 1_000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -47,7 +47,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// The peak/notch bandwidth in Hertz
-    open dynamic var bandwidth: Double = 100.0 {
+    @objc open dynamic var bandwidth: Double = 100.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -61,7 +61,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// The peak/notch gain
-    open dynamic var gain: Double = 10.0 {
+    @objc open dynamic var gain: Double = 10.0 {
         willSet {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -76,7 +76,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

@@ -28,14 +28,14 @@ open class AKMandolin: AKNode, AKComponent {
 //    private var course4FrequencyParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Detuning of second string in the course (1=Unison (deault), 2=Octave)
-    open dynamic var detune: Double = 1 {
+    @objc open dynamic var detune: Double = 1 {
         willSet {
             if detune != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -50,7 +50,7 @@ open class AKMandolin: AKNode, AKComponent {
     }
 
     /// Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
-    open dynamic var bodySize: Double = 1 {
+    @objc open dynamic var bodySize: Double = 1 {
         willSet {
             if bodySize != newValue {
                 if internalAU?.isSetUp() ?? false {

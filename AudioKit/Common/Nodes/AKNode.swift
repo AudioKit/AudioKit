@@ -50,7 +50,7 @@ extension AKNode: AKOutput {
 //Deprecated
 extension AKNode {
 
-    @available(*, deprecated, renamed: "detach")
+    @objc @available(*, deprecated, renamed: "detach")
     open func disconnect() {
         detach()
     }

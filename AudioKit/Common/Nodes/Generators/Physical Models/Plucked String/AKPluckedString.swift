@@ -23,14 +23,14 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     fileprivate var lowestFrequency: Double
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    open dynamic var frequency: Double = 110 {
+    @objc open dynamic var frequency: Double = 110 {
         willSet {
             if frequency != newValue {
                 if let existingToken = token {
@@ -41,7 +41,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude
-    open dynamic var amplitude: Double = 0.5 {
+    @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
             if amplitude != newValue {
                 if let existingToken = token {
@@ -52,7 +52,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

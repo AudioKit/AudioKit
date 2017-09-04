@@ -26,10 +26,10 @@ open class AKSampler: AKNode {
     fileprivate var token: AUParameterObserverToken?
 
     /// Sampler AV Audio Unit
-    open dynamic var samplerUnit = AVAudioUnitSampler()
+    @objc open dynamic var samplerUnit = AVAudioUnitSampler()
 
     /// Transposition amount in semitones, from -24 to 24, Default: 0
-    open dynamic var tuning: Double {
+    @objc open dynamic var tuning: Double {
         get {
             return Double(samplerUnit.globalTuning / 100.0)
         }
@@ -129,14 +129,14 @@ open class AKSampler: AKNode {
     }
 
     /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
-    open dynamic var amplitude: Double = 0 {
+    @objc open dynamic var amplitude: Double = 0 {
         didSet {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
 
     /// Normalized Output Volume. Range: 0 -> 1, Default: 1
-    open dynamic var volume: Double = 1 {
+    @objc open dynamic var volume: Double = 1 {
         didSet {
             let newGain = volume.denormalized(to: -90.0 ... 0.0)
             samplerUnit.masterGain = Float(newGain)
@@ -144,7 +144,7 @@ open class AKSampler: AKNode {
     }
 
     /// Pan. Range: -1 -> 1, Default: 0
-    open dynamic var pan: Double = 0 {
+    @objc open dynamic var pan: Double = 0 {
         didSet {
             samplerUnit.stereoPan = Float(100.0 * pan)
         }

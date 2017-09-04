@@ -18,7 +18,7 @@ public typealias MIDIChannel = UInt8
 extension Collection where IndexDistance == Int {
     /// Return a random element from the collection
     public var randomIndex: Index {
-        let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
+        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
         return index(startIndex, offsetBy: offset)
     }
 
@@ -308,8 +308,8 @@ internal struct AUWrapper {
 }
 
 /// Adding instantiation with component and callback
-extension AVAudioUnit {
-    class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
+public extension AVAudioUnit {
+    public class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
             avAudioUnit.map {
                 AudioKit.engine.attach($0)

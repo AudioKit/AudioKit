@@ -19,7 +19,7 @@
     fileprivate var internalAudioFile: AKAudioFile
 
     /// True if we are recording.
-    public private(set) dynamic var isRecording = false
+    @objc public private(set) dynamic var isRecording = false
 
     /// An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0

@@ -22,14 +22,14 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var feedbackParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Delay time (in seconds) that can be changed at any point. This value must not exceed the maximum delay time.
-    open dynamic var time: Double = 1 {
+    @objc open dynamic var time: Double = 1 {
         willSet {
             if time != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -43,7 +43,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Feedback amount. Should be a value between 0-1.
-    open dynamic var feedback: Double = 0 {
+    @objc open dynamic var feedback: Double = 0 {
         willSet {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

@@ -143,7 +143,7 @@ extension AKAudioFile {
                     value: "Couldn't match source file format with appended file format",
                     comment: "")
             ]
-            throw NSError(domain: "AKAudioFile ASync Process Unknown Error", code: 0, userInfo: userInfo)
+            throw NSError(domain: "AKAudioFile ASync Process Unknown Error", code: 0, userInfo: userInfo as? [String : Any])
         }
 
         let outputFile = try AKAudioFile (writeIn: baseDir, name: name)
