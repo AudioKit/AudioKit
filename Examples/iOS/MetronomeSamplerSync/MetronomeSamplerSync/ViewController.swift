@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         setUpUI()
     }
 
-    func beatsSelected(segmentedControl: UISegmentedControl) {
+    @objc func beatsSelected(segmentedControl: UISegmentedControl) {
         let beatCount = Int32(segmentedControl.selectedSegmentIndex + 1)
         let now = AVAudioTime(hostTime: mach_absolute_time())
         metronome1.setBeatCount(beatCount, at: now)

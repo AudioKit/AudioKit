@@ -9,7 +9,7 @@
 import Cocoa
 
 class ControlsViewContoller: NSViewController {
-    let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
+    let vc = NSApplication.shared.windows.first!.contentViewController as! ViewController
 
     @IBOutlet private var slider1: NSSlider!
     @IBOutlet private var slider2: NSSlider!
