@@ -12,15 +12,30 @@
 		B1756EB01F411D5A00792670 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1756EAE1F411D5A00792670 /* Main.storyboard */; };
 		B1756EB21F411D5A00792670 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1756EB11F411D5A00792670 /* Assets.xcassets */; };
 		B1756EB51F411D5A00792670 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1756EB31F411D5A00792670 /* LaunchScreen.storyboard */; };
-		B1756EC31F411DF000792670 /* Organ.wav in Resources */ = {isa = PBXBuildFile; fileRef = B1756EC21F411DF000792670 /* Organ.wav */; };
-		B1756EC61F411E1400792670 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1756EBF1F411DEA00792670 /* DropDown.framework */; };
-		B1756EC71F411E1400792670 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B1756EBF1F411DEA00792670 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B1756ECA1F41FD3A00792670 /* AudioUnitGenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1756EC91F41FD3A00792670 /* AudioUnitGenericView.swift */; };
-		B1756ECD1F420CC500792670 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1756ECB1F420C9D00792670 /* AudioKit.framework */; };
-		B1756ECE1F420CC500792670 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B1756ECB1F420C9D00792670 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EA10E15A1F4F95F7003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1591F4F95F7003F0CA9 /* AudioKitUI.framework */; };
-		EA10E15C1F4F95FC003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1591F4F95F7003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4067FE41F5D415C00FA09A4 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE31F5D411900FA09A4 /* DropDown.framework */; };
+		C4067FE51F5D415C00FA09A4 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE31F5D411900FA09A4 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4067FEA1F5D428E00FA09A4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE81F5D428E00FA09A4 /* AudioKit.framework */; };
+		C4067FEB1F5D428E00FA09A4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE91F5D428E00FA09A4 /* AudioKitUI.framework */; };
+		C4704C3A1F5D2C15004C087E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4704C391F5D2C15004C087E /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C4067FE21F5D411900FA09A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4067FD81F5D411800FA09A4 /* DropDown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0AB5D8711D0EEECD002D3A17;
+			remoteInfo = DropDown;
+		};
+		C4067FE61F5D415C00FA09A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4067FD81F5D411800FA09A4 /* DropDown.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0AB5D8701D0EEECD002D3A17;
+			remoteInfo = DropDown;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		B1756EC81F411E1400792670 /* Embed Frameworks */ = {
@@ -29,9 +44,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA10E15C1F4F95FC003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
-				B1756ECE1F420CC500792670 /* AudioKit.framework in Embed Frameworks */,
-				B1756EC71F411E1400792670 /* DropDown.framework in Embed Frameworks */,
+				C4067FE51F5D415C00FA09A4 /* DropDown.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,18 +52,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B1756EA71F411D5A00792670 /* AudioUnitManagerExample-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AudioUnitManagerExample-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1756EA71F411D5A00792670 /* AudioUnitManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioUnitManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1756EAA1F411D5A00792670 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1756EAC1F411D5A00792670 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B1756EAF1F411D5A00792670 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B1756EB11F411D5A00792670 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1756EB41F411D5A00792670 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1756EB61F411D5A00792670 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B1756EBF1F411DEA00792670 /* DropDown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropDown.framework; sourceTree = "<group>"; };
-		B1756EC21F411DF000792670 /* Organ.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Organ.wav; sourceTree = "<group>"; };
 		B1756EC91F41FD3A00792670 /* AudioUnitGenericView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnitGenericView.swift; sourceTree = "<group>"; };
-		B1756ECB1F420C9D00792670 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		EA10E1591F4F95F7003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		C4067FD81F5D411800FA09A4 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = AudioUnitManager/DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
+		C4067FE81F5D428E00FA09A4 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C4067FE91F5D428E00FA09A4 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		C4704C2E1F5D2B3C004C087E /* Organ.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Organ.wav; sourceTree = "<group>"; };
+		C4704C391F5D2C15004C087E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +72,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA10E15A1F4F95F7003F0CA9 /* AudioKitUI.framework in Frameworks */,
-				B1756ECD1F420CC500792670 /* AudioKit.framework in Frameworks */,
-				B1756EC61F411E1400792670 /* DropDown.framework in Frameworks */,
+				C4067FEB1F5D428E00FA09A4 /* AudioKitUI.framework in Frameworks */,
+				C4067FEA1F5D428E00FA09A4 /* AudioKit.framework in Frameworks */,
+				C4067FE41F5D415C00FA09A4 /* DropDown.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,9 +84,10 @@
 		B1756E9E1F411D5A00792670 = {
 			isa = PBXGroup;
 			children = (
-				B1756EA91F411D5A00792670 /* AudioUnitManagerExample-iOS */,
-				B1756EBD1F411DD600792670 /* Resources */,
-				B1756EBC1F411DCC00792670 /* Frameworks */,
+				C4067FE81F5D428E00FA09A4 /* AudioKit.framework */,
+				C4067FE91F5D428E00FA09A4 /* AudioKitUI.framework */,
+				C4067FD81F5D411800FA09A4 /* DropDown.xcodeproj */,
+				B1756EA91F411D5A00792670 /* AudioUnitManager */,
 				B1756EA81F411D5A00792670 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,51 +95,41 @@
 		B1756EA81F411D5A00792670 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B1756EA71F411D5A00792670 /* AudioUnitManagerExample-iOS.app */,
+				B1756EA71F411D5A00792670 /* AudioUnitManager.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B1756EA91F411D5A00792670 /* AudioUnitManagerExample-iOS */ = {
+		B1756EA91F411D5A00792670 /* AudioUnitManager */ = {
 			isa = PBXGroup;
 			children = (
 				B1756EAA1F411D5A00792670 /* AppDelegate.swift */,
 				B1756EAC1F411D5A00792670 /* ViewController.swift */,
+				C4704C391F5D2C15004C087E /* Default-568h@2x.png */,
 				B1756EAE1F411D5A00792670 /* Main.storyboard */,
 				B1756EB11F411D5A00792670 /* Assets.xcassets */,
 				B1756EB31F411D5A00792670 /* LaunchScreen.storyboard */,
 				B1756EB61F411D5A00792670 /* Info.plist */,
+				C4704C2E1F5D2B3C004C087E /* Organ.wav */,
 				B1756EC91F41FD3A00792670 /* AudioUnitGenericView.swift */,
 			);
-			path = "AudioUnitManagerExample-iOS";
+			path = AudioUnitManager;
 			sourceTree = "<group>";
 		};
-		B1756EBC1F411DCC00792670 /* Frameworks */ = {
+		C4067FD91F5D411800FA09A4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA10E1591F4F95F7003F0CA9 /* AudioKitUI.framework */,
-				B1756ECB1F420C9D00792670 /* AudioKit.framework */,
-				B1756EBF1F411DEA00792670 /* DropDown.framework */,
+				C4067FE31F5D411900FA09A4 /* DropDown.framework */,
 			);
-			name = Frameworks;
-			path = "AudioUnitManagerExample-iOS";
-			sourceTree = "<group>";
-		};
-		B1756EBD1F411DD600792670 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				B1756EC21F411DF000792670 /* Organ.wav */,
-			);
-			name = Resources;
-			path = "AudioUnitManagerExample-iOS";
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B1756EA61F411D5A00792670 /* AudioUnitManagerExample-iOS */ = {
+		B1756EA61F411D5A00792670 /* AudioUnitManager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B1756EB91F411D5A00792670 /* Build configuration list for PBXNativeTarget "AudioUnitManagerExample-iOS" */;
+			buildConfigurationList = B1756EB91F411D5A00792670 /* Build configuration list for PBXNativeTarget "AudioUnitManager" */;
 			buildPhases = (
 				B1756EA31F411D5A00792670 /* Sources */,
 				B1756EA41F411D5A00792670 /* Frameworks */,
@@ -134,10 +139,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				C4067FE71F5D415C00FA09A4 /* PBXTargetDependency */,
 			);
-			name = "AudioUnitManagerExample-iOS";
+			name = AudioUnitManager;
 			productName = "AudioUnitManagerExample-iOS";
-			productReference = B1756EA71F411D5A00792670 /* AudioUnitManagerExample-iOS.app */;
+			productReference = B1756EA71F411D5A00792670 /* AudioUnitManager.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -147,11 +153,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Ryan Francesconi";
 				TargetAttributes = {
 					B1756EA61F411D5A00792670 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = W22K9JG3J6;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -161,7 +169,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B1756EA21F411D5A00792670 /* Build configuration list for PBXProject "AudioUnitManagerExample-iOS" */;
+			buildConfigurationList = B1756EA21F411D5A00792670 /* Build configuration list for PBXProject "AudioUnitManager" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -172,20 +180,36 @@
 			mainGroup = B1756E9E1F411D5A00792670;
 			productRefGroup = B1756EA81F411D5A00792670 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C4067FD91F5D411800FA09A4 /* Products */;
+					ProjectRef = C4067FD81F5D411800FA09A4 /* DropDown.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
-				B1756EA61F411D5A00792670 /* AudioUnitManagerExample-iOS */,
+				B1756EA61F411D5A00792670 /* AudioUnitManager */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C4067FE31F5D411900FA09A4 /* DropDown.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DropDown.framework;
+			remoteRef = C4067FE21F5D411900FA09A4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B1756EA51F411D5A00792670 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1756EC31F411DF000792670 /* Organ.wav in Resources */,
 				B1756EB51F411D5A00792670 /* LaunchScreen.storyboard in Resources */,
+				C4704C3A1F5D2C15004C087E /* Default-568h@2x.png in Resources */,
 				B1756EB21F411D5A00792670 /* Assets.xcassets in Resources */,
 				B1756EB01F411D5A00792670 /* Main.storyboard in Resources */,
 			);
@@ -205,6 +229,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C4067FE71F5D415C00FA09A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DropDown;
+			targetProxy = C4067FE61F5D415C00FA09A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B1756EAE1F411D5A00792670 /* Main.storyboard */ = {
@@ -236,7 +268,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -244,7 +278,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -289,7 +327,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -297,7 +337,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -327,43 +371,51 @@
 		B1756EBA1F411D5A00792670 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				DEVELOPMENT_TEAM = W22K9JG3J6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"../../../Frameworks/AudioKit-iOS",
+					"$(PROJECT_DIR)/**",
+				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"../../../Frameworks/AudioKit-iOS",
-					"$(PROJECT_DIR)/AudioUnitManagerExample-iOS",
+					"$(PROJECT_DIR)/**",
 				);
-				INFOPLIST_FILE = "AudioUnitManagerExample-iOS/Info.plist";
+				INFOPLIST_FILE = AudioUnitManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.AudioKit.AudioUnitManagerExample-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		B1756EBB1F411D5A00792670 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W22K9JG3J6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"../../../Frameworks/AudioKit-iOS",
-					"$(PROJECT_DIR)/AudioUnitManagerExample-iOS",
+					"$(PROJECT_DIR)/**",
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "../../../Frameworks/AudioKit-iOS";
-				INFOPLIST_FILE = "AudioUnitManagerExample-iOS/Info.plist";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"../../../Frameworks/AudioKit-iOS",
+					"$(PROJECT_DIR)/**",
+				);
+				INFOPLIST_FILE = AudioUnitManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.AudioKit.AudioUnitManagerExample-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B1756EA21F411D5A00792670 /* Build configuration list for PBXProject "AudioUnitManagerExample-iOS" */ = {
+		B1756EA21F411D5A00792670 /* Build configuration list for PBXProject "AudioUnitManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1756EB71F411D5A00792670 /* Debug */,
@@ -372,7 +424,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B1756EB91F411D5A00792670 /* Build configuration list for PBXNativeTarget "AudioUnitManagerExample-iOS" */ = {
+		B1756EB91F411D5A00792670 /* Build configuration list for PBXNativeTarget "AudioUnitManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1756EBA1F411D5A00792670 /* Debug */,
