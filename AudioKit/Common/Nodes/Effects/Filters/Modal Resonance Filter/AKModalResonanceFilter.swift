@@ -24,14 +24,14 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var qualityFactorParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Resonant frequency of the filter.
-    open dynamic var frequency: Double = 500.0 {
+    @objc open dynamic var frequency: Double = 500.0 {
         willSet {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -45,7 +45,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    open dynamic var qualityFactor: Double = 50.0 {
+    @objc open dynamic var qualityFactor: Double = 50.0 {
         willSet {
             if qualityFactor != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -60,7 +60,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

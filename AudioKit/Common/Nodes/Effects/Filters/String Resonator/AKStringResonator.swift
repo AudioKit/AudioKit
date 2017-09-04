@@ -27,14 +27,14 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var feedbackParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Fundamental frequency of string.
-    open dynamic var fundamentalFrequency: Double = 100 {
+    @objc open dynamic var fundamentalFrequency: Double = 100 {
         willSet {
             if fundamentalFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -49,7 +49,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     }
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
     /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    open dynamic var feedback: Double = 0.95 {
+    @objc open dynamic var feedback: Double = 0.95 {
         willSet {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -64,7 +64,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

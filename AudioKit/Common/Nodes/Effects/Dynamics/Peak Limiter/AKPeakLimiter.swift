@@ -17,7 +17,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     private var mixer: AKMixer
 
     /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    open dynamic var attackTime: Double = 0.012 {
+    @objc open dynamic var attackTime: Double = 0.012 {
         didSet {
             attackTime = (0.001...0.03).clamp(attackTime)
             au[kLimiterParam_AttackTime] = attackTime
@@ -25,7 +25,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-    open dynamic var decayTime: Double = 0.024 {
+    @objc open dynamic var decayTime: Double = 0.024 {
         didSet {
             decayTime = (0.001...0.06).clamp(decayTime)
             au[kLimiterParam_DecayTime] = decayTime
@@ -33,7 +33,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Pre Gain (dB) ranges from -40 to 40 (Default: 0)
-    open dynamic var preGain: Double = 0 {
+    @objc open dynamic var preGain: Double = 0 {
         didSet {
             preGain = (-40...40).clamp(preGain)
             au[kLimiterParam_PreGain] = preGain
@@ -41,7 +41,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 100)
-    open dynamic var dryWetMix: Double = 100 {
+    @objc open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
@@ -58,7 +58,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     fileprivate var internalEffect: AVAudioUnitEffect
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     /// Initialize the peak limiter node
     ///

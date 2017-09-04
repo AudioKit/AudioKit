@@ -17,7 +17,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     private var mixer: AKMixer
 
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    open dynamic var cutoffFrequency: Double = 10_000 {
+    @objc open dynamic var cutoffFrequency: Double = 10_000 {
         didSet {
             cutoffFrequency = (10_000...22_050).clamp(cutoffFrequency)
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
@@ -25,7 +25,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    open dynamic var gain: Double = 0 {
+    @objc open dynamic var gain: Double = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kHighShelfParam_Gain] = gain
@@ -33,7 +33,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 100)
-    open dynamic var dryWetMix: Double = 100 {
+    @objc open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
@@ -50,7 +50,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     fileprivate var internalEffect: AVAudioUnitEffect
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     // MARK: - Initialization
 

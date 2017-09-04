@@ -25,14 +25,14 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var reverbDurationParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    open dynamic var reverbDuration: Double = 1.0 {
+    @objc open dynamic var reverbDuration: Double = 1.0 {
         willSet {
             if reverbDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -47,7 +47,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

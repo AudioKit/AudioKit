@@ -21,14 +21,14 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var panParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
-    open dynamic var pan: Double = 0 {
+    @objc open dynamic var pan: Double = 0 {
         willSet {
             if pan != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -43,7 +43,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

@@ -24,14 +24,14 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var resonanceAsymmetryParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Cutoff frequency. (in Hertz)
-    open dynamic var cutoffFrequency: Double = 500 {
+    @objc open dynamic var cutoffFrequency: Double = 500 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -46,7 +46,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing,
     /// analogue synths generally allow resonances to be above 1.
-    open dynamic var resonance: Double = 0.5 {
+    @objc open dynamic var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -60,7 +60,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues.
-    open dynamic var distortion: Double = 2.0 {
+    @objc open dynamic var distortion: Double = 2.0 {
         willSet {
             if distortion != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -74,7 +74,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Asymmetry of resonance. Value is between 0-1
-    open dynamic var resonanceAsymmetry: Double = 0.5 {
+    @objc open dynamic var resonanceAsymmetry: Double = 0.5 {
         willSet {
             if resonanceAsymmetry != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -89,7 +89,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

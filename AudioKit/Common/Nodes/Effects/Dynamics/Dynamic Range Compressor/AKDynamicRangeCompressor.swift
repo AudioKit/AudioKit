@@ -23,14 +23,14 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     fileprivate var releaseTimeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = rampTime
         }
     }
 
     /// Ratio to compress with, a value > 1 will compress
-    open dynamic var ratio: Double = 1 {
+    @objc open dynamic var ratio: Double = 1 {
         willSet {
             if ratio != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -45,7 +45,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Threshold (in dB) 0 = max
-    open dynamic var threshold: Double = 0.0 {
+    @objc open dynamic var threshold: Double = 0.0 {
         willSet {
             if threshold != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -60,7 +60,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Attack time
-    open dynamic var attackTime: Double = 0.1 {
+    @objc open dynamic var attackTime: Double = 0.1 {
         willSet {
             if attackTime != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -75,7 +75,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Release time
-    open dynamic var releaseTime: Double = 0.1 {
+    @objc open dynamic var releaseTime: Double = 0.1 {
         willSet {
             if releaseTime != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -90,7 +90,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 

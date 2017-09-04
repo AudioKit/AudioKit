@@ -12,7 +12,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     fileprivate let mixer = AKMixer()
 
     /// Balance (Default 0.5)
-    open dynamic var balance: Double = 0.5 {
+    @objc open dynamic var balance: Double = 0.5 {
         didSet {
             balance = (0...1).clamp(balance)
             dryGain.volume = 1 - balance
@@ -24,7 +24,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     fileprivate var wetGain = AKMixer()
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     /// Initialize this dry wet mixer node
     ///

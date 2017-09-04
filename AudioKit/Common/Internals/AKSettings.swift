@@ -50,75 +50,75 @@
     }
 
     /// The sample rate in Hertz
-    open static var sampleRate: Double = 44_100
+    @objc open static var sampleRate: Double = 44_100
 
     /// Number of audio channels: 2 for stereo, 1 for mono
-    open static var numberOfChannels: UInt32 = 2
+    @objc open static var numberOfChannels: UInt32 = 2
 
     /// Whether we should be listening to audio input (microphone)
-    open static var audioInputEnabled: Bool = false
+    @objc open static var audioInputEnabled: Bool = false
 
     /// Whether to allow audio playback to override the mute setting
-    open static var playbackWhileMuted: Bool = false
+    @objc open static var playbackWhileMuted: Bool = false
 
     /// Global audio format AudioKit will default to
-    open static var audioFormat: AVAudioFormat {
-        return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
+    @objc open static var audioFormat: AVAudioFormat {
+        return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)!
     }
 
     /// Whether to output to the speaker (rather than receiver) when audio input is enabled
-    open static var defaultToSpeaker: Bool = false
+    @objc open static var defaultToSpeaker: Bool = false
 
     /// Whether to use bluetooth when audio input is enabled
-    open static var useBluetooth: Bool = false
+    @objc open static var useBluetooth: Bool = false
 
 #if !os(macOS)
     /// Additional control over the options to use for bluetooth
-    open static var bluetoothOptions: AVAudioSessionCategoryOptions = []
+    @objc open static var bluetoothOptions: AVAudioSessionCategoryOptions = []
 #endif
 
     /// Whether AirPlay is enabled when audio input is enabled
-    open static var allowAirPlay: Bool = false
+    @objc open static var allowAirPlay: Bool = false
 
     /// Global default rampTime value
-    open static var rampTime: Double = 0.000_2
+    @objc open static var rampTime: Double = 0.000_2
 
     /// Allows AudioKit to send Notifications
-    open static var notificationsEnabled: Bool = false
+    @objc open static var notificationsEnabled: Bool = false
 
     /// AudioKit buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
-    open static var bufferLength: BufferLength = .veryLong
+    @objc open static var bufferLength: BufferLength = .veryLong
 
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
     /// So setting this value may have no effect (depending on the hardware device ?)
-    open static var recordingBufferLength: BufferLength = .veryLong
+    @objc open static var recordingBufferLength: BufferLength = .veryLong
 
     /// If set to true, Recording will stop after some delay to compensate
     /// latency between time recording is stopped and time it is written to file
     /// If set to false (the default value) , stopping record will be immediate,
     /// even if the last audio frames haven't been recorded to file yet.
-    open static var fixTruncatedRecordings = false
+    @objc open static var fixTruncatedRecordings = false
 
     /// Enable AudioKit AVAudioSession Category Management
-    open static var disableAVAudioSessionCategoryManagement: Bool = false
+    @objc open static var disableAVAudioSessionCategoryManagement: Bool = false
 
     /// If set to false, AudioKit will not handle the AVAudioSession route change
     /// notification (AVAudioSessionRouteChange) and will not restart the AVAudioEngine
     /// instance when such notifications are posted. The developer can instead subscribe
     /// to these notifications and restart AudioKit after rebuiling their audio chain.
-    open static var enableRouteChangeHandling: Bool = true
+    @objc open static var enableRouteChangeHandling: Bool = true
 
     /// If set to false, AudioKit will not handle the AVAudioSession category change
     /// notification (AVAudioEngineConfigurationChange) and will not restart the AVAudioEngine
     /// instance when such notifications are posted. The developer can instead subscribe
     /// to these notifications and restart AudioKit after rebuiling their audio chain.
-    open static var enableCategoryChangeHandling: Bool = true
+    @objc open static var enableCategoryChangeHandling: Bool = true
 
     /// Turn off AudioKit logging
-    open static var enableLogging: Bool = true
+    @objc open static var enableLogging: Bool = true
 
     #if !os(macOS)
     /// Checks the application's info.plist to see if UIBackgroundModes includes "audio".
@@ -126,7 +126,7 @@
     /// or entering, a background state. This can help prevent a potential crash
     /// (AVAudioSessionErrorCodeCannotStartPlaying aka error code 561015905) when a route/category change causes
     /// AudioEngine to attempt to start while the app is not active and background audio is not supported.
-    open static let appSupportsBackgroundAudio = (Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String])?.contains("audio") ?? false
+    @objc open static let appSupportsBackgroundAudio = (Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String])?.contains("audio") ?? false
     #endif
 }
 
@@ -134,7 +134,7 @@
 extension AKSettings {
 
   /// Shortcut for AVAudioSession.sharedInstance()
-    open static let session = AVAudioSession.sharedInstance()
+    @objc open static let session = AVAudioSession.sharedInstance()
 
     /// Convenience method accessible from Objective-C
     @objc open static func setSession(category: SessionCategory, options: UInt) throws {
@@ -142,7 +142,7 @@ extension AKSettings {
     }
 
     /// Set the audio session type
-    open static func setSession(category: SessionCategory,
+    @objc open static func setSession(category: SessionCategory,
                                 with options: AVAudioSessionCategoryOptions = [.mixWithOthers]) throws {
 
         if ❗️AKSettings.disableAVAudioSessionCategoryManagement {
@@ -176,7 +176,7 @@ extension AKSettings {
 
     /// Checks if headphones are plugged
     /// Returns true if headPhones are plugged, otherwise return false
-    static open var headPhonesPlugged: Bool {
+    @objc static open var headPhonesPlugged: Bool {
         return session.currentRoute.outputs.contains {
             $0.portType == AVAudioSessionPortHeadphones
         }

@@ -27,11 +27,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Properties
 
     /// Buffer to be palyed
-    open dynamic var audioFileBuffer: AVAudioPCMBuffer?
+    @objc open dynamic var audioFileBuffer: AVAudioPCMBuffer?
 
     /// Will be triggered when AKAudioPlayer has finished to play.
     /// (will not as long as loop is on)
-    open dynamic var completionHandler: AKCallback?
+    @objc open dynamic var completionHandler: AKCallback?
 
     private var _looping: Bool = false {
         didSet {
@@ -40,7 +40,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Boolean indicating whether or not to loop the playback (Default false)
-    open dynamic var looping: Bool {
+    @objc open dynamic var looping: Bool {
         set {
             guard  newValue != _looping else {
                 return
@@ -51,43 +51,43 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Boolean indicating to play the buffer in reverse
-    open dynamic var reversed: Bool = false {
+    @objc open dynamic var reversed: Bool = false {
         didSet {
             updatePCMBuffer()
         }
     }
 
     /// Fade in duration
-    open dynamic var fadeInTime: Double = 0 {
+    @objc open dynamic var fadeInTime: Double = 0 {
         didSet {
             updatePCMBuffer()
         }
     }
 
     /// Fade out duration
-    open dynamic var fadeOutTime: Double = 0 {
+    @objc open dynamic var fadeOutTime: Double = 0 {
         didSet {
             updatePCMBuffer()
         }
     }
 
     /// The current played AKAudioFile
-    open dynamic var audioFile: AKAudioFile {
+    @objc open dynamic var audioFile: AKAudioFile {
         return internalAudioFile
     }
 
     /// Path to the currently loaded AKAudioFile
-    open dynamic var path: String {
+    @objc open dynamic var path: String {
         return audioFile.url.path
     }
 
     /// Total duration of one loop through of the file
-    open dynamic var duration: Double {
+    @objc open dynamic var duration: Double {
         return Double(totalFrameCount) / Double(internalAudioFile.sampleRate)
     }
 
     /// Output Volume (Default 1)
-    open dynamic var volume: Double = 1.0 {
+    @objc open dynamic var volume: Double = 1.0 {
         didSet {
             volume = max(volume, 0)
             internalPlayer.volume = Float(volume)
@@ -95,12 +95,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Whether or not the audio player is currently started
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return  internalPlayer.isPlaying
     }
 
     /// Current playback time (in seconds)
-    open dynamic var currentTime: Double {
+    @objc open dynamic var currentTime: Double {
         if playing {
             if let nodeTime = internalPlayer.lastRenderTime,
                 let playerTime = internalPlayer.playerTime(forNodeTime: nodeTime) {
@@ -112,7 +112,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Time within the audio file at the current time
-    open dynamic var playhead: Double {
+    @objc open dynamic var playhead: Double {
 
         let endTime = Double(endingFrame) / internalAudioFile.sampleRate
         let startTime = Double(startingFrame) / internalAudioFile.sampleRate
@@ -134,7 +134,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Pan (Default Center = 0)
-    open dynamic var pan: Double = 0.0 {
+    @objc open dynamic var pan: Double = 0.0 {
         didSet {
             pan = (-1...1).clamp(pan)
             internalPlayer.pan = Float(pan)
@@ -143,7 +143,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// sets the start time, If it is playing, player will
     /// restart playing from the start time each time end time is set
-    open dynamic var startTime: Double {
+    @objc open dynamic var startTime: Double {
         get {
             return Double(startingFrame) / internalAudioFile.sampleRate
 
@@ -172,7 +172,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// sets the end time, If it is playing, player will
     /// restart playing from the start time each time end time is set
-    open dynamic var endTime: Double {
+    @objc open dynamic var endTime: Double {
         get {
             return Double(endingFrame) / internalAudioFile.sampleRate
 
@@ -207,7 +207,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Sets the time in the future when playback will commence. Recommend using play(from:to:avTime) instead.
     /// this will be deprecated
-    open dynamic var scheduledTime: Double = 0 {
+    @objc open dynamic var scheduledTime: Double = 0 {
         didSet {
             let hostTime = mach_absolute_time()
             scheduledAVTime = AKAudioPlayer.secondsToAVAudioTime(hostTime: hostTime, time: scheduledTime)
@@ -215,7 +215,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Sheduled time
-    open dynamic var scheduledAVTime: AVAudioTime?
+    @objc open dynamic var scheduledAVTime: AVAudioTime?
 
     // MARK: - Initialization
 
@@ -587,7 +587,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             // n is the channel
             for n in 0 ..< Int(buffer.format.channelCount) {
                 // we write the reverseBuffer via the j index
-                reverseBuffer.floatChannelData?[n][j] = buffer.floatChannelData?[n][i] ?? 0.0
+                reverseBuffer?.floatChannelData?[n][j] = buffer.floatChannelData?[n][i] ?? 0.0
             }
             j += 1
         }
@@ -657,7 +657,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                 }
 
                 let sample = audioFileBuffer!.floatChannelData![n][i] * Float(gain)
-                fadeBuffer.floatChannelData?[n][i] = sample
+                fadeBuffer?.floatChannelData?[n][i] = sample
             }
         }
         // set the buffer now to be the faded one
