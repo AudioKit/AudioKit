@@ -139,7 +139,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

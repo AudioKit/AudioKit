@@ -124,7 +124,7 @@
     }
 
     /// Stop recording
-    open func stop() {
+    @objc open func stop() {
         if isRecording == false {
             AKLog("AKNodeRecorder Warning: Cannot stop recording, already stopped")
             return

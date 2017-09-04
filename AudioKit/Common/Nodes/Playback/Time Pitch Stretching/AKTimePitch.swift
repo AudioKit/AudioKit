@@ -66,12 +66,12 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         timePitchAU.bypass = false
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         timePitchAU.bypass = true
     }
 }

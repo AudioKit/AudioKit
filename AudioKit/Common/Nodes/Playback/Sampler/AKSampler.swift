@@ -171,7 +171,7 @@ open class AKSampler: AKNode {
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
+    @objc open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
         samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
 
