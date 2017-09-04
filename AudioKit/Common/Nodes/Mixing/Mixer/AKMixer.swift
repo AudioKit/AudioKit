@@ -27,7 +27,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    public override init() {
+    @objc public override init() {
         super.init(avAudioNode: mixerAU, attach: true)
     }
 
@@ -45,25 +45,26 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     ///
     /// - parameter inputs: An array of AKNodes
     ///
-    public convenience init(_ inputs: [AKNode]) {
+    @objc public convenience init(_ inputs: [AKNode]) {
         self.init()
         for input in inputs {
             input.connect(to: self)
         }
     }
 
-    public var nextInput: AKInputConnection {
+     @objc public var nextInput: AKInputConnection {
         return AKInputConnection(node: self, bus: mixerAU.nextAvailableInputBus)
     }
+
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             volume = lastKnownVolume
         }
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownVolume = volume
             volume = 0
@@ -79,7 +80,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
 
     //swiftlint:disable line_length
     @available(*, deprecated, message: "use connect(to:AKNode) or connect(to:AKNode, bus:Int) from the upstream node instead")
-    open func connect(_ input: AKNode?, bus: Int? = nil) {
+     open func connect(_ input: AKNode?, bus: Int? = nil) {
         input?.connect(to: self, bus: bus ?? nextInput.bus)
     }
     //swiftlint:enable line_length

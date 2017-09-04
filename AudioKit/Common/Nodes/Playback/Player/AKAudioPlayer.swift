@@ -279,7 +279,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Methods
 
     /// Start playback
-    open func start() {
+    @objc open func start() {
         play(at:nil)
     }
 
@@ -307,7 +307,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Stop playback
-    open func stop() {
+    @objc open func stop() {
         scheduledStopAction = nil
 
         if ❗️playing {
@@ -503,7 +503,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Stop playback after next loop completes
-    open func stopAtNextLoopEnd() {
+    @objc open func stopAtNextLoopEnd() {
         guard playing else {
             return
         }

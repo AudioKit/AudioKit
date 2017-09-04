@@ -155,7 +155,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - position: Position lengthwise along the string to pluck (0 - 1)
     ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
     ///
-    open func strum(_ position: Double, velocity: MIDIVelocity) {
+    @objc open func strum(_ position: Double, velocity: MIDIVelocity) {
         pluck(course: 0, position: position, velocity: velocity)
         pluck(course: 1, position: position, velocity: velocity)
         pluck(course: 2, position: position, velocity: velocity)

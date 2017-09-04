@@ -88,7 +88,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - velocity:   Velocity at which to play the note (0 - 127)
     ///   - channel:    Channel on which to play the note
     ///
-    open func start(noteNumber: MIDINoteNumber,
+    @objc open func start(noteNumber: MIDINoteNumber,
                     velocity: MIDIVelocity,
                     channel: MIDIChannel) {
         play(noteNumber: noteNumber, velocity: velocity)
@@ -100,7 +100,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - noteNumber: Note number to stop
     ///   - channel:    Channel on which to stop the note
     ///
-    open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
+    @objc open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         // OVerride in subclass
     }
 
