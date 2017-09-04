@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  AudioUnitManagerExample_iOS
+//  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 8/13/17.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
@@ -53,12 +53,11 @@ class ViewController: UIViewController {
         // create some menus
         initDropDowns()
 
-        if let audioFile = try? AKAudioFile(readFileName: "Organ.wav",
-                                            baseDir: .resources) {
+        if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
             player = try? AKAudioPlayer(file: audioFile)
             player?.looping = true
 
-            mixer.connect(player)
+            player! >>> mixer
 
             // setup the initial input/output connections
             auManager?.input = player
