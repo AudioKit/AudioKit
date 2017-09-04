@@ -400,7 +400,7 @@ class ViewController: NSViewController {
         fm.start()
     }
 
-    func randomFM() {
+    @objc func randomFM() {
         let noteNumber = randomNumber(range: 0...127)
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: MIDINoteNumber(noteNumber))
         fm!.baseFrequency = Double(frequency)
@@ -471,7 +471,7 @@ class ViewController: NSViewController {
                     w.close()
                 }
 
-                selfWindow.addChildWindow(unitWindow, ordered: NSWindowOrderingMode.above)
+                selfWindow.addChildWindow(unitWindow, ordered: NSWindow.OrderingMode.above)
                 unitWindow.setFrameOrigin(NSPoint(x:selfWindow.frame.origin.x, y:selfWindow.frame.origin.y - unitWindow.frame.height))
 
                 if let button = strongSelf.getEffectsButtonFromIdentifier( identifier ) {

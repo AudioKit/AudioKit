@@ -34,7 +34,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B12311FB1F193EA100888115 /* AudioUnitManagerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioUnitManagerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B12311FB1F193EA100888115 /* AudioUnitManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioUnitManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B12311FE1F193EA200888115 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B12312001F193EA200888115 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B12312021F193EA200888115 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 		B12311F21F193EA100888115 = {
 			isa = PBXGroup;
 			children = (
-				B12311FD1F193EA100888115 /* AudioUnitManagerExample */,
+				B12311FD1F193EA100888115 /* AudioUnitManager */,
 				B19AE76F1F30F6C300F9DC25 /* Frameworks */,
 				B12311FC1F193EA100888115 /* Products */,
 			);
@@ -71,12 +71,12 @@
 		B12311FC1F193EA100888115 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B12311FB1F193EA100888115 /* AudioUnitManagerExample.app */,
+				B12311FB1F193EA100888115 /* AudioUnitManager.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B12311FD1F193EA100888115 /* AudioUnitManagerExample */ = {
+		B12311FD1F193EA100888115 /* AudioUnitManager */ = {
 			isa = PBXGroup;
 			children = (
 				B12312001F193EA200888115 /* ViewController.swift */,
@@ -87,7 +87,7 @@
 				B12312071F193EA200888115 /* Info.plist */,
 				B12312151F193F6900888115 /* AU */,
 			);
-			path = AudioUnitManagerExample;
+			path = AudioUnitManager;
 			sourceTree = "<group>";
 		};
 		B12312151F193F6900888115 /* AU */ = {
@@ -112,9 +112,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B12311FA1F193EA100888115 /* AudioUnitManagerExample */ = {
+		B12311FA1F193EA100888115 /* AudioUnitManager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B123120A1F193EA200888115 /* Build configuration list for PBXNativeTarget "AudioUnitManagerExample" */;
+			buildConfigurationList = B123120A1F193EA200888115 /* Build configuration list for PBXNativeTarget "AudioUnitManager" */;
 			buildPhases = (
 				B12311F71F193EA100888115 /* Sources */,
 				B12311F81F193EA100888115 /* Frameworks */,
@@ -125,9 +125,9 @@
 			);
 			dependencies = (
 			);
-			name = AudioUnitManagerExample;
+			name = AudioUnitManager;
 			productName = AudioUnitManagerExample;
-			productReference = B12311FB1F193EA100888115 /* AudioUnitManagerExample.app */;
+			productReference = B12311FB1F193EA100888115 /* AudioUnitManager.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -137,16 +137,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Ryan Francesconi";
 				TargetAttributes = {
 					B12311FA1F193EA100888115 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = W22K9JG3J6;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = B12311F61F193EA100888115 /* Build configuration list for PBXProject "AudioUnitManagerExample" */;
+			buildConfigurationList = B12311F61F193EA100888115 /* Build configuration list for PBXProject "AudioUnitManager" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -159,7 +161,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B12311FA1F193EA100888115 /* AudioUnitManagerExample */,
+				B12311FA1F193EA100888115 /* AudioUnitManager */,
 			);
 		};
 /* End PBXProject section */
@@ -214,7 +216,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -222,7 +226,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -264,7 +272,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -272,7 +282,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -302,14 +316,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W22K9JG3J6;
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-macOS";
 				INFOPLIST_FILE = AudioUnitManagerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spongefork.AudioUnitManagerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -319,21 +333,21 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W22K9JG3J6;
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-macOS";
 				INFOPLIST_FILE = AudioUnitManagerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spongefork.AudioUnitManagerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B12311F61F193EA100888115 /* Build configuration list for PBXProject "AudioUnitManagerExample" */ = {
+		B12311F61F193EA100888115 /* Build configuration list for PBXProject "AudioUnitManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B12312081F193EA200888115 /* Debug */,
@@ -342,7 +356,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B123120A1F193EA200888115 /* Build configuration list for PBXNativeTarget "AudioUnitManagerExample" */ = {
+		B123120A1F193EA200888115 /* Build configuration list for PBXNativeTarget "AudioUnitManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B123120B1F193EA200888115 /* Debug */,

@@ -66,7 +66,7 @@ class AudioUnitParamSlider: NSView {
         return tf
     }
 
-    func handleAction(_ sender: NSSlider) {
+    @objc func handleAction(_ sender: NSSlider) {
         guard sender == slider else { return }
         guard key != nil else { return }
 
