@@ -242,6 +242,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     public init(file: AKAudioFile,
                 looping: Bool = false,
+                deferBuffering: Bool = false,
                 completionHandler: AKCallback? = nil) throws {
 
         let readFile: AKAudioFile
@@ -269,7 +270,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         avAudioNode = internalMixer
         internalPlayer.volume = 1.0
 
-        initialize()
+        if !deferBuffering {
+            initialize()
+        }
     }
 
     fileprivate var defaultBufferOptions: AVAudioPlayerNodeBufferOptions {
@@ -284,6 +287,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     open func play(at when: AVAudioTime?) {
+
+        if audioFileBuffer == nil {
+            initialize()
+        }
 
         if ❗️playing {
             if audioFileBuffer != nil {
@@ -339,10 +346,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Restart playback from current position
     open func resume() {
-        if ❗️playing && paused {
-            playing = true
-            paused = false
-            internalPlayer.play()
+        if paused {
+            self.play()
         }
     }
 
