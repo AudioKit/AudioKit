@@ -12,12 +12,12 @@ open class AKMetalBar: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKMetalBarAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
-
+    
     // MARK: - Properties
-
+    
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-
+    
     fileprivate var leftBoundaryConditionParameter: AUParameter?
     fileprivate var rightBoundaryConditionParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
@@ -25,14 +25,14 @@ open class AKMetalBar: AKNode, AKComponent {
     fileprivate var positionParameter: AUParameter?
     fileprivate var strikeVelocityParameter: AUParameter?
     fileprivate var strikeWidthParameter: AUParameter?
-
+    
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
-
+    
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @objc open dynamic var leftBoundaryCondition: Double = 1 {
         willSet {
@@ -43,7 +43,7 @@ open class AKMetalBar: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @objc open dynamic var rightBoundaryCondition: Double = 1 {
         willSet {
@@ -54,7 +54,7 @@ open class AKMetalBar: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// 30db decay time (in seconds).
     @objc open dynamic var decayDuration: Double = 3 {
         willSet {
@@ -65,7 +65,7 @@ open class AKMetalBar: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Speed of scanning the output location.
     @objc open dynamic var scanSpeed: Double = 0.25 {
         willSet {
@@ -76,7 +76,7 @@ open class AKMetalBar: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Position along bar that strike occurs.
     @objc open dynamic var position: Double = 0.2 {
         willSet {
@@ -87,7 +87,7 @@ open class AKMetalBar: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Normalized strike velocity
     @objc open dynamic var strikeVelocity: Double = 500 {
         willSet {
@@ -98,7 +98,7 @@ open class AKMetalBar: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Spatial width of strike.
     @objc open dynamic var strikeWidth: Double = 0.05 {
         willSet {
@@ -109,14 +109,14 @@ open class AKMetalBar: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-
+    
     // MARK: - Initialization
-
+    
     /// Initialize this Bar node
     ///
     /// - Parameters:
@@ -140,7 +140,7 @@ open class AKMetalBar: AKNode, AKComponent {
         strikeWidth: Double = 0.05,
         stiffness: Double = 3,
         highFrequencyDamping: Double = 0.001) {
-
+        
         self.leftBoundaryCondition = leftBoundaryCondition
         self.rightBoundaryCondition = rightBoundaryCondition
         self.decayDuration = decayDuration
@@ -148,21 +148,21 @@ open class AKMetalBar: AKNode, AKComponent {
         self.position = position
         self.strikeVelocity = strikeVelocity
         self.strikeWidth = strikeWidth
-
+        
         _Self.register()
-
+        
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
+            
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
-
+        
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-
+        
         leftBoundaryConditionParameter = tree["leftBoundaryCondition"]
         rightBoundaryConditionParameter = tree["rightBoundaryCondition"]
         decayDurationParameter = tree["decayDuration"]
@@ -170,9 +170,9 @@ open class AKMetalBar: AKNode, AKComponent {
         positionParameter = tree["position"]
         strikeVelocityParameter = tree["strikeVelocity"]
         strikeWidthParameter = tree["strikeWidth"]
-
+        
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
+            
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -190,21 +190,21 @@ open class AKMetalBar: AKNode, AKComponent {
         internalAU?.strikeVelocity = Float(strikeVelocity)
         internalAU?.strikeWidth = Float(strikeWidth)
     }
-
+    
     // MARK: - Control
-
+    
     /// Trigger the sound with an optional set of parameters
     ///
     open func trigger() {
         internalAU?.start()
         internalAU?.trigger()
     }
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()
