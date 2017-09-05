@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Faust-based pink noise generator
     ///
     /// - parameter amplitude: Overall level. (Default: 1.0, Minimum: 0, Maximum: 1.0)

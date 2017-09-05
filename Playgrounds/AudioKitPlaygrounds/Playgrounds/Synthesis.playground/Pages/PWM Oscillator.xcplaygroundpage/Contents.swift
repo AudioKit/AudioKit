@@ -17,18 +17,18 @@ AudioKit.start()
 let playgroundWidth = 500
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
-    
+
     override func viewDidLoad() {
         addTitle("PWM Oscillator")
-        
+
         addView(AKSlider(property: "Amplitude", value: currentAmplitude) { sliderValue in
             currentAmplitude = sliderValue
         })
-        
+
         addView(AKSlider(property: "Pulse Width", value: oscillator.pulseWidth) { sliderValue in
             oscillator.pulseWidth = sliderValue
         })
-        
+
         addView(AKSlider(property: "Ramp Time",
                          value: currentRampTime,
                          range: 0 ... 2,
@@ -36,12 +36,12 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         ) { sliderValue in
             currentRampTime = sliderValue
         })
-        
+
         let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
         addView(keyboard)
     }
-    
+
     func noteOn(note: MIDINoteNumber) {
         currentMIDINote = note
         // start from the correct note if amplitude is zero
@@ -49,13 +49,13 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             oscillator.rampTime = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
-        
+
         // Still use rampTime for volume
         oscillator.rampTime = currentRampTime
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
-    
+
     func noteOff(note: MIDINoteNumber) {
         if currentMIDINote == note {
             oscillator.amplitude = 0

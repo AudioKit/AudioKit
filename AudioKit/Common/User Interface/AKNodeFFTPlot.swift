@@ -12,7 +12,7 @@
 /// Plot the FFT output from any node in an signal processing graph
 @IBDesignable
 open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
-    
+
     internal func setupNode(_ input: AKNode?) {
         if fft == nil {
             fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
@@ -31,14 +31,14 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
                                             }
                                         }
         }
-        
+
     }
-    
+
     internal var bufferSize: UInt32 = 1_024
-    
+
     /// EZAudioFFT container
     fileprivate var fft: EZAudioFFT?
-    
+
     /// The node whose output to graph
     open var node: AKNode? {
         willSet {
@@ -48,11 +48,11 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
             setupNode(node)
         }
     }
-    
+
     deinit {
         node?.avAudioNode.removeTap(onBus: 0)
     }
-    
+
     /// Required coder-based initialization (for use with Interface Builder)
     ///
     /// - parameter coder: NSCoder
@@ -61,7 +61,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         super.init(coder: aDecoder)
         setupNode(nil)
     }
-    
+
     /// Initialize the plot with the output from a given node and optional plot size
     ///
     /// - Parameters:
@@ -76,9 +76,9 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
         setupNode(input)
-        
+
     }
-    
+
     /// Callback function for FFT data:
     ///
     /// - Parameters:

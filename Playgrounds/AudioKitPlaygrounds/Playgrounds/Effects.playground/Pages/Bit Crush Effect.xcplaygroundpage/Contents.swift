@@ -38,7 +38,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             bitcrusher.bitDepth = sliderValue
         })
-        
+
         addView(AKSlider(property: "Sample Rate",
                          value: bitcrusher.sampleRate,
                          range: 1 ... 16_000,

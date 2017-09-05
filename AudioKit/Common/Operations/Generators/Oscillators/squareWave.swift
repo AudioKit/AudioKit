@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// This is a bandlimited square oscillator ported from the "square" function
     /// from the Faust programming language.
     ///

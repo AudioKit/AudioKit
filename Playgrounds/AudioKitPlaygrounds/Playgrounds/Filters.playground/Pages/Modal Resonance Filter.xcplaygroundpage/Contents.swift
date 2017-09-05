@@ -36,7 +36,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             filter.frequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Quality Factor",
                          value: filter.qualityFactor,
                          range: 0.1 ... 20,

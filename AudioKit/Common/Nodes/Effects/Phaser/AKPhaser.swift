@@ -13,11 +13,11 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPhaserAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
-    
+
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    
+
     fileprivate var notchMinimumFrequencyParameter: AUParameter?
     fileprivate var notchMaximumFrequencyParameter: AUParameter?
     fileprivate var notchWidthParameter: AUParameter?
@@ -27,14 +27,14 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var feedbackParameter: AUParameter?
     fileprivate var invertedParameter: AUParameter?
     fileprivate var lfoBPMParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = rampTime
         }
     }
-    
+
     /// Notch Minimum Frequency
     @objc open dynamic var notchMinimumFrequency: Double = 100 {
         willSet {
@@ -49,7 +49,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Notch Maximum Frequency
     @objc open dynamic var notchMaximumFrequency: Double = 800 {
         willSet {
@@ -64,7 +64,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Between 10 and 5000
     @objc open dynamic var notchWidth: Double = 1_000 {
         willSet {
@@ -79,7 +79,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Between 1.1 and 4
     @objc open dynamic var notchFrequency: Double = 1.5 {
         willSet {
@@ -94,7 +94,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// 1 or 0
     @objc open dynamic var vibratoMode: Double = 1 {
         willSet {
@@ -109,7 +109,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Between 0 and 1
     @objc open dynamic var depth: Double = 1 {
         willSet {
@@ -124,7 +124,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Between 0 and 1
     @objc open dynamic var feedback: Double = 0 {
         willSet {
@@ -139,7 +139,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// 1 or 0
     @objc open dynamic var inverted: Double = 0 {
         willSet {
@@ -154,7 +154,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Between 24 and 360
     @objc open dynamic var lfoBPM: Double = 30 {
         willSet {
@@ -169,14 +169,14 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize this phaser node
     ///
     /// - Parameters:
@@ -202,7 +202,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         feedback: Double = 0,
         inverted: Double = 0,
         lfoBPM: Double = 30) {
-        
+
         self.notchMinimumFrequency = notchMinimumFrequency
         self.notchMaximumFrequency = notchMaximumFrequency
         self.notchWidth = notchWidth
@@ -212,23 +212,23 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         self.feedback = feedback
         self.inverted = inverted
         self.lfoBPM = lfoBPM
-        
+
         _Self.register()
-        
+
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            
+
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             input?.connect(to: self!)
         }
-        
+
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-        
+
         notchMinimumFrequencyParameter = tree["notchMinimumFrequency"]
         notchMaximumFrequencyParameter = tree["notchMaximumFrequency"]
         notchWidthParameter = tree["notchWidth"]
@@ -238,9 +238,9 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         feedbackParameter = tree["feedback"]
         invertedParameter = tree["inverted"]
         lfoBPMParameter = tree["lfoBPM"]
-        
+
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-            
+
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -250,7 +250,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        
+
         internalAU?.notchMinimumFrequency = Float(notchMinimumFrequency)
         internalAU?.notchMaximumFrequency = Float(notchMaximumFrequency)
         internalAU?.notchWidth = Float(notchWidth)
@@ -261,14 +261,14 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.inverted = Float(inverted)
         internalAU?.lfoBPM = Float(lfoBPM)
     }
-    
+
     // MARK: - Control
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

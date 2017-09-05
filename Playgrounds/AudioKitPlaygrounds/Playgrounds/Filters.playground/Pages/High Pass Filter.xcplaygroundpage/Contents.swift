@@ -42,7 +42,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Resonance",
                          value: filter.resonance,
                          range: -20 ... 40,

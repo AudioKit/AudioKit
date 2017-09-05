@@ -12,19 +12,19 @@ import CoreAudio
 /// A version of AKInstrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
 open class AKMIDINode: AKNode, AKMIDIListener {
-    
+
     // MARK: - Properties
-    
+
     /// MIDI Input
     open var midiIn = MIDIEndpointRef()
-    
+
     /// Name of the instrument
     open var name = "AKMIDINode"
-    
+
     private var internalNode: AKPolyphonicNode
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize the MIDI node
     ///
     /// - parameter node: A polyphonic node that will be triggered via MIDI
@@ -35,7 +35,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         avAudioNode = internalNode.avAudioNode
         enableMIDI()
     }
-    
+
     /// Enable MIDI input from a given MIDI client
     ///
     /// - Parameters:
@@ -50,19 +50,19 @@ open class AKMIDINode: AKNode, AKMIDIListener {
                 self.handleMIDI(data1: MIDIByte(event.internalData[0]),
                                 data2: MIDIByte(event.internalData[1]),
                                 data3: MIDIByte(event.internalData[2]))
-                
+
             }
         })
     }
-    
+
     // MARK: - Handling MIDI Data
-    
+
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         let status = Int(data1 >> 4)
         let noteNumber = MIDINoteNumber(data2)
         let velocity = MIDIVelocity(data3)
-        
+
         if status == AKMIDIStatus.noteOn.rawValue && velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity)
         } else if status == AKMIDIStatus.noteOn.rawValue && velocity == 0 {
@@ -71,7 +71,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
             internalNode.stop(noteNumber: noteNumber)
         }
     }
-    
+
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:

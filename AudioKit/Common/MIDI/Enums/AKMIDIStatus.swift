@@ -49,5 +49,5 @@ public enum AKMIDIStatus: Int {
     case pitchWheel = 14
     /// System commands differ from system to system
     case systemCommand = 15
-    
+
 }

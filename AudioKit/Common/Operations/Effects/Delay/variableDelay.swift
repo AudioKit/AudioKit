@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// A delay line with cubic interpolation.
     ///
     /// - Parameters:

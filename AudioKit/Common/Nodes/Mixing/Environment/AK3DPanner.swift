@@ -9,28 +9,28 @@
 /// 3-D Spatialization of the input
 open class AK3DPanner: AKNode, AKInput {
     fileprivate let environmentNode = AVAudioEnvironmentNode()
-    
+
     /// Position of sound source along x-axis
     @objc open dynamic var x: Double {
         willSet {
             environmentNode.listenerPosition.x = Float(-newValue)
         }
     }
-    
+
     /// Position of sound source along y-axis
     @objc open dynamic var y: Double {
         willSet {
             environmentNode.listenerPosition.y = Float(-newValue)
         }
     }
-    
+
     /// Position of sound source along z-axis
     @objc open dynamic var z: Double {
         willSet {
             environmentNode.listenerPosition.z = Float(-newValue)
         }
     }
-    
+
     var inputMixer = AKMixer()
     /// Initialize the panner node
     ///
@@ -45,7 +45,7 @@ open class AK3DPanner: AKNode, AKInput {
         self.y = y
         self.z = z
         super.init(avAudioNode: environmentNode, attach: true)
-        
+
         guard let inputNode = input else {
             AKLog("Unable to create inputNode")
             return
@@ -54,9 +54,9 @@ open class AK3DPanner: AKNode, AKInput {
         var inputsConnectionPoints = inputNode.connectionPoints
         inputsConnectionPoints.append(AVAudioConnectionPoint(node: inputMixer.avAudioNode,
                                                              bus: inputMixer.nextInput.bus))
-        
+
         let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
-        
+
         AudioKit.engine.connect(inputNode.avAudioNode, to: inputsConnectionPoints, fromBus: 0, format: format)
     }
     public var inputNode: AVAudioNode {

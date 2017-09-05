@@ -22,18 +22,18 @@ player.play()
 import AudioKitUI
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("Ring Modulator")
-        
+
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKButton(title: "Stop Ring Modulator") { button in
             let node = ringModulator
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Ring Modulator" : "Start Ring Modulator"
         })
-        
+
         addView(AKSlider(property: "Frequency 1",
                          value: ringModulator.frequency1,
                          range: 0.5 ... 8_000,
@@ -41,7 +41,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             ringModulator.frequency1 = sliderValue
         })
-        
+
         addView(AKSlider(property: "Frequency 2",
                          value: ringModulator.frequency2,
                          range: 0.5 ... 8_000,
@@ -49,11 +49,11 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             ringModulator.frequency2 = sliderValue
         })
-        
+
         addView(AKSlider(property: "Balance", value: ringModulator.balance) { sliderValue in
             ringModulator.balance = sliderValue
         })
-        
+
         addView(AKSlider(property: "Mix", value: ringModulator.mix) { sliderValue in
             ringModulator.mix = sliderValue
         })

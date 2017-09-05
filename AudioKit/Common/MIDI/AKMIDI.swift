@@ -27,7 +27,7 @@ open class AKMIDI {
     open var client = MIDIClientRef()
 
     /// Array of MIDI In ports
-    internal var inputPorts : [String: MIDIPortRef] = [:]
+    internal var inputPorts: [String: MIDIPortRef] = [:]
 
     /// Virtual MIDI Input destination
     open var virtualInput = MIDIPortRef()

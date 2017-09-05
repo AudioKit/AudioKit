@@ -10,26 +10,26 @@
 ///
 open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
-    
+
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    
+
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
     fileprivate var releaseDurationParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     /// Attack time
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
@@ -86,14 +86,14 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize this envelope node
     ///
     /// - Parameters:
@@ -109,35 +109,35 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         decayDuration: Double = 0.1,
         sustainLevel: Double = 1.0,
         releaseDuration: Double = 0.1) {
-        
+
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
         self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
-        
+
         _Self.register()
         super.init()
-        
+
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            
+
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             input?.connect(to: self!)
         }
-        
+
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-        
+
         attackDurationParameter = tree["attackDuration"]
         decayDurationParameter = tree["decayDuration"]
         sustainLevelParameter = tree["sustainLevel"]
         releaseDurationParameter = tree["releaseDuration"]
-        
+
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-            
+
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -147,20 +147,20 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        
+
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)
         internalAU?.sustainLevel = Float(sustainLevel)
         internalAU?.releaseDuration = Float(releaseDuration)
     }
-    
+
     // MARK: - Control
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

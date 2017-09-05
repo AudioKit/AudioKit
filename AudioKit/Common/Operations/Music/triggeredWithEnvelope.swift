@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Trigger based linear AHD envelope generator
     ///
     /// - Parameters:

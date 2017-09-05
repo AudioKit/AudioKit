@@ -8,7 +8,7 @@
 
 /// Preset for the AKFMOscillator
 public extension AKFMOscillator {
-    
+
     /// Stun Ray Preset
     public func presetStunRay() {
         baseFrequency = 200
@@ -16,7 +16,7 @@ public extension AKFMOscillator {
         modulatingMultiplier = 10
         modulationIndex = 25
     }
-    
+
     /// Fog Horn Preset
     public func presetFogHorn() {
         baseFrequency = 25
@@ -24,7 +24,7 @@ public extension AKFMOscillator {
         modulatingMultiplier = 5
         modulationIndex = 10
     }
-    
+
     /// Buzzer Preset
     public func presetBuzzer() {
         baseFrequency = 400
@@ -32,7 +32,7 @@ public extension AKFMOscillator {
         modulatingMultiplier = 0.5
         modulationIndex = 100
     }
-    
+
     /// Spiral Preset
     public func presetSpiral() {
         baseFrequency = 5
@@ -40,7 +40,7 @@ public extension AKFMOscillator {
         modulatingMultiplier = 0.2
         modulationIndex = 100
     }
-    
+
     /// Wobble Preset
     public func presetWobble() {
         baseFrequency = 20

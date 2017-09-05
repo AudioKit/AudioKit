@@ -11,16 +11,16 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKOperationEffectAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
-    
+
     // MARK: - Properties
-    
+
     fileprivate var internalAU: AKAudioUnitType?
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-    
+
     /// Parameters for changing internal operations
     @objc open dynamic var parameters: [Double] {
         get {
@@ -32,11 +32,11 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
             internalAU?.parameters = newValue
         }
     }
-    
+
     private var customUgens: [AKCustomUgen]
-    
+
     // MARK: - Initializers
-    
+
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
@@ -47,10 +47,10 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     public convenience init(_ input: AKNode?,
                             numberOfChannels: Int,
                             operations: (AKStereoOperation, [AKOperation]) -> [AKOperation]) {
-        
+
         let computedParameters = operations(AKStereoOperation.input, AKOperation.parameters)
         let left = computedParameters[0]
-        
+
         if numberOfChannels == 2 {
             let right = computedParameters[1]
             self.init(input, sporth: "\(right.sporth) \(left.sporth)")
@@ -58,7 +58,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
             self.init(input, sporth: "\(left.sporth)")
         }
     }
-    
+
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
@@ -67,9 +67,9 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public convenience init(_ input: AKNode?,
                             operation: (AKStereoOperation, [AKOperation]) -> AKComputedParameter) {
-        
+
         let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
-        
+
         if type(of: computedParameter) == AKOperation.self {
             if let monoOperation = computedParameter as? AKOperation {
                 self.init(input, sporth: monoOperation.sporth + " dup ")
@@ -84,7 +84,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
         AKLog("Initialization failed.")
         self.init(input, sporth: "")
     }
-    
+
     /// Initialize the effect with an input and a valid Sporth string
     ///
     /// - Parameters:
@@ -93,15 +93,15 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
         self.customUgens = customUgens
-        
+
         _Self.register()
-        
+
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            
+
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             input?.connect(to: self!)
             for ugen in self?.customUgens ?? [] {
                 self?.internalAU?.add(ugen)
@@ -109,12 +109,12 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
             self?.internalAU?.setSporth(sporth)
         }
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

@@ -12,22 +12,22 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKVariableDelayAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
-    
+
     // MARK: - Properties
-    
+
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    
+
     fileprivate var timeParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     /// Delay time (in seconds) that can be changed at any point. This value must not exceed the maximum delay time.
     @objc open dynamic var time: Double = 1 {
         willSet {
@@ -56,14 +56,14 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize this delay node
     ///
     /// - Parameters:
@@ -77,30 +77,30 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
         time: Double = 1,
         feedback: Double = 0,
         maximumDelayTime: Double = 5) {
-        
+
         self.time = time
         self.feedback = feedback
-        
+
         _Self.register()
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            
+
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             input?.connect(to: self!)
         }
-        
+
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-        
+
         timeParameter = tree["time"]
         feedbackParameter = tree["feedback"]
-        
+
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-            
+
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -113,14 +113,14 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.time = Float(time)
         internalAU?.feedback = Float(feedback)
     }
-    
+
     // MARK: - Control
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

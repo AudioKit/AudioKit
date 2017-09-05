@@ -29,7 +29,6 @@ class LiveView: AKLiveViewController {
             button.title = filter.isStarted ? "Stop" : "Start"
         })
 
-        
         addView(AKSlider(property: "Center Frequency",
                          value: filter.centerFrequency,
                          range: 20 ... 10_000,
@@ -38,7 +37,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             filter.centerFrequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Bandwidth",
                          value: filter.bandwidth,
                          range: 100 ... 12_000,

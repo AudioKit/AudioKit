@@ -24,18 +24,18 @@ player.play()
 import AudioKitUI
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("DynaRage Tube Compressor")
-        
+
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKButton(title: "Stop Compressor") { button in
             let node = effect
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Compressor" : "Start Compressor"
         })
-        
+
         addView(AKSlider(property: "Threshold",
                          value: effect.threshold,
                          range: -100.0 ... 0.0,
@@ -43,7 +43,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.threshold = sliderValue
         })
-        
+
         addView(AKSlider(property: "Ratio",
                          value: effect.ratio,
                          range: 1.0 ... 20.0,
@@ -51,7 +51,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.ratio = sliderValue
         })
-        
+
         addView(AKSlider(property: "Attack Time",
                          value: effect.attackTime,
                          range: 0.1 ... 500.0,
@@ -59,7 +59,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.attackTime = sliderValue
         })
-        
+
         addView(AKSlider(property: "Release Time",
                          value: effect.releaseTime,
                          range: 0.01 ... 500.0,
@@ -67,7 +67,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.releaseTime = sliderValue
         })
-        
+
         addView(AKSlider(property: "Rage Amount",
                          value: effect.rageAmount,
                          range: 1 ... 20,
@@ -75,7 +75,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.rageAmount = sliderValue
         })
-        
+
         addView(AKButton(title: "Rage Off") { button in
             effect.rageIsOn = !effect.rageIsOn
             if effect.rageIsOn {
@@ -84,7 +84,7 @@ class LiveView: AKLiveViewController {
                 button.title = "Rage On"
             }
         })
-        
+
     }
 }
 

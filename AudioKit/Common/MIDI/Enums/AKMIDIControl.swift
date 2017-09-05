@@ -47,10 +47,10 @@ public enum AKMIDIControl: MIDIByte {
     case pan = 10
     /// Expression Pedal
     case expression = 11
-    
+
     /// Least Significant Byte
     case lsb = 32 // Combine with above constants to get the LSB
-    
+
     /// Damper Pedal, also known as Hold or Sustain
     case damperOnOff = 64
     /// Portamento Toggle
@@ -59,19 +59,19 @@ public enum AKMIDIControl: MIDIByte {
     case sustenutoOnOff = 66
     /// Soft Pedal Toggle
     case softPedalOnOff = 67
-    
+
     /// Data Entry Addition
     case dataEntryPlus = 96
     /// Data Entry Subtraction
     case dataEntryMinus = 97
-    
+
     /// Enable local control
     case localControlOnOff = 122
     /// MIDI Panic
     case allNotesOff = 123
-    
+
     // Unnamed CC values: (Must be a better way)
-    
+
     /// Continuous Controller Number 0
     case cc0 = 0
     /// Continuous Controller Number 3

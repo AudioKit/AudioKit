@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// Moog Ladder is an new digital implementation of the Moog ladder filter based
     /// on the work of Antti Huovilainen, described in the paper "Non-Linear Digital
     /// Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of

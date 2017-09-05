@@ -67,7 +67,7 @@ class LiveView: AKLiveViewController {
             voc.tenseness = self.tensenessSlider.randomize()
             voc.nasality = self.nasalitySlider.randomize()
         })
-        
+
         addView(AKSlider(property: "Ramp Time",
                          value: voc.rampTime,
                          range: 0 ... 10,

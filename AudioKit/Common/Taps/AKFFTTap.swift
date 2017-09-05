@@ -8,13 +8,13 @@
 
 /// FFT Calculation for any node
 @objc open class AKFFTTap: NSObject, EZAudioFFTDelegate {
-    
+
     internal let bufferSize: UInt32 = 1_024
     internal var fft: EZAudioFFT?
-    
+
     /// Array of FFT data
     open var fftData = [Double](zeros: 512)
-    
+
     /// Initialze the FFT calculation on a given node
     ///
     /// - parameter input: Node on whose output the FFT will be computed
@@ -39,7 +39,7 @@
                                         }
         }
     }
-    
+
     /// Callback function for FFT computation
     @objc open func fft(_ fft: EZAudioFFT!,
                         updatedWithFFTData fftData: UnsafeMutablePointer<Float>,

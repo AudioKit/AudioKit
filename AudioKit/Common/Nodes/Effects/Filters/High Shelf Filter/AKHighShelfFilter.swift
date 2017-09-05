@@ -9,13 +9,13 @@
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
 open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighShelfFilter)
-    
+
     private var au: AUWrapper
     private var mixer: AKMixer
-    
+
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
     @objc open dynamic var cutoffFrequency: Double = 10_000 {
         didSet {
@@ -23,7 +23,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
         }
     }
-    
+
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
     @objc open dynamic var gain: Double = 0 {
         didSet {
@@ -31,7 +31,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
             au[kHighShelfParam_Gain] = gain
         }
     }
-    
+
     /// Dry/Wet Mix (Default 100)
     @objc open dynamic var dryWetMix: Double = 100 {
         didSet {
@@ -40,20 +40,20 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
             effectGain?.volume = dryWetMix / 100
         }
     }
-    
+
     private var lastKnownMix: Double = 100
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
     private var inputMixer = AKMixer()
-    
+
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted = true
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize the high shelf filter node
     ///
     /// - Parameters:
@@ -65,32 +65,32 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         _ input: AKNode? = nil,
         cutOffFrequency: Double = 10_000,
         gain: Double = 0) {
-        
+
         self.cutoffFrequency = cutOffFrequency
         self.gain = gain
-        
+
         inputGain = AKMixer()
         inputGain?.volume = 0
         mixer = AKMixer(inputGain)
-        
+
         effectGain = AKMixer()
         effectGain?.volume = 1
-        
+
         input?.connect(to: inputMixer)
         inputMixer.connect(to: [inputGain!, effectGain!])
-        
+
         let effect = _Self.effect
         self.internalEffect = effect
-        
+
         au = AUWrapper(effect)
         super.init(avAudioNode: mixer.avAudioNode)
-        
+
         AudioKit.engine.attach(effect)
         if let node = effectGain?.avAudioNode {
             AudioKit.engine.connect(node, to: effect)
         }
         AudioKit.engine.connect(effect, to: mixer.avAudioNode)
-        
+
         au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
         au[kHighShelfParam_Gain] = gain
     }
@@ -98,7 +98,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         return inputMixer.avAudioNode
     }
     // MARK: - Control
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         if isStopped {
@@ -106,7 +106,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
             isStarted = true
         }
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         if isPlaying {
@@ -115,11 +115,11 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
             isStarted = false
         }
     }
-    
+
     /// Disconnect the node
     override open func disconnect() {
         stop()
-        
+
         AudioKit.detach(nodes: [inputMixer.avAudioNode,
                                 inputGain!.avAudioNode,
                                 effectGain!.avAudioNode,

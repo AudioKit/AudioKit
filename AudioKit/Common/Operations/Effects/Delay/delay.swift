@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// Add a delay to an incoming signal with optional feedback.
     ///
     /// - Parameters:

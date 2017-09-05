@@ -27,7 +27,7 @@ class SongViewController: UIViewController {
 
             let fail = {
                 let alert = UIAlertController(title: "Couldn't load song", message: nil, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
                     self.navigationController?.popViewController(animated: true)
                 }))
                 self.present(alert, animated: true, completion: nil)

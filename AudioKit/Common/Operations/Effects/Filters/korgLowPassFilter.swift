@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// Analogue model of the Korg 35 Lowpass Filter
     ///
     /// - returns: AKOperation

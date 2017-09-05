@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// A signal with random fluctuations
     /// This is useful for emulating jitter found in analogue equipment.
     ///

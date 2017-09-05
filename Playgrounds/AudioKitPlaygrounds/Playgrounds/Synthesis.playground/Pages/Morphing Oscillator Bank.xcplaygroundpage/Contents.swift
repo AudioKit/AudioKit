@@ -75,7 +75,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             bank.play(noteNumber: note, velocity: 80)
         }
     }
-    
+
     func noteOff(note: MIDINoteNumber) {
         DispatchQueue.main.async {
             bank.stop(noteNumber: note)

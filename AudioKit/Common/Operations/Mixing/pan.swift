@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// Panner
     ///
     /// - Parameters:

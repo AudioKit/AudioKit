@@ -27,7 +27,7 @@ class LiveView: AKLiveViewController {
         addTitle("Three Pole Low Pass Filter")
 
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKSlider(property: "Cutoff Frequency",
                          value: filter.cutoffFrequency,
                          range: 0 ... 5_000,
@@ -36,7 +36,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Resonance", value: filter.resonance) { sliderValue in
             filter.resonance = sliderValue
         })

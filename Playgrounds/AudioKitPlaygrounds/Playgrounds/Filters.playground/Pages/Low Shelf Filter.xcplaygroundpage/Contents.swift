@@ -37,7 +37,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Gain",
                          value: filter.gain,
                          range: -40 ... 40,

@@ -12,24 +12,24 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
-    
+
     // MARK: - Properties
-    
+
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    
+
     fileprivate var pregainParameter: AUParameter?
     fileprivate var postgainParameter: AUParameter?
     fileprivate var postiveShapeParameterParameter: AUParameter?
     fileprivate var negativeShapeParameterParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @objc open dynamic var pregain: Double = 2.0 {
         willSet {
@@ -86,14 +86,14 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize this distortion node
     ///
     /// - Parameters:
@@ -109,35 +109,35 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
         postgain: Double = 0.5,
         postiveShapeParameter: Double = 0.0,
         negativeShapeParameter: Double = 0.0) {
-        
+
         self.pregain = pregain
         self.postgain = postgain
         self.postiveShapeParameter = postiveShapeParameter
         self.negativeShapeParameter = negativeShapeParameter
-        
+
         _Self.register()
-        
+
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            
+
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             input?.connect(to: self!)
         }
-        
+
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-        
+
         pregainParameter = tree["pregain"]
         postgainParameter = tree["postgain"]
         postiveShapeParameterParameter = tree["postiveShapeParameter"]
         negativeShapeParameterParameter = tree["negativeShapeParameter"]
-        
+
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-            
+
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -147,20 +147,20 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        
+
         internalAU?.pregain = Float(pregain)
         internalAU?.postgain = Float(postgain)
         internalAU?.postiveShapeParameter = Float(postiveShapeParameter)
         internalAU?.negativeShapeParameter = Float(negativeShapeParameter)
     }
-    
+
     // MARK: - Control
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

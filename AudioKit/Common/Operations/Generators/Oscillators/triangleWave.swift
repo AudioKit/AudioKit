@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// This is a bandlimited triangle oscillator
     /// ported from the "triangle" function from the Faust programming language.
     ///

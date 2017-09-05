@@ -74,7 +74,6 @@ class ViewController: UIViewController {
             }
         }
 
-
         addView(AKButton(title: "Play",
                          callback: startStopAction(met: metronome1, otherMet: metronome2)))
 
@@ -83,7 +82,7 @@ class ViewController: UIViewController {
 
         addView(AKPropertySlider(property: "Tempo",
                                  value: metronome1.tempo,
-                                 range: 30 ... 4000,
+                                 range: 30 ... 4_000,
                                  taper: 1,
                                  format: "%0.3f",
                                  color: .blue,
@@ -96,11 +95,11 @@ class ViewController: UIViewController {
 
         }))
 
-        let beatsSelector = UISegmentedControl.init(items: Array(1...8).map{String($0)})
+        let beatsSelector = UISegmentedControl(items: Array(1...8).map {String($0)})
         beatsSelector.addTarget(self, action: #selector(beatsSelected(segmentedControl:)), for: .valueChanged)
         beatsSelector.selectedSegmentIndex = 3
         addView(beatsSelector)
-        
+
     }
     func addView(_ view: UIView) {
         views.append(view)
@@ -123,4 +122,3 @@ class ViewController: UIViewController {
         }
     }
 }
-

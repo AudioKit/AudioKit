@@ -30,19 +30,19 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         ) { amplitude in
             currentAmplitude = amplitude
         })
-        
+
         addView(AKSlider(property: "Ramp Time",
                          value: oscillator.rampTime,
                          format: "%0.3f s"
         ) { time in
             currentRampTime = time
         })
-        
+
         let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100, firstOctave: 3, octaveCount: 3)
         keyboard.delegate = self
         addView(keyboard)
     }
-    
+
     func noteOn(note: MIDINoteNumber) {
         currentMIDINote = note
         // start from the correct note if amplitude is zero

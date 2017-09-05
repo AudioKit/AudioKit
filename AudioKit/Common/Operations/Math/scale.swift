@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
     ///
     /// - Parameters:
@@ -20,5 +20,5 @@ extension AKOperation {
         ) -> AKOperation {
         return AKOperation(module: "biscale", inputs: self, minimum, maximum)
     }
-    
+
 }

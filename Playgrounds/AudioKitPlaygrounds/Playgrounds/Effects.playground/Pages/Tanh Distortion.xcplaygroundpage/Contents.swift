@@ -41,14 +41,14 @@ class LiveView: AKLiveViewController {
         addView(AKSlider(property: "Post-gain", value: distortion.postgain, range: 0 ... 10) { sliderValue in
             distortion.postgain = sliderValue
         })
-        
+
         addView(AKSlider(property: "Postive Shape Parameter",
                          value: distortion.postiveShapeParameter,
                          range: -10 ... 10
         ) { sliderValue in
             distortion.postiveShapeParameter = sliderValue
         })
-        
+
         addView(AKSlider(property: "Negative Shape Parameter",
                          value: distortion.negativeShapeParameter,
                          range: -10 ... 10

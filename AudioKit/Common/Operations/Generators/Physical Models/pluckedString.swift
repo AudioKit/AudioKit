@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Karplus-Strong plucked string instrument.
     ///
     /// - Parameters:

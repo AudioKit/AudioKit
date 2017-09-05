@@ -17,12 +17,12 @@ AudioKit.start()
 player.play()
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("Expander")
-        
+
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKButton(title: "Stop Expander") { button in
             let node = expander
             node.isStarted ? node.stop() : node.play()
@@ -36,7 +36,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             expander.expansionRatio = sliderValue
         })
-        
+
         addView(AKSlider(property: "Threshold",
                          value: expander.expansionThreshold,
                          range: 1 ... 50,
@@ -65,7 +65,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             expander.masterGain = sliderValue
         })
-        
+
     }
 }
 

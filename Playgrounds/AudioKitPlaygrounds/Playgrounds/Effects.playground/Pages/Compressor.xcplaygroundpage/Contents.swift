@@ -28,7 +28,7 @@ class LiveView: AKLiveViewController {
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Compressor" : "Start Compressor"
         })
-        
+
         addView(AKSlider(property: "Threshold",
                          value: compressor.threshold,
                          range: -40 ... 20,

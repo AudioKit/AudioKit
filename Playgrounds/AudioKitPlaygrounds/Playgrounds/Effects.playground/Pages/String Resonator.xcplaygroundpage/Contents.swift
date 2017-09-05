@@ -22,12 +22,12 @@ player.play()
 import AudioKitUI
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("String Resonator")
-        
+
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKSlider(property: "Fundamental Frequency",
                          value: stringResonator.fundamentalFrequency,
                          range: 0 ... 5_000,
@@ -35,7 +35,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             stringResonator.fundamentalFrequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Feedback", value: stringResonator.feedback) { sliderValue in
             stringResonator.feedback = sliderValue
         })

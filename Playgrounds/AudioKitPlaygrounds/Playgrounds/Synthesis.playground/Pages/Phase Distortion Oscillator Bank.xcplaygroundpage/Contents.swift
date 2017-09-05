@@ -9,16 +9,16 @@ AudioKit.output = bank
 AudioKit.start()
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
-    
+
     var keyboard: AKKeyboardView!
-    
+
     override func viewDidLoad() {
         addTitle("Phase Distortion Oscillator Bank")
-        
+
         addView(AKSlider(property: "Phase Distortion", value: bank.phaseDistortion) { sliderValue in
             bank.phaseDistortion = sliderValue
         })
-        
+
         let adsrView = AKADSRView { att, dec, sus, rel in
             bank.attackDuration = att
             bank.decayDuration = dec
@@ -30,7 +30,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         adsrView.releaseDuration = bank.releaseDuration
         adsrView.sustainLevel = bank.sustainLevel
         addView(adsrView)
-        
+
         addView(AKSlider(property: "Pitch Bend",
                          value: bank.pitchBend,
                          range: -12 ... 12,
@@ -38,7 +38,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         ) { sliderValue in
             bank.pitchBend = sliderValue
         })
-        
+
         addView(AKSlider(property: "Vibrato Depth",
                          value: bank.vibratoDepth,
                          range: 0 ... 2,
@@ -46,7 +46,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         ) { sliderValue in
             bank.vibratoDepth = sliderValue
         })
-        
+
         addView(AKSlider(property: "Vibrato Rate",
                          value: bank.vibratoRate,
                          range: 0 ... 10,
@@ -58,7 +58,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         keyboard.polyphonicMode = false
         keyboard.delegate = self
         addView(keyboard)
-        
+
         addView(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
@@ -68,11 +68,11 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             }
         })
     }
-    
+
     func noteOn(note: MIDINoteNumber) {
         bank.play(noteNumber: note, velocity: 80)
     }
-    
+
     func noteOff(note: MIDINoteNumber) {
         bank.stop(noteNumber: note)
     }

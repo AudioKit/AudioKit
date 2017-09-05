@@ -81,7 +81,7 @@ class AKFMOscillatorBankTests: AKTestCase {
         output = inputBank
         AKTestMD5("40b7cf906b465a90292cf031659cdb53")
     }
-    
+
     func testSustainLevel() {
         inputBank = AKFMOscillatorBank(waveform: AKTable(.square), sustainLevel: 0.345)
         output = inputBank

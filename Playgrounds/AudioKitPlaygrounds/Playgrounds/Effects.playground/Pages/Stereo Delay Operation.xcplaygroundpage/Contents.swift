@@ -23,11 +23,11 @@ player.play()
 import AudioKitUI
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("Stereo Delay Operation")
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKSlider(property: "Left Delay",
                          value: effect.parameters[0],
                          range: 0 ... 0.3,

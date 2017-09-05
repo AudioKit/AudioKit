@@ -24,7 +24,7 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
             self.inputBank.play(noteNumber: 67, velocity: 100)
         }
     }
-    
+
     func testAttackDuration() {
         inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), attackDuration: 0.123)
         output = inputBank
