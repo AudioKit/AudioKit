@@ -191,46 +191,46 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
         softClipGain: Double = -6,
         finalMix: Double = 0.5) {
 
-            self.delay = delay
-            self.decay = decay
-            self.delayMix = delayMix
-            self.decimation = decimation
-            self.rounding = rounding
-            self.decimationMix = decimationMix
-            self.linearTerm = linearTerm
-            self.squaredTerm = squaredTerm
-            self.cubicTerm = cubicTerm
-            self.polynomialMix = polynomialMix
-            self.ringModFreq1 = ringModFreq1
-            self.ringModFreq2 = ringModFreq2
-            self.ringModBalance = ringModBalance
-            self.ringModMix = ringModMix
-            self.softClipGain = softClipGain
-            self.finalMix = finalMix
+        self.delay = delay
+        self.decay = decay
+        self.delayMix = delayMix
+        self.decimation = decimation
+        self.rounding = rounding
+        self.decimationMix = decimationMix
+        self.linearTerm = linearTerm
+        self.squaredTerm = squaredTerm
+        self.cubicTerm = cubicTerm
+        self.polynomialMix = polynomialMix
+        self.ringModFreq1 = ringModFreq1
+        self.ringModFreq2 = ringModFreq2
+        self.ringModBalance = ringModBalance
+        self.ringModMix = ringModMix
+        self.softClipGain = softClipGain
+        self.finalMix = finalMix
 
-            let effect = _Self.effect
-            au = AUWrapper(effect)
+        let effect = _Self.effect
+        au = AUWrapper(effect)
 
-            super.init(avAudioNode: effect, attach: true)
+        super.init(avAudioNode: effect, attach: true)
 
-            input?.connect(to: self)
+        input?.connect(to: self)
 
-            au[kDistortionParam_Delay] = delay
-            au[kDistortionParam_Decay] = decay
-            au[kDistortionParam_DelayMix] = delayMix * 100
-            au[kDistortionParam_Decimation] = decimation * 100
-            au[kDistortionParam_Rounding] = rounding * 100
-            au[kDistortionParam_DecimationMix] = decimationMix * 100
-            au[kDistortionParam_LinearTerm] = linearTerm * 100
-            au[kDistortionParam_SquaredTerm] = squaredTerm * 100
-            au[kDistortionParam_CubicTerm] = cubicTerm * 100
-            au[kDistortionParam_PolynomialMix] = polynomialMix * 100
-            au[kDistortionParam_RingModFreq1] = ringModFreq1
-            au[kDistortionParam_RingModFreq2] = ringModFreq2
-            au[kDistortionParam_RingModBalance] = ringModBalance * 100
-            au[kDistortionParam_RingModMix] = ringModMix * 100
-            au[kDistortionParam_SoftClipGain] = softClipGain
-            au[kDistortionParam_FinalMix] = finalMix * 100
+        au[kDistortionParam_Delay] = delay
+        au[kDistortionParam_Decay] = decay
+        au[kDistortionParam_DelayMix] = delayMix * 100
+        au[kDistortionParam_Decimation] = decimation * 100
+        au[kDistortionParam_Rounding] = rounding * 100
+        au[kDistortionParam_DecimationMix] = decimationMix * 100
+        au[kDistortionParam_LinearTerm] = linearTerm * 100
+        au[kDistortionParam_SquaredTerm] = squaredTerm * 100
+        au[kDistortionParam_CubicTerm] = cubicTerm * 100
+        au[kDistortionParam_PolynomialMix] = polynomialMix * 100
+        au[kDistortionParam_RingModFreq1] = ringModFreq1
+        au[kDistortionParam_RingModFreq2] = ringModFreq2
+        au[kDistortionParam_RingModBalance] = ringModBalance * 100
+        au[kDistortionParam_RingModMix] = ringModMix * 100
+        au[kDistortionParam_SoftClipGain] = softClipGain
+        au[kDistortionParam_FinalMix] = finalMix * 100
     }
 
     // MARK: - Control

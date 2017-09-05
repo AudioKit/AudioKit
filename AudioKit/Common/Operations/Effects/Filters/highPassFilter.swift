@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-
+    
     /// A complement to the AKLowPassFilter.
     ///
     /// - parameter halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2. 

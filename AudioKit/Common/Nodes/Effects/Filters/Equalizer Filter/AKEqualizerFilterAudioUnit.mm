@@ -33,9 +33,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardSetup(EqualizerFilter)
-
+    
     // Create a parameter object for the centerFrequency.
     AUParameter *centerFrequencyAUParameter = [AUParameter parameter:@"centerFrequency"
                                                                 name:@"Center Frequency (Hz)"
@@ -43,7 +43,7 @@ standardKernelPassthroughs()
                                                                  min:12.0
                                                                  max:20000.0
                                                                 unit:kAudioUnitParameterUnit_Hertz];
-
+    
     // Create a parameter object for the bandwidth.
     AUParameter *bandwidthAUParameter = [AUParameter parameter:@"bandwidth"
                                                           name:@"Bandwidth (Hz)"
@@ -58,24 +58,24 @@ standardKernelPassthroughs()
                                                       min:-100.0
                                                       max:100.0
                                                      unit:kAudioUnitParameterUnit_Percent];
-
+    
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 1000.0;
     bandwidthAUParameter.value = 100.0;
     gainAUParameter.value = 10.0;
-
+    
     _kernel.setParameter(centerFrequencyAddress, centerFrequencyAUParameter.value);
     _kernel.setParameter(bandwidthAddress,       bandwidthAUParameter.value);
     _kernel.setParameter(gainAddress,            gainAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        centerFrequencyAUParameter,
-        bandwidthAUParameter,
-        gainAUParameter
-    ]];
-
-	parameterTreeBlock(EqualizerFilter)
+                                             centerFrequencyAUParameter,
+                                             bandwidthAUParameter,
+                                             gainAUParameter
+                                             ]];
+    
+    parameterTreeBlock(EqualizerFilter)
 }
 
 AUAudioUnitOverrides(EqualizerFilter);

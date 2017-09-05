@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-
+    
     /// Add a delay to an incoming signal with optional feedback.
     ///
     /// - Parameters:
@@ -18,7 +18,7 @@ extension AKComputedParameter {
         time: Double = 1.0,
         feedback: AKParameter = 0.0
         ) -> AKOperation {
-            return AKOperation(module: "delay",
-                               inputs: toMono(), feedback, time)
+        return AKOperation(module: "delay",
+                           inputs: toMono(), feedback, time)
     }
 }

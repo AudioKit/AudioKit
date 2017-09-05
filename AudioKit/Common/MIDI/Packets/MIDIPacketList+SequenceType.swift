@@ -8,11 +8,11 @@
 
 extension MIDIPacketList: Sequence {
     public typealias Element = MIDIPacket
-
+    
     public func makeIterator() -> AnyIterator<Element> {
         var p: MIDIPacket = packet
         var idx: UInt32 = 0
-
+        
         return AnyIterator {
             guard idx < self.numPackets else {
                 return nil

@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// This is a bandlimited triangle oscillator
     /// ported from the "triangle" function from the Faust programming language.
     ///
@@ -19,6 +19,6 @@ extension AKOperation {
         frequency: AKParameter = 440,
         amplitude: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation(module: "bltriangle", inputs: frequency, amplitude)
+        return AKOperation(module: "bltriangle", inputs: frequency, amplitude)
     }
 }

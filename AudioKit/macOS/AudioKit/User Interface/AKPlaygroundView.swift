@@ -11,11 +11,11 @@ import Cocoa
 public typealias Label = AKLabel
 
 public class AKLabel: NSTextField {
-
+    
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
-
+    
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -27,29 +27,29 @@ public class AKLabel: NSTextField {
 }
 
 open class AKPlaygroundView: NSView {
-
+    
     public var elementHeight: CGFloat = 30
     public var spacing = 25
     private var potentialSubviews = [NSView]()
-
+    
     public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setup()
     }
-
+    
     public convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1_000))
     }
-
+    
     open func setup() {}
-
+    
     override open func draw(_ dirtyRect: NSRect) {
         let backgroundColor = AKStylist.sharedInstance.bgColor
         backgroundColor.setFill()
         __NSRectFill(dirtyRect)
         super.draw(dirtyRect)
     }
-
+    
     public func addTitle(_ text: String) -> NSTextField {
         let newLabel = NSTextField(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
@@ -63,7 +63,7 @@ open class AKPlaygroundView: NSView {
         self.addSubview(newLabel)
         return newLabel
     }
-
+    
     public func addLabel(_ text: String) -> AKLabel {
         let newLabel = AKLabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
@@ -76,7 +76,7 @@ open class AKPlaygroundView: NSView {
         self.addSubview(newLabel)
         return newLabel
     }
-
+    
     open override func addSubview(_ subview: NSView?) {
         guard let view = subview else {
             return
@@ -95,7 +95,7 @@ open class AKPlaygroundView: NSView {
         }
         frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: CGFloat(yPosition))
     }
-
+    
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

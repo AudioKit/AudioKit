@@ -14,7 +14,7 @@ extension AKOperation {
     public func plus(_ parameter: AKParameter) -> AKOperation {
         return AKOperation(module: "+", inputs: self, parameter)
     }
-
+    
     /// Offsetting by way of addition
     ///
     /// - parameter parameter: The amount to offset by
@@ -34,13 +34,15 @@ public func + (left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().plus(right)
 }
 
-/// Helper function for addition
-///
-/// - Parameters:
-///   - first: 1st parameter
-///   - second: 2nd parameter
-///
-public func + (first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOperation {
-    return AKStereoOperation(module: "rot + rot rot +",
-                             inputs: first.left(), first.right(), second.left(), second.right())
+extension AKStereoOperation {
+    /// Helper function for addition
+    ///
+    /// - Parameters:
+    ///   - first: 1st parameter
+    ///   - second: 2nd parameter
+    ///
+    public static func + (first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOperation {
+        return AKStereoOperation(module: "rot + rot rot +",
+                                 inputs: first.left(), first.right(), second.left(), second.right())
+    }
 }

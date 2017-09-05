@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-
+    
     /// A modal resonance filter used for modal synthesis. Plucked and bell sounds
     /// can be created using  passing an impulse through a combination of modal
     /// filters.
@@ -21,6 +21,6 @@ extension AKComputedParameter {
         frequency: AKParameter = 500.0,
         qualityFactor: AKParameter = 50.0
         ) -> AKOperation {
-            return AKOperation(module: "mode", inputs: toMono(), frequency, qualityFactor)
+        return AKOperation(module: "mode", inputs: toMono(), frequency, qualityFactor)
     }
 }

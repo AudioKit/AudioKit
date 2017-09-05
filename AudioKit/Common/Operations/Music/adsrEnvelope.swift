@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Gate based linear AHD envelope generator
     ///
     /// - Parameters:

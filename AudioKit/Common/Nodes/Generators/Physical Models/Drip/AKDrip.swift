@@ -13,12 +13,12 @@ open class AKDrip: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKDripAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
-
+    
     // MARK: - Properties
-
+    
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-
+    
     fileprivate var intensityParameter: AUParameter?
     fileprivate var dampingFactorParameter: AUParameter?
     fileprivate var energyReturnParameter: AUParameter?
@@ -26,14 +26,14 @@ open class AKDrip: AKNode, AKComponent {
     fileprivate var firstResonantFrequencyParameter: AUParameter?
     fileprivate var secondResonantFrequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
-
+    
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
-
+    
     /// The intensity of the dripping sound.
     @objc open dynamic var intensity: Double = 10 {
         willSet {
@@ -44,7 +44,7 @@ open class AKDrip: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// The damping factor. Maximum value is 2.0.
     @objc open dynamic var dampingFactor: Double = 0.2 {
         willSet {
@@ -55,7 +55,7 @@ open class AKDrip: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// The amount of energy to add back into the system.
     @objc open dynamic var energyReturn: Double = 0 {
         willSet {
@@ -66,7 +66,7 @@ open class AKDrip: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Main resonant frequency.
     @objc open dynamic var mainResonantFrequency: Double = 450 {
         willSet {
@@ -77,7 +77,7 @@ open class AKDrip: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// The first resonant frequency.
     @objc open dynamic var firstResonantFrequency: Double = 600 {
         willSet {
@@ -88,7 +88,7 @@ open class AKDrip: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// The second resonant frequency.
     @objc open dynamic var secondResonantFrequency: Double = 750 {
         willSet {
@@ -99,7 +99,7 @@ open class AKDrip: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Amplitude.
     @objc open dynamic var amplitude: Double = 0.3 {
         willSet {
@@ -110,19 +110,19 @@ open class AKDrip: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-
+    
     // MARK: - Initialization
-
+    
     /// Initialize the drip with defaults
     public convenience override init() {
         self.init(intensity: 10)
     }
-
+    
     /// Initialize this drip node
     ///
     /// - Parameters:
@@ -142,7 +142,7 @@ open class AKDrip: AKNode, AKComponent {
         firstResonantFrequency: Double = 600,
         secondResonantFrequency: Double = 750,
         amplitude: Double = 0.3) {
-
+        
         self.intensity = intensity
         self.dampingFactor = dampingFactor
         self.energyReturn = energyReturn
@@ -150,21 +150,21 @@ open class AKDrip: AKNode, AKComponent {
         self.firstResonantFrequency = firstResonantFrequency
         self.secondResonantFrequency = secondResonantFrequency
         self.amplitude = amplitude
-
+        
         _Self.register()
-
+        
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
+            
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
-
+        
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-
+        
         intensityParameter = tree["intensity"]
         dampingFactorParameter = tree["dampingFactor"]
         energyReturnParameter = tree["energyReturn"]
@@ -172,9 +172,9 @@ open class AKDrip: AKNode, AKComponent {
         firstResonantFrequencyParameter = tree["firstResonantFrequency"]
         secondResonantFrequencyParameter = tree["secondResonantFrequency"]
         amplitudeParameter = tree["amplitude"]
-
+        
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
+            
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -192,21 +192,21 @@ open class AKDrip: AKNode, AKComponent {
         internalAU?.secondResonantFrequency = Float(secondResonantFrequency)
         internalAU?.amplitude = Float(amplitude)
     }
-
+    
     // MARK: - Control
-
+    
     /// Trigger the sound with an optional set of parameters
     ///
     open func trigger() {
         internalAU?.start()
         internalAU?.trigger()
     }
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

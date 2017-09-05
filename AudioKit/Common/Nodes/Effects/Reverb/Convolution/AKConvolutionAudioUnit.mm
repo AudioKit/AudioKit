@@ -31,11 +31,11 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
     standardSetup(Convolution)
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-
-	parameterTreeBlock(Convolution)
+    
+    parameterTreeBlock(Convolution)
 }
 
 AUAudioUnitOverrides(Convolution);
