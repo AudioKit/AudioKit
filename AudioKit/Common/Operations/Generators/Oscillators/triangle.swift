@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Simple triangle oscillator, not-band limited, can be used for LFO or wave,
     /// but triangleWave is probably better for audio.
     ///

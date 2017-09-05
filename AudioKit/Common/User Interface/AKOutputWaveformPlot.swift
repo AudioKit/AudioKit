@@ -6,52 +6,52 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 #if !JAZZY_HACK
-import AudioKit
+    import AudioKit
 #endif
 
 /// Wrapper class for plotting audio from the final mix in a waveform plot
 @IBDesignable
 open class AKOutputWaveformPlot: EZAudioPlot {
-
+    
     public var isConnected = false
-
+    
     internal func setupNode() {
         if !isConnected {
             AudioKit.engine.outputNode.installTap(onBus: 0,
                                                   bufferSize: bufferSize,
                                                   format: nil) { [weak self] (buffer, _) in
-                guard let strongSelf = self else {
-                    AKLog("Unable to create strong ref to self")
-                    return
-                }
-                buffer.frameLength = strongSelf.bufferSize
-                let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                if let tail = buffer.floatChannelData?[0] {
-                    strongSelf.updateBuffer(&tail[offset],
-                                            withBufferSize: strongSelf.bufferSize)
-                }
+                                                    guard let strongSelf = self else {
+                                                        AKLog("Unable to create strong ref to self")
+                                                        return
+                                                    }
+                                                    buffer.frameLength = strongSelf.bufferSize
+                                                    let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                                                    if let tail = buffer.floatChannelData?[0] {
+                                                        strongSelf.updateBuffer(&tail[offset],
+                                                                                withBufferSize: strongSelf.bufferSize)
+                                                    }
             }
             isConnected = true
         }
     }
-
+    
     // Useful to reconnect after connecting to Audiobus or IAA
     @objc func reconnect() {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
         setupNode()
     }
-
+    
     @objc open func pause() {
         if isConnected {
             AudioKit.engine.outputNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
-
+    
     @objc open func resume() {
         setupNode()
     }
-
+    
     func setupReconnection() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
@@ -62,13 +62,13 @@ open class AKOutputWaveformPlot: EZAudioPlot {
                                                name: NSNotification.Name(rawValue: "IAADisconnected"),
                                                object: nil)
     }
-
+    
     internal var bufferSize: UInt32 = 1_024
-
+    
     deinit {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
     }
-
+    
     /// Initialize the plot in a frame
     ///
     /// - parameter frame: CGRect in which to draw the plot
@@ -78,7 +78,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
         setupNode()
         setupReconnection()
     }
-
+    
     /// Initialize the plot in a frame with a different buffer size
     ///
     /// - Parameters:
@@ -91,7 +91,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
         setupNode()
         setupReconnection()
     }
-
+    
     /// Required coder-based initialization (for use with Interface Builder)
     ///
     /// - parameter coder: NSCoder
@@ -101,7 +101,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
         setupNode()
         setupReconnection()
     }
-
+    
     /// Create a View with the plot (usually for playgrounds)
     ///
     /// - Parameters:
@@ -109,14 +109,14 @@ open class AKOutputWaveformPlot: EZAudioPlot {
     ///   - height: Height of the view
     ///
     open static func createView(width: CGFloat = 440, height: CGFloat = 200.0) -> AKView {
-
+        
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKOutputWaveformPlot(frame: frame)
-
+        
         plot.plotType = .buffer
         plot.backgroundColor = AKColor.clear
         plot.shouldCenterYAxis = true
-
+        
         let containerView = AKView(frame: frame)
         containerView.addSubview(plot)
         return containerView

@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Simple sawtooth oscillator, not-band limited, can be used for LFO or wave,
     /// but sawtoothWave is probably better for audio.
     ///
@@ -24,7 +24,7 @@ extension AKOperation {
                            setup: "\"sawtooth\" 4096 \"0 -1 4095 1\" gen_line",
                            inputs: frequency, amplitude, phase)
     }
-
+    
     /// Simple reverse sawtooth oscillator, not-band limited, can be used for LFO or wave.
     ///
     /// - Parameters:

@@ -13,16 +13,16 @@
 
 
 @interface AKTimelineTap : NSObject {
-    @public
+@public
     AKTimeline _timeline;
 }
 
 /**
  A block that will be called with timeline information.
-
+ 
  Will be called from the render thread, so no locks, Swift functions or
  Objective-C messages from within this block.  Make sure not to capture self.
-
+ 
  @param timeline The AKTimeline.
  @param timeStamp A timestamp with mSampleTime representing position in a zero indexed timeline.
  @ param offset The number of samples from render start to timeStamp->mSampleTime.  Will be
@@ -31,10 +31,10 @@
  ioData The Audio buffer, may be invalid if preRender is true.
  */
 typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
-                                AudioTimeStamp  * _Nonnull  timeStamp,
-                                UInt32                      offset,
-                                UInt32                      frames,
-                                AudioBufferList * _Nonnull  ioData);
+                               AudioTimeStamp  * _Nonnull  timeStamp,
+                               UInt32                      offset,
+                               UInt32                      frames,
+                               AudioBufferList * _Nonnull  ioData);
 
 
 /**
@@ -46,7 +46,7 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
 
 /** 
  Dictates if timelineCallback will be called pre-render or post-render, defaults to false (postRender).
-
+ 
  Pre-render is better for triggering MIDI as the sample offset is taken into consideration. Post-render
  is neccessary for ioData buffer manipulation as buffers' mData is NULL during pre-render.
  */
@@ -59,7 +59,7 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
 
 /**
  Initializes a timelineTap, holds reference to audioUnit.
-
+ 
  @param audioUnit The audioUnit that will the tap notify on.
  @param block The block tha will be called on render thread.
  @return A renderTap ready to start.
@@ -68,7 +68,7 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
                               timelineBlock:(AKTimelineBlock _Nullable )block NS_DESIGNATED_INITIALIZER NS_SWIFT_UNAVAILABLE("No render code in Swift");
 /**
  Initializes a renderTap, holds reference to underlying audioUnit.
-
+ 
  @param node The AVAudioNode that will the tap will notify on.
  @param block The block tha will be called on render thread.
  @return A renderTap ready to start, or NULL if node has no accessible audioUnit.

@@ -14,7 +14,7 @@ extension AKOperation {
     public func times(_ parameter: AKParameter) -> AKOperation {
         return AKOperation(module: "*", inputs: self, parameter)
     }
-
+    
     /// Offsetting by way of multiplication
     ///
     /// - parameter parameter: The amount to scale by
