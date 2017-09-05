@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// This is a bandlimited square oscillator ported from the "square" function
     /// from the Faust programming language.
     ///
@@ -21,7 +21,7 @@ extension AKOperation {
         amplitude: AKParameter = 1.0,
         pulseWidth: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation(module: "blsquare",
-                               inputs: frequency, amplitude, pulseWidth)
+        return AKOperation(module: "blsquare",
+                           inputs: frequency, amplitude, pulseWidth)
     }
 }

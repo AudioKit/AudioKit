@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Increment a signal by a default value of 1
     ///
     /// - Parameters:
