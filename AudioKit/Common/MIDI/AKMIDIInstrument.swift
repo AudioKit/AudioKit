@@ -12,21 +12,21 @@ import CoreAudio
 /// A version of AKInstrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
 open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
-
+    
     // MARK: - Properties
-
+    
     /// MIDI Input
     open var midiIn = MIDIEndpointRef()
-
+    
     /// Name of the instrument
     open var name = "AKMIDIInstrument"
-
+    
     /// Initialize the MIDI Instrument
     public override init() {
         super.init()
         enableMIDI()
     }
-
+    
     /// Enable MIDI input from a given MIDI client
     ///
     /// - Parameters:
@@ -42,15 +42,15 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             }
         })
     }
-
+    
     private func handle(event: AKMIDIEvent) {
         self.handleMIDI(data1: MIDIByte(event.internalData[0]),
                         data2: MIDIByte(event.internalData[1]),
                         data3: MIDIByte(event.internalData[2]))
     }
-
+    
     // MARK: - Handling MIDI Data
-
+    
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
@@ -67,7 +67,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             stop(noteNumber: noteNumber, channel: channel)
         }
     }
-
+    
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
@@ -78,9 +78,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     open func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         stop(noteNumber: noteNumber, channel: channel)
     }
-
+    
     // MARK: - MIDI Note Start/Stop
-
+    
     /// Start a note
     ///
     /// - Parameters:
@@ -89,11 +89,11 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - channel:    Channel on which to play the note
     ///
     @objc open func start(noteNumber: MIDINoteNumber,
-                    velocity: MIDIVelocity,
-                    channel: MIDIChannel) {
+                          velocity: MIDIVelocity,
+                          channel: MIDIChannel) {
         play(noteNumber: noteNumber, velocity: velocity)
     }
-
+    
     /// Stop a note
     ///
     /// - Parameters:
@@ -103,9 +103,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     @objc open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         // OVerride in subclass
     }
-
+    
     // MARK: - Private functions
-
+    
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         let status = data1 >> 4
