@@ -56,8 +56,8 @@ open class AKMusicTrack {
         self.name = name
         MusicSequenceNewTrack(sequencer.sequence!, &internalMusicTrack)
         MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
-        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack!)
-        initTrackPointer = UnsafeMutablePointer<MusicTrack>(initMusicTrack!)
+        trackPointer = UnsafeMutablePointer(internalMusicTrack!)
+        initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
 
         let data = [MIDIByte](name.utf8)
 
@@ -85,7 +85,7 @@ open class AKMusicTrack {
     public init(musicTrack: MusicTrack, name: String = "Unnamed") {
         self.name = name
         internalMusicTrack = musicTrack
-        trackPointer = UnsafeMutablePointer<MusicTrack>(musicTrack)
+        trackPointer = UnsafeMutablePointer(musicTrack)
 
         let data = [MIDIByte](name.utf8)
 
@@ -110,7 +110,7 @@ open class AKMusicTrack {
             AKLog("Unable to name Track")
         }
         MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
-        initTrackPointer = UnsafeMutablePointer<MusicTrack>(initMusicTrack!)
+        initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
         MusicTrackMerge(internalMusicTrack!, 0.0, length, initMusicTrack!, 0.0)
     }
 
@@ -120,11 +120,11 @@ open class AKMusicTrack {
     ///
     public init(musicTrack: MusicTrack, sequencer: AKSequencer) {
         internalMusicTrack = musicTrack
-        trackPointer = UnsafeMutablePointer<MusicTrack>(musicTrack)
+        trackPointer = UnsafeMutablePointer(musicTrack)
         self.sequencer = sequencer
 
         MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
-        initTrackPointer = UnsafeMutablePointer<MusicTrack>(initMusicTrack!)
+        initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
         MusicTrackMerge(internalMusicTrack!, 0.0, length, initMusicTrack!, 0.0)
     }
 
