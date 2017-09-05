@@ -24,12 +24,12 @@ public protocol AKOutput: class {
 }
 
 extension AKOutput {
-
+    
     public var connectionPoints: [AVAudioConnectionPoint] {
         get { return outputNode.engine?.outputConnectionPoints(for: outputNode, outputBus: 0) ?? [] }
         set { AudioKit.connect(outputNode, to: newValue, fromBus: 0, format: AudioKit.format) }
     }
-
+    
     //Disconnection
     public func disconnectOutput() {
         AudioKit.engine.disconnectNodeOutput(outputNode)
@@ -40,7 +40,7 @@ extension AKOutput {
     public func disconnectOutput(bus: Int) {
         AudioKit.engine.disconnectNodeOutput(outputNode, bus: bus)
     }
-
+    
     //Add Connection
     @discardableResult public func connect(to node: AKInput) -> AKInput {
         return connect(to: node, bus: node.nextInput.bus)
@@ -52,7 +52,7 @@ extension AKOutput {
         connectionPoints.append(AVAudioConnectionPoint(node: node.inputNode, bus: bus))
         return node
     }
-
+    
     @discardableResult public func connect(to nodes: [AKInput]) -> [AKInput] {
         connectionPoints += nodes.map { $0.nextInput }.map { $0.avConnection }
         return nodes
@@ -64,7 +64,7 @@ extension AKOutput {
     public func connect(to connectionPoint: AVAudioConnectionPoint) {
         connectionPoints.append(connectionPoint)
     }
-
+    
     //Set connection, this will remove existing connections from the output.
     @discardableResult public func setOutput(to node: AKInput) -> AKInput {
         return setOutput(to: node, bus: node.nextInput.bus, format: AudioKit.format)
@@ -84,7 +84,7 @@ extension AKOutput {
         setOutput(to: toInputs.map { $0.avConnection }, format: format)
         return toInputs.map { $0.node }
     }
-
+    
     public func setOutput(to connectionPoint: AVAudioConnectionPoint) {
         setOutput(to: connectionPoint, format: AudioKit.format)
     }
@@ -94,7 +94,7 @@ extension AKOutput {
     public func setOutput(to connectionPoints: [AVAudioConnectionPoint], format: AVAudioFormat) {
         AudioKit.connect(outputNode, to: connectionPoints, fromBus: 0, format: format)
     }
-
+    
 }
 
 public protocol AKInput: AKOutput {
@@ -121,7 +121,7 @@ extension AKInput {
     public func input(_ bus: Int) -> AKInputConnection {
         return AKInputConnection(node: self, bus: bus)
     }
-
+    
 }
 
 extension AVAudioNode: AKInput {

@@ -30,9 +30,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardSetup(MoogLadder)
-
+    
     // Create a parameter object for the cutoffFrequency.
     AUParameter *cutoffFrequencyAUParameter = [AUParameter frequency:@"cutoffFrequency"
                                                                 name:@"Cutoff Frequency (Hz)"
@@ -47,17 +47,17 @@ standardKernelPassthroughs()
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 1000;
     resonanceAUParameter.value = 0.5;
-
+    
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
     _kernel.setParameter(resonanceAddress,       resonanceAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        cutoffFrequencyAUParameter,
-        resonanceAUParameter
-    ]];
-
-	parameterTreeBlock(MoogLadder)
+                                             cutoffFrequencyAUParameter,
+                                             resonanceAUParameter
+                                             ]];
+    
+    parameterTreeBlock(MoogLadder)
 }
 
 AUAudioUnitOverrides(MoogLadder);

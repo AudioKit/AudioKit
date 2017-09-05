@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Bandlimited sawtooth oscillator This is a bandlimited sawtooth oscillator
     /// ported from the "sawtooth" function from the Faust programming language.
     ///
@@ -19,6 +19,6 @@ extension AKOperation {
         frequency: AKParameter = 440,
         amplitude: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation(module: "blsaw", inputs: frequency, amplitude)
+        return AKOperation(module: "blsaw", inputs: frequency, amplitude)
     }
 }

@@ -9,10 +9,10 @@
 import Cocoa
 
 open class AKLiveViewController: NSViewController {
-
+    
     var stackView: NSStackView!
     var textField: NSTextField?
-
+    
     override open func loadView() {
         stackView = NSStackView(frame: NSRect(x: 0, y: 0, width: 400, height: 100))
         stackView.alignment = .centerX
@@ -21,7 +21,7 @@ open class AKLiveViewController: NSViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         self.view = stackView
     }
-
+    
     public func addTitle(_ text: String) {
         let newLabel = NSTextField()
         newLabel.stringValue = text
@@ -36,7 +36,7 @@ open class AKLiveViewController: NSViewController {
         newLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
         addView(newLabel)
     }
-
+    
     public func addLabel(_ text: String) -> AKLabel {
         let newLabel = AKLabel(frame: CGRect(x: 0, y: 0, width:400, height: 80))
         newLabel.stringValue = text
@@ -50,7 +50,7 @@ open class AKLiveViewController: NSViewController {
         addView(newLabel)
         return newLabel
     }
-
+    
     public func addView(_ newView: NSView) {
         newView.widthAnchor.constraint(equalToConstant: 400).isActive = true
         if newView.frame.height <= 60 {

@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-
+    
     /// An automatic wah effect, ported from Guitarix via Faust.
     ///
     /// - Parameters:

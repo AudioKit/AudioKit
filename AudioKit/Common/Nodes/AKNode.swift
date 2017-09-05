@@ -25,10 +25,10 @@ extension AVAudioConnectionPoint {
 
     /// Initialize the node
     public init(avAudioNode: AVAudioNode, attach: Bool = false) {
-      self.avAudioNode = avAudioNode
-      if attach {
-        AudioKit.engine.attach(avAudioNode)
-      }
+        self.avAudioNode = avAudioNode
+        if attach {
+            AudioKit.engine.attach(avAudioNode)
+        }
     }
     //Subclasses should override to detach all internal nodes
     open func detach() {
@@ -116,7 +116,7 @@ public protocol AKPolyphonic {
         // MARK: Microtonal pitch lookup
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-//        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
+        //        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
         self.play(noteNumber: noteNumber, velocity: velocity, frequency: frequency)
     }
 

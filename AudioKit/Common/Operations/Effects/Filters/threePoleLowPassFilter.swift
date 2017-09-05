@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-
+    
     /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
     ///
     /// - Parameters:
@@ -25,6 +25,6 @@ extension AKComputedParameter {
         cutoffFrequency: AKParameter = 1_500,
         resonance: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation(module: "lpf18", inputs: toMono(), distortion, cutoffFrequency, resonance)
+        return AKOperation(module: "lpf18", inputs: toMono(), distortion, cutoffFrequency, resonance)
     }
 }

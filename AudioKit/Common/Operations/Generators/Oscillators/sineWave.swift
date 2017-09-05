@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Standard Sine Wave
     ///
     /// - Parameters:
@@ -18,6 +18,6 @@ extension AKOperation {
         frequency: AKParameter = 440,
         amplitude: AKParameter = 1
         ) -> AKOperation {
-            return AKOperation(module: "sine", inputs: frequency, amplitude)
+        return AKOperation(module: "sine", inputs: frequency, amplitude)
     }
 }

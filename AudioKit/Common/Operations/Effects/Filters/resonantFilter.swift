@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-
+    
     /// A second-order resonant filter.
     ///
     /// - Parameters:

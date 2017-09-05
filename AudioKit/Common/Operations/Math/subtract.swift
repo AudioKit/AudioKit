@@ -51,5 +51,5 @@ public prefix func - (x: AKParameter) -> AKOperation {
 ///
 public prefix func - (x: AKStereoOperation) -> AKStereoOperation {
     return AKStereoOperation(module: "0 swap - swap 0 swap - swap", inputs: x.left(), x.right())
-
+    
 }

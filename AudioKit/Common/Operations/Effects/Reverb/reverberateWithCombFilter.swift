@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-
+    
     /// This filter reiterates input with an echo density determined by
     /// loopDuration. The attenuation rate is independent and is determined by
     /// reverbDuration, the reverberation duration (defined as the time in seconds
@@ -25,6 +25,6 @@ extension AKComputedParameter {
         reverbDuration: AKParameter = 1.0,
         loopDuration: AKParameter = 0.1
         ) -> AKOperation {
-            return AKOperation(module: "comb", inputs: toMono(), reverbDuration, loopDuration)
+        return AKOperation(module: "comb", inputs: toMono(), reverbDuration, loopDuration)
     }
 }
