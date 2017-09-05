@@ -158,7 +158,7 @@ public:
             case pulseWidthAddress:
                 pulseWidthRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
-            standardBankSetParameters()
+                standardBankSetParameters()
         }
     }
 
@@ -167,7 +167,7 @@ public:
 
             case pulseWidthAddress:
                 return pulseWidthRamper.getUIValue();
-            standardBankGetParameters()
+                standardBankGetParameters()
         }
     }
 
@@ -177,7 +177,7 @@ public:
             case pulseWidthAddress:
                 pulseWidthRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
-            standardBankStartRamps()
+                standardBankStartRamps()
         }
     }
     

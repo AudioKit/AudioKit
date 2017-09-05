@@ -13,20 +13,20 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKConvolutionAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
-
+    
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-
+    
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-
+    
     fileprivate var impulseResponseFileURL: CFURL
     fileprivate var partitionLength: Int = 2_048
-
+    
     // MARK: - Initialization
-
+    
     /// Initialize this convolution node
     ///
     /// - Parameters:
@@ -39,25 +39,25 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         impulseResponseFileURL: URL,
         partitionLength: Int = 2_048) {
-
+        
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
-
+        
         _Self.register()
-
+        
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
+            
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
+            
             input?.connect(to: self!)
             self?.internalAU?.setPartitionLength(Int32(partitionLength))
         }
     }
-
+    
     // MARK: - Control
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         Exit: do {
@@ -68,14 +68,14 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
             var extRef: ExtAudioFileRef?
             var theData: UnsafeMutablePointer<CChar>?
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
-
+            
             err = ExtAudioFileOpenURL(self.impulseResponseFileURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
-
+            
             guard let externalAudioFileRef = extRef else {
                 break Exit
             }
-
+            
             // Get the audio data format
             err = ExtAudioFileGetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_FileDataFormat,
@@ -89,7 +89,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Unsupported Format, channel count is greater than stereo")
                 break Exit
             }
-
+            
             theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
@@ -98,7 +98,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
             theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(MemoryLayout<Float>.stride)
             theOutputFormat.mFramesPerPacket = 1
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
-
+            
             // Set the desired client (output) data format
             err = ExtAudioFileSetProperty(externalAudioFileRef,
                                           kExtAudioFileProperty_ClientDataFormat,
@@ -108,7 +108,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)")
                 break Exit
             }
-
+            
             // Get the total frame count
             thePropertySize = UInt32(MemoryLayout.stride(ofValue: theFileLengthInFrames))
             err = ExtAudioFileGetProperty(externalAudioFileRef,
@@ -119,7 +119,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)")
                 break Exit
             }
-
+            
             // Read all the data into memory
             let dataSize = UInt32(theFileLengthInFrames) * theOutputFormat.mBytesPerFrame
             theData = UnsafeMutablePointer.allocate(capacity: Int(dataSize))
@@ -129,7 +129,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 bufferList.mBuffers.mDataByteSize = dataSize
                 bufferList.mBuffers.mNumberChannels = theOutputFormat.mChannelsPerFrame
                 bufferList.mBuffers.mData = UnsafeMutableRawPointer(theData)
-
+                
                 // Read the data into an AudioBufferList
                 var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
                 err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
@@ -149,10 +149,10 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()
     }
-
+    
 }

@@ -42,7 +42,7 @@ public:
             fosc->freq = 0;
             fosc->amp = 0;
         }
-
+        
         
         void clear() {
             stage = stageOff;
@@ -59,7 +59,7 @@ public:
             //prev = next = nullptr; Had to remove due to a click, potentially bad
             
             --kernel->playingNotesCount;
-
+            
             sp_fosc_destroy(&fosc);
             sp_adsr_destroy(&adsr);
         }
@@ -101,7 +101,7 @@ public:
             fosc->freq *= powf(2, kernel->pitchBend / 12.0);
             fosc->freq = clamp(fosc->freq, 0.0f, 22050.0f);
             float bentFrequency = fosc->freq;
-
+            
             fosc->car = kernel->carrierMultiplier;
             fosc->mod = kernel->modulatingMultiplier;
             fosc->indx = kernel->modulationIndex;
@@ -110,7 +110,7 @@ public:
             adsr->dec = (float)kernel->decayDuration;
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
-
+            
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
                 fosc->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
@@ -128,21 +128,21 @@ public:
         }
         
     };
-
+    
     // MARK: Member Functions
-
+    
     AKFMOscillatorBankDSPKernel() {
         noteStates.resize(128);
         for (NoteState& state : noteStates) {
             state.kernel = this;
         }
     }
-
+    
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
-
+    
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
@@ -169,9 +169,9 @@ public:
         modulationIndex = clamp(value, 0.0f, 1000.0f);
         modulationIndexRamper.setImmediate(modulationIndex);
     }
-
+    
     standardBankKernelFunctions()
-
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
                 
@@ -186,15 +186,15 @@ public:
             case modulationIndexAddress:
                 modulationIndexRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
-
-            standardBankSetParameters()
-
+                
+                standardBankSetParameters()
+                
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-
+                
             case carrierMultiplierAddress:
                 return carrierMultiplierRamper.getUIValue();
                 
@@ -204,10 +204,10 @@ public:
             case modulationIndexAddress:
                 return modulationIndexRamper.getUIValue();
                 
-            standardBankGetParameters()
+                standardBankGetParameters()
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
                 
@@ -222,17 +222,17 @@ public:
             case modulationIndexAddress:
                 modulationIndexRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
-            standardBankStartRamps()
+                standardBankStartRamps()
         }
     }
-
+    
     standardHandleMIDI()
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
-
+        
         carrierMultiplier = double(carrierMultiplierRamper.getAndStep());
         modulatingMultiplier = double(modulatingMultiplierRamper.getAndStep());
         modulationIndex = double(modulationIndexRamper.getAndStep());
@@ -253,31 +253,31 @@ public:
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
         }
-
+        
         
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] *= .5f;
             outR[i] *= .5f;
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
     std::vector<NoteState> noteStates;
-
+    
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
     
     float carrierMultiplier = 1.0;
     float modulatingMultiplier = 1;
     float modulationIndex = 1;
-
+    
 public:
     NoteState* playingNotes = nullptr;
-
+    
     ParameterRamper carrierMultiplierRamper = 1.0;
     ParameterRamper modulatingMultiplierRamper = 1;
     ParameterRamper modulationIndexRamper = 1;
-
+    
 };
