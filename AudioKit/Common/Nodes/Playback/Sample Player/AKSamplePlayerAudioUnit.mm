@@ -53,7 +53,7 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(SamplePlayer)
     
     // Create a parameter object for the start.
@@ -66,11 +66,11 @@ standardKernelPassthroughs()
     
     // Create a parameter object for the endPoint.
     AUParameter *endPointAUParameter = [AUParameter parameter:@"endPoint"
-                                                           name:@"endPoint"
-                                                        address:endPointAddress
-                                                            min:0
-                                                            max:1
-                                                           unit:kAudioUnitParameterUnit_Generic];
+                                                         name:@"endPoint"
+                                                      address:endPointAddress
+                                                          min:0
+                                                          max:1
+                                                         unit:kAudioUnitParameterUnit_Generic];
     
     // Create a parameter object for the rate.
     AUParameter *rateAUParameter = [AUParameter parameter:@"rate"
@@ -79,7 +79,7 @@ standardKernelPassthroughs()
                                                       min:0
                                                       max:10
                                                      unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Create a parameter object for the volume.
     AUParameter *volumeAUParameter = [AUParameter parameter:@"volume"
                                                        name:@"volume"
@@ -92,21 +92,21 @@ standardKernelPassthroughs()
     endPointAUParameter.value = 1;
     rateAUParameter.value = 1;
     volumeAUParameter.value = 1;
-
+    
     _kernel.setParameter(startPointAddress,   startPointAUParameter.value);
     _kernel.setParameter(endPointAddress,  endPointAUParameter.value);
     _kernel.setParameter(rateAddress, rateAUParameter.value);
     _kernel.setParameter(volumeAddress, volumeAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        startPointAUParameter,
-        endPointAUParameter,
-        rateAUParameter,
-        volumeAUParameter
-    ]];
-
-	parameterTreeBlock(SamplePlayer)
+                                             startPointAUParameter,
+                                             endPointAUParameter,
+                                             rateAUParameter,
+                                             volumeAUParameter
+                                             ]];
+    
+    parameterTreeBlock(SamplePlayer)
 }
 
 AUAudioUnitGeneratorOverrides(SamplePlayer)

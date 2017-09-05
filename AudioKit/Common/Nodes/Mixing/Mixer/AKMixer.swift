@@ -10,7 +10,7 @@
 open class AKMixer: AKNode, AKToggleable, AKInput {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
-
+    
     /// Output Volume (Default 1)
     @objc open dynamic var volume: Double = 1.0 {
         didSet {
@@ -18,19 +18,19 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
             mixerAU.outputVolume = Float(volume)
         }
     }
-
+    
     fileprivate var lastKnownVolume: Double = 1.0
-
+    
     /// Determine if the mixer is serving any output or if it is stopped.
     @objc open dynamic var isStarted: Bool {
         return volume != 0.0
     }
-
+    
     /// Initialize the mixer node with no inputs, to be connected later
     @objc public override init() {
         super.init(avAudioNode: mixerAU, attach: true)
     }
-
+    
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: A variadic list of AKNodes
@@ -40,7 +40,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
         self.init(inputs.filter { $0 != nil }.map { $0! })
     }
     //swiftlint:enable force_unwrapping
-
+    
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: An array of AKNodes
@@ -51,18 +51,18 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
             input.connect(to: self)
         }
     }
-
-     @objc public var nextInput: AKInputConnection {
+    
+    @objc public var nextInput: AKInputConnection {
         return AKInputConnection(node: self, bus: mixerAU.nextAvailableInputBus)
     }
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         if isStopped {
             volume = lastKnownVolume
         }
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         if isPlaying {
@@ -70,19 +70,19 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
             volume = 0
         }
     }
-
+    
     /// Connnect another input after initialization // Deprecated
     ///
     /// - parameter input: AKNode to connect
     /// - parameter bus: what channel of the mixer to connect on.
     /// If you use this it is up to your application to keep track of what inputs are in use to make sure you
     /// don't overwrite an existing channel with an active node that is active.
-
+    
     //swiftlint:disable line_length
     @available(*, deprecated, message: "use connect(to:AKNode) or connect(to:AKNode, bus:Int) from the upstream node instead")
-     open func connect(_ input: AKNode?, bus: Int? = nil) {
+    open func connect(_ input: AKNode?, bus: Int? = nil) {
         input?.connect(to: self, bus: bus ?? nextInput.bus)
     }
     //swiftlint:enable line_length
-
+    
 }
