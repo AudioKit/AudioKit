@@ -8,6 +8,8 @@
 
 import Cocoa
 
+public typealias AKLabel = NSTextField
+
 open class AKLiveViewController: NSViewController {
 
     var stackView: NSStackView!
