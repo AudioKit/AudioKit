@@ -28,18 +28,18 @@ player.play()
 import AudioKitUI
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("Dynamics Processor")
-        
+
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKButton(title: "Stop Dynamics Processor") { button in
             let node = effect
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Dynamics Processor" : "Start Dynamics Processor"
         })
-        
+
         addView(AKSlider(property: "Threshold",
                          value: effect.threshold,
                          range: -40 ... 20,
@@ -47,7 +47,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.threshold = sliderValue
         })
-        
+
         addView(AKSlider(property: "Head Room",
                          value: effect.headRoom,
                          range: 0.1 ... 40,
@@ -55,21 +55,21 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.headRoom = sliderValue
         })
-        
+
         addView(AKSlider(property: "Expansion Ratio",
                          value: effect.expansionRatio,
                          range: 1 ... 50
         ) { sliderValue in
             effect.expansionRatio = sliderValue
         })
-        
+
         addView(AKSlider(property: "Expansion Threshold",
                          value: effect.expansionThreshold,
                          range: 1 ... 50
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
         })
-        
+
         addView(AKSlider(property: "Attack Time",
                          value: effect.attackTime,
                          range: 0.000_1 ... 0.2,
@@ -77,7 +77,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.attackTime = sliderValue
         })
-        
+
         addView(AKSlider(property: "Release Time",
                          value: effect.releaseTime,
                          range: 0.01 ... 3,
@@ -85,7 +85,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.releaseTime = sliderValue
         })
-        
+
         addView(AKSlider(property: "Master Gain",
                          value: effect.masterGain,
                          range: -40 ... 40,

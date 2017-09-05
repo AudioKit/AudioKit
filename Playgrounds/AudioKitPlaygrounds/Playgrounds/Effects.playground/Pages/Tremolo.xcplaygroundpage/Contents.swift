@@ -24,7 +24,7 @@ class LiveView: AKLiveViewController {
     override func viewDidLoad() {
         addTitle("Tremolo")
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKSlider(property: "Frequency",
                          value: tremolo.frequency,
                          range: 0 ... 20,
@@ -32,7 +32,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             tremolo.frequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Depth", value: tremolo.depth) { sliderValue in
             tremolo.depth = sliderValue
         })

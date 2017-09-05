@@ -253,7 +253,7 @@ public enum AKSliderStyle {
         //// Variable Declarations
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
         let currentWidth: CGFloat = currentValue < 0 ? sliderMargin :
-            (currentValue < 1 ? currentValue  * (width - (sliderMargin * 2.0)) + sliderMargin : width - sliderMargin)
+            (currentValue < 1 ? currentValue * (width - (sliderMargin * 2.0)) + sliderMargin : width - sliderMargin)
 
         //// sliderArea Drawing
         let sliderAreaRect = CGRect(x: sliderBorderWidth / 2.0,
@@ -304,7 +304,7 @@ public enum AKSliderStyle {
 
             let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: bubbleFontSize),
                                             NSAttributedStringKey.foregroundColor: themeTextColor,
-                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle] 
+                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(

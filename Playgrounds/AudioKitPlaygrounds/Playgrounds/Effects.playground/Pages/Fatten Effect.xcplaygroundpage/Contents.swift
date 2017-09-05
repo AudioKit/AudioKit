@@ -10,12 +10,12 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let fatten = AKOperationEffect(player) { input, parameters in
-    
+
     let time = parameters[0]
     let mix = parameters[1]
-    
+
     let fatten = "\(input) dup \(1 - mix) * swap 0 \(time) 1.0 vdelay \(mix) * +"
-    
+
     return AKStereoOperation(fatten)
 }
 
@@ -30,12 +30,12 @@ fatten.parameters = [0.1, 0.5]
 import AudioKitUI
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("Analog Synth X Fatten")
-        
+
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKSlider(property: "Time",
                          value: fatten.parameters[0],
                          range: 0.03 ... 0.1,
@@ -43,7 +43,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             fatten.parameters[0] = sliderValue
         })
-        
+
         addView(AKSlider(property: "Mix", value: fatten.parameters[1]) { sliderValue in
             fatten.parameters[1] = sliderValue
         })

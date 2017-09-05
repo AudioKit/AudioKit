@@ -67,7 +67,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         addView(AKButton(title: "Save") { button in
             tape.exportAsynchronously(name: "test",
                                       baseDir: .documents,
-                                      exportFormat: .caf) { [weak self] exportedFile, error in
+                                      exportFormat: .caf) { [weak self] _, _ in
             }
             button.title = "Saved"
         })

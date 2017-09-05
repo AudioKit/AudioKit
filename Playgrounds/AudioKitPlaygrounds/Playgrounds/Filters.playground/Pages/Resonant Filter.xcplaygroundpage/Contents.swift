@@ -39,7 +39,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             filter.frequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Bandwidth",
                          value: filter.bandwidth,
                          range: 100 ... 1_200,

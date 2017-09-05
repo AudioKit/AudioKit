@@ -138,7 +138,7 @@ class LiveView: AKLiveViewController {
             osc.reset()
             sequencerPattern = sequencerPatterns[preset]!
         })
-        
+
         addView(AKSlider(property: "MIDI Transposition",
                          value: Double(transposition),
                          range: -16 ... 16,
@@ -147,29 +147,29 @@ class LiveView: AKLiveViewController {
             transposition = Int(sliderValue)
             osc.reset()
         })
-        
+
         addView(AKSlider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
             osc.index = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Gain", value: generatorBooster.gain, range: 0 ... 4) { sliderValue in
             generatorBooster.gain = sliderValue
         })
-        
+
         addView(AKSlider(property: "FILTER Frequency Cutoff",
                          value: filter.cutoffFrequency,
                          range: 1 ... 12_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "FILTER Frequency Resonance",
                          value: filter.resonance,
                          range: 0 ... 4
         ) { sliderValue in
             filter.resonance = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Amp Attack",
                          value: osc.attackDuration,
                          range: 0 ... 2,
@@ -177,7 +177,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             osc.attackDuration = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Amp Decay",
                          value: osc.decayDuration,
                          range: 0 ... 2,
@@ -185,7 +185,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             osc.decayDuration = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Amp Sustain",
                          value: osc.sustainLevel,
                          range: 0 ... 2,
@@ -193,7 +193,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             osc.sustainLevel = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Amp Release",
                          value: osc.releaseDuration,
                          range: 0 ... 2,
@@ -201,7 +201,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             osc.releaseDuration = sliderValue
         })
-        
+
         addView(AKSlider(property: "Detuning Offset",
                          value: osc.detuningOffset,
                          range: -1_200 ... 1_200,
@@ -209,7 +209,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             osc.detuningOffset = sliderValue
         })
-        
+
         addView(AKSlider(property: "Detuning Multiplier",
                          value: osc.detuningMultiplier,
                          range: 0.5 ... 2.0,

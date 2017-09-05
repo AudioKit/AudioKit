@@ -341,5 +341,5 @@ extension AKSampler {
         templateStr.append("</plist>\n")
         return templateStr
     }
-    
+
 }

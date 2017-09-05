@@ -69,7 +69,6 @@ class AKMorphingOscillatorBankTests: AKTestCase {
         AKTestMD5("effb427b8635ec021ca792d7ff2a0832")
     }
 
-
     func testSustainLevel() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, sustainLevel: 0.345)
         output = inputBank
@@ -81,7 +80,6 @@ class AKMorphingOscillatorBankTests: AKTestCase {
         output = inputBank
         AKTestMD5("4be5ef808007fcdcc73f74dfb7603216")
     }
-
 
     func testWaveformArray() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms)

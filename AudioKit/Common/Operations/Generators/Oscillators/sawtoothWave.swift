@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Bandlimited sawtooth oscillator This is a bandlimited sawtooth oscillator
     /// ported from the "sawtooth" function from the Faust programming language.
     ///

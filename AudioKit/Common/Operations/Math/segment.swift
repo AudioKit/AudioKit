@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Line Segment to change values over time
     ///
     /// - Parameters:
@@ -26,7 +26,7 @@ extension AKOperation {
 }
 
 extension AKOperation {
-    
+
     /// Exponential Segment to change values over time
     ///
     /// - Parameters:

@@ -22,11 +22,11 @@ player.play()
 import AudioKitUI
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("Pitch Shift Operation")
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
-        
+
         addView(AKSlider(property: "Base Shift",
                          value: effect.parameters[0],
                          range: -12 ... 12,

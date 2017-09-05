@@ -22,7 +22,7 @@ extension AKSampler {
             throw error
         }
     }
-    
+
     /// Load a Bank from a SoundFont SF2 sample data file
     ///
     /// - Parameters:
@@ -52,7 +52,7 @@ extension AKSampler {
             throw error
         }
     }
-    
+
     /// Load a Melodic SoundFont SF2 sample data file
     ///
     /// - Parameters:
@@ -62,7 +62,7 @@ extension AKSampler {
     open func loadMelodicSoundFont(_ file: String, preset: Int) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
     }
-    
+
     /// Load a Percussive SoundFont SF2 sample data file
     ///
     /// - Parameters:
@@ -72,5 +72,5 @@ extension AKSampler {
     open func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
-    
+
 }

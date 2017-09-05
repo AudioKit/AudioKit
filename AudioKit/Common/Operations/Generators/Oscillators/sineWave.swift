@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Standard Sine Wave
     ///
     /// - Parameters:

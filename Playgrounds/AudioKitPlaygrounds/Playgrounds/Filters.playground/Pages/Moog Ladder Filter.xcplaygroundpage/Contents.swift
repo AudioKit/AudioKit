@@ -43,7 +43,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             moogLadder.cutoffFrequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "Resonance",
                          value: moogLadder.resonance,
                          range: 0 ... 0.98

@@ -235,7 +235,7 @@ extension UIViewController {
 
         if songProcessor.iTunesFilePlayer != nil {
             let alert = UIAlertController(title: "Export Song or Loops?", message: nil, preferredStyle: .alert)
-            alert.addAction(.init(title: "Song", style: .default, handler: { (action) in
+            alert.addAction(.init(title: "Song", style: .default, handler: { (_) in
                 do {
                     try songProcessor.mixDownItunes(url: url)
                     success()

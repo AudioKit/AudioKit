@@ -11,12 +11,12 @@ public typealias AKMIDICallback = (AKMIDIStatus, MIDINoteNumber, MIDIVelocity) -
 
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 open class AKCallbackInstrument: AKMIDIInstrument {
-    
+
     // MARK: Properties
-    
+
     /// All callbacks that will get triggered by MIDI events
     open var callback: AKMIDICallback?
-    
+
     /// Initialize the callback instrument
     ///
     /// - parameter callback: Initial callback
@@ -29,13 +29,13 @@ open class AKCallbackInstrument: AKMIDIInstrument {
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attach(self.avAudioNode)
     }
-    
+
     fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
                                       noteNumber: MIDINoteNumber,
                                       velocity: MIDIVelocity) {
         _ = callback.map { $0(status, noteNumber, velocity) }
     }
-    
+
     /// Will trigger in response to any noteOn Message
     ///
     /// - Parameters:
@@ -48,7 +48,7 @@ open class AKCallbackInstrument: AKMIDIInstrument {
                              channel: MIDIChannel) {
         triggerCallbacks(.noteOn, noteNumber: noteNumber, velocity: velocity)
     }
-    
+
     /// Will trigger in response to any noteOff Message
     ///
     /// - Parameters:

@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-    
+
     /// Classic FM Synthesis audio generation.
     ///
     /// - Parameters:

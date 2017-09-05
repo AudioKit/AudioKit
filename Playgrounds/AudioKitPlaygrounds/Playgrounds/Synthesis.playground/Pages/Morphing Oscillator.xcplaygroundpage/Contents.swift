@@ -51,7 +51,7 @@ class LiveView: AKLiveViewController {
 
         addView(AKOutputWaveformPlot.createView(width: 440, height: 400))
     }
-    
+
     func start() {
         morph.play()
     }

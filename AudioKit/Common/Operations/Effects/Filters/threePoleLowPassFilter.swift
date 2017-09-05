@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
     ///
     /// - Parameters:

@@ -28,13 +28,13 @@ open class AKRollingOutputPlot: EZAudioPlot {
                                                 }
         }
     }
-    
+
     /// Useful to reconnect after connecting to Audiobus or IAA
     @objc public func reconnect() {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
         setupNode()
     }
-    
+
     func setupReconnection() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
@@ -45,13 +45,13 @@ open class AKRollingOutputPlot: EZAudioPlot {
                                                name: NSNotification.Name(rawValue: "IAADisconnected"),
                                                object: nil)
     }
-    
+
     internal var bufferSize: UInt32 = 1_024
-    
+
     deinit {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
     }
-    
+
     /// Initialize the plot in a frame
     ///
     /// - parameter frame: CGRect in which to draw the plot
@@ -61,7 +61,7 @@ open class AKRollingOutputPlot: EZAudioPlot {
         setupNode()
         setupReconnection()
     }
-    
+
     /// Initialize the plot in a frame with a different buffer size
     ///
     /// - Parameters:
@@ -74,7 +74,7 @@ open class AKRollingOutputPlot: EZAudioPlot {
         setupNode()
         setupReconnection()
     }
-    
+
     /// Required coder-based initialization (for use with Interface Builder)
     ///
     /// - parameter coder: NSCoder
@@ -83,7 +83,7 @@ open class AKRollingOutputPlot: EZAudioPlot {
         super.init(coder: aDecoder)
         setupNode()
         setupReconnection()
-        
+
         plotType = .rolling
         backgroundColor = AKColor.white
         color = AKColor.green
@@ -91,7 +91,7 @@ open class AKRollingOutputPlot: EZAudioPlot {
         shouldMirror = true
         shouldCenterYAxis = true
     }
-    
+
     /// Create a View with the plot (usually for playgrounds)
     ///
     /// - Parameters:
@@ -99,17 +99,17 @@ open class AKRollingOutputPlot: EZAudioPlot {
     ///   - height: Height of the view
     ///
     open static func createView(width: CGFloat = 440, height: CGFloat = 200.0) -> AKView {
-        
+
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKRollingOutputPlot(frame: frame)
-        
+
         plot.plotType = .rolling
         plot.backgroundColor = AKColor.white
         plot.color = AKColor.green
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.shouldCenterYAxis = true
-        
+
         let containerView = AKView(frame: frame)
         containerView.addSubview(plot)
         return containerView

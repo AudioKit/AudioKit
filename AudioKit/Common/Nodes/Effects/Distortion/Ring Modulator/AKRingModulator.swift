@@ -9,14 +9,14 @@
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
 open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
-    
+
     // MARK: - Properties
-    
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
     private var au: AUWrapper
     private var lastKnownMix: Double = 1
-    
+
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @objc open dynamic var frequency1: Double = 100 {
         didSet {
@@ -24,7 +24,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
             au[kDistortionParam_RingModFreq1] = frequency1
         }
     }
-    
+
     /// Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @objc open dynamic var frequency2: Double = 100 {
         didSet {
@@ -32,7 +32,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
             au[kDistortionParam_RingModFreq2] = frequency2
         }
     }
-    
+
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     @objc open dynamic var balance: Double = 0.5 {
         didSet {
@@ -40,7 +40,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
             au[kDistortionParam_RingModBalance] = balance * 100
         }
     }
-    
+
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     @objc open dynamic var mix: Double = 1 {
         didSet {
@@ -48,12 +48,12 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
             au[kDistortionParam_FinalMix] = mix * 100
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted = true
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize the ring modulator node
     ///
     /// - Parameters:
@@ -69,19 +69,19 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
         frequency2: Double = 100,
         balance: Double = 0.5,
         mix: Double = 1) {
-        
+
         self.frequency1 = frequency1
         self.frequency2 = frequency2
         self.balance = balance
         self.mix = mix
-        
+
         let effect = _Self.effect
         au = AUWrapper(effect)
-        
+
         super.init(avAudioNode: effect, attach: true)
-        
+
         input?.connect(to: self)
-        
+
         // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
         au[kDistortionParam_RingModMix] = 100
         au[kDistortionParam_RingModFreq1] = frequency1
@@ -89,9 +89,9 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
         au[kDistortionParam_RingModBalance] = balance * 100
         au[kDistortionParam_FinalMix] = mix * 100
     }
-    
+
     // MARK: - Control
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         if isStopped {
@@ -99,7 +99,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
             isStarted = true
         }
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         if isPlaying {
@@ -108,7 +108,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
             isStarted = false
         }
     }
-    
+
     /// Disconnect the node
     override open func disconnect() {
         stop()

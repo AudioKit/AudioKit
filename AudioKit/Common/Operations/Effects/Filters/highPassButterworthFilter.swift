@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// These filters are Butterworth second-order IIR filters. They offer an almost
     /// flat passband and very good precision and stopband attenuation.
     ///

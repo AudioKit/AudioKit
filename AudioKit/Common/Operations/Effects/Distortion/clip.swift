@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// Clips a signal to a predefined limit, in a "soft" manner.
     ///
     /// - parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)

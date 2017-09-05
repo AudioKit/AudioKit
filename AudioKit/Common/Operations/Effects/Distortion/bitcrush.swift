@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-    
+
     /// This will digitally degrade a signal.
     ///
     /// - Parameters:

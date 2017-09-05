@@ -17,17 +17,17 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBalancerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
-    
+
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize this balance node
     ///
     /// - Parameters:
@@ -38,21 +38,21 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
         _Self.register()
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            
+
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             input?.connect(to: self!)
-            
+
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self!.avAudioNode, bus: 1))
         }
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

@@ -17,17 +17,17 @@ import CoreAudio
 /// 4) start the engine AudioKit.start()
 ///
 open class AKSampler: AKNode {
-    
+
     // MARK: - Properties
-    
+
     /// Internal audio unit
     private var internalAU: AUAudioUnit?
-    
+
     fileprivate var token: AUParameterObserverToken?
-    
+
     /// Sampler AV Audio Unit
     @objc open dynamic var samplerUnit = AVAudioUnitSampler()
-    
+
     /// Transposition amount in semitones, from -24 to 24, Default: 0
     @objc open dynamic var tuning: Double {
         get {
@@ -37,9 +37,9 @@ open class AKSampler: AKNode {
             samplerUnit.globalTuning = Float(newValue * 100.0)
         }
     }
-    
+
     // MARK: - Initializers
-    
+
     /// Initialize the sampler node
     override public init() {
         super.init()
@@ -48,7 +48,7 @@ open class AKSampler: AKNode {
         AudioKit.engine.attach(self.avAudioNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }
-    
+
     /// Load a wav file
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
@@ -64,7 +64,7 @@ open class AKSampler: AKNode {
             throw error
         }
     }
-    
+
     /// Load an EXS24 sample data file
     ///
     /// - parameter file: Name of the EXS24 file without the .exs extension
@@ -72,7 +72,7 @@ open class AKSampler: AKNode {
     open func loadEXS24(_ file: String) throws {
         try loadInstrument(file, type: "exs")
     }
-    
+
     /// Load an AKAudioFile
     ///
     /// - parameter file: an AKAudioFile
@@ -85,7 +85,7 @@ open class AKSampler: AKNode {
             throw error
         }
     }
-    
+
     /// Load an array of AKAudioFiles
     ///
     /// - parameter files: An array of AKAudioFiles
@@ -102,7 +102,7 @@ open class AKSampler: AKNode {
             throw error
         }
     }
-    
+
     /// Load a file path
     ///
     /// - parameter filePath: Name of the file with the extension
@@ -114,7 +114,7 @@ open class AKSampler: AKNode {
             AKLog("Error loading audio file at \(filePath)")
         }
     }
-    
+
     internal func loadInstrument(_ file: String, type: String) throws {
         //AKLog("filename is \(file)")
         guard let url = Bundle.main.url(forResource: file, withExtension: type) else {
@@ -127,14 +127,14 @@ open class AKSampler: AKNode {
             throw error
         }
     }
-    
+
     /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
     @objc open dynamic var amplitude: Double = 0 {
         didSet {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
-    
+
     /// Normalized Output Volume. Range: 0 -> 1, Default: 1
     @objc open dynamic var volume: Double = 1 {
         didSet {
@@ -142,16 +142,16 @@ open class AKSampler: AKNode {
             samplerUnit.masterGain = Float(newGain)
         }
     }
-    
+
     /// Pan. Range: -1 -> 1, Default: 0
     @objc open dynamic var pan: Double = 0 {
         didSet {
             samplerUnit.stereoPan = Float(100.0 * pan)
         }
     }
-    
+
     // MARK: - Playback
-    
+
     /// Play a MIDI Note
     ///
     /// - Parameters:
@@ -164,7 +164,7 @@ open class AKSampler: AKNode {
                    channel: MIDIChannel = 0) {
         samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
-    
+
     /// Stop a MIDI Note
     ///
     /// - Parameters:
@@ -174,5 +174,5 @@ open class AKSampler: AKNode {
     @objc open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
         samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
-    
+
 }

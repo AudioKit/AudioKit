@@ -14,7 +14,7 @@
 /// of interest.
 ///
 public protocol AKMIDIListener {
-    
+
     /// Receive the MIDI note on event
     ///
     /// - Parameters:
@@ -25,7 +25,7 @@ public protocol AKMIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel)
-    
+
     /// Receive the MIDI note off event
     ///
     /// - Parameters:
@@ -36,7 +36,7 @@ public protocol AKMIDIListener {
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel)
-    
+
     /// Receive a generic controller value
     ///
     /// - Parameters:
@@ -45,7 +45,7 @@ public protocol AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel)
-    
+
     /// Receive single note based aftertouch event
     ///
     /// - Parameters:
@@ -56,7 +56,7 @@ public protocol AKMIDIListener {
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
                                 channel: MIDIChannel)
-    
+
     /// Receive global aftertouch
     ///
     /// - Parameters:
@@ -64,7 +64,7 @@ public protocol AKMIDIListener {
     ///   - channel:  MIDI Channel (1-16)
     ///
     func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel)
-    
+
     /// Receive pitch wheel value
     ///
     /// - Parameters:
@@ -72,7 +72,7 @@ public protocol AKMIDIListener {
     ///   - channel:         MIDI Channel (1-16)
     ///
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel)
-    
+
     /// Receive program change
     ///
     /// - Parameters:
@@ -80,20 +80,20 @@ public protocol AKMIDIListener {
     ///   - channel:  MIDI Channel (1-16)
     ///
     func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel)
-    
+
     /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
     /// - parameter data: Array of integers
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte])
-    
+
     /// MIDI Setup has changed
     func receivedMIDISetupChange()
 }
 
 /// Default listener functions
 public extension AKMIDIListener {
-    
+
     /// Receive the MIDI note on event
     ///
     /// - Parameters:
@@ -106,7 +106,7 @@ public extension AKMIDIListener {
                             channel: MIDIChannel) {
         AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity)")
     }
-    
+
     /// Receive the MIDI note off event
     ///
     /// - Parameters:
@@ -119,7 +119,7 @@ public extension AKMIDIListener {
                              channel: MIDIChannel) {
         AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity)")
     }
-    
+
     /// Receive a generic controller value
     ///
     /// - Parameters:
@@ -130,7 +130,7 @@ public extension AKMIDIListener {
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         AKLog("channel: \(channel) controller: \(controller) value: \(value)")
     }
-    
+
     /// Receive single note based aftertouch event
     ///
     /// - Parameters:
@@ -143,7 +143,7 @@ public extension AKMIDIListener {
                                 channel: MIDIChannel) {
         AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) pressure: \(pressure)")
     }
-    
+
     /// Receive global aftertouch
     ///
     /// - Parameters:
@@ -153,7 +153,7 @@ public extension AKMIDIListener {
     func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
         AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure)")
     }
-    
+
     /// Receive pitch wheel value
     ///
     /// - Parameters:
@@ -163,7 +163,7 @@ public extension AKMIDIListener {
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
         AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue)")
     }
-    
+
     /// Receive program change
     ///
     /// - Parameters:
@@ -173,7 +173,7 @@ public extension AKMIDIListener {
     func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
         AKLog("channel: \(channel) programChange: \(program)")
     }
-    
+
     /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
     /// - parameter data: Array of integers
@@ -183,10 +183,10 @@ public extension AKMIDIListener {
             AKLog("MIDI System Command: \(command))")
         }
     }
-    
+
     /// MIDI Setup has changed
     func receivedMIDISetupChange() {
         AKLog("MIDI Setup Has Changed.")
     }
-    
+
 }

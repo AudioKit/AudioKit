@@ -12,7 +12,6 @@ import UIKit
 
     var initialValue: Double = 0
 
-
     func closest(to userValue: Double) -> Double {
         var index = 0
         var minimum: Double = 1_000_000

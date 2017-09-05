@@ -14,7 +14,7 @@ extension AKOperation {
     public func plus(_ parameter: AKParameter) -> AKOperation {
         return AKOperation(module: "+", inputs: self, parameter)
     }
-    
+
     /// Offsetting by way of addition
     ///
     /// - parameter parameter: The amount to offset by
