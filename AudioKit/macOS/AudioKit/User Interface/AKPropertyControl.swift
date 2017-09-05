@@ -29,7 +29,7 @@ import Cocoa
         return discreteValues[index]
     }
 
-    /// Current value of the slider
+    /// Current value of the control
     @IBInspectable public var value: Double = 0 {
         didSet {
             value = range.clamp(value)
@@ -55,10 +55,10 @@ import Cocoa
 
     public var taper: Double = 1 // Default Linear
 
-    /// Text shown on the slider
+    /// Text shown on the control
     @IBInspectable public var property: String = "Property"
 
-    /// Format for the number shown on the slider
+    /// Format for the number shown on the control
     @IBInspectable public var format: String = "%0.3f"
 
     /// Font size

@@ -26,7 +26,7 @@ import UIKit
         return discreteValues[index]
     }
 
-    /// Current value of the slider
+    /// Current value of the control
     @IBInspectable public var value: Double = 0 {
         didSet {
             value = range.clamp(value)
@@ -52,10 +52,10 @@ import UIKit
 
     public var taper: Double = 1 // Default Linear
 
-    /// Text shown on the slider
+    /// Text shown on the control
     @IBInspectable public var property: String = "Property"
 
-    /// Format for the number shown on the slider
+    /// Format for the number shown on the control
     @IBInspectable public var format: String = "%0.3f"
 
     /// Font size
@@ -116,8 +116,11 @@ import UIKit
 
     /// Handle touches ended
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isDragging = false
-        setNeedsDisplay()
+        if touches.first != nil {
+            isDragging = false
+            setNeedsDisplay()
+        }
+
     }
 
     public func randomize() -> Double {
