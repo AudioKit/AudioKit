@@ -883,7 +883,6 @@
 		EA7D07101F4E63F400707706 /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */; };
 		EA7D07111F4E63F400707706 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */; };
 		EA7D07121F4E63FA00707706 /* MultitouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486B3311DFD395F009A25C4 /* MultitouchGestureRecognizer.swift */; };
-		EA7D07131F4E63FA00707706 /* AKBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A62691D4D6E25001980B7 /* AKBypassButton.swift */; };
 		EA7D07141F4E63FA00707706 /* AKADSRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A09FC1D529742007D8ADB /* AKADSRView.swift */; };
 		EA7D07151F4E63FA00707706 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AB1D4DBD6300CD3572 /* AKButton.swift */; };
 		EA7D07161F4E63FA00707706 /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D08F1D588E0300D85987 /* AKKeyboardView.swift */; };
@@ -891,7 +890,7 @@
 		EA7D07181F4E63FA00707706 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120A91D4D95AB00CD3572 /* AKPlaygroundView.swift */; };
 		EA7D07191F4E63FA00707706 /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */; };
 		EA7D071A1F4E63FA00707706 /* AKStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470476D1E75314B00D9906F /* AKStepper.swift */; };
-		EA7D071B1F4E63FA00707706 /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */; };
+		EA7D071B1F4E63FA00707706 /* AKSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44243051D4B0FEE00C4182C /* AKSlider.swift */; };
 		EA7D071C1F4E63FA00707706 /* AKRotaryKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E04851F1B7CB500A7A2D8 /* AKRotaryKnob.swift */; };
 		EA7D071D1F4E63FA00707706 /* AKTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B142E1F2E656C00847655 /* AKTableView.swift */; };
 		EA7D071E1F4E63FA00707706 /* AKTelephoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DABC431D4E858100A8942F /* AKTelephoneView.swift */; };
@@ -1157,7 +1156,7 @@
 		C43ABDFF1E5BFD8A00165053 /* diode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = diode.c; sourceTree = "<group>"; };
 		C43ABE011E5BFD9A00165053 /* saturator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = saturator.c; sourceTree = "<group>"; };
 		C4414F6F1F5E7D0800D8DB8E /* AKPropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPropertyControl.swift; sourceTree = "<group>"; };
-		C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
+		C44243051D4B0FEE00C4182C /* AKSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSlider.swift; sourceTree = "<group>"; };
 		C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C44B596C1C4B04BF0008507F /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
 		C44B59791C4B5FC70008507F /* AKMorphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMorphingOscillator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1389,7 +1388,6 @@
 		C474B1631CE43A9D00EB8D8E /* AKAmplitudeTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAmplitudeTap.swift; sourceTree = "<group>"; };
 		C474B1641CE43A9D00EB8D8E /* AKFFTTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFFTTap.swift; sourceTree = "<group>"; };
 		C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
-		C47A62691D4D6E25001980B7 /* AKBypassButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBypassButton.swift; sourceTree = "<group>"; };
 		C47AC6191D5D53C40005E485 /* AKBoosterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBoosterAudioUnit.h; sourceTree = "<group>"; };
 		C47AC61A1D5D53C40005E485 /* AKBoosterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterAudioUnit.mm; sourceTree = "<group>"; };
 		C47AC61B1D5D53C40005E485 /* AKBoosterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBoosterDSPKernel.hpp; sourceTree = "<group>"; };
@@ -2503,7 +2501,6 @@
 			isa = PBXGroup;
 			children = (
 				C486B3311DFD395F009A25C4 /* MultitouchGestureRecognizer.swift */,
-				C47A62691D4D6E25001980B7 /* AKBypassButton.swift */,
 				C49A09FC1D529742007D8ADB /* AKADSRView.swift */,
 				C4E120AB1D4DBD6300CD3572 /* AKButton.swift */,
 				C4F8D08F1D588E0300D85987 /* AKKeyboardView.swift */,
@@ -2512,11 +2509,11 @@
 				C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */,
 				C470476D1E75314B00D9906F /* AKStepper.swift */,
 				C4414F6F1F5E7D0800D8DB8E /* AKPropertyControl.swift */,
-				C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */,
+				C4F8632B1D4CB4C60027A1F9 /* AKResourceAudioFileLoaderView.swift */,
 				701E04851F1B7CB500A7A2D8 /* AKRotaryKnob.swift */,
+				C44243051D4B0FEE00C4182C /* AKSlider.swift */,
 				C46B142E1F2E656C00847655 /* AKTableView.swift */,
 				C4DABC431D4E858100A8942F /* AKTelephoneView.swift */,
-				C4F8632B1D4CB4C60027A1F9 /* AKResourceAudioFileLoaderView.swift */,
 			);
 			name = iOS;
 			path = "AudioKit/User Interface";
@@ -5143,13 +5140,12 @@
 				EA7D070D1F4E63F400707706 /* AKView.swift in Sources */,
 				EA7D07231F4E641A00707706 /* EZAudioPlot.m in Sources */,
 				C4414F701F5E7D0900D8DB8E /* AKPropertyControl.swift in Sources */,
-				EA7D07131F4E63FA00707706 /* AKBypassButton.swift in Sources */,
 				EA7D071C1F4E63FA00707706 /* AKRotaryKnob.swift in Sources */,
 				EA7D07211F4E640D00707706 /* EZPlot.m in Sources */,
 				EA7D071D1F4E63FA00707706 /* AKTableView.swift in Sources */,
 				EA7D07151F4E63FA00707706 /* AKButton.swift in Sources */,
 				EA7D071E1F4E63FA00707706 /* AKTelephoneView.swift in Sources */,
-				EA7D071B1F4E63FA00707706 /* AKPropertySlider.swift in Sources */,
+				EA7D071B1F4E63FA00707706 /* AKSlider.swift in Sources */,
 				EA7D07251F4E641A00707706 /* EZAudioPlotGL.m in Sources */,
 				EA7D071A1F4E63FA00707706 /* AKStepper.swift in Sources */,
 				EA7D07141F4E63FA00707706 /* AKADSRView.swift in Sources */,

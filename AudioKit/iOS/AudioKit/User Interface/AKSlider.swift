@@ -1,5 +1,5 @@
 //
-//  AKPropertySlider.swift
+//  AKSlider.swift
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -7,7 +7,7 @@
 //
 
 /// Different looks the slider can have
-public enum AKPropertySliderStyle {
+public enum AKSliderStyle {
     /// Uses a circle for the touch point
     case roundIndicator
 
@@ -24,7 +24,7 @@ public enum AKPropertySliderStyle {
 }
 
 /// Simple slider interface for AudioKit properties
-@IBDesignable open class AKPropertySlider: UIView {
+@IBDesignable open class AKSlider: AKPropertyControl {
 
     /// Width for the tab indicator
     static var tabIndicatorWidth: CGFloat = 20.0
@@ -37,40 +37,6 @@ public enum AKPropertySliderStyle {
 
     /// Corner radius for the value bubble
     static var bubbleCornerRadius: CGFloat = 2.0
-
-    var initialValue: Double = 0
-
-    /// Current value of the slider
-    @IBInspectable open var value: Double = 0 {
-        didSet {
-            value = range.clamp(value)
-            value = onlyIntegers ? round(value) : value
-
-            val = value.normalized(from: range, taper: taper)
-        }
-    }
-
-    private var val: Double = 0 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-
-    /// Range of output
-    open var range: ClosedRange<Double> = 0 ... 1 {
-        didSet {
-            val = value.normalized(from: range, taper: taper)
-        }
-    }
-
-    /// For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
-    @IBInspectable open var taper: Double = 1 // Default Linear
-
-    /// Text shown on the slider
-    @IBInspectable open var property: String = "Property"
-
-    /// Format for the number shown on the slider
-    @IBInspectable open var format: String = "%0.3f"
 
     /// Background color
     @IBInspectable open var bgColor: UIColor?
@@ -87,9 +53,6 @@ public enum AKPropertySliderStyle {
     /// Text color
     @IBInspectable open var textColor: UIColor?
 
-    /// Font size
-    @IBInspectable open var fontSize: CGFloat = 20
-
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
 
@@ -97,7 +60,7 @@ public enum AKPropertySliderStyle {
     @IBInspectable open var onlyIntegers: Bool = false
 
     /// Slider style
-    open var sliderStyle: AKPropertySliderStyle = AKPropertySliderStyle.tabIndicator
+    open var sliderStyle: AKSliderStyle = AKSliderStyle.tabIndicator
 
     // Border width
     @IBInspectable open var sliderBorderWidth: CGFloat = 3.0
@@ -108,16 +71,8 @@ public enum AKPropertySliderStyle {
     /// Value bubble border width
     @IBInspectable open var valueBubbleBorderWidth: CGFloat = 1.0
 
-    // Current dragging state, used to show/hide the value bubble
-    private var isDragging: Bool = false
-
     // Calculated height of the slider based on text size and view bounds
     private var sliderHeight: CGFloat = 0.0
-
-    /// Function to call when value changes
-    open var callback: ((Double) -> Void)?
-
-    fileprivate var lastTouch = CGPoint.zero
 
     /// Initialize the slider
     public init(property: String,
@@ -128,38 +83,26 @@ public enum AKPropertySliderStyle {
                 color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: @escaping (_ x: Double) -> Void = { _ in }) {
-        self.value = value
-        self.initialValue = value
-        self.range = range
-        self.taper = taper
-        self.property = property
-        self.format = format
+
         self.color = color
 
-        self.callback = callback
-        super.init(frame: frame)
-
-        self.val = value.normalized(from: range, taper: taper)
-
-        self.backgroundColor = UIColor.clear
-
-        setNeedsDisplay()
-    }
-
-    /// Initialization with no details
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(property: property,
+                   value: value,
+                   range: range,
+                   taper: taper,
+                   format: format,
+                   frame: frame,
+                   callback: callback)
 
         self.backgroundColor = UIColor.clear
-        contentMode = .redraw
     }
 
     /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.backgroundColor = UIColor.clear
 
         self.isUserInteractionEnabled = true
-        self.backgroundColor = UIColor.clear
         contentMode = .redraw
     }
 
@@ -176,33 +119,21 @@ public enum AKPropertySliderStyle {
 
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            isDragging = true
-            let touchLocation = touch.location(in: self)
-            lastTouch = touchLocation
-            let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-            val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
-            val = (0 ... 1).clamp(val)
-            value = val.denormalized(to: range, taper: taper)
-           setNeedsDisplay()
-            callback?(value)
-        }
+        super.touchesBegan(touches, with: event)
     }
 
     /// Handle moved touches
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
-            if lastTouch.x != touchLocation.x {
-                let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
-                val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
-                val = (0 ... 1).clamp(val)
-                value = val.denormalized(to: range, taper: taper)
-                setNeedsDisplay()
-                callback?(value)
-                lastTouch = touchLocation
-            }
+            lastTouch = touchLocation
+            let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
+            val = Double((touchLocation.x - sliderMargin) / (bounds.width - sliderMargin))
+            val = (0 ... 1).clamp(val)
+            value = val.denormalized(to: range, taper: taper)
+            callback(value)
         }
+        super.touchesMoved(touches, with: event)
     }
 
     /// Handle touches ended
@@ -213,17 +144,10 @@ public enum AKPropertySliderStyle {
         }
     }
 
-    /// Give the slider a random value
-    open func randomize() -> Double {
-        value = random(in: range)
-        setNeedsDisplay()
-        return value
-    }
-
     private var indicatorWidth: CGFloat {
         switch sliderStyle {
         case .roundIndicator: return sliderHeight
-        case .tabIndicator: return AKPropertySlider.tabIndicatorWidth
+        case .tabIndicator: return AKSlider.tabIndicatorWidth
         }
     }
 
@@ -389,8 +313,8 @@ public enum AKPropertySliderStyle {
                 attributes: valueLabelFontAttributes,
                 context: nil).size
 
-            let bubbleSize = CGSize(width: valueLabelTextSize.width + AKPropertySlider.bubblePadding.width,
-                                    height: valueLabelTextSize.height + AKPropertySlider.bubblePadding.height)
+            let bubbleSize = CGSize(width: valueLabelTextSize.width + AKSlider.bubblePadding.width,
+                                    height: valueLabelTextSize.height + AKSlider.bubblePadding.height)
             var bubbleOriginX = (currentWidth - bubbleSize.width / 2.0 - valueBubbleBorderWidth)
             if bubbleOriginX < 0.0 {
                 bubbleOriginX = valueBubbleBorderWidth
@@ -398,13 +322,13 @@ public enum AKPropertySliderStyle {
                 bubbleOriginX = bounds.width - bubbleSize.width - valueBubbleBorderWidth
             }
             let bubbleRect = CGRect(x: bubbleOriginX,
-                                    y: sliderOrigin - valueLabelTextSize.height - AKPropertySlider.bubbleMargin,
+                                    y: sliderOrigin - valueLabelTextSize.height - AKSlider.bubbleMargin,
                                     width: bubbleSize.width,
                                     height: bubbleSize.height)
             let bubblePath = UIBezierPath(roundedRect: bubbleRect,
                                           byRoundingCorners: .allCorners,
-                                          cornerRadii: CGSize(width: AKPropertySlider.bubbleCornerRadius,
-                                                              height: AKPropertySlider.bubbleCornerRadius))
+                                          cornerRadii: CGSize(width: AKSlider.bubbleCornerRadius,
+                                                              height: AKSlider.bubbleCornerRadius))
             color.setFill()
             bubblePath.fill()
             bubblePath.lineWidth = valueBubbleBorderWidth
@@ -415,8 +339,8 @@ public enum AKPropertySliderStyle {
             context.clip(to: valueLabelInset)
             NSString(string: currentValueText).draw(
                 in: CGRect(x: bubbleOriginX + ((bubbleSize.width - valueLabelTextSize.width) / 2.0),
-                           y: sliderOrigin - valueLabelTextSize.height - AKPropertySlider.bubbleMargin +
-                            AKPropertySlider.bubblePadding.height / 2.0,
+                           y: sliderOrigin - valueLabelTextSize.height - AKSlider.bubbleMargin +
+                            AKSlider.bubblePadding.height / 2.0,
                            width: valueLabelTextSize.width,
                            height: valueLabelTextSize.height),
                 withAttributes: valueLabelFontAttributes)
