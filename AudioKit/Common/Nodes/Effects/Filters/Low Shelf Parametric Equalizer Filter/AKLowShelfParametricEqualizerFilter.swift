@@ -12,23 +12,23 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
-
+    
     // MARK: - Properties
-
+    
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-
+    
     fileprivate var cornerFrequencyParameter: AUParameter?
     fileprivate var gainParameter: AUParameter?
     fileprivate var qParameter: AUParameter?
-
+    
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
-
+    
     /// Corner frequency.
     @objc open dynamic var cornerFrequency: Double = 1_000 {
         willSet {
@@ -71,14 +71,14 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             }
         }
     }
-
+    
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-
+    
     // MARK: - Initialization
-
+    
     /// Initialize this equalizer node
     ///
     /// - Parameters:
@@ -93,33 +93,33 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         cornerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
-
+        
         self.cornerFrequency = cornerFrequency
         self.gain = gain
         self.q = q
-
+        
         _Self.register()
-
+        
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
+            
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
+            
             input?.connect(to: self!)
         }
-
+        
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-
+        
         cornerFrequencyParameter = tree["cornerFrequency"]
         gainParameter = tree["gain"]
         qParameter = tree["q"]
-
+        
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
+            
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -129,19 +129,19 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
                 // value observing, but if you need to, this is where that goes.
             }
         })
-
+        
         internalAU?.cornerFrequency = Float(cornerFrequency)
         internalAU?.gain = Float(gain)
         internalAU?.q = Float(q)
     }
-
+    
     // MARK: - Control
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

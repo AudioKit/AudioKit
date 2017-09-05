@@ -9,43 +9,43 @@
 import Cocoa
 
 public class AKResourcesAudioFileLoaderView: NSView {
-
+    
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
-
+    
     var player: AKAudioPlayer?
     var stopOuterPath = NSBezierPath()
     var playOuterPath = NSBezierPath()
     var upOuterPath = NSBezierPath()
     var downOuterPath = NSBezierPath()
-
+    
     var currentIndex = 0
     var titles = [String]()
-
+    
     open var bgColor: AKColor? {
         didSet {
             needsDisplay = true
         }
     }
-
+    
     open var textColor: AKColor? {
         didSet {
             needsDisplay = true
         }
     }
-
+    
     open var borderColor: AKColor? {
         didSet {
             needsDisplay = true
         }
     }
-
+    
     open var borderWidth: CGFloat = 3.0 {
         didSet {
             needsDisplay = true
         }
     }
-
+    
     /// Initialize the resource loader
     public convenience init(player: AKAudioPlayer,
                             filenames: [String],
@@ -54,7 +54,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         self.player = player
         self.titles = filenames
     }
-
+    
     /// Handle click
     override public func mouseDown(with theEvent: NSEvent) {
         var isFileChanged = false
@@ -78,7 +78,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         }
         if currentIndex < 0 { currentIndex = titles.count - 1 }
         if currentIndex >= titles.count { currentIndex = 0 }
-
+        
         if isFileChanged {
             player?.stop()
             let filename = titles[currentIndex]
@@ -93,50 +93,50 @@ public class AKResourcesAudioFileLoaderView: NSView {
         }
         needsDisplay = true
     }
-
+    
     // Default background color per theme
     var bgColorForTheme: AKColor {
         if let bgColor = bgColor { return bgColor }
-
+        
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.8, alpha: 1.0)
         case .midnight: return AKColor(white: 0.7, alpha: 1.0)
         }
     }
-
+    
     // Default border color per theme
     var borderColorForTheme: AKColor {
         if let borderColor = borderColor { return borderColor }
-
+        
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0).withAlphaComponent(0.8)
         case .midnight: return AKColor.white.withAlphaComponent(0.8)
         }
     }
-
+    
     // Default text color per theme
     var textColorForTheme: AKColor {
         if let textColor = textColor { return textColor }
-
+        
         switch AKStylist.sharedInstance.theme {
         case .basic: return AKColor(white: 0.3, alpha: 1.0)
         case .midnight: return AKColor.white
         }
     }
-
+    
     func drawAudioFileLoader(sliderColor: NSColor = AKStylist.sharedInstance.colorForFalseValue,
                              fileName: String = "None") {
         //// General Declarations
         let _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
         let rect = bounds
-
+        
         let cornerRadius: CGFloat = AKResourcesAudioFileLoaderView.standardCornerRadius
-
+        
         //// Color Declarations
         let backgroundColor = bgColorForTheme
         let color = AKStylist.sharedInstance.colorForTrueValue
         let dark = textColorForTheme
-
+        
         //// background Drawing
         let backgroundPath = NSBezierPath(rect: NSRect(x: borderWidth,
                                                        y: borderWidth,
@@ -144,7 +144,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
                                                        height: rect.height - borderWidth * 2.0))
         backgroundColor.setFill()
         backgroundPath.fill()
-
+        
         //// stopButton
         //// stopOuter Drawing
         stopOuterPath = NSBezierPath(rect: NSRect(x: borderWidth,
@@ -153,7 +153,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
                                                   height: rect.height - borderWidth * 2.0))
         sliderColor.setFill()
         stopOuterPath.fill()
-
+        
         //// stopInner Drawing
         let stopInnerPath = NSBezierPath(roundedRect: NSRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
                                                              y: rect.height * 0.25,
@@ -163,7 +163,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
                                          yRadius: cornerRadius)
         dark.setFill()
         stopInnerPath.fill()
-
+        
         //// playButton
         //// playOuter Drawing
         playOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.13 + borderWidth,
@@ -172,7 +172,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
                                                   height: rect.height - borderWidth * 2.0))
         color.setFill()
         playOuterPath.fill()
-
+        
         //// playInner Drawing
         let playRect = NSRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + borderWidth + rect.width * 0.13 + borderWidth,
                               y: rect.height * 0.25,
@@ -198,7 +198,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         playInnerPath.fill()
         dark.setStroke()
         playInnerPath.stroke()
-
+        
         // stopButton border Path
         let stopButtonBorderPath = NSBezierPath()
         stopButtonBorderPath.move(to: NSPoint(x: rect.width * 0.13 + borderWidth, y: borderWidth))
@@ -206,7 +206,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         borderColorForTheme.setStroke()
         stopButtonBorderPath.lineWidth = borderWidth / 2.0
         stopButtonBorderPath.stroke()
-
+        
         // playButton border Path
         let playButtonBorderPath = NSBezierPath()
         playButtonBorderPath.move(to: NSPoint(x: rect.width * 0.13 * 2.0 + borderWidth, y: borderWidth))
@@ -214,14 +214,14 @@ public class AKResourcesAudioFileLoaderView: NSView {
         borderColorForTheme.setStroke()
         playButtonBorderPath.lineWidth = borderWidth / 2.0
         playButtonBorderPath.stroke()
-
+        
         //// upButton
         //// upOuter Drawing
         upOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.9,
                                                 y: rect.height * 0.5,
                                                 width: rect.width * 0.07,
                                                 height: rect.height * 0.5))
-
+        
         //// upInner Drawing
         let upperArrowRect = NSRect(x: rect.width * 0.9,
                                     y: rect.height * 0.58,
@@ -248,12 +248,12 @@ public class AKResourcesAudioFileLoaderView: NSView {
         textColorForTheme.setStroke()
         upInnerPath.lineWidth = borderWidth
         upInnerPath.stroke()
-
+        
         downOuterPath = NSBezierPath(rect: NSRect(x: rect.width * 0.9,
                                                   y: 0,
                                                   width: rect.width * 0.07,
                                                   height: rect.height * 0.5))
-
+        
         //// downInner Drawing
         let downArrowRect = NSRect(x: rect.width * 0.9,
                                    y: rect.height * 0.12,
@@ -281,16 +281,16 @@ public class AKResourcesAudioFileLoaderView: NSView {
         textColorForTheme.setStroke()
         downInnerPath.lineWidth = borderWidth
         downInnerPath.stroke()
-
+        
         //// nameLabel Drawing
         let nameLabelRect = NSRect(x: 120, y: 0, width: 320, height: 60)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
-
+        
         let nameLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 24.0),
                                        NSAttributedStringKey.foregroundColor: textColorForTheme,
                                        NSAttributedStringKey.paragraphStyle: nameLabelStyle]
-
+        
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
             with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
@@ -306,18 +306,18 @@ public class AKResourcesAudioFileLoaderView: NSView {
         NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                         withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
-
+        
         let outerRect = CGRect(x: rect.origin.x + borderWidth / 2.0,
                                y: rect.origin.y + borderWidth / 2.0,
                                width: rect.width - borderWidth,
                                height: rect.height - borderWidth)
-
+        
         let outerPath = NSBezierPath(roundedRect: outerRect, xRadius: cornerRadius, yRadius: cornerRadius)
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
         outerPath.stroke()
     }
-
+    
     /// Draw the resource loader
     override public func draw(_ rect: CGRect) {
         drawAudioFileLoader(fileName: titles[currentIndex])

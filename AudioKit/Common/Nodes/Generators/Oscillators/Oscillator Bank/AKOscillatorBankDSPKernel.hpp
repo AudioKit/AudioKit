@@ -39,7 +39,7 @@ public:
             osc->freq = 0;
             osc->amp = 0;
         }
-
+        
         
         void clear() {
             stage = stageOff;
@@ -56,7 +56,7 @@ public:
             //prev = next = nullptr; Had to remove due to a click, potentially bad
             
             --kernel->playingNotesCount;
-
+            
             sp_osc_destroy(&osc);
             sp_adsr_destroy(&adsr);
         }
@@ -90,22 +90,22 @@ public:
                 internalGate = 1;
             }
         }
-
+        
         
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = osc->freq;
-
+            
             osc->freq *= powf(2, kernel->pitchBend / 12.0);
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
             float bentFrequency = osc->freq;
-
+            
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
-
-
+            
+            
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
                 osc->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
@@ -121,27 +121,27 @@ public:
                 remove();
             }
         }
-    
+        
     };
-
+    
     // MARK: Member Functions
-
+    
     AKOscillatorBankDSPKernel() {
         noteStates.resize(128);
         for (NoteState& state : noteStates) {
             state.kernel = this;
         }
     }
-
+    
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
-
+    
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
-
+    
     void reset() {
         for (NoteState& state : noteStates) {
             state.clear();
@@ -151,33 +151,33 @@ public:
     }
     
     standardBankKernelFunctions()
-
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            standardBankSetParameters()
+                standardBankSetParameters()
         }
     }
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            standardBankGetParameters()
+                standardBankGetParameters()
         }
     }
     
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            standardBankStartRamps()
+                standardBankStartRamps()
         }
     }
     
     standardHandleMIDI()
     
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
-
+        
         standardBankGetAndSteps()
-
+        
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
@@ -193,21 +193,21 @@ public:
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
         }
-
+        
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] *= .5f;
             outR[i] *= .5f;
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
     std::vector<NoteState> noteStates;
-
+    
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
-
+    
 public:
     NoteState* playingNotes = nullptr;
 };

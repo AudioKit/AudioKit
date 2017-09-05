@@ -6,33 +6,33 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 #if !JAZZY_HACK
-import AudioKit
+    import AudioKit
 #endif
 
 /// Plot the output from any node in an signal processing graph
 @IBDesignable
 open class AKNodeOutputPlot: EZAudioPlot {
-
+    
     internal func setupNode(_ input: AKNode?) {
         input?.avAudioNode.installTap(onBus: 0,
                                       bufferSize: bufferSize,
                                       format: nil) { [weak self] (buffer, _) in
-
-            guard let strongSelf = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            }
-            buffer.frameLength = strongSelf.bufferSize
-            let offset = Int(buffer.frameCapacity - buffer.frameLength)
-            if let tail = buffer.floatChannelData?[0] {
-                strongSelf.updateBuffer(&tail[offset],
-                                        withBufferSize: strongSelf.bufferSize)
-            }
+                                        
+                                        guard let strongSelf = self else {
+                                            AKLog("Unable to create strong reference to self")
+                                            return
+                                        }
+                                        buffer.frameLength = strongSelf.bufferSize
+                                        let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                                        if let tail = buffer.floatChannelData?[0] {
+                                            strongSelf.updateBuffer(&tail[offset],
+                                                                    withBufferSize: strongSelf.bufferSize)
+                                        }
         }
     }
-
+    
     internal var bufferSize: UInt32 = 1_024
-
+    
     /// The node whose output to graph
     open var node: AKNode? {
         willSet {
@@ -42,11 +42,11 @@ open class AKNodeOutputPlot: EZAudioPlot {
             setupNode(node)
         }
     }
-
+    
     deinit {
         node?.avAudioNode.removeTap(onBus: 0)
     }
-
+    
     /// Required coder-based initialization (for use with Interface Builder)
     ///
     /// - parameter coder: NSCoder
@@ -55,7 +55,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
         super.init(coder: aDecoder)
         setupNode(nil)
     }
-
+    
     /// Initialize the plot with the output from a given node and optional plot size
     ///
     /// - Parameters:
@@ -69,7 +69,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
         self.backgroundColor = AKColor.white
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
-
+        
         setupNode(input)
     }
 }

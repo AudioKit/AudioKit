@@ -15,19 +15,19 @@ import CoreAudio
 ///
 open class AKMIDISampler: AKSampler {
     // MARK: - Properties
-
+    
     /// MIDI Input
     open var midiIn = MIDIEndpointRef()
-
+    
     /// Name of the instrument
     open var name = "MIDI Sampler"
-
+    
     /// Initialize the MIDI Sampler
     public override init() {
         super.init()
         enableMIDI()
     }
-
+    
     /// Enable MIDI input from a given MIDI client
     /// This is not in the init function because it must be called AFTER you start AudioKit
     ///
@@ -44,37 +44,37 @@ open class AKMIDISampler: AKSampler {
             }
         })
     }
-
+    
     private func handle(event: AKMIDIEvent) {
         self.handleMIDI(data1: event.internalData[0],
                         data2: event.internalData[1],
                         data3: event.internalData[2])
     }
-
+    
     // MARK: - Handling MIDI Data
-
+    
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         let status = data1 >> 4
         let channel = data1 & 0xF
-
+        
         if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 > 0 {
-
+            
             play(noteNumber: MIDINoteNumber(data2),
                  velocity: MIDIVelocity(data3),
                  channel: MIDIChannel(channel))
-
+            
         } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
-
+            
             stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
-
+            
         } else if Int(status) == AKMIDIStatus.controllerChange.rawValue {
-
+            
             midiCC(data2, value: data3, channel: channel)
-
+            
         }
     }
-
+    
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
@@ -91,7 +91,7 @@ open class AKMIDISampler: AKSampler {
             stop(noteNumber: noteNumber, channel: channel)
         }
     }
-
+    
     /// Handle MIDI CC that come in externally
     ///
     /// - Parameters:
@@ -102,21 +102,21 @@ open class AKMIDISampler: AKSampler {
     open func midiCC(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         samplerUnit.sendController(controller, withValue: value, onChannel: channel)
     }
-
+    
     // MARK: - MIDI Note Start/Stop
-
+    
     /// Start a note
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {
         samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
-
+    
     /// Stop a note
     open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
-
+    
     /// Discard all virtual ports
     open func destroyEndpoint() {
         if midiIn != 0 {
@@ -124,5 +124,5 @@ open class AKMIDISampler: AKSampler {
             midiIn = 0
         }
     }
-
+    
 }

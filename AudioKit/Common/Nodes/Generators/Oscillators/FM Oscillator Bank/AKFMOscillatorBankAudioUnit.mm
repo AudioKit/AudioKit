@@ -40,7 +40,7 @@ standardBankFunctions()
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(FMOscillatorBank)
     standardBankParameters()
     
@@ -83,24 +83,24 @@ standardBankFunctions()
                                       valueStrings:nil
                                dependentParameters:nil];
     
-
+    
     // Initialize the parameter values.
     carrierMultiplierAUParameter.value = 1.0;
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
-
+    
     _kernel.setParameter(carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
     _kernel.setParameter(modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
     _kernel.setParameter(modulationIndexAddress,      modulationIndexAUParameter.value);
     
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        standardBankAUParameterList(),
-        carrierMultiplierAUParameter,
-        modulatingMultiplierAUParameter,
-        modulationIndexAUParameter
-    ]];
-	parameterTreeBlock(FMOscillatorBank)
+                                                               standardBankAUParameterList(),
+                                                               carrierMultiplierAUParameter,
+                                                               modulatingMultiplierAUParameter,
+                                                               modulationIndexAUParameter
+                                                               ]];
+    parameterTreeBlock(FMOscillatorBank)
 }
 
 AUAudioUnitGeneratorOverrides(FMOscillatorBank)

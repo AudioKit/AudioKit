@@ -13,9 +13,9 @@
 class AKAmplitudeTrackerDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
-
+    
     AKAmplitudeTrackerDSPKernel() {}
-
+    
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_rms_create(&leftRMS);
@@ -29,22 +29,22 @@ public:
     void setThreshold(float value) {
         threshold = value;
     }
-
+    
     void start() {
         started = true;
     }
-
+    
     void stop() {
         started = false;
     }
-
+    
     void destroy() {
         //printf("AKAmplitudeTrackerDSPKernel.destroy() \n");
         AKSoundpipeKernel::destroy();
         sp_rms_destroy(&leftRMS);
         sp_rms_destroy(&rightRMS);
     }
-
+    
     void reset() {
     }
     
@@ -52,10 +52,10 @@ public:
         halfPowerPoint = value;
     }
     
-//    void setSmoothness(float value) {
-//        smoothness = value;
-//    } //in development
-
+    //    void setSmoothness(float value) {
+    //        smoothness = value;
+    //    } //in development
+    
     void setParameter(AUParameterAddress address, AUValue value) {
     }
     
@@ -65,13 +65,13 @@ public:
     
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
     }
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
+            
             int frameOffset = int(frameIndex + bufferOffset);
-
+            
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float temp = *in;
@@ -107,11 +107,11 @@ public:
         }
         
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
-
+    
     sp_rms *leftRMS;
     sp_rms *rightRMS;
     float threshold = 1.0;

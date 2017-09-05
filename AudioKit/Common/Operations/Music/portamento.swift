@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Portamento-style control signal smoothing
     /// Useful for smoothing out low-resolution signals and applying glissando to
     /// filters.

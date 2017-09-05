@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Keep track of the number of times a trigger has fired
     ///
     /// - Parameters:

@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Line segments with vertices at random points
     ///
     /// - Parameters:
