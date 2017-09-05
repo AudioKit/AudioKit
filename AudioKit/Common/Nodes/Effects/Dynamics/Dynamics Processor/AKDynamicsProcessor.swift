@@ -136,45 +136,45 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         inputAmplitude: Double = 0,
         outputAmplitude: Double = 0) {
 
-            self.threshold = threshold
-            self.headRoom = headRoom
-            self.expansionRatio = expansionRatio
-            self.expansionThreshold = expansionThreshold
-            self.attackTime = attackTime
-            self.releaseTime = releaseTime
-            self.masterGain = masterGain
+        self.threshold = threshold
+        self.headRoom = headRoom
+        self.expansionRatio = expansionRatio
+        self.expansionThreshold = expansionThreshold
+        self.attackTime = attackTime
+        self.releaseTime = releaseTime
+        self.masterGain = masterGain
 
-            inputGain = AKMixer()
-            inputGain?.volume = 0
-            mixer = AKMixer(inputGain)
+        inputGain = AKMixer()
+        inputGain?.volume = 0
+        mixer = AKMixer(inputGain)
 
-            effectGain = AKMixer()
-            effectGain?.volume = 1
+        effectGain = AKMixer()
+        effectGain?.volume = 1
 
-            input?.connect(to: inputMixer)
-            inputMixer.connect(to: [inputGain!, effectGain!])
+        input?.connect(to: inputMixer)
+        inputMixer.connect(to: [inputGain!, effectGain!])
 
-            let effect = _Self.effect
-            self.internalEffect = effect
+        let effect = _Self.effect
+        self.internalEffect = effect
 
-            AudioKit.engine.attach(effect)
+        AudioKit.engine.attach(effect)
 
-            au = AUWrapper(effect)
+        au = AUWrapper(effect)
 
-            if let node = effectGain?.avAudioNode {
-                AudioKit.engine.connect(node, to: effect)
-            }
-            AudioKit.engine.connect(effect, to: mixer.avAudioNode)
+        if let node = effectGain?.avAudioNode {
+            AudioKit.engine.connect(node, to: effect)
+        }
+        AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
-            super.init(avAudioNode: mixer.avAudioNode)
+        super.init(avAudioNode: mixer.avAudioNode)
 
-            au[kDynamicsProcessorParam_Threshold] = threshold
-            au[kDynamicsProcessorParam_HeadRoom] = headRoom
-            au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
-            au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
-            au[kDynamicsProcessorParam_AttackTime] = attackTime
-            au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
-            au[kDynamicsProcessorParam_MasterGain] = masterGain
+        au[kDynamicsProcessorParam_Threshold] = threshold
+        au[kDynamicsProcessorParam_HeadRoom] = headRoom
+        au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
+        au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
+        au[kDynamicsProcessorParam_AttackTime] = attackTime
+        au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
+        au[kDynamicsProcessorParam_MasterGain] = masterGain
     }
 
     public var inputNode: AVAudioNode {
