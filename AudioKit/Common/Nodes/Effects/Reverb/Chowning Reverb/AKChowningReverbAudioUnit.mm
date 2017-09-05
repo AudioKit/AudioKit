@@ -23,12 +23,12 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardSetup(ChowningReverb)
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-	parameterTreeBlock(ChowningReverb)
+    parameterTreeBlock(ChowningReverb)
 }
 
 AUAudioUnitOverrides(ChowningReverb);

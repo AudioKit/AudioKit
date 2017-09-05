@@ -13,57 +13,57 @@
 class AKChowningReverbDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
-
+    
     AKChowningReverbDSPKernel() {}
-
+    
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-
+        
         sp_jcrev_create(&jcrev0);
         sp_jcrev_init(sp, jcrev0);
         sp_jcrev_create(&jcrev1);
         sp_jcrev_init(sp, jcrev1);
     }
-
+    
     void start() {
         started = true;
     }
-
+    
     void stop() {
         started = false;
     }
-
+    
     void destroy() {
         sp_jcrev_destroy(&jcrev0);
         sp_jcrev_destroy(&jcrev1);
         AKSoundpipeKernel::destroy();
     }
-
+    
     void reset() {
     }
-
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             default: return 0.0f;
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
         }
     }
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
+            
             int frameOffset = int(frameIndex + bufferOffset);
-
+            
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -80,14 +80,14 @@ public:
             }
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
-
+    
     sp_jcrev *jcrev0;
     sp_jcrev *jcrev1;
-
+    
 public:
     bool started = true;
     bool resetted = true;

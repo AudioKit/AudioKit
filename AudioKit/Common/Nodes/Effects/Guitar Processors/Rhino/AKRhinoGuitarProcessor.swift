@@ -11,11 +11,11 @@
 open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKRhinoGuitarProcessorAudioUnit
     public static let ComponentDescription = AudioComponentDescription(effect: "dlrh")
-
+    
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-
+    
     fileprivate var preGainParameter: AUParameter?
     fileprivate var postGainParameter: AUParameter?
     fileprivate var lowGainParameter: AUParameter?
@@ -23,14 +23,14 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var highGainParameter: AUParameter?
     //fileprivate var distTypeParameter: AUParameter?
     fileprivate var distAmountParameter: AUParameter?
-
+    
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = rampTime
         }
     }
-
+    
     /// Determines the amount of gain applied to the signal before processing.
     @objc open dynamic var preGain: Double = 5.0 {
         willSet {
@@ -45,7 +45,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-
+    
     /// Gain applied after processing.
     @objc open dynamic var postGain: Double = 0.7 {
         willSet {
@@ -60,7 +60,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-
+    
     /// Amount of Low frequencies.
     @objc open dynamic var lowGain: Double = 0.0 {
         willSet {
@@ -75,7 +75,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-
+    
     /// Amount of Middle frequencies.
     @objc open dynamic var midGain: Double = 0.0 {
         willSet {
@@ -90,7 +90,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-
+    
     /// Amount of High frequencies.
     @objc open dynamic var highGain: Double = 0.0 {
         willSet {
@@ -105,22 +105,22 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-
+    
     /// Distortion Type
-//    open dynamic var distType: Double = 1 {
-//        willSet {
-//            if distType != newValue {
-//                if internalAU?.isSetUp() ?? false {
-//                    if let existingToken = token {
-//                        distTypeParameter?.setValue(Float(newValue), originator: existingToken)
-//                    }
-//                } else {
-//                    internalAU?.distType = Float(newValue)
-//                }
-//            }
-//        }
-//    }
-
+    //    open dynamic var distType: Double = 1 {
+    //        willSet {
+    //            if distType != newValue {
+    //                if internalAU?.isSetUp() ?? false {
+    //                    if let existingToken = token {
+    //                        distTypeParameter?.setValue(Float(newValue), originator: existingToken)
+    //                    }
+    //                } else {
+    //                    internalAU?.distType = Float(newValue)
+    //                }
+    //            }
+    //        }
+    //    }
+    
     /// Distortion Amount
     @objc open dynamic var distAmount: Double = 1.0 {
         willSet {
@@ -135,14 +135,14 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
             }
         }
     }
-
+    
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-
+    
     // MARK: - Initialization
-
+    
     /// Initialize this Rhino head and cab simulator node
     ///
     /// - Parameters:
@@ -164,7 +164,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         highGain: Double = 0.0,
         distType: Double = 1,
         distAmount: Double = 1.0) {
-
+        
         self.preGain = preGain
         self.postGain = postGain
         self.lowGain = lowGain
@@ -172,23 +172,23 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         self.highGain = highGain
         //self.distType = distType
         self.distAmount = distAmount
-
+        
         _Self.register()
-
+        
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
+            
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
+            
             input?.connect(to: self!)
         }
-
+        
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-
+        
         preGainParameter = tree["preGain"]
         postGainParameter = tree["postGain"]
         lowGainParameter = tree["lowGain"]
@@ -196,9 +196,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         highGainParameter = tree["highGain"]
         //distTypeParameter = tree["distType"]
         distAmountParameter = tree["distAmount"]
-
+        
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
-
+            
             DispatchQueue.main.async {
                 if address == self?.preGainParameter?.address {
                     self?.preGain = Double(value)
@@ -215,7 +215,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
                 }
             }
         })
-
+        
         internalAU?.preGain = Float(preGain)
         internalAU?.postGain = Float(postGain)
         internalAU?.lowGain = Float(lowGain)
@@ -224,14 +224,14 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.distType = Float(distType)
         internalAU?.distAmount = Float(distAmount)
     }
-
+    
     // MARK: - Control
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()
