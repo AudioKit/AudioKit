@@ -24,19 +24,19 @@ extern "C" {
 class AKOperationEffectDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
-
+    
     AKOperationEffectDSPKernel() {}
-
+    
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-
+        
         plumber_register(&pd);
         plumber_init(&pd);
-
+        
         for (auto info : customUgens) {
-          plumber_ftmap_add_function(&pd, info.name, info.func, info.userData);
+            plumber_ftmap_add_function(&pd, info.name, info.func, info.userData);
         }
-
+        
         pd.sp = sp;
         if (sporthCode != nil) {
             plumber_parse_string(&pd, sporthCode);
@@ -54,11 +54,11 @@ public:
             parameters[i] = params[i];
         }
     };
-
+    
     void addCustomUgen(AKCustomUgenInfo info) {
         customUgens.push_back(info);
     }
-
+    
     void start() {
         started = true;
     }
@@ -66,7 +66,7 @@ public:
     void stop() {
         started = false;
     }
-
+    
     void destroy() {
         plumber_clean(&pd);
         AKSoundpipeKernel::destroy();
@@ -74,23 +74,23 @@ public:
     
     void reset() {
     }
-
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             default: return 0.0f;
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
         }
     }
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         
         if (!started) {
@@ -98,9 +98,9 @@ public:
             outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
             return;
         }
-
+        
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
+            
             int frameOffset = int(frameIndex + bufferOffset);
             
             for (int channel = 0; channel < channels; ++channel) {
@@ -115,7 +115,7 @@ public:
             }
             
             plumber_compute(&pd, PLUMBER_COMPUTE);
-
+            
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 *out = sporth_stack_pop_float(&pd.sporth.stack);
@@ -126,11 +126,11 @@ public:
             }
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
-
+    
     plumber_data pd;
     char *sporthCode = nil;
     std::vector<AKCustomUgenInfo> customUgens;
