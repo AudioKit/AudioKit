@@ -10,7 +10,7 @@ internal extension Collection where Index == Int {
     var startIndex: Index {
         return 0
     }
-
+    
     func index(after index: Index) -> Index {
         return index + 1
     }
@@ -27,13 +27,13 @@ func MIDIOutputPort(client: MIDIClientRef, name: CFString) -> MIDIPortRef? {
 internal struct MIDIDestinations: Collection {
     typealias Index = Int
     typealias Element = MIDIEndpointRef
-
+    
     init() { }
-
+    
     var endIndex: Index {
         return MIDIGetNumberOfDestinations()
     }
-
+    
     subscript (index: Index) -> Element {
         return MIDIGetDestination(index)
     }
@@ -52,7 +52,7 @@ extension AKMIDI {
     public var destinationNames: [String] {
         return MIDIDestinations().names
     }
-
+    
     /// Open a MIDI Output Port
     ///
     /// Destination name (string) can be empty for some hardware device;
@@ -66,7 +66,7 @@ extension AKMIDI {
             return
         }
         outputPort = tempPort
-
+        
         // To get all endpoints; and set in endpoints array (mapping without condition)
         if namedOutput == nil {
             _ = zip(destinationNames, MIDIDestinations()).map {
@@ -82,7 +82,7 @@ extension AKMIDI {
     /// Send Message with data
     public func sendMessage(_ data: [MIDIByte]) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
-
+        
         var packet = MIDIPacketListInit(packetListPointer)
         packet = MIDIPacketListAdd(packetListPointer, 1_024, packet, 0, data.count, data)
         for endpoint in endpoints.values {
@@ -91,25 +91,25 @@ extension AKMIDI {
                 AKLog("error sending midi : \(result)")
             }
         }
-
+        
         if virtualOutput != 0 {
             MIDIReceived(virtualOutput, packetListPointer)
         }
-
+        
         packetListPointer.deinitialize()
         packetListPointer.deallocate(capacity: 1)//necessary? wish i could do this without the alloc above
     }
-
+    
     /// Clear MIDI destinations
     public func clearEndpoints() {
         endpoints.removeAll()
     }
-
+    
     /// Send Messsage from MIDI event data
     public func sendEvent(_ event: AKMIDIEvent) {
         sendMessage(event.internalData)
     }
-
+    
     /// Send a Note On Message
     public func sendNoteOnMessage(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
@@ -118,7 +118,7 @@ extension AKMIDI {
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message)
     }
-
+    
     /// Send a Note Off Message
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
                                    velocity: MIDIVelocity,
@@ -127,12 +127,12 @@ extension AKMIDI {
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessage(message)
     }
-
+    
     /// Send a Continuous Controller message
     public func sendControllerMessage(_ control: MIDIByte, value: MIDIByte, channel: MIDIChannel = 0) {
         let controlCommand: MIDIByte = MIDIByte(0xB0) + channel
         let message: [MIDIByte] = [controlCommand, control, value]
         self.sendMessage(message)
     }
-
+    
 }

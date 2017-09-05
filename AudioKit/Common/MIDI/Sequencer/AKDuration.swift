@@ -11,16 +11,16 @@ public typealias BPM = Double
 /// Container for the notion of time in sequencing
 public struct AKDuration: CustomStringConvertible, Comparable {
     let secondsPerMinute = 60
-
+    
     /// Duration in beats
     public var beats: Double
-
+    
     /// Samples per second
     public var sampleRate: Double = 44_100
-
+    
     /// Tempo in BPM (beats per minute)
     public var tempo: BPM = 60.0
-
+    
     /// While samples is the most accurate, they blow up too fast, so using beat as standard
     public var samples: Int {
         get {
@@ -36,27 +36,27 @@ public struct AKDuration: CustomStringConvertible, Comparable {
             beats = (newValue / sampleRate) / secondsPerMinute * tempo
         }
     }
-
+    
     /// Regular time measurement
     public var seconds: Double {
         return Double(samples) / sampleRate
     }
-
+    
     /// Useful for math using tempo in BPM (beats per minute)
     public var minutes: Double {
         return seconds / 60.0
     }
-
+    
     /// Music time stamp for the duration in beats
     public var musicTimeStamp: MusicTimeStamp {
         return MusicTimeStamp(beats)
     }
-
+    
     /// Pretty printout
     public var description: String {
         return "\(samples) samples at \(sampleRate) = \(beats) Beats at \(tempo) BPM = \(seconds)s"
     }
-
+    
     /// Initialize with samples
     ///
     /// - Parameters:
@@ -68,7 +68,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
         self.sampleRate = sampleRate
         self.tempo = tempo
     }
-
+    
     /// Initialize from a beat perspective
     ///
     /// - Parameters:
@@ -79,7 +79,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
         self.beats = beats
         self.tempo = tempo
     }
-
+    
     /// Initialize from a normal time perspective
     ///
     /// - Parameters:
@@ -91,8 +91,8 @@ public struct AKDuration: CustomStringConvertible, Comparable {
         self.tempo = tempo
         self.beats = tempo * (seconds / secondsPerMinute)
     }
-
-
+    
+    
     /// Add to a duration
     ///
     /// - parameter lhs: Starting duration
@@ -101,7 +101,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     public static func += (lhs: inout AKDuration, rhs: AKDuration) {
         lhs.beats += rhs.beats
     }
-
+    
     /// Subtract from a duration
     ///
     /// - parameter lhs: Starting duration
@@ -110,7 +110,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     public static func -= (lhs: inout AKDuration, rhs: AKDuration) {
         lhs.beats -= rhs.beats
     }
-
+    
     /// Duration equality
     ///
     /// - parameter lhs: One duration
@@ -119,7 +119,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     public static func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
         return lhs.beats == rhs.beats
     }
-
+    
     /// Duration less than
     ///
     /// - parameter lhs: One duration
@@ -128,7 +128,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     public static func < (lhs: AKDuration, rhs: AKDuration) -> Bool {
         return lhs.beats < rhs.beats
     }
-
+    
     /// Adding durations
     ///
     /// - parameter lhs: One duration
@@ -139,7 +139,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
         newDuration.beats += rhs.beats
         return newDuration
     }
-
+    
     /// Subtracting durations
     ///
     /// - parameter lhs: One duration
@@ -150,7 +150,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
         newDuration.beats -= rhs.beats
         return newDuration
     }
-
+    
     /// Modulus of the duration's beats
     ///
     /// - parameter lhs: One duration
