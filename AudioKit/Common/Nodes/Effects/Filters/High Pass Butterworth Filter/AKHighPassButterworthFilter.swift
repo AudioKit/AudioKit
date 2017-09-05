@@ -13,21 +13,21 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     public typealias AKAudioUnitType = AKHighPassButterworthFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "bthp")
-
+    
     // MARK: - Properties
-
+    
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-
+    
     fileprivate var cutoffFrequencyParameter: AUParameter?
-
+    
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
-
+    
     /// Cutoff frequency. (in Hertz)
     @objc open dynamic var cutoffFrequency: Double = 500.0 {
         willSet {
@@ -42,14 +42,14 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
             }
         }
     }
-
+    
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
-
+    
     // MARK: - Initialization
-
+    
     /// Initialize this filter node
     ///
     /// - Parameters:
@@ -59,29 +59,29 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 500.0) {
-
+        
         self.cutoffFrequency = cutoffFrequency
-
+        
         _Self.register()
-
+        
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
+            
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
+            
             input?.connect(to: self!)
         }
-
+        
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-
+        
         cutoffFrequencyParameter = tree["cutoffFrequency"]
-
+        
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
+            
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -91,17 +91,17 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
                 // value observing, but if you need to, this is where that goes.
             }
         })
-
+        
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }
-
+    
     // MARK: - Control
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()

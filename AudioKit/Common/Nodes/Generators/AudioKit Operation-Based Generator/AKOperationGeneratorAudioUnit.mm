@@ -17,7 +17,7 @@
 @implementation AKOperationGeneratorAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKOperationGeneratorDSPKernel _kernel;
-
+    
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
@@ -68,7 +68,7 @@
     standardGeneratorSetup(OperationGenerator)
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-	parameterTreeBlock(OperationGenerator)
+    parameterTreeBlock(OperationGenerator)
 }
 
 AUAudioUnitGeneratorOverrides(OperationGenerator)

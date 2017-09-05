@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Simple square oscillator, not-band limited, can be used for LFO or wave,
     /// but squareWave is probably better for audio.
     ///

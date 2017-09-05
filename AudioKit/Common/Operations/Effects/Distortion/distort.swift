@@ -7,7 +7,7 @@
 //
 
 extension AKComputedParameter {
-
+    
     /// Distortion using a modified hyperbolic tangent function.
     ///
     /// - Parameters:

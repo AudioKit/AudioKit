@@ -42,7 +42,7 @@ public:
             osc->amp = 0;
             osc->wtpos = 0;
         }
-
+        
         
         void clear() {
             stage = stageOff;
@@ -59,7 +59,7 @@ public:
             //prev = next = nullptr; Had to remove due to a click, potentially bad
             
             --kernel->playingNotesCount;
-
+            
             sp_oscmorph_destroy(&osc);
         }
         
@@ -92,7 +92,7 @@ public:
                 internalGate = 1;
             }
         }
-
+        
         
         void run(int frameCount, float* outL, float* outR)
         {
@@ -106,7 +106,7 @@ public:
             adsr->dec = (float)kernel->decayDuration;
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
-
+            
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
                 osc->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
@@ -124,16 +124,16 @@ public:
         }
         
     };
-
+    
     // MARK: Member Functions
-
+    
     AKMorphingOscillatorBankDSPKernel() {
         noteStates.resize(128);
         for (NoteState& state : noteStates) {
             state.kernel = this;
         }
     }
-
+    
     void setupWaveform(uint32_t waveform, uint32_t size) {
         tbl_size = size;
         sp_ftbl_create(sp, &ft_array[waveform], tbl_size);
@@ -146,7 +146,7 @@ public:
     void setIndex(float value) {
         index = clamp(value, 0.0f, 3.0f);
     }
-
+    
     void reset() {
         for (NoteState& state : noteStates) {
             state.clear();
@@ -163,37 +163,37 @@ public:
             case indexAddress:
                 indexRamper.setUIValue(clamp(value, 0.0f, 3.0f));
                 break;
-            standardBankSetParameters()
+                standardBankSetParameters()
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case indexAddress:
                 return indexRamper.getUIValue();
-            standardBankGetParameters()
+                standardBankGetParameters()
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case indexAddress:
                 indexRamper.startRamp(clamp(value, 0.0f, 3.0f), duration);
                 break;
-            standardBankStartRamps()
+                standardBankStartRamps()
         }
     }
     
     standardHandleMIDI()
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
         
         index = double(indexRamper.getAndStep());
         standardBankGetAndSteps()
-
+        
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
@@ -215,17 +215,17 @@ public:
             outR[i] *= .5f;
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
     std::vector<NoteState> noteStates;
-
+    
     sp_ftbl *ft_array[4];
     UInt32 tbl_size = 4096;
-
+    
     float index = 0;
-
+    
 public:
     NoteState* playingNotes = nullptr;
     

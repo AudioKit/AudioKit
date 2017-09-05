@@ -7,7 +7,7 @@
 //
 
 extension AKOperation {
-
+    
     /// Classic FM Synthesis audio generation.
     ///
     /// - Parameters:
@@ -28,8 +28,8 @@ extension AKOperation {
         modulationIndex: AKParameter = 1.0,
         amplitude: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation(module: "fm",
-                               inputs: baseFrequency, amplitude,
-                                       carrierMultiplier, modulatingMultiplier, modulationIndex)
+        return AKOperation(module: "fm",
+                           inputs: baseFrequency, amplitude,
+                           carrierMultiplier, modulatingMultiplier, modulationIndex)
     }
 }

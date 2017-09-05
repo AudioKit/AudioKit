@@ -49,9 +49,9 @@ public:
     }
 
     void addUgensToFTable(plumber_data *pd) {
-      for (auto info : customUgens) {
-        plumber_ftmap_add_function(pd, info.name, info.func, info.userData);
-      }
+        for (auto info : customUgens) {
+            plumber_ftmap_add_function(pd, info.name, info.func, info.userData);
+        }
     }
     
     void trigger(int trigger) {
@@ -155,7 +155,7 @@ public:
 };
 
 static int addUgensToKernel(plumber_data *pd, void *ud) {
-  auto kernel = (AKOperationGeneratorDSPKernel *)ud;
-  kernel->addUgensToFTable(pd);
-  return PLUMBER_OK;
+    auto kernel = (AKOperationGeneratorDSPKernel *)ud;
+    kernel->addUgensToFTable(pd);
+    return PLUMBER_OK;
 }

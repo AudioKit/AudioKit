@@ -904,7 +904,6 @@
 		EAFECECD1F4EBD8E00A2B046 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CBB1E8A3D8000E42D93 /* AKButton.swift */; };
 		EAFECECF1F4EBD8E00A2B046 /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CBD1E8A3D8000E42D93 /* AKKeyboardView.swift */; };
 		EAFECED01F4EBD8E00A2B046 /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAAB1E9A11D800DEB790 /* AKPlaygroundLoop.swift */; };
-		EAFECED11F4EBD8E00A2B046 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAA91E9A118F00DEB790 /* AKPlaygroundView.swift */; };
 		EAFECED21F4EBD8E00A2B046 /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CC01E8A3D8000E42D93 /* AKPresetLoaderView.swift */; };
 		EAFECED31F4EBD8E00A2B046 /* AKSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CC11E8A3D8000E42D93 /* AKSlider.swift */; };
 		EAFECED41F4EBD8E00A2B046 /* AKResourceAudioFileLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D35CC21E8A3D8000E42D93 /* AKResourceAudioFileLoaderView.swift */; };
@@ -1676,7 +1675,6 @@
 		C47AC6141D5D49430005E485 /* AKBoosterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBoosterDSPKernel.hpp; sourceTree = "<group>"; };
 		C483F63C1D666D7A00374B2A /* trackedAmplitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = trackedAmplitude.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C486B3371DFE2A65009A25C4 /* gen_eval.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gen_eval.c; sourceTree = "<group>"; };
-		C486FAA91E9A118F00DEB790 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
 		C486FAAB1E9A11D800DEB790 /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C48B8EED1EB7031E00B1BC0E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = AudioKit/Dev.playground; sourceTree = "<group>"; };
 		C49390931E088F4C009FEAA1 /* AKStereoFieldLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiter.swift; sourceTree = "<group>"; };
@@ -4062,7 +4060,6 @@
 				C4D35CBD1E8A3D8000E42D93 /* AKKeyboardView.swift */,
 				C4EDFAA61F5B81370029A371 /* AKLiveViewController.swift */,
 				C486FAAB1E9A11D800DEB790 /* AKPlaygroundLoop.swift */,
-				C486FAA91E9A118F00DEB790 /* AKPlaygroundView.swift */,
 				C4D35CC01E8A3D8000E42D93 /* AKPresetLoaderView.swift */,
 				C45717AC1F5942FF0012DE53 /* AKPropertyControl.swift */,
 				C4D35CC21E8A3D8000E42D93 /* AKResourceAudioFileLoaderView.swift */,
@@ -5170,7 +5167,6 @@
 				EAFECEC71F4EBD7D00A2B046 /* AKNodeOutputPlot.swift in Sources */,
 				EAFECED21F4EBD8E00A2B046 /* AKPresetLoaderView.swift in Sources */,
 				C4EDF5F81F5B871300A45815 /* AKLiveViewController.swift in Sources */,
-				EAFECED11F4EBD8E00A2B046 /* AKPlaygroundView.swift in Sources */,
 				EAFECED41F4EBD8E00A2B046 /* AKResourceAudioFileLoaderView.swift in Sources */,
 				EAFECEC91F4EBD7D00A2B046 /* AKRollingOutputPlot.swift in Sources */,
 				EAFECEE21F4EBEC700A2B046 /* EZAudioPlotGL.m in Sources */,
