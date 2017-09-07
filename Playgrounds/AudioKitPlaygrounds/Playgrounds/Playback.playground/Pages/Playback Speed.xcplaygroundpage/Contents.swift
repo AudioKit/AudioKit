@@ -27,7 +27,7 @@ class LiveView: AKLiveViewController {
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addView(AKButton(title: "Stop Effect") { button in
-            let node = varispeed
+            let node = variSpeed
             node.isStarted ? node.stop() : node.play()
             button.title = node.isStarted ? "Stop Effect" : "Start Effect"
         })
