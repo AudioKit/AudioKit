@@ -1988,7 +1988,7 @@
 			path = Synchronization;
 			sourceTree = "<group>";
 		};
-		551AAC2B1F61F56200A14C0D /* FilePlayer */ = {
+		551AAC2B1F61F56200A14C0D /* ClipPlayer */ = {
 			isa = PBXGroup;
 			children = (
 				551AAC2C1F61F59500A14C0D /* AKClip.swift */,
@@ -1996,7 +1996,7 @@
 				551AAC2D1F61F59600A14C0D /* AKClipPlayer.swift */,
 				551AAC2F1F61F59700A14C0D /* AKClipRecorder.swift */,
 			);
-			path = FilePlayer;
+			path = ClipPlayer;
 			sourceTree = "<group>";
 		};
 		558D80871F4D2D9D001E7BC1 /* Utilities */ = {
@@ -2205,7 +2205,7 @@
 		C40C42AC1C420C1D009D870B /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				551AAC2B1F61F56200A14C0D /* FilePlayer */,
+				551AAC2B1F61F56200A14C0D /* ClipPlayer */,
 				C40C42AD1C420C1D009D870B /* AKAudioPlayer.swift */,
 			);
 			path = Player;
