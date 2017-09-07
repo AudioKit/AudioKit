@@ -13,7 +13,7 @@ extension AVAudioPCMBuffer {
     /// Returns an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
     func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
-            let buffer = AVAudioPCMBuffer.init(pcmFormat: format, frameCapacity: frameLength - startSample)
+            let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample)
         else {
             return nil
         }
@@ -25,20 +25,17 @@ extension AVAudioPCMBuffer {
             for channel in 0..<Int(format.channelCount) {
                 memcpy(dst[channel], src[channel] + Int(startSample), count * frameSize)
             }
-        }
-        else if let src = int16ChannelData,
+        } else if let src = int16ChannelData,
             let dst = buffer.int16ChannelData {
             for channel in 0..<Int(format.channelCount) {
                 memcpy(dst[channel], src[channel] + Int(startSample), count * frameSize)
             }
-        }
-        else if let src = int32ChannelData,
+        } else if let src = int32ChannelData,
             let dst = buffer.int32ChannelData {
             for channel in 0..<Int(format.channelCount) {
                 memcpy(dst[channel], src[channel] + Int(startSample), count * frameSize)
             }
-        }
-        else{
+        } else {
             return nil
         }
         buffer.frameLength = AVAudioFrameCount(count)
@@ -48,7 +45,7 @@ extension AVAudioPCMBuffer {
     /// Returns an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
     func copyTo(endSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard endSample < frameLength,
-            let buffer = AVAudioPCMBuffer.init(pcmFormat: format, frameCapacity: endSample)
+            let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: endSample)
         else {
             return nil
         }
@@ -59,20 +56,17 @@ extension AVAudioPCMBuffer {
             for channel in 0..<Int(buffer.format.channelCount) {
                 memcpy(dst[channel], src[channel], Int(endSample) * frameSize)
             }
-        }
-        else if let src = buffer.int16ChannelData,
+        } else if let src = buffer.int16ChannelData,
             let dst = buffer.int16ChannelData {
             for channel in 0..<Int(buffer.format.channelCount) {
                 memcpy(dst[channel], src[channel], Int(endSample) * frameSize)
             }
-        }
-        else if let src = buffer.int32ChannelData,
+        } else if let src = buffer.int32ChannelData,
             let dst = buffer.int32ChannelData {
             for channel in 0..<Int(buffer.format.channelCount) {
                 memcpy(dst[channel], src[channel], Int(endSample) * frameSize)
             }
-        }
-        else{
+        } else {
             return nil
         }
         return buffer

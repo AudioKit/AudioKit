@@ -992,6 +992,11 @@
 		5251477A1CC4AD7E00421C52 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
 		551AAC241F61F24500A14C0D /* AVAudioTimeShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioTimeShim.swift; sourceTree = "<group>"; };
 		551AAC251F61F24600A14C0D /* AVAudioBufferConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioBufferConvenience.swift; sourceTree = "<group>"; };
+		551AAC2A1F61F48300A14C0D /* AKTiming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTiming.swift; sourceTree = "<group>"; };
+		551AAC2C1F61F59500A14C0D /* AKClip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClip.swift; sourceTree = "<group>"; };
+		551AAC2D1F61F59600A14C0D /* AKClipPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClipPlayer.swift; sourceTree = "<group>"; };
+		551AAC2E1F61F59700A14C0D /* AKClipMerger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClipMerger.swift; sourceTree = "<group>"; };
+		551AAC2F1F61F59700A14C0D /* AKClipRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClipRecorder.swift; sourceTree = "<group>"; };
 		552FBD421F3F6A5600C02C08 /* AKConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConnection.swift; sourceTree = "<group>"; };
 		5551E7EA1F55316400757781 /* AKTimeline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AKTimeline.c; sourceTree = "<group>"; };
 		5551E7EB1F55316400757781 /* AKTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimeline.h; sourceTree = "<group>"; };
@@ -1968,6 +1973,32 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		551AAC281F61F40E00A14C0D /* Synchronization */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Synchronization;
+			sourceTree = "<group>";
+		};
+		551AAC291F61F42100A14C0D /* Synchronization */ = {
+			isa = PBXGroup;
+			children = (
+				551AAC2A1F61F48300A14C0D /* AKTiming.swift */,
+			);
+			path = Synchronization;
+			sourceTree = "<group>";
+		};
+		551AAC2B1F61F56200A14C0D /* FilePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				551AAC2C1F61F59500A14C0D /* AKClip.swift */,
+				551AAC2E1F61F59700A14C0D /* AKClipMerger.swift */,
+				551AAC2D1F61F59600A14C0D /* AKClipPlayer.swift */,
+				551AAC2F1F61F59700A14C0D /* AKClipRecorder.swift */,
+			);
+			path = FilePlayer;
+			sourceTree = "<group>";
+		};
 		558D80871F4D2D9D001E7BC1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -2174,6 +2205,7 @@
 		C40C42AC1C420C1D009D870B /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				551AAC2B1F61F56200A14C0D /* FilePlayer */,
 				C40C42AD1C420C1D009D870B /* AKAudioPlayer.swift */,
 			);
 			path = Player;
@@ -2350,6 +2382,7 @@
 				C48C6BCC1D3C15F1008EA51B /* Sporth */,
 				F02767351E79D2C60099CA47 /* Sporth Custom Ugens */,
 				C4A927951D1343AE0095E429 /* STK */,
+				551AAC291F61F42100A14C0D /* Synchronization */,
 				C40C41C91C40E4EE009D870B /* Testing */,
 				558D80871F4D2D9D001E7BC1 /* Utilities */,
 			);
@@ -4086,6 +4119,7 @@
 		F02767351E79D2C60099CA47 /* Sporth Custom Ugens */ = {
 			isa = PBXGroup;
 			children = (
+				551AAC281F61F40E00A14C0D /* Synchronization */,
 				F02767251E79114A0099CA47 /* AKCustomUgen.swift */,
 				F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */,
 				F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */,
