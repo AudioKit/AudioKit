@@ -72,9 +72,9 @@ open class AKFileClip: NSObject, FileClip {
     ///   - duration: The duration of playback.
     ///
     public init(audioFile: AKAudioFile,
-         time: Double = 0,
-         offset: Double = 0,
-         duration: Double = 0) {
+                time: Double = 0,
+                offset: Double = 0,
+                duration: Double = 0) {
 
         self.audioFile = audioFile
         self.time = time
