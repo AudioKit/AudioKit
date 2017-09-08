@@ -90,6 +90,62 @@
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     @objc open static var bufferLength: BufferLength = .veryLong
 
+    #if os(macOS)
+    /// The hardware ioBufferDuration. Setting this will request the new value, getting
+    /// will query the hardware.
+    @objc open static var ioBufferDuration: Double {
+        set {
+            let node = AudioKit.engine.inputNode
+            guard let audioUnit = node.audioUnit else { return }
+            let samplerate = node.outputFormat(forBus: 0).sampleRate
+            var frames = UInt32(round( newValue * samplerate ))
+
+            let status = AudioUnitSetProperty(audioUnit,
+                                              kAudioDevicePropertyBufferFrameSize,
+                                              kAudioUnitScope_Global,
+                                              0, &frames,
+                                              UInt32(MemoryLayout<UInt32>.size))
+            if status != 0 {
+                print("error in set ioBufferDuration status \(status)")
+            }
+        }
+        get {
+            let node = AudioKit.engine.inputNode
+            guard let audioUnit = node.audioUnit else { return 0 }
+            let sampleRate = node.outputFormat(forBus: 0).sampleRate
+            var frames = UInt32()
+            var propSize = UInt32(MemoryLayout<UInt32>.size)
+            let status = AudioUnitGetProperty(audioUnit,
+                                              kAudioDevicePropertyBufferFrameSize,
+                                              kAudioUnitScope_Global,
+                                              0,
+                                              &frames,
+                                              &propSize);
+            if status != 0 {
+                print("error in get ioBufferDuration status \(status)")
+            }
+            return Double(frames) / sampleRate
+        }
+    }
+    #else
+
+    /// The hardware ioBufferDuration. Setting this will request the new value, getting
+    /// will query the hardware.
+    @objc open static var ioBufferDuration: Double {
+        set {
+            do {
+                try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
+
+            } catch {
+                print(error)
+            }
+        }
+        get {
+            return AVAudioSession.sharedInstance().ioBufferDuration
+        }
+    }
+    #endif
+
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
