@@ -95,7 +95,7 @@
     /// will query the hardware.
     @objc open static var ioBufferDuration: Double {
         set {
-            let node = AudioKit.engine.inputNode
+            let node = AudioKit.engine.outputNode
             guard let audioUnit = node.audioUnit else { return }
             let samplerate = node.outputFormat(forBus: 0).sampleRate
             var frames = UInt32(round( newValue * samplerate ))
@@ -110,7 +110,7 @@
             }
         }
         get {
-            let node = AudioKit.engine.inputNode
+            let node = AudioKit.engine.outputNode
             guard let audioUnit = node.audioUnit else { return 0 }
             let sampleRate = node.outputFormat(forBus: 0).sampleRate
             var frames = UInt32()
