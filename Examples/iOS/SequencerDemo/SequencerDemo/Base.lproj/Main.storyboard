@@ -190,7 +190,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jkt-g2-XHQ">
                                                 <rect key="frame" x="0.0" y="479.5" width="0.0" height="159.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SyZ-yc-MeF" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SyZ-yc-MeF" customClass="AKSlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="159.5"/>
                                                         <color key="backgroundColor" red="0.89019607840000003" green="0.44705882349999998" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>

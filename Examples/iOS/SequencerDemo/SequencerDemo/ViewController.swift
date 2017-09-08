@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet private var bassButton: UIButton!
     @IBOutlet private var snareButton: UIButton!
     @IBOutlet private var tempoLabel: UILabel!
-    @IBOutlet private var tempoSlider: AKPropertySlider!
+    @IBOutlet private var tempoSlider: AKSlider!
 
     let conductor = Conductor()
 
