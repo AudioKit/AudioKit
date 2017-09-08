@@ -6,8 +6,6 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-import Foundation
-
 /// A closure that will be called when the clip is finished recording. If
 /// successful URL will be non-nil. If recording failed, Error will be non nil.  The actual
 /// start time is included and should be checked in case it was adjusted.

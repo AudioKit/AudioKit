@@ -6,8 +6,6 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-import UIKit
-
 /// The protocol for the AKClipMerger's delegate
 /// It is the responsibility of the delegate to create a new clip when a an existing clip 
 /// has been altered or split.

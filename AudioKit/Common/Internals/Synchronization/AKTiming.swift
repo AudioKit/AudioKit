@@ -6,8 +6,6 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-import Foundation
-
 /// A timing protocol used for syncronizing different audio sources.
 @objc protocol AKTiming {
 

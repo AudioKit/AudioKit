@@ -6,8 +6,6 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-import Foundation
-
 /// Schedules multiple audio files to be played in a sequence.
 open class AKClipPlayer: AKNode, AKTiming {
 
