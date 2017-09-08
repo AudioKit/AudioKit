@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import AudioKit
 
 /// A protocol containing timing information for scheduling audio clips in a timeline.  All 
 /// properties are time values in seconds, relative to a zero based timeline.
@@ -26,20 +25,20 @@ import AudioKit
 extension AKClip {
 
     /// Returns true is overlaps other clip.
-    func overlaps(_ otherClip: AKClip) -> Bool {
+    public func overlaps(_ otherClip: AKClip) -> Bool {
         return time < otherClip.endTime && endTime > otherClip.time
     }
 
     /// Default implementation is very basic.  Implementers of AKClip should implement this 
     /// to ensure that enough information is available to ensure playback (eg. source file exists)
-    var isValid: Bool {
+    public var isValid: Bool {
         return time >= 0 &&
             offset >= 0 &&
             duration > 0
     }
 
     /// Convenience to get clip end time.
-    var endTime: Double {
+    public var endTime: Double {
         return time + duration
     }
 }
@@ -50,19 +49,19 @@ extension AKClip {
 }
 
 /// A FileClip implementation, used by AKClipPlayer.
-public class AKFileClip: NSObject, FileClip {
+open class AKFileClip: NSObject, FileClip {
 
     /// The audio file that will be read.
-    public var audioFile: AKAudioFile
+    open var audioFile: AKAudioFile
 
     /// The time in the timeline that the clip should begin playing.
-    public var time: Double
+    open var time: Double
 
     /// The offset into the clip's audio (where to start playing from within the clip).
-    public var offset: Double
+    open var offset: Double
 
     /// The duration of playback.
-    public var duration: Double
+    open var duration: Double
 
     /// Create a new file clip.
     ///
@@ -72,7 +71,7 @@ public class AKFileClip: NSObject, FileClip {
     ///   - offset: The offset into the clip's audio (where to start playing from within the clip).
     ///   - duration: The duration of playback.
     ///
-    init(audioFile: AKAudioFile,
+    public init(audioFile: AKAudioFile,
          time: Double = 0,
          offset: Double = 0,
          duration: Double = 0) {
@@ -84,7 +83,7 @@ public class AKFileClip: NSObject, FileClip {
     }
 
     /// Init a file clip from a url with time and offset at zero, and duration set to file duration.
-    convenience init?(url: URL) {
+    public convenience init?(url: URL) {
         if !FileManager.default.fileExists(atPath: url.path) {
             return nil
         }

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import AudioKit
 
 /// Schedules multiple audio files to be played in a sequence.
 open class AKClipPlayer: AKNode, AKTiming {
@@ -15,13 +14,13 @@ open class AKClipPlayer: AKNode, AKTiming {
     private var timeAtStart: Double = 0
 
     /// The underlying player node
-    public let playerNode = AVAudioPlayerNode()
+    open let playerNode = AVAudioPlayerNode()
     private var mixer = AVAudioMixerNode()
     private var scheduled = false
     private var _clips = [FileClip]()
 
     /// Sets the current time in seconds.
-    func setTime(_ time: Double) {
+    open func setTime(_ time: Double) {
         playerNode.stop()
         timeAtStart = time
     }
@@ -31,7 +30,7 @@ open class AKClipPlayer: AKNode, AKTiming {
     /// - parameter audioTime: A time in the audio render context.
     /// - Returns: Time in seconds in the context of the player's timeline.
     ///
-    func time(atAudioTime audioTime: AVAudioTime?) -> Double {
+    open func time(atAudioTime audioTime: AVAudioTime?) -> Double {
         guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
             return timeAtStart
         }
@@ -43,7 +42,7 @@ open class AKClipPlayer: AKNode, AKTiming {
     /// - Parameter time: Time in seconds in the context of the player's timeline.
     /// - Returns: A time in the audio render context.
     ///
-    func audioTime(atTime time: Double) -> AVAudioTime? {
+    open func audioTime(atTime time: Double) -> AVAudioTime? {
         let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
         let sampleTime = (time - timeAtStart) * sampleRate
         let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
@@ -51,13 +50,13 @@ open class AKClipPlayer: AKNode, AKTiming {
     }
 
     /// Current time of the player in seconds.
-    public var currentTime: Double {
+    open var currentTime: Double {
         get { return time(atAudioTime: nil) }
         set { setTime(newValue) }
     }
 
     /// True is play, flase if not.
-    var isPlaying: Bool {
+    open var isPlaying: Bool {
         return playerNode.isPlaying
     }
 
@@ -74,7 +73,7 @@ open class AKClipPlayer: AKNode, AKTiming {
     /// use AKFileClips if you don't need custom behavior.
     /// - Throws: ClipMergeError if clips aren't valid.
     ///
-    @objc func setClips(clips: [FileClip]) throws {
+    open func setClips(clips: [FileClip]) throws {
         try _clips = AKClipMerger.validateClips(clips) as! [FileClip]
         self.stop()
         scheduled = false
@@ -82,7 +81,7 @@ open class AKClipPlayer: AKNode, AKTiming {
     // swiftlint:enable force_cast
 
     /// A valid clip sequence.
-    @objc public var clips: [FileClip] {
+    open var clips: [FileClip] {
         get {
             return _clips
         }
@@ -132,7 +131,7 @@ open class AKClipPlayer: AKNode, AKTiming {
     /// use AKFileClips if you don't need custom behavior.
     /// - Returns: A new player with clips if clips are valid, nil if not.
     ///
-    convenience init?(clips: [AKFileClip]) {
+    public convenience init?(clips: [AKFileClip]) {
         do {
             let validatedClips = try AKClipMerger.validateClips(clips) as! [AKFileClip]
             self.init()
@@ -175,7 +174,7 @@ open class AKClipPlayer: AKNode, AKTiming {
     ///
     /// - Parameter frameCount: The number of sample frames of data to be prepared before returning.
     ///
-    public func prepare(withFrameCount frameCount: AVAudioFrameCount) {
+    open func prepare(withFrameCount frameCount: AVAudioFrameCount) {
         if !scheduled {
             scheduleClips(at: currentTime)
         }
@@ -183,7 +182,7 @@ open class AKClipPlayer: AKNode, AKTiming {
     }
 
     /// Starts playback at next render cycle, AVAudioEngine must be running.
-    public func play() {
+    open func play() {
         play(at: nil)
     }
 
@@ -192,7 +191,7 @@ open class AKClipPlayer: AKNode, AKTiming {
     /// - Parameter audioTime: A time in the audio render context.  If non-nil, the player's current 
     /// current time will align with this time when playback starts.
     ///
-    public func play(at audioTime: AVAudioTime?) {
+    open func play(at audioTime: AVAudioTime?) {
         if !scheduled {
             scheduleClips(at: currentTime)
         }
@@ -201,20 +200,20 @@ open class AKClipPlayer: AKNode, AKTiming {
     }
 
     /// Stops playback.
-    public func stop() {
+    open func stop() {
         timeAtStart = time(atAudioTime: nil)
         playerNode.stop()
         scheduled = false
     }
 
     /// Volume 0.0 -> 1.0, default 1.0
-    public var volume: Float {
+    open var volume: Float {
         get { return playerNode.volume }
         set { playerNode.volume = newValue }
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
-    public var pan: Float {
+    open var pan: Float {
         get { return playerNode.pan }
         set { playerNode.pan = newValue }
     }

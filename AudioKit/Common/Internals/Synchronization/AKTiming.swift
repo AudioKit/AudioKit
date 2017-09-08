@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import AudioKit
 
 /// A timing protocol used for syncronizing different audio sources.
 @objc protocol AKTiming {
