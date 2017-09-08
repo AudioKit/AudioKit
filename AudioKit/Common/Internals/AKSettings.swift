@@ -112,7 +112,7 @@
         get {
             let node = AudioKit.engine.inputNode
             guard let audioUnit = node.audioUnit else { return 0 }
-            let samplerate = node.outputFormat(forBus: 0).sampleRate
+            let sampleRate = node.outputFormat(forBus: 0).sampleRate
             var frames = UInt32()
             var propSize = UInt32(MemoryLayout<UInt32>.size)
             let status = AudioUnitGetProperty(audioUnit,
