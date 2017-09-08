@@ -6,9 +6,6 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-
 /// Utility to convert between host time and seconds
 private let ticksToSeconds: Double = {
     var tinfo = mach_timebase_info()

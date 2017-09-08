@@ -6,8 +6,6 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-import Foundation
-
 /// A protocol containing timing information for scheduling audio clips in a timeline.  All 
 /// properties are time values in seconds, relative to a zero based timeline.
 @objc public protocol AKClip: class {

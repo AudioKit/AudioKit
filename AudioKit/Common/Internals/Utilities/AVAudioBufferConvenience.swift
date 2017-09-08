@@ -6,8 +6,6 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-import UIKit
-
 extension AVAudioPCMBuffer {
 
     /// Returns an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
