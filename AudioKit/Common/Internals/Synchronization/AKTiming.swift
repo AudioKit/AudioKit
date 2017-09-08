@@ -91,7 +91,7 @@ class AKNodeTiming: NSObject, AKTiming {
                 return
         }
         baseTime = audioTime?.offset(seconds: -idleTime)?.extrapolateTime(fromAnchor: lastRenderTime)
-        baseTime = baseTime ?? lastRenderTime.offset(seconds: AVAudioSession.sharedInstance().ioBufferDuration)
+        baseTime = baseTime ?? lastRenderTime.offset(seconds: AKSettings.ioBufferDuration)
     }
     var isPlaying: Bool {
         return baseTime != nil
