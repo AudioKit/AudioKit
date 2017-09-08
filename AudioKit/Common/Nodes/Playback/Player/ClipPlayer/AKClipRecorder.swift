@@ -8,17 +8,15 @@
 
 import Foundation
 
-import AudioKit
-
 /// A closure that will be called when the clip is finished recording. If
 /// successful URL will be non-nil. If recording failed, Error will be non nil.  The actual
 /// start time is included and should be checked in case it was adjusted.
-typealias AKRecordingResult = (URL?, Double, Error?) -> Void
+public typealias AKRecordingResult = (URL?, Double, Error?) -> Void
 
-class AKClipRecorder {
+open class AKClipRecorder {
 
-    var node: AKOutput
-    let timing: AKNodeTiming
+    open var node: AKOutput
+    private let timing: AKNodeTiming
     fileprivate var clips = [AKClipRecording]()
 
     /// Initialize a recorder with a node.
@@ -35,7 +33,7 @@ class AKClipRecorder {
     }
 
     /// Starts the internal timeline.
-    func play() {
+    open func play() {
         play(at: nil)
     }
 
@@ -43,7 +41,7 @@ class AKClipRecorder {
     ///
     /// - Parameter audioTime: An time in the audio render context.
     ///
-    func play(at audioTime: AVAudioTime?) {
+    open func play(at audioTime: AVAudioTime?) {
         if isPlaying {
             return
         }
@@ -54,7 +52,7 @@ class AKClipRecorder {
     }
 
     /// The current time of the internal timeline.  Setting will call stop().
-    var currentTime: Double {
+    open var currentTime: Double {
         get { return timing.currentTime }
         set { timing.currentTime = newValue }
     }
@@ -65,7 +63,7 @@ class AKClipRecorder {
     ///
     /// - Parameter completion: a closure that will be called after all clips have benn finalized.
     ///
-    func stop(_ completion: (() -> Void)? = nil) {
+    open func stop(_ completion: (() -> Void)? = nil) {
         if !isPlaying {
             return
         }
@@ -84,7 +82,7 @@ class AKClipRecorder {
     ///   - completion: A closure that will be called after all clips' endTime
     /// has been reached and they have benn finalized.
     ///
-    func stopRecording(endTime: Double? = nil, _ completion: (() -> Void)? = nil) {
+    open func stopRecording(endTime: Double? = nil, _ completion: (() -> Void)? = nil) {
 
         let clipEndTime = endTime ?? currentTime
         guard let completion = completion else {
@@ -116,12 +114,12 @@ class AKClipRecorder {
     }
 
     /// Is inner timeline playing.
-    var isPlaying: Bool {
+    open var isPlaying: Bool {
         return timing.isPlaying
     }
 
     /// True if there are any clips recording.
-    var isRecording: Bool {
+    open var isRecording: Bool {
         return !clips.isEmpty
     }
 
@@ -236,10 +234,11 @@ class AKClipRecorder {
 
 }
 
-enum ClipRecordingError: Error, LocalizedError {
+public enum ClipRecordingError: Error, LocalizedError {
     case timingError
     case invalidParameters
     case clipIsEmpty
+    case formatError
 
     public var errorDescription: String? {
         switch self {
@@ -249,6 +248,8 @@ enum ClipRecordingError: Error, LocalizedError {
             return "Invalid Parameters"
         case .clipIsEmpty:
             return "Clip is empty"
+        case .formatError:
+            return "Invalid format"
         }
     }
 }
@@ -281,10 +282,12 @@ private class AKClipRecording: Equatable {
         if audioFile == nil {
             let tmp = URL(fileURLWithPath: NSTemporaryDirectory())
             let url = tmp.appendingPathComponent(UUID().uuidString).appendingPathExtension("caf").standardizedFileURL
-            let fileFormat = AVAudioFormat(commonFormat: .pcmFormatInt16,
+            guard let fileFormat = AVAudioFormat(commonFormat: .pcmFormatInt16,
                                            sampleRate: AudioKit.format.sampleRate,
                                            channels: buffer.format.channelCount,
-                                           interleaved: true)
+                                           interleaved: true) else {
+                                            throw ClipRecordingError.formatError
+            }
             audioFile = try AKAudioFile(forWriting: url,
                                         settings: fileFormat.settings,
                                         commonFormat: buffer.format.commonFormat,
