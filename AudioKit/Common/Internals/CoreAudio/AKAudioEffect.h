@@ -15,6 +15,7 @@
 
 @interface AKAudioEffect : AKAudioUnit
 
+- (void)standardSetup;
 
 @end
 

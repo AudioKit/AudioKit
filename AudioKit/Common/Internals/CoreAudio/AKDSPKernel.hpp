@@ -59,6 +59,7 @@ public:
     }
 };
 
+
 class AKBuffered: public AKOutputBuffered {
 protected:
     AudioBufferList *inBufferListPtr = nullptr;
@@ -70,9 +71,14 @@ public:
     }
 };
 
-
-
-class AKDSPKernelWithParams : DSPKernel, AKParametricKernel {
+class AKDSPKernelWithParams : AKDSPKernel, AKParametricKernel {
+public:
+    void start() {}
+    void stop() {}
+    bool started;
+    bool resetted;
     
-   
 };
+
+
+
