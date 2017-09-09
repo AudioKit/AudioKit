@@ -9,7 +9,7 @@
 extension AVAudioPCMBuffer {
 
     /// Returns an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
-    func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
+    open func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
             let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample)
         else {
@@ -41,7 +41,7 @@ extension AVAudioPCMBuffer {
     }
 
     /// Returns an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
-    func copyTo(endSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
+    open func copyTo(endSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard endSample < frameLength,
             let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: endSample)
         else {
