@@ -10,9 +10,6 @@ cd Frameworks
    ./build_frameworks.sh || exit 1
 cd ..
 
-echo "Running iOS Unit Tests"
-xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.0' | xcpretty -c || exit 3
-
 echo "Building iOS HelloWorld"
 xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator -scheme HelloWorld -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 4
 
@@ -65,16 +62,22 @@ xcodebuild -project Examples/macOS/MicrophoneAnalysis/MicrophoneAnalysis.xcodepr
 echo "Building macOS MidiMonitor"
 xcodebuild -project Examples/macOS/MidiMonitor/MidiMonitor.xcodeproj -scheme MidiMonitor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 20
 
+echo "Building macOS RandomClips"
+xcodebuild -project Examples/macOS/RandomClips/RandomClips.xcodeproj -scheme RandomClips ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 21
+
 echo "Building macOS SporthEditor"
-xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj  -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 21
+xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 22
 
 echo "Skipping AudioKitParticles - requires hardware"
-#xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 22
+#xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 23
 
 echo "Building iOS Sender Synth"
 cd Examples/iOS/SenderSynth; pod install; cd ../../..
-xcodebuild -workspace Examples/iOS/SenderSynth/SenderSynth.xcworkspace -sdk iphonesimulator -scheme SenderSynth -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 23
+xcodebuild -workspace Examples/iOS/SenderSynth/SenderSynth.xcworkspace -sdk iphonesimulator -scheme SenderSynth -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 24
 
 echo "Building iOS Filter Effects"
 cd Examples/iOS/FilterEffects; pod install; cd ../../..
-xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 24
+xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 25
+
+echo "Running iOS Unit Tests"
+xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.0' | xcpretty -c || exit 3
