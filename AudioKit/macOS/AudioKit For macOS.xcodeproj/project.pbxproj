@@ -50,7 +50,7 @@
 		55E4F52A1F57DAC30088018A /* AKSamplerMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5281F57DAC30088018A /* AKSamplerMetronome.m */; };
 		A1FE77A11F64549E00A2E41C /* AKAudioEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE779D1F64549E00A2E41C /* AKAudioEffect.h */; };
 		A1FE77A21F64549E00A2E41C /* AKAudioEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1FE779E1F64549E00A2E41C /* AKAudioEffect.mm */; };
-		A1FE77A31F64549E00A2E41C /* AudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE779F1F64549E00A2E41C /* AudioUnitBase.h */; };
+		A1FE77A31F64549E00A2E41C /* AudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE779F1F64549E00A2E41C /* AudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A1FE77A41F64549E00A2E41C /* AudioUnitBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1FE77A01F64549E00A2E41C /* AudioUnitBase.mm */; };
 		A1FE77AC1F6454E100A2E41C /* AKBooster2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE77A91F6454E100A2E41C /* AKBooster2.swift */; };
 		A1FE77AD1F6454E100A2E41C /* GainAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE77AA1F6454E100A2E41C /* GainAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
