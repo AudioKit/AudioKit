@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         drumVolumeSlider.callback = adjustDrumKitVolume
         filterFrequencySlider.callback = adjustFilterFrequency
         tempoSlider.callback = adjustTempo
+        tempoSlider.range = 0 ... 2
     }
 
     @IBAction func useSoundForArpeggio(_ sender: UIButton) {

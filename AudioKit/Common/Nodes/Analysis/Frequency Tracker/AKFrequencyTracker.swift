@@ -18,17 +18,17 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
-    open dynamic var amplitude: Double {
+    @objc open dynamic var amplitude: Double {
         return Double(internalAU?.amplitude ?? 0) / Double(AKSettings.numberOfChannels)
     }
 
     /// Detected frequency
-    open dynamic var frequency: Double {
+    @objc open dynamic var frequency: Double {
         return Double(internalAU?.frequency ?? 0) * Double(AKSettings.numberOfChannels)
     }
 
@@ -60,12 +60,12 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

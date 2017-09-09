@@ -129,7 +129,7 @@ public:
 private:
 
     float internalTrigger = 0;
-
+    
     sp_pluck *pluck;
 
     float frequency = 110;

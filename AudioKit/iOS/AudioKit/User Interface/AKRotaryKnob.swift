@@ -8,12 +8,16 @@
 
 import UIKit
 
+/// Style of knob to use
 public enum AKRotaryKnobStyle {
+    /// Circular knob
     case round
+    /// Polygon knob with curvature inwards or outwards to make lots of shapes
     case polygon(numberOfSides: Int, curvature: Double)
 }
 
-@IBDesignable open class AKRotaryKnob: AKView {
+/// Round control for a property
+@IBDesignable open class AKRotaryKnob: AKPropertyControl {
 
     // Default margin size 
     static var marginSize: CGFloat = 30.0
@@ -33,43 +37,6 @@ public enum AKRotaryKnobStyle {
     // Maximum curvature value for polygon style knob
     static var maximumPolygonCurvature = 1.0
 
-    /// Current value of the slider
-    @IBInspectable open var value: Double = 0 {
-        didSet {
-            value = range.clamp(value)
-            value = usesDiscreteValues ? round(value) : value
-
-            val = value.normalized(from: range, taper: taper)
-        }
-    }
-
-    private var val: Double = 0 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-
-    /// Range of output value
-    open var range: ClosedRange<Double> = 0 ... 1 {
-        didSet {
-            val = value.normalized(from: range, taper: taper)
-        }
-    }
-
-    open var taper: Double = 1 // Default Linear
-
-    // Should the knob uses discrete values
-    @IBInspectable open var usesDiscreteValues: Bool = false
-
-    // The step for each discrete value
-    @IBInspectable open var discreteValueStep: Double = 0.1
-
-    /// Text shown on the knob
-    @IBInspectable open var property: String = "Property"
-
-    /// Format for the number shown on the knob
-    @IBInspectable open var format: String = "%0.3f"
-
     /// Background color
     @IBInspectable open var bgColor: UIColor?
 
@@ -85,33 +52,23 @@ public enum AKRotaryKnobStyle {
     /// Text color
     @IBInspectable open var textColor: UIColor?
 
-    /// Font size
-    @IBInspectable open var fontSize: CGFloat = 20
-
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
 
-    // Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
+    /// Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
     open var knobStyle: AKRotaryKnobStyle = AKRotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
 
-    // Border width
+    /// Border width
     @IBInspectable open var knobBorderWidth: CGFloat = 8.0
 
-    // Value bubble border width
+    /// Value bubble border width
     @IBInspectable open var valueBubbleBorderWidth: CGFloat = 1.0
 
-    // Number of indicator points
+    /// Number of indicator points
     @IBInspectable open var numberOfIndicatorPoints: Int = 11
 
-    // Current dragging state, used to show/hide the value bubble
-    private var isDragging: Bool = false
-
-    // Calculate knob center
+    /// Calculate knob center
     private var knobCenter: CGPoint = CGPoint.zero
-
-    /// Function to call when value changes
-    open var callback: ((Double) -> Void)?
-    fileprivate var lastTouch = CGPoint.zero
 
     /// Initialize the slider
     public init(property: String,
@@ -119,38 +76,28 @@ public enum AKRotaryKnobStyle {
                 range: ClosedRange<Double> = 0 ... 1,
                 taper: Double = 1,
                 format: String = "%0.3f",
-                color: AKColor = AKColor.red,
+                color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
                 callback: @escaping (_ x: Double) -> Void) {
-        self.value = value
-        self.range = range
-        self.taper = taper
-        self.property = property
-        self.format = format
+
         self.knobColor = color
 
-        self.callback = callback
-        super.init(frame: frame)
-
-        self.backgroundColor = AKColor.clear
-
-        setNeedsDisplay()
-    }
-
-    /// Initialization with no details
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-
-        self.backgroundColor = AKColor.clear
-        contentMode = .redraw
-    }
+        super.init(property: property,
+                   value: value,
+                   range: range,
+                   taper: taper,
+                   format: format,
+                   frame: frame,
+                   callback: callback)
+        self.backgroundColor = UIColor.clear
+   }
 
     /// Initialization within Interface Builder
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.backgroundColor = UIColor.clear
 
         self.isUserInteractionEnabled = true
-        self.backgroundColor = AKColor.clear
         contentMode = .redraw
     }
 
@@ -158,13 +105,6 @@ public enum AKRotaryKnobStyle {
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
-    }
-
-    /// Give the slider a random value
-    open func randomize() -> Double {
-        value = random(in: range)
-        setNeedsDisplay()
-        return value
     }
 
     func angleBetween(pointA: CGPoint, pointB: CGPoint) -> Double {
@@ -177,26 +117,8 @@ public enum AKRotaryKnobStyle {
 
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            isDragging = true
-            let touchLocation = touch.location(in: self)
-            lastTouch = touchLocation
-            let angle = angleBetween(pointA: knobCenter, pointB: touchLocation)
-            if angle < 0.0 {
-                val = (0.5 + (180.0 + angle) / 260.0)
-            } else {
-                val =  ((angle - 50.0) / 130.0) * 0.5
-            }
-            if usesDiscreteValues && discreteValueStep > 0.0 {
-                let step = Int(value / discreteValueStep)
-                let lowerValue = step * discreteValueStep
-                let higherValue = (step + 1) * (discreteValueStep)
-                val = abs(val - lowerValue) < abs(higherValue - val) ? lowerValue : higherValue
-            }
-            value = val.denormalized(to: range, taper: taper)
-            setNeedsDisplay()
-            callback?(value)
-        }
+        isDragging = true
+        touchesMoved(touches, with: event)
     }
 
     /// Handle moved touches
@@ -206,24 +128,18 @@ public enum AKRotaryKnobStyle {
             if lastTouch.x != touchLocation.x {
                 let angle = angleBetween(pointA: knobCenter, pointB: touchLocation)
                 if angle < 0.0 {
-                    val = (0.5 + (180.0 + angle) / 260.0)
+                    val = (0.5 + 0.5 * (180.0 + angle) / 105.0)
                 } else {
-                    val = ((angle - 50.0) / 130.0) * 0.5
-                }
-                if usesDiscreteValues && discreteValueStep > 0.0 {
-                    let step = Int(value / discreteValueStep)
-                    let lowerValue = step * discreteValueStep
-                    let higherValue = (step + 1) * (discreteValueStep)
-                    val = abs(val - lowerValue) < abs(higherValue - val) ? lowerValue : higherValue
+                    val = ((angle - 75.0) / 110.0) * 0.5
                 }
                 value = val.denormalized(to: range, taper: taper)
-                setNeedsDisplay()
-                callback?(value)
+                callback(value)
                 lastTouch = touchLocation
             }
         }
     }
 
+    /// Handle touches ending
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touches.first != nil {
             isDragging = false
@@ -231,6 +147,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Color for the arrow on the knob for the current theme
     open func indicatorColorForTheme() -> AKColor {
         if let indicatorColor = indicatorColor { return indicatorColor }
 
@@ -240,6 +157,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Color for the border for the current theme
     open func knobBorderColorForTheme() -> AKColor {
         if let knobBorderColor = knobBorderColor { return knobBorderColor }
 
@@ -249,6 +167,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Text color for the current theme
     open func textColorForTheme() -> AKColor {
         if let textColor = textColor { return textColor }
 
@@ -258,6 +177,7 @@ public enum AKRotaryKnobStyle {
         }
     }
 
+    /// Draw the knob
     override open func draw(_ rect: CGRect) {
         drawKnob(currentValue: CGFloat(val),
                  propertyName: property,
@@ -284,9 +204,9 @@ public enum AKRotaryKnobStyle {
 
         let textColor = textColorForTheme()
 
-        let nameLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: fontSize),
-                                       NSForegroundColorAttributeName: textColor,
-                                       NSParagraphStyleAttributeName: nameLabelStyle] as [String : Any]
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize),
+                                       NSAttributedStringKey.foregroundColor: textColor,
+                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
@@ -389,9 +309,9 @@ public enum AKRotaryKnobStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSForegroundColorAttributeName: textColor,
-                                            NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
+            let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: bubbleFontSize),
+                                            NSAttributedStringKey.foregroundColor: textColor,
+                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(

@@ -39,9 +39,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(VocalTract)
-
+    
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter =
     [AUParameter parameter:@"frequency"
@@ -82,30 +82,30 @@ standardKernelPassthroughs()
                        min:0.0
                        max:1.0
                       unit:kAudioUnitParameterUnit_Generic];
-
-
+    
+    
     // Initialize the parameter values.
     frequencyAUParameter.value = 160.0;
     tonguePositionAUParameter.value = 0.5;
     tongueDiameterAUParameter.value = 1.0;
     tensenessAUParameter.value = 0.6;
     nasalityAUParameter.value = 0.0;
-
+    
     _kernel.setParameter(frequencyAddress,      frequencyAUParameter.value);
     _kernel.setParameter(tonguePositionAddress, tonguePositionAUParameter.value);
     _kernel.setParameter(tongueDiameterAddress, tongueDiameterAUParameter.value);
     _kernel.setParameter(tensenessAddress,      tensenessAUParameter.value);
     _kernel.setParameter(nasalityAddress,       nasalityAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        frequencyAUParameter,
-        tonguePositionAUParameter,
-        tongueDiameterAUParameter,
-        tensenessAUParameter,
-        nasalityAUParameter
-    ]];
-
+                                             frequencyAUParameter,
+                                             tonguePositionAUParameter,
+                                             tongueDiameterAUParameter,
+                                             tensenessAUParameter,
+                                             nasalityAUParameter
+                                             ]];
+    
     parameterTreeBlock(VocalTract)
 }
 

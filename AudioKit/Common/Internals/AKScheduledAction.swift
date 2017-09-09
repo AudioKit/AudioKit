@@ -32,7 +32,7 @@ public class AKScheduledAction {
         timer = nil
     }
 
-    private dynamic func fire(timer: Timer) {
+    @objc private dynamic func fire(timer: Timer) {
         guard timer.isValid else {
             return
         }

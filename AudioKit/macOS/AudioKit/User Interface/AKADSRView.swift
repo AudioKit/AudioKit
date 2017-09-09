@@ -93,7 +93,7 @@ public class AKADSRView: NSView {
                          sustainLevel: CGFloat = 0.583,
                          maxADFraction: CGFloat = 0.75) {
         //// General Declarations
-        let _ = NSGraphicsContext.current()?.cgContext
+        let _ = NSGraphicsContext.current?.cgContext
 
         //// Color Declarations
         let attackColor = #colorLiteral(red: 0.767, green: 0, blue: 0, alpha: 1)

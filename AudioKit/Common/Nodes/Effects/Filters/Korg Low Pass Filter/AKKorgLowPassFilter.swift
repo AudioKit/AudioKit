@@ -23,14 +23,14 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var saturationParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Filter cutoff
-    open dynamic var cutoffFrequency: Double = 1_000.0 {
+    @objc open dynamic var cutoffFrequency: Double = 1_000.0 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Filter resonance (should be between 0-2)
-    open dynamic var resonance: Double = 1.0 {
+    @objc open dynamic var resonance: Double = 1.0 {
         willSet {
             if resonance != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Filter saturation.
-    open dynamic var saturation: Double = 0.0 {
+    @objc open dynamic var saturation: Double = 0.0 {
         willSet {
             if saturation != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -73,7 +73,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -136,12 +136,12 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

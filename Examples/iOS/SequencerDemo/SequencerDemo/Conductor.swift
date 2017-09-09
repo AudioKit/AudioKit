@@ -46,8 +46,8 @@ class Conductor {
         verb.randomizeReflections = 600
         verb.gain = 1
 
-        snareMixer.connect(snareDrum)
-        snareMixer.connect(snareGhost)
+        [snareDrum, snareGhost] >>> snareMixer
+
         snareVerb = AKReverb(snareMixer)
 
         pumper = AKCompressor(mixer)
@@ -58,11 +58,7 @@ class Conductor {
         pumper.attackTime = 0.01
         pumper.releaseTime = 0.3
 
-        mixer.connect(verb)
-        mixer.connect(bassDrum)
-        mixer.connect(snareDrum)
-        mixer.connect(snareGhost)
-        mixer.connect(snareVerb)
+        [verb, bassDrum, snareDrum, snareGhost, snareVerb] >>> mixer
 
         AudioKit.output = pumper
         AudioKit.start()

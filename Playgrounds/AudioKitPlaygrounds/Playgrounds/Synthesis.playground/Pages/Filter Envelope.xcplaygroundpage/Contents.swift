@@ -63,22 +63,22 @@ let playgroundWidth = 500
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Filter Envelope")
 
-        addSubview(AKPropertySlider(property: "Cutoff Frequency",
-                                    value: synth.cutoff,
-                                    range: 20 ... 5_000,
-                                    format: "%0.1f Hz"
+        addView(AKSlider(property: "Cutoff Frequency",
+                         value: synth.cutoff,
+                         range: 20 ... 5_000,
+                         format: "%0.1f Hz"
         ) { frequency in
             synth.cutoff = frequency
         })
 
         let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -93,4 +93,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

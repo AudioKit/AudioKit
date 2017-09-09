@@ -144,6 +144,12 @@ infix operator >>>: AdditionPrecedence
 @discardableResult public func >>>(left: AKOutput, right: [AKInput]) -> [AKInput] {
     return left.connect(to: right)
 }
+@discardableResult public func >>>(left: [AKOutput], right: AKInput) -> AKInput {
+    for node in left {
+        node.connect(to: right)
+    }
+    return right
+}
 @discardableResult public func >>>(left: AKOutput, right: AKInputConnection) -> AKInput {
     return left.connect(to: right.node, bus: right.bus)
 }

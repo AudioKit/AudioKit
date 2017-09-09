@@ -27,7 +27,7 @@ standardKernelPassthroughs()
     standardSetup(DCBlock)
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-	parameterTreeBlock(DCBlock)
+    parameterTreeBlock(DCBlock)
 }
 
 AUAudioUnitOverrides(DCBlock);

@@ -37,17 +37,17 @@ let recorder = try AKNodeRecorder(node: oscMixer, file: tape)
 //: Build our User interface
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var recordLabel: Label!
     var playLabel: Label!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Recording Nodes")
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addSubview(AKButton(title: "Record", color: AKColor.red) { button in
+        addView(AKButton(title: "Record", color: AKColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
                 self.recordLabel.text = "Stopped. (\(dur) recorded)"
@@ -64,15 +64,15 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             }
         })
 
-        addSubview(AKButton(title: "Save") { button in
+        addView(AKButton(title: "Save") { button in
             tape.exportAsynchronously(name: "test",
                                       baseDir: .documents,
-                                      exportFormat: .caf) { [weak self] exportedFile, error in
+                                      exportFormat: .caf) { [weak self] _, _ in
             }
             button.title = "Saved"
         })
 
-        addSubview(AKButton(title: "Reset Recording") { button in
+        addView(AKButton(title: "Reset Recording") { button in
             self.recordLabel.text = "Tape Cleared!"
             do {
                 try recorder.reset()
@@ -84,7 +84,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         playLabel = addLabel("Press Play to playback...")
 
-        addSubview(AKButton(title: "Play") { button in
+        addView(AKButton(title: "Play") { button in
             if player.isPlaying {
                 self.playLabel.text = "Stopped playback!"
                 player.stop()
@@ -109,7 +109,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
-        self.addSubview(keyboard)
+        self.addView(keyboard)
     }
 
     func callback() {
@@ -140,4 +140,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

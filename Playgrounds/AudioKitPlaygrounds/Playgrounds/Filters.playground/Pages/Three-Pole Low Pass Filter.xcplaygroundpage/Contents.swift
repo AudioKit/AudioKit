@@ -21,23 +21,23 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Three Pole Low Pass Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Cutoff Frequency",
-                                    value: filter.cutoffFrequency,
-                                    range: 0 ... 5_000,
-                                    taper: 5,
-                                    format: "%0.1f Hz"
+        addView(AKSlider(property: "Cutoff Frequency",
+                         value: filter.cutoffFrequency,
+                         range: 0 ... 5_000,
+                         taper: 5,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Resonance", value: filter.resonance) { sliderValue in
+        addView(AKSlider(property: "Resonance", value: filter.resonance) { sliderValue in
             filter.resonance = sliderValue
         })
 
@@ -46,4 +46,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -25,6 +25,6 @@ extension AKComputedParameter {
         reverbDuration: AKParameter = 1.0,
         loopDuration: AKParameter = 0.1
         ) -> AKOperation {
-            return AKOperation(module: "comb", inputs: toMono(), reverbDuration, loopDuration)
+        return AKOperation(module: "comb", inputs: toMono(), reverbDuration, loopDuration)
     }
 }

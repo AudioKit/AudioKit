@@ -35,12 +35,12 @@ sequencer.setTempo(150)
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Drum Sequencer")
 
-        addSubview(AKButton(title: "Play") { button in
+        addView(AKButton(title: "Play") { button in
             if sequencer.isPlaying {
                 sequencer.stop()
                 sequencer.rewind()
@@ -67,7 +67,7 @@ class PlaygroundView: AKPlaygroundView {
 
         sequencer.tracks[3].add(noteNumber: 26, velocity: 127, position: AKDuration(beats: 2), duration: AKDuration(beats: 1))
 
-        addSubview(AKButton(title: "Randomize Hi-hats") { _ in
+        addView(AKButton(title: "Randomize Hi-hats") { _ in
 
             sequencer.tracks[2].clearRange(start: AKDuration(beats: 0), duration: AKDuration(beats: 4))
             for i in 0 ... 15 {
@@ -80,7 +80,7 @@ class PlaygroundView: AKPlaygroundView {
 
         })
 
-        addSubview(AKPropertySlider(property: "Tempo", value: 150, range: 60 ... 300, format: "%0.0f") {
+        addView(AKSlider(property: "Tempo", value: 150, range: 60 ... 300, format: "%0.0f") {
             sliderValue in
             sequencer.setTempo(sliderValue)
         })
@@ -90,4 +90,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -25,29 +25,6 @@ class AKPWMOscillatorBankTests: AKTestCase {
         }
     }
 
-    func testDefault() {
-        inputBank = AKPWMOscillatorBank()
-        output = inputBank
-        AKTestMD5("21260d9b69a81fbe3e576c3acb030ac5")
-    }
-
-    func testParameters() {
-        inputBank = AKPWMOscillatorBank(pulseWidth: 0.345,
-                                        attackDuration: 0.123,
-                                        decayDuration: 0.234,
-                                        sustainLevel: 0.345,
-                                        detuningOffset: 1,
-                                        detuningMultiplier: 1.1)
-        output = inputBank
-        AKTestMD5("5fec778309401fe4372e6389f78bfeaa")
-    }
-
-    func testPulseWidth() {
-        inputBank = AKPWMOscillatorBank(pulseWidth: 0.345)
-        output = inputBank
-        AKTestMD5("e52de37f6d87925dbe7c81da20f803dd")
-    }
-
     func testAttackDuration() {
         inputBank = AKPWMOscillatorBank(attackDuration: 0.123)
         output = inputBank
@@ -60,20 +37,44 @@ class AKPWMOscillatorBankTests: AKTestCase {
         AKTestMD5("0696d4dc957dd181e0a732936e5dd43a")
     }
 
+    func testDefault() {
+        inputBank = AKPWMOscillatorBank()
+        output = inputBank
+        AKTestMD5("21260d9b69a81fbe3e576c3acb030ac5")
+    }
+
+    func testParameters() {
+        inputBank = AKPWMOscillatorBank(pulseWidth: 0.345,
+                                        attackDuration: 0.123,
+                                        decayDuration: 0.234,
+                                        sustainLevel: 0.345,
+                                        pitchBend: 1,
+                                        vibratoDepth: 1.1,
+                                        vibratoRate: 1.2)
+        output = inputBank
+        AKTestMD5("5fec778309401fe4372e6389f78bfeaa")
+    }
+
+    func testPitchBend() {
+        inputBank = AKPWMOscillatorBank(pitchBend: 1)
+        output = inputBank
+        AKTestMD5("7baf57bb280cc39545457f2823841381")
+    }
+
+    func testPulseWidth() {
+        inputBank = AKPWMOscillatorBank(pulseWidth: 0.345)
+        output = inputBank
+        AKTestMD5("e52de37f6d87925dbe7c81da20f803dd")
+    }
+
     func testSustainLevel() {
         inputBank = AKPWMOscillatorBank(sustainLevel: 0.345)
         output = inputBank
         AKTestMD5("168188cda8165ab6fae58450c7c013de")
     }
 
-    func testDetuningOffset() {
-        inputBank = AKPWMOscillatorBank(detuningOffset: 1)
-        output = inputBank
-        AKTestMD5("7baf57bb280cc39545457f2823841381")
-    }
-
-    func testDetuningMultiplier() {
-        inputBank = AKPWMOscillatorBank(detuningMultiplier: 1.1)
+    func testVibrato() {
+        inputBank = AKPWMOscillatorBank(vibratoDepth: 1.1, vibratoRate: 1.2)
         output = inputBank
         AKTestMD5("3c6b4eed56b165ebf40a2d86dc6cb985")
     }

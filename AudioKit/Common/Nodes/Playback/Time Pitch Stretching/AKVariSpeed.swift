@@ -13,7 +13,7 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 
     /// Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
-    open dynamic var rate: Double = 1.0 {
+    @objc open dynamic var rate: Double = 1.0 {
         didSet {
             rate = (0.25...4).clamp(rate)
             variSpeedAU.rate = Float(rate)
@@ -21,7 +21,7 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return rate != 1.0
     }
 
@@ -44,12 +44,12 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         rate = lastKnownRate
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         lastKnownRate = rate
         rate = 1.0
     }

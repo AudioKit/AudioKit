@@ -20,32 +20,32 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    var cutoffFrequencySlider: AKPropertySlider?
-    var feedbackSlider: AKPropertySlider?
+    var cutoffFrequencySlider: AKSlider?
+    var feedbackSlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Sean Costello Reverb")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        cutoffFrequencySlider = AKPropertySlider(property: "Cutoff Frequency",
-                                                 value: reverb.cutoffFrequency,
-                                                 range: 20 ... 5_000,
-                                                 format: "%0.1f Hz"
+        cutoffFrequencySlider = AKSlider(property: "Cutoff Frequency",
+                                         value: reverb.cutoffFrequency,
+                                         range: 20 ... 5_000,
+                                         format: "%0.1f Hz"
         ) { sliderValue in
             reverb.cutoffFrequency = sliderValue
         }
-        addSubview(cutoffFrequencySlider)
+        addView(cutoffFrequencySlider)
 
-        feedbackSlider = AKPropertySlider(property: "Feedback", value: reverb.feedback) { sliderValue in
+        feedbackSlider = AKSlider(property: "Feedback", value: reverb.feedback) { sliderValue in
             reverb.feedback = sliderValue
         }
-        addSubview(feedbackSlider)
+        addView(feedbackSlider)
 
         let presets = ["Short Tail", "Low Ringing Tail"]
-        addSubview(AKPresetLoaderView(presets: presets) { preset in
+        addView(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Short Tail":
                 reverb.presetShortTailCostelloReverb()
@@ -67,4 +67,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
