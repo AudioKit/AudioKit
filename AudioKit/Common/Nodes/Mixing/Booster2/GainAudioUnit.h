@@ -34,8 +34,22 @@ struct DspGainEffect : DspBase {
 private:
     
     double Gain = 1.0;
+    const uint64_t kGainAddr = 0;
     
 public:
+    
+    /** Uses the ParameterAddress as a key */
+    void setParameter(uint64_t address, float value) override {
+        if (address == kGainAddr) {
+            Gain = value;
+        }
+    }
+    
+    /** Uses the ParameterAddress as a key */
+    float getParameter(uint64_t address) override {
+        if (address == kGainAddr) { return Gain; }
+        else return 0;
+    }
     
     // Largely lifted from the example code, though this is simpler since the Apple code
     // implements a time varying filter
