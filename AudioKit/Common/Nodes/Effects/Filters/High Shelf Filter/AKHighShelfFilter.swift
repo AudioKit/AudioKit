@@ -17,7 +17,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     private var mixer: AKMixer
 
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    open dynamic var cutoffFrequency: Double = 10_000 {
+    @objc open dynamic var cutoffFrequency: Double = 10_000 {
         didSet {
             cutoffFrequency = (10_000...22_050).clamp(cutoffFrequency)
             au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
@@ -25,7 +25,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    open dynamic var gain: Double = 0 {
+    @objc open dynamic var gain: Double = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kHighShelfParam_Gain] = gain
@@ -33,7 +33,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Dry/Wet Mix (Default 100)
-    open dynamic var dryWetMix: Double = 100 {
+    @objc open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
@@ -50,7 +50,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     fileprivate var internalEffect: AVAudioUnitEffect
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     // MARK: - Initialization
 
@@ -66,33 +66,33 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         cutOffFrequency: Double = 10_000,
         gain: Double = 0) {
 
-            self.cutoffFrequency = cutOffFrequency
-            self.gain = gain
+        self.cutoffFrequency = cutOffFrequency
+        self.gain = gain
 
-            inputGain = AKMixer()
-            inputGain?.volume = 0
-            mixer = AKMixer(inputGain)
+        inputGain = AKMixer()
+        inputGain?.volume = 0
+        mixer = AKMixer(inputGain)
 
-            effectGain = AKMixer()
-            effectGain?.volume = 1
+        effectGain = AKMixer()
+        effectGain?.volume = 1
 
-            input?.connect(to: inputMixer)
-            inputMixer.connect(to: [inputGain!, effectGain!])
+        input?.connect(to: inputMixer)
+        inputMixer.connect(to: [inputGain!, effectGain!])
 
-            let effect = _Self.effect
-            self.internalEffect = effect
+        let effect = _Self.effect
+        self.internalEffect = effect
 
-            au = AUWrapper(effect)
-            super.init(avAudioNode: mixer.avAudioNode)
+        au = AUWrapper(effect)
+        super.init(avAudioNode: mixer.avAudioNode)
 
-            AudioKit.engine.attach(effect)
-            if let node = effectGain?.avAudioNode {
-                AudioKit.engine.connect(node, to: effect)
-            }
-            AudioKit.engine.connect(effect, to: mixer.avAudioNode)
+        AudioKit.engine.attach(effect)
+        if let node = effectGain?.avAudioNode {
+            AudioKit.engine.connect(node, to: effect)
+        }
+        AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
-            au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
-            au[kHighShelfParam_Gain] = gain
+        au[kHighShelfParam_CutOffFrequency] = cutoffFrequency
+        au[kHighShelfParam_Gain] = gain
     }
     public var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
@@ -100,7 +100,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -108,7 +108,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

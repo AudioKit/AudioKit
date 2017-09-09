@@ -21,7 +21,7 @@ extension AKOperation {
         amplitude: AKParameter = 1.0,
         pulseWidth: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation(module: "blsquare",
-                               inputs: frequency, amplitude, pulseWidth)
+        return AKOperation(module: "blsquare",
+                           inputs: frequency, amplitude, pulseWidth)
     }
 }

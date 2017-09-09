@@ -5,7 +5,9 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-import AudioKit
+#if !JAZZY_HACK
+    import AudioKit
+#endif
 
 /// Plot the output from any node in an signal processing graph
 @IBDesignable
@@ -16,16 +18,16 @@ open class AKNodeOutputPlot: EZAudioPlot {
                                       bufferSize: bufferSize,
                                       format: nil) { [weak self] (buffer, _) in
 
-            guard let strongSelf = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            }
-            buffer.frameLength = strongSelf.bufferSize
-            let offset = Int(buffer.frameCapacity - buffer.frameLength)
-            if let tail = buffer.floatChannelData?[0] {
-                strongSelf.updateBuffer(&tail[offset],
-                                        withBufferSize: strongSelf.bufferSize)
-            }
+                                        guard let strongSelf = self else {
+                                            AKLog("Unable to create strong reference to self")
+                                            return
+                                        }
+                                        buffer.frameLength = strongSelf.bufferSize
+                                        let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                                        if let tail = buffer.floatChannelData?[0] {
+                                            strongSelf.updateBuffer(&tail[offset],
+                                                                    withBufferSize: strongSelf.bufferSize)
+                                        }
         }
     }
 

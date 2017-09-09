@@ -12,7 +12,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     fileprivate var mixerAU = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
-    open dynamic var volume: Double = 1.0 {
+    @objc open dynamic var volume: Double = 1.0 {
         didSet {
             volume = max(volume, 0)
             mixerAU.outputVolume = Float(volume)
@@ -22,12 +22,12 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     fileprivate var lastKnownVolume: Double = 1.0
 
     /// Determine if the mixer is serving any output or if it is stopped.
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return volume != 0.0
     }
 
     /// Initialize the mixer node with no inputs, to be connected later
-    public override init() {
+    @objc public override init() {
         super.init(avAudioNode: mixerAU, attach: true)
     }
 
@@ -45,25 +45,26 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     ///
     /// - parameter inputs: An array of AKNodes
     ///
-    public convenience init(_ inputs: [AKNode]) {
+    @objc public convenience init(_ inputs: [AKNode]) {
         self.init()
         for input in inputs {
             input.connect(to: self)
         }
     }
 
-    public var nextInput: AKInputConnection {
+    @objc public var nextInput: AKInputConnection {
         return AKInputConnection(node: self, bus: mixerAU.nextAvailableInputBus)
     }
+
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             volume = lastKnownVolume
         }
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownVolume = volume
             volume = 0

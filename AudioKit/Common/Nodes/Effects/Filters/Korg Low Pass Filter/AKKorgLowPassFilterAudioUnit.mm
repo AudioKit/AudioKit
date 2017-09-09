@@ -33,16 +33,16 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardSetup(KorgLowPassFilter)
-
+    
     // Create a parameter object for the cutoffFrequency.
-  AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
-                                                              name:@"Filter cutoff"
-                                                           address:cutoffFrequencyAddress
-                                                               min:0.0
-                                                               max:22050.0
-                                                              unit:kAudioUnitParameterUnit_Hertz];
+    AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
+                                                                name:@"Filter cutoff"
+                                                             address:cutoffFrequencyAddress
+                                                                 min:0.0
+                                                                 max:22050.0
+                                                                unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the resonance.
     AUParameter *resonanceAUParameter = [AUParameter parameter:@"resonance"
                                                           name:@"Filter resonance (should be between 0-2)"
@@ -57,25 +57,25 @@ standardKernelPassthroughs()
                                                             min:0.0
                                                             max:10.0
                                                            unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 1000.0;
     resonanceAUParameter.value = 1.0;
     saturationAUParameter.value = 0.0;
-
-
+    
+    
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
     _kernel.setParameter(resonanceAddress,       resonanceAUParameter.value);
     _kernel.setParameter(saturationAddress,      saturationAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        cutoffFrequencyAUParameter,
-        resonanceAUParameter,
-        saturationAUParameter
-    ]];
-
-	parameterTreeBlock(KorgLowPassFilter)
+                                             cutoffFrequencyAUParameter,
+                                             resonanceAUParameter,
+                                             saturationAUParameter
+                                             ]];
+    
+    parameterTreeBlock(KorgLowPassFilter)
 }
 
 AUAudioUnitOverrides(KorgLowPassFilter);

@@ -9,20 +9,20 @@ let voc = AKVocalTract()
 AudioKit.output = voc
 AudioKit.start()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     var current = 0
 
-    var frequencySlider: AKPropertySlider!
-    var tonguePositionSlider: AKPropertySlider!
-    var tongueDiameterSlider: AKPropertySlider!
-    var tensenessSlider: AKPropertySlider!
-    var nasalitySlider: AKPropertySlider!
+    var frequencySlider: AKSlider!
+    var tonguePositionSlider: AKSlider!
+    var tongueDiameterSlider: AKSlider!
+    var tensenessSlider: AKSlider!
+    var nasalitySlider: AKSlider!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Vocal Tract")
 
-        addSubview(AKButton(title: "Start") { button in
+        addView(AKButton(title: "Start") { button in
             if voc.isStarted {
                 voc.stop()
                 button.title = "Start"
@@ -32,35 +32,35 @@ class PlaygroundView: AKPlaygroundView {
             }
         })
 
-        frequencySlider = AKPropertySlider(property: "Frequency",
-                                           value: voc.frequency,
-                                           range: 0 ... 2_000
+        frequencySlider = AKSlider(property: "Frequency",
+                                   value: voc.frequency,
+                                   range: 0 ... 2_000
         ) { sliderValue in
             voc.frequency = sliderValue
         }
-        addSubview(frequencySlider)
+        addView(frequencySlider)
 
-        tonguePositionSlider = AKPropertySlider(property: "Tongue Position", value: voc.tonguePosition) { sliderValue in
+        tonguePositionSlider = AKSlider(property: "Tongue Position", value: voc.tonguePosition) { sliderValue in
             voc.tonguePosition = sliderValue
         }
-        addSubview(tonguePositionSlider)
+        addView(tonguePositionSlider)
 
-        tongueDiameterSlider = AKPropertySlider(property: "Tongue Diameter", value: voc.tongueDiameter) { sliderValue in
+        tongueDiameterSlider = AKSlider(property: "Tongue Diameter", value: voc.tongueDiameter) { sliderValue in
             voc.tongueDiameter = sliderValue
         }
-        addSubview(tongueDiameterSlider)
+        addView(tongueDiameterSlider)
 
-        tensenessSlider = AKPropertySlider(property: "Tenseness", value: voc.tenseness) { sliderValue in
+        tensenessSlider = AKSlider(property: "Tenseness", value: voc.tenseness) { sliderValue in
             voc.tenseness = sliderValue
         }
-        addSubview(tensenessSlider)
+        addView(tensenessSlider)
 
-        nasalitySlider = AKPropertySlider(property: "Nasality", value: voc.nasality) { sliderValue in
+        nasalitySlider = AKSlider(property: "Nasality", value: voc.nasality) { sliderValue in
             voc.nasality = sliderValue
         }
-        addSubview(nasalitySlider)
+        addView(nasalitySlider)
 
-        addSubview(AKButton(title: "Randomize") { _ in
+        addView(AKButton(title: "Randomize") { _ in
             voc.frequency = self.frequencySlider.randomize()
             voc.tonguePosition = self.tonguePositionSlider.randomize()
             voc.tongueDiameter = self.tongueDiameterSlider.randomize()
@@ -68,10 +68,10 @@ class PlaygroundView: AKPlaygroundView {
             voc.nasality = self.nasalitySlider.randomize()
         })
 
-        addSubview(AKPropertySlider(property: "Ramp Time",
-                                    value: voc.rampTime,
-                                    range: 0 ... 10,
-                                    format: "%0.3f s"
+        addView(AKSlider(property: "Ramp Time",
+                         value: voc.rampTime,
+                         range: 0 ... 10,
+                         format: "%0.3f s"
         ) { time in
             voc.rampTime = time
         })
@@ -80,4 +80,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -32,14 +32,14 @@ open class AKSamplePlayer: AKNode, AKComponent {
     fileprivate var volumeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// startPoint in samples - where to start playing the sample from
-    open dynamic var startPoint: Sample = 0 {
+    @objc open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -55,7 +55,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     /// endPoint - this is where the sample will play to before stopping. 
     /// A value less than the start point will play the sample backwards.
-    open dynamic var endPoint: Sample = 0 {
+    @objc open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -70,7 +70,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
-    open dynamic var rate: Double = 1 {
+    @objc open dynamic var rate: Double = 1 {
         willSet {
             if rate != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -85,7 +85,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// Volume - amplitude adjustment
-    open dynamic var volume: Double = 1 {
+    @objc open dynamic var volume: Double = 1 {
         willSet {
             if volume != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -101,7 +101,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     /// Loop Enabled - if enabled, the sample will loop back to the startpoint when the endpoint is reached.
     /// When disabled, the sample will play through once from startPoint to endPoint
-    open dynamic var loopEnabled: Bool = false {
+    @objc open dynamic var loopEnabled: Bool = false {
         willSet {
             internalAU?.loop = newValue
         }
@@ -124,29 +124,41 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     fileprivate var avAudiofile: AVAudioFile
+    fileprivate var maximumSamples: Int = 0
 
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node
     ///
-    public init(
-        file: AVAudioFile,
-        startPoint: Sample = 0,
-        endPoint: Sample = 0,
-        rate: Double = 1,
-        volume: Double = 1,
-        completionHandler: @escaping AKCCallback = { }) {
+    /// - Parameters:
+    ///   - file: Initial file to load (defining maximum size unless maximum samples are also set
+    ///   - startPoint: Point in samples from which to start playback
+    ///   - endPoint: Point in samples at which to stop playback
+    ///   - rate: Multiplication factor from original speed (Default: 1)
+    ///   - volume: Multiplication factor of the overall amplitude (Default: 1)
+    ///   - maximumSamples: Largest number of samples that will be loaded into the sample player
+    ///   - completionHandler: Callback to run when the sample playback is completed
+    ///
+    public init(file: AVAudioFile,
+                startPoint: Sample = 0,
+                endPoint: Sample = 0,
+                rate: Double = 1,
+                volume: Double = 1,
+                maximumSamples: Int = 0,
+                completionHandler: @escaping AKCCallback = { }) {
 
         self.startPoint = startPoint
         self.rate = rate
         self.volume = volume
         self.avAudiofile = file
         self.endPoint = Sample(avAudiofile.samplesCount)
+        self.maximumSamples = maximumSamples
+
         _Self.register()
 
         super.init()
@@ -184,20 +196,23 @@ open class AKSamplePlayer: AKNode, AKComponent {
         internalAU?.rate = Float(rate)
         internalAU?.volume = Float(volume)
 
+        if maximumSamples != 0 {
+            internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
+        }
         load(file: self.avAudiofile)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 
@@ -308,17 +323,25 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    internalAU?.setupAudioFileTable(data, size: ioNumberFrames * 2)
+
+                    if maximumSamples == 0 {
+                        maximumSamples = Int(ioNumberFrames * 2)
+                        internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
+                    }
+                    internalAU?.loadAudioData(data, size: ioNumberFrames * 2)
+
                     self.avAudiofile = file
                     self.startPoint = 0
                     self.endPoint = Sample(file.samplesCount)
                 } else {
                     // failure
-                    theData?.deallocate(capacity: Int(dataSize))
-                    theData = nil // make sure to return NULL
                     AKLog("Error = \(err)"); break Exit
                 }
             }
+            theData?.deallocate(capacity: Int(dataSize))
+            theData = nil // make sure to return NULL
+            ExtAudioFileDispose(externalAudioFileRef)
+            ExtAudioFileDispose(extRef!)
         }
     }
 }

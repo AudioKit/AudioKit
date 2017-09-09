@@ -14,7 +14,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     fileprivate var lastKnownMix: Double = 0.5
 
     /// Dry/Wet Mix (Default 0.5)
-    open dynamic var dryWetMix: Double = 0.5 {
+    @objc open dynamic var dryWetMix: Double = 0.5 {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             reverbAU.wetDryMix = Float(dryWetMix) * 100
@@ -22,7 +22,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     /// Initialize the reverb node
     ///
@@ -47,7 +47,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -55,7 +55,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

@@ -320,7 +320,7 @@ open class AKSequencer {
     }
 
     /// Stop the sequence
-    open func stop() {
+    @objc open func stop() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerStop(existingMusicPlayer)
         }

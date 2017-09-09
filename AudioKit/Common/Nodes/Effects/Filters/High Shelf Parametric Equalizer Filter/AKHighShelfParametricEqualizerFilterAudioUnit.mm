@@ -33,16 +33,16 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardSetup(HighShelfParametricEqualizerFilter)
-
+    
     // Create a parameter object for the centerFrequency.
-  AUParameter *centerFrequencyAUParameter = [AUParameter parameter:@"centerFrequency"
-                                                              name:@"Corner Frequency (Hz)"
-                                                           address:centerFrequencyAddress
-                                                               min:12.0
-                                                               max:20000.0
-                                                              unit:kAudioUnitParameterUnit_Hertz];
+    AUParameter *centerFrequencyAUParameter = [AUParameter parameter:@"centerFrequency"
+                                                                name:@"Corner Frequency (Hz)"
+                                                             address:centerFrequencyAddress
+                                                                 min:12.0
+                                                                 max:20000.0
+                                                                unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the gain.
     AUParameter *gainAUParameter = [AUParameter parameter:@"gain"
                                                      name:@"Gain"
@@ -57,24 +57,24 @@ standardKernelPassthroughs()
                                                    min:0.0
                                                    max:2.0
                                                   unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 1000;
     gainAUParameter.value = 1.0;
     qAUParameter.value = 0.707;
-
+    
     _kernel.setParameter(centerFrequencyAddress, centerFrequencyAUParameter.value);
     _kernel.setParameter(gainAddress,            gainAUParameter.value);
     _kernel.setParameter(qAddress,               qAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        centerFrequencyAUParameter,
-        gainAUParameter,
-        qAUParameter
-    ]];
-
-	parameterTreeBlock(HighShelfParametricEqualizerFilter)
+                                             centerFrequencyAUParameter,
+                                             gainAUParameter,
+                                             qAUParameter
+                                             ]];
+    
+    parameterTreeBlock(HighShelfParametricEqualizerFilter)
 }
 
 AUAudioUnitOverrides(HighShelfParametricEqualizerFilter);

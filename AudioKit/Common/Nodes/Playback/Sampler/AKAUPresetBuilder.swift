@@ -150,16 +150,16 @@ open class AKAUPresetBuilder {
                                                                   release: existingRelease)
 
             switch triggerModeStr {
-                case SampleTriggerMode.Loop.rawValue?:
-                    triggerMode = SampleTriggerMode.Loop
-                case SampleTriggerMode.Trigger.rawValue?:
-                    triggerMode = SampleTriggerMode.Trigger
-                case SampleTriggerMode.Hold.rawValue?:
-                    triggerMode = SampleTriggerMode.Hold
-                case SampleTriggerMode.Repeat.rawValue?:
-                    triggerMode = SampleTriggerMode.Repeat
-                default:
-                    triggerMode = SampleTriggerMode.Trigger
+            case SampleTriggerMode.Loop.rawValue?:
+                triggerMode = SampleTriggerMode.Loop
+            case SampleTriggerMode.Trigger.rawValue?:
+                triggerMode = SampleTriggerMode.Trigger
+            case SampleTriggerMode.Hold.rawValue?:
+                triggerMode = SampleTriggerMode.Hold
+            case SampleTriggerMode.Repeat.rawValue?:
+                triggerMode = SampleTriggerMode.Repeat
+            default:
+                triggerMode = SampleTriggerMode.Trigger
             }
             switch triggerMode {
             case  .Hold:
@@ -1326,16 +1326,16 @@ open class AKAUPresetBuilder {
 
 /// Type of triggering to use
 public enum SampleTriggerMode: String {
-    /// Hold
+    /// Hold - play the sample on note on, and stop the sample on note-off
     case Hold = "hold"
 
-    /// Trigger
+    /// Trigger - play the sample on note on, ignore note-off
     case Trigger = "trigger"
 
-    /// Loop
+    /// Loop - play the sample on note on, loop the sample playback until note-off received
     case Loop = "loop"
 
-    /// Repeat
+    /// Repeat - useful for 'note-repeat' type applications. Works with a sequencer to repeat note at intervals
     case Repeat = "repeat"
 }
 /*

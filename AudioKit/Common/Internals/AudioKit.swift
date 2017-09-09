@@ -30,19 +30,19 @@ extension AVAudioEngine {
     // MARK: Global audio format (44.1K, Stereo)
 
     /// Format of AudioKit Nodes
-    open static var format = AKSettings.audioFormat
+    @objc open static var format = AKSettings.audioFormat
 
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    open static let engine = AVAudioEngine()
+    @objc open static let engine = AVAudioEngine()
 
-    static var shouldBeRunning = false
+    @objc static var shouldBeRunning = false
 
-    static var finalMixer = AKMixer()
+    @objc static var finalMixer = AKMixer()
 
     /// An audio output operation that most applications will need to use last
-    open static var output: AKNode? {
+    @objc open static var output: AKNode? {
         didSet {
             output?.connect(to: finalMixer)
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
@@ -52,7 +52,7 @@ extension AVAudioEngine {
     // MARK: - Device Management
 
     /// Enumerate the list of available input devices.
-    open static var inputDevices: [AKDevice]? {
+    @objc open static var inputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.inputDevices().map {
@@ -78,7 +78,7 @@ extension AVAudioEngine {
     }
 
     /// Enumerate the list of available output devices.
-    open static var outputDevices: [AKDevice]? {
+    @objc open static var outputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.outputDevices().map {
@@ -98,7 +98,7 @@ extension AVAudioEngine {
     }
 
     /// The name of the current input device, if available.
-    open static var inputDevice: AKDevice? {
+    @objc open static var inputDevice: AKDevice? {
         #if os(macOS)
             if let dev = EZAudioDevice.currentInput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
@@ -121,7 +121,7 @@ extension AVAudioEngine {
     }
 
     /// The name of the current output device, if available.
-    open static var outputDevice: AKDevice? {
+    @objc open static var outputDevice: AKDevice? {
         #if os(macOS)
             if let dev = EZAudioDevice.currentOutput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
@@ -137,7 +137,7 @@ extension AVAudioEngine {
     }
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
-    open static func setInputDevice(_ input: AKDevice) throws {
+    @objc open static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
             var address = AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDefaultInputDevice,
@@ -187,7 +187,7 @@ extension AVAudioEngine {
     }
 
     /// Change the preferred output device, giving it one of the names from the list of available output.
-    open static func setOutputDevice(_ output: AKDevice) throws {
+    @objc open static func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
             var id = output.deviceID
             if let audioUnit = AudioKit.engine.outputNode.audioUnit {
@@ -213,7 +213,7 @@ extension AVAudioEngine {
     }
 
     /// Start up the audio engine
-    open static func start() {
+    @objc open static func start() {
         if output == nil {
             AKLog("AudioKit: No output node has been set yet, no processing will happen.")
         }
@@ -309,7 +309,7 @@ extension AVAudioEngine {
     }
 
     /// Stop the audio engine
-    open static func stop() {
+    @objc open static func stop() {
         // Stop the engine.
         engine.stop()
         shouldBeRunning = false
@@ -325,7 +325,7 @@ extension AVAudioEngine {
     // MARK: - Testing
 
     /// Testing AKNode
-    open static var tester: AKTester?
+    @objc open static var tester: AKTester?
 
     /// Test the output of a given node
     ///
@@ -333,7 +333,7 @@ extension AVAudioEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    open static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) {
+    @objc open static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) {
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
@@ -353,7 +353,8 @@ extension AVAudioEngine {
             afterStart()
             tester?.play()
 
-            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)
+            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
+                                                            frameCapacity: engine.manualRenderingMaximumFrameCount)!
 
             while engine.manualRenderingSampleTime < samples {
                 do {
@@ -391,7 +392,7 @@ extension AVAudioEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    open static func auditionTest(node: AKNode, duration: Double) {
+    @objc open static func auditionTest(node: AKNode, duration: Double) {
         output = node
         start()
         if let playableNode = node as? AKToggleable {

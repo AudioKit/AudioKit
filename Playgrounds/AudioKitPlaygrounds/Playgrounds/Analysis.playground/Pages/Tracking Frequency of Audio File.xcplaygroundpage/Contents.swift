@@ -17,12 +17,12 @@ player.play()
 //: User Interface
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKPropertySlider?
-    var trackedFrequencySlider: AKPropertySlider?
+    var trackedAmplitudeSlider: AKSlider?
+    var trackedFrequencySlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
 
         AKPlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
@@ -31,23 +31,23 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking An Audio File")
 
-        trackedAmplitudeSlider = AKPropertySlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
+        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedAmplitudeSlider)
+        addView(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKPropertySlider(property: "Tracked Frequency",
-                                                  range: 0 ... 1_000,
-                                                  format: "%0.3f Hz"
+        trackedFrequencySlider = AKSlider(property: "Tracked Frequency",
+                                          range: 0 ... 1_000,
+                                          format: "%0.3f Hz"
         ) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedFrequencySlider)
+        addView(trackedFrequencySlider)
 
-        addSubview(AKRollingOutputPlot.createView())
+        addView(AKRollingOutputPlot.createView())
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

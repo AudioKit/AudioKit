@@ -42,17 +42,17 @@ sequencer.setTempo(tempo)
 //: Create a simple user interface
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
-    override func setup() {
+class LiveView: AKLiveViewController {
+    override func viewDidLoad() {
         addTitle("Callback Instrument")
 
-        addSubview(AKButton(title: "Play") { _ in
+        addView(AKButton(title: "Play") { _ in
             sequencer.play()
         })
-        addSubview(AKButton(title: "Pause") { _ in
+        addView(AKButton(title: "Pause") { _ in
             sequencer.stop()
         })
-        addSubview(AKButton(title: "Rewind") { _ in
+        addView(AKButton(title: "Rewind") { _ in
             sequencer.rewind()
         })
         addLabel("Open the console log to show output.")
@@ -62,5 +62,5 @@ sequencer.play()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

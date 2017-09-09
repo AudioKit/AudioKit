@@ -18,14 +18,14 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Flat Frequency Response Reverb")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Duration", value: reverb.reverbDuration, range: 0 ... 5) { sliderValue in
+        addView(AKSlider(property: "Duration", value: reverb.reverbDuration, range: 0 ... 5) { sliderValue in
             reverb.reverbDuration = sliderValue
         })
     }
@@ -33,4 +33,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

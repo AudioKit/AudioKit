@@ -27,65 +27,69 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Dynamics Processor")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: effect))
+        addView(AKButton(title: "Stop Dynamics Processor") { button in
+            let node = effect
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Dynamics Processor" : "Start Dynamics Processor"
+        })
 
-        addSubview(AKPropertySlider(property: "Threshold",
-                                    value: effect.threshold,
-                                    range: -40 ... 20,
-                                    format: "%0.2f dB"
+        addView(AKSlider(property: "Threshold",
+                         value: effect.threshold,
+                         range: -40 ... 20,
+                         format: "%0.2f dB"
         ) { sliderValue in
             effect.threshold = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Head Room",
-                                    value: effect.headRoom,
-                                    range: 0.1 ... 40,
-                                    format: "%0.2f dB"
+        addView(AKSlider(property: "Head Room",
+                         value: effect.headRoom,
+                         range: 0.1 ... 40,
+                         format: "%0.2f dB"
         ) { sliderValue in
             effect.headRoom = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Expansion Ratio",
-                                    value: effect.expansionRatio,
-                                    range: 1 ... 50
+        addView(AKSlider(property: "Expansion Ratio",
+                         value: effect.expansionRatio,
+                         range: 1 ... 50
         ) { sliderValue in
             effect.expansionRatio = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Expansion Threshold",
-                                    value: effect.expansionThreshold,
-                                    range: 1 ... 50
+        addView(AKSlider(property: "Expansion Threshold",
+                         value: effect.expansionThreshold,
+                         range: 1 ... 50
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Attack Time",
-                                    value: effect.attackTime,
-                                    range: 0.000_1 ... 0.2,
-                                    format: "%0.3f s"
+        addView(AKSlider(property: "Attack Time",
+                         value: effect.attackTime,
+                         range: 0.000_1 ... 0.2,
+                         format: "%0.3f s"
         ) { sliderValue in
             effect.attackTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Release Time",
-                                    value: effect.releaseTime,
-                                    range: 0.01 ... 3,
-                                    format: "%0.3f s"
+        addView(AKSlider(property: "Release Time",
+                         value: effect.releaseTime,
+                         range: 0.01 ... 3,
+                         format: "%0.3f s"
         ) { sliderValue in
             effect.releaseTime = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Master Gain",
-                                    value: effect.masterGain,
-                                    range: -40 ... 40,
-                                    format: "%0.2f dB"
+        addView(AKSlider(property: "Master Gain",
+                         value: effect.masterGain,
+                         range: -40 ... 40,
+                         format: "%0.2f dB"
         ) { sliderValue in
             effect.masterGain = sliderValue
         })
@@ -94,4 +98,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

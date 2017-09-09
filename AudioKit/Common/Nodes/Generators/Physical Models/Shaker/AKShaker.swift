@@ -93,7 +93,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
@@ -109,7 +109,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude
-    open dynamic var amplitude: Double = 0.5 {
+    @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
             if amplitude != newValue {
                 if let existingToken = token {
@@ -120,7 +120,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -184,12 +184,12 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

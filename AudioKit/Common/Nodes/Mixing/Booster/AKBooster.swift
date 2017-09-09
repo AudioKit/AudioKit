@@ -22,7 +22,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var rightGainParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
@@ -32,7 +32,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var lastKnownRightGain: Double = 1.0
 
     /// Amplification Factor
-    open dynamic var gain: Double = 1 {
+    @objc open dynamic var gain: Double = 1 {
         willSet {
             if gain == newValue {
                 return
@@ -55,7 +55,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Left Channel Amplification Factor
-    open dynamic var leftGain: Double = 1 {
+    @objc open dynamic var leftGain: Double = 1 {
         willSet {
             if leftGain == newValue {
                 return
@@ -73,7 +73,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Right Channel Amplification Factor
-    open dynamic var rightGain: Double = 1 {
+    @objc open dynamic var rightGain: Double = 1 {
         willSet {
             if rightGain == newValue {
                 return
@@ -91,7 +91,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amplification Factor in db
-    open dynamic var dB: Double {
+    @objc open dynamic var dB: Double {
         set {
             gain = pow(10.0, Double(newValue / 20))
         }
@@ -101,7 +101,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -158,7 +158,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         AKLog("start() \(isStopped)")
         if isStopped {
             leftGain = lastKnownLeftGain
@@ -167,7 +167,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         AKLog("stop() \(isPlaying)")
 
         if isPlaying {
