@@ -25,7 +25,7 @@ extension AVAudioTime {
 
     /// AVAudioTime.extrapolateTime fails for host time valid times, use
     /// extrapolateTimeShimmed instead. https://bugreport.apple.com/web/?problemID=34249528
-    func extrapolateTimeShimmed(fromAnchor anchorTime: AVAudioTime) -> AVAudioTime {
+    open func extrapolateTimeShimmed(fromAnchor anchorTime: AVAudioTime) -> AVAudioTime {
         guard ((isSampleTimeValid && sampleRate == anchorTime.sampleRate) || isHostTimeValid) &&
             !(isSampleTimeValid && isHostTimeValid) &&
             anchorTime.isSampleTimeValid && anchorTime.isHostTimeValid else {
@@ -44,12 +44,12 @@ extension AVAudioTime {
     }
 
     /// An AVAudioTime with a valid hostTime representing now.
-    static func now() -> AVAudioTime {
+    open static func now() -> AVAudioTime {
         return AVAudioTime(hostTime: mach_absolute_time())
     }
 
     /// Returns an AVAudioTime offest by seconds.
-    func offset(seconds: Double) -> AVAudioTime? {
+    open func offset(seconds: Double) -> AVAudioTime {
 
         if isSampleTimeValid && isHostTimeValid {
             return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds,
@@ -61,11 +61,11 @@ extension AVAudioTime {
         } else if isHostTimeValid {
             return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds)
         }
-        return nil
+        return self
     }
 
     /// The time in seconds between reciever and otherTime.
-    func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
+    open func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
         if isSampleTimeValid && otherTime.isSampleTimeValid {
             return Double(sampleTime - otherTime.sampleTime) / sampleRate
         }
@@ -83,6 +83,13 @@ extension AVAudioTime {
         return nil
     }
 
+}
+
+public func + (left: AVAudioTime, right: Double) -> AVAudioTime {
+    return left.offset(seconds: right)
+}
+public func + (left: AVAudioTime, right: Int) -> AVAudioTime {
+    return left.offset(seconds: Double(right))
 }
 
 fileprivate extension UInt64 {
