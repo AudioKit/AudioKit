@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DAD9EDC1D3E4A3400CD3B0A"
                BuildableName = "RecorderDemo.app"
-               BlueprintName = "RecorderDemo"
-               ReferencedContainer = "container:RecorderDemo.xcodeproj">
+               BlueprintName = "Recorder"
+               ReferencedContainer = "container:Recorder.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,7 +36,7 @@
                BlueprintIdentifier = "8DAD9EF01D3E4A3400CD3B0A"
                BuildableName = "RecorderDemo.xctest"
                BlueprintName = "RecorderDemoTests"
-               ReferencedContainer = "container:RecorderDemo.xcodeproj">
+               ReferencedContainer = "container:Recorder.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -46,7 +46,7 @@
                BlueprintIdentifier = "8DAD9EFB1D3E4A3400CD3B0A"
                BuildableName = "RecorderDemo.xctest"
                BlueprintName = "RecorderDemoUITests"
-               ReferencedContainer = "container:RecorderDemo.xcodeproj">
+               ReferencedContainer = "container:Recorder.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,8 +55,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DAD9EDC1D3E4A3400CD3B0A"
             BuildableName = "RecorderDemo.app"
-            BlueprintName = "RecorderDemo"
-            ReferencedContainer = "container:RecorderDemo.xcodeproj">
+            BlueprintName = "Recorder"
+            ReferencedContainer = "container:Recorder.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -79,8 +79,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DAD9EDC1D3E4A3400CD3B0A"
             BuildableName = "RecorderDemo.app"
-            BlueprintName = "RecorderDemo"
-            ReferencedContainer = "container:RecorderDemo.xcodeproj">
+            BlueprintName = "Recorder"
+            ReferencedContainer = "container:Recorder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -98,8 +98,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DAD9EDC1D3E4A3400CD3B0A"
             BuildableName = "RecorderDemo.app"
-            BlueprintName = "RecorderDemo"
-            ReferencedContainer = "container:RecorderDemo.xcodeproj">
+            BlueprintName = "Recorder"
+            ReferencedContainer = "container:Recorder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -41,8 +41,8 @@ xcodebuild -project Examples/iOS/MicrophoneAnalysis/MicrophoneAnalysis.xcodeproj
 echo "Building iOS MidiMonitor"
 xcodebuild -project Examples/iOS/MidiMonitor/MidiMonitor.xcodeproj -sdk iphonesimulator -scheme MidiMonitor -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 13
 
-echo "Building iOS RecorderDemo"
-xcodebuild -project Examples/iOS/RecorderDemo/RecorderDemo.xcodeproj -sdk iphonesimulator -scheme RecorderDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 14
+echo "Building iOS Recorder"
+xcodebuild -project Examples/iOS/Recorder/Recorder.xcodeproj -sdk iphonesimulator -scheme Recorder -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 14
 
 echo "Building iOS SamplerDemo"
 xcodebuild -project Examples/iOS/SamplerDemo/SamplerDemo.xcodeproj -sdk iphonesimulator -scheme SamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 15

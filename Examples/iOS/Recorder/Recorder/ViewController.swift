@@ -1,3 +1,11 @@
+//
+//  AppDelegate.swift
+//  Recorder
+//
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 AudioKit. All rights reserved.
+//
+
 import AudioKit
 import AudioKitUI
 import UIKit
@@ -21,8 +29,8 @@ class ViewController: UIViewController {
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var resetButton: UIButton!
     @IBOutlet private weak var mainButton: UIButton!
-    @IBOutlet private weak var frequencySlider: AKPropertySlider!
-    @IBOutlet private weak var resonanceSlider: AKPropertySlider!
+    @IBOutlet private weak var frequencySlider: AKSlider!
+    @IBOutlet private weak var resonanceSlider: AKSlider!
     @IBOutlet private weak var loopButton: UIButton!
     @IBOutlet private weak var moogLadderTitle: UILabel!
 

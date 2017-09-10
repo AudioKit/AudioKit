@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  RecorderDemo
+//  Recorder
 //
 //  Created by Laurent Veliscek, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
