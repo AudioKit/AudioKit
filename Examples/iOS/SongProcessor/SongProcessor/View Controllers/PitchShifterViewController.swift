@@ -12,8 +12,8 @@ import UIKit
 
 class PitchShifterViewController: UIViewController {
 
-    @IBOutlet private weak var pitchSlider: AKPropertySlider!
-    @IBOutlet private weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var pitchSlider: AKSlider!
+    @IBOutlet private weak var mixSlider: AKSlider!
 
     let songProcessor = SongProcessor.sharedInstance
 

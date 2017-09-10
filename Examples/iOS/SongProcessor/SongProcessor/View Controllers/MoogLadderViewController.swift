@@ -12,9 +12,9 @@ import UIKit
 
 class MoogLadderViewController: UIViewController {
 
-    @IBOutlet private weak var cutoffFrequncySlider: AKPropertySlider!
-    @IBOutlet private weak var resonanceSlider: AKPropertySlider!
-    @IBOutlet private weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var cutoffFrequncySlider: AKSlider!
+    @IBOutlet private weak var resonanceSlider: AKSlider!
+    @IBOutlet private weak var mixSlider: AKSlider!
 
     let songProcessor = SongProcessor.sharedInstance
 
