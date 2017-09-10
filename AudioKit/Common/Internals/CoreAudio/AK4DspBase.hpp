@@ -1,9 +1,9 @@
 //
-//  AudioUnitBase.m
-//  TryAVAudioEngine
+//  AK4DspBase.hpp
+//  AudioKit For macOS
 //
-//  Created by Andrew Voelkel on 11/19/16.
-//  Copyright © 2016 Andrew Voelkel. All rights reserved.
+//  Created by Andrew Voelkel on 9/9/17.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -11,37 +11,6 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-
-@interface AudioUnitBase : AUAudioUnit
-
-@property float rampTime;  // Do we really want this at this level?
-
-/**
- Sets the parameter tree. The important piece here is that setting the parameter tree
- triggers the setup of the blocks for observer, provider, and string representation. See
- the .m file. There may be a better way to do what is needed here.
- */
-
-- (void) setParameterTree: (AUParameterTree*) tree;
-
-- (float) getParameterWithAddress:(AUParameterAddress)address;
-- (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
-
-
-// Add for compatibility with AKAudioUnit
-
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
-- (BOOL)isSetUp;
-
-// These three properties are what are in the Apple example code.
-
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
-
-@end
 
 #ifdef __cplusplus
 
@@ -52,7 +21,7 @@
  does not know the type of the subclass at compile time.
  */
 
-struct DspBase {
+struct AK4DspBase {
     
 protected:
     
@@ -97,7 +66,7 @@ public:
     virtual void stop() { _playing = false; }
     virtual bool isPlaying() { return _playing; }
     virtual bool isSetup() { return _initialized; }
-
+    
     
     /**
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
@@ -167,7 +136,7 @@ private:
             // While event is not null and is simultaneous (or late).
         } while (event && event->head.eventSampleTime <= now);
     }
-
+    
 };
 
 #endif

@@ -17,10 +17,6 @@
 
 #define kGain 0
 
-@interface GainAudioUnit ()
-
-@end
-
 @implementation GainAudioUnit
 
 @synthesize gain = _gain;
@@ -43,7 +39,7 @@
  */
 
 
--(DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+-(AK4DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
     DspGainEffect* kernel = new DspGainEffect();
     kernel->init(sampleRate, count);
     return kernel;

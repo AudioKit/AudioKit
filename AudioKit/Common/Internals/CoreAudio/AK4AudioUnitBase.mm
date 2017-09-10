@@ -1,11 +1,11 @@
 
-#import "AudioUnitBase.h"
+#import "AK4AudioUnitBase.h"
 #import "BufferedAudioBus.hpp"
 
 
 #define kGain 0
 
-@interface AudioUnitBase ()
+@interface AK4AudioUnitBase ()
 
 /**
  This method should be overridden by the specific AU code, because it knows how to set up
@@ -14,16 +14,16 @@
  is. I'm not sure the standard way to deal with this.
  */
 
-- (DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
+- (AK4DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
 
-@property DspBase* kernel;
+@property AK4DspBase* kernel;
 
 @end
 
-@implementation AudioUnitBase {
+@implementation AK4AudioUnitBase {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     BufferedInputBus _inputBus;
-    DspBase* _kernel;
+    AK4DspBase* _kernel;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -45,7 +45,7 @@
  DSP is invalid.
  */
 
-- (DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+- (AK4DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
     return _kernel = NULL;
 }
 
@@ -62,7 +62,7 @@
     _parameterTree = tree;
     
     // Make a local pointer to the kernel to avoid capturing self.
-    __block DspBase *kernel = _kernel;
+    __block AK4DspBase *kernel = _kernel;
     
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
@@ -163,7 +163,7 @@
 - (AUInternalRenderBlock)internalRenderBlock {
     // Capture in locals to avoid ObjC member lookups.
     // Specify captured objects are mutable.
-    __block DspBase *state = _kernel;
+    __block AK4DspBase *state = _kernel;
     __block BufferedInputBus *input = &_inputBus;
     
     return ^AUAudioUnitStatus(

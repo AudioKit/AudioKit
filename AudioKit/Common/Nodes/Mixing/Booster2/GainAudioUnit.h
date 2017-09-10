@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include "AudioUnitBase.h"
+#include "AK4AudioUnitBase.h"
 
-@interface GainAudioUnit : AudioUnitBase
+@interface GainAudioUnit : AK4AudioUnitBase
 
 @property float gain;
 
@@ -29,7 +29,7 @@
  etc.
  */
 
-struct DspGainEffect : DspBase {
+struct DspGainEffect : AK4DspBase {
     
 private:
     
