@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		7814CAE61D463B49004EA355 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		8DAD9EDD1D3E4A3400CD3B0A /* RecorderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecorderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DAD9EDD1D3E4A3400CD3B0A /* Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4486EE91D42AE4700FE135F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4486EEA1D42AE4700FE135F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4486EEC1D42AE4700FE135F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		8DAD9ED41D3E4A3400CD3B0A = {
 			isa = PBXGroup;
 			children = (
-				C4486EE81D42AE4700FE135F /* RecorderDemo */,
+				C4486EE81D42AE4700FE135F /* Recorder */,
 				7814CAEB1D463D04004EA355 /* Frameworks */,
 				8DAD9EDE1D3E4A3400CD3B0A /* Products */,
 			);
@@ -90,27 +90,27 @@
 		8DAD9EDE1D3E4A3400CD3B0A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DAD9EDD1D3E4A3400CD3B0A /* RecorderDemo.app */,
+				8DAD9EDD1D3E4A3400CD3B0A /* Recorder.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C4486EE81D42AE4700FE135F /* RecorderDemo */ = {
+		C4486EE81D42AE4700FE135F /* Recorder */ = {
 			isa = PBXGroup;
 			children = (
 				C4486EED1D42AE4700FE135F /* Main.storyboard */,
 				C4486EF01D42AE4700FE135F /* ViewController.swift */,
 				7814CAEC1D463D0E004EA355 /* Supporting files */,
 			);
-			path = RecorderDemo;
+			path = Recorder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8DAD9EDC1D3E4A3400CD3B0A /* RecorderDemo */ = {
+		8DAD9EDC1D3E4A3400CD3B0A /* Recorder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8DAD9F051D3E4A3400CD3B0A /* Build configuration list for PBXNativeTarget "RecorderDemo" */;
+			buildConfigurationList = 8DAD9F051D3E4A3400CD3B0A /* Build configuration list for PBXNativeTarget "Recorder" */;
 			buildPhases = (
 				8DAD9ED91D3E4A3400CD3B0A /* Sources */,
 				8DAD9EDA1D3E4A3400CD3B0A /* Frameworks */,
@@ -121,9 +121,9 @@
 			);
 			dependencies = (
 			);
-			name = RecorderDemo;
+			name = Recorder;
 			productName = RecorderDemo;
-			productReference = 8DAD9EDD1D3E4A3400CD3B0A /* RecorderDemo.app */;
+			productReference = 8DAD9EDD1D3E4A3400CD3B0A /* Recorder.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -143,7 +143,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8DAD9ED81D3E4A3400CD3B0A /* Build configuration list for PBXProject "RecorderDemo" */;
+			buildConfigurationList = 8DAD9ED81D3E4A3400CD3B0A /* Build configuration list for PBXProject "Recorder" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -156,7 +156,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DAD9EDC1D3E4A3400CD3B0A /* RecorderDemo */,
+				8DAD9EDC1D3E4A3400CD3B0A /* Recorder */,
 			);
 		};
 /* End PBXProject section */
@@ -325,7 +325,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.recorder;
-				PRODUCT_NAME = RecorderDemo;
+				PRODUCT_NAME = Recorder;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -345,7 +345,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.recorder;
-				PRODUCT_NAME = RecorderDemo;
+				PRODUCT_NAME = Recorder;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -353,7 +353,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8DAD9ED81D3E4A3400CD3B0A /* Build configuration list for PBXProject "RecorderDemo" */ = {
+		8DAD9ED81D3E4A3400CD3B0A /* Build configuration list for PBXProject "Recorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8DAD9F031D3E4A3400CD3B0A /* Debug */,
@@ -362,7 +362,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8DAD9F051D3E4A3400CD3B0A /* Build configuration list for PBXNativeTarget "RecorderDemo" */ = {
+		8DAD9F051D3E4A3400CD3B0A /* Build configuration list for PBXNativeTarget "Recorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8DAD9F061D3E4A3400CD3B0A /* Debug */,
