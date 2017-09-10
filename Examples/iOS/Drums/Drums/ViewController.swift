@@ -55,7 +55,7 @@ class ViewController: UIViewController {
             self.conductor.drums.play(noteNumber: 50 - 12)
         }
         drumPad24.callback = { button in
-            self.conductor.drums.play(noteNumber: 36 - 12)
+            self.conductor.drums.play(noteNumber: 39 - 12)
         }
     }
 
