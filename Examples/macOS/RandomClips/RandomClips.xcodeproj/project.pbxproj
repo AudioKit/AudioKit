@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		55A3AD571F62E316001C22E3 /* leadloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A3AD541F62DD77001C22E3 /* leadloop.wav */; };
 		55A3AD581F62E31A001C22E3 /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A3AD561F62DD8D001C22E3 /* drumloop.wav */; };
+		55B2D88C1F65C160008F1F65 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; };
+		55B2D88D1F65C160008F1F65 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55B603D81F6342DA00404701 /* guitarloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55B603D61F6342CC00404701 /* guitarloop.wav */; };
 		55C731CE1F62D9A100611001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C731CD1F62D9A100611001 /* AppDelegate.swift */; };
 		55C731D01F62D9A100611001 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C731CF1F62D9A100611001 /* ViewController.swift */; };
@@ -25,6 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				55B2D88D1F65C160008F1F65 /* AudioKitUI.framework in Embed Frameworks */,
 				C472CD141F6533EA00C5FF8E /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -35,6 +38,7 @@
 /* Begin PBXFileReference section */
 		55A3AD541F62DD77001C22E3 /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Basics.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
 		55A3AD561F62DD8D001C22E3 /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Basics.playground/Resources/drumloop.wav; sourceTree = "<group>"; };
+		55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		55B603D61F6342CC00404701 /* guitarloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = guitarloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Playback.playground/Resources/guitarloop.wav; sourceTree = "<group>"; };
 		55C731CA1F62D9A100611001 /* RandomClips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomClips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C731CD1F62D9A100611001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55B2D88C1F65C160008F1F65 /* AudioKitUI.framework in Frameworks */,
 				C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,6 +66,7 @@
 		55C731C11F62D9A100611001 = {
 			isa = PBXGroup;
 			children = (
+				55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */,
 				C472CD121F6533D100C5FF8E /* AudioKit.framework */,
 				55C731CC1F62D9A100611001 /* RandomClips */,
 				55C731CB1F62D9A100611001 /* Products */,
