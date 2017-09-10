@@ -12,8 +12,8 @@ import UIKit
 
 class CostelloReverbViewController: UIViewController {
 
-    @IBOutlet private weak var feedbackSlider: AKPropertySlider!
-    @IBOutlet private weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var feedbackSlider: AKSlider!
+    @IBOutlet private weak var mixSlider: AKSlider!
 
     let songProcessor = SongProcessor.sharedInstance
 

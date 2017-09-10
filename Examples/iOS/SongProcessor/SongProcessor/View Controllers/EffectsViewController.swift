@@ -12,7 +12,7 @@ import UIKit
 
 class EffectsViewController: UIViewController {
 
-    @IBOutlet private var volumeSlider: AKPropertySlider!
+    @IBOutlet private var volumeSlider: AKSlider!
 
     var docController: UIDocumentInteractionController?
 
