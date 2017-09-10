@@ -15,6 +15,8 @@
 		C40A79FA1C59616900CD8CB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40A79F81C59616900CD8CB0 /* LaunchScreen.storyboard */; };
 		C4338E791C59A4DA00296845 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4338E781C59A4DA00296845 /* AudioKit.framework */; };
 		C4338E7A1C59A4DA00296845 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4338E781C59A4DA00296845 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C49523191F64FCBC00C77E02 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49523181F64FCB700C77E02 /* AudioKitUI.framework */; };
+		C495231A1F64FCBC00C77E02 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C49523181F64FCB700C77E02 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,6 +26,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C495231A1F64FCBC00C77E02 /* AudioKitUI.framework in Embed Frameworks */,
 				C4338E7A1C59A4DA00296845 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -43,6 +46,7 @@
 		C40A79F91C59616900CD8CB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C40A79FB1C59616900CD8CB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4338E781C59A4DA00296845 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C49523181F64FCB700C77E02 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C49523191F64FCBC00C77E02 /* AudioKitUI.framework in Frameworks */,
 				C4338E791C59A4DA00296845 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				C4338E781C59A4DA00296845 /* AudioKit.framework */,
+				C49523181F64FCB700C77E02 /* AudioKitUI.framework */,
 				C40A79E91C59616900CD8CB0 /* HelloObjectiveC */,
 				C40A79E81C59616900CD8CB0 /* Products */,
 			);
