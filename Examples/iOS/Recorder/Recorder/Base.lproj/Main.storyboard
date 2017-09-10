@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RecorderDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -117,7 +117,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p52-OE-9Do">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-Jb-A4X" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-Jb-A4X" customClass="AKSlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                         <color key="backgroundColor" red="0.95223861932754517" green="0.60029435157775879" blue="0.44777637720108032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>
@@ -151,7 +151,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHI-vx-jqU">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1W-4C-cmC" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H1W-4C-cmC" customClass="AKSlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                         <color key="backgroundColor" red="0.90007048845291138" green="0.62913995981216431" blue="0.40531009435653687" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <userDefinedRuntimeAttributes>
