@@ -48,7 +48,7 @@ extension String {
 
     func toCGFloat() -> CGFloat {
         if let n = NumberFormatter().number(from: self) {
-            let f = CGFloat(n)
+            let f = CGFloat(truncating: n)
             return f
         }
         return 0.0
@@ -56,7 +56,7 @@ extension String {
 
     func toInt() -> Int {
         if let n = NumberFormatter().number(from: self) {
-            let f = Int(n)
+            let f = Int(truncating: n)
             return f
         }
         return 0
@@ -64,7 +64,7 @@ extension String {
 
     func toDouble() -> Double {
         if let n = NumberFormatter().number(from: self) {
-            let f = Double(n)
+            let f = Double(truncating: n)
             return f
         }
         return 0.0
