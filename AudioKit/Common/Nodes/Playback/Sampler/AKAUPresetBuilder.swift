@@ -150,16 +150,16 @@ open class AKAUPresetBuilder {
                                                                   release: existingRelease)
 
             switch triggerModeStr {
-                case SampleTriggerMode.Loop.rawValue?:
-                    triggerMode = SampleTriggerMode.Loop
-                case SampleTriggerMode.Trigger.rawValue?:
-                    triggerMode = SampleTriggerMode.Trigger
-                case SampleTriggerMode.Hold.rawValue?:
-                    triggerMode = SampleTriggerMode.Hold
-                case SampleTriggerMode.Repeat.rawValue?:
-                    triggerMode = SampleTriggerMode.Repeat
-                default:
-                    triggerMode = SampleTriggerMode.Trigger
+            case SampleTriggerMode.Loop.rawValue?:
+                triggerMode = SampleTriggerMode.Loop
+            case SampleTriggerMode.Trigger.rawValue?:
+                triggerMode = SampleTriggerMode.Trigger
+            case SampleTriggerMode.Hold.rawValue?:
+                triggerMode = SampleTriggerMode.Hold
+            case SampleTriggerMode.Repeat.rawValue?:
+                triggerMode = SampleTriggerMode.Repeat
+            default:
+                triggerMode = SampleTriggerMode.Trigger
             }
             switch triggerMode {
             case  .Hold:

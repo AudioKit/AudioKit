@@ -19,14 +19,14 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Reverb")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
+        addView(AKSlider(property: "Mix", value: reverb.dryWetMix) { sliderValue in
             reverb.dryWetMix = sliderValue
         })
 
@@ -34,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
                        "Large Room", "Large Room 2", "Medium Chamber",
                        "Medium Hall", "Medium Hall 2", "Medium Hall 3",
                        "Medium Room", "Plate", "Small Room"]
-        addSubview(AKPresetLoaderView(presets: presets) { preset in
+        addView(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Cathedral":
                 reverb.loadFactoryPreset(.cathedral)
@@ -70,4 +70,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

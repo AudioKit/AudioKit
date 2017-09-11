@@ -31,12 +31,12 @@ standardKernelPassthroughs()
     standardSetup(LowPassButterworthFilter)
 
     // Create a parameter object for the cutoffFrequency.
-  AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
-                                                              name:@"Cutoff Frequency (Hz)"
-                                                           address:cutoffFrequencyAddress
-                                                               min:12.0
-                                                               max:20000.0
-                                                              unit:kAudioUnitParameterUnit_Hertz];
+    AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
+                                                                name:@"Cutoff Frequency (Hz)"
+                                                             address:cutoffFrequencyAddress
+                                                                 min:12.0
+                                                                 max:20000.0
+                                                                unit:kAudioUnitParameterUnit_Hertz];
 
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 1000.0;
@@ -44,11 +44,9 @@ standardKernelPassthroughs()
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree tree:@[
-        cutoffFrequencyAUParameter
-    ]];
+    _parameterTree = [AUParameterTree tree:@[cutoffFrequencyAUParameter]];
 
-	parameterTreeBlock(LowPassButterworthFilter)
+    parameterTreeBlock(LowPassButterworthFilter)
 }
 
 AUAudioUnitOverrides(LowPassButterworthFilter);

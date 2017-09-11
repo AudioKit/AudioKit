@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 #if !JAZZY_HACK
-import AudioKit
+    import AudioKit
 #endif
 
 /// Wrapper class for plotting audio from the final mix in a waveform plot
@@ -20,16 +20,16 @@ open class AKOutputWaveformPlot: EZAudioPlot {
             AudioKit.engine.outputNode.installTap(onBus: 0,
                                                   bufferSize: bufferSize,
                                                   format: nil) { [weak self] (buffer, _) in
-                guard let strongSelf = self else {
-                    AKLog("Unable to create strong ref to self")
-                    return
-                }
-                buffer.frameLength = strongSelf.bufferSize
-                let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                if let tail = buffer.floatChannelData?[0] {
-                    strongSelf.updateBuffer(&tail[offset],
-                                            withBufferSize: strongSelf.bufferSize)
-                }
+                                                    guard let strongSelf = self else {
+                                                        AKLog("Unable to create strong ref to self")
+                                                        return
+                                                    }
+                                                    buffer.frameLength = strongSelf.bufferSize
+                                                    let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                                                    if let tail = buffer.floatChannelData?[0] {
+                                                        strongSelf.updateBuffer(&tail[offset],
+                                                                                withBufferSize: strongSelf.bufferSize)
+                                                    }
             }
             isConnected = true
         }

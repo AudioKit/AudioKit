@@ -71,7 +71,7 @@ class ViewController: NSViewController, AKMIDIListener {
     }
     func updateText(_ input: String) {
         DispatchQueue.main.async(execute: {
-            self.outputTextView.string = "\(input)\n\(self.outputTextView.string!)"
+            self.outputTextView.string = "\(input)\n\(self.outputTextView.string)"
         })
     }
 

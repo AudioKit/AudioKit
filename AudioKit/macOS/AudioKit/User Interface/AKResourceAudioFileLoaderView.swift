@@ -127,7 +127,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     func drawAudioFileLoader(sliderColor: NSColor = AKStylist.sharedInstance.colorForFalseValue,
                              fileName: String = "None") {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
         let rect = bounds
 
         let cornerRadius: CGFloat = AKResourcesAudioFileLoaderView.standardCornerRadius
@@ -287,14 +287,14 @@ public class AKResourcesAudioFileLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 24.0),
-                                       NSForegroundColorAttributeName: textColorForTheme,
-                                       NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 24.0),
+                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
+                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
             with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         let nameLabelTextRect: NSRect = NSRect(
             x: nameLabelInset.minX,
@@ -302,7 +302,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
             width: nameLabelInset.width,
             height: nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(nameLabelInset)
+        __NSRectClip(nameLabelInset)
         NSString(string: fileName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                         withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()

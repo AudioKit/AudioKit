@@ -24,14 +24,14 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var yParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// x
-    open dynamic var x: Double = 0 {
+    @objc open dynamic var x: Double = 0 {
         willSet {
             if x != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -45,7 +45,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// y
-    open dynamic var y: Double = 0 {
+    @objc open dynamic var y: Double = 0 {
         willSet {
             if y != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -60,7 +60,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -119,12 +119,12 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

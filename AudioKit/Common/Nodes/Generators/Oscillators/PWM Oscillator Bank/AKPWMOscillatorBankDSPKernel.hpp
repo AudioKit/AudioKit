@@ -158,7 +158,7 @@ public:
             case pulseWidthAddress:
                 pulseWidthRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
-            standardBankSetParameters()
+                standardBankSetParameters()
         }
     }
 
@@ -167,7 +167,7 @@ public:
 
             case pulseWidthAddress:
                 return pulseWidthRamper.getUIValue();
-            standardBankGetParameters()
+                standardBankGetParameters()
         }
     }
 
@@ -177,7 +177,7 @@ public:
             case pulseWidthAddress:
                 pulseWidthRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
-            standardBankStartRamps()
+                standardBankStartRamps()
         }
     }
     
@@ -194,7 +194,11 @@ public:
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] = 0.0f;
             outR[i] = 0.0f;
-            sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
+            if (vibratoDepth != 0 && vibratoRate != 0 && &(vibrato->tbl) != nullptr) {
+                sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
+            } else {
+                vibratoValues[i] = 0;
+            }
         }
         
         NoteState* noteState = playingNotes;

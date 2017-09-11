@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 #if !JAZZY_HACK
-import AudioKit
+    import AudioKit
 #endif
 
 /// Wrapper class for plotting audio from the final mix in a rolling plot
@@ -16,21 +16,21 @@ open class AKRollingOutputPlot: EZAudioPlot {
         AudioKit.engine.outputNode.installTap(onBus: 0,
                                               bufferSize: bufferSize,
                                               format: nil) { [weak self] (buffer, _) in
-            guard let strongSelf = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            }
-            buffer.frameLength = strongSelf.bufferSize
-            let offset = Int(buffer.frameCapacity - buffer.frameLength)
-            if let tail = buffer.floatChannelData?[0] {
-                strongSelf.updateBuffer(&tail[offset],
-                                        withBufferSize: strongSelf.bufferSize)
-            }
+                                                guard let strongSelf = self else {
+                                                    AKLog("Unable to create strong reference to self")
+                                                    return
+                                                }
+                                                buffer.frameLength = strongSelf.bufferSize
+                                                let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                                                if let tail = buffer.floatChannelData?[0] {
+                                                    strongSelf.updateBuffer(&tail[offset],
+                                                                            withBufferSize: strongSelf.bufferSize)
+                                                }
         }
     }
 
     /// Useful to reconnect after connecting to Audiobus or IAA
-    public func reconnect() {
+    @objc public func reconnect() {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
         setupNode()
     }

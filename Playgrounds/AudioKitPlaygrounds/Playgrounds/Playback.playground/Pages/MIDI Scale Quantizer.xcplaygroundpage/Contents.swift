@@ -143,15 +143,15 @@ midi.addListener(listener)
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
-    override func setup() {
+class LiveView: AKLiveViewController {
+    override func viewDidLoad() {
         addTitle("Scale Quantizer")
 
         let keyPresets = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
-        addSubview(AKPresetLoaderView(presets: keyPresets) { preset in key = Key.fromString(preset)
+        addView(AKPresetLoaderView(presets: keyPresets) { preset in key = Key.fromString(preset)
         })
         let modePresets = ["major", "minor"]
-        addSubview(AKPresetLoaderView(presets: modePresets) { preset in
+        addView(AKPresetLoaderView(presets: modePresets) { preset in
             switch preset {
             case "major":
                 mode = .major
@@ -166,4 +166,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
