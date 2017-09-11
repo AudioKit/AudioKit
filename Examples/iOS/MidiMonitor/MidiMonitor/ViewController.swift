@@ -70,4 +70,13 @@ class ViewController: UIViewController, AKMIDIListener {
             self.outputTextView.text = ""
         })
     }
+    @IBAction func sendMIDIButtonPressed(_ sender: UIButton) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromRight
+        view.window!.layer.add(transition, forKey: kCATransition)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MIDISenderVC") as? MIDISenderVC
+        present(vc!, animated: true, completion: nil)
+    }
 }
