@@ -25,14 +25,14 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var distAmountParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = rampTime
         }
     }
 
     /// Determines the amount of gain applied to the signal before processing.
-    open dynamic var preGain: Double = 5.0 {
+    @objc open dynamic var preGain: Double = 5.0 {
         willSet {
             if preGain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -47,7 +47,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Gain applied after processing.
-    open dynamic var postGain: Double = 0.7 {
+    @objc open dynamic var postGain: Double = 0.7 {
         willSet {
             if postGain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -62,7 +62,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amount of Low frequencies.
-    open dynamic var lowGain: Double = 0.0 {
+    @objc open dynamic var lowGain: Double = 0.0 {
         willSet {
             if lowGain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -77,7 +77,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amount of Middle frequencies.
-    open dynamic var midGain: Double = 0.0 {
+    @objc open dynamic var midGain: Double = 0.0 {
         willSet {
             if midGain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -92,7 +92,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Amount of High frequencies.
-    open dynamic var highGain: Double = 0.0 {
+    @objc open dynamic var highGain: Double = 0.0 {
         willSet {
             if highGain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -107,22 +107,22 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Distortion Type
-//    open dynamic var distType: Double = 1 {
-//        willSet {
-//            if distType != newValue {
-//                if internalAU?.isSetUp() ?? false {
-//                    if let existingToken = token {
-//                        distTypeParameter?.setValue(Float(newValue), originator: existingToken)
-//                    }
-//                } else {
-//                    internalAU?.distType = Float(newValue)
-//                }
-//            }
-//        }
-//    }
+    //    open dynamic var distType: Double = 1 {
+    //        willSet {
+    //            if distType != newValue {
+    //                if internalAU?.isSetUp() ?? false {
+    //                    if let existingToken = token {
+    //                        distTypeParameter?.setValue(Float(newValue), originator: existingToken)
+    //                    }
+    //                } else {
+    //                    internalAU?.distType = Float(newValue)
+    //                }
+    //            }
+    //        }
+    //    }
 
     /// Distortion Amount
-    open dynamic var distAmount: Double = 1.0 {
+    @objc open dynamic var distAmount: Double = 1.0 {
         willSet {
             if distAmount != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -137,7 +137,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -228,12 +228,12 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

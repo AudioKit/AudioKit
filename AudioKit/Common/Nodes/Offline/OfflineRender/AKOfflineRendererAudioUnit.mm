@@ -43,7 +43,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
         self.renderResourcesAllocated = false;
         return [AKOfflineRenderAudioUnit outError:outError withDomain:NSOSStatusErrorDomain code:kAudioUnitErr_FailedInitialization
-                                     description:@"AKOfflineRenderAudioUnit self.outputBus.format.channelCount != _inputBus.bus.format.channelCount"];
+                                      description:@"AKOfflineRenderAudioUnit self.outputBus.format.channelCount != _inputBus.bus.format.channelCount"];
     }
     pthread_mutex_init(&renderLock, nil);
     _inputBus.allocateRenderResources(self.maximumFramesToRender);
@@ -146,11 +146,11 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
 -(BOOL)render:(UInt32)sampleCount pullInputBlock:(AURenderPullInputBlock)pullInputBlock renderBlock:(SimpleRenderBlock)renderBlock error:(NSError **)outError{
     if (!sampleCount){
         return [AKOfflineRenderAudioUnit outError:outError withDomain:@"AKOfflineRenderAudioUnit" code:1
-                                     description:@"Can't render <= 0 seconds"];
+                                      description:@"Can't render <= 0 seconds"];
     }
     if(!pullInputBlock || !renderBlock){
         return [AKOfflineRenderAudioUnit outError:outError withDomain:@"AKOfflineRenderAudioUnit" code:1
-                                     description:@"AKOfflineRenderAudioUnit.render !pullInputBlock || !renderBlock"];
+                                      description:@"AKOfflineRenderAudioUnit.render !pullInputBlock || !renderBlock"];
     }
     
     AudioTimeStamp ts = {0};
@@ -161,16 +161,16 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     
     pthread_mutex_lock(&renderLock);
     while (samplesRemaining) {
-  
+        
         int renderLen = MIN(maxBufferLen,samplesRemaining);
-
+        
         AudioUnitRenderActionFlags pullFlags = 0;
         AUAudioUnitStatus status = _inputBus.pullInput(&pullFlags, &ts, renderLen, 0, pullInputBlock);
-
+        
         if (status) {
             pthread_mutex_unlock(&renderLock);
             return [AKOfflineRenderAudioUnit outError:outError withDomain:NSOSStatusErrorDomain code:status
-                                         description:@"Cached pullInputBlock failed"];
+                                          description:@"Cached pullInputBlock failed"];
         }
         //renderblock can set error out
         if (!renderBlock(_inputBus.mutableAudioBufferList,renderLen,outError)){

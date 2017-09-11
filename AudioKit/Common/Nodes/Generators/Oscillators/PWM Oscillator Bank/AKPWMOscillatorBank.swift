@@ -28,14 +28,14 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var vibratoRateParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Duty cycle width (range 0-1).
-    open dynamic var pulseWidth: Double = 0.5 {
+    @objc open dynamic var pulseWidth: Double = 0.5 {
         willSet {
             if pulseWidth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -50,7 +50,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Attack time
-    open dynamic var attackDuration: Double = 0.1 {
+    @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -64,7 +64,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
     /// Decay time
-    open dynamic var decayDuration: Double = 0.1 {
+    @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -78,7 +78,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
     /// Sustain Level
-    open dynamic var sustainLevel: Double = 1.0 {
+    @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
             if sustainLevel != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -92,7 +92,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
     /// Release time
-    open dynamic var releaseDuration: Double = 0.1 {
+    @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -107,7 +107,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Pitch Bend as number of semitones
-    open dynamic var pitchBend: Double = 0 {
+    @objc open dynamic var pitchBend: Double = 0 {
         willSet {
             if pitchBend != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -122,7 +122,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Vibrato Depth in semitones
-    open dynamic var vibratoDepth: Double = 0 {
+    @objc open dynamic var vibratoDepth: Double = 0 {
         willSet {
             if vibratoDepth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -137,7 +137,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     }
 
     /// Vibrato Rate in Hz
-    open dynamic var vibratoRate: Double = 0 {
+    @objc open dynamic var vibratoRate: Double = 0 {
         willSet {
             if vibratoRate != newValue {
                 if internalAU?.isSetUp() ?? false {

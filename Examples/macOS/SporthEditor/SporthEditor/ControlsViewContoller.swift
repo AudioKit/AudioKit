@@ -9,7 +9,7 @@
 import Cocoa
 
 class ControlsViewContoller: NSViewController {
-    let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
+    let vc = NSApplication.shared.windows.first!.contentViewController as! ViewController
 
     @IBOutlet private var slider1: NSSlider!
     @IBOutlet private var slider2: NSSlider!
@@ -41,10 +41,12 @@ class ControlsViewContoller: NSViewController {
     }
 
     @IBAction func toggleGate(_ sender: NSButton) {
-        guard let identifier = sender.identifier, let index = Int(identifier) else {
+        guard let identifier = sender.identifier, let index = Int(identifier.rawValue) else {
             NSLog(Constants.Error.Identifier)
             return
         }
+
+
         if vc.brain.generator?.parameters[index] != 1 {
             vc.brain.generator?.parameters[index] = 1
         } else if vc.brain.generator?.parameters[index] != 0 {

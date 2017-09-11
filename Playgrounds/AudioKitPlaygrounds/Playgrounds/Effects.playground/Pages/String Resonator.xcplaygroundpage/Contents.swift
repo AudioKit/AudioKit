@@ -21,22 +21,22 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("String Resonator")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Fundamental Frequency",
-                                    value: stringResonator.fundamentalFrequency,
-                                    range: 0 ... 5_000,
-                                    format: "%0.1f Hz"
+        addView(AKSlider(property: "Fundamental Frequency",
+                         value: stringResonator.fundamentalFrequency,
+                         range: 0 ... 5_000,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             stringResonator.fundamentalFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Feedback", value: stringResonator.feedback) { sliderValue in
+        addView(AKSlider(property: "Feedback", value: stringResonator.feedback) { sliderValue in
             stringResonator.feedback = sliderValue
         })
     }
@@ -44,4 +44,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

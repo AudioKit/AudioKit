@@ -28,23 +28,26 @@ player.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Moog Ladder Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Cutoff Frequency",
-                                    value: moogLadder.cutoffFrequency,
-                                    range: 40 ... 5_000,
-                                    taper: 4,
-                                    format: "%0.1f Hz"
+        addView(AKSlider(property: "Cutoff Frequency",
+                         value: moogLadder.cutoffFrequency,
+                         range: 40 ... 5_000,
+                         taper: 4,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             moogLadder.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Resonance", value: moogLadder.resonance) { sliderValue in
+        addView(AKSlider(property: "Resonance",
+                         value: moogLadder.resonance,
+                         range: 0 ... 0.98
+        ) { sliderValue in
             moogLadder.resonance = sliderValue
         })
     }
@@ -52,4 +55,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

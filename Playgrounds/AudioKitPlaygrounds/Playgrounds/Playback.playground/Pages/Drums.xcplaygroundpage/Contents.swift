@@ -28,34 +28,34 @@ try drums.loadAudioFiles([bassDrumFile,
 
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Drums")
 
-        addSubview(AKButton(title: "Bass Drum") { _ in
+        addView(AKButton(title: "Bass Drum") { _ in
             drums.play(noteNumber: 36 - 12)
         })
-        addSubview(AKButton(title: "Snare Drum") { _ in
+        addView(AKButton(title: "Snare Drum") { _ in
             drums.play(noteNumber: 38 - 12)
         })
-        addSubview(AKButton(title: "Closed Hi Hat") { _ in
+        addView(AKButton(title: "Closed Hi Hat") { _ in
             drums.play(noteNumber: 42 - 12)
         })
-        addSubview(AKButton(title: "Open Hi Hat") { _ in
+        addView(AKButton(title: "Open Hi Hat") { _ in
             drums.play(noteNumber: 46 - 12)
         })
-        addSubview(AKButton(title: "Lo Tom") { _ in
+        addView(AKButton(title: "Lo Tom") { _ in
             drums.play(noteNumber: 41 - 12)
         })
-        addSubview(AKButton(title: "Mid Tom") { _ in
+        addView(AKButton(title: "Mid Tom") { _ in
             drums.play(noteNumber: 47 - 12)
         })
-        addSubview(AKButton(title: "Hi Tom") { _ in
+        addView(AKButton(title: "Hi Tom") { _ in
             drums.play(noteNumber: 50 - 12)
         })
 
-        addSubview(AKButton(title: "Clap") { _ in
+        addView(AKButton(title: "Clap") { _ in
             drums.play(noteNumber: 39 - 12)
         })
     }
@@ -63,4 +63,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

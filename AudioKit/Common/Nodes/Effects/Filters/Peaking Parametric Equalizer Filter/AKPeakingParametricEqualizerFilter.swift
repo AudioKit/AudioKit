@@ -23,14 +23,14 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     fileprivate var qParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency.
-    open dynamic var centerFrequency: Double = 1_000 {
+    @objc open dynamic var centerFrequency: Double = 1_000 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         }
     }
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
-    open dynamic var gain: Double = 1.0 {
+    @objc open dynamic var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         }
     }
     /// Q of the filter. sqrt(0.5) is no resonance.
-    open dynamic var q: Double = 0.707 {
+    @objc open dynamic var q: Double = 0.707 {
         willSet {
             if q != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -73,7 +73,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -137,12 +137,12 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

@@ -13,8 +13,6 @@
 
 /// AKPresetZone and AKPresetManager create AUPreset Dictionaries that can be loaded by
 /// an AUSampler or AVAudioUnitSampler.
-
-///The properties in this class map directly to values nested within an AUPreset zone.
 @interface AKPresetZone : NSObject
 @property BOOL                  enabled;
 @property BOOL                  loopEnabled;

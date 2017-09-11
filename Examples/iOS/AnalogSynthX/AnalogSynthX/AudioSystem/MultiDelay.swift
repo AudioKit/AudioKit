@@ -57,8 +57,8 @@ class MultiDelay: AKNode {
             leftBoosters.append(AKBooster(leftDelays[i], gain: gains[i]))
             rightBoosters.append(AKBooster(rightDelays[i], gain: gains[i]))
 
-            leftDelayMix.connect(leftBoosters[i])
-            rightDelayMix.connect(rightBoosters[i])
+            leftBoosters[i] >>> leftDelayMix
+            rightBoosters[i] >>> rightDelayMix
         }
 
         let delayPannedLeft = AKPanner(leftDelayMix, pan: -1)

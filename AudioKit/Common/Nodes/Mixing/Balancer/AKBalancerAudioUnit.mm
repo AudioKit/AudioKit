@@ -64,7 +64,7 @@
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-    ]];
+                                                               ]];
 
     // Create the input and output busses.
     _inputBus.init(defaultFormat, 8);

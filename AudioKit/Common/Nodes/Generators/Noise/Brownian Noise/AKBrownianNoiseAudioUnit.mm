@@ -27,9 +27,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(BrownianNoise)
-
+    
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                                           name:@"Amplitude"
@@ -37,19 +37,19 @@ standardKernelPassthroughs()
                                                            min:0.0
                                                            max:1.0
                                                           unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     amplitudeAUParameter.value = 1;
-
+    
     _kernel.setParameter(amplitudeAddress, amplitudeAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        amplitudeAUParameter
-    ]];
-
-
-	parameterTreeBlock(BrownianNoise)
+                                             amplitudeAUParameter
+                                             ]];
+    
+    
+    parameterTreeBlock(BrownianNoise)
 }
 
 AUAudioUnitGeneratorOverrides(BrownianNoise)

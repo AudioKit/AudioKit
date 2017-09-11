@@ -36,14 +36,14 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardSetup(RolandTB303Filter)
-
+    
     // Create a parameter object for the cutoffFrequency.
     AUParameter *cutoffFrequencyAUParameter = [AUParameter frequency:@"cutoffFrequency"
                                                                 name:@"Cutoff Frequency (Hz)"
                                                              address:cutoffFrequencyAddress];
-  // Create a parameter object for the resonance.
+    // Create a parameter object for the resonance.
     AUParameter *resonanceAUParameter = [AUParameter parameter:@"resonance"
                                                           name:@"Resonance"
                                                        address:resonanceAddress
@@ -64,27 +64,27 @@ standardKernelPassthroughs()
                                                                     min:0.0
                                                                     max:1.0
                                                                    unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 500;
     resonanceAUParameter.value = 0.5;
     distortionAUParameter.value = 2.0;
     resonanceAsymmetryAUParameter.value = 0.5;
-
+    
     _kernel.setParameter(cutoffFrequencyAddress,    cutoffFrequencyAUParameter.value);
     _kernel.setParameter(resonanceAddress,          resonanceAUParameter.value);
     _kernel.setParameter(distortionAddress,         distortionAUParameter.value);
     _kernel.setParameter(resonanceAsymmetryAddress, resonanceAsymmetryAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        cutoffFrequencyAUParameter,
-        resonanceAUParameter,
-        distortionAUParameter,
-        resonanceAsymmetryAUParameter
-    ]];
-
-	parameterTreeBlock(RolandTB303Filter)
+                                             cutoffFrequencyAUParameter,
+                                             resonanceAUParameter,
+                                             distortionAUParameter,
+                                             resonanceAsymmetryAUParameter
+                                             ]];
+    
+    parameterTreeBlock(RolandTB303Filter)
 }
 
 AUAudioUnitOverrides(RolandTB303Filter);

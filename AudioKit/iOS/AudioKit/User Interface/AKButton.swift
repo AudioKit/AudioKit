@@ -116,6 +116,7 @@ public enum AKButtonStyle {
                 callback: @escaping (AKButton) -> Void) {
         self.title = title
         self.color = color
+        self.callback = callback
         super.init(frame: frame)
 
         clipsToBounds = true
@@ -221,9 +222,9 @@ public enum AKButtonStyle {
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 24),
-                                   NSForegroundColorAttributeName: textColorForTheme,
-                                   NSParagraphStyleAttributeName: labelStyle]
+        let labelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
+                                   NSAttributedStringKey.foregroundColor: textColorForTheme,
+                                   NSAttributedStringKey.paragraphStyle: labelStyle]
 
         let labelInset: CGRect = rect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(

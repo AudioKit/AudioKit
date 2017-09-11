@@ -36,12 +36,12 @@ toggling.start()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Parameter Ramp Time")
 
-        addSubview(AKPropertySlider(property: "Ramp Time", value: filter.rampTime, format: "%0.3f s") { sliderValue in
+        addView(AKSlider(property: "Ramp Time", value: filter.rampTime, format: "%0.3f s") { sliderValue in
             filter.rampTime = sliderValue
         })
     }
@@ -49,6 +49,6 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

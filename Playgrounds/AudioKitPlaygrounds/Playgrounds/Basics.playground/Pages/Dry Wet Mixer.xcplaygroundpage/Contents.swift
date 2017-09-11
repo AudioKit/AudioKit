@@ -35,20 +35,19 @@ drums.play()
 //: User Interface Set up
 import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     var balanceLabel: Label?
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Dry Wet Mix")
 
-        addSubview(AKBypassButton(node: drums))
+        addView(AKButton(title: "Bypass") { button in
+            drums.isPlaying ? drums.stop() : drums.play()
+            button.title = drums.isPlaying ? "Stop" : "Start"
+        })
 
-        addSubview(AKPropertySlider(
-            property: "Balance",
-            value: mixture.balance,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addView(AKSlider(property: "Balance", value: mixture.balance) { sliderValue in
             mixture.balance = sliderValue
         })
     }
@@ -56,6 +55,6 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

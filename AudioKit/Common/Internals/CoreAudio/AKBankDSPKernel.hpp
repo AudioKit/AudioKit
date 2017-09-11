@@ -37,7 +37,7 @@ public:
         vibratoDepthRamper.init();
         vibratoRateRamper.init();
 
-        sp_ftbl_create(sp, &vibratoShapeTable, 1024);
+        sp_ftbl_create(sp, &vibratoShapeTable, 512);
         sp_gen_sine(sp, vibratoShapeTable);
         sp_osc_create(&vibrato);
         sp_osc_init(sp, vibrato, vibratoShapeTable, 0);

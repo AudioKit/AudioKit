@@ -133,7 +133,7 @@ public struct AKMIDIEvent {
                          byte2: packet.data.2)
             }
         } else {
-        
+
             if packet.isSysex {
                 internalData = [] //reset internalData
                 var computedLength = MIDIByte(0)
@@ -344,10 +344,10 @@ public struct AKMIDIEvent {
     public init(noteOn noteNumber: MIDINoteNumber,
                 velocity: MIDIVelocity,
                 channel: MIDIChannel) {
-      self.init(status: .noteOn,
-                channel: channel,
-                byte1: noteNumber,
-                byte2: velocity)
+        self.init(status: .noteOn,
+                  channel: channel,
+                  byte1: noteNumber,
+                  byte2: velocity)
     }
 
     /// Create note off event
@@ -374,10 +374,10 @@ public struct AKMIDIEvent {
     ///
     public init(programChange data: MIDIByte,
                 channel: MIDIChannel) {
-      self.init(status: .programChange,
-                channel: channel,
-                byte1: data,
-                byte2: 0)
+        self.init(status: .programChange,
+                  channel: channel,
+                  byte1: data,
+                  byte2: 0)
     }
 
     /// Create controller event
@@ -390,10 +390,10 @@ public struct AKMIDIEvent {
     public init(controllerChange controller: MIDIByte,
                 value: MIDIByte,
                 channel: MIDIChannel) {
-      self.init(status: .controllerChange,
-                channel: channel,
-                byte1: controller,
-                byte2: value)
+        self.init(status: .controllerChange,
+                  channel: channel,
+                  byte1: controller,
+                  byte2: value)
     }
 
     /// Array of MIDI events from a MIDI packet list poionter

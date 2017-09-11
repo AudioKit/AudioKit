@@ -1,8 +1,8 @@
 //
-//  AUPresetManager.m
+//  AKPresetManager.m
 //
 //  Created by David O'Neill on 1/8/17.
-//  Copyright © 2017 David O'Neill. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import "AKPresetManager.h"
@@ -41,7 +41,7 @@
         [self.layers[0] removeObjectForKey:@"trigger mode"];
     }
 }
-                              
+
 @end
 
 
@@ -122,7 +122,7 @@
                                             code:(int)status
                                         userInfo:@{NSLocalizedDescriptionKey:@"Set sampler preset fail"}];
         } else {
-            NSLog(@"Set sampler preset fail OSStatus %i",status);
+            NSLog(@"Set sampler preset fail OSStatus %i", (int)status);
         }
         return false;
     }
@@ -147,14 +147,14 @@ NSMutableDictionary *mutableSkeleton(){
         NSCAssert([NSFileManager.defaultManager fileExistsAtPath:skeletonPath],@"Skeleton file not found");
         skeleton = [NSDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:skeletonPath]];
     }
-
+    
     
     NSMutableDictionary *_preset = skeleton.mutableCopy;
     _preset[@"file-references"] = [NSMutableDictionary new];
     NSMutableDictionary *_instrument = _preset[@"Instrument"] = [_preset[@"Instrument"] mutableCopy];
     NSMutableArray *layers = _instrument[@"Layers"] = [_instrument[@"Layers"]mutableCopy];
     NSMutableDictionary *layersObject = layers[0] = [layers[0] mutableCopy];
-    layersObject[@"Zones"] = [layersObject[@"Zones"]mutableCopy];
+    layersObject[@"Zones"] = [layersObject[@"Zones"] mutableCopy];
     return _preset;
 }
 @end
