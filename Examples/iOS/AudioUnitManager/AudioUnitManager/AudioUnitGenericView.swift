@@ -21,13 +21,13 @@ class AudioUnitGenericView: UIView {
 
         var y = 5
         for param in tree.allParameters {
-            let slider = AKPropertySlider(property: param.displayName,
-                                          value: Double(param.value),
-                                          range: Double(param.minValue) ... Double(param.maxValue),
-                                          format: "%0.1f",
-                                          color: UIColor.darkGray,
-                                          frame: CGRect(x: 20, y: y, width: 250, height: 50),
-                                          callback: { (value) -> Void in
+            let slider = AKSlider(property: param.displayName,
+                                  value: Double(param.value),
+                                  range: Double(param.minValue) ... Double(param.maxValue),
+                                  format: "%0.1f",
+                                  color: UIColor.darkGray,
+                                  frame: CGRect(x: 20, y: y, width: 250, height: 50),
+                                  callback: { (value) -> Void in
 
                 // AUParameter references aren't persistent, so we need to refetch them
                 // addresses aren't guarenteed either, but this is working right now
