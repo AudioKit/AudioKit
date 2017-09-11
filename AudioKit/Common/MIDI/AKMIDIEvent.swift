@@ -218,7 +218,7 @@ public struct AKMIDIEvent {
     /// - Parameters:
     ///   - data:  [MIDIByte] bluetooth packet
     ///
-    init(data: [MIDIByte]) {
+    public init(data: [MIDIByte]) {
         if let command = AKMIDISystemCommand(rawValue: data[0]) {
             internalData = []
             // is sys command
