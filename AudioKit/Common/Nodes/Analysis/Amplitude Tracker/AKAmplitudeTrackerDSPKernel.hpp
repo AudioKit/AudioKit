@@ -39,7 +39,6 @@ public:
     }
     
     void destroy() {
-        //printf("AKAmplitudeTrackerDSPKernel.destroy() \n");
         AKSoundpipeKernel::destroy();
         sp_rms_destroy(&leftRMS);
         sp_rms_destroy(&rightRMS);
