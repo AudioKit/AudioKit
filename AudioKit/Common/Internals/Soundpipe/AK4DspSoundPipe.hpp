@@ -32,7 +32,35 @@ public:
         sp_destroy(&sp);
     }
     
+    // Is this needed? Ramping should be rethought
+    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {}
+    
+    virtual void setParameter(AUParameterAddress address, AUValue value) override {}
+    virtual AUValue getParameter(AUParameterAddress address) override { return 0.0f; }
+    
     void destroy() {
         //printf("AKSoundpipeKernel.destroy(), &sp is %p\n", (void *)sp);
     }
+    
+    virtual void processSample(int channel, float* in, float* out) {
+        *out = *in;
+    }
+    
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
+            for (int channel = 0; channel <  nChannels; ++channel) {
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                
+                if (_playing) {
+                    processSample(channel, in, out);
+                } else {
+                    *out = *in;
+                }
+            }
+        }
+    }
+
+    
 };

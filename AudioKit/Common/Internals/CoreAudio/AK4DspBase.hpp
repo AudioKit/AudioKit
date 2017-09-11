@@ -35,8 +35,8 @@ protected:
     AudioBufferList* outBufferListPtr = nullptr;
     
     // To support AKAudioUnit functions
-    bool _initialized = false;
-    bool _playing = false;
+    bool _initialized = true;
+    bool _playing = true;
     
 public:
     
