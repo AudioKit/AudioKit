@@ -95,6 +95,11 @@ open class AKAudioUnitManager: NSObject {
         }
         return out
     }
+    
+    /// How many effects are active
+    public var effectsCount: Int {
+        return linkedEffects.count
+    }
 
     /// `availableEffects` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
     public var availableEffects: [AVAudioUnitComponent] {
