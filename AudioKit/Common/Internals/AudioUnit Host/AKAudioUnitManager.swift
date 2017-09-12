@@ -16,7 +16,7 @@ open class AKAudioUnitManager: NSObject {
         case effectsAvailable, instrumentsAvailable, changed, crashed, added
     }
 
-    /// make this variable on init()
+    //TODO: make this variable on init()
     public static let maxInserts: Int = 6
 
     /// Delegate that will be sent notifications
@@ -331,7 +331,6 @@ open class AKAudioUnitManager: NSObject {
                     AKLog("* \(audioUnit.name) : Audio Unit created")
 
                     self._effectsChain[index] = audioUnit
-
                     self.connectEffects()
 
                     if self.delegate != nil {
@@ -420,7 +419,6 @@ open class AKAudioUnitManager: NSObject {
             AudioKit.engine.connect(inputAV, to: outputAV, format: processingFormat)
             return
         }
-
         var au = effects[0]
 
         if au.engine == nil {
@@ -430,7 +428,6 @@ open class AKAudioUnitManager: NSObject {
         let auOutputFormat = au.outputFormat(forBus: 0)
 
         AKLog("Connecting input to \(au.name) with format \(processingFormat), AU input: \(auInputFormat), output: \(auOutputFormat)")
-
         AudioKit.engine.connect(inputAV, to: au, format: processingFormat)
 
         if effects.count > 1 {
@@ -448,7 +445,6 @@ open class AKAudioUnitManager: NSObject {
         }
 
         AKLog("Connecting \(au.name) to output")
-
         AudioKit.engine.connect(au, to: outputAV, format: processingFormat)
     }
 
