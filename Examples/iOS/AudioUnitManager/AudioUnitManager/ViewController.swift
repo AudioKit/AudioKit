@@ -55,18 +55,15 @@ class ViewController: UIViewController {
 
         if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
             player = try? AKAudioPlayer(file: audioFile)
-            
-            guard player != nil else { return }
-            player?.looping = true
+            if player != nil {
+                player?.looping = true
+                player! >>> mixer
 
-            player! >>> mixer
+                // setup the initial input/output connections
+                auManager?.input = player
+                auManager?.output = mixer
+            }
 
-            // setup the initial input/output connections
-            auManager?.input = player
-            auManager?.output = mixer
-
-        } else {
-            AKLog("Unable to create player.")
         }
 
         // assign AudioKit's output to the mixer so it's easy to switch sources
