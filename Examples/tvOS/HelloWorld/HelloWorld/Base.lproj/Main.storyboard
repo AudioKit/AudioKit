@@ -22,12 +22,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-38-Wi4" customClass="AKOutputWaveformPlot" customModule="AudioKitUI">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-38-Wi4" customClass="AKNodeOutputPlot" customModule="AudioKitUI">
                                 <rect key="frame" x="110" y="80" width="1700" height="920"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="gain">
-                                        <real key="value" value="0.0"/>
+                                        <real key="value" value="0.80000000000000004"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -61,9 +61,6 @@
                             <constraint firstAttribute="trailingMargin" secondItem="a9R-38-Wi4" secondAttribute="trailing" id="uDs-Zk-Qwr"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="plot" destination="a9R-38-Wi4" id="ehJ-zM-UBd"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
