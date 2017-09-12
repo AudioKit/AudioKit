@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1698AE21F684252008F397D /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE91F5D428E00FA09A4 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B1698AE41F684258008F397D /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE81F5D428E00FA09A4 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B1698AE51F684755008F397D /* Organ.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4704C2E1F5D2B3C004C087E /* Organ.wav */; };
 		B1756EAB1F411D5A00792670 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1756EAA1F411D5A00792670 /* AppDelegate.swift */; };
 		B1756EAD1F411D5A00792670 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1756EAC1F411D5A00792670 /* ViewController.swift */; };
 		B1756EB01F411D5A00792670 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1756EAE1F411D5A00792670 /* Main.storyboard */; };
@@ -44,6 +47,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B1698AE41F684258008F397D /* AudioKit.framework in Embed Frameworks */,
+				B1698AE21F684252008F397D /* AudioKitUI.framework in Embed Frameworks */,
 				C4067FE51F5D415C00FA09A4 /* DropDown.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -105,13 +110,13 @@
 			children = (
 				B1756EAA1F411D5A00792670 /* AppDelegate.swift */,
 				B1756EAC1F411D5A00792670 /* ViewController.swift */,
+				B1756EC91F41FD3A00792670 /* AudioUnitGenericView.swift */,
 				C4704C391F5D2C15004C087E /* Default-568h@2x.png */,
 				B1756EAE1F411D5A00792670 /* Main.storyboard */,
 				B1756EB11F411D5A00792670 /* Assets.xcassets */,
 				B1756EB31F411D5A00792670 /* LaunchScreen.storyboard */,
 				B1756EB61F411D5A00792670 /* Info.plist */,
 				C4704C2E1F5D2B3C004C087E /* Organ.wav */,
-				B1756EC91F41FD3A00792670 /* AudioUnitGenericView.swift */,
 			);
 			path = AudioUnitManager;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1698AE51F684755008F397D /* Organ.wav in Resources */,
 				B1756EB51F411D5A00792670 /* LaunchScreen.storyboard in Resources */,
 				C4704C3A1F5D2C15004C087E /* Default-568h@2x.png in Resources */,
 				B1756EB21F411D5A00792670 /* Assets.xcassets in Resources */,
