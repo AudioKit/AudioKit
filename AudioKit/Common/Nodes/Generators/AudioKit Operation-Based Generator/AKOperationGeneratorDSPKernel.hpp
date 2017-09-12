@@ -43,9 +43,15 @@ public:
         
     }
     
-    void setSporth(char *sporth) {
-        sporthCode = sporth;
-        plumber_recompile_string_v2(&pd, sporthCode, this, &addUgensToKernel);
+    void setSporth(char *sporth, int length) {
+        if (sporthCode) {
+            free(sporthCode);
+            sporthCode = NULL;
+        }
+        if (length) {
+            sporthCode = (char *)malloc(length);
+            memcpy(sporthCode, sporth, length);
+        }
     }
 
     void addUgensToFTable(plumber_data *pd) {
@@ -80,6 +86,9 @@ public:
     void destroy() {
         plumber_clean(&pd);
         AKSoundpipeKernel::destroy();
+        if (sporthCode) {
+            free(sporthCode);
+        }
     }
     
     void reset() {

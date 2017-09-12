@@ -108,7 +108,10 @@ public:
             
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
-                osc->freq = bentFrequency * powf(2, kernel->vibratoValues[frameIndex]);
+                float depth = kernel->vibratoDepth / 12.0;
+                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->sampleRate);
+                osc->freq = bentFrequency * powf(2, depth * variation);
+
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
                 sp_osc_compute(kernel->sp, osc, nil, &x);
                 *outL++ += amp * x;
@@ -177,16 +180,6 @@ public:
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
         
         standardBankGetAndSteps()
-        
-        for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
-            outL[i] = 0.0f;
-            outR[i] = 0.0f;
-            if (vibratoDepth != 0 && vibratoRate != 0 && &(vibrato->tbl) != nullptr) {
-                sp_osc_compute(sp, vibrato, nil, &vibratoValues[i]);
-            } else {
-                vibratoValues[i] = 0;
-            }
-        }
         
         NoteState* noteState = playingNotes;
         while (noteState) {

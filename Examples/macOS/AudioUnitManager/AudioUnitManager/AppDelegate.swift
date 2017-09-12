@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  AudioUnitManagerExample
+//  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 7/14/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
