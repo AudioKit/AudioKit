@@ -55,13 +55,14 @@ class ViewController: UIViewController {
 
         if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
             player = try? AKAudioPlayer(file: audioFile)
-            player?.looping = true
+            if player != nil {
+                player?.looping = true
+                player! >>> mixer
 
-            player! >>> mixer
-
-            // setup the initial input/output connections
-            auManager?.input = player
-            auManager?.output = mixer
+                // setup the initial input/output connections
+                auManager?.input = player
+                auManager?.output = mixer
+            }
 
         }
 
@@ -153,6 +154,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func handlePlay(_ sender: UIButton) {
+        Swift.print(player)
         guard let player = player else { return }
 
         // check to make sure the input is the player
