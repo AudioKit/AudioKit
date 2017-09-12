@@ -35,7 +35,6 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         initialize()
     }
 
@@ -165,9 +164,7 @@ class ViewController: NSViewController {
     @IBAction func chooseAudio(_ sender: Any) {
 
         guard let window = view.window else { return }
-
         AKLog("chooseAudio()")
-
         if openPanel == nil {
             openPanel = NSOpenPanel()
             openPanel!.message = "Open Audio File"
@@ -202,7 +199,6 @@ class ViewController: NSViewController {
 
             return
         }
-
         auManager!.insertAudioUnit(name: auname, at: identifier)
     }
 
@@ -268,12 +264,9 @@ class ViewController: NSViewController {
 
     @IBAction func handleShowAudioUnit(_ sender: NSButton) {
         guard auManager != nil else { return }
-        guard let auIndex = Int(sender.identifier!.rawValue) else { return }
-
+        let auIndex = sender.tag
         AKLog("handleShowAudioUnit() \(auIndex)")
-
         let state = sender.state == .on
-
         showEffect(at: auIndex, state: state)
     }
 
@@ -456,6 +449,7 @@ class ViewController: NSViewController {
                 let unitWindow = NSWindow(contentViewController: ui!)
                 unitWindow.title = "\(audioUnit.name)"
                 unitWindow.delegate = self
+                unitWindow.identifier = NSUserInterfaceItemIdentifier(String(identifier))
 
                 if ui!.view.isKind(of: AudioUnitGenericView.self) {
                     if let gauv = ui?.view as? AudioUnitGenericView {
@@ -559,9 +553,10 @@ extension ViewController:  AKAudioUnitManagerDelegate {
 extension ViewController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         if let obj = notification.object {
-            AKLog("Window closing: \(obj)")
             if let w = obj as? NSWindow {
-                if let id = Int(w.identifier!.rawValue) {
+                AKLog("Window closing: \(w.identifier)")
+
+                if let id = w.identifier?.rawValue.toInt() {
                     if let b = getEffectsButtonFromIdentifier(id) {
                         b.state = .off
                         return

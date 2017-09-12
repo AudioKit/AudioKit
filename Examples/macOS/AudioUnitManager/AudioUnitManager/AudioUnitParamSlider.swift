@@ -28,15 +28,10 @@ class AudioUnitParamSlider: NSView {
         titleField.frame = NSRect(x: 0, y: 0, width: 120, height: 20)
         addSubview(titleField)
 
-        slider.controlSize = .mini
-        slider.target = self
-        slider.action = #selector( self.handleAction(_:) )
+        self.slider.action = #selector( self.handleAction(_:) )
+        self.slider.target = self
         slider.frame = NSRect(x: 122, y: 2, width: 100, height: 20)
         addSubview(slider)
-
-        slider.floatValue = param.value
-        slider.maxValue = Double(param.maxValue)
-        slider.minValue = Double(param.minValue)
 
         valueField = createLabel(string: String(param.value))
         valueField!.alignment = .left
@@ -50,6 +45,21 @@ class AudioUnitParamSlider: NSView {
             addSubview(unitsField)
         }
         frame = NSRect(x: 0, y: 0, width: 352, height: 20)
+        
+        guard key != nil else { return }
+        DispatchQueue.main.async {
+            // need to refetch the param as it's dispatched later and the reference dies
+            if let p = self.getParam(withAddress: self.key!) {
+                self.slider.floatValue = p.value
+                self.slider.maxValue = Double(p.maxValue)
+                self.slider.minValue = Double(p.minValue)
+                self.slider.controlSize = .mini
+            }
+        }
+    }
+    
+    public func getParam(withAddress theKey: AUParameterAddress) -> AUParameter? {
+        return audioUnit?.auAudioUnit.parameterTree?.parameter(withAddress: theKey)
     }
 
     private func createLabel( string: String ) -> NSTextField {
@@ -58,11 +68,13 @@ class AudioUnitParamSlider: NSView {
         tf.isBordered = false
         tf.isEditable = false
         tf.alignment = .right
-        tf.controlSize = .mini
         tf.font = NSFont.systemFont(ofSize: 8)
         tf.textColor = NSColor.white
         tf.backgroundColor = NSColor.white.withAlphaComponent(0)
         tf.stringValue = string
+        DispatchQueue.main.async {
+            tf.controlSize = .mini
+        }
         return tf
     }
 
@@ -73,7 +85,7 @@ class AudioUnitParamSlider: NSView {
         // AUParameter references aren't persistent, so we need to refetch them
         // addresses aren't guarenteed either, but this is working right now
         // unsure of the kvo style as i don't see the actual keys?
-        if let p = audioUnit?.auAudioUnit.parameterTree?.parameter(withAddress: key!) {
+        if let p = getParam(withAddress: key!) {
             //Swift.print("p: \(p)")
             p.value = slider.floatValue
             if let field = valueField {
@@ -87,8 +99,7 @@ class AudioUnitParamSlider: NSView {
 
         // AUParameter references aren't persistent, so we need to refetch them
         // addresses aren't guarenteed either, but this is working right now
-        // unsure of the kvo style as i don't see the actual keys?
-        if let p = audioUnit?.auAudioUnit.parameterTree?.parameter(withAddress: key!) {
+        if let p = getParam(withAddress: key!) {
             slider.floatValue = p.value
         }
     }
