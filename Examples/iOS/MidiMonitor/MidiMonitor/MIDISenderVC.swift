@@ -97,11 +97,6 @@ class MIDISenderVC: UIViewController {
     }
     
     @IBAction func receiveMIDIButtonPressed(_ sender: UIButton) {
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        view.window!.layer.add(transition, forKey: kCATransition)
         dismiss(animated: true, completion: nil)
     }
 }
