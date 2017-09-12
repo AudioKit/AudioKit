@@ -12,11 +12,13 @@ import UIKit
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: UITextView!
     var midi = AKMIDI()
+    var senderVC:MIDISenderVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         midi.openInput()
         midi.addListener(self)
+        senderVC = self.storyboard?.instantiateViewController(withIdentifier: "MIDISenderVC") as? MIDISenderVC
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
@@ -71,12 +73,6 @@ class ViewController: UIViewController, AKMIDIListener {
         })
     }
     @IBAction func sendMIDIButtonPressed(_ sender: UIButton) {
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
-        view.window!.layer.add(transition, forKey: kCATransition)
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MIDISenderVC") as? MIDISenderVC
-        present(vc!, animated: true, completion: nil)
+        present(senderVC!, animated: true, completion: nil)
     }
 }
