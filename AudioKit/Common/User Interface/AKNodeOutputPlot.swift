@@ -53,7 +53,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupNode(nil)
+        setupNode(AudioKit.output)
     }
 
     /// Initialize the plot with the output from a given node and optional plot size
