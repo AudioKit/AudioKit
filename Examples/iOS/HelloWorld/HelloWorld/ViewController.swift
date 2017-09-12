@@ -17,9 +17,8 @@ class ViewController: UIViewController {
     var oscillator2 = AKOscillator()
     var mixer = AKMixer()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         mixer = AKMixer(oscillator1, oscillator2)
         mixer.volume = 0.5
         AudioKit.output = mixer
