@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         AudioKit.output = mixer
         AudioKit.start()
     }
-    
+
     @IBAction func toggleSound(_ sender: UIButton) {
         if oscillator1.isPlaying {
             oscillator1.stop()
