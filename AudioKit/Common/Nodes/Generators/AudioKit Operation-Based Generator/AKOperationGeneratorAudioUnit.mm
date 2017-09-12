@@ -23,7 +23,7 @@
 @synthesize parameterTree = _parameterTree;
 
 - (void)setSporth:(NSString *)sporth {
-    _kernel.setSporth((char*)[sporth UTF8String]);
+    _kernel.setSporth((char *)[sporth UTF8String], (int)sporth.length + 1);
 }
 
 - (void)trigger:(int)trigger {
