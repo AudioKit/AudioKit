@@ -92,7 +92,7 @@ class MIDISenderVC: UIViewController {
             let event = AKMIDIEvent(data: midiBytes)
             midiOut.sendEvent(event)
         }else{
-            print("error w sysex")
+            print("error w sysex field")
         }
     }
     
