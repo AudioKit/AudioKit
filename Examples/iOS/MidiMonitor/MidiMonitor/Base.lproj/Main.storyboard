@@ -140,7 +140,7 @@
                                     <action selector="sendSysexPressed:" destination="8Fc-ay-REC" eventType="touchUpInside" id="JxF-C5-QCz"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Enter Sysex here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8kW-dq-z82">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="240 0 2 22 1 4 0 2 2 247" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8kW-dq-z82">
                                 <rect key="frame" x="16" y="142" width="343" height="203"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
@@ -175,6 +175,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CHAN" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0ma-H2-L5I">
+                                <rect key="frame" x="251" y="27" width="56" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CHAN" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AqK-Tx-FtP">
+                                <rect key="frame" x="251" y="65" width="56" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -183,8 +197,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ccChanField" destination="AqK-Tx-FtP" id="ReX-ef-JcA"/>
                         <outlet property="ccField" destination="Sb9-lS-svS" id="4Dc-KQ-Qhe"/>
                         <outlet property="ccValField" destination="YQ2-NJ-urc" id="v6r-vr-dMj"/>
+                        <outlet property="noteChanField" destination="0ma-H2-L5I" id="g6L-Mw-Hp3"/>
                         <outlet property="noteNumField" destination="woF-Tb-ku2" id="EyO-Mh-qTv"/>
                         <outlet property="noteVelField" destination="TmS-Sk-m5e" id="Yoa-YN-y6x"/>
                         <outlet property="sysexField" destination="8kW-dq-z82" id="Jr9-1a-TFN"/>
