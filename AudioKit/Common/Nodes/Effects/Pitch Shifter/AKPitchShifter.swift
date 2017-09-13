@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// Faust-based pitch shfiter
+/// Faust-based pitch shifter
 ///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
