@@ -45,7 +45,7 @@ class AudioUnitParamSlider: NSView {
             addSubview(unitsField)
         }
         frame = NSRect(x: 0, y: 0, width: 352, height: 20)
-        
+
         guard key != nil else { return }
         DispatchQueue.main.async {
             // need to refetch the param as it's dispatched later and the reference dies
@@ -57,7 +57,7 @@ class AudioUnitParamSlider: NSView {
             }
         }
     }
-    
+
     public func getParam(withAddress theKey: AUParameterAddress) -> AUParameter? {
         return audioUnit?.auAudioUnit.parameterTree?.parameter(withAddress: theKey)
     }

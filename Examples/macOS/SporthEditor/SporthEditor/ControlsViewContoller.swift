@@ -46,7 +46,6 @@ class ControlsViewContoller: NSViewController {
             return
         }
 
-
         if vc.brain.generator?.parameters[index] != 1 {
             vc.brain.generator?.parameters[index] = 1
         } else if vc.brain.generator?.parameters[index] != 0 {

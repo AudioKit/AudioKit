@@ -20,7 +20,7 @@ class ViewController: NSViewController {
     let guitarDelay = AVAudioUnitDelay()
     let reverb = AKReverb()
     let highPass = AKHighPassFilter()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         guard
@@ -30,8 +30,8 @@ class ViewController: NSViewController {
             let drumFile = try? AKAudioFile(forReading: drumURL),
             let guitarFile = try? AKAudioFile(forReading: guitarURL),
             let guitarLoopFile = try? AKAudioFile(forReading: guitarLoopURL),
-            let drumLooper = try? AKAudioPlayer.init(file: drumFile, looping: true),
-            let guitarLooper = try? AKAudioPlayer.init(file: guitarLoopFile, looping: true)
+            let drumLooper = try? AKAudioPlayer(file: drumFile, looping: true),
+            let guitarLooper = try? AKAudioPlayer(file: guitarLoopFile, looping: true)
 
             else {
                 print("missing resources!")
@@ -105,8 +105,8 @@ class ViewController: NSViewController {
                 drumPlayer.currentTime = 0
                 guitarPlayer.currentTime = 0
 
-                drumPlayer.prepare(withFrameCount: 44100)
-                guitarPlayer.prepare(withFrameCount: 44100)
+                drumPlayer.prepare(withFrameCount: 44_100)
+                guitarPlayer.prepare(withFrameCount: 44_100)
 
                 drumLooper.schedule(from: 0, to: drumLooper.duration, avTime: nil)
                 guitarLooper.schedule(from: 0, to: guitarLooper.duration, avTime: nil)
