@@ -27,8 +27,11 @@ class MIDISenderVC: UIViewController {
     var velocityToSend:Int? {
         return Int(noteVelField.text!)
     }
-    var noteChanToSend:Int? {
-        return Int(noteChanField.text!)
+    var noteChanToSend:Int {
+        if noteChanField.text == nil || Int(noteChanField.text!) == nil {
+            return 1
+        }
+        return Int(noteChanField.text!)! - 1
     }
     var ccToSend:Int? {
         return Int(ccField.text!)
@@ -36,8 +39,11 @@ class MIDISenderVC: UIViewController {
     var ccValToSend:Int? {
         return Int(ccValField.text!)
     }
-    var ccChanToSend:Int? {
-        return Int(ccChanField.text!)
+    var ccChanToSend:Int {
+        if ccChanField.text == nil || Int(ccChanField.text!) == nil {
+            return 1
+        }
+        return Int(ccChanField.text!)! - 1
     }
     var sysexToSend:[Int]?{
         var data = [Int]()
@@ -64,18 +70,18 @@ class MIDISenderVC: UIViewController {
     }
     
     @IBAction func sendNotePressed(_ sender: UIButton) {
-        if noteToSend != nil && velocityToSend != nil && noteChanToSend != nil {
+        if noteToSend != nil && velocityToSend != nil {
             print("sending note: \(noteToSend!) - \(velocityToSend!)")
-            let event = AKMIDIEvent(noteOn: MIDINoteNumber(noteToSend!), velocity: MIDIVelocity(velocityToSend!), channel: MIDIChannel(noteChanToSend!))
+            let event = AKMIDIEvent(noteOn: MIDINoteNumber(noteToSend!), velocity: MIDIVelocity(velocityToSend!), channel: MIDIChannel(noteChanToSend))
             midiOut.sendEvent(event)
         }else{
             print("error w note fields")
         }
     }
     @IBAction func sendCCPressed(_ sender: UIButton) {
-        if ccToSend != nil && ccValToSend != nil && ccChanToSend != nil {
+        if ccToSend != nil && ccValToSend != nil{
             print("sending cc: \(ccToSend!) - \(ccValToSend!)")
-            let event = AKMIDIEvent(controllerChange: MIDIByte(ccToSend!), value: MIDIByte(ccValToSend!), channel: MIDIChannel(ccChanToSend!))
+            let event = AKMIDIEvent(controllerChange: MIDIByte(ccToSend!), value: MIDIByte(ccValToSend!), channel: MIDIChannel(ccChanToSend))
             midiOut.sendEvent(event)
         }else{
             print("error w cc fields")
