@@ -100,3 +100,52 @@ class MIDISenderVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
+class MIDIChannelField : UITextField, UITextFieldDelegate {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        delegate = self
+    }
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool
+    {
+        var startString = ""
+        if (textField.text != nil)
+        {
+            startString += textField.text!
+        }
+        startString += string
+        let limitNumber = Int(startString)
+        if limitNumber == nil || limitNumber! > 16 || limitNumber! == 0
+        {
+            return false
+        } else {
+            return true
+        }
+    }
+}
+
+class MIDINumberField : UITextField, UITextFieldDelegate {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        delegate = self
+    }
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool
+    {
+        var startString = ""
+        if (textField.text != nil)
+        {
+            startString += textField.text!
+        }
+        startString += string
+        let limitNumber = Int(startString)
+        if limitNumber == nil || limitNumber! > 127
+        {
+            return false
+        } else {
+            return true
+        }
+    }
+}
