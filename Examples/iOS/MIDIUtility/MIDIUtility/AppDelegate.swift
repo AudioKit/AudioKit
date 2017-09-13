@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  MidiMonitor
+//  MIDIUtility
 //
 //  Created by Aurelius Prochazka on 1/29/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
