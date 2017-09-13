@@ -80,4 +80,3 @@ class AKOscillatorBankTests: AKTestCase {
     }
 
 }
-

@@ -95,7 +95,7 @@ open class AKAudioUnitManager: NSObject {
         }
         return out
     }
-    
+
     /// How many effects are active
     public var effectsCount: Int {
         return linkedEffects.count

@@ -100,4 +100,3 @@ class AKFMOscillatorBankTests: AKTestCase {
         AKTestMD5("0c0d418d740c1cc53a9afd232122bb44")
     }
 }
-

@@ -57,4 +57,3 @@ class SmoothDelayTests: AKTestCase {
     }
 
 }
-

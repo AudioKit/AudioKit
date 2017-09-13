@@ -88,4 +88,3 @@ class AKMorphingOscillatorBankTests: AKTestCase {
     }
 
 }
-
