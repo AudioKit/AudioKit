@@ -92,46 +92,28 @@ class MIDISenderVC: NSViewController {
         }
     }
 }
-class MIDIChannelField : NSTextField, NSTextFieldDelegate {
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        delegate = self
-    }
-    func textField(_ textField: NSTextField,
-                   shouldChangeCharactersIn range: NSRange,
-                   replacementString string: String) -> Bool
-    {
-        var startString = ""
-        startString += textField.stringValue
-        startString += string
-        let limitNumber = Int(startString)
-        if limitNumber == nil || limitNumber! > 16 || limitNumber! == 0
-        {
+class MIDIChannelFormatter : NumberFormatter {
+    override func isPartialStringValid(_ partialStringPtr: AutoreleasingUnsafeMutablePointer<NSString>, proposedSelectedRange proposedSelRangePtr: NSRangePointer?, originalString origString: String, originalSelectedRange origSelRange: NSRange, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+        Swift.print("checking string")
+        let partialStr = partialStringPtr.pointee
+        let charset = CharacterSet(charactersIn: "0123456789").inverted
+        let result = partialStr.rangeOfCharacter(from: charset)
+        if result.length > 0 || partialStr.intValue > 16 || partialStr == "0" || partialStr.length > 2 {
             return false
-        } else {
-            return true
         }
+        return true
     }
 }
 
-class MIDINumberField : NSTextField, NSTextFieldDelegate {
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        delegate = self
-    }
-    func textField(_ textField: NSTextField,
-                   shouldChangeCharactersIn range: NSRange,
-                   replacementString string: String) -> Bool
-    {
-        var startString = ""
-        startString += textField.stringValue
-        startString += string
-        let limitNumber = Int(startString)
-        if limitNumber == nil || limitNumber! > 127
-        {
+class MIDINumberFormatter : NumberFormatter {
+    override func isPartialStringValid(_ partialStringPtr: AutoreleasingUnsafeMutablePointer<NSString>, proposedSelectedRange proposedSelRangePtr: NSRangePointer?, originalString origString: String, originalSelectedRange origSelRange: NSRange, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+        Swift.print("checking string")
+        let partialStr = partialStringPtr.pointee
+        let charset = CharacterSet(charactersIn: "0123456789").inverted
+        let result = partialStr.rangeOfCharacter(from: charset)
+        if result.length > 0 || partialStr.intValue > 127 || partialStr == "0000" || partialStr.length > 3 {
             return false
-        } else {
-            return true
         }
+        return true
     }
 }
