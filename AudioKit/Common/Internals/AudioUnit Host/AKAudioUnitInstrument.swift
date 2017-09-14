@@ -21,9 +21,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
 
         // assign the output to the mixer
         self.avAudioNode = audioUnit
-
         self.name = audioUnit.name
-
     }
 
     /// Send MIDI Note On information to the audio unit

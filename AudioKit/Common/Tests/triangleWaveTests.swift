@@ -29,4 +29,3 @@ class TriangleWaveTests: AKTestCase {
     }
 
 }
-
