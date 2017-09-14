@@ -49,7 +49,7 @@ class MIDISenderVC: NSViewController {
         let splitField = sysexField.string.components(separatedBy: " ")
         for entry in splitField {
             let intVal = Int(entry)
-            if intVal != nil {
+            if intVal != nil && intVal! <= 247 && intVal! > -1 {
                 data.append(intVal!)
             }
         }
@@ -80,11 +80,16 @@ class MIDISenderVC: NSViewController {
     
     @IBAction func sendSysexPressed(_ sender: NSButton) {
         if sysexToSend != nil {
-            Swift.print("sending sysex \(sysexToSend!)")
             var midiBytes = [MIDIByte]()
             for byte in sysexToSend!{
                 midiBytes.append(MIDIByte(byte))
             }
+            if midiBytes[0] != 240 || midiBytes.last != 247  || midiBytes.count < 2 {
+                Swift.print("bad sysex data - must start with 240 and end with 247")
+                Swift.print("parsed sysex: \(sysexToSend!)")
+                return
+            }
+            Swift.print("sending sysex \(sysexToSend!)")
             let event = AKMIDIEvent(data: midiBytes)
             midiOut.sendEvent(event)
         }else{
