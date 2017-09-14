@@ -53,7 +53,7 @@ open class AKSampler: AKNode {
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
     ///
-    open func loadWav(_ file: String) throws {
+    @objc open func loadWav(_ file: String) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "wav") else {
             fatalError("file not found.")
         }
@@ -69,7 +69,7 @@ open class AKSampler: AKNode {
     ///
     /// - parameter file: Name of the EXS24 file without the .exs extension
     ///
-    open func loadEXS24(_ file: String) throws {
+    @objc open func loadEXS24(_ file: String) throws {
         try loadInstrument(file, type: "exs")
     }
 
@@ -77,7 +77,7 @@ open class AKSampler: AKNode {
     ///
     /// - parameter file: an AKAudioFile
     ///
-    open func loadAudioFile(_ file: AKAudioFile) throws {
+    @objc open func loadAudioFile(_ file: AKAudioFile) throws {
         do {
             try samplerUnit.loadAudioFiles(at: [file.url])
         } catch let error as NSError {
@@ -93,7 +93,7 @@ open class AKSampler: AKNode {
     /// If a file name ends with a note name (ex: "violinC3.wav")
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
-    open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
+    @objc open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
         let urls = files.map { $0.url }
         do {
             try samplerUnit.loadAudioFiles(at: urls)
@@ -107,7 +107,7 @@ open class AKSampler: AKNode {
     ///
     /// - parameter filePath: Name of the file with the extension
     ///
-    open func loadPath(_ filePath: String) {
+    @objc open func loadPath(_ filePath: String) {
         do {
             try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
         } catch {
@@ -159,9 +159,9 @@ open class AKSampler: AKNode {
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channnel
     ///
-    open func play(noteNumber: MIDINoteNumber = 60,
-                   velocity: MIDIVelocity = 127,
-                   channel: MIDIChannel = 0) {
+    @objc open func play(noteNumber: MIDINoteNumber = 60,
+                         velocity: MIDIVelocity = 127,
+                         channel: MIDIChannel = 0) {
         samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
