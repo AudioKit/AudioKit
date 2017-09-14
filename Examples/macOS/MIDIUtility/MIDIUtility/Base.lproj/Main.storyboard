@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,11 +12,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="MidiMonitor" id="1Xt-HY-uBw">
+                            <menuItem title="MIDIUtility" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="MidiMonitor" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="MIDIUtility" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About MidiMonitor" id="5kV-Vb-QxS">
+                                        <menuItem title="About MIDIUtility" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -30,7 +30,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide MidiMonitor" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide MIDIUtility" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -48,7 +48,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit MidiMonitor" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit MIDIUtility" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -604,6 +604,17 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                                     <items>
+                                        <menuItem title="Receive MIDI" keyEquivalent="1" id="uwo-5j-kFj" userLabel="Receive MIDI">
+                                            <connections>
+                                                <segue destination="B8D-0N-5wS" kind="show" id="3IO-pN-QbA"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Send MIDI" keyEquivalent="2" id="mwW-ND-8Ic" userLabel="Send MIDI">
+                                            <connections>
+                                                <segue destination="67c-nh-UJA" kind="show" id="Fho-Fh-uEb"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Dq6-kf-MXx"/>
                                         <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
                                             <connections>
                                                 <action selector="performMiniaturize:" target="Ady-hI-5gd" id="VwT-WD-YPe"/>
@@ -629,7 +640,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="MidiMonitor Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="MIDIUtility Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -643,20 +654,23 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MidiMonitor" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MIDIUtility" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="89" y="-110"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="AudioKit MIDI Monitor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="172" y="629" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="Lgv-TM-Yda"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -666,17 +680,234 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="Ee6-or-gct">
+            <objects>
+                <customObject id="SaR-TD-Z9s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <windowController showSeguePresentationStyle="single" id="67c-nh-UJA" sceneMemberID="viewController">
+                    <window key="window" title="AudioKit MIDI Sender" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="4Fy-pg-448">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+                        <connections>
+                            <outlet property="delegate" destination="67c-nh-UJA" id="eIQ-Q2-Vbk"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="7nD-Zg-EyF" kind="relationship" relationship="window.shadowedContentViewController" id="Ptu-c5-Ise"/>
+                    </connections>
+                </windowController>
+            </objects>
+            <point key="canvasLocation" x="605" y="250"/>
+        </scene>
+        <!--SenderVC-->
+        <scene sceneID="ERh-Cv-yoc">
+            <objects>
+                <customObject id="LjH-X5-1rw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <viewController id="7nD-Zg-EyF" customClass="MIDISenderVC" customModule="MIDIUtility" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="W8R-6j-ON8">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView wantsLayer="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ka4-4Y-88Y">
+                                <rect key="frame" x="20" y="20" width="440" height="136"/>
+                                <clipView key="contentView" id="a13-QK-KUV">
+                                    <rect key="frame" x="1" y="1" width="438" height="134"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView importsGraphics="NO" verticallyResizable="YES" baseWritingDirection="leftToRight" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="GN3-YP-7nC">
+                                            <rect key="frame" x="0.0" y="-1" width="438" height="134"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="438" height="134"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                            <attributedString key="textStorage">
+                                                <fragment content="240 00 02 22 01 04 00 02 02 247">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                                        <font key="NSFont" size="12" name="Courier"/>
+                                                        <real key="NSKern" value="0.0"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" minimumLineHeight="14" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
+                                                            <tabStops/>
+                                                        </paragraphStyle>
+                                                        <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                                        <real key="NSStrokeWidth" value="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="J7K-d9-FBu">
+                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="E73-9g-9aq">
+                                    <rect key="frame" x="423" y="1" width="16" height="134"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fum-ec-D38">
+                                <rect key="frame" x="14" y="221" width="111" height="32"/>
+                                <buttonCell key="cell" type="push" title="Send Note" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BIL-r3-Boc">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sendNotePressed:" target="7nD-Zg-EyF" id="Bke-Qn-3nQ"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kHv-KU-p4q">
+                                <rect key="frame" x="14" y="188" width="111" height="32"/>
+                                <buttonCell key="cell" type="push" title="Send CC" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EQ2-aq-yCk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sendCCPressed:" target="7nD-Zg-EyF" id="qaw-m6-BV2"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Inh-m9-6RX">
+                                <rect key="frame" x="14" y="155" width="111" height="32"/>
+                                <buttonCell key="cell" type="push" title="Send Sysex" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eV7-Df-b8F">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sendSysexPressed:" target="7nD-Zg-EyF" id="Lem-6A-rm6"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-F2-let">
+                                <rect key="frame" x="127" y="164" width="409" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ints separated by spaces. Sysex starts with 240 and ends with 247" id="uXi-oB-qIy">
+                                    <font key="font" metaFont="system" size="10"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KW4-1x-hrA">
+                                <rect key="frame" x="129" y="228" width="96" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Note Number" drawsBackground="YES" id="cp6-8Y-u3c">
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="t20-2e-ADM" customClass="MIDINumberFormatter" customModule="MIDIUtility" customModuleProvider="target">
+                                        <real key="minimum" value="0.0"/>
+                                        <real key="maximum" value="127"/>
+                                    </numberFormatter>
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="na0-AH-b6a">
+                                <rect key="frame" x="233" y="228" width="96" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Note Velocity" drawsBackground="YES" id="6DA-cT-ptV">
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="eEh-6W-eyR" customClass="MIDINumberFormatter" customModule="MIDIUtility" customModuleProvider="target">
+                                        <real key="minimum" value="0.0"/>
+                                        <real key="maximum" value="127"/>
+                                    </numberFormatter>
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Btk-gC-x8J">
+                                <rect key="frame" x="337" y="228" width="96" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Note Channel" drawsBackground="YES" id="pgE-cP-Ioe">
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="lPD-xf-wyL" customClass="MIDIChannelFormatter" customModule="MIDIUtility" customModuleProvider="target">
+                                        <real key="minimum" value="0.0"/>
+                                        <real key="maximum" value="127"/>
+                                    </numberFormatter>
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IbK-yS-Jdp">
+                                <rect key="frame" x="129" y="196" width="96" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="CC Number" drawsBackground="YES" id="Msu-JV-oR8">
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="fcf-wg-agh" customClass="MIDINumberFormatter" customModule="MIDIUtility" customModuleProvider="target">
+                                        <real key="minimum" value="0.0"/>
+                                        <real key="maximum" value="127"/>
+                                    </numberFormatter>
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zs4-gS-5Dw">
+                                <rect key="frame" x="233" y="196" width="96" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="CC Value" drawsBackground="YES" id="Trc-LN-tEr">
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="MKE-Yj-jIo" customClass="MIDINumberFormatter" customModule="MIDIUtility" customModuleProvider="target">
+                                        <real key="minimum" value="0.0"/>
+                                        <real key="maximum" value="127"/>
+                                    </numberFormatter>
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAp-Qe-25f">
+                                <rect key="frame" x="337" y="196" width="96" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="CC Channel" drawsBackground="YES" id="5tb-TC-aSX">
+                                    <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="cW6-oL-2CE" customClass="MIDIChannelFormatter" customModule="MIDIUtility" customModuleProvider="target">
+                                        <real key="minimum" value="0.0"/>
+                                        <real key="maximum" value="127"/>
+                                    </numberFormatter>
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Inh-m9-6RX" firstAttribute="top" secondItem="kHv-KU-p4q" secondAttribute="bottom" constant="12" id="1Nm-jV-tdd"/>
+                            <constraint firstAttribute="bottom" secondItem="ka4-4Y-88Y" secondAttribute="bottom" constant="20" id="I1S-E6-1jD"/>
+                            <constraint firstItem="kHv-KU-p4q" firstAttribute="leading" secondItem="fum-ec-D38" secondAttribute="leading" id="KMw-e2-zhT"/>
+                            <constraint firstItem="fum-ec-D38" firstAttribute="width" secondItem="kHv-KU-p4q" secondAttribute="width" id="Lxz-Ng-3pB"/>
+                            <constraint firstItem="fum-ec-D38" firstAttribute="top" secondItem="W8R-6j-ON8" secondAttribute="top" constant="21" id="Szd-aj-iJo"/>
+                            <constraint firstAttribute="trailing" secondItem="ka4-4Y-88Y" secondAttribute="trailing" constant="20" id="UXc-x8-juN"/>
+                            <constraint firstItem="ka4-4Y-88Y" firstAttribute="leading" secondItem="W8R-6j-ON8" secondAttribute="leading" constant="20" id="WvJ-tl-1yJ"/>
+                            <constraint firstItem="ka4-4Y-88Y" firstAttribute="top" secondItem="Inh-m9-6RX" secondAttribute="bottom" constant="6" id="cWs-sZ-H8R"/>
+                            <constraint firstItem="fum-ec-D38" firstAttribute="leading" secondItem="W8R-6j-ON8" secondAttribute="leading" constant="20" id="dyU-in-VIK"/>
+                            <constraint firstItem="kHv-KU-p4q" firstAttribute="top" secondItem="fum-ec-D38" secondAttribute="bottom" constant="12" id="gDh-n1-UyB"/>
+                            <constraint firstItem="kHv-KU-p4q" firstAttribute="width" secondItem="Inh-m9-6RX" secondAttribute="width" id="i7J-SJ-Nte"/>
+                            <constraint firstItem="Inh-m9-6RX" firstAttribute="leading" secondItem="kHv-KU-p4q" secondAttribute="leading" id="itf-tZ-CLf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="ccChanField" destination="yAp-Qe-25f" id="rlf-m5-e1a"/>
+                        <outlet property="ccField" destination="IbK-yS-Jdp" id="BK8-dO-uOu"/>
+                        <outlet property="ccValField" destination="zs4-gS-5Dw" id="1Bm-4n-LII"/>
+                        <outlet property="noteChanField" destination="Btk-gC-x8J" id="3y0-Sm-Mbr"/>
+                        <outlet property="noteNumField" destination="KW4-1x-hrA" id="UP7-L7-tzv"/>
+                        <outlet property="noteVelField" destination="na0-AH-b6a" id="rhn-uO-RNv"/>
+                        <outlet property="sysexField" destination="GN3-YP-7nC" id="ROV-S0-O6p"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="605" y="655"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="MidiMonitor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="MIDIUtility" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJB-oz-9f9">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IJB-oz-9f9">
                                 <rect key="frame" x="18" y="233" width="444" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="AudioKit MIDI Monitor V0.1 - Bare Bones" id="m3u-GZ-vmc">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="m3u-GZ-vmc">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -698,7 +929,7 @@
                                     <rect key="frame" x="1" y="1" width="438" height="178"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView editable="NO" importsGraphics="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="vE8-xq-rqK">
+                                        <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="vE8-xq-rqK">
                                             <rect key="frame" x="0.0" y="0.0" width="438" height="178"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

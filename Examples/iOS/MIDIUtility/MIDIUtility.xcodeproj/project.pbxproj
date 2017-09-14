@@ -12,18 +12,19 @@
 		C40F9D3B1C5C908E00B50BFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40F9D391C5C908E00B50BFB /* Main.storyboard */; };
 		C40F9D3D1C5C908E00B50BFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C40F9D3C1C5C908E00B50BFB /* Assets.xcassets */; };
 		C40F9D401C5C908E00B50BFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40F9D3E1C5C908E00B50BFB /* LaunchScreen.storyboard */; };
-		EA8BA98A1C5F4E3D00BBD469 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */; };
-		EA8BA98B1C5F4E3D00BBD469 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FE0349841F69E4FC009BB8AC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */; };
+		FE0349851F69E4FC009BB8AC /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FEE5633D1F674D7A006E4087 /* MIDISenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE5633C1F674D7A006E4087 /* MIDISenderVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C40F9D541C5C90A900B50BFB /* Embed Frameworks */ = {
+		FEE789C21F67418100688A2A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA8BA98B1C5F4E3D00BBD469 /* AudioKit.framework in Embed Frameworks */,
+				FE0349851F69E4FC009BB8AC /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,7 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C40F9D321C5C908E00B50BFB /* MidiMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MidiMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C40F9D321C5C908E00B50BFB /* MIDIUtility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIDIUtility.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C40F9D351C5C908E00B50BFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C40F9D371C5C908E00B50BFB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C40F9D3A1C5C908E00B50BFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -39,6 +40,7 @@
 		C40F9D3F1C5C908E00B50BFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C40F9D411C5C908E00B50BFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		FEE5633C1F674D7A006E4087 /* MIDISenderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISenderVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA8BA98A1C5F4E3D00BBD469 /* AudioKit.framework in Frameworks */,
+				FE0349841F69E4FC009BB8AC /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +58,7 @@
 		C40F9D291C5C908E00B50BFB = {
 			isa = PBXGroup;
 			children = (
-				C40F9D341C5C908E00B50BFB /* MidiMonitor */,
+				C40F9D341C5C908E00B50BFB /* MIDIUtility */,
 				C40F9D331C5C908E00B50BFB /* Products */,
 				EA8BA98C1C5F4E4900BBD469 /* Frameworks */,
 			);
@@ -65,22 +67,23 @@
 		C40F9D331C5C908E00B50BFB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C40F9D321C5C908E00B50BFB /* MidiMonitor.app */,
+				C40F9D321C5C908E00B50BFB /* MIDIUtility.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C40F9D341C5C908E00B50BFB /* MidiMonitor */ = {
+		C40F9D341C5C908E00B50BFB /* MIDIUtility */ = {
 			isa = PBXGroup;
 			children = (
 				C40F9D351C5C908E00B50BFB /* AppDelegate.swift */,
 				C40F9D371C5C908E00B50BFB /* ViewController.swift */,
+				FEE5633C1F674D7A006E4087 /* MIDISenderVC.swift */,
 				C40F9D391C5C908E00B50BFB /* Main.storyboard */,
 				C40F9D3C1C5C908E00B50BFB /* Assets.xcassets */,
 				C40F9D3E1C5C908E00B50BFB /* LaunchScreen.storyboard */,
 				C40F9D411C5C908E00B50BFB /* Info.plist */,
 			);
-			path = MidiMonitor;
+			path = MIDIUtility;
 			sourceTree = "<group>";
 		};
 		EA8BA98C1C5F4E4900BBD469 /* Frameworks */ = {
@@ -94,22 +97,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C40F9D311C5C908E00B50BFB /* MidiMonitor */ = {
+		C40F9D311C5C908E00B50BFB /* MIDIUtility */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C40F9D441C5C908E00B50BFB /* Build configuration list for PBXNativeTarget "MidiMonitor" */;
+			buildConfigurationList = C40F9D441C5C908E00B50BFB /* Build configuration list for PBXNativeTarget "MIDIUtility" */;
 			buildPhases = (
 				C40F9D2E1C5C908E00B50BFB /* Sources */,
 				C40F9D2F1C5C908E00B50BFB /* Frameworks */,
 				C40F9D301C5C908E00B50BFB /* Resources */,
-				C40F9D541C5C90A900B50BFB /* Embed Frameworks */,
+				FEE789C21F67418100688A2A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MidiMonitor;
+			name = MIDIUtility;
 			productName = MidiMonitor;
-			productReference = C40F9D321C5C908E00B50BFB /* MidiMonitor.app */;
+			productReference = C40F9D321C5C908E00B50BFB /* MIDIUtility.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -129,7 +132,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C40F9D2D1C5C908E00B50BFB /* Build configuration list for PBXProject "MidiMonitor" */;
+			buildConfigurationList = C40F9D2D1C5C908E00B50BFB /* Build configuration list for PBXProject "MIDIUtility" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -142,7 +145,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C40F9D311C5C908E00B50BFB /* MidiMonitor */,
+				C40F9D311C5C908E00B50BFB /* MIDIUtility */,
 			);
 		};
 /* End PBXProject section */
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEE5633D1F674D7A006E4087 /* MIDISenderVC.swift in Sources */,
 				C40F9D381C5C908E00B50BFB /* ViewController.swift in Sources */,
 				C40F9D361C5C908E00B50BFB /* AppDelegate.swift in Sources */,
 			);
@@ -304,10 +308,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = MidiMonitor/Info.plist;
+				INFOPLIST_FILE = MIDIUtility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MidiMonitor;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -321,10 +325,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = MidiMonitor/Info.plist;
+				INFOPLIST_FILE = MIDIUtility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MidiMonitor;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -333,7 +337,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C40F9D2D1C5C908E00B50BFB /* Build configuration list for PBXProject "MidiMonitor" */ = {
+		C40F9D2D1C5C908E00B50BFB /* Build configuration list for PBXProject "MIDIUtility" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C40F9D421C5C908E00B50BFB /* Debug */,
@@ -342,7 +346,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C40F9D441C5C908E00B50BFB /* Build configuration list for PBXNativeTarget "MidiMonitor" */ = {
+		C40F9D441C5C908E00B50BFB /* Build configuration list for PBXNativeTarget "MIDIUtility" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C40F9D451C5C908E00B50BFB /* Debug */,
