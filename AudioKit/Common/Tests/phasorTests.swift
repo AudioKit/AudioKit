@@ -24,4 +24,3 @@ class PhasorTests: AKTestCase {
     }
 
 }
-

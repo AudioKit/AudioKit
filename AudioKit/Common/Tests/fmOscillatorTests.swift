@@ -39,4 +39,3 @@ class FMOscillatorTests: AKTestCase {
     }
 
 }
-
