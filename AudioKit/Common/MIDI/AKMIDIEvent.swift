@@ -286,6 +286,9 @@ public struct AKMIDIEvent {
     fileprivate mutating func fillData(command: AKMIDISystemCommand,
                                        byte1: MIDIByte,
                                        byte2: MIDIByte) {
+        if internalData.count <= 0 {
+            return
+        }
         internalData[0] = command.rawValue
 
         switch command {
