@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C40F9D311C5C908E00B50BFB"
-               BuildableName = "MidiMonitor.app"
-               BlueprintName = "MidiMonitor"
-               ReferencedContainer = "container:MidiMonitor.xcodeproj">
+               BuildableName = "MIDIUtility.app"
+               BlueprintName = "MIDIUtility"
+               ReferencedContainer = "container:MIDIUtility.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C40F9D311C5C908E00B50BFB"
-            BuildableName = "MidiMonitor.app"
-            BlueprintName = "MidiMonitor"
-            ReferencedContainer = "container:MidiMonitor.xcodeproj">
+            BuildableName = "MIDIUtility.app"
+            BlueprintName = "MIDIUtility"
+            ReferencedContainer = "container:MIDIUtility.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,9 +58,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C40F9D311C5C908E00B50BFB"
-            BuildableName = "MidiMonitor.app"
-            BlueprintName = "MidiMonitor"
-            ReferencedContainer = "container:MidiMonitor.xcodeproj">
+            BuildableName = "MIDIUtility.app"
+            BlueprintName = "MIDIUtility"
+            ReferencedContainer = "container:MIDIUtility.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C40F9D311C5C908E00B50BFB"
-            BuildableName = "MidiMonitor.app"
-            BlueprintName = "MidiMonitor"
-            ReferencedContainer = "container:MidiMonitor.xcodeproj">
+            BuildableName = "MIDIUtility.app"
+            BlueprintName = "MIDIUtility"
+            ReferencedContainer = "container:MIDIUtility.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
