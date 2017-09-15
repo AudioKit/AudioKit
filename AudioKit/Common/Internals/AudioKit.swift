@@ -62,7 +62,7 @@ extension AVAudioEngine {
             var returnDevices = [AKDevice]()
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for device in devices {
-                    if device.dataSources!.isEmpty {
+                    if device.dataSources == nil || device.dataSources!.isEmpty {
                         returnDevices.append(AKDevice(name: device.portName, deviceID: device.uid))
                     } else {
                         for dataSource in device.dataSources! {
@@ -150,7 +150,7 @@ extension AVAudioEngine {
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for device in devices {
-                    if device.dataSources!.isEmpty {
+                    if device.dataSources == nil || device.dataSources!.isEmpty {
                         if device.uid == input.deviceID {
                             do {
                                 try AVAudioSession.sharedInstance().setPreferredInput(device)
