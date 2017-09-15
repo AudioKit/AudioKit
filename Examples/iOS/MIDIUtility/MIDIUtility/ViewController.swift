@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  MidiMonitor
+//  MIDIUtility
 //
 //  Created by Aurelius Prochazka on 1/29/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -12,11 +12,13 @@ import UIKit
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: UITextView!
     var midi = AKMIDI()
+    var senderVC:MIDISenderVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         midi.openInput()
         midi.addListener(self)
+        senderVC = self.storyboard?.instantiateViewController(withIdentifier: "MIDISenderVC") as? MIDISenderVC
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
@@ -69,5 +71,8 @@ class ViewController: UIViewController, AKMIDIListener {
         DispatchQueue.main.async(execute: {
             self.outputTextView.text = ""
         })
+    }
+    @IBAction func sendMIDIButtonPressed(_ sender: UIButton) {
+        present(senderVC!, animated: true, completion: nil)
     }
 }
