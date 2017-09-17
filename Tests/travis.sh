@@ -71,11 +71,14 @@ xcodebuild -project Examples/macOS/MIDIUtility/MIDIUtility.xcodeproj -scheme MID
 echo "Building macOS RandomClips"
 xcodebuild -project Examples/macOS/RandomClips/RandomClips.xcodeproj -scheme RandomClips ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 21
 
+echo "Building macOS Recorder"
+xcodebuild -project Examples/macOS/Recorder/Recorder.xcodeproj -scheme Recorder ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 22
+
 echo "Building macOS SporthEditor"
-xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 22
+xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 23
 
 echo "Skipping Particles - requires hardware"
-#xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 23
+#xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 24
 
 echo "Building iOS Sender Synth"
 cd Examples/iOS/SenderSynth; pod install; cd ../../..
