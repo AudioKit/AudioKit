@@ -114,11 +114,11 @@
     /// Create the tuning using the input frequencies
     ///
     /// - parameter fromFrequencies: An array of Frequencies
-    ///
-    public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) {
+    /// - optionally returns number of notes per octave based on input frequencies and tuning table settings.
+    public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) -> Int? {
         if inputFrequencies.isEmpty {
             AKLog("No input frequencies")
-            return
+            return nil
         }
 
         // octave reduce
@@ -143,7 +143,7 @@
 
         if ❗️frequenciesAreValid {
             AKLog("Invalid input frequencies")
-            return
+            return nil
         }
 
         // sort
@@ -155,8 +155,12 @@
 
         // update
         updateTuningTable()
+        
+        return frequencies.count
     }
 
+    
+    
     // Assume frequencies are set and valid:  Process and update tuning table and etNNPitchBend dictionary
     private func updateTuningTable() {
         //AKLog("Frequencies: \(frequencies)")
