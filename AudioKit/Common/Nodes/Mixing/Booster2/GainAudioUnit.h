@@ -21,6 +21,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "AK4LinearParamRamp.hpp"
 
 /**
  A butt simple DSP kernel. Most of the plumbing is in the base class. All the code at this
@@ -33,21 +34,23 @@ struct DspGainEffect : AK4DspBase {
     
 private:
     
-    double Gain = 1.0;
     const uint64_t kGainAddr = 0;
+    AK4LinearParamRamp gainRamp;
     
 public:
+    
+    DspGainEffect() { gainRamp.value = 1.0; }
     
     /** Uses the ParameterAddress as a key */
     void setParameter(uint64_t address, float value) override {
         if (address == kGainAddr) {
-            Gain = value;
+            gainRamp.setTarget(value, _now);
         }
     }
     
     /** Uses the ParameterAddress as a key */
     float getParameter(uint64_t address) override {
-        if (address == kGainAddr) { return Gain; }
+        if (address == kGainAddr) { return gainRamp.target; }
         else return 0;
     }
     
@@ -59,12 +62,16 @@ public:
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
-            for (int channel = 0; channel < nChannels; ++channel) {
+            // do gain ramping every 8 samples
+            if ((frameOffset & 0x7) == 0) {
+                gainRamp.advanceTo(_now + frameOffset);
+            }
+            // do actual signal processing
+            // After all this scaffolding, the only thing we are doing is scaling the input
+            for (int channel = 0; channel < _nChannels; ++channel) {
                 float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                // After all this scaffolding, the only thing we are doing is scaling the input
-                *out = Gain * *in;
-                
+                *out = gainRamp.value * *in;
             }
         }
     }

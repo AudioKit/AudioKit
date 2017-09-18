@@ -54,6 +54,8 @@
 		A10B8FA21F64C0C600668BED /* AK4ChowningReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = A10B8FA11F64C0C600668BED /* AK4ChowningReverbAudioUnit.mm */; };
 		A10B8FA41F64C0F900668BED /* AK4ChowningReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A10B8FA31F64C0F900668BED /* AK4ChowningReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A1874A091F65AD56000479A1 /* AK4ChowningReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1874A081F65AD56000479A1 /* AK4ChowningReverb.swift */; };
+		A1B70ACB1F702E9E00AE43F8 /* AK4ParamRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1B70ACA1F702E9E00AE43F8 /* AK4ParamRampBase.hpp */; };
+		A1B70ACD1F7038FE00AE43F8 /* AK4LinearParamRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1B70ACC1F7038FE00AE43F8 /* AK4LinearParamRamp.hpp */; };
 		A1FE77A11F64549E00A2E41C /* AKAudioEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE779D1F64549E00A2E41C /* AKAudioEffect.h */; };
 		A1FE77A21F64549E00A2E41C /* AKAudioEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1FE779E1F64549E00A2E41C /* AKAudioEffect.mm */; };
 		A1FE77A31F64549E00A2E41C /* AK4AudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE779F1F64549E00A2E41C /* AK4AudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1006,6 +1008,8 @@
 		A10B8FA11F64C0C600668BED /* AK4ChowningReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AK4ChowningReverbAudioUnit.mm; sourceTree = "<group>"; };
 		A10B8FA31F64C0F900668BED /* AK4ChowningReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AK4ChowningReverbAudioUnit.h; sourceTree = "<group>"; };
 		A1874A081F65AD56000479A1 /* AK4ChowningReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AK4ChowningReverb.swift; sourceTree = "<group>"; };
+		A1B70ACA1F702E9E00AE43F8 /* AK4ParamRampBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AK4ParamRampBase.hpp; sourceTree = "<group>"; };
+		A1B70ACC1F7038FE00AE43F8 /* AK4LinearParamRamp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AK4LinearParamRamp.hpp; sourceTree = "<group>"; };
 		A1FE779D1F64549E00A2E41C /* AKAudioEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioEffect.h; sourceTree = "<group>"; };
 		A1FE779E1F64549E00A2E41C /* AKAudioEffect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioEffect.mm; sourceTree = "<group>"; };
 		A1FE779F1F64549E00A2E41C /* AK4AudioUnitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AK4AudioUnitBase.h; sourceTree = "<group>"; };
@@ -2193,6 +2197,8 @@
 				C45662CB1D448D7D00D26565 /* DSPKernel.mm */,
 				C45662CC1D448D7D00D26565 /* ParameterRamper.hpp */,
 				A10B8F9F1F64BE4A00668BED /* AK4DspBase.hpp */,
+				A1B70ACA1F702E9E00AE43F8 /* AK4ParamRampBase.hpp */,
+				A1B70ACC1F7038FE00AE43F8 /* AK4LinearParamRamp.hpp */,
 			);
 			path = CoreAudio;
 			sourceTree = "<group>";
@@ -4276,6 +4282,7 @@
 				C45668BE1D448D7E00D26565 /* AKFrequencyTrackerAudioUnit.h in Headers */,
 				C47047D61E78FB7A00D9906F /* Rhodey.h in Headers */,
 				C45F62761E8EE4FC00F82CD4 /* AKPhaserDSPKernel.hpp in Headers */,
+				A1B70ACD1F7038FE00AE43F8 /* AK4LinearParamRamp.hpp in Headers */,
 				C47047C91E78FA2D00D9906F /* AKTubularBellsDSPKernel.hpp in Headers */,
 				C45669771D448D7E00D26565 /* AKOscillatorAudioUnit.h in Headers */,
 				C4146D851F3E47F9001AAE11 /* Array.hpp in Headers */,
@@ -4430,6 +4437,7 @@
 				C4146DA51F3E47F9001AAE11 /* OnePoleLPF.h in Headers */,
 				C45666BD1D448D7E00D26565 /* EZAudioPlayer.h in Headers */,
 				C45669011D448D7E00D26565 /* AKHighPassButterworthFilterAudioUnit.h in Headers */,
+				A1B70ACB1F702E9E00AE43F8 /* AK4ParamRampBase.hpp in Headers */,
 				C45669A11D448D7E00D26565 /* AKPluckedStringAudioUnit.h in Headers */,
 				C4146D931F3E47F9001AAE11 /* FFTReal.h in Headers */,
 				4871D45D1DD912E70046A768 /* OneZero.h in Headers */,

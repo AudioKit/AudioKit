@@ -7,13 +7,11 @@
 //
 
 #pragma once
+#ifdef __cplusplus
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-
-#ifdef __cplusplus
-
 #import <algorithm>
 
 /**
@@ -25,23 +23,20 @@ struct AK4DspBase {
     
 protected:
     
-    /** From Apple Example code */
-    int nChannels;
-    /** From Apple Example code */
-    double sampleRate;
-    /** From Apple Example code */
-    AudioBufferList* inBufferListPtr = nullptr;
-    /** From Apple Example code */
-    AudioBufferList* outBufferListPtr = nullptr;
+    int _nChannels;                               /* From Apple Example code */
+    double _sampleRate;                           /* From Apple Example code */
+    AudioBufferList* inBufferListPtr = nullptr;  /* From Apple Example code */
+    AudioBufferList* outBufferListPtr = nullptr; /* From Apple Example code */
     
     // To support AKAudioUnit functions
     bool _initialized = true;
     bool _playing = true;
+    int64_t _now;  // current time in samples
     
 public:
     
     /** The Render function. */
-    virtual void process(uint32_t frameCount, uint32_t bufferOffset) {}
+    virtual void process(uint32_t frameCount, uint32_t bufferOffset) = 0;
     
     /** Uses the ParameterAddress as a key */
     virtual void setParameter(uint64_t address, float value) {}
@@ -58,7 +53,7 @@ public:
     }
     
     virtual void init(int nChannels, double sampleRate) {
-        this->nChannels = nChannels; this->sampleRate = sampleRate;
+        this->_nChannels = nChannels; this->_sampleRate = sampleRate;
     }
     
     // Add for compatibility with AKAudioUnit
@@ -75,9 +70,10 @@ public:
     void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                            AURenderEvent const *events) {
         
-        AUEventSampleTime now = AUEventSampleTime(timestamp->mSampleTime);
+        _now = timestamp->mSampleTime;
         AUAudioFrameCount framesRemaining = frameCount;
         AURenderEvent const *event = events;
+
         
         while (framesRemaining > 0) {
             // If there are no more events, we can process the entire remaining segment and exit.
@@ -90,7 +86,7 @@ public:
             // **** start late events late.
             auto timeZero = AUEventSampleTime(0);
             auto headEventTime = event->head.eventSampleTime;
-            AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - now));
+            AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - _now));
             
             // Compute everything before the next event.
             if (framesThisSegment > 0) {
@@ -99,17 +95,15 @@ public:
                 
                 // Advance frames.
                 framesRemaining -= framesThisSegment;
-                
                 // Advance time.
-                now += AUEventSampleTime(framesThisSegment);
+                _now += framesThisSegment;
             }
             
-            performAllSimultaneousEvents(now, event);
+            performAllSimultaneousEvents(_now, event);
         }
     }
     
 private:
-    
     
     /** From Apple Example code */
     void handleOneEvent(AURenderEvent const *event) {
