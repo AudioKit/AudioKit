@@ -11,13 +11,10 @@
 #import "AK4DspSoundPipe.hpp"
 
 class AK4DspChowningReverb : public AK4DspSoundpipeBase {
-
     sp_jcrev *jcrev0;
     sp_jcrev *jcrev1;
 
 public:
-// MARK: Member Functions
-
     AK4DspChowningReverb() {}
 
     void init(int _channels, double _sampleRate) override {
@@ -41,6 +38,5 @@ public:
             sp_jcrev_compute(sp, jcrev1, in, out);
         }
     }
-
 };
 
