@@ -21,8 +21,6 @@ extern "C" {
 
 #import "AKCustomUgenInfo.h"
 
-static int addUgensToKernel(plumber_data *pd, void *ud);
-
 class AKOperationGeneratorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
@@ -163,8 +161,11 @@ public:
     bool started = false;
 };
 
-static int addUgensToKernel(plumber_data *pd, void *ud) {
-    auto kernel = (AKOperationGeneratorDSPKernel *)ud;
-    kernel->addUgensToFTable(pd);
-    return PLUMBER_OK;
-}
+// Unused, but could be useful so keeping it around for now
+//
+//static int addUgensToKernel(plumber_data *pd, void *ud) {
+//    auto kernel = (AKOperationGeneratorDSPKernel *)ud;
+//    kernel->addUgensToFTable(pd);
+//    return PLUMBER_OK;
+//}
+

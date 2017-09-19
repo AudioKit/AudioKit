@@ -154,7 +154,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func handlePlay(_ sender: UIButton) {
-        Swift.print(player)
         guard let player = player else { return }
 
         // check to make sure the input is the player
@@ -256,7 +255,6 @@ class ViewController: UIViewController {
 
 extension ViewController: AKAudioUnitManagerDelegate {
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
-        Swift.print("handleAudioUnitNotification() type: \(type)")
         guard auManager != nil else { return }
 
         if type == AKAudioUnitManager.Notification.changed {
@@ -267,8 +265,6 @@ extension ViewController: AKAudioUnitManagerDelegate {
 
     /// this is where you can request the UI of the Audio Unit
     func handleEffectAdded(at auIndex: Int) {
-        Swift.print("handleEffectAdded() at \(auIndex)")
-
         guard player != nil else { return }
 
         if player!.isStarted {
