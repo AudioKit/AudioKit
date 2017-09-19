@@ -16,20 +16,20 @@ extern "C" {
 
 class AK4DspSoundpipeBase: public AK4DspBase {
 protected:
-    sp_data *sp = nullptr;
+    sp_data* _sp = nullptr;
 public:
     
     void init(int _channels, double _sampleRate) override {
         AK4DspBase::init(_channels, _sampleRate);
-        sp_create(&sp);
-        sp->sr = _sampleRate;
-        sp->nchan = _channels;
+        sp_create(&_sp);
+        _sp->sr = _sampleRate;
+        _sp->nchan = _channels;
     }
     
     ~AK4DspSoundpipeBase() {
         //printf("~AKSoundpipeKernel(), &sp is %p\n", (void *)sp);
         // releasing the memory in the destructor only
-        sp_destroy(&sp);
+        sp_destroy(&_sp);
     }
     
     // Is this needed? Ramping should be rethought
@@ -50,8 +50,8 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             for (int channel = 0; channel <  _nChannels; ++channel) {
-                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 
                 if (_playing) {
                     processSample(channel, in, out);

@@ -13,26 +13,38 @@
 
 struct AK4ParamRampBase {
     
-    float target = 0;
-    float value = 0;
-    float duration = 0;  // in samples
-    int64_t startSample = 0;
+protected:
+    float _target = 0;
+    float _value = 0;
+    int64_t _duration = 0;  // in samples
+    int64_t _startSample = 0;
+    
+public:
     
     virtual float computeValueAt(int64_t atSample) = 0;
     
     void setTarget(float value, int64_t atSample) {
-        target = value;
-        startSample = atSample;
+        _target = value;
+        _startSample = atSample;
     }
     
+    void setDurationInSamples(int64_t duration) {
+        if (duration >= 0) _duration = duration;
+    }
+    
+    float getValue() { return _value; }
+    float getTarget() { return _target; }
+    
     float advanceTo(int64_t atSample) {
-        if (value == target) return value;
-        if ((atSample - startSample) >= duration) {
-            value = target;
+        if (_value == _target) return _value;
+        int64_t deltaSamples = atSample - _startSample;
+        if (deltaSamples >= _duration || deltaSamples < 0) {
+            _value = _target;
+            _startSample = 0;  // for good measure
         } else {
-        value = computeValueAt(atSample);
+            computeValueAt(atSample);
         }
-        return value;
+        return _value;
     }
     
 };
