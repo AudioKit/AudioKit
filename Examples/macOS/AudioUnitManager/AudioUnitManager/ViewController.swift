@@ -554,7 +554,6 @@ extension ViewController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         if let obj = notification.object {
             if let w = obj as? NSWindow {
-                AKLog("Window closing: \(w.identifier)")
 
                 if let id = w.identifier?.rawValue.toInt() {
                     if let b = getEffectsButtonFromIdentifier(id) {

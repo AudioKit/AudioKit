@@ -16,9 +16,13 @@ class Fatten: AKNode, AKInput {
     var wet: AKMixer
     var inputMixer = AKMixer()
 
+    var inputNode: AVAudioNode {
+        return inputMixer.avAudioNode
+    }
+    
     init(_ input: AKNode) {
         input.connect(to: inputMixer)
-        delay = AKDelay(inputMixer, time: 0.05, dryWetMix: 0.5)
+        delay = AKDelay(inputMixer, time: 0.05, dryWetMix: 1)
         pannedDelay = AKPanner(delay, pan: 1)
         pannedSource = AKPanner(inputMixer, pan: -1)
         wet = AKMixer(pannedDelay, pannedSource)
@@ -26,7 +30,5 @@ class Fatten: AKNode, AKInput {
         super.init()
         self.avAudioNode = dryWetMix.avAudioNode
     }
-    var inputNode: AVAudioNode {
-        return inputMixer.avAudioNode
-    }
+
 }
