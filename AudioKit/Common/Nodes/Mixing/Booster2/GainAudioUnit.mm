@@ -40,7 +40,7 @@
 
 
 -(AK4DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
-    DspGainEffect* kernel = new DspGainEffect();
+    AK4GainEffectDsp* kernel = new AK4GainEffectDsp();
     kernel->init(sampleRate, count);
     return kernel;
 }

@@ -30,16 +30,18 @@
  etc.
  */
 
-struct DspGainEffect : AK4DspBase {
+struct AK4GainEffectDsp : AK4DspBase {
     
 private:
-    
     const uint64_t kGainAddr = 0;
     AK4LinearParamRamp gainRamp;
     
 public:
     
-    DspGainEffect() { gainRamp.value = 1.0; }
+    AK4GainEffectDsp() {
+        gainRamp.setTarget(1.0, 0);
+        gainRamp.setDurationInSamples(10000);
+    }
     
     /** Uses the ParameterAddress as a key */
     void setParameter(uint64_t address, float value) override {
@@ -50,7 +52,7 @@ public:
     
     /** Uses the ParameterAddress as a key */
     float getParameter(uint64_t address) override {
-        if (address == kGainAddr) { return gainRamp.target; }
+        if (address == kGainAddr) { return gainRamp.getTarget(); }
         else return 0;
     }
     
@@ -69,12 +71,13 @@ public:
             // do actual signal processing
             // After all this scaffolding, the only thing we are doing is scaling the input
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                *out = gainRamp.value * *in;
+                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                *out = gainRamp.getValue() * *in;
             }
         }
     }
+    
 };
 
 #endif

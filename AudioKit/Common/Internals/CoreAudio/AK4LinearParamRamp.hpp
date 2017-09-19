@@ -13,8 +13,8 @@
 struct AK4LinearParamRamp : AK4ParamRampBase {
     
     float computeValueAt(int64_t atSample) override {
-        float fract = (atSample - startSample) / duration;
-        return (target - value) * fract;
+        float fract = (float)(atSample - _startSample) / _duration;
+        return _value = _value + (_target - _value) * fract;
     }
     
 };

@@ -48,7 +48,7 @@
 		55E4F5261F57DA740088018A /* AKTimelineTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5241F57DA740088018A /* AKTimelineTap.m */; };
 		55E4F5291F57DAC30088018A /* AKSamplerMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F5271F57DAC30088018A /* AKSamplerMetronome.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F52A1F57DAC30088018A /* AKSamplerMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5281F57DAC30088018A /* AKSamplerMetronome.m */; };
-		A10B8F9C1F64B10300668BED /* AK4DspChowningReverb.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A10B8F9B1F64B10300668BED /* AK4DspChowningReverb.hpp */; };
+		A10B8F9C1F64B10300668BED /* AK4ChowningReverbDsp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A10B8F9B1F64B10300668BED /* AK4ChowningReverbDsp.hpp */; };
 		A10B8F9E1F64BCD200668BED /* AK4DspSoundPipe.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A10B8F9D1F64BCD200668BED /* AK4DspSoundPipe.hpp */; };
 		A10B8FA01F64BFF900668BED /* AK4DspBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A10B8F9F1F64BE4A00668BED /* AK4DspBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		A10B8FA21F64C0C600668BED /* AK4ChowningReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = A10B8FA11F64C0C600668BED /* AK4ChowningReverbAudioUnit.mm */; };
@@ -1002,7 +1002,7 @@
 		55E4F5271F57DAC30088018A /* AKSamplerMetronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSamplerMetronome.h; path = ../AKSamplerMetronome.h; sourceTree = "<group>"; };
 		55E4F5281F57DAC30088018A /* AKSamplerMetronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSamplerMetronome.m; path = ../AKSamplerMetronome.m; sourceTree = "<group>"; };
 		7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
-		A10B8F9B1F64B10300668BED /* AK4DspChowningReverb.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AK4DspChowningReverb.hpp; sourceTree = "<group>"; };
+		A10B8F9B1F64B10300668BED /* AK4ChowningReverbDsp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AK4ChowningReverbDsp.hpp; sourceTree = "<group>"; };
 		A10B8F9D1F64BCD200668BED /* AK4DspSoundPipe.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AK4DspSoundPipe.hpp; sourceTree = "<group>"; };
 		A10B8F9F1F64BE4A00668BED /* AK4DspBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AK4DspBase.hpp; sourceTree = "<group>"; };
 		A10B8FA11F64C0C600668BED /* AK4ChowningReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AK4ChowningReverbAudioUnit.mm; sourceTree = "<group>"; };
@@ -3332,7 +3332,7 @@
 				C45665AB1D448D7E00D26565 /* AKChowningReverbAudioUnit.mm */,
 				A10B8FA11F64C0C600668BED /* AK4ChowningReverbAudioUnit.mm */,
 				C45665AC1D448D7E00D26565 /* AKChowningReverbDSPKernel.hpp */,
-				A10B8F9B1F64B10300668BED /* AK4DspChowningReverb.hpp */,
+				A10B8F9B1F64B10300668BED /* AK4ChowningReverbDsp.hpp */,
 			);
 			path = "Chowning Reverb";
 			sourceTree = "<group>";
@@ -4242,7 +4242,7 @@
 				C45667E71D448D7E00D26565 /* ADSR.h in Headers */,
 				C4146D8F1F3E47F9001AAE11 /* DynArray.h in Headers */,
 				C45668051D448D7E00D26565 /* Fir.h in Headers */,
-				A10B8F9C1F64B10300668BED /* AK4DspChowningReverb.hpp in Headers */,
+				A10B8F9C1F64B10300668BED /* AK4ChowningReverbDsp.hpp in Headers */,
 				C45669871D448D7E00D26565 /* AKPWMOscillatorAudioUnit.h in Headers */,
 				C45666B11D448D7E00D26565 /* EZAudioDevice.h in Headers */,
 				C45668E01D448D7E00D26565 /* AKAmplitudeEnvelopeAudioUnit.h in Headers */,
@@ -5383,7 +5383,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -5438,7 +5438,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

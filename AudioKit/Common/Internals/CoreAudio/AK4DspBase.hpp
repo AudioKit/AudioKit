@@ -25,8 +25,8 @@ protected:
     
     int _nChannels;                               /* From Apple Example code */
     double _sampleRate;                           /* From Apple Example code */
-    AudioBufferList* inBufferListPtr = nullptr;  /* From Apple Example code */
-    AudioBufferList* outBufferListPtr = nullptr; /* From Apple Example code */
+    AudioBufferList* _inBufferListPtr = nullptr;  /* From Apple Example code */
+    AudioBufferList* _outBufferListPtr = nullptr; /* From Apple Example code */
     
     // To support AKAudioUnit functions
     bool _initialized = true;
@@ -48,8 +48,8 @@ public:
     virtual void reset() {}
     
     virtual void setBuffers(AudioBufferList* inBufs, AudioBufferList* outBufs) {
-        inBufferListPtr = inBufs;
-        outBufferListPtr = outBufs;
+        _inBufferListPtr = inBufs;
+        _outBufferListPtr = outBufs;
     }
     
     virtual void init(int nChannels, double sampleRate) {
@@ -70,23 +70,24 @@ public:
     void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                            AURenderEvent const *events) {
         
-        _now = timestamp->mSampleTime;
+        int64_t now = timestamp->mSampleTime;
+        int64_t frameStartTime = now;
         AUAudioFrameCount framesRemaining = frameCount;
         AURenderEvent const *event = events;
 
-        
         while (framesRemaining > 0) {
             // If there are no more events, we can process the entire remaining segment and exit.
             if (event == nullptr) {
                 AUAudioFrameCount const bufferOffset = frameCount - framesRemaining;
                 process(framesRemaining, bufferOffset);
+                _now = frameStartTime;
                 return;
             }
             
             // **** start late events late.
             auto timeZero = AUEventSampleTime(0);
             auto headEventTime = event->head.eventSampleTime;
-            AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - _now));
+            AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - now));
             
             // Compute everything before the next event.
             if (framesThisSegment > 0) {
@@ -96,11 +97,11 @@ public:
                 // Advance frames.
                 framesRemaining -= framesThisSegment;
                 // Advance time.
-                _now += framesThisSegment;
+                now += framesThisSegment;
             }
-            
-            performAllSimultaneousEvents(_now, event);
+            performAllSimultaneousEvents(now, event);
         }
+        _now = frameStartTime;
     }
     
 private:
