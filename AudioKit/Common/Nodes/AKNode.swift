@@ -130,7 +130,7 @@ public protocol AKPolyphonic {
 }
 
 /// Protocol for dictating that a node can be in a started or stopped state
-public protocol AKToggleable {
+@objc public protocol AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
 
