@@ -7,7 +7,7 @@
 //
 
 /// Not so simple audio playback class
-open class AKAudioPlayer: AKNode, AKToggleable {
+@objc open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Private variables
     fileprivate var internalAudioFile: AKAudioFile
@@ -240,6 +240,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
     ///
+    @objc
     public init(file: AKAudioFile,
                 looping: Bool = false,
                 deferBuffering: Bool = false,
@@ -286,7 +287,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         play(at:nil)
     }
 
-    open func play(at when: AVAudioTime?) {
+    @objc open func play(at when: AVAudioTime?) {
 
         if audioFileBuffer == nil {
             initialize()
@@ -329,7 +330,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Pause playback
-    open func pause() {
+    @objc open func pause() {
         if playing {
             if ❗️paused {
                 lastCurrentTime = currentTime
@@ -345,14 +346,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Restart playback from current position
-    open func resume() {
+    @objc open func resume() {
         if paused {
             self.play()
         }
     }
 
     /// resets in and out times for playing
-    open func reloadFile() throws {
+    @objc open func reloadFile() throws {
         let wasPlaying = playing
         if wasPlaying {
             stop()
@@ -383,7 +384,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Replace player's file with a new AKAudioFile file
-    open func replace(file: AKAudioFile) throws {
+    @objc open func replace(file: AKAudioFile) throws {
         internalAudioFile = file
         do {
             try reloadFile()
@@ -395,12 +396,12 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Default play that will use the previously set startTime and endTime properties or the full file if both are 0
-    open func play() {
+    @objc open func play() {
         play(from: self.startTime, to: self.endTime, avTime: nil)
     }
 
     /// Play from startTime to endTime
-    open func play(from startTime: Double, to endTime: Double) {
+    @objc open func play(from startTime: Double, to endTime: Double) {
         play(from: startTime, to: endTime, avTime: nil)
     }
 
@@ -413,7 +414,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///    - scheduledTime: use this when scheduled playback doesn't need to be in sync with other players
     ///         otherwise use the avTime signature.
     ///
-    open func play(from startTime: Double, to endTime: Double, when scheduledTime: Double) {
+    @objc open func play(from startTime: Double, to endTime: Double, when scheduledTime: Double) {
         let hostTime = mach_absolute_time()
         let avTime = AKAudioPlayer.secondsToAVAudioTime(hostTime: hostTime, time: scheduledTime)
         play(from: startTime, to: endTime, avTime: avTime)
@@ -430,7 +431,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///              mach_absolute_time(). When you have a group of players which you want to sync together it's 
     ///              important that this value be the same for all of them as a reference point.
     ///
-    open func play(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
+    @objc open func play(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
         schedule(from: startTime, to: endTime, avTime: avTime)
         if endingFrame > startingFrame {
             start()
@@ -440,7 +441,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    open func schedule(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
+    @objc open func schedule(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
         stop()
 
         if endTime > 0 {
@@ -453,7 +454,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Static Methods
 
     /// Convert to AVAudioTime
-    open class func secondsToAVAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
+    @objc open class func secondsToAVAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()
         mach_timebase_info(&timebaseInfo)

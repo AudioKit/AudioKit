@@ -19,7 +19,7 @@ open class AKInputConnection: NSObject {
     }
 }
 
-public protocol AKOutput: class {
+@objc public protocol AKOutput: class {
     var outputNode: AVAudioNode { get }
 }
 
@@ -124,7 +124,7 @@ extension AKInput {
 
 }
 
-extension AVAudioNode: AKInput {
+@objc extension AVAudioNode: AKInput {
     public var outputNode: AVAudioNode {
         return self
     }
