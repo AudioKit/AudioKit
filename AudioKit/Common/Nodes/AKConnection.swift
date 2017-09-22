@@ -6,7 +6,6 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-
 /// A transitory used to pass connection information.
 open class AKInputConnection: NSObject {
 
