@@ -61,8 +61,7 @@ create_playgrounds()
 	cp -a ../Playgrounds AudioKitPlaygrounds
 	cd AudioKitPlaygrounds
 	cp -a ../AudioKit-macOS/AudioKit.framework ../AudioKit-macOS/AudioKitUI.framework AudioKitPlaygrounds/
-	gsed -i "s/\.\.\/\.\.\/Frameworks\/AudioKit-macOS/\./g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
-	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS//g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
+	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	cp ../../README.md ../../LICENSE .
 	find . -name .DS_Store -or -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..
