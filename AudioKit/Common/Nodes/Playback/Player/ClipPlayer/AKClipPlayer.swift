@@ -129,9 +129,9 @@ open class AKClipPlayer: AKNode, AKTiming {
     /// use AKFileClips if you don't need custom behavior.
     /// - Returns: A new player with clips if clips are valid, nil if not.
     ///
-    public convenience init?(clips: [AKFileClip]) {
+    public convenience init?(clips: [FileClip]) {
         do {
-            let validatedClips = try AKClipMerger.validateClips(clips) as! [AKFileClip]
+            let validatedClips = try AKClipMerger.validateClips(clips) as! [FileClip]
             self.init()
             _clips = validatedClips
         } catch {
