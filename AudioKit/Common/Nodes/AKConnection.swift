@@ -152,7 +152,7 @@ public protocol AKInput: AKOutput {
     /// The input bus that should be used for an input connection.  Default implementation is 0.  Multi-input nodes
     /// should return an open bus.
     ///
-    ///   - Returns: An inputConnection object conatining self and the input bus to use for an input connection.
+    ///   - Return: An inputConnection object conatining self and the input bus to use for an input connection.
     var nextInput: AKInputConnection { get }
 
     /// Disconnects all inputs
@@ -162,7 +162,7 @@ public protocol AKInput: AKOutput {
     func disconnectInput(bus: Int)
 
     /// Creates an input connection object with a bus number.
-    ///   - Returns: An inputConnection object conatining self and the input bus to use for an input connection.
+    ///   - Return: An inputConnection object conatining self and the input bus to use for an input connection.
     func input(_ bus: Int) -> AKInputConnection
 }
 
