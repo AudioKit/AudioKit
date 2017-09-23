@@ -21,6 +21,8 @@ extern "C" {
 
 #import "AKCustomUgenInfo.h"
 
+static int addUgensToKernel(plumber_data *pd, void *ud);
+
 class AKOperationGeneratorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
@@ -32,10 +34,11 @@ public:
 
         plumber_register(&pd);
         plumber_init(&pd);
-        addUgensToFTable(&pd);
         pd.sp = sp;
         if (sporthCode != nil) {
-            plumber_parse_string(&pd, sporthCode);
+            if (customUgens.size() == 0) {
+                plumber_parse_string(&pd, sporthCode);
+            }
             plumber_compute(&pd, PLUMBER_INIT);
         }
         
@@ -49,6 +52,9 @@ public:
         if (length) {
             sporthCode = (char *)malloc(length);
             memcpy(sporthCode, sporth, length);
+        }
+        if (customUgens.size() > 0) {
+            plumber_recompile_string_v2(&pd, sporthCode, this, &addUgensToKernel);
         }
     }
 
@@ -161,11 +167,8 @@ public:
     bool started = false;
 };
 
-// Unused, but could be useful so keeping it around for now
-//
-//static int addUgensToKernel(plumber_data *pd, void *ud) {
-//    auto kernel = (AKOperationGeneratorDSPKernel *)ud;
-//    kernel->addUgensToFTable(pd);
-//    return PLUMBER_OK;
-//}
-
+static int addUgensToKernel(plumber_data *pd, void *ud) {
+    auto kernel = (AKOperationGeneratorDSPKernel *)ud;
+    kernel->addUgensToFTable(pd);
+    return PLUMBER_OK;
+}
