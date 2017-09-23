@@ -1,6 +1,6 @@
 //
 //  AKSamplerMetronome.h
-//  AKMetronomeTest
+//  AudioKit
 //
 //  Created by David O'Neill on 8/24/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
