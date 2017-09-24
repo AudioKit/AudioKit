@@ -28,7 +28,6 @@ open class AKLiveViewController: UIViewController {
         let newLabel = UILabel()
         newLabel.text = text
         newLabel.textAlignment = .center
-        newLabel.backgroundColor = .blue
         newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = UIFont.boldSystemFont(ofSize: 24)
         newLabel.sizeThatFits(CGSize(width:400, height: 80))
