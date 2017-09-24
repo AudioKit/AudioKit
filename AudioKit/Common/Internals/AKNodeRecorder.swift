@@ -56,7 +56,7 @@
     ///   - node: Node to record from
     ///   - file: Audio file to record to
     ///
-    public init(node: AKNode? = AudioKit.output,
+    @objc public init(node: AKNode? = AudioKit.output,
                 file: AKAudioFile? = nil) throws {
 
         // AVAudioSession buffer setup
@@ -88,7 +88,7 @@
     // MARK: - Methods
 
     /// Start recording
-    open func record() throws {
+    @objc open func record() throws {
         if isRecording == true {
             AKLog("AKNodeRecorder Warning: already recording")
             return
