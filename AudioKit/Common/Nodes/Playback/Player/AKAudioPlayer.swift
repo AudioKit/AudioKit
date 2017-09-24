@@ -7,7 +7,7 @@
 //
 
 /// Not so simple audio playback class
-@objc open class AKAudioPlayer: AKNode, AKToggleable {
+open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Private variables
     fileprivate var internalAudioFile: AKAudioFile
@@ -240,8 +240,7 @@
     ///
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
     ///
-    @objc
-    public init(file: AKAudioFile,
+    @objc public init(file: AKAudioFile,
                 looping: Bool = false,
                 deferBuffering: Bool = false,
                 completionHandler: AKCallback? = nil) throws {
@@ -287,7 +286,7 @@
         play(at:nil)
     }
 
-    @objc open func play(at when: AVAudioTime?) {
+    open func play(at when: AVAudioTime?) {
 
         if audioFileBuffer == nil {
             initialize()
@@ -330,7 +329,7 @@
     }
 
     /// Pause playback
-    @objc open func pause() {
+    open func pause() {
         if playing {
             if ❗️paused {
                 lastCurrentTime = currentTime
@@ -346,14 +345,14 @@
     }
 
     /// Restart playback from current position
-    @objc open func resume() {
+    open func resume() {
         if paused {
             self.play()
         }
     }
 
     /// resets in and out times for playing
-    @objc open func reloadFile() throws {
+    open func reloadFile() throws {
         let wasPlaying = playing
         if wasPlaying {
             stop()
@@ -384,7 +383,7 @@
     }
 
     /// Replace player's file with a new AKAudioFile file
-    @objc open func replace(file: AKAudioFile) throws {
+    open func replace(file: AKAudioFile) throws {
         internalAudioFile = file
         do {
             try reloadFile()
@@ -396,12 +395,12 @@
     }
 
     /// Default play that will use the previously set startTime and endTime properties or the full file if both are 0
-    @objc open func play() {
+    open func play() {
         play(from: self.startTime, to: self.endTime, avTime: nil)
     }
 
     /// Play from startTime to endTime
-    @objc open func play(from startTime: Double, to endTime: Double) {
+    open func play(from startTime: Double, to endTime: Double) {
         play(from: startTime, to: endTime, avTime: nil)
     }
 
@@ -414,7 +413,7 @@
     ///    - scheduledTime: use this when scheduled playback doesn't need to be in sync with other players
     ///         otherwise use the avTime signature.
     ///
-    @objc open func play(from startTime: Double, to endTime: Double, when scheduledTime: Double) {
+    open func play(from startTime: Double, to endTime: Double, when scheduledTime: Double) {
         let hostTime = mach_absolute_time()
         let avTime = AKAudioPlayer.secondsToAVAudioTime(hostTime: hostTime, time: scheduledTime)
         play(from: startTime, to: endTime, avTime: avTime)
@@ -431,7 +430,7 @@
     ///              mach_absolute_time(). When you have a group of players which you want to sync together it's 
     ///              important that this value be the same for all of them as a reference point.
     ///
-    @objc open func play(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
+    open func play(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
         schedule(from: startTime, to: endTime, avTime: avTime)
         if endingFrame > startingFrame {
             start()
@@ -441,7 +440,7 @@
         }
     }
 
-    @objc open func schedule(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
+    open func schedule(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
         stop()
 
         if endTime > 0 {
@@ -454,7 +453,7 @@
     // MARK: - Static Methods
 
     /// Convert to AVAudioTime
-    @objc open class func secondsToAVAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
+    open class func secondsToAVAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()
         mach_timebase_info(&timebaseInfo)

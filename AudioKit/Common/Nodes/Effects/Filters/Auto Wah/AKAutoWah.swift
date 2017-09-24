@@ -88,7 +88,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - mix: Dry/Wet Mix (Default 1.0)
     ///   - amplitude: Overall level (Default 0.1)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         wah: Double = 0.0,
         mix: Double = 1.0,
