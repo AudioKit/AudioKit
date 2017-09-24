@@ -60,7 +60,7 @@ class AKMorphingOscillatorBankTests: AKTestCase {
                                              vibratoDepth: 1.1,
                                              vibratoRate: 1.2)
         output = inputBank
-        AKTestMD5("f75cbbe4dbb83c3b224fc79432725f5b")
+        AKTestMD5("4fa33d14f8fbb5ef176a71e54267ea63")
     }
 
     func testPitchBend() {
@@ -78,7 +78,7 @@ class AKMorphingOscillatorBankTests: AKTestCase {
     func testVibrato() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, vibratoDepth: 1, vibratoRate: 10)
         output = inputBank
-        AKTestMD5("3e9e1f0202f1cc441cea911b472a18b3")
+        AKTestMD5("c61c90ba3766a287f4bac8c5e7d931ed")
     }
 
     func testWaveformArray() {
