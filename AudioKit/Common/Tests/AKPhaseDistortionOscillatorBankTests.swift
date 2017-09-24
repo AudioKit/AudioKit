@@ -53,7 +53,7 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
                                                     vibratoDepth: 1.1,
                                                     vibratoRate: 1.2)
         output = inputBank
-        AKTestMD5("6c600ebbe56c0dfb0bd48e2aeedd2286")
+        AKTestMD5("d1417d0a8790bd44b578144656abd689")
     }
 
     func testPhaseDistortion() {
@@ -77,7 +77,7 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
     func testVibrato() {
         inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), vibratoDepth: 1.1, vibratoRate: 10)
         output = inputBank
-        AKTestMD5("f5e19d955dc89ed3fe803349ef8fe6d1")
+        AKTestMD5("662fbe529db0ecbf3b4b689609ada91c")
     }
 
     func testWaveform() {
