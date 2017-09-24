@@ -18,9 +18,9 @@ morph.start()
 
 class LiveView: AKLiveViewController {
 
-    var frequencyLabel: Label?
-    var amplitudeLabel: Label?
-    var morphIndexLabel: Label?
+    var frequencyLabel: AKLabel?
+    var amplitudeLabel: AKLabel?
+    var morphIndexLabel: AKLabel?
 
     override func viewDidLoad() {
 

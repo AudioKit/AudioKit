@@ -37,8 +37,6 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var balanceLabel: Label?
-
     override func viewDidLoad() {
         addTitle("Dry Wet Mix")
 
