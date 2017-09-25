@@ -9,7 +9,7 @@
 /// Stereo Booster
 ///
 open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = GainAudioUnit
+    public typealias AKAudioUnitType = GainAudioUnit2
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "gain")
 

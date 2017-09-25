@@ -38,11 +38,10 @@
  for that.
  */
 
-
--(AK4DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+-(void*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
     AK4GainEffectDsp* kernel = new AK4GainEffectDsp();
     kernel->init(sampleRate, count);
-    return kernel;
+    return (void*)kernel;
 }
 
 /** 

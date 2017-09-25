@@ -7,15 +7,6 @@
 
 @interface AK4AudioUnitBase ()
 
-/**
- This method should be overridden by the specific AU code, because it knows how to set up
- the DSP code. It should also be declared as public in the h file, but that causes problems
- because Swift wants to process as a bridging header, and it doesn't understand what a DspBase 
- is. I'm not sure the standard way to deal with this.
- */
-
-- (AK4DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
-
 @property AK4DspBase* kernel;
 
 @end
@@ -45,8 +36,8 @@
  DSP is invalid.
  */
 
-- (AK4DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
-    return _kernel = NULL;
+- (void*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+    return (void*)(_kernel = NULL);
 }
 
 /**
@@ -98,7 +89,7 @@
     AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.0
                                                                                   channels:2];
     
-    _kernel = [self initDspWithSampleRate:defaultFormat.sampleRate
+    _kernel = (AK4DspBase*)[self initDspWithSampleRate:defaultFormat.sampleRate
                              channelCount:defaultFormat.channelCount];
     
     // Create the input and output busses.

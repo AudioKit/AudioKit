@@ -15,7 +15,14 @@
 
 @interface AK4AudioUnitBase : AUAudioUnit
 
-@property float rampTime;  // Do we really want this at this level?
+/**
+ This method should be overridden by the specific AU code, because it knows how to set up
+ the DSP code. It should also be declared as public in the h file, but that causes problems
+ because Swift wants to process as a bridging header, and it doesn't understand what a DspBase
+ is. I'm not sure the standard way to deal with this.
+ */
+
+- (void*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
 
 /**
  Sets the parameter tree. The important piece here is that setting the parameter tree
