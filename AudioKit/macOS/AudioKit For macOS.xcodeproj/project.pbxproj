@@ -56,6 +56,9 @@
 		A1874A091F65AD56000479A1 /* AK4ChowningReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1874A081F65AD56000479A1 /* AK4ChowningReverb.swift */; };
 		A1B70ACB1F702E9E00AE43F8 /* AK4ParamRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1B70ACA1F702E9E00AE43F8 /* AK4ParamRampBase.hpp */; };
 		A1B70ACD1F7038FE00AE43F8 /* AK4LinearParamRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1B70ACC1F7038FE00AE43F8 /* AK4LinearParamRamp.hpp */; };
+		A1F13B8F1F76CE4E00DD119B /* GainEffectDsp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1F13B8E1F76CDFC00DD119B /* GainEffectDsp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		A1F13B911F76D4A400DD119B /* GainEffectDsp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1F13B901F76D4A400DD119B /* GainEffectDsp.cpp */; };
+		A1F13B931F77468700DD119B /* GainAudioUnit2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F13B921F77468700DD119B /* GainAudioUnit2.swift */; };
 		A1FE77A11F64549E00A2E41C /* AKAudioEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE779D1F64549E00A2E41C /* AKAudioEffect.h */; };
 		A1FE77A21F64549E00A2E41C /* AKAudioEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1FE779E1F64549E00A2E41C /* AKAudioEffect.mm */; };
 		A1FE77A31F64549E00A2E41C /* AK4AudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE779F1F64549E00A2E41C /* AK4AudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1010,6 +1013,9 @@
 		A1874A081F65AD56000479A1 /* AK4ChowningReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AK4ChowningReverb.swift; sourceTree = "<group>"; };
 		A1B70ACA1F702E9E00AE43F8 /* AK4ParamRampBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AK4ParamRampBase.hpp; sourceTree = "<group>"; };
 		A1B70ACC1F7038FE00AE43F8 /* AK4LinearParamRamp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AK4LinearParamRamp.hpp; sourceTree = "<group>"; };
+		A1F13B8E1F76CDFC00DD119B /* GainEffectDsp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GainEffectDsp.hpp; sourceTree = "<group>"; };
+		A1F13B901F76D4A400DD119B /* GainEffectDsp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = GainEffectDsp.cpp; sourceTree = "<group>"; };
+		A1F13B921F77468700DD119B /* GainAudioUnit2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GainAudioUnit2.swift; sourceTree = "<group>"; };
 		A1FE779D1F64549E00A2E41C /* AKAudioEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioEffect.h; sourceTree = "<group>"; };
 		A1FE779E1F64549E00A2E41C /* AKAudioEffect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioEffect.mm; sourceTree = "<group>"; };
 		A1FE779F1F64549E00A2E41C /* AK4AudioUnitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AK4AudioUnitBase.h; sourceTree = "<group>"; };
@@ -1994,6 +2000,9 @@
 				A1FE77A91F6454E100A2E41C /* AKBooster2.swift */,
 				A1FE77AA1F6454E100A2E41C /* GainAudioUnit.h */,
 				A1FE77AB1F6454E100A2E41C /* GainAudioUnit.mm */,
+				A1F13B8E1F76CDFC00DD119B /* GainEffectDsp.hpp */,
+				A1F13B901F76D4A400DD119B /* GainEffectDsp.cpp */,
+				A1F13B921F77468700DD119B /* GainAudioUnit2.swift */,
 			);
 			path = Booster2;
 			sourceTree = "<group>";
@@ -4211,6 +4220,7 @@
 				C46615211EEA2E6A0044A5FC /* AKVocalTractAudioUnit.h in Headers */,
 				C47047C11E78FA2D00D9906F /* AKRhodesPianoDSPKernel.hpp in Headers */,
 				C456697F1D448D7E00D26565 /* AKPhaseDistortionOscillatorAudioUnit.h in Headers */,
+				A1F13B8F1F76CE4E00DD119B /* GainEffectDsp.hpp in Headers */,
 				C456674D1D448D7E00D26565 /* plumber.h in Headers */,
 				C4A107471E6967850018848C /* AKBrownianNoiseDSPKernel.hpp in Headers */,
 				C456697B1D448D7E00D26565 /* AKOscillatorBankAudioUnit.h in Headers */,
@@ -4860,9 +4870,11 @@
 				C4F8CA3E1DCA9256001F38F2 /* waveset.c in Sources */,
 				C45667201D448D7E00D26565 /* prop.c in Sources */,
 				C45667281D448D7E00D26565 /* reverse.c in Sources */,
+				A1F13B931F77468700DD119B /* GainAudioUnit2.swift in Sources */,
 				C456670E1D448D7E00D26565 /* moogladder.c in Sources */,
 				C456670B1D448D7E00D26565 /* metro.c in Sources */,
 				C45666EC1D448D7E00D26565 /* clip.c in Sources */,
+				A1F13B911F76D4A400DD119B /* GainEffectDsp.cpp in Sources */,
 				C456692E1D448D7E00D26565 /* AKThreePoleLowpassFilter.swift in Sources */,
 				C45666E01D448D7E00D26565 /* bar.c in Sources */,
 				C456698C1D448D7E00D26565 /* AKPWMOscillatorBankAudioUnit.mm in Sources */,

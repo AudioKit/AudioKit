@@ -11,10 +11,10 @@
 
 @implementation AK4ChowningReverbAudioUnit
 
--(AK4DspBase*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+-(void*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
     AK4ChowningReverbDsp* kernel = new AK4ChowningReverbDsp();
     kernel->init(sampleRate, count);
-    return kernel;
+    return (void*)kernel;
 }
 
 @end
