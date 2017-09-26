@@ -8,6 +8,13 @@
 
 #pragma once
 
+#import <Foundation/Foundation.h>
+
+typedef NS_ENUM(int64_t, GainEffectParam) {
+    GainEffectParamGain,
+    GainEffectParamRampTime
+};
+
 #ifndef __cplusplus
 
 void* createGainEffectDsp(int nChannels, double sampleRate);
@@ -29,7 +36,6 @@ void* createGainEffectDsp(int nChannels, double sampleRate);
 struct AK4GainEffectDsp : AK4DspBase {
     
 private:
-    const uint64_t kGainAddr = 0;
     AK4LinearParamRamp gainRamp;
     
 public:
@@ -41,15 +47,25 @@ public:
     
     /** Uses the ParameterAddress as a key */
     void setParameter(uint64_t address, float value) override {
-        if (address == kGainAddr) {
-            gainRamp.setTarget(value, _now);
+        switch (address) {
+            case GainEffectParamGain:
+                gainRamp.setTarget(value, _now);
+                break;
+            case GainEffectParamRampTime:
+                gainRamp.setRampTime(value, _sampleRate);
+                break;
         }
     }
     
     /** Uses the ParameterAddress as a key */
     float getParameter(uint64_t address) override {
-        if (address == kGainAddr) { return gainRamp.getTarget(); }
-        else return 0;
+        switch (address) {
+            case GainEffectParamGain:
+                return gainRamp.getTarget();
+            case GainEffectParamRampTime:
+                return gainRamp.getRampTime(_sampleRate);
+        }
+        return 0;
     }
     
     // Largely lifted from the example code, though this is simpler since the Apple code

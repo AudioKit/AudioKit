@@ -10,13 +10,17 @@ import AVFoundation
 
 public class GainAudioUnit2: AK4AudioUnitBase {
     
-    var gain: Float = 1.0 {
-        didSet {
-            setParameterWithAddress(AUParameterAddress(0), value: gain)
-        }
+    func setParam(addr: GainEffectParam, value: Float) {
+        setParameterWithAddress(AUParameterAddress(addr.rawValue), value: value)
     }
     
-    var rampTime: Float = 0.0
+    var gain: Float = 1.0 {
+        didSet { setParam(addr: GainEffectParam.gain, value: gain) }
+    }
+    
+    var rampTime: Float = 0.0 {
+        didSet { setParam(addr: GainEffectParam.gain, value: gain) }
+    }
     
     public override func initDsp(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
@@ -27,7 +31,7 @@ public class GainAudioUnit2: AK4AudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags : AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
+        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
         let gain = AUParameterTree.createParameter(withIdentifier: "gain",
                                                    name: "Gain",
                                                    address: AUParameterAddress(0),

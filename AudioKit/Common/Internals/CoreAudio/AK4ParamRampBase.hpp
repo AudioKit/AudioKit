@@ -32,6 +32,16 @@ public:
         if (duration >= 0) _duration = duration;
     }
     
+    float getDurationInSamples() { return _duration; }
+    
+    void setRampTime(float mSec, int64_t sampleRate) {
+        _duration = mSec * sampleRate / 1000.0;
+    }
+    
+    float getRampTime(int64_t sampleRate) {
+        return (sampleRate == 0) ? 0 : _duration * 1000.0 / sampleRate;
+    }
+
     float getValue() { return _value; }
     float getTarget() { return _target; }
     
