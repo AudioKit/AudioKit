@@ -263,7 +263,7 @@ public struct AKMIDIEvent {
         case .channelAftertouch:
             break
         case .programChange:
-            length = 2
+            length = 3 // Usually 2, but causes a crash with 2
         default:
             length = 3
         }
