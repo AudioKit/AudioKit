@@ -47,7 +47,7 @@ create_package()
 	find -d Examples -name Pods -exec rm -rf {} \;
 	find Examples -name Podfile.lock -exec rm -rf {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../README.md .
-	cp -a ../docs/docsets/AudioKit.docset .
+	test -d ../docs && cp -a ../docs/docsets/AudioKit.docset .
 	find . -name .DS_Store -exec rm -rf {} \;
 	find -d . -name build -exec rm -rf {} \;
 	find -d . -name xcuserdata -exec rm -rf {} \;
