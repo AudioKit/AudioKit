@@ -18,6 +18,7 @@
     AKChowningReverbDSPKernel _kernel;
     BufferedInputBus _inputBus;
 }
+
 @synthesize parameterTree = _parameterTree;
 
 standardKernelPassthroughs()
