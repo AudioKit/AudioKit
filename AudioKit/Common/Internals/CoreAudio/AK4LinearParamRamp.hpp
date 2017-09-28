@@ -1,5 +1,5 @@
 //
-//  LinearParamRamp.hpp
+//  AK4LinearParamRamp.hpp
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/18/17.

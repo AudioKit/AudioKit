@@ -1,9 +1,9 @@
 //
-//  SimpleAU.m
-//  TryAVAudioEngine
+//  GainAudioUnit.mm
+//  AudioKit
 //
 //  Created by Andrew Voelkel on 8/29/17.
-//  Copyright © 2017 Andrew Voelkel. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import "GainAudioUnit.h"
