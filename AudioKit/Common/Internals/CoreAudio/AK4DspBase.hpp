@@ -1,6 +1,6 @@
 //
 //  AK4DspBase.hpp
-//  AudioKit For macOS
+//  AudioKit
 //
 //  Created by Andrew Voelkel on 9/9/17.
 //  Copyright © 2017 AudioKit. All rights reserved.

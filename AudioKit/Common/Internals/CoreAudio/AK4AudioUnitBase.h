@@ -1,9 +1,9 @@
 //
 //  AudioUnitBase.m
-//  TryAVAudioEngine
+//  AudioKit
 //
 //  Created by Andrew Voelkel on 11/19/16.
-//  Copyright © 2016 Andrew Voelkel. All rights reserved.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 #pragma once
