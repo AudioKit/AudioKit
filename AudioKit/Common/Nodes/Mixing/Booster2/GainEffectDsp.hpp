@@ -1,6 +1,6 @@
 //
 //  GainEffectDsp.hpp
-//  AudioKit For macOS
+//  AudioKit
 //
 //  Created by Andrew Voelkel on 9/23/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
