@@ -12,9 +12,9 @@ import UIKit
 
 class BitCrusherViewController: UIViewController {
 
-    @IBOutlet private weak var bitDepthSlider: AKPropertySlider!
-    @IBOutlet private weak var sampleRateSlider: AKPropertySlider!
-    @IBOutlet private weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var bitDepthSlider: AKSlider!
+    @IBOutlet private weak var sampleRateSlider: AKSlider!
+    @IBOutlet private weak var mixSlider: AKSlider!
 
     let songProcessor = SongProcessor.sharedInstance
 

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Daniel Clelland on 25/06/16.
-//  Updated for AudioKit 3 by Aurelius Prochazka.
+//  Updated for AudioKit by Aurelius Prochazka.
 //
 //  Copyright © 2017 Daniel Clelland. All rights reserved.
 //

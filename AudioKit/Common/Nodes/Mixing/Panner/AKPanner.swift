@@ -55,7 +55,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         pan: Double = 0) {
 

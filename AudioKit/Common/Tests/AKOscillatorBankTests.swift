@@ -52,13 +52,13 @@ class AKOscillatorBankTests: AKTestCase {
                                      vibratoDepth: 1.1,
                                      vibratoRate: 1.2)
         output = inputBank
-        AKTestMD5("562c8c57a74bb280e18d2fec1b88637f")
+        AKTestMD5("93a8e6f26e3f3326202348855caa0051")
     }
 
     func testPitchBend() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square), pitchBend: 1.1)
         output = inputBank
-        AKTestMD5("793308aa2d0e9d221a9b7b127eb88aa7")
+        AKTestMD5("db148878395ded60b26772e8f410fc6b")
     }
 
     func testSustainLevel() {
@@ -70,7 +70,7 @@ class AKOscillatorBankTests: AKTestCase {
     func testVibrato() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square), vibratoDepth: 1, vibratoRate: 10)
         output = inputBank
-        AKTestMD5("35856a1ad66c125edf79642f04543dd6")
+        AKTestMD5("ca6b355d0116190474476a66d9ddb31c")
     }
 
     func testWaveform() {

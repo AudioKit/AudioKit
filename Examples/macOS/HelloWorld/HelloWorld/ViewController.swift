@@ -15,10 +15,8 @@ class ViewController: NSViewController {
     var oscillator = AKOscillator()
     var oscillator2 = AKOscillator()
 
-    @IBOutlet private var plot: AKOutputWaveformPlot!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
 
         AudioKit.output = AKMixer(oscillator, oscillator2)
         AudioKit.start()

@@ -218,7 +218,7 @@ public struct AKMIDIEvent {
     /// - Parameters:
     ///   - data:  [MIDIByte] bluetooth packet
     ///
-    init(data: [MIDIByte]) {
+    public init(data: [MIDIByte]) {
         if let command = AKMIDISystemCommand(rawValue: data[0]) {
             internalData = []
             // is sys command
@@ -263,7 +263,7 @@ public struct AKMIDIEvent {
         case .channelAftertouch:
             break
         case .programChange:
-            length = 2
+            length = 3 // Usually 2, but causes a crash with 2
         default:
             length = 3
         }
@@ -286,6 +286,9 @@ public struct AKMIDIEvent {
     fileprivate mutating func fillData(command: AKMIDISystemCommand,
                                        byte1: MIDIByte,
                                        byte2: MIDIByte) {
+        if internalData.count <= 0 {
+            return
+        }
         internalData[0] = command.rawValue
 
         switch command {

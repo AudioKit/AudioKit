@@ -52,10 +52,6 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
         }
     }
 
-    @objc public var nextInput: AKInputConnection {
-        return AKInputConnection(node: self, bus: mixerAU.nextAvailableInputBus)
-    }
-
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         if isStopped {

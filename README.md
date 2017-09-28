@@ -1,4 +1,4 @@
-AudioKit V3.7
+AudioKit V4.0
 ===
 
 [![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
@@ -6,7 +6,7 @@ AudioKit V3.7
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://cocoapods.org/pods/AudioKit)
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
-<img src="https://img.shields.io/badge/%20in-swift%203.0-orange.svg">
+<img src="https://img.shields.io/badge/in-swift4.0-orange.svg">
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
 
 AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
@@ -55,7 +55,7 @@ For Hello World you only need to understand a few lines of code:
 <td>
 Playgrounds contain bite-size examples of AudioKit and serve as tutorials for many of AudioKit's core concepts and capabilities.  There are over one hundred playgrounds from the most basic tutorials, to synthesis, physical modeling, file playback, MIDI, effects, filters, and analysis.
 
-Since AudioKit 3.6, we provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn the API in a fun way!
+We provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn the API in a fun way!
 
 We have made videos of most of the playgrounds in action, so you don't even need to run Xcode to check them out, just go to [AudioKit Playground Videos](http://audiokit.io/playgrounds/).
 </td>

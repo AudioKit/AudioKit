@@ -240,7 +240,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
     ///
-    public init(file: AKAudioFile,
+    @objc public init(file: AKAudioFile,
                 looping: Bool = false,
                 deferBuffering: Bool = false,
                 completionHandler: AKCallback? = nil) throws {

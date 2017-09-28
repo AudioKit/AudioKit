@@ -22,8 +22,8 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var cutoffFrequencySlider: AKSlider?
-    var feedbackSlider: AKSlider?
+    var cutoffFrequencySlider: AKSlider!
+    var feedbackSlider: AKSlider!
 
     override func viewDidLoad() {
         addTitle("Sean Costello Reverb")

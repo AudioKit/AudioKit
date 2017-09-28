@@ -47,7 +47,7 @@ create_package()
 	find -d Examples -name Pods -exec rm -rf {} \;
 	find Examples -name Podfile.lock -exec rm -rf {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../README.md .
-	cp -a ../docs/docsets/AudioKit.docset .
+	test -d ../docs && cp -a ../docs/docsets/AudioKit.docset .
 	find . -name .DS_Store -exec rm -rf {} \;
 	find -d . -name build -exec rm -rf {} \;
 	find -d . -name xcuserdata -exec rm -rf {} \;
@@ -61,8 +61,7 @@ create_playgrounds()
 	cp -a ../Playgrounds AudioKitPlaygrounds
 	cd AudioKitPlaygrounds
 	cp -a ../AudioKit-macOS/AudioKit.framework ../AudioKit-macOS/AudioKitUI.framework AudioKitPlaygrounds/
-	gsed -i "s/\.\.\/\.\.\/Frameworks\/AudioKit-macOS/\./g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
-	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS//g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
+	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	cp ../../README.md ../../LICENSE .
 	find . -name .DS_Store -or -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..

@@ -14,20 +14,20 @@
 open class AKNodeOutputPlot: EZAudioPlot {
 
     internal func setupNode(_ input: AKNode?) {
-        input?.avAudioNode.installTap(onBus: 0,
-                                      bufferSize: bufferSize,
-                                      format: nil) { [weak self] (buffer, _) in
+        input?.avAudioNode.installTap(
+            onBus: 0,
+            bufferSize: bufferSize,
+            format: nil) { [weak self] (buffer, _) in
 
-                                        guard let strongSelf = self else {
-                                            AKLog("Unable to create strong reference to self")
-                                            return
-                                        }
-                                        buffer.frameLength = strongSelf.bufferSize
-                                        let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                                        if let tail = buffer.floatChannelData?[0] {
-                                            strongSelf.updateBuffer(&tail[offset],
-                                                                    withBufferSize: strongSelf.bufferSize)
-                                        }
+                guard let strongSelf = self else {
+                    AKLog("Unable to create strong reference to self")
+                    return
+                }
+                buffer.frameLength = strongSelf.bufferSize
+                let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                if let tail = buffer.floatChannelData?[0] {
+                    strongSelf.updateBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize)
+                }
         }
     }
 
@@ -53,7 +53,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupNode(nil)
+        setupNode(AudioKit.output)
     }
 
     /// Initialize the plot with the output from a given node and optional plot size

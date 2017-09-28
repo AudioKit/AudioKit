@@ -10,9 +10,8 @@ import UIKit
 import AudioKitUI
 import AudioKit
 
-/**
- This Example is to demonstrate how to syncronize the AKSamplerMetronome using AVAudioTime.
- */
+// This Example is to demonstrate how to syncronize the AKSamplerMetronome using AVAudioTime.
+
 class ViewController: UIViewController {
     var metronome1 = AKSamplerMetronome()
     var metronome2 = AKSamplerMetronome()
@@ -80,18 +79,18 @@ class ViewController: UIViewController {
         addView(AKButton(title: "Play",
                          callback: startStopAction(met: metronome2, otherMet: metronome1)))
 
-        addView(AKPropertySlider(property: "Tempo",
-                                 value: metronome1.tempo,
-                                 range: 30 ... 4_000,
-                                 taper: 1,
-                                 format: "%0.3f",
-                                 color: .blue,
-                                 frame: CGRect(),
-                                 callback: { [weak self] tempo in
+        addView(AKSlider(property: "Tempo",
+                         value: metronome1.tempo,
+                         range: 30 ... 4_000,
+                         taper: 1,
+                         format: "%0.3f",
+                         color: .blue,
+                         frame: CGRect(),
+                         callback: { [weak self] tempo in
 
-                                    let now = AVAudioTime(hostTime: mach_absolute_time())
-                                    self?.metronome1.setTempo(tempo, at: now)
-                                    self?.metronome2.setTempo(tempo, at: now)
+                            let now = AVAudioTime(hostTime: mach_absolute_time())
+                            self?.metronome1.setTempo(tempo, at: now)
+                            self?.metronome2.setTempo(tempo, at: now)
 
         }))
 
