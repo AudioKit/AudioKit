@@ -58,4 +58,3 @@ open class AKLiveViewController: UIViewController {
                                       height: stackView.frame.height + newView.frame.height))
     }
 }
-

@@ -19,7 +19,7 @@ class Fatten: AKNode, AKInput {
     var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
     }
-    
+
     init(_ input: AKNode) {
         input.connect(to: inputMixer)
         delay = AKDelay(inputMixer, time: 0.05, dryWetMix: 1)
