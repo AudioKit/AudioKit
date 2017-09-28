@@ -493,8 +493,32 @@ extension AVAudioEngine {
 //This extension makes connect calls shorter, and safer by attaching nodes if not already attached.
 extension AudioKit {
 
+    // Attaches nodes if node.engine == nil
     private static func safeAttach(_ nodes: [AVAudioNode]) {
         _ = nodes.filter { $0.engine == nil }.map { engine.attach($0) }
+    }
+
+    // AVAudioMixer will crash if engine is started and connection is made to a bus exceeding mixer's
+    // numberOfInputs. The crash only happens when using the AVAudioEngine function that connects a node to an array
+    // of AVAudioConnectionPoints and the mixer is one of those points. When AVAudioEngine uses a different function
+    // that connects a node's output to a single AVAudioMixerNode, the mixer's inputs are incremented to accommodate
+    // the new connection. So the workaround is to create a dummy node, make a connection to the mixer using the
+    // function that makes the mixer create new inputs, then remove the dummy node so that there is an available
+    // bus to connect to.
+    //
+    private static func checkMixerInputs(_ connectionPoints: [AVAudioConnectionPoint]) {
+
+        if !engine.isRunning { return }
+
+        for connection in connectionPoints {
+            if let mixer = connection.node as? AVAudioMixerNode,
+                connection.bus >= mixer.numberOfInputs {
+
+                let dummyNode = AVAudioUnitSampler()
+                dummyNode.setOutput(to: mixer)  // Using setOutput will increment the mixer's numberOfInputs.
+                dummyNode.disconnectOutput()
+            }
+        }
     }
 
     @objc open static func connect(_ sourceNode: AVAudioNode,
@@ -503,6 +527,7 @@ extension AudioKit {
                                    format: AVAudioFormat?) {
         let connectionsWithNodes = destNodes.filter { $0.node != nil }
         safeAttach([sourceNode] + connectionsWithNodes.map { $0.node! })
+        checkMixerInputs(connectionsWithNodes)
         engine.connect(sourceNode, to: connectionsWithNodes, fromBus: sourceBus, format: format)
     }
 
