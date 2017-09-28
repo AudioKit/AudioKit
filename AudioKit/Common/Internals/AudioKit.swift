@@ -526,7 +526,7 @@ extension AudioKit {
     // node to the mixer prior to making a connection, then removing the dummy node after the connection has been made.
     //
     private static func addDummyOnEmptyMixer(_ node: AVAudioNode) -> AVAudioNode? {
-        
+
         func mixerHasInputs(_ mixer: AVAudioMixerNode) -> Bool {
             for i in 0..<mixer.numberOfInputs {
                 if engine.inputConnectionPoint(for: mixer, inputBus: i) != nil {
