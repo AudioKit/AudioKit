@@ -53,7 +53,7 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
                                                     vibratoDepth: 1.1,
                                                     vibratoRate: 1.2)
         output = inputBank
-        AKTestMD5("7fff8695bccf0cda763f090cda22f6bc")
+        AKTestMD5("d1417d0a8790bd44b578144656abd689")
     }
 
     func testPhaseDistortion() {
@@ -65,7 +65,7 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
     func testPitchBend() {
         inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), pitchBend: 1)
         output = inputBank
-        AKTestMD5("5d2250ac42904e9a4739b04dded59bf1")
+        AKTestMD5("acca174c1da73cce418582cc9628e75c")
     }
 
     func testSustainLevel() {
@@ -77,7 +77,7 @@ class AKPhaseDistortionOscillatorBankTests: AKTestCase {
     func testVibrato() {
         inputBank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square), vibratoDepth: 1.1, vibratoRate: 10)
         output = inputBank
-        AKTestMD5("d251fd32a650e87f6cd27f4f3804051c")
+        AKTestMD5("662fbe529db0ecbf3b4b689609ada91c")
     }
 
     func testWaveform() {

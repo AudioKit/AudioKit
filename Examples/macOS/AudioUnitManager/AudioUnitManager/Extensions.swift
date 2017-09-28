@@ -1,6 +1,6 @@
 //
 //  Extensions.swift
-//  AudioUnitManagerExample
+//  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 7/14/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -18,29 +18,9 @@ extension String {
         return self.index(startIndex, offsetBy: from)
     }
 
-    func substring(from: Int) -> String {
-        let fromIndex = index(from: from)
-        return substring(from: fromIndex)
-    }
-
-    func substring(to: Int) -> String {
-        let toIndex = index(from: to)
-        return substring(to: toIndex)
-    }
-
-    func substring(with r: Range<Int>) -> String {
-        let startIndex = index(from: r.lowerBound)
-        let endIndex = index(from: r.upperBound)
-        return substring(with: startIndex..<endIndex)
-    }
-
     func indexOf(string: String) -> String.Index? {
         return self.range( of:string, options: .literal, range: nil, locale: nil)?.lowerBound
     }
-
-    //    func index(of string: String) -> String.Index? {
-    //        return range(of: string)?.lowerBound
-    //    }
 
     func trim() -> String {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -48,7 +28,7 @@ extension String {
 
     func toCGFloat() -> CGFloat {
         if let n = NumberFormatter().number(from: self) {
-            let f = CGFloat(n)
+            let f = CGFloat(truncating: n)
             return f
         }
         return 0.0
@@ -56,7 +36,7 @@ extension String {
 
     func toInt() -> Int {
         if let n = NumberFormatter().number(from: self) {
-            let f = Int(n)
+            let f = Int(truncating: n)
             return f
         }
         return 0
@@ -64,7 +44,7 @@ extension String {
 
     func toDouble() -> Double {
         if let n = NumberFormatter().number(from: self) {
-            let f = Double(n)
+            let f = Double(truncating: n)
             return f
         }
         return 0.0

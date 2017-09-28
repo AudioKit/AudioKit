@@ -7,56 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5568ADE41F62D9DA00FFB5BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5568ADDF1F62D9D100FFB5BE /* AudioKit.framework */; };
-		5568ADE51F62D9DA00FFB5BE /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5568ADDF1F62D9D100FFB5BE /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5568ADE81F62D9DA00FFB5BE /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5568ADE11F62D9D100FFB5BE /* AudioKitUI.framework */; };
-		5568ADE91F62D9DA00FFB5BE /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5568ADE11F62D9D100FFB5BE /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55A3AD571F62E316001C22E3 /* leadloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A3AD541F62DD77001C22E3 /* leadloop.wav */; };
 		55A3AD581F62E31A001C22E3 /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A3AD561F62DD8D001C22E3 /* drumloop.wav */; };
+		55B2D88C1F65C160008F1F65 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; };
+		55B2D88D1F65C160008F1F65 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55B603D81F6342DA00404701 /* guitarloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55B603D61F6342CC00404701 /* guitarloop.wav */; };
 		55C731CE1F62D9A100611001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C731CD1F62D9A100611001 /* AppDelegate.swift */; };
 		55C731D01F62D9A100611001 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C731CF1F62D9A100611001 /* ViewController.swift */; };
 		55C731D21F62D9A100611001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C731D11F62D9A100611001 /* Assets.xcassets */; };
 		55C731D51F62D9A100611001 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C731D31F62D9A100611001 /* Main.storyboard */; };
+		C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C472CD121F6533D100C5FF8E /* AudioKit.framework */; };
+		C472CD141F6533EA00C5FF8E /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C472CD121F6533D100C5FF8E /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5568ADDE1F62D9D100FFB5BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5568ADD81F62D9D000FFB5BE /* AudioKit For macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F36CC1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
-		5568ADE01F62D9D100FFB5BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5568ADD81F62D9D000FFB5BE /* AudioKit For macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EAFECEBD1F4EBBFE00A2B046;
-			remoteInfo = AudioKitUI;
-		};
-		5568ADE21F62D9D100FFB5BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5568ADD81F62D9D000FFB5BE /* AudioKit For macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C427B0281F1F0032002F2FA4;
-			remoteInfo = AudioKitTests;
-		};
-		5568ADE61F62D9DA00FFB5BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5568ADD81F62D9D000FFB5BE /* AudioKit For macOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C42F36CB1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
-		5568ADEA1F62D9DA00FFB5BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5568ADD81F62D9D000FFB5BE /* AudioKit For macOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EAFECEBC1F4EBBFE00A2B046;
-			remoteInfo = AudioKitUI;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		5568ADEC1F62D9DB00FFB5BE /* Embed Frameworks */ = {
@@ -65,8 +27,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5568ADE91F62D9DA00FFB5BE /* AudioKitUI.framework in Embed Frameworks */,
-				5568ADE51F62D9DA00FFB5BE /* AudioKit.framework in Embed Frameworks */,
+				55B2D88D1F65C160008F1F65 /* AudioKitUI.framework in Embed Frameworks */,
+				C472CD141F6533EA00C5FF8E /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,9 +36,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5568ADD81F62D9D000FFB5BE /* AudioKit For macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For macOS.xcodeproj"; path = "../../../AudioKit/macOS/AudioKit For macOS.xcodeproj"; sourceTree = "<group>"; };
 		55A3AD541F62DD77001C22E3 /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Basics.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
 		55A3AD561F62DD8D001C22E3 /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Basics.playground/Resources/drumloop.wav; sourceTree = "<group>"; };
+		55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		55B603D61F6342CC00404701 /* guitarloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = guitarloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Playback.playground/Resources/guitarloop.wav; sourceTree = "<group>"; };
 		55C731CA1F62D9A100611001 /* RandomClips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomClips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C731CD1F62D9A100611001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +47,7 @@
 		55C731D41F62D9A100611001 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		55C731D61F62D9A100611001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55C731D71F62D9A100611001 /* RandomClips.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RandomClips.entitlements; sourceTree = "<group>"; };
+		C472CD121F6533D100C5FF8E /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,30 +55,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5568ADE81F62D9DA00FFB5BE /* AudioKitUI.framework in Frameworks */,
-				5568ADE41F62D9DA00FFB5BE /* AudioKit.framework in Frameworks */,
+				55B2D88C1F65C160008F1F65 /* AudioKitUI.framework in Frameworks */,
+				C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5568ADD91F62D9D000FFB5BE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5568ADDF1F62D9D100FFB5BE /* AudioKit.framework */,
-				5568ADE11F62D9D100FFB5BE /* AudioKitUI.framework */,
-				5568ADE31F62D9D100FFB5BE /* AudioKitTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		55C731C11F62D9A100611001 = {
 			isa = PBXGroup;
 			children = (
+				55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */,
+				C472CD121F6533D100C5FF8E /* AudioKit.framework */,
 				55C731CC1F62D9A100611001 /* RandomClips */,
 				55C731CB1F62D9A100611001 /* Products */,
-				5568ADD81F62D9D000FFB5BE /* AudioKit For macOS.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,8 +112,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5568ADE71F62D9DA00FFB5BE /* PBXTargetDependency */,
-				5568ADEB1F62D9DA00FFB5BE /* PBXTargetDependency */,
 			);
 			name = RandomClips;
 			productName = RandomClips;
@@ -193,42 +145,12 @@
 			mainGroup = 55C731C11F62D9A100611001;
 			productRefGroup = 55C731CB1F62D9A100611001 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 5568ADD91F62D9D000FFB5BE /* Products */;
-					ProjectRef = 5568ADD81F62D9D000FFB5BE /* AudioKit For macOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				55C731C91F62D9A100611001 /* RandomClips */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		5568ADDF1F62D9D100FFB5BE /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = 5568ADDE1F62D9D100FFB5BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5568ADE11F62D9D100FFB5BE /* AudioKitUI.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKitUI.framework;
-			remoteRef = 5568ADE01F62D9D100FFB5BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5568ADE31F62D9D100FFB5BE /* AudioKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AudioKitTests.xctest;
-			remoteRef = 5568ADE21F62D9D100FFB5BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		55C731C81F62D9A100611001 /* Resources */ = {
@@ -256,19 +178,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5568ADE71F62D9DA00FFB5BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioKit;
-			targetProxy = 5568ADE61F62D9DA00FFB5BE /* PBXContainerItemProxy */;
-		};
-		5568ADEB1F62D9DA00FFB5BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioKitUI;
-			targetProxy = 5568ADEA1F62D9DA00FFB5BE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		55C731D31F62D9A100611001 /* Main.storyboard */ = {
@@ -311,11 +220,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-macOS";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -368,11 +278,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-macOS";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -396,6 +307,8 @@
 				CODE_SIGN_ENTITLEMENTS = RandomClips/RandomClips.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = RandomClips/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.RandomClips;
@@ -412,6 +325,8 @@
 				CODE_SIGN_ENTITLEMENTS = RandomClips/RandomClips.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = RandomClips/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.RandomClips;

@@ -107,7 +107,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
     }
 
-    /// Number of sample in the audio stored in memory
+    /// Number of samples in the audio stored in memory
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
     }

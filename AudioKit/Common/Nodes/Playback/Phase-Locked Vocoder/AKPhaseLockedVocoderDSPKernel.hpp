@@ -50,6 +50,7 @@ public:
     }
     
     void destroy() {
+        sp_ftbl_destroy(&ftbl);
         sp_mincer_destroy(&mincer);
         AKSoundpipeKernel::destroy();
     }

@@ -29,7 +29,6 @@ public:
     
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-        
         plumber_register(&pd);
         plumber_init(&pd);
         
@@ -45,8 +44,15 @@ public:
         
     }
     
-    void setSporth(char *sporth) {
-        sporthCode = sporth;
+    void setSporth(char *sporth, int length) {
+        if (sporthCode) {
+            free(sporthCode);
+            sporthCode = NULL;
+        }
+        if (length) {
+            sporthCode = (char *)malloc(length);
+            memcpy(sporthCode, sporth, length);
+        }
     }
     
     void setParameters(float params[]) {
@@ -70,6 +76,9 @@ public:
     void destroy() {
         plumber_clean(&pd);
         AKSoundpipeKernel::destroy();
+        if (sporthCode) {
+            free(sporthCode);
+        }
     }
     
     void reset() {

@@ -55,13 +55,14 @@ class ViewController: UIViewController {
 
         if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
             player = try? AKAudioPlayer(file: audioFile)
-            player?.looping = true
+            if player != nil {
+                player?.looping = true
+                player! >>> mixer
 
-            player! >>> mixer
-
-            // setup the initial input/output connections
-            auManager?.input = player
-            auManager?.output = mixer
+                // setup the initial input/output connections
+                auManager?.input = player
+                auManager?.output = mixer
+            }
 
         }
 
@@ -254,7 +255,6 @@ class ViewController: UIViewController {
 
 extension ViewController: AKAudioUnitManagerDelegate {
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
-        Swift.print("handleAudioUnitNotification() type: \(type)")
         guard auManager != nil else { return }
 
         if type == AKAudioUnitManager.Notification.changed {
@@ -265,8 +265,6 @@ extension ViewController: AKAudioUnitManagerDelegate {
 
     /// this is where you can request the UI of the Audio Unit
     func handleEffectAdded(at auIndex: Int) {
-        Swift.print("handleEffectAdded() at \(auIndex)")
-
         guard player != nil else { return }
 
         if player!.isStarted {

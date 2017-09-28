@@ -52,13 +52,13 @@ class AKPWMOscillatorBankTests: AKTestCase {
                                         vibratoDepth: 1.1,
                                         vibratoRate: 1.2)
         output = inputBank
-        AKTestMD5("5fec778309401fe4372e6389f78bfeaa")
+        AKTestMD5("d9d89980710195f74e6151f1112b178f")
     }
 
     func testPitchBend() {
         inputBank = AKPWMOscillatorBank(pitchBend: 1)
         output = inputBank
-        AKTestMD5("7baf57bb280cc39545457f2823841381")
+        AKTestMD5("c4a30224cfc205c7bc85955795a29091")
     }
 
     func testPulseWidth() {
@@ -76,6 +76,6 @@ class AKPWMOscillatorBankTests: AKTestCase {
     func testVibrato() {
         inputBank = AKPWMOscillatorBank(vibratoDepth: 1.1, vibratoRate: 1.2)
         output = inputBank
-        AKTestMD5("3c6b4eed56b165ebf40a2d86dc6cb985")
+        AKTestMD5("5774674e5d98a4edbff7f0bc6ce30784")
     }
 }

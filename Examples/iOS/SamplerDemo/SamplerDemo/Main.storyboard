@@ -107,7 +107,7 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ2-jh-UYl" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ2-jh-UYl" customClass="AKSlider" customModule="AudioKitUI">
                                         <rect key="frame" x="0.0" y="121.5" width="375" height="60.5"/>
                                         <color key="backgroundColor" red="0.15294117647058825" green="0.76470588235294112" blue="0.58039215686274515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -172,7 +172,7 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwQ-kz-gUA" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwQ-kz-gUA" customClass="AKSlider" customModule="AudioKitUI">
                                         <rect key="frame" x="0.0" y="242.5" width="375" height="60.5"/>
                                         <color key="backgroundColor" red="0.12549019607843137" green="0.58039215686274515" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -233,7 +233,7 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duy-v8-PBi" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duy-v8-PBi" customClass="AKSlider" customModule="AudioKitUI">
                                         <rect key="frame" x="0.0" y="364" width="375" height="60.5"/>
                                         <color key="backgroundColor" red="0.59999999999999998" green="0.30980392156862746" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
@@ -252,7 +252,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIQ-sz-U2M" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIQ-sz-U2M" customClass="AKSlider" customModule="AudioKitUI">
                                         <rect key="frame" x="0.0" y="424.5" width="375" height="60.5"/>
                                         <color key="backgroundColor" red="0.8901960784313725" green="0.44705882352941173" blue="0.29411764705882354" alpha="0.77144222122302153" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
@@ -271,7 +271,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfC-zk-fLU" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfC-zk-fLU" customClass="AKSlider" customModule="AudioKitUI">
                                         <rect key="frame" x="0.0" y="485" width="375" height="60.5"/>
                                         <color key="backgroundColor" red="0.69019607843137254" green="0.14509803921568629" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
@@ -291,7 +291,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UhT-ku-vix" customClass="AKPropertySlider" customModule="AudioKitUI">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UhT-ku-vix" customClass="AKSlider" customModule="AudioKitUI">
                                         <rect key="frame" x="0.0" y="545.5" width="375" height="61"/>
                                         <color key="backgroundColor" red="0.69019607843137254" green="0.57481971153846156" blue="0.12941176470588189" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>

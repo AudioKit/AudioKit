@@ -8,7 +8,7 @@ let mic = AKMicrophone()
 // Create two copies of the microphone node (each one will be tapped once to supply data for plots
 
 let micCopy1 = AKBooster(mic)
-let micCopy2 = AKBooster(micCopy1)
+let micCopy2 = AKBooster(mic)
 
 //: Set the microphone device if you need to
 if let inputs = AudioKit.inputDevices {
@@ -28,8 +28,8 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKSlider?
-    var trackedFrequencySlider: AKSlider?
+    var trackedAmplitudeSlider: AKSlider!
+    var trackedFrequencySlider: AKSlider!
 
     override func viewDidLoad() {
 

@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  AudioUnitManagerExample
+//  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 7/14/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -35,7 +35,6 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         initialize()
     }
 
@@ -140,7 +139,7 @@ class ViewController: NSViewController {
         guard let windows = self.view.window?.childWindows else { return nil }
 
         for w in windows {
-            if w.identifier == id {
+            if w.identifier?.rawValue == id {
                 return w
             }
         }
@@ -165,18 +164,16 @@ class ViewController: NSViewController {
     @IBAction func chooseAudio(_ sender: Any) {
 
         guard let window = view.window else { return }
-
         AKLog("chooseAudio()")
-
         if openPanel == nil {
             openPanel = NSOpenPanel()
             openPanel!.message = "Open Audio File"
             openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
         }
 
-        openPanel!.beginSheetModal( for: window, completionHandler: { (response: Int) in
+        openPanel!.beginSheetModal( for: window, completionHandler: { response in
             //AKLog( "Response: \(response) \(self.openPanel!.url)" )
-            if response == NSFileHandlingPanelOKButton {
+            if response.rawValue == NSFileHandlingPanelOKButton {
                 if let url = self.openPanel?.url {
                     self.open(url: url)
                 }
@@ -193,7 +190,7 @@ class ViewController: NSViewController {
 
         if auname == "-" {
             if let button = getEffectsButtonFromIdentifier(identifier) {
-                button.state = NSOffState
+                button.state = .off
             }
             if let win = getWindowFromIndentifier(String(identifier)) {
                 win.close()
@@ -202,7 +199,6 @@ class ViewController: NSViewController {
 
             return
         }
-
         auManager!.insertAudioUnit(name: auname, at: identifier)
     }
 
@@ -268,12 +264,9 @@ class ViewController: NSViewController {
 
     @IBAction func handleShowAudioUnit(_ sender: NSButton) {
         guard auManager != nil else { return }
-        guard let auIndex = sender.identifier?.toInt() else { return }
-
+        let auIndex = sender.tag
         AKLog("handleShowAudioUnit() \(auIndex)")
-
-        let state = sender.state == NSOnState
-
+        let state = sender.state == .on
         showEffect(at: auIndex, state: state)
     }
 
@@ -281,7 +274,7 @@ class ViewController: NSViewController {
         guard let player = player else { return }
 
         if fm != nil && fm!.isStarted {
-            fmButton!.state = NSOffState
+            fmButton!.state = .off
             fm!.stop()
         }
 
@@ -302,7 +295,7 @@ class ViewController: NSViewController {
         guard auInstrument != nil else { return }
 
         if fm != nil && fm!.isStarted {
-            fmButton!.state = NSOffState
+            fmButton!.state = .off
             fm!.stop()
         }
 
@@ -330,7 +323,7 @@ class ViewController: NSViewController {
             handleInstrumentPlayButton(instrumentPlayButton)
         }
 
-        if sender.state == NSOnState {
+        if sender.state == .on {
 
             initFM()
 
@@ -344,12 +337,12 @@ class ViewController: NSViewController {
     }
 
     func handleAudioComplete() {
-        playButton.state = NSOffState
+        playButton.state = .off
         playButton.title = "▶️"
     }
 
     @IBAction func handleLoopButton(_ sender: NSButton) {
-        let state = sender.state == NSOnState
+        let state = sender.state == .on
 
         sender.title = state ? "🔁" : "🔄"
 
@@ -371,7 +364,7 @@ class ViewController: NSViewController {
 
             auManager!.connectEffects(firstNode: player, lastNode: mixer)
 
-            player!.looping = loopButton.state == NSOnState
+            player!.looping = loopButton.state == .on
 
             playButton.isEnabled = true
             fileField.stringValue = "🔈 \(url.lastPathComponent)"
@@ -456,6 +449,7 @@ class ViewController: NSViewController {
                 let unitWindow = NSWindow(contentViewController: ui!)
                 unitWindow.title = "\(audioUnit.name)"
                 unitWindow.delegate = self
+                unitWindow.identifier = NSUserInterfaceItemIdentifier(String(identifier))
 
                 if ui!.view.isKind(of: AudioUnitGenericView.self) {
                     if let gauv = ui?.view as? AudioUnitGenericView {
@@ -475,7 +469,7 @@ class ViewController: NSViewController {
                 unitWindow.setFrameOrigin(NSPoint(x:selfWindow.frame.origin.x, y:selfWindow.frame.origin.y - unitWindow.frame.height))
 
                 if let button = strongSelf.getEffectsButtonFromIdentifier( identifier ) {
-                    button.state = NSOnState
+                    button.state = .on
                 }
             }
         }
@@ -559,11 +553,11 @@ extension ViewController:  AKAudioUnitManagerDelegate {
 extension ViewController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         if let obj = notification.object {
-            AKLog("Window closing: \(obj)")
             if let w = obj as? NSWindow {
-                if let id = Int(w.identifier!) {
+
+                if let id = w.identifier?.rawValue.toInt() {
                     if let b = getEffectsButtonFromIdentifier(id) {
-                        b.state = NSOffState
+                        b.state = .off
                         return
                     }
                 }

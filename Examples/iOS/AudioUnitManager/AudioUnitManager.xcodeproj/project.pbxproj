@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1698AE21F684252008F397D /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE91F5D428E00FA09A4 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B1698AE41F684258008F397D /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE81F5D428E00FA09A4 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B1698AE51F684755008F397D /* Organ.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4704C2E1F5D2B3C004C087E /* Organ.wav */; };
 		B1756EAB1F411D5A00792670 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1756EAA1F411D5A00792670 /* AppDelegate.swift */; };
 		B1756EAD1F411D5A00792670 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1756EAC1F411D5A00792670 /* ViewController.swift */; };
 		B1756EB01F411D5A00792670 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1756EAE1F411D5A00792670 /* Main.storyboard */; };
@@ -44,6 +47,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B1698AE41F684258008F397D /* AudioKit.framework in Embed Frameworks */,
+				B1698AE21F684252008F397D /* AudioKitUI.framework in Embed Frameworks */,
 				C4067FE51F5D415C00FA09A4 /* DropDown.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -105,13 +110,13 @@
 			children = (
 				B1756EAA1F411D5A00792670 /* AppDelegate.swift */,
 				B1756EAC1F411D5A00792670 /* ViewController.swift */,
+				B1756EC91F41FD3A00792670 /* AudioUnitGenericView.swift */,
 				C4704C391F5D2C15004C087E /* Default-568h@2x.png */,
 				B1756EAE1F411D5A00792670 /* Main.storyboard */,
 				B1756EB11F411D5A00792670 /* Assets.xcassets */,
 				B1756EB31F411D5A00792670 /* LaunchScreen.storyboard */,
 				B1756EB61F411D5A00792670 /* Info.plist */,
 				C4704C2E1F5D2B3C004C087E /* Organ.wav */,
-				B1756EC91F41FD3A00792670 /* AudioUnitGenericView.swift */,
 			);
 			path = AudioUnitManager;
 			sourceTree = "<group>";
@@ -158,7 +163,6 @@
 				TargetAttributes = {
 					B1756EA61F411D5A00792670 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = W22K9JG3J6;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -208,6 +212,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1698AE51F684755008F397D /* Organ.wav in Resources */,
 				B1756EB51F411D5A00792670 /* LaunchScreen.storyboard in Resources */,
 				C4704C3A1F5D2C15004C087E /* Default-568h@2x.png in Resources */,
 				B1756EB21F411D5A00792670 /* Assets.xcassets in Resources */,
@@ -293,6 +298,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -351,6 +357,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -373,15 +380,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = W22K9JG3J6;
-				FRAMEWORK_SEARCH_PATHS = (
-					"../../../Frameworks/AudioKit-iOS",
-					"$(PROJECT_DIR)/**",
-				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
-					"../../../Frameworks/AudioKit-iOS",
-					"$(PROJECT_DIR)/**",
-				);
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.AudioKit.AudioUnitManagerExample-iOS";
@@ -395,15 +396,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = W22K9JG3J6;
-				FRAMEWORK_SEARCH_PATHS = (
-					"../../../Frameworks/AudioKit-iOS",
-					"$(PROJECT_DIR)/**",
-				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
-					"../../../Frameworks/AudioKit-iOS",
-					"$(PROJECT_DIR)/**",
-				);
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.AudioKit.AudioUnitManagerExample-iOS";

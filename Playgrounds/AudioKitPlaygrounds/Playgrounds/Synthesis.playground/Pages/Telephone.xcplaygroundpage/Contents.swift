@@ -2,6 +2,7 @@
 //: AudioKit is great for sound design. This playground creates canonical telephone sounds.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 //: ### Dial Tone
 //: A dial tone is simply two sine waves at specific frequencies

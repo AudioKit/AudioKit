@@ -120,7 +120,7 @@
                                               kAudioUnitScope_Global,
                                               0,
                                               &frames,
-                                              &propSize);
+                                              &propSize)
             if status != 0 {
                 print("error in get ioBufferDuration status \(status)")
             }

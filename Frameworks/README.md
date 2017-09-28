@@ -1,8 +1,8 @@
 # AudioKit Frameworks
 
-Since version 3.0, AudioKit is now distributed as a couple of universal dynamic frameworks with no further dependencies on all supported platforms. This makes it easy to integrate within your own projects.
+AudioKit is distributed as a couple of universal dynamic frameworks with no further dependencies on all supported platforms. This makes it easy to integrate within your own projects.
 
-AudioKit 3 now requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. The deployment target for your target needs to be set to at least one of these versions to link with AudioKit.
+AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. The deployment target for your target needs to be set to at least one of these versions to link with AudioKit.
 
 ## Using the compiled frameworks in your projects
 
