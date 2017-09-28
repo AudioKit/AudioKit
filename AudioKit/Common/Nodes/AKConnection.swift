@@ -177,6 +177,10 @@ extension AKInput {
         AudioKit.engine.disconnectNodeInput(inputNode, bus: bus )
     }
     public var nextInput: AKInputConnection {
+
+        if let mixer = inputNode as? AVAudioMixerNode {
+            return input(mixer.nextAvailableInputBus)
+        }
         return input(0)
     }
     public func input(_ bus: Int) -> AKInputConnection {
@@ -188,14 +192,6 @@ extension AKInput {
 @objc extension AVAudioNode: AKInput {
     public var outputNode: AVAudioNode {
         return self
-    }
-}
-
-extension AVAudioMixerNode {
-
-    /// Mixer and the mixer's nextAvailableInputBus wrapped in an inputConnection object.
-    public var nextInput: AKInputConnection {
-        return AKInputConnection(node: self, bus: nextAvailableInputBus)
     }
 }
 

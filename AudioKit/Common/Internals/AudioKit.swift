@@ -497,7 +497,7 @@ extension AudioKit {
     private static func safeAttach(_ nodes: [AVAudioNode]) {
         _ = nodes.filter { $0.engine == nil }.map { engine.attach($0) }
     }
-    
+
     // AVAudioMixer will crash if engine is started and connection is made to a bus exceeding mixer's
     // numberOfInputs. The crash only happens when using the AVAudioEngine function that connects a node to an array
     // of AVAudioConnectionPoints and the mixer is one of those points. When AVAudioEngine uses a different function
@@ -507,21 +507,19 @@ extension AudioKit {
     // bus to connect to.
     //
     private static func checkMixerInputs(_ connectionPoints: [AVAudioConnectionPoint]) {
-        
+
         if !engine.isRunning { return }
-        
+
         for connection in connectionPoints {
             if let mixer = connection.node as? AVAudioMixerNode,
                 connection.bus >= mixer.numberOfInputs {
-                
-                let dummyNode = AVAudioUnitSampler()
-                dummyNode.setOutput(to: mixer)
-                dummyNode.disconnectOutput()
 
+                let dummyNode = AVAudioUnitSampler()
+                dummyNode.setOutput(to: mixer)  // Using setOutput will increment the mixer's numberOfInputs.
+                dummyNode.disconnectOutput()
             }
         }
     }
-    
 
     @objc open static func connect(_ sourceNode: AVAudioNode,
                                    to destNodes: [AVAudioConnectionPoint],
