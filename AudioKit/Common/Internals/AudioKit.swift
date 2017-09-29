@@ -502,8 +502,8 @@ extension AudioKit {
     // numberOfInputs. The crash only happens when using the AVAudioEngine function that connects a node to an array
     // of AVAudioConnectionPoints and the mixer is one of those points. When AVAudioEngine uses a different function
     // that connects a node's output to a single AVAudioMixerNode, the mixer's inputs are incremented to accommodate
-    // the new connection. So the workaround is to create a dummy node, make a connection to the mixer using the
-    // function that makes the mixer create new inputs, then remove the dummy node so that there is an available
+    // the new connection. So the workaround is to create dummy nodes, make a connections to the mixer using the
+    // function that makes the mixer create new inputs, then remove the dummy nodes so that there is an available
     // bus to connect to.
     //
     private static func checkMixerInputs(_ connectionPoints: [AVAudioConnectionPoint]) {
@@ -514,9 +514,16 @@ extension AudioKit {
             if let mixer = connection.node as? AVAudioMixerNode,
                 connection.bus >= mixer.numberOfInputs {
 
-                let dummyNode = AVAudioUnitSampler()
-                dummyNode.setOutput(to: mixer)  // Using setOutput will increment the mixer's numberOfInputs.
-                dummyNode.disconnectOutput()
+                var dummyNodes = [AVAudioNode]()
+                while connection.bus >= mixer.numberOfInputs {
+                    let dummyNode = AVAudioUnitSampler()
+                    dummyNode.setOutput(to: mixer)
+                    dummyNodes.append(dummyNode)
+                }
+                for dummyNode in dummyNodes {
+                    dummyNode.disconnectOutput()
+                }
+                
             }
         }
     }
