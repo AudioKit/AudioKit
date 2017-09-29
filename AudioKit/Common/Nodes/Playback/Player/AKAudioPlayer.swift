@@ -383,7 +383,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Replace player's file with a new AKAudioFile file
-    open func replace(file: AKAudioFile) throws {
+    @objc open func replace(file: AKAudioFile) throws {
         internalAudioFile = file
         do {
             try reloadFile()
@@ -400,7 +400,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Play from startTime to endTime
-    open func play(from startTime: Double, to endTime: Double) {
+    @objc open func play(from startTime: Double, to endTime: Double) {
         play(from: startTime, to: endTime, avTime: nil)
     }
 
