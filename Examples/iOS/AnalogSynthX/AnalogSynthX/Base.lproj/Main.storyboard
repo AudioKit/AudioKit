@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Z3O-nk-rpn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Z3O-nk-rpn">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNextCondensed.ttc">
+            <string>AvenirNextCondensed-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Synth View Controller-->
         <scene sceneID="tnH-wK-6JA">
@@ -348,7 +353,7 @@
                                             <constraint firstAttribute="height" constant="164" id="cfK-nq-Og0"/>
                                         </constraints>
                                     </view>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UJk-4U-hhF" customClass="AKOutputWaveformPlot" customModule="AudioKitUI">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UJk-4U-hhF" customClass="AKNodeOutputPlot" customModule="AudioKitUI">
                                         <rect key="frame" x="446" y="81" width="190" height="88"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -1230,7 +1235,7 @@
                     </view>
                     <connections>
                         <outlet property="attackSlider" destination="Mwk-FU-bNw" id="Wwt-oR-h4x"/>
-                        <outlet property="audioPlot" destination="UJk-4U-hhF" id="Hvv-7b-PDV"/>
+                        <outlet property="audioPlot" destination="UJk-4U-hhF" id="uYO-KP-eX4"/>
                         <outlet property="bitcrushToggle" destination="FQd-NM-6qF" id="4jH-Ja-F06"/>
                         <outlet property="crushAmtKnob" destination="zlr-Av-4V5" id="bx8-Bp-Tj7"/>
                         <outlet property="cutoffKnob" destination="QcX-GL-sr0" id="u3V-At-q5k"/>
