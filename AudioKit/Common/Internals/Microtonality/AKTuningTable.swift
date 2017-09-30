@@ -98,7 +98,7 @@
     /// Initialization for standard default 12 tone equal temperament
     public override init() {
         super.init()
-        defaultTuning()
+        _ = defaultTuning()
     }
 
     /// Return the Frequency for the given MIDINoteNumber
