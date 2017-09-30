@@ -66,6 +66,11 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
             volume = 0
         }
     }
+  
+    /// Detach
+    @objc open override func detach() {
+      super.detach()
+    }
 
     /// Connnect another input after initialization // Deprecated
     ///
@@ -81,4 +86,16 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     }
     //swiftlint:enable line_length
 
+    // It is not possible to use @objc on AKOutput extension, so [connectWithInput:bus:]
+    /// Connect for Objectivec access, with bus definition
+    @objc open func connect(input: AKNode?, bus: Int) {
+      input?.connect(to: self, bus: bus)
+    }
+  
+    // It is not possible to use @objc on AKOutput extension, so [connectWithInput:]
+    /// Connect for Objectivec access
+    @objc open func connect(input: AKNode?) {
+      input?.connect(to: self, bus: nextInput.bus)
+    }
+  
 }
