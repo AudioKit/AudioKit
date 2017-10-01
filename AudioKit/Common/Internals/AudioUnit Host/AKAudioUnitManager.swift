@@ -85,8 +85,8 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // just get a non nil list of Audio Units
-    private var linkedEffects: [AVAudioUnit] {
-        var out = [AVAudioUnit]()
+    private var linkedEffects: [AVAudioUnitEffect] {
+        var out = [AVAudioUnitEffect]()
 
         for fx in _effectsChain {
             if fx != nil {
@@ -197,15 +197,21 @@ open class AKAudioUnitManager: NSObject {
              
              Make a component description matching any AU of the type.
              */
-            var componentDescription = AudioComponentDescription()
-            componentDescription.componentType = kAudioUnitType_Effect
-            componentDescription.componentSubType = 0
-            componentDescription.componentManufacturer = 0
-            componentDescription.componentFlags = 0
-            componentDescription.componentFlagsMask = 0
+//            var componentDescription = AudioComponentDescription()
+//            componentDescription.componentType = kAudioUnitType_Effect
+//            componentDescription.componentSubType = 0
+//            componentDescription.componentManufacturer = 0
+//            componentDescription.componentFlags = 0
+//            componentDescription.componentFlagsMask = 0
+//
+//            self.availableEffects = AVAudioUnitComponentManager.shared().components(matching: componentDescription)
 
-            self.availableEffects = AVAudioUnitComponentManager.shared().components(matching: componentDescription)
-
+            let predicate = NSPredicate(format: "typeName CONTAINS 'Effect'", argumentArray: [])
+            self.availableEffects = AVAudioUnitComponentManager.shared().components(matching: predicate)
+//            for au in predicateEffects {
+//                Swift.print("predicateEffects: \(au.name)")
+//            }
+            
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
                 for au in self.availableEffects {
@@ -274,6 +280,7 @@ open class AKAudioUnitManager: NSObject {
      */
     public func createEffectAudioUnit(_ componentDescription: AudioComponentDescription,
                                       completionHandler: @escaping ((AVAudioUnitEffect?) -> Void)) {
+
         AVAudioUnitEffect.instantiate(with: componentDescription, options: .loadOutOfProcess) { avAudioUnit, _ in
             guard let avAudioUnit = avAudioUnit else {
                 completionHandler(nil)
@@ -444,7 +451,7 @@ open class AKAudioUnitManager: NSObject {
             }
         }
 
-        AKLog("Connecting \(au.name) to output")
+        AKLog("Connecting \(au.name) to \(outputAV)")
         AudioKit.engine.connect(au, to: outputAV, format: processingFormat)
     }
 
