@@ -23,7 +23,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
     var openPanel: NSOpenPanel?
-    var auManager: AKAudioUnitManagerDev?
+    var auManager: AKAudioUnitManager?
     var midiManager: AKMIDI?
     var player: AKAudioPlayer?
     var fm: AKFMOscillator?
@@ -56,7 +56,7 @@ class ViewController: NSViewController {
         
         AudioKit.output = mainOutput
 
-        auManager = AKAudioUnitManagerDev()
+        auManager = AKAudioUnitManager(inserts: 6)
         auManager?.delegate = self
 
         auManager?.requestEffects(completionHandler: { audioUnits in
