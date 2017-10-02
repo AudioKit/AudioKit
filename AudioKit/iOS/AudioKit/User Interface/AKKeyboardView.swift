@@ -264,10 +264,10 @@ public protocol AKKeyboardDelegate: class {
             if let key = noteFromTouchLocation(touch.location(in: self)),
                 key != noteFromTouchLocation(touch.previousLocation(in: self)) {
                 pressAdded(key)
+                setNeedsDisplay()
             }
         }
         verifyTouches(event?.allTouches)
-        setNeedsDisplay()
     }
 
     /// Handle stopped touches
