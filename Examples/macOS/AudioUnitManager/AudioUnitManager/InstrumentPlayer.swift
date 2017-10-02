@@ -1,7 +1,7 @@
 // MARK: - Instrument Player
 /*
 	This class implements a basic player for our instrument sample au,
- sending some fake MIDI events on a concurrent thread until stopped.
+ sending a whole tone scale on a concurrent thread until stopped.
  */
 import Cocoa
 import AVFoundation
