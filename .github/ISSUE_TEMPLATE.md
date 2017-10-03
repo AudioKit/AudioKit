@@ -1,4 +1,4 @@
-Please use https://groups.google.com/forum/#!forum/audiokit for support questions.
+If your issue is implementing AudioKit in your own code, post your problem to [StackOverflow](https://stackoverflow.com/search?q=AudioKit) with the #AudioKit hashtag.
 
 GitHub Issues should only be used for confirmed problems with AudioKit and
 well-defined feature requests.
