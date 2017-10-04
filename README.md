@@ -15,7 +15,6 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 |:--:|:--:|
 | Features, News, Blog, and Highlighted Apps | Developer Documentation |
 | [![AudioKitPro](http://audiokit.io/images/audiokitpro.png)](http://audiokitpro.com) | [![AudioKit.io](http://audiokit.io/images/audiokitio.png)](http://audiokit.io) |
-| Did you already build an app with AudioKit?<br>  Let us know and we'll highlight it! | If you need support, the best thing to do is to <br>join [AudioKit's google group](https://groups.google.com/forum/#!forum/audiokit). |
 
 ## Key Concepts
 
@@ -72,11 +71,22 @@ We have made videos of most of the playgrounds in action, so you don't even need
 
 Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywenderlich.com/145770/audiokit-tutorial-getting-started). You’ll be taken on a fun and gentle journey through the framework via the history of sound synthesis and computer audio.
 
+## Getting help
+
+There are three methods for getting support, roughly listed in order of what you should try first:
+
+1. Post your problem to [StackOverflow](https://stackoverflow.com/search?q=AudioKit) with the #AudioKit hashtag.
+
+2. If you don't have a problem that you can post to StackOverflow, you may post to our [Google Group](https://groups.google.com/forum/#!forum/audiokit), but it is a moderated list and prepare to be rejected if the moderator believes your question is better suited for StackOverflow (most are).
+
+3. If you are pretty sure the problem is not in your implementation, but in AudioKit itself, you can open a [Github Issue](https://github.com/audiokit/AudioKit/issues).
+
+
 ## Contributing Code
 
 AudioKit is always being improved by our core team and our users.   [This is a rough outline of what we're working on currently.](https://github.com/audiokit/AudioKit/projects)
 
-When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to master), make your changes, and send us a pull request.
+When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to master), make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
 
 ## About Us
 
@@ -89,4 +99,4 @@ But, there are many other important people in our family:
 |[Core Team](https://github.com/orgs/AudioKit/people)                    | The biggest contributors to AudioKit! |
 |[Slack](https://audiokit.slack.com)                                     | Pro-level developer chat group, contact a core team member for an in invitation. |
 |[Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors)| A list of all people who have submitted code to AudioKit.|
-|[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | Support forum and mailing list for all users. |
+|[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | App Announcements and mailing list for all users. |
