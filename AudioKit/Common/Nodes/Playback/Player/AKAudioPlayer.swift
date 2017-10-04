@@ -250,10 +250,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
     ///
     @objc public init(file: AKAudioFile,
-                looping: Bool = false,
-                lazyBuffering: Bool = false,
-                completionHandler: AKCallback? = nil) throws {
-
+                      looping: Bool = false,
+                      lazyBuffering: Bool = false,
+                      completionHandler: AKCallback? = nil) throws {
+        
         let readFile: AKAudioFile
 
         // Open the file for reading to avoid a crash when setting frame position
