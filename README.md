@@ -15,7 +15,6 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 |:--:|:--:|
 | Features, News, Blog, and Highlighted Apps | Developer Documentation |
 | [![AudioKitPro](http://audiokit.io/images/audiokitpro.png)](http://audiokitpro.com) | [![AudioKit.io](http://audiokit.io/images/audiokitio.png)](http://audiokit.io) |
-| Did you already build an app with AudioKit?<br>  Let us know and we'll highlight it! | If you need support, the best thing to do is to <br>join [AudioKit's google group](https://groups.google.com/forum/#!forum/audiokit). |
 
 ## Key Concepts
 
@@ -100,4 +99,4 @@ But, there are many other important people in our family:
 |[Core Team](https://github.com/orgs/AudioKit/people)                    | The biggest contributors to AudioKit! |
 |[Slack](https://audiokit.slack.com)                                     | Pro-level developer chat group, contact a core team member for an in invitation. |
 |[Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors)| A list of all people who have submitted code to AudioKit.|
-|[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | Announcements and Mailing list for all users. |
+|[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | App Announcements and mailing list for all users. |
