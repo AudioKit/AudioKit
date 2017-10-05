@@ -26,8 +26,17 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Buffer to be palyed
-    @objc open dynamic var audioFileBuffer: AVAudioPCMBuffer?
+    /// Buffer to be played
+    @objc fileprivate var _audioFileBuffer: AVAudioPCMBuffer?
+    @objc open dynamic var audioFileBuffer: AVAudioPCMBuffer? {
+        get {
+            if _audioFileBuffer == nil { updatePCMBuffer() }
+            return _audioFileBuffer
+        }
+        set {
+            _audioFileBuffer = newValue
+        }
+    }
 
     /// Will be triggered when AKAudioPlayer has finished to play.
     /// (will not as long as loop is on)
@@ -241,9 +250,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
     ///
     @objc public init(file: AKAudioFile,
-                looping: Bool = false,
-                deferBuffering: Bool = false,
-                completionHandler: AKCallback? = nil) throws {
+                      looping: Bool = false,
+                      lazyBuffering: Bool = false,
+                      completionHandler: AKCallback? = nil) throws {
 
         let readFile: AKAudioFile
 
@@ -270,9 +279,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         avAudioNode = internalMixer
         internalPlayer.volume = 1.0
 
-        if !deferBuffering {
-            initialize()
-        }
+        initialize(lazyBuffering: lazyBuffering)
     }
 
     fileprivate var defaultBufferOptions: AVAudioPlayerNodeBufferOptions {
@@ -287,10 +294,6 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     open func play(at when: AVAudioTime?) {
-
-        if audioFileBuffer == nil {
-            initialize()
-        }
 
         if ❗️playing {
             if audioFileBuffer != nil {
@@ -465,16 +468,14 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Private Methods
 
-    fileprivate func initialize() {
+    fileprivate func initialize(lazyBuffering: Bool = false) {
         audioFileBuffer = nil
         totalFrameCount = UInt32(internalAudioFile.length)
         startingFrame = 0
         endingFrame = totalFrameCount
 
-        if internalAudioFile.length > 0 {
+        if !lazyBuffering {
             updatePCMBuffer()
-        } else {
-            AKLog("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" is an empty file")
         }
     }
 
@@ -487,6 +488,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                                           at: atTime,
                                           options: options,
                                           completionHandler: looping ? nil : internalCompletionHandler)
+
             if atTime != nil {
                 internalPlayer.prepare(withFrameCount: framesToPlayCount)
             }
@@ -520,7 +522,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Fills the buffer with data read from internalAudioFile
     fileprivate func updatePCMBuffer() {
-        //AKLog("updatePCMBuffer() reversed \(self.reversed)")
+
+        guard internalAudioFile.length > 0 else {
+            AKLog("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" is an empty file")
+            return
+        }
 
         var theStartFrame = startingFrame
         var theEndFrame = endingFrame
