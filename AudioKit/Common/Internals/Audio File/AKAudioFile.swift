@@ -269,7 +269,6 @@ extension AVAudioCommonFormat: CustomStringConvertible {
 
     }()
 
-    ///
     /// returns the peak level expressed in dB ( -> Float).
     open lazy var maxLevel: Float = {
         var maxLev: Float = 0
