@@ -27,7 +27,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
 }
 
 /// Helpful additions for using AVAudioFiles within AudioKit
-extension AVAudioFile {
+@objc extension AVAudioFile {
 
     // MARK: - Public Properties
 

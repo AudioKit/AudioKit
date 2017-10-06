@@ -58,7 +58,7 @@ public protocol AKKeyboardDelegate: class {
     }
 
     let baseMIDINote = 24 // MIDINote 24 is C0
-    
+
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     let topKeyNotes = [0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 11]
@@ -264,10 +264,10 @@ public protocol AKKeyboardDelegate: class {
             if let key = noteFromTouchLocation(touch.location(in: self)),
                 key != noteFromTouchLocation(touch.previousLocation(in: self)) {
                 pressAdded(key)
+                setNeedsDisplay()
             }
         }
         verifyTouches(event?.allTouches)
-        setNeedsDisplay()
     }
 
     /// Handle stopped touches

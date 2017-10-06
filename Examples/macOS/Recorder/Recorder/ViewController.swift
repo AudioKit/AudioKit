@@ -56,7 +56,6 @@ class ViewController: NSViewController {
         }
     }
 
-
     @IBAction func record(_ sender: Any) {
         do {
             try recorder.record()
