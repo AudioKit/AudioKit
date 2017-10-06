@@ -1,4 +1,4 @@
-# Examples
+# AudioKit Examples
 
 ## HelloWorld for iOS, macOS, and tvOS
 
