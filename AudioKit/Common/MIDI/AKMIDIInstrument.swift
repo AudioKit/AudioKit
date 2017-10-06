@@ -37,6 +37,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         })
     }
 
+    // CHECK! fatal error: Index out of range
     private func handle(event: AKMIDIEvent) {
         self.handleMIDI(data1: MIDIByte(event.internalData[0]),
                         data2: MIDIByte(event.internalData[1]),
