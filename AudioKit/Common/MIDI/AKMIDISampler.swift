@@ -39,9 +39,17 @@ open class AKMIDISampler: AKSampler {
     }
 
     private func handle(event: AKMIDIEvent) {
-        self.handleMIDI(data1: event.internalData[0],
-                        data2: event.internalData[1],
-                        data3: event.internalData[2])
+        // Trevor correction against -> fatal error: Index out of range
+        let data0 = event.internalData.indices.contains(0)
+        let data1 = event.internalData.indices.contains(1)
+        let data2 = event.internalData.indices.contains(2)
+        
+        if data0 && data1 && data2 {
+            
+            self.handleMIDI(data1: event.internalData[0],
+                            data2: event.internalData[1],
+                            data3: event.internalData[2])
+        }
     }
 
     // MARK: - Handling MIDI Data
