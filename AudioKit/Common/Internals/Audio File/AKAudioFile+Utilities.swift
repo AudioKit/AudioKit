@@ -39,5 +39,57 @@ extension AKAudioFile {
 
         return try AKAudioFile(forReading: silentFile.url)
     }
+    
+    /// return the time of the peak of the buffer
+    static public func findPeak( pcmBuffer: AVAudioPCMBuffer ) -> Double {
+        guard let floatData = pcmBuffer.floatChannelData else { return 0 }
+        
+        var framePosition = 0
+        var position = 0
+        var lastPeak: Float = -10000.0
+        let frameLength = 512
+        
+        while true {
+            if position + frameLength >= pcmBuffer.frameLength {
+                break
+            }
+            for channel in 0 ..< Int(pcmBuffer.format.channelCount) {
+                var block = Array(repeating: Float(0), count: frameLength)
+                
+                // fill the block with frameLength samples
+                for i in 0 ..< block.count {
+                    block[i] = floatData[channel][i + position]
+                }
+                // scan the block
+                let peak = AKAudioFile.getPeak(from: block)
+                
+                if peak > lastPeak {
+                    framePosition = position
+                    lastPeak = peak
+                }
+                position += block.count
+            }
+        }
+        
+        let time: Double = Double(framePosition / pcmBuffer.format.sampleRate)
+        Swift.print("Peak energy is at \(time), final peak is \(lastPeak)")
+        return time
+    }
+    
+    /// return the highest level in the given collection of floats
+    static public func getPeak(from buffer: [Float]) -> Float {
+        // create variable with very small value to hold the peak value
+        var peak: Float = -10000.0
+        
+        for i in 0 ..< buffer.count {
+            // store the absolute value of the sample
+            let absSample = abs (buffer[i])
+            
+            if absSample > peak {
+                peak = absSample
+            }
+        }
+        return peak
+    }
 
 }
