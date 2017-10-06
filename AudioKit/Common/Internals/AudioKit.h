@@ -79,6 +79,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Reverb
 #import "AKChowningReverbAudioUnit.h"
+#import "AK4ChowningReverbAudioUnit.h"
 #import "AKConvolutionAudioUnit.h"
 #import "AKCostelloReverbAudioUnit.h"
 #import "AKFlatFrequencyResponseReverbAudioUnit.h"
@@ -119,6 +120,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Mixing
 #import "AKBalancerAudioUnit.h"
 #import "AKBoosterAudioUnit.h"
+#import "GainAudioUnit.h"
 #import "AKPannerAudioUnit.h"
 #import "AKStereoFieldLimiterAudioUnit.h"
 

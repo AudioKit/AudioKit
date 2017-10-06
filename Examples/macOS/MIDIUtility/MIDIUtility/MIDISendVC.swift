@@ -11,7 +11,7 @@ import Cocoa
 
 class MIDISenderVC: NSViewController {
     let midiOut = AKMIDI()
-    
+
     @IBOutlet var noteNumField: NSTextField!
     @IBOutlet var noteVelField: NSTextField!
     @IBOutlet var noteChanField: NSTextField!
@@ -19,32 +19,32 @@ class MIDISenderVC: NSViewController {
     @IBOutlet var ccValField: NSTextField!
     @IBOutlet var ccChanField: NSTextField!
     @IBOutlet var sysexField: NSTextView!
-    
-    var noteToSend:Int? {
+
+    var noteToSend: Int? {
         return Int(noteNumField.stringValue)
     }
-    var velocityToSend:Int? {
+    var velocityToSend: Int? {
         return Int(noteVelField.stringValue)
     }
-    var noteChanToSend:Int {
+    var noteChanToSend: Int {
         if Int(noteChanField.stringValue) == nil {
             return 1
         }
         return Int(noteChanField.stringValue)! - 1
     }
-    var ccToSend:Int? {
+    var ccToSend: Int? {
         return Int(ccField.stringValue)
     }
-    var ccValToSend:Int? {
+    var ccValToSend: Int? {
         return Int(ccValField.stringValue)
     }
-    var ccChanToSend:Int {
+    var ccChanToSend: Int {
         if Int(ccChanField.stringValue) == nil {
             return 1
         }
         return Int(ccChanField.stringValue)! - 1
     }
-    var sysexToSend:[Int]?{
+    var sysexToSend: [Int]? {
         var data = [Int]()
         let splitField = sysexField.string.components(separatedBy: " ")
         for entry in splitField {
@@ -58,33 +58,33 @@ class MIDISenderVC: NSViewController {
     override func viewDidLoad() {
         midiOut.openOutput()
     }
-    
+
     @IBAction func sendNotePressed(_ sender: NSButton) {
         if noteToSend != nil && velocityToSend != nil {
             Swift.print("sending note: \(noteToSend!) - \(velocityToSend!)")
             let event = AKMIDIEvent(noteOn: MIDINoteNumber(noteToSend!), velocity: MIDIVelocity(velocityToSend!), channel: MIDIChannel(noteChanToSend))
             midiOut.sendEvent(event)
-        }else{
+        } else {
             print("error w note fields")
         }
     }
     @IBAction func sendCCPressed(_ sender: NSButton) {
-        if ccToSend != nil && ccValToSend != nil{
+        if ccToSend != nil && ccValToSend != nil {
             Swift.print("sending cc: \(ccToSend!) - \(ccValToSend!)")
             let event = AKMIDIEvent(controllerChange: MIDIByte(ccToSend!), value: MIDIByte(ccValToSend!), channel: MIDIChannel(ccChanToSend))
             midiOut.sendEvent(event)
-        }else{
+        } else {
             print("error w cc fields")
         }
     }
-    
+
     @IBAction func sendSysexPressed(_ sender: NSButton) {
         if sysexToSend != nil {
             var midiBytes = [MIDIByte]()
-            for byte in sysexToSend!{
+            for byte in sysexToSend! {
                 midiBytes.append(MIDIByte(byte))
             }
-            if midiBytes[0] != 240 || midiBytes.last != 247  || midiBytes.count < 2 {
+            if midiBytes[0] != 240 || midiBytes.last != 247 || midiBytes.count < 2 {
                 Swift.print("bad sysex data - must start with 240 and end with 247")
                 Swift.print("parsed sysex: \(sysexToSend!)")
                 return
@@ -92,12 +92,12 @@ class MIDISenderVC: NSViewController {
             Swift.print("sending sysex \(sysexToSend!)")
             let event = AKMIDIEvent(data: midiBytes)
             midiOut.sendEvent(event)
-        }else{
+        } else {
             print("error w sysex field")
         }
     }
 }
-class MIDIChannelFormatter : NumberFormatter {
+class MIDIChannelFormatter: NumberFormatter {
     override func isPartialStringValid(_ partialStringPtr: AutoreleasingUnsafeMutablePointer<NSString>, proposedSelectedRange proposedSelRangePtr: NSRangePointer?, originalString origString: String, originalSelectedRange origSelRange: NSRange, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         Swift.print("checking string")
         let partialStr = partialStringPtr.pointee
@@ -110,7 +110,7 @@ class MIDIChannelFormatter : NumberFormatter {
     }
 }
 
-class MIDINumberFormatter : NumberFormatter {
+class MIDINumberFormatter: NumberFormatter {
     override func isPartialStringValid(_ partialStringPtr: AutoreleasingUnsafeMutablePointer<NSString>, proposedSelectedRange proposedSelRangePtr: NSRangePointer?, originalString origString: String, originalSelectedRange origSelRange: NSRange, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         Swift.print("checking string")
         let partialStr = partialStringPtr.pointee

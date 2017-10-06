@@ -50,6 +50,7 @@ class LiveView: AKLiveViewController {
                 self.update()
             }
             addView(button)
+            button.color = .green
             buttons.append(button)
         }
     }

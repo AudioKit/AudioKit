@@ -12,7 +12,7 @@ import UIKit
 
 class MIDISenderVC: UIViewController {
     let midiOut = AKMIDI()
-    
+
     @IBOutlet var noteNumField: UITextField!
     @IBOutlet var noteVelField: UITextField!
     @IBOutlet var noteChanField: UITextField!
@@ -20,32 +20,32 @@ class MIDISenderVC: UIViewController {
     @IBOutlet var ccValField: UITextField!
     @IBOutlet var ccChanField: UITextField!
     @IBOutlet var sysexField: UITextView!
-    
-    var noteToSend:Int? {
+
+    var noteToSend: Int? {
         return Int(noteNumField.text!)
     }
-    var velocityToSend:Int? {
+    var velocityToSend: Int? {
         return Int(noteVelField.text!)
     }
-    var noteChanToSend:Int {
+    var noteChanToSend: Int {
         if noteChanField.text == nil || Int(noteChanField.text!) == nil {
             return 1
         }
         return Int(noteChanField.text!)! - 1
     }
-    var ccToSend:Int? {
+    var ccToSend: Int? {
         return Int(ccField.text!)
     }
-    var ccValToSend:Int? {
+    var ccValToSend: Int? {
         return Int(ccValField.text!)
     }
-    var ccChanToSend:Int {
+    var ccChanToSend: Int {
         if ccChanField.text == nil || Int(ccChanField.text!) == nil {
             return 1
         }
         return Int(ccChanField.text!)! - 1
     }
-    var sysexToSend:[Int]?{
+    var sysexToSend: [Int]? {
         var data = [Int]()
         if sysexField.text == nil {
             return nil
@@ -64,37 +64,37 @@ class MIDISenderVC: UIViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
-    
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
+
     @IBAction func sendNotePressed(_ sender: UIButton) {
         if noteToSend != nil && velocityToSend != nil {
             print("sending note: \(noteToSend!) - \(velocityToSend!)")
             let event = AKMIDIEvent(noteOn: MIDINoteNumber(noteToSend!), velocity: MIDIVelocity(velocityToSend!), channel: MIDIChannel(noteChanToSend))
             midiOut.sendEvent(event)
-        }else{
+        } else {
             print("error w note fields")
         }
     }
     @IBAction func sendCCPressed(_ sender: UIButton) {
-        if ccToSend != nil && ccValToSend != nil{
+        if ccToSend != nil && ccValToSend != nil {
             print("sending cc: \(ccToSend!) - \(ccValToSend!)")
             let event = AKMIDIEvent(controllerChange: MIDIByte(ccToSend!), value: MIDIByte(ccValToSend!), channel: MIDIChannel(ccChanToSend))
             midiOut.sendEvent(event)
-        }else{
+        } else {
             print("error w cc fields")
         }
     }
-    
+
     @IBAction func sendSysexPressed(_ sender: UIButton) {
         if sysexToSend != nil {
             var midiBytes = [MIDIByte]()
-            for byte in sysexToSend!{
+            for byte in sysexToSend! {
                 midiBytes.append(MIDIByte(byte))
             }
-            if midiBytes[0] != 240 || midiBytes.last != 247  || midiBytes.count < 2 {
+            if midiBytes[0] != 240 || midiBytes.last != 247 || midiBytes.count < 2 {
                 print("bad sysex data - must start with 240 and end with 247")
                 print("parsed sysex: \(sysexToSend!)")
                 return
@@ -102,33 +102,30 @@ class MIDISenderVC: UIViewController {
             print("sending sysex \(sysexToSend!)")
             let event = AKMIDIEvent(data: midiBytes)
             midiOut.sendEvent(event)
-        }else{
+        } else {
             print("error w sysex field")
         }
     }
-    
+
     @IBAction func receiveMIDIButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 }
-class MIDIChannelField : UITextField, UITextFieldDelegate {
+class MIDIChannelField: UITextField, UITextFieldDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
     }
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
-                   replacementString string: String) -> Bool
-    {
+                   replacementString string: String) -> Bool {
         var startString = ""
-        if (textField.text != nil)
-        {
+        if (textField.text != nil) {
             startString += textField.text!
         }
         startString += string
         let limitNumber = Int(startString)
-        if limitNumber == nil || limitNumber! > 16 || limitNumber! == 0
-        {
+        if limitNumber == nil || limitNumber! > 16 || limitNumber! == 0 {
             return false
         } else {
             return true
@@ -136,24 +133,21 @@ class MIDIChannelField : UITextField, UITextFieldDelegate {
     }
 }
 
-class MIDINumberField : UITextField, UITextFieldDelegate {
+class MIDINumberField: UITextField, UITextFieldDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
     }
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
-                   replacementString string: String) -> Bool
-    {
+                   replacementString string: String) -> Bool {
         var startString = ""
-        if (textField.text != nil)
-        {
+        if (textField.text != nil) {
             startString += textField.text!
         }
         startString += string
         let limitNumber = Int(startString)
-        if limitNumber == nil || limitNumber! > 127
-        {
+        if limitNumber == nil || limitNumber! > 127 {
             return false
         } else {
             return true
