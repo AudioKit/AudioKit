@@ -1,9 +1,9 @@
 # AudioKit SenderSynth 
 
+![Sender Synth](http://audiokit.io/audiobus/sender-synth/sender-synth.png)
+
 Starting the Synth Project
 --------------------------
-
-![Sender Synth](http://audiokit.io/audiobus/sender-synth/sender-synth.png)
 
 We're going to build this from scratch, so in order to not spend much time with UI issues, we are going to make use of AudioKit's built-in UI elements that are normally used in playgrounds and our example apps.
 
@@ -167,7 +167,7 @@ Add the Audiobus Files
 
 Since Audiobus is not a Swift framework, we need to import the Audiobus header into a bridging header.  There are a few ways to create a bridging header, but the way I recommend is to go to your app's target Build Settings tab and search for "Bridging".  All of the settings will be filtered and you'll be left with one remaining "Objective-C Bridging Header" setting in which you can paste "$(SRCROOT)/SenderSynth/SenderSynth-BridgingHeader.h" so that it looks like the following screenshot.
 
-![Bridging Header](http://audiokit.io/audiobus/sender-synth/ridging-header.png)
+![Bridging Header](http://audiokit.io/audiobus/sender-synth/bridging-header.png)
 
 Then create a new file, of type "Header File", name it "SenderSynth-BridgingHeader.h" and add the import line so that it looks like:
 
