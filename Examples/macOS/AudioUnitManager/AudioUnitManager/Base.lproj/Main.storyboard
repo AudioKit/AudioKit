@@ -698,70 +698,6 @@
                                     <rect key="frame" x="2" y="2" width="122" height="157"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Da2-iJ-bBr" userLabel="fx_2">
-                                            <rect key="frame" x="27" y="83" width="80" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" preferredEdge="maxY" selectedItem="2uh-vw-27e" id="2e6-ws-0Jy">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" id="nYV-IW-rzn">
-                                                    <items>
-                                                        <menuItem title="-" state="on" id="2uh-vw-27e"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="handleEffectSelected:" target="XfG-lQ-9wD" id="dA8-DI-Q1f"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="I4s-k8-o4w" userLabel="fx_3">
-                                            <rect key="frame" x="27" y="64" width="80" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" preferredEdge="maxY" selectedItem="0qo-lr-WuB" id="Qks-4z-VPP">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" id="Zl9-iL-hs9">
-                                                    <items>
-                                                        <menuItem title="-" state="on" id="0qo-lr-WuB"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="handleEffectSelected:" target="XfG-lQ-9wD" id="1kQ-sa-eE4"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="NAz-El-NjD" userLabel="fx_4">
-                                            <rect key="frame" x="27" y="45" width="80" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" preferredEdge="maxY" selectedItem="W5J-2d-SIm" id="X2B-OA-9So">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" id="cul-iu-io8">
-                                                    <items>
-                                                        <menuItem title="-" state="on" id="W5J-2d-SIm"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="handleEffectSelected:" target="XfG-lQ-9wD" id="Xy5-8f-m8M"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="G1H-zu-aWu" userLabel="fx_5">
-                                            <rect key="frame" x="27" y="26" width="80" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" preferredEdge="maxY" selectedItem="ZZi-FJ-gbC" id="ewT-6R-kpw">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" id="xst-eC-qGM">
-                                                    <items>
-                                                        <menuItem title="-" state="on" id="ZZi-FJ-gbC"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="handleEffectSelected:" target="XfG-lQ-9wD" id="PaY-vs-Bjb"/>
-                                            </connections>
-                                        </popUpButton>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3T5-j2-v8y" userLabel="button_0">
                                             <rect key="frame" x="12" y="122" width="15" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -784,7 +720,7 @@
                                                 <action selector="handleShowAudioUnit:" target="XfG-lQ-9wD" id="dFH-KR-aUF"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="RHv-3U-KfS" userLabel="button_2">
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="RHv-3U-KfS" userLabel="button_2">
                                             <rect key="frame" x="12" y="84" width="15" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSStatusNone" imagePosition="only" alignment="center" alternateImage="NSStatusAvailable" controlSize="mini" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="y1N-1k-T3e">
@@ -817,40 +753,8 @@
                                                 <action selector="handleShowAudioUnit:" target="XfG-lQ-9wD" id="Ti6-bS-qZy"/>
                                             </connections>
                                         </button>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lUz-BY-DaG" userLabel="fx_0">
-                                            <rect key="frame" x="27" y="121" width="80" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" preferredEdge="maxY" selectedItem="etA-FD-b54" id="elI-65-7IY">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" id="FZl-Sw-V4J">
-                                                    <items>
-                                                        <menuItem title="-" state="on" id="etA-FD-b54"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="handleEffectSelected:" target="XfG-lQ-9wD" id="bIR-VD-uHJ"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Tdq-VD-U0A" userLabel="fx_1">
-                                            <rect key="frame" x="27" y="102" width="80" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" arrowPosition="noArrow" preferredEdge="maxY" selectedItem="Olm-Xc-fkb" id="nRu-b2-UfV">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" id="HcB-Vn-toy">
-                                                    <items>
-                                                        <menuItem title="-" state="on" id="Olm-Xc-fkb"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="handleEffectSelected:" target="XfG-lQ-9wD" id="qCT-gx-w7g"/>
-                                            </connections>
-                                        </popUpButton>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="4iz-DO-Pyr" userLabel="button_3">
-                                            <rect key="frame" x="12" y="64" width="15" height="15"/>
+                                            <rect key="frame" x="12" y="65" width="15" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSStatusNone" imagePosition="only" alignment="center" alternateImage="NSStatusAvailable" controlSize="mini" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="adJ-sc-H2k">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -859,6 +763,84 @@
                                             <connections>
                                                 <action selector="handleShowAudioUnit:" target="XfG-lQ-9wD" id="hLG-aM-DRa"/>
                                             </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uAD-nS-fJh" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
+                                            <rect key="frame" x="35" y="121" width="71" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title=" ▼ Insert 1" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aDO-z6-G6D">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                    <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="4fu-Sp-3M2" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
+                                            <rect key="frame" x="35" y="102" width="71" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="▼ Insert 2" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="A5y-9d-3lL">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                    <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="ujE-5S-hVb" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
+                                            <rect key="frame" x="35" y="83" width="71" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="▼ Insert 3" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ulf-mL-eao">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                    <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="xk2-kL-2my" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
+                                            <rect key="frame" x="35" y="64" width="71" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="▼ Insert 4" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Shi-en-9aQ">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                    <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="mvy-Rg-0gk" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
+                                            <rect key="frame" x="35" y="45" width="71" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="▼ Insert 5" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vfo-vb-ijx">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                    <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="MAX-0k-Evf" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
+                                            <rect key="frame" x="35" y="26" width="71" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="▼ Insert 6" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B0M-dt-isr">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                    <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </button>
                                     </subviews>
                                 </view>

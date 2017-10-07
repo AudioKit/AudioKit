@@ -10,7 +10,7 @@ import AVFoundation
 
 /// Creates a simple list of parameters linked to sliders
 class AudioUnitGenericView: NSView {
-
+    open var name: String = ""
     open var preferredHeight: CGFloat = 400
 
     override var isFlipped: Bool {
@@ -40,6 +40,14 @@ class AudioUnitGenericView: NSView {
     convenience init(au: AVAudioUnit) {
         self.init()
 
+        if let manname = au.auAudioUnit.manufacturerName {
+            name = manname
+        }
+        
+        if let auname = au.auAudioUnit.audioUnitName {
+            name += ": \(auname)"
+        }
+        
         frame.size = NSSize(width: 380, height: 400)
 
         let nameField = NSTextField()
@@ -50,7 +58,7 @@ class AudioUnitGenericView: NSView {
         nameField.font = NSFont.boldSystemFont(ofSize: 12)
         nameField.textColor = NSColor.white
         nameField.backgroundColor = NSColor.white.withAlphaComponent(0)
-        nameField.stringValue = "\(au.manufacturerName): \(au.name)"
+        nameField.stringValue = name
         nameField.frame = NSRect(x: 0, y: 4, width: 400, height: 20)
         addSubview(nameField)
 
