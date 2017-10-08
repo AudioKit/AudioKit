@@ -39,7 +39,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-        
+
     }
 
     override func viewDidAppear() {
@@ -48,10 +48,10 @@ class ViewController: NSViewController {
     @objc func handleApplicationInit() {
         view.window?.delegate = self
     }
-    
+
     func initialize() {
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.handleApplicationInit), name: Notification.Name("AudioUnitManager.handleApplicationInit"), object: nil)
-        
+
         fm = AKFMOscillator()
         mixer = AKMixer()
         let mainOutput = AKMixer()
@@ -159,7 +159,6 @@ class ViewController: NSViewController {
 
     @IBAction func handlePlayButton(_ sender: Any) {
         guard let player = player else { return }
-        
 
         if fm != nil && fm!.isStarted {
             fmButton!.state = .off
@@ -194,7 +193,7 @@ class ViewController: NSViewController {
         if !AudioKit.engine.isRunning {
             AudioKit.start()
         }
-        
+
         if fm != nil && fm!.isStarted {
             fmButton!.state = .off
             fm!.stop()
@@ -282,7 +281,7 @@ class ViewController: NSViewController {
         if fmTimer != nil && fmTimer!.isValid {
             fmTimer!.invalidate()
         }
-        
+
         if !AudioKit.engine.isRunning {
             AudioKit.start()
         }
@@ -386,9 +385,9 @@ extension ViewController: AKMIDIListener {
 /// Handle Window Events
 extension ViewController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-        
+
         Swift.print("windowWillClose: \(notification)")
-        
+
         if let w = notification.object as? NSWindow {
             if w == view.window {
                 internalManager?.reset()

@@ -66,7 +66,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
             volume = 0
         }
     }
-  
+
     /// Detach
     @objc open override func detach() {
       super.detach()
@@ -91,11 +91,11 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     @objc open func connect(input: AKNode?, bus: Int) {
       input?.connect(to: self, bus: bus)
     }
-  
+
     // It is not possible to use @objc on AKOutput extension, so [connectWithInput:]
     /// Connect for Objectivec access
     @objc open func connect(input: AKNode?) {
       input?.connect(to: self, bus: nextInput.bus)
     }
-  
+
 }
