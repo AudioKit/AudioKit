@@ -34,7 +34,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     internal var bufferSize: UInt32 = 1_024
 
     /// The node whose output to graph
-    open var node: AKNode? {
+    @objc open var node: AKNode? {
         willSet {
             node?.avAudioNode.removeTap(onBus: 0)
         }
@@ -53,7 +53,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupNode(AudioKit.output)
+        setupNode(nil)
     }
 
     /// Initialize the plot with the output from a given node and optional plot size
