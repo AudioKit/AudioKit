@@ -452,7 +452,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         self.startTime = startTime
         scheduledAVTime = avTime
     }
-    
+
     /// return the peak time in the currently loaded buffer
     open func getPeakTime() -> Double {
         guard let buffer = audioFileBuffer else { return 0 }
