@@ -37,7 +37,7 @@ extension AKAudioFile {
 
         return try AKAudioFile(forReading: silentFile.url)
     }
-    
+
     /// Returns the time of the peak of the buffer
     /// - Parameters:
     ///   - pcmBuffer: A valid AVAudioPCMBuffer
@@ -45,27 +45,27 @@ extension AKAudioFile {
     static public func findPeak( pcmBuffer: AVAudioPCMBuffer ) -> Double {
         guard pcmBuffer.frameLength > 0 else { return 0 }
         guard let floatData = pcmBuffer.floatChannelData else { return 0 }
-        
+
         var framePosition = 0
         var position = 0
-        var lastPeak: Float = -10000.0
+        var lastPeak: Float = -10_000.0
         let frameLength = 512
         let channelCount = Int(pcmBuffer.format.channelCount)
-        
+
         while true {
             if position + frameLength >= pcmBuffer.frameLength {
                 break
             }
             for channel in 0 ..< channelCount {
                 var block = Array(repeating: Float(0), count: frameLength)
-                
+
                 // fill the block with frameLength samples
                 for i in 0 ..< block.count {
                     block[i] = floatData[channel][i + position]
                 }
                 // scan the block
                 let peak = AKAudioFile.getPeak(from: block)
-                
+
                 if peak > lastPeak {
                     framePosition = position
                     lastPeak = peak
@@ -73,20 +73,20 @@ extension AKAudioFile {
                 position += block.count
             }
         }
-        
+
         let time = Double(framePosition / pcmBuffer.format.sampleRate)
         return time
     }
-    
+
     /// return the highest level in the given collection of floats
     static private func getPeak(from buffer: [Float]) -> Float {
         // create variable with very small value to hold the peak value
-        var peak: Float = -10000.0
-        
+        var peak: Float = -10_000.0
+
         for i in 0 ..< buffer.count {
             // store the absolute value of the sample
             let absSample = abs(buffer[i])
-            
+
             if absSample > peak {
                 peak = absSample
             }

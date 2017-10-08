@@ -9,12 +9,16 @@
 #import "ViewController.h"
 
 @import AudioKit;
+@import AudioKitUI;
 
 @interface ViewController () {
     AKOscillator *oscillator1;
     AKOscillator *oscillator2;
     AKMixer *mixer;
 }
+
+@property (weak, nonatomic) IBOutlet AKNodeOutputPlot *nodeOutputPlot;
+
 @end
 
 @implementation ViewController
@@ -26,10 +30,16 @@
     oscillator2 = [[AKOscillator alloc] init];
     mixer = [[AKMixer alloc] init: @[oscillator1, oscillator2]];
     mixer.volume = 0.5;
+
     AudioKit.output = mixer;
     [AudioKit start];
-    
+
     return self;
+}
+
+- (void) viewDidLoad {
+    [super viewDidLoad];
+    self.nodeOutputPlot.node = mixer;
 }
 
 - (IBAction)toggleSound:(UIButton *)sender {

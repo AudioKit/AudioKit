@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        
+
         NotificationCenter.default.post(name: Notification.Name("AudioUnitManager.handleApplicationInit"), object: nil)
     }
 
