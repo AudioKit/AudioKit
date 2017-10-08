@@ -1,51 +1,41 @@
 //
 //  MenuButton.swift
-//  ADD
 //
 //  Created by Ryan Francesconi on 8/3/17.
-//  Copyright © 2017 Elephant Sound Design. All rights reserved.
+//  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
 import Cocoa
 
+/// A custom popup button that you can fill with submenus
 @IBDesignable
 class MenuButton: NSButton {
     @IBInspectable var bgColor: NSColor?
     @IBInspectable var textColor: NSColor?
 
-    override func awakeFromNib()
-    {
-        if let textColor = textColor, let font = font
-        {
+    override func awakeFromNib() {
+        if let textColor = textColor, let font = font {
             let style = NSMutableParagraphStyle()
             style.alignment = .center
             
-            let attributes: [NSAttributedStringKey : Any] =
-                [
+            let attributes: [NSAttributedStringKey : Any] = [
                     NSAttributedStringKey.foregroundColor: textColor,
                     NSAttributedStringKey.font: font,
-                    NSAttributedStringKey.paragraphStyle: style
-                    ]
+                    NSAttributedStringKey.paragraphStyle: style]
             
             let attributedTitle = NSAttributedString(string: title, attributes: attributes)
             self.attributedTitle = attributedTitle
-            
             initialize()
         }
     }
     
-    override func draw(_ dirtyRect: NSRect)
-    {
+    override func draw(_ dirtyRect: NSRect) {
         if let bgColor = bgColor {
             bgColor.setFill()
-//            NSRectFill(dirtyRect)
-            
             let rect = NSMakeRect(0, 0, bounds.width, bounds.height)
             let rectanglePath = NSBezierPath( roundedRect: rect, xRadius: 3, yRadius: 3)
             rectanglePath.fill()
-            
         }
-        
         super.draw(dirtyRect)
     }
     
@@ -62,19 +52,17 @@ class MenuButton: NSButton {
     private func initialize() {
         if let cell = self.cell as? NSButtonCell {
             cell.isBordered = false //The background color is used only when drawing borderless buttons.
-            //cell.backgroundColor = bgColor //NSColor.gray.withAlphaComponent(0.5)
         }
     }
     
     override func rightMouseDown(with event: NSEvent) {
-        // kill this
+        // kill this so the menu doesn't show at this down location
     }
     
     override func mouseDown(with event: NSEvent) {
         guard isEnabled else { return }
         guard menu != nil else { return }
         guard superview != nil else { return }
-        //guard let window = self.window else { return }
 
         var adjustedLocation = convert(NSPoint(), to: nil)
         adjustedLocation.y -= (self.frame.size.height + 5)
@@ -91,11 +79,7 @@ class MenuButton: NSButton {
 
             menu!.autoenablesItems = false
             NSMenu.popUpContextMenu(menu!, with: newEvent, for: self)
-
-
-        }
-
-        
+        } 
     }
     
     override func mouseUp(with event: NSEvent) {
