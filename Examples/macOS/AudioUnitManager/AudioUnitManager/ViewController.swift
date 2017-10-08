@@ -26,7 +26,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
     var openPanel: NSOpenPanel?
-    var internalManager: AKAudioUnitManagerDev?
+    var internalManager: AKAudioUnitManager?
     var midiManager: AKMIDI?
     var player: AKAudioPlayer?
     var fm: AKFMOscillator?

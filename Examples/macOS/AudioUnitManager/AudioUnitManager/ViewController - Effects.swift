@@ -13,7 +13,7 @@ import AudioKit
 extension ViewController {
     
     internal func initManager() {
-        internalManager = AKAudioUnitManagerDev(inserts: 6)
+        internalManager = AKAudioUnitManager(inserts: 6)
         internalManager?.delegate = self
         
         internalManager?.requestEffects(completionHandler: { audioUnits in
