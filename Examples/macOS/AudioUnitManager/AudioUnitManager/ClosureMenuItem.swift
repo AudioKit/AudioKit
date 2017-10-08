@@ -1,0 +1,25 @@
+
+import Cocoa
+
+/**
+ *	Subclassing NSMenuItem to be able to set their actions with nice closures... Has the additional upside of settings the targets correctly
+ */
+class ClosureMenuItem: NSMenuItem {
+    
+    var actionClosure: () -> () = {}
+    
+    init(title: String, closure: @escaping () -> (), keyEquivalent: String = "") {
+        self.actionClosure = closure
+        super.init(title: title, action: #selector(self.action(_:)), keyEquivalent: keyEquivalent)
+        self.target = self
+    }
+    
+    required init(coder aDecoder: NSCoder) { // for using view from interface builder / xib
+        super.init(coder: aDecoder)
+    }
+    
+    @objc func action(_ sender: NSMenuItem) {
+        self.actionClosure()
+    }
+    
+}
