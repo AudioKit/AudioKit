@@ -108,7 +108,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
+                //AKLog("Unable to create strong reference to self")
                 return
             } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
