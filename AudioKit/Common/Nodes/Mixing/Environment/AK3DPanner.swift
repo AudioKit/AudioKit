@@ -47,10 +47,10 @@ open class AK3DPanner: AKNode, AKInput {
         super.init(avAudioNode: environmentNode, attach: true)
 
         input?.connect(to: inputMixer)
-        
+
         let monoFormat = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
         inputMixer.setOutput(to: environmentNode, bus: 0, format: monoFormat)
-       
+
     }
     public var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
