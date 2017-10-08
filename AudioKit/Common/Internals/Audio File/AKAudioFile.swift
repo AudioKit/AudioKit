@@ -213,6 +213,8 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     fileprivate lazy var internalAVAsset: AVURLAsset = {
         AVURLAsset(url: URL(fileURLWithPath: self.url.path))
     }()
+    
+    // MARK: - open vars
 
     /// Returns an AVAsset from the AKAudioFile
     open var avAsset: AVURLAsset {
@@ -267,7 +269,6 @@ extension AVAudioCommonFormat: CustomStringConvertible {
 
     }()
 
-    ///
     /// returns the peak level expressed in dB ( -> Float).
     open lazy var maxLevel: Float = {
         var maxLev: Float = 0
