@@ -219,7 +219,7 @@ open class AKAudioUnitManager: NSObject {
             self.availableEffects = self.availableEffects.sorted {
                 return $0.name < $1.name
             }
-
+            
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
                 // notify delegate
@@ -313,7 +313,6 @@ open class AKAudioUnitManager: NSObject {
         if index < 0 || index > _effectsChain.count - 1 {
             return
         }
-        
         var auFound = false
         
         for component in availableEffects {
@@ -341,20 +340,22 @@ open class AKAudioUnitManager: NSObject {
                     
                     self._effectsChain[index] = audioUnit
                     self.connectEffects()
-                    
-                    
                     self.delegate?.handleEffectAdded(at: index)
                 })
             }
         }
         
+        // if it didn't find it in the component list, see if it's an internal one
         if !auFound {
             if let avUnit = createInternalAU(name: name) {
                 self._effectsChain[index] = avUnit
                 self.connectEffects()
                 self.delegate?.handleEffectAdded(at: index)
+                return
             }
         }
+        
+        //otherwise it wasn't found
     }
     
     
@@ -379,12 +380,10 @@ open class AKAudioUnitManager: NSObject {
             avUnit = AKDynamicRangeCompressor().avAudioNode as? AVAudioUnit
         } else if name == "AKDynaRageCompressor" {
             avUnit = AKDynaRageCompressor().avAudioNode as? AVAudioUnit
-            
         } else if name == "AKAmplitudeEnvelope" {
             avUnit = AKAmplitudeEnvelope().avAudioNode as? AVAudioUnit
         } else if name == "AKTremolo" {
             avUnit = AKTremolo().avAudioNode as? AVAudioUnit
-            
         } else if name == "AKAutoWah" {
             avUnit = AKAutoWah().avAudioNode as? AVAudioUnit
         } else if name == "AKBandPassButterworthFilter" {
@@ -393,8 +392,6 @@ open class AKAudioUnitManager: NSObject {
             avUnit = AKBandRejectButterworthFilter().avAudioNode as? AVAudioUnit
         } else if name == "AKDCBlock" {
             avUnit = AKDCBlock().avAudioNode as? AVAudioUnit
-            
-            
         } else if name == "AKEqualizerFilter" {
             avUnit = AKEqualizerFilter().avAudioNode as? AVAudioUnit
         } else if name == "AKFormantFilter" {
@@ -403,7 +400,6 @@ open class AKAudioUnitManager: NSObject {
             avUnit = AKHighPassButterworthFilter().avAudioNode as? AVAudioUnit
         } else if name == "AKHighShelfParametricEqualizerFilter" {
             avUnit = AKHighShelfParametricEqualizerFilter().avAudioNode as? AVAudioUnit
-            
         } else if name == "AKKorgLowPassFilter" {
             avUnit = AKKorgLowPassFilter().avAudioNode as? AVAudioUnit
         } else if name == "AKLowPassButterworthFilter" {
@@ -420,7 +416,6 @@ open class AKAudioUnitManager: NSObject {
             avUnit = AKResonantFilter().avAudioNode as? AVAudioUnit
         } else if name == "AKRolandTB303Filter" {
             avUnit = AKRolandTB303Filter().avAudioNode as? AVAudioUnit
-            
         } else if name == "AKStringResonator" {
             avUnit = AKStringResonator().avAudioNode as? AVAudioUnit
         } else if name == "AKThreePoleLowpassFilter" {
@@ -429,25 +424,20 @@ open class AKAudioUnitManager: NSObject {
             avUnit = AKToneComplementFilter().avAudioNode as? AVAudioUnit
         } else if name == "AKToneFilter" {
             avUnit = AKToneFilter().avAudioNode as? AVAudioUnit
-            
         } else if name == "AKRhinoGuitarProcessor" {
             avUnit = AKRhinoGuitarProcessor().avAudioNode as? AVAudioUnit
         } else if name == "AKPhaser" {
             avUnit = AKPhaser().avAudioNode as? AVAudioUnit
         } else if name == "AKPitchShifter" {
             avUnit = AKPitchShifter().avAudioNode as? AVAudioUnit
-            
         } else if name == "AKChowningReverb" {
             avUnit = AKChowningReverb().avAudioNode as? AVAudioUnit
         } else if name == "AKCombFilterReverb" {
             avUnit = AKCombFilterReverb().avAudioNode as? AVAudioUnit
-            //            } else if name == "AKConvolution" {
-            //                avUnit = AKConvolution().avAudioNode as? AVAudioUnit
         } else if name == "AKCostelloReverb" {
             avUnit = AKCostelloReverb().avAudioNode as? AVAudioUnit
         } else if name == "AKFlatFrequencyResponseReverb" {
             avUnit = AKFlatFrequencyResponseReverb().avAudioNode as? AVAudioUnit
-            
         } else if name == "AKZitaReverb" {
             avUnit = AKZitaReverb().avAudioNode as? AVAudioUnit
         } else if name == "AKBooster" {
@@ -457,6 +447,10 @@ open class AKAudioUnitManager: NSObject {
         } else if name == "AKTanhDistortion" {
             avUnit = AKTanhDistortion().avAudioNode as? AVAudioUnit
         }
+        // requires an impulse response...
+        //            } else if name == "AKConvolution" {
+        //                avUnit = AKConvolution().avAudioNode as? AVAudioUnit
+        
         return avUnit
     }
     

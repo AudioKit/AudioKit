@@ -25,6 +25,38 @@ extension ViewController {
         })
     }
     
+    internal func initUI() {
+//        let colors = [NSColor(calibratedRed: 0.888, green: 0.888, blue: 0.888, alpha: 1),
+//                      NSColor(calibratedRed: 0.748, green: 0.748, blue: 0.748, alpha: 1),
+//                      NSColor(calibratedRed: 0.612, green: 0.612, blue: 0.612, alpha: 1),
+//                      NSColor(calibratedRed: 0.558, green: 0.558, blue: 0.558, alpha: 1),
+//                      NSColor(calibratedRed: 0.483, green: 0.483, blue: 0.483, alpha: 1),
+//                      NSColor(calibratedRed: 0.35, green: 0.35, blue: 0.35, alpha: 1)]
+
+        let colors = [NSColor(calibratedRed: 1, green: 0.652, blue: 0, alpha: 1),
+                      NSColor(calibratedRed: 0.32, green: 0.584, blue: 0.8, alpha: 1),
+                      NSColor(calibratedRed: 0.79, green: 0.372, blue: 0.191, alpha: 1),
+                      NSColor(calibratedRed: 0.676, green: 0.537, blue: 0.315, alpha: 1),
+                      NSColor(calibratedRed: 0.431, green: 0.701, blue: 0.407, alpha: 1),
+                      NSColor(calibratedRed: 0.59, green: 0.544, blue: 0.763, alpha: 1)]
+        
+        var counter = 0
+        
+        var buttons = effectsContainer.subviews.filter { $0 as? MenuButton != nil }
+        buttons.sort { $0.tag < $1.tag }
+        
+        for sv in buttons {
+            guard let b = sv as? MenuButton else { continue }
+            b.bgColor = colors[counter]
+            counter += 1
+            if counter > colors.count {
+                counter = 0
+            }
+        }
+    }
+    
+    ////////////////////////////
+    
     func showEffect( at auIndex: Int, state: Bool ) {
         if auIndex > internalManager!.effectsChain.count - 1 {
             AKLog("index is out of range")
@@ -32,7 +64,7 @@ extension ViewController {
         }
         
         if state {
-            // get audio unit
+            // get audio unit at the specified index
             if let au = internalManager?.effectsChain[auIndex] {
                 showAudioUnit(au, identifier: auIndex)
                 
@@ -41,7 +73,7 @@ extension ViewController {
             }
             
         } else {
-            if let w = getWindowFromIndentifier(String(auIndex)) {
+            if let w = getWindowFromIndentifier(auIndex) {
                 w.close()
             }
         }
@@ -58,7 +90,7 @@ extension ViewController {
             if let menu = getMenuFromIdentifier(identifier) {
                 menu.title = "▼ Insert \(identifier + 1)"
             }
-            if let win = getWindowFromIndentifier(String(identifier)) {
+            if let win = getWindowFromIndentifier(identifier) {
                 win.close()
             }
             internalManager!.removeEffect(at: identifier)
@@ -92,7 +124,7 @@ extension ViewController {
         
         if let pm = parentMenu {
             pm.state = .on
-            button.title = "👉 \(name)"
+            button.title = "▶︎ \(name)"
         }
         
     }
@@ -181,16 +213,14 @@ extension ViewController {
         return nil
     }
     
-    internal func getWindowFromIndentifier(_ id: String ) -> NSWindow? {
-        
+    private func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
+        let identifier = windowPrefix + String(tag)
         guard let windows = self.view.window?.childWindows else { return nil }
-        
         for w in windows {
-            if w.identifier?.rawValue == id {
+            if w.identifier?.rawValue == identifier {
                 return w
             }
         }
-        
         return nil
     }
     
@@ -210,36 +240,67 @@ extension ViewController {
     
     public func showAudioUnit(_ audioUnit: AVAudioUnit, identifier: Int ) {
         
+        // first we ask the audio unit if it has a view controller
         audioUnit.auAudioUnit.requestViewController { [weak self] viewController in
             var ui = viewController
             guard let strongSelf = self else { return }
             guard let auName = audioUnit.auAudioUnit.audioUnitName else { return }
             
             DispatchQueue.main.async {
-                if ui == nil || auName.startsWith(string: "AK") {
+                // if it doesn't - then the host's job is to create one for it
+                if ui == nil {
                     //AKLog("No ViewController for \(audioUnit.name )")
                     ui = NSViewController()
                     ui!.view = AudioUnitGenericView(au: audioUnit)
                 }
                 
-                AKLog("Audio Unit incoming frame: \(ui!.view.frame)")
+                guard ui != nil else { return }
+                let incomingFrame = ui!.view.frame
+                AKLog("Audio Unit incoming frame: \(incomingFrame)")
                 
                 guard let selfWindow = strongSelf.view.window else { return }
                 
-                let unitWindow = NSWindow(contentViewController: ui!)
+                //let unitWindow = NSWindow(contentViewController: ui!)
+                let unitWindowController = AudioUnitGenericWindow(audioUnit: audioUnit)
+                guard let unitWindow = unitWindowController.window else { return }
+
                 unitWindow.title = "\(auName)"
                 unitWindow.delegate = self
-                unitWindow.identifier = NSUserInterfaceItemIdentifier(String(identifier))
+                unitWindow.identifier = NSUserInterfaceItemIdentifier(strongSelf.windowPrefix + String(identifier))
                 
-                if ui!.view.isKind(of: AudioUnitGenericView.self) {
-                    if let gauv = ui?.view as? AudioUnitGenericView {
-                        let gauvLoc = unitWindow.frame.origin
-                        let f = NSMakeRect(gauvLoc.x, gauvLoc.y, 400, gauv.preferredHeight)
-                        unitWindow.setFrame(f, display: true)
-                    }
+                var windowColor = NSColor.darkGray
+                if let buttonColor = strongSelf.getMenuFromIdentifier(identifier)?.bgColor {
+                    windowColor = buttonColor
                 }
                 
-                if let w = strongSelf.getWindowFromIndentifier(String(identifier)) {
+                unitWindowController.scrollView.documentView = ui!.view
+                NSLayoutConstraint.activateConstraintsEqualToSuperview(child: ui!.view)
+                unitWindowController.toolbar?.backgroundColor = windowColor.withAlphaComponent(0.9)
+                
+                if let gauv = ui?.view as? AudioUnitGenericView {
+                    gauv.backgroundColor = windowColor
+                }
+                
+                let toolbarHeight: CGFloat = 20
+
+                let f = NSMakeRect(unitWindow.frame.origin.x,
+                                   unitWindow.frame.origin.y,
+                                   ui!.view.frame.width,
+                                   ui!.view.frame.height + toolbarHeight + 20)
+                unitWindow.setFrame(f, display: true)
+                
+                let uiFrame = NSMakeRect(0,
+                                   0,
+                                   incomingFrame.width,
+                                   incomingFrame.height + toolbarHeight)
+                ui!.view.frame = uiFrame
+
+                
+//                    } else {
+//                       unitWindow.contentViewController = ui!
+//                    }
+                
+                if let w = strongSelf.getWindowFromIndentifier(identifier) {
                     unitWindow.setFrameOrigin( w.frame.origin )
                     w.close()
                 }
@@ -247,7 +308,7 @@ extension ViewController {
                 selfWindow.addChildWindow(unitWindow, ordered: NSWindow.OrderingMode.above)
                 unitWindow.setFrameOrigin(NSPoint(x:selfWindow.frame.origin.x, y:selfWindow.frame.origin.y - unitWindow.frame.height))
                 
-                if let button = strongSelf.getEffectsButtonFromIdentifier( identifier ) {
+                if let button = strongSelf.getEffectsButtonFromIdentifier(identifier) {
                     button.state = .on
                 }
                 

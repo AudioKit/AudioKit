@@ -14,6 +14,7 @@ import AudioKit
 class ViewController: NSViewController {
 
     let akInternals = "AudioKit ★"
+    let windowPrefix = "FX"
     
     @IBOutlet weak var effectsContainer: NSView!
     @IBOutlet weak var playButton: NSButton!
@@ -55,12 +56,11 @@ class ViewController: NSViewController {
         mixer = AKMixer()
         let mainOutput = AKMixer()
         mixer?.connect(to: mainOutput)
-        
         AudioKit.output = mainOutput
 
-        
         initManager()
         initMIDI()
+        initUI()
         
         AudioKit.start()
     }
@@ -68,7 +68,6 @@ class ViewController: NSViewController {
     private func initMIDI() {
         midiManager = AKMIDI()
         midiManager?.addListener(self)
-
         initMIDIDevices()
     }
 
@@ -86,8 +85,6 @@ class ViewController: NSViewController {
             }
         }
     }
-
-  
 
     @IBAction func chooseAudio(_ sender: Any) {
 
@@ -399,7 +396,8 @@ extension ViewController: NSWindowDelegate {
                 exit(0)
             }
             
-            if let wid = w.identifier?.rawValue {
+            if var wid = w.identifier?.rawValue {
+                wid = wid.replacingOccurrences(of: windowPrefix, with: "")
                 if let b = getEffectsButtonFromIdentifier(wid.toInt()) {
                     b.state = .off
                     return
