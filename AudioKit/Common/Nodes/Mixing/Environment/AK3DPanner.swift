@@ -46,18 +46,11 @@ open class AK3DPanner: AKNode, AKInput {
         self.z = z
         super.init(avAudioNode: environmentNode, attach: true)
 
-        guard let inputNode = input else {
-            AKLog("Unable to create inputNode")
-            return
-        }
         input?.connect(to: inputMixer)
-        var inputsConnectionPoints = inputNode.connectionPoints
-        inputsConnectionPoints.append(AVAudioConnectionPoint(node: inputMixer.avAudioNode,
-                                                             bus: inputMixer.nextInput.bus))
 
-        let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
+        let monoFormat = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: 1)
+        inputMixer.setOutput(to: environmentNode, bus: 0, format: monoFormat)
 
-        AudioKit.engine.connect(inputNode.avAudioNode, to: inputsConnectionPoints, fromBus: 0, format: format)
     }
     public var inputNode: AVAudioNode {
         return inputMixer.avAudioNode
