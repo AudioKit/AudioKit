@@ -213,7 +213,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     fileprivate lazy var internalAVAsset: AVURLAsset = {
         AVURLAsset(url: URL(fileURLWithPath: self.url.path))
     }()
-    
+
     // MARK: - open vars
 
     /// Returns an AVAsset from the AKAudioFile

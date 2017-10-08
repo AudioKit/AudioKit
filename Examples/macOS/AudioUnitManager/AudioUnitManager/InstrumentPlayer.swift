@@ -10,9 +10,9 @@ public class InstrumentPlayer: NSObject {
     private let playingQueue = DispatchQueue(label: "InstrumentPlayer.playingQueue")
 
     private var noteBlock: AUScheduleMIDIEventBlock
-    
+
     private var _isPlaying: Bool = false
-    
+
     public var isPlaying: Bool {
         get {
             var result = false
@@ -21,7 +21,7 @@ public class InstrumentPlayer: NSObject {
             }
             return result
         }
-        
+
         set {
             playingQueue.sync {
                 self._isPlaying = newValue

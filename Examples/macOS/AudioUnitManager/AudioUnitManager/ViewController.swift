@@ -36,7 +36,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-        
+
     }
 
     override func viewDidAppear() {
@@ -45,15 +45,15 @@ class ViewController: NSViewController {
     @objc func handleApplicationInit() {
         view.window?.delegate = self
     }
-    
+
     func initialize() {
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.handleApplicationInit), name: Notification.Name("AudioUnitManager.handleApplicationInit"), object: nil)
-        
+
         fm = AKFMOscillator()
         mixer = AKMixer()
         let mainOutput = AKMixer()
         mixer?.connect(to: mainOutput)
-        
+
         AudioKit.output = mainOutput
 
         auManager = AKAudioUnitManager(inserts: 6)
@@ -68,7 +68,7 @@ class ViewController: NSViewController {
         })
 
         initMIDI()
-        
+
         AudioKit.start()
     }
 
@@ -281,7 +281,6 @@ class ViewController: NSViewController {
 
     @IBAction func handlePlayButton(_ sender: Any) {
         guard let player = player else { return }
-        
 
         if fm != nil && fm!.isStarted {
             fmButton!.state = .off
@@ -311,7 +310,7 @@ class ViewController: NSViewController {
         if !AudioKit.engine.isRunning {
             AudioKit.start()
         }
-        
+
         if fm != nil && fm!.isStarted {
             fmButton!.state = .off
             fm!.stop()
@@ -332,17 +331,17 @@ class ViewController: NSViewController {
 
     @IBAction func handleFMButton(_ sender: NSButton) {
         guard let fm = fm else { return }
-        
+
 //        if AudioKit.engine.isRunning {
 //           AudioKit.stop()
 //        }
 
         //auManager?.reset()
-        
+
 //        if !AudioKit.engine.isRunning {
 //            AudioKit.start()
 //        }
-        
+
         if player != nil && player!.isStarted {
             handlePlayButton(playButton)
         }
@@ -411,7 +410,7 @@ class ViewController: NSViewController {
         if fmTimer != nil && fmTimer!.isValid {
             fmTimer!.invalidate()
         }
-        
+
         if !AudioKit.engine.isRunning {
             AudioKit.start()
         }
@@ -477,7 +476,6 @@ class ViewController: NSViewController {
 
                 guard let selfWindow = strongSelf.view.window else { return }
 
-            
                 let unitWindow = NSWindow(contentViewController: ui!)
                 unitWindow.title = "\(audioUnit.name)"
                 unitWindow.delegate = self
@@ -503,7 +501,7 @@ class ViewController: NSViewController {
                 if let button = strongSelf.getEffectsButtonFromIdentifier( identifier ) {
                     button.state = .on
                 }
-                                
+
             } //dispatch
         }
     }
@@ -585,16 +583,16 @@ extension ViewController:  AKAudioUnitManagerDelegate {
 /// Handle Window Events
 extension ViewController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-        
+
         Swift.print("windowWillClose: \(notification)")
-        
+
         if let w = notification.object as? NSWindow {
             if w == view.window {
                 auManager?.reset()
                 AudioKit.stop()
                 exit(0)
             }
-            
+
             if let wid = w.identifier?.rawValue {
                 if let b = getEffectsButtonFromIdentifier(wid.toInt()) {
                     b.state = .off
