@@ -5,7 +5,6 @@
 //  Created by Ryan Francesconi, revision history on Github.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
-
 import AVFoundation
 
 /// Audio Unit Manager
@@ -28,9 +27,7 @@ open class AKAudioUnitManager: NSObject {
                                                    "AKRhinoGuitarProcessor", "AKPhaser" , "AKPitchShifter",
                                                    "AKChowningReverb", "AKCombFilterReverb", "AKCostelloReverb",
                                                    "AKFlatFrequencyResponseReverb", "AKZitaReverb", "AKBooster", "AKBooster2",
-                                                   "AKTanhDistortion"]
-    
-    //"AKRingModulator",
+                                                   "AKTanhDistortion"]    //"AKRingModulator",
     
     /// Delegate that will be sent notifications
     open weak var delegate: AKAudioUnitManagerDelegate?
