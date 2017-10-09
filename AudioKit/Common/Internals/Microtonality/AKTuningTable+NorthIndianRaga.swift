@@ -34,7 +34,7 @@ extension AKTuningTable {
                                       9 / 5,
                                       15 / 8,
                                       243 / 128]
-        tuningTable(fromFrequencies: masterSet)
+        _ = tuningTable(fromFrequencies: masterSet)
         return masterSet.count
     }
 
