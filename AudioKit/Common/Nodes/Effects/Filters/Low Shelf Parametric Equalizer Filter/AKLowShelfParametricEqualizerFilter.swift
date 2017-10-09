@@ -8,7 +8,7 @@
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent {
+open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKLowShelfParametricEqualizerFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
@@ -23,14 +23,14 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     fileprivate var qParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Corner frequency.
-    open dynamic var cornerFrequency: Double = 1_000 {
+    @objc open dynamic var cornerFrequency: Double = 1_000 {
         willSet {
             if cornerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         }
     }
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    open dynamic var gain: Double = 1.0 {
+    @objc open dynamic var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         }
     }
     /// Q of the filter. sqrt(0.5) is no resonance.
-    open dynamic var q: Double = 0.707 {
+    @objc open dynamic var q: Double = 0.707 {
         willSet {
             if q != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -73,7 +73,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -89,7 +89,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         cornerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
@@ -106,10 +106,11 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -119,7 +120,10 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -134,12 +138,12 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

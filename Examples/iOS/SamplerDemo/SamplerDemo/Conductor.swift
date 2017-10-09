@@ -72,7 +72,7 @@ class Conductor {
 
     func adjustFilterFrequency(_ frequency: Float) {
         let value = Double(frequency)
-        filter?.cutoffFrequency = value.denormalized(minimum: 30, maximum: 20_000, taper: 3)
+        filter?.cutoffFrequency = value.denormalized(to: 30 ... 20_000, taper: 3)
     }
 
     func playSequence() {

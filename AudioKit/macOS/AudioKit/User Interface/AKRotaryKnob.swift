@@ -11,7 +11,7 @@ public enum AKRotaryKnobStyle {
     case polygon(numberOfSides: Int, curvature: Double)
 }
 
-@IBDesignable open class AKRotaryKnob: AKView {
+@IBDesignable open class AKRotaryKnob: AKPropertyControl {
 
     // Default margin size
     static var marginSize: CGFloat = 30.0
@@ -31,31 +31,6 @@ public enum AKRotaryKnobStyle {
     // Maximum curvature value for polygon style knob
     static var maximumPolygonCurvature = 1.0
 
-    /// Current value of the slider
-    @IBInspectable open var value: Double = 0 {
-        didSet {
-            needsDisplay = true
-        }
-    }
-
-    /// Minimum, left-most value
-    @IBInspectable open var minimum: Double = 0
-
-    /// Maximum, right-most value
-    @IBInspectable open var maximum: Double = 1
-
-    // Should the knob uses discrete values
-    @IBInspectable open var usesDiscreteValues: Bool = false
-
-    // The step for each discrete value
-    @IBInspectable open var discreteValueStep: Double = 0.1
-
-    /// Text shown on the knob
-    @IBInspectable open var property: String = "Property"
-
-    /// Format for the number shown on the knob
-    @IBInspectable open var format: String = "%0.3f"
-
     /// Background color
     @IBInspectable open var bgColor: NSColor?
 
@@ -70,9 +45,6 @@ public enum AKRotaryKnobStyle {
 
     /// Text color
     @IBInspectable open var textColor: NSColor?
-
-    /// Font size
-    @IBInspectable open var fontSize: CGFloat = 20
 
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
@@ -89,45 +61,29 @@ public enum AKRotaryKnobStyle {
     // Number of indicator points
     @IBInspectable open var numberOfIndicatorPoints: Int = 11
 
-    // Current dragging state, used to show/hide the value bubble
-    private var isDragging: Bool = false
-
     // Calculate knob center
     private var knobCenter: CGPoint = CGPoint.zero
 
-    /// Function to call when value changes
-    open var callback: ((Double) -> Void)?
-    fileprivate var lastTouch = CGPoint.zero
-
     /// Initialize the slider
     public init(property: String,
+                value: Double = 0.0,
+                range: ClosedRange<Double> = 0 ... 1,
+                taper: Double = 1,
                 format: String = "%0.3f",
-                value: Double,
-                minimum: Double = 0,
-                maximum: Double = 1,
-                color: AKColor = AKColor.red,
+                color: AKColor = AKStylist.sharedInstance.nextColor,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
-                callback: @escaping (_ x: Double) -> Void) {
-        self.value = value
-        self.minimum = minimum
-        self.maximum = maximum
-        self.property = property
-        self.format = format
+                callback: @escaping (_ x: Double) -> Void = { _ in }) {
+
         self.knobColor = color
 
-        self.callback = callback
-        super.init(frame: frame)
+        super.init(property: property,
+                   value: value,
+                   range: range,
+                   taper: taper,
+                   format: format,
+                   frame: frame,
+                   callback: callback)
 
-        self.wantsLayer = true
-
-        needsDisplay = true
-    }
-
-    /// Initialization with no details
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-
-        self.wantsLayer = true
     }
 
     /// Initialization within Interface Builder
@@ -135,20 +91,6 @@ public enum AKRotaryKnobStyle {
         super.init(coder: coder)
 
         self.wantsLayer = true
-    }
-
-    /// Actions to perform to make sure the view is renderable in Interface Builder
-    override open func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-
-        self.wantsLayer = true
-    }
-
-    /// Give the slider a random value
-    open func randomize() -> Double {
-        value = random(minimum, maximum)
-        needsDisplay = true
-        return value
     }
 
     func angleBetween(pointA: CGPoint, pointB: CGPoint) -> Double {
@@ -161,24 +103,7 @@ public enum AKRotaryKnobStyle {
 
     override open func mouseDown(with theEvent: NSEvent) {
         isDragging = true
-        let loc = convert(theEvent.locationInWindow, from: nil)
-        lastTouch = loc
-        let angle = angleBetween(pointA: knobCenter, pointB: loc)
-        if angle < 0.0 {
-            value = (maximum - minimum) * (0.5 + 0.5 * (180.0 + angle) / (105.0))
-        } else {
-            value = (maximum - minimum) * ((angle - 75.0) / 110.0) * 0.5
-        }
-        if usesDiscreteValues && discreteValueStep > 0.0 {
-            let step = Int(value / discreteValueStep)
-            let lowerValue = step * discreteValueStep
-            let higherValue = (step + 1) * (discreteValueStep)
-            value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
-        }
-        if value > maximum { value = maximum }
-        if value < minimum { value = minimum }
-        needsDisplay = true
-        callback?(value)
+        mouseDragged(with: theEvent)
     }
 
     override open func mouseDragged(with theEvent: NSEvent) {
@@ -186,19 +111,12 @@ public enum AKRotaryKnobStyle {
         lastTouch = loc
         let angle = angleBetween(pointA: knobCenter, pointB: loc)
         if angle < 0.0 {
-            value = (maximum - minimum) * (0.5 + 0.5 * (180.0 + angle) / 105.0)
+            val = (0.5 + 0.5 * (180.0 + angle) / 105.0)
         } else {
-            value = (maximum - minimum) * ((angle - 75.0) / 110.0) * 0.5
+            val = ((angle - 75.0) / 110.0) * 0.5
         }
-        if usesDiscreteValues && discreteValueStep > 0.0 {
-            let step = Int(value / discreteValueStep)
-            let lowerValue = step * discreteValueStep
-            let higherValue = (step + 1) * (discreteValueStep)
-            value = abs(value - lowerValue) < abs(higherValue - value) ? lowerValue : higherValue
-        }
-        value = (minimum ... maximum).clamp(value)
-        needsDisplay = true
-        callback?(value)
+        value = val.denormalized(to: range, taper: taper)
+        callback(value)
     }
 
     open override func mouseUp(with theEvent: NSEvent) {
@@ -234,22 +152,18 @@ public enum AKRotaryKnobStyle {
     }
 
     override open func draw(_ rect: NSRect) {
-        drawKnob(currentValue: CGFloat(value),
-                 minimum: minimum,
-                 maximum: maximum,
+        drawKnob(currentValue: CGFloat(val),
                  propertyName: property,
                  currentValueText: String(format: format, value))
     }
 
     func drawKnob(currentValue: CGFloat = 0,
                   initialValue: CGFloat = 0,
-                  minimum: Double = 0,
-                  maximum: Double = 1,
                   propertyName: String = "Property Name",
                   currentValueText: String = "0.0") {
 
         //// General Declarations
-        let context = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
+        let context = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
 
         let width = self.frame.width
         let height = self.frame.height
@@ -260,15 +174,14 @@ public enum AKRotaryKnobStyle {
 
         let textColor = textColorForTheme()
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: fontSize),
-                                       NSForegroundColorAttributeName: textColor,
-                                       NSParagraphStyleAttributeName: nameLabelStyle] as [String : Any]
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: fontSize),
+                                       NSAttributedStringKey.foregroundColor: textColor,
+                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: nameLabelFontAttributes,
-            context: nil).size.height
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
+            attributes: nameLabelFontAttributes).size.height
         context.saveGState()
 
         // Draw name label
@@ -288,7 +201,7 @@ public enum AKRotaryKnobStyle {
                              y: AKRotaryKnob.marginSize + knobDiameter / 2.0)
 
         // Setup indicator
-        let valuePercent = (value - minimum) / (maximum - minimum)
+        let valuePercent = val
         let angle = Double.pi * ( 0.75 + valuePercent * 1.5)
         let indicatorStart = CGPoint(x: (knobDiameter / 5.0) * CGFloat(cos(angle)),
                                      y: nameLabelTextHeight - (knobDiameter / 5.0) * CGFloat(sin(angle)))
@@ -361,16 +274,15 @@ public enum AKRotaryKnobStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSForegroundColorAttributeName: textColor,
-                                            NSParagraphStyleAttributeName: valueLabelStyle] as [String : Any]
+            let valueLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: bubbleFontSize),
+                                            NSAttributedStringKey.foregroundColor: textColor,
+                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
-                options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                attributes: valueLabelFontAttributes,
-                context: nil).size
+                options: NSString.DrawingOptions.usesLineFragmentOrigin,
+                attributes: valueLabelFontAttributes).size
 
             let bubbleSize = CGSize(width: valueLabelTextSize.width + AKRotaryKnob.bubblePadding.width,
                                     height: valueLabelTextSize.height + AKRotaryKnob.bubblePadding.height)

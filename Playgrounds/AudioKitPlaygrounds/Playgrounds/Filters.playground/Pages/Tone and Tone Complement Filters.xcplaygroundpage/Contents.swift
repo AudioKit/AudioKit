@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -16,33 +16,37 @@ AudioKit.start()
 
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    override func setup() {
+class LiveView: AKLiveViewController {
+
+    override func viewDidLoad() {
         addTitle("Tone Filters")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addLabel("Tone Filter: ")
+        addView(AKButton(title: "Stop Tone Filter") { button in
+            toneFilter.isStarted ? toneFilter.stop() : toneFilter.play()
+            button.title = toneFilter.isStarted ? "Stop Tone Filter" : "Start Tone Filter"
+        })
 
-        addSubview(AKBypassButton(node: toneFilter))
-
-        addSubview(AKPropertySlider(property: "Half Power Point",
-                                    value: toneFilter.halfPowerPoint,
-                                    range: 0 ... 10_000,
-                                    taper: 5
+        addView(AKSlider(property: "Half Power Point",
+                         value: toneFilter.halfPowerPoint,
+                         range: 0 ... 10_000,
+                         taper: 5
         ) { sliderValue in
             toneFilter.halfPowerPoint = sliderValue
         })
 
-        addLabel("Tone Complement Filter: ")
+        addView(AKButton(title: "Stop Tone Complement") { button in
+            toneComplement.isStarted ? toneComplement.stop() : toneComplement.play()
+            button.title = toneComplement.isStarted ? "Stop Tone Complement" : "Start Tone Complement"
+        })
 
-        addSubview(AKBypassButton(node: toneComplement))
-
-        addSubview(AKPropertySlider(property: "Half Power Point",
-                                    value: toneComplement.halfPowerPoint,
-                                    range: 0 ... 10_000,
-                                    taper: 5
+        addView(AKSlider(property: "Half Power Point",
+                         value: toneComplement.halfPowerPoint,
+                         range: 0 ... 10_000,
+                         taper: 5
         ) { sliderValue in
             toneComplement.halfPowerPoint = sliderValue
         })
@@ -51,4 +55,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

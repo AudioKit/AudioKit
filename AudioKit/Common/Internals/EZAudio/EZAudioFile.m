@@ -624,41 +624,38 @@ typedef struct
     size_t length = NumBytesToNumAudioFileMarkers( propSize );
     
     // allocate enough space for the markers.
-    AudioFileMarkerList markers[ length ];
+    AudioFileMarkerList markerList[ length ];
     
-    if ( length > 0 ) {
+    if (length > 0) {
         // pull marker list
         [EZAudioUtilities checkResult:AudioFileGetProperty( self.audioFileID,
                                                            kAudioFilePropertyMarkerList,
                                                            &propSize,
-                                                           &markers)
+                                                           &markerList)
                             operation:"Failed to get the markers list"];
         
     } else {
         return NULL;
     }
-    
     //NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
     
     // the native C structs aren't so friendly with Swift, so we'll load up an array instead
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:markers->mNumberMarkers];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:markerList->mNumberMarkers];
     
     int i;
-    for (i=0; i < markers->mNumberMarkers; i++) {
+    for (i=0; i < markerList->mNumberMarkers; i++) {
         EZAudioFileMarker *afm = [[EZAudioFileMarker alloc] init];
         
-        afm.framePosition = [[NSNumber alloc] initWithDouble:(markers->mMarkers[i].mFramePosition)];
-        afm.markerID = [[NSNumber alloc] initWithInt:(markers->mMarkers[i].mMarkerID)];
-        afm.type = [[NSNumber alloc] initWithInt:(markers->mMarkers[i].mType)];
-        afm.name = (__bridge NSString *)(markers->mMarkers[i].mName);
+        afm.framePosition = [[NSNumber alloc] initWithDouble:(markerList->mMarkers[i].mFramePosition)];
+        afm.markerID = [[NSNumber alloc] initWithInt:(markerList->mMarkers[i].mMarkerID)];
+        afm.type = [[NSNumber alloc] initWithInt:(markerList->mMarkers[i].mType)];
+        afm.name = (__bridge NSString *)(markerList->mMarkers[i].mName);
         
         //NSLog(@"%@\n", afm.name );
-        
         [array addObject:afm];
     }
     // cast to an immutable one
     NSArray *nmArray = [array copy];
-    
     return nmArray;
 }
 
@@ -813,7 +810,7 @@ typedef struct
                                &editedMarkerList);
     
     if ( err != noErr ) {
-        NSLog(@"AudioFileSetProperty failed err: %d\n", err );
+        NSLog(@"AudioFileSetProperty failed err: %d\n", (int)err );
     }
     
 }

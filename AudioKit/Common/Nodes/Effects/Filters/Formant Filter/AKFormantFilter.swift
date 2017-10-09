@@ -10,7 +10,7 @@
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
+open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
@@ -24,14 +24,14 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var yParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// x
-    open dynamic var x: Double = 0 {
+    @objc open dynamic var x: Double = 0 {
         willSet {
             if x != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -45,7 +45,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// y
-    open dynamic var y: Double = 0 {
+    @objc open dynamic var y: Double = 0 {
         willSet {
             if y != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -60,7 +60,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -70,11 +70,11 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - x:
-    ///   - y:
+    ///   - x: X Value
+    ///   - y: Y Value
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         x: Double = 0,
         y: Double = 0) {
 
@@ -89,10 +89,11 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -101,7 +102,10 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -115,12 +119,12 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

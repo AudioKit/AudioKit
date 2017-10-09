@@ -11,13 +11,8 @@
 #import "AKBankDSPKernel.hpp"
 
 enum {
-    phaseDistortionAddress = 0,
-    attackDurationAddress = 1,
-    decayDurationAddress = 2,
-    sustainLevelAddress = 3,
-    releaseDurationAddress = 4,
-    detuningOffsetAddress = 5,
-    detuningMultiplierAddress = 6
+    standardBankEnumElements(),
+    phaseDistortionAddress = numberOfBankEnumElements
 };
 
 class AKPhaseDistortionOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
@@ -51,10 +46,10 @@ public:
             
             sp_pdhalf_init(kernel->sp, pdhalf);
             sp_phasor_init(kernel->sp, phs, 0);
-
+            
             phs->freq = 0;
         }
-
+        
         
         void clear() {
             stage = stageOff;
@@ -71,7 +66,7 @@ public:
             //prev = next = nullptr; Had to remove due to a click, potentially bad
             
             --kernel->playingNotesCount;
-
+            
             sp_pdhalf_destroy(&pdhalf);
             sp_tabread_destroy(&tab);
             sp_phasor_destroy(&phs);
@@ -109,27 +104,32 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = phs->freq;
-            phs->freq *= kernel->detuningMultiplier;
-            phs->freq += kernel->detuningOffset;
+            phs->freq *= powf(2, kernel->pitchBend / 12.0);
             phs->freq = clamp(phs->freq, 0.0f, 22050.0f);
+            float bentFrequency = phs->freq;
+            
             pdhalf->amount = kernel->phaseDistortion;
-
+            
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
-
+            
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float temp = 0;
                 float pd = 0;
                 float ph = 0;
-                sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
+                float depth = kernel->vibratoDepth / 12.0;
+                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->sampleRate);
+                phs->freq = bentFrequency * powf(2, depth * variation);
 
+                sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
+                
                 sp_phasor_compute(kernel->sp, phs, NULL, &ph);
                 sp_pdhalf_compute(kernel->sp, pdhalf, &ph, &pd);
                 tab->index = pd;
                 sp_tabread_compute(kernel->sp, tab, NULL, &temp);
-
+                
                 *outL++ += velocityAmp * amp * temp;
                 *outR++ += velocityAmp * amp * temp;
                 
@@ -142,25 +142,25 @@ public:
         }
         
     };
-
+    
     // MARK: Member Functions
-
+    
     AKPhaseDistortionOscillatorBankDSPKernel() {
         noteStates.resize(128);
         for (NoteState& state : noteStates) {
             state.kernel = this;
         }
     }
-
+    
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
-
+    
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
-
+    
     void reset() {
         for (NoteState& state : noteStates) {
             state.clear();
@@ -171,82 +171,77 @@ public:
     }
     
     standardBankKernelFunctions()
-
+    
     void setPhaseDistortion(float value) {
         phaseDistortion = clamp(value, -1.0f, 1.0f);
         phaseDistortionRamper.setImmediate(phaseDistortion);
     }
-
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
                 
             case phaseDistortionAddress:
                 phaseDistortionRamper.setUIValue(clamp(value, -1.0f, 1.0f));
                 break;
-
-            standardBankSetParameters()
+                
+                standardBankSetParameters()
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case phaseDistortionAddress:
                 return phaseDistortionRamper.getUIValue();
-            standardBankGetParameters()
+                standardBankGetParameters()
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
                 
             case phaseDistortionAddress:
                 phaseDistortionRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
                 break;
-            standardBankStartRamps()
+                standardBankStartRamps()
         }
     }
     
     standardHandleMIDI()
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
-
+        
         phaseDistortion = double(phaseDistortionRamper.getAndStep());
         standardBankGetAndSteps()
-        
-        for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
-            outL[i] = 0.0f;
-            outR[i] = 0.0f;
-        }
         
         NoteState* noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
         }
-
+        currentRunningIndex += frameCount / 2;
         
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] *= .5f;
             outR[i] *= .5f;
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
     std::vector<NoteState> noteStates;
-
+    
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
     
     float phaseDistortion = 0.0;
-
+    
 public:
     NoteState* playingNotes = nullptr;
-
+    
     ParameterRamper phaseDistortionRamper = 0.0;
 };
 

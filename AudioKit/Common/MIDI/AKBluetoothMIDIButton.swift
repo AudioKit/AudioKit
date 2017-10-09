@@ -18,7 +18,7 @@ class AKBTMIDICentralViewController: CABTMIDICentralViewController {
                                                             action: #selector(doneAction))
     }
 
-    public func doneAction() {
+    @objc public func doneAction() {
         uiViewController?.dismiss(animated: true, completion: nil)
     }
 }

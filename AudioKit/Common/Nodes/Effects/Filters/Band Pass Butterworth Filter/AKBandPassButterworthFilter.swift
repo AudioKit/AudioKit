@@ -9,7 +9,7 @@
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
+open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBandPassButterworthFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btbp")
@@ -22,14 +22,14 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var bandwidthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency. (in Hertz)
-    open dynamic var centerFrequency: Double = 2_000.0 {
+    @objc open dynamic var centerFrequency: Double = 2_000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -43,7 +43,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Bandwidth. (in Hertz)
-    open dynamic var bandwidth: Double = 100.0 {
+    @objc open dynamic var bandwidth: Double = 100.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -72,7 +72,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     ///   - bandwidth: Bandwidth in Hz. (default: 100 Hz)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         centerFrequency: Double = 2_000.0,
         bandwidth: Double = 100.0) {
 
@@ -87,10 +87,11 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -99,7 +100,10 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -113,12 +117,12 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

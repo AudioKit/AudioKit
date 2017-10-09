@@ -18,17 +18,18 @@
     AKChowningReverbDSPKernel _kernel;
     BufferedInputBus _inputBus;
 }
+
 @synthesize parameterTree = _parameterTree;
 
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardSetup(ChowningReverb)
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-	parameterTreeBlock(ChowningReverb)
+    parameterTreeBlock(ChowningReverb)
 }
 
 AUAudioUnitOverrides(ChowningReverb);

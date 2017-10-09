@@ -16,6 +16,27 @@ class SmoothDelayTests: AKTestCase {
         duration = 4.0
     }
 
+    func testDefault() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.smoothDelay()
+        }
+        AKTestMD5("7e376e052ae31ea9f1e4648e88899dc5")
+    }
+
+    func testFeedback() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.smoothDelay(feedback: 0.66)
+        }
+        AKTestMD5("7e376e052ae31ea9f1e4648e88899dc5")
+    }
+
+    func testParameters() {
+        output = AKOperationEffect(input) { input, _ in
+            return input.smoothDelay(time: 0.05, feedback: 0.66, samples: 256)
+        }
+        AKTestMD5("b02fdc5cc0707ffd25a5233a1426ba1f")
+    }
+
     func testParameterSweep() {
         output = AKOperationEffect(input) { input, _ in
             let ramp = AKOperation.lineSegment(
@@ -25,34 +46,14 @@ class SmoothDelayTests: AKTestCase {
                 duration: self.duration)
             return input.smoothDelay(time: 0.01 + ramp, feedback: 0.99 - ramp, samples: 512)
         }
-        AKTestMD5("27ada204f2cda9e35b0d8146d9023bef")
-    }
-
-    func testDefault() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay()
-        }
-        AKTestMD5("7d4cc8cdd65fdf1faa7dc9891a7c6a16")
-    }
-
-    func testParameters() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay(time: 0.05, feedback: 0.66, samples: 256)
-        }
-        AKTestMD5("906e6762253b38a8044ffe1e3bc7e932")
+        AKTestMD5("4005d6952ee19edf5c9786d622ab9dc8")
     }
 
     func testTime() {
         output = AKOperationEffect(input) { input, _ in
             return input.smoothDelay(time: 0.05)
         }
-        AKTestMD5("b56006b891059151be4e34848c3f196f")
+        AKTestMD5("deb547191eb922406984bcc5cff3fa87")
     }
 
-    func testFeedback() {
-        output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay(feedback: 0.66)
-        }
-        AKTestMD5("7d4cc8cdd65fdf1faa7dc9891a7c6a16")
-    }
 }

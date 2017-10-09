@@ -28,14 +28,14 @@ open class AKDrip: AKNode, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// The intensity of the dripping sound.
-    open dynamic var intensity: Double = 10 {
+    @objc open dynamic var intensity: Double = 10 {
         willSet {
             if intensity != newValue {
                 if let existingToken = token {
@@ -46,7 +46,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// The damping factor. Maximum value is 2.0.
-    open dynamic var dampingFactor: Double = 0.2 {
+    @objc open dynamic var dampingFactor: Double = 0.2 {
         willSet {
             if dampingFactor != newValue {
                 if let existingToken = token {
@@ -57,7 +57,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// The amount of energy to add back into the system.
-    open dynamic var energyReturn: Double = 0 {
+    @objc open dynamic var energyReturn: Double = 0 {
         willSet {
             if energyReturn != newValue {
                 if let existingToken = token {
@@ -68,7 +68,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// Main resonant frequency.
-    open dynamic var mainResonantFrequency: Double = 450 {
+    @objc open dynamic var mainResonantFrequency: Double = 450 {
         willSet {
             if mainResonantFrequency != newValue {
                 if let existingToken = token {
@@ -79,7 +79,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// The first resonant frequency.
-    open dynamic var firstResonantFrequency: Double = 600 {
+    @objc open dynamic var firstResonantFrequency: Double = 600 {
         willSet {
             if firstResonantFrequency != newValue {
                 if let existingToken = token {
@@ -90,7 +90,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// The second resonant frequency.
-    open dynamic var secondResonantFrequency: Double = 750 {
+    @objc open dynamic var secondResonantFrequency: Double = 750 {
         willSet {
             if secondResonantFrequency != newValue {
                 if let existingToken = token {
@@ -101,7 +101,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// Amplitude.
-    open dynamic var amplitude: Double = 0.3 {
+    @objc open dynamic var amplitude: Double = 0.3 {
         willSet {
             if amplitude != newValue {
                 if let existingToken = token {
@@ -112,7 +112,7 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -161,6 +161,7 @@ open class AKDrip: AKNode, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -174,7 +175,10 @@ open class AKDrip: AKNode, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -199,12 +203,12 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

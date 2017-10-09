@@ -11,28 +11,28 @@ import XCTest
 
 class AKPeakLimiterTests: AKTestCase {
 
-    func testDefault() {
-        output = AKPeakLimiter(input)
-        AKTestMD5("74e37ff4fabffe930b31a2ebc43463dc")
-    }
-
-    func testParameters() {
-        output = AKPeakLimiter(input, attackTime: 0.02, decayTime: 0.03, preGain: 1)
-        AKTestMD5("fcb613b8b2f63a58eae537f8a90c9003")
-    }
-
     func testAttackTime() {
         output = AKPeakLimiter(input, attackTime: 0.02)
-        AKTestMD5("b28af37f6ceafd2468faf639c55c59cf")
+        AKTestMD5("759ea5ae95b32dda8684ccf230627e78")
     }
 
     func testDecayTime() {
         output = AKPeakLimiter(input, decayTime: 0.03)
-        AKTestMD5("74e37ff4fabffe930b31a2ebc43463dc")
+        AKTestMD5("f0ef43b40c91423a3f5dc194cd1311f0")
+    }
+
+    func testDefault() {
+        output = AKPeakLimiter(input)
+        AKTestMD5("f0ef43b40c91423a3f5dc194cd1311f0")
+    }
+
+    func testParameters() {
+        output = AKPeakLimiter(input, attackTime: 0.02, decayTime: 0.03, preGain: 1)
+        AKTestMD5("a6238632bc2114c300074ca72d78aacf")
     }
 
     func testPreGain() {
         output = AKPeakLimiter(input, preGain: 1)
-        AKTestMD5("87be7fc3c0bcfd2b9472148214d598c5")
+        AKTestMD5("d5650ad2d83cde906dbf18766cbd7724")
     }
 }

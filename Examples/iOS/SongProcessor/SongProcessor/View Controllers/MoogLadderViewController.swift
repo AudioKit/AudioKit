@@ -7,33 +7,28 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class MoogLadderViewController: UIViewController {
 
-    @IBOutlet private weak var cutoffFrequncySlider: AKPropertySlider!
-    @IBOutlet private weak var resonanceSlider: AKPropertySlider!
-    @IBOutlet private weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var cutoffFrequncySlider: AKSlider!
+    @IBOutlet private weak var resonanceSlider: AKSlider!
+    @IBOutlet private weak var mixSlider: AKSlider!
 
     let songProcessor = SongProcessor.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        cutoffFrequncySlider.minimum = 12.0
-        cutoffFrequncySlider.maximum = 10_000.0
+        cutoffFrequncySlider.range = 12.0 ... 10_000.0
+        cutoffFrequncySlider.taper = 3
 
-        if let freq = songProcessor.moogLadder?.cutoffFrequency {
-            cutoffFrequncySlider.value = freq
-        }
+        cutoffFrequncySlider.value = songProcessor.moogLadder.cutoffFrequency
 
-        if let res = songProcessor.moogLadder?.resonance {
-            resonanceSlider.value = res
-        }
+        resonanceSlider.value = songProcessor.moogLadder.resonance
 
-        if let balance = songProcessor.filterMixer?.balance {
-            mixSlider.value = balance
-        }
+        mixSlider.value = songProcessor.filterMixer.balance
 
         cutoffFrequncySlider.callback = updateCutoffFrequncy
         resonanceSlider.callback = updateResonance
@@ -41,14 +36,14 @@ class MoogLadderViewController: UIViewController {
     }
 
     func updateCutoffFrequncy(value: Double) {
-        songProcessor.moogLadder?.cutoffFrequency = value
+        songProcessor.moogLadder.cutoffFrequency = value
     }
 
     func updateResonance(value: Double) {
-        songProcessor.moogLadder?.resonance = value
+        songProcessor.moogLadder.resonance = value
     }
 
     func updateMix(value: Double) {
-        songProcessor.filterMixer?.balance = value
+        songProcessor.filterMixer.balance = value
     }
 }

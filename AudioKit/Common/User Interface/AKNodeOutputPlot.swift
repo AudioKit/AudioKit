@@ -1,36 +1,40 @@
 //
 //  AKNodeOutputPlot.swift
-//  AudioKit
+//  AudioKitUI
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
+#if !JAZZY_HACK
+    import AudioKit
+#endif
 
 /// Plot the output from any node in an signal processing graph
 @IBDesignable
 open class AKNodeOutputPlot: EZAudioPlot {
 
     internal func setupNode(_ input: AKNode?) {
-        input?.avAudioNode.installTap(onBus: 0,
-                                      bufferSize: bufferSize,
-                                      format: nil) { [weak self] (buffer, _) in
+        input?.avAudioNode.installTap(
+            onBus: 0,
+            bufferSize: bufferSize,
+            format: nil) { [weak self] (buffer, _) in
 
-            guard let strongSelf = self else {
-                return
-            }
-            buffer.frameLength = strongSelf.bufferSize
-            let offset = Int(buffer.frameCapacity - buffer.frameLength)
-            if let tail = buffer.floatChannelData?[0] {
-                strongSelf.updateBuffer(&tail[offset],
-                                        withBufferSize: strongSelf.bufferSize)
-            }
+                guard let strongSelf = self else {
+                    AKLog("Unable to create strong reference to self")
+                    return
+                }
+                buffer.frameLength = strongSelf.bufferSize
+                let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                if let tail = buffer.floatChannelData?[0] {
+                    strongSelf.updateBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize)
+                }
         }
     }
 
     internal var bufferSize: UInt32 = 1_024
 
     /// The node whose output to graph
-    open var node: AKNode? {
+    @objc open var node: AKNode? {
         willSet {
             node?.avAudioNode.removeTap(onBus: 0)
         }

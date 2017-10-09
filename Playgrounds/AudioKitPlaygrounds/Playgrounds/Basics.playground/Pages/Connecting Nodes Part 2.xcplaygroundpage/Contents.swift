@@ -27,7 +27,7 @@ class AudioEngine {
     init() {
         // Set up a player to the loop the file's playback
         do {
-            let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+            let file = try AKAudioFile(readFileName: "drumloop.wav")
             player = try AKAudioPlayer(file: file)
         } catch {
             AKLog("File Not Found")

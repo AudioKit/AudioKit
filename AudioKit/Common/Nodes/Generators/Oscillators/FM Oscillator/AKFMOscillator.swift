@@ -27,14 +27,14 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    open dynamic var baseFrequency: Double = 440 {
+    @objc open dynamic var baseFrequency: Double = 440 {
         willSet {
             if baseFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -49,7 +49,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    open dynamic var carrierMultiplier: Double = 1.0 {
+    @objc open dynamic var carrierMultiplier: Double = 1.0 {
         willSet {
             if carrierMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -64,7 +64,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    open dynamic var modulatingMultiplier: Double = 1 {
+    @objc open dynamic var modulatingMultiplier: Double = 1 {
         willSet {
             if modulatingMultiplier != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -79,7 +79,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    open dynamic var modulationIndex: Double = 1 {
+    @objc open dynamic var modulationIndex: Double = 1 {
         willSet {
             if modulationIndex != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -94,7 +94,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    open dynamic var amplitude: Double = 1 {
+    @objc open dynamic var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -109,7 +109,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -159,6 +159,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -170,7 +171,10 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -184,12 +188,12 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

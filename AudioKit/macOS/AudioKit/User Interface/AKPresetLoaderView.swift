@@ -109,7 +109,7 @@ public class AKPresetLoaderView: NSView {
     func drawPresetLoader(presetName: String = "None", isPresetLoaded: Bool = false) {
         //// General Declarations
         let rect = self.bounds
-        let _ = unsafeBitCast(NSGraphicsContext.current()?.graphicsPort, to: CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
 
         let cornerRadius: CGFloat = AKPresetLoaderView.standardCornerRadius
 
@@ -122,7 +122,10 @@ public class AKPresetLoaderView: NSView {
         let expression: NSColor = isPresetLoaded ? green : red
 
         //// background Drawing
-        let backgroundPath = NSBezierPath(rect: NSRect(x: borderWidth, y: borderWidth, width: rect.width - borderWidth * 2.0, height: rect.height - borderWidth * 2.0))
+        let backgroundPath = NSBezierPath(rect: NSRect(x: borderWidth,
+                                                       y: borderWidth,
+                                                       width: rect.width - borderWidth * 2.0,
+                                                       height: rect.height - borderWidth * 2.0))
         gray.setFill()
         backgroundPath.fill()
 
@@ -146,14 +149,14 @@ public class AKPresetLoaderView: NSView {
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .center
 
-        let presetLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 24),
-                                   NSForegroundColorAttributeName: textColorForTheme,
-                                   NSParagraphStyleAttributeName: presetLabelStyle]
+        let presetLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 24),
+                                         NSAttributedStringKey.foregroundColor: textColorForTheme,
+                                         NSAttributedStringKey.paragraphStyle: presetLabelStyle]
 
         let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
         let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
             with: NSSize(width: presetLabelInset.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: presetLabelFontAttributes).size.height
         let presetLabelTextRect: NSRect = NSRect(
             x: presetLabelInset.minX,
@@ -161,7 +164,7 @@ public class AKPresetLoaderView: NSView {
             width: presetLabelInset.width,
             height: presetLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(presetLabelInset)
+        __NSRectClip(presetLabelInset)
         presetLabelTextContent.draw(in: presetLabelTextRect.offsetBy(dx: 0, dy: 0),
                                     withAttributes: presetLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
@@ -205,14 +208,14 @@ public class AKPresetLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 24),
-                                       NSForegroundColorAttributeName: textColorForTheme,
-                                       NSParagraphStyleAttributeName: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 24),
+                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
+                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: rect.width * 0.04, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(
             with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         let nameLabelTextRect: NSRect = NSRect(
             x: nameLabelInset.minX,
@@ -220,7 +223,7 @@ public class AKPresetLoaderView: NSView {
             width: nameLabelInset.width,
             height: nameLabelTextHeight)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(nameLabelInset)
+        __NSRectClip(nameLabelInset)
         NSString(string: presetName).draw(in: nameLabelTextRect.offsetBy(dx: 0, dy: 0),
                                           withAttributes: nameLabelFontAttributes)
         NSGraphicsContext.restoreGraphicsState()

@@ -7,18 +7,20 @@ let midi = AKMIDI()
 
 midi.openOutput()
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+import AudioKitUI
+
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("MIDI Output")
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
 
-        addSubview(AKButton(title: "Go Polyphonic") { button in
+        addView(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
                 button.title = "Go Monophonic"
@@ -39,4 +41,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

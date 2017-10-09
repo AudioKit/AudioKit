@@ -11,13 +11,8 @@
 #import "AKBankDSPKernel.hpp"
 
 enum {
-    pulseWidthAddress = 0,
-    attackDurationAddress = 1,
-    decayDurationAddress = 2,
-    sustainLevelAddress = 3,
-    releaseDurationAddress = 4,
-    detuningOffsetAddress = 5,
-    detuningMultiplierAddress = 6
+    standardBankEnumElements(),
+    pulseWidthAddress = numberOfBankEnumElements
 };
 
 class AKPWMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
@@ -98,9 +93,10 @@ public:
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = *blsquare->freq;
-            *blsquare->freq *= kernel->detuningMultiplier;
-            *blsquare->freq += kernel->detuningOffset;
+            *blsquare->freq *= powf(2, kernel->pitchBend / 12.0);
             *blsquare->freq = clamp(*blsquare->freq, 0.0f, 22050.0f);
+            float bentFrequency = *blsquare->freq;
+
             *blsquare->width = kernel->pulseWidth;
             
             adsr->atk = (float)kernel->attackDuration;
@@ -110,6 +106,9 @@ public:
             
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
+                float depth = kernel->vibratoDepth / 12.0;
+                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->sampleRate);
+                *blsquare->freq = bentFrequency * powf(2, depth * variation);
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
                 sp_blsquare_compute(kernel->sp, blsquare, nil, &x);
                 *outL++ += amp * x;
@@ -161,7 +160,7 @@ public:
             case pulseWidthAddress:
                 pulseWidthRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
-            standardBankSetParameters()
+                standardBankSetParameters()
         }
     }
 
@@ -170,7 +169,7 @@ public:
 
             case pulseWidthAddress:
                 return pulseWidthRamper.getUIValue();
-            standardBankGetParameters()
+                standardBankGetParameters()
         }
     }
 
@@ -180,7 +179,7 @@ public:
             case pulseWidthAddress:
                 pulseWidthRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
-            standardBankStartRamps()
+                standardBankStartRamps()
         }
     }
     
@@ -193,17 +192,13 @@ public:
 
         pulseWidth = double(pulseWidthRamper.getAndStep());
         standardBankGetAndSteps()
-        
-        for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
-            outL[i] = 0.0f;
-            outR[i] = 0.0f;
-        }
-        
+
         NoteState* noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
         }
+        currentRunningIndex += frameCount / 2;
 
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] *= .5f;

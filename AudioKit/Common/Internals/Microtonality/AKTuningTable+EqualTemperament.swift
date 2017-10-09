@@ -32,7 +32,7 @@ extension AKTuningTable {
         for i in 0 ..< npo {
             nf[i] = Frequency(pow(2.0, Frequency(Frequency(i) / npo)))
         }
-        tuningTable(fromFrequencies: nf)
+        _ = tuningTable(fromFrequencies: nf)
         return npo
     }
 }

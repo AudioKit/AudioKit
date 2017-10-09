@@ -13,7 +13,7 @@ let triangle = AKTable(.triangle, count: 128)
 let sawtooth = AKTable(.sawtooth, count: 128)
 let sine = AKTable(.sine, count: 256)
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 let fileTable = AKTable(file: file)
 
 var custom = AKTable(.sine, count: 256)
@@ -21,34 +21,36 @@ for i in custom.indices {
     custom[i] += Float(random(-0.3, 0.3) + Double(i) / 2_048.0)
 }
 
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    override func setup() {
+class LiveView: AKLiveViewController {
+
+    override func viewDidLoad() {
 
         addTitle("Tables")
 
         addLabel("Square")
-        addSubview(AKTableView(square))
+        addView(AKTableView(square))
 
         addLabel("Triangle")
-        addSubview(AKTableView(triangle))
+        addView(AKTableView(triangle))
 
         addLabel("Sawtooth")
-        addSubview(AKTableView(sawtooth))
+        addView(AKTableView(sawtooth))
 
         addLabel("Sine")
-        addSubview(AKTableView(sine))
+        addView(AKTableView(sine))
 
         addLabel("File")
-        addSubview(AKTableView(fileTable))
+        addView(AKTableView(fileTable))
 
         addLabel("Custom")
-        addSubview(AKTableView(custom))
+        addView(AKTableView(custom))
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

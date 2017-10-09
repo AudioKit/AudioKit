@@ -49,21 +49,16 @@ standardBankFunctions()
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(OscillatorBank)
     standardBankParameters()
     
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
-    ]];
-
-	parameterTreeBlock(OscillatorBank)
+                                                               standardBankAUParameterList()
+                                                               ]];
+    
+    parameterTreeBlock(OscillatorBank)
 }
 
 AUAudioUnitGeneratorOverrides(OscillatorBank)

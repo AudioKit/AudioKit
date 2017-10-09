@@ -26,10 +26,10 @@ open class AKSampler: AKNode {
     fileprivate var token: AUParameterObserverToken?
 
     /// Sampler AV Audio Unit
-    open dynamic var samplerUnit = AVAudioUnitSampler()
+    @objc open dynamic var samplerUnit = AVAudioUnitSampler()
 
     /// Transposition amount in semitones, from -24 to 24, Default: 0
-    open dynamic var tuning: Double {
+    @objc open dynamic var tuning: Double {
         get {
             return Double(samplerUnit.globalTuning / 100.0)
         }
@@ -53,9 +53,9 @@ open class AKSampler: AKNode {
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
     ///
-    open func loadWav(_ file: String) throws {
+    @objc open func loadWav(_ file: String) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "wav") else {
-                fatalError("file not found.")
+            fatalError("file not found.")
         }
         do {
             try samplerUnit.loadAudioFiles(at: [url])
@@ -69,7 +69,7 @@ open class AKSampler: AKNode {
     ///
     /// - parameter file: Name of the EXS24 file without the .exs extension
     ///
-    open func loadEXS24(_ file: String) throws {
+    @objc open func loadEXS24(_ file: String) throws {
         try loadInstrument(file, type: "exs")
     }
 
@@ -77,7 +77,7 @@ open class AKSampler: AKNode {
     ///
     /// - parameter file: an AKAudioFile
     ///
-    open func loadAudioFile(_ file: AKAudioFile) throws {
+    @objc open func loadAudioFile(_ file: AKAudioFile) throws {
         do {
             try samplerUnit.loadAudioFiles(at: [file.url])
         } catch let error as NSError {
@@ -88,12 +88,12 @@ open class AKSampler: AKNode {
 
     /// Load an array of AKAudioFiles
     ///
-    /// - parameter file: an array of AKAudioFile
+    /// - parameter files: An array of AKAudioFiles
     ///
     /// If a file name ends with a note name (ex: "violinC3.wav")
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
-    open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
+    @objc open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
         let urls = files.map { $0.url }
         do {
             try samplerUnit.loadAudioFiles(at: urls)
@@ -107,7 +107,7 @@ open class AKSampler: AKNode {
     ///
     /// - parameter filePath: Name of the file with the extension
     ///
-    open func loadPath(_ filePath: String) {
+    @objc open func loadPath(_ filePath: String) {
         do {
             try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
         } catch {
@@ -129,22 +129,22 @@ open class AKSampler: AKNode {
     }
 
     /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
-    open dynamic var amplitude: Double = 0 {
+    @objc open dynamic var amplitude: Double = 0 {
         didSet {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
 
     /// Normalized Output Volume. Range: 0 -> 1, Default: 1
-    open dynamic var volume: Double = 1 {
+    @objc open dynamic var volume: Double = 1 {
         didSet {
-            let newGain = volume.denormalized(minimum: -90.0, maximum: 0.0, taper: 1)
+            let newGain = volume.denormalized(to: -90.0 ... 0.0)
             samplerUnit.masterGain = Float(newGain)
         }
     }
 
     /// Pan. Range: -1 -> 1, Default: 0
-    open dynamic var pan: Double = 0 {
+    @objc open dynamic var pan: Double = 0 {
         didSet {
             samplerUnit.stereoPan = Float(100.0 * pan)
         }
@@ -159,9 +159,9 @@ open class AKSampler: AKNode {
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channnel
     ///
-    open func play(noteNumber: MIDINoteNumber = 60,
-                   velocity: MIDIVelocity = 127,
-                   channel: MIDIChannel = 0) {
+    @objc open func play(noteNumber: MIDINoteNumber = 60,
+                         velocity: MIDIVelocity = 127,
+                         channel: MIDIChannel = 0) {
         samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
@@ -171,7 +171,7 @@ open class AKSampler: AKNode {
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
+    @objc open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
         samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
 

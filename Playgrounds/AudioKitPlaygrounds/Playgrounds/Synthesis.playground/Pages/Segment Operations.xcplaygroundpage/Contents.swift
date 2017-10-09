@@ -2,6 +2,7 @@
 //: Creating segments that vary parameters in operations linearly or exponentially over a certain duration
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let generator = AKOperationGenerator { parameters in
     let updateRate = parameters[0]
@@ -36,15 +37,15 @@ AudioKit.start()
 generator.parameters = [2.0]
 generator.start()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Segment Operations")
 
-        addSubview(AKPropertySlider(property: "Update Rate",
-                                    value: generator.parameters[0],
-                                    range: 0.1 ... 10,
-                                    format: "%0.3f Hz"
+        addView(AKSlider(property: "Update Rate",
+                         value: generator.parameters[0],
+                         range: 0.1 ... 10,
+                         format: "%0.3f Hz"
         ) { sliderValue in
             generator.parameters[0] = sliderValue
             delay.time = 0.25 / sliderValue
@@ -54,4 +55,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

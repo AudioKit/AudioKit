@@ -13,31 +13,32 @@ class AKTanhDistortionTests: AKTestCase {
 
     func testDefault() {
         output = AKTanhDistortion(input)
-        AKTestMD5("715fba92aa618f5dd4c15825a32aee91")
-    }
-
-    func testParameters() {
-        output = AKTanhDistortion(input, pregain: 4, postgain: 1, postiveShapeParameter: 1, negativeShapeParameter: 1)
-        AKTestMD5("58454e9d64cbf880ef7bb56a1130ffff")
-    }
-
-    func testPregain() {
-        output = AKTanhDistortion(input, pregain: 4)
-        AKTestMD5("40e4a6f674893e21a5a8a71b1977b6ff")
-    }
-
-    func testPostgain() {
-        output = AKTanhDistortion(input, postgain: 1)
-        AKTestMD5("d338041a58f421b6d61ff9b108fed526")
-    }
-
-    func testPostiveShapeParameter() {
-        output = AKTanhDistortion(input, postiveShapeParameter: 1)
-        AKTestMD5("22c94a95754c623cf732f7af21e4faff")
+        AKTestMD5("bc4b99a57e2695ec9c8fbdebda8b0aa4")
     }
 
     func testNegativeShapeParameter() {
         output = AKTanhDistortion(input, negativeShapeParameter: 1)
-        AKTestMD5("1a5dec99e73405ee94140bea11d8e74a")
+        AKTestMD5("4810b5dbcfbb99de192ba9c57531df61")
     }
+
+    func testParameters() {
+        output = AKTanhDistortion(input, pregain: 4, postgain: 1, postiveShapeParameter: 1, negativeShapeParameter: 1)
+        AKTestMD5("42171b8371cf4b3a616967da9bc23190")
+    }
+
+    func testPositiveShapeParameter() {
+        output = AKTanhDistortion(input, postiveShapeParameter: 1)
+        AKTestMD5("440ea7836049aaa8385a6289c13f52a9")
+    }
+
+    func testPostgain() {
+        output = AKTanhDistortion(input, postgain: 1)
+        AKTestMD5("a2cbfbdcd13238055f6f92be02d72f47")
+    }
+
+    func testPregain() {
+        output = AKTanhDistortion(input, pregain: 4)
+        AKTestMD5("762356ed0c71f8091fb9bb4d051b1013")
+    }
+
 }

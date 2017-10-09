@@ -8,7 +8,7 @@
 
 /// Analog model of the Korg 35 Lowpass Filter
 ///
-open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
+open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKKorgLowPassFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
@@ -23,14 +23,14 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var saturationParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Filter cutoff
-    open dynamic var cutoffFrequency: Double = 1_000.0 {
+    @objc open dynamic var cutoffFrequency: Double = 1_000.0 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Filter resonance (should be between 0-2)
-    open dynamic var resonance: Double = 1.0 {
+    @objc open dynamic var resonance: Double = 1.0 {
         willSet {
             if resonance != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Filter saturation.
-    open dynamic var saturation: Double = 0.0 {
+    @objc open dynamic var saturation: Double = 0.0 {
         willSet {
             if saturation != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -73,7 +73,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -87,7 +87,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     /// - parameter saturation: Filter saturation.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         cutoffFrequency: Double = 1_000.0,
         resonance: Double = 1.0,
         saturation: Double = 0.0) {
@@ -104,10 +104,11 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -117,7 +118,10 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -132,12 +136,12 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

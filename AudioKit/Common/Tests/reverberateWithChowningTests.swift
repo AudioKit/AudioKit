@@ -20,7 +20,7 @@ class ReverberateWithChowningTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.reverberateWithChowning()
         }
-        AKTestMD5("3caf295236cae83488b468ed87905824")
+        AKTestMD5("fe853b4997494453851448cf5e9287dd")
     }
 
 }

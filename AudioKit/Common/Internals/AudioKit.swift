@@ -10,6 +10,9 @@
 import CoreAudioKit
 #endif
 
+#if !os(macOS)
+import UIKit
+#endif
 import Dispatch
 
 public typealias AKCallback = () -> Void
@@ -27,21 +30,21 @@ extension AVAudioEngine {
     // MARK: Global audio format (44.1K, Stereo)
 
     /// Format of AudioKit Nodes
-    open static var format = AKSettings.audioFormat
+    @objc open static var format = AKSettings.audioFormat
 
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    open static let engine = AVAudioEngine()
+    @objc open static let engine = AVAudioEngine()
 
-    static var shouldBeRunning = false
+    @objc static var shouldBeRunning = false
 
-    static var finalMixer = AKMixer()
+    @objc static var finalMixer = AKMixer()
 
     /// An audio output operation that most applications will need to use last
-    open static var output: AKNode? {
+    @objc open static var output: AKNode? {
         didSet {
-            finalMixer.connect(output)
+            output?.connect(to: finalMixer)
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
     }
@@ -49,7 +52,7 @@ extension AVAudioEngine {
     // MARK: - Device Management
 
     /// Enumerate the list of available input devices.
-    open static var inputDevices: [AKDevice]? {
+    @objc open static var inputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.inputDevices().map {
@@ -59,7 +62,7 @@ extension AVAudioEngine {
             var returnDevices = [AKDevice]()
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for device in devices {
-                    if device.dataSources!.isEmpty {
+                    if device.dataSources == nil || device.dataSources!.isEmpty {
                         returnDevices.append(AKDevice(name: device.portName, deviceID: device.uid))
                     } else {
                         for dataSource in device.dataSources! {
@@ -75,7 +78,7 @@ extension AVAudioEngine {
     }
 
     /// Enumerate the list of available output devices.
-    open static var outputDevices: [AKDevice]? {
+    @objc open static var outputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.outputDevices().map {
@@ -95,7 +98,7 @@ extension AVAudioEngine {
     }
 
     /// The name of the current input device, if available.
-    open static var inputDevice: AKDevice? {
+    @objc open static var inputDevice: AKDevice? {
         #if os(macOS)
             if let dev = EZAudioDevice.currentInput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
@@ -118,7 +121,7 @@ extension AVAudioEngine {
     }
 
     /// The name of the current output device, if available.
-    open static var outputDevice: AKDevice? {
+    @objc open static var outputDevice: AKDevice? {
         #if os(macOS)
             if let dev = EZAudioDevice.currentOutput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
@@ -134,7 +137,7 @@ extension AVAudioEngine {
     }
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
-    open static func setInputDevice(_ input: AKDevice) throws {
+    @objc open static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
             var address = AudioObjectPropertyAddress(
                 mSelector: kAudioHardwarePropertyDefaultInputDevice,
@@ -147,7 +150,7 @@ extension AVAudioEngine {
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for device in devices {
-                    if device.dataSources!.isEmpty {
+                    if device.dataSources == nil || device.dataSources!.isEmpty {
                         if device.uid == input.deviceID {
                             do {
                                 try AVAudioSession.sharedInstance().setPreferredInput(device)
@@ -184,7 +187,7 @@ extension AVAudioEngine {
     }
 
     /// Change the preferred output device, giving it one of the names from the list of available output.
-    open static func setOutputDevice(_ output: AKDevice) throws {
+    @objc open static func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
             var id = output.deviceID
             if let audioUnit = AudioKit.engine.outputNode.audioUnit {
@@ -204,13 +207,13 @@ extension AVAudioEngine {
     /// Start up the audio engine with periodic functions
     open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) {
         for function in functions {
-            finalMixer.connect(function)
+            function.connect(to: finalMixer)
         }
         start()
     }
 
     /// Start up the audio engine
-    open static func start() {
+    @objc open static func start() {
         if output == nil {
             AKLog("AudioKit: No output node has been set yet, no processing will happen.")
         }
@@ -306,7 +309,7 @@ extension AVAudioEngine {
     }
 
     /// Stop the audio engine
-    open static func stop() {
+    @objc open static func stop() {
         // Stop the engine.
         engine.stop()
         shouldBeRunning = false
@@ -322,7 +325,7 @@ extension AVAudioEngine {
     // MARK: - Testing
 
     /// Testing AKNode
-    open static var tester: AKTester?
+    @objc open static var tester: AKTester?
 
     /// Test the output of a given node
     ///
@@ -330,7 +333,7 @@ extension AVAudioEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    open static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) {
+    @objc open static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) {
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
@@ -350,7 +353,8 @@ extension AVAudioEngine {
             afterStart()
             tester?.play()
 
-            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: engine.manualRenderingMaximumFrameCount)
+            let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
+                                                            frameCapacity: engine.manualRenderingMaximumFrameCount)!
 
             while engine.manualRenderingSampleTime < samples {
                 do {
@@ -388,7 +392,7 @@ extension AVAudioEngine {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    open static func auditionTest(node: AKNode, duration: Double) {
+    @objc open static func auditionTest(node: AKNode, duration: Double) {
         output = node
         start()
         if let playableNode = node as? AKToggleable {
@@ -483,5 +487,110 @@ extension AVAudioEngine {
                 name: .AKEngineRestartedAfterRouteChange,
                 object: nil)
         #endif
+    }
+}
+
+//This extension makes connect calls shorter, and safer by attaching nodes if not already attached.
+extension AudioKit {
+
+    // Attaches nodes if node.engine == nil
+    private static func safeAttach(_ nodes: [AVAudioNode]) {
+        _ = nodes.filter { $0.engine == nil }.map { engine.attach($0) }
+    }
+
+    // AVAudioMixer will crash if engine is started and connection is made to a bus exceeding mixer's
+    // numberOfInputs. The crash only happens when using the AVAudioEngine function that connects a node to an array
+    // of AVAudioConnectionPoints and the mixer is one of those points. When AVAudioEngine uses a different function
+    // that connects a node's output to a single AVAudioMixerNode, the mixer's inputs are incremented to accommodate
+    // the new connection. So the workaround is to create dummy nodes, make a connections to the mixer using the
+    // function that makes the mixer create new inputs, then remove the dummy nodes so that there is an available
+    // bus to connect to.
+    //
+    private static func checkMixerInputs(_ connectionPoints: [AVAudioConnectionPoint]) {
+
+        if !engine.isRunning { return }
+
+        for connection in connectionPoints {
+            if let mixer = connection.node as? AVAudioMixerNode,
+                connection.bus >= mixer.numberOfInputs {
+
+                var dummyNodes = [AVAudioNode]()
+                while connection.bus >= mixer.numberOfInputs {
+                    let dummyNode = AVAudioUnitSampler()
+                    dummyNode.setOutput(to: mixer)
+                    dummyNodes.append(dummyNode)
+                }
+                for dummyNode in dummyNodes {
+                    dummyNode.disconnectOutput()
+                }
+
+            }
+        }
+    }
+
+    // If an AVAudioMixerNode's output connection is made while engine is running, and there are no input connections
+    // on the mixer, subsequent connections made to the mixer will silently fail.  A workaround is to connect a dummy
+    // node to the mixer prior to making a connection, then removing the dummy node after the connection has been made.
+    //
+    private static func addDummyOnEmptyMixer(_ node: AVAudioNode) -> AVAudioNode? {
+
+        func mixerHasInputs(_ mixer: AVAudioMixerNode) -> Bool {
+            for i in 0..<mixer.numberOfInputs {
+                if engine.inputConnectionPoint(for: mixer, inputBus: i) != nil {
+                    return true
+                }
+            }
+            return false
+        }
+
+        // Only an issue if engine is running, node is a mixer, and mixer has no inputs
+        guard let mixer = node as? AVAudioMixerNode,
+            engine.isRunning,
+            !mixerHasInputs(mixer) else {
+            return nil
+        }
+
+        let dummy = AVAudioUnitSampler()
+        engine.attach(dummy)
+        engine.connect(dummy, to: mixer, format: AudioKit.format)
+        return dummy
+    }
+
+    @objc open static func connect(_ sourceNode: AVAudioNode,
+                                   to destNodes: [AVAudioConnectionPoint],
+                                   fromBus sourceBus: AVAudioNodeBus,
+                                   format: AVAudioFormat?) {
+
+        let connectionsWithNodes = destNodes.filter { $0.node != nil }
+        safeAttach([sourceNode] + connectionsWithNodes.map { $0.node! })
+        // See addDummyOnEmptyMixer for dummyNode explanation.
+        let dummyNode = addDummyOnEmptyMixer(sourceNode)
+        checkMixerInputs(connectionsWithNodes)
+        engine.connect(sourceNode, to: connectionsWithNodes, fromBus: sourceBus, format: format)
+        dummyNode?.disconnectOutput()
+    }
+
+    @objc open static func connect(_ node1: AVAudioNode,
+                                   to node2: AVAudioNode,
+                                   fromBus bus1: AVAudioNodeBus,
+                                   toBus bus2: AVAudioNodeBus,
+                                   format: AVAudioFormat?) {
+
+        safeAttach([node1, node2])
+        // See addDummyOnEmptyMixer for dummyNode explanation.
+        let dummyNode = addDummyOnEmptyMixer(node1)
+        engine.connect(node1, to: node2, fromBus: bus1, toBus: bus2, format: format)
+        dummyNode?.disconnectOutput()
+    }
+
+    @objc open static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
+        connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
+    }
+
+    //Convenience
+    @objc open static func detach(nodes: [AVAudioNode]) {
+        for node in nodes {
+            engine.detach(node)
+        }
     }
 }
