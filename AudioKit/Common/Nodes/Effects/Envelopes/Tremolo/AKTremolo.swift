@@ -8,7 +8,7 @@
 
 /// Table-lookup tremolo with linear interpolation
 ///
-open class AKTremolo: AKNode, AKToggleable, AKComponent {
+open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKTremoloAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
@@ -23,14 +23,14 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     fileprivate var depthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Frequency (Hz)
-    open dynamic var frequency: Double = 10 {
+    @objc open dynamic var frequency: Double = 10 {
         willSet {
             if frequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -45,7 +45,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     }
 
     /// Depth
-    open dynamic var depth: Double = 1 {
+    @objc open dynamic var depth: Double = 1 {
         willSet {
             if depth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -60,7 +60,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -75,7 +75,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     ///   - waveform:  Shape of the tremolo (default to sine)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         frequency: Double = 10,
         depth: Double = 1.0,
         waveform: AKTable = AKTable(.positiveSine)) {
@@ -91,7 +91,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
             self?.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
                 self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
@@ -99,6 +99,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -106,7 +107,10 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -130,12 +134,12 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open dynamic func start() {
+    @objc open dynamic func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

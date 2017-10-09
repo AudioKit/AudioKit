@@ -8,7 +8,7 @@
 
 /// Distortion using a modified hyperbolic tangent function.
 ///
-open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
+open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKTanhDistortionAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
@@ -24,14 +24,14 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     fileprivate var negativeShapeParameterParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    open dynamic var pregain: Double = 2.0 {
+    @objc open dynamic var pregain: Double = 2.0 {
         willSet {
             if pregain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -45,7 +45,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Gain applied after waveshaping
-    open dynamic var postgain: Double = 0.5 {
+    @objc open dynamic var postgain: Double = 0.5 {
         willSet {
             if postgain != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -59,7 +59,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    open dynamic var postiveShapeParameter: Double = 0.0 {
+    @objc open dynamic var postiveShapeParameter: Double = 0.0 {
         willSet {
             if postiveShapeParameter != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -73,7 +73,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Like the positive shape parameter, only for the negative part.
-    open dynamic var negativeShapeParameter: Double = 0.0 {
+    @objc open dynamic var negativeShapeParameter: Double = 0.0 {
         willSet {
             if negativeShapeParameter != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -88,7 +88,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -104,7 +104,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         pregain: Double = 2.0,
         postgain: Double = 0.5,
         postiveShapeParameter: Double = 0.0,
@@ -123,10 +123,11 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -137,7 +138,10 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -153,12 +157,12 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

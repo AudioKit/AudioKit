@@ -19,7 +19,7 @@
     fileprivate var internalAudioFile: AKAudioFile
 
     /// True if we are recording.
-    public private(set) dynamic var isRecording = false
+    @objc public private(set) dynamic var isRecording = false
 
     /// An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0
@@ -56,7 +56,7 @@
     ///   - node: Node to record from
     ///   - file: Audio file to record to
     ///
-    public init(node: AKNode? = AudioKit.output,
+    @objc public init(node: AKNode? = AudioKit.output,
                 file: AKAudioFile? = nil) throws {
 
         // AVAudioSession buffer setup
@@ -88,7 +88,7 @@
     // MARK: - Methods
 
     /// Start recording
-    open func record() throws {
+    @objc open func record() throws {
         if isRecording == true {
             AKLog("AKNodeRecorder Warning: already recording")
             return
@@ -124,7 +124,7 @@
     }
 
     /// Stop recording
-    open func stop() {
+    @objc open func stop() {
         if isRecording == false {
             AKLog("AKNodeRecorder Warning: Cannot stop recording, already stopped")
             return

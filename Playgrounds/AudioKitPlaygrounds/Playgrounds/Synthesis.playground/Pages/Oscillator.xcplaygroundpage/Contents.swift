@@ -3,6 +3,7 @@
 //: or with one of the defaults.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let square = AKTable(.square, count: 256)
 let triangle = AKTable(.triangle, count: 256)
@@ -21,17 +22,17 @@ var currentRampTime = 0.05
 oscillator.rampTime = currentRampTime
 oscillator.amplitude = currentAmplitude
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    override func setup() {
+    override func viewDidLoad() {
 
         addTitle("General Purpose Oscillator")
 
-        addSubview(AKPropertySlider(property: "Amplitude", value: currentAmplitude) { amplitude in
+        addView(AKSlider(property: "Amplitude", value: currentAmplitude) { amplitude in
             currentAmplitude = amplitude
         })
 
-        addSubview(AKPropertySlider(property: "Ramp Time", value: currentRampTime) { time in
+        addView(AKSlider(property: "Ramp Time", value: currentRampTime) { time in
             currentRampTime = time
         })
 
@@ -40,8 +41,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                       firstOctave: 4,
                                       octaveCount: 4)
         keyboard.delegate = self
-        addSubview(keyboard)
-        addSubview(AKOutputWaveformPlot.createView())
+        addView(keyboard)
+        addView(AKOutputWaveformPlot.createView())
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -67,4 +68,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -13,6 +13,7 @@ class AKDynamicsProcessorTests: AKTestCase {
 
     func testDefault() {
         output = AKDynamicsProcessor(input)
-        AKTestMD5("7394f7fa840b20c1cd0f50eebec28b2e")
+        AKTestMD5("0a3ded76baa047969bb90eae8fc1f7a9")
     }
+
 }

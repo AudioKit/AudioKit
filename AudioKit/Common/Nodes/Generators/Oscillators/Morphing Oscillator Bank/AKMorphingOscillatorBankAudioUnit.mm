@@ -40,7 +40,7 @@ standardBankFunctions()
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(MorphingOscillatorBank)
     standardBankParameters()
     
@@ -56,18 +56,13 @@ standardBankFunctions()
     indexAUParameter.value = 0.0;
     
     _kernel.setParameter(indexAddress, indexAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        indexAUParameter,
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
-    ]];
-	parameterTreeBlock(MorphingOscillatorBank)
+                                                               standardBankAUParameterList(),
+                                                               indexAUParameter
+                                                               ]];
+    parameterTreeBlock(MorphingOscillatorBank)
 }
 
 AUAudioUnitGeneratorOverrides(MorphingOscillatorBank)

@@ -20,7 +20,7 @@ class SineWaveTests: AKTestCase {
         output = AKOperationGenerator { _ in
             return AKOperation.sineWave()
         }
-        AKTestMD5("52c9b3999984c76adfe427316b11f515")
+        AKTestMD5("02e8662be33038033cb0d01763792a11")
     }
 
 }

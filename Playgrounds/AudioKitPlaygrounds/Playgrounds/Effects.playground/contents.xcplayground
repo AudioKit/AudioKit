@@ -17,6 +17,7 @@
         <page name='Delay'/>
         <page name='Distortion'/>
         <page name='Dynamics Processor'/>
+        <page name='DynaRage Tube Compressor'/>
         <page name='Expander'/>
         <page name='Fatten Effect'/>
         <page name='Filter Section Example'/>
@@ -29,6 +30,7 @@
         <page name='Pitch Shifter'/>
         <page name='Pitch Shift Operation'/>
         <page name='Reverb'/>
+        <page name='Rhino Guitar Processor'/>
         <page name='Ring Modulator'/>
         <page name='Smooth Delay Operation'/>
         <page name='Sporth Based Effect'/>

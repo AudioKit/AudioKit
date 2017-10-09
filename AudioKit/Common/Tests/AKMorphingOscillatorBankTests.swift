@@ -26,10 +26,28 @@ class AKMorphingOscillatorBankTests: AKTestCase {
         }
     }
 
+    func testAttackDuration() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, attackDuration: 0.123)
+        output = inputBank
+        AKTestMD5("c3dda6103bb693aef41ec27806e3d4c3")
+    }
+
+    func testDecayDuration() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, decayDuration: 0.234)
+        output = inputBank
+        AKTestMD5("05af83eb0e1204a9778bdb77d90dc537")
+    }
+
     func testDefault() {
         inputBank = AKMorphingOscillatorBank()
         output = inputBank
-        AKTestMD5("1f4e1e7d6257a538f631b9a093e95f8e")
+        AKTestMD5("17345f26560ce643990c5a269ab74a43")
+    }
+
+    func testIndex() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, index: 1.7)
+        output = inputBank
+        AKTestMD5("460123ae0622996dd8f04441dff25e8b")
     }
 
     func testParameters() {
@@ -38,51 +56,35 @@ class AKMorphingOscillatorBankTests: AKTestCase {
                                              attackDuration: 0.123,
                                              decayDuration: 0.234,
                                              sustainLevel: 0.345,
-                                             detuningOffset: 1,
-                                             detuningMultiplier: 1.1)
+                                             pitchBend: 1,
+                                             vibratoDepth: 1.1,
+                                             vibratoRate: 1.2)
         output = inputBank
-        AKTestMD5("445f2962ea295e2ca26d72269e9e371e")
+        AKTestMD5("4fa33d14f8fbb5ef176a71e54267ea63")
     }
 
-    func testWaveformArray() {
-        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms)
+    func testPitchBend() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, pitchBend: 1.1)
         output = inputBank
-        AKTestMD5("03052ab575f7f163eb9614285cac2c03")
-    }
-
-    func testIndex() {
-        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, index: 1.7)
-        output = inputBank
-        AKTestMD5("03052ab575f7f163eb9614285cac2c03")
-    }
-
-    func testAttackDuration() {
-        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, attackDuration: 0.123)
-        output = inputBank
-        AKTestMD5("3b1d17d5324ec15d86a11da02bb3c949")
-    }
-
-    func testDecayDuration() {
-        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, decayDuration: 0.234)
-        output = inputBank
-        AKTestMD5("f7cc91e6d5667cbc362b00e1029aa1cd")
+        AKTestMD5("90a063716a4e32707059b2fda6526010")
     }
 
     func testSustainLevel() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, sustainLevel: 0.345)
         output = inputBank
-        AKTestMD5("88a25b6348559a5f5aa297b7c8c604e5")
+        AKTestMD5("37a2084b030c5b29a3553a00c30aa61a")
     }
 
-    func testDetuningOffset() {
-        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, detuningOffset: 1)
+    func testVibrato() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, vibratoDepth: 1, vibratoRate: 10)
         output = inputBank
-        AKTestMD5("58ce0608b69cb90ff1510c07ec6de0d5")
+        AKTestMD5("c61c90ba3766a287f4bac8c5e7d931ed")
     }
 
-    func testDetuningMultiplier() {
-        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, detuningMultiplier: 1.1)
+    func testWaveformArray() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms)
         output = inputBank
-        AKTestMD5("8b79539a87192bb627f21857de7d9a77")
+        AKTestMD5("460123ae0622996dd8f04441dff25e8b")
     }
+
 }

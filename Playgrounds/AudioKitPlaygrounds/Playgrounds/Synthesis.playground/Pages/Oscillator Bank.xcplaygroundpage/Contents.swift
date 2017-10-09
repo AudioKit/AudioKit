@@ -1,6 +1,7 @@
 //: ## Oscillator Bank
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let bank = AKOscillatorBank(waveform: AKTable(.sine),
                             attackDuration: 0.1,
@@ -9,11 +10,11 @@ let bank = AKOscillatorBank(waveform: AKTable(.sine),
 AudioKit.output = bank
 AudioKit.start()
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Oscillator Bank")
 
         let adsrView = AKADSRView { att, dec, sus, rel in
@@ -26,30 +27,38 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.decayDuration = bank.decayDuration
         adsrView.releaseDuration = bank.releaseDuration
         adsrView.sustainLevel = bank.sustainLevel
-        addSubview(adsrView)
+        addView(adsrView)
 
-        addSubview(AKPropertySlider(property: "Detuning Offset",
-                                    value: bank.detuningOffset,
-                                    range: -1_200 ... 1_200,
-                                    format: "%0.3f Hz"
-        ) { offset in
-            bank.detuningOffset = offset
+        addView(AKSlider(property: "Pitch Bend",
+                         value: bank.pitchBend,
+                         range: -12 ... 12,
+                         format: "%0.2f semitones"
+        ) { sliderValue in
+            bank.pitchBend = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Detuning Multiplier",
-                                    value: bank.detuningMultiplier,
-                                    range: 0.5 ... 2.0,
-                                    taper: log(3) / log(2)
-        ) { multiplier in
-            bank.detuningMultiplier = multiplier
+        addView(AKSlider(property: "Vibrato Depth",
+                         value: bank.vibratoDepth,
+                         range: 0 ... 2,
+                         format: "%0.2f semitones"
+        ) { sliderValue in
+            bank.vibratoDepth = sliderValue
+        })
+
+        addView(AKSlider(property: "Vibrato Rate",
+                         value: bank.vibratoRate,
+                         range: 0 ... 10,
+                         format: "%0.2f Hz"
+        ) { sliderValue in
+            bank.vibratoRate = sliderValue
         })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
 
-        addSubview(AKButton(title: "Go Polyphonic") { button in
+        addView(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
                 button.title = "Go Monophonic"
@@ -70,4 +79,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

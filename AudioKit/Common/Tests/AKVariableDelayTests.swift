@@ -18,12 +18,12 @@ class AKVariableDelayTests: AKTestCase {
 
     func testDefault() {
         output = AKVariableDelay(input)
-        AKTestMD5("48ea4c18ae98844bbbcd7fca368dc946")
+        AKTestMD5("4f6ff617850190542e120c2e27cdde54")
     }
 
-    func testParametersSetOnInit() {
-        output = AKVariableDelay(input, time: 0.123_4, feedback: 0.95)
-        AKTestMD5("9226df1559cc20cd4eeab47999ed9687")
+    func testFeedback() {
+        output = AKVariableDelay(input, feedback: 0.95)
+        AKTestMD5("f041e3cf613921e41f8212fc7012ed6f")
     }
 
     func testParametersSetAfterInit() {
@@ -31,18 +31,17 @@ class AKVariableDelayTests: AKTestCase {
         effect.time = 0.123_4
         effect.feedback = 0.95
         output = effect
-        AKTestMD5("9226df1559cc20cd4eeab47999ed9687")
+        AKTestMD5("5024a7ef59a303c6f7a6fbebf0486d5e")
+    }
+
+    func testParametersSetOnInit() {
+        output = AKVariableDelay(input, time: 0.123_4, feedback: 0.95)
+        AKTestMD5("5024a7ef59a303c6f7a6fbebf0486d5e")
     }
 
     func testTime() {
         output = AKVariableDelay(input, time: 0.123_4)
-        AKTestMD5("55da6c3d0aaac60e867dc5f3bbffb58a")
+        AKTestMD5("db7ec67b9dba22da741bfe607b77fd68")
     }
-
-    func testFeedback() {
-        output = AKVariableDelay(input, feedback: 0.95)
-        AKTestMD5("aba6459050d8369fa584f3fefe2d47c2")
-    }
-
 
 }

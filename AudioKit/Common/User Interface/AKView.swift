@@ -1,6 +1,6 @@
 //
 //  AKView.swift
-//  AudioKit
+//  AudioKitUI
 //
 //  Created by Stéphane Peter, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
@@ -51,10 +51,10 @@ public class AKStylist {
 
         colorCycle = Dictionary()
         colorCycle[.basic] = [AKColor(red: 165.0 / 255.0, green: 26.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0),
-                                 AKColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
-                                 AKColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),
-                                 AKColor(red: 36.0 / 255.0, green: 110.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0),
-                                 AKColor(red: 14.0 / 255.0, green: 173.0 / 255.0, blue: 105.0 / 255.0, alpha: 1.0)]
+                              AKColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
+                              AKColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),
+                              AKColor(red: 36.0 / 255.0, green: 110.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0),
+                              AKColor(red: 14.0 / 255.0, green: 173.0 / 255.0, blue: 105.0 / 255.0, alpha: 1.0)]
         colorCycle[.midnight] = [AKColor(red: 165.0 / 255.0, green: 26.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0),
                                  AKColor(red: 238.0 / 255.0, green: 66.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0),
                                  AKColor(red: 244.0 / 255.0, green: 96.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0),

@@ -8,7 +8,7 @@
 
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
 ///
-open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
+open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKZitaReverbAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")
@@ -29,14 +29,14 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     fileprivate var dryWetMixParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = rampTime
         }
     }
 
     /// Delay in ms before reverberation begins.
-    open dynamic var predelay: Double = 60.0 {
+    @objc open dynamic var predelay: Double = 60.0 {
         willSet {
             if predelay != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -51,7 +51,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Crossover frequency separating low and middle frequencies (Hz).
-    open dynamic var crossoverFrequency: Double = 200.0 {
+    @objc open dynamic var crossoverFrequency: Double = 200.0 {
         willSet {
             if crossoverFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -66,7 +66,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Time (in seconds) to decay 60db in low-frequency band.
-    open dynamic var lowReleaseTime: Double = 3.0 {
+    @objc open dynamic var lowReleaseTime: Double = 3.0 {
         willSet {
             if lowReleaseTime != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -81,7 +81,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Time (in seconds) to decay 60db in mid-frequency band.
-    open dynamic var midReleaseTime: Double = 2.0 {
+    @objc open dynamic var midReleaseTime: Double = 2.0 {
         willSet {
             if midReleaseTime != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -96,7 +96,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.
-    open dynamic var dampingFrequency: Double = 6_000.0 {
+    @objc open dynamic var dampingFrequency: Double = 6_000.0 {
         willSet {
             if dampingFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -111,7 +111,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 1.
-    open dynamic var equalizerFrequency1: Double = 315.0 {
+    @objc open dynamic var equalizerFrequency1: Double = 315.0 {
         willSet {
             if equalizerFrequency1 != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -126,7 +126,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1
-    open dynamic var equalizerLevel1: Double = 0.0 {
+    @objc open dynamic var equalizerLevel1: Double = 0.0 {
         willSet {
             if equalizerLevel1 != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -141,7 +141,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 2.
-    open dynamic var equalizerFrequency2: Double = 1_500.0 {
+    @objc open dynamic var equalizerFrequency2: Double = 1_500.0 {
         willSet {
             if equalizerFrequency2 != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -156,7 +156,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
-    open dynamic var equalizerLevel2: Double = 0.0 {
+    @objc open dynamic var equalizerLevel2: Double = 0.0 {
         willSet {
             if equalizerLevel2 != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -171,7 +171,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// 0 = all dry, 1 = all wet
-    open dynamic var dryWetMix: Double = 1.0 {
+    @objc open dynamic var dryWetMix: Double = 1.0 {
         willSet {
             if dryWetMix != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -186,7 +186,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -208,7 +208,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     ///   - dryWetMix: 0 = all dry, 1 = all wet
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         predelay: Double = 60.0,
         crossoverFrequency: Double = 200.0,
         lowReleaseTime: Double = 3.0,
@@ -239,10 +239,11 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -259,7 +260,10 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -281,12 +285,12 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

@@ -131,10 +131,10 @@ class ParticleLab: MTKView {
     }
 
     func resetGravityWells() {
-        setGravityWellProperties(gravityWell: .one)
-        setGravityWellProperties(gravityWell: .two)
-        setGravityWellProperties(gravityWell: .three)
-        setGravityWellProperties(gravityWell: .four)
+        setGravityWellProperties(gravityWellIndex: 1)
+        setGravityWellProperties(gravityWellIndex: 2)
+        setGravityWellProperties(gravityWellIndex: 3)
+        setGravityWellProperties(gravityWellIndex: 4)
     }
 
     func resetParticles(_ edgesOnly: Bool) {

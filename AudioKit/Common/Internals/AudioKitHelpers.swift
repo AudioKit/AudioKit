@@ -18,7 +18,7 @@ public typealias MIDIChannel = UInt8
 extension Collection where IndexDistance == Int {
     /// Return a random element from the collection
     public var randomIndex: Index {
-        let offset = Int(arc4random_uniform(UInt32(count.toIntMax())))
+        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
         return index(startIndex, offsetBy: offset)
     }
 
@@ -60,11 +60,20 @@ public func AKLog(_ string: String, fullname: String = #function, file: String =
 ///   - minimum: Lower bound of randomization
 ///   - maximum: Upper bound of randomization
 ///
+@available(*, deprecated, renamed: "random(in:)")
 public func random(_ minimum: Double, _ maximum: Double) -> Double {
-    let precision = 1_000_000
-    let width = maximum - minimum
+    return random(in: minimum ... maximum)
+}
 
-    return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + minimum
+/// Random double in range
+///
+/// - parameter in: Range of randomization
+///
+public func random(in range: ClosedRange<Double>) -> Double {
+    let precision = 1_000_000
+    let width = range.upperBound - range.lowerBound
+
+    return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + range.lowerBound
 }
 
 // MARK: - Normalization Helpers
@@ -75,10 +84,10 @@ extension Double {
     /// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
     ///
     /// - Parameters:
-    ///   - range: Source range (cannot include zero if taper is not positive)
+    ///   - to: Source range (cannot include zero if taper is not positive)
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public func normalized(range: ClosedRange<Double>, taper: Double) -> Double {
+    public func normalized(from range: ClosedRange<Double>, taper: Double = 1) -> Double {
         assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
 
         if taper > 0 {
@@ -97,8 +106,9 @@ extension Double {
     ///   - maximum: Maximum of the source range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public func normalized(minimum: Double, maximum: Double, taper: Double) -> Double {
-        return self.normalized(range: minimum...maximum, taper: taper)
+    @available(*, deprecated, renamed: "normalized(from:taper:)")
+    public func normalized(minimum: Double, maximum: Double, taper: Double = 1) -> Double {
+        return self.normalized(from: minimum...maximum, taper: taper)
     }
 
     /// Convert a value on [minimum, maximum] to a [0, 1] range, according to a taper
@@ -108,17 +118,18 @@ extension Double {
     ///   - maximum: Maximum of the source range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func normalize(minimum: Double, maximum: Double, taper: Double) {
-        self = self.normalized(minimum: minimum, maximum: maximum, taper: taper)
+    @available(*, deprecated, renamed: "normalize(from:taper:)")
+    public mutating func normalize(minimum: Double, maximum: Double, taper: Double = 1) {
+        self = self.normalized(from: minimum ... maximum, taper: taper)
     }
 
     /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
     ///
     /// - Parameters:
-    ///   - range: Target range (cannot contain zero if taper is not positive)
+    ///   - to: Target range (cannot contain zero if taper is not positive)
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public func denormalized(range: ClosedRange<Double>, taper: Double) -> Double {
+    public func denormalized(to range: ClosedRange<Double>, taper: Double = 1) -> Double {
 
         assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
 
@@ -148,8 +159,9 @@ extension Double {
     ///   - maximum: Maximum of the target range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public func denormalized(minimum: Double, maximum: Double, taper: Double) -> Double {
-        return self.denormalized(range: minimum ... maximum, taper: taper)
+    @available(*, deprecated, renamed: "denormalized(to:taper:)")
+    public func denormalized(minimum: Double, maximum: Double, taper: Double = 1) -> Double {
+        return self.denormalized(to: minimum ... maximum, taper: taper)
     }
 
     /// Convert a value on [0, 1] to a [min, max] range, according to a taper
@@ -159,8 +171,9 @@ extension Double {
     ///   - maximum: Maximum of the target range
     ///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func denormalize(minimum: Double, maximum: Double, taper: Double) {
-        self = self.denormalized(minimum: minimum, maximum: maximum, taper: taper)
+    @available(*, deprecated, renamed: "denormalize(to:taper:)")
+    public mutating func denormalize(minimum: Double, maximum: Double, taper: Double = 1) {
+        self = self.denormalized(to: minimum ... maximum, taper: taper)
     }
 }
 
@@ -296,8 +309,8 @@ internal struct AUWrapper {
 }
 
 /// Adding instantiation with component and callback
-extension AVAudioUnit {
-    class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
+public extension AVAudioUnit {
+    public class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
             avAudioUnit.map {
                 AudioKit.engine.attach($0)
@@ -335,14 +348,14 @@ extension AudioComponentDescription {
 }
 
 // Anything that can hold a value (strings, arrays, etc)
-protocol Occupiable {
+public protocol Occupiable {
     var isEmpty: Bool { get }
     var isNotEmpty: Bool { get }
 }
 
 // Give a default implementation of isNotEmpty, so conformance only requires one implementation
 extension Occupiable {
-    var isNotEmpty: Bool {
+    public var isNotEmpty: Bool {
         return ❗️isEmpty
     }
 }

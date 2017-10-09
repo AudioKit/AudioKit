@@ -9,8 +9,9 @@
 //: rather interesting digital distortion effects.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -24,24 +25,24 @@ AudioKit.start()
 
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Bit Crusher")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(property: "Bit Depth",
-                                    value: bitcrusher.bitDepth,
-                                    range: 1 ... 24
+        addView(AKSlider(property: "Bit Depth",
+                         value: bitcrusher.bitDepth,
+                         range: 1 ... 24
         ) { sliderValue in
             bitcrusher.bitDepth = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Sample Rate",
-                                    value: bitcrusher.sampleRate,
-                                    range: 1 ... 16_000,
-                                    format: "%0.1f Hz"
+        addView(AKSlider(property: "Sample Rate",
+                         value: bitcrusher.sampleRate,
+                         range: 1 ... 16_000,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             bitcrusher.sampleRate = sliderValue
         })
@@ -50,4 +51,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

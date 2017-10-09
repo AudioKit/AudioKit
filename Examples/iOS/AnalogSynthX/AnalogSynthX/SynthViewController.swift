@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class SynthViewController: UIViewController {
@@ -49,7 +50,7 @@ class SynthViewController: UIViewController {
     @IBOutlet fileprivate weak var fattenToggle: UIButton!
     @IBOutlet fileprivate weak var holdToggle: UIButton!
     @IBOutlet fileprivate weak var monoToggle: UIButton!
-    @IBOutlet fileprivate weak var audioPlot: AKOutputWaveformPlot!
+    @IBOutlet weak var audioPlot: AKNodeOutputPlot!
     @IBOutlet fileprivate weak var plotToggle: UIButton!
 
     enum ControlTag: Int {
@@ -118,9 +119,9 @@ class SynthViewController: UIViewController {
 
         // Set Preset Values
         conductor.masterVolume.volume = 1.0 // Master Volume
-        conductor.core.vco1.detuningOffset = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
-        conductor.core.vco2.detuningOffset = 0.0 // VCO2 Detune (Hz)
+        conductor.core.vco2.vibratoDepth = 0.0 // VCO2 Detune (Hz)
+        conductor.core.vco2.vibratoRate = 1.0 // VCO2 Detune (Hz)
         conductor.core.vcoBalancer.balance = 0.5 // VCO1/VCO2 Mix
         conductor.core.subOscMixer.volume = 0.0 // SubOsc Mix
         conductor.core.fmOscMixer.volume = 0.0 // FM Mix
@@ -168,9 +169,9 @@ class SynthViewController: UIViewController {
         osc2SemitonesKnob.maximum = 12
         osc2SemitonesKnob.value = Double(conductor.core.offset2)
 
-        osc2DetuneKnob.minimum = -4
-        osc2DetuneKnob.maximum = 4
-        osc2DetuneKnob.value = conductor.core.vco2.detuningOffset
+        osc2DetuneKnob.minimum = -0.25
+        osc2DetuneKnob.maximum = 0.25
+        osc2DetuneKnob.value = conductor.core.vco2.vibratoDepth
 
         subMixKnob.maximum = 1.0
         subMixKnob.value = conductor.core.subOscMixer.volume
@@ -554,7 +555,7 @@ extension SynthViewController: KnobDelegate {
 
         case ControlTag.vco2Detune.rawValue:
             statusLabel.text = "Detune: \(value.decimalString) Hz"
-            conductor.core.vco2.detuningOffset = value
+            conductor.core.vco2.vibratoDepth = value
 
         case ControlTag.oscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalString)"

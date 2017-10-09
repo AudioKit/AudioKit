@@ -71,8 +71,8 @@ extension AKMIDI {
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     for packet in packetList.pointee {
-                    // a CoreMIDI packet may contain multiple MIDI events - 
-                    // treat it like an array of events that can be transformed
+                        // a CoreMIDI packet may contain multiple MIDI events - 
+                        // treat it like an array of events that can be transformed
                         let transformedMIDIEventList = self.transformMIDIEventList([AKMIDIEvent](packet))
                         for transformedEvent in transformedMIDIEventList {
                             self.handleMIDIMessage(transformedEvent)
@@ -111,21 +111,21 @@ extension AKMIDI {
                 }
             }
         }
-//        The below code is not working properly - error closing MIDI port
-//        for (key, endpoint) in inputPorts {
-//            if namedInput.isEmpty || key == namedInput {
-//                if let port = inputPorts[key] {
-//                    // the next line is returning error -50, either port or endpoint is not right
-//                    let result = MIDIPortDisconnectSource(port, endpoint)
-//                    if result == noErr {
-//                        endpoints.removeValue(forKey: namedInput)
-//                        inputPorts.removeValue(forKey: namedInput)
-//                    } else {
-//                        AKLog("Error closing midiInPort : \(result)")
-//                    }
-//                }
-//            }
-//        }
+        //        The below code is not working properly - error closing MIDI port
+        //        for (key, endpoint) in inputPorts {
+        //            if namedInput.isEmpty || key == namedInput {
+        //                if let port = inputPorts[key] {
+        //                    // the next line is returning error -50, either port or endpoint is not right
+        //                    let result = MIDIPortDisconnectSource(port, endpoint)
+        //                    if result == noErr {
+        //                        endpoints.removeValue(forKey: namedInput)
+        //                        inputPorts.removeValue(forKey: namedInput)
+        //                    } else {
+        //                        AKLog("Error closing midiInPort : \(result)")
+        //                    }
+        //                }
+        //            }
+        //        }
     }
 
     /// Close all MIDI Input ports
@@ -136,9 +136,11 @@ extension AKMIDI {
     internal func handleMIDIMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
             guard let eventChannel = event.channel else {
+                AKLog("No channel detected in handleMIDIMessage")
                 return
             }
             guard let type = event.status else {
+                AKLog("No status detected in handleMIDIMessage")
                 return
             }
             switch type {

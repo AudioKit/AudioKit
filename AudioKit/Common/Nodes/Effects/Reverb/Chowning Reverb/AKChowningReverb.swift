@@ -14,7 +14,7 @@
 /// three series allpass units, followed by four parallel comb filters, and two
 /// decorrelation delay lines in parallel at the output.
 ///
-open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
+open class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKChowningReverbAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
@@ -24,7 +24,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     private var token: AUParameterObserverToken?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -34,7 +34,7 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter input: Input node to process
     ///
-    public init(_ input: AKNode?) {
+    public init(_ input: AKNode? = nil) {
         _Self.register()
 
         super.init()
@@ -43,19 +43,19 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

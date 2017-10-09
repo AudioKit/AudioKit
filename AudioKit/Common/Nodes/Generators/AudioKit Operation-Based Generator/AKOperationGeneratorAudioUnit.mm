@@ -17,13 +17,13 @@
 @implementation AKOperationGeneratorAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKOperationGeneratorDSPKernel _kernel;
-
+    
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
 - (void)setSporth:(NSString *)sporth {
-    _kernel.setSporth((char*)[sporth UTF8String]);
+    _kernel.setSporth((char *)[sporth UTF8String], (int)sporth.length + 1);
 }
 
 - (void)trigger:(int)trigger {
@@ -68,7 +68,7 @@
     standardGeneratorSetup(OperationGenerator)
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-	parameterTreeBlock(OperationGenerator)
+    parameterTreeBlock(OperationGenerator)
 }
 
 AUAudioUnitGeneratorOverrides(OperationGenerator)

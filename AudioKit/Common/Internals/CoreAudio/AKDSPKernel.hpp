@@ -1,6 +1,6 @@
 //
 //  AKDSPKernel.hpp
-//  AudioKit For macOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/1/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -59,6 +59,7 @@ public:
     }
 };
 
+
 class AKBuffered: public AKOutputBuffered {
 protected:
     AudioBufferList *inBufferListPtr = nullptr;
@@ -69,3 +70,15 @@ public:
         
     }
 };
+
+class AKDSPKernelWithParams : AKDSPKernel, AKParametricKernel {
+public:
+    void start() {}
+    void stop() {}
+    bool started;
+    bool resetted;
+    
+};
+
+
+

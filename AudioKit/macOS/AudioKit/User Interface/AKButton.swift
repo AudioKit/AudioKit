@@ -20,6 +20,15 @@ public enum AKButtonStyle {
 
     public var callback: (AKButton) -> Void = { _ in }
 
+    private var isHighlighted = false {
+        didSet {
+            needsDisplay = true
+        }
+    }
+
+    private var highlightAnimationTimer: Timer?
+    private var highlightAnimationAlpha: CGFloat = 1.0
+
     /// Text to display on the button
     @IBInspectable open var title: String {
         didSet {
@@ -27,8 +36,15 @@ public enum AKButtonStyle {
         }
     }
 
-    /// Background color of the button
+    /// Button fill color
     @IBInspectable open var color: NSColor {
+        didSet {
+            needsDisplay = true
+        }
+    }
+
+    /// Button fill color when highlighted
+    @IBInspectable open var highlightedColor: NSColor? {
         didSet {
             needsDisplay = true
         }
@@ -63,6 +79,27 @@ public enum AKButtonStyle {
 
     open override func mouseDown(with event: NSEvent) {
         callback(self)
+        isHighlighted = true
+    }
+
+    open override func mouseUp(with event: NSEvent) {
+        isHighlighted = false
+
+        if let highlightAnimationTimer = highlightAnimationTimer {
+            highlightAnimationTimer.invalidate()
+            self.highlightAnimationTimer = nil
+        }
+        self.highlightAnimationAlpha = 0.6
+        highlightAnimationTimer = Timer.scheduledTimer(timeInterval: 0.002, target: self, selector: #selector(highlightAnimationTimerDidFire), userInfo: nil, repeats: true)
+    }
+
+    @objc private func highlightAnimationTimerDidFire() {
+        highlightAnimationAlpha += 0.01
+        needsDisplay = true
+        if highlightAnimationAlpha == 1.0, let highlightAnimationTimer = highlightAnimationTimer {
+            highlightAnimationTimer.invalidate()
+            self.highlightAnimationTimer = nil
+        }
     }
 
     /// Initialize the button
@@ -141,7 +178,22 @@ public enum AKButtonStyle {
                                width: rect.width - borderWidth,
                                height: rect.height - borderWidth)
         let outerPath = NSBezierPath(roundedRect: outerRect, xRadius: cornerRadius, yRadius: cornerRadius)
-        color.setFill()
+
+        // Set fill color based on highlight state
+        if isHighlighted {
+            if let highlightedColor = highlightedColor {
+                highlightedColor.setFill()
+            } else {
+                color.withAlphaComponent(0.6).setFill()
+            }
+        } else {
+            if highlightAnimationTimer != nil {
+                color.withAlphaComponent(highlightAnimationAlpha).setFill()
+            } else {
+                color.setFill()
+            }
+        }
+
         outerPath.fill()
         borderColorForTheme.setStroke()
         outerPath.lineWidth = borderWidth
@@ -150,14 +202,14 @@ public enum AKButtonStyle {
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 24),
-                                   NSForegroundColorAttributeName: textColorForTheme,
-                                   NSParagraphStyleAttributeName: labelStyle]
+        let labelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 24),
+                                   NSAttributedStringKey.foregroundColor: textColorForTheme,
+                                   NSAttributedStringKey.paragraphStyle: labelStyle]
 
         let labelInset: CGRect = rect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(
             with: CGSize(width: labelInset.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: labelFontAttributes,
             context: nil).size.height
         NSString(string: title).draw(in: CGRect(x: labelInset.minX,

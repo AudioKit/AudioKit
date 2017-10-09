@@ -13,7 +13,7 @@
 /// fundamentalFrequency.  This operation can be used to simulate sympathetic
 /// resonances to an input signal.
 ///
-open class AKStringResonator: AKNode, AKToggleable, AKComponent {
+open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKStringResonatorAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
@@ -27,14 +27,14 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     fileprivate var feedbackParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Fundamental frequency of string.
-    open dynamic var fundamentalFrequency: Double = 100 {
+    @objc open dynamic var fundamentalFrequency: Double = 100 {
         willSet {
             if fundamentalFrequency != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -49,7 +49,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     }
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
     /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    open dynamic var feedback: Double = 0.95 {
+    @objc open dynamic var feedback: Double = 0.95 {
         willSet {
             if feedback != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -64,7 +64,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -80,7 +80,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     ///               filter frequency, typical values are > .9.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         fundamentalFrequency: Double = 100,
         feedback: Double = 0.95) {
 
@@ -95,10 +95,11 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -107,7 +108,10 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else { return } // Replace _ with strongSelf if needed
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
                 // This node does not change its own values so we won't add any
                 // value observing, but if you need to, this is where that goes.
@@ -121,12 +125,12 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

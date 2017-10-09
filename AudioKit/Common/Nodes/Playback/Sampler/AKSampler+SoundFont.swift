@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-extension AKSampler {
+public extension AKSampler {
     fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
             fatalError("file not found.")
@@ -30,7 +30,7 @@ extension AKSampler {
     ///   - preset: Number of the program to use
     ///   - bank: Number of the bank to use
     ///
-    open func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
+    @objc public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
             fatalError("file not found.")
         }
@@ -59,7 +59,7 @@ extension AKSampler {
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
     ///
-    open func loadMelodicSoundFont(_ file: String, preset: Int) throws {
+    @objc public func loadMelodicSoundFont(_ file: String, preset: Int) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
     }
 
@@ -69,7 +69,7 @@ extension AKSampler {
     ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
     ///   - preset: Number of the program to use
     ///
-    open func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
+    @objc public func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
 

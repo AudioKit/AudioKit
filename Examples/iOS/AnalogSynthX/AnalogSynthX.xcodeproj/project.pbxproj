@@ -37,6 +37,8 @@
 		C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */; };
 		C4E8ED2D1C43B2540041965F /* Fatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2C1C43B2540041965F /* Fatten.swift */; };
 		D2A6182F1E2C00FF7F5D2205 /* Pods_AnalogSynthX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */; };
+		EA10E15F1F4F9833003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */; };
+		EA10E1601F4F9833003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAF0A5B71C4F943E00F37994 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0A5B61C4F943E00F37994 /* AudioKit.framework */; };
 		EAF0A5B81C4F943E00F37994 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0A5B61C4F943E00F37994 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -57,6 +59,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EA10E1601F4F9833003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
 				EAF0A5B81C4F943E00F37994 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -101,6 +104,7 @@
 		C4E8ED281C43ADA10041965F /* FilterSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterSection.swift; path = AudioSystem/FilterSection.swift; sourceTree = "<group>"; };
 		C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiDelay.swift; path = AudioSystem/MultiDelay.swift; sourceTree = "<group>"; };
 		C4E8ED2C1C43B2540041965F /* Fatten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fatten.swift; path = AudioSystem/Fatten.swift; sourceTree = "<group>"; };
+		EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		EAF0A5B61C4F943E00F37994 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +114,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF0A5B71C4F943E00F37994 /* AudioKit.framework in Frameworks */,
+				EA10E15F1F4F9833003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				D2A6182F1E2C00FF7F5D2205 /* Pods_AnalogSynthX.framework in Frameworks */,
 				C44760681DCD65ED00628666 /* AudioToolbox.framework in Frameworks */,
 			);
@@ -299,6 +304,7 @@
 		EA127F471C42097600289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */,
 				C44760671DCD65ED00628666 /* AudioToolbox.framework */,
 				EAF0A5B61C4F943E00F37994 /* AudioKit.framework */,
 				11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */,
@@ -340,12 +346,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C42FFBF51C3DDAAC00823BD4 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0900;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -410,13 +416,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AnalogSynthX-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AD6E69E3684A2E442EFC96C1 /* [CP] Copy Pods Resources */ = {
@@ -504,14 +513,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -520,6 +535,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -552,14 +568,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -568,6 +590,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -597,14 +620,14 @@
 				CODE_SIGN_ENTITLEMENTS = AnalogSynthX/AnalogSynthX.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
 				PRODUCT_NAME = AnalogSynthX;
 				SWIFT_OBJC_BRIDGING_HEADER = "AnalogSynthX/AnalogSynthX-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
@@ -620,14 +643,14 @@
 				CODE_SIGN_ENTITLEMENTS = AnalogSynthX/AnalogSynthX.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
 				PRODUCT_NAME = AnalogSynthX;
 				SWIFT_OBJC_BRIDGING_HEADER = "AnalogSynthX/AnalogSynthX-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};

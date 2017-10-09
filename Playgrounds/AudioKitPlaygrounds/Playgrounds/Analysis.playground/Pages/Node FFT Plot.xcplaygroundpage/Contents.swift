@@ -10,8 +10,10 @@ var microphone = AKMicrophone()
 AudioKit.output = AKBooster(microphone, gain: 0.0)
 AudioKit.start()
 
-public class PlaygroundView: AKPlaygroundView {
-    public override func setup() {
+import AudioKitUI
+
+public class LiveView: AKLiveViewController {
+    public override func viewDidLoad() {
         addTitle("Node FFT Plot")
 
         let plot = AKNodeFFTPlot(microphone, frame: CGRect(x: 0, y: 0, width: 500, height: 500))
@@ -20,10 +22,10 @@ public class PlaygroundView: AKPlaygroundView {
         plot.shouldCenterYAxis = false
         plot.color = AKColor.purple
         plot.gain = 100
-        addSubview(plot)
+        addView(plot)
     }
 }
 
 import PlaygroundSupport
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 PlaygroundPage.current.needsIndefiniteExecution = true

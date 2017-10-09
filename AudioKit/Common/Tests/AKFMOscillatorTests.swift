@@ -13,22 +13,7 @@ class AKFMOscillatorTests: AKTestCase {
 
     func testDefault() {
         output = AKFMOscillator()
-        AKTestMD5("c4b8544dc178c161c11b19cc4cafc08f")
-    }
-
-    func testSquareWave() {
-        output = AKFMOscillator(waveform: AKTable(.square, count: 4_096))
-        AKTestMD5("c6b194d7bf925ade38c3a1d5333326f8")
-    }
-
-    func testParametersSetOnInit() {
-        output = AKFMOscillator(waveform: AKTable(.square),
-                                baseFrequency: 1_234,
-                                carrierMultiplier: 1.234,
-                                modulatingMultiplier: 1.234,
-                                modulationIndex: 1.234,
-                                amplitude: 0.5)
-        AKTestMD5("9d4ba935daab84b999de48fd9314d3ae")
+        AKTestMD5("3fee66d7da663b3e68142de923962819")
     }
 
     func testParametersSetAfterInit() {
@@ -39,42 +24,57 @@ class AKFMOscillatorTests: AKTestCase {
         oscillator.modulationIndex = 1.234
         oscillator.amplitude = 0.5
         output = oscillator
-        AKTestMD5("9d4ba935daab84b999de48fd9314d3ae")
+        AKTestMD5("8387b7242dbb91c0a1f397a9bb9f2b06")
     }
 
-    func testPresetStunRay() {
-        let preset = AKFMOscillator()
-        preset.presetStunRay()
-        output = preset
-        AKTestMD5("1a42a14c345ca10b6a20c333d9fea936")
-    }
-
-    func testPresetFogHorn() {
-        let preset = AKFMOscillator()
-        preset.presetFogHorn()
-        output = preset
-        AKTestMD5("d34da68224e9eac50c756cee1d43a8ac")
+    func testParametersSetOnInit() {
+        output = AKFMOscillator(waveform: AKTable(.square),
+                                baseFrequency: 1_234,
+                                carrierMultiplier: 1.234,
+                                modulatingMultiplier: 1.234,
+                                modulationIndex: 1.234,
+                                amplitude: 0.5)
+        AKTestMD5("8387b7242dbb91c0a1f397a9bb9f2b06")
     }
 
     func testPresetBuzzer() {
         let preset = AKFMOscillator()
         preset.presetBuzzer()
         output = preset
-        AKTestMD5("6ad8e692ca2a215ca2acd71151c9a201")
+        AKTestMD5("03e2f9736e2511fe99997c65df486bbc")
+    }
+
+    func testPresetFogHorn() {
+        let preset = AKFMOscillator()
+        preset.presetFogHorn()
+        output = preset
+        AKTestMD5("e4e9fad0f2fc0c91b886583ae1e0faf4")
     }
 
     func testPresetSpiral() {
         let preset = AKFMOscillator()
         preset.presetSpiral()
         output = preset
-        AKTestMD5("558fc4d8d97e8644188b7e03c91eb235")
+        AKTestMD5("4cbeac11faec88c9816be8d872028657")
+    }
+
+    func testPresetStunRay() {
+        let preset = AKFMOscillator()
+        preset.presetStunRay()
+        output = preset
+        AKTestMD5("3434fc08a63bc6b0a8e52fbcc41e3866")
     }
 
     func testPresetWobble() {
         let preset = AKFMOscillator()
         preset.presetWobble()
         output = preset
-        AKTestMD5("cabe5773a5912ac40b2ec4bd7cee16bd")
+        AKTestMD5("4450350ff43f5f1b258158f1ec7dbccc")
+    }
+
+    func testSquareWave() {
+        output = AKFMOscillator(waveform: AKTable(.square, count: 4_096))
+        AKTestMD5("521697a9ca4ef19632576bbc4f57e51f")
     }
 
 }

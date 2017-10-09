@@ -2,7 +2,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0], baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -15,29 +15,33 @@ AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Band Reject Butterworth Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: filter))
+        addView(AKButton(title: "Stop") { button in
+            filter.isStarted ? filter.stop() : filter.play()
+            button.title = filter.isStarted ? "Stop" : "Start"
+        })
 
-        addSubview(AKPropertySlider(property: "Center Frequency",
-                                    value: filter.centerFrequency,
-                                    range: 20 ... 10_000,
-                                    taper: 5,
-                                    format: "%0.1f Hz"
+        addView(AKSlider(property: "Center Frequency",
+                         value: filter.centerFrequency,
+                         range: 20 ... 10_000,
+                         taper: 5,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             filter.centerFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(property: "Bandwidth",
-                                    value: filter.bandwidth,
-                                    range: 100 ... 12_000,
-                                    format: "%0.1f Hz"
+        addView(AKSlider(property: "Bandwidth",
+                         value: filter.bandwidth,
+                         range: 100 ... 12_000,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             filter.bandwidth = sliderValue
         })
@@ -46,4 +50,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

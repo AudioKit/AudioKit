@@ -8,15 +8,9 @@
 
 #pragma once
 
-#import "AKAudioUnit.h"
+#import "AKBankAudioUnit.h"
 
-@interface AKOscillatorBankAudioUnit : AKAudioUnit
-@property (nonatomic) float attackDuration;
-@property (nonatomic) float decayDuration;
-@property (nonatomic) float sustainLevel;
-@property (nonatomic) float releaseDuration;
-@property (nonatomic) float detuningOffset;
-@property (nonatomic) float detuningMultiplier;
+@interface AKOscillatorBankAudioUnit : AKBankAudioUnit
 
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;

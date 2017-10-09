@@ -81,7 +81,7 @@ struct BufferedOutputBus: BufferedAudioBus {
 	BufferedInputBus
  
 	This class manages a buffer into which an audio unit with input busses can
- pull its input data.
+    pull its input data.
  */
 struct BufferedInputBus : BufferedAudioBus {
     /*

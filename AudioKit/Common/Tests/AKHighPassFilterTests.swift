@@ -11,23 +11,23 @@ import XCTest
 
 class AKHighPassFilterTests: AKTestCase {
 
+    func testCutoffFrequency() {
+        output = AKHighPassFilter(input, cutoffFrequency: 500)
+        AKTestMD5("23459f6c63fcb9932f17fc4b2d698e23")
+    }
+
     func testDefault() {
         output = AKHighPassFilter(input)
-        AKTestMD5("c424cf5a476a13999080fb9ca86f858f")
+        AKTestMD5("62cc7c46a46b5dfbc122aeac7c9f6d1d")
     }
 
     func testParameters() {
         output = AKHighPassFilter(input, cutoffFrequency: 500, resonance: 1)
-        AKTestMD5("50672c93e1af1a758d3cea771cadda59")
-    }
-
-    func testCutoffFrequency() {
-        output = AKHighPassFilter(input, cutoffFrequency: 500)
-        AKTestMD5("5bf4d6da07d10103c6acabf3f94d4da3")
+        AKTestMD5("aec01cf98db93146b8c586c5ac618226")
     }
 
     func testResonance() {
         output = AKHighPassFilter(input, resonance: 1)
-        AKTestMD5("ff7d3fadec7aaf9010b265ba37b9aba7")
+        AKTestMD5("f6a7b41c50a46efbd9ffd20eb294a0af")
     }
 }

@@ -12,48 +12,50 @@ AudioKit.output = oscillator
 AudioKit.start()
 oscillator.start()
 
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    override func setup() {
+class LiveView: AKLiveViewController {
+
+    override func viewDidLoad() {
         addTitle("Output Waveform Plot")
 
-        addSubview(AKPropertySlider(property: "Frequency",
-                                    value: oscillator.baseFrequency,
-                                    range: 0 ... 800,
-                                    format: "%0.2f Hz"
+        addView(AKSlider(property: "Frequency",
+                         value: oscillator.baseFrequency,
+                         range: 0 ... 800,
+                         format: "%0.2f Hz"
         ) { frequency in
             oscillator.baseFrequency = frequency
         })
 
-        addSubview(AKPropertySlider(property: "Carrier Multiplier",
-                                    value: oscillator.carrierMultiplier,
-                                    range: 0 ... 3
+        addView(AKSlider(property: "Carrier Multiplier",
+                         value: oscillator.carrierMultiplier,
+                         range: 0 ... 3
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         })
 
-        addSubview(AKPropertySlider(property: "Modulating Multiplier",
-                                    value: oscillator.modulatingMultiplier,
-                                    range: 0 ... 3
+        addView(AKSlider(property: "Modulating Multiplier",
+                         value: oscillator.modulatingMultiplier,
+                         range: 0 ... 3
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         })
 
-        addSubview(AKPropertySlider(property: "Modulation Index",
-                                    value: oscillator.modulationIndex,
-                                    range: 0 ... 3
+        addView(AKSlider(property: "Modulation Index",
+                         value: oscillator.modulationIndex,
+                         range: 0 ... 3
         ) { index in
             oscillator.modulationIndex = index
         })
 
-        addSubview(AKPropertySlider(property: "Amplitude", value: oscillator.amplitude) { amplitude in
+        addView(AKSlider(property: "Amplitude", value: oscillator.amplitude) { amplitude in
             oscillator.amplitude = amplitude
         })
 
-        addSubview(AKOutputWaveformPlot.createView())
+        addView(AKOutputWaveformPlot.createView())
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

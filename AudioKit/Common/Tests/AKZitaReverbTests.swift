@@ -18,23 +18,7 @@ class AKZitaReverbTests: AKTestCase {
 
     func testDefault() {
         output = AKZitaReverb(input)
-        AKTestMD5("db8e3a4acca377528667c3babbd80bbe")
-    }
-
-    func testParametersSetOnInit() {
-        output = AKZitaReverb(input,
-                              predelay: 10,
-                              crossoverFrequency: 200,
-                              lowReleaseTime: 1.5,
-                              midReleaseTime: 1.0,
-                              dampingFrequency: 3_000,
-                              equalizerFrequency1: 300,
-                              equalizerLevel1: 1,
-                              equalizerFrequency2: 1_400,
-                              equalizerLevel2: -1,
-                              dryWetMix: 0.5)
-
-        AKTestMD5("699a91ae893b3899a2f4711f7edca067")
+        AKTestMD5("647f0ce4e5c5fea58da3a10601c2b43d")
     }
 
     func testParametersSetAfterInit() {
@@ -50,7 +34,23 @@ class AKZitaReverbTests: AKTestCase {
         effect.equalizerLevel2 = -1
         effect.dryWetMix = 0.5
         output = effect
-        AKTestMD5("699a91ae893b3899a2f4711f7edca067")
+        AKTestMD5("14c0c89623979f31317b8df3b8713466")
+    }
+
+    func testParametersSetOnInit() {
+        output = AKZitaReverb(input,
+                              predelay: 10,
+                              crossoverFrequency: 200,
+                              lowReleaseTime: 1.5,
+                              midReleaseTime: 1.0,
+                              dampingFrequency: 3_000,
+                              equalizerFrequency1: 300,
+                              equalizerLevel1: 1,
+                              equalizerFrequency2: 1_400,
+                              equalizerLevel2: -1,
+                              dryWetMix: 0.5)
+
+        AKTestMD5("14c0c89623979f31317b8df3b8713466")
     }
 
 }

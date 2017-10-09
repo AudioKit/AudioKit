@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import Cocoa
 
 class ViewController: NSViewController {
@@ -31,7 +32,7 @@ class ViewController: NSViewController {
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.color = NSColor.blue
-        plot.autoresizingMask = .viewWidthSizable
+        plot.autoresizingMask = NSView.AutoresizingMask.width
         audioInputPlot.addSubview(plot)
     }
 
@@ -61,7 +62,7 @@ class ViewController: NSViewController {
         }
     }
 
-    func updateUI() {
+    @objc func updateUI() {
         if tracker.amplitude > 0.1 {
             frequencyLabel.stringValue = String(format: "%0.1f", tracker.frequency)
 

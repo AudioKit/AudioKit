@@ -9,12 +9,14 @@ let tracker = AKMicrophoneTracker()
 tracker.start()
 
 //: User Interface
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    var trackedAmplitudeSlider: AKPropertySlider?
-    var trackedFrequencySlider: AKPropertySlider?
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    var trackedAmplitudeSlider: AKSlider?
+    var trackedFrequencySlider: AKSlider?
+
+    override func viewDidLoad() {
 
         AKPlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
@@ -23,22 +25,22 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking With Microphone Tracker")
 
-        trackedAmplitudeSlider = AKPropertySlider(property: "Tracked Amplitude", range: 0 ... 0.8) { _ in
+        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.8) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedAmplitudeSlider)
+        addView(trackedAmplitudeSlider)
 
-        trackedFrequencySlider = AKPropertySlider(property: "Tracked Frequency",
-                                                  range: 0 ... 2_400,
-                                                  format: "%0.3f Hz"
+        trackedFrequencySlider = AKSlider(property: "Tracked Frequency",
+                                          range: 0 ... 2_400,
+                                          format: "%0.3f Hz"
         ) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedFrequencySlider)
+        addView(trackedFrequencySlider)
 
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -322,7 +322,7 @@ open class AKSequencer {
     }
 
     /// Stop the sequence
-    open func stop() {
+    @objc open func stop() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerStop(existingMusicPlayer)
         }
@@ -371,7 +371,7 @@ open class AKSequencer {
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
         guard let file = bundle.path(forResource: filename, ofType: "mid") else {
-            AKLog("filename is not in bundle: \(filename)")
+            AKLog("No midi file found")
             return
         }
         let fileURL = URL(fileURLWithPath: file)

@@ -11,13 +11,14 @@ import XCTest
 
 class AKHighPassButterworthFilterTests: AKTestCase {
 
-    func testDefault() {
-        output = AKHighPassButterworthFilter(input)
-        AKTestMD5("023c370be0234ef4069253a931789684")
-    }
-
     func testCutoffFrequency() {
         output = AKHighPassButterworthFilter(input, cutoffFrequency: 400)
-        AKTestMD5("941b2b21d5c2528541f28ffb810cf66f")
+        AKTestMD5("eb971e324cde0e068749087d3e0177f5")
     }
+
+    func testDefault() {
+        output = AKHighPassButterworthFilter(input)
+        AKTestMD5("a8dd0f6d878fbd6236bd951bc4cfedf6")
+    }
+
 }
