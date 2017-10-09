@@ -15,7 +15,7 @@ class ViewController: NSViewController {
 
     let akInternals = "AudioKit ★"
     let windowPrefix = "FX"
-    
+
     @IBOutlet weak var effectsContainer: NSView!
     @IBOutlet weak var playButton: NSButton!
     @IBOutlet weak var loopButton: NSButton!
@@ -61,7 +61,7 @@ class ViewController: NSViewController {
         initManager()
         initMIDI()
         initUI()
-        
+
         AudioKit.start()
     }
 
@@ -106,8 +106,6 @@ class ViewController: NSViewController {
         })
     }
 
-    
-
     @IBAction func handleMidiDeviceSelected(_ sender: NSPopUpButton) {
         if let device = sender.titleOfSelectedItem {
             midiManager?.openInput(device)
@@ -148,7 +146,6 @@ class ViewController: NSViewController {
         })
     }
 
-
     @IBAction func handleShowAudioUnit(_ sender: NSButton) {
         guard internalManager != nil else { return }
         let auIndex = sender.tag
@@ -172,12 +169,12 @@ class ViewController: NSViewController {
         if playButton.title == "⏹" {
             player.stop()
             playButton.title = "▶️"
-            
+
             if !AudioKit.engine.isRunning {
                 AudioKit.stop()
                 internalManager?.reset()
             }
-            
+
         } else {
             if !AudioKit.engine.isRunning {
                 AudioKit.start()
@@ -329,13 +326,13 @@ class ViewController: NSViewController {
             testPlayer?.stop()
         }
     }
-    
+
     internal func updateInstrumentsUI( audioUnits: [AVAudioUnitComponent] ) {
         guard internalManager != nil else { return }
-        
+
         auInstrumentSelector.removeAllItems()
         auInstrumentSelector.addItem(withTitle: "-")
-        
+
         //AKLog("updateInstrumentsUI() \(audioUnits)")
         for component in audioUnits {
             if component.name != "" {
@@ -381,7 +378,6 @@ extension ViewController: AKMIDIListener {
     }
 }
 
-
 /// Handle Window Events
 extension ViewController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
@@ -394,7 +390,7 @@ extension ViewController: NSWindowDelegate {
                 AudioKit.stop()
                 exit(0)
             }
-            
+
             if var wid = w.identifier?.rawValue {
                 wid = wid.replacingOccurrences(of: windowPrefix, with: "")
                 if let b = getEffectsButtonFromIdentifier(wid.toInt()) {
