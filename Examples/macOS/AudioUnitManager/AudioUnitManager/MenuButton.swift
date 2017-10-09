@@ -17,18 +17,18 @@ class MenuButton: NSButton {
         if let textColor = textColor, let font = font {
             let style = NSMutableParagraphStyle()
             style.alignment = .center
-            
+
             let attributes: [NSAttributedStringKey : Any] = [
                     NSAttributedStringKey.foregroundColor: textColor,
                     NSAttributedStringKey.font: font,
                     NSAttributedStringKey.paragraphStyle: style]
-            
+
             let attributedTitle = NSAttributedString(string: title, attributes: attributes)
             self.attributedTitle = attributedTitle
             initialize()
         }
     }
-    
+
     override func draw(_ dirtyRect: NSRect) {
         if let bgColor = bgColor {
             bgColor.setFill()
@@ -38,27 +38,27 @@ class MenuButton: NSButton {
         }
         super.draw(dirtyRect)
     }
-    
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         initialize()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder:coder)
         initialize()
     }
-    
+
     private func initialize() {
         if let cell = self.cell as? NSButtonCell {
             cell.isBordered = false //The background color is used only when drawing borderless buttons.
         }
     }
-    
+
     override func rightMouseDown(with event: NSEvent) {
         // kill this so the menu doesn't show at this down location
     }
-    
+
     override func mouseDown(with event: NSEvent) {
         guard isEnabled else { return }
         guard menu != nil else { return }
@@ -66,7 +66,7 @@ class MenuButton: NSButton {
 
         var adjustedLocation = convert(NSPoint(), to: nil)
         adjustedLocation.y -= (self.frame.size.height + 5)
-        
+
         if let newEvent = NSEvent.mouseEvent(with: event.type,
                                              location: adjustedLocation,
                                              modifierFlags: event.modifierFlags,
@@ -79,11 +79,11 @@ class MenuButton: NSButton {
 
             menu!.autoenablesItems = false
             NSMenu.popUpContextMenu(menu!, with: newEvent, for: self)
-        } 
+        }
     }
-    
+
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
-        
+
     }
 }

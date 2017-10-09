@@ -71,7 +71,14 @@
 - (void)start { _kernel.start(); } \
 - (void)stop { _kernel.stop(); } \
 - (BOOL)isPlaying { return _kernel.started; } \
-- (BOOL)isSetUp { return _kernel.resetted; }
+- (BOOL)isSetUp { return _kernel.resetted; } \
+- (void)setShouldBypassEffect:(BOOL)shouldBypassEffect { \
+    if (shouldBypassEffect) {\
+        _kernel.stop();\
+    } else {\
+        _kernel.start();\
+    }\
+}\
 
 #define standardSetup(str) \
     self.rampTime = AKSettings.rampTime; \
