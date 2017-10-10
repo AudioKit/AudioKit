@@ -10,7 +10,8 @@ import AVFoundation
 
 /// Creates a simple list of parameters linked to sliders
 class AudioUnitGenericView: NSView {
-
+    open var name: String = ""
+    open var preferredWidth: CGFloat = 360
     open var preferredHeight: CGFloat = 400
 
     override var isFlipped: Bool {
@@ -32,15 +33,19 @@ class AudioUnitGenericView: NSView {
             backgroundColor.setFill()
 
             let rect = NSMakeRect(0, 0, bounds.width, bounds.height)
-            let rectanglePath = NSBezierPath(roundedRect: rect, xRadius: 5, yRadius: 5)
-            rectanglePath.fill()
+//            let rectanglePath = NSBezierPath(roundedRect: rect, xRadius: 0, yRadius: 0)
+//            let rectanglePath =
+            rect.fill()
         }
     }
 
     convenience init(au: AVAudioUnit) {
         self.init()
+        wantsLayer = true
 
-        frame.size = NSSize(width: 380, height: 400)
+        if let cname = au.auAudioUnit.componentName {
+            name = cname
+        }
 
         let nameField = NSTextField()
         nameField.isSelectable = false
@@ -50,8 +55,8 @@ class AudioUnitGenericView: NSView {
         nameField.font = NSFont.boldSystemFont(ofSize: 12)
         nameField.textColor = NSColor.white
         nameField.backgroundColor = NSColor.white.withAlphaComponent(0)
-        nameField.stringValue = "\(au.manufacturerName): \(au.name)"
-        nameField.frame = NSRect(x: 0, y: 4, width: 400, height: 20)
+        nameField.stringValue = name
+        nameField.frame = NSRect(x: 0, y: 4, width: preferredWidth, height: 20)
         addSubview(nameField)
 
         guard let tree = au.auAudioUnit.parameterTree else { return }
@@ -69,6 +74,7 @@ class AudioUnitGenericView: NSView {
             }
         }
         preferredHeight = CGFloat(y + 50)
+        frame.size = NSSize(width: preferredWidth, height: preferredHeight)
     }
 
     func handleChange(_ sender: NSSlider) {

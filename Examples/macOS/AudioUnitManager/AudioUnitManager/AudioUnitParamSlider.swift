@@ -22,8 +22,6 @@ class AudioUnitParamSlider: NSView {
         self.audioUnit = audioUnit
         self.key = param.address
 
-        Swift.print("Creating slider: \(audioUnit.name) for \(param.displayName)")
-
         let titleField = createLabel(string: param.displayName)
         titleField.frame = NSRect(x: 0, y: 0, width: 120, height: 20)
         addSubview(titleField)
@@ -58,6 +56,8 @@ class AudioUnitParamSlider: NSView {
         }
     }
 
+    // AUParameter references aren't persistent, so we need to refetch them
+    // addresses aren't guarenteed either, but well...
     public func getParam(withAddress theKey: AUParameterAddress) -> AUParameter? {
         return audioUnit?.auAudioUnit.parameterTree?.parameter(withAddress: theKey)
     }
@@ -82,9 +82,6 @@ class AudioUnitParamSlider: NSView {
         guard sender == slider else { return }
         guard key != nil else { return }
 
-        // AUParameter references aren't persistent, so we need to refetch them
-        // addresses aren't guarenteed either, but this is working right now
-        // unsure of the kvo style as i don't see the actual keys?
         if let p = getParam(withAddress: key!) {
             //Swift.print("p: \(p)")
             p.value = slider.floatValue
@@ -96,9 +93,6 @@ class AudioUnitParamSlider: NSView {
 
     func updateValue() {
         guard key != nil else { return }
-
-        // AUParameter references aren't persistent, so we need to refetch them
-        // addresses aren't guarenteed either, but this is working right now
         if let p = getParam(withAddress: key!) {
             slider.floatValue = p.value
         }
