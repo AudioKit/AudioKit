@@ -5,10 +5,12 @@
 //  Created by Ryan Francesconi, revision history on Github.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
+import AudioKit
+
 import AVFoundation
 
 /// Audio Unit Manager
-open class AKAudioUnitManager: NSObject {
+open class AKAudioUnitManagerDev: NSObject {
 
     /// All possible types of notifications this class may generate
     public enum Notification {
@@ -27,7 +29,9 @@ open class AKAudioUnitManager: NSObject {
                                                    "AKRhinoGuitarProcessor", "AKPhaser", "AKPitchShifter",
                                                    "AKChowningReverb", "AKCombFilterReverb", "AKCostelloReverb",
                                                    "AKFlatFrequencyResponseReverb", "AKZitaReverb", "AKBooster", "AKBooster2",
-                                                   "AKTanhDistortion"]    //"AKRingModulator",
+                                                   "AKTanhDistortion"]
+
+    //"AKRingModulator",
 
     /// Delegate that will be sent notifications
     open weak var delegate: AKAudioUnitManagerDelegate?
@@ -569,7 +573,7 @@ open class AKAudioUnitManager: NSObject {
 
 }
 
-public protocol AKAudioUnitManagerDelegate: class {
+public protocol AKAudioUnitManagerDevDelegate: class {
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?)
     func handleEffectAdded(at auIndex: Int)
 }

@@ -9,19 +9,19 @@
 import AVFoundation
 
 public class GainAudioUnit2: AK4AudioUnitBase {
-    
+
     func setParam(addr: GainEffectParam, value: Float) {
         setParameterWithAddress(AUParameterAddress(addr.rawValue), value: value)
     }
-    
+
     var gain: Float = 1.0 {
         didSet { setParam(addr: GainEffectParam.gain, value: gain) }
     }
-    
+
     var rampTime: Float = 0.0 {
         didSet { setParam(addr: GainEffectParam.gain, value: gain) }
     }
-    
+
     public override func initDsp(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
         return createGainEffectDsp(Int32(count), sampleRate)

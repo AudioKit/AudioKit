@@ -94,7 +94,7 @@ extension AKOutput {
     ///   - Parameter node: Input that output will be connected to.
     ///   - Parameter bus: The bus on the input that the output will connect to.
     ///   - Parameter format: The format of the connection.
-    @discardableResult public func setOutput(to node: AKInput, bus: Int, format: AVAudioFormat) -> AKInput {
+    @discardableResult public func setOutput(to node: AKInput, bus: Int, format: AVAudioFormat?) -> AKInput {
         AudioKit.connect(outputNode, to: node.inputNode, fromBus: 0, toBus: bus, format: format)
         return node
     }
@@ -102,7 +102,7 @@ extension AKOutput {
     /// Sets output connections to an array of inputs, removes previously existing output connections.
     ///   - Parameter nodes: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
-    @discardableResult public func setOutput(to nodes: [AKInput], format: AVAudioFormat) -> [AKInput] {
+    @discardableResult public func setOutput(to nodes: [AKInput], format: AVAudioFormat?) -> [AKInput] {
         setOutput(to: nodes.map { $0.nextInput.avConnection }, format: format)
         return nodes
     }
@@ -116,7 +116,7 @@ extension AKOutput {
     /// Sets output connections to an array of inputConnectios, removes previously existing output connections.
     ///   - Parameter toInputs: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
-    @discardableResult public func setOutput(toInputs: [AKInputConnection], format: AVAudioFormat) -> [AKInput] {
+    @discardableResult public func setOutput(toInputs: [AKInputConnection], format: AVAudioFormat?) -> [AKInput] {
         setOutput(to: toInputs.map { $0.avConnection }, format: format)
         return toInputs.map { $0.node }
     }
@@ -130,14 +130,14 @@ extension AKOutput {
     /// Sets output connections to a single connectionPoint, removes previously existing output connections.
     ///   - Parameter connectionPoint: Input that output will be connected to.
     ///   - Parameter format: The format of the connections.
-    public func setOutput(to connectionPoint: AVAudioConnectionPoint, format: AVAudioFormat) {
+    public func setOutput(to connectionPoint: AVAudioConnectionPoint, format: AVAudioFormat?) {
         setOutput(to: [connectionPoint], format: format)
     }
 
     /// Sets output connections to an array of connectionPoints, removes previously existing output connections.
     ///   - Parameter connectionPoints: Inputs that output will be connected to.
     ///   - Parameter format: The format of the connections.
-    public func setOutput(to connectionPoints: [AVAudioConnectionPoint], format: AVAudioFormat) {
+    public func setOutput(to connectionPoints: [AVAudioConnectionPoint], format: AVAudioFormat?) {
         AudioKit.connect(outputNode, to: connectionPoints, fromBus: 0, format: format)
     }
 
