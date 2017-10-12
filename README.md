@@ -31,7 +31,7 @@ AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) 
 | Package Manager                                  | Config File | Contents                     |
 |--------------------------------------------------|-------------|------------------------------|
 | [Carthage](https://github.com/Carthage/Carthage) | `Cartfile`  | `github "audiokit/AudioKit"` |
-| [Cocoapods](https://cocoapods.org/)              | `Podfile`   | `pod 'AudioKit', '~> 3.7'`   |
+| [Cocoapods](https://cocoapods.org/)              | `Podfile`   | `pod 'AudioKit', '~> 4.0'`   |
 
 ## Example Code
 There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display the waveform. The examples rely on the frameworks being built so you can either download the precompiled frameworks or [build them on your own](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
