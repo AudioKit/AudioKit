@@ -19,6 +19,6 @@ extension AKOperation {
         frequency: AKParameter = 440,
         amplitude: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation(module: "blsaw", inputs: frequency, amplitude)
+        return AKOperation(module: "blsaw", inputs: frequency, amplitude)
     }
 }

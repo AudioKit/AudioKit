@@ -108,7 +108,9 @@ inline StkFloat Filter :: phaseDelay( StkFloat frequency )
 
   StkFloat phase = atan2( imag, real );
 
-  real = 0.0, imag = 0.0;
+  real = 0.0;
+  imag = 0.0;
+
   for ( unsigned int i=0; i<a_.size(); i++ ) {
     real += a_[i] * std::cos( i * omegaT );
     imag -= a_[i] * std::sin( i * omegaT );

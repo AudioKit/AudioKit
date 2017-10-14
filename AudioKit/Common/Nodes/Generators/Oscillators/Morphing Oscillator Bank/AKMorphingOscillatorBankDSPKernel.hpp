@@ -8,35 +8,15 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-#import <vector>
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
+#import "AKBankDSPKernel.hpp"
 
 enum {
-    attackDurationAddress = 0,
-    decayDurationAddress = 1,
-    sustainLevelAddress = 2,
-    releaseDurationAddress = 3,
-    detuningOffsetAddress = 4,
-    detuningMultiplierAddress = 5
+    standardBankEnumElements(),
+    indexAddress = numberOfBankEnumElements
 };
 
-static inline double pow2(double x) {
-    return x * x;
-}
 
-static inline double noteToHz(int noteNumber)
-{
-    return 440. * exp2((noteNumber - 69)/12.);
-}
-
-class AKMorphingOscillatorBankDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
+class AKMorphingOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Types
     struct NoteState {
@@ -62,7 +42,7 @@ public:
             osc->amp = 0;
             osc->wtpos = 0;
         }
-
+        
         
         void clear() {
             stage = stageOff;
@@ -79,7 +59,7 @@ public:
             //prev = next = nullptr; Had to remove due to a click, potentially bad
             
             --kernel->playingNotesCount;
-
+            
             sp_oscmorph_destroy(&osc);
         }
         
@@ -112,23 +92,27 @@ public:
                 internalGate = 1;
             }
         }
-
+        
         
         void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = osc->freq;
-            osc->freq *= kernel->detuningMultiplier;
-            osc->freq += kernel->detuningOffset;
+            osc->freq *= powf(2, kernel->pitchBend / 12.0);
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
-            osc->wtpos = kernel->index;
+            float bentFrequency = osc->freq;
+            osc->wtpos = kernel->index / 3.0;
             
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
-
+            
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
+                float depth = kernel->vibratoDepth / 12.0;
+                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->sampleRate);
+                osc->freq = bentFrequency * powf(2, depth * variation);
+
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
                 sp_oscmorph_compute(kernel->sp, osc, nil, &x);
                 *outL++ += amp * x;
@@ -143,27 +127,16 @@ public:
         }
         
     };
-
+    
     // MARK: Member Functions
-
+    
     AKMorphingOscillatorBankDSPKernel() {
         noteStates.resize(128);
         for (NoteState& state : noteStates) {
             state.kernel = this;
         }
     }
-
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
-
-        attackDurationRamper.init();
-        decayDurationRamper.init();
-        sustainLevelRamper.init();
-        releaseDurationRamper.init();
-        detuningOffsetRamper.init();
-        detuningMultiplierRamper.init();
-    }
-
+    
     void setupWaveform(uint32_t waveform, uint32_t size) {
         tbl_size = size;
         sp_ftbl_create(sp, &ft_array[waveform], tbl_size);
@@ -176,252 +149,81 @@ public:
     void setIndex(float value) {
         index = clamp(value, 0.0f, 3.0f);
     }
-
-    void startNote(int note, int velocity) {
-        noteStates[note].noteOn(note, velocity);
-    }    
-    void startNote(int note, int velocity, float frequency) {
-        noteStates[note].noteOn(note, velocity, frequency);
-    }
-
-    void stopNote(int note) {
-        noteStates[note].noteOn(note, 0);
-    }
-
-    void destroy() {
-        AKSoundpipeKernel::destroy();
-    }
-
+    
     void reset() {
         for (NoteState& state : noteStates) {
             state.clear();
         }
         playingNotes = nullptr;
-        playingNotesCount = 0;
-        resetted = true;
-        
-        attackDurationRamper.reset();
-        decayDurationRamper.reset();
-        sustainLevelRamper.reset();
-        releaseDurationRamper.reset();
-        detuningOffsetRamper.reset();
-        detuningMultiplierRamper.reset();
-    }
-
-    void setAttackDuration(float value) {
-        attackDuration = clamp(value, 0.0f, 99.0f);
-        attackDurationRamper.setImmediate(attackDuration);
+        indexRamper.reset();
+        AKBankDSPKernel::reset();
     }
     
-    void setDecayDuration(float value) {
-        decayDuration = clamp(value, 0.0f, 99.0f);
-        decayDurationRamper.setImmediate(decayDuration);
-    }
+    standardBankKernelFunctions()
     
-    void setSustainLevel(float value) {
-        sustainLevel = clamp(value, 0.0f, 99.0f);
-        sustainLevelRamper.setImmediate(sustainLevel);
-    }
-    
-    void setReleaseDuration(float value) {
-        releaseDuration = clamp(value, 0.0f, 99.0f);
-        releaseDurationRamper.setImmediate(releaseDuration);
-    }
-    
-    void setDetuningOffset(float value) {
-        detuningOffset = clamp(value, (float)-1000, (float)1000);
-        detuningOffsetRamper.setImmediate(detuningOffset);
-    }
-
-    void setDetuningMultiplier(float value) {
-        detuningMultiplier = value;
-        detuningMultiplierRamper.setImmediate(detuningMultiplier);
-    }
-
-
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-
-            case attackDurationAddress:
-                attackDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
+            case indexAddress:
+                indexRamper.setUIValue(clamp(value, 0.0f, 3.0f));
                 break;
-                
-            case decayDurationAddress:
-                decayDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
-                break;
-                
-            case sustainLevelAddress:
-                sustainLevelRamper.setUIValue(clamp(value, 0.0f, 99.0f));
-                break;
-                
-            case releaseDurationAddress:
-                releaseDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
-                break;
-                
-            case detuningOffsetAddress:
-                detuningOffsetRamper.setUIValue(clamp(value, (float)-1000, (float)1000));
-                break;
-
-            case detuningMultiplierAddress:
-                detuningMultiplierRamper.setUIValue(value);
-                break;
-
-        }
-    }
-
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-
-            case attackDurationAddress:
-                return attackDurationRamper.getUIValue();
-                
-            case decayDurationAddress:
-                return decayDurationRamper.getUIValue();
-                
-            case sustainLevelAddress:
-                return sustainLevelRamper.getUIValue();
-                
-            case releaseDurationAddress:
-                return releaseDurationRamper.getUIValue();
-            
-            case detuningOffsetAddress:
-                return detuningOffsetRamper.getUIValue();
-
-            case detuningMultiplierAddress:
-                return detuningMultiplierRamper.getUIValue();
-
-            default: return 0.0f;
-        }
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-                
-            case attackDurationAddress:
-                attackDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
-                break;
-                
-            case decayDurationAddress:
-                decayDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
-                break;
-                
-            case sustainLevelAddress:
-                sustainLevelRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
-                break;
-                
-            case releaseDurationAddress:
-                releaseDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
-                break;
-
-            case detuningOffsetAddress:
-                detuningOffsetRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
-                break;
-
-            case detuningMultiplierAddress:
-                detuningMultiplierRamper.startRamp(value, duration);
-                break;
-
+                standardBankSetParameters()
         }
     }
     
-    virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
-        if (midiEvent.length != 3) return;
-        uint8_t status = midiEvent.data[0] & 0xF0;
-        //uint8_t channel = midiEvent.data[0] & 0x0F; // works in omni mode.
-        switch (status) {
-            case 0x80 : { // note off
-                uint8_t note = midiEvent.data[1];
-                if (note > 127) break;
-                noteStates[note].noteOn(note, 0);
-                break;
-            }
-            case 0x90 : { // note on
-                uint8_t note = midiEvent.data[1];
-                uint8_t veloc = midiEvent.data[2];
-                if (note > 127 || veloc > 127) break;
-                noteStates[note].noteOn(note, veloc);
-                break;
-            }
-            case 0xB0 : { // control
-                uint8_t num = midiEvent.data[1];
-                if (num == 123) { // all notes off
-                    NoteState* noteState = playingNotes;
-                    while (noteState) {
-                        noteState->clear();
-                        noteState = noteState->next;
-                    }
-                    playingNotes = nullptr;
-                    playingNotesCount = 0;
-                }
-                break;
-            }
+    AUValue getParameter(AUParameterAddress address) {
+        switch (address) {
+            case indexAddress:
+                return indexRamper.getUIValue();
+                standardBankGetParameters()
         }
     }
-
+    
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
+        switch (address) {
+            case indexAddress:
+                indexRamper.startRamp(clamp(value, 0.0f, 3.0f), duration);
+                break;
+                standardBankStartRamps()
+        }
+    }
+    
+    standardHandleMIDI()
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
-
-        attackDuration = attackDurationRamper.getAndStep();
-        decayDuration = decayDurationRamper.getAndStep();
-        sustainLevel = sustainLevelRamper.getAndStep();
-        releaseDuration = releaseDurationRamper.getAndStep();
-        detuningOffset = double(detuningOffsetRamper.getAndStep());
-        detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
         
-        for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
-            outL[i] = 0.0f;
-            outR[i] = 0.0f;
-        }
+        index = double(indexRamper.getAndStep());
+        standardBankGetAndSteps()
         
         NoteState* noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
         }
-
+        currentRunningIndex += frameCount / 2;
         
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
             outL[i] *= .5f;
             outR[i] *= .5f;
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
     std::vector<NoteState> noteStates;
-
-    double frequencyScale = 2. * M_PI / sampleRate;
     
     sp_ftbl *ft_array[4];
     UInt32 tbl_size = 4096;
-
+    
     float index = 0;
-
-    float attackDuration = 0.1;
-    float decayDuration = 0.1;
-    float sustainLevel = 1.0;
-    float releaseDuration = 0.1;
-
-    float detuningOffset = 0;
-    float detuningMultiplier = 1;
-
+    
 public:
     NoteState* playingNotes = nullptr;
-    int playingNotesCount = 0;
-    bool resetted = false;
-
-
     
-    ParameterRamper attackDurationRamper = 0.1;
-    ParameterRamper decayDurationRamper = 0.1;
-    ParameterRamper sustainLevelRamper = 1.0;
-    ParameterRamper releaseDurationRamper = 0.1;
-
-    ParameterRamper detuningOffsetRamper = 0;
-    ParameterRamper detuningMultiplierRamper = 1;
+    ParameterRamper indexRamper = 0.0;
 };
 
 

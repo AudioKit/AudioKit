@@ -51,7 +51,7 @@ var player = try AKAudioPlayer(file: file)
 
 //: In production code, this would need to be wrapped in a do-catch block
 do {
-    let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+    let file = try AKAudioFile(readFileName: "drumloop.wav")
     player = try AKAudioPlayer(file: file)
 } catch {
     AKLog("File Not Found")

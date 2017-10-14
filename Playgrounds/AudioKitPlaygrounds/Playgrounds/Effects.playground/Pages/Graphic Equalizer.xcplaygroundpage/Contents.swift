@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -21,70 +20,43 @@ AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Graphic Equalizer")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addLabel("Equalizer Gains")
 
-        addSubview(AKPropertySlider(
-            property: "32Hz",
-            value: filterBand2.gain, maximum: 2,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "32Hz", value: filterBand2.gain, range: 0 ... 2) { sliderValue in
             filterBand2.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "64Hz",
-            value: filterBand3.gain, maximum: 2,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "64Hz", value: filterBand3.gain, range: 0 ... 2) { sliderValue in
             filterBand3.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "125Hz",
-            value: filterBand4.gain, maximum: 2,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "125Hz", value: filterBand4.gain, range: 0 ... 2) { sliderValue in
             filterBand4.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "250Hz",
-            value: filterBand5.gain, maximum: 2,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "250Hz", value: filterBand5.gain, range: 0 ... 2) { sliderValue in
             filterBand5.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "500Hz",
-            value: filterBand6.gain, maximum: 2,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "500Hz", value: filterBand6.gain, range: 0 ... 2) { sliderValue in
             filterBand6.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "1000Hz",
-            value: filterBand7.gain, maximum: 2,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "1000Hz", value: filterBand7.gain, range: 0 ... 2) { sliderValue in
             filterBand7.gain = sliderValue
         })
-
     }
-
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

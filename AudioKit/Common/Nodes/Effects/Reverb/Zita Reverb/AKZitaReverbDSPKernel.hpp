@@ -8,17 +8,10 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
+#import "AKSoundpipeKernel.hpp"
 
 enum {
-    delayAddress = 0,
+    predelayAddress = 0,
     crossoverFrequencyAddress = 1,
     lowReleaseTimeAddress = 2,
     midReleaseTimeAddress = 3,
@@ -33,12 +26,12 @@ enum {
 class AKZitaReverbDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
-
+    
     AKZitaReverbDSPKernel() {}
-
+    
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-
+        
         sp_zitarev_create(&zitarev0);
         sp_zitarev_init(sp, zitarev0);
         *zitarev0->in_delay = 60.0;
@@ -51,8 +44,8 @@ public:
         *zitarev0->eq2_freq = 1500.0;
         *zitarev0->eq2_level = 0.0;
         *zitarev0->mix = 1.0;
-
-        delayRamper.init();
+        
+        predelayRamper.init();
         crossoverFrequencyRamper.init();
         lowReleaseTimeRamper.init();
         midReleaseTimeRamper.init();
@@ -63,23 +56,23 @@ public:
         equalizerLevel2Ramper.init();
         dryWetMixRamper.init();
     }
-
+    
     void start() {
         started = true;
     }
-
+    
     void stop() {
         started = false;
     }
-
+    
     void destroy() {
         sp_zitarev_destroy(&zitarev0);
         AKSoundpipeKernel::destroy();
     }
-
+    
     void reset() {
         resetted = true;
-        delayRamper.reset();
+        predelayRamper.reset();
         crossoverFrequencyRamper.reset();
         lowReleaseTimeRamper.reset();
         midReleaseTimeRamper.reset();
@@ -90,192 +83,192 @@ public:
         equalizerLevel2Ramper.reset();
         dryWetMixRamper.reset();
     }
-
-    void setDelay(float value) {
-        delay = clamp(value, 0.0f, 200.0f);
-        delayRamper.setImmediate(delay);
+    
+    void setPredelay(float value) {
+        predelay = clamp(value, 0.0f, 200.0f);
+        predelayRamper.setImmediate(predelay);
     }
-
+    
     void setCrossoverFrequency(float value) {
         crossoverFrequency = clamp(value, 10.0f, 1000.0f);
         crossoverFrequencyRamper.setImmediate(crossoverFrequency);
     }
-
+    
     void setLowReleaseTime(float value) {
         lowReleaseTime = clamp(value, 0.0f, 10.0f);
         lowReleaseTimeRamper.setImmediate(lowReleaseTime);
     }
-
+    
     void setMidReleaseTime(float value) {
         midReleaseTime = clamp(value, 0.0f, 10.0f);
         midReleaseTimeRamper.setImmediate(midReleaseTime);
     }
-
+    
     void setDampingFrequency(float value) {
         dampingFrequency = clamp(value, 10.0f, 22050.0f);
         dampingFrequencyRamper.setImmediate(dampingFrequency);
     }
-
+    
     void setEqualizerFrequency1(float value) {
         equalizerFrequency1 = clamp(value, 10.0f, 1000.0f);
         equalizerFrequency1Ramper.setImmediate(equalizerFrequency1);
     }
-
+    
     void setEqualizerLevel1(float value) {
         equalizerLevel1 = clamp(value, -100.0f, 10.0f);
         equalizerLevel1Ramper.setImmediate(equalizerLevel1);
     }
-
+    
     void setEqualizerFrequency2(float value) {
         equalizerFrequency2 = clamp(value, 10.0f, 22050.0f);
         equalizerFrequency2Ramper.setImmediate(equalizerFrequency2);
     }
-
+    
     void setEqualizerLevel2(float value) {
         equalizerLevel2 = clamp(value, -100.0f, 10.0f);
         equalizerLevel2Ramper.setImmediate(equalizerLevel2);
     }
-
+    
     void setDryWetMix(float value) {
         dryWetMix = clamp(value, 0.0f, 1.0f);
         dryWetMixRamper.setImmediate(dryWetMix);
     }
-
-
+    
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case delayAddress:
-                delayRamper.setUIValue(clamp(value, 0.0f, 200.0f));
+            case predelayAddress:
+                predelayRamper.setUIValue(clamp(value, 0.0f, 200.0f));
                 break;
-
+                
             case crossoverFrequencyAddress:
                 crossoverFrequencyRamper.setUIValue(clamp(value, 10.0f, 1000.0f));
                 break;
-
+                
             case lowReleaseTimeAddress:
                 lowReleaseTimeRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
-
+                
             case midReleaseTimeAddress:
                 midReleaseTimeRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
-
+                
             case dampingFrequencyAddress:
                 dampingFrequencyRamper.setUIValue(clamp(value, 10.0f, 22050.0f));
                 break;
-
+                
             case equalizerFrequency1Address:
                 equalizerFrequency1Ramper.setUIValue(clamp(value, 10.0f, 1000.0f));
                 break;
-
+                
             case equalizerLevel1Address:
                 equalizerLevel1Ramper.setUIValue(clamp(value, -100.0f, 10.0f));
                 break;
-
+                
             case equalizerFrequency2Address:
                 equalizerFrequency2Ramper.setUIValue(clamp(value, 10.0f, 22050.0f));
                 break;
-
+                
             case equalizerLevel2Address:
                 equalizerLevel2Ramper.setUIValue(clamp(value, -100.0f, 10.0f));
                 break;
-
+                
             case dryWetMixAddress:
                 dryWetMixRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
-
+                
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case delayAddress:
-                return delayRamper.getUIValue();
-
+            case predelayAddress:
+                return predelayRamper.getUIValue();
+                
             case crossoverFrequencyAddress:
                 return crossoverFrequencyRamper.getUIValue();
-
+                
             case lowReleaseTimeAddress:
                 return lowReleaseTimeRamper.getUIValue();
-
+                
             case midReleaseTimeAddress:
                 return midReleaseTimeRamper.getUIValue();
-
+                
             case dampingFrequencyAddress:
                 return dampingFrequencyRamper.getUIValue();
-
+                
             case equalizerFrequency1Address:
                 return equalizerFrequency1Ramper.getUIValue();
-
+                
             case equalizerLevel1Address:
                 return equalizerLevel1Ramper.getUIValue();
-
+                
             case equalizerFrequency2Address:
                 return equalizerFrequency2Ramper.getUIValue();
-
+                
             case equalizerLevel2Address:
                 return equalizerLevel2Ramper.getUIValue();
-
+                
             case dryWetMixAddress:
                 return dryWetMixRamper.getUIValue();
-
+                
             default: return 0.0f;
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            case delayAddress:
-                delayRamper.startRamp(clamp(value, 0.0f, 200.0f), duration);
+            case predelayAddress:
+                predelayRamper.startRamp(clamp(value, 0.0f, 200.0f), duration);
                 break;
-
+                
             case crossoverFrequencyAddress:
                 crossoverFrequencyRamper.startRamp(clamp(value, 10.0f, 1000.0f), duration);
                 break;
-
+                
             case lowReleaseTimeAddress:
                 lowReleaseTimeRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
-
+                
             case midReleaseTimeAddress:
                 midReleaseTimeRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
-
+                
             case dampingFrequencyAddress:
                 dampingFrequencyRamper.startRamp(clamp(value, 10.0f, 22050.0f), duration);
                 break;
-
+                
             case equalizerFrequency1Address:
                 equalizerFrequency1Ramper.startRamp(clamp(value, 10.0f, 1000.0f), duration);
                 break;
-
+                
             case equalizerLevel1Address:
                 equalizerLevel1Ramper.startRamp(clamp(value, -100.0f, 10.0f), duration);
                 break;
-
+                
             case equalizerFrequency2Address:
                 equalizerFrequency2Ramper.startRamp(clamp(value, 10.0f, 22050.0f), duration);
                 break;
-
+                
             case equalizerLevel2Address:
                 equalizerLevel2Ramper.startRamp(clamp(value, -100.0f, 10.0f), duration);
                 break;
-
+                
             case dryWetMixAddress:
                 dryWetMixRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
-
+                
         }
     }
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
+            
             int frameOffset = int(frameIndex + bufferOffset);
-
-            delay = delayRamper.getAndStep();
-            *zitarev0->in_delay = (float)delay;
+            
+            predelay = predelayRamper.getAndStep();
+            *zitarev0->in_delay = (float)predelay;
             crossoverFrequency = crossoverFrequencyRamper.getAndStep();
             *zitarev0->lf_x = (float)crossoverFrequency;
             lowReleaseTime = lowReleaseTimeRamper.getAndStep();
@@ -294,7 +287,7 @@ public:
             *zitarev0->eq2_level = (float)equalizerLevel2;
             dryWetMix = dryWetMixRamper.getAndStep();
             *zitarev0->mix = (float)dryWetMix;
-
+            
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < channels; ++channel) {
@@ -314,14 +307,14 @@ public:
             }
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
-
+    
     sp_zitarev *zitarev0;
-
-    float delay = 60.0;
+    
+    float predelay = 60.0;
     float crossoverFrequency = 200.0;
     float lowReleaseTime = 3.0;
     float midReleaseTime = 2.0;
@@ -331,11 +324,11 @@ private:
     float equalizerFrequency2 = 1500.0;
     float equalizerLevel2 = 0.0;
     float dryWetMix = 1.0;
-
+    
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper delayRamper = 60.0;
+    ParameterRamper predelayRamper = 60.0;
     ParameterRamper crossoverFrequencyRamper = 200.0;
     ParameterRamper lowReleaseTimeRamper = 3.0;
     ParameterRamper midReleaseTimeRamper = 2.0;

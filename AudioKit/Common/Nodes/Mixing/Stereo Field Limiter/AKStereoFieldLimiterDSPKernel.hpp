@@ -8,7 +8,7 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
+#import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -20,22 +20,22 @@ enum {
 class AKStereoFieldLimiterDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
     // MARK: Member Functions
-
+    
     AKStereoFieldLimiterDSPKernel() {}
-
+    
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
         amountRamper.init();
     }
-
+    
     void start() {
         started = true;
     }
-
+    
     void stop() {
         started = false;
     }
-
+    
     void destroy() {
     }
     
@@ -43,42 +43,42 @@ public:
         resetted = true;
         amountRamper.reset();
     }
-
+    
     void setamount(float value) {
         amount = clamp(value, -100000.0f, 100000.0f);
         amountRamper.setImmediate(amount);
     }
-
-
+    
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case amountAddress:
                 amountRamper.setUIValue(clamp(value, -100000.0f, 100000.0f));
                 break;
-
+                
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case amountAddress:
                 return amountRamper.getUIValue();
-
+                
             default: return 0.0f;
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case amountAddress:
                 amountRamper.startRamp(clamp(value, -100000.0f, 100000.0f), duration);
                 break;
-
+                
         }
     }
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             
             int frameOffset = int(frameIndex + bufferOffset);
@@ -105,13 +105,13 @@ public:
             *tmpout[1] = *tmpin[1] * (1.0f - amount) + *tmpin[0];
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
-
+    
     float amount = 1.0;
-
+    
 public:
     bool started = true;
     bool resetted = false;

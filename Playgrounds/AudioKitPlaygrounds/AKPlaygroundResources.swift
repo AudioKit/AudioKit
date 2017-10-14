@@ -12,5 +12,5 @@ public var playgroundAudioFiles: [String] {
     let aifURLs = Bundle.main.urls(forResourcesWithExtension: "aif", subdirectory: "", localization: "")
     let m4aURLs = Bundle.main.urls(forResourcesWithExtension: "m4a", subdirectory: "", localization: "")
     let fileURLs: [URL] = mp3URLs! + wavURLs! + aifURLs! + m4aURLs!
-    return fileURLs.flatMap{ $0.lastPathComponent }.sorted()
+    return fileURLs.flatMap { $0.lastPathComponent }.sorted()
 }

@@ -7,15 +7,16 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet private var arpeggioVolumeSlider: AKPropertySlider!
-    @IBOutlet private var padVolumeSlider: AKPropertySlider!
-    @IBOutlet private var bassVolumeSlider: AKPropertySlider!
-    @IBOutlet private var drumVolumeSlider: AKPropertySlider!
-    @IBOutlet private var filterFrequencySlider: AKPropertySlider!
-    @IBOutlet private var tempoSlider: AKPropertySlider!
+    @IBOutlet private var arpeggioVolumeSlider: AKSlider!
+    @IBOutlet private var padVolumeSlider: AKSlider!
+    @IBOutlet private var bassVolumeSlider: AKSlider!
+    @IBOutlet private var drumVolumeSlider: AKSlider!
+    @IBOutlet private var filterFrequencySlider: AKSlider!
+    @IBOutlet private var tempoSlider: AKSlider!
 
     let conductor = Conductor()
 
@@ -28,6 +29,7 @@ class ViewController: UIViewController {
         drumVolumeSlider.callback = adjustDrumKitVolume
         filterFrequencySlider.callback = adjustFilterFrequency
         tempoSlider.callback = adjustTempo
+        tempoSlider.range = 0 ... 2
     }
 
     @IBAction func useSoundForArpeggio(_ sender: UIButton) {
@@ -36,7 +38,7 @@ class ViewController: UIViewController {
             return
         }
 
-        conductor.useSound(sound, synthesizer: Synthesizer.Arpeggio)
+        conductor.useSound(sound, synthesizer: .arpeggio)
     }
 
     @IBAction func useSoundForPad(_ sender: UIButton) {
@@ -45,7 +47,7 @@ class ViewController: UIViewController {
             return
         }
 
-        conductor.useSound(sound, synthesizer: Synthesizer.Pad)
+        conductor.useSound(sound, synthesizer: .pad)
     }
 
     @IBAction func useSoundForBass(_ sender: UIButton) {
@@ -54,23 +56,23 @@ class ViewController: UIViewController {
             return
         }
 
-        conductor.useSound(sound, synthesizer: Synthesizer.Bass)
+        conductor.useSound(sound, synthesizer: .bass)
     }
 
     func adjustArpeggioVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Arpeggio)
+        conductor.adjustVolume(newValue, instrument: .arpeggio)
     }
 
     func adjustPadSynthesizerVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Pad)
+        conductor.adjustVolume(newValue, instrument: .pad)
     }
 
     func adjustBassSynthesizerVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Bass)
+        conductor.adjustVolume(newValue, instrument: .bass)
     }
 
     func adjustDrumKitVolume(newValue: Double) {
-        conductor.adjustVolume(Float(newValue), instrument: Instrument.Drum)
+        conductor.adjustVolume(newValue, instrument: .drum)
     }
 
     func adjustFilterFrequency(newValue: Double) {

@@ -62,7 +62,7 @@
 
     /// Create the tuning using the input frequencies
     ///
-    /// - parameter fromFrequencies: An array of frequencies
+    /// - parameter inputFrequencies: An array of frequencies
     ///
     public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) {
         if inputFrequencies.isEmpty {

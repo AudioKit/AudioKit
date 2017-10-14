@@ -2,6 +2,7 @@
 //: AudioKit is great for sound design. This playground creates canonical telephone sounds.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 //: ### Dial Tone
 //: A dial tone is simply two sine waves at specific frequencies
@@ -77,11 +78,11 @@ dialTone.start()
 keypad.start()
 
 //: User Interface Set up
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Telephone")
-        addSubview(AKPhoneView { key, state in
+        addView(AKPhoneView { key, state in
             switch key {
             case "CALL":
                 if state == "down" {
@@ -125,4 +126,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

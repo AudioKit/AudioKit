@@ -7,7 +7,7 @@
 //
 
 #pragma once
-#import "DSPKernel.hpp"
+#import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -32,7 +32,7 @@ public:
     
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
-
+        
         // iOS Hack
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
         NSString *resourcePath = [frameworkBundle resourcePath];
@@ -53,7 +53,7 @@ public:
         detune = clamp(value, 0.0f, 10.0f);
         detuneRamper.setImmediate(detune);
     }
-
+    
     void setBodySize(float value) {
         bodySize = clamp(value, 0.0f, 3.0f);
         bodySizeRamper.setImmediate(bodySize);
@@ -75,7 +75,7 @@ public:
             case detuneAddress:
                 detuneRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
-
+                
             case bodySizeAddress:
                 bodySizeRamper.setUIValue(clamp(value, 0.0f, 3.0f));
                 break;
@@ -89,7 +89,7 @@ public:
                 
             case bodySizeAddress:
                 return bodySizeRamper.getUIValue();
-
+                
             default: return 0.0f;
         }
     }
@@ -105,7 +105,7 @@ public:
                 break;
         }
     }
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -114,12 +114,12 @@ public:
             
             detune = detuneRamper.getAndStep();
             bodySize = bodySizeRamper.getAndStep();
-
+            
             for (auto & mandolin : mandolins) {
-              mandolin->setDetune(detune);
-              mandolin->setBodySize(1 / bodySize);
+                mandolin->setDetune(detune);
+                mandolin->setBodySize(1 / bodySize);
             }
-
+            
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
@@ -137,7 +137,7 @@ public:
     // MARK: Member Variables
     
 private:
-
+    
     stk::Mandolin *mandolins[4];
     float detune = 1;
     float bodySize = 1;

@@ -16,7 +16,7 @@
 @implementation AKMetalBarAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKMetalBarDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -49,9 +49,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
-    standardSetup(MetalBar)
-
+    
+    standardGeneratorSetup(MetalBar)
+    
     // Create a parameter object for the leftBoundaryCondition.
     AUParameter *leftBoundaryConditionAUParameter = [AUParameter parameter:@"leftBoundaryCondition"
                                                                       name:@"Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free"
@@ -76,11 +76,11 @@ standardKernelPassthroughs()
     // Create a parameter object for the scanSpeed.
     AUParameter *scanSpeedAUParameter =
     [AUParameter parameter:@"scanSpeed"
-                                              name:@"Speed of scanning the output location."
-                                           address:scanSpeedAddress
-                                               min:0
-                                               max:100
-                                              unit:kAudioUnitParameterUnit_Hertz];
+                      name:@"Speed of scanning the output location."
+                   address:scanSpeedAddress
+                       min:0
+                       max:100
+                      unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the position.
     AUParameter *positionAUParameter = [AUParameter parameter:@"position"
                                                          name:@"Position along bar that strike occurs."
@@ -102,8 +102,8 @@ standardKernelPassthroughs()
                                                              min:0
                                                              max:1
                                                             unit:kAudioUnitParameterUnit_Generic];
-
-
+    
+    
     // Initialize the parameter values.
     leftBoundaryConditionAUParameter.value = 1;
     rightBoundaryConditionAUParameter.value = 1;
@@ -112,8 +112,8 @@ standardKernelPassthroughs()
     positionAUParameter.value = 0.2;
     strikeVelocityAUParameter.value = 500;
     strikeWidthAUParameter.value = 0.05;
-
-
+    
+    
     _kernel.setParameter(leftBoundaryConditionAddress,  leftBoundaryConditionAUParameter.value);
     _kernel.setParameter(rightBoundaryConditionAddress, rightBoundaryConditionAUParameter.value);
     _kernel.setParameter(decayDurationAddress,          decayDurationAUParameter.value);
@@ -121,18 +121,18 @@ standardKernelPassthroughs()
     _kernel.setParameter(positionAddress,               positionAUParameter.value);
     _kernel.setParameter(strikeVelocityAddress,         strikeVelocityAUParameter.value);
     _kernel.setParameter(strikeWidthAddress,            strikeWidthAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        leftBoundaryConditionAUParameter,
-        rightBoundaryConditionAUParameter,
-        decayDurationAUParameter,
-        scanSpeedAUParameter,
-        positionAUParameter,
-        strikeVelocityAUParameter,
-        strikeWidthAUParameter
-    ]];
-	parameterTreeBlock(MetalBar)
+                                                               leftBoundaryConditionAUParameter,
+                                                               rightBoundaryConditionAUParameter,
+                                                               decayDurationAUParameter,
+                                                               scanSpeedAUParameter,
+                                                               positionAUParameter,
+                                                               strikeVelocityAUParameter,
+                                                               strikeWidthAUParameter
+                                                               ]];
+    parameterTreeBlock(MetalBar)
 }
 
 AUAudioUnitGeneratorOverrides(MetalBar)

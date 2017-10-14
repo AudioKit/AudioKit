@@ -10,7 +10,7 @@
 
 #import <vector>
 
-#import "DSPKernel.hpp"
+#import "AKSoundpipeKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -34,24 +34,34 @@ public:
 
         plumber_register(&pd);
         plumber_init(&pd);
-        addUgensToFTable(&pd);
         pd.sp = sp;
         if (sporthCode != nil) {
-            plumber_parse_string(&pd, sporthCode);
+            if (customUgens.size() == 0) {
+                plumber_parse_string(&pd, sporthCode);
+            }
             plumber_compute(&pd, PLUMBER_INIT);
         }
         
     }
     
-    void setSporth(char *sporth) {
-        sporthCode = sporth;
-        plumber_recompile_string_v2(&pd, sporthCode, this, &addUgensToKernel);
+    void setSporth(char *sporth, int length) {
+        if (sporthCode) {
+            free(sporthCode);
+            sporthCode = NULL;
+        }
+        if (length) {
+            sporthCode = (char *)malloc(length);
+            memcpy(sporthCode, sporth, length);
+        }
+        if (customUgens.size() > 0) {
+            plumber_recompile_string_v2(&pd, sporthCode, this, &addUgensToKernel);
+        }
     }
 
     void addUgensToFTable(plumber_data *pd) {
-      for (auto info : customUgens) {
-        plumber_ftmap_add_function(pd, info.name, info.func, info.userData);
-      }
+        for (auto info : customUgens) {
+            plumber_ftmap_add_function(pd, info.name, info.func, info.userData);
+        }
     }
     
     void trigger(int trigger) {
@@ -80,6 +90,9 @@ public:
     void destroy() {
         plumber_clean(&pd);
         AKSoundpipeKernel::destroy();
+        if (sporthCode) {
+            free(sporthCode);
+        }
     }
     
     void reset() {
@@ -155,7 +168,7 @@ public:
 };
 
 static int addUgensToKernel(plumber_data *pd, void *ud) {
-  auto kernel = (AKOperationGeneratorDSPKernel *)ud;
-  kernel->addUgensToFTable(pd);
-  return PLUMBER_OK;
+    auto kernel = (AKOperationGeneratorDSPKernel *)ud;
+    kernel->addUgensToFTable(pd);
+    return PLUMBER_OK;
 }

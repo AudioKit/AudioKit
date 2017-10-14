@@ -19,15 +19,17 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
     oscillator1 = [[AKOscillator alloc] init];
     oscillator2 = [[AKOscillator alloc] init];
     mixer = [[AKMixer alloc] init: @[oscillator1, oscillator2]];
     mixer.volume = 0.5;
     AudioKit.output = mixer;
     [AudioKit start];
+    
+    return self;
 }
 
 - (IBAction)toggleSound:(UIButton *)sender {

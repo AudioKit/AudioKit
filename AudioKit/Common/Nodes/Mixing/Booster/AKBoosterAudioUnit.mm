@@ -31,37 +31,37 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
+    
     standardSetup(Booster)
-
+    
     // Create a parameter object for the left gain.
     AUParameter *leftGainAUParameter = [AUParameter parameter:@"leftGain"
                                                          name:@"Left Boosting amount."
                                                       address:leftGainAddress
                                                           min:0
-                                                          max:1
+                                                          max:2
                                                          unit:kAudioUnitParameterUnit_Generic];
     
     AUParameter *rightGainAUParameter = [AUParameter parameter:@"rightGain"
                                                           name:@"Right Boosting amount."
                                                        address:rightGainAddress
                                                            min:0
-                                                           max:1
+                                                           max:2
                                                           unit:kAudioUnitParameterUnit_Generic];
     
     // Initialize the parameter values.
     leftGainAUParameter.value = 1;
     rightGainAUParameter.value = 1;
-
+    
     _kernel.setParameter(leftGainAddress, leftGainAUParameter.value);
     _kernel.setParameter(rightGainAddress, rightGainAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        leftGainAUParameter,
-        rightGainAUParameter
-    ]];
-
+                                             leftGainAUParameter,
+                                             rightGainAUParameter
+                                             ]];
+    
     parameterTreeBlock(Booster)
 }
 

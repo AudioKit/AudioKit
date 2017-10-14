@@ -23,6 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#import "AudioKit/EZAudio.h"
 #import "EZAudioPlotGL.h"
 #import "EZAudioDisplayLink.h"
 #import "EZAudioUtilities.h"

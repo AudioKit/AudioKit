@@ -1,33 +1,54 @@
 //
 //  AKOutputWaveformPlot
-//  AudioKit
+//  AudioKitUI
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
+#if !JAZZY_HACK
+    import AudioKit
+#endif
 
 /// Wrapper class for plotting audio from the final mix in a waveform plot
 @IBDesignable
 open class AKOutputWaveformPlot: EZAudioPlot {
+
+    public var isConnected = false
+
     internal func setupNode() {
-        AudioKit.engine.outputNode.installTap(onBus: 0,
-                                              bufferSize: bufferSize,
-                                              format: nil) { [weak self] (buffer, _) in
-            guard let strongSelf = self else {
-                return
+        if !isConnected {
+            AudioKit.engine.outputNode.installTap(onBus: 0,
+                                                  bufferSize: bufferSize,
+                                                  format: nil) { [weak self] (buffer, _) in
+                                                    guard let strongSelf = self else {
+                                                        AKLog("Unable to create strong ref to self")
+                                                        return
+                                                    }
+                                                    buffer.frameLength = strongSelf.bufferSize
+                                                    let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                                                    if let tail = buffer.floatChannelData?[0] {
+                                                        strongSelf.updateBuffer(&tail[offset],
+                                                                                withBufferSize: strongSelf.bufferSize)
+                                                    }
             }
-            buffer.frameLength = strongSelf.bufferSize
-            let offset = Int(buffer.frameCapacity - buffer.frameLength)
-            if let tail = buffer.floatChannelData?[0] {
-                strongSelf.updateBuffer(&tail[offset],
-                                        withBufferSize: strongSelf.bufferSize)
-            }
+            isConnected = true
         }
     }
 
     // Useful to reconnect after connecting to Audiobus or IAA
     @objc func reconnect() {
         AudioKit.engine.outputNode.removeTap(onBus: 0)
+        setupNode()
+    }
+
+    @objc open func pause() {
+        if isConnected {
+            AudioKit.engine.outputNode.removeTap(onBus: 0)
+            isConnected = false
+        }
+    }
+
+    @objc open func resume() {
         setupNode()
     }
 
@@ -93,7 +114,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
         let plot = AKOutputWaveformPlot(frame: frame)
 
         plot.plotType = .buffer
-        plot.backgroundColor = AKColor.white
+        plot.backgroundColor = AKColor.clear
         plot.shouldCenterYAxis = true
 
         let containerView = AKView(frame: frame)

@@ -7,30 +7,25 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class VariableDelayViewController: UIViewController {
 
-    @IBOutlet private weak var timeSlider: AKPropertySlider!
-    @IBOutlet private weak var feedbackSlider: AKPropertySlider!
-    @IBOutlet private weak var mixSlider: AKPropertySlider!
+    @IBOutlet private weak var timeSlider: AKSlider!
+    @IBOutlet private weak var feedbackSlider: AKSlider!
+    @IBOutlet private weak var mixSlider: AKSlider!
 
     let songProcessor = SongProcessor.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let time = songProcessor.variableDelay?.time {
-            timeSlider.value = time
-        }
+        timeSlider.value = songProcessor.variableDelay.time
 
-        if let feedback = songProcessor.variableDelay?.feedback {
-            feedbackSlider.value = feedback
-        }
+        feedbackSlider.value = songProcessor.variableDelay.feedback
 
-        if let balance = songProcessor.delayMixer?.balance {
-            mixSlider.value = balance
-        }
+        mixSlider.value = songProcessor.delayMixer.balance
 
         timeSlider.callback = updateTime
         feedbackSlider.callback = updateFeedback
@@ -38,15 +33,15 @@ class VariableDelayViewController: UIViewController {
     }
 
     func updateTime(value: Double) {
-        songProcessor.variableDelay?.time = value
+        songProcessor.variableDelay.time = value
     }
 
     func updateFeedback(value: Double) {
-        songProcessor.variableDelay?.feedback = value
+        songProcessor.variableDelay.feedback = value
     }
 
     func updateMix(value: Double) {
-       songProcessor.delayMixer?.balance = value
+        songProcessor.delayMixer.balance = value
     }
 
 }

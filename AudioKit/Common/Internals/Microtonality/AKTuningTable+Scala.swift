@@ -149,8 +149,8 @@ extension AKTuningTable {
                         }
                     }
                 } else {
-                    if (substringForFirstMatch.range(of: "/").length) != 0 {
-                        if (substringForFirstMatch.range(of: "-").length) != 0 {
+                    if substringForFirstMatch.range(of: "/").length != 0 {
+                        if substringForFirstMatch.range(of: "-").length != 0 {
                             AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
                             parsedScala = false
                             break

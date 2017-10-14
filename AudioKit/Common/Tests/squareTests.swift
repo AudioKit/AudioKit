@@ -20,7 +20,7 @@ class SquareTests: AKTestCase {
         output = AKOperationGenerator { _ in
             return AKOperation.square()
         }
-        AKTestMD5("7f69f2dfc4f6780825b5f7d18ad6516c")
+        AKTestMD5("522549cad1958e9e703cc6acde9b8b24")
     }
 
 }

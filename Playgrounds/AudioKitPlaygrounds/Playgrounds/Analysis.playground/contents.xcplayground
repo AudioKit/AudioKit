@@ -11,5 +11,6 @@
         <page name='Tracking Frequency of Audio File'/>
         <page name='Tracking Frequency'/>
         <page name='Tracking Microphone Input'/>
+        <page name='Tracking With Microphone Tracker'/>
     </pages>
 </playground>

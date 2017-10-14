@@ -3,8 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -21,37 +20,32 @@ AudioKit.start()
 player.play()
 
 //: User Interface
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Stereo Delay Operation")
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Left Delay",
-            format: "%0.3f s",
-            value: effect.parameters[0], maximum: 0.3) { sliderValue in
+        addView(AKSlider(property: "Left Delay",
+                         value: effect.parameters[0],
+                         range: 0 ... 0.3,
+                         format: "%0.3f s"
+        ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Left Feedback",
-            format: "%0.3f",
-            value: effect.parameters[1]) { sliderValue in
+        addView(AKSlider(property: "Left Feedback", value: effect.parameters[1]) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Right Delay",
-            format: "%0.3f s",
-            value: effect.parameters[2], maximum: 0.3) { sliderValue in
+        addView(AKSlider(property: "Right Delay",
+                         value: effect.parameters[2],
+                         range: 0 ... 0.3,
+                         format: "%0.3f s"
+        ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Left Feedback",
-            format: "%0.3f",
-            value: effect.parameters[3]) { sliderValue in
+        addView(AKSlider(property: "Left Feedback", value: effect.parameters[3]) { sliderValue in
             effect.parameters[3] = sliderValue
         })
     }
@@ -59,4 +53,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
