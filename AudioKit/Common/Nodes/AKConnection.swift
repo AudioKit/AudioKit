@@ -1,6 +1,6 @@
 //
 //  AKConnection.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by David O'Neill on 8/12/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
