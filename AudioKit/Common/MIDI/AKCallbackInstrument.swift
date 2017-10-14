@@ -53,7 +53,6 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     ///
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number being stopped
-    ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel
     ///
     override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {

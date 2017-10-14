@@ -8,7 +8,7 @@
 
 /// Stereo Booster
 ///
-open class AKBooster: AKNode, AKToggleable, AKComponent {
+open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBoosterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "gain")
@@ -22,7 +22,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     fileprivate var rightGainParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
@@ -32,54 +32,66 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     fileprivate var lastKnownRightGain: Double = 1.0
 
     /// Amplification Factor
-    open dynamic var gain: Double = 1 {
+    @objc open dynamic var gain: Double = 1 {
         willSet {
-            if gain != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        leftGainParameter?.setValue(Float(newValue), originator: existingToken)
-                        rightGainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.leftGain = Float(newValue)
-                    internalAU?.rightGain = Float(newValue)
+            if gain == newValue {
+                return
+            }
+
+            // ensure that the parameters aren't nil,
+            // if they are we're using this class directly inline as an AKNode
+            if internalAU?.isSetUp() ?? false {
+                if token != nil && leftGainParameter != nil && rightGainParameter != nil {
+                    leftGainParameter?.setValue(Float(newValue), originator: token!)
+                    rightGainParameter?.setValue(Float(newValue), originator: token!)
+                    return
                 }
             }
+
+            // this means it's direct inline
+            internalAU?.leftGain = Float(newValue)
+            internalAU?.rightGain = Float(newValue)
         }
     }
 
     /// Left Channel Amplification Factor
-    open dynamic var leftGain: Double = 1 {
+    @objc open dynamic var leftGain: Double = 1 {
         willSet {
-            if leftGain != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        leftGainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.leftGain = Float(newValue)
+            if leftGain == newValue {
+                return
+            }
+
+            if internalAU?.isSetUp() ?? false {
+                if token != nil && leftGainParameter != nil {
+                    leftGainParameter?.setValue(Float(newValue), originator: token!)
+                    return
                 }
             }
+
+            internalAU?.leftGain = Float(newValue)
         }
     }
 
     /// Right Channel Amplification Factor
-    open dynamic var rightGain: Double = 1 {
+    @objc open dynamic var rightGain: Double = 1 {
         willSet {
-            if rightGain != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        rightGainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.rightGain = Float(newValue)
+            if rightGain == newValue {
+                return
+            }
+
+            if internalAU?.isSetUp() ?? false {
+                if token != nil && rightGainParameter != nil {
+                    rightGainParameter?.setValue(Float(newValue), originator: token!)
+                    return
                 }
             }
+
+            internalAU?.rightGain = Float(newValue)
         }
     }
 
     /// Amplification Factor in db
-    open dynamic var dB: Double {
+    @objc open dynamic var dB: Double {
         set {
             gain = pow(10.0, Double(newValue / 20))
         }
@@ -89,7 +101,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -102,7 +114,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         gain: Double = 1) {
 
         self.leftGain = gain
@@ -116,34 +128,38 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
         leftGainParameter = tree["leftGain"]
         rightGainParameter = tree["rightGain"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.leftGainParameter?.address {
-                    self?.leftGain = Double(value)
-                } else if address == self?.rightGainParameter?.address {
-                    self?.rightGain = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.leftGain = Float(gain)
         internalAU?.rightGain = Float(gain)
+
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
+        AKLog("start() \(isStopped)")
         if isStopped {
             leftGain = lastKnownLeftGain
             rightGain = lastKnownRightGain
@@ -151,7 +167,9 @@ open class AKBooster: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
+        AKLog("stop() \(isPlaying)")
+
         if isPlaying {
             lastKnownLeftGain = leftGain
             lastKnownRightGain = rightGain

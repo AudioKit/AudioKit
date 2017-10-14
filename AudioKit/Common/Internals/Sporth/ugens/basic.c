@@ -1042,7 +1042,7 @@ int sporth_branch(sporth_stack *stack, void *ud)
             v1 = sporth_stack_pop_float(stack);
             v2 = sporth_stack_pop_float(stack);
             cond = sporth_stack_pop_float(stack);
-            sporth_stack_push_float(stack, (cond != 0 ? v2 : v1));
+            sporth_stack_push_float(stack, (cond != 0 ? v1 : v2));
             break;
         case PLUMBER_DESTROY:
             break;

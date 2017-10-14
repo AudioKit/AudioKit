@@ -16,7 +16,7 @@
 @implementation AKMandolinAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKMandolinDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -43,9 +43,9 @@
 }
 
 - (void)createParameters {
-
-    standardSetup(Mandolin)
-
+    
+    standardGeneratorSetup(Mandolin)
+    
     // Create a parameter object for the detune.
     AUParameter *detuneAUParameter = [AUParameter parameter:@"detune"
                                                        name:@"Detune"
@@ -60,22 +60,22 @@
                                                           min:0
                                                           max:10
                                                          unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     detuneAUParameter.value = 1.0;
     bodySizeAUParameter.value = 1.0;
-
-
+    
+    
     _kernel.setParameter(detuneAddress,        detuneAUParameter.value);
     _kernel.setParameter(bodySizeAddress,      bodySizeAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        detuneAUParameter,
-        bodySizeAUParameter
-    ]];
-
-	parameterTreeBlock(Mandolin)
+                                                               detuneAUParameter,
+                                                               bodySizeAUParameter
+                                                               ]];
+    
+    parameterTreeBlock(Mandolin)
 }
 
 AUAudioUnitGeneratorOverrides(Mandolin)

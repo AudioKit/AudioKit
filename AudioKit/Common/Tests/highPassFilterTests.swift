@@ -17,12 +17,10 @@ class HighPassFilterTests: AKTestCase {
     }
 
     func testDefault() {
-        let input = AKOscillator()
-        input.start()
         output = AKOperationEffect(input) { input, _ in
             return input.highPassFilter()
         }
-        AKTestMD5("6c9d7f2e0dfe8f4359f578143454ab46")
+        AKTestMD5("8233910ec0ca0f293541f7ec2ae9f2c8")
     }
 
 }

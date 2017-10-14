@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
@@ -56,7 +57,7 @@ class ViewController: UIViewController {
                              repeats: true)
     }
 
-    func updateUI() {
+    @objc func updateUI() {
         if tracker.amplitude > 0.1 {
             frequencyLabel.text = String(format: "%0.1f", tracker.frequency)
 

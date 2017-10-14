@@ -16,7 +16,7 @@
 @implementation AKClarinetAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKClarinetDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -37,9 +37,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-
-    standardSetup(Clarinet)
-
+    
+    standardGeneratorSetup(Clarinet)
+    
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that."
@@ -51,21 +51,21 @@ standardKernelPassthroughs()
                                                            min:0
                                                            max:1
                                                           unit:kAudioUnitParameterUnit_Generic];
-
+    
     // Initialize the parameter values.
     frequencyAUParameter.value = 110;
     amplitudeAUParameter.value = 0.5;
-
+    
     _kernel.setParameter(frequencyAddress,       frequencyAUParameter.value);
     _kernel.setParameter(amplitudeAddress,       amplitudeAUParameter.value);
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        frequencyAUParameter,
-        amplitudeAUParameter
-    ]];
-
-	parameterTreeBlock(Clarinet)
+                                                               frequencyAUParameter,
+                                                               amplitudeAUParameter
+                                                               ]];
+    
+    parameterTreeBlock(Clarinet)
 }
 
 AUAudioUnitGeneratorOverrides(Clarinet)

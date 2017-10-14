@@ -87,7 +87,9 @@ import UIKit
 
     /// Color in the release portion of the UI element
     @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
-    let bgColor = #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+
+    /// Background color
+    @IBInspectable open var bgColor = AKStylist.sharedInstance.bgColor
 
     /// Width of the envelope curve
     @IBInspectable open var curveStrokeWidth: CGFloat = 1
@@ -103,7 +105,7 @@ import UIKit
     public init(callback: ADSRCallback? = nil) {
         self.callback = callback
         super.init(frame: CGRect(x: 0, y: 0, width: 440, height: 150))
-        backgroundColor = .white
+        backgroundColor = .clear
     }
 
     /// Initialization of the view from within interface builder

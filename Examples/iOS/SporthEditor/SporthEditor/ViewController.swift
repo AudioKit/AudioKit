@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioKitUI
 import AudioKit
 
 class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate {
@@ -15,15 +16,15 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
     @IBOutlet private weak var status: UILabel!
     @IBOutlet private weak var runButton: RoundedButton!
 
-    @IBOutlet private var slider1: AKPropertySlider!
-    @IBOutlet private var slider2: AKPropertySlider!
-    @IBOutlet private var slider3: AKPropertySlider!
-    @IBOutlet private var slider4: AKPropertySlider!
+    @IBOutlet private var slider1: AKSlider!
+    @IBOutlet private var slider2: AKSlider!
+    @IBOutlet private var slider3: AKSlider!
+    @IBOutlet private var slider4: AKSlider!
 
     var brain = SporthEditorBrain()
     var sporthDictionary = [String: URL]()
     var currentMIDINote: MIDINoteNumber = 0
-    var sliders: [AKPropertySlider] = []
+    var sliders: [AKSlider] = []
 
     @IBAction func run() {
         if let started = brain.generator?.isStarted {

@@ -28,12 +28,13 @@ extension AKTuningTable {
     }
 
     /// Creates a "Nested 2-interval pattern", or "Moment of Symmetry"
-    ///
-    /// - parameter generator: A Double on [0, 1]
-    /// - parameter level: An Int on [0, 7]
-    /// - parameter murchana: The mode of the scale...degrees are normalized by the frequency at this index
-    /// - returns: Number of notes per octave
     /// From Erv Wilson.  See http://anaphoria.com/wilsonintroMOS.html
+    ///
+    /// - parameter gInput: A Double on [0, 1]
+    /// - parameter lInput: An Int on [0, 7]
+    /// - parameter mInput: The mode of the scale...degrees are normalized by the frequency at this index
+    /// - returns: Number of notes per octave
+    ///
     public func momentOfSymmetry(generator gInput: Double = 7.0 / 12.0,
                                  level lInput: Int = 5,
                                  murchana mInput: Int = 0) -> Int {

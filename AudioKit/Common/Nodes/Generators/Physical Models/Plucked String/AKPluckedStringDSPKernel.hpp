@@ -8,14 +8,7 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
+#import "AKSoundpipeKernel.hpp"
 
 enum {
     frequencyAddress = 0,
@@ -136,7 +129,7 @@ public:
 private:
 
     float internalTrigger = 0;
-
+    
     sp_pluck *pluck;
 
     float frequency = 110;

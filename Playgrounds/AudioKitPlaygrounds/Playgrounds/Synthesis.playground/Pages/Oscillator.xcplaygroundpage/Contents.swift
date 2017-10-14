@@ -3,28 +3,16 @@
 //: or with one of the defaults.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-let square = AKTable(.square, count: 16)
-for value in square { value } // Click the eye icon ->
-
-let triangle = AKTable(.triangle, count: 4_096)
-for value in triangle { value } // Click the eye icon ->
-
-let sine = AKTable(.sine, count: 4_096)
-for value in sine { value } // Click the eye icon ->
-
-let sawtooth = AKTable(.sawtooth, count: 4_096)
-for value in sawtooth { value } // Click the eye icon ->
-
-var custom = AKTable(.sine, count: 512)
-for i in custom.indices {
-    custom[i] += Float(random(-0.3, 0.3) + Double(i) / 2_048.0)
-}
-for value in custom { value } // Click the eye icon ->
+let square = AKTable(.square, count: 256)
+let triangle = AKTable(.triangle, count: 256)
+let sine = AKTable(.sine, count: 256)
+let sawtooth = AKTable(.sawtooth, count: 256)
 
 //: Try changing the table to triangle, square, sine, or sawtooth.
 //: This will change the shape of the oscillator's waveform.
-var oscillator = AKOscillator(waveform: custom)
+var oscillator = AKOscillator(waveform: square)
 AudioKit.output = oscillator
 AudioKit.start()
 
@@ -34,25 +22,17 @@ var currentRampTime = 0.05
 oscillator.rampTime = currentRampTime
 oscillator.amplitude = currentAmplitude
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    override func setup() {
+    override func viewDidLoad() {
 
         addTitle("General Purpose Oscillator")
 
-        addSubview(AKPropertySlider(
-            property: "Amplitude",
-            value: currentAmplitude,
-            color: AKColor.red
-        ) { amplitude in
+        addView(AKSlider(property: "Amplitude", value: currentAmplitude) { amplitude in
             currentAmplitude = amplitude
         })
 
-        addSubview(AKPropertySlider(
-            property: "Ramp Time",
-            value: currentRampTime,
-            color: AKColor.cyan
-        ) { time in
+        addView(AKSlider(property: "Ramp Time", value: currentRampTime) { time in
             currentRampTime = time
         })
 
@@ -61,8 +41,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                       firstOctave: 4,
                                       octaveCount: 4)
         keyboard.delegate = self
-        addSubview(keyboard)
-        addSubview(AKOutputWaveformPlot.createView())
+        addView(keyboard)
+        addView(AKOutputWaveformPlot.createView())
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -88,4 +68,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

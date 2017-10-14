@@ -8,7 +8,7 @@
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
-open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
+open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
 
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowShelfFilter)
@@ -17,7 +17,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     private var mixer: AKMixer
 
     /// Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
-    open dynamic var cutoffFrequency: Double = 80 {
+    @objc open dynamic var cutoffFrequency: Double = 80 {
         didSet {
             cutoffFrequency = (10...200).clamp(cutoffFrequency)
             au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
@@ -25,7 +25,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     }
 
     /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    open dynamic var gain: Double = 0 {
+    @objc open dynamic var gain: Double = 0 {
         didSet {
             gain = (-40...40).clamp(gain)
             au[kAULowShelfParam_Gain] = gain
@@ -33,7 +33,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     }
 
     /// Dry/Wet Mix (Default 100)
-    open dynamic var dryWetMix: Double = 100 {
+    @objc open dynamic var dryWetMix: Double = 100 {
         didSet {
             dryWetMix = (0...100).clamp(dryWetMix)
             inputGain?.volume = 1 - dryWetMix / 100
@@ -44,6 +44,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 100
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
+    var inputMixer = AKMixer()
 
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
@@ -51,7 +52,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     // MARK: - Initialization
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     /// Initialize the low shelf filter node
     ///
@@ -61,19 +62,22 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         cutoffFrequency: Double = 80,
         gain: Double = 0) {
 
         self.cutoffFrequency = cutoffFrequency
         self.gain = gain
 
-        inputGain = AKMixer(input)
+        inputGain = AKMixer()
         inputGain?.volume = 0
         mixer = AKMixer(inputGain)
 
-        effectGain = AKMixer(input)
+        effectGain = AKMixer()
         effectGain?.volume = 1
+
+        input?.connect(to: inputMixer)
+        inputMixer.connect(to: [inputGain!, effectGain!])
 
         let effect = _Self.effect
         self.internalEffect = effect
@@ -84,18 +88,21 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
 
         AudioKit.engine.attach(effect)
         if let node = effectGain?.avAudioNode {
-                AudioKit.engine.connect(node, to: effect)
-            }
+            AudioKit.engine.connect(node, to: effect)
+        }
         AudioKit.engine.connect(effect, to: mixer.avAudioNode)
 
         au[kAULowShelfParam_CutoffFrequency] = cutoffFrequency
         au[kAULowShelfParam_Gain] = gain
     }
 
+    public var inputNode: AVAudioNode {
+        return inputMixer.avAudioNode
+    }
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -103,7 +110,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0
@@ -115,7 +122,10 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect {
     override open func disconnect() {
         stop()
 
-        disconnect(nodes: [inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputMixer.avAudioNode,
+                                inputGain!.avAudioNode,
+                                effectGain!.avAudioNode,
+                                mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }

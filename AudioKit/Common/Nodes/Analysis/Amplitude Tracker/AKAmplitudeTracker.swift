@@ -11,7 +11,7 @@ public typealias AKThresholdCallback = @convention(block) (Bool) -> Void
 /// Performs a "root-mean-square" on a signal to get overall amplitude of a
 /// signal. The output signal looks similar to that of a classic VU meter.
 ///
-open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
+open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKAmplitudeTrackerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
@@ -21,20 +21,34 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
-//    open var smoothness: Double = 1 { // should be 0 and above
-//        willSet {
-//            internalAU?.smoothness = 0.05 * Float(newValue)
-//        }
-//    } //in development
+    //    open var smoothness: Double = 1 { // should be 0 and above
+    //        willSet {
+    //            internalAU?.smoothness = 0.05 * Float(newValue)
+    //        }
+    //    } //in development
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     /// Detected amplitude
-    open dynamic var amplitude: Double {
-        if let amp = internalAU?.amplitude {
+    @objc open dynamic var amplitude: Double {
+        return (leftAmplitude + rightAmplitude) / 2.0
+    }
+
+    /// Detected amplitude
+    @objc open dynamic var leftAmplitude: Double {
+        if let amp = internalAU?.leftAmplitude {
+            return Double(amp) / sqrt(2.0) * 2.0
+        } else {
+            return 0.0
+        }
+    }
+
+    /// Detected right amplitude
+    @objc open dynamic var rightAmplitude: Double {
+        if let amp = internalAU?.rightAmplitude {
             return Double(amp) / sqrt(2.0) * 2.0
         } else {
             return 0.0
@@ -42,7 +56,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     }
 
     /// Threshold amplitude
-    open dynamic var threshold: Double = 1 {
+    @objc open dynamic var threshold: Double = 1 {
         willSet {
             internalAU?.threshold = Float(newValue)
         }
@@ -57,7 +71,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
     ///
     public init(
-        _ input: AKNode?,
+        _ input: AKNode? = nil,
         halfPowerPoint: Double = 10,
         threshold: Double = 1,
         thresholdCallback: @escaping AKThresholdCallback = { _ in }) {
@@ -75,7 +89,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
                 au.setHalfPowerPoint(Float(halfPowerPoint))
             }
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
     }
@@ -87,12 +101,12 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 

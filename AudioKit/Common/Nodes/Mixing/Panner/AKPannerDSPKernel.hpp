@@ -8,14 +8,7 @@
 
 #pragma once
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
+#import "AKSoundpipeKernel.hpp"
 
 enum {
     panAddress = 0
@@ -24,80 +17,80 @@ enum {
 class AKPannerDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
-
+    
     AKPannerDSPKernel() {}
-
+    
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-
+        
         sp_panst_create(&panst);
         sp_panst_init(sp, panst);
         panst->pan = 0;
-
+        
         panRamper.init();
     }
-
+    
     void start() {
         started = true;
     }
-
+    
     void stop() {
         started = false;
     }
-
+    
     void destroy() {
         sp_panst_destroy(&panst);
         AKSoundpipeKernel::destroy();
     }
-
+    
     void reset() {
         resetted = true;
         panRamper.reset();
     }
-
+    
     void setPan(float value) {
         pan = clamp(value, -1.0f, 1.0f);
         panRamper.setImmediate(pan);
     }
-
-
+    
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case panAddress:
                 panRamper.setUIValue(clamp(value, -1.0f, 1.0f));
                 break;
-
+                
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case panAddress:
                 return panRamper.getUIValue();
-
+                
             default: return 0.0f;
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case panAddress:
                 panRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
                 break;
-
+                
         }
     }
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
+        
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
+            
             int frameOffset = int(frameIndex + bufferOffset);
-
+            
             pan = panRamper.getAndStep();
             panst->pan = (float)pan;
-
-            if (!started) {
+            
+            if (!started || AKSettings.numberOfChannels != 2) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
                 outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
                 return;
@@ -117,15 +110,15 @@ public:
             
         }
     }
-
+    
     // MARK: Member Variables
-
+    
 private:
-
+    
     sp_panst *panst;
     
     float pan = 0.0;
-
+    
 public:
     bool started = true;
     bool resetted = false;

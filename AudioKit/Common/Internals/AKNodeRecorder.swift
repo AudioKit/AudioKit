@@ -19,7 +19,7 @@
     fileprivate var internalAudioFile: AKAudioFile
 
     /// True if we are recording.
-    public private(set) dynamic var isRecording = false
+    @objc public private(set) dynamic var isRecording = false
 
     /// An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0
@@ -56,7 +56,7 @@
     ///   - node: Node to record from
     ///   - file: Audio file to record to
     ///
-    public init(node: AKNode? = AudioKit.output,
+    @objc public init(node: AKNode? = AudioKit.output,
                 file: AKAudioFile? = nil) throws {
 
         // AVAudioSession buffer setup
@@ -88,7 +88,7 @@
     // MARK: - Methods
 
     /// Start recording
-    open func record() throws {
+    @objc open func record() throws {
         if isRecording == true {
             AKLog("AKNodeRecorder Warning: already recording")
             return
@@ -106,15 +106,15 @@
         node.avAudioNode.installTap(
             onBus: 0,
             bufferSize: recordingBufferLength,
-            format: internalAudioFile.processingFormat) { (buffer: AVAudioPCMBuffer!, _) -> Void in
+            format: internalAudioFile.processingFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
                 do {
-                    self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
-                    try self.internalAudioFile.write(from: buffer)
-                    AKLog("AKNodeRecorder writing (file duration: \(self.internalAudioFile.duration) seconds)")
+                    self!.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
+                    try self!.internalAudioFile.write(from: buffer)
+                    //AKLog("AKNodeRecorder writing (file duration: \(self!.internalAudioFile.duration) seconds)")
 
                     // allow an optional timed stop
-                    if self.durationToRecord != 0 && self.internalAudioFile.duration >= self.durationToRecord {
-                        self.stop()
+                    if self!.durationToRecord != 0 && self!.internalAudioFile.duration >= self!.durationToRecord {
+                        self!.stop()
                     }
 
                 } catch let error as NSError {
@@ -124,7 +124,7 @@
     }
 
     /// Stop recording
-    open func stop() {
+    @objc open func stop() {
         if isRecording == false {
             AKLog("AKNodeRecorder Warning: Cannot stop recording, already stopped")
             return
@@ -138,7 +138,6 @@
             usleep(delay)
         }
         node?.avAudioNode.removeTap(onBus: 0)
-
     }
 
     /// Reset the AKAudioFile to clear previous recordings

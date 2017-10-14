@@ -62,6 +62,7 @@ extension AKMIDI {
     ///
     public func openOutput(_ namedOutput: String? = nil) {
         guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
+            AKLog("Unable to create MIDIOutputPort")
             return
         }
         outputPort = tempPort

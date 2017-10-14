@@ -27,6 +27,6 @@ extension AKOperation {
 
         return AKOperation(module: "3 / 0 \"sine\" \"square\" \"sawtooth\" \"revsaw\" oscmorph4",
                            setup: "\(sine) \(square) \(sawtooth) \(revsaw)",
-                           inputs: frequency, amplitude, index)
+            inputs: frequency, amplitude, index)
     }
 }

@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -18,23 +18,17 @@ AudioKit.output = delay
 AudioKit.start()
 player.play()
 
-public class PlaygroundView: AKPlaygroundView {
-    public override func setup() {
+import AudioKitUI
+
+public class LiveView: AKLiveViewController {
+    public override func viewDidLoad() {
         addTitle("Node Output Plots")
 
-        addSubview(AKPropertySlider(
-            property: "Time",
-            value: delay.time,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Time", value: delay.time) { sliderValue in
             delay.time = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Feedback",
-            value: delay.feedback,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Feedback", value: delay.feedback) { sliderValue in
             delay.feedback = sliderValue
         })
 
@@ -44,7 +38,7 @@ public class PlaygroundView: AKPlaygroundView {
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.color = AKColor.blue
-        addSubview(plot)
+        addView(plot)
 
         addLabel("This is the output of the delay")
         let plot2 = AKNodeOutputPlot(delay, frame: CGRect(x: 0, y: 0, width: 440, height: 300))
@@ -52,10 +46,10 @@ public class PlaygroundView: AKPlaygroundView {
         plot2.shouldFill = true
         plot2.shouldMirror = true
         plot2.color = AKColor.red
-        addSubview(plot2)
+        addView(plot2)
     }
 }
 
 import PlaygroundSupport
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 PlaygroundPage.current.needsIndefiniteExecution = true

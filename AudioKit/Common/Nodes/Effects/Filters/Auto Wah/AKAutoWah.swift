@@ -8,7 +8,7 @@
 
 /// An automatic wah effect, ported from Guitarix via Faust.
 ///
-open class AKAutoWah: AKNode, AKToggleable, AKComponent {
+open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKAutoWahAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
@@ -22,14 +22,14 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = rampTime
         }
     }
 
     /// Wah Amount
-    open dynamic var wah: Double = 0.0 {
+    @objc open dynamic var wah: Double = 0.0 {
         willSet {
             if wah != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     }
 
     /// Dry/Wet Mix
-    open dynamic var mix: Double = 1.0 {
+    @objc open dynamic var mix: Double = 1.0 {
         willSet {
             if mix != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -59,7 +59,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     }
 
     /// Overall level
-    open dynamic var amplitude: Double = 0.1 {
+    @objc open dynamic var amplitude: Double = 0.1 {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -74,7 +74,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -84,12 +84,12 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - wah: Wah Amount
-    ///   - mix: Dry/Wet Mix
-    ///   - amplitude: Overall level
+    ///   - wah: Wah Amount (Default 0.0)
+    ///   - mix: Dry/Wet Mix (Default 1.0)
+    ///   - amplitude: Overall level (Default 0.1)
     ///
-    public init(
-        _ input: AKNode?,
+    @objc public init(
+        _ input: AKNode? = nil,
         wah: Double = 0.0,
         mix: Double = 1.0,
         amplitude: Double = 0.1) {
@@ -106,10 +106,11 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -138,12 +139,12 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

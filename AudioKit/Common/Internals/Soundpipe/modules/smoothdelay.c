@@ -67,8 +67,16 @@ int sp_smoothdelay_compute(sp_data *sp, sp_smoothdelay *p, SPFLOAT *in, SPFLOAT 
 {
     *out = 0;
     if(p->del != p->pdel && p->counter == 0) {
-        p->pdel = p->del;
         uint32_t dels = min((uint32_t)(p->del * sp->sr), p->maxbuf);
+
+        /* initial delay time sets time for both buffers */
+
+        if(p->pdel < 0) {
+            p->deltime1 = dels;
+            p->deltime2 = dels;
+        }
+
+        p->pdel = p->del;
 
         if(dels == 0) dels = 1;
 

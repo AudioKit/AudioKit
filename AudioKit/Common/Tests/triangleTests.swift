@@ -25,7 +25,7 @@ class TriangleTests: AKTestCase {
                 duration: self.duration)
             return AKOperation.triangle(frequency: ramp * 2_000, amplitude: ramp, phase: ramp)
         }
-        AKTestMD5("2f01ae01dcb43f267d0854ddea5db002")
+        AKTestMD5("d0b6ff90acae0368ca998acc465bc1c4")
     }
 
 }

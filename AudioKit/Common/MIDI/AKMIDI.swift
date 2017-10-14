@@ -27,7 +27,7 @@ open class AKMIDI {
     open var client = MIDIClientRef()
 
     /// Array of MIDI In ports
-    internal var inputPorts = [String: MIDIPortRef]()
+    internal var inputPorts: [String: MIDIPortRef] = [:]
 
     /// Virtual MIDI Input destination
     open var virtualInput = MIDIPortRef()
@@ -52,6 +52,8 @@ open class AKMIDI {
 
     /// Array of all listeners
     internal var listeners = [AKMIDIListener]()
+
+    internal var transformers = [AKMIDITransformer]()
 
     // MARK: - Initialization
 

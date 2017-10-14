@@ -35,7 +35,7 @@
 //: * [Phase Distortion Oscillator](Phase%20Distortion%20Oscillator)
 //: * [Pulse Width Modulation Oscillator](PWM%20Oscillator)
 //: 
-//: New in AudioKit 3.7 is Microtonality capability:
+//: Microtonal Functionality:
 //:
 //: * [Microtonality](Microtonality)
 //:
@@ -71,6 +71,7 @@
 //: * [Flute](Flute)
 //: * [Mandolin](Mandolin)
 //: * [Plucked String](Plucked%20String)
+//: * [Tubular Bells](Tubular%20Bells)
 //: * [Vocal Tract](Vocal%20Tract)
 //: * [Vocal Tract Operation](Vocal%20Tract%20Operation)
 //:

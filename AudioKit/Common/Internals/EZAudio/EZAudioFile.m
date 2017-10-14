@@ -608,6 +608,7 @@ typedef struct
 
 //------------------------------------------------------------------------------
 
+/// return the markers in this file. This will be a NSArray of EZAudioFileMarkers
 - (NSArray *)markers
 {
     // get size of markers property (dictionary)
@@ -623,41 +624,38 @@ typedef struct
     size_t length = NumBytesToNumAudioFileMarkers( propSize );
     
     // allocate enough space for the markers.
-    AudioFileMarkerList markers[ length ];
+    AudioFileMarkerList markerList[ length ];
     
-    if ( length > 0 ) {
+    if (length > 0) {
         // pull marker list
         [EZAudioUtilities checkResult:AudioFileGetProperty( self.audioFileID,
                                                            kAudioFilePropertyMarkerList,
                                                            &propSize,
-                                                           &markers)
+                                                           &markerList)
                             operation:"Failed to get the markers list"];
         
     } else {
         return NULL;
     }
-    
     //NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
     
     // the native C structs aren't so friendly with Swift, so we'll load up an array instead
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:markers->mNumberMarkers];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:markerList->mNumberMarkers];
     
     int i;
-    for (i=0; i < markers->mNumberMarkers; i++) {
+    for (i=0; i < markerList->mNumberMarkers; i++) {
         EZAudioFileMarker *afm = [[EZAudioFileMarker alloc] init];
         
-        afm.framePosition = [[NSNumber alloc] initWithDouble:(markers->mMarkers[i].mFramePosition)];
-        afm.markerID = [[NSNumber alloc] initWithInt:(markers->mMarkers[i].mMarkerID)];
-        afm.type = [[NSNumber alloc] initWithInt:(markers->mMarkers[i].mType)];
-        afm.name = (__bridge NSString *)(markers->mMarkers[i].mName);
+        afm.framePosition = [[NSNumber alloc] initWithDouble:(markerList->mMarkers[i].mFramePosition)];
+        afm.markerID = [[NSNumber alloc] initWithInt:(markerList->mMarkers[i].mMarkerID)];
+        afm.type = [[NSNumber alloc] initWithInt:(markerList->mMarkers[i].mType)];
+        afm.name = (__bridge NSString *)(markerList->mMarkers[i].mName);
         
         //NSLog(@"%@\n", afm.name );
-        
         [array addObject:afm];
     }
     // cast to an immutable one
     NSArray *nmArray = [array copy];
-    
     return nmArray;
 }
 
@@ -769,6 +767,52 @@ typedef struct
                                 rightMin:0.0f
                                 rightMax:[self totalFrames]];
     [self seekToFrame:frame];
+}
+
+//------------------------------------------------------------------------------
+
+/// add an Array of EZAudioFileMarkers into this file
+- (void) setMarkers:(NSArray *)markerArray {
+    
+    AudioFileMarkerList editedMarkerList[markerArray.count];
+    
+    editedMarkerList->mNumberMarkers = (UInt32)markerArray.count;
+    
+    for (int i=0; i < markerArray.count; i++) {
+        EZAudioFileMarker *ezafm = (EZAudioFileMarker *) [markerArray objectAtIndex:(i)];
+        
+        AudioFileMarker afm;
+        afm.mName = (__bridge CFStringRef _Nullable)(ezafm.name);
+        afm.mFramePosition = [ezafm.framePosition doubleValue];
+        afm.mMarkerID = [ezafm.markerID intValue];
+        afm.mType = [ezafm.type intValue];
+        
+        editedMarkerList->mMarkers[i] = afm;
+        
+        NSLog(@"Adding marker: %@\n", ezafm.name );
+    }
+    
+    UInt32 propSize = (UInt32)NumAudioFileMarkersToNumBytes(markerArray.count);
+    
+    OSStatus err = noErr;
+    AudioFileID fileID  = nil;
+    
+    err = AudioFileOpenURL( (__bridge CFURLRef _Nonnull)(self.url), kAudioFileReadWritePermission, 0, &fileID );
+    
+    if ( err != noErr ) {
+        NSLog( @"AudioFileOpenURL failed" );
+        return;
+    }
+    
+    err = AudioFileSetProperty( fileID,
+                               kAudioFilePropertyMarkerList,
+                               propSize,
+                               &editedMarkerList);
+    
+    if ( err != noErr ) {
+        NSLog(@"AudioFileSetProperty failed err: %d\n", (int)err );
+    }
+    
 }
 
 //------------------------------------------------------------------------------
