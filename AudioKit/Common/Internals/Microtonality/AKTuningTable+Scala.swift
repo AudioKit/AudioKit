@@ -18,9 +18,8 @@ extension AKTuningTable {
         }
         
         if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
-            if let npo = tuningTable(fromFrequencies: scalaFrequencies) {
-                return npo
-            }
+            let npo = tuningTable(fromFrequencies: scalaFrequencies)
+            return npo
         }
         
         // error
