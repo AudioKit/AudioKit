@@ -54,6 +54,7 @@ public:
             sporthCode = (char *)malloc(length);
             memcpy(sporthCode, sporth, length);
         }
+        plumber_recompile_string_v2(&pd, sporthCode, this, &addUgensToKernel);
     }
 
     void addUgensToFTable(plumber_data *pd) {
