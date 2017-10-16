@@ -53,6 +53,8 @@ public:
     void stop() {
         started = false;
         hasPlayedThroughLoop = false;
+        phasor->curphs = 0;
+        position = 0;
     }
     
     void setUpTable(UInt32 size) {
@@ -222,11 +224,25 @@ public:
             SPFLOAT dur = (SPFLOAT)current_size / sp->sr;
             
             //length of playableSample vs actual
-            int subsectionLength = (!hasPlayedThroughLoop? endPoint - startPoint : loopEndPoint - loopStartPoint);
+            float startPointToUse = startPoint;
+            float endPointToUse = endPoint;
+            if (loop && started){
+                int samplePosition = (int)(position * current_size);
+                if (!hasPlayedThroughLoop && samplePosition > loopStartPoint){
+                    hasPlayedThroughLoop = true;
+                    phasor->curphs = 0;
+                }
+                if (hasPlayedThroughLoop){
+                    startPointToUse = loopStartPoint;
+                    endPointToUse = loopEndPoint;
+                }
+            }
+            int subsectionLength = endPointToUse - startPointToUse;
+            
             float percentLen = (float)subsectionLength / (float)ftbl_size;
             float speedFactor = (float)current_size / (float)ftbl_size;
             phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
-            float startPointToUse = (!hasPlayedThroughLoop ? startPoint : loopStartPoint); //if we haven't looped yet, use the original start point
+            
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -243,9 +259,6 @@ public:
                 } else {
                     *out = 0;
                 }
-            }
-            if (loop && !hasPlayedThroughLoop && position < lastPosition){
-                hasPlayedThroughLoop = true;
             }
             if (!loop && position < lastPosition && started) {
                 started = false;
