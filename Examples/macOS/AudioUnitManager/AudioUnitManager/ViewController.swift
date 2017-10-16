@@ -31,7 +31,12 @@ class ViewController: NSViewController {
     var player: AKAudioPlayer?
     var fm: AKFMOscillator?
     var mixer: AKMixer?
-    var auInstrument: AKAudioUnitInstrument?
+    var auInstrument: AKAudioUnitInstrument? = nil {
+        didSet {
+            guard auInstrument != nil else { return }
+            testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
+        }
+    }
     var testPlayer: InstrumentPlayer?
 
     fileprivate var fmTimer: Timer?
@@ -39,7 +44,6 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-
     }
 
     override func viewDidAppear() {
