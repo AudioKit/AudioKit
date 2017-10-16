@@ -28,6 +28,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?
+    fileprivate var loopStartPointParameter: AUParameter?
+    fileprivate var loopEndPointParameter: AUParameter?
     fileprivate var rateParameter: AUParameter?
     fileprivate var volumeParameter: AUParameter?
 
@@ -75,7 +77,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             if loopStartPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
+                        loopStartPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
                 } else {
                     internalAU?.loopStartPoint = Float(safeSample(newValue))
@@ -90,7 +92,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             if endPoint != newValue {
                 if internalAU?.isSetUp() ?? false {
                     if let existingToken = token {
-                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
+                        loopEndPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
                 } else {
                     internalAU?.loopEndPoint = Float(safeSample(newValue))
@@ -207,6 +209,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
         startPointParameter = tree["startPoint"]
         endPointParameter = tree["endPoint"]
+        loopStartPointParameter = tree["startPoint"]
+        loopEndPointParameter = tree["endPoint"]
         rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
 
@@ -223,6 +227,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
         })
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(self.endPoint)
+        internalAU?.loopStartPoint = Float(startPoint)
+        internalAU?.loopEndPoint = Float(self.endPoint)
         internalAU?.rate = Float(rate)
         internalAU?.volume = Float(volume)
 
@@ -238,6 +244,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
+        internalAU?.loopStartPoint = Float(safeSample(loopStartPoint))
+        internalAU?.loopEndPoint = Float(safeSample(loopEndPoint))
         internalAU?.start()
     }
 
@@ -363,6 +371,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     self.avAudiofile = file
                     self.startPoint = 0
                     self.endPoint = Sample(file.samplesCount)
+                    self.loopStartPoint = 0
+                    self.loopEndPoint = Sample(file.samplesCount)
                 } else {
                     // failure
                     AKLog("Error = \(err)"); break Exit
