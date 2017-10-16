@@ -27,18 +27,21 @@ Then, in viewDidLoad, hook up the oscillators to the speakers and start the Audi
 Finally, we just to need to connect the button from the Main.storyboard file to an action.  The only AudioKit code here is to set the frequency of the oscillators and play/stop them.  The other parts are just to update the UI to reflect the state of the instrument.
 
 ```
-    @IBAction func toggleSound(_ sender: UIButton) {
+    @IBAction func toggleSound(_ sender: NSButton) {
         if oscillator1.isPlaying {
             oscillator1.stop()
             oscillator2.stop()
-            sender.setTitle("Play Sine Waves", for: .normal)
+            sender.title = "Play Sine Waves"
         } else {
+            oscillator1.amplitude = random(in: 0.5 ... 1)
             oscillator1.frequency = random(in: 220 ... 880)
             oscillator1.start()
+            oscillator2.amplitude = random(in: 0.5 ... 1)
             oscillator2.frequency = random(in: 220 ... 880)
             oscillator2.start()
-            sender.setTitle("Stop \(Int(oscillator1.frequency))Hz & \(Int(oscillator2.frequency))Hz", for: .normal)
+            sender.title = "Stop \(Int(oscillator1.frequency))Hz & \(Int(oscillator2.frequency))Hz"
         }
+        sender.setNeedsDisplay()
     }
 ```
 
