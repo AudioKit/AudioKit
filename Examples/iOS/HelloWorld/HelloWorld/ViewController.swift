@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         mixer = AKMixer(oscillator1, oscillator2)
+
+        // Cut the volume in half since we have two oscillators
         mixer.volume = 0.5
         AudioKit.output = mixer
         AudioKit.start()

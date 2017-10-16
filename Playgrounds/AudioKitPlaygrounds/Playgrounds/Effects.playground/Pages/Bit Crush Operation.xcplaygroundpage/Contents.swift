@@ -56,7 +56,7 @@ class LiveView: AKLiveViewController {
         })
         addView(AKSlider(property: "Bit Depth Variation",
                          value: effect.parameters[3],
-                         range: 0 ...12,
+                         range: 0 ... 12,
                          format: "%0.3f Hz"
         ) { sliderValue in
             effect.parameters[3] = sliderValue
