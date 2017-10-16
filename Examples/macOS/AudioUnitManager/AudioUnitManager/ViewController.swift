@@ -25,6 +25,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var auInstrumentSelector: NSPopUpButton!
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
+    fileprivate var _lastMIDIEvent: Int = 0
+    
     var openPanel: NSOpenPanel?
     var internalManager: AKAudioUnitManager?
     var midiManager: AKMIDI?
@@ -34,7 +36,8 @@ class ViewController: NSViewController {
     var auInstrument: AKAudioUnitInstrument? {
         didSet {
             guard auInstrument != nil else { return }
-            testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
+            //testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
+//            self.internalManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer )
         }
     }
     
@@ -132,9 +135,7 @@ class ViewController: NSViewController {
             AKLog("* \(audioUnit.name) : Audio Unit created")
 
             if self.auInstrument != nil {
-                // dispose 
-
-                self.midiManager!.clearListeners()
+                // dispose the old one?
             }
 
             self.auInstrument = AKAudioUnitInstrument(audioUnit: audioUnit)
@@ -168,14 +169,14 @@ class ViewController: NSViewController {
         }
 
         if auInstrument != nil {
-            handleInstrumentPlayButton(instrumentPlayButton)
+            instrumentPlayButton.title = "▶️"
         }
 
         if playButton.title == "⏹" {
             player.stop()
             playButton.title = "▶️"
 
-            if !AudioKit.engine.isRunning {
+            if AudioKit.engine.isRunning {
                 AudioKit.stop()
                 internalManager?.reset()
             }
@@ -222,7 +223,8 @@ class ViewController: NSViewController {
         }
 
         if auInstrument != nil {
-            handleInstrumentPlayButton(instrumentPlayButton)
+            //handleInstrumentPlayButton(instrumentPlayButton)
+            instrumentPlayButton.title = "▶️"
         }
 
         if sender.state == .on {
@@ -320,12 +322,14 @@ class ViewController: NSViewController {
 //            testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
 //        }
 
-        if testPlayer == nil {
-            AKLog("Failed creating the test player")
-            return
-        }
+//        if testPlayer == nil {
+//            AKLog("Failed creating the test player")
+//            return
+//        }
 
         if state {
+            internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
+            testPlayer = InstrumentPlayer(audioUnit: auInstrument!.midiInstrument?.auAudioUnit)
             testPlayer?.play()
         } else {
             testPlayer?.stop()
@@ -355,9 +359,18 @@ extension ViewController: AKMIDIListener {
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        let currentTime: Int = Int(mach_absolute_time())
+        
+        //Swift.print("auInstrument: \(auInstrument), noteNumber: \(noteNumber), velocity: \(velocity), channel: \(channel), currentTime: \(currentTime)")
+        
+        // AKMIDI is sending duplicate messages, don't let them be sent too quickly
+        let sinceLastEvent = currentTime - _lastMIDIEvent
+        let isDupe = sinceLastEvent < 300000
+        
         if auInstrument != nil {
-            auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
-
+            if !isDupe {
+                auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
+            }
         } else if fm != nil {
             if !fm!.isStarted {
                 fm!.start()
@@ -369,6 +382,8 @@ extension ViewController: AKMIDIListener {
             let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
             fm!.baseFrequency = frequency
         }
+        //Swift.print("Dupe? \(isDupe) sinceLastEvent: \(sinceLastEvent)")
+        _lastMIDIEvent = currentTime
     }
 
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {

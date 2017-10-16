@@ -36,6 +36,10 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
             AKLog("no midiInstrument exists")
             return
         }
+//        cbytes[0] = 0xB0
+//        cbytes[1] = 123
+//        cbytes[2] = 0
+        //self.midiInstrument!.sendMIDIEvent(0xB0, data1: noteNumber, data2: velocity)
         self.midiInstrument!.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
