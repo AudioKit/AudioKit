@@ -45,7 +45,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
-        addView(AKSlider(property: "Left Feedback", value: effect.parameters[3]) { sliderValue in
+        addView(AKSlider(property: "Right Feedback", value: effect.parameters[3]) { sliderValue in
             effect.parameters[3] = sliderValue
         })
     }

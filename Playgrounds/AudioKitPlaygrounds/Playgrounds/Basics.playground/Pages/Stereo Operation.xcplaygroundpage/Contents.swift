@@ -6,7 +6,7 @@ import AudioKit
 let generator = AKOperationGenerator(numberOfChannels: 2) { _ in
 
     let slowSine = round(AKOperation.sineWave(frequency: 1) * 12) / 12
-    let vibrato = slowSine.scale(range: -1_200 ... 1_200)
+    let vibrato = slowSine.scale(minimum: -1_200, maximum: 1_200)
 
     let fastSine = AKOperation.sineWave(frequency: 10)
     let volume = fastSine.scale(minimum: 0, maximum: 0.5)

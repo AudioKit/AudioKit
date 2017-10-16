@@ -14,21 +14,21 @@ open class AKAudioUnitManager: NSObject {
     public enum Notification {
         case effectsAvailable, instrumentsAvailable, changed, crashed, added
     }
-    
+
     // not including the Apple ones, only the custom ones
     public private (set) var internalAudioUnits = ["AKVariableDelay", "AKBitCrusher", "AKClipper",
-                                                   "AKDynamicRangeCompressor", "AKDynaRageCompressor" ,"AKAmplitudeEnvelope", "AKTremolo",
+                                                   "AKDynamicRangeCompressor", "AKDynaRageCompressor", "AKAmplitudeEnvelope", "AKTremolo",
                                                    "AKAutoWah", "AKBandPassButterworthFilter", "AKBandRejectButterworthFilter", "AKDCBlock",
-                                                   "AKEqualizerFilter", "AKFormantFilter" , "AKHighPassButterworthFilter",
+                                                   "AKEqualizerFilter", "AKFormantFilter", "AKHighPassButterworthFilter",
                                                    "AKHighShelfParametricEqualizerFilter", "AKKorgLowPassFilter",
                                                    "AKLowPassButterworthFilter", "AKLowShelfParametricEqualizerFilter", "AKModalResonanceFilter",
-                                                   "AKMoogLadder", "AKPeakingParametricEqualizerFilter" , "AKResonantFilter", "AKRolandTB303Filter",
-                                                   "AKStringResonator", "AKThreePoleLowpassFilter" , "AKToneComplementFilter", "AKToneFilter",
-                                                   "AKRhinoGuitarProcessor", "AKPhaser" , "AKPitchShifter",
+                                                   "AKMoogLadder", "AKPeakingParametricEqualizerFilter", "AKResonantFilter", "AKRolandTB303Filter",
+                                                   "AKStringResonator", "AKThreePoleLowpassFilter", "AKToneComplementFilter", "AKToneFilter",
+                                                   "AKRhinoGuitarProcessor", "AKPhaser", "AKPitchShifter",
                                                    "AKChowningReverb", "AKCombFilterReverb", "AKCostelloReverb",
                                                    "AKFlatFrequencyResponseReverb", "AKZitaReverb", "AKBooster", "AKBooster2",
                                                    "AKTanhDistortion"]    //"AKRingModulator",
-    
+
     /// Delegate that will be sent notifications
     open weak var delegate: AKAudioUnitManagerDelegate?
 
@@ -146,19 +146,19 @@ open class AKAudioUnitManager: NSObject {
             }
         }
     }
-    
+
     /// Initialize the manager with arbritary amount of inserts
     public convenience init(inserts: Int) {
         self.init()
         _effectsChain = [AVAudioUnit?](repeating: nil, count: inserts)
     }
-    
+
     /// Initialize the manager
     override public init() {
         super.init()
-        
+
         internalAudioUnits.sort()
-        
+
         // Sign up for a notification when the list of available components changes.
         var name = NSNotification.Name(rawValue: kAudioComponentRegistrationsChangedNotification as String)
         NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil) { [weak self] _ in
@@ -216,7 +216,7 @@ open class AKAudioUnitManager: NSObject {
             self.availableEffects = self.availableEffects.sorted {
                 return $0.name < $1.name
             }
-            
+
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
                 // notify delegate
@@ -311,7 +311,7 @@ open class AKAudioUnitManager: NSObject {
             return
         }
         var auFound = false
-        
+
         for component in availableEffects {
             if component.name == name {
                 auFound = true
@@ -332,16 +332,16 @@ open class AKAudioUnitManager: NSObject {
                         // TODO: handle this better
                         //AKLog("Warning: \(audioUnit.name) is a Mono effect.")
                     }
-                    
+
                     //Swift.print("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
-                    
+
                     self._effectsChain[index] = audioUnit
                     self.connectEffects()
                     self.delegate?.handleEffectAdded(at: index)
                 })
             }
         }
-        
+
         // if it didn't find it in the component list, see if it's an internal one
         if !auFound {
             if let avUnit = createInternalAU(name: name) {
@@ -351,11 +351,10 @@ open class AKAudioUnitManager: NSObject {
                 return
             }
         }
-        
+
         //otherwise it wasn't found
     }
-    
-    
+
     private func createInternalAU(name: String) -> AVAudioUnit? {
         // how does this crap work?
         //        let instance = NSClassFromString(name) as! AKNode.Type
@@ -363,7 +362,7 @@ open class AKAudioUnitManager: NSObject {
         //            return av
         //        }
         var avUnit: AVAudioUnit?
-        
+
         // in the meantime:
         if name == "AKVariableDelay" {
             avUnit = AKVariableDelay().avAudioNode as? AVAudioUnit
@@ -447,20 +446,18 @@ open class AKAudioUnitManager: NSObject {
         // requires an impulse response...
         //            } else if name == "AKConvolution" {
         //                avUnit = AKConvolution().avAudioNode as? AVAudioUnit
-        
+
         return avUnit
     }
-    
-    
-    
+
     /// Create an instrument with a name and a completion handler
     public func createInstrument(name: String, completionHandler: ((AVAudioUnitMIDIInstrument?) -> Void)? = nil) {
         for component in availableInstruments {
             if component.name == name {
                 let acd = component.audioComponentDescription
-                
+
                 //AKLog("\(name) -- \(acd)")
-                
+
                 createInstrumentAudioUnit(acd, completionHandler: { au in
                     guard let audioUnit = au else {
                         AKLog("Unable to create audioUnit")
@@ -480,7 +477,7 @@ open class AKAudioUnitManager: NSObject {
         for i in 0 ..< _effectsChain.count {
             if let au = _effectsChain[i] {
                 //AKLog("Detaching: \(au.auAudioUnit.audioUnitName)")
-                
+
                 if au.engine != nil {
                     AudioKit.engine.disconnectNodeInput(au)
                     AudioKit.engine.detach(au)
@@ -538,11 +535,11 @@ open class AKAudioUnitManager: NSObject {
                 let prevAU = effects[i - 1]
 
                 AudioKit.connect(prevAU, to: au, format: processingFormat)
-                
+
                 //AKLog("Connecting \(prevAU.name) to \(au.name) with format \(processingFormat)")
             }
         }
-        
+
         //AKLog("Connecting \(au.name) to output: \(outputAV),  with format \(processingFormat)")
         AudioKit.connect(au, to: outputAV, format: processingFormat)
 
