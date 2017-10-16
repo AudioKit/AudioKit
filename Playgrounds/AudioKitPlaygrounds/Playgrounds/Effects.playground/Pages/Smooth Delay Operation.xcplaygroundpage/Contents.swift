@@ -11,8 +11,8 @@ player.looping = true
 let effect = AKOperationEffect(player) { player, parameters in
     let delayedPlayer = player.smoothDelay(
         time: parameters[0],
-        samples: 1_024,
         feedback: parameters[1],
+        samples: 1_024,
         maximumDelayTime: 2.0)
     return mixer(player.toMono(), delayedPlayer)
 }
