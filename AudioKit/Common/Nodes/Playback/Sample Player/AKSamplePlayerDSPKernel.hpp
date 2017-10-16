@@ -12,8 +12,10 @@
 enum {
     startPointAddress = 0,
     endPointAddress = 1,
-    rateAddress = 2,
-    volumeAddress = 3
+    loopStartPointAddress = 2,
+    loopEndPointAddress = 3,
+    rateAddress = 4,
+    volumeAddress = 5
 };
 
 class AKSamplePlayerDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
@@ -101,6 +103,17 @@ public:
         endPoint = value;
         endPointRamper.setImmediate(endPoint);
     }
+    void setLoopStartPoint(float value) {
+        loopStartPoint = value;
+        startPointRamper.setImmediate(loopStartPoint);
+    }
+    void setLoopEndPoint(float value) {
+        loopEndPoint = value;
+        endPointRamper.setImmediate(loopEndPoint);
+    }
+    void setLoop(bool value) {
+        loop = value;
+    }
     
     void setRate(float value) {
         rate = clamp(value, 0.0f, 10.0f);
@@ -112,11 +125,6 @@ public:
         volumeRamper.setImmediate(volume);
     }
     
-    void setLoop(bool value) {
-        loop = value;
-    }
-    
-    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case startPointAddress:
@@ -125,6 +133,14 @@ public:
                 
             case endPointAddress:
                 endPointRamper.setUIValue(value);
+                break;
+                
+            case loopStartPointAddress:
+                loopStartPointRamper.setUIValue(value);
+                break;
+                
+            case loopEndPointAddress:
+                loopEndPointRamper.setUIValue(value);
                 break;
                 
             case rateAddress:
@@ -145,6 +161,12 @@ public:
             case endPointAddress:
                 return endPointRamper.getUIValue();
                 
+            case loopStartPointAddress:
+                return loopStartPointRamper.getUIValue();
+                
+            case loopEndPointAddress:
+                return loopEndPointRamper.getUIValue();
+                
             case rateAddress:
                 return rateRamper.getUIValue();
                 
@@ -163,6 +185,14 @@ public:
                 
             case endPointAddress:
                 endPointRamper.startRamp(value, duration);
+                break;
+                
+            case loopStartPointAddress:
+                loopStartPointRamper.startRamp(value, duration);
+                break;
+                
+            case loopEndPointAddress:
+                loopEndPointRamper.startRamp(value, duration);
                 break;
                 
             case rateAddress:
@@ -231,6 +261,8 @@ private:
     
     float startPoint = 0;
     float endPoint = 1;
+    float loopStartPoint = 0;
+    float loopEndPoint = 1;
     float rate = 1;
     float volume = 1;
     float lastPosition = -1.0;
@@ -241,6 +273,8 @@ public:
     bool resetted = false;
     ParameterRamper startPointRamper = 0;
     ParameterRamper endPointRamper = 1;
+    ParameterRamper loopStartPointRamper = 0;
+    ParameterRamper loopEndPointRamper = 1;
     ParameterRamper rateRamper = 1;
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;

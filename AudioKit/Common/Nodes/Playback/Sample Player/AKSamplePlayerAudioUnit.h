@@ -17,6 +17,8 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) float rate;
 @property (nonatomic) float volume;
 @property (nonatomic) BOOL loop;
+@property (nonatomic) float loopStartPoint;
+@property (nonatomic) float loopEndPoint;
 @property (nonatomic) AKCCallback completionHandler;
 
 - (void)setupAudioFileTable:(UInt32)size;
