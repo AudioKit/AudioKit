@@ -52,8 +52,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         }
     }
-
-    /// endPoint - this is where the sample will play to before stopping. 
+    
+    /// endPoint - this is where the sample will play to before stopping.
     /// A value less than the start point will play the sample backwards.
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
@@ -64,6 +64,36 @@ open class AKSamplePlayer: AKNode, AKComponent {
                     }
                 } else {
                     internalAU?.endPoint = Float(safeSample(newValue))
+                }
+            }
+        }
+    }
+    
+    /// loopStartPoint in samples - where to start playing the sample from
+    @objc open dynamic var loopStartPoint: Sample = 0 {
+        willSet {
+            if loopStartPoint != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.loopStartPoint = Float(safeSample(newValue))
+                }
+            }
+        }
+    }
+    
+    /// loopEndPoint - this is where the sample will play to before stopping.
+    @objc open dynamic var loopEndPoint: Sample = 0 {
+        willSet {
+            if endPoint != newValue {
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.loopEndPoint = Float(safeSample(newValue))
                 }
             }
         }
