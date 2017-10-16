@@ -6,6 +6,9 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
+import AudioKit
+import UIKit
+
 /// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
 open class AKStepper: UIView {
 
@@ -23,7 +26,8 @@ open class AKStepper: UIView {
 
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {            let touchLocation = touch.location(in: self)
+        if let touch = touches.first {
+            let touchLocation = touch.location(in: self)
             if minusPath.contains(touchLocation) {
                 if value > 1 {
                     value -= 1
@@ -77,15 +81,12 @@ open class AKStepper: UIView {
         let textLabelRect = CGRect(x: 68, y: 0, width: 304, height: 60)
         let textLabelStyle = NSMutableParagraphStyle()
         textLabelStyle.alignment = .left
-        let textLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
-                                       NSAttributedStringKey.foregroundColor: UIColor.black,
-                                       NSAttributedStringKey.paragraphStyle: textLabelStyle]
 
         let textLabelInset: CGRect = textLabelRect.insetBy(dx: 10, dy: 0)
         let textLabelTextHeight: CGFloat = text.boundingRect(with: CGSize(width: textLabelInset.width,
                                                                           height: CGFloat.infinity),
                                                              options: .usesLineFragmentOrigin,
-                                                             attributes: textLabelFontAttributes,
+                                                             attributes: nil,
                                                              context: nil).height
         context.saveGState()
         context.clip(to: textLabelInset)
@@ -94,7 +95,7 @@ open class AKStepper: UIView {
                                 y: textLabelInset.minY + (textLabelInset.height - textLabelTextHeight) / 2,
                                 width: textLabelInset.width,
                                 height: textLabelTextHeight),
-                     withAttributes: textLabelFontAttributes)
+                     withAttributes: nil)
         context.restoreGState()
 
         //// minusGroup
