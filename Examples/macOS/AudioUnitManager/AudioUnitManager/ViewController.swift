@@ -31,12 +31,13 @@ class ViewController: NSViewController {
     var player: AKAudioPlayer?
     var fm: AKFMOscillator?
     var mixer: AKMixer?
-    var auInstrument: AKAudioUnitInstrument? = nil {
+    var auInstrument: AKAudioUnitInstrument? {
         didSet {
             guard auInstrument != nil else { return }
             testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
         }
     }
+    
     var testPlayer: InstrumentPlayer?
 
     fileprivate var fmTimer: Timer?
@@ -315,9 +316,9 @@ class ViewController: NSViewController {
 
         guard auInstrument != nil else { return }
 
-        if testPlayer == nil {
-            testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
-        }
+//        if testPlayer == nil {
+//            testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
+//        }
 
         if testPlayer == nil {
             AKLog("Failed creating the test player")
