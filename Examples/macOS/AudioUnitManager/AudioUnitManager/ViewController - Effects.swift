@@ -213,7 +213,7 @@ extension ViewController {
         return nil
     }
 
-    private func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
+    internal func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
         let identifier = windowPrefix + String(tag)
         guard let windows = self.view.window?.childWindows else { return nil }
         for w in windows {
@@ -327,7 +327,6 @@ extension ViewController:  AKAudioUnitManagerDelegate {
     }
 
     func handleEffectAdded( at auIndex: Int ) {
-        AKLog("auInstrument: \(auInstrument)")
         showEffect(at: auIndex, state: true)
 
         guard internalManager != nil else { return }

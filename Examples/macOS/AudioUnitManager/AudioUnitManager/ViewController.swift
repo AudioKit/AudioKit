@@ -125,7 +125,8 @@ class ViewController: NSViewController {
         guard let auname = sender.titleOfSelectedItem else { return }
 
         if auname == "-" {
-            // remove instrument
+            // dispose the old one?
+            removeInstrument()
             return
         }
 
@@ -133,10 +134,6 @@ class ViewController: NSViewController {
             guard let audioUnit = audioUnit else { return }
 
             AKLog("* \(audioUnit.name) : Audio Unit created")
-
-            if self.auInstrument != nil {
-                // dispose the old one?
-            }
 
             self.auInstrument = AKAudioUnitInstrument(audioUnit: audioUnit)
 
@@ -148,8 +145,14 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 self.instrumentPlayButton.isEnabled = true
             }
-            //self.midiManager!.addListener(self.auInstrument!)
         })
+    }
+    
+    fileprivate func removeInstrument() {
+        auInstrument?.detach()
+        auInstrument = nil
+        instrumentPlayButton.isEnabled = false
+        getWindowFromIndentifier(6)?.close()
     }
 
     @IBAction func handleShowAudioUnit(_ sender: NSButton) {
@@ -223,7 +226,6 @@ class ViewController: NSViewController {
         }
 
         if auInstrument != nil {
-            //handleInstrumentPlayButton(instrumentPlayButton)
             instrumentPlayButton.title = "▶️"
         }
 
@@ -290,12 +292,7 @@ class ViewController: NSViewController {
             AudioKit.start()
         }
         fm.start()
-
-        //let randInterval = Double(randomNumber(range: 10...100)) / 100
         fmTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(randomFM), userInfo: nil, repeats: true)
-
-//        randomFM()
-//        fm.start()
     }
 
     @objc func randomFM() {
@@ -315,17 +312,7 @@ class ViewController: NSViewController {
 
     open func testAUInstrument(state: Bool) {
         AKLog("\(state)")
-
         guard auInstrument != nil else { return }
-
-//        if testPlayer == nil {
-//            testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
-//        }
-
-//        if testPlayer == nil {
-//            AKLog("Failed creating the test player")
-//            return
-//        }
 
         if state {
             internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
@@ -342,14 +329,12 @@ class ViewController: NSViewController {
         auInstrumentSelector.removeAllItems()
         auInstrumentSelector.addItem(withTitle: "-")
 
-        //AKLog("updateInstrumentsUI() \(audioUnits)")
         for component in audioUnits {
             if component.name != "" {
                 auInstrumentSelector.addItem(withTitle: component.name)
             }
         }
     }
-
 }
 
 extension ViewController: AKMIDIListener {
@@ -360,9 +345,7 @@ extension ViewController: AKMIDIListener {
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         let currentTime: Int = Int(mach_absolute_time())
-        
-        //Swift.print("auInstrument: \(auInstrument), noteNumber: \(noteNumber), velocity: \(velocity), channel: \(channel), currentTime: \(currentTime)")
-        
+
         // AKMIDI is sending duplicate messages, don't let them be sent too quickly
         let sinceLastEvent = currentTime - _lastMIDIEvent
         let isDupe = sinceLastEvent < 300000
@@ -382,7 +365,6 @@ extension ViewController: AKMIDIListener {
             let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
             fm!.baseFrequency = frequency
         }
-        //Swift.print("Dupe? \(isDupe) sinceLastEvent: \(sinceLastEvent)")
         _lastMIDIEvent = currentTime
     }
 
@@ -401,9 +383,6 @@ extension ViewController: AKMIDIListener {
 /// Handle Window Events
 extension ViewController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-
-        Swift.print("windowWillClose: \(notification)")
-
         if let w = notification.object as? NSWindow {
             if w == view.window {
                 internalManager?.reset()
