@@ -213,7 +213,7 @@ extension ViewController {
         return nil
     }
 
-    private func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
+    internal func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
         let identifier = windowPrefix + String(tag)
         guard let windows = self.view.window?.childWindows else { return nil }
         for w in windows {
@@ -334,22 +334,23 @@ extension ViewController:  AKAudioUnitManagerDelegate {
 
         // is FM playing?
         if fm != nil && fm!.isStarted {
-            internalManager!.connectEffects(firstNode: fm, lastNode: mixer)
+            internalManager!.connectEffects(firstNode: fm!, lastNode: mixer)
             return
-        }
+        } else if auInstrument != nil {
+            internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
+            return
+        } else if player != nil {
+            let playing = player!.isStarted
 
-        guard player != nil else { return }
+            if playing {
+                player!.stop()
+            }
 
-        let playing = player!.isStarted
+            internalManager!.connectEffects(firstNode: player, lastNode: mixer)
 
-        if playing {
-            player!.stop()
-        }
-
-        internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-
-        if playing {
-            player!.start()
+            if playing {
+                player!.start()
+            }
         }
     }
 }
