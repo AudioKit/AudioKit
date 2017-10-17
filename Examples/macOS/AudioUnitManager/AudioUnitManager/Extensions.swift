@@ -60,9 +60,8 @@ extension String {
     }
 
     func removeSpecial() -> String {
-        let okayChars: Set<Character> =
-            Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-_".characters)
-        return String(self.characters.filter {okayChars.contains($0) })
+        let okayChars = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-_"
+        return self.filter {okayChars.contains($0) }
     }
 
     func asciiValue() -> [UInt8] {
