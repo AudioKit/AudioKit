@@ -26,7 +26,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
     fileprivate var _lastMIDIEvent: Int = 0
-    
+
     var openPanel: NSOpenPanel?
     var internalManager: AKAudioUnitManager?
     var midiManager: AKMIDI?
@@ -40,7 +40,7 @@ class ViewController: NSViewController {
 //            self.internalManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer )
         }
     }
-    
+
     var testPlayer: InstrumentPlayer?
 
     fileprivate var fmTimer: Timer?
@@ -147,7 +147,7 @@ class ViewController: NSViewController {
             }
         })
     }
-    
+
     fileprivate func removeInstrument() {
         auInstrument?.detach()
         auInstrument = nil
@@ -188,7 +188,7 @@ class ViewController: NSViewController {
             if !AudioKit.engine.isRunning {
                 AudioKit.start()
             }
-            
+
             if internalManager?.input != player {
                 internalManager!.connectEffects(firstNode: player, lastNode: mixer)
             }
@@ -275,7 +275,7 @@ class ViewController: NSViewController {
 
             playButton.isEnabled = true
             fileField.stringValue = "🔈 \(url.lastPathComponent)"
-            
+
         } catch {
 
         }
@@ -354,8 +354,8 @@ extension ViewController: AKMIDIListener {
 
         // AKMIDI is sending duplicate noteOn messages??, don't let them be sent too quickly
         let sinceLastEvent = currentTime - _lastMIDIEvent
-        let isDupe = sinceLastEvent < 300000
-        
+        let isDupe = sinceLastEvent < 300_000
+
         if auInstrument != nil {
             if !isDupe {
                 auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
