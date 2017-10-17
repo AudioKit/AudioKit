@@ -44,7 +44,7 @@ extension AKClip {
 /// A file based AKClip, with a completion handler.
 @objc public protocol FileClip: AKClip {
     var audioFile: AKAudioFile { get }
-    var completionCallback: AKCallback?
+    var completionCallback: AKCallback? { get }
 }
 
 /// A FileClip implementation, used by AKClipPlayer.
