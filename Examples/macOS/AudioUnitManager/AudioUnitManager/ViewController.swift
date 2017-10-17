@@ -188,6 +188,11 @@ class ViewController: NSViewController {
             if !AudioKit.engine.isRunning {
                 AudioKit.start()
             }
+            
+            if internalManager?.input != player {
+                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+            }
+            player.volume = 1
             player.play()
             playButton.title = "⏹"
         }
@@ -270,6 +275,7 @@ class ViewController: NSViewController {
 
             playButton.isEnabled = true
             fileField.stringValue = "🔈 \(url.lastPathComponent)"
+            
         } catch {
 
         }
