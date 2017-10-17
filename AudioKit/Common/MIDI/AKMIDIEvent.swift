@@ -256,20 +256,9 @@ public struct AKMIDIEvent {
         internalData[0] = MIDIByte(status.rawValue << 4) | MIDIByte(channel.lowbit())
         internalData[1] = byte1.lower7bits()
         internalData[2] = byte2.lower7bits()
-
-        switch status {
-        case .controllerChange:
-            length = 3
-        case .channelAftertouch:
-            break
-        case .programChange:
-            length = 3 // Usually 2, but causes a crash with 2
-        default:
-            length = 3
-        }
-        if let existingLength = length {
-            internalData = Array(internalData.prefix(Int(existingLength)))
-        }
+        
+        length = 3
+        
     }
 
     /// Initialize the MIDI Event from a system command message
