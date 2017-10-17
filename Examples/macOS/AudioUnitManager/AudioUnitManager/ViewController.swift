@@ -188,6 +188,11 @@ class ViewController: NSViewController {
             if !AudioKit.engine.isRunning {
                 AudioKit.start()
             }
+            
+            if internalManager?.input != player {
+                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+            }
+            player.volume = 1
             player.play()
             playButton.title = "⏹"
         }
@@ -270,6 +275,7 @@ class ViewController: NSViewController {
 
             playButton.isEnabled = true
             fileField.stringValue = "🔈 \(url.lastPathComponent)"
+            
         } catch {
 
         }
@@ -346,13 +352,15 @@ extension ViewController: AKMIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         let currentTime: Int = Int(mach_absolute_time())
 
-        // AKMIDI is sending duplicate messages, don't let them be sent too quickly
+        // AKMIDI is sending duplicate noteOn messages??, don't let them be sent too quickly
         let sinceLastEvent = currentTime - _lastMIDIEvent
         let isDupe = sinceLastEvent < 300000
         
         if auInstrument != nil {
             if !isDupe {
                 auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
+            } else {
+                //AKLog("Duplicate noteOn message sent")
             }
         } else if fm != nil {
             if !fm!.isStarted {
@@ -374,7 +382,7 @@ extension ViewController: AKMIDIListener {
 
         } else if fm != nil {
             if fm!.isStarted {
-                //fm!.stop()
+                fm!.stop()
             }
         }
     }
