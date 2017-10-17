@@ -48,13 +48,13 @@ public:
         dur = (SPFLOAT)current_size / sp->sr;
         phasor->freq = 1.0 / dur * rate;
         lastPosition = -1.0;
+        hasPlayedThroughLoop = false;
+        phasor->curphs = 0;
+        position = 0;
     }
     
     void stop() {
         started = false;
-        hasPlayedThroughLoop = false;
-        phasor->curphs = 0;
-        position = 0;
     }
     
     void setUpTable(UInt32 size) {
