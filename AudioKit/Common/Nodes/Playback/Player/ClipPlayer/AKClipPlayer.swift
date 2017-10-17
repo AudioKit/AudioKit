@@ -105,7 +105,7 @@ open class AKClipPlayer: AKNode, AKTiming {
                                  time: 0,
                                  offset: clip.offset + diff,
                                  duration: clip.duration - diff,
-                                 completion: nil)
+                                 completion: clip.completionCallback)
                 }
 
             } else {
@@ -113,7 +113,7 @@ open class AKClipPlayer: AKNode, AKTiming {
                              time: clip.time - offset,
                              offset: clip.offset,
                              duration: clip.duration,
-                             completion: nil)
+                             completion: clip.completionCallback)
             }
         }
         scheduled = true
