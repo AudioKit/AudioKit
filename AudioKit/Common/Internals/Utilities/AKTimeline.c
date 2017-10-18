@@ -318,7 +318,7 @@ static AudioTimeStamp AudioTimeNow(void) {
         .mFlags = kAudioTimeStampHostTimeValid
     };
 }
-static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 hostTime) {
+static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UI nt64 hostTime) {
     return (AudioTimeStamp) {
         .mSampleTime = sampleTime,
         .mHostTime = hostTime,
@@ -326,7 +326,7 @@ static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 ho
     };
 }
 
-static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp anchorTime, double sampleRate){
+static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp anchorTime, double sampleRate) {
 
     assert((SampleTimeValid(timeStamp) || HostTimeValid(timeStamp)) && SampleAndHostTimeValid(anchorTime));
 
