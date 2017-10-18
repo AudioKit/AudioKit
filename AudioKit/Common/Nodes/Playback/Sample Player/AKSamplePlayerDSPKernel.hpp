@@ -226,13 +226,13 @@ public:
             //length of playableSample vs actual
             float startPointToUse = startPoint;
             float endPointToUse = endPoint;
-            if (loop && started){
+            if (loop && started) {
                 int samplePosition = (int)(position * current_size);
-                if (!hasPlayedThroughLoop && samplePosition > loopStartPoint){
+                if (!hasPlayedThroughLoop && samplePosition > loopStartPoint) {
                     hasPlayedThroughLoop = true;
                     phasor->curphs = 0;
                 }
-                if (hasPlayedThroughLoop){
+                if (hasPlayedThroughLoop) {
                     startPointToUse = loopStartPoint;
                     endPointToUse = loopEndPoint;
                 }
