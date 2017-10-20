@@ -191,7 +191,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - inverted: 1 or 0
     ///   - lfoBPM: Between 24 and 360
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         notchMinimumFrequency: Double = 100,
         notchMaximumFrequency: Double = 800,
