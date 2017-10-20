@@ -56,7 +56,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     ///   - input: Input node to process
     ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 1_000.0) {
 

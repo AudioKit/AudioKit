@@ -71,7 +71,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     ///   - centerFrequency: Center frequency in Hz. (default: 2000 Hz)
     ///   - bandwidth: Bandwidth in Hz. (default: 100 Hz)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         centerFrequency: Double = 2_000.0,
         bandwidth: Double = 100.0) {
