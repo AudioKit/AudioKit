@@ -318,7 +318,7 @@ static AudioTimeStamp AudioTimeNow(void) {
         .mFlags = kAudioTimeStampHostTimeValid
     };
 }
-static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UI nt64 hostTime) {
+static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 hostTime) {
     return (AudioTimeStamp) {
         .mSampleTime = sampleTime,
         .mHostTime = hostTime,
