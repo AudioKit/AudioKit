@@ -61,7 +61,7 @@ open class AKHighShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - cutOffFrequency: Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cutOffFrequency: Double = 10_000,
         gain: Double = 0) {

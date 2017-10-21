@@ -35,7 +35,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency,
     ///                      at the cost of requiring more CPU power.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         impulseResponseFileURL: URL,
         partitionLength: Int = 2_048) {

@@ -62,7 +62,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the
     ///                   delay time or “echo density” of the reverberation.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         reverbDuration: Double = 0.5,
         loopDuration: Double = 0.1) {
