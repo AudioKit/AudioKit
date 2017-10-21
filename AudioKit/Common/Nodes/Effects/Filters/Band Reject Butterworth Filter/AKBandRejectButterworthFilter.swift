@@ -72,7 +72,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     ///   - centerFrequency: Center frequency. (in Hertz)
     ///   - bandwidth: Bandwidth. (in Hertz)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         centerFrequency: Double = 3_000.0,
         bandwidth: Double = 2_000.0) {
