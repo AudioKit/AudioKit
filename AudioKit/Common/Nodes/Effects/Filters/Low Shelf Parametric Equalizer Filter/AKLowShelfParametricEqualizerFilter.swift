@@ -88,7 +88,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     ///           A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cornerFrequency: Double = 1_000,
         gain: Double = 1.0,

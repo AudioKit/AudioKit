@@ -9,7 +9,7 @@ PROJECT_UI_NAME=AudioKitUI
 CONFIGURATION=${CONFIGURATION:-"Release"}
 BUILD_DIR="$PWD/build"
 VERSION=`cat ../VERSION`
-PLATFORMS=${PLATFORMS:-"iOS macOS"} # Leaving off tvOS while on develop
+PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
 if test "$TRAVIS" = true;
 then

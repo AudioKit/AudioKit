@@ -60,9 +60,8 @@ extension String {
     }
 
     func removeSpecial() -> String {
-        let okayChars: Set<Character> =
-            Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-_".characters)
-        return String(self.characters.filter {okayChars.contains($0) })
+        let okayChars = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-_"
+        return self.filter {okayChars.contains($0) }
     }
 
     func asciiValue() -> [UInt8] {
@@ -92,23 +91,23 @@ extension String.Index {
 }
 
 extension NSLayoutConstraint {
-    public static func simpleVisualConstraints( view:NSView, direction:NSString = "H", padding1:Int = 0, padding2:Int = 0 ) -> [NSLayoutConstraint] {
+    public static func simpleVisualConstraints( view: NSView, direction: NSString = "H", padding1: Int = 0, padding2: Int = 0 ) -> [NSLayoutConstraint] {
         view.translatesAutoresizingMaskIntoConstraints = false
         let constraint = NSLayoutConstraint.constraints(withVisualFormat: "\(direction):|-\(padding1)-[view]-\(padding2)-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["view":view])
+            views: ["view": view])
         return constraint
     }
-    
-    public static func activateConstraintsEqualToSuperview( child:NSView ) {
+
+    public static func activateConstraintsEqualToSuperview( child: NSView ) {
         if child.superview == nil {
             Swift.print("NSLayoutConstraint.fillSuperview() superview of child is nil")
-            return;
+            return
         }
-        
+
         child.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate( [
             child.leadingAnchor.constraint( equalTo: child.superview!.leadingAnchor ),
             child.trailingAnchor.constraint( equalTo: child.superview!.trailingAnchor ),
@@ -116,5 +115,5 @@ extension NSLayoutConstraint {
             child.bottomAnchor.constraint( equalTo: child.superview!.bottomAnchor )
             ])
     }
-    
+
 }

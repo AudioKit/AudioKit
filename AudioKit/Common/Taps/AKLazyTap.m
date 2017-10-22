@@ -87,7 +87,7 @@
 -(BOOL)copyNextBufferList:(AudioBufferList *)bufferlistOut timeStamp:(AudioTimeStamp *)timeStamp{
     pthread_mutex_lock(&consumerLock);
     AudioBufferList *nextBuffer = TPCircularBufferNextBufferList(&circularBuffer, timeStamp);
-    if (nextBuffer){
+    if (nextBuffer) {
         for (int i = 0; i < nextBuffer->mNumberBuffers; i++) {
             bufferlistOut->mNumberBuffers = 1;
             bufferlistOut->mBuffers[i].mDataByteSize = nextBuffer->mBuffers[i].mDataByteSize;
@@ -116,7 +116,7 @@
         int frames = MIN(buffer.frameCapacity - buffer.frameLength, framesInBuffer);
         int bytesPerFrame = asbd.mBytesPerFrame;
         int bytes = frames * bytesPerFrame;
-        for (int i = 0; i < bufferlist->mNumberBuffers; i++){
+        for (int i = 0; i < bufferlist->mNumberBuffers; i++) {
             memcpy((char *)dst->mBuffers[i].mData + (buffer.frameLength * bytesPerFrame), bufferlist->mBuffers[i].mData, bytes);
         }
         buffer.frameLength += frames;
@@ -145,7 +145,7 @@
         
         UInt32 space = TPCircularBufferGetAvailableSpace(buffer, &asbd);
         if (space < headroom) {
-            if (pthread_mutex_trylock(lock) == 0){
+            if (pthread_mutex_trylock(lock) == 0) {
                 while (space < headroom) {
                     TPCircularBufferConsumeNextBufferList(buffer);
                     space = TPCircularBufferGetAvailableSpace(buffer, &asbd);

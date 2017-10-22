@@ -55,7 +55,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         halfPowerPoint: Double = 1_000.0) {
 

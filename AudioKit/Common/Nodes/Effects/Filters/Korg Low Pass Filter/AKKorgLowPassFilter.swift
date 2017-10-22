@@ -86,7 +86,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// - parameter resonance: Filter resonance (should be between 0-2)
     /// - parameter saturation: Filter saturation.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 1_000.0,
         resonance: Double = 1.0,

@@ -42,7 +42,7 @@ class AudioUnitGenericView: NSView {
     convenience init(au: AVAudioUnit) {
         self.init()
         wantsLayer = true
-        
+
         if let cname = au.auAudioUnit.componentName {
             name = cname
         }
