@@ -12,8 +12,10 @@
 enum {
     startPointAddress = 0,
     endPointAddress = 1,
-    rateAddress = 2,
-    volumeAddress = 3
+    loopStartPointAddress = 2,
+    loopEndPointAddress = 3,
+    rateAddress = 4,
+    volumeAddress = 5
 };
 
 class AKSamplePlayerDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
@@ -46,6 +48,9 @@ public:
         dur = (SPFLOAT)current_size / sp->sr;
         phasor->freq = 1.0 / dur * rate;
         lastPosition = -1.0;
+        hasPlayedThroughLoop = false;
+        phasor->curphs = 0;
+        position = 0;
     }
     
     void stop() {
@@ -101,6 +106,17 @@ public:
         endPoint = value;
         endPointRamper.setImmediate(endPoint);
     }
+    void setLoopStartPoint(float value) {
+        loopStartPoint = value;
+        loopStartPointRamper.setImmediate(loopStartPoint);
+    }
+    void setLoopEndPoint(float value) {
+        loopEndPoint = value;
+        loopEndPointRamper.setImmediate(loopEndPoint);
+    }
+    void setLoop(bool value) {
+        loop = value;
+    }
     
     void setRate(float value) {
         rate = clamp(value, 0.0f, 10.0f);
@@ -112,11 +128,6 @@ public:
         volumeRamper.setImmediate(volume);
     }
     
-    void setLoop(bool value) {
-        loop = value;
-    }
-    
-    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case startPointAddress:
@@ -125,6 +136,14 @@ public:
                 
             case endPointAddress:
                 endPointRamper.setUIValue(value);
+                break;
+                
+            case loopStartPointAddress:
+                loopStartPointRamper.setUIValue(value);
+                break;
+                
+            case loopEndPointAddress:
+                loopEndPointRamper.setUIValue(value);
                 break;
                 
             case rateAddress:
@@ -144,6 +163,12 @@ public:
                 
             case endPointAddress:
                 return endPointRamper.getUIValue();
+                
+            case loopStartPointAddress:
+                return loopStartPointRamper.getUIValue();
+                
+            case loopEndPointAddress:
+                return loopEndPointRamper.getUIValue();
                 
             case rateAddress:
                 return rateRamper.getUIValue();
@@ -165,6 +190,14 @@ public:
                 endPointRamper.startRamp(value, duration);
                 break;
                 
+            case loopStartPointAddress:
+                loopStartPointRamper.startRamp(value, duration);
+                break;
+                
+            case loopEndPointAddress:
+                loopEndPointRamper.startRamp(value, duration);
+                break;
+                
             case rateAddress:
                 rateRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
@@ -183,24 +216,41 @@ public:
             
             startPoint = double(startPointRamper.getAndStep());
             endPoint = double(endPointRamper.getAndStep());
+            loopStartPoint = double(loopStartPointRamper.getAndStep());
+            loopEndPoint = double(loopEndPointRamper.getAndStep());
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
             
             SPFLOAT dur = (SPFLOAT)current_size / sp->sr;
             
             //length of playableSample vs actual
-            int subsectionLength = endPoint - startPoint;
+            float startPointToUse = startPoint;
+            float endPointToUse = endPoint;
+            if (loop && started) {
+                int samplePosition = (int)(position * current_size);
+                if (!hasPlayedThroughLoop && samplePosition > loopStartPoint) {
+                    hasPlayedThroughLoop = true;
+                    phasor->curphs = 0;
+                }
+                if (hasPlayedThroughLoop) {
+                    startPointToUse = loopStartPoint;
+                    endPointToUse = loopEndPoint;
+                }
+            }
+            int subsectionLength = endPointToUse - startPointToUse;
+            
             float percentLen = (float)subsectionLength / (float)ftbl_size;
             float speedFactor = (float)current_size / (float)ftbl_size;
             phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
+            
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &position);
-                        tabread1->index = position * percentLen + startPoint / ftbl_size;
-                        tabread2->index = position * percentLen + startPoint / ftbl_size;
+                        tabread1->index = position * percentLen + startPointToUse / ftbl_size;
+                        tabread2->index = position * percentLen + startPointToUse / ftbl_size;
                         sp_tabread_compute(sp, tabread1, NULL, out);
                     } else {
                         sp_tabread_compute(sp, tabread2, NULL, out);
@@ -231,16 +281,21 @@ private:
     
     float startPoint = 0;
     float endPoint = 1;
+    float loopStartPoint = 0;
+    float loopEndPoint = 1;
     float rate = 1;
     float volume = 1;
     float lastPosition = -1.0;
     bool loop = false;
+    bool hasPlayedThroughLoop = false;
     
 public:
     bool started = false;
     bool resetted = false;
     ParameterRamper startPointRamper = 0;
     ParameterRamper endPointRamper = 1;
+    ParameterRamper loopStartPointRamper = 0;
+    ParameterRamper loopEndPointRamper = 1;
     ParameterRamper rateRamper = 1;
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;

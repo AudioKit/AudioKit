@@ -87,7 +87,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     ///   - gain: Amount the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         centerFrequency: Double = 1_000,
         gain: Double = 1.0,

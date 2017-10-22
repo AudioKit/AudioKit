@@ -61,7 +61,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 80,
         gain: Double = 0) {

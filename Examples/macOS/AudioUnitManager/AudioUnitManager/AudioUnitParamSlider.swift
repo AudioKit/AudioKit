@@ -21,7 +21,7 @@ class AudioUnitParamSlider: NSView {
 
         self.audioUnit = audioUnit
         self.key = param.address
-        
+
         let titleField = createLabel(string: param.displayName)
         titleField.frame = NSRect(x: 0, y: 0, width: 120, height: 20)
         addSubview(titleField)

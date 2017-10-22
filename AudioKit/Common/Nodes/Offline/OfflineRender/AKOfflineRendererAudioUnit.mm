@@ -1,6 +1,6 @@
 //
 //  AKOfflineRenderAudioUnit.m
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by David O'Neill on 8/7/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -61,7 +61,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
            settings:(NSDictionary<NSString *, id> * _Nullable)settings
               error:(NSError * _Nullable * _Nullable)outError{
     
-    if (!settings){
+    if (!settings) {
         NSString *extension = fileURL.pathExtension.lowercaseString;
         if ([extension isEqualToString:@"mp4"] || [extension isEqualToString:@"m4a"]) {
             settings = @{AVFormatIDKey:             @(kAudioFormatMPEG4AAC),
@@ -73,7 +73,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
             settings = fixedSettings;
         }
     }
-    if(![AKOfflineRenderAudioUnit checkSeconds:seconds error:outError]){
+    if(![AKOfflineRenderAudioUnit checkSeconds:seconds error:outError]) {
         return false;
     }
     AURenderPullInputBlock pullInputBlock = [self getPullInputBlock:outError];
@@ -92,9 +92,9 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     
     return [self render:round(seconds * self.defaultFormat.sampleRate)
          pullInputBlock:pullInputBlock
-            renderBlock:^BOOL(AudioBufferList *bufferList, AVAudioFrameCount frames, NSError **outError){
+            renderBlock:^BOOL(AudioBufferList *bufferList, AVAudioFrameCount frames, NSError **outError) {
                 AudioBufferList *outBufferlist = buffer.mutableAudioBufferList;
-                for (int i = 0; i < bufferList->mNumberBuffers; i++){
+                for (int i = 0; i < bufferList->mNumberBuffers; i++) {
                     memcpy(outBufferlist->mBuffers[i].mData, bufferList->mBuffers[i].mData, bytesPerFrame * frames);
                 }
                 buffer.frameLength = frames;
@@ -124,10 +124,10 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     
     __block UInt32 offset = 0;
     UInt32 bytesPerFrame = self.defaultFormat.streamDescription->mBytesPerFrame;
-    BOOL success = [self render:frameCount pullInputBlock:pullInputBlock renderBlock:^BOOL(AudioBufferList *bufferList, AVAudioFrameCount frames, NSError **outError){
+    BOOL success = [self render:frameCount pullInputBlock:pullInputBlock renderBlock:^BOOL(AudioBufferList *bufferList, AVAudioFrameCount frames, NSError **outError) {
         AudioBufferList *mutableBufferlist = buffer.mutableAudioBufferList;
         UInt32 byteOffset = offset * bytesPerFrame;
-        for (int i = 0; i < bufferList->mNumberBuffers; i++){
+        for (int i = 0; i < bufferList->mNumberBuffers; i++) {
             char *dst = (char *)mutableBufferlist->mBuffers[i].mData;
             memcpy(dst + byteOffset, bufferList->mBuffers[i].mData, frames * bytesPerFrame);
         }
@@ -144,11 +144,11 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
 
 //renderBlock expects a return value of true for success and false for failure.
 -(BOOL)render:(UInt32)sampleCount pullInputBlock:(AURenderPullInputBlock)pullInputBlock renderBlock:(SimpleRenderBlock)renderBlock error:(NSError **)outError{
-    if (!sampleCount){
+    if (!sampleCount) {
         return [AKOfflineRenderAudioUnit outError:outError withDomain:@"AKOfflineRenderAudioUnit" code:1
                                       description:@"Can't render <= 0 seconds"];
     }
-    if(!pullInputBlock || !renderBlock){
+    if(!pullInputBlock || !renderBlock) {
         return [AKOfflineRenderAudioUnit outError:outError withDomain:@"AKOfflineRenderAudioUnit" code:1
                                       description:@"AKOfflineRenderAudioUnit.render !pullInputBlock || !renderBlock"];
     }
@@ -173,7 +173,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
                                           description:@"Cached pullInputBlock failed"];
         }
         //renderblock can set error out
-        if (!renderBlock(_inputBus.mutableAudioBufferList,renderLen,outError)){
+        if (!renderBlock(_inputBus.mutableAudioBufferList,renderLen,outError)) {
             pthread_mutex_unlock(&renderLock);
             return false;
         }
@@ -271,13 +271,13 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     return pullInputBlock;
 }
 +(BOOL)outError:(NSError **)error withDomain:(NSString *)domain code:(int)code description:(NSString *)description{
-    if (error){
+    if (error) {
         *error = [NSError errorWithDomain:domain code:code userInfo:@{NSLocalizedDescriptionKey:description}];
     }
     return false;
 }
 +(BOOL)checkSeconds:(double)seconds error:(NSError **)outError{
-    if (seconds <= 0){
+    if (seconds <= 0) {
         return [AKOfflineRenderAudioUnit outError:outError withDomain:@"AKOfflineRenderAudioUnit" code:1
                                       description:@"Can't render <= 0 seconds"];
     }

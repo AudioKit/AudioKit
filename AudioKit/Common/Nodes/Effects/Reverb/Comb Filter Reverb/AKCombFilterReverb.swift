@@ -62,7 +62,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time.
     ///            Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         reverbDuration: Double = 1.0,
         loopDuration: Double = 0.1) {

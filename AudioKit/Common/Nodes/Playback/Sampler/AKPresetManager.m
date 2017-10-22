@@ -92,13 +92,13 @@
     NSMutableDictionary *preset = mutableSkeleton();
     NSDictionary *waveFormIds = waveformsPathIndexed(presetZones);
     if(!waveFormIds)return NULL;
-    for (NSString *path in waveFormIds.allKeys){
+    for (NSString *path in waveFormIds.allKeys) {
         NSNumber *waveFormId = waveFormIds[path];
         NSString *sampleKey = [FILEREFPREFIX stringByAppendingString:waveFormId.stringValue];
         preset.fileReferences[sampleKey] = path;
     }
     int ID = 1;
-    for (AKPresetZone *presetZone in presetZones){
+    for (AKPresetZone *presetZone in presetZones) {
         presetZone.ID = @(ID);
         presetZone.waveform = waveFormIds[presetZone.filePath];
         [preset.zones addObject:presetZone.asDictionary];
@@ -129,17 +129,17 @@
     return true;
 }
 
-NSDictionary *waveformsPathIndexed(NSArray <AKPresetZone *> *presetZones){
+NSDictionary *waveformsPathIndexed(NSArray <AKPresetZone *> *presetZones) {
     NSSet *filePaths = [NSSet setWithArray:[presetZones valueForKey:@"filePath"]];
     NSMutableDictionary *waveformsPathIndexed = [[NSMutableDictionary alloc]init];
     int nextWaveformId = STARTINGWAVEFORMID;
-    for (NSString *path in filePaths){
+    for (NSString *path in filePaths) {
         waveformsPathIndexed[path] = @(nextWaveformId);
         nextWaveformId++;
     }
     return waveformsPathIndexed;
 }
-NSMutableDictionary *mutableSkeleton(){
+NSMutableDictionary *mutableSkeleton() {
     static NSDictionary *skeleton = NULL;
     if (!skeleton) {
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];

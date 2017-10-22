@@ -15,7 +15,7 @@ class ViewController: NSViewController {
 
     let akInternals = "AudioKit ★"
     let windowPrefix = "FX"
-    
+
     @IBOutlet weak var effectsContainer: NSView!
     @IBOutlet weak var playButton: NSButton!
     @IBOutlet weak var loopButton: NSButton!
@@ -25,13 +25,22 @@ class ViewController: NSViewController {
     @IBOutlet weak var auInstrumentSelector: NSPopUpButton!
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
+    fileprivate var _lastMIDIEvent: Int = 0
+
     var openPanel: NSOpenPanel?
     var internalManager: AKAudioUnitManager?
     var midiManager: AKMIDI?
     var player: AKAudioPlayer?
     var fm: AKFMOscillator?
     var mixer: AKMixer?
-    var auInstrument: AKAudioUnitInstrument?
+    var auInstrument: AKAudioUnitInstrument? {
+        didSet {
+            guard auInstrument != nil else { return }
+            //testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
+//            self.internalManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer )
+        }
+    }
+
     var testPlayer: InstrumentPlayer?
 
     fileprivate var fmTimer: Timer?
@@ -39,7 +48,6 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-
     }
 
     override func viewDidAppear() {
@@ -61,7 +69,7 @@ class ViewController: NSViewController {
         initManager()
         initMIDI()
         initUI()
-        
+
         AudioKit.start()
     }
 
@@ -106,8 +114,6 @@ class ViewController: NSViewController {
         })
     }
 
-    
-
     @IBAction func handleMidiDeviceSelected(_ sender: NSPopUpButton) {
         if let device = sender.titleOfSelectedItem {
             midiManager?.openInput(device)
@@ -119,7 +125,8 @@ class ViewController: NSViewController {
         guard let auname = sender.titleOfSelectedItem else { return }
 
         if auname == "-" {
-            // remove instrument
+            // dispose the old one?
+            removeInstrument()
             return
         }
 
@@ -127,12 +134,6 @@ class ViewController: NSViewController {
             guard let audioUnit = audioUnit else { return }
 
             AKLog("* \(audioUnit.name) : Audio Unit created")
-
-            if self.auInstrument != nil {
-                // dispose 
-
-                self.midiManager!.clearListeners()
-            }
 
             self.auInstrument = AKAudioUnitInstrument(audioUnit: audioUnit)
 
@@ -144,10 +145,15 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 self.instrumentPlayButton.isEnabled = true
             }
-            //self.midiManager!.addListener(self.auInstrument!)
         })
     }
 
+    fileprivate func removeInstrument() {
+        auInstrument?.detach()
+        auInstrument = nil
+        instrumentPlayButton.isEnabled = false
+        getWindowFromIndentifier(6)?.close()
+    }
 
     @IBAction func handleShowAudioUnit(_ sender: NSButton) {
         guard internalManager != nil else { return }
@@ -166,22 +172,27 @@ class ViewController: NSViewController {
         }
 
         if auInstrument != nil {
-            handleInstrumentPlayButton(instrumentPlayButton)
+            instrumentPlayButton.title = "▶️"
         }
 
         if playButton.title == "⏹" {
             player.stop()
             playButton.title = "▶️"
-            
-            if !AudioKit.engine.isRunning {
+
+            if AudioKit.engine.isRunning {
                 AudioKit.stop()
                 internalManager?.reset()
             }
-            
+
         } else {
             if !AudioKit.engine.isRunning {
                 AudioKit.start()
             }
+
+            if internalManager?.input != player {
+                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+            }
+            player.volume = 1
             player.play()
             playButton.title = "⏹"
         }
@@ -220,7 +231,7 @@ class ViewController: NSViewController {
         }
 
         if auInstrument != nil {
-            handleInstrumentPlayButton(instrumentPlayButton)
+            instrumentPlayButton.title = "▶️"
         }
 
         if sender.state == .on {
@@ -264,6 +275,7 @@ class ViewController: NSViewController {
 
             playButton.isEnabled = true
             fileField.stringValue = "🔈 \(url.lastPathComponent)"
+
         } catch {
 
         }
@@ -286,12 +298,7 @@ class ViewController: NSViewController {
             AudioKit.start()
         }
         fm.start()
-
-        //let randInterval = Double(randomNumber(range: 10...100)) / 100
         fmTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(randomFM), userInfo: nil, repeats: true)
-
-//        randomFM()
-//        fm.start()
     }
 
     @objc func randomFM() {
@@ -311,39 +318,29 @@ class ViewController: NSViewController {
 
     open func testAUInstrument(state: Bool) {
         AKLog("\(state)")
-
         guard auInstrument != nil else { return }
 
-        if testPlayer == nil {
-            testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
-        }
-
-        if testPlayer == nil {
-            AKLog("Failed creating the test player")
-            return
-        }
-
         if state {
+            internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
+            testPlayer = InstrumentPlayer(audioUnit: auInstrument!.midiInstrument?.auAudioUnit)
             testPlayer?.play()
         } else {
             testPlayer?.stop()
         }
     }
-    
+
     internal func updateInstrumentsUI( audioUnits: [AVAudioUnitComponent] ) {
         guard internalManager != nil else { return }
-        
+
         auInstrumentSelector.removeAllItems()
         auInstrumentSelector.addItem(withTitle: "-")
-        
-        //AKLog("updateInstrumentsUI() \(audioUnits)")
+
         for component in audioUnits {
             if component.name != "" {
                 auInstrumentSelector.addItem(withTitle: component.name)
             }
         }
     }
-
 }
 
 extension ViewController: AKMIDIListener {
@@ -353,9 +350,18 @@ extension ViewController: AKMIDIListener {
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        if auInstrument != nil {
-            auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
+        let currentTime: Int = Int(mach_absolute_time())
 
+        // AKMIDI is sending duplicate noteOn messages??, don't let them be sent too quickly
+        let sinceLastEvent = currentTime - _lastMIDIEvent
+        let isDupe = sinceLastEvent < 300_000
+
+        if auInstrument != nil {
+            if !isDupe {
+                auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
+            } else {
+                //AKLog("Duplicate noteOn message sent")
+            }
         } else if fm != nil {
             if !fm!.isStarted {
                 fm!.start()
@@ -367,6 +373,7 @@ extension ViewController: AKMIDIListener {
             let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
             fm!.baseFrequency = frequency
         }
+        _lastMIDIEvent = currentTime
     }
 
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
@@ -375,26 +382,22 @@ extension ViewController: AKMIDIListener {
 
         } else if fm != nil {
             if fm!.isStarted {
-                //fm!.stop()
+                fm!.stop()
             }
         }
     }
 }
 
-
 /// Handle Window Events
 extension ViewController: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-
-        Swift.print("windowWillClose: \(notification)")
-
         if let w = notification.object as? NSWindow {
             if w == view.window {
                 internalManager?.reset()
                 AudioKit.stop()
                 exit(0)
             }
-            
+
             if var wid = w.identifier?.rawValue {
                 wid = wid.replacingOccurrences(of: windowPrefix, with: "")
                 if let b = getEffectsButtonFromIdentifier(wid.toInt()) {

@@ -75,9 +75,9 @@
         
         Float64 startSample = timeStamp->mSampleTime;
         Float64 endSample = startSample + inNumberFrames;
-        for (int i = 0; i < *triggerCount; i++){
+        for (int i = 0; i < *triggerCount; i++) {
             double trigger = triggers[i];
-            if(startSample <= trigger && trigger < endSample){
+            if(startSample <= trigger && trigger < endSample) {
                 MusicDeviceMIDIEvent(sampler,NOTEON, i == 0, 127, trigger - startSample + offset);
             }
         }
@@ -227,7 +227,7 @@
     
     return true;
 }
-static float releasecurve(float scaler){
+static float releasecurve(float scaler) {
     return -1 * scaler * (scaler - 2.f);
 }
 
@@ -271,7 +271,7 @@ static float releasecurve(float scaler){
     
 }
 
-static int makeBeep(float *buffer, float attack, float sustain, float release, float hz, float samplerate, float volume){
+static int makeBeep(float *buffer, float attack, float sustain, float release, float hz, float samplerate, float volume) {
     
     float totalTime = attack + sustain + release;
     float totalSamples = totalTime * samplerate;
@@ -298,7 +298,7 @@ static int makeBeep(float *buffer, float attack, float sustain, float release, f
 
 
 static AudioTimeStamp AudioTimeNow(void) {
-    return (AudioTimeStamp){
+    return (AudioTimeStamp) {
         .mHostTime = mach_absolute_time(),
         .mFlags = kAudioTimeStampHostTimeValid
     };
