@@ -28,6 +28,8 @@ public class AKBluetoothMIDIButton: UIButton {
 
     private var realSuperView: UIView?
 
+    /// Use this when your button's superview is not the entire screen, or when you prefer
+    /// the aesthetics of a centered popup window to one with an arrow pointing to your button
     public func centerPopupIn(view: UIView) {
         realSuperView = view
     }
