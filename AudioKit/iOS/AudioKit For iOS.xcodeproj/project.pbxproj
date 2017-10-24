@@ -465,8 +465,8 @@
 		C47DDCC31F7CE2FC002520B9 /* AKBooster2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47DDCB91F7CE2DE002520B9 /* AKBooster2.swift */; };
 		C47DDCC41F7CE330002520B9 /* AK4AudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB51F7CE2B4002520B9 /* AK4AudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47DDCC51F7CE337002520B9 /* AK4DspBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB31F7CE2B4002520B9 /* AK4DspBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C47DDCC61F7CE33D002520B9 /* AK4LinearParamRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB41F7CE2B4002520B9 /* AK4LinearParamRamp.hpp */; };
-		C47DDCC71F7CE341002520B9 /* AK4ParamRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB21F7CE2B4002520B9 /* AK4ParamRampBase.hpp */; };
+		C47DDCC61F7CE33D002520B9 /* AK4LinearParamRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB41F7CE2B4002520B9 /* AK4LinearParamRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C47DDCC71F7CE341002520B9 /* AK4ParamRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB21F7CE2B4002520B9 /* AK4ParamRampBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47DDCC91F7CEB02002520B9 /* AK4DspSoundPipe.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCC81F7CEAFB002520B9 /* AK4DspSoundPipe.hpp */; };
 		C483F63B1D65502E00374B2A /* trackedAmplitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483F63A1D65502E00374B2A /* trackedAmplitude.swift */; };
 		C48444E71C36FB2C007BE794 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444E61C36FB2C007BE794 /* triangle.swift */; };

@@ -9,17 +9,21 @@
 extension AKTuningTable {
 
     /// Use a Scala file to write the tuning table
-    public func scalaFile(_ filePath: String) {
+    public func scalaFile(_ filePath: String) -> Int? {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
             let contentStr = String(data: contentData, encoding: .utf8) else {
                 AKLog("can't read filePath: \(filePath)")
-                return
+                return nil
         }
-
+        
         if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
-            tuningTable(fromFrequencies: scalaFrequencies)
+            let npo = tuningTable(fromFrequencies: scalaFrequencies)
+            return npo
         }
+        
+        // error
+        return nil
     }
 
     fileprivate func stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(_ inputString: String?) -> String? {
