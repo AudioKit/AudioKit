@@ -64,7 +64,7 @@
     ///
     /// - parameter inputFrequencies: An array of frequencies
     ///
-    @objc public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) -> Int {
+    @objc @discardableResult public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) -> Int {
         if inputFrequencies.isEmpty {
             AKLog("No input frequencies")
             return 0
