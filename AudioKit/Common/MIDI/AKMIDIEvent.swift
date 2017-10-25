@@ -258,6 +258,7 @@ public struct AKMIDIEvent {
         internalData[2] = byte2.lower7bits()
 
         length = 3
+        internalData = Array(internalData[0..<3])
 
     }
 
