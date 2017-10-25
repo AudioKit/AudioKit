@@ -256,9 +256,9 @@ public struct AKMIDIEvent {
         internalData[0] = MIDIByte(status.rawValue << 4) | MIDIByte(channel.lowbit())
         internalData[1] = byte1.lower7bits()
         internalData[2] = byte2.lower7bits()
-        
+
         length = 3
-        
+
     }
 
     /// Initialize the MIDI Event from a system command message

@@ -326,7 +326,7 @@ static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 ho
     };
 }
 
-static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp anchorTime, double sampleRate){
+static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp anchorTime, double sampleRate) {
 
     assert((SampleTimeValid(timeStamp) || HostTimeValid(timeStamp)) && SampleAndHostTimeValid(anchorTime));
 

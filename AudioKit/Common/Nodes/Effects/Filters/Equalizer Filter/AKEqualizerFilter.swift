@@ -90,7 +90,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - bandwidth: The peak/notch bandwidth in Hertz
     ///   - gain: The peak/notch gain
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         centerFrequency: Double = 1_000.0,
         bandwidth: Double = 100.0,

@@ -98,8 +98,7 @@ extension ViewController {
             internalManager!.removeEffect(at: identifier)
             return
         }
-        
-        
+
         internalManager!.insertAudioUnit(name: auname, at: identifier)
 
         // select the item in the menu
@@ -317,7 +316,7 @@ extension ViewController {
             } //dispatch
         }
     }
-    
+
     fileprivate func reconnect() {
         // is FM playing?
         if fm != nil && fm!.isStarted {
@@ -328,13 +327,13 @@ extension ViewController {
             return
         } else if player != nil {
             let playing = player!.isStarted
-            
+
             if playing {
                 player!.stop()
             }
-            
+
             internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-            
+
             if playing {
                 player!.start()
             }
@@ -344,10 +343,10 @@ extension ViewController {
 }
 
 extension ViewController:  AKAudioUnitManagerDelegate {
-    
+
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
         guard internalManager != nil else { return }
-        
+
         if type == AKAudioUnitManager.Notification.changed {
             updateEffectsUI( audioUnits: internalManager!.availableEffects )
         }
@@ -361,7 +360,7 @@ extension ViewController:  AKAudioUnitManagerDelegate {
 
         reconnect()
     }
-    
+
     func handleEffectRemoved(at auIndex: Int) {
         reconnect()
     }

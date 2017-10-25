@@ -207,7 +207,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - equalizerLevel2: Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
     ///   - dryWetMix: 0 = all dry, 1 = all wet
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         predelay: Double = 60.0,
         crossoverFrequency: Double = 200.0,
