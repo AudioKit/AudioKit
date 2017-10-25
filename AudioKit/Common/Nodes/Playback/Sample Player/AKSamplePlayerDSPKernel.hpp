@@ -47,8 +47,8 @@ public:
         SPFLOAT dur;
         dur = (SPFLOAT)current_size / sp->sr;
         phasor->freq = 1.0 / dur * rate;
-        lastPosition = -1.0;
-        hasPlayedThroughLoop = false;
+        lastPosition = 0.0;
+        inLoopPhase = false;
         phasor->curphs = 0;
         position = 0;
     }
@@ -226,16 +226,23 @@ public:
             //length of playableSample vs actual
             float startPointToUse = startPoint;
             float endPointToUse = endPoint;
+            float nextPosition = 2.0 * position - lastPosition;
+            bool loopStartBeforeSampleStart = startPoint > loopStartPoint;
+            bool mainPointsBackwards = startPoint > endPoint;
+            bool loopPointsBackwards = loopStartPoint > loopEndPoint;
             if (loop && started){
-                int samplePosition = (int)(position * current_size);
-                if (!hasPlayedThroughLoop && samplePosition > loopStartPoint){
-                    hasPlayedThroughLoop = true;
+                int nextSamplePosition = (int)(nextPosition * current_size);
+                //printf("nextSamplePosition %i\n",nextSamplePosition);
+                //printf("position %f\n",position);
+                if (!inLoopPhase && nextSamplePosition > loopEndPoint){
+                    inLoopPhase = true;
                     phasor->curphs = 0;
                 }
-                if (hasPlayedThroughLoop){
+                if (inLoopPhase){
                     startPointToUse = loopStartPoint;
                     endPointToUse = loopEndPoint;
                 }
+                playingBackwards = (endPointToUse < startPointToUse ? true : false);
             }
             int subsectionLength = endPointToUse - startPointToUse;
             
@@ -260,7 +267,7 @@ public:
                     *out = 0;
                 }
             }
-            if (!loop && position < lastPosition && started) {
+            if (!loop && nextPosition > 1 && started) {
                 started = false;
                 completionHandler();
             } else {
@@ -285,9 +292,10 @@ private:
     float loopEndPoint = 1;
     float rate = 1;
     float volume = 1;
-    float lastPosition = -1.0;
+    float lastPosition = 0.0;
     bool loop = false;
-    bool hasPlayedThroughLoop = false;
+    bool inLoopPhase = false;
+    bool playingBackwards = false;
     
 public:
     bool started = false;
