@@ -38,12 +38,12 @@ extension AKTuningTable {
     public func momentOfSymmetry(generator gInput: Double = 7.0 / 12.0,
                                  level lInput: Int = 5,
                                  murchana mInput: Int = 0) -> Int {
-        // clamp
+        // CLAMP
         let g = (gInput > 1.0) ? 1.0 : ((gInput < 0) ? 0.0 : gInput)
         let l = (lInput > 7) ? 7 : ((lInput < 0) ? 0 : lInput)
         let d = AKTuningTable.brunLevel_0_1_1_0(level: l, generator: g)
 
-        // number of notes per octave (npo)
+        // NPO number of notes per octave
         let den = d.denominator
         var f = [Frequency]()
         for i in 0..<den {
@@ -55,7 +55,9 @@ extension AKTuningTable {
         let m = (mInput > den) ? (den - 1) : ((mInput < 0) ? 0 : mInput)
         let murchana = f[m]
         f = f.map({(frequency: Frequency) -> Frequency in
+            // murchana = index of modulation == normalize by this scale degree
             var ff = frequency / murchana
+            // octave reduce.  Assumes octave = 2
             while ff < 1.0 {
                 ff *= 2.0
             }
@@ -67,7 +69,7 @@ extension AKTuningTable {
         f.sort()
 
         // update tuning table
-        tuningTable(fromFrequencies: f)
+        _ = tuningTable(fromFrequencies: f)
 
         return den
     }

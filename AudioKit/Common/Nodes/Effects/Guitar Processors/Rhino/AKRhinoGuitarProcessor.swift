@@ -155,7 +155,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - distType: Distortion Type
     ///   - distAmount: Distortion Amount
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         preGain: Double = 5.0,
         postGain: Double = 0.7,

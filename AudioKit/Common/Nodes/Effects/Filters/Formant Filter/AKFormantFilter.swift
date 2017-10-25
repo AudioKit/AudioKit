@@ -73,7 +73,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - x: X Value
     ///   - y: Y Value
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         x: Double = 0,
         y: Double = 0) {

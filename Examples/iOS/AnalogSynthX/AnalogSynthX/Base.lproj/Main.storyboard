@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -387,6 +387,18 @@
                                         <state key="selected" image="button_on"/>
                                         <connections>
                                             <action selector="displayModeToggled:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="m5i-e6-vWT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mm5-ab-uwb" customClass="RoundedButton" customModule="AnalogSynthX" customModuleProvider="target">
+                                        <rect key="frame" x="881" y="426" width="134" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
+                                        <state key="normal" title="Our New App">
+                                            <color key="titleColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="newAppPressed:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="3HH-1g-mH2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1274,7 +1286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R81-rT-xUF" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468" y="603"/>
+            <point key="canvasLocation" x="467.57812499999994" y="602.34375"/>
         </scene>
     </scenes>
     <resources>

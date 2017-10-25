@@ -54,7 +54,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         }
     }
-    
+
     /// endPoint - this is where the sample will play to before stopping.
     /// A value less than the start point will play the sample backwards.
     @objc open dynamic var endPoint: Sample = 0 {
@@ -70,7 +70,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         }
     }
-    
+
     /// loopStartPoint in samples - where to start playing the sample from
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
@@ -85,7 +85,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         }
     }
-    
+
     /// loopEndPoint - this is where the sample will play to before stopping.
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
