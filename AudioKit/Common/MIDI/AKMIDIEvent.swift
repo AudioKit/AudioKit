@@ -150,7 +150,7 @@ public struct AKMIDIEvent {
                         break
                     }
                 }
-                length = computedLength
+                setLength(computedLength)
 
             } else {
                 if let cmd = packet.command {
@@ -257,8 +257,7 @@ public struct AKMIDIEvent {
         internalData[1] = byte1.lower7bits()
         internalData[2] = byte2.lower7bits()
 
-        length = 3
-        internalData = Array(internalData[0..<3])
+        setLength(3)
 
     }
 
@@ -288,12 +287,12 @@ public struct AKMIDIEvent {
         case .songPosition:
             internalData[1] = byte1.lower7bits()
             internalData[2] = byte2.lower7bits()
-            length = 3
+            setLength(3)
         case .songSelect:
             internalData[1] = byte1.lower7bits()
-            length = 2
+            setLength(2)
         default:
-            length = 1
+            setLength(1)
         }
         if let existingLength = length {
             internalData = Array(internalData.prefix(Int(existingLength)))
@@ -392,5 +391,13 @@ public struct AKMIDIEvent {
     /// Array of MIDI events from a MIDI packet list poionter
     static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
         return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
+    }
+    
+    private mutating func setLength(_ newLength:Int){
+        setLength(MIDIByte(newLength))
+    }
+    private mutating func setLength(_ newLength:MIDIByte){
+        length = newLength
+        internalData = Array(internalData[0..<Int(length!)])
     }
 }
