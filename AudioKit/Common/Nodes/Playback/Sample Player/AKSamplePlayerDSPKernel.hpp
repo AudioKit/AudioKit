@@ -233,14 +233,8 @@ public:
             bool loopPointsBackwards = loopStartPoint > loopEndPoint;
             if (loop && started){
                 int nextSamplePosition = (int)(nextPosition * current_size);
-                if (nextSamplePosition > 116330){
-                    printf("currentSamplePosition %i\n",(int)(position * current_size));
-                    printf("nextSamplePosition %i\n",nextSamplePosition);
-                    printf("Position %f\n",position);
-                    printf("lastPosition %f\n",lastPosition);
-                }
-                //printf("loopendpoint %f\n",loopEndPoint);
-                if (!inLoopPhase && nextSamplePosition > loopEndPoint){
+
+                if (!inLoopPhase && nextSamplePosition >= loopEndPoint){
                     inLoopPhase = true;
                     phasor->curphs = 0;
                 }
