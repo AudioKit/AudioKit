@@ -227,13 +227,19 @@ public:
             float startPointToUse = startPoint;
             float endPointToUse = endPoint;
             float nextPosition = 2.0 * position - lastPosition;
+            
             bool loopStartBeforeSampleStart = startPoint > loopStartPoint;
             bool mainPointsBackwards = startPoint > endPoint;
             bool loopPointsBackwards = loopStartPoint > loopEndPoint;
             if (loop && started){
                 int nextSamplePosition = (int)(nextPosition * current_size);
-                //printf("nextSamplePosition %i\n",nextSamplePosition);
-                //printf("position %f\n",position);
+                if (nextSamplePosition > 116330){
+                    printf("currentSamplePosition %i\n",(int)(lastPosition * current_size));
+                    printf("nextSamplePosition %i\n",nextSamplePosition);
+                    printf("Position %f\n",position);
+                    printf("lastPosition %f\n",lastPosition);
+                }
+                //printf("loopendpoint %f\n",loopEndPoint);
                 if (!inLoopPhase && nextSamplePosition > loopEndPoint){
                     inLoopPhase = true;
                     phasor->curphs = 0;
@@ -244,12 +250,19 @@ public:
                 }
                 playingBackwards = (endPointToUse < startPointToUse ? true : false);
             }
+            
+            if (!loop && nextPosition > 1 && started) {
+                started = false;
+                completionHandler();
+            } else {
+                lastPosition = position;
+            }
+            
             int subsectionLength = endPointToUse - startPointToUse;
             
             float percentLen = (float)subsectionLength / (float)ftbl_size;
             float speedFactor = (float)current_size / (float)ftbl_size;
             phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
-            
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -266,12 +279,6 @@ public:
                 } else {
                     *out = 0;
                 }
-            }
-            if (!loop && nextPosition > 1 && started) {
-                started = false;
-                completionHandler();
-            } else {
-                lastPosition = position;
             }
         }
     }
