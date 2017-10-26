@@ -18,8 +18,6 @@
 #define FAUSTFLOAT float
 #endif
 
-float fmodf(float dummy0, float dummy1);
-
 static float faustpower2_f(float value) {
 	return (value * value);
 
@@ -103,7 +101,7 @@ void computeblsaw(blsaw* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outpu
 	{
 		int i;
 		for (i = 0; (i < count); i = (i + 1)) {
-			dsp->fRec0[0] = fmodf((1.f + dsp->fRec0[1]), fSlow3);
+			dsp->fRec0[0] = fmod((1.f + dsp->fRec0[1]), fSlow3);
 			float fTemp0 = faustpower2_f(((fSlow2 * dsp->fRec0[0]) - 1.f));
 			dsp->fVec0[0] = fTemp0;
 			dsp->fVec1[0] = 0.25f;
