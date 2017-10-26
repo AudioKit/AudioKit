@@ -41,7 +41,7 @@ int sp_osc_init(sp_data *sp, sp_osc *osc, sp_ftbl *ft, SPFLOAT iphs)
      * the first value of the ftable for wrap-around. 
      */
 
-    ft->tbl[ft->size] = ft->tbl[0];
+//    ft->tbl[ft->size] = ft->tbl[0];
     return SP_OK;
 }
 
