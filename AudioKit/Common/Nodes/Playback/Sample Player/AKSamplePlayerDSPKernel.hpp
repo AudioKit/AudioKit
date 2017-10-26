@@ -47,10 +47,11 @@ public:
         SPFLOAT dur;
         dur = (SPFLOAT)current_size / sp->sr;
         phasor->freq = 1.0 / dur * rate;
-        lastPosition = -1.0;
-        hasPlayedThroughLoop = false;
+        lastPosition = 0.0;
+        inLoopPhase = false;
         phasor->curphs = 0;
         position = 0;
+        mainPlayComplete = false;
     }
     
     void stop() {
@@ -226,23 +227,39 @@ public:
             //length of playableSample vs actual
             float startPointToUse = startPoint;
             float endPointToUse = endPoint;
-            if (loop && started) {
-                int samplePosition = (int)(position * current_size);
-                if (!hasPlayedThroughLoop && samplePosition > loopStartPoint) {
-                    hasPlayedThroughLoop = true;
-                    phasor->curphs = 0;
+            float nextPosition = 2.0 * position - lastPosition;
+            int nextSamplePosition = (int)(nextPosition * current_size);
+            
+            if (started){
+                if (nextSamplePosition >= endPoint){
+                    mainPlayComplete = true;
                 }
-                if (hasPlayedThroughLoop) {
-                    startPointToUse = loopStartPoint;
-                    endPointToUse = loopEndPoint;
+                if (loop){
+                    
+                    if (!inLoopPhase && nextSamplePosition >= loopEndPoint && mainPlayComplete){
+                        inLoopPhase = true;
+                        phasor->curphs = 0;
+                    }
+                    if (inLoopPhase){
+                        startPointToUse = loopStartPoint;
+                        endPointToUse = loopEndPoint;
+                    }
+                    playingBackwards = (endPointToUse < startPointToUse ? true : false);
+                }
+                
+                if (!loop && nextPosition > 1) {
+                    started = false;
+                    completionHandler();
+                } else {
+                    lastPosition = position;
                 }
             }
+            
             int subsectionLength = endPointToUse - startPointToUse;
             
             float percentLen = (float)subsectionLength / (float)ftbl_size;
             float speedFactor = (float)current_size / (float)ftbl_size;
             phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
-            
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -259,12 +276,6 @@ public:
                 } else {
                     *out = 0;
                 }
-            }
-            if (!loop && position < lastPosition && started) {
-                started = false;
-                completionHandler();
-            } else {
-                lastPosition = position;
             }
         }
     }
@@ -285,9 +296,11 @@ private:
     float loopEndPoint = 1;
     float rate = 1;
     float volume = 1;
-    float lastPosition = -1.0;
+    float lastPosition = 0.0;
     bool loop = false;
-    bool hasPlayedThroughLoop = false;
+    bool playingBackwards = false;  //is the sample playing backwards
+    bool mainPlayComplete = false;  //has the sample played through once without looping
+    bool inLoopPhase = false;       //has the main play completed and now we are in loop phase
     
 public:
     bool started = false;
