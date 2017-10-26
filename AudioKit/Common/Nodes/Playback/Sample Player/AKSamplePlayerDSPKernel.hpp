@@ -51,6 +51,7 @@ public:
         inLoopPhase = false;
         phasor->curphs = 0;
         position = 0;
+        mainPlayComplete = false;
     }
     
     void stop() {
@@ -227,29 +228,31 @@ public:
             float startPointToUse = startPoint;
             float endPointToUse = endPoint;
             float nextPosition = 2.0 * position - lastPosition;
+            int nextSamplePosition = (int)(nextPosition * current_size);
             
-            bool loopStartBeforeSampleStart = startPoint > loopStartPoint;
-            bool mainPointsBackwards = startPoint > endPoint;
-            bool loopPointsBackwards = loopStartPoint > loopEndPoint;
-            if (loop && started){
-                int nextSamplePosition = (int)(nextPosition * current_size);
-
-                if (!inLoopPhase && nextSamplePosition >= loopEndPoint){
-                    inLoopPhase = true;
-                    phasor->curphs = 0;
+            if (started){
+                if (nextSamplePosition >= endPoint){
+                    mainPlayComplete = true;
                 }
-                if (inLoopPhase){
-                    startPointToUse = loopStartPoint;
-                    endPointToUse = loopEndPoint;
+                if (loop){
+                    
+                    if (!inLoopPhase && nextSamplePosition >= loopEndPoint && mainPlayComplete){
+                        inLoopPhase = true;
+                        phasor->curphs = 0;
+                    }
+                    if (inLoopPhase){
+                        startPointToUse = loopStartPoint;
+                        endPointToUse = loopEndPoint;
+                    }
+                    playingBackwards = (endPointToUse < startPointToUse ? true : false);
                 }
-                playingBackwards = (endPointToUse < startPointToUse ? true : false);
-            }
-            
-            if (!loop && nextPosition > 1 && started) {
-                started = false;
-                completionHandler();
-            } else {
-                lastPosition = position;
+                
+                if (!loop && nextPosition > 1) {
+                    started = false;
+                    completionHandler();
+                } else {
+                    lastPosition = position;
+                }
             }
             
             int subsectionLength = endPointToUse - startPointToUse;
@@ -295,8 +298,9 @@ private:
     float volume = 1;
     float lastPosition = 0.0;
     bool loop = false;
-    bool inLoopPhase = false;
-    bool playingBackwards = false;
+    bool playingBackwards = false;  //is the sample playing backwards
+    bool mainPlayComplete = false;  //has the sample played through once without looping
+    bool inLoopPhase = false;       //has the main play completed and now we are in loop phase
     
 public:
     bool started = false;
