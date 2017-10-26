@@ -234,7 +234,7 @@ public:
             if (loop && started){
                 int nextSamplePosition = (int)(nextPosition * current_size);
                 if (nextSamplePosition > 116330){
-                    printf("currentSamplePosition %i\n",(int)(lastPosition * current_size));
+                    printf("currentSamplePosition %i\n",(int)(position * current_size));
                     printf("nextSamplePosition %i\n",nextSamplePosition);
                     printf("Position %f\n",position);
                     printf("lastPosition %f\n",lastPosition);
