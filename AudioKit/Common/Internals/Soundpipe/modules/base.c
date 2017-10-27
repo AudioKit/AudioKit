@@ -120,7 +120,6 @@ int sp_process_raw(sp_data *sp, void *ud, void (*callback)(sp_data *, void *))
     return SP_OK;
 }
 
-
 int sp_process_plot(sp_data *sp, void *ud, void (*callback)(sp_data *, void *))
 {
     int chan;
