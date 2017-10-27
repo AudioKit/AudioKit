@@ -44,6 +44,7 @@ extension AVAudioEngine {
     /// An audio output operation that most applications will need to use last
     @objc open static var output: AKNode? {
         didSet {
+            updateSessionCategoryAndOptions()
             output?.connect(to: finalMixer)
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
@@ -240,66 +241,8 @@ extension AVAudioEngine {
                 }
 
             #endif
-            #if !os(macOS)
-                if AKSettings.audioInputEnabled {
 
-                #if os(iOS)
-
-                    var options: AVAudioSessionCategoryOptions = [.mixWithOthers]
-
-                    if #available(iOS 10.0, *) {
-                        // Blueooth Options
-                        // .allowBluetooth can only be set with the categories .playAndRecord and .record
-                        // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or
-                        // .playback. This option is cleared if the category is .record, or .multiRoute. If this
-                        // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
-                        // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
-                        // priority for routing.
-                        if AKSettings.bluetoothOptions.isNotEmpty {
-                            options = options.union(AKSettings.bluetoothOptions)
-                        } else if AKSettings.useBluetooth {
-                            // If bluetoothOptions aren't specified
-                            // but useBluetooth is then we will use these defaults
-                            options = options.union([.allowBluetooth,
-                                                     .allowBluetoothA2DP])
-                        }
-
-                        // AirPlay
-                        if AKSettings.allowAirPlay {
-                            options = options.union(.allowAirPlay)
-                        }
-                    } else if AKSettings.bluetoothOptions.isNotEmpty ||
-                              AKSettings.useBluetooth ||
-                              AKSettings.allowAirPlay {
-                        AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
-                    }
-
-                    // Default to Speaker
-                    if AKSettings.defaultToSpeaker {
-                        options = options.union(.defaultToSpeaker)
-                    }
-
-                    try AKSettings.setSession(category: .playAndRecord,
-                                              with: options)
-
-                #elseif os(tvOS)
-                    // tvOS
-                    try AKSettings.setSession(category: .playAndRecord)
-
-                #endif
-
-                } else if AKSettings.playbackWhileMuted {
-                    try AKSettings.setSession(category: .playback)
-                } else {
-                    try AKSettings.setSession(category: .ambient)
-                }
-
-                #if os(iOS)
-                    try AVAudioSession.sharedInstance().setActive(true)
-                #endif
-
-            #endif
-
+            updateSessionCategoryAndOptions()
             try engine.start()
             shouldBeRunning = true
 
@@ -307,6 +250,27 @@ extension AVAudioEngine {
             fatalError("AudioKit: Could not start engine. error: \(error).")
         }
     }
+
+    @objc fileprivate static func updateSessionCategoryAndOptions() {
+        do {
+            #if !os(macOS)
+
+                let sessionCategory = AKSettings.computedSessionCategory()
+                let sessionOptions = AKSettings.computedSessionOptions()
+
+                #if os(iOS)
+                    try AKSettings.setSession(category: sessionCategory,
+                                              with: sessionOptions)
+                    try AVAudioSession.sharedInstance().setActive(true)
+                #elseif os(tvOS)
+                    try AKSettings.setSession(category: sessionCategory)
+                #endif
+            #endif
+        } catch {
+            fatalError("AudioKit: Could not update AVAudioSession category and options. error: \(error).")
+        }
+    }
+
 
     /// Stop the audio engine
     @objc open static func stop() {
