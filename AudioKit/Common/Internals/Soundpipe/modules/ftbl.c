@@ -84,12 +84,16 @@ int sp_gen_vals(sp_data *sp, sp_ftbl *ft, const char *string)
         out = tokenize(&str, &size);
         if(ft->size < j + 1){
             ft->tbl = realloc(ft->tbl, sizeof(SPFLOAT) * (ft->size + 2));
+            /* zero out new tables */
+            ft->tbl[ft->size] = 0;
+            ft->tbl[ft->size + 1] = 0;
             ft->size++;
         }
         ft->tbl[j] = atof(out);
         j++;
     }
-   
+  
+    sp_ftbl_init(sp, ft, ft->size);
     free(ptr); 
     return SP_OK;
 }
