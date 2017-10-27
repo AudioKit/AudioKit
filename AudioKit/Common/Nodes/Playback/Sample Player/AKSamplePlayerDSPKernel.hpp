@@ -244,7 +244,6 @@ public:
                         startPointToUse = loopStartPoint;
                         endPointToUse = loopEndPoint;
                     }
-                    playingBackwards = (endPointToUse < startPointToUse ? true : false);
                 }
                 
                 if (!loop && nextPosition > 1) {
@@ -298,7 +297,6 @@ private:
     float volume = 1;
     float lastPosition = 0.0;
     bool loop = false;
-    bool playingBackwards = false;  //is the sample playing backwards
     bool mainPlayComplete = false;  //has the sample played through once without looping
     bool inLoopPhase = false;       //has the main play completed and now we are in loop phase
     
