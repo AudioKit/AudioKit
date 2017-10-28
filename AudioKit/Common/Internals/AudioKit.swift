@@ -243,6 +243,7 @@ extension AVAudioEngine {
             #endif
 
             updateSessionCategoryAndOptions()
+            try AVAudioSession.sharedInstance().setActive(true)
             try engine.start()
             shouldBeRunning = true
 
@@ -261,7 +262,6 @@ extension AVAudioEngine {
                 #if os(iOS)
                     try AKSettings.setSession(category: sessionCategory,
                                               with: sessionOptions)
-                    try AVAudioSession.sharedInstance().setActive(true)
                 #elseif os(tvOS)
                     try AKSettings.setSession(category: sessionCategory)
                 #endif
