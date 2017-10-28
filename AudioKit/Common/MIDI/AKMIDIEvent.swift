@@ -392,11 +392,11 @@ public struct AKMIDIEvent {
     static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
         return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
     }
-    
-    private mutating func setLength(_ newLength:Int){
+
+    private mutating func setLength(_ newLength: Int) {
         setLength(MIDIByte(newLength))
     }
-    private mutating func setLength(_ newLength:MIDIByte){
+    private mutating func setLength(_ newLength: MIDIByte) {
         length = newLength
         internalData = Array(internalData[0..<Int(length!)])
     }
