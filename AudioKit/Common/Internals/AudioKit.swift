@@ -271,7 +271,6 @@ extension AVAudioEngine {
         }
     }
 
-
     /// Stop the audio engine
     @objc open static func stop() {
         // Stop the engine.
