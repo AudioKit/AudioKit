@@ -391,7 +391,7 @@ class SynthViewController: UIViewController {
     @IBAction func newAppPressed(_ sender: RoundedButton) {
          openURL("https://audiokitpro.com/audiokit-synth-one/")
     }
-    
+
     //*****************************************************************
     // MARK: - 🎹 Key Presses
     //*****************************************************************
