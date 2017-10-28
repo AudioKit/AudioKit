@@ -132,7 +132,7 @@ class Conductor {
     }
 
     func generateSnareDrumSequence(_ stepSize: Float = 1, clear: Bool = true) {
-        if clear { sequencer.tracks[2].clear() }
+        if clear { sequencer.tracks[Sequence.snareDrum.rawValue].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
 
         for i in stride(from: 1, to: numberOfSteps, by: 2) {
