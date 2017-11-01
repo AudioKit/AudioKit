@@ -89,4 +89,4 @@ cd Examples/iOS/FilterEffects; pod install; cd ../../..
 xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 25
 
 echo "Running iOS Unit Tests"
-xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.0' | xcpretty -c || exit 100
+xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.1' | xcpretty -c || exit 100
