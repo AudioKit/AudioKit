@@ -239,11 +239,10 @@ extension AVAudioEngine {
                         name: .AVAudioEngineConfigurationChange,
                         object: engine)
                 }
-
+                updateSessionCategoryAndOptions()
+                try AVAudioSession.sharedInstance().setActive(true)
             #endif
 
-            updateSessionCategoryAndOptions()
-            try AVAudioSession.sharedInstance().setActive(true)
             try engine.start()
             shouldBeRunning = true
 
