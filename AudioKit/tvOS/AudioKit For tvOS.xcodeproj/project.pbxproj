@@ -623,7 +623,7 @@
 		C4D4C4F81EB7176600134B39 /* AKTuningTable+Scala.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4F11EB7176600134B39 /* AKTuningTable+Scala.swift */; };
 		C4D4C4F91EB7176600134B39 /* AKTuningTable+Wilson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4F21EB7176600134B39 /* AKTuningTable+Wilson.swift */; };
 		C4D4C4FA1EB7176600134B39 /* AKTuningTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4F31EB7176600134B39 /* AKTuningTable.swift */; };
-		C4D8004B1F94A12000D4A5F0 /* AK4ChowningReverbDsp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D800471F94A11F00D4A5F0 /* AK4ChowningReverbDsp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4D8004B1F94A12000D4A5F0 /* AK4ChowningReverbDsp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D800471F94A11F00D4A5F0 /* AK4ChowningReverbDsp.hpp */; };
 		C4D8004C1F94A12000D4A5F0 /* AK4ChowningReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D800481F94A11F00D4A5F0 /* AK4ChowningReverb.swift */; };
 		C4D8004D1F94A12000D4A5F0 /* AK4ChowningReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D800491F94A12000D4A5F0 /* AK4ChowningReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D8004E1F94A12000D4A5F0 /* AK4ChowningReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D8004A1F94A12000D4A5F0 /* AK4ChowningReverbAudioUnit.mm */; };

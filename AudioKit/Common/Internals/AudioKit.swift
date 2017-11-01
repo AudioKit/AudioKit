@@ -252,9 +252,8 @@ extension AVAudioEngine {
     }
 
     @objc fileprivate static func updateSessionCategoryAndOptions() {
-        do {
-            #if !os(macOS)
-
+        #if !os(macOS)
+            do {
                 let sessionCategory = AKSettings.computedSessionCategory()
                 let sessionOptions = AKSettings.computedSessionOptions()
 
@@ -264,10 +263,10 @@ extension AVAudioEngine {
                 #elseif os(tvOS)
                     try AKSettings.setSession(category: sessionCategory)
                 #endif
-            #endif
-        } catch {
-            fatalError("AudioKit: Could not update AVAudioSession category and options. error: \(error).")
-        }
+            } catch {
+                fatalError("AudioKit: Could not update AVAudioSession category and options. error: \(error).")
+            }
+        #endif
     }
 
     /// Stop the audio engine
