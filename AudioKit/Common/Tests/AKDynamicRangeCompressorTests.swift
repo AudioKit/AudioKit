@@ -20,7 +20,7 @@ class AKDynamicRangeCompressorTests: AKTestCase {
     func testAttackTime() {
         input.amplitude = 2.0
         output = AKDynamicRangeCompressor(input, ratio: 0.5, attackTime: 0.2)
-        AKTestMD5("84d52429dc51254c90ba0ff58144e556")
+        AKTestMD5("27de5d9f687d6c114126e2e243b22a25")
     }
 
     func testDefault() {
@@ -36,25 +36,25 @@ class AKDynamicRangeCompressorTests: AKTestCase {
                                           threshold: -1,
                                           attackTime: 0.2,
                                           releaseTime: 0.2)
-        AKTestMD5("f2dde483d4c8fcdf4e38cce015c13a7e")
+        AKTestMD5("746a16c29c92b779e3b6e05d636cdf53")
     }
 
     func testRatio() {
         input.amplitude = 2.0
         output = AKDynamicRangeCompressor(input, ratio: 0.5)
-        AKTestMD5("48c9078961c0382a3f173dd19014c504")
+        AKTestMD5("d86e371b09429c9636ffdb260958e35b")
     }
 
     func testReleaseTime() {
         input.amplitude = 2.0
         output = AKDynamicRangeCompressor(input, ratio: 0.5, releaseTime: 0.2)
-        AKTestMD5("968fb7e517a411369ec8560115164a85")
+        AKTestMD5("00ad8e2278e31838555163547d9cac9c")
     }
 
     func testThreshold() {
         input.amplitude = 2.0
         output = AKDynamicRangeCompressor(input, ratio: 0.5, threshold: -1)
-        AKTestMD5("7460f203cac0a02297391b25906eff26")
+        AKTestMD5("85583edfafd159d2955f6a2d51481bee")
     }
 
 }
