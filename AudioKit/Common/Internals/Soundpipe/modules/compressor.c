@@ -11,11 +11,6 @@
 #define FAUSTFLOAT SPFLOAT
 #endif  
 
-float expf(float dummy0);
-float fabsf(float dummy0);
-float log10f(float dummy0);
-float powf(float dummy0, float dummy1);
-
 typedef struct {
 	float fRec2[2];
 	float fRec1[2];
@@ -93,22 +88,22 @@ static void computecompressor(compressor* dsp, int count, FAUSTFLOAT** inputs, F
 	FAUSTFLOAT* input0 = inputs[0];
 	FAUSTFLOAT* output0 = outputs[0];
 	float fSlow0 = (float)dsp->fHslider0;
-	float fSlow1 = expf((0.f - (dsp->fConst1 / fSlow0)));
+	float fSlow1 = exp((0.f - (dsp->fConst1 / fSlow0)));
 	float fSlow2 = ((1.f - fSlow1) * ((1.f / (float)dsp->fHslider1) - 1.f));
-	float fSlow3 = expf((0.f - (dsp->fConst2 / fSlow0)));
-	float fSlow4 = expf((0.f - (dsp->fConst2 / (float)dsp->fHslider2)));
+	float fSlow3 = exp((0.f - (dsp->fConst2 / fSlow0)));
+	float fSlow4 = exp((0.f - (dsp->fConst2 / (float)dsp->fHslider2)));
 	float fSlow5 = (float)dsp->fHslider3;
 	/* C99 loop */
 	{
 		int i;
 		for (i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (float)input0[i];
-			float fTemp1 = fabsf(fTemp0);
+			float fTemp1 = fabs(fTemp0);
 			float fTemp2 = ((dsp->fRec1[1] > fTemp1)?fSlow4:fSlow3);
 			dsp->fRec2[0] = ((dsp->fRec2[1] * fTemp2) + ((1.f - fTemp2) * fTemp1));
 			dsp->fRec1[0] = dsp->fRec2[0];
-			dsp->fRec0[0] = ((fSlow1 * dsp->fRec0[1]) + (fSlow2 * max(((20.f * log10f(dsp->fRec1[0])) - fSlow5), 0.f)));
-			output0[i] = (FAUSTFLOAT)(powf(10.f, (0.05f * dsp->fRec0[0])) * fTemp0);
+			dsp->fRec0[0] = ((fSlow1 * dsp->fRec0[1]) + (fSlow2 * max(((20.f * log10(dsp->fRec1[0])) - fSlow5), 0.f)));
+			output0[i] = (FAUSTFLOAT)(pow(10.f, (0.05f * dsp->fRec0[0])) * fTemp0);
 			dsp->fRec2[1] = dsp->fRec2[0];
 			dsp->fRec1[1] = dsp->fRec1[0];
 			dsp->fRec0[1] = dsp->fRec0[0];

@@ -69,18 +69,15 @@ open class AKAudioUnitManager: NSObject {
             for i in 0 ..< newValue.count {
                 if _effectsChain[i] != newValue[i] {
                     if newValue[i] == nil {
-                        // ?
-                        //AudioKit.engine.removeNodeInputs(_effectsChain[i])]
                         unitsCreated += 1
-                        self._effectsChain[i] = nil
+                        removeEffect(at: i, reconnectChain: false)
                         continue
                     }
 
                     if let acd = newValue[i]?.audioComponentDescription {
                         createEffectAudioUnit(acd, completionHandler: { au in
                             unitsCreated += 1
-
-                            self._effectsChain[i] = au //as? AVAudioUnitEffect
+                            self._effectsChain[i] = au
                         })
                     }
                 } else {
@@ -300,9 +297,23 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    public func removeEffect(at index: Int) {
+    public func removeEffect(at index: Int, reconnectChain: Bool = true) {
+
+        if let au = _effectsChain[index] {
+            AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
+
+            if au.engine != nil {
+                AudioKit.engine.disconnectNodeInput(au)
+                AudioKit.engine.detach(au)
+            }
+        }
         _effectsChain[index] = nil
-        connectEffects()
+
+        if reconnectChain {
+            connectEffects()
+        }
+
+        self.delegate?.handleEffectRemoved(at: index)
     }
 
     // Create the Audio Unit at the specified index of the chain
@@ -486,10 +497,6 @@ open class AKAudioUnitManager: NSObject {
                 _effectsChain[i] = nil
             }
         }
-
-        for i in 0 ..< _effectsChain.count {
-            _effectsChain[i] = nil
-        }
     }
 
     /// called from client to hook the chain together
@@ -545,12 +552,14 @@ open class AKAudioUnitManager: NSObject {
 
     }
 
+    /// resets the processing state and clears the buffers in the AUs
     public func reset() {
         for aunit in linkedEffects {
             aunit.reset()
         }
     }
 
+    /// Testing
     private func initAudioUnitFactoryPreset(_ au: AVAudioUnit ) {
         if let presets = au.auAudioUnit.factoryPresets {
             for p in presets {
@@ -559,10 +568,7 @@ open class AKAudioUnitManager: NSObject {
 
             if presets.count > 0 {
                 Swift.print("Setting Preset: \(presets[0].name) \(presets[0].number)")
-
                 au.auAudioUnit.currentPreset = presets[0]
-
-                //try? au.auAudioUnit.allocateRenderResources()
             }
         }
     }
@@ -572,4 +578,7 @@ open class AKAudioUnitManager: NSObject {
 public protocol AKAudioUnitManagerDelegate: class {
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?)
     func handleEffectAdded(at auIndex: Int)
+
+    /// If your UI needs to handle an effect being removed
+    func handleEffectRemoved(at auIndex: Int)
 }

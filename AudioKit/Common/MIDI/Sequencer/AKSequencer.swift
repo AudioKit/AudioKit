@@ -38,6 +38,8 @@ open class AKSequencer {
     }
 
     deinit {
+        AKLog("deinit:")
+
         if let player = musicPlayer {
             DisposeMusicPlayer(player)
         }
@@ -365,7 +367,7 @@ open class AKSequencer {
         return Int(count)
     }
 
-    /// Load a MIDI file
+    /// Load a MIDI file from the bundle
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
         guard let file = bundle.path(forResource: filename, ofType: "mid") else {
@@ -374,9 +376,23 @@ open class AKSequencer {
         }
         let fileURL = URL(fileURLWithPath: file)
         if let existingSequence = sequence {
-            MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
+            let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
+            if status != OSStatus(noErr) {
+                AKLog("status reading midi file: \(status)")
+            }
         }
 
+        initTracks()
+    }
+
+    /// Load a MIDI file given a URL
+    open func loadMIDIFile(fromUrl fileURL: URL) {
+        if let existingSequence = sequence {
+            let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
+            if status != OSStatus(noErr) {
+                AKLog("error reading midi file url: \(fileURL), read status: \(status)")
+            }
+        }
         initTracks()
     }
 

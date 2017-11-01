@@ -42,6 +42,10 @@ class ViewController: NSViewController, AKMIDIListener {
         updateText("Channel: \(channel + 1) controller: \(controller) value: \(value) ")
     }
 
+    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
+        updateText("Pitch Wheel on Channel: \(channel + 1) value: \(pitchWheelValue) ")
+    }
+
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
                                 channel: MIDIChannel) {

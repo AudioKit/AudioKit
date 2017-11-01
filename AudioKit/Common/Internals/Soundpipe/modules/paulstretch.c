@@ -32,6 +32,11 @@ static void compute_block(sp_data *sp, sp_paulstretch *p) {
     for(i = 0; i < windowsize; i++) {
         /* Loop through buffer */
         pos = (istart_pos + i) % p->ft->size;
+
+        if(p->wrap) {
+            pos %= p->ft->size;
+        } 
+
         if(pos < p->ft->size) {
             buf[i] = tbl[pos] * window[i];
         } else {
@@ -124,6 +129,9 @@ int sp_paulstretch_init(sp_data *sp, sp_paulstretch *p, sp_ftbl *ft, SPFLOAT win
     kiss_fft_cpx *tmp1 = malloc(sizeof(kiss_fft_cpx) * p->windowsize);
     memset(tmp1, 0, sizeof(SPFLOAT) * p->windowsize);
     p->tmp1 = tmp1;
+
+    /* turn on wrap mode by default */
+    p->wrap = 1;
     return SP_OK;
 }
 

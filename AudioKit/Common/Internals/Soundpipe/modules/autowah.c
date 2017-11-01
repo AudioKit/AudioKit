@@ -11,10 +11,6 @@
 #endif  
 
 
-float expf(float dummy0);
-float fabsf(float dummy0);
-float powf(float dummy0, float dummy1);
-float cosf(float dummy0);
 static float faustpower2_f(float value) {
 	return (value * value);
 }
@@ -55,9 +51,9 @@ void instanceInitautowah(autowah* dsp, int samplingFreq) {
 	dsp->fVslider0 = (FAUSTFLOAT)0.;
 	dsp->iConst0 = min(192000, max(1, dsp->fSamplingFreq));
 	dsp->fConst1 = (1413.72f / (float)dsp->iConst0);
-	dsp->fConst2 = expf((0.f - (100.f / (float)dsp->iConst0)));
+	dsp->fConst2 = exp((0.f - (100.f / (float)dsp->iConst0)));
 	dsp->fConst3 = (1.f - dsp->fConst2);
-	dsp->fConst4 = expf((0.f - (10.f / (float)dsp->iConst0)));
+	dsp->fConst4 = exp((0.f - (10.f / (float)dsp->iConst0)));
 	dsp->fConst5 = (1.f - dsp->fConst4);
 	/* C99 loop */
 	{
@@ -141,15 +137,15 @@ void computeautowah(autowah* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** o
 		int i;
 		for (i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (float)input0[i];
-			float fTemp1 = fabsf(fTemp0);
+			float fTemp1 = fabs(fTemp0);
 			dsp->fRec3[0] = max(fTemp1, ((dsp->fConst4 * dsp->fRec3[1]) + (dsp->fConst5 * fTemp1)));
 			dsp->fRec2[0] = ((dsp->fConst2 * dsp->fRec2[1]) + (dsp->fConst3 * dsp->fRec3[0]));
 			float fTemp2 = min(1.f, dsp->fRec2[0]);
-			float fTemp3 = powf(2.f, (2.3f * fTemp2));
-			float fTemp4 = (1.f - (dsp->fConst1 * (fTemp3 / powf(2.f, (1.f + (2.f * (1.f - fTemp2)))))));
-			dsp->fRec1[0] = ((0.999f * dsp->fRec1[1]) + (0.001f * (0.f - (2.f * (fTemp4 * cosf((dsp->fConst6 * fTemp3)))))));
+			float fTemp3 = pow(2.f, (2.3f * fTemp2));
+			float fTemp4 = (1.f - (dsp->fConst1 * (fTemp3 / pow(2.f, (1.f + (2.f * (1.f - fTemp2)))))));
+			dsp->fRec1[0] = ((0.999f * dsp->fRec1[1]) + (0.001f * (0.f - (2.f * (fTemp4 * cos((dsp->fConst6 * fTemp3)))))));
 			dsp->fRec4[0] = ((0.999f * dsp->fRec4[1]) + (0.001f * faustpower2_f(fTemp4)));
-			dsp->fRec5[0] = ((0.999f * dsp->fRec5[1]) + (0.0001f * powf(4.f, fTemp2)));
+			dsp->fRec5[0] = ((0.999f * dsp->fRec5[1]) + (0.0001f * pow(4.f, fTemp2)));
 			dsp->fRec0[0] = (0.f - (((dsp->fRec1[0] * dsp->fRec0[1]) + (dsp->fRec4[0] * dsp->fRec0[2])) - (fSlow2 * (dsp->fRec5[0] * fTemp0))));
 			output0[i] = (FAUSTFLOAT)((fSlow0 * (dsp->fRec0[0] - dsp->fRec0[1])) + (fSlow3 * fTemp0));
 			dsp->fRec3[1] = dsp->fRec3[0];

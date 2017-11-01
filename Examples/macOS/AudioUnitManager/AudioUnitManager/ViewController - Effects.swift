@@ -81,22 +81,24 @@ extension ViewController {
 
     func handleEffectSelected(_ auname: String, identifier: Int) {
         guard internalManager != nil else { return }
-        AKLog("handleEffectSelected() \(identifier) \(auname)")
+        AKLog("\(identifier) \(auname)")
 
         if auname == "-" {
+            let blankName = "▼ Insert \(identifier + 1)"
             if let button = getEffectsButtonFromIdentifier(identifier) {
                 button.state = .off
             }
             if let menu = getMenuFromIdentifier(identifier) {
-                menu.title = "▼ Insert \(identifier + 1)"
+                selectEffectInMenu(name: "-", identifier: identifier)
+                menu.title = blankName
             }
             if let win = getWindowFromIndentifier(identifier) {
                 win.close()
             }
             internalManager!.removeEffect(at: identifier)
-
             return
         }
+
         internalManager!.insertAudioUnit(name: auname, at: identifier)
 
         // select the item in the menu
@@ -213,7 +215,7 @@ extension ViewController {
         return nil
     }
 
-    private func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
+    internal func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
         let identifier = windowPrefix + String(tag)
         guard let windows = self.view.window?.childWindows else { return nil }
         for w in windows {
@@ -315,9 +317,33 @@ extension ViewController {
         }
     }
 
+    fileprivate func reconnect() {
+        // is FM playing?
+        if fm != nil && fm!.isStarted {
+            internalManager!.connectEffects(firstNode: fm!, lastNode: mixer)
+            return
+        } else if auInstrument != nil && !(player?.isStarted ?? false) {
+            internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
+            return
+        } else if player != nil {
+            let playing = player!.isStarted
+
+            if playing {
+                player!.stop()
+            }
+
+            internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+
+            if playing {
+                player!.start()
+            }
+        }
+    }
+
 }
 
 extension ViewController:  AKAudioUnitManagerDelegate {
+
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
         guard internalManager != nil else { return }
 
@@ -332,24 +358,10 @@ extension ViewController:  AKAudioUnitManagerDelegate {
         guard internalManager != nil else { return }
         guard mixer != nil else { return }
 
-        // is FM playing?
-        if fm != nil && fm!.isStarted {
-            internalManager!.connectEffects(firstNode: fm, lastNode: mixer)
-            return
-        }
+        reconnect()
+    }
 
-        guard player != nil else { return }
-
-        let playing = player!.isStarted
-
-        if playing {
-            player!.stop()
-        }
-
-        internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-
-        if playing {
-            player!.start()
-        }
+    func handleEffectRemoved(at auIndex: Int) {
+        reconnect()
     }
 }

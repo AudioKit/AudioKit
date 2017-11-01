@@ -93,7 +93,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     ///                Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive”
     ///                effect.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         distortion: Double = 0.5,
         cutoffFrequency: Double = 1_500,

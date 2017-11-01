@@ -106,7 +106,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 500,
         resonance: Double = 0.5,

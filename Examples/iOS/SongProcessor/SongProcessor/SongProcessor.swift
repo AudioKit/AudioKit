@@ -88,6 +88,14 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
         reverbMixer >>> pitchShifter >>> pitchMixer.wetInput
         pitchMixer >>> bitCrusher >>> bitCrushMixer.wetInput
 
+        // Allow the app to play in the background
+        do {
+            try AKSettings.setSession(category: .playback, with: .mixWithOthers)
+        } catch {
+            print("error")
+        }
+        AKSettings.playbackWhileMuted = true
+
         AudioKit.output = offlineRender
         initParameters()
         AudioKit.start()

@@ -12,7 +12,8 @@ do {
         print("completion callback has been triggered!")
     }
     rhino = AKRhinoGuitarProcessor(player)
-    AudioKit.output = rhino
+    let reverb = AKReverb(rhino)
+    AudioKit.output = AKMixer(reverb, rhino)
     AudioKit.start()
     player.looping = true
     player.start()
@@ -28,9 +29,8 @@ class LiveView: AKLiveViewController {
         addTitle("Rhino Guitar Processor")
 
         addView(AKButton(title: "Stop Rhino") { button in
-            let node = rhino
-            node.isStarted ? node.stop() : node.play()
-            button.title = node.isStarted ? "Stop Rhino" : "Start Rhino"
+            rhino.isStarted ? rhino.stop() : rhino.play()
+            button.title = rhino.isStarted ? "Stop Rhino" : "Start Rhino"
         })
 
         addView(AKSlider(property: "Pre Gain",

@@ -92,6 +92,7 @@ typedef struct sp_ftbl{
 }sp_ftbl;
 
 int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size);
+int sp_ftbl_init(sp_data *sp, sp_ftbl *ft, size_t size);
 int sp_ftbl_bind(sp_data *sp, sp_ftbl **ft, SPFLOAT *tbl, size_t size);
 int sp_ftbl_destroy(sp_ftbl **ft);
 int sp_gen_vals(sp_data *sp, sp_ftbl *ft, const char *string);
@@ -924,6 +925,7 @@ typedef struct {
     sp_auxdata m_hinv_buf;
     sp_auxdata m_buf;
     sp_auxdata m_output;
+    unsigned char wrap;
 } sp_paulstretch;
 
 int sp_paulstretch_create(sp_paulstretch **p);
@@ -1507,8 +1509,8 @@ int sp_tgate_destroy(sp_tgate **p);
 int sp_tgate_init(sp_data *sp, sp_tgate *p);
 int sp_tgate_compute(sp_data *sp, sp_tgate *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
-    int mode, init;
-    SPFLOAT prev, thresh;
+    int init;
+    SPFLOAT prev, thresh, mode;
 } sp_thresh;
 
 int sp_thresh_create(sp_thresh **p);
