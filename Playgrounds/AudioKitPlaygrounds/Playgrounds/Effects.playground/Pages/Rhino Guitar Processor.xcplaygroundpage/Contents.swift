@@ -12,7 +12,7 @@ do {
         print("completion callback has been triggered!")
     }
     rhino = AKRhinoGuitarProcessor(player)
-    let reverb  = AKReverb(rhino)
+    let reverb = AKReverb(rhino)
     AudioKit.output = AKMixer(reverb, rhino)
     AudioKit.start()
     player.looping = true
