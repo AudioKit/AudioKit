@@ -248,6 +248,7 @@ extension AKSettings {
 
             options = options.union(.mixWithOthers)
 
+            #if !os(tvOS)
             if #available(iOS 10.0, *) {
                 // Blueooth Options
                 // .allowBluetooth can only be set with the categories .playAndRecord and .record
@@ -279,6 +280,7 @@ extension AKSettings {
             if AKSettings.defaultToSpeaker {
                 options = options.union(.defaultToSpeaker)
             }
+            #endif
         }
 
         return options
