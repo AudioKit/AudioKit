@@ -16,10 +16,10 @@
     private static let NYQUIST: Frequency = AKSettings.sampleRate / 2
 
     /// Total number of MIDI Notes available to play
-    public static let midiNoteCount = 128
+    @objc public static let midiNoteCount = 128
 
     /// Note number for standard reference note
-    public var middleCNoteNumber: MIDINoteNumber = 60 {
+    @objc public var middleCNoteNumber: MIDINoteNumber = 60 {
         didSet {
             updateTuningTable()
         }
@@ -27,7 +27,7 @@
 
     /// Frequency of standard reference note
     /// equivalent to noteToHz: return 440. * exp2((60 - 69)/12.)
-    public var middleCFrequency: Frequency = 261.625_565_300_6 {
+    @objc public var middleCFrequency: Frequency = 261.625_565_300_6 {
         didSet {
             updateTuningTable()
         }
@@ -35,28 +35,28 @@
 
     /// Octave number for standard reference note.  Can be negative
     /// ..., -2, -1, 0, 1, 2, ...
-    public var middleCOctave: Int = 0 {
+    @objc public var middleCOctave: Int = 0 {
         didSet {
             updateTuningTable()
         }
     }
 
-    private var content = [Frequency](repeating: 1.0, count: midiNoteCount)
-    private var frequencies = [Frequency]()
+    @objc private var content = [Frequency](repeating: 1.0, count: midiNoteCount)
+    @objc private var frequencies = [Frequency]()
 
     /// Initialization for standard default 12 tone equal temperament
-    public override init() {
+    @objc public override init() {
         super.init()
-        defaultTuning()
+        _ = defaultTuning()
     }
 
     /// Pull out frequency information for a given note number
-    public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
+    @objc public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
         return content[Int(noteNumber)]
     }
 
     /// Set frequency of a given note number
-    public func setFrequency(_ frequency: Frequency, at noteNumber: MIDINoteNumber) {
+    @objc public func setFrequency(_ frequency: Frequency, at noteNumber: MIDINoteNumber) {
         content[Int(noteNumber)] = frequency
     }
 
@@ -64,10 +64,10 @@
     ///
     /// - parameter inputFrequencies: An array of frequencies
     ///
-    public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) {
+    @objc @discardableResult public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) -> Int {
         if inputFrequencies.isEmpty {
             AKLog("No input frequencies")
-            return
+            return 0
         }
 
         // octave reduce
@@ -92,7 +92,7 @@
 
         if ❗️frequenciesAreValid {
             AKLog("Invalid input frequencies")
-            return
+            return 0
         }
 
         // sort
@@ -104,10 +104,12 @@
 
         // update
         updateTuningTable()
+
+        return frequencies.count
     }
 
     // Assume frequencies are set and valid:  Process and update tuning table.
-    private func updateTuningTable() {
+    @objc private func updateTuningTable() {
         //AKLog("Frequencies: \(frequencies)")
         for i in 0 ..< AKTuningTable.midiNoteCount {
             let ff = Frequency(i - Int(middleCNoteNumber)) / Frequency(frequencies.count)

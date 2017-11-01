@@ -79,7 +79,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     ///               pronounced resonance. Small values may leave the input signal unaffected. Depending on the
     ///               filter frequency, typical values are > .9.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         fundamentalFrequency: Double = 100,
         feedback: Double = 0.95) {

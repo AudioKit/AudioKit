@@ -15,7 +15,7 @@ class AutoWahTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.autoWah(wah: 0.5, amplitude: 0.5)
         }
-        AKTestMD5("048e35b2c3844582e316939d3f1eea13")
+        AKTestMD5("2cfb433f51a0147fa682850717912761")
     }
 
     func testDefault() {

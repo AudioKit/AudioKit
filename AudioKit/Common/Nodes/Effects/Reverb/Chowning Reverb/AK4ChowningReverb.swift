@@ -34,7 +34,7 @@ open class AK4ChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - parameter input: Input node to process
     ///
-    public init(_ input: AKNode? = nil) {
+    @objc public init(_ input: AKNode? = nil) {
         _Self.register()
 
         super.init()

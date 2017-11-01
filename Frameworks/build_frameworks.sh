@@ -8,6 +8,12 @@ PROJECT_NAME=AudioKit
 PROJECT_UI_NAME=AudioKitUI
 CONFIGURATION=${CONFIGURATION:-"Release"}
 BUILD_DIR="$PWD/build"
+
+if [ ! -f build_frameworks.sh ]; then
+    echo "This script needs to be run from the Frameworks folder"
+	exit 0
+fi
+
 VERSION=`cat ../VERSION`
 PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 

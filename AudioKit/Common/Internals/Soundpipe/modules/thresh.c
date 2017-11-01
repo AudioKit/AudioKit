@@ -40,7 +40,7 @@ int sp_thresh_compute(sp_data *sp, sp_thresh *p, SPFLOAT *in, SPFLOAT *out)
         return SP_OK;
     }
 
-    switch(p->mode) {
+    switch((int)p->mode) {
         /* input signal goes above threshold */
         case 0:
             *out = (*in > p->thresh && p->prev <= p->thresh);

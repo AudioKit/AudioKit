@@ -154,7 +154,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
             let value = regex.stringByReplacingMatches(in: line,
                                                        options: .reportCompletion,
                                                        range: NSRange(location: 0,
-                                                                      length: line.characters.count),
+                                                                      length: line.count),
                                                        withTemplate: "$1")
 
             pattern = "##: - Control ([1-4]): ([^\n]+)"
@@ -167,12 +167,12 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
             let currentControlText = regex.stringByReplacingMatches(in: line,
                                                                           options: .reportCompletion,
                                                                           range: NSRange(location: 0,
-                                                                                         length: line.characters.count),
+                                                                                         length: line.count),
                                                                           withTemplate: "$1")
             title = regex.stringByReplacingMatches(in: line,
                                                    options: .reportCompletion,
                                                    range: NSRange(location: 0,
-                                                                  length: line.characters.count),
+                                                                  length: line.count),
                                                    withTemplate: "$2")
 
             if title != line {
