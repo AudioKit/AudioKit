@@ -6,14 +6,14 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-public typealias AKClipCallback = (FileClip) -> ()
+public typealias AKClipCallback = (FileClip) -> Void
 
 /// Schedules multiple audio files to be played in a sequence.
 open class AKClipPlayer: AKNode, AKTiming {
 
     /// Will be triggered when the player reaches the end of each clip
     open var completionHandler: AKClipCallback?
-    
+
     private var timeAtStart: Double = 0
 
     /// The underlying player node
@@ -176,7 +176,7 @@ open class AKClipPlayer: AKNode, AKTiming {
                                    at: startTime,
                                    completionHandler: completion)
     }
-    
+
     // Triggered each time the player reaches the end of a clip
     private func internalCompletionHandler(clip: FileClip) {
         DispatchQueue.main.async {
