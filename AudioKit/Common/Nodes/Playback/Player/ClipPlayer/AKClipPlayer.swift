@@ -6,9 +6,14 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
+public typealias AKClipCallback = (FileClip) -> ()
+
 /// Schedules multiple audio files to be played in a sequence.
 open class AKClipPlayer: AKNode, AKTiming {
 
+    /// Will be triggered when the player reaches the end of each clip
+    open var completionHandler: AKClipCallback?
+    
     private var timeAtStart: Double = 0
 
     /// The underlying player node
@@ -97,6 +102,9 @@ open class AKClipPlayer: AKNode, AKTiming {
         self.stop()
 
         for clip in clips {
+            let callback: AKCallback = {
+                self.internalCompletionHandler(clip: clip)
+            }
             if clip.time < offset {
                 if offset < clip.endTime {
                     let diff = offset - clip.time
@@ -105,7 +113,7 @@ open class AKClipPlayer: AKNode, AKTiming {
                                  time: 0,
                                  offset: clip.offset + diff,
                                  duration: clip.duration - diff,
-                                 completion: nil)
+                                 completion: callback)
                 }
 
             } else {
@@ -113,7 +121,7 @@ open class AKClipPlayer: AKNode, AKTiming {
                              time: clip.time - offset,
                              offset: clip.offset,
                              duration: clip.duration,
-                             completion: nil)
+                             completion: callback)
             }
         }
         scheduled = true
@@ -129,7 +137,8 @@ open class AKClipPlayer: AKNode, AKTiming {
     /// use AKFileClips if you don't need custom behavior.
     /// - Returns: A new player with clips if clips are valid, nil if not.
     ///
-    public convenience init?(clips: [FileClip]) {
+    public convenience init?(clips: [FileClip],
+                             completionHandler: AKClipCallback? = nil) {
         do {
             let validatedClips = try AKClipMerger.validateClips(clips) as! [FileClip]
             self.init()
@@ -138,7 +147,7 @@ open class AKClipPlayer: AKNode, AKTiming {
             print(error)
             return nil
         }
-
+        self.completionHandler = completionHandler
     }
     // swiftlint:enable force_cast
 
@@ -166,6 +175,13 @@ open class AKClipPlayer: AKNode, AKTiming {
                                    frameCount: frameCount,
                                    at: startTime,
                                    completionHandler: completion)
+    }
+    
+    // Triggered each time the player reaches the end of a clip
+    private func internalCompletionHandler(clip: FileClip) {
+        DispatchQueue.main.async {
+            self.completionHandler?(clip)
+        }
     }
 
     /// Prepares previously scheduled file regions or buffers for playback.
