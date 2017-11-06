@@ -103,7 +103,8 @@ public struct AKMIDIEvent {
         return internalData[2]
     }
 
-    var data: MIDIWord {
+    /// Representation of the MIDI data as a MIDI word 0-16383
+    public var wordData: MIDIWord {
         if internalData.count < 2 {
             return 0
         }
