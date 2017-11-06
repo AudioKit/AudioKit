@@ -90,3 +90,6 @@ xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk 
 
 echo "Running iOS Unit Tests"
 xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.1' | xcpretty -c || exit 100
+
+echo "Running macOS Unit Tests"
+xcodebuild -project AudioKit/macOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj -scheme AudioKitTestSuite test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 101
