@@ -13,78 +13,39 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
+#if !defined(ffft_FFTRealFixLenParam_HEADER_INCLUDED)
+#define ffft_FFTRealFixLenParam_HEADER_INCLUDED
 
-
-#if ! defined (ffft_FFTRealFixLenParam_HEADER_INCLUDED)
-#define	ffft_FFTRealFixLenParam_HEADER_INCLUDED
-
-#if defined (_MSC_VER)
-	#pragma once
-	#pragma warning (4 : 4250) // "Inherits via dominance."
+#if defined(_MSC_VER)
+#pragma once
+#pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
 
 
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+namespace ffft {
 
-
-
-namespace ffft
-{
-
-
-
-class FFTRealFixLenParam
-{
-
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+class FFTRealFixLenParam {
 
 public:
+  // Over this bit depth, we use direct calculation for sin/cos
+  enum { TRIGO_BD_LIMIT = 12 };
 
-   // Over this bit depth, we use direct calculation for sin/cos
-   enum {	      TRIGO_BD_LIMIT	= 12  };
-
-	typedef	float	DataType;
-
-
-
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-protected:
-
-
-
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  typedef float DataType;
 
 private:
+  FFTRealFixLenParam();
+  FFTRealFixLenParam(const FFTRealFixLenParam &other);
+  FFTRealFixLenParam &operator=(const FFTRealFixLenParam &other);
+  bool operator==(const FFTRealFixLenParam &other);
+  bool operator!=(const FFTRealFixLenParam &other);
 
+};
 
-
-/*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-private:
-
-						FFTRealFixLenParam ();
-						FFTRealFixLenParam (const FFTRealFixLenParam &other);
-	FFTRealFixLenParam &
-						operator = (const FFTRealFixLenParam &other);
-	bool				operator == (const FFTRealFixLenParam &other);
-	bool				operator != (const FFTRealFixLenParam &other);
-
-};	// class FFTRealFixLenParam
-
-
-
-}	// namespace ffft
-
-
+}
 
 //#include	"ffft/FFTRealFixLenParam.hpp"
 
+#endif
 
 
-#endif	// ffft_FFTRealFixLenParam_HEADER_INCLUDED
-
-
-
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/

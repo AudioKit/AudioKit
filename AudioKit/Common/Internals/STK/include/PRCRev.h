@@ -1,8 +1,8 @@
 #ifndef STK_PRCREV_H
 #define STK_PRCREV_H
 
-#include "Effect.h"
 #include "Delay.h"
+#include "Effect.h"
 
 namespace stk {
 
@@ -21,17 +21,17 @@ namespace stk {
 */
 /***************************************************/
 
-class PRCRev : public Effect
-{
+class PRCRev : public Effect {
 public:
-  //! Class constructor taking a T60 decay time argument (one second default value).
-  PRCRev( StkFloat T60 = 1.0 );
+  //! Class constructor taking a T60 decay time argument (one second default
+  //! value).
+  PRCRev(StkFloat T60 = 1.0);
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear(void);
 
   //! Set the reverberation T60 decay time.
-  void setT60( StkFloat T60 );
+  void setT60(StkFloat T60);
 
   //! Return the specified channel value of the last computed stereo frame.
   /*!
@@ -42,9 +42,10 @@ public:
     which case an out-of-range value will trigger an StkError
     exception.
   */
-  StkFloat lastOut( unsigned int channel = 0 );
+  StkFloat lastOut(unsigned int channel = 0);
 
-  //! Input one sample to the effect and return the specified \c channel value of the computed stereo frame.
+  //! Input one sample to the effect and return the specified \c channel value
+  //! of the computed stereo frame.
   /*!
     Use the lastFrame() function to get both values of the computed
     stereo output frame. The \c channel argument must be 0 or 1 (the
@@ -52,9 +53,10 @@ public:
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  StkFloat tick( StkFloat input, unsigned int channel = 0 );
+  StkFloat tick(StkFloat input, unsigned int channel = 0);
 
-  //! Take a channel of the StkFrames object as inputs to the effect and replace with stereo outputs.
+  //! Take a channel of the StkFrames object as inputs to the effect and replace
+  //! with stereo outputs.
   /*!
     The StkFrames argument reference is returned.  The stereo
     outputs are written to the StkFrames argument starting at the
@@ -64,9 +66,10 @@ public:
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  //! Take a channel of the \c iFrames object as inputs to the effect and write stereo outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the effect and write
+  //! stereo outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  The \c iChannel
     argument must be less than the number of channels in the \c
@@ -76,35 +79,32 @@ public:
     _STK_DEBUG_ is defined during compilation, in which case an
     out-of-range value will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
+  StkFrames &tick(StkFrames &iFrames, StkFrames &oFrames,
+                  unsigned int iChannel = 0, unsigned int oChannel = 0);
 
 protected:
-
-  Delay    allpassDelays_[2];
-  Delay    combDelays_[2];
+  Delay allpassDelays_[2];
+  Delay combDelays_[2];
   StkFloat allpassCoefficient_;
   StkFloat combCoefficient_[2];
-
 };
 
-inline StkFloat PRCRev :: lastOut( unsigned int channel )
-{
+inline StkFloat PRCRev ::lastOut(unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel > 1 ) {
+  if (channel > 1) {
     oStream_ << "PRCRev::lastOut(): channel argument must be less than 2!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   return lastFrame_[channel];
 }
 
- inline StkFloat PRCRev :: tick( StkFloat input, unsigned int channel )
-{
+inline StkFloat PRCRev ::tick(StkFloat input, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel > 1 ) {
+  if (channel > 1) {
     oStream_ << "PRCRev::tick(): channel argument must be less than 2!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
@@ -115,15 +115,15 @@ inline StkFloat PRCRev :: lastOut( unsigned int channel )
   temp0 += input;
   allpassDelays_[0].tick(temp0);
   temp0 = -(allpassCoefficient_ * temp0) + temp;
-    
+
   temp = allpassDelays_[1].lastOut();
   temp1 = allpassCoefficient_ * temp;
   temp1 += temp0;
   allpassDelays_[1].tick(temp1);
   temp1 = -(allpassCoefficient_ * temp1) + temp;
-    
-  temp2 = temp1 + ( combCoefficient_[0] * combDelays_[0].lastOut() );
-  temp3 = temp1 + ( combCoefficient_[1] * combDelays_[1].lastOut() );
+
+  temp2 = temp1 + (combCoefficient_[0] * combDelays_[0].lastOut());
+  temp3 = temp1 + (combCoefficient_[1] * combDelays_[1].lastOut());
 
   lastFrame_[0] = effectMix_ * (combDelays_[0].tick(temp2));
   lastFrame_[1] = effectMix_ * (combDelays_[1].tick(temp3));
@@ -134,7 +134,6 @@ inline StkFloat PRCRev :: lastOut( unsigned int channel )
   return lastFrame_[channel];
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif
-

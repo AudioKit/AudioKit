@@ -39,15 +39,15 @@
     return self;
 }
 -(AKRenderNotifyBlock)renderNotify {
-    
+
     AKTimeline *timeline = &_timeline;
-    
+
     return ^(AudioUnitRenderActionFlags *ioActionFlags,
              const AudioTimeStamp       *inTimeStamp,
              UInt32                     inBusNumber,
              UInt32                     inNumberFrames,
              AudioBufferList            *ioData) {
-        
+
         if ((*ioActionFlags & actionFlags)) {
             AKTimelineRender(timeline, inTimeStamp, inNumberFrames, ioData);
         }
@@ -76,10 +76,10 @@ static void TimingCallback(void *refCon,
                            UInt32 inNumberFrames,
                            UInt32 renderStartOffset,
                            AudioBufferList *ioData) {
-    
+
     __unsafe_unretained AKTimelineTap *self = (__bridge AKTimelineTap *)refCon;
     __unsafe_unretained AKTimelineBlock timelineBlock = self->_block;
-    
+
     if (timelineBlock) {
         timelineBlock(&self->_timeline, timeStamp, renderStartOffset, inNumberFrames, ioData);
     }

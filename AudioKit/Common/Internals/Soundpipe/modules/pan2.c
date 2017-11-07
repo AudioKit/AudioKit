@@ -1,9 +1,9 @@
 /*
  * Pan2
- * 
+ *
  * This code has been extracted from the Csound opcode "pan2"
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): John ffitch
  * Year: 2007
  * Location: Opcodes/pan2.c
@@ -15,8 +15,8 @@
 #include "soundpipe.h"
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	
-#endif 
+#define M_PI		3.14159265358979323846
+#endif
 
 #define SQRT2 1.41421356237309504880
 

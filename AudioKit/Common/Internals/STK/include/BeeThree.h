@@ -22,7 +22,7 @@ namespace stk {
                      4 --
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Operator 4 (feedback) Gain = 2
        - Operator 3 Gain = 4
        - LFO Speed = 11
@@ -39,23 +39,22 @@ namespace stk {
 */
 /***************************************************/
 
-class BeeThree : public FM
-{
- public:
+class BeeThree : public FM {
+public:
   //! Class constructor.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  BeeThree( void );
+  BeeThree(void);
 
   //! Class destructor.
-  ~BeeThree( void );
+  ~BeeThree(void);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -65,27 +64,25 @@ class BeeThree : public FM
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
+protected:
 };
 
-inline StkFloat BeeThree :: tick( unsigned int )
-{
+inline StkFloat BeeThree ::tick(unsigned int) {
   StkFloat temp;
 
-  if ( modDepth_ > 0.0 )	{
-    temp = 1.0 + ( modDepth_ * vibrato_.tick() * 0.1 );
-    waves_[0]->setFrequency( baseFrequency_ * temp * ratios_[0] );
-    waves_[1]->setFrequency( baseFrequency_ * temp * ratios_[1] );
-    waves_[2]->setFrequency( baseFrequency_ * temp * ratios_[2] );
-    waves_[3]->setFrequency( baseFrequency_ * temp * ratios_[3] );
+  if (modDepth_ > 0.0) {
+    temp = 1.0 + (modDepth_ * vibrato_.tick() * 0.1);
+    waves_[0]->setFrequency(baseFrequency_ * temp * ratios_[0]);
+    waves_[1]->setFrequency(baseFrequency_ * temp * ratios_[1]);
+    waves_[2]->setFrequency(baseFrequency_ * temp * ratios_[2]);
+    waves_[3]->setFrequency(baseFrequency_ * temp * ratios_[3]);
   }
 
-  waves_[3]->addPhaseOffset( twozero_.lastOut() );
+  waves_[3]->addPhaseOffset(twozero_.lastOut());
   temp = control1_ * 2.0 * gains_[3] * adsr_[3]->tick() * waves_[3]->tick();
-  twozero_.tick( temp );
+  twozero_.tick(temp);
 
   temp += control2_ * 2.0 * gains_[2] * adsr_[2]->tick() * waves_[2]->tick();
   temp += gains_[1] * adsr_[1]->tick() * waves_[1]->tick();
@@ -95,26 +92,25 @@ inline StkFloat BeeThree :: tick( unsigned int )
   return lastFrame_[0];
 }
 
-inline StkFrames& BeeThree :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &BeeThree ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "BeeThree::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "BeeThree::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -122,6 +118,6 @@ inline StkFrames& BeeThree :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

@@ -242,9 +242,9 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     /// - Parameters:
     ///   - file: the AKAudioFile to play
-    ///   - looping: will loop play if set to true, or stop when play ends, so it can trig the 
+    ///   - looping: will loop play if set to true, or stop when play ends, so it can trig the
     ///              completionHandler callback. Default is false (non looping)
-    ///   - completionHandler: AKCallback that will be triggered when the player end playing (useful for refreshing 
+    ///   - completionHandler: AKCallback that will be triggered when the player end playing (useful for refreshing
     ///                        UI so we're not playing anymore, we stopped playing...)
     ///
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
@@ -422,15 +422,15 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         play(from: startTime, to: endTime, avTime: avTime)
     }
 
-    /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time 
+    /// Play the file back from a certain time, to an end time (if set). You can optionally set a scheduled time
     /// to play (in seconds).
     ///
     ///  - Parameters:
     ///    - startTime: Time into the file at which to start playing back
     ///    - endTime: Time into the file at which to playing back will stop / Loop
-    ///    - avTime: an AVAudioTime object specifying when to schedule the playback. You can create this using the 
-    ///              helper function AKAudioPlayer.secondToAVAudioTime(hostTime:time). hostTime is a call to 
-    ///              mach_absolute_time(). When you have a group of players which you want to sync together it's 
+    ///    - avTime: an AVAudioTime object specifying when to schedule the playback. You can create this using the
+    ///              helper function AKAudioPlayer.secondToAVAudioTime(hostTime:time). hostTime is a call to
+    ///              mach_absolute_time(). When you have a group of players which you want to sync together it's
     ///              important that this value be the same for all of them as a reference point.
     ///
     open func play(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {

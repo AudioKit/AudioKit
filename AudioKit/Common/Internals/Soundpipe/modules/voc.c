@@ -4,9 +4,9 @@
 /*3:*/
 #line 25 "./data.w"
 
-#include <stdlib.h> 
-#include <math.h> 
-#include <string.h> 
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
 #include "soundpipe.h"
 
 #ifndef M_PI
@@ -391,7 +391,7 @@ tr->reflection[i]= tr->new_reflection[i];
 if(tr->A[i]==0){
 tr->new_reflection[i]= 0.999;
 }else{
-tr->new_reflection[i]= 
+tr->new_reflection[i]=
 (tr->A[i-1]-tr->A[i])/(tr->A[i-1]+tr->A[i]);
 }
 }
@@ -546,7 +546,7 @@ if(diameter<0.001)current_obstruction= i;
 if(i<tr->nose_start)slow_return= 0.6;
 else if(i>=tr->tip_start)slow_return= 1.0;
 else{
-slow_return= 
+slow_return=
 0.6+0.4*(i-tr->nose_start)/(tr->tip_start-tr->nose_start);
 }
 
@@ -638,9 +638,9 @@ diameter= 1.1;
 diameter= 1.5;
 }
 
-tr->diameter[i]= 
-tr->rest_diameter[i]= 
-tr->target_diameter[i]= 
+tr->diameter[i]=
+tr->rest_diameter[i]=
+tr->target_diameter[i]=
 tr->new_diameter[i]= diameter;
 
 }
@@ -775,7 +775,7 @@ tr->lip_output= tr->R[tr->n-1];
 /*53:*/
 #line 191 "./tract.w"
 
-tr->nose_junc_outL[tr->nose_length]= 
+tr->nose_junc_outL[tr->nose_length]=
 tr->noseR[tr->nose_length-1]*tr->lip_reflection;
 
 for(i= 1;i<tr->nose_length;i++){

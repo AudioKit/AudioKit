@@ -1,10 +1,9 @@
-#ifndef STK_TWANG_H
-#define STK_TWANG_H
+#pragma once
 
-#include "Stk.h"
 #include "DelayA.h"
 #include "DelayL.h"
 #include "Fir.h"
+#include "Stk.h"
 
 namespace stk {
 
@@ -31,23 +30,22 @@ namespace stk {
 */
 /***************************************************/
 
-class Twang : public Stk
-{
- public:
+class Twang : public Stk {
+public:
   //! Class constructor, taking the lowest desired playing frequency.
-  Twang( StkFloat lowestFrequency = 50.0 );
+  Twang(StkFloat lowestFrequency = 50.0);
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear();
 
   //! Set the delayline parameters to allow frequencies as low as specified.
-  void setLowestFrequency( StkFloat frequency );
+  void setLowestFrequency(StkFloat frequency);
 
   //! Set the delayline parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Set the pluck or "excitation" position along the string (0.0 - 1.0).
-  void setPluckPosition( StkFloat position );
+  void setPluckPosition(StkFloat position);
 
   //! Set the nominal loop gain.
   /*!
@@ -56,7 +54,7 @@ class Twang : public Stk
     frequency settings have greater loop gains because of
     high-frequency loop-filter roll-off.
   */
-  void setLoopGain( StkFloat loopGain );
+  void setLoopGain(StkFloat loopGain);
 
   //! Set the loop filter coefficients.
   /*!
@@ -64,19 +62,20 @@ class Twang : public Stk
     the coefficients are set for a first-order lowpass filter with
     coefficients b = [0.5 0.5].
   */
-  void setLoopFilter( std::vector<StkFloat> coefficients );
+  void setLoopFilter(std::vector<StkFloat> coefficients);
 
   //! Return an StkFrames reference to the last output sample frame.
-  //const StkFrames& lastFrame( void ) const { return lastFrame_; };
+  // const StkFrames& lastFrame( void ) const { return lastFrame_; };
 
   //! Return the last computed output value.
   // StkFloat lastOut( void ) { return lastFrame_[0]; };
-  StkFloat lastOut( void ) { return lastOutput_; };
+  StkFloat lastOut() { return lastOutput_; };
 
   //! Compute and return one output sample.
-  StkFloat tick( StkFloat input );
+  StkFloat tick(StkFloat input);
 
-  //! Take a channel of the \c iFrames object as inputs to the class and write outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the class and write
+  //! outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  Each channel
     argument must be less than the number of channels in the
@@ -85,9 +84,10 @@ class Twang : public Stk
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  //! Take a channel of the \c iFrames object as inputs to the effect and write outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the effect and write
+  //! outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  Each channel
     argument must be less than the number of channels in the
@@ -96,13 +96,13 @@ class Twang : public Stk
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
+  StkFrames &tick(StkFrames &iFrames, StkFrames &oFrames,
+                  unsigned int iChannel = 0, unsigned int oChannel = 0);
 
- protected:  
-
-  DelayA   delayLine_;
-  DelayL   combDelay_;
-  Fir      loopFilter_;
+protected:
+  DelayA delayLine_;
+  DelayL combDelay_;
+  Fir loopFilter_;
 
   StkFloat lastOutput_;
   StkFloat frequency_;
@@ -110,51 +110,50 @@ class Twang : public Stk
   StkFloat pluckPosition_;
 };
 
-inline StkFloat Twang :: tick( StkFloat input )
-{
-  lastOutput_ = delayLine_.tick( input + loopFilter_.tick( delayLine_.lastOut() ) );
-  lastOutput_ -= combDelay_.tick( lastOutput_ ); // comb filtering on output
+inline StkFloat Twang::tick(StkFloat input) {
+  lastOutput_ = delayLine_.tick(input + loopFilter_.tick(delayLine_.lastOut()));
+  lastOutput_ -= combDelay_.tick(lastOutput_); // comb filtering on output
   lastOutput_ *= 0.5;
 
   return lastOutput_;
 }
 
-inline StkFrames& Twang :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Twang::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "Twang::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_
+        << "Twang::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
-    *samples = tick( *samples );
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
+    *samples = tick(*samples);
 
   return frames;
 }
 
-inline StkFrames& Twang :: tick( StkFrames& iFrames, StkFrames& oFrames, unsigned int iChannel, unsigned int oChannel )
-{
+inline StkFrames &Twang::tick(StkFrames &iFrames, StkFrames &oFrames,
+                               unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
-  if ( iChannel >= iFrames.channels() || oChannel >= oFrames.channels() ) {
-    oStream_ << "Twang::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {
+    oStream_
+        << "Twang::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *iSamples = &iFrames[iChannel];
   StkFloat *oSamples = &oFrames[oChannel];
   unsigned int iHop = iFrames.channels(), oHop = oFrames.channels();
-  for ( unsigned int i=0; i<iFrames.frames(); i++, iSamples += iHop, oSamples += oHop )
-    *oSamples = tick( *iSamples );
+  for (unsigned int i = 0; i < iFrames.frames();
+       i++, iSamples += iHop, oSamples += oHop)
+    *oSamples = tick(*iSamples);
 
   return iFrames;
 }
 
-} // stk namespace
-
-#endif
+}
 

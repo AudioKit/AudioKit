@@ -27,9 +27,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(HighPassButterworthFilter)
-    
+
     // Create a parameter object for the cutoffFrequency.
     AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
                                                                 name:@"Cutoff Frequency (Hz)"
@@ -37,17 +37,17 @@ standardKernelPassthroughs()
                                                                  min:12.0
                                                                  max:20000.0
                                                                 unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 500.0;
-    
+
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              cutoffFrequencyAUParameter
                                              ]];
-    
+
     parameterTreeBlock(HighPassButterworthFilter)
 }
 

@@ -28,7 +28,7 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-        
+
         attackDurationRamper.init();
         decayDurationRamper.init();
         sustainLevelRamper.init();
@@ -37,11 +37,11 @@ public:
         vibratoDepthRamper.init();
         vibratoRateRamper.init();
     }
-    
+
     void reset() {
         playingNotesCount = 0;
         resetted = true;
-        
+
         attackDurationRamper.reset();
         decayDurationRamper.reset();
         sustainLevelRamper.reset();
@@ -52,7 +52,7 @@ public:
     }
 
     double frequencyScale = 2. * M_PI / sampleRate;
-    
+
     float attackDuration = 0.1;
     float decayDuration = 0.1;
     float sustainLevel = 1.0;
@@ -220,5 +220,5 @@ public:
     releaseDuration = releaseDurationRamper.getAndStep(); \
     pitchBend = double(pitchBendRamper.getAndStep()); \
     vibratoDepth = double(vibratoDepthRamper.getAndStep()); \
-    vibratoRate = double(vibratoRateRamper.getAndStep()); 
+    vibratoRate = double(vibratoRateRamper.getAndStep());
 

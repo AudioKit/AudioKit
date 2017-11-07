@@ -23,7 +23,7 @@ int sporth_load(sporth_stack *stack, void *ud)
             filename = sporth_stack_pop_string(stack);
             fp = fopen(filename, "r");
             if(fp == NULL) {
-                plumber_print(pd, 
+                plumber_print(pd,
                         "There was an issue opening the file \"%s\"\n",
                         filename);
                 return PLUMBER_NOTOK;

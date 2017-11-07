@@ -1,16 +1,16 @@
 #ifndef STK_MESSAGER_H
 #define STK_MESSAGER_H
 
-#include "Stk.h"
 #include "Skini.h"
+#include "Stk.h"
 #include <queue>
 
 #if defined(__STK_REALTIME__)
 
 #include "Mutex.h"
-#include "Thread.h"
-#include "TcpServer.h"
 #include "RtMidi.h"
+#include "TcpServer.h"
+#include "Thread.h"
 
 #endif // __STK_REALTIME__
 
@@ -52,10 +52,8 @@ namespace stk {
 
 const int DEFAULT_QUEUE_LIMIT = 200;
 
-class Messager : public Stk
-{
- public:
-
+class Messager : public Stk {
+public:
   // This structure is used to share data among the various realtime
   // messager threads.  It must be public.
   struct MessagerData {
@@ -73,8 +71,7 @@ class Messager : public Stk
 #endif
 
     // Default constructor.
-    MessagerData()
-      :queueLimit(0), sources(0) {}
+    MessagerData() : queueLimit(0), sources(0) {}
   };
 
   //! Default constructor.
@@ -83,17 +80,18 @@ class Messager : public Stk
   //! Class destructor.
   ~Messager();
 
-  //! Pop the next message from the queue and write it to the referenced message structure.
+  //! Pop the next message from the queue and write it to the referenced message
+  //! structure.
   /*!
     Invalid messages (or an empty queue) are indicated by type
     values of zero, in which case all other message structure values
     are undefined.  The user MUST verify the returned message type is
     valid before reading other message values.
   */
-  void popMessage( Skini::Message& message );
+  void popMessage(Skini::Message &message);
 
   //! Push the referenced message onto the message stack.
-  void pushMessage( Skini::Message& message );
+  void pushMessage(Skini::Message &message);
 
   //! Specify a SKINI formatted scorefile from which messages should be read.
   /*!
@@ -104,10 +102,11 @@ class Messager : public Stk
     considered to be a non-realtime control mechanism that cannot run
     concurrently with realtime input.
   */
-  bool setScoreFile( const char* filename );
+  bool setScoreFile(const char *filename);
 
 #if defined(__STK_REALTIME__)
-  //! Initiate the "realtime" retreival from stdin of control messages into the queue.
+  //! Initiate the "realtime" retreival from stdin of control messages into the
+  //! queue.
   /*!
     This function initiates a thread for asynchronous retrieval of
     SKINI formatted messages from stdin.  A return value of \c true
@@ -119,7 +118,8 @@ class Messager : public Stk
   */
   bool startStdInput();
 
-  //! Start a socket server, accept connections, and read "realtime" control messages into the message queue.
+  //! Start a socket server, accept connections, and read "realtime" control
+  //! messages into the message queue.
   /*!
     This function creates a socket server on the optional port
     (default = 2001) and starts a thread for asynchronous retrieval of
@@ -131,7 +131,7 @@ class Messager : public Stk
     a realtime control mechanism that cannot run concurrently with
     non-realtime scorefile input.
   */
-  bool startSocketInput( int port=2001 );
+  bool startSocketInput(int port = 2001);
 
   //! Start MIDI input, with optional device and port identifiers.
   /*!
@@ -146,21 +146,19 @@ class Messager : public Stk
     considered to be a realtime control mechanism that cannot run
     concurrently with non-realtime scorefile input.
   */
-  bool startMidiInput( int port=0 );
+  bool startMidiInput(int port = 0);
 
 #endif
 
- protected:
-
+protected:
   MessagerData data_;
 
 #if defined(__STK_REALTIME__)
   Thread stdinThread_;
   Thread socketThread_;
 #endif
-
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

@@ -13,89 +13,47 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
+#if !defined(ffft_DynArray_HEADER_INCLUDED)
+#define ffft_DynArray_HEADER_INCLUDED
 
-
-#if ! defined (ffft_DynArray_HEADER_INCLUDED)
-#define	ffft_DynArray_HEADER_INCLUDED
-
-#if defined (_MSC_VER)
-	#pragma once
-	#pragma warning (4 : 4250) // "Inherits via dominance."
+#if defined(_MSC_VER)
+#pragma once
+#pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
 
 
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+namespace ffft {
 
-
-
-namespace ffft
-{
-
-
-
-template <class T>
-class DynArray
-{
-
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+template <class T> class DynArray {
 
 public:
+  typedef T DataType;
 
-	typedef	T	DataType;
+  DynArray();
+  explicit DynArray(long size);
+  ~DynArray();
 
-						DynArray ();
-	explicit			DynArray (long size);
-						~DynArray ();
+  inline long size() const;
+  inline void resize(long size);
 
-	inline long		size () const;
-	inline void		resize (long size);
-
-	inline const DataType &
-						operator [] (long pos) const;
-	inline DataType &
-						operator [] (long pos);
-
-
-
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-protected:
-
-
-
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  inline const DataType &operator[](long pos) const;
+  inline DataType &operator[](long pos);
 
 private:
+  DataType *_data_ptr;
+  long _len;
+  DynArray(const DynArray &other);
+  DynArray &operator=(const DynArray &other);
+  bool operator==(const DynArray &other);
+  bool operator!=(const DynArray &other);
 
-	DataType *		_data_ptr;
-	long				_len;
+};
 
+}
 
+#include "DynArray.hpp"
 
-/*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-private:
-
-						DynArray (const DynArray &other);
-	DynArray &		operator = (const DynArray &other);
-	bool				operator == (const DynArray &other);
-	bool				operator != (const DynArray &other);
-
-};	// class DynArray
+#endif
 
 
-
-}	// namespace ffft
-
-
-
-#include	"DynArray.hpp"
-
-
-
-#endif	// ffft_DynArray_HEADER_INCLUDED
-
-
-
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/

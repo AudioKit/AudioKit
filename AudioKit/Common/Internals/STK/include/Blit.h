@@ -30,11 +30,10 @@ namespace stk {
 */
 /***************************************************/
 
-class Blit: public Generator
-{
- public:
+class Blit : public Generator {
+public:
   //! Default constructor that initializes BLIT frequency to 220 Hz.
-  Blit( StkFloat frequency = 220.0 );
+  Blit(StkFloat frequency = 220.0);
 
   //! Class destructor.
   ~Blit();
@@ -46,7 +45,7 @@ class Blit: public Generator
   /*!
     Set the phase of the signal, in the range 0 to 1.
   */
-  void setPhase( StkFloat phase ) { phase_ = PI * phase; };
+  void setPhase(StkFloat phase) { phase_ = PI * phase; };
 
   //! Get the current phase of the signal.
   /*!
@@ -55,7 +54,7 @@ class Blit: public Generator
   StkFloat getPhase() const { return phase_ / PI; };
 
   //! Set the impulse train rate in terms of a frequency in Hz.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Set the number of harmonics generated in the signal.
   /*!
@@ -70,13 +69,13 @@ class Blit: public Generator
     of automatically modifying the M parameter, which can produce
     audible clicks in the signal.
   */
-  void setHarmonics( unsigned int nHarmonics = 0 );
+  void setHarmonics(unsigned int nHarmonics = 0);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Compute and return one output sample.
-  StkFloat tick( void );
+  StkFloat tick(void);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -86,22 +85,19 @@ class Blit: public Generator
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
-  void updateHarmonics( void );
+protected:
+  void updateHarmonics(void);
 
   unsigned int nHarmonics_;
   unsigned int m_;
   StkFloat rate_;
   StkFloat phase_;
   StkFloat p_;
-
 };
 
-inline StkFloat Blit :: tick( void )
-{
+inline StkFloat Blit ::tick(void) {
   // The code below implements the SincM algorithm of Stilson and
   // Smith with an additional scale factor of P / M applied to
   // normalize the output.
@@ -114,38 +110,39 @@ inline StkFloat Blit :: tick( void )
 
   // Avoid a divide by zero at the sinc peak, which has a limiting
   // value of 1.0.
-  StkFloat tmp, denominator = sin( phase_ );
-  if ( denominator <= std::numeric_limits<StkFloat>::epsilon() )
+  StkFloat tmp, denominator = sin(phase_);
+  if (denominator <= std::numeric_limits<StkFloat>::epsilon())
     tmp = 1.0;
   else {
-    tmp =  sin( m_ * phase_ );
+    tmp = sin(m_ * phase_);
     tmp /= m_ * denominator;
   }
 
   phase_ += rate_;
-  if ( phase_ >= PI ) phase_ -= PI;
+  if (phase_ >= PI)
+    phase_ -= PI;
 
   lastFrame_[0] = tmp;
-	return lastFrame_[0];
+  return lastFrame_[0];
 }
 
-inline StkFrames& Blit :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Blit ::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "Blit::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_
+        << "Blit::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
     *samples = Blit::tick();
 
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

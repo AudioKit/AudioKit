@@ -17,15 +17,15 @@ protected:
 public:
     AKDSPKernel(int _channels, float _sampleRate):
     channels(_channels), sampleRate(_sampleRate) { }
-    
+
     AKDSPKernel(): AKDSPKernel(AKSettings.numberOfChannels, AKSettings.sampleRate) { }
-    
+
     virtual ~AKDSPKernel() { }
     //
     // todo: these should be constructors but the original samples
     // had init methods
     //
-    
+
     virtual void init(int _channels, double _sampleRate) {
         channels = _channels;
         sampleRate = _sampleRate;
@@ -35,13 +35,13 @@ public:
 class AKParametricKernel {
 protected:
     virtual ParameterRamper& getRamper(AUParameterAddress address) = 0;
-    
+
 public:
-    
+
     AUValue getParameter(AUParameterAddress address) {
         return getRamper(address).getUIValue();
     }
-    
+
     void setParameter(AUParameterAddress address, AUValue value) {
         return getRamper(address).setUIValue(value);
     }
@@ -67,7 +67,7 @@ public:
     void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
         AKOutputBuffered::setBuffer(outBufferList);
         inBufferListPtr = inBufferList;
-        
+
     }
 };
 
@@ -77,7 +77,7 @@ public:
     void stop() {}
     bool started;
     bool resetted;
-    
+
 };
 
 

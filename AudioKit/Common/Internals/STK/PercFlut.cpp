@@ -9,7 +9,7 @@
                           2-- + -->1-->Out
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Total Modulator Index = 2
        - Modulator Crossfade = 4
        - LFO Speed = 11
@@ -30,13 +30,12 @@
 
 namespace stk {
 
-PercFlut :: PercFlut( void )
-  : FM()
-{
+PercFlut ::PercFlut(void) : FM() {
   // Concatenate the STK rawwave path to the rawwave files
-  for ( unsigned int i=0; i<3; i++ )
-    waves_[i] = new FileLoop( (Stk::rawwavePath() + "sinewave.raw").c_str(), true );
-  waves_[3] = new FileLoop( (Stk::rawwavePath() + "fwavblnk.raw").c_str(), true );
+  for (unsigned int i = 0; i < 3; i++)
+    waves_[i] =
+        new FileLoop((Stk::rawwavePath() + "sinewave.raw").c_str(), true);
+  waves_[3] = new FileLoop((Stk::rawwavePath() + "fwavblnk.raw").c_str(), true);
 
   this->setRatio(0, 1.50 * 1.000);
   this->setRatio(1, 3.00 * 0.995);
@@ -47,39 +46,37 @@ PercFlut :: PercFlut( void )
   gains_[2] = fmGains_[93];
   gains_[3] = fmGains_[85];
 
-  adsr_[0]->setAllTimes( 0.05, 0.05, fmSusLevels_[14], 0.05);
-  adsr_[1]->setAllTimes( 0.02, 0.50, fmSusLevels_[13], 0.5);
-  adsr_[2]->setAllTimes( 0.02, 0.30, fmSusLevels_[11], 0.05);
-  adsr_[3]->setAllTimes( 0.02, 0.05, fmSusLevels_[13], 0.01);
+  adsr_[0]->setAllTimes(0.05, 0.05, fmSusLevels_[14], 0.05);
+  adsr_[1]->setAllTimes(0.02, 0.50, fmSusLevels_[13], 0.5);
+  adsr_[2]->setAllTimes(0.02, 0.30, fmSusLevels_[11], 0.05);
+  adsr_[3]->setAllTimes(0.02, 0.05, fmSusLevels_[13], 0.01);
 
-  twozero_.setGain( 0.0 );
+  twozero_.setGain(0.0);
   modDepth_ = 0.005;
-}  
-
-PercFlut :: ~PercFlut( void )
-{
 }
 
-void PercFlut :: setFrequency( StkFloat frequency )
-{    
+PercFlut ::~PercFlut(void) {}
+
+void PercFlut ::setFrequency(StkFloat frequency) {
 #if defined(_STK_DEBUG_)
-  if ( frequency <= 0.0 ) {
-    oStream_ << "PercFlut::setFrequency: argument is less than or equal to zero!";
-    handleError( StkError::WARNING ); return;
+  if (frequency <= 0.0) {
+    oStream_
+        << "PercFlut::setFrequency: argument is less than or equal to zero!";
+    handleError(StkError::WARNING);
+    return;
   }
 #endif
 
   baseFrequency_ = frequency;
 }
 
-void PercFlut :: noteOn( StkFloat frequency, StkFloat amplitude )
-{
+void PercFlut ::noteOn(StkFloat frequency, StkFloat amplitude) {
   gains_[0] = amplitude * fmGains_[99] * 0.5;
   gains_[1] = amplitude * fmGains_[71] * 0.5;
   gains_[2] = amplitude * fmGains_[93] * 0.5;
   gains_[3] = amplitude * fmGains_[85] * 0.5;
-  this->setFrequency( frequency );
+  this->setFrequency(frequency);
   this->keyOn();
 }
 
-} // stk namespace
+} // namespace stk

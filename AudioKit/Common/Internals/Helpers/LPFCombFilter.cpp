@@ -1,49 +1,44 @@
 #include "LPFCombFilter.h"
 
-CLPFCombFilter::CLPFCombFilter(void):CDelay()
-{
-	m_fComb_g = 0;
-	m_fLPF_g = 0;
-	m_fLPF_z1 = 0;
+CLPFCombFilter::CLPFCombFilter(void) : CDelay() {
+  m_fComb_g = 0;
+  m_fLPF_g = 0;
+  m_fLPF_z1 = 0;
 }
 
-CLPFCombFilter::~CLPFCombFilter(void)
-{
+CLPFCombFilter::~CLPFCombFilter() {}
+
+void CLPFCombFilter::init(int nDelayLength) {
+  m_fLPF_z1 = 0.0;
+
+  CDelay::init(nDelayLength);
 }
 
-void CLPFCombFilter::init(int nDelayLength)
-{
-	m_fLPF_z1 = 0.0;
+bool CLPFCombFilter::processAudio(float *pInput, float *pOutput) {
+  // read the delay line to get w(n-D); call base class
+  float yn = this->readDelay();
 
-	CDelay::init(nDelayLength);
-}
+  if (m_nReadIndex == m_nWriteIndex)
+    yn = 0;
 
-bool CLPFCombFilter::processAudio(float* pInput, float* pOutput)
-{
-	// read the delay line to get w(n-D); call base class
-	float yn = this->readDelay();
+  // read
+  float yn_LPF = yn + m_fLPF_g * m_fLPF_z1;
 
-	if(m_nReadIndex == m_nWriteIndex)
-		yn = 0;
+  // form fb & write
+  m_fLPF_z1 = yn_LPF;
 
-	// read
-	float yn_LPF = yn + m_fLPF_g*m_fLPF_z1;
+  // form fb = x(n) + m_fComb_g*yn_LPF)
+  float fb = *pInput + m_fComb_g * yn_LPF;
 
-	// form fb & write
-	m_fLPF_z1 = yn_LPF;
+  // write delay line
+  this->writeDelayAndInc(fb);
 
-	// form fb = x(n) + m_fComb_g*yn_LPF)
-	float fb = *pInput + m_fComb_g*yn_LPF;
+  // write the output sample (could be combined with above line)
+  if (m_nReadIndex == m_nWriteIndex)
+    yn = *pInput;
 
-	// write delay line
-	this->writeDelayAndInc(fb);
+  *pOutput = yn;
 
-	// write the output sample (could be combined with above line)
-	if(m_nReadIndex == m_nWriteIndex)
-		yn = *pInput;
-
-	*pOutput = yn;
-
-	// all OK
-	return true;
+  // all OK
+  return true;
 }

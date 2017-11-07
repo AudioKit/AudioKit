@@ -16,7 +16,7 @@
 @implementation AKTremoloAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKTremoloDSPKernel _kernel;
-    
+
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
@@ -39,9 +39,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(Tremolo)
-    
+
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter parameter:@"frequency"
                                                           name:@"Frequency (Hz)"
@@ -49,7 +49,7 @@ standardKernelPassthroughs()
                                                            min:0.0
                                                            max:100.0
                                                           unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Create a parameter object for the depth.
     AUParameter *depthAUParameter = [AUParameter parameter:@"depth"
                                                       name:@"Depth"
@@ -57,21 +57,21 @@ standardKernelPassthroughs()
                                                        min:0.0
                                                        max:2.0
                                                       unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Initialize the parameter values.
     frequencyAUParameter.value = 10.0;
     // Initialize the parameter values.
     depthAUParameter.value = 1.0;
-    
+
     _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
     _kernel.setParameter(depthAddress, depthAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              frequencyAUParameter,
                                              depthAUParameter
                                              ]];
-    
+
     parameterTreeBlock(Tremolo)
 }
 

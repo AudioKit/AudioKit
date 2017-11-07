@@ -13,7 +13,7 @@
                       2->1--/
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Modulator Index One = 2
        - Crossfade of Outputs = 4
        - LFO Speed = 11
@@ -34,17 +34,16 @@
 
 namespace stk {
 
-TubeBell :: TubeBell( void )
-  : FM()
-{
+TubeBell::TubeBell(void) : FM() {
   // Concatenate the STK rawwave path to the rawwave files
-  for ( unsigned int i=0; i<3; i++ )
-    waves_[i] = new FileLoop( (Stk::rawwavePath() + "sinewave.raw").c_str(), true );
-  waves_[3] = new FileLoop( (Stk::rawwavePath() + "fwavblnk.raw").c_str(), true );
+  for (unsigned int i = 0; i < 3; i++)
+    waves_[i] =
+        new FileLoop((Stk::rawwavePath() + "sinewave.raw").c_str(), true);
+  waves_[3] = new FileLoop((Stk::rawwavePath() + "fwavblnk.raw").c_str(), true);
 
-  this->setRatio(0, 1.0   * 0.995);
+  this->setRatio(0, 1.0 * 0.995);
   this->setRatio(1, 1.414 * 0.995);
-  this->setRatio(2, 1.0   * 1.005);
+  this->setRatio(2, 1.0 * 1.005);
   this->setRatio(3, 1.414 * 1.000);
 
   gains_[0] = fmGains_[94];
@@ -52,27 +51,24 @@ TubeBell :: TubeBell( void )
   gains_[2] = fmGains_[99];
   gains_[3] = fmGains_[71];
 
-  adsr_[0]->setAllTimes( 0.005, 4.0, 0.0, 0.04);
-  adsr_[1]->setAllTimes( 0.005, 4.0, 0.0, 0.04);
-  adsr_[2]->setAllTimes( 0.001, 2.0, 0.0, 0.04);
-  adsr_[3]->setAllTimes( 0.004, 4.0, 0.0, 0.04);
+  adsr_[0]->setAllTimes(0.005, 4.0, 0.0, 0.04);
+  adsr_[1]->setAllTimes(0.005, 4.0, 0.0, 0.04);
+  adsr_[2]->setAllTimes(0.001, 2.0, 0.0, 0.04);
+  adsr_[3]->setAllTimes(0.004, 4.0, 0.0, 0.04);
 
-  twozero_.setGain( 0.5 );
-  vibrato_.setFrequency( 2.0 );
-}  
-
-TubeBell :: ~TubeBell( void )
-{
+  twozero_.setGain(0.5);
+  vibrato_.setFrequency(2.0);
 }
 
-void TubeBell :: noteOn( StkFloat frequency, StkFloat amplitude )
-{
+TubeBell::~TubeBell() {}
+
+void TubeBell::noteOn(StkFloat frequency, StkFloat amplitude) {
   gains_[0] = amplitude * fmGains_[94];
   gains_[1] = amplitude * fmGains_[76];
   gains_[2] = amplitude * fmGains_[99];
   gains_[3] = amplitude * fmGains_[71];
-  this->setFrequency( frequency );
+  this->setFrequency(frequency);
   this->keyOn();
 }
 
-} // stk namespace
+}

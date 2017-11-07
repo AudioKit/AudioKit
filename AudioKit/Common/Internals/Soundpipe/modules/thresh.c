@@ -1,9 +1,9 @@
 /*
  * Foo
- * 
+ *
  * This is a dummy module. It doesn't do much.
  * Feel free to use this as a boilerplate template.
- * 
+ *
  */
 
 #include <stdlib.h>
@@ -62,6 +62,6 @@ int sp_thresh_compute(sp_data *sp, sp_thresh *p, SPFLOAT *in, SPFLOAT *out)
     }
 
     p->prev = *in;
-    
+
     return SP_OK;
 }

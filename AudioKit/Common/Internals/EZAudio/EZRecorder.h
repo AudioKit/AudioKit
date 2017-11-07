@@ -34,11 +34,11 @@
 
 /**
  To ensure valid recording formats are used when recording to a file the EZRecorderFileType describes the most common file types that a file can be encoded in. Each of these types can be used to output recordings as such:
- 
+
  EZRecorderFileTypeAIFF - .aif, .aiff, .aifc, .aac
  EZRecorderFileTypeM4A  - .m4a, .mp4
  EZRecorderFileTypeWAV  - .wav
- 
+
  */
 typedef NS_ENUM(NSInteger, EZRecorderFileType)
 {

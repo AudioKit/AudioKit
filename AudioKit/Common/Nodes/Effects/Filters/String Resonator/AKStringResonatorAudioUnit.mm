@@ -30,9 +30,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(StringResonator)
-    
+
     // Create a parameter object for the fundamentalFrequency.
     AUParameter *fundamentalFrequencyAUParameter = [AUParameter parameter:@"fundamentalFrequency"
                                                                      name:@"Fundamental Frequency (Hz)"
@@ -47,20 +47,20 @@ standardKernelPassthroughs()
                                                           min:0.0
                                                           max:1.0
                                                          unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     fundamentalFrequencyAUParameter.value = 100;
     feedbackAUParameter.value = 0.95;
-    
+
     _kernel.setParameter(fundamentalFrequencyAddress, fundamentalFrequencyAUParameter.value);
     _kernel.setParameter(feedbackAddress,             feedbackAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              fundamentalFrequencyAUParameter,
                                              feedbackAUParameter
                                              ]];
-    
+
     parameterTreeBlock(StringResonator)
 }
 

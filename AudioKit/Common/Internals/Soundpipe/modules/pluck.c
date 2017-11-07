@@ -1,9 +1,9 @@
 /*
  * pluck
- * 
+ *
  * This code has been extracted from the Csound opcode "pluck"
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Barry Vercoe, John ffitch
  * Year: 1991
  * Location: OOps/ugens4.c
@@ -16,7 +16,7 @@
 #include "soundpipe.h"
 
 #define PLUKMIN 64
- 
+
 int sp_pluck_create(sp_pluck **p)
 {
     *p = malloc(sizeof(sp_pluck));
@@ -36,7 +36,7 @@ static void sp_pluck_reinit(sp_data *sp, sp_pluck *p)
     int n;
     SPFLOAT val = 0;
     SPFLOAT *ap = (SPFLOAT *)p->auxch.ptr;
-    for (n=p->npts; n--; ) {   
+    for (n=p->npts; n--; ) {
         val = (SPFLOAT) ((SPFLOAT) sp_rand(sp) / SP_RANDMAX);
         *ap++ = (val * 2) - 1;
     }
@@ -52,9 +52,9 @@ int sp_pluck_init(sp_data *sp, sp_pluck *p, SPFLOAT ifreq)
     p->freq = ifreq;
 
     if ((npts = (int32_t)(sp->sr / p->ifreq)) < PLUKMIN) {
-        npts = PLUKMIN;                  
+        npts = PLUKMIN;
     }
-    
+
     sp_auxdata_alloc(&p->auxch, (npts + 1) * sizeof(SPFLOAT));
     p->maxpts = npts;
     p->npts = npts;
@@ -94,13 +94,13 @@ int sp_pluck_compute(sp_data *sp, sp_pluck *p, SPFLOAT *trig, SPFLOAT *out)
     if ((phs256 += phsinc) >= ltwopi) {
         int nn;
         SPFLOAT preval;
-        phs256 -= ltwopi;               
+        phs256 -= ltwopi;
         fp=(SPFLOAT *)p->auxch.ptr;
-        preval = fp[0];                
+        preval = fp[0];
         fp[0] = fp[p->npts];
         fp++;
         nn = p->npts;
-        do {          
+        do {
             /* 1st order recursive filter*/
             preval = (*fp + preval) * 0.5;
             *fp++ = preval;

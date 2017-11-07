@@ -71,7 +71,7 @@ extension AKMIDI {
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     for packet in packetList.pointee {
-                        // a CoreMIDI packet may contain multiple MIDI events - 
+                        // a CoreMIDI packet may contain multiple MIDI events -
                         // treat it like an array of events that can be transformed
                         let transformedMIDIEventList = self.transformMIDIEventList([AKMIDIEvent](packet))
                         for transformedEvent in transformedMIDIEventList {

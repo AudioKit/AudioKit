@@ -6,8 +6,8 @@ int sporth_conv(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
     SPFLOAT input;
     SPFLOAT out;
-    
-    const char *ftname; 
+
+    const char *ftname;
     sp_ftbl *ft;
     SPFLOAT iPartLen;
     sp_conv *conv;
@@ -41,7 +41,7 @@ int sporth_conv(sporth_stack *stack, void *ud)
             iPartLen = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
             conv = pd->last->ud;
-            
+
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
                 stack->error++;
                 return PLUMBER_NOTOK;
