@@ -88,4 +88,4 @@ typename DynArray<T>::DataType &DynArray<T>::operator[](long pos) {
 
 #undef ffft_DynArray_CURRENT_CODEHEADER
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+

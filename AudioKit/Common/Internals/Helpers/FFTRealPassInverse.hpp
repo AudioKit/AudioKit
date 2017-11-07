@@ -178,4 +178,4 @@ inline void FFTRealPassInverse<1>::process_internal(
 
 #undef ffft_FFTRealPassInverse_CURRENT_CODEHEADER
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+

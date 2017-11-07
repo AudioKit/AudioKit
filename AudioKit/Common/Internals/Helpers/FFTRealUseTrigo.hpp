@@ -64,4 +64,4 @@ inline void FFTRealUseTrigo<0>::iterate(OscType &osc, DataType &c, DataType &s,
 
 #undef ffft_FFTRealUseTrigo_CURRENT_CODEHEADER
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
