@@ -13,78 +13,49 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
+#if !defined(ffft_FFTRealFixLenParam_HEADER_INCLUDED)
+#define ffft_FFTRealFixLenParam_HEADER_INCLUDED
 
-
-#if ! defined (ffft_FFTRealFixLenParam_HEADER_INCLUDED)
-#define	ffft_FFTRealFixLenParam_HEADER_INCLUDED
-
-#if defined (_MSC_VER)
-	#pragma once
-	#pragma warning (4 : 4250) // "Inherits via dominance."
+#if defined(_MSC_VER)
+#pragma once
+#pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
-
-
 
 /*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
+namespace ffft {
 
+class FFTRealFixLenParam {
 
-namespace ffft
-{
-
-
-
-class FFTRealFixLenParam
-{
-
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 public:
+  // Over this bit depth, we use direct calculation for sin/cos
+  enum { TRIGO_BD_LIMIT = 12 };
 
-   // Over this bit depth, we use direct calculation for sin/cos
-   enum {	      TRIGO_BD_LIMIT	= 12  };
+  typedef float DataType;
 
-	typedef	float	DataType;
-
-
-
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  /*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 protected:
-
-
-
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 private:
-
-
-
-/*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 private:
+  FFTRealFixLenParam();
+  FFTRealFixLenParam(const FFTRealFixLenParam &other);
+  FFTRealFixLenParam &operator=(const FFTRealFixLenParam &other);
+  bool operator==(const FFTRealFixLenParam &other);
+  bool operator!=(const FFTRealFixLenParam &other);
 
-						FFTRealFixLenParam ();
-						FFTRealFixLenParam (const FFTRealFixLenParam &other);
-	FFTRealFixLenParam &
-						operator = (const FFTRealFixLenParam &other);
-	bool				operator == (const FFTRealFixLenParam &other);
-	bool				operator != (const FFTRealFixLenParam &other);
+}; // class FFTRealFixLenParam
 
-};	// class FFTRealFixLenParam
-
-
-
-}	// namespace ffft
-
-
+} // namespace ffft
 
 //#include	"ffft/FFTRealFixLenParam.hpp"
 
-
-
-#endif	// ffft_FFTRealFixLenParam_HEADER_INCLUDED
-
-
+#endif // ffft_FFTRealFixLenParam_HEADER_INCLUDED
 
 /*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/

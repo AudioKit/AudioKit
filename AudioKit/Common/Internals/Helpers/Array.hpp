@@ -13,87 +13,53 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
-
-
-#if defined (ffft_Array_CURRENT_CODEHEADER)
-	#error Recursive inclusion of Array code header.
+#if defined(ffft_Array_CURRENT_CODEHEADER)
+#error Recursive inclusion of Array code header.
 #endif
-#define	ffft_Array_CURRENT_CODEHEADER
+#define ffft_Array_CURRENT_CODEHEADER
 
-#if ! defined (ffft_Array_CODEHEADER_INCLUDED)
-#define	ffft_Array_CODEHEADER_INCLUDED
-
-
+#if !defined(ffft_Array_CODEHEADER_INCLUDED)
+#define ffft_Array_CODEHEADER_INCLUDED
 
 /*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-#include	<cassert>
+#include <cassert>
 
-
-
-namespace ffft
-{
-
-
+namespace ffft {
 
 /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-
-
-template <class T, long LEN>
-Array <T, LEN>::Array ()
-{
-	// Nothing
+template <class T, long LEN> Array<T, LEN>::Array() {
+  // Nothing
 }
 
-
-
 template <class T, long LEN>
-const typename Array <T, LEN>::DataType &	Array <T, LEN>::operator [] (long pos) const
-{
-	assert (pos >= 0);
-	assert (pos < LEN);
+const typename Array<T, LEN>::DataType &Array<T, LEN>::
+operator[](long pos) const {
+  assert(pos >= 0);
+  assert(pos < LEN);
 
-	return (_data_arr [pos]);
+  return (_data_arr[pos]);
 }
 
-
-
 template <class T, long LEN>
-typename Array <T, LEN>::DataType &	Array <T, LEN>::operator [] (long pos)
-{
-	assert (pos >= 0);
-	assert (pos < LEN);
+typename Array<T, LEN>::DataType &Array<T, LEN>::operator[](long pos) {
+  assert(pos >= 0);
+  assert(pos < LEN);
 
-	return (_data_arr [pos]);
+  return (_data_arr[pos]);
 }
 
-
-
-template <class T, long LEN>
-long	Array <T, LEN>::size ()
-{
-	return (LEN);
-}
-
-
+template <class T, long LEN> long Array<T, LEN>::size() { return (LEN); }
 
 /*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-
-
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
+} // namespace ffft
 
-
-}	// namespace ffft
-
-
-
-#endif	// ffft_Array_CODEHEADER_INCLUDED
+#endif // ffft_Array_CODEHEADER_INCLUDED
 
 #undef ffft_Array_CURRENT_CODEHEADER
-
-
 
 /*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/

@@ -13,86 +13,54 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
+#if !defined(ffft_Array_HEADER_INCLUDED)
+#define ffft_Array_HEADER_INCLUDED
 
-
-#if ! defined (ffft_Array_HEADER_INCLUDED)
-#define	ffft_Array_HEADER_INCLUDED
-
-#if defined (_MSC_VER)
-	#pragma once
-	#pragma warning (4 : 4250) // "Inherits via dominance."
+#if defined(_MSC_VER)
+#pragma once
+#pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
-
-
 
 /*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
+namespace ffft {
 
+template <class T, long LEN> class Array {
 
-namespace ffft
-{
-
-
-
-template <class T, long LEN>
-class Array
-{
-
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 public:
+  typedef T DataType;
 
-	typedef	T	DataType;
+  Array();
 
-						Array ();
+  inline const DataType &operator[](long pos) const;
+  inline DataType &operator[](long pos);
 
-	inline const DataType &
-						operator [] (long pos) const;
-	inline DataType &
-						operator [] (long pos);
+  static inline long size();
 
-	static inline long
-						size ();
-
-
-
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  /*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 protected:
-
-
-
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 private:
+  DataType _data_arr[LEN];
 
-	DataType			_data_arr [LEN];
-
-
-
-/*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 private:
+  Array(const Array &other);
+  Array &operator=(const Array &other);
+  bool operator==(const Array &other);
+  bool operator!=(const Array &other);
 
-						Array (const Array &other);
-	Array &			operator = (const Array &other);
-	bool				operator == (const Array &other);
-	bool				operator != (const Array &other);
+}; // class Array
 
-};	// class Array
+} // namespace ffft
 
+#include "ffft/Array.hpp"
 
-
-}	// namespace ffft
-
-
-
-#include	"ffft/Array.hpp"
-
-
-
-#endif	// ffft_Array_HEADER_INCLUDED
-
-
+#endif // ffft_Array_HEADER_INCLUDED
 
 /*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
