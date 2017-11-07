@@ -1,5 +1,4 @@
-#ifndef STK_SHAKERS_H
-#define STK_SHAKERS_H
+#pragma once
 
 #include "Instrmnt.h"
 #include <cmath>
@@ -328,4 +327,3 @@ inline StkFrames &Shakers::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

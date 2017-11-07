@@ -1,5 +1,4 @@
-#ifndef STK_ONEPOLE_H
-#define STK_ONEPOLE_H
+#pragma once
 
 #include "Filter.h"
 
@@ -132,4 +131,4 @@ inline StkFrames &OnePole::tick(StkFrames &iFrames, StkFrames &oFrames,
 
 }
 
-#endif
+

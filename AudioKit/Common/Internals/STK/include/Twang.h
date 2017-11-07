@@ -1,5 +1,4 @@
-#ifndef STK_TWANG_H
-#define STK_TWANG_H
+#pragma once
 
 #include "DelayA.h"
 #include "DelayL.h"
@@ -158,4 +157,3 @@ inline StkFrames &Twang::tick(StkFrames &iFrames, StkFrames &oFrames,
 
 }
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef STK_FIR_H
-#define STK_FIR_H
+#pragma once
 
 #include "Filter.h"
 
@@ -155,4 +154,3 @@ inline StkFrames &Fir::tick(StkFrames &iFrames, StkFrames &oFrames,
 
 }
 
-#endif

@@ -39,8 +39,7 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#ifndef TPCircularBuffer_h
-#define TPCircularBuffer_h
+#pragma once
 
 #include <stdbool.h>
 #include <string.h>
@@ -240,4 +239,4 @@ void TPCircularBufferProduceNoBarrier(TPCircularBuffer *buffer, int32_t amount) 
 }
 #endif
 
-#endif
+

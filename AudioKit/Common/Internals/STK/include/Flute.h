@@ -1,5 +1,4 @@
-#ifndef STK_FLUTE_H
-#define STK_FLUTE_H
+#pragma once
 
 #include "ADSR.h"
 #include "DelayL.h"
@@ -162,4 +161,3 @@ inline StkFrames &Flute::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

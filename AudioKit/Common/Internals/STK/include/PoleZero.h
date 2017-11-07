@@ -1,5 +1,4 @@
-#ifndef STK_POLEZERO_H
-#define STK_POLEZERO_H
+#pragma once
 
 #include "Filter.h"
 
@@ -108,4 +107,3 @@ inline StkFrames &PoleZero::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

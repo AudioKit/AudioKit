@@ -1,5 +1,4 @@
-#ifndef STK_FILEREAD_H
-#define STK_FILEREAD_H
+#pragma once
 
 #include "Stk.h"
 
@@ -140,4 +139,3 @@ protected:
 
 }
 
-#endif

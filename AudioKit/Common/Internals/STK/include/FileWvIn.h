@@ -1,5 +1,4 @@
-#ifndef STK_FILEWVIN_H
-#define STK_FILEWVIN_H
+#pragma once
 
 #include "FileRead.h"
 #include "WvIn.h"
@@ -195,4 +194,3 @@ inline StkFloat FileWvIn::lastOut(unsigned int channel) {
 
 }
 
-#endif

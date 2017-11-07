@@ -27,8 +27,6 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#ifndef TPCircularBuffer_AudioBufferList_h
-#define TPCircularBuffer_AudioBufferList_h
 
 #ifdef __cplusplus
 extern "C" {
@@ -229,4 +227,3 @@ UInt32 TPCircularBufferGetAvailableSpace(TPCircularBuffer *buffer, const AudioSt
 }
 #endif
 
-#endif

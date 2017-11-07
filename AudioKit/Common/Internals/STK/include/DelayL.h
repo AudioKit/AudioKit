@@ -1,5 +1,4 @@
-#ifndef STK_DELAYL_H
-#define STK_DELAYL_H
+#pragma once
 
 #include "Filter.h"
 
@@ -235,4 +234,4 @@ inline StkFrames &DelayL::tick(StkFrames &iFrames, StkFrames &oFrames,
 
 }
 
-#endif
+

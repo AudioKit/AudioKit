@@ -1,5 +1,4 @@
-#ifndef STK_ADSR_H
-#define STK_ADSR_H
+#pragma once
 
 #include "Generator.h"
 
@@ -173,4 +172,3 @@ inline StkFrames &ADSR::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef STK_NOISE_H
-#define STK_NOISE_H
+#pragma once
 
 #include "Generator.h"
 #include <stdlib.h>
@@ -76,4 +75,3 @@ inline StkFrames &Noise::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif
