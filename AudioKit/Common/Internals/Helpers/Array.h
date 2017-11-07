@@ -61,6 +61,6 @@ private:
 
 #include "ffft/Array.hpp"
 
-#endif // ffft_Array_HEADER_INCLUDED
+#endif
 
 

@@ -36,7 +36,7 @@ inline float *FFTRealSelect<0>::sel_bin(float *e_ptr, float *o_ptr) {
 
 }
 
-#endif // ffft_FFTRealSelect_CODEHEADER_INCLUDED
+#endif
 
 #undef ffft_FFTRealSelect_CURRENT_CODEHEADER
 

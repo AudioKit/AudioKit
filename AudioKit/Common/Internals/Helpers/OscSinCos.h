@@ -68,6 +68,6 @@ private:
 
 #include "OscSinCos.hpp"
 
-#endif // ffft_OscSinCos_HEADER_INCLUDED
+#endif
 
 

@@ -108,6 +108,6 @@ private:
 
 #include "FFTReal.hpp"
 
-#endif // ffft_FFTReal_HEADER_INCLUDED
+#endif
 
 

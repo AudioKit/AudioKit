@@ -64,6 +64,6 @@ private:
 
 #include "ffft/FFTRealPassDirect.hpp"
 
-#endif // ffft_FFTRealPassDirect_HEADER_INCLUDED
+#endif
 
 

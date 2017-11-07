@@ -94,6 +94,6 @@ private:
 
 #include "ffft/FFTRealFixLen.hpp"
 
-#endif // ffft_FFTRealFixLen_HEADER_INCLUDED
+#endif
 
 
