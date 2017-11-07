@@ -244,7 +244,7 @@ public:
                         startPointToUse = loopStartPoint;
                         endPointToUse = loopEndPoint;
                     }
-                    playingBackwards = (endPointToUse < startPointToUse ? true : false);
+                    playingBackwards = endPointToUse < startPointToUse;
                 }
 
                 if (!loop && nextPosition > 1) {
