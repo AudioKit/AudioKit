@@ -327,12 +327,12 @@ NSString * const EZAudioPlayerDidSeekNotification = @"EZAudioPlayerDidSeekNotifi
     // stop playing anything that might currently be playing
     //
     [self pause];
-    
+
     //
     // set new stream
     //
     self.audioFile = audioFile;
-    
+
     //
     // begin playback
     //

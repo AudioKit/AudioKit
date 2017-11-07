@@ -42,13 +42,13 @@ VoicForm :: VoicForm( void ) : Instrmnt()
 
   for ( int i=0; i<4; i++ )
     filters_[i].setSweepRate( 0.001 );
-    
+
   onezero_.setZero( -0.9 );
   onepole_.setPole( 0.9 );
-    
+
   noiseEnv_.setRate( 0.001 );
   noiseEnv_.setTarget( 0.0 );
-    
+
   this->setPhoneme( "eee" );
   this->clear();
 }  

@@ -19,12 +19,12 @@ enum {
 class AKLowShelfParametricEqualizerFilterDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
-    
+
     AKLowShelfParametricEqualizerFilterDSPKernel() {}
-    
+
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-        
+
         sp_pareq_create(&pareq0);
         sp_pareq_create(&pareq1);
         sp_pareq_init(sp, pareq0);
@@ -37,104 +37,104 @@ public:
         pareq1->q = 0.707;
         pareq0->mode = 1;
         pareq1->mode = 1;
-        
+
         cornerFrequencyRamper.init();
         gainRamper.init();
         qRamper.init();
     }
-    
+
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
-    
+
     void destroy() {
         sp_pareq_destroy(&pareq0);
         sp_pareq_destroy(&pareq1);
         AKSoundpipeKernel::destroy();
     }
-    
+
     void reset() {
         resetted = true;
         cornerFrequencyRamper.reset();
         gainRamper.reset();
         qRamper.reset();
     }
-    
+
     void setCornerFrequency(float value) {
         cornerFrequency = clamp(value, 12.0f, 20000.0f);
         cornerFrequencyRamper.setImmediate(cornerFrequency);
     }
-    
+
     void setGain(float value) {
         gain = clamp(value, 0.0f, 10.0f);
         gainRamper.setImmediate(gain);
     }
-    
+
     void setQ(float value) {
         q = clamp(value, 0.0f, 2.0f);
         qRamper.setImmediate(q);
     }
-    
-    
+
+
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case cornerFrequencyAddress:
                 cornerFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
-                
+
             case gainAddress:
                 gainRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
-                
+
             case qAddress:
                 qRamper.setUIValue(clamp(value, 0.0f, 2.0f));
                 break;
-                
+
         }
     }
-    
+
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case cornerFrequencyAddress:
                 return cornerFrequencyRamper.getUIValue();
-                
+
             case gainAddress:
                 return gainRamper.getUIValue();
-                
+
             case qAddress:
                 return qRamper.getUIValue();
-                
+
             default: return 0.0f;
         }
     }
-    
+
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case cornerFrequencyAddress:
                 cornerFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
-                
+
             case gainAddress:
                 gainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
-                
+
             case qAddress:
                 qRamper.startRamp(clamp(value, 0.0f, 2.0f), duration);
                 break;
-                
+
         }
     }
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            
+
             int frameOffset = int(frameIndex + bufferOffset);
-            
+
             cornerFrequency = cornerFrequencyRamper.getAndStep();
             pareq0->fc = (float)cornerFrequency;
             pareq1->fc = (float)cornerFrequency;
@@ -144,11 +144,11 @@ public:
             q = qRamper.getAndStep();
             pareq0->q = (float)q;
             pareq1->q = (float)q;
-            
+
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     if (channel == 0) {
                         sp_pareq_compute(sp, pareq0, in, out);
@@ -161,18 +161,18 @@ public:
             }
         }
     }
-    
+
     // MARK: Member Variables
-    
+
 private:
-    
+
     sp_pareq *pareq0;
     sp_pareq *pareq1;
-    
+
     float cornerFrequency = 1000;
     float gain = 1.0;
     float q = 0.707;
-    
+
 public:
     bool started = true;
     bool resetted = false;

@@ -500,7 +500,7 @@ static void prop_slice_append(prop_data *pd)
 {
     prop_entry *entry = pd->main->top->last;
     prop_slice *slice = (prop_slice *)entry->val.ud;
-    
+
     prop_list *new = malloc(sizeof(prop_list));
     prop_list_init(new);
     slice->size++;

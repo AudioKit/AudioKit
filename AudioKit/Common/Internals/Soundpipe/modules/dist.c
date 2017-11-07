@@ -40,7 +40,7 @@ int sp_dist_compute(sp_data *sp, sp_dist *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT pregain = p->pregain, postgain  = p->postgain;
     SPFLOAT shape1 = p->shape1, shape2 = p->shape2;
     SPFLOAT sig;
-    
+
     pregain   *=  6.5536;
     postgain  *=  0.61035156;
     shape1    *=  4.096;

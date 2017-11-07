@@ -33,7 +33,7 @@ int sporth_fload(sporth_stack *stack, void *ud)
             }
             fload->filename= sporth_stack_pop_string(stack);
             fload->name = sporth_stack_pop_string(stack);
-          
+
             if(getenv("SPORTH_PLUGIN_PATH") != NULL && 
                 fload->filename[0] != '.') {
                 sprintf(buf, "%s/%s", 
@@ -99,7 +99,7 @@ int sporth_fclose(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             fclose->name = sporth_stack_pop_string(stack);
-           
+
             if(plumber_ftmap_search_userdata(pd, fclose->name, (void *)&fload) == PLUMBER_NOTOK) {
                 stack->error++;
                 return PLUMBER_NOTOK;
@@ -154,7 +154,7 @@ int sporth_fexec(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             fexec->name = sporth_stack_pop_string(stack);
-           
+
             if(plumber_ftmap_search_userdata(pd, fexec->name, (void *)&fload) == PLUMBER_NOTOK) {
                 stack->error++;
                 return PLUMBER_NOTOK;
@@ -214,7 +214,7 @@ int sporth_floadi(sporth_stack *stack, void *ud)
             fload->filename= sporth_stack_pop_string(stack);
             num = sporth_stack_pop_float(stack);
             fload->name = sporth_stack_pop_string(stack);
-          
+
             if(getenv("SPORTH_PLUGIN_PATH") != NULL && 
                 fload->filename[0] != '.') {
                 sprintf(buf, "%s/%s", 

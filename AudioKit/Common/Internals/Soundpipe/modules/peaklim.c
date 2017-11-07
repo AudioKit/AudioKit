@@ -65,7 +65,7 @@ int sp_peaklim_compute(sp_data *sp, sp_peaklim *p, SPFLOAT *in, SPFLOAT *out)
 		p->b0_r = 1 - p->a1_r;
     }
 
-    
+
     if ( fabs(*in) > p->level)
         p->level += p->b0_a * ( fabs(*in) - p->level);
     else

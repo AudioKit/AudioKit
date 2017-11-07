@@ -49,7 +49,7 @@ int sporth_prints(sporth_stack *stack, void *ud)
                 plumber_print(pd, "Print: unknown type\n");
                 return PLUMBER_NOTOK;
             }
-            
+
             strncpy(prnt->label, str, 128);
             prnt->init = 1;
             break;

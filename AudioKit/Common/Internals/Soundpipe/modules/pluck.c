@@ -54,7 +54,7 @@ int sp_pluck_init(sp_data *sp, sp_pluck *p, SPFLOAT ifreq)
     if ((npts = (int32_t)(sp->sr / p->ifreq)) < PLUKMIN) {
         npts = PLUKMIN;                  
     }
-    
+
     sp_auxdata_alloc(&p->auxch, (npts + 1) * sizeof(SPFLOAT));
     p->maxpts = npts;
     p->npts = npts;

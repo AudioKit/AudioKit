@@ -50,10 +50,10 @@ int sp_rms_compute(sp_data *sp, sp_rms *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT c1 = p->c1, c2 = p->c2;
 
     q = p->prvq;
-    
+
     SPFLOAT as = *in;
     q = c1 * as * as + c2 * q;
-    
+
     p->prvq = q;
     *out = sqrt(q);
     return SP_OK;

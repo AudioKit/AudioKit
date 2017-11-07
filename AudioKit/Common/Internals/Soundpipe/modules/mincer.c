@@ -62,7 +62,7 @@ int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft, int winsize)
     int pow;
 
     /* find power to use for fft */
-    
+
     pow = find_power(winsize);
     /* 2^11 = 2048, the default fftsize, will probably not change */
     sp_fft_init(&p->fft, pow);
@@ -89,7 +89,7 @@ int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft, int winsize)
     }
     size = decim*sizeof(SPFLOAT)*N;
     sp_auxdata_alloc(&p->outframe, size);
-    
+
     size = N*sizeof(SPFLOAT);
     sp_auxdata_alloc(&p->win, size);
     {

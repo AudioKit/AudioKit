@@ -58,7 +58,7 @@ int sp_osc_compute(sp_data *sp, sp_osc *osc, SPFLOAT *in, SPFLOAT *out)
     cps = osc->freq;
     phs = osc->lphs;
     ft = osc->tbl->tbl;
-    
+
     osc->inc = (int32_t)lrintf(cps * sicvt);
 
     fract = ((phs) & ftp->lomask) * ftp->lodiv;

@@ -42,9 +42,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(DynaRageCompressor)
-    
+
     // Create a parameter object for the ratio.
     AUParameter *ratioAUParameter =
     [AUParameter parameter:@"ratio"
@@ -77,7 +77,7 @@ standardKernelPassthroughs()
                        min:0.1
                        max:500.0
                       unit:kAudioUnitParameterUnit_Seconds];
-    
+
     // Create a parameter object for the rageAmount.
     AUParameter *rageAmountAUParameter =
     [AUParameter parameter:@"rageAmount"
@@ -86,21 +86,21 @@ standardKernelPassthroughs()
                        min:0.1
                        max:20.0
                       unit:kAudioUnitParameterUnit_Generic];
-    
-    
+
+
     // Initialize the parameter values.
     ratioAUParameter.value = 1.0;
     thresholdAUParameter.value = 0.0;
     attackTimeAUParameter.value = 0.1;
     releaseTimeAUParameter.value = 0.1;
     rageAmountAUParameter.value = 0.1;
-    
+
     _kernel.setParameter(ratioAddress,       ratioAUParameter.value);
     _kernel.setParameter(thresholdAddress,   thresholdAUParameter.value);
     _kernel.setParameter(attackTimeAddress,  attackTimeAUParameter.value);
     _kernel.setParameter(releaseTimeAddress, releaseTimeAUParameter.value);
     _kernel.setParameter(rageAmountAddress,  rageAmountAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              ratioAUParameter,
@@ -109,7 +109,7 @@ standardKernelPassthroughs()
                                              releaseTimeAUParameter,
                                              rageAmountAUParameter
                                              ]];
-    
+
     parameterTreeBlock(DynaRageCompressor)
 }
 

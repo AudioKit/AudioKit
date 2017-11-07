@@ -340,7 +340,7 @@ int sp_phaser_init(sp_data *sp, sp_phaser *p)
     buildUserInterfacephaser(dsp, &UI);
     initphaser(dsp, sp->sr);
 
-     
+
     p->MaxNotch1Freq = p->args[0]; 
     p->MinNotch1Freq = p->args[1]; 
     p->Notch_width = p->args[2]; 

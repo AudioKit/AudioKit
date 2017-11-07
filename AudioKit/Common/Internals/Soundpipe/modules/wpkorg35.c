@@ -70,7 +70,7 @@ int sp_wpkorg35_init(sp_data *sp, sp_wpkorg35 *p)
 
     p->lpf1_a = 1.0;
     p->lpf1_z = 0.0;
-    
+
     /* initialize LPF2 */
 
     p->lpf2_a = 1.0;
@@ -104,7 +104,7 @@ int sp_wpkorg35_compute(sp_data *sp, sp_wpkorg35 *p, SPFLOAT *in, SPFLOAT *out)
     p->lpf1_z = y1 + vn;
 
     /* form feedback value */
-    
+
     S35 = (p->hpf_z * p->hpf_b) + (p->lpf2_z * p->lpf2_b); 
 
     /* Calculate u */

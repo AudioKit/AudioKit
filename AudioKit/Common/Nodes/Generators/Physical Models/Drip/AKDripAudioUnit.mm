@@ -49,9 +49,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(Drip)
-    
+
     // Create a parameter object for the intensity.
     AUParameter *intensityAUParameter = [AUParameter parameter:@"intensity"
                                                           name:@"The intensity of the dripping sounds."
@@ -66,7 +66,7 @@ standardKernelPassthroughs()
                                                                min:0.0
                                                                max:2.0
                                                               unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Create a parameter object for the energyReturn.
     AUParameter *energyReturnAUParameter = [AUParameter parameter:@"energyReturn"
                                                              name:@"The amount of energy to add back into the system."
@@ -74,7 +74,7 @@ standardKernelPassthroughs()
                                                               min:0
                                                               max:100
                                                              unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Create a parameter object for the mainResonantFrequency.
     AUParameter *mainResonantFrequencyAUParameter = [AUParameter parameter:@"mainResonantFrequency"
                                                                       name:@"Main resonant frequency."
@@ -82,7 +82,7 @@ standardKernelPassthroughs()
                                                                        min:0
                                                                        max:22000
                                                                       unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Create a parameter object for the firstResonantFrequency.
     AUParameter *firstResonantFrequencyAUParameter = [AUParameter parameter:@"firstResonantFrequency"
                                                                        name:@"The first resonant frequency."
@@ -90,7 +90,7 @@ standardKernelPassthroughs()
                                                                         min:0
                                                                         max:22000
                                                                        unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Create a parameter object for the secondResonantFrequency.
     AUParameter *secondResonantFrequencyAUParameter = [AUParameter parameter:@"secondResonantFrequency"
                                                                         name:@"The second resonant frequency."
@@ -105,7 +105,7 @@ standardKernelPassthroughs()
                                                            min:0
                                                            max:1
                                                           unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     intensityAUParameter.value = 10;
     dampingFactorAUParameter.value = 0.2;
@@ -114,8 +114,8 @@ standardKernelPassthroughs()
     firstResonantFrequencyAUParameter.value = 600;
     secondResonantFrequencyAUParameter.value = 750;
     amplitudeAUParameter.value = 0.3;
-    
-    
+
+
     _kernel.setParameter(intensityAddress,               intensityAUParameter.value);
     _kernel.setParameter(dampingFactorAddress,           dampingFactorAUParameter.value);
     _kernel.setParameter(energyReturnAddress,            energyReturnAUParameter.value);
@@ -123,7 +123,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(firstResonantFrequencyAddress,  firstResonantFrequencyAUParameter.value);
     _kernel.setParameter(secondResonantFrequencyAddress, secondResonantFrequencyAUParameter.value);
     _kernel.setParameter(amplitudeAddress,               amplitudeAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              intensityAUParameter,
@@ -134,8 +134,8 @@ standardKernelPassthroughs()
                                              secondResonantFrequencyAUParameter,
                                              amplitudeAUParameter
                                              ]];
-    
-    
+
+
     parameterTreeBlock(Drip)
 }
 

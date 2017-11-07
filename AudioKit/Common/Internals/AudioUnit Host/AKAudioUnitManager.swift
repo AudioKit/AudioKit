@@ -239,7 +239,7 @@ open class AKAudioUnitManager: NSObject {
             /*
              Locating components can be a little slow, especially the first time.
              Do this work on a separate dispatch thread.
-             
+
              Make a component description matching any AU of the type.
              */
             var componentDescription = AudioComponentDescription()

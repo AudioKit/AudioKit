@@ -146,7 +146,7 @@ int sp_compressor_init(sp_data *sp, sp_compressor *p)
     buildUserInterfacecompressor(dsp, &UI);
     initcompressor(dsp, sp->sr);
 
-     
+
     p->ratio = p->args[0]; 
     p->thresh = p->args[1]; 
     p->atk = p->args[2]; 

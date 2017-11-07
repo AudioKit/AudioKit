@@ -16,17 +16,17 @@ compGain(0.0f)
     theThreshold = fThreshold;
     theRatio = fRatio;
 
-       
+
     envDetector.init((float)iSampleRate, fAttack, fRelease, false, DETECT_MODE_RMS, true);
-    
+
     delayLookAhead.init(1 * iSampleRate);
-    
+
 	// set the current value
 	delayLookAhead.setDelay_mSec(0.0f);
 	
 	// flush delays
 	delayLookAhead.resetDelay();
-    
+
 }
 
 void Compressor::setParameters(float fThreshold, float fRatio, float fAttack, float fRelease)
@@ -41,19 +41,19 @@ void Compressor::setParameters(float fThreshold, float fRatio, float fAttack, fl
 float Compressor::Process(float fInputSignal, bool bLimitOn, float fSensitivity)
 {
     float fOutputSignal;
-    
+
     float fDetector = envDetector.detect(fInputSignal * fSensitivity);
-    
+
     float fGn = 1.0;
-    
+
     fGn = calcCompressorGain(fDetector, theThreshold, theRatio, 1.0f, (bLimitOn ? true : false));
     this->compGain = fGn;
-    
+
     float fLookAheadOut = 0.0f;
     delayLookAhead.processAudio(&fInputSignal, &fLookAheadOut);
-    
+
     fOutputSignal = fGn * fLookAheadOut;
-    
+
     return fOutputSignal;
 }
 
@@ -61,7 +61,7 @@ float Compressor::calcCompressorGain(float fDetectorValue, float fTheThreshold, 
 {
     // slope variable
 	float CS = 1.0f - 1.0f / fTheRatio; // [Eq. 13.1]
-    
+
 	// limiting is infinite ratio thus CS->1.0
 	if(bLimit)
 		CS = 1;
@@ -82,10 +82,10 @@ float Compressor::calcCompressorGain(float fDetectorValue, float fTheThreshold, 
 		// interpolate & overwrite CS
 		CS = (float)lagrpol(&x[0], &y[0], 2, fDetectorValue);
 	}
-    
+
 	// compute gain; threshold and detection values are in dB
 	float yG = CS*(fTheThreshold - fDetectorValue);  // [Eq. 13.1]
-    
+
 	// clamp; this allows ratios of 1:1 to still operate
 	yG = min(0, yG);
 	

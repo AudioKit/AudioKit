@@ -30,9 +30,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(CostelloReverb)
-    
+
     // Create a parameter object for the feedback.
     AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
                                                          name:@"Feedback (%)"
@@ -47,20 +47,20 @@ standardKernelPassthroughs()
                                                                  min:12.0
                                                                  max:20000.0
                                                                 unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Initialize the parameter values.
     feedbackAUParameter.value = 0.6;
     cutoffFrequencyAUParameter.value = 4000;
-    
+
     _kernel.setParameter(feedbackAddress,        feedbackAUParameter.value);
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              feedbackAUParameter,
                                              cutoffFrequencyAUParameter
                                              ]];
-    
+
     parameterTreeBlock(CostelloReverb)
 }
 

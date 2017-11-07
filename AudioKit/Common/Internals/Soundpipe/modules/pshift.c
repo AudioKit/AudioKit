@@ -130,7 +130,7 @@ int sp_pshift_init(sp_data *sp, sp_pshift *p)
     buildUserInterfacepshift(dsp, &UI);
     initpshift(dsp, sp->sr);
 
-     
+
     p->shift = p->args[0]; 
     p->window = p->args[1]; 
     p->xfade = p->args[2];
