@@ -25,13 +25,13 @@ namespace stk {
 class SineWave : public Generator {
 public:
   //! Default constructor.
-  SineWave(void);
+  SineWave();
 
   //! Class destructor.
-  ~SineWave(void);
+  ~SineWave();
 
   //! Clear output and reset time pointer to zero.
-  void reset(void);
+  void reset();
 
   //! Set the data read rate in samples.  The rate can be negative.
   /*!
@@ -70,7 +70,7 @@ public:
   StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Compute and return one output sample.
-  StkFloat tick(void);
+  StkFloat tick();
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!

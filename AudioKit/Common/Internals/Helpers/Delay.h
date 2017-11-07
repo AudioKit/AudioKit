@@ -14,8 +14,8 @@
 class CDelay {
 public:
   // constructor/destructor
-  CDelay(void);
-  virtual ~CDelay(void); // base class MUST declare virtual destructor
+  CDelay();
+  virtual ~CDelay(); // base class MUST declare virtual destructor
 
 protected:
   // member variables

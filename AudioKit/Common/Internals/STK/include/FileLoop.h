@@ -35,7 +35,7 @@ public:
            unsigned long chunkSize = 1024);
 
   //! Class destructor.
-  ~FileLoop(void);
+  ~FileLoop();
 
   //! Open the specified file and load its data.
   /*!

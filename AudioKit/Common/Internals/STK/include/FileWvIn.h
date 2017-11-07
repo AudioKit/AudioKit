@@ -55,7 +55,7 @@ public:
            unsigned long chunkSize = 1024);
 
   //! Class destructor.
-  ~FileWvIn(void);
+  ~FileWvIn();
 
   //! Open the specified file and load its data.
   /*!
@@ -71,17 +71,17 @@ public:
                         bool doNormalize = true);
 
   //! Close a file if one is open.
-  virtual void closeFile(void);
+  virtual void closeFile();
 
   //! Clear outputs and reset time (file) pointer to zero.
-  virtual void reset(void);
+  virtual void reset();
 
   //! Normalize data to a maximum of +-1.0.
   /*!
     This function has no effect when data is incrementally loaded
     from disk.
   */
-  virtual void normalize(void);
+  virtual void normalize();
 
   //! Normalize data to a maximum of \e +-peak.
   /*!

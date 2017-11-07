@@ -45,10 +45,10 @@ public:
   Flute(StkFloat lowestFrequency);
 
   //! Class destructor.
-  ~Flute(void);
+  ~Flute();
 
   //! Reset and clear all internal state.
-  void clear(void);
+  void clear();
 
   //! Set instrument parameters for a particular frequency.
   void setFrequency(StkFloat frequency);

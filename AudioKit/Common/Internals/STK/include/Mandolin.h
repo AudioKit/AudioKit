@@ -41,10 +41,10 @@ public:
   Mandolin(StkFloat lowestFrequency);
 
   //! Class destructor.
-  ~Mandolin(void);
+  ~Mandolin();
 
   //! Reset and clear all internal state.
-  void clear(void);
+  void clear();
 
   //! Detune the two strings by the given factor.  A value of 1.0 produces
   //! unison strings.

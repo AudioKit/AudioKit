@@ -44,10 +44,10 @@ public:
   Clarinet(StkFloat lowestFrequency = 8.0);
 
   //! Class destructor.
-  ~Clarinet(void);
+  ~Clarinet();
 
   //! Reset and clear all internal state.
-  void clear(void);
+  void clear();
 
   //! Set instrument parameters for a particular frequency.
   void setFrequency(StkFloat frequency);

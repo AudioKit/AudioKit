@@ -37,7 +37,7 @@ public:
   Twang(StkFloat lowestFrequency = 50.0);
 
   //! Reset and clear all internal state.
-  void clear(void);
+  void clear();
 
   //! Set the delayline parameters to allow frequencies as low as specified.
   void setLowestFrequency(StkFloat frequency);

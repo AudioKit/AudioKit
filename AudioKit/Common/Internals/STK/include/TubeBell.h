@@ -43,10 +43,10 @@ public:
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  TubeBell(void);
+  TubeBell();
 
   //! Class destructor.
-  ~TubeBell(void);
+  ~TubeBell();
 
   //! Start a note with the given frequency and amplitude.
   void noteOn(StkFloat frequency, StkFloat amplitude);

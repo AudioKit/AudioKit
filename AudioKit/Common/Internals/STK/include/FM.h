@@ -44,7 +44,7 @@ public:
   FM(unsigned int operators = 4);
 
   //! Class destructor.
-  virtual ~FM(void);
+  virtual ~FM();
 
   //! Load the rawwave filenames in waves.
   void loadWaves(const char **filenames);
@@ -71,10 +71,10 @@ public:
   void setControl2(StkFloat cVal) { control2_ = cVal * 2.0; };
 
   //! Start envelopes toward "on" targets.
-  void keyOn(void);
+  void keyOn();
 
   //! Start envelopes toward "off" targets.
-  void keyOff(void);
+  void keyOff();
 
   //! Stop a note with the given amplitude (speed of decay).
   void noteOff(StkFloat amplitude);

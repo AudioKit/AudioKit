@@ -25,8 +25,8 @@
 class CCombFilter : public CDelay {
 public:
   // constructor/destructor
-  CCombFilter(void);
-  ~CCombFilter(void);
+  CCombFilter();
+  ~CCombFilter();
 
   // members
 protected:

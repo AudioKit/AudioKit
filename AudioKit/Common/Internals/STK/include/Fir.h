@@ -30,7 +30,7 @@ namespace stk {
 class Fir : public Filter {
 public:
   //! Default constructor creates a zero-order pass-through "filter".
-  Fir(void);
+  Fir();
 
   //! Overloaded constructor which takes filter coefficients.
   /*!
@@ -40,7 +40,7 @@ public:
   Fir(std::vector<StkFloat> &coefficients);
 
   //! Class destructor.
-  ~Fir(void);
+  ~Fir();
 
   //! Set filter coefficients.
   /*!

@@ -227,10 +227,10 @@ protected:
   bool ignoreSampleRateChange_;
 
   //! Default constructor.
-  Stk(void);
+  Stk();
 
   //! Class destructor.
-  virtual ~Stk(void);
+  virtual ~Stk();
 
   //! This function should be implemented in subclasses that depend on the
   //! sample rate.

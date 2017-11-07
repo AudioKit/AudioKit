@@ -21,10 +21,10 @@ namespace stk {
 class Envelope : public Generator {
 public:
   //! Default constructor.
-  Envelope(void);
+  Envelope();
 
   //! Class destructor.
-  ~Envelope(void);
+  ~Envelope();
 
   //! Assignment operator.
   Envelope &operator=(const Envelope &e);
@@ -61,7 +61,7 @@ public:
   StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Compute and return one output sample.
-  StkFloat tick(void);
+  StkFloat tick();
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!

@@ -41,7 +41,7 @@ namespace stk {
 class FileRead : public Stk {
 public:
   //! Default constructor.
-  FileRead(void);
+  FileRead();
 
   //! Overloaded constructor that opens a file during instantiation.
   /*!
@@ -55,7 +55,7 @@ public:
            StkFloat rate = 22050.0);
 
   //! Class destructor.
-  ~FileRead(void);
+  ~FileRead();
 
   //! Open the specified file and determine its formatting.
   /*!
@@ -69,10 +69,10 @@ public:
             StkFloat rate = 22050.0);
 
   //! If a file is open, close it.
-  void close(void);
+  void close();
 
   //! Returns \e true if a file is currently open.
-  bool isOpen(void);
+  bool isOpen();
 
   //! Return the file size in sample frames.
   unsigned long fileSize(void) const { return fileSize_; };

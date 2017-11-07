@@ -26,8 +26,8 @@
 class CLPFCombFilter : public CDelay {
 public:
   // constructor/destructor
-  CLPFCombFilter(void);
-  ~CLPFCombFilter(void);
+  CLPFCombFilter();
+  ~CLPFCombFilter();
 
   // members
 protected:

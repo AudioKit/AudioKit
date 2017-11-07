@@ -43,10 +43,10 @@ public:
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  Rhodey(void);
+  Rhodey();
 
   //! Class destructor.
-  ~Rhodey(void);
+  ~Rhodey();
 
   //! Set instrument parameters for a particular frequency.
   void setFrequency(StkFloat frequency);
