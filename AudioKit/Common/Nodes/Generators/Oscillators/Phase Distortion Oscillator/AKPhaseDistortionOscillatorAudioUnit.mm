@@ -46,9 +46,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(PhaseDistortionOscillator)
-    
+
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Frequency (Hz)"
@@ -81,20 +81,20 @@ standardKernelPassthroughs()
                                                                     min:0.0
                                                                     max:FLT_MAX
                                                                    unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     frequencyAUParameter.value = 440;
     amplitudeAUParameter.value = 1.0;
     phaseDistortionAUParameter.value = 0.0;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
-    
+
     _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
     _kernel.setParameter(amplitudeAddress,          amplitudeAUParameter.value);
     _kernel.setParameter(phaseDistortionAddress,    phaseDistortionAUParameter.value);
     _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
     _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              frequencyAUParameter,
@@ -103,7 +103,7 @@ standardKernelPassthroughs()
                                              detuningOffsetAUParameter,
                                              detuningMultiplierAUParameter
                                              ]];
-    
+
     parameterTreeBlock(PhaseDistortionOscillator)
 }
 

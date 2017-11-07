@@ -13,84 +13,46 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
+#if !defined(ffft_FFTRealPassDirect_HEADER_INCLUDED)
+#define ffft_FFTRealPassDirect_HEADER_INCLUDED
 
-
-#if ! defined (ffft_FFTRealPassDirect_HEADER_INCLUDED)
-#define	ffft_FFTRealPassDirect_HEADER_INCLUDED
-
-#if defined (_MSC_VER)
-	#pragma once
-	#pragma warning (4 : 4250) // "Inherits via dominance."
+#if defined(_MSC_VER)
+#pragma once
+#pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
 
 
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+#include "ffft/FFTRealFixLenParam.h"
+#include "ffft/OscSinCos.h"
+#include "ffft/def.h"
 
-#include	"ffft/def.h"
-#include	"ffft/FFTRealFixLenParam.h"
-#include	"ffft/OscSinCos.h"
+namespace ffft {
 
-
-
-namespace ffft
-{
-
-
-
-template <int PASS>
-class FFTRealPassDirect
-{
-
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
+template <int PASS> class FFTRealPassDirect {
 public:
+  typedef FFTRealFixLenParam::DataType DataType;
+  typedef OscSinCos<DataType> OscType;
 
-   typedef	FFTRealFixLenParam::DataType	DataType;
-	typedef	OscSinCos <DataType>	OscType;
-
-	ffft_FORCEINLINE static void
-						process (long len, DataType dest_ptr [], DataType src_ptr [], const DataType x_ptr [], const DataType cos_ptr [], long cos_len, const long br_ptr [], OscType osc_list []);
-
-
-
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-protected:
-
-
-
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  ffft_FORCEINLINE static void process(long len, DataType dest_ptr[],
+                                       DataType src_ptr[],
+                                       const DataType x_ptr[],
+                                       const DataType cos_ptr[], long cos_len,
+                                       const long br_ptr[], OscType osc_list[]);
 
 private:
+  FFTRealPassDirect();
+  FFTRealPassDirect(const FFTRealPassDirect &other);
+  FFTRealPassDirect &operator=(const FFTRealPassDirect &other);
+  bool operator==(const FFTRealPassDirect &other);
+  bool operator!=(const FFTRealPassDirect &other);
+
+};
+
+}
+
+#include "ffft/FFTRealPassDirect.hpp"
+
+#endif
 
 
-
-/*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-private:
-
-						FFTRealPassDirect ();
-						FFTRealPassDirect (const FFTRealPassDirect &other);
-	FFTRealPassDirect &
-						operator = (const FFTRealPassDirect &other);
-	bool				operator == (const FFTRealPassDirect &other);
-	bool				operator != (const FFTRealPassDirect &other);
-
-};	// class FFTRealPassDirect
-
-
-
-}	// namespace ffft
-
-
-
-#include	"ffft/FFTRealPassDirect.hpp"
-
-
-
-#endif	// ffft_FFTRealPassDirect_HEADER_INCLUDED
-
-
-
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/

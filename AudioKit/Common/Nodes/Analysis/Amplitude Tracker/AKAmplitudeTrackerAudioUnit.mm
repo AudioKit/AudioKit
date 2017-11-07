@@ -46,7 +46,7 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(AmplitudeTracker)
 }
 

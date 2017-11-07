@@ -22,35 +22,33 @@
 #include "BlitSaw.h"
 
 namespace stk {
- 
-BlitSaw:: BlitSaw( StkFloat frequency )
-{
-  if ( frequency <= 0.0 ) {
-    oStream_ << "BlitSaw::BlitSaw: argument (" << frequency << ") must be positive!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+
+BlitSaw::BlitSaw(StkFloat frequency) {
+  if (frequency <= 0.0) {
+    oStream_ << "BlitSaw::BlitSaw: argument (" << frequency
+             << ") must be positive!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
   nHarmonics_ = 0;
   this->reset();
-  this->setFrequency( frequency );
+  this->setFrequency(frequency);
 }
 
-BlitSaw :: ~BlitSaw()
-{
-}
+BlitSaw ::~BlitSaw() {}
 
-void BlitSaw :: reset()
-{
+void BlitSaw ::reset() {
   phase_ = 0.0f;
   state_ = 0.0;
   lastFrame_[0] = 0.0;
 }
 
-void BlitSaw :: setFrequency( StkFloat frequency )
-{
-  if ( frequency <= 0.0 ) {
-    oStream_ << "BlitSaw::setFrequency: argument (" << frequency << ") must be positive!";
-    handleError( StkError::WARNING ); return;
+void BlitSaw ::setFrequency(StkFloat frequency) {
+  if (frequency <= 0.0) {
+    oStream_ << "BlitSaw::setFrequency: argument (" << frequency
+             << ") must be positive!";
+    handleError(StkError::WARNING);
+    return;
   }
 
   p_ = Stk::sampleRate() / frequency;
@@ -59,8 +57,7 @@ void BlitSaw :: setFrequency( StkFloat frequency )
   this->updateHarmonics();
 }
 
-void BlitSaw :: setHarmonics( unsigned int nHarmonics )
-{
+void BlitSaw ::setHarmonics(unsigned int nHarmonics) {
   nHarmonics_ = nHarmonics;
   this->updateHarmonics();
 
@@ -76,16 +73,14 @@ void BlitSaw :: setHarmonics( unsigned int nHarmonics )
   state_ = -0.5 * a_;
 }
 
-void BlitSaw :: updateHarmonics( void )
-{
-  if ( nHarmonics_ <= 0 ) {
-    unsigned int maxHarmonics = (unsigned int) floor( 0.5 * p_ );
+void BlitSaw ::updateHarmonics(void) {
+  if (nHarmonics_ <= 0) {
+    unsigned int maxHarmonics = (unsigned int)floor(0.5 * p_);
     m_ = 2 * maxHarmonics + 1;
-  }
-  else
+  } else
     m_ = 2 * nHarmonics_ + 1;
 
   a_ = m_ / p_;
 }
 
-} // stk namespace
+} // namespace stk

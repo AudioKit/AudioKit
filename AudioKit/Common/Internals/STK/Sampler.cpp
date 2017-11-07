@@ -13,41 +13,33 @@
 
 namespace stk {
 
-Sampler :: Sampler( void )
-{
+Sampler ::Sampler(void) {
   // We don't make the waves here yet, because
   // we don't know what they will be.
   baseFrequency_ = 440.0;
   attackGain_ = 0.25;
   loopGain_ = 0.25;
-}  
-
-Sampler :: ~Sampler( void )
-{
-  unsigned int i;
-  for ( i=0; i<attacks_.size(); i++ ) delete attacks_[i];
-  for ( i=0; i<loops_.size(); i++ ) delete loops_[i];
 }
 
-void Sampler :: keyOn( void )
-{
+Sampler ::~Sampler(void) {
+  unsigned int i;
+  for (i = 0; i < attacks_.size(); i++)
+    delete attacks_[i];
+  for (i = 0; i < loops_.size(); i++)
+    delete loops_[i];
+}
+
+void Sampler ::keyOn(void) {
   // Reset all attack waves.
-  for ( unsigned int i=0; i<attacks_.size(); i++ )
+  for (unsigned int i = 0; i < attacks_.size(); i++)
     attacks_[i]->reset();
 
   // Start the envelope.
   adsr_.keyOn();
-
 }
 
-void Sampler :: keyOff( void )
-{
-  adsr_.keyOff();
-}
+void Sampler ::keyOff(void) { adsr_.keyOff(); }
 
-void Sampler :: noteOff( StkFloat amplitude )
-{
-  this->keyOff();
-}
+void Sampler ::noteOff(StkFloat amplitude) { this->keyOff(); }
 
-} // stk namespace
+} // namespace stk

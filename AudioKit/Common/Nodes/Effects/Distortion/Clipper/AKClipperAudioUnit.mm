@@ -27,9 +27,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(Clipper)
-    
+
     // Create a parameter object for the limit.
     AUParameter *limitAUParameter = [AUParameter parameter:@"limit"
                                                       name:@"Threshold"
@@ -37,17 +37,17 @@ standardKernelPassthroughs()
                                                        min:0.0
                                                        max:1.0
                                                       unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     limitAUParameter.value = 1.0;
-    
+
     _kernel.setParameter(limitAddress, limitAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              limitAUParameter
                                              ]];
-    
+
     parameterTreeBlock(Clipper)
 }
 

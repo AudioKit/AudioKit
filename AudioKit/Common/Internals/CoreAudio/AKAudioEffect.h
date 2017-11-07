@@ -6,8 +6,7 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-#ifndef AKAudioEffect_h
-#define AKAudioEffect_h
+#pragma once
 
 #import <AVFoundation/AVFoundation.h>
 #import "AKAudioUnit.h"
@@ -19,6 +18,3 @@
 
 @end
 
-
-
-#endif /* AKAudioEffect_h */

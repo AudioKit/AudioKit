@@ -1,11 +1,11 @@
 #ifndef STK_INETWVIN_H
 #define STK_INETWVIN_H
 
-#include "WvIn.h"
-#include "TcpServer.h"
-#include "UdpSocket.h"
-#include "Thread.h"
 #include "Mutex.h"
+#include "TcpServer.h"
+#include "Thread.h"
+#include "UdpSocket.h"
+#include "WvIn.h"
 
 namespace stk {
 
@@ -40,19 +40,20 @@ typedef struct {
   void *object;
 } ThreadInfo;
 
-class InetWvIn : public WvIn
-{
+class InetWvIn : public WvIn {
 public:
   //! Default constructor.
   /*!
-    An StkError will be thrown if an error occurs while initializing the input thread.
+    An StkError will be thrown if an error occurs while initializing the input
+    thread.
   */
-  InetWvIn( unsigned long bufferFrames = 1024, unsigned int nBuffers = 8 );
+  InetWvIn(unsigned long bufferFrames = 1024, unsigned int nBuffers = 8);
 
   //! Class destructor.
   ~InetWvIn();
 
-  //! Wait for a (new) socket connection with specified protocol, port, data channels and format.
+  //! Wait for a (new) socket connection with specified protocol, port, data
+  //! channels and format.
   /*!
     For the UDP protocol, this function will create a socket
     instance and return.  For the TCP protocol, this function will
@@ -60,16 +61,17 @@ public:
     thrown if a socket error occurs or an invalid function argument is
     provided.
   */
-  void listen( int port = 2006, unsigned int nChannels = 1,
-               Stk::StkFormat format = STK_SINT16,
-               Socket::ProtocolType protocol = Socket::PROTO_TCP );
+  void listen(int port = 2006, unsigned int nChannels = 1,
+              Stk::StkFormat format = STK_SINT16,
+              Socket::ProtocolType protocol = Socket::PROTO_TCP);
 
-  //! Returns true is an input connection exists or input data remains in the queue.
+  //! Returns true is an input connection exists or input data remains in the
+  //! queue.
   /*!
-    This method will not return false after an input connection has been closed until
-    all buffered input data has been read out.
+    This method will not return false after an input connection has been closed
+    until all buffered input data has been read out.
   */
-  bool isConnected( void );
+  bool isConnected(void);
 
   //! Return the specified channel value of the last computed frame.
   /*!
@@ -81,7 +83,7 @@ public:
     _STK_DEBUG_ is defined during compilation, in which case an
     out-of-range value will trigger an StkError exception.
   */
-  StkFloat lastOut( unsigned int channel = 0 );
+  StkFloat lastOut(unsigned int channel = 0);
 
   //! Compute a sample frame and return the specified \c channel value.
   /*!
@@ -94,9 +96,10 @@ public:
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
-  //! Fill the StkFrames object with computed sample frames, starting at the specified channel and return the same reference.
+  //! Fill the StkFrames object with computed sample frames, starting at the
+  //! specified channel and return the same reference.
   /*!
     The \c channel argument plus the number of channels specified
     in the listen() function must be less than the number of channels
@@ -107,17 +110,17 @@ public:
     nothing (a warning will be issued if _STK_DEBUG_ is defined during
     compilation).
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
   // Called by the thread routine to receive data via the socket connection
   // and fill the socket buffer.  This is not intended for general use but
   // must be public for access from the thread.
-  void receive( void );
+  void receive(void);
 
 protected:
-
-  // Read buffered socket data into the data buffer ... will block if none available.
-  int readData( void );
+  // Read buffered socket data into the data buffer ... will block if none
+  // available.
+  int readData(void);
 
   Socket *soket_;
   Thread thread_;
@@ -135,24 +138,24 @@ protected:
   int fd_;
   ThreadInfo threadInfo_;
   Stk::StkFormat dataType_;
-
 };
 
-inline StkFloat InetWvIn :: lastOut( unsigned int channel )
-{
+inline StkFloat InetWvIn ::lastOut(unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= data_.channels() ) {
-    oStream_ << "InetWvIn::lastOut(): channel argument and data stream are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= data_.channels()) {
+    oStream_ << "InetWvIn::lastOut(): channel argument and data stream are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   // If no connection and we've output all samples in the queue, return.
-  if ( !connected_ && bytesFilled_ == 0 && bufferCounter_ == 0 ) return 0.0;
+  if (!connected_ && bytesFilled_ == 0 && bufferCounter_ == 0)
+    return 0.0;
 
   return lastFrame_[channel];
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

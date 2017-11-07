@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// A computed parameter differs from a regular parameter in that it only exists within an operation 
+/// A computed parameter differs from a regular parameter in that it only exists within an operation
 /// (unlike float, doubles, and ints which have a value outside of an operation)
 public protocol AKComputedParameter: AKParameter {}
 
@@ -214,7 +214,7 @@ open class AKOperation: AKComputedParameter {
     }
 }
 
-// MARK: - Global Functions 
+// MARK: - Global Functions
 
 /// Performs absolute value on the operation
 ///

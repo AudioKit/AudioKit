@@ -21,53 +21,48 @@
 
 namespace stk {
 
-DelayL :: DelayL( StkFloat delay, unsigned long maxDelay )
-{
-  if ( delay < 0.0 ) {
+DelayL::DelayL(StkFloat delay, unsigned long maxDelay) {
+  if (delay < 0.0) {
     oStream_ << "DelayL::DelayL: delay must be >= 0.0!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
-  if ( delay > (StkFloat) maxDelay ) {
+  if (delay > (StkFloat)maxDelay) {
     oStream_ << "DelayL::DelayL: maxDelay must be > than delay argument!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
-  // Writing before reading allows delays from 0 to length-1. 
-  if ( maxDelay + 1 > inputs_.size() )
-    inputs_.resize( maxDelay + 1, 1, 0.0 );
+  // Writing before reading allows delays from 0 to length-1.
+  if (maxDelay + 1 > inputs_.size())
+    inputs_.resize(maxDelay + 1, 1, 0.0);
 
   inPoint_ = 0;
-  this->setDelay( delay );
+  this->setDelay(delay);
   doNextOut_ = true;
 }
 
-DelayL :: ~DelayL()
-{
-}
+DelayL::~DelayL() {}
 
-void DelayL :: setMaximumDelay( unsigned long delay )
-{
-  if ( delay < inputs_.size() ) return;
+void DelayL::setMaximumDelay(unsigned long delay) {
+  if (delay < inputs_.size())
+    return;
   inputs_.resize(delay + 1, 1, 0.0);
 }
 
-StkFloat DelayL :: tapOut( unsigned long tapDelay )
-{
+StkFloat DelayL::tapOut(unsigned long tapDelay) {
   long tap = inPoint_ - tapDelay - 1;
-  while ( tap < 0 ) // Check for wraparound.
+  while (tap < 0) // Check for wraparound.
     tap += inputs_.size();
 
   return inputs_[tap];
 }
 
-void DelayL :: tapIn( StkFloat value, unsigned long tapDelay )
-{
+void DelayL::tapIn(StkFloat value, unsigned long tapDelay) {
   long tap = inPoint_ - tapDelay - 1;
-  while ( tap < 0 ) // Check for wraparound.
+  while (tap < 0) // Check for wraparound.
     tap += inputs_.size();
 
   inputs_[tap] = value;
 }
 
-} // stk namespace
+}

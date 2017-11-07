@@ -1,9 +1,9 @@
 /*
  * Drip
- * 
+ *
  * This code has been extracted from the Csound opcode "dripwater".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Perry Cook
  * Year: 2000
  * Location: Opcodes/phisem.c
@@ -27,20 +27,20 @@
 #define MAX_SHAKE 2000
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	
-#endif 
+#define M_PI		3.14159265358979323846
+#endif
 
 static int my_random(sp_data *sp, int max)
-{                      
+{
     return (sp_rand(sp) % (max + 1));
 }
 
-static SPFLOAT noise_tick(sp_data *sp)                                        
-{                       
-    SPFLOAT temp;                                                                
+static SPFLOAT noise_tick(sp_data *sp)
+{
+    SPFLOAT temp;
     temp = 1.0 * sp_rand(sp) - 1073741823.5;
     return temp * (1.0 / 1073741823.0);
-}                                                                              
+}
 
 int sp_drip_create(sp_drip **p)
 {
@@ -97,12 +97,12 @@ int sp_drip_init(sp_data *sp, sp_drip *p, SPFLOAT dettack)
     p->coeffs21 = WUTR_RESON * WUTR_RESON;
     p->coeffs20 = -WUTR_RESON * 2.0 *
       cos(WUTR_CENTER_FREQ2 * tpidsr);
-                                
+
     p->shakeEnergy = p->amp * 1.0 * MAX_SHAKE * 0.1;
     p->shake_damp = 0.0;
     if (p->shakeEnergy > MAX_SHAKE) p->shakeEnergy = MAX_SHAKE;
     p->shake_maxSave = 0.0;
-    p->num_objects = 10;        
+    p->num_objects = 10;
     p->finalZ0 = p->finalZ1 = p->finalZ2 = 0.0;
     return SP_OK;
 }
@@ -116,7 +116,7 @@ int sp_drip_compute(sp_data *sp, sp_drip *p, SPFLOAT *trig, SPFLOAT *out)
 
     if(*trig) {
         sp_drip_init(sp, p, p->dettack);
-    } 
+    }
     if (p->num_tubes != 0.0 && p->num_tubes != p->num_objects) {
         p->num_objects = p->num_tubes;
         if (p->num_objects < 1.0) p->num_objects = 1.0;
@@ -196,9 +196,9 @@ int sp_drip_compute(sp_data *sp, sp_drip *p, SPFLOAT *trig, SPFLOAT *out)
         cos(p->center_freqs2 * tpidsr);
     }
 
-    sndLevel *= soundDecay;   
+    sndLevel *= soundDecay;
     inputs0 = sndLevel;
-    inputs0 *= noise_tick(sp); 
+    inputs0 *= noise_tick(sp);
     inputs1 = inputs0 * p->gains1;
     inputs2 = inputs0 * p->gains2;
     inputs0 *= p->gains0;

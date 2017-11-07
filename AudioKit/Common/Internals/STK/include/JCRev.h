@@ -1,8 +1,8 @@
 #ifndef STK_JCREV_H
 #define STK_JCREV_H
 
-#include "Effect.h"
 #include "Delay.h"
+#include "Effect.h"
 #include "OnePole.h"
 
 namespace stk {
@@ -28,17 +28,17 @@ namespace stk {
 */
 /***************************************************/
 
-class JCRev : public Effect
-{
- public:
-  //! Class constructor taking a T60 decay time argument (one second default value).
-  JCRev( StkFloat T60 = 1.0 );
+class JCRev : public Effect {
+public:
+  //! Class constructor taking a T60 decay time argument (one second default
+  //! value).
+  JCRev(StkFloat T60 = 1.0);
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear(void);
 
   //! Set the reverberation T60 decay time.
-  void setT60( StkFloat T60 );
+  void setT60(StkFloat T60);
 
   //! Return the specified channel value of the last computed stereo frame.
   /*!
@@ -49,9 +49,10 @@ class JCRev : public Effect
     which case an out-of-range value will trigger an StkError
     exception.
   */
-  StkFloat lastOut( unsigned int channel = 0 );
+  StkFloat lastOut(unsigned int channel = 0);
 
-  //! Input one sample to the effect and return the specified \c channel value of the computed stereo frame.
+  //! Input one sample to the effect and return the specified \c channel value
+  //! of the computed stereo frame.
   /*!
     Use the lastFrame() function to get both values of the computed
     stereo output frame. The \c channel argument must be 0 or 1 (the
@@ -59,9 +60,10 @@ class JCRev : public Effect
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  StkFloat tick( StkFloat input, unsigned int channel = 0 );
+  StkFloat tick(StkFloat input, unsigned int channel = 0);
 
-  //! Take a channel of the StkFrames object as inputs to the effect and replace with stereo outputs.
+  //! Take a channel of the StkFrames object as inputs to the effect and replace
+  //! with stereo outputs.
   /*!
     The StkFrames argument reference is returned.  The stereo
     outputs are written to the StkFrames argument starting at the
@@ -71,9 +73,10 @@ class JCRev : public Effect
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  //! Take a channel of the \c iFrames object as inputs to the effect and write stereo outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the effect and write
+  //! stereo outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  The \c iChannel
     argument must be less than the number of channels in the \c
@@ -83,10 +86,10 @@ class JCRev : public Effect
     _STK_DEBUG_ is defined during compilation, in which case an
     out-of-range value will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
+  StkFrames &tick(StkFrames &iFrames, StkFrames &oFrames,
+                  unsigned int iChannel = 0, unsigned int oChannel = 0);
 
- protected:
-
+protected:
   Delay allpassDelays_[3];
   Delay combDelays_[4];
   OnePole combFilters_[4];
@@ -94,27 +97,24 @@ class JCRev : public Effect
   Delay outRightDelay_;
   StkFloat allpassCoefficient_;
   StkFloat combCoefficient_[4];
-
 };
 
-inline StkFloat JCRev :: lastOut( unsigned int channel )
-{
+inline StkFloat JCRev ::lastOut(unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel > 1 ) {
+  if (channel > 1) {
     oStream_ << "JCRev::lastOut(): channel argument must be less than 2!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   return lastFrame_[channel];
 }
 
-inline StkFloat JCRev :: tick( StkFloat input, unsigned int channel )
-{
+inline StkFloat JCRev ::tick(StkFloat input, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel > 1 ) {
+  if (channel > 1) {
     oStream_ << "JCRev::tick(): channel argument must be less than 2!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
@@ -126,23 +126,31 @@ inline StkFloat JCRev :: tick( StkFloat input, unsigned int channel )
   temp0 += input;
   allpassDelays_[0].tick(temp0);
   temp0 = -(allpassCoefficient_ * temp0) + temp;
-    
+
   temp = allpassDelays_[1].lastOut();
   temp1 = allpassCoefficient_ * temp;
   temp1 += temp0;
   allpassDelays_[1].tick(temp1);
   temp1 = -(allpassCoefficient_ * temp1) + temp;
-    
+
   temp = allpassDelays_[2].lastOut();
   temp2 = allpassCoefficient_ * temp;
   temp2 += temp1;
   allpassDelays_[2].tick(temp2);
   temp2 = -(allpassCoefficient_ * temp2) + temp;
-    
-  temp3 = temp2 + ( combFilters_[0].tick( combCoefficient_[0] * combDelays_[0].lastOut() ) );
-  temp4 = temp2 + ( combFilters_[1].tick( combCoefficient_[1] * combDelays_[1].lastOut() ) );
-  temp5 = temp2 + ( combFilters_[2].tick( combCoefficient_[2] * combDelays_[2].lastOut() ) );
-  temp6 = temp2 + ( combFilters_[3].tick( combCoefficient_[3] * combDelays_[3].lastOut() ) );
+
+  temp3 =
+      temp2 +
+      (combFilters_[0].tick(combCoefficient_[0] * combDelays_[0].lastOut()));
+  temp4 =
+      temp2 +
+      (combFilters_[1].tick(combCoefficient_[1] * combDelays_[1].lastOut()));
+  temp5 =
+      temp2 +
+      (combFilters_[2].tick(combCoefficient_[2] * combDelays_[2].lastOut()));
+  temp6 =
+      temp2 +
+      (combFilters_[3].tick(combCoefficient_[3] * combDelays_[3].lastOut()));
 
   combDelays_[0].tick(temp3);
   combDelays_[1].tick(temp4);
@@ -156,11 +164,10 @@ inline StkFloat JCRev :: tick( StkFloat input, unsigned int channel )
   temp = (1.0 - effectMix_) * input;
   lastFrame_[0] += temp;
   lastFrame_[1] += temp;
-    
+
   return 0.7 * lastFrame_[channel];
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif
-

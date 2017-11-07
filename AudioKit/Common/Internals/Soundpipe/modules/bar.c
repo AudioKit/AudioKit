@@ -109,10 +109,10 @@ int sp_bar_compute(sp_data *sp, sp_bar *p, SPFLOAT *in, SPFLOAT *out)
         p->t0 = (-1.0+2.0*b*dt/(dx*dx)+sig*dt*0.5)/(1.0+sig*dt*0.5);
         p->t1 = (-b*dt)/(dx*dx*(1.0+sig*dt*0.5));
 
-        s0 = p->s0; 
-        s1 = p->s1; 
-        s2 = p->s2; 
-        t0 = p->t0; 
+        s0 = p->s0;
+        s1 = p->s1;
+        s2 = p->s2;
+        t0 = p->t0;
         t1 = p->t1;
     }
 

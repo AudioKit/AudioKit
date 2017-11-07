@@ -31,21 +31,21 @@ namespace stk {
 */
 /***************************************************/
 
-class Iir : public Filter
-{
+class Iir : public Filter {
 public:
   //! Default constructor creates a zero-order pass-through "filter".
-  Iir( void );
+  Iir(void);
 
   //! Overloaded constructor which takes filter coefficients.
   /*!
     An StkError can be thrown if either of the coefficient vector
     sizes is zero, or if the a[0] coefficient is equal to zero.
   */
-  Iir( std::vector<StkFloat> &bCoefficients, std::vector<StkFloat> &aCoefficients );
+  Iir(std::vector<StkFloat> &bCoefficients,
+      std::vector<StkFloat> &aCoefficients);
 
   //! Class destructor.
-  ~Iir( void );
+  ~Iir(void);
 
   //! Set filter coefficients.
   /*!
@@ -55,7 +55,9 @@ public:
     a[0].  The internal state of the filter is not cleared unless the
     \e clearState flag is \c true.
   */
-  void setCoefficients( std::vector<StkFloat> &bCoefficients, std::vector<StkFloat> &aCoefficients, bool clearState = false );
+  void setCoefficients(std::vector<StkFloat> &bCoefficients,
+                       std::vector<StkFloat> &aCoefficients,
+                       bool clearState = false);
 
   //! Set numerator coefficients.
   /*!
@@ -65,7 +67,8 @@ public:
     coefficient a[0] to 1.0.  The internal state of the filter is not
     cleared unless the \e clearState flag is \c true.
   */
-  void setNumerator( std::vector<StkFloat> &bCoefficients, bool clearState = false );
+  void setNumerator(std::vector<StkFloat> &bCoefficients,
+                    bool clearState = false);
 
   //! Set denominator coefficients.
   /*!
@@ -77,15 +80,17 @@ public:
     b[0] to 1.0.  The internal state of the filter is not cleared
     unless the \e clearState flag is \c true.
   */
-  void setDenominator( std::vector<StkFloat> &aCoefficients, bool clearState = false );
+  void setDenominator(std::vector<StkFloat> &aCoefficients,
+                      bool clearState = false);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Input one sample to the filter and return one output.
-  StkFloat tick( StkFloat input );
+  StkFloat tick(StkFloat input);
 
-  //! Take a channel of the StkFrames object as inputs to the filter and replace with corresponding outputs.
+  //! Take a channel of the StkFrames object as inputs to the filter and replace
+  //! with corresponding outputs.
   /*!
     The StkFrames argument reference is returned.  The \c channel
     argument must be less than the number of channels in the
@@ -94,9 +99,10 @@ public:
     defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  //! Take a channel of the \c iFrames object as inputs to the filter and write outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the filter and write
+  //! outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  Each channel
     argument must be less than the number of channels in the
@@ -105,72 +111,72 @@ public:
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
+  StkFrames &tick(StkFrames &iFrames, StkFrames &oFrames,
+                  unsigned int iChannel = 0, unsigned int oChannel = 0);
 
 protected:
-
 };
 
-inline StkFloat Iir :: tick( StkFloat input )
-{
+inline StkFloat Iir ::tick(StkFloat input) {
   size_t i;
 
   outputs_[0] = 0.0;
   inputs_[0] = gain_ * input;
-  for ( i=b_.size()-1; i>0; i-- ) {
+  for (i = b_.size() - 1; i > 0; i--) {
     outputs_[0] += b_[i] * inputs_[i];
-    inputs_[i] = inputs_[i-1];
+    inputs_[i] = inputs_[i - 1];
   }
   outputs_[0] += b_[0] * inputs_[0];
 
-  for ( i=a_.size()-1; i>0; i-- ) {
+  for (i = a_.size() - 1; i > 0; i--) {
     outputs_[0] += -a_[i] * outputs_[i];
-    outputs_[i] = outputs_[i-1];
+    outputs_[i] = outputs_[i - 1];
   }
 
   lastFrame_[0] = outputs_[0];
   return lastFrame_[0];
 }
 
-inline StkFrames& Iir :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Iir ::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "Iir::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_
+        << "Iir::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   size_t i;
   unsigned int hop = frames.channels();
-  for ( unsigned int j=0; j<frames.frames(); j++, samples += hop ) {
+  for (unsigned int j = 0; j < frames.frames(); j++, samples += hop) {
     outputs_[0] = 0.0;
     inputs_[0] = gain_ * *samples;
-    for ( i=b_.size()-1; i>0; i-- ) {
+    for (i = b_.size() - 1; i > 0; i--) {
       outputs_[0] += b_[i] * inputs_[i];
-      inputs_[i] = inputs_[i-1];
+      inputs_[i] = inputs_[i - 1];
     }
     outputs_[0] += b_[0] * inputs_[0];
 
-    for ( i=a_.size()-1; i>0; i-- ) {
+    for (i = a_.size() - 1; i > 0; i--) {
       outputs_[0] += -a_[i] * outputs_[i];
-      outputs_[i] = outputs_[i-1];
+      outputs_[i] = outputs_[i - 1];
     }
 
     *samples = outputs_[0];
   }
 
-  lastFrame_[0] = *(samples-hop);
+  lastFrame_[0] = *(samples - hop);
   return frames;
 }
 
-inline StkFrames& Iir :: tick( StkFrames& iFrames, StkFrames& oFrames, unsigned int iChannel, unsigned int oChannel )
-{
+inline StkFrames &Iir ::tick(StkFrames &iFrames, StkFrames &oFrames,
+                             unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
-  if ( iChannel >= iFrames.channels() || oChannel >= oFrames.channels() ) {
-    oStream_ << "Iir::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {
+    oStream_
+        << "Iir::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
@@ -178,27 +184,28 @@ inline StkFrames& Iir :: tick( StkFrames& iFrames, StkFrames& oFrames, unsigned 
   StkFloat *oSamples = &oFrames[oChannel];
   size_t i;
   unsigned int iHop = iFrames.channels(), oHop = oFrames.channels();
-  for ( unsigned int j=0; j<iFrames.frames(); j++, iSamples += iHop, oSamples += oHop ) {
+  for (unsigned int j = 0; j < iFrames.frames();
+       j++, iSamples += iHop, oSamples += oHop) {
     outputs_[0] = 0.0;
     inputs_[0] = gain_ * *iSamples;
-    for ( i=b_.size()-1; i>0; i-- ) {
+    for (i = b_.size() - 1; i > 0; i--) {
       outputs_[0] += b_[i] * inputs_[i];
-      inputs_[i] = inputs_[i-1];
+      inputs_[i] = inputs_[i - 1];
     }
     outputs_[0] += b_[0] * inputs_[0];
 
-    for ( i=a_.size()-1; i>0; i-- ) {
+    for (i = a_.size() - 1; i > 0; i--) {
       outputs_[0] += -a_[i] * outputs_[i];
-      outputs_[i] = outputs_[i-1];
+      outputs_[i] = outputs_[i - 1];
     }
 
     *oSamples = outputs_[0];
   }
 
-  lastFrame_[0] = *(oSamples-oHop);
+  lastFrame_[0] = *(oSamples - oHop);
   return iFrames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

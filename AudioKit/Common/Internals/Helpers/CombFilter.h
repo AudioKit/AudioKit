@@ -1,52 +1,49 @@
 /*
-	CCombFilter: implements a comb filter of length D with
-				 feedback gain m_fComb_g
+        CCombFilter: implements a comb filter of length D with
+                                 feedback gain m_fComb_g
 
-	Can be used alone or as a base class.
+        Can be used alone or as a base class.
 
 
-	
+
 */
 
 // Inherited Base Class functions:
 /*
-	void init(int nDelayLength);
-	void resetDelay();
-	void setDelay_mSec(float fmSec);
-	void setOutputAttenuation_dB(float fAttendB);
+        void init(int nDelayLength);
+        void resetDelay();
+        void setDelay_mSec(float fmSec);
+        void setOutputAttenuation_dB(float fAttendB);
 
-	// NEED TO OVERRIDE
-	bool processAudio(float* pInput, float* pOutput);
+        // NEED TO OVERRIDE
+        bool processAudio(float* pInput, float* pOutput);
 */
 #pragma once
 #include "Delay.h"
 
-
 // derived class: CDelay does most of the work
-class CCombFilter : public CDelay
-{
+class CCombFilter : public CDelay {
 public:
-	// constructor/destructor
-	CCombFilter(void);
-	~CCombFilter(void);
+  // constructor/destructor
+  CCombFilter();
+  ~CCombFilter();
 
-	// members
+  // members
 protected:
-	float m_fComb_g; // one coefficient
+  float m_fComb_g; // one coefficient
 
 public:
-	// set our g value directly
-	void setComb_g(float fCombg){m_fComb_g = fCombg;}
+  // set our g value directly
+  void setComb_g(float fCombg) { m_fComb_g = fCombg; }
 
-	// set gain using RT60 time
-	void setComb_g_with_RTSixty(float fRT)
-	{
-		float fExponent = -3.0f*m_fDelayInSamples*(1.0f/m_nSampleRate);
-		fRT /= 1000.0; // RT is in mSec!
+  // set gain using RT60 time
+  void setComb_g_with_RTSixty(float fRT) {
+    float fExponent = -3.0f * m_fDelayInSamples * (1.0f / m_nSampleRate);
+    fRT /= 1000.0; // RT is in mSec!
 
-		m_fComb_g = powf((float)10.0, fExponent/fRT);
-	}
+    m_fComb_g = powf((float)10.0, fExponent / fRT);
+  }
 
-	// do some audio processing
-	bool processAudio(float* pInput, float* pOutput);
+  // do some audio processing
+  bool processAudio(float *pInput, float *pOutput);
 };

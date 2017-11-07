@@ -111,7 +111,7 @@ int sporth_oscmorph4(sporth_stack *stack, void *ud)
         case PLUMBER_COMPUTE:
             oscmorph = pd->last->ud;
             pop_args(stack, oscmorph);
-            
+
             set_args(oscmorph);
 
             sp_oscmorph_compute(pd->sp, oscmorph->data, NULL, &out);
@@ -187,7 +187,7 @@ int sporth_oscmorph2(sporth_stack *stack, void *ud)
         case PLUMBER_COMPUTE:
             oscmorph = pd->last->ud;
             pop_args(stack, oscmorph);
-            
+
             set_args(oscmorph);
 
             sp_oscmorph_compute(pd->sp, oscmorph->data, NULL, &out);

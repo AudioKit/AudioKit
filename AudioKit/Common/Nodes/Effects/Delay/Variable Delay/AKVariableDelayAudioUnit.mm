@@ -30,9 +30,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(VariableDelay)
-    
+
     // Create a parameter object for the time.
     AUParameter *timeAUParameter = [AUParameter parameter:@"time"
                                                      name:@"Delay time (Seconds)"
@@ -40,7 +40,7 @@ standardKernelPassthroughs()
                                                       min:0
                                                       max:10
                                                      unit:kAudioUnitParameterUnit_Seconds];
-    
+
     // Create a parameter object for the feedback.
     AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
                                                          name:@"Feedback (%)"
@@ -48,18 +48,18 @@ standardKernelPassthroughs()
                                                           min:0
                                                           max:1
                                                          unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     timeAUParameter.value = 1;
     feedbackAUParameter.value = 0;
-    
+
     _kernel.setParameter(timeAddress, timeAUParameter.value);
     _kernel.setParameter(feedbackAddress, feedbackAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[timeAUParameter,
                                              feedbackAUParameter]];
-    
+
     parameterTreeBlock(VariableDelay)
 }
 

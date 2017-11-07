@@ -8,8 +8,8 @@
 //: concept.  To keep things clear, we have kept the amount of code to a minimum.
 //: But the flipside of that decision is that code from playgrounds will look a little
 //: different from production.  In general, to see best practices, you can check out
-//: the AudioKit examples project, but here in this playground we're going to redo 
-//: the code from the "Connecting Nodes" playground in a way that is more like how 
+//: the AudioKit examples project, but here in this playground we're going to redo
+//: the code from the "Connecting Nodes" playground in a way that is more like how
 //: the code would appear in a project.
 import AudioKitPlaygrounds
 //: Here we begin the code how it would appear in a project

@@ -108,7 +108,7 @@
 //------------------------------------------------------------------------------
 
 /**
- Enumerates all the available devices. 
+ Enumerates all the available devices.
     - OSX only
  @param block When enumerating this block executes repeatedly for each EZAudioDevice found. It contains two arguments - first, the EZAudioDevice found, then a pointer to a stop BOOL to allow breaking out of the enumeration)
  */

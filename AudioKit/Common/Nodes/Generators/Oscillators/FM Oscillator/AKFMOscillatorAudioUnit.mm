@@ -46,9 +46,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(FMOscillator)
-    
+
     // Create a parameter object for the baseFrequency.
     AUParameter *baseFrequencyAUParameter = [AUParameter frequency:@"baseFrequency"
                                                               name:@"Base Frequency (Hz)"
@@ -81,21 +81,21 @@ standardKernelPassthroughs()
                                                            min:0.0
                                                            max:10.0
                                                           unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     baseFrequencyAUParameter.value = 440;
     carrierMultiplierAUParameter.value = 1.0;
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
     amplitudeAUParameter.value = 1;
-    
-    
+
+
     _kernel.setParameter(baseFrequencyAddress,        baseFrequencyAUParameter.value);
     _kernel.setParameter(carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
     _kernel.setParameter(modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
     _kernel.setParameter(modulationIndexAddress,      modulationIndexAUParameter.value);
     _kernel.setParameter(amplitudeAddress,            amplitudeAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              baseFrequencyAUParameter,
@@ -104,7 +104,7 @@ standardKernelPassthroughs()
                                              modulationIndexAUParameter,
                                              amplitudeAUParameter
                                              ]];
-    
+
     parameterTreeBlock(FMOscillator)
 }
 

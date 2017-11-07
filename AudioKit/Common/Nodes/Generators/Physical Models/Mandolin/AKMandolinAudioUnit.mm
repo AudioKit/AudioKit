@@ -43,9 +43,9 @@
 }
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(Mandolin)
-    
+
     // Create a parameter object for the detune.
     AUParameter *detuneAUParameter = [AUParameter parameter:@"detune"
                                                        name:@"Detune"
@@ -60,21 +60,21 @@
                                                           min:0
                                                           max:10
                                                          unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     detuneAUParameter.value = 1.0;
     bodySizeAUParameter.value = 1.0;
-    
-    
+
+
     _kernel.setParameter(detuneAddress,        detuneAUParameter.value);
     _kernel.setParameter(bodySizeAddress,      bodySizeAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
                                                                detuneAUParameter,
                                                                bodySizeAUParameter
                                                                ]];
-    
+
     parameterTreeBlock(Mandolin)
 }
 

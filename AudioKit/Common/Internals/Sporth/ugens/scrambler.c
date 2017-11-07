@@ -22,7 +22,7 @@ int sporth_scrambler(sporth_stack *stack, void *ud)
             dst = sporth_stack_pop_string(stack);
 
             if(plumber_ftmap_search(pd, src, &ft_s) != PLUMBER_OK) {
-                plumber_print(pd, 
+                plumber_print(pd,
                     "scrambler: could not find ftable %s",
                     src);
             }
