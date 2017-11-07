@@ -70,4 +70,4 @@ private:
 
 #endif // ffft_OscSinCos_HEADER_INCLUDED
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+

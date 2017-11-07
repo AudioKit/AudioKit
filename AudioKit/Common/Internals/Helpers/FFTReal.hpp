@@ -750,4 +750,4 @@ void FFTReal<DT>::compute_inverse_pass_1_2(DataType x[],
 
 #undef ffft_FFTReal_CURRENT_CODEHEADER
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+

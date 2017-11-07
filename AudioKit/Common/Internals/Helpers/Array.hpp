@@ -62,4 +62,4 @@ template <class T, long LEN> long Array<T, LEN>::size() { return (LEN); }
 
 #undef ffft_Array_CURRENT_CODEHEADER
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+

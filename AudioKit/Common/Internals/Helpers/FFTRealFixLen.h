@@ -96,4 +96,4 @@ private:
 
 #endif // ffft_FFTRealFixLen_HEADER_INCLUDED
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+

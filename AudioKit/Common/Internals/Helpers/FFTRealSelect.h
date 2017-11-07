@@ -51,4 +51,4 @@ private:
 
 #endif // ffft_FFTRealSelect_HEADER_INCLUDED
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+

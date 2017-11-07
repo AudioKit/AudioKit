@@ -162,4 +162,4 @@ void FFTRealPassDirect<PASS>::process(long len, DataType dest_ptr[],
 
 #undef ffft_FFTRealPassDirect_CURRENT_CODEHEADER
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+

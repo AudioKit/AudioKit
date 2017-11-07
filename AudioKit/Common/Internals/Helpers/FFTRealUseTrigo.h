@@ -66,4 +66,4 @@ private:
 
 #endif // ffft_FFTRealUseTrigo_HEADER_INCLUDED
 
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
