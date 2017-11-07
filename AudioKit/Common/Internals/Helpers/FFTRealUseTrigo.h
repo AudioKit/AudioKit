@@ -64,6 +64,6 @@ private:
 
 #include "ffft/FFTRealUseTrigo.hpp"
 
-#endif // ffft_FFTRealUseTrigo_HEADER_INCLUDED
+#endif
 
 

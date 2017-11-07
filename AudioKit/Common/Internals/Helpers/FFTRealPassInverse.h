@@ -73,6 +73,6 @@ private:
 
 #include "ffft/FFTRealPassInverse.hpp"
 
-#endif // ffft_FFTRealPassInverse_HEADER_INCLUDED
+#endif
 
 

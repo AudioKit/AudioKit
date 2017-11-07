@@ -56,6 +56,6 @@ private:
 
 //#include	"ffft/FFTRealFixLenParam.hpp"
 
-#endif // ffft_FFTRealFixLenParam_HEADER_INCLUDED
+#endif
 
 

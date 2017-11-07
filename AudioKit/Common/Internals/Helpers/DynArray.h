@@ -65,6 +65,6 @@ private:
 
 #include "DynArray.hpp"
 
-#endif // ffft_DynArray_HEADER_INCLUDED
+#endif
 
 

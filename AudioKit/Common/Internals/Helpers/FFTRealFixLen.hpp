@@ -232,7 +232,7 @@ template <int LL2> void FFTRealFixLen<LL2>::build_trigo_osc() {
 
 }
 
-#endif // ffft_FFTRealFixLen_CODEHEADER_INCLUDED
+#endif
 
 #undef ffft_FFTRealFixLen_CURRENT_CODEHEADER
 

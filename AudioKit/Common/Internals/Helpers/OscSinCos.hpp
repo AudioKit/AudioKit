@@ -73,7 +73,7 @@ template <class T> void OscSinCos<T>::clear_buffers() {
 
 }
 
-#endif // ffft_OscSinCos_CODEHEADER_INCLUDED
+#endif
 
 #undef ffft_OscSinCos_CURRENT_CODEHEADER
 

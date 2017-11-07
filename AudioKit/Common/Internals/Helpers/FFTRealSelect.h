@@ -49,6 +49,6 @@ private:
 
 #include "ffft/FFTRealSelect.hpp"
 
-#endif // ffft_FFTRealSelect_HEADER_INCLUDED
+#endif
 
 
