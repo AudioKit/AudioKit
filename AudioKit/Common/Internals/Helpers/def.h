@@ -38,7 +38,7 @@ const double SQRT2 = 1.41421356237309514547462185873883;
 
 #endif
 
-} // namespace ffft
+}
 
 #endif // ffft_def_HEADER_INCLUDED
 

@@ -60,7 +60,7 @@ private:
 
 }; // class FFTRealUseTrigo
 
-} // namespace ffft
+}
 
 #include "ffft/FFTRealUseTrigo.hpp"
 

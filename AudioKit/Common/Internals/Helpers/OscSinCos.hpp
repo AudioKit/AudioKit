@@ -71,7 +71,7 @@ template <class T> void OscSinCos<T>::clear_buffers() {
 
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-} // namespace ffft
+}
 
 #endif // ffft_OscSinCos_CODEHEADER_INCLUDED
 

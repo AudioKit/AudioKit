@@ -45,7 +45,7 @@ private:
 
 }; // class FFTRealSelect
 
-} // namespace ffft
+}
 
 #include "ffft/FFTRealSelect.hpp"
 

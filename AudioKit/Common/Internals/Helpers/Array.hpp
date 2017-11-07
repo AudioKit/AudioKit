@@ -56,7 +56,7 @@ template <class T, long LEN> long Array<T, LEN>::size() { return (LEN); }
 
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-} // namespace ffft
+}
 
 #endif // ffft_Array_CODEHEADER_INCLUDED
 

@@ -156,7 +156,7 @@ void FFTRealPassDirect<PASS>::process(long len, DataType dest_ptr[],
 
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-} // namespace ffft
+}
 
 #endif // ffft_FFTRealPassDirect_CODEHEADER_INCLUDED
 

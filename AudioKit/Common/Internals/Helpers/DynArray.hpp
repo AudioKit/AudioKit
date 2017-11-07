@@ -82,7 +82,7 @@ typename DynArray<T>::DataType &DynArray<T>::operator[](long pos) {
 
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-} // namespace ffft
+}
 
 #endif // ffft_DynArray_CODEHEADER_INCLUDED
 

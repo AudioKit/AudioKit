@@ -230,7 +230,7 @@ template <int LL2> void FFTRealFixLen<LL2>::build_trigo_osc() {
   }
 }
 
-} // namespace ffft
+}
 
 #endif // ffft_FFTRealFixLen_CODEHEADER_INCLUDED
 

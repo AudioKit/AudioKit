@@ -90,7 +90,7 @@ private:
 
 }; // class FFTRealFixLen
 
-} // namespace ffft
+}
 
 #include "ffft/FFTRealFixLen.hpp"
 
