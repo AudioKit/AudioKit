@@ -19,7 +19,7 @@ class Compressor
     public: float Process(float fInputSignal, bool bLimitOn, float fSensitivity);
     public: void setParameters(float fThreshold, float fRatio, float fAttack, float fRelease);
     public: float getCompGain();
-    
+
     // Private
     private: CEnvelopeDetector envDetector;
     private: CDelay delayLookAhead;

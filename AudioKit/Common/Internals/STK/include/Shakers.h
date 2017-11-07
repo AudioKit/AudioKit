@@ -22,7 +22,7 @@ namespace stk {
     sounds.  This class implements simulations of breaking sticks,
     crunchy snow (or not), a wrench, sandpaper, and more.
 
-    Control Change Numbers: 
+    Control Change Numbers:
     - Shake Energy = 2
     - System Decay = 4
     - Number Of Objects = 11
@@ -184,7 +184,7 @@ inline int Shakers :: randomInt( int max ) //  Return random integer between 0 a
 }
 
 inline StkFloat Shakers :: randomFloat( StkFloat max ) // Return random float between 0.0 and max
-{	
+{
   return (StkFloat) (max * rand() / (RAND_MAX + 1.0) );
 }
 
@@ -199,7 +199,7 @@ const StkFloat WATER_FREQ_SWEEP = 1.0001;
 inline void Shakers :: waterDrop( void )
 {
   if ( randomInt( 32767 ) < nObjects_) {
-    sndLevel_ = shakeEnergy_;   
+    sndLevel_ = shakeEnergy_;
     unsigned int j = randomInt( 3 );
     if ( j == 0 && filters_[0].gain == 0.0 ) { // don't change unless fully decayed
       tempFrequencies_[0] = baseFrequencies_[1] * (0.75 + (0.25 * noise()));
@@ -246,7 +246,7 @@ inline StkFloat Shakers :: tick( unsigned int )
     // Sound is enveloped noise
     input = sndLevel_ * noise() * shakeEnergy_;
   }
-  else { 
+  else {
     if ( shakeEnergy_ < MIN_ENERGY ) return lastFrame_[0] = 0.0;
 
     // Exponential system decay

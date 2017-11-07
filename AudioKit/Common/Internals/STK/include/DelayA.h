@@ -34,7 +34,7 @@ public:
     An StkError will be thrown if the delay parameter is less than
     zero, the maximum delay parameter is less than one, or the delay
     parameter is greater than the maxDelay value.
-   */  
+   */
   DelayA( StkFloat delay = 0.5, unsigned long maxDelay = 4095 );
 
   //! Class destructor.
@@ -45,7 +45,7 @@ public:
 
   //! Get the maximum delay-line length.
   unsigned long getMaximumDelay( void ) { return inputs_.size() - 1; };
-  
+
   //! Set the maximum delay-line length.
   /*!
     This method should generally only be used during initial setup
@@ -110,7 +110,7 @@ public:
   */
   StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
 
-protected:  
+protected:
 
   unsigned long inPoint_;
   unsigned long outPoint_;

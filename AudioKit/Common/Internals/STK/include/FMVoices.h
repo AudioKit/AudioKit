@@ -20,7 +20,7 @@ namespace stk {
                         \->3 -/
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Vowel = 2
        - Spectral Tilt = 4
        - LFO Speed = 11

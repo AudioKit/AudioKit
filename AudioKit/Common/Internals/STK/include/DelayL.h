@@ -33,7 +33,7 @@ public:
     An StkError will be thrown if the delay parameter is less than
     zero, the maximum delay parameter is less than one, or the delay
     parameter is greater than the maxDelay value.
-   */  
+   */
   DelayL( StkFloat delay = 0.0, unsigned long maxDelay = 4095 );
 
   //! Class destructor.

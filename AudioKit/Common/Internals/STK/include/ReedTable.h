@@ -78,7 +78,7 @@ protected:
 
 };
 
-inline StkFloat ReedTable :: tick( StkFloat input )    
+inline StkFloat ReedTable :: tick( StkFloat input )
 {
   // The input is differential pressure across the reed.
   lastFrame_[0] = offset_ + (slope_ * input);

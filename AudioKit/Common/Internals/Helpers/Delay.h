@@ -5,7 +5,7 @@
 	Can be used alone or as a base class.
 
 
-	
+
 */
 #pragma once
 

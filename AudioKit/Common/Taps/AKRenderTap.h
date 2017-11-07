@@ -18,7 +18,7 @@
 typedef void(^AKRenderNotifyBlock)(AudioUnitRenderActionFlags * _Nonnull ioActionFlags,const AudioTimeStamp * _Nonnull inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList * _Nullable ioData);
 
 
-@interface AKRenderTap : NSObject 
+@interface AKRenderTap : NSObject
 
 /**
  * A block that will be called every pre and post render for an audio unit.

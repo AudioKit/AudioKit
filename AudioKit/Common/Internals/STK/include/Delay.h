@@ -13,7 +13,7 @@ namespace stk {
     the delay and maximum length are not specified during
     instantiation, a fixed maximum length of 4095 and a delay of zero
     is set.
-    
+
     A non-interpolating delay line is typically used in fixed
     delay-length applications, such as for reverberation.
 

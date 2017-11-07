@@ -10,7 +10,7 @@ namespace stk {
 /*! \class LentPitShift
     \brief Pitch shifter effect class based on the Lent algorithm.
 
-    This class implements a pitch shifter using pitch 
+    This class implements a pitch shifter using pitch
     tracking and sample windowing and shifting.
 
     by Francois Germain, 2009.
@@ -167,7 +167,7 @@ inline void LentPitShift::process()
     // No period has been under the threshold so we used the global minimum
     lastPeriod_ = alternativePitch;
 
-  // We put the new zero output coefficients in the output delay line and 
+  // We put the new zero output coefficients in the output delay line and
   // we get the previous calculated coefficients
   outputLine_.tick( zeroFrame, outputFrames );
 

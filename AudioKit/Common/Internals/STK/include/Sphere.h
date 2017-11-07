@@ -58,7 +58,7 @@ public:
 
   //! Move the sphere for the given time increment.
   void tick( StkFloat timeIncrement );
-   
+
 private:
   Vector3D position_;
   Vector3D velocity_;

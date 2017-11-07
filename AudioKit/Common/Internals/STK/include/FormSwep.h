@@ -59,7 +59,7 @@ class FormSwep : public Filter
     A sweep rate of 1.0 will produce an immediate change in
     resonance parameters from their current values to the
     target values.  A sweep rate of 0.0 will produce no
-    change in resonance parameters.  
+    change in resonance parameters.
   */
   void setSweepRate( StkFloat rate );
 
@@ -121,7 +121,7 @@ class FormSwep : public Filter
 };
 
 inline StkFloat FormSwep :: tick( StkFloat input )
-{                                     
+{
   if ( dirty_ )  {
     sweepState_ += sweepRate_;
     if ( sweepState_ >= 1.0 )   {

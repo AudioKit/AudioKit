@@ -98,7 +98,7 @@ class ADSR : public Generator
   */
   StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
 
- protected:  
+ protected:
 
   void sampleRateChanged( StkFloat newRate, StkFloat oldRate );
 

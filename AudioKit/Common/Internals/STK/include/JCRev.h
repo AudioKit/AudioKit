@@ -126,19 +126,19 @@ inline StkFloat JCRev :: tick( StkFloat input, unsigned int channel )
   temp0 += input;
   allpassDelays_[0].tick(temp0);
   temp0 = -(allpassCoefficient_ * temp0) + temp;
-    
+
   temp = allpassDelays_[1].lastOut();
   temp1 = allpassCoefficient_ * temp;
   temp1 += temp0;
   allpassDelays_[1].tick(temp1);
   temp1 = -(allpassCoefficient_ * temp1) + temp;
-    
+
   temp = allpassDelays_[2].lastOut();
   temp2 = allpassCoefficient_ * temp;
   temp2 += temp1;
   allpassDelays_[2].tick(temp2);
   temp2 = -(allpassCoefficient_ * temp2) + temp;
-    
+
   temp3 = temp2 + ( combFilters_[0].tick( combCoefficient_[0] * combDelays_[0].lastOut() ) );
   temp4 = temp2 + ( combFilters_[1].tick( combCoefficient_[1] * combDelays_[1].lastOut() ) );
   temp5 = temp2 + ( combFilters_[2].tick( combCoefficient_[2] * combDelays_[2].lastOut() ) );
@@ -156,7 +156,7 @@ inline StkFloat JCRev :: tick( StkFloat input, unsigned int channel )
   temp = (1.0 - effectMix_) * input;
   lastFrame_[0] += temp;
   lastFrame_[1] += temp;
-    
+
   return 0.7 * lastFrame_[channel];
 }
 

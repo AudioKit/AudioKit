@@ -1695,7 +1695,7 @@ typedef struct oss_mixext
   /* (-1 means not indicated) */
 
 /*
- * The desc field is reserved for internal purposes of OSS. It should not be 
+ * The desc field is reserved for internal purposes of OSS. It should not be
  * used by applications.
  */
   unsigned int desc;

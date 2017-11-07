@@ -36,7 +36,7 @@ namespace stk {
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Noise Gain = 4
        - Tonehole State = 11
@@ -125,7 +125,7 @@ class BlowHole : public Instrmnt
   StkFloat temp;
 
   // Calculate the breath pressure (envelope + noise + vibrato)
-  breathPressure = envelope_.tick(); 
+  breathPressure = envelope_.tick();
   breathPressure += breathPressure * noiseGain_ * noise_.tick();
   breathPressure += breathPressure * vibratoGain_ * vibrato_.tick();
 

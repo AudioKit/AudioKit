@@ -17,7 +17,7 @@ class RageProcessor
 
     public: MikeFilter filterToneZ;
     public: void setNumStages (int theStages);
-    
+
     private: int iSampleRate, iNumStages;
 };
 

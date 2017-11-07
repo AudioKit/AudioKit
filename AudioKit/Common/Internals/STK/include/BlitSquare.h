@@ -116,9 +116,9 @@ inline StkFloat BlitSquare :: tick( void )
   StkFloat temp = lastBlitOutput_;
 
   // A fully  optimized version of this would replace the two sin calls
-  // with a pair of fast sin oscillators, for which stable fast 
+  // with a pair of fast sin oscillators, for which stable fast
   // two-multiply algorithms are well known. In the spirit of STK,
-  // which favors clarity over performance, the optimization has 
+  // which favors clarity over performance, the optimization has
   // not been made here.
 
   // Avoid a divide by zero, or use of a denomralized divisor

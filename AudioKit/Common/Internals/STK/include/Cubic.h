@@ -14,7 +14,7 @@ namespace stk {
     that was used in SynthBuilder.
 
     The formula implemented is:
- 
+
     \code
     output = gain * (a1 * input + a2 * input^2 + a3 * input^3)
     \endcode
@@ -77,7 +77,7 @@ protected:
   StkFloat a1_;
   StkFloat a2_;
   StkFloat a3_;
-  StkFloat gain_; 
+  StkFloat gain_;
   StkFloat threshold_;
 };
 

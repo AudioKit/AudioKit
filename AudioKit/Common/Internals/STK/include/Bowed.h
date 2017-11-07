@@ -23,7 +23,7 @@ namespace stk {
     use possibly subject to patents held by
     Stanford University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Bow Pressure = 2
        - Bow Position = 4
        - Vibrato Frequency = 11
@@ -114,9 +114,9 @@ inline StkFloat Bowed :: tick( unsigned int )
     newVelocity = deltaV * bowTable_.tick( deltaV );     // Non-Linear bow function
   neckDelay_.tick( bridgeReflection + newVelocity);      // Do string propagations
   bridgeDelay_.tick(nutReflection + newVelocity);
-    
+
   if ( vibratoGain_ > 0.0 )  {
-    neckDelay_.setDelay( (baseDelay_ * (1.0 - betaRatio_) ) + 
+    neckDelay_.setDelay( (baseDelay_ * (1.0 - betaRatio_) ) +
                          (baseDelay_ * vibratoGain_ * vibrato_.tick()) );
   }
 

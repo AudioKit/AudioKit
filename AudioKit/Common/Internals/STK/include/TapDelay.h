@@ -13,7 +13,7 @@ namespace stk {
     an arbitrary number of output "taps".  If the maximum length and
     tap delays are not specified during instantiation, a fixed maximum
     length of 4095 and a single tap delay of zero is set.
-    
+
     A non-interpolating delay line is typically used in fixed
     delay-length applications, such as for reverberation.
 

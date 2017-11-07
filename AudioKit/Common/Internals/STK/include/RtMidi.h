@@ -80,7 +80,7 @@ class RtMidiError : public std::exception
 
   //! The constructor.
   RtMidiError( const std::string& message, Type type = RtMidiError::UNSPECIFIED ) throw() : message_(message), type_(type) {}
- 
+
   //! The destructor.
   virtual ~RtMidiError( void ) throw() {}
 
@@ -477,8 +477,8 @@ class MidiInApi : public MidiApi
 
   // A MIDI structure used internally by the class to store incoming
   // messages.  Each message represents one and only one MIDI message.
-  struct MidiMessage { 
-    std::vector<unsigned char> bytes; 
+  struct MidiMessage {
+    std::vector<unsigned char> bytes;
     double timeStamp;
 
     // Default constructor.

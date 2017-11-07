@@ -99,13 +99,13 @@ inline StkFloat BlitSaw :: tick( void )
   // most consistently.  A "leaky integrator" is then applied to the
   // difference of the BLIT output and C2_. (GPS - 1 October 2005)
 
-  // A fully  optimized version of this code would replace the two sin 
-  // calls with a pair of fast sin oscillators, for which stable fast 
+  // A fully  optimized version of this code would replace the two sin
+  // calls with a pair of fast sin oscillators, for which stable fast
   // two-multiply algorithms are well known. In the spirit of STK,
-  // which favors clarity over performance, the optimization has 
+  // which favors clarity over performance, the optimization has
   // not been made here.
 
-  // Avoid a divide by zero, or use of a denormalized divisor 
+  // Avoid a divide by zero, or use of a denormalized divisor
   // at the sinc peak, which has a limiting value of m_ / p_.
   StkFloat tmp, denominator = sin( phase_ );
   if ( fabs(denominator) <= std::numeric_limits<StkFloat>::epsilon() )
@@ -120,7 +120,7 @@ inline StkFloat BlitSaw :: tick( void )
 
   phase_ += rate_;
   if ( phase_ >= PI ) phase_ -= PI;
-    
+
   lastFrame_[0] = tmp;
 	return lastFrame_[0];
 }

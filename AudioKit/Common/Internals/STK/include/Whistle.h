@@ -18,7 +18,7 @@ namespace stk {
     This class implements a hybrid physical/spectral
     model of a police whistle (a la Cook).
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Noise Gain = 4
        - Fipple Modulation Frequency = 11
        - Fipple Modulation Gain = 1

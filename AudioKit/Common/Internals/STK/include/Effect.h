@@ -33,7 +33,7 @@ class Effect : public Stk
   //! Reset and clear all internal state.
   virtual void clear() = 0;
 
-  //! Set the mixture of input and "effected" levels in the output (0.0 = input only, 1.0 = effect only). 
+  //! Set the mixture of input and "effected" levels in the output (0.0 = input only, 1.0 = effect only).
   virtual void setEffectMix( StkFloat mix );
 
  protected:

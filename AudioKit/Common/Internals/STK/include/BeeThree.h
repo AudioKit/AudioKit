@@ -22,7 +22,7 @@ namespace stk {
                      4 --
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Operator 4 (feedback) Gain = 2
        - Operator 3 Gain = 4
        - LFO Speed = 11

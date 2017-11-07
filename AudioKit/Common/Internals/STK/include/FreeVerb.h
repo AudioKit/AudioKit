@@ -24,7 +24,7 @@ namespace stk {
 /***********************************************************************/
 
 class FreeVerb : public Effect
-{   
+{
  public:
   //! FreeVerb Constructor
   /*!
@@ -123,11 +123,11 @@ class FreeVerb : public Effect
   // Clamp very small floats to zero, version from
   // http://music.columbia.edu/pipermail/linux-audio-user/2004-July/013489.html .
   // However, this is for 32-bit floats only.
-  //static inline StkFloat undenormalize( volatile StkFloat s ) { 
-  //  s += 9.8607615E-32f; 
-  //  return s - 9.8607615E-32f; 
+  //static inline StkFloat undenormalize( volatile StkFloat s ) {
+  //  s += 9.8607615E-32f;
+  //  return s - 9.8607615E-32f;
   //}
-    
+
   static const int nCombs = 8;
   static const int nAllpasses = 4;
   static const int stereoSpread = 23;
@@ -156,7 +156,7 @@ class FreeVerb : public Effect
   Delay combDelayR_[nCombs];
   OnePole combLPL_[nCombs];
   OnePole combLPR_[nCombs];
-        
+
   // AP: Allpass Filters
   Delay allPassDelayL_[nAllpasses];
   Delay allPassDelayR_[nAllpasses];
@@ -209,7 +209,7 @@ inline StkFloat FreeVerb::tick( StkFloat inputL, StkFloat inputR, unsigned int c
     StkFloat vn_m = allPassDelayL_[i].nextOut();
     StkFloat vn = outL + (g_ * vn_m);
     allPassDelayL_[i].tick(vn);
-        
+
     // calculate output
     outL = -vn + (1.0 + g_)*vn_m;
 

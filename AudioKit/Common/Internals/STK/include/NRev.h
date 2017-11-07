@@ -134,13 +134,13 @@ inline StkFloat NRev :: tick( StkFloat input, unsigned int channel )
   temp1 += lowpassState_;
   allpassDelays_[3].tick( temp1 );
   temp1 = -( allpassCoefficient_ * temp1 ) + temp;
-    
+
   temp = allpassDelays_[4].lastOut();
   temp2 = allpassCoefficient_ * temp;
   temp2 += temp1;
   allpassDelays_[4].tick( temp2 );
   lastFrame_[0] = effectMix_*( -( allpassCoefficient_ * temp2 ) + temp );
-    
+
   temp = allpassDelays_[5].lastOut();
   temp3 = allpassCoefficient_ * temp;
   temp3 += temp1;
@@ -150,7 +150,7 @@ inline StkFloat NRev :: tick( StkFloat input, unsigned int channel )
   temp = ( 1.0 - effectMix_ ) * input;
   lastFrame_[0] += temp;
   lastFrame_[1] += temp;
-    
+
   return lastFrame_[channel];
 }
 
