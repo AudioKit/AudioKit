@@ -13,7 +13,7 @@
                       2->1--/
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Modulator Index One = 2
        - Crossfade of Outputs = 4
        - LFO Speed = 11
@@ -59,7 +59,7 @@ Wurley :: Wurley( void )
 
   twozero_.setGain( 2.0 );
   vibrato_.setFrequency( 8.0 );
-}  
+}
 
 Wurley :: ~Wurley( void )
 {

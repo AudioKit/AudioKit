@@ -24,7 +24,7 @@
 #include "Blit.h"
 
 namespace stk {
- 
+
 Blit:: Blit( StkFloat frequency )
 {
   if ( frequency <= 0.0 ) {

@@ -2,7 +2,7 @@
 /*! \class LentPitShift
     \brief Pitch shifter effect class based on the Lent algorithm.
 
-    This class implements a pitch shifter using pitch 
+    This class implements a pitch shifter using pitch
     tracking and sample windowing and shifting.
 
     by Francois Germain, 2009.
@@ -46,7 +46,7 @@ void LentPitShift :: clear()
 void LentPitShift :: setShift( StkFloat shift )
 {
   if ( shift <= 0.0 ) periodRatio_ = 1.0;
-  periodRatio_ = 1.0 / shift; 
+  periodRatio_ = 1.0 / shift;
 }
 
 } // stk namespace

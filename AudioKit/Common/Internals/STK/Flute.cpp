@@ -11,7 +11,7 @@
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Jet Delay = 2
        - Noise Gain = 4
        - Vibrato Frequency = 11

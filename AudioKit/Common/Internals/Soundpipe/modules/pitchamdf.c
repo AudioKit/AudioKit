@@ -130,7 +130,7 @@ int sp_pitchamdf_init(sp_data *sp, sp_pitchamdf *p, SPFLOAT imincps, SPFLOAT ima
 #define SWAP(a,b) temp=(a);(a)=(b);(b)=temp
 
 static SPFLOAT medianvalue(uint32_t n, SPFLOAT *vals)
-{   
+{
     /* vals must point to 1 below relevant data! */
     uint32_t i, ir, j, l, mid;
     uint32_t k = (n + 1) / 2;
@@ -174,7 +174,7 @@ static SPFLOAT medianvalue(uint32_t n, SPFLOAT *vals)
 }
 #undef SWAP
 
-int sp_pitchamdf_compute(sp_data *sp, sp_pitchamdf *p, SPFLOAT *in, 
+int sp_pitchamdf_compute(sp_data *sp, sp_pitchamdf *p, SPFLOAT *in,
     SPFLOAT *cps, SPFLOAT *rms_out)
 {
     SPFLOAT *buffer = (SPFLOAT*)p->buffer.ptr;
@@ -232,8 +232,8 @@ int sp_pitchamdf_compute(sp_data *sp, sp_pitchamdf *p, SPFLOAT *in,
                     }
                 }
 
-                for (i1 = 0; i1 < interval; i1++) { 
-                    buffer[i1] = buffer[i1+interval]; 
+                for (i1 = 0; i1 < interval; i1++) {
+                    buffer[i1] = buffer[i1+interval];
                 }
 
                 index = maxperi;
@@ -312,7 +312,7 @@ int sp_pitchamdf_compute(sp_data *sp, sp_pitchamdf *p, SPFLOAT *in,
         val = buffer[i1];
         sum += (SPFLOAT)(val * val);
     }
-    if (peri==0)      
+    if (peri==0)
         rms = 0.0;
     else
         rms = (SPFLOAT)sqrt(sum / (SPFLOAT)peri);

@@ -9,8 +9,8 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
-/// Extension of `UIGestureRecognizerDelegate` which allows the delegate to receive messages relating to 
-/// individual touches. The `delegate` property can be set to a class 
+/// Extension of `UIGestureRecognizerDelegate` which allows the delegate to receive messages relating to
+/// individual touches. The `delegate` property can be set to a class
 /// implementing `MultitouchGestureRecognizerDelegate` and it will receive these messages.
 @objc public protocol MultitouchGestureRecognizerDelegate: UIGestureRecognizerDelegate {
 
@@ -69,7 +69,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    /// If `sustain` is set to `true`, when touches end they will be retained in `touches` until such time as all 
+    /// If `sustain` is set to `true`, when touches end they will be retained in `touches` until such time as all
     /// touches have ended and a new touch begins.
     /// If `sustain` is switched from `true` to `false`, any currently sustained touches will be ended immediately.
     public var sustain: Bool = true {
@@ -80,7 +80,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    /// The currently tracked collection of touches. May contain touches after they have ended, 
+    /// The currently tracked collection of touches. May contain touches after they have ended,
     /// if `sustain` is set to `true`.
     public lazy private(set) var touches = [UITouch]()
 
@@ -93,7 +93,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         /// One more more touches are currently in progress.
         case live
 
-        /// All touches have ended, but one or more is being retained in the `touches` collection 
+        /// All touches have ended, but one or more is being retained in the `touches` collection
         /// thanks to the `sustain` setting.
         case sustained
     }
@@ -141,7 +141,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
         update(touches)
     }
 
-    /// Handle ended touches    
+    /// Handle ended touches
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesEnded(touches, with: event)
 

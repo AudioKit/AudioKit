@@ -39,9 +39,9 @@ unsigned char genMIDIMap[128] =
     0,0,0,0,0,0,0,0,		// 112-119
     0,0,0,0,0,0,0,0     // 120-127
   };
-				  
+
 char waveNames[DRUM_NUMWAVES][16] =
-  { 
+  {
     "dope.raw",
     "bassdrum.raw",
     "snardrum.raw",
@@ -50,8 +50,8 @@ char waveNames[DRUM_NUMWAVES][16] =
     "tomhidrm.raw",
     "hihatcym.raw",
     "ridecymb.raw",
-    "crashcym.raw", 
-    "cowbell1.raw", 
+    "crashcym.raw",
+    "cowbell1.raw",
     "tambourn.raw"
   };
 

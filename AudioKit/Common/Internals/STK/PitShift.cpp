@@ -39,7 +39,7 @@ void PitShift :: clear()
 void PitShift :: setShift( StkFloat shift )
 {
   if ( shift < 1.0 ) {
-    rate_ = 1.0 - shift; 
+    rate_ = 1.0 - shift;
   }
   else if ( shift > 1.0 ) {
     rate_ = 1.0 - shift;

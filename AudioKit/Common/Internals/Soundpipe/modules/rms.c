@@ -1,9 +1,9 @@
 /*
  * RMS
- * 
+ *
  * This code has been extracted from the Csound opcode "rms".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Barry Vercoe, John ffitch, Gabriel Maldonado
  * Year: 1991
  * Location: Opcodes/ugens5.c
@@ -15,8 +15,8 @@
 #include "soundpipe.h"
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	
-#endif 
+#define M_PI		3.14159265358979323846
+#endif
 
 int sp_rms_create(sp_rms **p)
 {

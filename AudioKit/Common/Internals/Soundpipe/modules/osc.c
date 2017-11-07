@@ -37,8 +37,8 @@ int sp_osc_init(sp_data *sp, sp_osc *osc, sp_ftbl *ft, SPFLOAT iphs)
         osc->lphs = ((int32_t)(osc->iphs * SP_FT_MAXLEN)) & SP_FT_PHMASK;
     }
 
-    /* HACK: osc relies on ftables which one extra value. Set this to be 
-     * the first value of the ftable for wrap-around. 
+    /* HACK: osc relies on ftables which one extra value. Set this to be
+     * the first value of the ftable for wrap-around.
      */
 
 //    ft->tbl[ft->size] = ft->tbl[0];

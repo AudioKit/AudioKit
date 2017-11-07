@@ -13,7 +13,7 @@
                         \->3 -/
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Vowel = 2
        - Spectral Tilt = 4
        - LFO Speed = 11
@@ -61,13 +61,13 @@ FMVoices :: FMVoices( void )
   currentVowel_ = 0;
   tilt_[0] = 1.0;
   tilt_[1] = 0.5;
-  tilt_[2] = 0.2;    
+  tilt_[2] = 0.2;
   mods_[0] = 1.0;
   mods_[1] = 1.1;
   mods_[2] = 1.1;
   baseFrequency_ = 110.0;
-  this->setFrequency( 110.0 );    
-}  
+  this->setFrequency( 110.0 );
+}
 
 FMVoices :: ~FMVoices( void )
 {
@@ -112,7 +112,7 @@ void FMVoices :: setFrequency( StkFloat frequency )
   this->setRatio( 1, (StkFloat) tempi );
   temp = (temp2 * Phonemes::formantFrequency(i, 2) / baseFrequency_) + 0.5;
   tempi = (int) temp;
-  this->setRatio( 2, (StkFloat) tempi );    
+  this->setRatio( 2, (StkFloat) tempi );
   gains_[0] = 1.0;
   gains_[1] = 1.0;
   gains_[2] = 1.0;

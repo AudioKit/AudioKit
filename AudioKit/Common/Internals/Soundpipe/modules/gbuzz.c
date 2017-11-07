@@ -1,9 +1,9 @@
 /*
  * GBuzz
- * 
+ *
  * This code has been extracted from the Csound opcode "gbuzz".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Gabriel Maldonado
  * Year: 1991
  * Location: ugens/ugens4.c
@@ -14,7 +14,7 @@
 #include "soundpipe.h"
 
 /* Binary positive power function */
-static SPFLOAT intpow1(SPFLOAT x, int32_t n)   
+static SPFLOAT intpow1(SPFLOAT x, int32_t n)
 {
     SPFLOAT ans = 1.0;
     while (n!=0) {
@@ -46,7 +46,7 @@ int sp_gbuzz_init(sp_data *sp, sp_gbuzz *p, sp_ftbl *ft, SPFLOAT iphs)
     p->lharm = 1;
     p->mul = 0.1;
     p->ft = ft;
-    p->iphs = iphs; 
+    p->iphs = iphs;
 
     if (p->iphs >= 0) {
         p->lphs = (int32_t)(p->iphs * SP_FT_MAXLEN);

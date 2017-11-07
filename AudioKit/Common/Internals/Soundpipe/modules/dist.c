@@ -1,9 +1,9 @@
 /*
  * Dist
- * 
+ *
  * This code has been extracted from the Csound opcode "distort1".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Hans Mikelson
  * Year: 1998
  * Location: Opcodes/biquad.c
@@ -52,7 +52,7 @@ int sp_dist_compute(sp_data *sp, sp_dist *p, SPFLOAT *in, SPFLOAT *out)
     postgain *= 0.5;
     sig = *in;
     /* Generate tanh distortion and output the result */
-    *out =                          
+    *out =
     ((exp(sig * shape1) - exp(sig * shape2))
              / cosh(sig * pregain))
     * postgain;

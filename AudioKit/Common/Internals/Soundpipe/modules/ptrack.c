@@ -373,7 +373,7 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
 
         for (best = 0, indx = -1, j=0; j < maxbin; j++) {
             if (histogram[j] > best) {
-                indx = j;  
+                indx = j;
                 best = histogram[j];
             }
         }

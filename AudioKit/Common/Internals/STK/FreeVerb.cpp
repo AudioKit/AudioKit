@@ -36,7 +36,7 @@ FreeVerb::FreeVerb( void )
   lastFrame_.resize( 1, 2, 0.0 );
 
   // Initialize parameters
-  Effect::setEffectMix( 0.75 ); // set initially to 3/4 wet 1/4 dry signal (different than original freeverb) 
+  Effect::setEffectMix( 0.75 ); // set initially to 3/4 wet 1/4 dry signal (different than original freeverb)
   roomSizeMem_ = (0.75 * scaleRoom) + offsetRoom; // feedback attenuation in LBFC
   dampMem_ = 0.25 * scaleDamp;                    // pole of lowpass filters in the LBFC
   width_ = 1.0;
@@ -84,7 +84,7 @@ FreeVerb::~FreeVerb()
 void FreeVerb::setEffectMix( StkFloat mix )
 {
   Effect::setEffectMix( mix );
-  update();    
+  update();
 }
 
 void FreeVerb::setRoomSize( StkFloat roomSize )

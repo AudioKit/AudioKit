@@ -17,7 +17,7 @@ namespace stk {
 Vector3D* Sphere::getRelativePosition( Vector3D* position )
 {
   workingVector_.setXYZ(position->getX() - position_.getX(),
-                        position->getY() - position_.getY(),  
+                        position->getY() - position_.getY(),
                         position->getZ() - position_.getZ());
   return &workingVector_;
 };

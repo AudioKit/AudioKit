@@ -12,19 +12,19 @@
 
 static float faustpower2_f(float value) {
 	return (value * value);
-	
+
 }
 static float faustpower3_f(float value) {
 	return ((value * value) * value);
-	
+
 }
 static float faustpower4_f(float value) {
 	return (((value * value) * value) * value);
-	
+
 }
 
 typedef struct {
-	
+
 	float fRec4[3];
 	float fRec3[3];
 	float fRec2[3];
@@ -52,15 +52,15 @@ typedef struct {
 	FAUSTFLOAT fHslider6;
 	FAUSTFLOAT fHslider7;
 	FAUSTFLOAT fCheckbox1;
-	
+
 } phaser;
 
-phaser* newphaser() { 
+phaser* newphaser() {
 	phaser* dsp = (phaser*)malloc(sizeof(phaser));
 	return dsp;
 }
 
-void deletephaser(phaser* dsp) { 
+void deletephaser(phaser* dsp) {
 	free(dsp);
 }
 
@@ -72,9 +72,9 @@ void instanceInitphaser(phaser* dsp, int samplingFreq) {
 		int i0;
 		for (i0 = 0; (i0 < 2); i0 = (i0 + 1)) {
 			dsp->iVec0[i0] = 0;
-			
+
 		}
-		
+
 	}
 	dsp->fCheckbox0 = (FAUSTFLOAT)0.;
 	dsp->fHslider1 = (FAUSTFLOAT)1.;
@@ -91,18 +91,18 @@ void instanceInitphaser(phaser* dsp, int samplingFreq) {
 		int i1;
 		for (i1 = 0; (i1 < 2); i1 = (i1 + 1)) {
 			dsp->fRec5[i1] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i2;
 		for (i2 = 0; (i2 < 2); i2 = (i2 + 1)) {
 			dsp->fRec6[i2] = 0.f;
-			
+
 		}
-		
+
 	}
 	dsp->fHslider7 = (FAUSTFLOAT)0.;
 	/* C99 loop */
@@ -110,45 +110,45 @@ void instanceInitphaser(phaser* dsp, int samplingFreq) {
 		int i3;
 		for (i3 = 0; (i3 < 3); i3 = (i3 + 1)) {
 			dsp->fRec4[i3] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i4;
 		for (i4 = 0; (i4 < 3); i4 = (i4 + 1)) {
 			dsp->fRec3[i4] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i5;
 		for (i5 = 0; (i5 < 3); i5 = (i5 + 1)) {
 			dsp->fRec2[i5] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i6;
 		for (i6 = 0; (i6 < 3); i6 = (i6 + 1)) {
 			dsp->fRec1[i6] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i7;
 		for (i7 = 0; (i7 < 2); i7 = (i7 + 1)) {
 			dsp->fRec0[i7] = 0.f;
-			
+
 		}
-		
+
 	}
 	dsp->fCheckbox1 = (FAUSTFLOAT)0.;
 	/* C99 loop */
@@ -156,47 +156,47 @@ void instanceInitphaser(phaser* dsp, int samplingFreq) {
 		int i8;
 		for (i8 = 0; (i8 < 3); i8 = (i8 + 1)) {
 			dsp->fRec11[i8] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i9;
 		for (i9 = 0; (i9 < 3); i9 = (i9 + 1)) {
 			dsp->fRec10[i9] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i10;
 		for (i10 = 0; (i10 < 3); i10 = (i10 + 1)) {
 			dsp->fRec9[i10] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i11;
 		for (i11 = 0; (i11 < 3); i11 = (i11 + 1)) {
 			dsp->fRec8[i11] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i12;
 		for (i12 = 0; (i12 < 2); i12 = (i12 + 1)) {
 			dsp->fRec7[i12] = 0.f;
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 void initphaser(phaser* dsp, int samplingFreq) {
@@ -293,11 +293,11 @@ void computephaser(phaser* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** out
 			dsp->fRec8[2] = dsp->fRec8[1];
 			dsp->fRec8[1] = dsp->fRec8[0];
 			dsp->fRec7[1] = dsp->fRec7[0];
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
@@ -331,7 +331,7 @@ int sp_phaser_destroy(sp_phaser **p)
 
 int sp_phaser_init(sp_data *sp, sp_phaser *p)
 {
-    phaser *dsp = newphaser(); 
+    phaser *dsp = newphaser();
     UIGlue UI;
     p->argpos = 0;
     UI.addHorizontalSlider= addHorizontalSlider;
@@ -341,23 +341,23 @@ int sp_phaser_init(sp_data *sp, sp_phaser *p)
     initphaser(dsp, sp->sr);
 
 
-    p->MaxNotch1Freq = p->args[0]; 
-    p->MinNotch1Freq = p->args[1]; 
-    p->Notch_width = p->args[2]; 
-    p->NotchFreq = p->args[3]; 
-    p->VibratoMode = p->args[4]; 
-    p->depth = p->args[5]; 
-    p->feedback_gain = p->args[6]; 
-    p->invert = p->args[7]; 
-    p->level = p->args[8]; 
+    p->MaxNotch1Freq = p->args[0];
+    p->MinNotch1Freq = p->args[1];
+    p->Notch_width = p->args[2];
+    p->NotchFreq = p->args[3];
+    p->VibratoMode = p->args[4];
+    p->depth = p->args[5];
+    p->feedback_gain = p->args[6];
+    p->invert = p->args[7];
+    p->level = p->args[8];
     p->lfobpm = p->args[9];
 
     p->faust = dsp;
     return SP_OK;
 }
 
-int sp_phaser_compute(sp_data *sp, sp_phaser *p, 
-	SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2) 
+int sp_phaser_compute(sp_data *sp, sp_phaser *p,
+	SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2)
 {
     phaser *dsp = p->faust;
     SPFLOAT *faust_out[] = {out1, out2};

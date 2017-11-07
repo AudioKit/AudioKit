@@ -22,7 +22,7 @@
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Noise Gain = 4
        - Tonehole State = 11
@@ -178,7 +178,7 @@ void BlowHole :: stopBlowing( StkFloat rate )
   }
 
   envelope_.setRate( rate );
-  envelope_.setTarget( 0.0 ); 
+  envelope_.setTarget( 0.0 );
 }
 
 void BlowHole :: noteOn( StkFloat frequency, StkFloat amplitude )

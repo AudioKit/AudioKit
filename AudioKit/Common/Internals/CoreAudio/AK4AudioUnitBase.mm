@@ -45,7 +45,7 @@
  associated with the parameter tree must be set up here. This is because the pointer to the
  parameterTree is being changed. If we set up the blocks in the init function, they would be
  associated with the "old" parameterTree when the parameterTree is setup for real.
- 
+
  Otherwise, this code is just the same as what is in the Apple example code init function.
  */
 

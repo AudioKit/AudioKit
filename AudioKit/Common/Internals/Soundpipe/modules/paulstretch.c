@@ -1,10 +1,10 @@
 /*
  * PaulStretch
- * 
+ *
  * An implementation of the PaulStretch algorithm by Paul Nasca Octavian.
- * This code is based off the Python Numpy/Scipy implementation of 
+ * This code is based off the Python Numpy/Scipy implementation of
  * PaulStretch, found here: https://github.com/paulnasca/paulstretch_python
- * 
+ *
  */
 
 #include <stdlib.h>
@@ -19,7 +19,7 @@
 
 static void compute_block(sp_data *sp, sp_paulstretch *p) {
     uint32_t istart_pos = floor(p->start_pos);
-    uint32_t pos; 
+    uint32_t pos;
     uint32_t i;
     uint32_t windowsize = p->windowsize;
     uint32_t half_windowsize = p->half_windowsize;
@@ -35,7 +35,7 @@ static void compute_block(sp_data *sp, sp_paulstretch *p) {
 
         if(p->wrap) {
             pos %= p->ft->size;
-        } 
+        }
 
         if(pos < p->ft->size) {
             buf[i] = tbl[pos] * window[i];
@@ -47,8 +47,8 @@ static void compute_block(sp_data *sp, sp_paulstretch *p) {
     for(i = 0; i < windowsize / 2; i++) {
         SPFLOAT mag = sqrt(p->tmp1[i].r*p->tmp1[i].r + p->tmp1[i].i*p->tmp1[i].i);
         SPFLOAT ph = ((SPFLOAT)sp_rand(sp) / SP_RANDMAX) * 2 * M_PI;
-        p->tmp1[i].r = mag * cos(ph); 
-        p->tmp1[i].i = mag * sin(ph); 
+        p->tmp1[i].r = mag * cos(ph);
+        p->tmp1[i].i = mag * sin(ph);
     }
     kiss_fftri(p->ifft, p->tmp1, buf);
     for(i = 0; i < windowsize; i++) {

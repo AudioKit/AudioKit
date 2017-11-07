@@ -108,7 +108,7 @@ inline void	FFTRealFixLen <2>::do_fft (DataType f [], const DataType x [])
 
 	const DataType	b_0 = x [0] + x [2];
 	const DataType	b_2 = x [1] + x [3];
-	
+
 	f [0] = b_0 + b_2;
 	f [2] = b_0 - b_2;
 }

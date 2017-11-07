@@ -161,7 +161,7 @@ MidiFileIn :: ~MidiFileIn()
 {
   // An ifstream object implicitly closes itself during destruction
   // but we'll make an explicit call to "close" anyway.
-  file_.close(); 
+  file_.close();
 }
 
 void MidiFileIn :: rewindTrack( unsigned int track )
@@ -347,6 +347,6 @@ bool MidiFileIn :: readVariableLength( unsigned long *value )
   }
 
   return true;
-} 
+}
 
 } // stk namespace

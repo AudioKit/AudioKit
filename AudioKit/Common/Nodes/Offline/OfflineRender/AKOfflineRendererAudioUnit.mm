@@ -249,7 +249,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
 
         pthread_mutex_unlock(lock);
         return noErr;
-    }; 
+    };
 }
 -(AVAudioFormat *)defaultFileFormat{
     return [[AVAudioFormat alloc]initWithCommonFormat:AVAudioPCMFormatInt16 sampleRate:44100.0 channels:self.defaultFormat.channelCount interleaved:true];

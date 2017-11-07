@@ -32,7 +32,7 @@ int sp_randh_compute(sp_data *sp, sp_randh *p, SPFLOAT *in, SPFLOAT *out)
         if(p->freq == 0) {
             p->dur = 1;
         } else {
-            p->dur = (sp->sr / p->freq) + 1; 
+            p->dur = (sp->sr / p->freq) + 1;
         }
 
         *out = p->val;

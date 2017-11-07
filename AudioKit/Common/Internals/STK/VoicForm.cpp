@@ -14,7 +14,7 @@
     cascade synthesis is the most natural so
     that's what you'll find here.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Voiced/Unvoiced Mix = 2
        - Vowel/Phoneme Selection = 4
        - Vibrato Frequency = 11
@@ -51,7 +51,7 @@ VoicForm :: VoicForm( void ) : Instrmnt()
 
   this->setPhoneme( "eee" );
   this->clear();
-}  
+}
 
 VoicForm :: ~VoicForm( void )
 {

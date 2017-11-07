@@ -3140,7 +3140,7 @@ void sp_ifftr(sp_fft *fft, SPFLOAT *buf, int FFTsize)
     riffts1(buf, M, fft->utbl, fft->BRLow);
 }
 
-void sp_fft_destroy(sp_fft *fft) 
+void sp_fft_destroy(sp_fft *fft)
 {
     free(fft->utbl);
     free(fft->BRLow);

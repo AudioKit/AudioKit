@@ -16,7 +16,7 @@
 #include "SingWave.h"
 
 namespace stk {
- 
+
 SingWave :: SingWave( std::string fileName, bool raw )
 {
   // An exception could be thrown here.

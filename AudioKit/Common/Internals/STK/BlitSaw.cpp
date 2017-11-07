@@ -22,7 +22,7 @@
 #include "BlitSaw.h"
 
 namespace stk {
- 
+
 BlitSaw:: BlitSaw( StkFloat frequency )
 {
   if ( frequency <= 0.0 ) {

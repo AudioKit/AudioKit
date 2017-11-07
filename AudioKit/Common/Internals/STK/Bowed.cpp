@@ -10,7 +10,7 @@
     use possibly subject to patents held by
     Stanford University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Bow Pressure = 2
        - Bow Position = 4
        - Vibrato Frequency = 11
@@ -166,7 +166,7 @@ void Bowed :: controlChange( int number, StkFloat value )
   else if ( number == 100 ) // 100: set instantaneous bow velocity
     adsr_.setTarget( normalizedValue );
 	else if ( number == 101 ) // 101: set instantaneous value of frequency
-		this->setFrequency( value );	  
+		this->setFrequency( value );
   else if (number == __SK_AfterTouch_Cont_) // 128
     adsr_.setTarget( normalizedValue );
 #if defined(_STK_DEBUG_)

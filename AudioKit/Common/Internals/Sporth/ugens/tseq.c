@@ -65,7 +65,7 @@ int sporth_tseq(sporth_stack *stack, void *ud)
         case PLUMBER_DESTROY:
 #ifdef DEBUG_MODE
             plumber_print(pd, "Destroying tseq\n");
-#endif 
+#endif
             tseq = pd->last->ud;
             sp_tseq_destroy(&tseq);
             break;

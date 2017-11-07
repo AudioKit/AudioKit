@@ -1,4 +1,4 @@
-/* 
+/*
  * reson
  *
  * This code has been extracted from the Csound opcode "reson".
@@ -14,8 +14,8 @@
 #include <math.h>
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	
-#endif 
+#define M_PI		3.14159265358979323846
+#endif
 
 #include "soundpipe.h"
 
@@ -49,7 +49,7 @@ int sp_reson_compute(sp_data *sp, sp_reson *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT yt1, yt2, c1 = p->c1, c2 = p->c2, c3 = p->c3;
     int flag = 0;
 
-    yt1 = p->yt1; 
+    yt1 = p->yt1;
     yt2 = p->yt2;
 
     SPFLOAT yt0;

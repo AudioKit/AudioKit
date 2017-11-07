@@ -72,7 +72,7 @@ void CDelay::cookVariables()
 		m_nReadIndex += m_nBufferSize;	// amount of wrap is Read + Length
 
 }
-		
+
 void CDelay::writeDelayAndInc(float fDelayInput)
 {
 	// write to the delay line
@@ -106,14 +106,14 @@ float CDelay::readDelay()
 
 	return dLinTerp(0, 1, yn, yn_1, fFracDelay); // interp frac between them
 }
-	
+
 float CDelay::readDelayAt(float fmSec)
 {
 	float fDelayInSamples = fmSec*((float)m_nSampleRate)/1000.0f;
 
 	// subtract to make read index
 	int nReadIndex = m_nWriteIndex - (int)fDelayInSamples;
-	
+
 	// Read the output of the delay at m_nReadIndex
 	float yn = m_pBuffer[nReadIndex];
 
@@ -139,7 +139,7 @@ bool CDelay::processAudio(float* pInput, float* pOutput)
 
 	// read delayed output
 	float yn = m_fDelayInSamples == 0 ? xn : readDelay();
-		
+
 	// write to the delay line
 	writeDelayAndInc(xn);
 

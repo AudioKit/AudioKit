@@ -9,7 +9,7 @@
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT SPFLOAT
-#endif  
+#endif
 
 typedef struct {
 	float fRec2[2];
@@ -25,12 +25,12 @@ typedef struct {
 	FAUSTFLOAT fHslider3;
 } compressor;
 
-static compressor* newcompressor() { 
+static compressor* newcompressor() {
 	compressor* dsp = (compressor*)malloc(sizeof(compressor));
 	return dsp;
 }
 
-static void deletecompressor(compressor* dsp) { 
+static void deletecompressor(compressor* dsp) {
 	free(dsp);
 }
 
@@ -47,18 +47,18 @@ static void instanceInitcompressor(compressor* dsp, int samplingFreq) {
 		int i0;
 		for (i0 = 0; (i0 < 2); i0 = (i0 + 1)) {
 			dsp->fRec2[i0] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i1;
 		for (i1 = 0; (i1 < 2); i1 = (i1 + 1)) {
 			dsp->fRec1[i1] = 0.f;
-			
+
 		}
-		
+
 	}
 	dsp->fHslider3 = (FAUSTFLOAT)0.;
 	/* C99 loop */
@@ -66,11 +66,11 @@ static void instanceInitcompressor(compressor* dsp, int samplingFreq) {
 		int i2;
 		for (i2 = 0; (i2 < 2); i2 = (i2 + 1)) {
 			dsp->fRec0[i2] = 0.f;
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 static void initcompressor(compressor* dsp, int samplingFreq) {
@@ -107,11 +107,11 @@ static void computecompressor(compressor* dsp, int count, FAUSTFLOAT** inputs, F
 			dsp->fRec2[1] = dsp->fRec2[0];
 			dsp->fRec1[1] = dsp->fRec1[0];
 			dsp->fRec0[1] = dsp->fRec0[0];
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
@@ -138,7 +138,7 @@ int sp_compressor_destroy(sp_compressor **p)
 
 int sp_compressor_init(sp_data *sp, sp_compressor *p)
 {
-    compressor *dsp = newcompressor(); 
+    compressor *dsp = newcompressor();
     UIGlue UI;
     p->argpos = 0;
     UI.addHorizontalSlider= addHorizontalSlider;
@@ -147,16 +147,16 @@ int sp_compressor_init(sp_data *sp, sp_compressor *p)
     initcompressor(dsp, sp->sr);
 
 
-    p->ratio = p->args[0]; 
-    p->thresh = p->args[1]; 
-    p->atk = p->args[2]; 
+    p->ratio = p->args[0];
+    p->thresh = p->args[1];
+    p->atk = p->args[2];
     p->rel = p->args[3];
 
     p->faust = dsp;
     return SP_OK;
 }
 
-int sp_compressor_compute(sp_data *sp, sp_compressor *p, SPFLOAT *in, SPFLOAT *out) 
+int sp_compressor_compute(sp_data *sp, sp_compressor *p, SPFLOAT *in, SPFLOAT *out)
 {
 
     compressor *dsp = p->faust;

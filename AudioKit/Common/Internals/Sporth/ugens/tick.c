@@ -33,7 +33,7 @@ int sporth_tick(sporth_stack *stack, void *ud)
                 out = 1.0;
             } else {
                 out = 0;
-            } 
+            }
             sporth_stack_push_float(stack, out);
             break;
         case PLUMBER_DESTROY:

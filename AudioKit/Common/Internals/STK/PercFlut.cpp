@@ -9,7 +9,7 @@
                           2-- + -->1-->Out
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Total Modulator Index = 2
        - Modulator Crossfade = 4
        - LFO Speed = 11
@@ -54,14 +54,14 @@ PercFlut :: PercFlut( void )
 
   twozero_.setGain( 0.0 );
   modDepth_ = 0.005;
-}  
+}
 
 PercFlut :: ~PercFlut( void )
 {
 }
 
 void PercFlut :: setFrequency( StkFloat frequency )
-{    
+{
 #if defined(_STK_DEBUG_)
   if ( frequency <= 0.0 ) {
     oStream_ << "PercFlut::setFrequency: argument is less than or equal to zero!";

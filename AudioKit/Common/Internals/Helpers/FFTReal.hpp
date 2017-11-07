@@ -162,7 +162,7 @@ void	FFTReal <DT>::do_fft (DataType f [], const DataType x []) const
 
 		const DataType	b_0 = x [0] + x [2];
 		const DataType	b_2 = x [1] + x [3];
-		
+
 		f [0] = b_0 + b_2;
 		f [2] = b_0 - b_2;
 	}
@@ -485,7 +485,7 @@ void	FFTReal <DT>::compute_direct_pass_1_2 (DataType df [], const DataType x [])
 
 		df2 [0] = sf_0 + sf_2;
 		df2 [2] = sf_0 - sf_2;
-		
+
 		coef_index += 4;
 	}
 	while (coef_index < _length);

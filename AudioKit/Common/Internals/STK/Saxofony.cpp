@@ -22,7 +22,7 @@
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Reed Aperture = 26
        - Noise Gain = 4

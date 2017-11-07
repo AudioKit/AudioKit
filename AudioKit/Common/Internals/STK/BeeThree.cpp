@@ -15,7 +15,7 @@
                      4 --
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Operator 4 (feedback) Gain = 2
        - Operator 3 Gain = 4
        - LFO Speed = 11
@@ -60,7 +60,7 @@ BeeThree :: BeeThree( void )
   adsr_[3]->setAllTimes( 0.005, 0.001, 0.4, 0.03 );
 
   twozero_.setGain( 0.1 );
-}  
+}
 
 BeeThree :: ~BeeThree( void )
 {

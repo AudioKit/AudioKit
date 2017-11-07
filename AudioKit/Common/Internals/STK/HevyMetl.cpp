@@ -9,7 +9,7 @@
     Algorithm 3 is :     4--\
                     3-->2-- + -->1-->Out
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Total Modulator Index = 2
        - Modulator Crossfade = 4
        - LFO Speed = 11
@@ -56,7 +56,7 @@ HevyMetl :: HevyMetl( void )
   twozero_.setGain( 2.0 );
   vibrato_.setFrequency( 5.5 );
   modDepth_ = 0.0;
-}  
+}
 
 HevyMetl :: ~HevyMetl( void )
 {

@@ -13,7 +13,7 @@
     sounds.  This class implements simulations of breaking sticks,
     crunchy snow (or not), a wrench, sandpaper, and more.
 
-    Control Change Numbers: 
+    Control Change Numbers:
       - Shake Energy = 2
       - System Decay = 4
       - Number Of Objects = 11

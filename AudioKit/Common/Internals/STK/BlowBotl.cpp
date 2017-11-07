@@ -6,7 +6,7 @@
     (biquad filter) with a polynomial jet
     excitation (a la Cook).
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Noise Gain = 4
        - Vibrato Frequency = 11
        - Vibrato Gain = 1

@@ -8,7 +8,7 @@ CCombFilter::CCombFilter(void):CDelay()
 CCombFilter::~CCombFilter(void)
 {
 }
-	
+
 bool CCombFilter::processAudio(float* pInput, float* pOutput)
 {
 	// read the delay line to get w(n-D); call base class

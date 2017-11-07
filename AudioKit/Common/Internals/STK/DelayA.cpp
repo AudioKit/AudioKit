@@ -34,7 +34,7 @@ DelayA :: DelayA( StkFloat delay, unsigned long maxDelay )
     handleError( StkError::FUNCTION_ARGUMENT );
   }
 
-  // Writing before reading allows delays from 0 to length-1. 
+  // Writing before reading allows delays from 0 to length-1.
   if ( maxDelay + 1 > inputs_.size() )
     inputs_.resize( maxDelay + 1, 1, 0.0 );
 
