@@ -52,9 +52,9 @@ typename Array<T, LEN>::DataType &Array<T, LEN>::operator[](long pos) {
 
 template <class T, long LEN> long Array<T, LEN>::size() { return (LEN); }
 
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+
 
 }
 

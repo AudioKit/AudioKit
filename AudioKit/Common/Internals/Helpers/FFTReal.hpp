@@ -251,9 +251,9 @@ typename FFTReal<DT>::DataType *FFTReal<DT>::use_buffer() const {
   return (&_buffer[0]);
 }
 
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+
 
 template <class DT> void FFTReal<DT>::init_br_lut() {
   const long length = 1L << _nbr_bits;

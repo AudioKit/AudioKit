@@ -43,10 +43,10 @@ public:
   ffft_FORCEINLINE void step();
   ffft_FORCEINLINE void clear_buffers();
 
-  /*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 protected:
-  /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 private:
   DataType _pos_cos;  // Current phase expressed with sin and cos. [-1 ; 1]

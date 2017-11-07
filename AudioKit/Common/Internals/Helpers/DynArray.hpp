@@ -78,9 +78,9 @@ typename DynArray<T>::DataType &DynArray<T>::operator[](long pos) {
   return (_data_ptr[pos]);
 }
 
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+
 
 }
 

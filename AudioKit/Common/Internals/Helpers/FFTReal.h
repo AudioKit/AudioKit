@@ -47,10 +47,10 @@ public:
   void rescale(DataType x[]) const;
   DataType *use_buffer() const;
 
-  /*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 protected:
-  /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 private:
   // Over this bit depth, we use direct calculation for sin/cos
