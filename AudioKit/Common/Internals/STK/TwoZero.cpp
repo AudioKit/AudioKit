@@ -15,7 +15,7 @@
 
 namespace stk {
 
-TwoZero::TwoZero(void) {
+TwoZero::TwoZero() {
   b_.resize(3, 0.0);
   inputs_.resize(3, 1, 0.0);
   b_[0] = 1.0;

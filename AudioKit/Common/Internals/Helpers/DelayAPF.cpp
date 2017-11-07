@@ -2,7 +2,7 @@
 
 CDelayAPF::CDelayAPF(void) : CDelay() { m_fAPF_g = 0; }
 
-CDelayAPF::~CDelayAPF(void) {}
+CDelayAPF::~CDelayAPF() {}
 
 bool CDelayAPF::processAudio(float *pInput, float *pOutput) {
   // read the delay line to get w(n-D); call base class

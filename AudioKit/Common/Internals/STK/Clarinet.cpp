@@ -49,9 +49,9 @@ Clarinet::Clarinet(StkFloat lowestFrequency) {
   this->clear();
 }
 
-Clarinet::~Clarinet(void) {}
+Clarinet::~Clarinet() {}
 
-void Clarinet::clear(void) {
+void Clarinet::clear() {
   delayLine_.clear();
   filter_.tick(0.0);
 }

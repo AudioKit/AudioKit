@@ -51,10 +51,10 @@ public:
                 bool doNormalize = true);
 
   //! Close a file if one is open.
-  void closeFile(void) { FileWvIn::closeFile(); };
+  void closeFile() { FileWvIn::closeFile(); };
 
   //! Clear outputs and reset time (file) pointer to zero.
-  void reset(void) { FileWvIn::reset(); };
+  void reset() { FileWvIn::reset(); };
 
   //! Return the number of audio channels in the data or stream.
   unsigned int channelsOut(void) const { return data_.channels(); };
@@ -64,7 +64,7 @@ public:
     This function has no effect when data is incrementally loaded
     from disk.
   */
-  void normalize(void) { FileWvIn::normalize(1.0); };
+  void normalize() { FileWvIn::normalize(1.0); };
 
   //! Normalize data to a maximum of \e +-peak.
   /*!

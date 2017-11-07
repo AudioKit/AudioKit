@@ -54,7 +54,7 @@ FileRead::~FileRead() {
     fclose(fd_);
 }
 
-void FileRead::close(void) {
+void FileRead::close() {
   if (fd_)
     fclose(fd_);
   fd_ = 0;
@@ -65,7 +65,7 @@ void FileRead::close(void) {
   fileRate_ = 0.0;
 }
 
-bool FileRead::isOpen(void) {
+bool FileRead::isOpen() {
   if (fd_)
     return true;
   else

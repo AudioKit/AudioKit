@@ -112,7 +112,7 @@ protected:
   StkFloat sustainLevel_;
 };
 
-inline StkFloat ADSR::tick(void) {
+inline StkFloat ADSR::tick() {
   switch (state_) {
 
   case ATTACK:

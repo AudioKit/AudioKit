@@ -59,7 +59,7 @@ Rhodey::Rhodey(void) : FM() {
   twozero_.setGain(1.0);
 }
 
-Rhodey::~Rhodey(void) {}
+Rhodey::~Rhodey() {}
 
 void Rhodey::setFrequency(StkFloat frequency) {
 #if defined(_STK_DEBUG_)

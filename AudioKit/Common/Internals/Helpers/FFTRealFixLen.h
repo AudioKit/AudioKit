@@ -80,15 +80,13 @@ private:
   DynArray<DataType> _trigo_data;
   Array<OscType, TRIGO_OSC_ARR_SIZE> _trigo_osc;
 
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-private:
   FFTRealFixLen(const FFTRealFixLen &other);
   FFTRealFixLen &operator=(const FFTRealFixLen &other);
   bool operator==(const FFTRealFixLen &other);
   bool operator!=(const FFTRealFixLen &other);
 
-}; // class FFTRealFixLen
+};
 
 }
 

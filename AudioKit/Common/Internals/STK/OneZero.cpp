@@ -22,7 +22,7 @@ OneZero::OneZero(StkFloat theZero) {
   this->setZero(theZero);
 }
 
-OneZero::~OneZero(void) {}
+OneZero::~OneZero() {}
 
 void OneZero::setZero(StkFloat theZero) {
   // Normalize coefficients for unity gain.

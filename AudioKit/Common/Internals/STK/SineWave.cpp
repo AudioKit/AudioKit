@@ -38,7 +38,7 @@ void SineWave::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
     this->setRate(oldRate * rate_ / newRate);
 }
 
-void SineWave::reset(void) {
+void SineWave::reset() {
   time_ = 0.0;
   lastFrame_[0] = 0;
 }

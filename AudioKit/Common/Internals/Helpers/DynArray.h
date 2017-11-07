@@ -51,7 +51,7 @@ private:
   DataType *_data_ptr;
   long _len;
 
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 private:
   DynArray(const DynArray &other);
@@ -59,7 +59,7 @@ private:
   bool operator==(const DynArray &other);
   bool operator!=(const DynArray &other);
 
-}; // class DynArray
+};
 
 }
 

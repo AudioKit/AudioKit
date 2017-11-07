@@ -1,7 +1,7 @@
 #include "Delay.h"
 #include "pluginconstants.h"
 
-CDelay::CDelay(void) {
+CDelay::CDelay() {
   m_pBuffer = NULL;
 
   m_fOutputAttenuation_dB = 0;
@@ -14,7 +14,7 @@ CDelay::CDelay(void) {
   resetDelay();
 }
 
-CDelay::~CDelay(void) {
+CDelay::~CDelay() {
   if (m_pBuffer)
     delete m_pBuffer;
 

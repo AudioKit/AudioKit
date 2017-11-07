@@ -27,8 +27,6 @@ namespace ffft {
 
 template <class T, long LEN> class Array {
 
-  
-
 public:
   typedef T DataType;
 
@@ -38,24 +36,15 @@ public:
   inline DataType &operator[](long pos);
 
   static inline long size();
-
-  
-
-protected:
-  
-
 private:
   DataType _data_arr[LEN];
 
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-private:
   Array(const Array &other);
   Array &operator=(const Array &other);
   bool operator==(const Array &other);
   bool operator!=(const Array &other);
 
-}; // class Array
+};
 
 }
 

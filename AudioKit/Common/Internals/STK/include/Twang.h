@@ -70,7 +70,7 @@ public:
 
   //! Return the last computed output value.
   // StkFloat lastOut( void ) { return lastFrame_[0]; };
-  StkFloat lastOut(void) { return lastOutput_; };
+  StkFloat lastOut() { return lastOutput_; };
 
   //! Compute and return one output sample.
   StkFloat tick(StkFloat input);

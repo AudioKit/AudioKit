@@ -93,7 +93,7 @@ protected:
   StkFloat alpha_;
 };
 
-inline StkFloat SineWave::tick(void) {
+inline StkFloat SineWave::tick() {
   // Check limits of time address ... if necessary, recalculate modulo
   // TABLE_SIZE.
   while (time_ < 0.0)

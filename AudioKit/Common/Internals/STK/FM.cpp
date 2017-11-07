@@ -73,7 +73,7 @@ FM::FM(unsigned int operators) : nOperators_(operators) {
   }
 }
 
-FM::~FM(void) {
+FM::~FM() {
   for (unsigned int i = 0; i < nOperators_; i++) {
     delete waves_[i];
     delete adsr_[i];
@@ -125,12 +125,12 @@ void FM::setGain(unsigned int waveIndex, StkFloat gain) {
   gains_[waveIndex] = gain;
 }
 
-void FM::keyOn(void) {
+void FM::keyOn() {
   for (unsigned int i = 0; i < nOperators_; i++)
     adsr_[i]->keyOn();
 }
 
-void FM::keyOff(void) {
+void FM::keyOff() {
   for (unsigned int i = 0; i < nOperators_; i++)
     adsr_[i]->keyOff();
 }

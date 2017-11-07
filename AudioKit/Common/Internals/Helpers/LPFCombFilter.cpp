@@ -6,7 +6,7 @@ CLPFCombFilter::CLPFCombFilter(void) : CDelay() {
   m_fLPF_z1 = 0;
 }
 
-CLPFCombFilter::~CLPFCombFilter(void) {}
+CLPFCombFilter::~CLPFCombFilter() {}
 
 void CLPFCombFilter::init(int nDelayLength) {
   m_fLPF_z1 = 0.0;

@@ -39,7 +39,7 @@ public:
   ~DelayL();
 
   //! Get the maximum delay-line length.
-  unsigned long getMaximumDelay(void) { return inputs_.size() - 1; };
+  unsigned long getMaximumDelay() { return inputs_.size() - 1; };
 
   //! Set the maximum delay-line length.
   /*!
@@ -118,7 +118,7 @@ protected:
   bool doNextOut_;
 };
 
-inline StkFloat DelayL::nextOut(void) {
+inline StkFloat DelayL::nextOut() {
   if (doNextOut_) {
     // First 1/2 of interpolation
     nextOutput_ = inputs_[outPoint_] * omAlpha_;

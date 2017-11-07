@@ -35,14 +35,6 @@ public:
 
   typedef float DataType;
 
-  
-
-protected:
-  
-
-private:
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
 private:
   FFTRealFixLenParam();
   FFTRealFixLenParam(const FFTRealFixLenParam &other);
@@ -50,7 +42,7 @@ private:
   bool operator==(const FFTRealFixLenParam &other);
   bool operator!=(const FFTRealFixLenParam &other);
 
-}; // class FFTRealFixLenParam
+};
 
 }
 

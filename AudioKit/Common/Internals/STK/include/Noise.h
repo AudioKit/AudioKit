@@ -53,7 +53,7 @@ public:
 protected:
 };
 
-inline StkFloat Noise::tick(void) {
+inline StkFloat Noise::tick() {
   return lastFrame_[0] = (StkFloat)(2.0 * rand() / (RAND_MAX + 1.0) - 1.0);
 }
 

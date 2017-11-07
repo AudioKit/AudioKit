@@ -23,7 +23,7 @@ CEnvelopeDetector::CEnvelopeDetector(double samplerate) {
   m_bLogDetector = false;
 }
 
-CEnvelopeDetector::~CEnvelopeDetector(void) {}
+CEnvelopeDetector::~CEnvelopeDetector() {}
 
 void CEnvelopeDetector::prepareForPlay() {
   m_fEnvelope = 0.0;

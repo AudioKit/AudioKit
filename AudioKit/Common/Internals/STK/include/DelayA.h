@@ -43,7 +43,7 @@ public:
   void clear(void);
 
   //! Get the maximum delay-line length.
-  unsigned long getMaximumDelay(void) { return inputs_.size() - 1; };
+  unsigned long getMaximumDelay() { return inputs_.size() - 1; };
 
   //! Set the maximum delay-line length.
   /*!
@@ -123,7 +123,7 @@ protected:
   bool doNextOut_;
 };
 
-inline StkFloat DelayA::nextOut(void) {
+inline StkFloat DelayA::nextOut() {
   if (doNextOut_) {
     // Do allpass interpolation delay.
     nextOutput_ = -coeff_ * lastFrame_[0];

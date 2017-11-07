@@ -70,7 +70,7 @@ std::ostringstream Stk::oStream_;
 
 Stk::Stk(void) : ignoreSampleRateChange_(false) {}
 
-Stk::~Stk(void) {}
+Stk::~Stk() {}
 
 void Stk::setSampleRate(StkFloat rate) {
   if (rate > 0.0 && rate != srate_) {

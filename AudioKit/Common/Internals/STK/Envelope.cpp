@@ -23,7 +23,7 @@ Envelope::Envelope(void) : Generator() {
   Stk::addSampleRateAlert(this);
 }
 
-Envelope::~Envelope(void) { Stk::removeSampleRateAlert(this); }
+Envelope::~Envelope() { Stk::removeSampleRateAlert(this); }
 
 Envelope &Envelope::operator=(const Envelope &e) {
   if (this != &e) {
