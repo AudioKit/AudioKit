@@ -27,4 +27,4 @@ void Noise ::setSeed(unsigned int seed) {
     srand(seed);
 }
 
-} // namespace stk
+}

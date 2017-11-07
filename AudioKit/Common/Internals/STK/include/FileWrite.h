@@ -28,10 +28,8 @@ namespace stk {
 */
 /***************************************************/
 
-class FileWrite : public Stk
-{
- public:
-
+class FileWrite : public Stk {
+public:
   typedef unsigned long FILE_TYPE;
 
   static const FILE_TYPE FILE_RAW; /*!< STK RAW file type. */
@@ -41,29 +39,35 @@ class FileWrite : public Stk
   static const FILE_TYPE FILE_MAT; /*!< Matlab MAT-file type. */
 
   //! Default constructor.
-  FileWrite( void );
+  FileWrite(void);
 
-  //! Overloaded constructor used to specify a file name, type, and data format with this object.
+  //! Overloaded constructor used to specify a file name, type, and data format
+  //! with this object.
   /*!
-    An StkError is thrown for invalid argument values or if an error occurs when initializing the output file.
+    An StkError is thrown for invalid argument values or if an error occurs when
+    initializing the output file.
   */
-  FileWrite( std::string fileName, unsigned int nChannels = 1, FILE_TYPE type = FILE_WAV, Stk::StkFormat format = STK_SINT16 );
+  FileWrite(std::string fileName, unsigned int nChannels = 1,
+            FILE_TYPE type = FILE_WAV, Stk::StkFormat format = STK_SINT16);
 
   //! Class destructor.
   virtual ~FileWrite();
 
-  //! Create a file of the specified type and name and output samples to it in the given data format.
+  //! Create a file of the specified type and name and output samples to it in
+  //! the given data format.
   /*!
-    An StkError is thrown for invalid argument values or if an error occurs when initializing the output file.
+    An StkError is thrown for invalid argument values or if an error occurs when
+    initializing the output file.
   */
-  void open( std::string fileName, unsigned int nChannels = 1,
-             FileWrite::FILE_TYPE type = FILE_WAV, Stk::StkFormat format = STK_SINT16 );
+  void open(std::string fileName, unsigned int nChannels = 1,
+            FileWrite::FILE_TYPE type = FILE_WAV,
+            Stk::StkFormat format = STK_SINT16);
 
   //! If a file is open, write out samples in the queue and then close it.
-  void close( void );
+  void close(void);
 
   //! Returns \e true if a file is currently open.
-  bool isOpen( void );
+  bool isOpen(void);
 
   //! Write sample frames from the StkFrames object to the file.
   /*!
@@ -71,36 +75,35 @@ class FileWrite : public Stk
     StkFrames argument does not agree with the number of channels
     specified when opening the file.
    */
-  void write( StkFrames& buffer );
+  void write(StkFrames &buffer);
 
- protected:
-
+protected:
   // Write STK RAW file header.
-  bool setRawFile( std::string fileName );
+  bool setRawFile(std::string fileName);
 
   // Write WAV file header.
-  bool setWavFile( std::string fileName );
+  bool setWavFile(std::string fileName);
 
   // Close WAV file, updating the header.
-  void closeWavFile( void );
+  void closeWavFile(void);
 
   // Write SND (AU) file header.
-  bool setSndFile( std::string fileName );
+  bool setSndFile(std::string fileName);
 
   // Close SND file, updating the header.
-  void closeSndFile( void );
+  void closeSndFile(void);
 
   // Write AIFF file header.
-  bool setAifFile( std::string fileName );
+  bool setAifFile(std::string fileName);
 
   // Close AIFF file, updating the header.
-  void closeAifFile( void );
+  void closeAifFile(void);
 
   // Write MAT-file header.
-  bool setMatFile( std::string fileName );
+  bool setMatFile(std::string fileName);
 
   // Close MAT-file, updating the header.
-  void closeMatFile( void );
+  void closeMatFile(void);
 
   FILE *fd_;
   FILE_TYPE fileType_;
@@ -108,9 +111,8 @@ class FileWrite : public Stk
   unsigned int channels_;
   unsigned long frameCounter_;
   bool byteswap_;
-
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

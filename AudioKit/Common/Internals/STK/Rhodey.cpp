@@ -85,4 +85,4 @@ void Rhodey ::noteOn(StkFloat frequency, StkFloat amplitude) {
   this->keyOn();
 }
 
-} // namespace stk
+}

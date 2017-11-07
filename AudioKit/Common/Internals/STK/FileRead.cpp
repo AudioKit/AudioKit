@@ -1035,4 +1035,4 @@ error:
   handleError(StkError::FILE_ERROR);
 }
 
-} // namespace stk
+}

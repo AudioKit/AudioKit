@@ -173,4 +173,4 @@ void ADSR ::setValue(StkFloat value) {
   lastFrame_[0] = value;
 }
 
-} // namespace stk
+}

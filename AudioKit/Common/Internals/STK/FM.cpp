@@ -170,4 +170,4 @@ void FM ::controlChange(int number, StkFloat value) {
 #endif
 }
 
-} // namespace stk
+}

@@ -58,4 +58,4 @@ void OnePole ::setCoefficients(StkFloat b0, StkFloat a1, bool clearState) {
     this->clear();
 }
 
-} // namespace stk
+}

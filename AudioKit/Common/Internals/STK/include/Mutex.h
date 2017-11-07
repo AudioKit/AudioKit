@@ -5,16 +5,16 @@
 
 #if (defined(__OS_IRIX__) || defined(__OS_LINUX__) || defined(__OS_MACOSX__))
 
-  #include <pthread.h>
-  typedef pthread_mutex_t MUTEX;
-  typedef pthread_cond_t CONDITION;
+#include <pthread.h>
+typedef pthread_mutex_t MUTEX;
+typedef pthread_cond_t CONDITION;
 
 #elif defined(__OS_WINDOWS__)
 
-  #include <windows.h>
-  #include <process.h>
-  typedef CRITICAL_SECTION MUTEX;
-  typedef HANDLE CONDITION;
+#include <process.h>
+#include <windows.h>
+typedef CRITICAL_SECTION MUTEX;
+typedef HANDLE CONDITION;
 
 #endif
 
@@ -33,9 +33,8 @@ namespace stk {
 */
 /***************************************************/
 
-class Mutex : public Stk
-{
- public:
+class Mutex : public Stk {
+public:
   //! Default constructor.
   Mutex();
 
@@ -62,13 +61,11 @@ class Mutex : public Stk
    */
   void signal(void);
 
- protected:
-
+protected:
   MUTEX mutex_;
   CONDITION condition_;
-
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

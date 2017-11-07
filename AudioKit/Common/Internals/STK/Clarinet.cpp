@@ -136,4 +136,4 @@ void Clarinet ::controlChange(int number, StkFloat value) {
 #endif
 }
 
-} // namespace stk
+}

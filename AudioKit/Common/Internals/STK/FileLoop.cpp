@@ -222,4 +222,4 @@ StkFrames &FileLoop ::tick(StkFrames &frames, unsigned int channel) {
   return frames;
 }
 
-} // namespace stk
+}

@@ -68,4 +68,4 @@ void Fir ::setCoefficients(std::vector<StkFloat> &coefficients,
     this->clear();
 }
 
-} // namespace stk
+}

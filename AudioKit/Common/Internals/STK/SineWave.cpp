@@ -64,4 +64,4 @@ void SineWave ::addPhaseOffset(StkFloat phaseOffset) {
   phaseOffset_ = phaseOffset;
 }
 
-} // namespace stk
+}

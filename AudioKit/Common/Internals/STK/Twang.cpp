@@ -100,4 +100,4 @@ void Twang ::setPluckPosition(StkFloat position) {
   pluckPosition_ = position;
 }
 
-} // namespace stk
+}
