@@ -1,8 +1,8 @@
 /*
  * TADSR
- * 
+ *
  * This module uses modified code from Perry Cook's ADSR STK module.
- * 
+ *
  */
 
 #include <stdlib.h>

@@ -16,7 +16,7 @@ import AudioKit
 //: framework, you will also need to import it.
 import AudioKitUI
 
-//: ALERT: This is also the line that most commonly shows an error "No such module" 
+//: ALERT: This is also the line that most commonly shows an error "No such module"
 //: This just means you haven't built AudioKitPlaygrounds yet, in which case pressing Cmd-B or
 //: accessing the "Product" menu and choosing "Build".
 

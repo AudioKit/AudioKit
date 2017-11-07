@@ -304,7 +304,7 @@ extension AKSettings {
         case playback
         /// Silences playback audio
         case record
-        /// Audio is not silenced by silent switch and screen lock - audio is non mixable. 
+        /// Audio is not silenced by silent switch and screen lock - audio is non mixable.
         /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
         case playAndRecord
         #if !os(tvOS)

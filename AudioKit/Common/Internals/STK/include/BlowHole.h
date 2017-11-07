@@ -1,13 +1,13 @@
 #ifndef STK_BLOWHOLE_H
 #define STK_BLOWHOLE_H
 
-#include "Instrmnt.h"
 #include "DelayL.h"
-#include "ReedTable.h"
+#include "Envelope.h"
+#include "Instrmnt.h"
+#include "Noise.h"
 #include "OneZero.h"
 #include "PoleZero.h"
-#include "Envelope.h"
-#include "Noise.h"
+#include "ReedTable.h"
 #include "SineWave.h"
 
 namespace stk {
@@ -36,7 +36,7 @@ namespace stk {
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Noise Gain = 4
        - Tonehole State = 11
@@ -47,47 +47,48 @@ namespace stk {
 */
 /***************************************************/
 
-class BlowHole : public Instrmnt
-{
- public:
+class BlowHole : public Instrmnt {
+public:
   //! Class constructor.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  BlowHole( StkFloat lowestFrequency );
+  BlowHole(StkFloat lowestFrequency);
 
   //! Class destructor.
-  ~BlowHole( void );
+  ~BlowHole(void);
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear(void);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Set the tonehole state (0.0 = closed, 1.0 = fully open).
-  void setTonehole( StkFloat newValue );
+  void setTonehole(StkFloat newValue);
 
   //! Set the register hole state (0.0 = closed, 1.0 = fully open).
-  void setVent( StkFloat newValue );
+  void setVent(StkFloat newValue);
 
-  //! Apply breath pressure to instrument with given amplitude and rate of increase.
-  void startBlowing( StkFloat amplitude, StkFloat rate );
+  //! Apply breath pressure to instrument with given amplitude and rate of
+  //! increase.
+  void startBlowing(StkFloat amplitude, StkFloat rate);
 
   //! Decrease breath pressure with given rate of decrease.
-  void stopBlowing( StkFloat rate );
+  void stopBlowing(StkFloat rate);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -97,18 +98,17 @@ class BlowHole : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
-  DelayL    delays_[3];
+protected:
+  DelayL delays_[3];
   ReedTable reedTable_;
-  OneZero   filter_;
-  PoleZero  tonehole_;
-  PoleZero  vent_;
-  Envelope  envelope_;
-  Noise     noise_;
-  SineWave  vibrato_;
+  OneZero filter_;
+  PoleZero tonehole_;
+  PoleZero vent_;
+  Envelope envelope_;
+  Noise noise_;
+  SineWave vibrato_;
 
   StkFloat scatter_;
   StkFloat thCoeff_;
@@ -118,14 +118,13 @@ class BlowHole : public Instrmnt
   StkFloat vibratoGain_;
 };
 
-  inline StkFloat BlowHole :: tick( unsigned int )
-{
+inline StkFloat BlowHole ::tick(unsigned int) {
   StkFloat pressureDiff;
   StkFloat breathPressure;
   StkFloat temp;
 
   // Calculate the breath pressure (envelope + noise + vibrato)
-  breathPressure = envelope_.tick(); 
+  breathPressure = envelope_.tick();
   breathPressure += breathPressure * noiseGain_ * noise_.tick();
   breathPressure += breathPressure * vibratoGain_ * vibrato_.tick();
 
@@ -133,11 +132,11 @@ class BlowHole : public Instrmnt
   pressureDiff = delays_[0].lastOut() - breathPressure;
 
   // Do two-port junction scattering for register vent
-  StkFloat pa = breathPressure + pressureDiff * reedTable_.tick( pressureDiff );
+  StkFloat pa = breathPressure + pressureDiff * reedTable_.tick(pressureDiff);
   StkFloat pb = delays_[1].lastOut();
-  vent_.tick( pa+pb );
+  vent_.tick(pa + pb);
 
-  lastFrame_[0] = delays_[0].tick( vent_.lastOut()+pb );
+  lastFrame_[0] = delays_[0].tick(vent_.lastOut() + pb);
   lastFrame_[0] *= outputGain_;
 
   // Do three-port junction scattering (under tonehole)
@@ -146,33 +145,32 @@ class BlowHole : public Instrmnt
   StkFloat pth = tonehole_.lastOut();
   temp = scatter_ * (pa + pb - 2 * pth);
 
-  delays_[2].tick( filter_.tick(pa + temp) * -0.95 );
-  delays_[1].tick( pb + temp );
-  tonehole_.tick( pa + pb - pth + temp );
+  delays_[2].tick(filter_.tick(pa + temp) * -0.95);
+  delays_[1].tick(pb + temp);
+  tonehole_.tick(pa + pb - pth + temp);
 
   return lastFrame_[0];
 }
 
-inline StkFrames& BlowHole :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &BlowHole ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "BlowHole::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "BlowHole::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -180,6 +178,6 @@ inline StkFrames& BlowHole :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

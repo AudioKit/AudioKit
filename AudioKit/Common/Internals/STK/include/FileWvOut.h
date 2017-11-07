@@ -1,8 +1,8 @@
 #ifndef STK_FILEWVOUT_H
 #define STK_FILEWVOUT_H
 
-#include "WvOut.h"
 #include "FileWrite.h"
+#include "WvOut.h"
 
 namespace stk {
 
@@ -29,26 +29,25 @@ namespace stk {
 */
 /***************************************************/
 
-class FileWvOut : public WvOut
-{
- public:
-
+class FileWvOut : public WvOut {
+public:
   //! Default constructor with optional output buffer size argument.
   /*!
     The output buffer size defines the number of frames that are
     accumulated between writes to disk.
   */
-  FileWvOut( unsigned int bufferFrames = 1024 );
+  FileWvOut(unsigned int bufferFrames = 1024);
 
-  //! Overloaded constructor used to specify a file name, type, and data format with this object.
+  //! Overloaded constructor used to specify a file name, type, and data format
+  //! with this object.
   /*!
-    An StkError is thrown for invalid argument values or if an error occurs when initializing the output file.
+    An StkError is thrown for invalid argument values or if an error occurs when
+    initializing the output file.
   */
-  FileWvOut( std::string fileName,
-             unsigned int nChannels = 1,
-             FileWrite::FILE_TYPE type = FileWrite::FILE_WAV,
-             Stk::StkFormat format = STK_SINT16,
-             unsigned int bufferFrames = 1024 );
+  FileWvOut(std::string fileName, unsigned int nChannels = 1,
+            FileWrite::FILE_TYPE type = FileWrite::FILE_WAV,
+            Stk::StkFormat format = STK_SINT16,
+            unsigned int bufferFrames = 1024);
 
   //! Class destructor.
   virtual ~FileWvOut();
@@ -59,23 +58,21 @@ class FileWvOut : public WvOut
     will be thrown if any of the specified arguments are invalid or a
     file error occurs during opening.
   */
-  void openFile( std::string fileName,
-                 unsigned int nChannels,
-                 FileWrite::FILE_TYPE type,
-                 Stk::StkFormat format );
+  void openFile(std::string fileName, unsigned int nChannels,
+                FileWrite::FILE_TYPE type, Stk::StkFormat format);
 
   //! Close a file if one is open.
   /*!
     Any data remaining in the internal buffer will be written to
     the file before closing.
   */
-  void closeFile( void );
+  void closeFile(void);
 
   //! Output a single sample to all channels in a sample frame.
   /*!
     An StkError is thrown if an output error occurs.
   */
-  void tick( const StkFloat sample );
+  void tick(const StkFloat sample);
 
   //! Output the StkFrames data.
   /*!
@@ -84,19 +81,17 @@ class FileWvOut : public WvOut
     compilation and there is an incompatability between the number of
     channels in the FileWvOut object and that in the StkFrames object.
   */
-  void tick( const StkFrames& frames );
+  void tick(const StkFrames &frames);
 
- protected:
-
-  void incrementFrame( void );
+protected:
+  void incrementFrame(void);
 
   FileWrite file_;
   unsigned int bufferFrames_;
   unsigned int bufferIndex_;
   unsigned int iData_;
-
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

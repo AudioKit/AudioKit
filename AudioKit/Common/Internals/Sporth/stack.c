@@ -6,7 +6,7 @@
 #include "h/sporth.h"
 
 #ifdef DEBUG_MODE
-static void print_guts(sporth_stack *stack) 
+static void print_guts(sporth_stack *stack)
 {
     int i;
     fprintf(stderr, "Dying stack contents:\n");

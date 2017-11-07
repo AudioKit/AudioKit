@@ -40,7 +40,7 @@ int sp_gen_scrambler(sp_data *sp, sp_ftbl *src, sp_ftbl **dest)
     SPFLOAT max = -1;
     SPFLOAT val = 0;
     for(i = 0; i < size; i++) {
-        val = fabs(dst->tbl[i]); 
+        val = fabs(dst->tbl[i]);
         if(val > max) {
             max = val;
         }
@@ -53,7 +53,7 @@ int sp_gen_scrambler(sp_data *sp, sp_ftbl *src, sp_ftbl **dest)
     kiss_fftr_free(fft);
     kiss_fftr_free(ifft);
     KISS_FFT_FREE(tmp);
-    
+
     *dest = dst;
     return SP_OK;
 }

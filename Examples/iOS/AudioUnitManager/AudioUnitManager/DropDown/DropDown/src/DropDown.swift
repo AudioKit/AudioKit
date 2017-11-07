@@ -269,7 +269,7 @@ public final class DropDown: UIView {
 
     /**
      The NIB to use for DropDownCells
-     
+
      Changing the cell nib automatically reloads the drop down.
      */
 	public var cellNib = UINib(nibName: "DropDownCell", bundle: Bundle(for: DropDownCell.self)) {
@@ -321,7 +321,7 @@ public final class DropDown: UIView {
 
     /**
      A advanced formatter for the cells. Allows customization when custom cells are used
-     
+
      Changing `customCellConfiguration` automatically reloads the drop down.
      */
     public var customCellConfiguration: CellConfigurationClosure? {
@@ -711,7 +711,7 @@ extension DropDown {
 
     /**
      An Objective-C alias for the show() method which converts the returned tuple into an NSDictionary.
-     
+
      - returns: An NSDictionary with a value for the "canBeDisplayed" Bool, and possibly for the "offScreenHeight" Optional(CGFloat).
      */
     @objc(show)

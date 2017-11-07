@@ -6,9 +6,7 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-#ifndef AKTimeline_h
-#define AKTimeline_h
-
+#pragma once
 #include <stdio.h>
 #include <CoreAudio/CoreAudioTypes.h>
 #include "TPCircularBuffer+Unit.h"
@@ -239,4 +237,4 @@ void AKTimelineSetRenderState(AKTimeline        *timeline,
  */
 AudioTimeStamp AKTimelineAudioTimeAtTime(AKTimeline *timeline, Float64 sampleTime);
 
-#endif /* AKTimeline_h */
+

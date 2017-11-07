@@ -13,80 +13,55 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
-
-
-#if defined (ffft_FFTRealUseTrigo_CURRENT_CODEHEADER)
-	#error Recursive inclusion of FFTRealUseTrigo code header.
+#if defined(ffft_FFTRealUseTrigo_CURRENT_CODEHEADER)
+#error Recursive inclusion of FFTRealUseTrigo code header.
 #endif
-#define	ffft_FFTRealUseTrigo_CURRENT_CODEHEADER
+#define ffft_FFTRealUseTrigo_CURRENT_CODEHEADER
 
-#if ! defined (ffft_FFTRealUseTrigo_CODEHEADER_INCLUDED)
-#define	ffft_FFTRealUseTrigo_CODEHEADER_INCLUDED
-
-
-
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-#include	"ffft/OscSinCos.h"
+#if !defined(ffft_FFTRealUseTrigo_CODEHEADER_INCLUDED)
+#define ffft_FFTRealUseTrigo_CODEHEADER_INCLUDED
 
 
 
-namespace ffft
-{
+#include "ffft/OscSinCos.h"
+
+namespace ffft {
 
 
 
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+template <int ALGO> void FFTRealUseTrigo<ALGO>::prepare(OscType &osc) {
+  osc.clear_buffers();
+}
 
+template <> inline void FFTRealUseTrigo<0>::prepare(OscType &osc) {
 
+}
 
 template <int ALGO>
-void	FFTRealUseTrigo <ALGO>::prepare (OscType &osc)
-{
-	osc.clear_buffers ();
+void FFTRealUseTrigo<ALGO>::iterate(OscType &osc, DataType &c, DataType &s,
+                                    const DataType cos_ptr[], long index_c,
+                                    long index_s) {
+  osc.step();
+  c = osc.get_cos();
+  s = osc.get_sin();
 }
 
 template <>
-inline void	FFTRealUseTrigo <0>::prepare (OscType &osc)
-{
-	// Nothing
+inline void FFTRealUseTrigo<0>::iterate(OscType &osc, DataType &c, DataType &s,
+                                        const DataType cos_ptr[], long index_c,
+                                        long index_s) {
+  c = cos_ptr[index_c];
+  s = cos_ptr[index_s];
 }
 
 
 
-template <int ALGO>
-void	FFTRealUseTrigo <ALGO>::iterate (OscType &osc, DataType &c, DataType &s, const DataType cos_ptr [], long index_c, long index_s)
-{
-	osc.step ();
-	c = osc.get_cos ();
-	s = osc.get_sin ();
+
+
 }
 
-template <>
-inline void	FFTRealUseTrigo <0>::iterate (OscType &osc, DataType &c, DataType &s, const DataType cos_ptr [], long index_c, long index_s)
-{
-	c = cos_ptr [index_c];
-	s = cos_ptr [index_s];
-}
-
-
-
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-
-
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-
-
-}	// namespace ffft
-
-
-
-#endif	// ffft_FFTRealUseTrigo_CODEHEADER_INCLUDED
+#endif
 
 #undef ffft_FFTRealUseTrigo_CURRENT_CODEHEADER
 
 
-
-/*\\\ EOF \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/

@@ -46,7 +46,7 @@ class AKNodeTiming: NSObject, AKTiming {
     // Used to hold current time when not playing.
     private var idleTime = Double()
 
-    // When playback begins, this is set to a time in the past that represent "time zero" in 
+    // When playback begins, this is set to a time in the past that represent "time zero" in
     // the timeline.
     private var baseTime: AVAudioTime?
 

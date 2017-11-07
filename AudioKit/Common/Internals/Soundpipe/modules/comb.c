@@ -1,9 +1,9 @@
 /*
  * comb
- * 
+ *
  * This code has been extracted from the Csound opcode "comb".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Barry Vercoe, John ffitch
  * Year: 1991
  * Location: OOps/ugens6.c
@@ -66,6 +66,6 @@ int sp_comb_compute(sp_data *sp, sp_comb *p, SPFLOAT *in, SPFLOAT *out)
     *out = outsamp;
 
     p->bufpos++;
-    p->bufpos %= p->bufsize; 
+    p->bufpos %= p->bufsize;
     return SP_OK;
 }

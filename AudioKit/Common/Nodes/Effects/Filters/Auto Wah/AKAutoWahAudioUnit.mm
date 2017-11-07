@@ -33,9 +33,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(AutoWah)
-    
+
     // Create a parameter object for the wah.
     AUParameter *wahAUParameter =
     [AUParameter parameter:@"wah"
@@ -60,24 +60,24 @@ standardKernelPassthroughs()
                        min:0.0
                        max:1.0
                       unit:kAudioUnitParameterUnit_Generic];
-    
-    
+
+
     // Initialize the parameter values.
     wahAUParameter.value = 0.0;
     mixAUParameter.value = 1.0;
     amplitudeAUParameter.value = 0.1;
-    
+
     _kernel.setParameter(wahAddress,       wahAUParameter.value);
     _kernel.setParameter(mixAddress,       mixAUParameter.value);
     _kernel.setParameter(amplitudeAddress, amplitudeAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              wahAUParameter,
                                              mixAUParameter,
                                              amplitudeAUParameter
                                              ]];
-    
+
     parameterTreeBlock(AutoWah)
 }
 

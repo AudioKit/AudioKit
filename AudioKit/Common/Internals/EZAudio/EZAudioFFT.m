@@ -128,7 +128,7 @@ typedef struct EZAudioFFTInfo
 - (void)setup
 {
     NSAssert(self.maximumBufferSize > 0, @"Expected FFT buffer size to be greater than 0!");
-    
+
     //
     // Initialize FFT
     //
@@ -155,7 +155,7 @@ typedef struct EZAudioFFTInfo
     {
         return NULL;
     }
-    
+
     //
     // Calculate real + imaginary components and normalize
     //
@@ -170,7 +170,7 @@ typedef struct EZAudioFFTInfo
     vDSP_fft_zrip(self.info->fftSetup, &(self.info->complexA), 1, log2n, FFT_INVERSE);
     vDSP_ztoc(&(self.info->complexA), 1, (COMPLEX *) self.info->inversedFFTData , 2, nOver2);
     self.info->outFFTDataLength = nOver2;
-    
+
     //
     // Calculate max freq
     //
@@ -179,7 +179,7 @@ typedef struct EZAudioFFTInfo
         vDSP_maxvi(self.info->outFFTData, 1, &self.info->maxFrequencyMangitude, &self.info->maxFrequencyIndex, nOver2);
         self.info->maxFrequency = [self frequencyAtIndex:self.info->maxFrequencyIndex];
     }
-    
+
     //
     // Notify delegate
     //
@@ -189,7 +189,7 @@ typedef struct EZAudioFFTInfo
         updatedWithFFTData:self.info->outFFTData
                 bufferSize:nOver2];
     }
-    
+
     //
     // Return the FFT
     //
@@ -343,7 +343,7 @@ typedef struct EZAudioFFTInfo
     {
         self.delegate = delegate;
         self.windowSize = windowSize;
-        
+
         //
         // Allocate an appropriately sized history buffer in bytes
         //
@@ -410,14 +410,14 @@ typedef struct EZAudioFFTInfo
     {
         return NULL;
     }
-    
+
     //
     // Append buffer to history window
     //
     [EZAudioUtilities appendBuffer:buffer
                     withBufferSize:bufferSize
                      toHistoryInfo:self.historyInfo];
-    
+
     //
     // Call super to calculate the FFT of the window
     //

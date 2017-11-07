@@ -7,14 +7,14 @@ int sporth_bltriangle(sporth_stack *stack, void *ud)
     SPFLOAT freq;
     SPFLOAT amp;
     sp_bltriangle *bltriangle;
-    
+
     switch(pd->mode) {
         case PLUMBER_CREATE:
-            
+
 #ifdef DEBUG_MODE
             plumber_print(pd, "bltriangle: Creating\n");
 #endif
-            
+
             sp_bltriangle_create(&bltriangle);
             plumber_add_ugen(pd, SPORTH_TRIANGLE, bltriangle);
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
@@ -27,7 +27,7 @@ int sporth_bltriangle(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
-            
+
 #ifdef DEBUG_MODE
             plumber_print(pd, "bltriangle: Initialising\n");
 #endif

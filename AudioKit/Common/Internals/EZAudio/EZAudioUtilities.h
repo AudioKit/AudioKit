@@ -262,7 +262,7 @@ typedef NSRect EZRect;
 //------------------------------------------------------------------------------
 
 /**
- Checks an AudioStreamBasicDescription to see if it is a linear PCM format (uncompressed, 
+ Checks an AudioStreamBasicDescription to see if it is a linear PCM format (uncompressed,
  1 frame per packet)
  @param asbd A valid AudioStreamBasicDescription
  @return A BOOL indicating whether or not the AudioStreamBasicDescription is linear PCM.

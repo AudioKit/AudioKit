@@ -26,13 +26,13 @@ void growl_create(growl_d **form)
     sp_dcblock_create(&fp->dcblk);
 }
 
-void growl_init(sp_data *sp, growl_d *form) 
+void growl_init(sp_data *sp, growl_d *form)
 {
     int i;
     for(i = 0; i < 4; i++) {
         sp_reson_init(sp, form->filt[i]);
         form->filt[i]->freq = formants[i];
-        form->filt[i]->bw = 
+        form->filt[i]->bw =
             (formants[i] * 0.02) + 50;
     }
     sp_bal_init(sp, form->bal);
@@ -54,15 +54,15 @@ void growl_compute(sp_data *sp, growl_d *form, SPFLOAT *in, SPFLOAT *out)
 //    *out = 0.0;
 //
     for(i = 0; i < 4; i++) {
-        tf = (*x) * 
-            (formants[i + 3] - formants[i]) + 
+        tf = (*x) *
+            (formants[i + 3] - formants[i]) +
             formants[i];
-        bf = (*x) * 
-            (formants[i + 11] - formants[i + 7]) + 
+        bf = (*x) *
+            (formants[i + 11] - formants[i + 7]) +
             formants[i + 7];
         freq = (*y) * (bf - tf) + tf;
-        form->filt[i]->freq = freq; 
-        form->filt[i]->bw = 
+        form->filt[i]->freq = freq;
+        form->filt[i]->bw =
             ((freq * 0.02) + 50);
         sp_reson_compute(sp, form->filt[i], &tmp_in, &tmp_out);
         tmp_in = tmp_out;

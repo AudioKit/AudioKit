@@ -2,9 +2,9 @@
 #define STK_MODULATE_H
 
 #include "Generator.h"
-#include "SineWave.h"
 #include "Noise.h"
 #include "OnePole.h"
+#include "SineWave.h"
 
 namespace stk {
 
@@ -20,35 +20,34 @@ namespace stk {
 */
 /***************************************************/
 
-class Modulate : public Generator
-{
- public:
+class Modulate : public Generator {
+public:
   //! Class constructor.
   /*!
     An StkError can be thrown if the rawwave path is incorrect.
    */
-  Modulate( void );
+  Modulate(void);
 
   //! Class destructor.
-  ~Modulate( void );
+  ~Modulate(void);
 
   //! Reset internal state.
-  void reset( void ) { lastFrame_[0] = 0.0; };
+  void reset(void) { lastFrame_[0] = 0.0; };
 
   //! Set the periodic (vibrato) rate or frequency in Hz.
-  void setVibratoRate( StkFloat rate ) { vibrato_.setFrequency( rate ); };
+  void setVibratoRate(StkFloat rate) { vibrato_.setFrequency(rate); };
 
   //! Set the periodic (vibrato) gain.
-  void setVibratoGain( StkFloat gain ) { vibratoGain_ = gain; };
+  void setVibratoGain(StkFloat gain) { vibratoGain_ = gain; };
 
   //! Set the random modulation gain.
-  void setRandomGain( StkFloat gain );
+  void setRandomGain(StkFloat gain);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Compute and return one output sample.
-  StkFloat tick( void );
+  StkFloat tick(void);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -58,51 +57,48 @@ class Modulate : public Generator
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
-  void sampleRateChanged( StkFloat newRate, StkFloat oldRate );
+protected:
+  void sampleRateChanged(StkFloat newRate, StkFloat oldRate);
 
   SineWave vibrato_;
   Noise noise_;
-  OnePole  filter_;
+  OnePole filter_;
   StkFloat vibratoGain_;
   StkFloat randomGain_;
   unsigned int noiseRate_;
   unsigned int noiseCounter_;
-
 };
 
-inline StkFloat Modulate :: tick( void )
-{
+inline StkFloat Modulate ::tick(void) {
   // Compute periodic and random modulations.
   lastFrame_[0] = vibratoGain_ * vibrato_.tick();
-  if ( noiseCounter_++ >= noiseRate_ ) {
+  if (noiseCounter_++ >= noiseRate_) {
     noise_.tick();
     noiseCounter_ = 0;
   }
-  lastFrame_[0] += filter_.tick( noise_.lastOut() );
+  lastFrame_[0] += filter_.tick(noise_.lastOut());
   return lastFrame_[0];
 }
 
-inline StkFrames& Modulate :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Modulate ::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "Modulate::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_ << "Modulate::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
     *samples = Modulate::tick();
 
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

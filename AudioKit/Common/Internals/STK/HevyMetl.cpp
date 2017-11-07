@@ -9,7 +9,7 @@
     Algorithm 3 is :     4--\
                     3-->2-- + -->1-->Out
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Total Modulator Index = 2
        - Modulator Crossfade = 4
        - LFO Speed = 11
@@ -30,13 +30,12 @@
 
 namespace stk {
 
-HevyMetl :: HevyMetl( void )
-  : FM()
-{
+HevyMetl ::HevyMetl(void) : FM() {
   // Concatenate the STK rawwave path to the rawwave files
-  for ( unsigned int i=0; i<3; i++ )
-    waves_[i] = new FileLoop( (Stk::rawwavePath() + "sinewave.raw").c_str(), true );
-  waves_[3] = new FileLoop( (Stk::rawwavePath() + "fwavblnk.raw").c_str(), true );
+  for (unsigned int i = 0; i < 3; i++)
+    waves_[i] =
+        new FileLoop((Stk::rawwavePath() + "sinewave.raw").c_str(), true);
+  waves_[3] = new FileLoop((Stk::rawwavePath() + "fwavblnk.raw").c_str(), true);
 
   this->setRatio(0, 1.0 * 1.000);
   this->setRatio(1, 4.0 * 0.999);
@@ -48,28 +47,25 @@ HevyMetl :: HevyMetl( void )
   gains_[2] = fmGains_[91];
   gains_[3] = fmGains_[68];
 
-  adsr_[0]->setAllTimes( 0.001, 0.001, 1.0, 0.01);
-  adsr_[1]->setAllTimes( 0.001, 0.010, 1.0, 0.50);
-  adsr_[2]->setAllTimes( 0.010, 0.005, 1.0, 0.20);
-  adsr_[3]->setAllTimes( 0.030, 0.010, 0.2, 0.20);
+  adsr_[0]->setAllTimes(0.001, 0.001, 1.0, 0.01);
+  adsr_[1]->setAllTimes(0.001, 0.010, 1.0, 0.50);
+  adsr_[2]->setAllTimes(0.010, 0.005, 1.0, 0.20);
+  adsr_[3]->setAllTimes(0.030, 0.010, 0.2, 0.20);
 
-  twozero_.setGain( 2.0 );
-  vibrato_.setFrequency( 5.5 );
+  twozero_.setGain(2.0);
+  vibrato_.setFrequency(5.5);
   modDepth_ = 0.0;
-}  
-
-HevyMetl :: ~HevyMetl( void )
-{
 }
 
-void HevyMetl :: noteOn( StkFloat frequency, StkFloat amplitude )
-{
+HevyMetl ::~HevyMetl(void) {}
+
+void HevyMetl ::noteOn(StkFloat frequency, StkFloat amplitude) {
   gains_[0] = amplitude * fmGains_[92];
   gains_[1] = amplitude * fmGains_[76];
   gains_[2] = amplitude * fmGains_[91];
   gains_[3] = amplitude * fmGains_[68];
-  this->setFrequency( frequency );
+  this->setFrequency(frequency);
   this->keyOn();
 }
 
-} // stk namespace
+} // namespace stk
