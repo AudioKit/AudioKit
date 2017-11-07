@@ -35,8 +35,6 @@ namespace std {}
 
 namespace ffft {
 
-
-
 template <int LL2>
 FFTRealFixLen<LL2>::FFTRealFixLen()
     : _buffer(FFT_LEN), _br_data(BR_ARR_SIZE),

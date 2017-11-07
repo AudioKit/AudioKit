@@ -31,7 +31,6 @@ namespace ffft {
 
 template <int PASS> class FFTRealPassInverse {
 
-
 public:
   typedef FFTRealFixLenParam::DataType DataType;
   typedef OscSinCos<DataType> OscType;

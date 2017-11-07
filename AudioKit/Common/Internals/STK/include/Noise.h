@@ -50,7 +50,6 @@ public:
   */
   StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-protected:
 };
 
 inline StkFloat Noise::tick() {

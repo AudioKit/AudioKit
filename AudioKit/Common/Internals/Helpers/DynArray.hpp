@@ -27,8 +27,6 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 namespace ffft {
 
-
-
 template <class T> DynArray<T>::DynArray() : _data_ptr(0), _len(0) {
 
 }

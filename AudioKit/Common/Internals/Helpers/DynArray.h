@@ -27,8 +27,6 @@ namespace ffft {
 
 template <class T> class DynArray {
 
-  
-
 public:
   typedef T DataType;
 
@@ -42,18 +40,9 @@ public:
   inline const DataType &operator[](long pos) const;
   inline DataType &operator[](long pos);
 
-  
-
-protected:
-  
-
 private:
   DataType *_data_ptr;
   long _len;
-
-
-
-private:
   DynArray(const DynArray &other);
   DynArray &operator=(const DynArray &other);
   bool operator==(const DynArray &other);
