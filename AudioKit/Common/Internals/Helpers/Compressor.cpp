@@ -42,8 +42,7 @@ float Compressor::Process(float fInputSignal, bool bLimitOn,
 
   float fGn = 1.0;
 
-  fGn = calcCompressorGain(fDetector, theThreshold, theRatio, 1.0f,
-                           (bLimitOn ? true : false));
+  fGn = calcCompressorGain(fDetector, theThreshold, theRatio, 1.0f, bLimitOn);
   this->compGain = fGn;
 
   float fLookAheadOut = 0.0f;
