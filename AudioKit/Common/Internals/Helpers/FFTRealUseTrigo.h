@@ -31,8 +31,6 @@ namespace ffft {
 
 template <int ALGO> class FFTRealUseTrigo {
 
-  
-
 public:
   typedef FFTRealFixLenParam::DataType DataType;
   typedef OscSinCos<DataType> OscType;
@@ -42,14 +40,6 @@ public:
                                        const DataType cos_ptr[], long index_c,
                                        long index_s);
 
-  
-
-protected:
-  
-
-private:
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
 private:
   FFTRealUseTrigo();
   ~FFTRealUseTrigo();
@@ -58,7 +48,7 @@ private:
   bool operator==(const FFTRealUseTrigo &other);
   bool operator!=(const FFTRealUseTrigo &other);
 
-}; // class FFTRealUseTrigo
+};
 
 }
 

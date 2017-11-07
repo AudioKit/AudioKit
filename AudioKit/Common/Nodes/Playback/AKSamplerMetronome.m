@@ -297,7 +297,7 @@ static int makeBeep(float *buffer, float attack, float sustain, float release, f
 }
 
 
-static AudioTimeStamp AudioTimeNow(void) {
+static AudioTimeStamp AudioTimeNow() {
     return (AudioTimeStamp) {
         .mHostTime = mach_absolute_time(),
         .mFlags = kAudioTimeStampHostTimeValid

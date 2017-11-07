@@ -31,7 +31,6 @@ namespace ffft {
 
 template <int PASS> class FFTRealPassInverse {
 
-  
 
 public:
   typedef FFTRealFixLenParam::DataType DataType;
@@ -52,14 +51,6 @@ public:
                    const DataType cos_ptr[], long cos_len, const long br_ptr[],
                    OscType osc_list[]);
 
-  
-
-protected:
-  
-
-private:
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
 private:
   FFTRealPassInverse();
   FFTRealPassInverse(const FFTRealPassInverse &other);
@@ -67,7 +58,7 @@ private:
   bool operator==(const FFTRealPassInverse &other);
   bool operator!=(const FFTRealPassInverse &other);
 
-}; // class FFTRealPassInverse
+};
 
 }
 

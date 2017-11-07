@@ -28,12 +28,8 @@ namespace ffft {
 
 template <int P> class FFTRealSelect {
 
-  
-
 public:
   ffft_FORCEINLINE static float *sel_bin(float *e_ptr, float *o_ptr);
-
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 private:
   FFTRealSelect();
@@ -43,7 +39,7 @@ private:
   bool operator==(const FFTRealSelect &other);
   bool operator!=(const FFTRealSelect &other);
 
-}; // class FFTRealSelect
+};
 
 }
 

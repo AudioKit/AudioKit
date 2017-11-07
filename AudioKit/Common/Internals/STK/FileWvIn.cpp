@@ -60,7 +60,7 @@ void FileWvIn::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
     this->setRate(oldRate * rate_ / newRate);
 }
 
-void FileWvIn::closeFile(void) {
+void FileWvIn::closeFile() {
   if (file_.isOpen())
     file_.close();
   finished_ = true;
@@ -108,14 +108,14 @@ void FileWvIn::openFile(std::string fileName, bool raw, bool doNormalize) {
   this->reset();
 }
 
-void FileWvIn::reset(void) {
+void FileWvIn::reset() {
   time_ = (StkFloat)0.0;
   for (unsigned int i = 0; i < lastFrame_.size(); i++)
     lastFrame_[i] = 0.0;
   finished_ = false;
 }
 
-void FileWvIn::normalize(void) { this->normalize(1.0); }
+void FileWvIn::normalize() { this->normalize(1.0); }
 
 // Normalize all channels equally by the greatest magnitude in all of the data.
 void FileWvIn::normalize(StkFloat peak) {

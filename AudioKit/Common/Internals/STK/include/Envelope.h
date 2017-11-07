@@ -30,10 +30,10 @@ public:
   Envelope &operator=(const Envelope &e);
 
   //! Set target = 1.
-  void keyOn(void) { this->setTarget(1.0); };
+  void keyOn() { this->setTarget(1.0); };
 
   //! Set target = 0.
-  void keyOff(void) { this->setTarget(0.0); };
+  void keyOff() { this->setTarget(0.0); };
 
   //! Set the \e rate.
   /*!
@@ -82,7 +82,7 @@ protected:
   int state_;
 };
 
-inline StkFloat Envelope::tick(void) {
+inline StkFloat Envelope::tick() {
   if (state_) {
     if (target_ > value_) {
       value_ += rate_;

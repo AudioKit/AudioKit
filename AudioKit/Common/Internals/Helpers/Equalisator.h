@@ -6,8 +6,7 @@
 //
 //
 
-#ifndef __Rhino__Equalisator__
-#define __Rhino__Equalisator__
+#pragma once
 
 class Equalisator {
 public:
@@ -25,4 +24,3 @@ private:
   float ou1, ou2, in1, in2;
 };
 
-#endif

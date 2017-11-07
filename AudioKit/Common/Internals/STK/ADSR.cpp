@@ -17,7 +17,7 @@
 
 namespace stk {
 
-ADSR::ADSR(void) {
+ADSR::ADSR() {
   target_ = 0.0;
   value_ = 0.0;
   attackRate_ = 0.001;
@@ -29,7 +29,7 @@ ADSR::ADSR(void) {
   Stk::addSampleRateAlert(this);
 }
 
-ADSR::~ADSR(void) { Stk::removeSampleRateAlert(this); }
+ADSR::~ADSR() { Stk::removeSampleRateAlert(this); }
 
 void ADSR::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
   if (!ignoreSampleRateChange_) {

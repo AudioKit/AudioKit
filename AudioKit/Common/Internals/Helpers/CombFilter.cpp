@@ -2,7 +2,7 @@
 
 CCombFilter::CCombFilter(void) : CDelay() { m_fComb_g = 0; }
 
-CCombFilter::~CCombFilter(void) {}
+CCombFilter::~CCombFilter() {}
 
 bool CCombFilter::processAudio(float *pInput, float *pOutput) {
   // read the delay line to get w(n-D); call base class

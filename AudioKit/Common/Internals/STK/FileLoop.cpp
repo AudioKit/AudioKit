@@ -33,7 +33,7 @@ FileLoop::FileLoop(std::string fileName, bool raw, bool doNormalize,
   Stk::addSampleRateAlert(this);
 }
 
-FileLoop::~FileLoop(void) { Stk::removeSampleRateAlert(this); }
+FileLoop::~FileLoop() { Stk::removeSampleRateAlert(this); }
 
 void FileLoop::openFile(std::string fileName, bool raw, bool doNormalize) {
   // Call close() in case another file is already open.

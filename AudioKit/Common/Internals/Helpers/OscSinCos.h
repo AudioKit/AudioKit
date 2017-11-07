@@ -29,8 +29,6 @@ namespace ffft {
 
 template <class T> class OscSinCos {
 
-  
-
 public:
   typedef T DataType;
 
@@ -43,26 +41,17 @@ public:
   ffft_FORCEINLINE void step();
   ffft_FORCEINLINE void clear_buffers();
 
-  
-
-protected:
-  
-
 private:
   DataType _pos_cos;  // Current phase expressed with sin and cos. [-1 ; 1]
   DataType _pos_sin;  // -
   DataType _step_cos; // Phase increment per step, [-1 ; 1]
   DataType _step_sin; // -
-
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-private:
   OscSinCos(const OscSinCos &other);
   OscSinCos &operator=(const OscSinCos &other);
   bool operator==(const OscSinCos &other);
   bool operator!=(const OscSinCos &other);
 
-}; // class OscSinCos
+};
 
 }
 

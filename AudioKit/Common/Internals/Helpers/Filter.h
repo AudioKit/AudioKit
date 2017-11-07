@@ -5,8 +5,7 @@
 //
 //
 
-#ifndef __SilenceDetectionEffect__Filter__
-#define __SilenceDetectionEffect__Filter__
+#pragma once
 
 class MikeFilter {
 public:
@@ -23,4 +22,3 @@ private:
   float ou1, ou2, in1, in2;
 };
 
-#endif

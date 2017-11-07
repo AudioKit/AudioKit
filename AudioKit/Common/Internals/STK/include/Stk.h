@@ -115,16 +115,16 @@ public:
   virtual ~StkError(void){};
 
   //! Prints thrown error message to stderr.
-  virtual void printMessage(void) { std::cerr << '\n' << message_ << "\n\n"; }
+  virtual void printMessage() { std::cerr << '\n' << message_ << "\n\n"; }
 
   //! Returns the thrown error message type.
-  virtual const Type &getType(void) { return type_; }
+  virtual const Type &getType() { return type_; }
 
   //! Returns the thrown error message string.
-  virtual const std::string &getMessage(void) { return message_; }
+  virtual const std::string &getMessage() { return message_; }
 
   //! Returns the thrown error message as a C string.
-  virtual const char *getMessageCString(void) { return message_.c_str(); }
+  virtual const char *getMessageCString() { return message_.c_str(); }
 };
 
 class Stk {
@@ -139,7 +139,7 @@ public:
   static const StkFormat STK_FLOAT64; /*!< Normalized between plus/minus 1.0. */
 
   //! Static method that returns the current STK sample rate.
-  static StkFloat sampleRate(void) { return srate_; }
+  static StkFloat sampleRate() { return srate_; }
 
   //! Static method that sets the STK sample rate.
   /*!
@@ -176,7 +176,7 @@ public:
   static void clear_alertList() { std::vector<Stk *>().swap(alertList_); };
 
   //! Static method that returns the current rawwave path.
-  static std::string rawwavePath(void) { return rawwavepath_; }
+  static std::string rawwavePath() { return rawwavepath_; }
 
   //! Static method that sets the STK rawwave path.
   static void setRawwavePath(std::string path);

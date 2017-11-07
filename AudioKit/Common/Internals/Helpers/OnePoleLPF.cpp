@@ -1,11 +1,11 @@
 #include "OnePoleLPF.h"
 
-COnePoleLPF::COnePoleLPF(void) {
+COnePoleLPF::COnePoleLPF() {
   m_fLPF_g = 0;
   m_fLPF_z1 = 0;
 }
 
-COnePoleLPF::~COnePoleLPF(void) {}
+COnePoleLPF::~COnePoleLPF() {}
 
 void COnePoleLPF::init() { m_fLPF_z1 = 0.0; }
 

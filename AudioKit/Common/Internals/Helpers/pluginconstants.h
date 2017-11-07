@@ -141,7 +141,6 @@ public:
   CEnvelopeDetector(double samplerate);
   ~CEnvelopeDetector(void);
 
-public:
   // Call the Init Function to initialize and setup all at once; this can be
   // called as many times as you want
   void init(float samplerate, float attack_in_ms, float release_in_ms,

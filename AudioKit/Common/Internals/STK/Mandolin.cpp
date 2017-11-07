@@ -61,9 +61,9 @@ Mandolin::Mandolin(StkFloat lowestFrequency) {
   this->setPluckPosition(0.4);
 }
 
-Mandolin::~Mandolin(void) {}
+Mandolin::~Mandolin() {}
 
-void Mandolin::clear(void) {
+void Mandolin::clear() {
   strings_[0].clear();
   strings_[1].clear();
 }

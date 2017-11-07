@@ -197,7 +197,7 @@ Shakers::noise(void) //  Return random StkFloat float between -1.0 and 1.0
 const StkFloat MIN_ENERGY = 0.001;
 const StkFloat WATER_FREQ_SWEEP = 1.0001;
 
-inline void Shakers::waterDrop(void) {
+inline void Shakers::waterDrop() {
   if (randomInt(32767) < nObjects_) {
     sndLevel_ = shakeEnergy_;
     unsigned int j = randomInt(3);

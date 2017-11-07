@@ -30,9 +30,6 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 namespace ffft {
 
 template <int PASS> class FFTRealPassDirect {
-
-  
-
 public:
   typedef FFTRealFixLenParam::DataType DataType;
   typedef OscSinCos<DataType> OscType;
@@ -43,14 +40,6 @@ public:
                                        const DataType cos_ptr[], long cos_len,
                                        const long br_ptr[], OscType osc_list[]);
 
-  
-
-protected:
-  
-
-private:
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
 private:
   FFTRealPassDirect();
   FFTRealPassDirect(const FFTRealPassDirect &other);
@@ -58,7 +47,7 @@ private:
   bool operator==(const FFTRealPassDirect &other);
   bool operator!=(const FFTRealPassDirect &other);
 
-}; // class FFTRealPassDirect
+};
 
 }
 

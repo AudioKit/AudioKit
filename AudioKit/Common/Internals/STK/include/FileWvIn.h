@@ -102,7 +102,7 @@ public:
   virtual StkFloat getFileRate(void) const { return data_.dataRate(); };
 
   //! Query whether a file is open.
-  bool isOpen(void) { return file_.isOpen(); };
+  bool isOpen() { return file_.isOpen(); };
 
   //! Query whether reading is complete.
   bool isFinished(void) const { return finished_; };

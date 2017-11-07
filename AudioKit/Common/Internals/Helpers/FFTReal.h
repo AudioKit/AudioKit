@@ -47,11 +47,6 @@ public:
   void rescale(DataType x[]) const;
   DataType *use_buffer() const;
 
-  
-
-protected:
-  
-
 private:
   // Over this bit depth, we use direct calculation for sin/cos
   enum { TRIGO_BD_LIMIT = 12 };
@@ -93,16 +88,13 @@ private:
   mutable DynArray<DataType> _buffer;
   mutable DynArray<OscType> _trigo_osc;
 
-  /*\\\ FORBIDDEN MEMBER FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-private:
   FFTReal();
   FFTReal(const FFTReal &other);
   FFTReal &operator=(const FFTReal &other);
   bool operator==(const FFTReal &other);
   bool operator!=(const FFTReal &other);
 
-}; // class FFTReal
+};
 
 }
 

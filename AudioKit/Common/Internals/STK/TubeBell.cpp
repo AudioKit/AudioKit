@@ -60,7 +60,7 @@ TubeBell::TubeBell(void) : FM() {
   vibrato_.setFrequency(2.0);
 }
 
-TubeBell::~TubeBell(void) {}
+TubeBell::~TubeBell() {}
 
 void TubeBell::noteOn(StkFloat frequency, StkFloat amplitude) {
   gains_[0] = amplitude * fmGains_[94];

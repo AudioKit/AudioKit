@@ -41,7 +41,7 @@ Twang::Twang(StkFloat lowestFrequency) {
   this->setFrequency(220.0);
 }
 
-void Twang::clear(void) {
+void Twang::clear() {
   delayLine_.clear();
   combDelay_.clear();
   loopFilter_.clear();

@@ -55,9 +55,9 @@ Flute::Flute(StkFloat lowestFrequency) {
   this->setFrequency(220.0);
 }
 
-Flute::~Flute(void) {}
+Flute::~Flute() {}
 
-void Flute::clear(void) {
+void Flute::clear() {
   jetDelay_.clear();
   boreDelay_.clear();
   filter_.clear();
