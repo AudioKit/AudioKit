@@ -16,9 +16,8 @@ xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimu
 echo "Building macOS HelloWorld"
 xcodebuild -project Examples/macOS/HelloWorld/HelloWorld.xcodeproj -scheme HelloWorld clean build | xcpretty -c || exit 5
 
-echo "Skipping tvOS HelloWorld"
-#xcodebuild -project Examples/tvOS/HelloWorld/HelloWorld.xcodeproj -sdk appletvsimulator -scheme HelloWorld ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 6
-
+echo "Building tvOS HelloWorld"
+xcodebuild -project Examples/tvOS/HelloWorld/HelloWorld.xcodeproj -sdk appletvsimulator -scheme HelloWorld ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 6
 
 echo "Building More Advanced Examples"
 
@@ -92,4 +91,4 @@ echo "Running iOS Unit Tests"
 xcodebuild -scheme AudioKitTestSuite -project AudioKit/iOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.1' | xcpretty -c || exit 100
 
 echo "Running macOS Unit Tests"
-xcodebuild -project AudioKit/macOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj -scheme AudioKitTestSuite test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" || exit 101
+xcodebuild -project AudioKit/macOS/AudioKitTestSuite/AudioKitTestSuite.xcodeproj -scheme AudioKitTestSuite test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | xcpretty -c || exit 101
