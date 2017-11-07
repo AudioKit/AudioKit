@@ -3,8 +3,8 @@
 class COnePoleLPF {
 public:
   // constructor/Destructor
-  COnePoleLPF(void);
-  ~COnePoleLPF(void);
+  COnePoleLPF();
+  ~COnePoleLPF();
 
   // members
 protected:

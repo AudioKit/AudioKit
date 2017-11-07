@@ -40,7 +40,7 @@ public:
   ~DelayA();
 
   //! Clears all internal states of the delay line.
-  void clear(void);
+  void clear();
 
   //! Get the maximum delay-line length.
   unsigned long getMaximumDelay() { return inputs_.size() - 1; };
@@ -82,7 +82,7 @@ public:
   /*!
     This method is valid only for delay settings greater than zero!
    */
-  StkFloat nextOut(void);
+  StkFloat nextOut();
 
   //! Input one sample to the filter and return one output.
   StkFloat tick(StkFloat input);

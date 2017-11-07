@@ -78,7 +78,7 @@ public:
   /*!
     This method is valid only for delay settings greater than zero!
    */
-  StkFloat nextOut(void);
+  StkFloat nextOut();
 
   //! Input one sample to the filter and return one output.
   StkFloat tick(StkFloat input);

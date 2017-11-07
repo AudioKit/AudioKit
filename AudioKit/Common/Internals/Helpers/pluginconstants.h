@@ -139,7 +139,7 @@ const float METER_MIN_DB = -60.0;
 class CEnvelopeDetector {
 public:
   CEnvelopeDetector(double samplerate);
-  ~CEnvelopeDetector(void);
+  ~CEnvelopeDetector();
 
   // Call the Init Function to initialize and setup all at once; this can be
   // called as many times as you want

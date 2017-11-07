@@ -33,16 +33,16 @@ public:
   };
 
   //! Default constructor.
-  ADSR(void);
+  ADSR();
 
   //! Class destructor.
-  ~ADSR(void);
+  ~ADSR();
 
   //! Set target = 1, state = \e ADSR::ATTACK.
-  void keyOn(void);
+  void keyOn();
 
   //! Set target = 0, state = \e ADSR::RELEASE.
-  void keyOff(void);
+  void keyOff();
 
   //! Set the attack rate (gain / sample).
   void setAttackRate(StkFloat rate);
@@ -87,7 +87,7 @@ public:
   StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Compute and return one output sample.
-  StkFloat tick(void);
+  StkFloat tick();
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!

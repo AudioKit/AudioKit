@@ -116,8 +116,8 @@ protected:
   StkFloat tickEqualize(StkFloat input);
   int randomInt(int max);
   StkFloat randomFloat(StkFloat max = 1.0);
-  StkFloat noise(void);
-  void waterDrop(void);
+  StkFloat noise();
+  void waterDrop();
 
   int shakerType_;
   unsigned int nResonances_;

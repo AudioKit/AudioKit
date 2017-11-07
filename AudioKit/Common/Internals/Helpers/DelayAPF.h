@@ -25,8 +25,8 @@
 class CDelayAPF : public CDelay {
 public:
   // constructor/destructor
-  CDelayAPF(void);
-  ~CDelayAPF(void);
+  CDelayAPF();
+  ~CDelayAPF();
 
   // members
 protected:
