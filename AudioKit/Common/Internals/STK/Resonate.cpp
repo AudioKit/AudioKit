@@ -30,7 +30,7 @@ Resonate :: Resonate( void )
   filter_.setResonance( poleFrequency_, poleRadius_, true );
   zeroFrequency_ = 0.0;
   zeroRadius_ = 0.0;
-}  
+}
 
 Resonate :: ~Resonate( void )
 {

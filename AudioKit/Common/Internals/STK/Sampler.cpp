@@ -20,7 +20,7 @@ Sampler :: Sampler( void )
   baseFrequency_ = 440.0;
   attackGain_ = 0.25;
   loopGain_ = 0.25;
-}  
+}
 
 Sampler :: ~Sampler( void )
 {

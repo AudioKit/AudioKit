@@ -17,7 +17,7 @@
     This is a digital waveguide model, making its use possibly subject
     to patents held by Stanford University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Bridge Coupling Gain = 2
        - Pluck Position = 4
        - Loop Gain = 11
@@ -69,7 +69,7 @@ void Guitar :: setBodyFile( std::string bodyfile )
   if ( bodyfile != "" ) {
     try {
       FileWvIn file( bodyfile );
-  
+
       // Fill the StkFrames variable with the (possibly interpolated)
       // file data.
       excitation_.resize( (unsigned long) ( 0.5 + ( file.getSize() * Stk::sampleRate() / file.getFileRate() ) ) );

@@ -156,9 +156,9 @@ void FileWvIn :: setRate( StkFloat rate )
   else interpolate_ = false;
 }
 
-void FileWvIn :: addTime( StkFloat time )   
+void FileWvIn :: addTime( StkFloat time )
 {
-  // Add an absolute time in samples 
+  // Add an absolute time in samples
   time_ += time;
 
   if ( time_ < 0.0 ) time_ = 0.0;

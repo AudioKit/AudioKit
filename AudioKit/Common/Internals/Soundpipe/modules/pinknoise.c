@@ -50,7 +50,7 @@ int sp_pinknoise_init(sp_data *sp, sp_pinknoise *p)
     return SP_OK;
 }
 
-int sp_pinknoise_compute(sp_data *sp, sp_pinknoise *p, SPFLOAT *in, SPFLOAT *out) 
+int sp_pinknoise_compute(sp_data *sp, sp_pinknoise *p, SPFLOAT *in, SPFLOAT *out)
 {
     uint32_t k = ctz[p->counter & 63];
     p->prevrand = p->dice[k];

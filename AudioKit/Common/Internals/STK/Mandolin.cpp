@@ -15,7 +15,7 @@
     University.  For information, contact the Office
     of Technology Licensing, Stanford University.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Body Size = 2
        - Pluck Position = 4
        - String Sustain = 11

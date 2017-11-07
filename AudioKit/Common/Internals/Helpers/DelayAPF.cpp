@@ -8,7 +8,7 @@ CDelayAPF::CDelayAPF(void):CDelay()
 CDelayAPF::~CDelayAPF(void)
 {
 }
-	
+
 bool CDelayAPF::processAudio(float* pInput, float* pOutput)
 {
 	// read the delay line to get w(n-D); call base class

@@ -46,7 +46,7 @@ Modal :: Modal( unsigned int modes )
 
   stickHardness_ =  0.5;
   strikePosition_ = 0.561;
-}  
+}
 
 Modal :: ~Modal( void )
 {
@@ -57,7 +57,7 @@ Modal :: ~Modal( void )
 }
 
 void Modal :: clear( void )
-{    
+{
   onepole_.clear();
   for ( unsigned int i=0; i<nModes_; i++ )
     filters_[i]->clear();
@@ -100,7 +100,7 @@ void Modal :: setRatioAndRadius( unsigned int modeIndex, StkFloat ratio, StkFloa
 #endif
   }
   radii_[modeIndex] = radius;
-  if (ratio < 0) 
+  if (ratio < 0)
     temp = -ratio;
   else
     temp = ratio * baseFrequency_;

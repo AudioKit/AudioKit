@@ -16,7 +16,7 @@
 namespace stk {
 
 Envelope :: Envelope( void ) : Generator()
-{    
+{
   target_ = 0.0;
   value_ = 0.0;
   rate_ = 0.001;

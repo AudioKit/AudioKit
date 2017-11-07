@@ -25,7 +25,7 @@ OnePole :: OnePole( StkFloat thePole )
   this->setPole( thePole );
 }
 
-OnePole :: ~OnePole()    
+OnePole :: ~OnePole()
 {
 }
 

@@ -158,7 +158,7 @@ void FileWrite :: open( std::string fileName, unsigned int nChannels, FileWrite:
        format != STK_FLOAT32 && format != STK_FLOAT64 ) {
     oStream_ << "FileWrite::open: unknown data type (" << format << ") specified!";
     handleError( StkError::FUNCTION_ARGUMENT );
-  } 
+  }
   dataType_ = format;
 
   bool result = false;
@@ -223,7 +223,7 @@ bool FileWrite :: setWavFile( std::string fileName )
   }
 
   struct WaveHeader hdr = { {'R','I','F','F'}, 44, {'W','A','V','E'}, {'f','m','t',' '}, 16, 1, 1,
-                            (SINT32) Stk::sampleRate(), 0, 2, 16, 0, 0, 0, 
+                            (SINT32) Stk::sampleRate(), 0, 2, 16, 0, 0, 0,
                             {'\x01','\x00','\x00','\x00','\x00','\x00','\x10','\x00','\x80','\x00','\x00','\xAA','\x00','\x38','\x9B','\x71'},
                             {'f','a','c','t'}, 4, 0 };
   hdr.nChannels = (SINT16) channels_;
@@ -469,7 +469,7 @@ bool FileWrite :: setAifFile( std::string fileName )
 #endif
   memcpy( hdr.srate + 2, &rate, sizeof(rate) );
 
-  byteswap_ = false;  
+  byteswap_ = false;
 #ifdef __LITTLE_ENDIAN__
   byteswap_ = true;
   swap32((unsigned char *)&hdr.formSize);
@@ -500,7 +500,7 @@ bool FileWrite :: setAifFile( std::string fileName )
     if ( fwrite(&type, 4, 1, fd_) != 1 ) goto error;
     if ( fwrite(&zeroes, 2, 1, fd_) != 1 ) goto error;
   }
-  
+
   if ( fwrite(&ssnd, 4, 4, fd_) != 4 ) goto error;
 
   oStream_ << "FileWrite: creating AIF file: " << fileName;

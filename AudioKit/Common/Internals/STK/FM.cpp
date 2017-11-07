@@ -6,7 +6,7 @@
     waves and envelopes, determined via a
     constructor argument.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Control One = 2
        - Control Two = 4
        - LFO Speed = 11
@@ -90,7 +90,7 @@ void FM :: loadWaves( const char **filenames )
 }
 
 void FM :: setFrequency( StkFloat frequency )
-{    
+{
 #if defined(_STK_DEBUG_)
   if ( frequency <= 0.0 ) {
     oStream_ << "FM::setFrequency: argument is less than or equal to zero!";
@@ -111,7 +111,7 @@ void FM :: setRatio( unsigned int waveIndex, StkFloat ratio )
   }
 
   ratios_[waveIndex] = ratio;
-  if (ratio > 0.0) 
+  if (ratio > 0.0)
     waves_[waveIndex]->setFrequency( baseFrequency_ * ratio );
   else
     waves_[waveIndex]->setFrequency( ratio );

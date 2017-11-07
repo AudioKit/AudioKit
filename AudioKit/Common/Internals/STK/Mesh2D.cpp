@@ -13,7 +13,7 @@
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - X Dimension = 2
        - Y Dimension = 4
        - Mesh Decay = 11
@@ -251,10 +251,10 @@ StkFloat Mesh2D :: tick0( void )
   // Update junction velocities.
   for (x=0; x<NX_-1; x++) {
     for (y=0; y<NY_-1; y++) {
-      v_[x][y] = ( vxp_[x][y] + vxm_[x+1][y] + 
+      v_[x][y] = ( vxp_[x][y] + vxm_[x+1][y] +
 		  vyp_[x][y] + vym_[x][y+1] ) * VSCALE;
     }
-  }    
+  }
 
   // Update junction outgoing waves, using alternate wave-variable buffers.
   for (x=0; x<NX_-1; x++) {
@@ -267,7 +267,7 @@ StkFloat Mesh2D :: tick0( void )
       vxm1_[x][y] = vxy - vxp_[x][y];
       vym1_[x][y] = vxy - vyp_[x][y];
     }
-  }    
+  }
 
   // Loop over velocity-junction boundary faces, update edge
   // reflections, with filtering.  We're only filtering on one x and y
@@ -299,12 +299,12 @@ StkFloat Mesh2D :: tick1( void )
   // Update junction velocities.
   for (x=0; x<NX_-1; x++) {
     for (y=0; y<NY_-1; y++) {
-      v_[x][y] = ( vxp1_[x][y] + vxm1_[x+1][y] + 
+      v_[x][y] = ( vxp1_[x][y] + vxm1_[x+1][y] +
 		  vyp1_[x][y] + vym1_[x][y+1] ) * VSCALE;
     }
   }
 
-  // Update junction outgoing waves, 
+  // Update junction outgoing waves,
   // using alternate wave-variable buffers.
   for (x=0; x<NX_-1; x++) {
     for (y=0; y<NY_-1; y++) {

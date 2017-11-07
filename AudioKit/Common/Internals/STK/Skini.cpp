@@ -75,7 +75,7 @@ long Skini :: nextMessage( Message& message )
     else if ( parseString( line, message ) > 0 ) done = true;
   }
 
-  return message.type;  
+  return message.type;
 }
 
 void Skini :: tokenize( const std::string&        str,
@@ -95,7 +95,7 @@ void Skini :: tokenize( const std::string&        str,
     // Find next "non-delimiter"
     pos = str.find_first_of(delimiters, lastPos);
   }
-} 
+}
 
 long Skini :: parseString( std::string& line, Message& message )
 {
@@ -112,7 +112,7 @@ long Skini :: parseString( std::string& line, Message& message )
   }
 
   // Tokenize the string.
-  std::vector<std::string> tokens; 
+  std::vector<std::string> tokens;
   this->tokenize( line, tokens, " ,\t");
 
   // Valid SKINI messages must have at least three fields (type, time,
@@ -131,7 +131,7 @@ long Skini :: parseString( std::string& line, Message& message )
     handleError( StkError::WARNING );
     return message.type;
   }
-  
+
   // Found the type.
   message.type = skini_msgs[iSkini].type;
 

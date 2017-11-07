@@ -129,7 +129,7 @@ public extension AudioUnit {
 /// Extension to add a check function
 public extension OSStatus {
 
-    /// Check for and throw an error 
+    /// Check for and throw an error
     func check() throws {
         if self != noErr {
             throw NSError(domain: NSOSStatusErrorDomain, code: Int(self), userInfo: nil)

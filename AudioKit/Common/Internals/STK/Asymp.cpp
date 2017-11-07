@@ -39,7 +39,7 @@ Asymp :: Asymp( void )
 }
 
 Asymp :: ~Asymp( void )
-{    
+{
   Stk::removeSampleRateAlert( this );
 }
 

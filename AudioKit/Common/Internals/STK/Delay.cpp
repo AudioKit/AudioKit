@@ -20,7 +20,7 @@ namespace stk {
 
 Delay :: Delay( unsigned long delay, unsigned long maxDelay )
 {
-  // Writing before reading allows delays from 0 to length-1. 
+  // Writing before reading allows delays from 0 to length-1.
   // If we want to allow a delay of maxDelay, we need a
   // delay-line of length = maxDelay+1.
   if ( delay > maxDelay ) {

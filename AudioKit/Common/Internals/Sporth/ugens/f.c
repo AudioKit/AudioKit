@@ -34,9 +34,9 @@ int sporth_fload(sporth_stack *stack, void *ud)
             fload->filename= sporth_stack_pop_string(stack);
             fload->name = sporth_stack_pop_string(stack);
 
-            if(getenv("SPORTH_PLUGIN_PATH") != NULL && 
+            if(getenv("SPORTH_PLUGIN_PATH") != NULL &&
                 fload->filename[0] != '.') {
-                sprintf(buf, "%s/%s", 
+                sprintf(buf, "%s/%s",
                         getenv("SPORTH_PLUGIN_PATH"),
                         fload->filename);
                 fload->handle = dlopen(buf, RTLD_NOW | RTLD_GLOBAL);
@@ -215,9 +215,9 @@ int sporth_floadi(sporth_stack *stack, void *ud)
             num = sporth_stack_pop_float(stack);
             fload->name = sporth_stack_pop_string(stack);
 
-            if(getenv("SPORTH_PLUGIN_PATH") != NULL && 
+            if(getenv("SPORTH_PLUGIN_PATH") != NULL &&
                 fload->filename[0] != '.') {
-                sprintf(buf, "%s/%s", 
+                sprintf(buf, "%s/%s",
                         getenv("SPORTH_PLUGIN_PATH"),
                         fload->filename);
                 fload->handle = dlopen(buf, RTLD_NOW);
@@ -229,7 +229,7 @@ int sporth_floadi(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
 
-            fload->getter_multi = 
+            fload->getter_multi =
                 dlsym(fload->handle, "sporth_return_ugen_multi");
             if(fload->getter_multi(num, &fload->fun) != PLUMBER_OK) {
                 plumber_print(pd, "fli: could not load\n");

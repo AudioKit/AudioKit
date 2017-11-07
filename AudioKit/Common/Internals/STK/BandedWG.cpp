@@ -10,7 +10,7 @@
     Percussion Instruments", Proceedings of the
     1999 International Computer Music Conference.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Bow Pressure = 2
        - Bow Motion = 4
        - Strike Position = 8 (not implemented)
@@ -47,7 +47,7 @@ BandedWG :: BandedWG( void )
 
   bowPosition_ = 0;
   baseGain_ = 0.999;
-  
+
   integrationConstant_ = 0.0;
   trackVelocity_ = false;
 
@@ -103,12 +103,12 @@ void BandedWG :: setPreset( int preset )
     }
     /*
       baseGain_ = (StkFloat) 0.99999;
-      for (i=0; i<presetModes_; i++) 
+      for (i=0; i<presetModes_; i++)
       gains_[i]= (StkFloat) pow(baseGain_, delay_[i].getDelay()+i);
     */
 
     break;
-   
+
   case 3: // Tibetan Prayer Bowl (ICMC'02)
     presetModes_ = 12;
     modes_[0]=0.996108344;
@@ -148,7 +148,7 @@ void BandedWG :: setPreset( int preset )
     basegains_[11]=0.999999999999999965497558225;
     excitation_[11]=57.063034/10.;
 
-    break;	
+    break;
 
   default: // Uniform Bar
     presetModes_ = 4;
@@ -220,7 +220,7 @@ void BandedWG :: startBowing( StkFloat amplitude, StkFloat rate )
 {
   adsr_.setAttackRate(rate);
   adsr_.keyOn();
-  maxVelocity_ = 0.03 + (0.1 * amplitude); 
+  maxVelocity_ = 0.03 + (0.1 * amplitude);
 }
 
 void BandedWG :: stopBowing( StkFloat rate )
@@ -288,13 +288,13 @@ StkFloat BandedWG :: tick( unsigned int )
     input = input/(StkFloat)nModes_;
   }
 
-  StkFloat data = 0.0;  
+  StkFloat data = 0.0;
   for ( k=0; k<nModes_; k++ ) {
     bandpass_[k].tick(input + gains_[k] * delay_[k].lastOut());
     delay_[k].tick(bandpass_[k].lastOut());
     data += bandpass_[k].lastOut();
   }
-  
+
   //lastFrame_[0] = data * nModes_;
   lastFrame_[0] = data * 4;
   return lastFrame_[0];
@@ -330,9 +330,9 @@ void BandedWG :: controlChange( int number, StkFloat value )
     //bowTarget_ += 0.02 * (normalizedValue - bowPosition_);
     //bowPosition_ = normalizedValue;
     if ( trackVelocity_ ) trackVelocity_ = false;
-    maxVelocity_ = 0.13 * normalizedValue; 
+    maxVelocity_ = 0.13 * normalizedValue;
     adsr_.setTarget(normalizedValue);
-  }      
+  }
   else if (number == __SK_ModWheel_) { // 1
     //    baseGain_ = 0.9989999999 + (0.001 * normalizedValue );
 	  baseGain_ = 0.8999999999999999 + (0.1 * normalizedValue);

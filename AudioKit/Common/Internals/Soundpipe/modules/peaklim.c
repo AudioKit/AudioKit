@@ -72,7 +72,7 @@ int sp_peaklim_compute(sp_data *sp, sp_peaklim *p, SPFLOAT *in, SPFLOAT *out)
         p->level += p->b0_r * ( fabs(*in) - p->level);
 
     db_gain = min(0.0, dB(dB2lin(p->thresh)/p->level));
-    gain = dB2lin(db_gain);		
+    gain = dB2lin(db_gain);
 
     *out = *in * gain;
 

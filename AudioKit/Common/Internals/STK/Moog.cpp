@@ -7,7 +7,7 @@
     from the Sampler class) and adds two sweepable
     formant (FormSwep) filters.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Filter Q = 2
        - Filter Sweep Rate = 4
        - Vibrato Frequency = 11
@@ -38,7 +38,7 @@ Moog :: Moog( void )
   filterQ_ = 0.85;
   filterRate_ = 0.0001;
   modDepth_ = 0.0;
-}  
+}
 
 Moog :: ~Moog( void )
 {

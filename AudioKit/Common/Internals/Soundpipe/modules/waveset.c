@@ -52,7 +52,7 @@ int sp_waveset_compute(sp_data *sp, sp_waveset *p, SPFLOAT *in, SPFLOAT *out)
     if (++index ==  p->start) {
         p->noinsert = 1;
     }
-    if (index==p->length) {  
+    if (index==p->length) {
         index = 0;
         insert = (SPFLOAT*)(p->auxch.ptr);
     }

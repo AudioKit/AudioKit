@@ -54,7 +54,7 @@ struct BufferedAudioBus {
 #pragma mark prepareOutputBufferList()
 /*
  BufferedOutputBus
- 
+
 	This class provides a prepareOutputBufferList method to copy the internal buffer pointers
 	to the output buffer list in case the client passed in null buffer pointers.
  */
@@ -79,7 +79,7 @@ struct BufferedOutputBus: BufferedAudioBus {
 #pragma mark prepareInputBufferList()
 /*
 	BufferedInputBus
- 
+
 	This class manages a buffer into which an audio unit with input busses can
     pull its input data.
  */

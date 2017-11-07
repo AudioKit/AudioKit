@@ -1,12 +1,12 @@
 /*67:*/
 #line 54 "./ugen.w"
 
-#include <stdlib.h> 
-#include <math.h> 
-#include <string.h> 
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
 #ifdef BUILD_SPORTH_PLUGIN
-#include <soundpipe.h> 
-#include <sporth.h> 
+#include <soundpipe.h>
+#include <sporth.h>
 #include "voc.h"
 #else
 #include "plumber.h"

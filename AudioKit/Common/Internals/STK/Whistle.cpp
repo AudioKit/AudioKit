@@ -5,7 +5,7 @@
     This class implements a hybrid physical/spectral
     model of a police whistle (a la Cook).
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Noise Gain = 4
        - Fipple Modulation Frequency = 11
        - Fipple Modulation Gain = 1
@@ -151,7 +151,7 @@ StkFloat Whistle :: tick( unsigned int )
     if (temp < (BUMP_RADIUS + PEA_RADIUS)) {
       tempX = envOut * tickSize_ * 2000 * noise_.tick();
       tempY = -envOut * tickSize_ * 1000 * (1.0 + noise_.tick());
-      pea_.addVelocity( tempX, tempY, 0 ); 
+      pea_.addVelocity( tempX, tempY, 0 );
       pea_.tick( tickSize_ );
     }
 
@@ -160,7 +160,7 @@ StkFloat Whistle :: tick( unsigned int )
     gain = (1.0 - (fippleGainMod_*0.5)) + (2.0 * fippleGainMod_ * temp);
     gain *= gain;	              // squared distance/gain
     //    tempFreq = 1.0				//  Normalized Base Freq
-    //			+ (fippleFreqMod_ * 0.25) - (fippleFreqMod_ * temp) // fippleModulation 
+    //			+ (fippleFreqMod_ * 0.25) - (fippleFreqMod_ * temp) // fippleModulation
     //			- (blowFreqMod_) + (blowFreqMod_ * envOut); // blowingModulation
     // short form of above
     tempFreq = 1.0 + fippleFreqMod_*(0.25-temp) + blowFreqMod_*(envOut-1.0);
@@ -190,7 +190,7 @@ StkFloat Whistle :: tick( unsigned int )
       pea_.tick(tickSize_);
     }
 
-    temp = tempVectorP_->getLength();	
+    temp = tempVectorP_->getLength();
     if (temp > 0.01) {
       tempX = tempVectorP_->getX();
       tempY = tempVectorP_->getY();

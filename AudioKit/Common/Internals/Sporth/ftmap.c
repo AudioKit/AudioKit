@@ -33,7 +33,7 @@ int plumber_ftmap_add_userdata(plumber_data *plumb, const char *str, void *ud)
     return PLUMBER_OK;
 }
 
-int plumber_ftmap_add_function(plumber_data *plumb, 
+int plumber_ftmap_add_function(plumber_data *plumb,
         const char *str, plumber_dyn_func f, void *ud)
 {
     sporth_fload_d *fd = malloc(sizeof(sporth_fload_d));
@@ -87,7 +87,7 @@ void plumber_ftmap_dump(plumber_ftentry *ft)
         for(k = 0; k < ft[i].nftbl; k++) {
             next = cur->next;
             printf("%s\n", cur->name);
-            cur = next; 
+            cur = next;
         }
     }
 }
@@ -102,7 +102,7 @@ int plumber_ftmap_destroy(plumber_data *plumb)
             next = ftbl->next;
             free(ftbl->name);
             if(ftbl->to_delete) {
-                if(ftbl->type == PTYPE_TABLE) 
+                if(ftbl->type == PTYPE_TABLE)
                     sp_ftbl_destroy((sp_ftbl **)&ftbl->ud);
                 else free(ftbl->ud);
             }

@@ -1,9 +1,9 @@
 /*
  * Allpass
- * 
+ *
  * This code has been extracted from the Csound opcode "allpass".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Barry Vercoe, John ffitch
  * Year: 1991
  * Location: Opcodes/ugens6.c
@@ -50,11 +50,11 @@ int sp_allpass_compute(sp_data *sp, sp_allpass *p, SPFLOAT *in, SPFLOAT *out)
         coef = p->coef = exp(-6.9078 * p->looptime / p->prvt);
     }
     y = buf[p->bufpos];
-    z = coef * y + *in; 
+    z = coef * y + *in;
     buf[p->bufpos] = z;
     *out = y - coef * z;
 
     p->bufpos++;
-    p->bufpos %= p->bufsize; 
+    p->bufpos %= p->bufsize;
     return SP_OK;
 }

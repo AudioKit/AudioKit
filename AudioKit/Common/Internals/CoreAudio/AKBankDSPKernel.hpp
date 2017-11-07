@@ -220,5 +220,5 @@ public:
     releaseDuration = releaseDurationRamper.getAndStep(); \
     pitchBend = double(pitchBendRamper.getAndStep()); \
     vibratoDepth = double(vibratoDepthRamper.getAndStep()); \
-    vibratoRate = double(vibratoRateRamper.getAndStep()); 
+    vibratoRate = double(vibratoRateRamper.getAndStep());
 

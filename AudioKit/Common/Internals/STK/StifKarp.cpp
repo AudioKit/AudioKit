@@ -69,7 +69,7 @@ void StifKarp :: setFrequency( StkFloat frequency )
   }
 #endif
 
-  lastFrequency_ = frequency; 
+  lastFrequency_ = frequency;
   lastLength_ = Stk::sampleRate() / lastFrequency_;
   StkFloat delay = lastLength_ - 0.5;
   delayLine_.setDelay( delay );
@@ -79,7 +79,7 @@ void StifKarp :: setFrequency( StkFloat frequency )
 
   setStretch(stretching_);
 
-  combDelay_.setDelay( 0.5 * pickupPosition_ * lastLength_ ); 
+  combDelay_.setDelay( 0.5 * pickupPosition_ * lastLength_ );
 }
 
 void StifKarp :: setStretch( StkFloat stretch )

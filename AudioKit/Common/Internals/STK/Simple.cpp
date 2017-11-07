@@ -7,7 +7,7 @@
     a one-pole filter, and an ADSR envelope
     to create some interesting sounds.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Filter Pole Position = 2
        - Noise/Pitched Cross-Fade = 4
        - Envelope Rate = 11
@@ -31,7 +31,7 @@ Simple :: Simple( void )
   baseFrequency_ = 440.0;
   setFrequency( baseFrequency_ );
   loopGain_ = 0.5;
-}  
+}
 
 Simple :: ~Simple( void )
 {
@@ -52,7 +52,7 @@ void Simple :: noteOn( StkFloat frequency, StkFloat amplitude )
 {
   this->keyOn();
   this->setFrequency( frequency );
-  filter_.setGain( amplitude ); 
+  filter_.setGain( amplitude );
 }
 void Simple :: noteOff( StkFloat amplitude )
 {

@@ -21,8 +21,8 @@ bool COnePoleLPF::processAudio(float* pInput, float* pOutput)
 	// read
 	float yn_LPF = *pInput*(1.0f - m_fLPF_g) + m_fLPF_g*m_fLPF_z1;
 	//float yn_LPF = *pInput*(m_fLPF_g) + (1.0 - m_fLPF_g)*m_fLPF_z1;
-	
-	// this just reverses the slider 
+
+	// this just reverses the slider
 	//float yn_LPF = *pInput*(m_fLPF_g) + (1.0 - m_fLPF_g)*m_fLPF_z1;
 
 	// form fb & write
