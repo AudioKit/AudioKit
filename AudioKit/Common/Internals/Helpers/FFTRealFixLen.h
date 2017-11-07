@@ -34,8 +34,6 @@ template <int LL2> class FFTRealFixLen {
   typedef int CompileTimeCheck1[(LL2 >= 0) ? 1 : -1];
   typedef int CompileTimeCheck2[(LL2 <= 30) ? 1 : -1];
 
-  
-
 public:
   typedef FFTRealFixLenParam::DataType DataType;
   typedef OscSinCos<DataType> OscType;
@@ -50,10 +48,6 @@ public:
   void do_ifft(const DataType f[], DataType x[]);
   void rescale(DataType x[]) const;
 
-  
-
-protected:
-  
 
 private:
   enum { TRIGO_BD_LIMIT = FFTRealFixLenParam::TRIGO_BD_LIMIT };
