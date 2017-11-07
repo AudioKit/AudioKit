@@ -95,7 +95,7 @@ protected:
   StkFloat vibratoGain_;
 };
 
-inline StkFloat Clarinet ::tick(unsigned int) {
+inline StkFloat Clarinet::tick(unsigned int) {
   StkFloat pressureDiff;
   StkFloat breathPressure;
 
@@ -120,7 +120,7 @@ inline StkFloat Clarinet ::tick(unsigned int) {
   return lastFrame_[0];
 }
 
-inline StkFrames &Clarinet ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Clarinet::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
   if (channel > frames.channels() - nChannels) {

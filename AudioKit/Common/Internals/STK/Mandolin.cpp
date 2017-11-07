@@ -31,7 +31,7 @@
 
 namespace stk {
 
-Mandolin ::Mandolin(StkFloat lowestFrequency) {
+Mandolin::Mandolin(StkFloat lowestFrequency) {
   if (lowestFrequency <= 0.0) {
     oStream_ << "Mandolin::Mandolin: argument is less than or equal to zero!";
     handleError(StkError::FUNCTION_ARGUMENT);
@@ -61,14 +61,14 @@ Mandolin ::Mandolin(StkFloat lowestFrequency) {
   this->setPluckPosition(0.4);
 }
 
-Mandolin ::~Mandolin(void) {}
+Mandolin::~Mandolin(void) {}
 
-void Mandolin ::clear(void) {
+void Mandolin::clear(void) {
   strings_[0].clear();
   strings_[1].clear();
 }
 
-void Mandolin ::setPluckPosition(StkFloat position) {
+void Mandolin::setPluckPosition(StkFloat position) {
   if (position < 0.0 || position > 1.0) {
     std::cerr << "Mandolin::setPluckPosition: position parameter out of range!";
     handleError(StkError::WARNING);
@@ -79,7 +79,7 @@ void Mandolin ::setPluckPosition(StkFloat position) {
   strings_[1].setPluckPosition(position);
 }
 
-void Mandolin ::setDetune(StkFloat detune) {
+void Mandolin::setDetune(StkFloat detune) {
   if (detune <= 0.0) {
     oStream_ << "Mandolin::setDetune: parameter is less than or equal to zero!";
     handleError(StkError::WARNING);
@@ -90,14 +90,14 @@ void Mandolin ::setDetune(StkFloat detune) {
   strings_[1].setFrequency(frequency_ * detuning_);
 }
 
-void Mandolin ::setBodySize(StkFloat size) {
+void Mandolin::setBodySize(StkFloat size) {
   // Scale the commuted body response by its sample rate (22050).
   StkFloat rate = size * 22050.0 / Stk::sampleRate();
   for (int i = 0; i < 12; i++)
     soundfile_[i].setRate(rate);
 }
 
-void Mandolin ::setFrequency(StkFloat frequency) {
+void Mandolin::setFrequency(StkFloat frequency) {
 #if defined(_STK_DEBUG_)
   if (frequency <= 0.0) {
     oStream_
@@ -112,7 +112,7 @@ void Mandolin ::setFrequency(StkFloat frequency) {
   strings_[1].setFrequency(frequency_ * detuning_);
 }
 
-void Mandolin ::pluck(StkFloat amplitude) {
+void Mandolin::pluck(StkFloat amplitude) {
   if (amplitude < 0.0 || amplitude > 1.0) {
     oStream_ << "Mandolin::pluck: amplitude parameter out of range!";
     handleError(StkError::WARNING);
@@ -126,17 +126,17 @@ void Mandolin ::pluck(StkFloat amplitude) {
   // strings_[1].setLoopGain( 0.97 + pluckAmplitude_ * 0.03 );
 }
 
-void Mandolin ::pluck(StkFloat amplitude, StkFloat position) {
+void Mandolin::pluck(StkFloat amplitude, StkFloat position) {
   this->setPluckPosition(position);
   this->pluck(amplitude);
 }
 
-void Mandolin ::noteOn(StkFloat frequency, StkFloat amplitude) {
+void Mandolin::noteOn(StkFloat frequency, StkFloat amplitude) {
   this->setFrequency(frequency);
   this->pluck(amplitude);
 }
 
-void Mandolin ::noteOff(StkFloat amplitude) {
+void Mandolin::noteOff(StkFloat amplitude) {
   if (amplitude < 0.0 || amplitude > 1.0) {
     oStream_ << "Mandolin::noteOff: amplitude is out of range!";
     handleError(StkError::WARNING);
@@ -147,7 +147,7 @@ void Mandolin ::noteOff(StkFloat amplitude) {
   // strings_[1].setLoopGain( 0.97 + (1 - amplitude) * 0.03 );
 }
 
-void Mandolin ::controlChange(int number, StkFloat value) {
+void Mandolin::controlChange(int number, StkFloat value) {
 #if defined(_STK_DEBUG_)
   if (Stk::inRange(value, 0.0, 128.0) == false) {
     oStream_ << "Mandolin::controlChange: value (" << value

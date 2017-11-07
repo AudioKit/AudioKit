@@ -100,7 +100,7 @@ protected:
   StkFloat pluckAmplitude_;
 };
 
-inline StkFloat Mandolin ::tick(unsigned int) {
+inline StkFloat Mandolin::tick(unsigned int) {
   StkFloat temp = 0.0;
   if (!soundfile_[mic_].isFinished())
     temp = soundfile_[mic_].tick() * pluckAmplitude_;
@@ -112,7 +112,7 @@ inline StkFloat Mandolin ::tick(unsigned int) {
   return lastFrame_[0];
 }
 
-inline StkFrames &Mandolin ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Mandolin::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
   if (channel > frames.channels() - nChannels) {

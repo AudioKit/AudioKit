@@ -15,7 +15,7 @@
 
 namespace stk {
 
-PoleZero ::PoleZero() {
+PoleZero::PoleZero() {
   // Default setting for pass-through.
   b_.resize(2, 0.0);
   a_.resize(2, 0.0);
@@ -25,9 +25,9 @@ PoleZero ::PoleZero() {
   outputs_.resize(2, 1, 0.0);
 }
 
-PoleZero ::~PoleZero() {}
+PoleZero::~PoleZero() {}
 
-void PoleZero ::setCoefficients(StkFloat b0, StkFloat b1, StkFloat a1,
+void PoleZero::setCoefficients(StkFloat b0, StkFloat b1, StkFloat a1,
                                 bool clearState) {
   if (std::abs(a1) >= 1.0) {
     oStream_ << "PoleZero::setCoefficients: a1 argument (" << a1
@@ -44,7 +44,7 @@ void PoleZero ::setCoefficients(StkFloat b0, StkFloat b1, StkFloat a1,
     this->clear();
 }
 
-void PoleZero ::setAllpass(StkFloat coefficient) {
+void PoleZero::setAllpass(StkFloat coefficient) {
   if (std::abs(coefficient) >= 1.0) {
     oStream_ << "PoleZero::setAllpass: argument (" << coefficient
              << ") makes filter unstable!";
@@ -58,7 +58,7 @@ void PoleZero ::setAllpass(StkFloat coefficient) {
   a_[1] = coefficient;
 }
 
-void PoleZero ::setBlockZero(StkFloat thePole) {
+void PoleZero::setBlockZero(StkFloat thePole) {
   if (std::abs(thePole) >= 1.0) {
     oStream_ << "PoleZero::setBlockZero: argument (" << thePole
              << ") makes filter unstable!";

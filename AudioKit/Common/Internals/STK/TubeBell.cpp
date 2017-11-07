@@ -34,7 +34,7 @@
 
 namespace stk {
 
-TubeBell ::TubeBell(void) : FM() {
+TubeBell::TubeBell(void) : FM() {
   // Concatenate the STK rawwave path to the rawwave files
   for (unsigned int i = 0; i < 3; i++)
     waves_[i] =
@@ -60,9 +60,9 @@ TubeBell ::TubeBell(void) : FM() {
   vibrato_.setFrequency(2.0);
 }
 
-TubeBell ::~TubeBell(void) {}
+TubeBell::~TubeBell(void) {}
 
-void TubeBell ::noteOn(StkFloat frequency, StkFloat amplitude) {
+void TubeBell::noteOn(StkFloat frequency, StkFloat amplitude) {
   gains_[0] = amplitude * fmGains_[94];
   gains_[1] = amplitude * fmGains_[76];
   gains_[2] = amplitude * fmGains_[99];

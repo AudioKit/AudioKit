@@ -70,7 +70,7 @@ public:
 protected:
 };
 
-inline StkFloat Rhodey ::tick(unsigned int) {
+inline StkFloat Rhodey::tick(unsigned int) {
   StkFloat temp, temp2;
 
   temp = gains_[1] * adsr_[1]->tick() * waves_[1]->tick();
@@ -94,7 +94,7 @@ inline StkFloat Rhodey ::tick(unsigned int) {
   return lastFrame_[0];
 }
 
-inline StkFrames &Rhodey ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Rhodey::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
   if (channel > frames.channels() - nChannels) {

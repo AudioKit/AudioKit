@@ -21,21 +21,21 @@
 
 namespace stk {
 
-FileLoop ::FileLoop(unsigned long chunkThreshold, unsigned long chunkSize)
+FileLoop::FileLoop(unsigned long chunkThreshold, unsigned long chunkSize)
     : FileWvIn(chunkThreshold, chunkSize), phaseOffset_(0.0) {
   Stk::addSampleRateAlert(this);
 }
 
-FileLoop ::FileLoop(std::string fileName, bool raw, bool doNormalize,
+FileLoop::FileLoop(std::string fileName, bool raw, bool doNormalize,
                     unsigned long chunkThreshold, unsigned long chunkSize)
     : FileWvIn(chunkThreshold, chunkSize), phaseOffset_(0.0) {
   this->openFile(fileName, raw, doNormalize);
   Stk::addSampleRateAlert(this);
 }
 
-FileLoop ::~FileLoop(void) { Stk::removeSampleRateAlert(this); }
+FileLoop::~FileLoop(void) { Stk::removeSampleRateAlert(this); }
 
-void FileLoop ::openFile(std::string fileName, bool raw, bool doNormalize) {
+void FileLoop::openFile(std::string fileName, bool raw, bool doNormalize) {
   // Call close() in case another file is already open.
   this->closeFile();
 
@@ -85,7 +85,7 @@ void FileLoop ::openFile(std::string fileName, bool raw, bool doNormalize) {
   this->reset();
 }
 
-void FileLoop ::setRate(StkFloat rate) {
+void FileLoop::setRate(StkFloat rate) {
   rate_ = rate;
 
   if (fmod(rate_, 1.0) != 0.0)
@@ -94,7 +94,7 @@ void FileLoop ::setRate(StkFloat rate) {
     interpolate_ = false;
 }
 
-void FileLoop ::addTime(StkFloat time) {
+void FileLoop::addTime(StkFloat time) {
   // Add an absolute time in samples.
   time_ += time;
 
@@ -104,7 +104,7 @@ void FileLoop ::addTime(StkFloat time) {
     time_ -= fileSize_;
 }
 
-void FileLoop ::addPhase(StkFloat angle) {
+void FileLoop::addPhase(StkFloat angle) {
   // Add a time in cycles (one cycle = fileSize).
   time_ += fileSize_ * angle;
 
@@ -114,12 +114,12 @@ void FileLoop ::addPhase(StkFloat angle) {
     time_ -= fileSize_;
 }
 
-void FileLoop ::addPhaseOffset(StkFloat angle) {
+void FileLoop::addPhaseOffset(StkFloat angle) {
   // Add a phase offset in cycles, where 1.0 = fileSize.
   phaseOffset_ = fileSize_ * angle;
 }
 
-StkFloat FileLoop ::tick(unsigned int channel) {
+StkFloat FileLoop::tick(unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= data_.channels()) {
     oStream_ << "FileLoop::tick(): channel argument and soundfile data are "
@@ -189,7 +189,7 @@ StkFloat FileLoop ::tick(unsigned int channel) {
   return lastFrame_[channel];
 }
 
-StkFrames &FileLoop ::tick(StkFrames &frames, unsigned int channel) {
+StkFrames &FileLoop::tick(StkFrames &frames, unsigned int channel) {
   if (!file_.isOpen()) {
 #if defined(_STK_DEBUG_)
     oStream_ << "FileLoop::tick(): no file data is loaded!";

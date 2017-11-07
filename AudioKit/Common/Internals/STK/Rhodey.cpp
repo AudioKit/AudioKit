@@ -34,7 +34,7 @@
 
 namespace stk {
 
-Rhodey ::Rhodey(void) : FM() {
+Rhodey::Rhodey(void) : FM() {
   // Concatenate the STK rawwave path to the rawwave files
   for (unsigned int i = 0; i < 3; i++)
     waves_[i] =
@@ -59,9 +59,9 @@ Rhodey ::Rhodey(void) : FM() {
   twozero_.setGain(1.0);
 }
 
-Rhodey ::~Rhodey(void) {}
+Rhodey::~Rhodey(void) {}
 
-void Rhodey ::setFrequency(StkFloat frequency) {
+void Rhodey::setFrequency(StkFloat frequency) {
 #if defined(_STK_DEBUG_)
   if (frequency <= 0.0) {
     oStream_ << "Rhodey::setFrequency: argument is less than or equal to zero!";
@@ -76,7 +76,7 @@ void Rhodey ::setFrequency(StkFloat frequency) {
     waves_[i]->setFrequency(baseFrequency_ * ratios_[i]);
 }
 
-void Rhodey ::noteOn(StkFloat frequency, StkFloat amplitude) {
+void Rhodey::noteOn(StkFloat frequency, StkFloat amplitude) {
   gains_[0] = amplitude * fmGains_[99];
   gains_[1] = amplitude * fmGains_[90];
   gains_[2] = amplitude * fmGains_[99];

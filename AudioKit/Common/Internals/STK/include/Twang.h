@@ -111,7 +111,7 @@ protected:
   StkFloat pluckPosition_;
 };
 
-inline StkFloat Twang ::tick(StkFloat input) {
+inline StkFloat Twang::tick(StkFloat input) {
   lastOutput_ = delayLine_.tick(input + loopFilter_.tick(delayLine_.lastOut()));
   lastOutput_ -= combDelay_.tick(lastOutput_); // comb filtering on output
   lastOutput_ *= 0.5;
@@ -119,7 +119,7 @@ inline StkFloat Twang ::tick(StkFloat input) {
   return lastOutput_;
 }
 
-inline StkFrames &Twang ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Twang::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_
@@ -136,7 +136,7 @@ inline StkFrames &Twang ::tick(StkFrames &frames, unsigned int channel) {
   return frames;
 }
 
-inline StkFrames &Twang ::tick(StkFrames &iFrames, StkFrames &oFrames,
+inline StkFrames &Twang::tick(StkFrames &iFrames, StkFrames &oFrames,
                                unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
   if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {

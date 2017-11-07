@@ -145,13 +145,13 @@ protected:
   StkFloat varyFactor_;
 };
 
-inline void Shakers ::setResonance(BiQuad &filter, StkFloat frequency,
+inline void Shakers::setResonance(BiQuad &filter, StkFloat frequency,
                                    StkFloat radius) {
   filter.a[1] = -2.0 * radius * cos(TWO_PI * frequency / Stk::sampleRate());
   filter.a[2] = radius * radius;
 }
 
-inline StkFloat Shakers ::tickResonance(BiQuad &filter, StkFloat input) {
+inline StkFloat Shakers::tickResonance(BiQuad &filter, StkFloat input) {
   filter.outputs[0] = input * filter.gain * currentGain_;
   filter.outputs[0] -=
       filter.a[1] * filter.outputs[1] + filter.a[2] * filter.outputs[2];
@@ -160,13 +160,13 @@ inline StkFloat Shakers ::tickResonance(BiQuad &filter, StkFloat input) {
   return filter.outputs[0];
 }
 
-inline void Shakers ::setEqualization(StkFloat b0, StkFloat b1, StkFloat b2) {
+inline void Shakers::setEqualization(StkFloat b0, StkFloat b1, StkFloat b2) {
   equalizer_.b[0] = b0;
   equalizer_.b[1] = b1;
   equalizer_.b[2] = b2;
 }
 
-inline StkFloat Shakers ::tickEqualize(StkFloat input) {
+inline StkFloat Shakers::tickEqualize(StkFloat input) {
   equalizer_.inputs[0] = input;
   equalizer_.outputs[0] = equalizer_.b[0] * equalizer_.inputs[0] +
                           equalizer_.b[1] * equalizer_.inputs[1] +
@@ -177,19 +177,19 @@ inline StkFloat Shakers ::tickEqualize(StkFloat input) {
 }
 
 inline int
-Shakers ::randomInt(int max) //  Return random integer between 0 and max-1
+Shakers::randomInt(int max) //  Return random integer between 0 and max-1
 {
   return (int)((float)max * rand() / (RAND_MAX + 1.0));
 }
 
 inline StkFloat
-Shakers ::randomFloat(StkFloat max) // Return random float between 0.0 and max
+Shakers::randomFloat(StkFloat max) // Return random float between 0.0 and max
 {
   return (StkFloat)(max * rand() / (RAND_MAX + 1.0));
 }
 
 inline StkFloat
-Shakers ::noise(void) //  Return random StkFloat float between -1.0 and 1.0
+Shakers::noise(void) //  Return random StkFloat float between -1.0 and 1.0
 {
   return ((StkFloat)(2.0 * rand() / (RAND_MAX + 1.0)) - 1.0);
 }
@@ -197,7 +197,7 @@ Shakers ::noise(void) //  Return random StkFloat float between -1.0 and 1.0
 const StkFloat MIN_ENERGY = 0.001;
 const StkFloat WATER_FREQ_SWEEP = 1.0001;
 
-inline void Shakers ::waterDrop(void) {
+inline void Shakers::waterDrop(void) {
   if (randomInt(32767) < nObjects_) {
     sndLevel_ = shakeEnergy_;
     unsigned int j = randomInt(3);
@@ -226,7 +226,7 @@ inline void Shakers ::waterDrop(void) {
   }
 }
 
-inline StkFloat Shakers ::tick(unsigned int) {
+inline StkFloat Shakers::tick(unsigned int) {
   unsigned int iTube = 0;
   StkFloat input = 0.0;
   if (shakerType_ == 19 || shakerType_ == 20) {
@@ -300,7 +300,7 @@ inline StkFloat Shakers ::tick(unsigned int) {
   return lastFrame_[0];
 }
 
-inline StkFrames &Shakers ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Shakers::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
   if (channel > frames.channels() - nChannels) {

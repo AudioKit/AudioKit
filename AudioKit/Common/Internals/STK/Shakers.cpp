@@ -258,12 +258,12 @@ const StkFloat LITTLEROCKS_FREQUENCIES[LITTLEROCKS_RESONANCES] = {9000};
 const StkFloat LITTLEROCKS_RADII[LITTLEROCKS_RESONANCES] = {0.843};
 const StkFloat LITTLEROCKS_GAINS[LITTLEROCKS_RESONANCES] = {1.0};
 
-Shakers ::Shakers(int type) {
+Shakers::Shakers(int type) {
   shakerType_ = -1;
   this->setType(type);
 }
 
-void Shakers ::setType(int type) {
+void Shakers::setType(int type) {
   if (shakerType_ == type)
     return;
   varyFactor_ = 0.0;
@@ -649,7 +649,7 @@ void Shakers ::setType(int type) {
 
 const StkFloat MAX_SHAKE = 1.0;
 
-void Shakers ::noteOn(StkFloat frequency, StkFloat amplitude) {
+void Shakers::noteOn(StkFloat frequency, StkFloat amplitude) {
   // Yep ... pretty kludgey, but it works!
   int noteNumber = (int)((12 * log(frequency / 220.0) / log(2.0)) + 57.01) % 32;
   if (shakerType_ != noteNumber)
@@ -662,13 +662,13 @@ void Shakers ::noteOn(StkFloat frequency, StkFloat amplitude) {
     ratchetCount_ += 1;
 }
 
-void Shakers ::noteOff(StkFloat amplitude) {
+void Shakers::noteOff(StkFloat amplitude) {
   shakeEnergy_ = 0.0;
   if (shakerType_ == 19 || shakerType_ == 20)
     ratchetCount_ = 0;
 }
 
-void Shakers ::controlChange(int number, StkFloat value) {
+void Shakers::controlChange(int number, StkFloat value) {
 #if defined(_STK_DEBUG_)
   if (Stk::inRange(value, 0.0, 128.0) == false) {
     oStream_ << "Shakers::controlChange: value (" << value

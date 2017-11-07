@@ -27,7 +27,7 @@
 
 namespace stk {
 
-Flute ::Flute(StkFloat lowestFrequency) {
+Flute::Flute(StkFloat lowestFrequency) {
   if (lowestFrequency <= 0.0) {
     oStream_ << "Flute::Flute: argument is less than or equal to zero!";
     handleError(StkError::FUNCTION_ARGUMENT);
@@ -55,16 +55,16 @@ Flute ::Flute(StkFloat lowestFrequency) {
   this->setFrequency(220.0);
 }
 
-Flute ::~Flute(void) {}
+Flute::~Flute(void) {}
 
-void Flute ::clear(void) {
+void Flute::clear(void) {
   jetDelay_.clear();
   boreDelay_.clear();
   filter_.clear();
   dcBlock_.clear();
 }
 
-void Flute ::setFrequency(StkFloat frequency) {
+void Flute::setFrequency(StkFloat frequency) {
 #if defined(_STK_DEBUG_)
   if (frequency <= 0.0) {
     oStream_ << "Flute::setFrequency: argument is less than or equal to zero!";
@@ -87,12 +87,12 @@ void Flute ::setFrequency(StkFloat frequency) {
   jetDelay_.setDelay(delay * jetRatio_);
 }
 
-void Flute ::setJetDelay(StkFloat aRatio) {
+void Flute::setJetDelay(StkFloat aRatio) {
   jetRatio_ = aRatio;
   jetDelay_.setDelay(boreDelay_.getDelay() * aRatio); // Scaled by ratio.
 }
 
-void Flute ::startBlowing(StkFloat amplitude, StkFloat rate) {
+void Flute::startBlowing(StkFloat amplitude, StkFloat rate) {
   if (amplitude <= 0.0 || rate <= 0.0) {
     oStream_ << "Flute::startBlowing: one or more arguments is less than or "
                 "equal to zero!";
@@ -105,7 +105,7 @@ void Flute ::startBlowing(StkFloat amplitude, StkFloat rate) {
   adsr_.keyOn();
 }
 
-void Flute ::stopBlowing(StkFloat rate) {
+void Flute::stopBlowing(StkFloat rate) {
   if (rate <= 0.0) {
     oStream_ << "Flute::stopBlowing: argument is less than or equal to zero!";
     handleError(StkError::WARNING);
@@ -116,17 +116,17 @@ void Flute ::stopBlowing(StkFloat rate) {
   adsr_.keyOff();
 }
 
-void Flute ::noteOn(StkFloat frequency, StkFloat amplitude) {
+void Flute::noteOn(StkFloat frequency, StkFloat amplitude) {
   this->setFrequency(frequency);
   this->startBlowing(1.1 + (amplitude * 0.20), amplitude * 0.02);
   outputGain_ = amplitude + 0.001;
 }
 
-void Flute ::noteOff(StkFloat amplitude) {
+void Flute::noteOff(StkFloat amplitude) {
   this->stopBlowing(amplitude * 0.02);
 }
 
-void Flute ::controlChange(int number, StkFloat value) {
+void Flute::controlChange(int number, StkFloat value) {
 #if defined(_STK_DEBUG_)
   if (Stk::inRange(value, 0.0, 128.0) == false) {
     oStream_ << "Flute::controlChange: value (" << value

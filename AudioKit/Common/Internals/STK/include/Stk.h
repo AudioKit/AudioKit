@@ -437,14 +437,14 @@ private:
   size_t bufferSize_;
 };
 
-inline bool StkFrames ::empty() const {
+inline bool StkFrames::empty() const {
   if (size_ > 0)
     return false;
   else
     return true;
 }
 
-inline StkFloat &StkFrames ::operator[](size_t n) {
+inline StkFloat &StkFrames::operator[](size_t n) {
 #if defined(_STK_DEBUG_)
   if (n >= size_) {
     std::ostringstream error;
@@ -456,7 +456,7 @@ inline StkFloat &StkFrames ::operator[](size_t n) {
   return data_[n];
 }
 
-inline StkFloat StkFrames ::operator[](size_t n) const {
+inline StkFloat StkFrames::operator[](size_t n) const {
 #if defined(_STK_DEBUG_)
   if (n >= size_) {
     std::ostringstream error;
@@ -468,7 +468,7 @@ inline StkFloat StkFrames ::operator[](size_t n) const {
   return data_[n];
 }
 
-inline StkFloat &StkFrames ::operator()(size_t frame, unsigned int channel) {
+inline StkFloat &StkFrames::operator()(size_t frame, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (frame >= nFrames_ || channel >= nChannels_) {
     std::ostringstream error;
@@ -481,7 +481,7 @@ inline StkFloat &StkFrames ::operator()(size_t frame, unsigned int channel) {
   return data_[frame * nChannels_ + channel];
 }
 
-inline StkFloat StkFrames ::operator()(size_t frame,
+inline StkFloat StkFrames::operator()(size_t frame,
                                        unsigned int channel) const {
 #if defined(_STK_DEBUG_)
   if (frame >= nFrames_ || channel >= nChannels_) {
@@ -514,7 +514,7 @@ inline StkFrames StkFrames::operator+(const StkFrames &f) const {
   return sum;
 }
 
-inline void StkFrames ::operator+=(StkFrames &f) {
+inline void StkFrames::operator+=(StkFrames &f) {
 #if defined(_STK_DEBUG_)
   if (f.frames() != nFrames_ || f.channels() != nChannels_) {
     std::ostringstream error;
@@ -530,7 +530,7 @@ inline void StkFrames ::operator+=(StkFrames &f) {
     *dptr++ += *fptr++;
 }
 
-inline void StkFrames ::operator*=(StkFrames &f) {
+inline void StkFrames::operator*=(StkFrames &f) {
 #if defined(_STK_DEBUG_)
   if (f.frames() != nFrames_ || f.channels() != nChannels_) {
     std::ostringstream error;

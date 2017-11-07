@@ -53,11 +53,11 @@ public:
 protected:
 };
 
-inline StkFloat Noise ::tick(void) {
+inline StkFloat Noise::tick(void) {
   return lastFrame_[0] = (StkFloat)(2.0 * rand() / (RAND_MAX + 1.0) - 1.0);
 }
 
-inline StkFrames &Noise ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Noise::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_

@@ -76,7 +76,7 @@ public:
                   unsigned int iChannel = 0, unsigned int oChannel = 0);
 };
 
-inline StkFloat OneZero ::tick(StkFloat input) {
+inline StkFloat OneZero::tick(StkFloat input) {
   inputs_[0] = gain_ * input;
   lastFrame_[0] = b_[1] * inputs_[1] + b_[0] * inputs_[0];
   inputs_[1] = inputs_[0];
@@ -84,7 +84,7 @@ inline StkFloat OneZero ::tick(StkFloat input) {
   return lastFrame_[0];
 }
 
-inline StkFrames &OneZero ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &OneZero::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_
@@ -105,7 +105,7 @@ inline StkFrames &OneZero ::tick(StkFrames &frames, unsigned int channel) {
   return frames;
 }
 
-inline StkFrames &OneZero ::tick(StkFrames &iFrames, StkFrames &oFrames,
+inline StkFrames &OneZero::tick(StkFrames &iFrames, StkFrames &oFrames,
                                  unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
   if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {

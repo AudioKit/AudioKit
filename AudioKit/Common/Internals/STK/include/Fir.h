@@ -85,7 +85,7 @@ public:
 protected:
 };
 
-inline StkFloat Fir ::tick(StkFloat input) {
+inline StkFloat Fir::tick(StkFloat input) {
   lastFrame_[0] = 0.0;
   inputs_[0] = gain_ * input;
 
@@ -98,7 +98,7 @@ inline StkFloat Fir ::tick(StkFloat input) {
   return lastFrame_[0];
 }
 
-inline StkFrames &Fir ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Fir::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_
@@ -124,7 +124,7 @@ inline StkFrames &Fir ::tick(StkFrames &frames, unsigned int channel) {
   return frames;
 }
 
-inline StkFrames &Fir ::tick(StkFrames &iFrames, StkFrames &oFrames,
+inline StkFrames &Fir::tick(StkFrames &iFrames, StkFrames &oFrames,
                              unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
   if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {

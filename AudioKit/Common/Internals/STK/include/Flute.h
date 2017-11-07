@@ -113,7 +113,7 @@ protected:
   StkFloat jetRatio_;
 };
 
-inline StkFloat Flute ::tick(unsigned int) {
+inline StkFloat Flute::tick(unsigned int) {
   StkFloat pressureDiff;
   StkFloat breathPressure;
 
@@ -134,7 +134,7 @@ inline StkFloat Flute ::tick(unsigned int) {
   return lastFrame_[0];
 }
 
-inline StkFrames &Flute ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Flute::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
   if (channel > frames.channels() - nChannels) {

@@ -82,7 +82,7 @@ protected:
   int state_;
 };
 
-inline StkFloat Envelope ::tick(void) {
+inline StkFloat Envelope::tick(void) {
   if (state_) {
     if (target_ > value_) {
       value_ += rate_;
@@ -103,7 +103,7 @@ inline StkFloat Envelope ::tick(void) {
   return value_;
 }
 
-inline StkFrames &Envelope ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &Envelope::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_ << "Envelope::tick(): channel and StkFrames arguments are "

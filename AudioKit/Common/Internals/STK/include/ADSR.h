@@ -112,7 +112,7 @@ protected:
   StkFloat sustainLevel_;
 };
 
-inline StkFloat ADSR ::tick(void) {
+inline StkFloat ADSR::tick(void) {
   switch (state_) {
 
   case ATTACK:
@@ -154,7 +154,7 @@ inline StkFloat ADSR ::tick(void) {
   return value_;
 }
 
-inline StkFrames &ADSR ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &ADSR::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_
