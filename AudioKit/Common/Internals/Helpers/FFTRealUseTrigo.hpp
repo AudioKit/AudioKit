@@ -21,13 +21,13 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #if !defined(ffft_FFTRealUseTrigo_CODEHEADER_INCLUDED)
 #define ffft_FFTRealUseTrigo_CODEHEADER_INCLUDED
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "ffft/OscSinCos.h"
 
 namespace ffft {
 
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 template <int ALGO> void FFTRealUseTrigo<ALGO>::prepare(OscType &osc) {
   osc.clear_buffers();

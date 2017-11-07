@@ -21,7 +21,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "def.h"
 
@@ -29,7 +29,7 @@ namespace ffft {
 
 template <class T> class OscSinCos {
 
-  /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 public:
   typedef T DataType;

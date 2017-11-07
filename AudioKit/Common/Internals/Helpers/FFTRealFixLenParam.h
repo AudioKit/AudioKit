@@ -21,13 +21,13 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 namespace ffft {
 
 class FFTRealFixLenParam {
 
-  /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 public:
   // Over this bit depth, we use direct calculation for sin/cos

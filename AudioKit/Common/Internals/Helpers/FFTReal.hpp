@@ -21,7 +21,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #if !defined(ffft_FFTReal_CODEHEADER_INCLUDED)
 #define ffft_FFTReal_CODEHEADER_INCLUDED
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include <cassert>
 #include <cmath>
@@ -54,7 +54,7 @@ static inline int FFTReal_get_next_pow2(long x) {
   return (p);
 }
 
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 /*
 ==============================================================================

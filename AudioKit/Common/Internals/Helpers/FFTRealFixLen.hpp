@@ -21,7 +21,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #if !defined(ffft_FFTRealFixLen_CODEHEADER_INCLUDED)
 #define ffft_FFTRealFixLen_CODEHEADER_INCLUDED
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "ffft/FFTRealPassDirect.h"
 #include "ffft/FFTRealPassInverse.h"
@@ -35,7 +35,7 @@ namespace std {}
 
 namespace ffft {
 
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 template <int LL2>
 FFTRealFixLen<LL2>::FFTRealFixLen()
