@@ -10,15 +10,21 @@
 
 #include "Filter.h"
 
-class RageProcessor
-{
-    public: RageProcessor(int iSampleRate);
-    public: float doRage(float fCurrentSample, float fKhorne, float fNurgle);
+class RageProcessor {
+public:
+  RageProcessor(int iSampleRate);
 
-    public: MikeFilter filterToneZ;
-    public: void setNumStages (int theStages);
+public:
+  float doRage(float fCurrentSample, float fKhorne, float fNurgle);
 
-    private: int iSampleRate, iNumStages;
+public:
+  MikeFilter filterToneZ;
+
+public:
+  void setNumStages(int theStages);
+
+private:
+  int iSampleRate, iNumStages;
 };
 
 #endif /* RageProcessor_h */
