@@ -5,20 +5,20 @@
 
 #if (defined(__OS_IRIX__) || defined(__OS_LINUX__) || defined(__OS_MACOSX__))
 
-  #include <pthread.h>
-  #define THREAD_TYPE
-  typedef pthread_t THREAD_HANDLE;
-  typedef void * THREAD_RETURN;
-  typedef void * (*THREAD_FUNCTION)(void *);
+#include <pthread.h>
+#define THREAD_TYPE
+typedef pthread_t THREAD_HANDLE;
+typedef void *THREAD_RETURN;
+typedef void *(*THREAD_FUNCTION)(void *);
 
 #elif defined(__OS_WINDOWS__)
 
-  #include <windows.h>
-  #include <process.h>
-  #define THREAD_TYPE __stdcall
-  typedef unsigned long THREAD_HANDLE;
-  typedef unsigned THREAD_RETURN;
-  typedef unsigned (__stdcall *THREAD_FUNCTION)(void *);
+#include <process.h>
+#include <windows.h>
+#define THREAD_TYPE __stdcall
+typedef unsigned long THREAD_HANDLE;
+typedef unsigned THREAD_RETURN;
+typedef unsigned(__stdcall *THREAD_FUNCTION)(void *);
 
 #endif
 
@@ -46,9 +46,8 @@ namespace stk {
 */
 /***************************************************/
 
-class Thread : public Stk
-{
- public:
+class Thread : public Stk {
+public:
   //! Default constructor.
   Thread();
 
@@ -61,7 +60,7 @@ class Thread : public Stk
     optional \e ptr argument.  If the thread cannot be created, the
     return value is false.
   */
-  bool start( THREAD_FUNCTION routine, void * ptr = NULL );
+  bool start(THREAD_FUNCTION routine, void *ptr = NULL);
 
   //! Signal cancellation of a thread routine, returning \e true on success.
   /*!
@@ -75,7 +74,10 @@ class Thread : public Stk
 
   //! Block the calling routine indefinitely until the thread terminates.
   /*!
-    This function suspends execution of the calling routine until the thread has terminated.  It will return immediately if the thread was already terminated.  A \e true return value signifies successful termination.  A \e false return value indicates a problem with the wait call.
+    This function suspends execution of the calling routine until the thread has
+    terminated.  It will return immediately if the thread was already
+    terminated.  A \e true return value signifies successful termination.  A \e
+    false return value indicates a problem with the wait call.
   */
   bool wait(void);
 
@@ -87,12 +89,10 @@ class Thread : public Stk
   */
   void testCancel(void);
 
- protected:
-
+protected:
   THREAD_HANDLE thread_;
-
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

@@ -253,7 +253,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 //------------------------------------------------------------------------------
 
 /**
- Provides the current offset in the audio file as an NSTimeInterval (i.e. in seconds).  When setting this it will determine the correct frame offset and perform a `seekToFrame` to the new time offset. 
+ Provides the current offset in the audio file as an NSTimeInterval (i.e. in seconds).  When setting this it will determine the correct frame offset and perform a `seekToFrame` to the new time offset.
  @warning Make sure the new current time offset is less than the `duration` or you will receive an invalid seek assertion.
  */
 @property (nonatomic, readwrite) NSTimeInterval currentTime;

@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 #ifndef M_PI
-#define M_PI 3.14159265358979323846	
+#define M_PI 3.14159265358979323846
 #endif
 #include "soundpipe.h"
 
@@ -62,7 +62,7 @@ int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft, int winsize)
     int pow;
 
     /* find power to use for fft */
-    
+
     pow = find_power(winsize);
     /* 2^11 = 2048, the default fftsize, will probably not change */
     sp_fft_init(&p->fft, pow);
@@ -89,7 +89,7 @@ int sp_mincer_init(sp_data *sp, sp_mincer *p, sp_ftbl *ft, int winsize)
     }
     size = decim*sizeof(SPFLOAT)*N;
     sp_auxdata_alloc(&p->outframe, size);
-    
+
     size = N*sizeof(SPFLOAT);
     sp_auxdata_alloc(&p->win, size);
     {
@@ -156,7 +156,7 @@ int sp_mincer_compute(sp_data *sp, sp_mincer *p, SPFLOAT *in2, SPFLOAT *out)
             else insig = tab[post];
 
             /* window it */
-            fwin[i] = insig * win[i]; 
+            fwin[i] = insig * win[i];
             /* back windo, bwin */
             post = (int) (pos - hsize*pitch);
             post *= 1;
@@ -207,7 +207,7 @@ int sp_mincer_compute(sp_data *sp, sp_mincer *p, SPFLOAT *in2, SPFLOAT *out)
                     } else { /* Nyquist */
                         tmp_real = bwin[i] + bwin[i-2];
                         tmp_im = 0.0;
-                    } 
+                    }
                 } else { /* 0 Hz */
                     tmp_real = bwin[i] + bwin[i+2];
                     tmp_im = 0.0;

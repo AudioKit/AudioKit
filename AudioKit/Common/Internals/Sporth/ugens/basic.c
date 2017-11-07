@@ -17,9 +17,9 @@
 
 static const SPFLOAT toint = 1/EPS;
 
-/* 
+/*
  * this roundf fuction is needed when compiling with -ansi flag
- * the code for this is from the musl libc library 
+ * the code for this is from the musl libc library
  */
 static SPFLOAT sproundf(SPFLOAT x)
 {
@@ -1317,9 +1317,9 @@ int sporth_limit(sporth_stack *stack, void *ud)
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
-  
-            out = (in > max ? max : in); 
-            out = (out < min ? min : out); 
+
+            out = (in > max ? max : in);
+            out = (out < min ? min : out);
             sporth_stack_push_float(stack, out);
             break;
         case PLUMBER_INIT:
@@ -1330,8 +1330,8 @@ int sporth_limit(sporth_stack *stack, void *ud)
             min = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
 
-            out = (in > max ? max : in); 
-            out = (out < min ? min : out); 
+            out = (in > max ? max : in);
+            out = (out < min ? min : out);
             sporth_stack_push_float(stack, out);
             break;
         case PLUMBER_COMPUTE:
@@ -1339,8 +1339,8 @@ int sporth_limit(sporth_stack *stack, void *ud)
             min = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
 
-            out = (in > max ? max : in); 
-            out = (out < min ? min : out); 
+            out = (in > max ? max : in);
+            out = (out < min ? min : out);
             sporth_stack_push_float(stack, out);
             break;
         case PLUMBER_DESTROY:
@@ -1388,7 +1388,7 @@ int sporth_inv(sporth_stack *stack, void *ud)
             inv = (inv_d *)pd->last->ud;
             val = sporth_stack_pop_float(stack);
 
-            if(val != inv->pval) { 
+            if(val != inv->pval) {
                 inv->out = (1.0 / val);
                 inv->pval = val;
             }
@@ -1399,7 +1399,7 @@ int sporth_inv(sporth_stack *stack, void *ud)
             inv = (inv_d *)pd->last->ud;
             val = sporth_stack_pop_float(stack);
 
-            if(val != inv->pval) { 
+            if(val != inv->pval) {
                 inv->out = (1.0 / val);
                 inv->pval = val;
             }

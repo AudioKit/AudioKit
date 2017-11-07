@@ -37,9 +37,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(PhaseLockedVocoder)
-    
+
     // Create a parameter object for the position.
     AUParameter *positionAUParameter = [AUParameter parameter:@"position"
                                                          name:@"Position in time. When non-changing it will do a spectral freeze of a the current point in time."
@@ -47,7 +47,7 @@ standardKernelPassthroughs()
                                                           min:0
                                                           max:1
                                                          unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                                           name:@"Amplitude."
@@ -62,23 +62,23 @@ standardKernelPassthroughs()
                                                             min:0
                                                             max:1000
                                                            unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Initialize the parameter values.
     positionAUParameter.value = 0;
     amplitudeAUParameter.value = 1;
     pitchRatioAUParameter.value = 1;
-    
+
     _kernel.setParameter(positionAddress,   positionAUParameter.value);
     _kernel.setParameter(amplitudeAddress,  amplitudeAUParameter.value);
     _kernel.setParameter(pitchRatioAddress, pitchRatioAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              positionAUParameter,
                                              amplitudeAUParameter,
                                              pitchRatioAUParameter
                                              ]];
-    
+
     parameterTreeBlock(PhaseLockedVocoder)
 }
 

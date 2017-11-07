@@ -1,8 +1,8 @@
 #ifndef STK_DRUMMER_H
 #define STK_DRUMMER_H
 
-#include "Instrmnt.h"
 #include "FileWvIn.h"
+#include "Instrmnt.h"
 #include "OnePole.h"
 
 namespace stk {
@@ -27,17 +27,16 @@ namespace stk {
 const int DRUM_NUMWAVES = 11;
 const int DRUM_POLYPHONY = 4;
 
-class Drummer : public Instrmnt
-{
- public:
+class Drummer : public Instrmnt {
+public:
   //! Class constructor.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  Drummer( void );
+  Drummer(void);
 
   //! Class destructor.
-  ~Drummer( void );
+  ~Drummer(void);
 
   //! Start a note with the given drum type and amplitude.
   /*!
@@ -46,13 +45,13 @@ class Drummer : public Instrmnt
     instrument.  An StkError will be thrown if the rawwave path is
     incorrectly set.
   */
-  void noteOn( StkFloat instrument, StkFloat amplitude );
+  void noteOn(StkFloat instrument, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -62,61 +61,58 @@ class Drummer : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
+protected:
   FileWvIn waves_[DRUM_POLYPHONY];
-  OnePole  filters_[DRUM_POLYPHONY];
+  OnePole filters_[DRUM_POLYPHONY];
   std::vector<int> soundOrder_;
   std::vector<int> soundNumber_;
-  int      nSounding_;
+  int nSounding_;
 };
 
-inline StkFloat Drummer :: tick( unsigned int )
-{
+inline StkFloat Drummer ::tick(unsigned int) {
   lastFrame_[0] = 0.0;
-  if ( nSounding_ == 0 ) return lastFrame_[0];
+  if (nSounding_ == 0)
+    return lastFrame_[0];
 
-  for ( int i=0; i<DRUM_POLYPHONY; i++ ) {
-    if ( soundOrder_[i] >= 0 ) {
-      if ( waves_[i].isFinished() ) {
+  for (int i = 0; i < DRUM_POLYPHONY; i++) {
+    if (soundOrder_[i] >= 0) {
+      if (waves_[i].isFinished()) {
         // Re-order the list.
-        for ( int j=0; j<DRUM_POLYPHONY; j++ ) {
-          if ( soundOrder_[j] > soundOrder_[i] )
+        for (int j = 0; j < DRUM_POLYPHONY; j++) {
+          if (soundOrder_[j] > soundOrder_[i])
             soundOrder_[j] -= 1;
         }
         soundOrder_[i] = -1;
         nSounding_--;
-      }
-      else
-        lastFrame_[0] += filters_[i].tick( waves_[i].tick() );
+      } else
+        lastFrame_[0] += filters_[i].tick(waves_[i].tick());
     }
   }
 
   return lastFrame_[0];
 }
 
-inline StkFrames& Drummer :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Drummer ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "Drummer::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_
+        << "Drummer::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -124,7 +120,6 @@ inline StkFrames& Drummer :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-
-} // stk namespace
+} // namespace stk
 
 #endif

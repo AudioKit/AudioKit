@@ -21,47 +21,47 @@ enum {
 class AKPhaseDistortionOscillatorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
-    
+
     AKPhaseDistortionOscillatorDSPKernel() {}
-    
+
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-        
+
         sp_pdhalf_create(&pdhalf);
         sp_tabread_create(&tab);
         sp_tabread_init(sp, tab, ftbl, 1);
         sp_phasor_create(&phs);
-        
+
         sp_pdhalf_init(sp, pdhalf);
         sp_phasor_init(sp, phs, 0);
-        
+
         phs->freq = 440;
         pdhalf->amount = 0.0;
-        
+
         frequencyRamper.init();
         amplitudeRamper.init();
         phaseDistortionRamper.init();
         detuningOffsetRamper.init();
         detuningMultiplierRamper.init();
     }
-    
+
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
-    
+
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
-    
+
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
-    
+
     void destroy() {
         sp_pdhalf_destroy(&pdhalf);
         sp_ftbl_destroy(&ftbl);
@@ -69,129 +69,129 @@ public:
         sp_phasor_destroy(&phs);
         AKSoundpipeKernel::destroy();
     }
-    
+
     void reset() {
         resetted = true;
-        
+
         frequencyRamper.reset();
         amplitudeRamper.reset();
         phaseDistortionRamper.reset();
         detuningOffsetRamper.reset();
         detuningMultiplierRamper.reset();
     }
-    
+
     void setFrequency(float value) {
         frequency = clamp(value, 0.0f, 20000.0f);
         frequencyRamper.setImmediate(frequency);
     }
-    
+
     void setAmplitude(float value) {
         amplitude = clamp(value, 0.0f, 10.0f);
         amplitudeRamper.setImmediate(amplitude);
     }
-    
+
     void setDetuningOffset(float value) {
         detuningOffset = clamp(value, -1000.0f, 1000.0f);
         detuningOffsetRamper.setImmediate(detuningOffset);
     }
-    
+
     void setDetuningMultiplier(float value) {
         detuningMultiplier = value;
         detuningMultiplierRamper.setImmediate(detuningMultiplier);
     }
-    
+
     void setPhaseDistortion(float value) {
         phaseDistortion = clamp(value, -1.0f, 1.0f);
         phaseDistortionRamper.setImmediate(phaseDistortion);
     }
-    
-    
+
+
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case frequencyAddress:
                 frequencyRamper.setUIValue(clamp(value, 0.0f, 20000.0f));
                 break;
-                
+
             case amplitudeAddress:
                 amplitudeRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
-                
+
             case phaseDistortionAddress:
                 phaseDistortionRamper.setUIValue(clamp(value, -1.0f, 1.0f));
                 break;
-                
+
             case detuningOffsetAddress:
                 detuningOffsetRamper.setUIValue(clamp(value, -1000.0f, 1000.0f));
                 break;
-                
+
             case detuningMultiplierAddress:
                 detuningMultiplierRamper.setUIValue(value);
                 break;
-                
+
         }
     }
-    
+
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case frequencyAddress:
                 return frequencyRamper.getUIValue();
-                
+
             case amplitudeAddress:
                 return amplitudeRamper.getUIValue();
-                
+
             case phaseDistortionAddress:
                 return phaseDistortionRamper.getUIValue();
-                
+
             case detuningOffsetAddress:
                 return detuningOffsetRamper.getUIValue();
-                
+
             case detuningMultiplierAddress:
                 return detuningMultiplierRamper.getUIValue();
-                
+
             default: return 0.0f;
         }
     }
-    
+
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case frequencyAddress:
                 frequencyRamper.startRamp(clamp(value, 0.0f, 20000.0f), duration);
                 break;
-                
+
             case amplitudeAddress:
                 amplitudeRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
-                
+
             case phaseDistortionAddress:
                 phaseDistortionRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
                 break;
-                
+
             case detuningOffsetAddress:
                 detuningOffsetRamper.startRamp(clamp(value, -1000.0f, 1000.0f), duration);
                 break;
-                
+
             case detuningMultiplierAddress:
                 detuningMultiplierRamper.startRamp(value, duration);
                 break;
-                
+
         }
     }
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            
+
             int frameOffset = int(frameIndex + bufferOffset);
-            
+
             frequency = double(frequencyRamper.getAndStep());
             amplitude = double(amplitudeRamper.getAndStep());
             phaseDistortion = double(phaseDistortionRamper.getAndStep());
             detuningOffset = double(detuningOffsetRamper.getAndStep());
             detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
-            
+
             phs->freq = frequency * detuningMultiplier + detuningOffset;
             pdhalf->amount = phaseDistortion;
-            
+
             float temp = 0;
             float pd = 0;
             float ph = 0;
@@ -211,23 +211,23 @@ public:
             }
         }
     }
-    
+
     // MARK: Member Variables
-    
+
 private:
-    
+
     sp_ftbl *ftbl;
     sp_tabread *tab;
     sp_phasor *phs;
     sp_pdhalf *pdhalf;
     UInt32 ftbl_size = 4096;
-    
+
     float frequency = 440;
     float amplitude = 1.0;
     float phaseDistortion = 0.0;
     float detuningOffset = 0;
     float detuningMultiplier = 1;
-    
+
 public:
     bool started = false;
     bool resetted = false;

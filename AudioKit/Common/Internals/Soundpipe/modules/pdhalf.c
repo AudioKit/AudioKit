@@ -44,10 +44,10 @@ int sp_pdhalf_compute(sp_data *sp, sp_pdhalf *p, SPFLOAT *in, SPFLOAT *out)
                     (p->amount <= -1.0 ? -maxampl :
                     (p->amount * maxampl)));
 
-    if (midpoint != -maxampl) 
+    if (midpoint != -maxampl)
         leftslope  = maxampl / (midpoint + maxampl);
     else leftslope  = 0.0;
-    if (midpoint != maxampl)  
+    if (midpoint != maxampl)
         rightslope = maxampl / (maxampl - midpoint);
     else rightslope = 0.0;
 
@@ -60,17 +60,17 @@ int sp_pdhalf_compute(sp_data *sp, sp_pdhalf *p, SPFLOAT *in, SPFLOAT *out)
                     (p->amount <= -1.0 ? 0.0 :
                     ((p->amount + 1.0) * halfmaxampl)));
 
-        if (midpoint != 0.0) 
+        if (midpoint != 0.0)
             leftslope = halfmaxampl / midpoint;
         else leftslope  = 0.0;
-        if (midpoint != maxampl) 
+        if (midpoint != maxampl)
             rightslope = halfmaxampl / (maxampl - midpoint);
         else rightslope = 0.0;
 
         cur = *in;
-        if (cur < midpoint) { 
+        if (cur < midpoint) {
             *out = leftslope * cur;
-        } else { 
+        } else {
             *out = rightslope * (cur - midpoint) + halfmaxampl;
         }
     }

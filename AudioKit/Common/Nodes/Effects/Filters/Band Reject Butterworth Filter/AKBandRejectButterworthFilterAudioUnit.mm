@@ -30,9 +30,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(BandRejectButterworthFilter);
-    
+
     // Create a parameter object for the centerFrequency.
     AUParameter *centerFrequencyAUParameter = [AUParameter frequency:@"centerFrequency"
                                                                 name:@"Center Frequency (Hz)"
@@ -44,20 +44,20 @@ standardKernelPassthroughs()
                                                            min:0.0
                                                            max:20000.0
                                                           unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 3000.0;
     bandwidthAUParameter.value = 2000.0;
-    
+
     _kernel.setParameter(centerFrequencyAddress, centerFrequencyAUParameter.value);
     _kernel.setParameter(bandwidthAddress,       bandwidthAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              centerFrequencyAUParameter,
                                              bandwidthAUParameter
                                              ]];
-    
+
     parameterTreeBlock(BandRejectButterworthFilter)
 }
 

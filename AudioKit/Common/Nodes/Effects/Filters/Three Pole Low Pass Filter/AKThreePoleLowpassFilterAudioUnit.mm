@@ -33,9 +33,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(ThreePoleLowpassFilter)
-    
+
     // Create a parameter object for the distortion.
     AUParameter *distortionAUParameter = [AUParameter parameter:@"distortion"
                                                            name:@"Distortion (%)"
@@ -57,23 +57,23 @@ standardKernelPassthroughs()
                                                            min:0.0
                                                            max:2.0
                                                           unit:kAudioUnitParameterUnit_Percent];
-    
+
     // Initialize the parameter values.
     distortionAUParameter.value = 0.5;
     cutoffFrequencyAUParameter.value = 1500;
     resonanceAUParameter.value = 0.5;
-    
+
     _kernel.setParameter(distortionAddress,      distortionAUParameter.value);
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
     _kernel.setParameter(resonanceAddress,       resonanceAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              distortionAUParameter,
                                              cutoffFrequencyAUParameter,
                                              resonanceAUParameter
                                              ]];
-    
+
     parameterTreeBlock(ThreePoleLowpassFilter)
 }
 

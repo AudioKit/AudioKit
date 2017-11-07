@@ -40,15 +40,15 @@ int sporth_slice(sporth_stack *stack, void *ud)
 
             buf_name = sporth_stack_pop_string(stack);
             vals_name = sporth_stack_pop_string(stack);
-            if(plumber_ftmap_search(pd, vals_name, &vals) == PLUMBER_NOTOK) { 
-                plumber_print(pd, "slice: could not find ftable %s\n", 
+            if(plumber_ftmap_search(pd, vals_name, &vals) == PLUMBER_NOTOK) {
+                plumber_print(pd, "slice: could not find ftable %s\n",
                     vals_name);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            
-            if(plumber_ftmap_search(pd, buf_name, &buf) == PLUMBER_NOTOK) { 
-                plumber_print(pd, "slice: could not find ftable %s\n", 
+
+            if(plumber_ftmap_search(pd, buf_name, &buf) == PLUMBER_NOTOK) {
+                plumber_print(pd, "slice: could not find ftable %s\n",
                     vals_name);
                 stack->error++;
                 return PLUMBER_NOTOK;

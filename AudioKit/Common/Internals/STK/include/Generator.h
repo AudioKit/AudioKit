@@ -17,20 +17,19 @@ namespace stk {
 */
 /***************************************************/
 
-class Generator : public Stk
-{
- public:
-
+class Generator : public Stk {
+public:
   //! Class constructor.
-  Generator( void ) { lastFrame_.resize( 1, 1, 0.0 ); };
+  Generator(void) { lastFrame_.resize(1, 1, 0.0); };
 
   //! Return the number of output channels for the class.
-  unsigned int channelsOut( void ) const { return lastFrame_.channels(); };
+  unsigned int channelsOut(void) const { return lastFrame_.channels(); };
 
   //! Return an StkFrames reference to the last output sample frame.
-  const StkFrames& lastFrame( void ) const { return lastFrame_; };
+  const StkFrames &lastFrame(void) const { return lastFrame_; };
 
-  //! Fill the StkFrames object with computed sample frames, starting at the specified channel.
+  //! Fill the StkFrames object with computed sample frames, starting at the
+  //! specified channel.
   /*!
     The \c channel argument plus the number of output channels must
     be less than the number of channels in the StkFrames argument (the
@@ -38,13 +37,12 @@ class Generator : public Stk
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  virtual StkFrames& tick( StkFrames& frames, unsigned int channel = 0 ) = 0;
+  virtual StkFrames &tick(StkFrames &frames, unsigned int channel = 0) = 0;
 
-  protected:
-
+protected:
   StkFrames lastFrame_;
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

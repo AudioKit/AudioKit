@@ -1,5 +1,4 @@
-#ifndef STK_FILEREAD_H
-#define STK_FILEREAD_H
+#pragma once
 
 #include "Stk.h"
 
@@ -38,11 +37,10 @@ namespace stk {
 */
 /***************************************************/
 
-class FileRead : public Stk
-{
+class FileRead : public Stk {
 public:
   //! Default constructor.
-  FileRead( void );
+  FileRead();
 
   //! Overloaded constructor that opens a file during instantiation.
   /*!
@@ -51,11 +49,12 @@ public:
     headerless file type to be supported.  If \c typeRaw is false (the
     default), the subsequent parameters are ignored.
   */
-  FileRead( std::string fileName, bool typeRaw = false, unsigned int nChannels = 1,
-            StkFormat format = STK_SINT16, StkFloat rate = 22050.0 );
+  FileRead(std::string fileName, bool typeRaw = false,
+           unsigned int nChannels = 1, StkFormat format = STK_SINT16,
+           StkFloat rate = 22050.0);
 
   //! Class destructor.
-  ~FileRead( void );
+  ~FileRead();
 
   //! Open the specified file and determine its formatting.
   /*!
@@ -64,23 +63,24 @@ public:
     headerless file type to be supported.  If \c typeRaw is false (the
     default), the subsequent parameters are ignored.
   */
-  void open( std::string fileName, bool typeRaw = false, unsigned int nChannels = 1,
-             StkFormat format = STK_SINT16, StkFloat rate = 22050.0 );
+  void open(std::string fileName, bool typeRaw = false,
+            unsigned int nChannels = 1, StkFormat format = STK_SINT16,
+            StkFloat rate = 22050.0);
 
   //! If a file is open, close it.
-  void close( void );
+  void close();
 
   //! Returns \e true if a file is currently open.
-  bool isOpen( void );
+  bool isOpen();
 
   //! Return the file size in sample frames.
-  unsigned long fileSize( void ) const { return fileSize_; };
+  unsigned long fileSize(void) const { return fileSize_; };
 
   //! Return the number of audio channels in the file.
-  unsigned int channels( void ) const { return channels_; };
+  unsigned int channels(void) const { return channels_; };
 
   //! Return the data format of the file.
-  StkFormat format( void ) const { return dataType_; };
+  StkFormat format(void) const { return dataType_; };
 
   //! Return the file sample rate in Hz.
   /*!
@@ -88,7 +88,7 @@ public:
     their headers.  By definition, STK RAW files have a sample rate of
     22050 Hz.  MAT-files are assumed to have a rate of 44100 Hz.
   */
-  StkFloat fileRate( void ) const { return fileRate_; };
+  StkFloat fileRate(void) const { return fileRate_; };
 
   //! Read sample frames from the file into an StkFrames object.
   /*!
@@ -103,28 +103,29 @@ public:
     if a file error occurs or if the number of channels in the
     StkFrames argument is not equal to that in the file.
    */
-  void read( StkFrames& buffer, unsigned long startFrame = 0, bool doNormalize = true );
+  void read(StkFrames &buffer, unsigned long startFrame = 0,
+            bool doNormalize = true);
 
 protected:
-
   // Get STK RAW file information.
-  bool getRawInfo( const char *fileName, unsigned int nChannels,
-                   StkFormat format, StkFloat rate );
+  bool getRawInfo(const char *fileName, unsigned int nChannels,
+                  StkFormat format, StkFloat rate);
 
   // Get WAV file header information.
-  bool getWavInfo( const char *fileName );
+  bool getWavInfo(const char *fileName);
 
   // Get SND (AU) file header information.
-  bool getSndInfo( const char *fileName );
+  bool getSndInfo(const char *fileName);
 
   // Get AIFF file header information.
-  bool getAifInfo( const char *fileName );
+  bool getAifInfo(const char *fileName);
 
   // Get MAT-file header information.
-  bool getMatInfo( const char *fileName );
+  bool getMatInfo(const char *fileName);
 
   // Helper function for MAT-file parsing.
-  bool findNextMatArray( SINT32 *chunkSize, SINT32 *rows, SINT32 *columns, SINT32 *nametype );
+  bool findNextMatArray(SINT32 *chunkSize, SINT32 *rows, SINT32 *columns,
+                        SINT32 *nametype);
 
   FILE *fd_;
   bool byteswap_;
@@ -136,6 +137,5 @@ protected:
   StkFloat fileRate_;
 };
 
-} // stk namespace
+}
 
-#endif

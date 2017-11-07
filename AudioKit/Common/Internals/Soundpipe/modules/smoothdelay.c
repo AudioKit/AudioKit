@@ -25,7 +25,7 @@ int sp_smoothdelay_destroy(sp_smoothdelay **p)
     return SP_OK;
 }
 
-int sp_smoothdelay_init(sp_data *sp, sp_smoothdelay *p, 
+int sp_smoothdelay_init(sp_data *sp, sp_smoothdelay *p,
         SPFLOAT maxdel, uint32_t interp)
 {
     uint32_t n = (int32_t)(maxdel * sp->sr)+1;
@@ -50,10 +50,10 @@ int sp_smoothdelay_init(sp_data *sp, sp_smoothdelay *p,
     return SP_OK;
 }
 
-static SPFLOAT delay_sig(SPFLOAT *buf, 
-        uint32_t *bufpos, 
-        uint32_t deltime, 
-        SPFLOAT fdbk, 
+static SPFLOAT delay_sig(SPFLOAT *buf,
+        uint32_t *bufpos,
+        uint32_t deltime,
+        SPFLOAT fdbk,
         SPFLOAT in)
 {
     SPFLOAT delay = buf[*bufpos];
@@ -92,15 +92,15 @@ int sp_smoothdelay_compute(sp_data *sp, sp_smoothdelay *p, SPFLOAT *in, SPFLOAT 
 
 
 
-    SPFLOAT *buf1 = (SPFLOAT *)p->buf1.ptr; 
-    SPFLOAT *buf2 = (SPFLOAT *)p->buf2.ptr; 
+    SPFLOAT *buf1 = (SPFLOAT *)p->buf1.ptr;
+    SPFLOAT *buf2 = (SPFLOAT *)p->buf2.ptr;
     SPFLOAT it = (SPFLOAT)p->counter / p->maxcount;
     if(p->counter != 0) p->counter--;
-  
-    SPFLOAT del1 = delay_sig(buf1, &p->bufpos1, 
+
+    SPFLOAT del1 = delay_sig(buf1, &p->bufpos1,
             p->deltime1, p->feedback, *in);
 
-    SPFLOAT del2 = delay_sig(buf2, &p->bufpos2, 
+    SPFLOAT del2 = delay_sig(buf2, &p->bufpos2,
             p->deltime2, p->feedback, *in);
 
     if(p->curbuf == 0) {

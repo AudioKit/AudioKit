@@ -20,14 +20,13 @@ namespace stk {
 */
 /***************************************************/
 
-class JetTable : public Function
-{
+class JetTable : public Function {
 public:
-
   //! Take one sample input and map to one sample of output.
-  StkFloat tick( StkFloat input );
+  StkFloat tick(StkFloat input);
 
-  //! Take a channel of the StkFrames object as inputs to the table and replace with corresponding outputs.
+  //! Take a channel of the StkFrames object as inputs to the table and replace
+  //! with corresponding outputs.
   /*!
     The StkFrames argument reference is returned.  The \c channel
     argument must be less than the number of channels in the
@@ -36,9 +35,10 @@ public:
     defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  //! Take a channel of the \c iFrames object as inputs to the table and write outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the table and write
+  //! outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  Each channel
     argument must be less than the number of channels in the
@@ -47,66 +47,74 @@ public:
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
-
+  StkFrames &tick(StkFrames &iFrames, StkFrames &oFrames,
+                  unsigned int iChannel = 0, unsigned int oChannel = 0);
 };
 
-inline StkFloat JetTable :: tick( StkFloat input )
-{
+inline StkFloat JetTable ::tick(StkFloat input) {
   // Perform "table lookup" using a polynomial
   // calculation (x^3 - x), which approximates
   // the jet sigmoid behavior.
   lastFrame_[0] = input * (input * input - 1.0);
 
   // Saturate at +/- 1.0.
-  if ( lastFrame_[0] > 1.0 ) lastFrame_[0] = 1.0;
-  if ( lastFrame_[0] < -1.0 ) lastFrame_[0] = -1.0; 
+  if (lastFrame_[0] > 1.0)
+    lastFrame_[0] = 1.0;
+  if (lastFrame_[0] < -1.0)
+    lastFrame_[0] = -1.0;
   return lastFrame_[0];
 }
 
-inline StkFrames& JetTable :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &JetTable ::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "JetTable::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_ << "JetTable::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
     *samples = *samples * (*samples * *samples - 1.0);
-    if ( *samples > 1.0) *samples = 1.0;
-    if ( *samples < -1.0) *samples = -1.0;
+    if (*samples > 1.0)
+      *samples = 1.0;
+    if (*samples < -1.0)
+      *samples = -1.0;
   }
 
-  lastFrame_[0] = *(samples-hop);
+  lastFrame_[0] = *(samples - hop);
   return frames;
 }
 
-inline StkFrames& JetTable :: tick( StkFrames& iFrames, StkFrames& oFrames, unsigned int iChannel, unsigned int oChannel )
-{
+inline StkFrames &JetTable ::tick(StkFrames &iFrames, StkFrames &oFrames,
+                                  unsigned int iChannel,
+                                  unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
-  if ( iChannel >= iFrames.channels() || oChannel >= oFrames.channels() ) {
-    oStream_ << "JetTable::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {
+    oStream_ << "JetTable::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *iSamples = &iFrames[iChannel];
   StkFloat *oSamples = &oFrames[oChannel];
   unsigned int iHop = iFrames.channels(), oHop = oFrames.channels();
-  for ( unsigned int i=0; i<iFrames.frames(); i++, iSamples += iHop, oSamples += oHop ) {
+  for (unsigned int i = 0; i < iFrames.frames();
+       i++, iSamples += iHop, oSamples += oHop) {
     *oSamples = *oSamples * (*oSamples * *oSamples - 1.0);
-    if ( *oSamples > 1.0) *oSamples = 1.0;
-    if ( *oSamples < -1.0) *oSamples = -1.0;
+    if (*oSamples > 1.0)
+      *oSamples = 1.0;
+    if (*oSamples < -1.0)
+      *oSamples = -1.0;
   }
 
-  lastFrame_[0] = *(oSamples-oHop);
+  lastFrame_[0] = *(oSamples - oHop);
   return iFrames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

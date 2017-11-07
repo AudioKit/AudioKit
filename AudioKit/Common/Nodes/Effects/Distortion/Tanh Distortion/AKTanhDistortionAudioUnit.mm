@@ -16,7 +16,7 @@
 @implementation AKTanhDistortionAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKTanhDistortionDSPKernel _kernel;
-    
+
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
@@ -38,9 +38,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(TanhDistortion)
-    
+
     // Create a parameter object for the pregain.
     AUParameter *pregainAUParameter = [AUParameter parameter:@"pregain"
                                                         name:@"Pregain"
@@ -69,18 +69,18 @@ standardKernelPassthroughs()
                                                                         min:-10.0
                                                                         max:10.0
                                                                        unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     pregainAUParameter.value = 2.0;
     postgainAUParameter.value = 0.5;
     postiveShapeParameterAUParameter.value = 0.0;
     negativeShapeParameterAUParameter.value = 0.0;
-    
+
     _kernel.setParameter(pregainAddress,                pregainAUParameter.value);
     _kernel.setParameter(postgainAddress,               postgainAUParameter.value);
     _kernel.setParameter(postiveShapeParameterAddress,  postiveShapeParameterAUParameter.value);
     _kernel.setParameter(negativeShapeParameterAddress, negativeShapeParameterAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              pregainAUParameter,
@@ -88,7 +88,7 @@ standardKernelPassthroughs()
                                              postiveShapeParameterAUParameter,
                                              negativeShapeParameterAUParameter
                                              ]];
-    
+
     parameterTreeBlock(TanhDistortion)
 }
 

@@ -1,9 +1,9 @@
 #ifndef STK_RESONATE_H
 #define STK_RESONATE_H
 
-#include "Instrmnt.h"
 #include "ADSR.h"
 #include "BiQuad.h"
+#include "Instrmnt.h"
 #include "Noise.h"
 
 namespace stk {
@@ -27,41 +27,41 @@ namespace stk {
 */
 /***************************************************/
 
-class Resonate : public Instrmnt
-{
- public:
+class Resonate : public Instrmnt {
+public:
   //! Class constructor.
-  Resonate( void );
+  Resonate(void);
 
   //! Class destructor.
-  ~Resonate( void );
+  ~Resonate(void);
 
   //! Set the filter for a resonance at the given frequency (Hz) and radius.
-  void setResonance( StkFloat frequency, StkFloat radius );
+  void setResonance(StkFloat frequency, StkFloat radius);
 
   //! Set the filter for a notch at the given frequency (Hz) and radius.
-  void setNotch( StkFloat frequency, StkFloat radius );
+  void setNotch(StkFloat frequency, StkFloat radius);
 
   //! Set the filter zero coefficients for contant resonance gain.
-  void setEqualGainZeroes( void ) { filter_.setEqualGainZeroes(); };
+  void setEqualGainZeroes(void) { filter_.setEqualGainZeroes(); };
 
   //! Initiate the envelope with a key-on event.
-  void keyOn( void ) { adsr_.keyOn(); };
+  void keyOn(void) { adsr_.keyOn(); };
 
   //! Signal a key-off event to the envelope.
-  void keyOff( void ) { adsr_.keyOff(); };
+  void keyOff(void) { adsr_.keyOff(); };
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -71,47 +71,43 @@ class Resonate : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
-  ADSR     adsr_;
-  BiQuad   filter_;
-  Noise    noise_;
+protected:
+  ADSR adsr_;
+  BiQuad filter_;
+  Noise noise_;
   StkFloat poleFrequency_;
   StkFloat poleRadius_;
   StkFloat zeroFrequency_;
   StkFloat zeroRadius_;
-
 };
 
-inline StkFloat Resonate :: tick( unsigned int )
-{
-  lastFrame_[0] = filter_.tick( noise_.tick() );
+inline StkFloat Resonate ::tick(unsigned int) {
+  lastFrame_[0] = filter_.tick(noise_.tick());
   lastFrame_[0] *= adsr_.tick();
   return lastFrame_[0];
 }
 
-inline StkFrames& Resonate :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Resonate ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "Resonate::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "Resonate::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -119,6 +115,6 @@ inline StkFrames& Resonate :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

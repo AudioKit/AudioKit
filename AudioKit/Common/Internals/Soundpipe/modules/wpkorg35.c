@@ -1,9 +1,9 @@
 /*
  * WPKorg35
- * 
+ *
  * This is a filter based off of an implemenation the Korg35 filter by Will
  * Pirke. It has been ported from the CCRMA chugin by the same name.
- * 
+ *
  */
 
 #include <stdlib.h>
@@ -17,10 +17,10 @@
 static void update(sp_data *sp, sp_wpkorg35 *wpk)
 {
 	/* prewarp for BZT */
-	SPFLOAT wd = 2*M_PI*wpk->cutoff;          
-	SPFLOAT T  = 1.0/(SPFLOAT)sp->sr;             
-	SPFLOAT wa = (2/T)*tan(wd*T/2); 
-	SPFLOAT g  = wa*T/2.0;    
+	SPFLOAT wd = 2*M_PI*wpk->cutoff;
+	SPFLOAT T  = 1.0/(SPFLOAT)sp->sr;
+	SPFLOAT wa = (2/T)*tan(wd*T/2);
+	SPFLOAT g  = wa*T/2.0;
 
 	/* the feedforward coeff in the VA One Pole */
 	SPFLOAT G = g/(1.0 + g);
@@ -57,8 +57,8 @@ int sp_wpkorg35_destroy(sp_wpkorg35 **p)
 int sp_wpkorg35_init(sp_data *sp, sp_wpkorg35 *p)
 {
     p->alpha = 0.0;
-    p->pcutoff = p->cutoff = 1000; 
-    p->pres = p->res = 1.0; 
+    p->pcutoff = p->cutoff = 1000;
+    p->pres = p->res = 1.0;
 
     /* reset memory for filters */
     p->lpf1_z = 0;
@@ -70,7 +70,7 @@ int sp_wpkorg35_init(sp_data *sp, sp_wpkorg35 *p)
 
     p->lpf1_a = 1.0;
     p->lpf1_z = 0.0;
-    
+
     /* initialize LPF2 */
 
     p->lpf2_a = 1.0;
@@ -104,8 +104,8 @@ int sp_wpkorg35_compute(sp_data *sp, sp_wpkorg35 *p, SPFLOAT *in, SPFLOAT *out)
     p->lpf1_z = y1 + vn;
 
     /* form feedback value */
-    
-    S35 = (p->hpf_z * p->hpf_b) + (p->lpf2_z * p->lpf2_b); 
+
+    S35 = (p->hpf_z * p->hpf_b) + (p->lpf2_z * p->lpf2_b);
 
     /* Calculate u */
     u = p->alpha * (y1 + S35);
@@ -125,7 +125,7 @@ int sp_wpkorg35_compute(sp_data *sp, sp_wpkorg35 *p, SPFLOAT *in, SPFLOAT *out)
     /* Feed y to HPF2 */
 
     vn = (y - p->hpf_z) * p->hpf_a;
-    p->hpf_z = vn + (vn + p->hpf_z); 
+    p->hpf_z = vn + (vn + p->hpf_z);
 
     /* Auto-normalize */
 

@@ -30,7 +30,7 @@ int sp_delay_init(sp_data *sp, sp_delay *p, SPFLOAT time)
 int sp_delay_compute(sp_data *sp, sp_delay *p, SPFLOAT *in, SPFLOAT *out)
 {
     SPFLOAT delay = 0, sig = 0;
-    SPFLOAT *buf = (SPFLOAT *)p->buf.ptr; 
+    SPFLOAT *buf = (SPFLOAT *)p->buf.ptr;
     delay = buf[p->bufpos];
     sig = (delay * p->feedback) + *in;
     buf[p->bufpos] = sig;

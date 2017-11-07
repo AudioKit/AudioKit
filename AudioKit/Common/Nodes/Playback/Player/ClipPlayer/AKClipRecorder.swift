@@ -123,7 +123,7 @@ open class AKClipRecorder {
 
     /// Schedule an audio clip to record.
     ///
-    /// Clips are recorded to an audio file in the tmp directory, they are accessed when the 
+    /// Clips are recorded to an audio file in the tmp directory, they are accessed when the
     /// completeion block is called, if no error.
     ///
     /// - Parameters

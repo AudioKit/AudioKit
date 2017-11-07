@@ -40,25 +40,25 @@
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
     self = [super initWithComponentDescription:componentDescription options:options error:outError];
-    
+
     if (self == nil) {
         return nil;
     }
-    
+
     // Initialize a default format for the busses.
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100
                                                                         channels:2];
-    
+
     [self createParameters];
-    
+
     // Create the output busses.
     self.outputBus = [[AUAudioUnitBus alloc] initWithFormat:self.defaultFormat error:nil];
     _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[self.outputBus]];
-    
+
     self.maximumFramesToRender = 512;
-    
+
     return self;
 }
 
@@ -85,9 +85,9 @@
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
     }
-    
+
     [self setUpParameterRamp];
-    
+
     return YES;
 }
 
@@ -97,10 +97,10 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-    
+
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };

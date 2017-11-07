@@ -7,7 +7,7 @@
 //
 
 /// The protocol for the AKClipMerger's delegate
-/// It is the responsibility of the delegate to create a new clip when a an existing clip 
+/// It is the responsibility of the delegate to create a new clip when a an existing clip
 /// has been altered or split.
 @objc public protocol ClipMergeDelegate: class {
 
@@ -41,10 +41,10 @@ public enum ClipMergeError: Error {
 ///
 /// The strategy used when a new clip overlaps an existing clip is last-in precedence.  Existing
 /// clips will shortened, split, or removed in order to make room for the new clip.  Since clips
-/// can be split or removed, merging a clip may result in the clip count decreasing when a clip is 
+/// can be split or removed, merging a clip may result in the clip count decreasing when a clip is
 /// merged, or increasing by more than 1.  This behavior requires that the clip merger create clips,
 /// so to facilitate this need it uses a delegate.  When a clip is to be shortened, it is removed
-/// from the existing clips, and a new clip is created using the delegate's newClip function.  When 
+/// from the existing clips, and a new clip is created using the delegate's newClip function.  When
 /// a clip is to be split, the original is removed and newClip will be called twice.  When a clip is
 /// removed, the delegate's clipWillBeRemoved function will be called (if implemented).
 ///
@@ -57,7 +57,7 @@ open class AKClipMerger: NSObject {
     /// - Parameters:
     ///   - clip: The clip to be merged
     ///   - clips: A validated clip array.
-    ///   
+    ///
     /// - Returns: A validated array of clips containing the new clip merged with clips.
     ///
     @objc open func merge(clip: AKClip, clips: [AKClip]) -> [AKClip] {

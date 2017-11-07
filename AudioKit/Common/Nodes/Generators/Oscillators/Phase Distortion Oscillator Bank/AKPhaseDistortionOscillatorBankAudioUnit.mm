@@ -34,10 +34,10 @@ standardBankFunctions()
 }
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(PhaseDistortionOscillatorBank)
     standardBankParameters()
-    
+
     // Create a parameter object for the phaseDistortion.
     AUParameter *phaseDistortionAUParameter = [AUParameter parameter:@"phaseDistortion"
                                                                 name:@"Phase Distortion"
@@ -45,12 +45,12 @@ standardBankFunctions()
                                                                  min:0.0
                                                                  max:1.0
                                                                 unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     phaseDistortionAUParameter.value = 0.0;
-    
+
     _kernel.setParameter(phaseDistortionAddress, phaseDistortionAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
                                                                standardBankAUParameterList(),

@@ -27,9 +27,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(ToneComplementFilter)
-    
+
     // Create a parameter object for the halfPowerPoint.
     AUParameter *halfPowerPointAUParameter = [AUParameter parameter:@"halfPowerPoint"
                                                                name:@"Half-Power Point (Hz)"
@@ -37,19 +37,19 @@ standardKernelPassthroughs()
                                                                 min:12.0
                                                                 max:20000.0
                                                                unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Initialize the parameter values.
     halfPowerPointAUParameter.value = 1000.0;
-    
-    
+
+
     _kernel.setParameter(halfPowerPointAddress, halfPowerPointAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              halfPowerPointAUParameter
                                              ]];
-    
-    
+
+
     parameterTreeBlock(ToneComplementFilter)
 }
 

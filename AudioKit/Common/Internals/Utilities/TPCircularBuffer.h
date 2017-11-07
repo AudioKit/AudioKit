@@ -10,7 +10,7 @@
 //  This implementation makes use of a virtual memory mapping technique that inserts a virtual copy
 //  of the buffer memory directly after the buffer's end, negating the need for any buffer wrap-around
 //  logic. Clients can simply use the returned memory address as if it were contiguous space.
-//  
+//
 //  The implementation is thread-safe in the case of a single producer and single consumer.
 //
 //  Virtual memory technique originally proposed by Philip Howard (http://vrb.slashusr.org/), and
@@ -39,8 +39,7 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#ifndef TPCircularBuffer_h
-#define TPCircularBuffer_h
+#pragma once
 
 #include <stdbool.h>
 #include <string.h>
@@ -61,7 +60,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
+
 typedef struct {
     void             *buffer;
     int32_t           length;
@@ -104,11 +103,11 @@ void  TPCircularBufferCleanup(TPCircularBuffer *buffer);
  *
  *  Resets buffer to original, empty state.
  *
- *  This is safe for use by consumer while producer is accessing 
+ *  This is safe for use by consumer while producer is accessing
  *  buffer.
  */
 void  TPCircularBufferClear(TPCircularBuffer *buffer);
-    
+
 /*!
  * Set the atomicity
  *
@@ -176,7 +175,7 @@ static __inline__ __attribute__((always_inline)) void* TPCircularBufferHead(TPCi
     if ( *availableBytes == 0 ) return NULL;
     return (void*)((char*)buffer->buffer + buffer->head);
 }
-    
+
 // Writing (producing)
 
 /*!
@@ -240,4 +239,4 @@ void TPCircularBufferProduceNoBarrier(TPCircularBuffer *buffer, int32_t amount) 
 }
 #endif
 
-#endif
+

@@ -30,9 +30,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(ResonantFilter)
-    
+
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Center frequency of the filter, or frequency position of the peak response."
@@ -44,20 +44,20 @@ standardKernelPassthroughs()
                                                            min:0.0
                                                            max:10000.0
                                                           unit:kAudioUnitParameterUnit_Hertz];
-    
+
     // Initialize the parameter values.
     frequencyAUParameter.value = 4000.0;
     bandwidthAUParameter.value = 1000.0;
-    
+
     _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
     _kernel.setParameter(bandwidthAddress, bandwidthAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              frequencyAUParameter,
                                              bandwidthAUParameter
                                              ]];
-    
+
     parameterTreeBlock(ResonantFilter)
 }
 

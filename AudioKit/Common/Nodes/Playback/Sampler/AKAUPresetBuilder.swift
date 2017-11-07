@@ -232,7 +232,7 @@ open class AKAUPresetBuilder {
         }
     }
 
-    /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, 
+    /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array,
     /// and feed that into createAUPreset
     ///
     /// - Parameters:
@@ -1344,15 +1344,15 @@ public enum SampleTriggerMode: String {
  destinations:
  1343225856 = amp gain
  818937856 = samplestart factor
- 
+
  816840704 = layer1pitch
  816840960 = layer2pitch (+256)
  816841216 = layer3pitch (+256)
- 
+
  1343225856 = layer1gain
  1343226112 = layer2gain (+256)
  1343226368 = layer3gain (+256)
- 
+
  sources:
  300 = keynumber
  301 = keyvelocity
@@ -1360,5 +1360,5 @@ public enum SampleTriggerMode: String {
  536871168 = layer2envelope (+256)536871424
  268435456 = layer1LFO1
  268435457 = layer1LFO2
- 
+
  */

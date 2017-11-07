@@ -327,12 +327,12 @@ NSString * const EZAudioPlayerDidSeekNotification = @"EZAudioPlayerDidSeekNotifi
     // stop playing anything that might currently be playing
     //
     [self pause];
-    
+
     //
     // set new stream
     //
     self.audioFile = audioFile;
-    
+
     //
     // begin playback
     //
@@ -372,7 +372,7 @@ NSString * const EZAudioPlayerDidSeekNotification = @"EZAudioPlayerDidSeekNotifi
                    audioBufferList:audioBufferList
                         bufferSize:&bufferSize
                                eof:&eof];
-        if (eof && [self.delegate respondsToSelector:@selector(audioPlayer:reachedEndOfAudioFile:)]) 
+        if (eof && [self.delegate respondsToSelector:@selector(audioPlayer:reachedEndOfAudioFile:)])
         {
             [self.delegate audioPlayer:self reachedEndOfAudioFile:self.audioFile];
         }

@@ -29,12 +29,12 @@ class DSPKernel {
 public:
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
     virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) = 0;
-    
+
     // Override to handle MIDI events.
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
-    
+
     void processWithEvents(AudioTimeStamp const* timestamp, AUAudioFrameCount frameCount, AURenderEvent const* events);
-    
+
 private:
     void handleOneEvent(AURenderEvent const* event);
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const*& event);

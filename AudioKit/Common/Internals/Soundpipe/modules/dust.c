@@ -1,9 +1,9 @@
 /*
  * Dust
- * 
+ *
  * This code has been extracted from the Csound opcode "dust".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Tito Latini
  * Year: 2012
  * Location: Opcodes/tl/sc_noise.c
@@ -20,13 +20,13 @@ int sp_dust_create(sp_dust **p)
     return SP_OK;
 }
 
-int sp_dust_destroy(sp_dust **p) 
+int sp_dust_destroy(sp_dust **p)
 {
     free(*p);
     return SP_OK;
 }
 
-int sp_dust_init(sp_data *sp, sp_dust *p) 
+int sp_dust_init(sp_data *sp, sp_dust *p)
 {
     p->density = 10;
     p->amp = 0.4;
@@ -39,7 +39,7 @@ int sp_dust_init(sp_data *sp, sp_dust *p)
     return SP_OK;
 }
 
-int sp_dust_compute(sp_data *sp, sp_dust *p, SPFLOAT *in, SPFLOAT *out) 
+int sp_dust_compute(sp_data *sp, sp_dust *p, SPFLOAT *in, SPFLOAT *out)
 {
     SPFLOAT density, thresh, scale;
     const SPFLOAT dv2_31 = 4.656612873077392578125e-10;

@@ -2,10 +2,10 @@
 #define STK_MIDIFILEIN_H
 
 #include "Stk.h"
-#include <string>
-#include <vector>
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <vector>
 
 namespace stk {
 
@@ -26,15 +26,14 @@ namespace stk {
 */
 /**********************************************************************/
 
-class MidiFileIn : public Stk
-{
- public:
+class MidiFileIn : public Stk {
+public:
   //! Default constructor.
   /*!
       If an error occurs while opening or parsing the file header, an
       StkError exception will be thrown.
   */
-  MidiFileIn( std::string fileName );
+  MidiFileIn(std::string fileName);
 
   //! Class destructor.
   ~MidiFileIn();
@@ -58,19 +57,21 @@ class MidiFileIn : public Stk
       The relevant track tempo value is reset as well.  If an invalid
       track number is specified, an StkError exception will be thrown.
   */
-  void rewindTrack( unsigned int track = 0 );
+  void rewindTrack(unsigned int track = 0);
 
-  //! Get the current value, in seconds, of delta-time ticks for the specified track.
+  //! Get the current value, in seconds, of delta-time ticks for the specified
+  //! track.
   /*!
       This value can change as events are read (via "Set Tempo"
       Meta-Events).  Therefore, one should call this function after
       every call to getNextEvent() or getNextMidiEvent().  If an
       invalid track number is specified, an StkError exception will be
       thrown.
-  */   
-  double getTickSeconds( unsigned int track = 0 );
+  */
+  double getTickSeconds(unsigned int track = 0);
 
-  //! Fill the user-provided vector with the next event in the specified track and return the event delta-time in ticks.
+  //! Fill the user-provided vector with the next event in the specified track
+  //! and return the event delta-time in ticks.
   /*!
       MIDI File events consist of a delta time and a sequence of event
       bytes.  This function returns the delta-time value and writes
@@ -83,9 +84,11 @@ class MidiFileIn : public Stk
       track number is specified or an error occurs while reading the
       file, an StkError exception will be thrown.
   */
-  unsigned long getNextEvent( std::vector<unsigned char> *event, unsigned int track = 0 );
+  unsigned long getNextEvent(std::vector<unsigned char> *event,
+                             unsigned int track = 0);
 
-  //! Fill the user-provided vector with the next MIDI channel event in the specified track and return the event delta time in ticks.
+  //! Fill the user-provided vector with the next MIDI channel event in the
+  //! specified track and return the event delta time in ticks.
   /*!
       All returned MIDI events are complete ... a status byte is
       provided even when running status is used in the file.  Meta and
@@ -96,16 +99,16 @@ class MidiFileIn : public Stk
       is specified or an error occurs while reading the file, an
       StkError exception will be thrown.
   */
-  unsigned long getNextMidiEvent( std::vector<unsigned char> *midiEvent, unsigned int track = 0 );
+  unsigned long getNextMidiEvent(std::vector<unsigned char> *midiEvent,
+                                 unsigned int track = 0);
 
- protected:
-
+protected:
   // This protected class function is used for reading variable-length
   // MIDI file values. It is assumed that this function is called with
   // the file read pointer positioned at the start of a
   // variable-length value.  The function returns true if the value is
   // successfully parsed.  Otherwise, it returns false.
-  bool readVariableLength( unsigned long *value );
+  bool readVariableLength(unsigned long *value);
 
   std::ifstream file_;
   unsigned int nTracks_;
@@ -121,7 +124,7 @@ class MidiFileIn : public Stk
   // This structure and the following variables are used to save and
   // keep track of a format 1 tempo map (and the initial tickSeconds
   // parameter for formats 0 and 2).
-  struct TempoChange { 
+  struct TempoChange {
     unsigned long count;
     double tickSeconds;
   };
@@ -130,6 +133,6 @@ class MidiFileIn : public Stk
   std::vector<unsigned int> trackTempoIndex_;
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

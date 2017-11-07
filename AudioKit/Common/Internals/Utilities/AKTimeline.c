@@ -29,11 +29,11 @@ static AudioTimeStamp TimeStampOffset(AudioTimeStamp timeStamp, SInt64 samples, 
 static Boolean SampleAndHostTimeValid(AudioTimeStamp timeStamp);
 static Boolean SampleTimeValid(AudioTimeStamp timeStamp);
 static Boolean HostTimeValid(AudioTimeStamp timeStamp);
-static AudioTimeStamp AudioTimeNow(void);
+static AudioTimeStamp AudioTimeNow();
 static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 hostTime);
 static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp anchorTime, double sampleRate);
 static SInt64 safeSubtract(UInt64 a, UInt64 b);
-static double ticksToSeconds(void);
+static double ticksToSeconds();
 static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage message);
 void AKTimelineSyncronize(AKTimeline *timeline);
 
@@ -312,7 +312,7 @@ static Boolean SampleTimeValid(AudioTimeStamp timeStamp) {
 static Boolean HostTimeValid(AudioTimeStamp timeStamp) {
     return timeStamp.mFlags & kAudioTimeStampHostTimeValid;
 }
-static AudioTimeStamp AudioTimeNow(void) {
+static AudioTimeStamp AudioTimeNow() {
     return (AudioTimeStamp) {
         .mHostTime = mach_absolute_time(),
         .mFlags = kAudioTimeStampHostTimeValid
@@ -346,7 +346,7 @@ static SInt64 safeSubtract(UInt64 a, UInt64 b) {
     return a >= b ? a - b : -(b - a);
 }
 
-static double ticksToSeconds(void) {
+static double ticksToSeconds() {
     static double ticksToSeconds = 0;
     if (!ticksToSeconds) {
         double timecon;
