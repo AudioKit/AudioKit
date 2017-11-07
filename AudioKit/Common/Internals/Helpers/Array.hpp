@@ -21,13 +21,9 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #if !defined(ffft_Array_CODEHEADER_INCLUDED)
 #define ffft_Array_CODEHEADER_INCLUDED
 
-
-
 #include <cassert>
 
 namespace ffft {
-
-
 
 template <class T, long LEN> Array<T, LEN>::Array() {
 

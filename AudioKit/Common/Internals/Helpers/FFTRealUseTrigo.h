@@ -39,7 +39,6 @@ public:
   ffft_FORCEINLINE static void iterate(OscType &osc, DataType &c, DataType &s,
                                        const DataType cos_ptr[], long index_c,
                                        long index_s);
-
 private:
   FFTRealUseTrigo();
   ~FFTRealUseTrigo();

@@ -27,8 +27,6 @@ namespace ffft {
 
 class FFTRealFixLenParam {
 
-  
-
 public:
   // Over this bit depth, we use direct calculation for sin/cos
   enum { TRIGO_BD_LIMIT = 12 };

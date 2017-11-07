@@ -31,8 +31,6 @@ namespace ffft {
 
 template <class DT> class FFTReal {
 
-  
-
 public:
   enum { MAX_BIT_DEPTH = 30 }; // So length can be represented as long int
 

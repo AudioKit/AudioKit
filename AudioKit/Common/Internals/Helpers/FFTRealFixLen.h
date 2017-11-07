@@ -48,7 +48,6 @@ public:
   void do_ifft(const DataType f[], DataType x[]);
   void rescale(DataType x[]) const;
 
-
 private:
   enum { TRIGO_BD_LIMIT = FFTRealFixLenParam::TRIGO_BD_LIMIT };
 
