@@ -72,4 +72,4 @@ void PoleZero ::setBlockZero(StkFloat thePole) {
   a_[1] = -thePole;
 }
 
-} // namespace stk
+}

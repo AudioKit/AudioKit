@@ -30,7 +30,7 @@ namespace ffft {
 
 
 template <class T> DynArray<T>::DynArray() : _data_ptr(0), _len(0) {
-  // Nothing
+
 }
 
 template <class T> DynArray<T>::DynArray(long size) : _data_ptr(0), _len(0) {

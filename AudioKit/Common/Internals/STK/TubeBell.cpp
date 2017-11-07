@@ -71,4 +71,4 @@ void TubeBell ::noteOn(StkFloat frequency, StkFloat amplitude) {
   this->keyOn();
 }
 
-} // namespace stk
+}

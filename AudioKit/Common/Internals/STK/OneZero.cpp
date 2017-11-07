@@ -42,4 +42,4 @@ void OneZero ::setCoefficients(StkFloat b0, StkFloat b1, bool clearState) {
     this->clear();
 }
 
-} // namespace stk
+}

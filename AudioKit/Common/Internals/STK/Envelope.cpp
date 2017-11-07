@@ -74,4 +74,4 @@ void Envelope ::setValue(StkFloat value) {
   lastFrame_[0] = value_;
 }
 
-} // namespace stk
+}

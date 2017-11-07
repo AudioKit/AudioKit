@@ -30,7 +30,7 @@ namespace ffft {
 
 
 template <class T, long LEN> Array<T, LEN>::Array() {
-  // Nothing
+
 }
 
 template <class T, long LEN>

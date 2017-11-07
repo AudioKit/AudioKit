@@ -65,4 +65,4 @@ void DelayL ::tapIn(StkFloat value, unsigned long tapDelay) {
   inputs_[tap] = value;
 }
 
-} // namespace stk
+}

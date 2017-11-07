@@ -71,4 +71,4 @@ void TwoZero ::setNotch(StkFloat frequency, StkFloat radius) {
   b_[2] *= b_[0];
 }
 
-} // namespace stk
+}

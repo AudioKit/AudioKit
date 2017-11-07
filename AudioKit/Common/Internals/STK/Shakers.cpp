@@ -717,4 +717,4 @@ void Shakers ::controlChange(int number, StkFloat value) {
 #endif
 }
 
-} // namespace stk
+}

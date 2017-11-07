@@ -34,7 +34,7 @@ template <int ALGO> void FFTRealUseTrigo<ALGO>::prepare(OscType &osc) {
 }
 
 template <> inline void FFTRealUseTrigo<0>::prepare(OscType &osc) {
-  // Nothing
+
 }
 
 template <int ALGO>

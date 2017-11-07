@@ -384,4 +384,4 @@ StkFloat StkFrames ::interpolate(StkFloat frame, unsigned int channel) const {
   return output;
 }
 
-} // namespace stk
+}

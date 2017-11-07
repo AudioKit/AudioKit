@@ -33,26 +33,25 @@ namespace stk {
 */
 /***************************************************/
 
-class PercFlut : public FM
-{
- public:
+class PercFlut : public FM {
+public:
   //! Class constructor.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  PercFlut( void );
+  PercFlut(void);
 
   //! Class destructor.
-  ~PercFlut( void );
+  ~PercFlut(void);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -62,14 +61,12 @@ class PercFlut : public FM
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
+protected:
 };
 
-inline StkFloat PercFlut :: tick( unsigned int )
-{
+inline StkFloat PercFlut ::tick(unsigned int) {
   StkFloat temp;
 
   temp = vibrato_.tick() * modDepth_ * 0.2;
@@ -78,12 +75,13 @@ inline StkFloat PercFlut :: tick( unsigned int )
   waves_[2]->setFrequency(baseFrequency_ * (1.0 + temp) * ratios_[2]);
   waves_[3]->setFrequency(baseFrequency_ * (1.0 + temp) * ratios_[3]);
 
-  waves_[3]->addPhaseOffset( twozero_.lastOut() );
+  waves_[3]->addPhaseOffset(twozero_.lastOut());
   temp = gains_[3] * adsr_[3]->tick() * waves_[3]->tick();
 
   twozero_.tick(temp);
-  waves_[2]->addPhaseOffset( temp );
-  temp = (1.0 - (control2_ * 0.5)) * gains_[2] * adsr_[2]->tick() * waves_[2]->tick();
+  waves_[2]->addPhaseOffset(temp);
+  temp = (1.0 - (control2_ * 0.5)) * gains_[2] * adsr_[2]->tick() *
+         waves_[2]->tick();
 
   temp += control2_ * 0.5 * gains_[1] * adsr_[1]->tick() * waves_[1]->tick();
   temp = temp * control1_;
@@ -95,26 +93,25 @@ inline StkFloat PercFlut :: tick( unsigned int )
   return lastFrame_[0];
 }
 
-inline StkFrames& PercFlut :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &PercFlut ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "PercFlut::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "PercFlut::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -122,6 +119,6 @@ inline StkFrames& PercFlut :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

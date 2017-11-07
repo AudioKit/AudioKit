@@ -260,4 +260,4 @@ StkFrames &FileWvIn ::tick(StkFrames &frames, unsigned int channel) {
   return frames;
 }
 
-} // namespace stk
+}
