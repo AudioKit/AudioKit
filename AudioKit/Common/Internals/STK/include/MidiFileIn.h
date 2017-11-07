@@ -67,7 +67,7 @@ class MidiFileIn : public Stk
       every call to getNextEvent() or getNextMidiEvent().  If an
       invalid track number is specified, an StkError exception will be
       thrown.
-  */   
+  */
   double getTickSeconds( unsigned int track = 0 );
 
   //! Fill the user-provided vector with the next event in the specified track and return the event delta-time in ticks.
@@ -121,7 +121,7 @@ class MidiFileIn : public Stk
   // This structure and the following variables are used to save and
   // keep track of a format 1 tempo map (and the initial tickSeconds
   // parameter for formats 0 and 2).
-  struct TempoChange { 
+  struct TempoChange {
     unsigned long count;
     double tickSeconds;
   };

@@ -115,13 +115,13 @@ inline StkFloat PRCRev :: lastOut( unsigned int channel )
   temp0 += input;
   allpassDelays_[0].tick(temp0);
   temp0 = -(allpassCoefficient_ * temp0) + temp;
-    
+
   temp = allpassDelays_[1].lastOut();
   temp1 = allpassCoefficient_ * temp;
   temp1 += temp0;
   allpassDelays_[1].tick(temp1);
   temp1 = -(allpassCoefficient_ * temp1) + temp;
-    
+
   temp2 = temp1 + ( combCoefficient_[0] * combDelays_[0].lastOut() );
   temp3 = temp1 + ( combCoefficient_[1] * combDelays_[1].lastOut() );
 

@@ -17,7 +17,7 @@ namespace stk {
     waves and envelopes, determined via a
     constructor argument.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Control One = 2
        - Control Two = 4
        - LFO Speed = 11
@@ -97,7 +97,7 @@ class FM : public Instrmnt
 
  protected:
 
-  std::vector<ADSR *> adsr_; 
+  std::vector<ADSR *> adsr_;
   std::vector<FileLoop *> waves_;
   SineWave vibrato_;
   TwoZero  twozero_;

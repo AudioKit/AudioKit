@@ -53,7 +53,7 @@ namespace stk {
 #define __SK_Pan_                    10
 #define __SK_Sustain_                64
 #define __SK_Damper_                 __SK_Sustain_
-#define __SK_Expression_             11 
+#define __SK_Expression_             11
 
 #define __SK_AfterTouch_Cont_        128
 #define __SK_ModFrequency_           __SK_Expression_
@@ -98,7 +98,7 @@ namespace stk {
 #define __SK_FilterFreq_             1062
 #define __SK_FilterSweepRate_        __SK_FootControl_
 
-#define __SK_ShakerInst_             1071 
+#define __SK_ShakerInst_             1071
 #define __SK_ShakerEnergy_           __SK_Breath_
 #define __SK_ShakerDamping_          __SK_ModFrequency_
 #define __SK_ShakerNumObjects_       __SK_FootControl_

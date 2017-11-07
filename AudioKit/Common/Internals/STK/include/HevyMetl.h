@@ -18,7 +18,7 @@ namespace stk {
                     3-->2-- + -->1-->Out
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Total Modulator Index = 2
        - Modulator Crossfade = 4
        - LFO Speed = 11
@@ -71,25 +71,25 @@ inline StkFloat HevyMetl :: tick( unsigned int )
 {
   StkFloat temp;
 
-  temp = vibrato_.tick() * modDepth_ * 0.2;    
+  temp = vibrato_.tick() * modDepth_ * 0.2;
   waves_[0]->setFrequency(baseFrequency_ * (1.0 + temp) * ratios_[0]);
   waves_[1]->setFrequency(baseFrequency_ * (1.0 + temp) * ratios_[1]);
   waves_[2]->setFrequency(baseFrequency_ * (1.0 + temp) * ratios_[2]);
   waves_[3]->setFrequency(baseFrequency_ * (1.0 + temp) * ratios_[3]);
-    
+
   temp = gains_[2] * adsr_[2]->tick() * waves_[2]->tick();
   waves_[1]->addPhaseOffset( temp );
-    
+
   waves_[3]->addPhaseOffset( twozero_.lastOut() );
   temp = (1.0 - (control2_ * 0.5)) * gains_[3] * adsr_[3]->tick() * waves_[3]->tick();
   twozero_.tick(temp);
-    
+
   temp += control2_ * 0.5 * gains_[1] * adsr_[1]->tick() * waves_[1]->tick();
   temp = temp * control1_;
-    
+
   waves_[0]->addPhaseOffset( temp );
   temp = gains_[0] * adsr_[0]->tick() * waves_[0]->tick();
-    
+
   lastFrame_[0] = temp * 0.5;
   return lastFrame_[0];
 }

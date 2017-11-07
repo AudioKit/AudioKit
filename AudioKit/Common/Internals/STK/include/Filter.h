@@ -87,7 +87,7 @@ inline void Filter :: clear( void )
   for ( i=0; i<outputs_.size(); i++ )
     outputs_[i] = 0.0;
   for ( i=0; i<lastFrame_.size(); i++ )
-    lastFrame_[i] = 0.0;  
+    lastFrame_[i] = 0.0;
 }
 
 inline StkFloat Filter :: phaseDelay( StkFloat frequency )

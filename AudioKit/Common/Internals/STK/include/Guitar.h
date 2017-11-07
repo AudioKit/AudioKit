@@ -27,7 +27,7 @@ namespace stk {
     This is a digital waveguide model, making its use possibly subject
     to patents held by Stanford University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Bridge Coupling Gain = 2
        - Pluck Position = 4
        - Loop Gain = 11

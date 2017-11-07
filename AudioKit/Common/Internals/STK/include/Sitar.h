@@ -90,9 +90,9 @@ inline StkFloat Sitar :: tick( unsigned int )
     delayLine_.setDelay( delay_ );
   }
 
-  lastFrame_[0] = delayLine_.tick( loopFilter_.tick( delayLine_.lastOut() * loopGain_ ) + 
+  lastFrame_[0] = delayLine_.tick( loopFilter_.tick( delayLine_.lastOut() * loopGain_ ) +
                                 (amGain_ * envelope_.tick() * noise_.tick()));
-  
+
   return lastFrame_[0];
 }
 

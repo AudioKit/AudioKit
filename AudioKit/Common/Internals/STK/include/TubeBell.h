@@ -20,7 +20,7 @@ namespace stk {
                       2->1--/
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Modulator Index One = 2
        - Crossfade of Outputs = 4
        - LFO Speed = 11
@@ -88,7 +88,7 @@ inline StkFloat TubeBell :: tick( unsigned int )
   // Calculate amplitude modulation and apply it to output.
   temp2 = vibrato_.tick() * modDepth_;
   temp = temp * (1.0 + temp2);
-    
+
   lastFrame_[0] = temp * 0.5;
   return lastFrame_[0];
 }

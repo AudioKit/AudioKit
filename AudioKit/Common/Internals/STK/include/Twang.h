@@ -98,7 +98,7 @@ class Twang : public Stk
   */
   StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
 
- protected:  
+ protected:
 
   DelayA   delayLine_;
   DelayL   combDelay_;

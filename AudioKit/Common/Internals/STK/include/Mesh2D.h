@@ -21,7 +21,7 @@ namespace stk {
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - X Dimension = 2
        - Y Dimension = 4
        - Mesh Decay = 11

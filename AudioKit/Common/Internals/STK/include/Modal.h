@@ -83,7 +83,7 @@ public:
 
 protected:
 
-  Envelope envelope_; 
+  Envelope envelope_;
   FileWvIn *wave_;
   BiQuad **filters_;
   OnePole  onepole_;
@@ -117,7 +117,7 @@ inline StkFloat Modal :: tick( unsigned int )
     temp = 1.0 + ( vibrato_.tick() * vibratoGain_ );
     temp2 = temp * temp2;
   }
-    
+
   lastFrame_[0] = temp2;
   return lastFrame_[0];
 }

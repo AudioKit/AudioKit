@@ -13,7 +13,7 @@ namespace stk {
     struck bar instruments.  It inherits from the
     Modal class.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Stick Hardness = 2
        - Stick Position = 4
        - Vibrato Gain = 1

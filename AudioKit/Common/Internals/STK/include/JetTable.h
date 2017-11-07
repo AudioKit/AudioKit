@@ -60,7 +60,7 @@ inline StkFloat JetTable :: tick( StkFloat input )
 
   // Saturate at +/- 1.0.
   if ( lastFrame_[0] > 1.0 ) lastFrame_[0] = 1.0;
-  if ( lastFrame_[0] < -1.0 ) lastFrame_[0] = -1.0; 
+  if ( lastFrame_[0] < -1.0 ) lastFrame_[0] = -1.0;
   return lastFrame_[0];
 }
 

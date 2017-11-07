@@ -12,9 +12,9 @@ struct SkiniSpec { char messageString[32];
                  };
 
 /* SEE COMMENT BLOCK AT BOTTOM FOR FIELDS AND USES   */
-/* MessageString     , type,     data2,     data3    */ 
+/* MessageString     , type,     data2,     data3    */
 
-struct SkiniSpec skini_msgs[__SK_MaxMsgTypes_] = 
+struct SkiniSpec skini_msgs[__SK_MaxMsgTypes_] =
 {
  {"NoteOff"          ,        __SK_NoteOff_,                   SK_DBL,  SK_DBL},
  {"NoteOn"           ,         __SK_NoteOn_,                   SK_DBL,  SK_DBL},
@@ -56,7 +56,7 @@ struct SkiniSpec skini_msgs[__SK_MaxMsgTypes_] =
  {"BowPressure"      ,  __SK_ControlChange_, __SK_BowPressure_       ,  SK_DBL},
  {"BowPosition"      ,  __SK_ControlChange_, __SK_BowPosition_       ,  SK_DBL},
  {"BowBeta"          ,  __SK_ControlChange_, __SK_BowBeta_           ,  SK_DBL},
- 
+
  {"ReedStiffness"    ,  __SK_ControlChange_, __SK_ReedStiffness_     ,  SK_DBL},
  {"ReedRestPos"      ,  __SK_ControlChange_, __SK_ReedRestPos_       ,  SK_DBL},
  {"FluteEmbouchure"  ,  __SK_ControlChange_, __SK_FluteEmbouchure_   ,  SK_DBL},
@@ -64,16 +64,16 @@ struct SkiniSpec skini_msgs[__SK_MaxMsgTypes_] =
  {"StrikePosition"   ,  __SK_ControlChange_, __SK_StrikePosition_    ,  SK_DBL},
  {"StickHardness"    ,  __SK_ControlChange_, __SK_StickHardness_     ,  SK_DBL},
 
- {"TrillDepth"       ,  __SK_ControlChange_, __SK_TrillDepth_        ,  SK_DBL}, 
+ {"TrillDepth"       ,  __SK_ControlChange_, __SK_TrillDepth_        ,  SK_DBL},
  {"TrillSpeed"       ,  __SK_ControlChange_, __SK_TrillSpeed_        ,  SK_DBL},
-                                             
- {"Strumming"        ,  __SK_ControlChange_, __SK_Strumming_         ,  127   }, 
- {"NotStrumming"     ,  __SK_ControlChange_, __SK_Strumming_         ,  0     },
-                                             
- {"PlayerSkill"      ,  __SK_ControlChange_, __SK_PlayerSkill_       ,  SK_DBL}, 
 
- {"Chord"            ,  __SK_Chord_	       ,                   SK_DBL,  SK_STR}, 
- {"ChordOff"         ,  __SK_ChordOff_     ,                   SK_DBL,    NOPE}, 
+ {"Strumming"        ,  __SK_ControlChange_, __SK_Strumming_         ,  127   },
+ {"NotStrumming"     ,  __SK_ControlChange_, __SK_Strumming_         ,  0     },
+
+ {"PlayerSkill"      ,  __SK_ControlChange_, __SK_PlayerSkill_       ,  SK_DBL},
+
+ {"Chord"            ,  __SK_Chord_	       ,                   SK_DBL,  SK_STR},
+ {"ChordOff"         ,  __SK_ChordOff_     ,                   SK_DBL,    NOPE},
 
  {"ShakerInst"       ,  __SK_ControlChange_, __SK_ShakerInst_        ,  SK_DBL},
  {"Maraca"           ,  __SK_ControlChange_, __SK_ShakerInst_	       ,   0    },
@@ -83,7 +83,7 @@ struct SkiniSpec skini_msgs[__SK_MaxMsgTypes_] =
  {"Waterdrp"         ,  __SK_ControlChange_, __SK_ShakerInst_        ,   4    },
  {"Tambourn"         ,  __SK_ControlChange_, __SK_ShakerInst_        ,   5    },
  {"Sleighbl"         ,  __SK_ControlChange_, __SK_ShakerInst_        ,   6    },
- {"Guiro"            ,  __SK_ControlChange_, __SK_ShakerInst_        ,   7    },	
+ {"Guiro"            ,  __SK_ControlChange_, __SK_ShakerInst_        ,   7    },
 
  {"OpenFile"         ,                  256,                   SK_STR,    NOPE},
  {"SetPath"          ,                  257,                   SK_STR,    NOPE},
@@ -108,7 +108,7 @@ struct SkiniSpec skini_msgs[__SK_MaxMsgTypes_] =
 /*                                                                       */
 /*     type is the message type sent back from the SKINI line parser.    */
 /*     data<n> is either                                                 */
-/*          NOPE    : field not used, specifically, there aren't going   */                                           
+/*          NOPE    : field not used, specifically, there aren't going   */
 /*                    to be any more fields on this line.  So if there   */
 /*                    is NOPE in data2, data3 won't even be checked      */
 /*          SK_INT  : byte (actually scanned as 32 bit signed integer)   */
@@ -127,7 +127,7 @@ struct SkiniSpec skini_msgs[__SK_MaxMsgTypes_] =
 /*                    into the SK_STR buffer.  Longer bulk dumps,        */
 /*                    soundfiles, etc. should be handled as a new        */
 /*                    message type pointing to a FileName stored in the  */
-/*                    SK_STR field, or as a new type of multi-line       */                                      
+/*                    SK_STR field, or as a new type of multi-line       */
 /*                    message.                                           */
 /*                                                                       */
 /*************************************************************************/

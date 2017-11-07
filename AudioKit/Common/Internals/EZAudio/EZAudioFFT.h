@@ -76,7 +76,7 @@
  Initializes an EZAudioFFT (or subclass) instance with a maximum buffer size and sample rate. The sample rate is used specifically to calculate the `maxFrequency` property. If you don't care about the `maxFrequency` property then you can set the sample rate to 0.
  @param maximumBufferSize A vDSP_Length (unsigned long) representing the maximum length of the incoming audio data.
  @param sampleRate        A float representing the sample rate of the incoming audio data.
- 
+
  @return A newly created EZAudioFFT (or subclass) instance.
  */
 - (instancetype)initWithMaximumBufferSize:(vDSP_Length)maximumBufferSize

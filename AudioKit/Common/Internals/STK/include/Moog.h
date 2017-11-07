@@ -15,7 +15,7 @@ namespace stk {
     from the Sampler class) and adds two sweepable
     formant (FormSwep) filters.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Filter Q = 2
        - Filter Sweep Rate = 4
        - Vibrato Frequency = 11
@@ -80,7 +80,7 @@ inline StkFloat Moog :: tick( unsigned int )
   StkFloat temp;
 
   if ( modDepth_ != 0.0 ) {
-    temp = loops_[1]->tick() * modDepth_;    
+    temp = loops_[1]->tick() * modDepth_;
     loops_[0]->setFrequency( baseFrequency_ * (1.0 + temp) );
   }
 

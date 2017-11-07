@@ -1,8 +1,8 @@
 #ifndef STK_ECHO_H
 #define STK_ECHO_H
 
-#include "Effect.h" 
-#include "Delay.h" 
+#include "Effect.h"
+#include "Delay.h"
 
 namespace stk {
 

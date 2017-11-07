@@ -21,7 +21,7 @@ namespace stk {
     Percussion Instruments", Proceedings of the
     1999 International Computer Music Conference.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Bow Pressure = 2
        - Bow Motion = 4
        - Strike Position = 8 (not implemented)
