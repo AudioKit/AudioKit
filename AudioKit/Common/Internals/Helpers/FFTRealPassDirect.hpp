@@ -21,13 +21,13 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #if !defined(ffft_FFTRealPassDirect_CODEHEADER_INCLUDED)
 #define ffft_FFTRealPassDirect_CODEHEADER_INCLUDED
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "ffft/FFTRealUseTrigo.h"
 
 namespace ffft {
 
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 template <>
 inline void

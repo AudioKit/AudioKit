@@ -21,7 +21,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "ffft/FFTRealFixLenParam.h"
 #include "ffft/OscSinCos.h"
@@ -31,7 +31,7 @@ namespace ffft {
 
 template <int PASS> class FFTRealPassDirect {
 
-  /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 public:
   typedef FFTRealFixLenParam::DataType DataType;

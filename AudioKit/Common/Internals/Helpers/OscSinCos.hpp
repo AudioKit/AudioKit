@@ -21,7 +21,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #if !defined(ffft_OscSinCos_CODEHEADER_INCLUDED)
 #define ffft_OscSinCos_CODEHEADER_INCLUDED
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include <cmath>
 
@@ -29,7 +29,7 @@ namespace std {}
 
 namespace ffft {
 
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 template <class T>
 OscSinCos<T>::OscSinCos()

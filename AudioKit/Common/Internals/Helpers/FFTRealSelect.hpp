@@ -23,7 +23,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 namespace ffft {
 
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 template <int P> float *FFTRealSelect<P>::sel_bin(float *e_ptr, float *o_ptr) {
   return (o_ptr);

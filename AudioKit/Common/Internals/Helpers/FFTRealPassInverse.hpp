@@ -21,13 +21,13 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #if !defined(ffft_FFTRealPassInverse_CODEHEADER_INCLUDED)
 #define ffft_FFTRealPassInverse_CODEHEADER_INCLUDED
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "ffft/FFTRealUseTrigo.h"
 
 namespace ffft {
 
-/*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 template <int PASS>
 void FFTRealPassInverse<PASS>::process(long len, DataType dest_ptr[],

@@ -21,7 +21,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "DynArray.h"
 #include "OscSinCos.h"
@@ -31,7 +31,7 @@ namespace ffft {
 
 template <class DT> class FFTReal {
 
-  /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 public:
   enum { MAX_BIT_DEPTH = 30 }; // So length can be represented as long int

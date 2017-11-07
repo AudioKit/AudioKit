@@ -20,7 +20,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #pragma once
 #endif
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "ffft/def.h"
 
@@ -28,7 +28,7 @@ namespace ffft {
 
 template <int P> class FFTRealSelect {
 
-  /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 public:
   ffft_FORCEINLINE static float *sel_bin(float *e_ptr, float *o_ptr);

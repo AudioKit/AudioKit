@@ -21,7 +21,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 #pragma warning(4 : 4250) // "Inherits via dominance."
 #endif
 
-/*\\\ INCLUDE FILES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 #include "ffft/Array.h"
 #include "ffft/DynArray.h"
@@ -34,7 +34,7 @@ template <int LL2> class FFTRealFixLen {
   typedef int CompileTimeCheck1[(LL2 >= 0) ? 1 : -1];
   typedef int CompileTimeCheck2[(LL2 <= 30) ? 1 : -1];
 
-  /*\\\ PUBLIC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 public:
   typedef FFTRealFixLenParam::DataType DataType;
