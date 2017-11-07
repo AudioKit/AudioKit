@@ -27,7 +27,7 @@
 
 namespace stk {
 
-Clarinet ::Clarinet(StkFloat lowestFrequency) {
+Clarinet::Clarinet(StkFloat lowestFrequency) {
   if (lowestFrequency <= 0.0) {
     oStream_ << "Clarinet::Clarinet: argument is less than or equal to zero!";
     handleError(StkError::FUNCTION_ARGUMENT);
@@ -49,14 +49,14 @@ Clarinet ::Clarinet(StkFloat lowestFrequency) {
   this->clear();
 }
 
-Clarinet ::~Clarinet(void) {}
+Clarinet::~Clarinet(void) {}
 
-void Clarinet ::clear(void) {
+void Clarinet::clear(void) {
   delayLine_.clear();
   filter_.tick(0.0);
 }
 
-void Clarinet ::setFrequency(StkFloat frequency) {
+void Clarinet::setFrequency(StkFloat frequency) {
 #if defined(_STK_DEBUG_)
   if (frequency <= 0.0) {
     oStream_
@@ -72,7 +72,7 @@ void Clarinet ::setFrequency(StkFloat frequency) {
   delayLine_.setDelay(delay);
 }
 
-void Clarinet ::startBlowing(StkFloat amplitude, StkFloat rate) {
+void Clarinet::startBlowing(StkFloat amplitude, StkFloat rate) {
   if (amplitude <= 0.0 || rate <= 0.0) {
     oStream_ << "Clarinet::startBlowing: one or more arguments is less than or "
                 "equal to zero!";
@@ -84,7 +84,7 @@ void Clarinet ::startBlowing(StkFloat amplitude, StkFloat rate) {
   envelope_.setTarget(amplitude);
 }
 
-void Clarinet ::stopBlowing(StkFloat rate) {
+void Clarinet::stopBlowing(StkFloat rate) {
   if (rate <= 0.0) {
     oStream_
         << "Clarinet::stopBlowing: argument is less than or equal to zero!";
@@ -96,17 +96,17 @@ void Clarinet ::stopBlowing(StkFloat rate) {
   envelope_.setTarget(0.0);
 }
 
-void Clarinet ::noteOn(StkFloat frequency, StkFloat amplitude) {
+void Clarinet::noteOn(StkFloat frequency, StkFloat amplitude) {
   this->setFrequency(frequency);
   this->startBlowing(0.55 + (amplitude * 0.30), amplitude * 0.005);
   outputGain_ = amplitude + 0.001;
 }
 
-void Clarinet ::noteOff(StkFloat amplitude) {
+void Clarinet::noteOff(StkFloat amplitude) {
   this->stopBlowing(amplitude * 0.01);
 }
 
-void Clarinet ::controlChange(int number, StkFloat value) {
+void Clarinet::controlChange(int number, StkFloat value) {
 #if defined(_STK_DEBUG_)
   if (Stk::inRange(value, 0.0, 128.0) == false) {
     oStream_ << "Clarinet::controlChange: value (" << value

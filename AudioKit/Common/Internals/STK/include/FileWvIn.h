@@ -179,7 +179,7 @@ protected:
   long chunkPointer_;
 };
 
-inline StkFloat FileWvIn ::lastOut(unsigned int channel) {
+inline StkFloat FileWvIn::lastOut(unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= data_.channels()) {
     oStream_ << "FileWvIn::lastOut(): channel argument and soundfile data are "

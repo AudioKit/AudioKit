@@ -93,7 +93,7 @@ protected:
   StkFloat alpha_;
 };
 
-inline StkFloat SineWave ::tick(void) {
+inline StkFloat SineWave::tick(void) {
   // Check limits of time address ... if necessary, recalculate modulo
   // TABLE_SIZE.
   while (time_ < 0.0)
@@ -113,7 +113,7 @@ inline StkFloat SineWave ::tick(void) {
   return lastFrame_[0];
 }
 
-inline StkFrames &SineWave ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &SineWave::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_ << "SineWave::tick(): channel and StkFrames arguments are "

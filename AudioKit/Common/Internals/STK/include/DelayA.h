@@ -123,7 +123,7 @@ protected:
   bool doNextOut_;
 };
 
-inline StkFloat DelayA ::nextOut(void) {
+inline StkFloat DelayA::nextOut(void) {
   if (doNextOut_) {
     // Do allpass interpolation delay.
     nextOutput_ = -coeff_ * lastFrame_[0];
@@ -134,7 +134,7 @@ inline StkFloat DelayA ::nextOut(void) {
   return nextOutput_;
 }
 
-inline StkFloat DelayA ::tick(StkFloat input) {
+inline StkFloat DelayA::tick(StkFloat input) {
   inputs_[inPoint_++] = input * gain_;
 
   // Increment input pointer modulo length.
@@ -152,7 +152,7 @@ inline StkFloat DelayA ::tick(StkFloat input) {
   return lastFrame_[0];
 }
 
-inline StkFrames &DelayA ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &DelayA::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_
@@ -178,7 +178,7 @@ inline StkFrames &DelayA ::tick(StkFrames &frames, unsigned int channel) {
   return frames;
 }
 
-inline StkFrames &DelayA ::tick(StkFrames &iFrames, StkFrames &oFrames,
+inline StkFrames &DelayA::tick(StkFrames &iFrames, StkFrames &oFrames,
                                 unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
   if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {

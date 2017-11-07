@@ -55,24 +55,24 @@
 
 namespace stk {
 
-StkFloat Stk ::srate_ = (StkFloat)SRATE;
-std::string Stk ::rawwavepath_ = RAWWAVE_PATH;
-const Stk::StkFormat Stk ::STK_SINT8 = 0x1;
-const Stk::StkFormat Stk ::STK_SINT16 = 0x2;
-const Stk::StkFormat Stk ::STK_SINT24 = 0x4;
-const Stk::StkFormat Stk ::STK_SINT32 = 0x8;
-const Stk::StkFormat Stk ::STK_FLOAT32 = 0x10;
-const Stk::StkFormat Stk ::STK_FLOAT64 = 0x20;
-bool Stk ::showWarnings_ = true;
-bool Stk ::printErrors_ = true;
-std::vector<Stk *> Stk ::alertList_;
-std::ostringstream Stk ::oStream_;
+StkFloat Stk::srate_ = (StkFloat)SRATE;
+std::string Stk::rawwavepath_ = RAWWAVE_PATH;
+const Stk::StkFormat Stk::STK_SINT8 = 0x1;
+const Stk::StkFormat Stk::STK_SINT16 = 0x2;
+const Stk::StkFormat Stk::STK_SINT24 = 0x4;
+const Stk::StkFormat Stk::STK_SINT32 = 0x8;
+const Stk::StkFormat Stk::STK_FLOAT32 = 0x10;
+const Stk::StkFormat Stk::STK_FLOAT64 = 0x20;
+bool Stk::showWarnings_ = true;
+bool Stk::printErrors_ = true;
+std::vector<Stk *> Stk::alertList_;
+std::ostringstream Stk::oStream_;
 
-Stk ::Stk(void) : ignoreSampleRateChange_(false) {}
+Stk::Stk(void) : ignoreSampleRateChange_(false) {}
 
-Stk ::~Stk(void) {}
+Stk::~Stk(void) {}
 
-void Stk ::setSampleRate(StkFloat rate) {
+void Stk::setSampleRate(StkFloat rate) {
   if (rate > 0.0 && rate != srate_) {
     StkFloat oldRate = srate_;
     srate_ = rate;
@@ -82,13 +82,13 @@ void Stk ::setSampleRate(StkFloat rate) {
   }
 }
 
-void Stk ::sampleRateChanged(StkFloat /*newRate*/, StkFloat /*oldRate*/) {
+void Stk::sampleRateChanged(StkFloat /*newRate*/, StkFloat /*oldRate*/) {
   // This function should be reimplemented in classes that need to
   // make internal variable adjustments in response to a global sample
   // rate change.
 }
 
-void Stk ::addSampleRateAlert(Stk *ptr) {
+void Stk::addSampleRateAlert(Stk *ptr) {
   for (unsigned int i = 0; i < alertList_.size(); i++)
     if (alertList_[i] == ptr)
       return;
@@ -96,7 +96,7 @@ void Stk ::addSampleRateAlert(Stk *ptr) {
   alertList_.push_back(ptr);
 }
 
-void Stk ::removeSampleRateAlert(Stk *ptr) {
+void Stk::removeSampleRateAlert(Stk *ptr) {
   for (unsigned int i = 0; i < alertList_.size(); i++) {
     if (alertList_[i] == ptr) {
       alertList_.erase(alertList_.begin() + i);
@@ -105,7 +105,7 @@ void Stk ::removeSampleRateAlert(Stk *ptr) {
   }
 }
 
-void Stk ::setRawwavePath(std::string path) {
+void Stk::setRawwavePath(std::string path) {
   if (!path.empty())
     rawwavepath_ = path;
 
@@ -114,7 +114,7 @@ void Stk ::setRawwavePath(std::string path) {
     rawwavepath_ += "/";
 }
 
-void Stk ::swap16(unsigned char *ptr) {
+void Stk::swap16(unsigned char *ptr) {
   unsigned char val;
 
   // Swap 1st and 2nd bytes
@@ -123,7 +123,7 @@ void Stk ::swap16(unsigned char *ptr) {
   *(ptr + 1) = val;
 }
 
-void Stk ::swap32(unsigned char *ptr) {
+void Stk::swap32(unsigned char *ptr) {
   unsigned char val;
 
   // Swap 1st and 4th bytes
@@ -138,7 +138,7 @@ void Stk ::swap32(unsigned char *ptr) {
   *(ptr + 1) = val;
 }
 
-void Stk ::swap64(unsigned char *ptr) {
+void Stk::swap64(unsigned char *ptr) {
   unsigned char val;
 
   // Swap 1st and 8th bytes
@@ -171,7 +171,7 @@ void Stk ::swap64(unsigned char *ptr) {
 #include <windows.h>
 #endif
 
-void Stk ::sleep(unsigned long milliseconds) {
+void Stk::sleep(unsigned long milliseconds) {
 #if defined(__OS_WINDOWS__)
   Sleep((DWORD)milliseconds);
 #elif (defined(__OS_IRIX__) || defined(__OS_LINUX__) || defined(__OS_MACOSX__))
@@ -179,17 +179,17 @@ void Stk ::sleep(unsigned long milliseconds) {
 #endif
 }
 
-void Stk ::handleError(StkError::Type type) const {
+void Stk::handleError(StkError::Type type) const {
   handleError(oStream_.str(), type);
   oStream_.str(std::string()); // reset the ostringstream buffer
 }
 
-void Stk ::handleError(const char *message, StkError::Type type) {
+void Stk::handleError(const char *message, StkError::Type type) {
   std::string msg(message);
   handleError(msg, type);
 }
 
-void Stk ::handleError(std::string message, StkError::Type type) {
+void Stk::handleError(std::string message, StkError::Type type) {
   if (type == StkError::WARNING || type == StkError::STATUS) {
     if (!showWarnings_)
       return;
@@ -211,7 +211,7 @@ void Stk ::handleError(std::string message, StkError::Type type) {
 // StkFrames definitions
 //
 
-StkFrames ::StkFrames(unsigned int nFrames, unsigned int nChannels)
+StkFrames::StkFrames(unsigned int nFrames, unsigned int nChannels)
     : data_(0), nFrames_(nFrames), nChannels_(nChannels) {
   size_ = nFrames_ * nChannels_;
   bufferSize_ = size_;
@@ -229,7 +229,7 @@ StkFrames ::StkFrames(unsigned int nFrames, unsigned int nChannels)
   dataRate_ = Stk::sampleRate();
 }
 
-StkFrames ::StkFrames(const StkFloat &value, unsigned int nFrames,
+StkFrames::StkFrames(const StkFloat &value, unsigned int nFrames,
                       unsigned int nChannels)
     : data_(0), nFrames_(nFrames), nChannels_(nChannels) {
   size_ = nFrames_ * nChannels_;
@@ -249,19 +249,19 @@ StkFrames ::StkFrames(const StkFloat &value, unsigned int nFrames,
   dataRate_ = Stk::sampleRate();
 }
 
-StkFrames ::~StkFrames() {
+StkFrames::~StkFrames() {
   if (data_)
     free(data_);
 }
 
-StkFrames ::StkFrames(const StkFrames &f) : data_(0), size_(0), bufferSize_(0) {
+StkFrames::StkFrames(const StkFrames &f) : data_(0), size_(0), bufferSize_(0) {
   resize(f.frames(), f.channels());
   dataRate_ = Stk::sampleRate();
   for (unsigned int i = 0; i < size_; i++)
     data_[i] = f[i];
 }
 
-StkFrames &StkFrames ::operator=(const StkFrames &f) {
+StkFrames &StkFrames::operator=(const StkFrames &f) {
   if (data_)
     free(data_);
   data_ = 0;
@@ -274,7 +274,7 @@ StkFrames &StkFrames ::operator=(const StkFrames &f) {
   return *this;
 }
 
-void StkFrames ::resize(size_t nFrames, unsigned int nChannels) {
+void StkFrames::resize(size_t nFrames, unsigned int nChannels) {
   nFrames_ = nFrames;
   nChannels_ = nChannels;
 
@@ -293,7 +293,7 @@ void StkFrames ::resize(size_t nFrames, unsigned int nChannels) {
   }
 }
 
-void StkFrames ::resize(size_t nFrames, unsigned int nChannels,
+void StkFrames::resize(size_t nFrames, unsigned int nChannels,
                         StkFloat value) {
   this->resize(nFrames, nChannels);
 
@@ -362,7 +362,7 @@ void StkFrames::setChannel(unsigned int destinationChannel,
   }
 }
 
-StkFloat StkFrames ::interpolate(StkFloat frame, unsigned int channel) const {
+StkFloat StkFrames::interpolate(StkFloat frame, unsigned int channel) const {
 #if defined(_STK_DEBUG_)
   if (frame < 0.0 || frame > (StkFloat)(nFrames_ - 1) ||
       channel >= nChannels_) {

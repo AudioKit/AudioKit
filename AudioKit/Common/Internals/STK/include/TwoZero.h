@@ -94,7 +94,7 @@ protected:
   void sampleRateChanged(StkFloat newRate, StkFloat oldRate);
 };
 
-inline StkFloat TwoZero ::tick(StkFloat input) {
+inline StkFloat TwoZero::tick(StkFloat input) {
   inputs_[0] = gain_ * input;
   lastFrame_[0] = b_[2] * inputs_[2] + b_[1] * inputs_[1] + b_[0] * inputs_[0];
   inputs_[2] = inputs_[1];
@@ -103,7 +103,7 @@ inline StkFloat TwoZero ::tick(StkFloat input) {
   return lastFrame_[0];
 }
 
-inline StkFrames &TwoZero ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &TwoZero::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_
@@ -125,7 +125,7 @@ inline StkFrames &TwoZero ::tick(StkFrames &frames, unsigned int channel) {
   return frames;
 }
 
-inline StkFrames &TwoZero ::tick(StkFrames &iFrames, StkFrames &oFrames,
+inline StkFrames &TwoZero::tick(StkFrames &iFrames, StkFrames &oFrames,
                                  unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
   if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {

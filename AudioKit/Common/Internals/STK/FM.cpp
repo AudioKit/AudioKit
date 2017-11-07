@@ -28,7 +28,7 @@
 
 namespace stk {
 
-FM ::FM(unsigned int operators) : nOperators_(operators) {
+FM::FM(unsigned int operators) : nOperators_(operators) {
   if (nOperators_ == 0) {
     oStream_ << "FM::FM: Number of operators must be greater than zero!";
     handleError(StkError::FUNCTION_ARGUMENT);
@@ -73,19 +73,19 @@ FM ::FM(unsigned int operators) : nOperators_(operators) {
   }
 }
 
-FM ::~FM(void) {
+FM::~FM(void) {
   for (unsigned int i = 0; i < nOperators_; i++) {
     delete waves_[i];
     delete adsr_[i];
   }
 }
 
-void FM ::loadWaves(const char **filenames) {
+void FM::loadWaves(const char **filenames) {
   for (unsigned int i = 0; i < nOperators_; i++)
     waves_[i] = new FileLoop(filenames[i], true);
 }
 
-void FM ::setFrequency(StkFloat frequency) {
+void FM::setFrequency(StkFloat frequency) {
 #if defined(_STK_DEBUG_)
   if (frequency <= 0.0) {
     oStream_ << "FM::setFrequency: argument is less than or equal to zero!";
@@ -99,7 +99,7 @@ void FM ::setFrequency(StkFloat frequency) {
     waves_[i]->setFrequency(baseFrequency_ * ratios_[i]);
 }
 
-void FM ::setRatio(unsigned int waveIndex, StkFloat ratio) {
+void FM::setRatio(unsigned int waveIndex, StkFloat ratio) {
   if (waveIndex >= nOperators_) {
     oStream_ << "FM:setRatio: waveIndex parameter is greater than the number "
                 "of operators!";
@@ -114,7 +114,7 @@ void FM ::setRatio(unsigned int waveIndex, StkFloat ratio) {
     waves_[waveIndex]->setFrequency(ratio);
 }
 
-void FM ::setGain(unsigned int waveIndex, StkFloat gain) {
+void FM::setGain(unsigned int waveIndex, StkFloat gain) {
   if (waveIndex >= nOperators_) {
     oStream_ << "FM::setGain: waveIndex parameter is greater than the number "
                 "of operators!";
@@ -125,19 +125,19 @@ void FM ::setGain(unsigned int waveIndex, StkFloat gain) {
   gains_[waveIndex] = gain;
 }
 
-void FM ::keyOn(void) {
+void FM::keyOn(void) {
   for (unsigned int i = 0; i < nOperators_; i++)
     adsr_[i]->keyOn();
 }
 
-void FM ::keyOff(void) {
+void FM::keyOff(void) {
   for (unsigned int i = 0; i < nOperators_; i++)
     adsr_[i]->keyOff();
 }
 
-void FM ::noteOff(StkFloat amplitude) { this->keyOff(); }
+void FM::noteOff(StkFloat amplitude) { this->keyOff(); }
 
-void FM ::controlChange(int number, StkFloat value) {
+void FM::controlChange(int number, StkFloat value) {
 #if defined(_STK_DEBUG_)
   if (Stk::inRange(value, 0.0, 128.0) == false) {
     oStream_ << "FM::controlChange: value (" << value << ") is out of range!";

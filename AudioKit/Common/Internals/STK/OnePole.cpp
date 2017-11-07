@@ -14,7 +14,7 @@
 
 namespace stk {
 
-OnePole ::OnePole(StkFloat thePole) {
+OnePole::OnePole(StkFloat thePole) {
   b_.resize(1);
   a_.resize(2);
   a_[0] = 1.0;
@@ -24,9 +24,9 @@ OnePole ::OnePole(StkFloat thePole) {
   this->setPole(thePole);
 }
 
-OnePole ::~OnePole() {}
+OnePole::~OnePole() {}
 
-void OnePole ::setPole(StkFloat thePole) {
+void OnePole::setPole(StkFloat thePole) {
   if (std::abs(thePole) >= 1.0) {
     oStream_ << "OnePole::setPole: argument (" << thePole
              << ") should be less than 1.0!";
@@ -43,7 +43,7 @@ void OnePole ::setPole(StkFloat thePole) {
   a_[1] = -thePole;
 }
 
-void OnePole ::setCoefficients(StkFloat b0, StkFloat a1, bool clearState) {
+void OnePole::setCoefficients(StkFloat b0, StkFloat a1, bool clearState) {
   if (std::abs(a1) >= 1.0) {
     oStream_ << "OnePole::setCoefficients: a1 argument (" << a1
              << ") should be less than 1.0!";

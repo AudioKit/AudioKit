@@ -40,21 +40,21 @@
 
 namespace stk {
 
-FileRead ::FileRead()
+FileRead::FileRead()
     : fd_(0), fileSize_(0), channels_(0), dataType_(0), fileRate_(0.0) {}
 
-FileRead ::FileRead(std::string fileName, bool typeRaw, unsigned int nChannels,
+FileRead::FileRead(std::string fileName, bool typeRaw, unsigned int nChannels,
                     StkFormat format, StkFloat rate)
     : fd_(0) {
   open(fileName, typeRaw, nChannels, format, rate);
 }
 
-FileRead ::~FileRead() {
+FileRead::~FileRead() {
   if (fd_)
     fclose(fd_);
 }
 
-void FileRead ::close(void) {
+void FileRead::close(void) {
   if (fd_)
     fclose(fd_);
   fd_ = 0;
@@ -65,14 +65,14 @@ void FileRead ::close(void) {
   fileRate_ = 0.0;
 }
 
-bool FileRead ::isOpen(void) {
+bool FileRead::isOpen(void) {
   if (fd_)
     return true;
   else
     return false;
 }
 
-void FileRead ::open(std::string fileName, bool typeRaw, unsigned int nChannels,
+void FileRead::open(std::string fileName, bool typeRaw, unsigned int nChannels,
                      StkFormat format, StkFloat rate) {
   // If another file is open, close it.
   close();
@@ -131,7 +131,7 @@ error:
   handleError(StkError::FILE_ERROR);
 }
 
-bool FileRead ::getRawInfo(const char *fileName, unsigned int nChannels,
+bool FileRead::getRawInfo(const char *fileName, unsigned int nChannels,
                            StkFormat format, StkFloat rate) {
   // Use the system call "stat" to determine the file length.
   struct stat filestat;
@@ -178,7 +178,7 @@ bool FileRead ::getRawInfo(const char *fileName, unsigned int nChannels,
   return true;
 }
 
-bool FileRead ::getWavInfo(const char *fileName) {
+bool FileRead::getWavInfo(const char *fileName) {
   // Find "format" chunk ... it must come before the "data" chunk.
   char id[4];
   SINT32 chunkSize;
@@ -328,7 +328,7 @@ error:
   return false;
 }
 
-bool FileRead ::getSndInfo(const char *fileName) {
+bool FileRead::getSndInfo(const char *fileName) {
   // Determine the data type.
   UINT32 format;
   if (fseek(fd_, 12, SEEK_SET) == -1)
@@ -415,7 +415,7 @@ error:
   return false;
 }
 
-bool FileRead ::getAifInfo(const char *fileName) {
+bool FileRead::getAifInfo(const char *fileName) {
   bool aifc = false;
   char id[4];
 
@@ -572,7 +572,7 @@ error:
   return false;
 }
 
-bool FileRead ::findNextMatArray(SINT32 *chunkSize, SINT32 *rows,
+bool FileRead::findNextMatArray(SINT32 *chunkSize, SINT32 *rows,
                                  SINT32 *columns, SINT32 *nametype) {
   // Look for the next data array element. The file pointer should be
   // at the data element type when this function is called.
@@ -621,7 +621,7 @@ bool FileRead ::findNextMatArray(SINT32 *chunkSize, SINT32 *rows,
   return true;
 }
 
-bool FileRead ::getMatInfo(const char *fileName) {
+bool FileRead::getMatInfo(const char *fileName) {
   // MAT-file formatting information is available at:
   // http://www.mathworks.com/access/helpdesk/help/pdf_doc/matlab/matfile_format.pdf
 
@@ -852,7 +852,7 @@ error:
   return false;
 }
 
-void FileRead ::read(StkFrames &buffer, unsigned long startFrame,
+void FileRead::read(StkFrames &buffer, unsigned long startFrame,
                      bool doNormalize) {
   // Make sure we have an open file.
   if (fd_ == 0) {

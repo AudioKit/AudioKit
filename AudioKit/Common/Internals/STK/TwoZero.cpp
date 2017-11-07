@@ -15,7 +15,7 @@
 
 namespace stk {
 
-TwoZero ::TwoZero(void) {
+TwoZero::TwoZero(void) {
   b_.resize(3, 0.0);
   inputs_.resize(3, 1, 0.0);
   b_[0] = 1.0;
@@ -23,9 +23,9 @@ TwoZero ::TwoZero(void) {
   Stk::addSampleRateAlert(this);
 }
 
-TwoZero ::~TwoZero() { Stk::removeSampleRateAlert(this); }
+TwoZero::~TwoZero() { Stk::removeSampleRateAlert(this); }
 
-void TwoZero ::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
+void TwoZero::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
   if (!ignoreSampleRateChange_) {
     oStream_ << "TwoZero::sampleRateChanged: you may need to recompute filter "
                 "coefficients!";
@@ -33,7 +33,7 @@ void TwoZero ::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
   }
 }
 
-void TwoZero ::setCoefficients(StkFloat b0, StkFloat b1, StkFloat b2,
+void TwoZero::setCoefficients(StkFloat b0, StkFloat b1, StkFloat b2,
                                bool clearState) {
   b_[0] = b0;
   b_[1] = b1;
@@ -43,7 +43,7 @@ void TwoZero ::setCoefficients(StkFloat b0, StkFloat b1, StkFloat b2,
     this->clear();
 }
 
-void TwoZero ::setNotch(StkFloat frequency, StkFloat radius) {
+void TwoZero::setNotch(StkFloat frequency, StkFloat radius) {
 #if defined(_STK_DEBUG_)
   if (frequency < 0.0 || frequency > 0.5 * Stk::sampleRate()) {
     oStream_ << "TwoZero::setNotch: frequency argument (" << frequency

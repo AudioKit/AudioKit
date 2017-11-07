@@ -118,7 +118,7 @@ protected:
   bool doNextOut_;
 };
 
-inline StkFloat DelayL ::nextOut(void) {
+inline StkFloat DelayL::nextOut(void) {
   if (doNextOut_) {
     // First 1/2 of interpolation
     nextOutput_ = inputs_[outPoint_] * omAlpha_;
@@ -133,7 +133,7 @@ inline StkFloat DelayL ::nextOut(void) {
   return nextOutput_;
 }
 
-inline void DelayL ::setDelay(StkFloat delay) {
+inline void DelayL::setDelay(StkFloat delay) {
   if (delay + 1 > inputs_.size()) { // The value is too big.
     oStream_ << "DelayL::setDelay: argument (" << delay
              << ") greater than  maximum!";
@@ -163,7 +163,7 @@ inline void DelayL ::setDelay(StkFloat delay) {
   doNextOut_ = true;
 }
 
-inline StkFloat DelayL ::tick(StkFloat input) {
+inline StkFloat DelayL::tick(StkFloat input) {
   inputs_[inPoint_++] = input * gain_;
 
   // Increment input pointer modulo length.
@@ -180,7 +180,7 @@ inline StkFloat DelayL ::tick(StkFloat input) {
   return lastFrame_[0];
 }
 
-inline StkFrames &DelayL ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &DelayL::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_
@@ -205,7 +205,7 @@ inline StkFrames &DelayL ::tick(StkFrames &frames, unsigned int channel) {
   return frames;
 }
 
-inline StkFrames &DelayL ::tick(StkFrames &iFrames, StkFrames &oFrames,
+inline StkFrames &DelayL::tick(StkFrames &iFrames, StkFrames &oFrames,
                                 unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
   if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {

@@ -25,14 +25,14 @@
 
 namespace stk {
 
-Fir ::Fir() {
+Fir::Fir() {
   // The default constructor should setup for pass-through.
   b_.push_back(1.0);
 
   inputs_.resize(1, 1, 0.0);
 }
 
-Fir ::Fir(std::vector<StkFloat> &coefficients) {
+Fir::Fir(std::vector<StkFloat> &coefficients) {
   // Check the arguments.
   if (coefficients.size() == 0) {
     oStream_ << "Fir: coefficient vector must have size > 0!";
@@ -46,9 +46,9 @@ Fir ::Fir(std::vector<StkFloat> &coefficients) {
   this->clear();
 }
 
-Fir ::~Fir() {}
+Fir::~Fir() {}
 
-void Fir ::setCoefficients(std::vector<StkFloat> &coefficients,
+void Fir::setCoefficients(std::vector<StkFloat> &coefficients,
                            bool clearState) {
   // Check the argument.
   if (coefficients.size() == 0) {

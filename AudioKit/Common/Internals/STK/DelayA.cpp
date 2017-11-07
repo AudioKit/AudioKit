@@ -22,7 +22,7 @@
 
 namespace stk {
 
-DelayA ::DelayA(StkFloat delay, unsigned long maxDelay) {
+DelayA::DelayA(StkFloat delay, unsigned long maxDelay) {
   if (delay < 0.5) {
     oStream_ << "DelayA::DelayA: delay must be >= 0.5!";
     handleError(StkError::FUNCTION_ARGUMENT);
@@ -43,22 +43,22 @@ DelayA ::DelayA(StkFloat delay, unsigned long maxDelay) {
   doNextOut_ = true;
 }
 
-DelayA ::~DelayA() {}
+DelayA::~DelayA() {}
 
-void DelayA ::clear() {
+void DelayA::clear() {
   for (unsigned int i = 0; i < inputs_.size(); i++)
     inputs_[i] = 0.0;
   lastFrame_[0] = 0.0;
   apInput_ = 0.0;
 }
 
-void DelayA ::setMaximumDelay(unsigned long delay) {
+void DelayA::setMaximumDelay(unsigned long delay) {
   if (delay < inputs_.size())
     return;
   inputs_.resize(delay + 1, 1, 0.0);
 }
 
-void DelayA ::setDelay(StkFloat delay) {
+void DelayA::setDelay(StkFloat delay) {
   unsigned long length = inputs_.size();
   if (delay + 1 > length) { // The value is too big.
     oStream_ << "DelayA::setDelay: argument (" << delay
@@ -96,7 +96,7 @@ void DelayA ::setDelay(StkFloat delay) {
   coeff_ = (1.0 - alpha_) / (1.0 + alpha_); // coefficient for allpass
 }
 
-StkFloat DelayA ::tapOut(unsigned long tapDelay) {
+StkFloat DelayA::tapOut(unsigned long tapDelay) {
   long tap = inPoint_ - tapDelay - 1;
   while (tap < 0) // Check for wraparound.
     tap += inputs_.size();
@@ -104,7 +104,7 @@ StkFloat DelayA ::tapOut(unsigned long tapDelay) {
   return inputs_[tap];
 }
 
-void DelayA ::tapIn(StkFloat value, unsigned long tapDelay) {
+void DelayA::tapIn(StkFloat value, unsigned long tapDelay) {
   long tap = inPoint_ - tapDelay - 1;
   while (tap < 0) // Check for wraparound.
     tap += inputs_.size();

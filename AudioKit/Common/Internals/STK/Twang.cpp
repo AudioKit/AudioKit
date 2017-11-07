@@ -25,7 +25,7 @@
 
 namespace stk {
 
-Twang ::Twang(StkFloat lowestFrequency) {
+Twang::Twang(StkFloat lowestFrequency) {
   if (lowestFrequency <= 0.0) {
     oStream_ << "Twang::Twang: argument is less than or equal to zero!";
     handleError(StkError::FUNCTION_ARGUMENT);
@@ -41,20 +41,20 @@ Twang ::Twang(StkFloat lowestFrequency) {
   this->setFrequency(220.0);
 }
 
-void Twang ::clear(void) {
+void Twang::clear(void) {
   delayLine_.clear();
   combDelay_.clear();
   loopFilter_.clear();
   lastOutput_ = 0.0;
 }
 
-void Twang ::setLowestFrequency(StkFloat frequency) {
+void Twang::setLowestFrequency(StkFloat frequency) {
   unsigned long nDelays = (unsigned long)(Stk::sampleRate() / frequency);
   delayLine_.setMaximumDelay(nDelays + 1);
   combDelay_.setMaximumDelay(nDelays + 1);
 }
 
-void Twang ::setFrequency(StkFloat frequency) {
+void Twang::setFrequency(StkFloat frequency) {
 #if defined(_STK_DEBUG_)
   if (frequency <= 0.0) {
     oStream_ << "Twang::setFrequency: argument is less than or equal to zero!";
@@ -75,7 +75,7 @@ void Twang ::setFrequency(StkFloat frequency) {
   combDelay_.setDelay(0.5 * pluckPosition_ * delay);
 }
 
-void Twang ::setLoopGain(StkFloat loopGain) {
+void Twang::setLoopGain(StkFloat loopGain) {
   if (loopGain < 0.0 || loopGain >= 1.0) {
     oStream_ << "Twang::setLoopGain: parameter is out of range!";
     handleError(StkError::WARNING);
@@ -89,7 +89,7 @@ void Twang ::setLoopGain(StkFloat loopGain) {
   loopFilter_.setGain(gain);
 }
 
-void Twang ::setPluckPosition(StkFloat position) {
+void Twang::setPluckPosition(StkFloat position) {
   if (position < 0.0 || position > 1.0) {
     oStream_ << "Twang::setPluckPosition: argument (" << position
              << ") is out of range!";

@@ -75,7 +75,7 @@ public:
   StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 };
 
-inline StkFloat PoleZero ::tick(StkFloat input) {
+inline StkFloat PoleZero::tick(StkFloat input) {
   inputs_[0] = gain_ * input;
   lastFrame_[0] = b_[0] * inputs_[0] + b_[1] * inputs_[1] - a_[1] * outputs_[1];
   inputs_[1] = inputs_[0];
@@ -84,7 +84,7 @@ inline StkFloat PoleZero ::tick(StkFloat input) {
   return lastFrame_[0];
 }
 
-inline StkFrames &PoleZero ::tick(StkFrames &frames, unsigned int channel) {
+inline StkFrames &PoleZero::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
   if (channel >= frames.channels()) {
     oStream_ << "PoleZero::tick(): channel and StkFrames arguments are "
