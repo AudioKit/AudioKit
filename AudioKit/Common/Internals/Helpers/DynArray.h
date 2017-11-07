@@ -42,10 +42,10 @@ public:
   inline const DataType &operator[](long pos) const;
   inline DataType &operator[](long pos);
 
-  /*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 protected:
-  /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  
 
 private:
   DataType *_data_ptr;

@@ -188,9 +188,9 @@ template <int LL2> void FFTRealFixLen<LL2>::rescale(DataType x[]) const {
   }
 }
 
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+
 
 template <int LL2> void FFTRealFixLen<LL2>::build_br_lut() {
   _br_data[0] = 0;

@@ -54,9 +54,9 @@ inline void FFTRealUseTrigo<0>::iterate(OscType &osc, DataType &c, DataType &s,
   s = cos_ptr[index_s];
 }
 
-/*\\\ PROTECTED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-/*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+
 
 }
 
