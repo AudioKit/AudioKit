@@ -60,7 +60,7 @@ private:
 
 }; // class FFTRealPassDirect
 
-} // namespace ffft
+}
 
 #include "ffft/FFTRealPassDirect.hpp"
 

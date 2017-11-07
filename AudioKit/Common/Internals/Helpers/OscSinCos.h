@@ -64,7 +64,7 @@ private:
 
 }; // class OscSinCos
 
-} // namespace ffft
+}
 
 #include "OscSinCos.hpp"
 

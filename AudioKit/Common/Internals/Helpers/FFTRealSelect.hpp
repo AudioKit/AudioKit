@@ -34,7 +34,7 @@ inline float *FFTRealSelect<0>::sel_bin(float *e_ptr, float *o_ptr) {
   return (e_ptr);
 }
 
-} // namespace ffft
+}
 
 #endif // ffft_FFTRealSelect_CODEHEADER_INCLUDED
 

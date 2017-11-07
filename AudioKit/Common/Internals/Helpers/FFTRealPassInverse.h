@@ -69,7 +69,7 @@ private:
 
 }; // class FFTRealPassInverse
 
-} // namespace ffft
+}
 
 #include "ffft/FFTRealPassInverse.hpp"
 

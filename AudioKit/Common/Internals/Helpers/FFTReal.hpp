@@ -744,7 +744,7 @@ void FFTReal<DT>::compute_inverse_pass_1_2(DataType x[],
   } while (coef_index < _length);
 }
 
-} // namespace ffft
+}
 
 #endif // ffft_FFTReal_CODEHEADER_INCLUDED
 

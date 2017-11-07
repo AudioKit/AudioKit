@@ -104,7 +104,7 @@ private:
 
 }; // class FFTReal
 
-} // namespace ffft
+}
 
 #include "FFTReal.hpp"
 

@@ -61,7 +61,7 @@ private:
 
 }; // class DynArray
 
-} // namespace ffft
+}
 
 #include "DynArray.hpp"
 

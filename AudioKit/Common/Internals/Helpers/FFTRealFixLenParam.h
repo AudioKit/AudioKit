@@ -52,7 +52,7 @@ private:
 
 }; // class FFTRealFixLenParam
 
-} // namespace ffft
+}
 
 //#include	"ffft/FFTRealFixLenParam.hpp"
 

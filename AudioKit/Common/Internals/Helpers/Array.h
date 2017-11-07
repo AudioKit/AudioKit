@@ -57,7 +57,7 @@ private:
 
 }; // class Array
 
-} // namespace ffft
+}
 
 #include "ffft/Array.hpp"
 

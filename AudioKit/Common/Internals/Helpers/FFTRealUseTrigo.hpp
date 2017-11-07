@@ -58,7 +58,7 @@ inline void FFTRealUseTrigo<0>::iterate(OscType &osc, DataType &c, DataType &s,
 
 /*\\\ PRIVATE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
-} // namespace ffft
+}
 
 #endif // ffft_FFTRealUseTrigo_CODEHEADER_INCLUDED
 
