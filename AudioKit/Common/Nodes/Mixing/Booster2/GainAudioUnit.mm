@@ -51,10 +51,10 @@
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
-    
+
     self = [super initWithComponentDescription:componentDescription options:options error:outError];
     if (self == nil) { return nil; }
-    
+
     // Create a parameter object for the gain.
     AUParameter *gain = [AUParameterTree createParameterWithIdentifier:@"gain" name:@"Gain"
                                                                address:kGain
@@ -66,9 +66,9 @@
                                                                        kAudioUnitParameterFlag_CanRamp
                                                           valueStrings:nil
                                                    dependentParameters:nil];
-    
-    
-    
+
+
+
     // Create the parameter tree.
     [self setParameterTree: [AUParameterTree createTreeWithChildren:@[gain]]];
 

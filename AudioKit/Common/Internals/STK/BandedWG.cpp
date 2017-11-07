@@ -274,7 +274,7 @@ StkFloat BandedWG :: tick( unsigned int )
 
     for ( k=0; k<nModes_; k++ )
       velocityInput_ += baseGain_ * delay_[k].lastOut();
-      
+
     if ( trackVelocity_ )  {
       bowVelocity_ *= 0.9995;
       bowVelocity_ += bowTarget_;

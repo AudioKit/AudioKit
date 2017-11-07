@@ -31,9 +31,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(CombFilterReverb)
-    
+
     // Create a parameter object for the reverbDuration.
     AUParameter *reverbDurationAUParameter = [AUParameter parameter:@"reverbDuration"
                                                                name:@"Reverb Duration (Seconds)"
@@ -41,19 +41,19 @@ standardKernelPassthroughs()
                                                                 min:0.0
                                                                 max:10.0
                                                                unit:kAudioUnitParameterUnit_Seconds];
-    
+
     // Initialize the parameter values.
     reverbDurationAUParameter.value = 1.0;
-    
-    
+
+
     _kernel.setParameter(reverbDurationAddress, reverbDurationAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              reverbDurationAUParameter
                                              ]];
-    
-    
+
+
     parameterTreeBlock(CombFilterReverb)
 }
 

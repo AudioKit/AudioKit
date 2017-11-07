@@ -202,7 +202,7 @@ StkFrames& FileLoop :: tick( StkFrames& frames, unsigned int channel)
 #endif
   return frames;
   }
-        
+
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
   if ( channel > frames.channels() - nChannels ) {
@@ -210,7 +210,7 @@ StkFrames& FileLoop :: tick( StkFrames& frames, unsigned int channel)
     handleError( StkError::FUNCTION_ARGUMENT );
   }
 #endif
-        
+
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
   if ( nChannels == 1 ) {
@@ -225,7 +225,7 @@ StkFrames& FileLoop :: tick( StkFrames& frames, unsigned int channel)
       }
     }
   return frames;
-        
+
 }
 
 } // stk namespace

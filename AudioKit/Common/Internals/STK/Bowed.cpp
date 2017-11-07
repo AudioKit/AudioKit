@@ -68,7 +68,7 @@ Bowed :: Bowed( StkFloat lowestFrequency )
   bodyFilters_[5].setCoefficients( 1.0, -1.9800, 0.9888, -1.9867, 0.9923 );
 
   adsr_.setAllTimes( 0.02, 0.005, 0.9, 0.01 );
-    
+
   betaRatio_ = 0.127236;
 
   // Necessary to initialize internal variables.

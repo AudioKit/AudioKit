@@ -97,7 +97,7 @@ int sp_drip_init(sp_data *sp, sp_drip *p, SPFLOAT dettack)
     p->coeffs21 = WUTR_RESON * WUTR_RESON;
     p->coeffs20 = -WUTR_RESON * 2.0 *
       cos(WUTR_CENTER_FREQ2 * tpidsr);
-                                
+
     p->shakeEnergy = p->amp * 1.0 * MAX_SHAKE * 0.1;
     p->shake_damp = 0.0;
     if (p->shakeEnergy > MAX_SHAKE) p->shakeEnergy = MAX_SHAKE;

@@ -62,7 +62,7 @@ void Moog :: setFrequency( StkFloat frequency )
 void Moog :: noteOn( StkFloat frequency, StkFloat amplitude )
 {
   StkFloat temp;
-    
+
   this->setFrequency( frequency );
   this->keyOn();
   attackGain_ = amplitude * 0.5;

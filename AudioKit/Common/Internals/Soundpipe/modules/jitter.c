@@ -64,7 +64,7 @@ int sp_jitter_compute(sp_data *sp, sp_jitter *p, SPFLOAT *in, SPFLOAT *out)
       p->dfdmax = 1.0 * (p->num2 - p->num1) / SP_FT_MAXLEN;
       return SP_OK;
     }
-    
+
     *out = (p->num1 + (SPFLOAT)p->phs * p->dfdmax) * p->amp;
     p->phs += (int32_t)(p->cps * (SPFLOAT)(SP_FT_MAXLEN / sp->sr));
 

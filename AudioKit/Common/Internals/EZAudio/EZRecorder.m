@@ -121,7 +121,7 @@ typedef struct
             audioFileTypeID:(AudioFileTypeID)audioFileTypeID
                    delegate:(id<EZRecorderDelegate>)delegate
 {
-    
+
     self = [super init];
     if (self)
     {
@@ -231,11 +231,11 @@ typedef struct
             asbd = [EZAudioUtilities M4AFormatWithNumberOfChannels:sourceFormat.mChannelsPerFrame
                                                         sampleRate:sourceFormat.mSampleRate];
             break;
-            
+
         case EZRecorderFileTypeWAV:
             asbd = [EZAudioUtilities stereoFloatInterleavedFormatWithSampleRate:sourceFormat.mSampleRate];
             break;
-            
+
         default:
             asbd = [EZAudioUtilities stereoCanonicalNonInterleavedFormatWithSampleRate:sourceFormat.mSampleRate];
             break;
@@ -254,15 +254,15 @@ typedef struct
         case EZRecorderFileTypeAIFF:
             audioFileTypeID = kAudioFileAIFFType;
             break;
-            
+
         case EZRecorderFileTypeM4A:
             audioFileTypeID = kAudioFileM4AType;
             break;
-            
+
         case EZRecorderFileTypeWAV:
             audioFileTypeID = kAudioFileWAVEType;
             break;
-            
+
         default:
             audioFileTypeID = kAudioFileWAVEType;
             break;
@@ -282,7 +282,7 @@ typedef struct
                                                          &propSize,
                                                          &self.info->fileFormat)
                         operation:"Failed to fill out rest of destination format"];
-    
+
     //
     // Create the audio file
     //
@@ -293,7 +293,7 @@ typedef struct
                                                             kAudioFileFlags_EraseFile,
                                                             &self.info->extAudioFileRef)
                         operation:"Failed to create audio file"];
-    
+
     //
     // Set the client format
     //
@@ -311,7 +311,7 @@ typedef struct
     // Make sure the audio file is not closed
     //
     NSAssert(!self.info->closed, @"Cannot append data when EZRecorder has been closed. You must create a new instance.;");
-    
+
     //
     // Perform the write
     //
@@ -319,7 +319,7 @@ typedef struct
                                                          bufferSize,
                                                          bufferList)
                operation:"Failed to write audio data to recorded audio file"];
-    
+
     //
     // Notify delegate
     //
@@ -341,7 +341,7 @@ typedef struct
         [EZAudioUtilities checkResult:ExtAudioFileDispose(self.info->extAudioFileRef)
                             operation:"Failed to close audio file"];
         self.info->closed = YES;
-        
+
         //
         // Notify delegate
         //

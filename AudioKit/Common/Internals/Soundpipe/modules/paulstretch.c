@@ -142,6 +142,6 @@ int sp_paulstretch_compute(sp_data *sp, sp_paulstretch *p, SPFLOAT *in, SPFLOAT 
     }
     *out = p->output[p->counter];
     p->counter = (p->counter + 1) % p->half_windowsize;
-    
+
     return SP_OK;
 }

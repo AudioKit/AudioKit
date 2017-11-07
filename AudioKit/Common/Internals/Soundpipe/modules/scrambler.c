@@ -53,7 +53,7 @@ int sp_gen_scrambler(sp_data *sp, sp_ftbl *src, sp_ftbl **dest)
     kiss_fftr_free(fft);
     kiss_fftr_free(ifft);
     KISS_FFT_FREE(tmp);
-    
+
     *dest = dst;
     return SP_OK;
 }

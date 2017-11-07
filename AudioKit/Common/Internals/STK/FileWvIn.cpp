@@ -243,7 +243,7 @@ StkFrames& FileWvIn :: tick( StkFrames& frames, unsigned int channel)
     handleError( StkError::FUNCTION_ARGUMENT );
   }
 #endif
-    
+
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
   if ( nChannels == 1 ) {

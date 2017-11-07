@@ -63,7 +63,7 @@ int sp_streson_compute(sp_data *sp, sp_streson *p, SPFLOAT *in, SPFLOAT *out)
     fracdelay = tdelay - (delay + 0.5); /* fractional delay */
     vdt = size - delay;       /* set the var delay */
     a = (1.0-fracdelay)/(1.0+fracdelay);   /* set the all-pass gain */
-    
+
     SPFLOAT tmpo;
     rp = (vdt + wp);
     if (rp >= size) rp -= size;

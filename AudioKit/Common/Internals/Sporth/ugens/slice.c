@@ -46,7 +46,7 @@ int sporth_slice(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            
+
             if(plumber_ftmap_search(pd, buf_name, &buf) == PLUMBER_NOTOK) { 
                 plumber_print(pd, "slice: could not find ftable %s\n", 
                     vals_name);

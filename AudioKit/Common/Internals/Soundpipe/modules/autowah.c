@@ -192,7 +192,7 @@ int sp_autowah_init(sp_data *sp, sp_autowah *p)
     UI.uiInterface = p;
     buildUserInterfaceautowah(dsp, &UI);
     initautowah(dsp, sp->sr);
-    
+
     p->level = p->args[0]; 
     p->wah = p->args[1]; 
     p->mix = p->args[2];

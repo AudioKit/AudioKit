@@ -77,7 +77,7 @@ int sp_biquad_compute(sp_data *sp, sp_biquad *p, SPFLOAT *in, SPFLOAT *out)
     ynm2 = ynm1;
     ynm1 = yn;
     *out = yn;
-    
+
     p->xnm1 = xnm1; p->xnm2 = xnm2; p->ynm1 = ynm1; p->ynm2 = ynm2;
     return SP_OK;
 }

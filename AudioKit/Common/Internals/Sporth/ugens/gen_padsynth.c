@@ -30,7 +30,7 @@ int sporth_gen_padsynth(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            
+
 
             sp_ftbl_create(pd->sp, &ft, size);
 

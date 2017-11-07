@@ -62,6 +62,6 @@ int sp_thresh_compute(sp_data *sp, sp_thresh *p, SPFLOAT *in, SPFLOAT *out)
     }
 
     p->prev = *in;
-    
+
     return SP_OK;
 }

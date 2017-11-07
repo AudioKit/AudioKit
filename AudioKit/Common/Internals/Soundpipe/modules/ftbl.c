@@ -331,7 +331,7 @@ int sp_gen_composite(sp_data *sp, sp_ftbl *ft, const char *argstring)
 {
     SPFLOAT phs, inc, amp, dc, tpdlen = 2 * M_PI/ (SPFLOAT) ft->size;
     int i, n;
-    
+
     sp_ftbl *args;
     sp_ftbl_create(sp, &args, 1);
     sp_gen_vals(sp, args, argstring);

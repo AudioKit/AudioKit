@@ -30,7 +30,7 @@ public:
         sp_jcrev_destroy(&_jcrev1);
         AK4DspSoundpipeBase::destroy();
     }
-    
+
     void processSample(int channel, float* in, float* out) override {
         if (channel == 0) {
             sp_jcrev_compute(_sp, _jcrev0, in, out);

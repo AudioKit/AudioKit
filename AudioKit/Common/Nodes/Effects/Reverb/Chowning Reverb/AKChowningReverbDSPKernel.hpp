@@ -67,7 +67,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     if (channel == 0) {
                         sp_jcrev_compute(sp, jcrev0, in, out);

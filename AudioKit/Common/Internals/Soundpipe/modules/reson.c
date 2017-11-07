@@ -51,25 +51,25 @@ int sp_reson_compute(sp_data *sp, sp_reson *p, SPFLOAT *in, SPFLOAT *out)
 
     yt1 = p->yt1; 
     yt2 = p->yt2;
-    
+
     SPFLOAT yt0;
     SPFLOAT cf = p->freq;
-    
+
     /* bw needs to stay positive so it doesn't blow the filter up */
     SPFLOAT bw = fabs(p->bw);
-    
+
     if (cf != p->prvfreq ) {
         p->prvfreq = cf;
         p->cosf = cos(cf * (p->tpidsr));
         flag = 1;
     }
-    
+
     if (bw != p->prvbw) {
         p->prvbw = bw;
         c3 = p->c3 = exp(bw * (-1.0 * p->tpidsr));
         flag = 1;
     }
-    
+
     if (flag) {
         c3p1 = c3 + 1.0;
         c3t4 = c3 * 4.0;
@@ -77,7 +77,7 @@ int sp_reson_compute(sp_data *sp, sp_reson *p, SPFLOAT *in, SPFLOAT *out)
         c1 = p->c1 = 1.0;
         flag = 0;
     }
-    
+
     yt0 = c1 * *in  + c2 * yt1 - c3 * yt2;
     *out = yt0;
     yt2 = yt1;
