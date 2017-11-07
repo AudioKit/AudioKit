@@ -1,6 +1,4 @@
-#ifndef STK_TUBEBELL_H
-#define STK_TUBEBELL_H
-
+#pragma once
 #include "FM.h"
 
 namespace stk {
@@ -119,4 +117,3 @@ inline StkFrames &TubeBell::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

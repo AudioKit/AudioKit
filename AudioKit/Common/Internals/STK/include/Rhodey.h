@@ -1,5 +1,4 @@
-#ifndef STK_RHODEY_H
-#define STK_RHODEY_H
+#pragma once
 
 #include "FM.h"
 
@@ -122,4 +121,3 @@ inline StkFrames &Rhodey::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

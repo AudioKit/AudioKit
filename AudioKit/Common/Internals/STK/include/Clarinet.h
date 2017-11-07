@@ -1,5 +1,4 @@
-#ifndef STK_CLARINET_H
-#define STK_CLARINET_H
+#pragma once
 
 #include "DelayL.h"
 #include "Envelope.h"
@@ -148,4 +147,3 @@ inline StkFrames &Clarinet::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

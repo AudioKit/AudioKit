@@ -1,5 +1,4 @@
-#ifndef STK_SINEWAVE_H
-#define STK_SINEWAVE_H
+#pragma once
 
 const unsigned long TABLE_SIZE = 2048;
 
@@ -151,4 +150,3 @@ inline StkFrames &SineWave::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

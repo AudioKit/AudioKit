@@ -1,5 +1,4 @@
-#ifndef STK_MANDOLIN_H
-#define STK_MANDOLIN_H
+#pragma once
 
 #include "FileWvIn.h"
 #include "Instrmnt.h"
@@ -140,4 +139,3 @@ inline StkFrames &Mandolin::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

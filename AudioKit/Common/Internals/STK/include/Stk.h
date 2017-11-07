@@ -1,5 +1,4 @@
-#ifndef STK_STK_H
-#define STK_STK_H
+#pragma once
 
 #include <cstring>
 #include <iostream>
@@ -597,4 +596,3 @@ const StkFloat ONE_OVER_128 = 0.0078125;
 
 }
 
-#endif

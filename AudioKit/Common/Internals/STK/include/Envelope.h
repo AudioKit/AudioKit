@@ -1,5 +1,4 @@
-#ifndef STK_ENVELOPE_H
-#define STK_ENVELOPE_H
+#pragma once
 
 #include "Generator.h"
 
@@ -122,4 +121,3 @@ inline StkFrames &Envelope::tick(StkFrames &frames, unsigned int channel) {
 
 }
 
-#endif

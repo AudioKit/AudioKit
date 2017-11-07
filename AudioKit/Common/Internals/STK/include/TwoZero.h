@@ -1,5 +1,4 @@
-#ifndef STK_TWOZERO_H
-#define STK_TWOZERO_H
+#pragma once
 
 #include "Filter.h"
 
@@ -152,4 +151,3 @@ inline StkFrames &TwoZero::tick(StkFrames &iFrames, StkFrames &oFrames,
 
 }
 
-#endif

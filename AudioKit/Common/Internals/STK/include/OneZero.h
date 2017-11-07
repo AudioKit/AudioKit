@@ -1,5 +1,4 @@
-#ifndef STK_ONEZERO_H
-#define STK_ONEZERO_H
+#pragma once
 
 #include "Filter.h"
 
@@ -131,4 +130,3 @@ inline StkFrames &OneZero::tick(StkFrames &iFrames, StkFrames &oFrames,
 
 }
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef STK_FM_H
-#define STK_FM_H
+#pragma once
 
 #include "ADSR.h"
 #include "FileLoop.h"
@@ -115,4 +114,3 @@ protected:
 
 }
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef STK_FILELOOP_H
-#define STK_FILELOOP_H
+#pragma once
 
 #include "FileWvIn.h"
 
@@ -165,4 +164,3 @@ protected:
 
 }
 
-#endif
