@@ -10,12 +10,12 @@
 
 #import "AK4DspSoundPipe.hpp"
 
-class AK4ChowningReverbDsp : public AK4DspSoundpipeBase {
+class AKChowningReverbDsp : public AK4DspSoundpipeBase {
     sp_jcrev* _jcrev0;
     sp_jcrev* _jcrev1;
 
 public:
-    AK4ChowningReverbDsp() {}
+    AKChowningReverbDsp() {}
 
     void init(int _channels, double _sampleRate) override {
         AK4DspSoundpipeBase::init(_channels, _sampleRate);
