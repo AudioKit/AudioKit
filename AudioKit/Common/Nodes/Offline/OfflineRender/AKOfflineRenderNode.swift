@@ -8,6 +8,9 @@
 
 import Foundation
 
+@available(iOS, obsoleted: 11)
+@available(tvOS, obsoleted: 11)
+@available(macOS, obsoleted: 10.13)
 open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
 
     public typealias AKAudioUnitType = AKOfflineRenderAudioUnit

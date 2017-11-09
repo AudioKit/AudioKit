@@ -17,13 +17,6 @@ import Dispatch
 
 public typealias AKCallback = () -> Void
 
-/// Adding connection between nodes with default format
-extension AVAudioEngine {
-    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
-        connect(node1, to: node2, format: AudioKit.format)
-    }
-}
-
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
@@ -553,5 +546,74 @@ extension AudioKit {
         for node in nodes {
             engine.detach(node)
         }
+    }
+
+    /// Render output to an AVAudioFile for a duration.
+    ///     - Parameters
+    ///         - audioFile: An file initialized for writing
+    ///         - seconds: Duration to render
+    ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
+    ///
+    @available(iOS 11, macOS 10.13, tvOS 11, *)
+    @objc open static func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
+        try engine.renderToFile(audioFile, seconds: seconds, prerender: prerender)
+    }
+
+}
+
+
+extension AVAudioEngine {
+
+    /// Adding connection between nodes with default format
+    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
+        connect(node1, to: node2, format: AudioKit.format)
+    }
+
+    /// Render output to an AVAudioFile for a duration.
+    ///     - Parameters
+    ///         - audioFile: An file initialized for writing
+    ///         - seconds: Duration to render
+    ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
+    ///
+    @available(iOS 11.0, macOS 10.13, *)
+    public func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
+        guard seconds >= 0 else {
+            throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"Seconds needs to be a positive value"])
+        }
+        // Engine can't be running when switching to offline render mode.
+        if isRunning { stop() }
+        try enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4096)
+
+        // This resets the sampleTime of offline rendering to 0.
+        reset()
+
+        try start()
+
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat, frameCapacity: manualRenderingMaximumFrameCount) else {
+            throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"Couldn't creat buffer in renderToFile"])
+        }
+
+        // This is for users to prepare the nodes for playing, i.e player.play()
+        prerender?()
+
+        // Render until file contains >= target samples
+        let targetSamples = AVAudioFramePosition(seconds * manualRenderingFormat.sampleRate)
+        while audioFile.framePosition < targetSamples {
+            let framesToRender = min(buffer.frameCapacity, AVAudioFrameCount( targetSamples - audioFile.framePosition))
+            let status = try renderOffline(framesToRender, to: buffer)
+            switch status {
+            case .success:
+                try audioFile.write(from: buffer)
+            case .cannotDoInCurrentContext:
+                print("renderToFile cannotDoInCurrentContext")
+                continue
+            case .error, .insufficientDataFromInputNode:
+                throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"renderToFile render error"])
+            }
+        }
+
+        stop()
+        disableManualRenderingMode()
+
     }
 }

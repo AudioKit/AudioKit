@@ -9,6 +9,7 @@
 #pragma once
 #import "AKAudioUnit.h"
 
+NS_DEPRECATED(10_10, 10_13, 8_0, 11_0)
 @interface AKOfflineRenderAudioUnit : AKAudioUnit
 @property BOOL internalRenderEnabled; // default = true;
 
