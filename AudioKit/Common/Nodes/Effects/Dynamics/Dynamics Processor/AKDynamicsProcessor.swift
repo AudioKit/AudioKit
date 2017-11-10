@@ -123,7 +123,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
     ///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         threshold: Double = -20,
         headRoom: Double = 5,

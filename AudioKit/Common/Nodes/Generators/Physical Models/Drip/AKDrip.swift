@@ -134,7 +134,7 @@ open class AKDrip: AKNode, AKComponent {
     ///   - secondResonantFrequency: The second resonant frequency.
     ///   - amplitude: Amplitude.
     ///
-    public init(
+    @objc public init(
         intensity: Double,
         dampingFactor: Double = 0.2,
         energyReturn: Double = 0,

@@ -19,7 +19,7 @@
     ///
     /// - parameter input: Node on whose output the FFT will be computed
     ///
-    public init(_ input: AKNode) {
+    @objc public init(_ input: AKNode) {
         super.init()
         fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
                          sampleRate: Float(AKSettings.sampleRate),

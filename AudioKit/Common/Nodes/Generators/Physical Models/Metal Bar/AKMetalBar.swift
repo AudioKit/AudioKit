@@ -130,7 +130,7 @@ open class AKMetalBar: AKNode, AKComponent {
     ///   - stiffness: Dimensionless stiffness parameter
     ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
     ///
-    public init(
+    @objc public init(
         leftBoundaryCondition: Double = 1,
         rightBoundaryCondition: Double = 1,
         decayDuration: Double = 3,

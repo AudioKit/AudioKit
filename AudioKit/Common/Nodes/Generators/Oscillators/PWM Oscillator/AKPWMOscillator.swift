@@ -128,7 +128,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
-    public init(
+    @objc public init(
         frequency: Double,
         amplitude: Double = 1.0,
         pulseWidth: Double = 0.5,

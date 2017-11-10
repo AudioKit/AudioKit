@@ -59,12 +59,12 @@
     }
 
     /// Initialize the preset loader view
-    public init(presets: [String],
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                font: UIFont = UIFont.boldSystemFont(ofSize: 24),
-                fontSize: CGFloat = 24,
-                initialIndex: Int = 0,
-                callback: @escaping (String) -> Void) {
+    @objc public init(presets: [String],
+                      frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                      font: UIFont = UIFont.boldSystemFont(ofSize: 24),
+                      fontSize: CGFloat = 24,
+                      initialIndex: Int = 0,
+                      callback: @escaping (String) -> Void) {
         self.callback = callback
         self.presets = presets
         self.font = font

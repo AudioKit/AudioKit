@@ -186,7 +186,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoDepth:       Vibrato size in semitones
     ///   - vibratoRate:        Frequency of vibrato in Hz
     ///
-    public init(
+    @objc public init(
         waveformArray: [AKTable],
         index: Double = 0,
         attackDuration: Double = 0.1,
