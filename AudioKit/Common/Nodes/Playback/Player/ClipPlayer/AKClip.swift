@@ -69,10 +69,10 @@ open class AKFileClip: NSObject, FileClip {
     ///   - offset: The offset into the clip's audio (where to start playing from within the clip).
     ///   - duration: The duration of playback.
     ///
-    public init(audioFile: AKAudioFile,
-                time: Double = 0,
-                offset: Double = 0,
-                duration: Double = 0) {
+    @objc public init(audioFile: AKAudioFile,
+                      time: Double = 0,
+                      offset: Double = 0,
+                      duration: Double = 0) {
 
         self.audioFile = audioFile
         self.time = time

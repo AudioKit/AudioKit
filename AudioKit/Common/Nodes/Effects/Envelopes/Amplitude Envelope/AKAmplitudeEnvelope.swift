@@ -103,7 +103,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - sustainLevel: Sustain Level
     ///   - releaseDuration: Release time
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,

@@ -52,7 +52,7 @@ open class AKMusicTrack {
 
     // MARK: - Initialization
 
-    public init(name: String = "unnamed") {
+    @objc public init(name: String = "unnamed") {
         self.name = name
         MusicSequenceNewTrack(sequencer.sequence!, &internalMusicTrack)
         MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
@@ -82,7 +82,7 @@ open class AKMusicTrack {
     /// - parameter musicTrack: An Apple Music Track
     /// - parameter name: Name for the track
     ///
-    public init(musicTrack: MusicTrack, name: String = "Unnamed") {
+    @objc public init(musicTrack: MusicTrack, name: String = "Unnamed") {
         self.name = name
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer(musicTrack)

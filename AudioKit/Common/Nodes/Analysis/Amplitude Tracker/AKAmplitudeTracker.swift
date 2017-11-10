@@ -70,7 +70,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         halfPowerPoint: Double = 10,
         threshold: Double = 1,

@@ -125,7 +125,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     /// - parameter tenseness: Vocal tenseness. 0 = all breath. 1=fully saturated.
     /// - parameter nasality: Sets the velum size. Larger values of this creates more nasally sounds.
     ///
-    public init(
+    @objc public init(
         frequency: Double = 160.0,
         tonguePosition: Double = 0.5,
         tongueDiameter: Double = 1.0,

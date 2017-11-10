@@ -75,14 +75,14 @@ public enum AKSliderStyle {
     private var sliderHeight: CGFloat = 0.0
 
     /// Initialize the slider
-    public init(property: String,
-                value: Double = 0.0,
-                range: ClosedRange<Double> = 0 ... 1,
-                taper: Double = 1,
-                format: String = "%0.3f",
-                color: AKColor = AKStylist.sharedInstance.nextColor,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: @escaping (_ x: Double) -> Void = { _ in }) {
+    @objc public init(property: String,
+                      value: Double = 0.0,
+                      range: ClosedRange<Double> = 0 ... 1,
+                      taper: Double = 1,
+                      format: String = "%0.3f",
+                      color: AKColor = AKStylist.sharedInstance.nextColor,
+                      frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                      callback: @escaping (_ x: Double) -> Void = { _ in }) {
 
         self.color = color
 

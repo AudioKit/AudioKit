@@ -40,7 +40,7 @@ open class AK3DPanner: AKNode, AKInput {
     ///   - y:     y-axis location in meters
     ///   - z:     z-axis location in meters
     ///
-    public init(_ input: AKNode? = nil, x: Double = 0, y: Double = 0, z: Double = 0) {
+    @objc public init(_ input: AKNode? = nil, x: Double = 0, y: Double = 0, z: Double = 0) {
         self.x = x
         self.y = y
         self.z = z

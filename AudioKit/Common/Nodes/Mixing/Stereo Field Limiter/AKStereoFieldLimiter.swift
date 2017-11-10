@@ -56,7 +56,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be limited
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         amount: Double = 1) {
 

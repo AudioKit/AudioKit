@@ -28,7 +28,7 @@ open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
     open func renderToBuffer(seconds: Double) throws -> AVAudioPCMBuffer {
         return try internalAU!.render(toBuffer:seconds)
     }
-    public init(_ input: AKNode? = nil) {
+    @objc public init(_ input: AKNode? = nil) {
 
         _Self.register()
         super.init()

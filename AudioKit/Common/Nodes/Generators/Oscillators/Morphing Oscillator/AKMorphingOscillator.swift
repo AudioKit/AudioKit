@@ -126,7 +126,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///   - phase:              Initial phase of waveform, expects a value 0-1
     ///
-    public init(
+    @objc public init(
         waveformArray: [AKTable],
         frequency: Double = 440,
         amplitude: Double = 0.5,

@@ -133,7 +133,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - attackTime: Attack time
     ///   - releaseTime: Release time
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         ratio: Double = 1,
         threshold: Double = 0.0,

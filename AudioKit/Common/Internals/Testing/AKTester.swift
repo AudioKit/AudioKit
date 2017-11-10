@@ -41,7 +41,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode to test
     ///   - samples: Number of samples to produce
     ///
-    public init(_ input: AKNode?, samples: Int) {
+    @objc public init(_ input: AKNode?, samples: Int) {
 
         testedNode = input as? AKToggleable
         totalSamples = samples
