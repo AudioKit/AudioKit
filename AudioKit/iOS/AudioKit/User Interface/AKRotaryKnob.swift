@@ -71,14 +71,14 @@ public enum AKRotaryKnobStyle {
     private var knobCenter: CGPoint = CGPoint.zero
 
     /// Initialize the slider
-    @objc public init(property: String,
-                      value: Double,
-                      range: ClosedRange<Double> = 0 ... 1,
-                      taper: Double = 1,
-                      format: String = "%0.3f",
-                      color: AKColor = AKStylist.sharedInstance.nextColor,
-                      frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
-                      callback: @escaping (_ x: Double) -> Void) {
+    public init(property: String,
+                value: Double,
+                range: ClosedRange<Double> = 0 ... 1,
+                taper: Double = 1,
+                format: String = "%0.3f",
+                color: AKColor = AKStylist.sharedInstance.nextColor,
+                frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
+                callback: @escaping (_ x: Double) -> Void) {
 
         self.knobColor = color
 
