@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C45D66941FB043E100AB2E49 /* AKBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45D66931FB043E000AB2E49 /* AKBoosterTests.swift */; };
 		C464E84E1FB0302A0025629C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464E84D1FB0302A0025629C /* AppDelegate.swift */; };
 		C464E8501FB0302A0025629C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C464E84F1FB0302A0025629C /* Assets.xcassets */; };
 		C464E8531FB0302A0025629C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C464E8511FB0302A0025629C /* MainMenu.xib */; };
@@ -133,6 +134,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C45D66931FB043E000AB2E49 /* AKBoosterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKBoosterTests.swift; path = ../../../Common/Tests/AKBoosterTests.swift; sourceTree = "<group>"; };
 		C464E84A1FB0302A0025629C /* AudioKitTestSuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitTestSuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C464E84D1FB0302A0025629C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C464E84F1FB0302A0025629C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				C464E8981FB030B50025629C /* AKBandPassButterworthFilterTests.swift */,
 				C464E8B51FB030BC0025629C /* AKBandRejectButterworthFilterTests.swift */,
 				C464E8901FB030B30025629C /* AKBitCrusherTests.swift */,
+				C45D66931FB043E000AB2E49 /* AKBoosterTests.swift */,
 				C464E8C01FB030C00025629C /* AKChowningReverbTests.swift */,
 				C464E87D1FB030AE0025629C /* AKClipperTests.swift */,
 				C464E8721FB030AC0025629C /* AKCompressorTests.swift */,
@@ -551,6 +554,7 @@
 				C464E8E11FB030C10025629C /* reverberateWithChowningTests.swift in Sources */,
 				C464E8EE1FB030C10025629C /* AKBitCrusherTests.swift in Sources */,
 				C464E9161FB030C10025629C /* resonantFilterTests.swift in Sources */,
+				C45D66941FB043E100AB2E49 /* AKBoosterTests.swift in Sources */,
 				C464E8E51FB030C10025629C /* sawtoothWaveTests.swift in Sources */,
 				C464E9231FB030C10025629C /* AKFlatFrequencyResponseReverbTests.swift in Sources */,
 				C464E9211FB030C10025629C /* variableDelayTests.swift in Sources */,
