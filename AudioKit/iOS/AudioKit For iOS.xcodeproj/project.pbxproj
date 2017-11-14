@@ -190,7 +190,6 @@
 		C421DCE01D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C421DCDC1D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C421DCE11D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C421DCDD1D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.mm */; };
 		C421DCE21D39650000E15879 /* AKPhaseDistortionOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C421DCDE1D39650000E15879 /* AKPhaseDistortionOscillatorDSPKernel.hpp */; };
-		C426BF361E3443AA008EFCB5 /* AKBluetoothMIDIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C426BF351E3443AA008EFCB5 /* AKBluetoothMIDIButton.swift */; };
 		C42858F21E90B647009B737D /* AKDynamicRangeCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42858EE1E90B647009B737D /* AKDynamicRangeCompressor.swift */; };
 		C42858F31E90B647009B737D /* AKDynamicRangeCompressorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42858EF1E90B647009B737D /* AKDynamicRangeCompressorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42858F41E90B647009B737D /* AKDynamicRangeCompressorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42858F01E90B647009B737D /* AKDynamicRangeCompressorAudioUnit.mm */; };
@@ -466,8 +465,8 @@
 		C47DDCC31F7CE2FC002520B9 /* AKBooster2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47DDCB91F7CE2DE002520B9 /* AKBooster2.swift */; };
 		C47DDCC41F7CE330002520B9 /* AK4AudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB51F7CE2B4002520B9 /* AK4AudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47DDCC51F7CE337002520B9 /* AK4DspBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB31F7CE2B4002520B9 /* AK4DspBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C47DDCC61F7CE33D002520B9 /* AK4LinearParamRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB41F7CE2B4002520B9 /* AK4LinearParamRamp.hpp */; };
-		C47DDCC71F7CE341002520B9 /* AK4ParamRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB21F7CE2B4002520B9 /* AK4ParamRampBase.hpp */; };
+		C47DDCC61F7CE33D002520B9 /* AK4LinearParamRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB41F7CE2B4002520B9 /* AK4LinearParamRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C47DDCC71F7CE341002520B9 /* AK4ParamRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCB21F7CE2B4002520B9 /* AK4ParamRampBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47DDCC91F7CEB02002520B9 /* AK4DspSoundPipe.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCC81F7CEAFB002520B9 /* AK4DspSoundPipe.hpp */; };
 		C483F63B1D65502E00374B2A /* trackedAmplitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483F63A1D65502E00374B2A /* trackedAmplitude.swift */; };
 		C48444E71C36FB2C007BE794 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444E61C36FB2C007BE794 /* triangle.swift */; };
@@ -711,6 +710,7 @@
 		C4B192D11C3B637900C0F330 /* AKAmplitudeEnvelopeAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B192CD1C3B637900C0F330 /* AKAmplitudeEnvelopeAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4B192D21C3B637900C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4B192CE1C3B637900C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm */; };
 		C4B192D31C3B637900C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4B192CF1C3B637900C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */; };
+		C4B3AD231F9D6874002C02C6 /* AKBluetoothMIDIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C426BF351E3443AA008EFCB5 /* AKBluetoothMIDIButton.swift */; };
 		C4B73B501D4C961E007EB274 /* mixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B73B4F1D4C961E007EB274 /* mixer.swift */; };
 		C4B8A2F91E65696A006432FA /* AKSampler+SoundFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8A2F81E65696A006432FA /* AKSampler+SoundFont.swift */; };
 		C4B8A2FB1E6569E3006432FA /* AKSampler+getAUPresetXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8A2FA1E6569E3006432FA /* AKSampler+getAUPresetXML.swift */; };
@@ -4650,8 +4650,8 @@
 				C40C41631C40E3A5009D870B /* EZAudioUtilities.m in Sources */,
 				C4F8C8AE1DCA8CE4001F38F2 /* adsr.c in Sources */,
 				C4F8C8D61DCA8CE4001F38F2 /* ftsum.c in Sources */,
+				C4B3AD231F9D6874002C02C6 /* AKBluetoothMIDIButton.swift in Sources */,
 				C40C414F1C40E3A5009D870B /* EZAudio.m in Sources */,
-				C426BF361E3443AA008EFCB5 /* AKBluetoothMIDIButton.swift in Sources */,
 				C43ABDD01E5BC9E200165053 /* diode.c in Sources */,
 				C40C41571C40E3A5009D870B /* EZAudioFile.m in Sources */,
 				C40C41511C40E3A5009D870B /* EZAudioDevice.m in Sources */,

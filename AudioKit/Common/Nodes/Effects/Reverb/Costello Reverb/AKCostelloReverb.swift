@@ -76,7 +76,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///               make the opcode unstable.
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         feedback: Double = 0.6,
         cutoffFrequency: Double = 4_000) {

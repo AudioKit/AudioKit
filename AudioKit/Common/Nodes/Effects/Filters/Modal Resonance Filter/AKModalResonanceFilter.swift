@@ -73,7 +73,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - frequency: Resonant frequency of the filter.
     ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         frequency: Double = 500.0,
         qualityFactor: Double = 50.0) {

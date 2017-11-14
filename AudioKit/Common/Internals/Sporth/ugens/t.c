@@ -238,7 +238,7 @@ int sporth_talias(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-           
+
             var = &ft->tbl[index];
 
             plumber_ftmap_delete(pd, 0);

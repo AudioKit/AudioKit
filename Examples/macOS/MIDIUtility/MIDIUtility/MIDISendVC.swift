@@ -99,7 +99,6 @@ class MIDISenderVC: NSViewController {
 }
 class MIDIChannelFormatter: NumberFormatter {
     override func isPartialStringValid(_ partialStringPtr: AutoreleasingUnsafeMutablePointer<NSString>, proposedSelectedRange proposedSelRangePtr: NSRangePointer?, originalString origString: String, originalSelectedRange origSelRange: NSRange, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        Swift.print("checking string")
         let partialStr = partialStringPtr.pointee
         let charset = CharacterSet(charactersIn: "0123456789").inverted
         let result = partialStr.rangeOfCharacter(from: charset)
@@ -112,7 +111,6 @@ class MIDIChannelFormatter: NumberFormatter {
 
 class MIDINumberFormatter: NumberFormatter {
     override func isPartialStringValid(_ partialStringPtr: AutoreleasingUnsafeMutablePointer<NSString>, proposedSelectedRange proposedSelRangePtr: NSRangePointer?, originalString origString: String, originalSelectedRange origSelRange: NSRange, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        Swift.print("checking string")
         let partialStr = partialStringPtr.pointee
         let charset = CharacterSet(charactersIn: "0123456789").inverted
         let result = partialStr.rangeOfCharacter(from: charset)

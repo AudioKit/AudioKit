@@ -14,9 +14,9 @@
 #undef SPORTH_UGEN
 
 #ifdef BUILD_JACK
-int sp_process_jack(plumber_data *pd, 
+int sp_process_jack(plumber_data *pd,
         void *ud, void (*callback)(sp_data *, void *), int port, int wait);
-#endif 
+#endif
 
 enum {
     DRIVER_FILE,
@@ -88,7 +88,7 @@ int plumbing_compute(plumber_data *plumb, plumbing *pipes, int mode)
                 break;
             case SPORTH_STRING:
                 sval = pipe->ud;
-                if(mode == PLUMBER_INIT) 
+                if(mode == PLUMBER_INIT)
                     sporth_stack_push_string(&sporth->stack, &sval);
                 break;
             default:
@@ -136,7 +136,7 @@ void plumbing_show_pipes(plumber_data *plumb, plumbing *pipes)
                 plumber_print(plumb, "(string)\n");
                 break;
             default:
-                plumber_print(plumb, "(%s)\n", 
+                plumber_print(plumb, "(%s)\n",
                         plumb->sporth.flist[pipe->type - SPORTH_FOFFSET].name);
                 break;
         }
@@ -163,7 +163,7 @@ void plumbing_write_code(plumber_data *plumb, plumbing *pipes, FILE *fp)
                 fprintf(fp, "\'%s\' ", (char *) pipe->ud);
                 break;
             default:
-                fprintf(fp, "%s ", 
+                fprintf(fp, "%s ",
                         plumb->sporth.flist[pipe->type - SPORTH_FOFFSET].name);
                 break;
         }
@@ -282,7 +282,7 @@ int plumber_add_ugen(plumber_data *plumb, uint32_t id, void *ud)
     return PLUMBER_OK;
 }
 
-plumbing *plumbing_choose(plumber_data *plumb, 
+plumbing *plumbing_choose(plumber_data *plumb,
         plumbing *main, plumbing *alt, int *current_pipe)
 {
     plumbing *newpipes = NULL;
@@ -301,7 +301,7 @@ plumbing *plumbing_choose(plumber_data *plumb,
         plumber_print(plumb, "compiling to main\n");
 #endif
         newpipes = main;
-        *current_pipe = 0; 
+        *current_pipe = 0;
         plumb->ftmap = plumb->ft1;
         plumb->ftnew = plumb->ft1;
         plumb->ftold = plumb->ft2;
@@ -312,7 +312,7 @@ plumbing *plumbing_choose(plumber_data *plumb,
 
 int plumber_reinit(plumber_data *plumb)
 {
-    plumbing *newpipes = plumbing_choose(plumb, 
+    plumbing *newpipes = plumbing_choose(plumb,
             &plumb->main, &plumb->alt, &plumb->current_pipe);
     plumbing_init(newpipes);
     plumb->tmp = newpipes;
@@ -464,7 +464,7 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
                    plumber_print(pd, "There was a problem setting the output file..\n");
                     exit(1);
                 }
-                break; 
+                break;
             case 'P':
                 pd->showprog = 1;
                 break;
@@ -529,7 +529,7 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
             case 'p':
 #ifdef BUILD_JACK
                 argv++;
-                if(--argc) { 
+                if(--argc) {
                     port = atoi(argv[0]);
                 } else {
                     plumber_print(pd, "Please specify a port number for jack\n");
@@ -547,7 +547,7 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
 #endif
             case 's':
                 argv++;
-                if(--argc) { 
+                if(--argc) {
                     pd->seed = (uint32_t)atol(argv[0]);
                 } else {
                     plumber_print(pd, "Seed needs an argument.\n");

@@ -61,7 +61,7 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
     ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 6_900,
         resonance: Double = 0) {

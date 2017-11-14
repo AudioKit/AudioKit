@@ -16,7 +16,7 @@ static void process(sp_data *sp, void *udata){
         plumber_recompile_string(&ud->pd, pd->str);
         pd->recompile = 0;
     }
-    
+
     plumber_compute(pd, PLUMBER_COMPUTE);
 
     for (chan = 0; chan < pd->nchan; chan++) {

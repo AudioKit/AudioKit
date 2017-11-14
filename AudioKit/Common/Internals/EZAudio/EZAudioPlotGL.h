@@ -61,7 +61,7 @@ typedef struct
 ///-----------------------------------------------------------
 
 /**
- The default background color of the plot. For iOS the color is specified as a UIColor while for OSX the color is an NSColor. The default value on both platforms is a sweet looking green. 
+ The default background color of the plot. For iOS the color is specified as a UIColor while for OSX the color is an NSColor. The default value on both platforms is a sweet looking green.
  @warning On OSX, if you set the background to a value where the alpha component is 0 then the EZAudioPlotGL will automatically set its superview to be layer-backed.
  */
 #if TARGET_OS_IPHONE

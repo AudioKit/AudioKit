@@ -239,7 +239,7 @@ open class AKAudioUnitManager: NSObject {
             /*
              Locating components can be a little slow, especially the first time.
              Do this work on a separate dispatch thread.
-             
+
              Make a component description matching any AU of the type.
              */
             var componentDescription = AudioComponentDescription()
@@ -298,10 +298,10 @@ open class AKAudioUnitManager: NSObject {
     }
 
     public func removeEffect(at index: Int, reconnectChain: Bool = true) {
-        
+
         if let au = _effectsChain[index] {
             AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
-            
+
             if au.engine != nil {
                 AudioKit.engine.disconnectNodeInput(au)
                 AudioKit.engine.detach(au)
@@ -312,7 +312,7 @@ open class AKAudioUnitManager: NSObject {
         if reconnectChain {
             connectEffects()
         }
-        
+
         self.delegate?.handleEffectRemoved(at: index)
     }
 
@@ -578,7 +578,7 @@ open class AKAudioUnitManager: NSObject {
 public protocol AKAudioUnitManagerDelegate: class {
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?)
     func handleEffectAdded(at auIndex: Int)
-    
+
     /// If your UI needs to handle an effect being removed
     func handleEffectRemoved(at auIndex: Int)
 }

@@ -4,7 +4,7 @@
 //: ## Tables
 //:
 //: Tables are simply arrays of floats that can hold anything, but
-//: usually waveforms.  
+//: usually waveforms.
 import AudioKitPlaygrounds
 import AudioKit
 

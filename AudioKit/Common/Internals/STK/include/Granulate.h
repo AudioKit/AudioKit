@@ -1,10 +1,10 @@
 #ifndef STK_GRANULATE_H
 #define STK_GRANULATE_H
 
-#include <vector>
-#include "Generator.h"
 #include "Envelope.h"
+#include "Generator.h"
 #include "Noise.h"
+#include <vector>
 
 namespace stk {
 
@@ -25,31 +25,30 @@ namespace stk {
 */
 /***************************************************/
 
-class Granulate: public Generator
-{
- public:
+class Granulate : public Generator {
+public:
   //! Default constructor.
-  Granulate( void );
+  Granulate(void);
 
   //! Constructor taking input audio file and number of voices arguments.
-  Granulate( unsigned int nVoices, std::string fileName, bool typeRaw = false );
+  Granulate(unsigned int nVoices, std::string fileName, bool typeRaw = false);
 
   //! Class destructor.
-  ~Granulate( void );
+  ~Granulate(void);
 
   //! Load a monophonic soundfile to be "granulated".
   /*!
     An StkError will be thrown if the file is not found, its format
     is unknown or unsupported, or the file has more than one channel.
   */
-  void openFile( std::string fileName, bool typeRaw = false );
+  void openFile(std::string fileName, bool typeRaw = false);
 
   //! Reset the file pointer and all existing grains to the file start.
   /*!
     Multiple grains are offset from one another in time by grain
     duration / nVoices.
   */
-  void reset( void );
+  void reset(void);
 
   //! Set the number of simultaneous grain "voices" to use.
   /*!
@@ -57,7 +56,7 @@ class Granulate: public Generator
     duration / nVoices.  For this reason, it is best to set the grain
     parameters before calling this function (during initialization).
   */
-  void setVoices( unsigned int nVoices = 1 );
+  void setVoices(unsigned int nVoices = 1);
 
   //! Set the stretch factor used for grain playback (1 - 1000).
   /*!
@@ -66,7 +65,7 @@ class Granulate: public Generator
     a resulting sound of length 4 times the orignal sound.  The
     default parameter of 1 produces no stretching.
   */
-  void setStretch( unsigned int stretchFactor = 1 );
+  void setStretch(unsigned int stretchFactor = 1);
 
   //! Set global grain parameters used to determine individual grain settings.
   /*!
@@ -84,8 +83,9 @@ class Granulate: public Generator
     actual values calculated for each grain will be randomized by a
     factor set using the setRandomFactor() function.
   */
-  void setGrainParameters( unsigned int duration = 30, unsigned int rampPercent = 50,
-                           int offset = 0, unsigned int delay = 0 );
+  void setGrainParameters(unsigned int duration = 30,
+                          unsigned int rampPercent = 50, int offset = 0,
+                          unsigned int delay = 0);
 
   //! This factor is used when setting individual grain parameters (0.0 - 1.0).
   /*!
@@ -96,7 +96,7 @@ class Granulate: public Generator
     millisecond length will be augmented by an extra length of up to
     +30 or -30 milliseconds).
    */
-  void setRandomFactor( StkFloat randomness = 0.1 );
+  void setRandomFactor(StkFloat randomness = 0.1);
 
   //! Return the specified channel value of the last computed frame.
   /*!
@@ -107,12 +107,13 @@ class Granulate: public Generator
     which case an out-of-range value will trigger an StkError
     exception. \sa lastFrame()
   */
-  StkFloat lastOut( unsigned int channel = 0 );
+  StkFloat lastOut(unsigned int channel = 0);
 
   //! Compute one sample frame and return the specified \c channel value.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
-  //! Fill the StkFrames object with computed sample frames, starting at the specified channel.
+  //! Fill the StkFrames object with computed sample frames, starting at the
+  //! specified channel.
   /*!
     The \c channel argument plus the number of output channels must
     be less than the number of channels in the StkFrames argument (the
@@ -120,17 +121,11 @@ class Granulate: public Generator
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  enum GrainState {
-    GRAIN_STOPPED,
-    GRAIN_FADEIN,
-    GRAIN_SUSTAIN,
-    GRAIN_FADEOUT
-  };
+  enum GrainState { GRAIN_STOPPED, GRAIN_FADEIN, GRAIN_SUSTAIN, GRAIN_FADEOUT };
 
- protected:
-
+protected:
   struct Grain {
     StkFloat eScaler;
     StkFloat eRate;
@@ -139,7 +134,7 @@ class Granulate: public Generator
     unsigned long decayCount;
     unsigned long delayCount;
     unsigned long counter;
-    //unsigned long pointer;
+    // unsigned long pointer;
     StkFloat pointer;
     unsigned long startPointer;
     unsigned int repeats;
@@ -147,16 +142,17 @@ class Granulate: public Generator
 
     // Default constructor.
     Grain()
-      :eScaler(0.0), eRate(0.0), attackCount(0), sustainCount(0), decayCount(0),
-       delayCount(0), counter(0), pointer(0), startPointer(0), repeats(0), state(GRAIN_STOPPED) {}
+        : eScaler(0.0), eRate(0.0), attackCount(0), sustainCount(0),
+          decayCount(0), delayCount(0), counter(0), pointer(0), startPointer(0),
+          repeats(0), state(GRAIN_STOPPED) {}
   };
 
-  void calculateGrain( Granulate::Grain& grain );
+  void calculateGrain(Granulate::Grain &grain);
 
   StkFrames data_;
   std::vector<Grain> grains_;
   Noise noise;
-  //long gPointer_;
+  // long gPointer_;
   StkFloat gPointer_;
 
   // Global grain parameters.
@@ -168,42 +164,40 @@ class Granulate: public Generator
   int gOffset_;
   StkFloat gRandomFactor_;
   StkFloat gain_;
-
 };
 
-inline StkFloat Granulate :: lastOut( unsigned int channel )
-{
+inline StkFloat Granulate ::lastOut(unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= lastFrame_.channels() ) {
+  if (channel >= lastFrame_.channels()) {
     oStream_ << "Granulate::lastOut(): channel argument is invalid!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   return lastFrame_[channel];
 }
 
-inline StkFrames& Granulate :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Granulate ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "Granulate::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "Granulate::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
     *samples++ = tick();
-    for ( j=1; j<nChannels; j++ )
+    for (j = 1; j < nChannels; j++)
       *samples++ = lastFrame_[j];
   }
 
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

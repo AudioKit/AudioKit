@@ -71,7 +71,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// - parameter frequency: Center frequency of the filter, or frequency position of the peak response.
     /// - parameter bandwidth: Bandwidth of the filter.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         frequency: Double = 4_000.0,
         bandwidth: Double = 1_000.0) {

@@ -55,7 +55,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - halfPowerPoint: The response curve's half-power point, in Hz. Half power is defined as peak power / root 2.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         halfPowerPoint: Double = 1_000.0) {
 

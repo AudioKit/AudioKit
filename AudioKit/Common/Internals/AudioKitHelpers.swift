@@ -42,14 +42,15 @@ public func fourCC(_ string: String) -> UInt32 {
     return out
 }
 
-/// Wrapper for printing out status messages to the console, 
+/// Wrapper for printing out status messages to the console,
 /// eventually it could be expanded with log levels
 /// - parameter string: Message to print
 ///
 @inline(__always)
-public func AKLog(_ string: String, fname: String = #function) {
+public func AKLog(_ string: String, fullname: String = #function, file: String = #file, line: Int = #line) {
     if AKSettings.enableLogging {
-        print(fname, string)
+        let fileName = (file as NSString).lastPathComponent
+        print("\(fileName):\(fullname):\(line):\(string)")
     }
 }
 

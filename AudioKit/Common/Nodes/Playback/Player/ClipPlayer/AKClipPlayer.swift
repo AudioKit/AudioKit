@@ -186,7 +186,7 @@ open class AKClipPlayer: AKNode, AKTiming {
 
     /// Starts playback at time
     ///
-    /// - Parameter audioTime: A time in the audio render context.  If non-nil, the player's current 
+    /// - Parameter audioTime: A time in the audio render context.  If non-nil, the player's current
     /// current time will align with this time when playback starts.
     ///
     open func play(at audioTime: AVAudioTime?) {

@@ -26,10 +26,10 @@
 standardBankFunctions()
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(PWMOscillatorBank)
     standardBankParameters()
-    
+
     // Create a parameter object for the pulseWidth.
     AUParameter *pulseWidthAUParameter = [AUParameter parameter:@"pulseWidth"
                                                            name:@"Pulse Width"
@@ -37,18 +37,18 @@ standardBankFunctions()
                                                             min:0.0
                                                             max:1.0
                                                            unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     pulseWidthAUParameter.value = 0.5;
-    
+
     _kernel.setParameter(pulseWidthAddress, pulseWidthAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
                                                                standardBankAUParameterList(),
                                                                pulseWidthAUParameter
                                                                ]];
-    
+
     parameterTreeBlock(PWMOscillatorBank)
 }
 

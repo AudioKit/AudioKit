@@ -87,7 +87,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - windowSize: Window size (in samples)
     ///   - crossfade: Crossfade (in samples)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         shift: Double = 0,
         windowSize: Double = 1_024,

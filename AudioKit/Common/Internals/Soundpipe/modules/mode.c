@@ -1,9 +1,9 @@
 /*
- * Mode 
- * 
+ * Mode
+ *
  * This code has been extracted from the Csound opcode "mode".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Francois Blanc, Steven Yi
  * Year: 2001
  * Location: Opcodes/biquad.c
@@ -17,7 +17,7 @@
 
 #ifndef M_PI
 #define M_PI		3.14159265358979323846	/* pi */
-#endif 
+#endif
 
 #include "soundpipe.h"
 

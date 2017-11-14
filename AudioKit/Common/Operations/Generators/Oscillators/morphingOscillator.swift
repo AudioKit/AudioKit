@@ -8,7 +8,7 @@
 
 extension AKOperation {
 
-    /// Morphing Oscillator 
+    /// Morphing Oscillator
     ///
     /// - Parameters:
     ///   - frequency: Frequency in cycles per second (Default: 440)

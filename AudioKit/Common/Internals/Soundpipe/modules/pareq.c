@@ -1,10 +1,10 @@
 /*
  * Pareq
- * 
+ *
  * This code has been extracted from the Csound opcode "pareq".
  * It has been modified to work as a Soundpipe module.
- * 
- * Original Author(s):  Hans Mikelson, Matt Gerassimoff, 
+ *
+ * Original Author(s):  Hans Mikelson, Matt Gerassimoff,
 *                       Jens Groh, John ffitch, Steven Yi
  * Year: 2001
  * Location: Opcodes/biquad.c
@@ -17,7 +17,7 @@
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
-#endif 
+#endif
 
 int sp_pareq_create(sp_pareq **p)
 {
@@ -54,7 +54,7 @@ int sp_pareq_compute(sp_data *sp, sp_pareq *p, SPFLOAT *in, SPFLOAT *out)
         p->prv_fc = p->fc; p->prv_v = p->v; p->prv_q = p->q;
         switch ((int)p->mode) {
             /* Low Shelf */
-            case 1: 
+            case 1:
                 sq = sqrt(2.0 * (SPFLOAT) p->prv_v);
                 k = tan(omega * 0.5);
                 kk = k * k;
@@ -68,7 +68,7 @@ int sp_pareq_compute(sp_data *sp, sp_pareq *p, SPFLOAT *in, SPFLOAT *out)
                 break;
 
             /* High Shelf */
-            case 2: 
+            case 2:
                 sq = sqrt(2.0 * (SPFLOAT) p->prv_v);
                 k = tan((M_PI - omega) * 0.5);
                 kk = k * k;
@@ -82,7 +82,7 @@ int sp_pareq_compute(sp_data *sp, sp_pareq *p, SPFLOAT *in, SPFLOAT *out)
                 break;
 
             /* Peaking EQ */
-            default: 
+            default:
                 k = tan(omega * 0.5);
                 kk = k * k;
                 vk = (SPFLOAT)p->prv_v * k;

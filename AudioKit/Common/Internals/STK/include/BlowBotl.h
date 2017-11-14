@@ -1,12 +1,12 @@
 #ifndef STK_BLOWBOTL_H
 #define STK_BLOWBOTL_H
 
+#include "ADSR.h"
+#include "BiQuad.h"
 #include "Instrmnt.h"
 #include "JetTable.h"
-#include "BiQuad.h"
-#include "PoleZero.h"
 #include "Noise.h"
-#include "ADSR.h"
+#include "PoleZero.h"
 #include "SineWave.h"
 
 namespace stk {
@@ -19,7 +19,7 @@ namespace stk {
     (biquad filter) with a polynomial jet
     excitation (a la Cook).
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Noise Gain = 4
        - Vibrato Frequency = 11
        - Vibrato Gain = 1
@@ -29,41 +29,42 @@ namespace stk {
 */
 /***************************************************/
 
-class BlowBotl : public Instrmnt
-{
- public:
+class BlowBotl : public Instrmnt {
+public:
   //! Class constructor.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  BlowBotl( void );
+  BlowBotl(void);
 
   //! Class destructor.
-  ~BlowBotl( void );
+  ~BlowBotl(void);
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear(void);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
-  //! Apply breath velocity to instrument with given amplitude and rate of increase.
-  void startBlowing( StkFloat amplitude, StkFloat rate );
+  //! Apply breath velocity to instrument with given amplitude and rate of
+  //! increase.
+  void startBlowing(StkFloat amplitude, StkFloat rate);
 
   //! Decrease breath velocity with given rate of decrease.
-  void stopBlowing( StkFloat rate );
+  void stopBlowing(StkFloat rate);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -73,10 +74,9 @@ class BlowBotl : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
+protected:
   JetTable jetTable_;
   BiQuad resonator_;
   PoleZero dcBlock_;
@@ -87,11 +87,9 @@ class BlowBotl : public Instrmnt
   StkFloat noiseGain_;
   StkFloat vibratoGain_;
   StkFloat outputGain_;
-
 };
 
-inline StkFloat BlowBotl :: tick( unsigned int )
-{
+inline StkFloat BlowBotl ::tick(unsigned int) {
   StkFloat breathPressure;
   StkFloat randPressure;
   StkFloat pressureDiff;
@@ -106,32 +104,32 @@ inline StkFloat BlowBotl :: tick( unsigned int )
   randPressure *= breathPressure;
   randPressure *= (1.0 + pressureDiff);
 
-  resonator_.tick( breathPressure + randPressure - ( jetTable_.tick( pressureDiff ) * pressureDiff ) );
-  lastFrame_[0] = 0.2 * outputGain_ * dcBlock_.tick( pressureDiff );
+  resonator_.tick(breathPressure + randPressure -
+                  (jetTable_.tick(pressureDiff) * pressureDiff));
+  lastFrame_[0] = 0.2 * outputGain_ * dcBlock_.tick(pressureDiff);
 
   return lastFrame_[0];
 }
 
-inline StkFrames& BlowBotl :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &BlowBotl ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "BlowBotl::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "BlowBotl::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -139,6 +137,6 @@ inline StkFrames& BlowBotl :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

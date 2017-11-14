@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         AudioKit.output = mixer
         AudioKit.start()
 
-        // bounds for the container aren't ready yet here, so async it to the next update 
+        // bounds for the container aren't ready yet here, so async it to the next update
         // to pick up the correct size
         DispatchQueue.main.async {
             let kframe = CGRect(x:0,
@@ -254,6 +254,10 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: AKAudioUnitManagerDelegate {
+    func handleEffectRemoved(at auIndex: Int) {
+        // Do nothing (for now?)
+    }
+
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
         guard auManager != nil else { return }
 
