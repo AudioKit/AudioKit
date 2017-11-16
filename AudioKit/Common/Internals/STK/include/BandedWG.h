@@ -1,11 +1,11 @@
 #ifndef STK_BANDEDWG_H
 #define STK_BANDEDWG_H
 
-#include "Instrmnt.h"
-#include "DelayL.h"
-#include "BowTable.h"
 #include "ADSR.h"
 #include "BiQuad.h"
+#include "BowTable.h"
+#include "DelayL.h"
+#include "Instrmnt.h"
 
 namespace stk {
 
@@ -21,7 +21,7 @@ namespace stk {
     Percussion Instruments", Proceedings of the
     1999 International Computer Music Conference.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Bow Pressure = 2
        - Bow Motion = 4
        - Strike Position = 8 (not implemented)
@@ -42,47 +42,48 @@ namespace stk {
 
 const int MAX_BANDED_MODES = 20;
 
-class BandedWG : public Instrmnt
-{
- public:
+class BandedWG : public Instrmnt {
+public:
   //! Class constructor.
-  BandedWG( void );
+  BandedWG(void);
 
   //! Class destructor.
-  ~BandedWG( void );
+  ~BandedWG(void);
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear(void);
 
   //! Set strike position (0.0 - 1.0).
-  void setStrikePosition( StkFloat position );
+  void setStrikePosition(StkFloat position);
 
   //! Select a preset.
-  void setPreset( int preset );
+  void setPreset(int preset);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
-  //! Apply bow velocity/pressure to instrument with given amplitude and rate of increase.
-  void startBowing( StkFloat amplitude, StkFloat rate );
+  //! Apply bow velocity/pressure to instrument with given amplitude and rate of
+  //! increase.
+  void startBowing(StkFloat amplitude, StkFloat rate);
 
   //! Decrease bow velocity/breath pressure with given rate of decrease.
-  void stopBowing( StkFloat rate );
+  void stopBowing(StkFloat rate);
 
   //! Pluck the instrument with given amplitude.
-  void pluck( StkFloat amp );
+  void pluck(StkFloat amp);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -92,18 +93,17 @@ class BandedWG : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
+protected:
   bool doPluck_;
   bool trackVelocity_;
   int nModes_;
   int presetModes_;
   BowTable bowTable_;
-  ADSR     adsr_;
-  BiQuad   bandpass_[MAX_BANDED_MODES];
-  DelayL   delay_[MAX_BANDED_MODES];
+  ADSR adsr_;
+  BiQuad bandpass_[MAX_BANDED_MODES];
+  DelayL delay_[MAX_BANDED_MODES];
   StkFloat maxVelocity_;
   StkFloat modes_[MAX_BANDED_MODES];
   StkFloat frequency_;
@@ -118,29 +118,27 @@ class BandedWG : public Instrmnt
   StkFloat bowPosition_;
   StkFloat strikeAmp_;
   int strikePosition_;
-
 };
 
-inline StkFrames& BandedWG :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &BandedWG ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "BandedWG::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "BandedWG::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -148,6 +146,6 @@ inline StkFrames& BandedWG :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

@@ -15,7 +15,7 @@ public class AKTableView: UIView {
     var absmax: Double = 1.0
 
     /// Initialize the table view
-    public init(_ table: AKTable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150)) {
+    @objc public init(_ table: AKTable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150)) {
         self.table = table
         super.init(frame: frame)
         let max = Double(table.max() ?? 1.0)

@@ -94,7 +94,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter sporth: String of valid Sporth code
     ///
-    public init(sporth: String, customUgens: [AKCustomUgen] = []) {
+    @objc public init(sporth: String, customUgens: [AKCustomUgen] = []) {
         self.sporth = sporth
         self.customUgens = customUgens
 

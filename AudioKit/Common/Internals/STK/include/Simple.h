@@ -1,12 +1,12 @@
 #ifndef STK_SIMPLE_H
 #define STK_SIMPLE_H
 
-#include "Instrmnt.h"
 #include "ADSR.h"
-#include "FileLoop.h"
-#include "OnePole.h"
 #include "BiQuad.h"
+#include "FileLoop.h"
+#include "Instrmnt.h"
 #include "Noise.h"
+#include "OnePole.h"
 
 namespace stk {
 
@@ -19,7 +19,7 @@ namespace stk {
     a one-pole filter, and an ADSR envelope
     to create some interesting sounds.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Filter Pole Position = 2
        - Noise/Pitched Cross-Fade = 4
        - Envelope Rate = 11
@@ -29,38 +29,38 @@ namespace stk {
 */
 /***************************************************/
 
-class Simple : public Instrmnt
-{
- public:
+class Simple : public Instrmnt {
+public:
   //! Class constructor.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  Simple( void );
+  Simple(void);
 
   //! Class destructor.
-  ~Simple( void );
+  ~Simple(void);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Start envelope toward "on" target.
-  void keyOn( void );
+  void keyOn(void);
 
   //! Start envelope toward "off" target.
-  void keyOff( void );
+  void keyOff(void);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -70,50 +70,46 @@ class Simple : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
-  ADSR      adsr_; 
+protected:
+  ADSR adsr_;
   FileLoop *loop_;
-  OnePole   filter_;
-  BiQuad    biquad_;
-  Noise     noise_;
-  StkFloat  baseFrequency_;
-  StkFloat  loopGain_;
-
+  OnePole filter_;
+  BiQuad biquad_;
+  Noise noise_;
+  StkFloat baseFrequency_;
+  StkFloat loopGain_;
 };
 
-inline StkFloat Simple :: tick( unsigned int )
-{
+inline StkFloat Simple ::tick(unsigned int) {
   lastFrame_[0] = loopGain_ * loop_->tick();
-  biquad_.tick( noise_.tick() );
+  biquad_.tick(noise_.tick());
   lastFrame_[0] += (1.0 - loopGain_) * biquad_.lastOut();
-  lastFrame_[0] = filter_.tick( lastFrame_[0] );
+  lastFrame_[0] = filter_.tick(lastFrame_[0]);
   lastFrame_[0] *= adsr_.tick();
   return lastFrame_[0];
 }
 
-inline StkFrames& Simple :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Simple ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "Simple::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_
+        << "Simple::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -121,6 +117,6 @@ inline StkFrames& Simple :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

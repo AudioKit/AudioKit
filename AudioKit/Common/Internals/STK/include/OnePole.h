@@ -1,5 +1,4 @@
-#ifndef STK_ONEPOLE_H
-#define STK_ONEPOLE_H
+#pragma once
 
 #include "Filter.h"
 
@@ -17,24 +16,22 @@ namespace stk {
 */
 /***************************************************/
 
-class OnePole : public Filter
-{
+class OnePole : public Filter {
 public:
-
   //! The default constructor creates a low-pass filter (pole at z = 0.9).
-  OnePole( StkFloat thePole = 0.9 );
+  OnePole(StkFloat thePole = 0.9);
 
   //! Class destructor.
   ~OnePole();
 
   //! Set the b[0] coefficient value.
-  void setB0( StkFloat b0 ) { b_[0] = b0; };
+  void setB0(StkFloat b0) { b_[0] = b0; };
 
   //! Set the a[1] coefficient value.
-  void setA1( StkFloat a1 ) { a_[1] = a1; };
+  void setA1(StkFloat a1) { a_[1] = a1; };
 
   //! Set all filter coefficients.
-  void setCoefficients( StkFloat b0, StkFloat a1, bool clearState = false );
+  void setCoefficients(StkFloat b0, StkFloat a1, bool clearState = false);
 
   //! Set the pole position in the z-plane.
   /*!
@@ -45,15 +42,16 @@ public:
     affect the filter \e gain value. The argument magnitude should be
     less than one to maintain filter stability.
   */
-  void setPole( StkFloat thePole );
+  void setPole(StkFloat thePole);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Input one sample to the filter and return one output.
-  StkFloat tick( StkFloat input );
+  StkFloat tick(StkFloat input);
 
-  //! Take a channel of the StkFrames object as inputs to the filter and replace with corresponding outputs.
+  //! Take a channel of the StkFrames object as inputs to the filter and replace
+  //! with corresponding outputs.
   /*!
     The StkFrames argument reference is returned.  The \c channel
     argument must be less than the number of channels in the
@@ -62,9 +60,10 @@ public:
     defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  //! Take a channel of the \c iFrames object as inputs to the filter and write outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the filter and write
+  //! outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  Each channel
     argument must be less than the number of channels in the
@@ -73,12 +72,11 @@ public:
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
-
+  StkFrames &tick(StkFrames &iFrames, StkFrames &oFrames,
+                  unsigned int iChannel = 0, unsigned int oChannel = 0);
 };
 
-inline StkFloat OnePole :: tick( StkFloat input )
-{
+inline StkFloat OnePole::tick(StkFloat input) {
   inputs_[0] = gain_ * input;
   lastFrame_[0] = b_[0] * inputs_[0] - a_[1] * outputs_[1];
   outputs_[1] = lastFrame_[0];
@@ -86,18 +84,18 @@ inline StkFloat OnePole :: tick( StkFloat input )
   return lastFrame_[0];
 }
 
-inline StkFrames& OnePole :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &OnePole::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "OnePole::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_
+        << "OnePole::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
     inputs_[0] = gain_ * *samples;
     *samples = b_[0] * inputs_[0] - a_[1] * outputs_[1];
     outputs_[1] = *samples;
@@ -107,19 +105,21 @@ inline StkFrames& OnePole :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-inline StkFrames& OnePole :: tick( StkFrames& iFrames, StkFrames& oFrames, unsigned int iChannel, unsigned int oChannel )
-{
+inline StkFrames &OnePole::tick(StkFrames &iFrames, StkFrames &oFrames,
+                                 unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
-  if ( iChannel >= iFrames.channels() || oChannel >= oFrames.channels() ) {
-    oStream_ << "OnePole::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {
+    oStream_
+        << "OnePole::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *iSamples = &iFrames[iChannel];
   StkFloat *oSamples = &oFrames[oChannel];
   unsigned int iHop = iFrames.channels(), oHop = oFrames.channels();
-  for ( unsigned int i=0; i<iFrames.frames(); i++, iSamples += iHop, oSamples += oHop ) {
+  for (unsigned int i = 0; i < iFrames.frames();
+       i++, iSamples += iHop, oSamples += oHop) {
     inputs_[0] = gain_ * *iSamples;
     *oSamples = b_[0] * inputs_[0] - a_[1] * outputs_[1];
     outputs_[1] = *oSamples;
@@ -129,6 +129,6 @@ inline StkFrames& OnePole :: tick( StkFrames& iFrames, StkFrames& oFrames, unsig
   return iFrames;
 }
 
-} // stk namespace
+}
 
-#endif
+

@@ -147,8 +147,8 @@ NSMutableDictionary *mutableSkeleton() {
         NSCAssert([NSFileManager.defaultManager fileExistsAtPath:skeletonPath],@"Skeleton file not found");
         skeleton = [NSDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:skeletonPath]];
     }
-    
-    
+
+
     NSMutableDictionary *_preset = skeleton.mutableCopy;
     _preset[@"file-references"] = [NSMutableDictionary new];
     NSMutableDictionary *_instrument = _preset[@"Instrument"] = [_preset[@"Instrument"] mutableCopy];

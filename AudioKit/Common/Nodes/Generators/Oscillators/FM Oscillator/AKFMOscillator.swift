@@ -130,7 +130,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
     ///   - amplitude: Output Amplitude.
     ///
-    public init(
+    @objc public init(
         waveform: AKTable,
         baseFrequency: Double = 440,
         carrierMultiplier: Double = 1.0,

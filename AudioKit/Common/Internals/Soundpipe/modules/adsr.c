@@ -88,7 +88,7 @@ int sp_adsr_compute(sp_data *sp, sp_adsr *p, SPFLOAT *in, SPFLOAT *out)
             p->x *= p->sus;
             *out = adsr_filter(sp, p);
         default:
-            break;        
+            break;
     }
 
     return SP_OK;

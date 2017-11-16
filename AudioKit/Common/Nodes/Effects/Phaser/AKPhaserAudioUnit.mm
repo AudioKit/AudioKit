@@ -51,9 +51,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(Phaser)
-    
+
     // Create a parameter object for the notchMinimumFrequency.
     AUParameter *notchMinimumFrequencyAUParameter =
     [AUParameter parameter:@"notchMinimumFrequency"
@@ -126,8 +126,8 @@ standardKernelPassthroughs()
                        min:24
                        max:360
                       unit:kAudioUnitParameterUnit_Generic];
-    
-    
+
+
     // Initialize the parameter values.
     notchMinimumFrequencyAUParameter.value = 100;
     notchMaximumFrequencyAUParameter.value = 800;
@@ -138,7 +138,7 @@ standardKernelPassthroughs()
     feedbackAUParameter.value = 0;
     invertedAUParameter.value = 0;
     lfoBPMAUParameter.value = 30;
-    
+
     _kernel.setParameter(notchMinimumFrequencyAddress, notchMinimumFrequencyAUParameter.value);
     _kernel.setParameter(notchMaximumFrequencyAddress, notchMaximumFrequencyAUParameter.value);
     _kernel.setParameter(notchWidthAddress,            notchWidthAUParameter.value);
@@ -148,7 +148,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(feedbackAddress,              feedbackAUParameter.value);
     _kernel.setParameter(invertedAddress,              invertedAUParameter.value);
     _kernel.setParameter(lfoBPMAddress,                lfoBPMAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              notchMinimumFrequencyAUParameter,
@@ -161,7 +161,7 @@ standardKernelPassthroughs()
                                              invertedAUParameter,
                                              lfoBPMAUParameter
                                              ]];
-    
+
     parameterTreeBlock(Phaser)
 }
 

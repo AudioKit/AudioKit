@@ -32,7 +32,7 @@ int sporth_tog(sporth_stack *stack, void *ud)
             trig = sporth_stack_pop_float(stack);
             if(trig != 0) {
                 *val = (*val == 0) ? 1 : 0;
-            } 
+            }
             sporth_stack_push_float(stack, *val);
             break;
         case PLUMBER_DESTROY:

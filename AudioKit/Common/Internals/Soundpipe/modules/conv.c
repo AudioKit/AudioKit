@@ -1,9 +1,9 @@
 /*
  * conv
- * 
+ *
  * This code has been extracted from the Csound opcode "ftconv".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Istvan Varga
  * Year: 2005
  * Location: Opcodes/ftconv.c
@@ -132,7 +132,7 @@ int sp_conv_init(sp_data *sp, sp_conv *p, sp_ftbl *ft, SPFLOAT iPartLen)
     p->partSize = (int)lrintf(p->iPartLen);
     if (p->partSize < 4 || (p->partSize & (p->partSize - 1)) != 0) {
         fprintf(stderr, "conv: invalid partition size.\n");
-        return SP_NOT_OK;  
+        return SP_NOT_OK;
     }
 
     sp_fft_init(&p->fft, (int)log2(p->partSize << 1));
@@ -164,16 +164,16 @@ int sp_conv_init(sp_data *sp, sp_conv *p, sp_ftbl *ft, SPFLOAT iPartLen)
     FFTscale = 1.0;
     for (j = 0; j < p->nChannels; j++) {
         /* table read position */
-        i = (skipSamples * p->nChannels) + j; 
+        i = (skipSamples * p->nChannels) + j;
         /* IR write position */
-        n = (p->partSize << 1) * (p->nPartitions - 1); 
-        do { 
+        n = (p->partSize << 1) * (p->nPartitions - 1);
+        do {
             for (k = 0; k < p->partSize; k++) {
                 if (i >= 0 && i < (int) ft->size) {
                     p->IR_Data[j][n + k] = ft->tbl[i] * FFTscale;
                 } else {
                     p->IR_Data[j][n + k] = 0.0;
-                } 
+                }
                 i += p->nChannels;
             }
         /* pad second half of IR to zero */
@@ -205,11 +205,11 @@ int sp_conv_compute(sp_data *sp, sp_conv *p, SPFLOAT *in, SPFLOAT *out)
     /* store input signal in buffer */
     rBuf[p->cnt] = *in;
     /* copy output signals from buffer */
-    *out = p->outBuffers[0][p->cnt]; 
+    *out = p->outBuffers[0][p->cnt];
 
     /* is input buffer full ? */
     if (++p->cnt < nSamples) {
-        return SP_OK;                   
+        return SP_OK;
     }
     /* reset buffer position */
     p->cnt = 0;
@@ -222,8 +222,8 @@ int sp_conv_compute(sp_data *sp, sp_conv *p, SPFLOAT *in, SPFLOAT *out)
     /* update ring buffer position */
     p->rbCnt++;
 
-    if (p->rbCnt >= p->nPartitions){ 
-        p->rbCnt = 0; 
+    if (p->rbCnt >= p->nPartitions){
+        p->rbCnt = 0;
     }
 
     rBufPos = p->rbCnt * (nSamples << 1);

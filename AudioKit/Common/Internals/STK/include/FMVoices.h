@@ -20,7 +20,7 @@ namespace stk {
                         \->3 -/
     \endcode
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Vowel = 2
        - Spectral Tilt = 4
        - LFO Speed = 11
@@ -37,29 +37,29 @@ namespace stk {
 */
 /***************************************************/
 
-class FMVoices : public FM
-{
- public:
+class FMVoices : public FM {
+public:
   //! Class constructor.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  FMVoices( void );
+  FMVoices(void);
 
   //! Class destructor.
-  ~FMVoices( void );
+  ~FMVoices(void);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -69,17 +69,15 @@ class FMVoices : public FM
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
+protected:
   int currentVowel_;
   StkFloat tilt_[3];
   StkFloat mods_[3];
 };
 
-inline StkFloat FMVoices :: tick( unsigned int )
-{
+inline StkFloat FMVoices ::tick(unsigned int) {
   StkFloat temp, temp2;
 
   temp = gains_[3] * adsr_[3]->tick() * waves_[3]->tick();
@@ -93,9 +91,9 @@ inline StkFloat FMVoices :: tick( unsigned int )
   waves_[0]->addPhaseOffset(temp * mods_[0]);
   waves_[1]->addPhaseOffset(temp * mods_[1]);
   waves_[2]->addPhaseOffset(temp * mods_[2]);
-  waves_[3]->addPhaseOffset( twozero_.lastOut() );
-  twozero_.tick( temp );
-  temp =  gains_[0] * tilt_[0] * adsr_[0]->tick() * waves_[0]->tick();
+  waves_[3]->addPhaseOffset(twozero_.lastOut());
+  twozero_.tick(temp);
+  temp = gains_[0] * tilt_[0] * adsr_[0]->tick() * waves_[0]->tick();
   temp += gains_[1] * tilt_[1] * adsr_[1]->tick() * waves_[1]->tick();
   temp += gains_[2] * tilt_[2] * adsr_[2]->tick() * waves_[2]->tick();
 
@@ -103,26 +101,25 @@ inline StkFloat FMVoices :: tick( unsigned int )
   return lastFrame_[0];
 }
 
-inline StkFrames& FMVoices :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &FMVoices ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "FMVoices::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "FMVoices::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -130,6 +127,6 @@ inline StkFrames& FMVoices :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

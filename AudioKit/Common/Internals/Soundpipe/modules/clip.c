@@ -1,9 +1,9 @@
 /*
  * Clip
- * 
+ *
  * This code has been extracted from the Csound opcode "clip".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): John ffitch, Istvan Varga, Peter Neubäcker,
                        rasmus ekman, Phil Burk
  * Year: 1999
@@ -17,7 +17,7 @@
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
-#endif 
+#endif
 
 #include "soundpipe.h"
 

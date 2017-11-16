@@ -27,8 +27,6 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#ifndef TPCircularBuffer_AudioBufferList_h
-#define TPCircularBuffer_AudioBufferList_h
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,7 +43,7 @@ typedef struct {
     AudioBufferList bufferList;
 } TPCircularBufferABLBlockHeader;
 
-    
+
 /*!
  * Prepare an empty buffer list, stored on the circular buffer
  *
@@ -193,7 +191,7 @@ UInt32 TPCircularBufferPeek(TPCircularBuffer *buffer, AudioTimeStamp *outTimesta
  * @return The number of frames in the given audio format that are in the buffer
  */
 UInt32 TPCircularBufferPeekContiguous(TPCircularBuffer *buffer, AudioTimeStamp *outTimestamp, const AudioStreamBasicDescription *audioFormat, UInt32 contiguousToleranceSampleTime);
-    
+
 /*!
  * Determine how many contiguous frames of audio are buffered, with wrap around
  *
@@ -224,9 +222,8 @@ UInt32 TPCircularBufferPeekContiguousWrapped(TPCircularBuffer *buffer, AudioTime
  * @return The number of frames in the given audio format that can be stored in the buffer
  */
 UInt32 TPCircularBufferGetAvailableSpace(TPCircularBuffer *buffer, const AudioStreamBasicDescription *audioFormat);
-    
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif

@@ -71,7 +71,7 @@ extension AKMIDI {
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     for packet in packetList.pointee {
-                        // a CoreMIDI packet may contain multiple MIDI events - 
+                        // a CoreMIDI packet may contain multiple MIDI events -
                         // treat it like an array of events that can be transformed
                         let transformedMIDIEventList = self.transformMIDIEventList([AKMIDIEvent](packet))
                         for transformedEvent in transformedMIDIEventList {
@@ -160,7 +160,7 @@ extension AKMIDI {
                                              velocity: MIDIVelocity(event.internalData[2]),
                                              channel: MIDIChannel(eventChannel))
             case .pitchWheel:
-                listener.receivedMIDIPitchWheel(MIDIWord(Int(event.data)),
+                listener.receivedMIDIPitchWheel(MIDIWord(Int(event.wordData)),
                                                 channel: MIDIChannel(eventChannel))
             case .polyphonicAftertouch:
                 listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),

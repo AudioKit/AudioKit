@@ -44,10 +44,10 @@ open class AKStepper: UIView {
     }
 
     /// Initialize the stepper view
-    public init(text: String,
-                value: MIDIByte,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: @escaping (MIDIByte) -> Void) {
+    @objc public init(text: String,
+                      value: MIDIByte,
+                      frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                      callback: @escaping (MIDIByte) -> Void) {
         self.callback = callback
         self.value = value
         self.text = text

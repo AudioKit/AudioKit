@@ -1,26 +1,23 @@
 #pragma once
 
-class COnePoleLPF
-{
+class COnePoleLPF {
 public:
-	// constructor/Destructor
-	COnePoleLPF(void);
-	~COnePoleLPF(void);
+  // constructor/Destructor
+  COnePoleLPF();
+  ~COnePoleLPF();
 
-	// members
+  // members
 protected:
-	float m_fLPF_g; // one gain coefficient
-	float m_fLPF_z1; // one delay
+  float m_fLPF_g;  // one gain coefficient
+  float m_fLPF_z1; // one delay
 
 public:
+  // set our one and only gain coefficient
+  void setLPF_g(float fLPFg) { m_fLPF_g = fLPFg; }
 
-	// set our one and only gain coefficient
-	void setLPF_g(float fLPFg){m_fLPF_g = fLPFg;}
+  // function to init
+  void init();
 
-	// function to init
-	void init();
-
-	// function to process audio
-	bool processAudio(float* pInput, float* pOutput);
-
+  // function to process audio
+  bool processAudio(float *pInput, float *pOutput);
 };

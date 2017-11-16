@@ -15,23 +15,18 @@
 
 namespace stk {
 
-Envelope :: Envelope( void ) : Generator()
-{    
+Envelope::Envelope(void) : Generator() {
   target_ = 0.0;
   value_ = 0.0;
   rate_ = 0.001;
   state_ = 0;
-  Stk::addSampleRateAlert( this );
+  Stk::addSampleRateAlert(this);
 }
 
-Envelope :: ~Envelope( void )
-{
-  Stk::removeSampleRateAlert( this );
-}
+Envelope::~Envelope() { Stk::removeSampleRateAlert(this); }
 
-Envelope& Envelope :: operator= ( const Envelope& e )
-{
-  if ( this != &e ) {
+Envelope &Envelope::operator=(const Envelope &e) {
+  if (this != &e) {
     target_ = e.target_;
     value_ = e.value_;
     rate_ = e.rate_;
@@ -41,44 +36,42 @@ Envelope& Envelope :: operator= ( const Envelope& e )
   return *this;
 }
 
-void Envelope :: sampleRateChanged( StkFloat newRate, StkFloat oldRate )
-{
-  if ( !ignoreSampleRateChange_ )
+void Envelope::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
+  if (!ignoreSampleRateChange_)
     rate_ = oldRate * rate_ / newRate;
 }
 
-void Envelope :: setRate( StkFloat rate )
-{
-  if ( rate < 0.0 ) {
+void Envelope::setRate(StkFloat rate) {
+  if (rate < 0.0) {
     oStream_ << "Envelope::setRate: argument must be >= 0.0!";
-    handleError( StkError::WARNING ); return;
+    handleError(StkError::WARNING);
+    return;
   }
 
   rate_ = rate;
 }
 
-void Envelope :: setTime( StkFloat time )
-{
-  if ( time <= 0.0 ) {
+void Envelope::setTime(StkFloat time) {
+  if (time <= 0.0) {
     oStream_ << "Envelope::setTime: argument must be > 0.0!";
-    handleError( StkError::WARNING ); return;
+    handleError(StkError::WARNING);
+    return;
   }
 
-  rate_ = 1.0 / ( time * Stk::sampleRate() );
+  rate_ = 1.0 / (time * Stk::sampleRate());
 }
 
-void Envelope :: setTarget( StkFloat target )
-{
+void Envelope::setTarget(StkFloat target) {
   target_ = target;
-  if ( value_ != target_ ) state_ = 1;
+  if (value_ != target_)
+    state_ = 1;
 }
 
-void Envelope :: setValue( StkFloat value )
-{
+void Envelope::setValue(StkFloat value) {
   state_ = 0;
   target_ = value;
   value_ = value;
   lastFrame_[0] = value_;
 }
 
-} // stk namespace
+}

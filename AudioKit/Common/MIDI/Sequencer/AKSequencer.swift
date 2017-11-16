@@ -25,7 +25,7 @@ open class AKSequencer {
     open var loopEnabled: Bool = false
 
     /// Sequencer Initialization
-    public init() {
+    @objc public init() {
         NewMusicSequence(&sequence)
         if let existingSequence = sequence {
             sequencePointer = UnsafeMutablePointer<MusicSequence>(existingSequence)
@@ -39,7 +39,7 @@ open class AKSequencer {
 
     deinit {
         AKLog("deinit:")
-        
+
         if let player = musicPlayer {
             DisposeMusicPlayer(player)
         }
@@ -384,7 +384,7 @@ open class AKSequencer {
 
         initTracks()
     }
-    
+
     /// Load a MIDI file given a URL
     open func loadMIDIFile(fromUrl fileURL: URL) {
         if let existingSequence = sequence {
@@ -395,7 +395,6 @@ open class AKSequencer {
         }
         initTracks()
     }
-    
 
     /// Initialize all tracks
     ///

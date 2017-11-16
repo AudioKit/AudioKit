@@ -30,9 +30,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(ModalResonanceFilter)
-    
+
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Resonant Frequency (Hz)"
@@ -44,22 +44,22 @@ standardKernelPassthroughs()
                                                                min:0.0
                                                                max:100.0
                                                               unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     frequencyAUParameter.value = 500.0;
     qualityFactorAUParameter.value = 50.0;
-    
-    
+
+
     _kernel.setParameter(frequencyAddress,     frequencyAUParameter.value);
     _kernel.setParameter(qualityFactorAddress, qualityFactorAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              frequencyAUParameter,
                                              qualityFactorAUParameter
                                              ]];
-    
-    
+
+
     parameterTreeBlock(ModalResonanceFilter)
 }
 

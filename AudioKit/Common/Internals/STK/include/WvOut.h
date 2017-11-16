@@ -19,67 +19,65 @@ namespace stk {
 */
 /***************************************************/
 
-class WvOut : public Stk
-{
- public:
-
+class WvOut : public Stk {
+public:
   //! Default constructor.
-  WvOut( void ) : frameCounter_(0), clipping_(false) {};
+  WvOut(void) : frameCounter_(0), clipping_(false){};
 
   //! Return the number of sample frames output.
-  unsigned long getFrameCount( void ) const { return frameCounter_; };
+  unsigned long getFrameCount(void) const { return frameCounter_; };
 
   //! Return the number of seconds of data output.
-  StkFloat getTime( void ) const { return (StkFloat) frameCounter_ / Stk::sampleRate(); };
+  StkFloat getTime(void) const {
+    return (StkFloat)frameCounter_ / Stk::sampleRate();
+  };
 
-  //! Returns \c true if clipping has been detected during output since instantiation or the last reset.
-  bool clipStatus( void ) { return clipping_; };
+  //! Returns \c true if clipping has been detected during output since
+  //! instantiation or the last reset.
+  bool clipStatus(void) { return clipping_; };
 
   //! Reset the clipping status to \c false.
-  void resetClipStatus( void ) { clipping_ = false; };
+  void resetClipStatus(void) { clipping_ = false; };
 
   //! Output a single sample to all channels in a sample frame.
   /*!
     An StkError is thrown if an output error occurs.
   */
-  virtual void tick( const StkFloat sample ) = 0;
+  virtual void tick(const StkFloat sample) = 0;
 
   //! Output the StkFrames data.
-  virtual void tick( const StkFrames& frames ) = 0;
+  virtual void tick(const StkFrames &frames) = 0;
 
- protected:
-
+protected:
   // Check for sample clipping and clamp.
-  StkFloat& clipTest( StkFloat& sample );
+  StkFloat &clipTest(StkFloat &sample);
 
   StkFrames data_;
   unsigned long frameCounter_;
   bool clipping_;
-
 };
 
-inline StkFloat& WvOut :: clipTest( StkFloat& sample )
-{
+inline StkFloat &WvOut ::clipTest(StkFloat &sample) {
   bool clip = false;
-  if ( sample > 1.0 ) {
+  if (sample > 1.0) {
     sample = 1.0;
     clip = true;
-  }
-  else if ( sample < -1.0 ) {
+  } else if (sample < -1.0) {
     sample = -1.0;
     clip = true;
   }
 
-  if ( clip == true && clipping_ == false ) {
+  if (clip == true && clipping_ == false) {
     // First occurrence of clipping since instantiation or reset.
     clipping_ = true;
-    oStream_ << "WvOut: data value(s) outside +-1.0 detected ... clamping at outer bound!";
-    handleError( StkError::WARNING );
+    oStream_ << "WvOut: data value(s) outside +-1.0 detected ... clamping at "
+                "outer bound!";
+    handleError(StkError::WARNING);
   }
 
   return sample;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

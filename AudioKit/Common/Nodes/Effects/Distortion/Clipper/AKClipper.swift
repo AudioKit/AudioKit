@@ -56,7 +56,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - limit: Threshold / limiting value.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         limit: Double = 1.0) {
 

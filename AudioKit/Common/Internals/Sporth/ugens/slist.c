@@ -17,7 +17,7 @@ static int slist_parse(slist_d *sl, const char *filename, uint32_t size)
     size_t len = 0;
     ssize_t read = 0;
     char *line = NULL;
-    sl-> list = malloc(sizeof(char *) * size); 
+    sl-> list = malloc(sizeof(char *) * size);
     if(fp == NULL) {
         return PLUMBER_NOTOK;
     }
@@ -69,7 +69,7 @@ int sporth_slist(sporth_stack *stack, void *ud)
             size = sporth_stack_pop_float(stack);
             ftname = sporth_stack_pop_string(stack);
             if(slist_parse(sl, filename, size) != PLUMBER_OK) {
-                plumber_print(pd, 
+                plumber_print(pd,
                         "slist: could not load file %s\n",
                         filename);
                 return PLUMBER_NOTOK;
@@ -118,7 +118,7 @@ int sporth_sget(sporth_stack *stack, void *ud)
             }
             ftname = sporth_stack_pop_string(stack);
             index = sporth_stack_pop_float(stack);
-            if(plumber_ftmap_search_userdata(pd,ftname, (void *)&sl) != 
+            if(plumber_ftmap_search_userdata(pd,ftname, (void *)&sl) !=
                     PLUMBER_OK) {
                 plumber_print(pd, "Could not find ftable %s\n", ftname);
                 return PLUMBER_NOTOK;
@@ -174,7 +174,7 @@ int sporth_slick(sporth_stack *stack, void *ud)
             }
 
             ftname = sporth_stack_pop_string(stack);
-            if(plumber_ftmap_search_userdata(pd,ftname, (void *)&sl) != 
+            if(plumber_ftmap_search_userdata(pd,ftname, (void *)&sl) !=
                     PLUMBER_OK) {
                 plumber_print(pd, "Could not find ftable %s\n", ftname);
                 return PLUMBER_NOTOK;

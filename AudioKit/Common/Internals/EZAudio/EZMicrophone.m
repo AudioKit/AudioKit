@@ -217,15 +217,15 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
 #elif TARGET_OS_MAC
     inputComponentDescription.componentSubType = kAudioUnitSubType_HALOutput;
 #endif
-    
+
     // get the first matching component
     AudioComponent inputComponent = AudioComponentFindNext( NULL , &inputComponentDescription);
     NSAssert(inputComponent, @"Couldn't get input component unit!");
-    
+
     // create new instance of component
     [EZAudioUtilities checkResult:AudioComponentInstanceNew(inputComponent, &self.info->audioUnit)
                         operation:"Failed to get audio component instance"];
-    
+
 #if TARGET_OS_IPHONE
     // must enable input scope for remote IO unit
     UInt32 flag = 1;
@@ -238,7 +238,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                         operation:"Couldn't enable input on remote IO unit."];
 #endif
     [self setDevice:[EZAudioDevice currentInputDevice]];
-    
+
     UInt32 propSize = sizeof(self.info->inputFormat);
     [EZAudioUtilities checkResult:AudioUnitGetProperty(self.info->audioUnit,
                                                        kAudioUnitProperty_StreamFormat,
@@ -253,7 +253,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
 #elif TARGET_OS_MAC
 #endif
     [self setAudioStreamBasicDescription:[self defaultStreamFormat]];
-    
+
     // render callback
     AURenderCallbackStruct renderCallbackStruct;
     renderCallbackStruct.inputProc = EZAudioMicrophoneCallback;
@@ -265,10 +265,10 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                                                        &renderCallbackStruct,
                                                        sizeof(renderCallbackStruct))
                         operation:"Failed to set render callback"];
-    
+
     [EZAudioUtilities checkResult:AudioUnitInitialize(self.info->audioUnit)
                         operation:"Failed to initialize input unit"];
-    
+
     // setup notifications
     [self setupNotifications];
 }
@@ -342,7 +342,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
     //
     [EZAudioUtilities checkResult:AudioOutputUnitStart(self.info->audioUnit)
                         operation:"Failed to start microphone audio unit"];
-    
+
     //
     // Notify delegate
     //
@@ -361,7 +361,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
     //
     [EZAudioUtilities checkResult:AudioOutputUnitStop(self.info->audioUnit)
                         operation:"Failed to stop microphone audio unit"];
-    
+
     //
     // Notify delegate
     //
@@ -429,7 +429,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
         [EZAudioUtilities freeFloatBuffers:self.info->floatData
                           numberOfChannels:self.info->streamFormat.mChannelsPerFrame];
     }
-    
+
     // set new stream format
     self.info->streamFormat = asbd;
     [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->audioUnit,
@@ -446,7 +446,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                                                        &asbd,
                                                        sizeof(asbd))
                         operation:"Failed to set stream format on output scope"];
-    
+
     // allocate float buffers
     UInt32 maximumBufferSize = [self maximumBufferSize];
     BOOL isInterleaved = [EZAudioUtilities isInterleaved:asbd];
@@ -457,7 +457,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
     self.info->audioBufferList = [EZAudioUtilities audioBufferListWithNumberOfFrames:maximumBufferSize
                                                                numberOfChannels:channels
                                                                     interleaved:isInterleaved];
-    
+
     // notify delegate
     if ([self.delegate respondsToSelector:@selector(microphone:hasAudioStreamBasicDescription:)])
     {
@@ -470,13 +470,13 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
 - (void)setDevice:(EZAudioDevice *)device
 {
 #if TARGET_OS_IPHONE
-    
+
     // if the devices are equal then ignore
     if ([device isEqual:self.device])
     {
         return;
     }
-    
+
     NSError *error;
     [[AVAudioSession sharedInstance] setPreferredInput:device.port error:&error];
     if (error)
@@ -498,7 +498,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
             }
         }
     }
-    
+
 #elif TARGET_OS_MAC
     UInt32 inputEnabled = device.inputChannelCount > 0;
     [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->audioUnit,
@@ -508,7 +508,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                                                        &inputEnabled,
                                                        sizeof(inputEnabled))
                         operation:"Failed to set flag on device input"];
-    
+
     UInt32 outputEnabled = device.outputChannelCount > 0;
     [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->audioUnit,
                                                        kAudioOutputUnitProperty_EnableIO,
@@ -517,7 +517,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                                                        &outputEnabled,
                                                        sizeof(outputEnabled))
                         operation:"Failed to set flag on device output"];
-    
+
     AudioDeviceID deviceId = device.deviceID;
     [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->audioUnit,
                                                        kAudioOutputUnitProperty_CurrentDevice,
@@ -527,10 +527,10 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                                                        sizeof(AudioDeviceID))
                         operation:"Couldn't set default device on I/O unit"];
 #endif
-    
+
     // store device
     _device = device;
-    
+
     // notify delegate
     if ([self.delegate respondsToSelector:@selector(microphone:changedDevice:)])
     {
@@ -602,7 +602,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
 {
     EZMicrophone *microphone = (__bridge EZMicrophone *)inRefCon;
     EZMicrophoneInfo *info = (EZMicrophoneInfo *)microphone.info;
-    
+
     // render audio into buffer
     OSStatus result = AudioUnitRender(info->audioUnit,
                                       ioActionFlags,
@@ -610,7 +610,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                                       inBusNumber,
                                       inNumberFrames,
                                       info->audioBufferList);
-    
+
     // notify delegate of new buffer list to process
     if ([microphone.delegate respondsToSelector:@selector(microphone:hasBufferList:withBufferSize:withNumberOfChannels:)])
     {
@@ -619,7 +619,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                          withBufferSize:inNumberFrames
                    withNumberOfChannels:info->streamFormat.mChannelsPerFrame];
     }
-    
+
     // notify delegate of new float data processed
     if ([microphone.delegate respondsToSelector:@selector(microphone:hasAudioReceived:withBufferSize:withNumberOfChannels:)])
     {
@@ -632,6 +632,6 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                          withBufferSize:inNumberFrames
                    withNumberOfChannels:info->streamFormat.mChannelsPerFrame];
     }
-    
+
     return result;
 }

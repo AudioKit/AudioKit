@@ -110,10 +110,10 @@ public enum AKButtonStyle {
     }
 
     /// Initialize the button
-    public init(title: String,
-                color: AKColor = AKStylist.sharedInstance.nextColor,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: @escaping (AKButton) -> Void) {
+    @objc public init(title: String,
+                      color: AKColor = AKStylist.sharedInstance.nextColor,
+                      frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                      callback: @escaping (AKButton) -> Void) {
         self.title = title
         self.color = color
         self.callback = callback

@@ -33,7 +33,7 @@ open class AKDryWetMixer: AKNode, AKInput {
     ///   - wet: Wet Input (or just input 2)
     ///   - balance: Balance Point (0 = all dry, 1 = all wet)
     ///
-    public init(_ dry: AKNode? = nil, _ wet: AKNode? = nil, balance: Double = 0.5) {
+    @objc public init(_ dry: AKNode? = nil, _ wet: AKNode? = nil, balance: Double = 0.5) {
 
         self.balance = balance
 

@@ -112,7 +112,7 @@ typedef struct {
     const char *name;
     void *handle;
     void *ud;
-} sporth_fload_d; 
+} sporth_fload_d;
 
 #ifdef LIVE_CODING
 #include <pthread.h>
@@ -145,14 +145,14 @@ int plumber_parse_string(plumber_data *plumb, const char *str);
 
 int plumber_recompile(plumber_data *plumb);
 int plumber_recompile_string(plumber_data *plumb, char *str);
-plumbing *plumbing_choose(plumber_data *plumb, 
+plumbing *plumbing_choose(plumber_data *plumb,
         plumbing *main, plumbing *alt, int *current_pipe);
 int plumber_reinit(plumber_data *plumb);
 int plumber_reparse(plumber_data *plumb);
 int plumber_reparse_string(plumber_data *plumb, char *str);
 int plumber_recompile_string(plumber_data *plumb, char *str);
-int plumber_recompile_string_v2(plumber_data *plumb, 
-        char *str, 
+int plumber_recompile_string_v2(plumber_data *plumb,
+        char *str,
         void *ud,
         int (*callback)(plumber_data *, void *));
 int plumber_swap(plumber_data *plumb, int error);
@@ -166,7 +166,7 @@ int plumber_error(plumber_data *plumb, const char *str);
 int plumber_ftmap_init(plumber_data *plumb);
 int plumber_ftmap_add(plumber_data *plumb, const char *str, sp_ftbl *ft);
 int plumber_ftmap_add_userdata(plumber_data *plumb, const char *str, void *ud);
-int plumber_ftmap_add_function(plumber_data *plumb, 
+int plumber_ftmap_add_function(plumber_data *plumb,
         const char *str, plumber_dyn_func f, void *ud);
 int plumber_ftmap_search(plumber_data *plumb, const char *str, sp_ftbl **ft);
 int plumber_ftmap_search_userdata(plumber_data *plumb, const char *str, void **ud);

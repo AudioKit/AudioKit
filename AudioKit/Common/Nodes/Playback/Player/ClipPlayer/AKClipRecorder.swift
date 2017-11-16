@@ -21,7 +21,7 @@ open class AKClipRecorder {
     ///
     /// - Parameter node: The node that audio will be recorded from
     ///
-    public init(node: AKOutput) {
+    @objc public init(node: AKOutput) {
         self.node = node
         timing = AKNodeTiming(node: node)
         node.outputNode.installTap(onBus: 0, bufferSize: 256, format: nil, block: self.audioTap)
@@ -123,7 +123,7 @@ open class AKClipRecorder {
 
     /// Schedule an audio clip to record.
     ///
-    /// Clips are recorded to an audio file in the tmp directory, they are accessed when the 
+    /// Clips are recorded to an audio file in the tmp directory, they are accessed when the
     /// completeion block is called, if no error.
     ///
     /// - Parameters

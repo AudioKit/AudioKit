@@ -11,7 +11,7 @@
  This is necessary because MIDIPacket can contain multiple midi events,
  but Swift makes this unnecessarily hard because the MIDIPacket struct uses a tuple
  for the data field. Grrr!
- 
+
  Example usage:
  let packet: MIDIPacket
  for message in packet {

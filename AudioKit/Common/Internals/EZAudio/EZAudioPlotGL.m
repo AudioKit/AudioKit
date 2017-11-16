@@ -152,25 +152,25 @@ typedef struct
     //
     self.info = (EZAudioPlotGLInfo *)malloc(sizeof(EZAudioPlotGLInfo));
     memset(self.info, 0, sizeof(EZAudioPlotGLInfo));
-    
+
     //
     // Create points array
     //
     UInt32 pointCount = [self maximumRollingHistoryLength];
     self.info->points = (EZAudioPlotGLPoint *)calloc(sizeof(EZAudioPlotGLPoint), pointCount);
     self.info->pointCount = pointCount;
-    
+
     //
     // Create the history data structure to hold the rolling data
     //
     self.info->historyInfo = [EZAudioUtilities historyInfoWithDefaultLength:[self defaultRollingHistoryLength]
                                                               maximumLength:[self maximumRollingHistoryLength]];
-    
+
     //
     // Setup OpenGL specific stuff
     //
     [self setupOpenGL];
-    
+
     //
     // Setup view properties
     //
@@ -182,12 +182,12 @@ typedef struct
     self.backgroundColor = [NSColor colorWithCalibratedRed:0.569f green:0.82f blue:0.478f alpha:1.0f];
     self.color = [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
 #endif
-    
+
     //
     // Allow subclass to initialize plot
     //
     [self setupPlot];
-    
+
     //
     // Create the display link
     //

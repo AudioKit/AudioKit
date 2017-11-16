@@ -39,7 +39,7 @@ int sp_tseg_compute(sp_data *sp, sp_tseg *p, SPFLOAT *in, SPFLOAT *out)
         p->tdivnsteps = (SPFLOAT)p->type / (p->steps - 1);
     }
     if(p->count < p->steps) {
-        *out = p->beg + (p->end - p->beg) * 
+        *out = p->beg + (p->end - p->beg) *
             ((1 - exp(p->count * p->tdivnsteps)) * p->slope);
         p->val = *out;
         p->count++;

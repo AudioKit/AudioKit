@@ -51,7 +51,7 @@ open class AKSynthSnare: AKMIDIInstrument {
     var duration = 0.143
 
     /// Create the synth snare voice
-    public init(duration: Double = 0.143, resonance: Double = 0.9) {
+    @objc public init(duration: Double = 0.143, resonance: Double = 0.9) {
         self.duration = duration
         self.resonance = resonance
 

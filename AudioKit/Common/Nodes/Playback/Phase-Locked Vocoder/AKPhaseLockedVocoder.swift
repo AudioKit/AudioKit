@@ -93,7 +93,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     ///   - amplitude: Amplitude.
     ///   - pitchRatio: Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     ///
-    public init(
+    @objc public init(
         file: AVAudioFile,
         position: Double = 0,
         amplitude: Double = 1,

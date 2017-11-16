@@ -10,7 +10,7 @@
 #import "BufferedAudioBus.hpp"
 
 /**
- This class is demo a butt simple AudioUnit built using the underlying AudioUnitBase class, 
+ This class is demo a butt simple AudioUnit built using the underlying AudioUnitBase class,
  which is designed to minimize the work needed at this level. All this audio unit is adjust gain.
  As such it only has one parameter Gain.
  */
@@ -30,9 +30,9 @@
 
 /**
  This method is used by the base class to initialize the underlying C++ DSP used by the render
- thread. This is necessary because the base class doesn't know the type of the C++ DSP, it only 
+ thread. This is necessary because the base class doesn't know the type of the C++ DSP, it only
  knows the C++ base class.
- 
+
  I think that ultimately the code at this level can be in Swift. The only tricky part is getting
  a pointer to the DSP, since Swift doesn't have C++ interop at present. But there is a workaround
  for that.
@@ -44,17 +44,17 @@
     return (void*)kernel;
 }
 
-/** 
+/**
  All this method needs to do is set up parameters. The rest is taken care of by the base class.
  */
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
-    
+
     self = [super initWithComponentDescription:componentDescription options:options error:outError];
     if (self == nil) { return nil; }
-    
+
     // Create a parameter object for the gain.
     AUParameter *gain = [AUParameterTree createParameterWithIdentifier:@"gain" name:@"Gain"
                                                                address:kGain
@@ -66,9 +66,9 @@
                                                                        kAudioUnitParameterFlag_CanRamp
                                                           valueStrings:nil
                                                    dependentParameters:nil];
-    
-    
-    
+
+
+
     // Create the parameter tree.
     [self setParameterTree: [AUParameterTree createTreeWithChildren:@[gain]]];
 

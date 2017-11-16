@@ -8,7 +8,7 @@
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT SPFLOAT
-#endif  
+#endif
 
 
 float powf(float dummy0, float dummy1);
@@ -24,12 +24,12 @@ typedef struct {
 	int fSamplingFreq;
 } pshift;
 
-static pshift* newpshift() { 
+static pshift* newpshift() {
 	pshift* dsp = (pshift*)malloc(sizeof(pshift));
 	return dsp;
 }
 
-static void deletepshift(pshift* dsp) { 
+static void deletepshift(pshift* dsp) {
 	free(dsp);
 }
 
@@ -41,9 +41,9 @@ static void instanceInitpshift(pshift* dsp, int samplingFreq) {
 		int i0;
 		for (i0 = 0; (i0 < 65536); i0 = (i0 + 1)) {
 			dsp->fVec0[i0] = 0.f;
-			
+
 		}
-		
+
 	}
 	dsp->fHslider0 = (FAUSTFLOAT)1000.;
 	dsp->fHslider1 = (FAUSTFLOAT)0.;
@@ -52,9 +52,9 @@ static void instanceInitpshift(pshift* dsp, int samplingFreq) {
 		int i1;
 		for (i1 = 0; (i1 < 2); i1 = (i1 + 1)) {
 			dsp->fRec0[i1] = 0.f;
-			
+
 		}
-		
+
 	}
 	dsp->fHslider2 = (FAUSTFLOAT)10.;
 }
@@ -91,11 +91,11 @@ static void computepshift(pshift* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOA
 			output0[i] = (FAUSTFLOAT)((((dsp->fVec0[((dsp->IOTA - (iTemp1 & 65535)) & 65535)] * ((float)iTemp2 - dsp->fRec0[0])) + ((dsp->fRec0[0] - (float)iTemp1) * dsp->fVec0[((dsp->IOTA - (iTemp2 & 65535)) & 65535)])) * fTemp3) + (((dsp->fVec0[((dsp->IOTA - (iTemp5 & 65535)) & 65535)] * (0.f - ((dsp->fRec0[0] + fSlow3) - (float)iTemp5))) + ((fTemp4 - (float)iTemp5) * dsp->fVec0[((dsp->IOTA - ((1 + iTemp5) & 65535)) & 65535)])) * (1.f - fTemp3)));
 			dsp->IOTA = (dsp->IOTA + 1);
 			dsp->fRec0[1] = dsp->fRec0[0];
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
@@ -122,7 +122,7 @@ int sp_pshift_destroy(sp_pshift **p)
 
 int sp_pshift_init(sp_data *sp, sp_pshift *p)
 {
-    pshift *dsp = newpshift(); 
+    pshift *dsp = newpshift();
     UIGlue UI;
     p->argpos = 0;
     UI.addHorizontalSlider= addHorizontalSlider;
@@ -130,16 +130,16 @@ int sp_pshift_init(sp_data *sp, sp_pshift *p)
     buildUserInterfacepshift(dsp, &UI);
     initpshift(dsp, sp->sr);
 
-     
-    p->shift = p->args[0]; 
-    p->window = p->args[1]; 
+
+    p->shift = p->args[0];
+    p->window = p->args[1];
     p->xfade = p->args[2];
 
     p->faust = dsp;
     return SP_OK;
 }
 
-int sp_pshift_compute(sp_data *sp, sp_pshift *p, SPFLOAT *in, SPFLOAT *out) 
+int sp_pshift_compute(sp_data *sp, sp_pshift *p, SPFLOAT *in, SPFLOAT *out)
 {
 
     pshift *dsp = p->faust;

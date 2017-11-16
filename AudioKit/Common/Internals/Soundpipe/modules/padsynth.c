@@ -7,7 +7,7 @@
     This implementation and the algorithm are released under Public Domain
     Feel free to use it into your projects or your products ;-)
 
-    This implementation is tested under GCC/Linux, but it's 
+    This implementation is tested under GCC/Linux, but it's
     very easy to port to other compiler/OS.
 */
 
@@ -16,11 +16,11 @@
 #include "soundpipe.h"
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	
-#endif 
+#define M_PI		3.14159265358979323846
+#endif
 
-int sp_gen_padsynth(sp_data *sp, sp_ftbl *ps, sp_ftbl *amps, 
-        SPFLOAT f, SPFLOAT bw) 
+int sp_gen_padsynth(sp_data *sp, sp_ftbl *ps, sp_ftbl *amps,
+        SPFLOAT f, SPFLOAT bw)
 {
 
     int i, nh;
@@ -65,13 +65,13 @@ int sp_gen_padsynth(sp_data *sp, sp_ftbl *ps, sp_ftbl *amps,
    The amplitude is divided by the bandwidth to ensure that the harmonic
    keeps the same amplitude regardless of the bandwidth */
 
-SPFLOAT sp_padsynth_profile(SPFLOAT fi, SPFLOAT bwi) 
+SPFLOAT sp_padsynth_profile(SPFLOAT fi, SPFLOAT bwi)
 {
     SPFLOAT x =fi/bwi;
     x *= x;
 
-/* 
- * this avoids computing the e^(-x^2) where 
+/*
+ * this avoids computing the e^(-x^2) where
  * it's results are very close to zero
  */
     if (x>14.71280603) return 0.0;
@@ -79,8 +79,8 @@ SPFLOAT sp_padsynth_profile(SPFLOAT fi, SPFLOAT bwi)
     return exp(-x)/bwi;
 }
 
-int sp_padsynth_ifft(int N, SPFLOAT *freq_amp, 
-        SPFLOAT *freq_phase, SPFLOAT *smp) 
+int sp_padsynth_ifft(int N, SPFLOAT *freq_amp,
+        SPFLOAT *freq_phase, SPFLOAT *smp)
 {
     int i;
     FFTwrapper *fft;
@@ -102,7 +102,7 @@ int sp_padsynth_ifft(int N, SPFLOAT *freq_amp,
     Simple normalization function. It normalizes the sound to 1/sqrt(2)
 */
 
-int sp_padsynth_normalize(int N, SPFLOAT *smp) 
+int sp_padsynth_normalize(int N, SPFLOAT *smp)
 {
     int i;
     SPFLOAT max=0.0;
