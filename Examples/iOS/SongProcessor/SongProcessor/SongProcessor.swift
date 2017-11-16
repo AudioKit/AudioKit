@@ -95,7 +95,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
             print("error")
         }
         AKSettings.playbackWhileMuted = true
-        
+
         AudioKit.output = offlineRender
         initParameters()
         AudioKit.start()

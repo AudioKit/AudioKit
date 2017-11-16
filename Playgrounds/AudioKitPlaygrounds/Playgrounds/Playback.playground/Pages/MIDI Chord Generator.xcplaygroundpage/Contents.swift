@@ -1,7 +1,7 @@
 //: ## MIDI Chord Generator
-//: This playground builds on the MIDI Scale Quantizer by adding a second 
+//: This playground builds on the MIDI Scale Quantizer by adding a second
 //: AKMIDITransformer which takes the quantized scale and generates chords
-//: from it.  You can chain as many AKMIDITransformers as you want, and 
+//: from it.  You can chain as many AKMIDITransformers as you want, and
 //: each can take an array of AKMIDIEvents to process
 import AudioKitPlaygrounds
 import AudioKit

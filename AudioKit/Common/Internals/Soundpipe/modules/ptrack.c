@@ -373,7 +373,7 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
 
         for (best = 0, indx = -1, j=0; j < maxbin; j++) {
             if (histogram[j] > best) {
-                indx = j;  
+                indx = j;
                 best = histogram[j];
             }
         }
@@ -435,7 +435,7 @@ int sp_ptrack_compute(sp_data *sp, sp_ptrack *p, SPFLOAT *in, SPFLOAT *freq, SPF
 
     *freq = p->cps;
     *amp =  exp(p->dbs[p->histcnt] / 20.0 * log(10.0));
-    
+
     p->cnt = pos;
 
     return SP_OK;

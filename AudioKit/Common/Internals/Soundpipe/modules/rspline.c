@@ -80,7 +80,7 @@ int sp_rspline_compute(sp_data *sp, sp_rspline *p, SPFLOAT *in, SPFLOAT *out)
     }
 
     x = (SPFLOAT) phs;
-    *out = (((p->c3 * x + p->c2) * x + df0) * x + f0) * 
+    *out = (((p->c3 * x + p->c2) * x + df0) * x + f0) *
         (p->max - p->min) + p->min;
     p->phs = phs;
     p->init = 0;

@@ -30,12 +30,12 @@ public:
         inverseSlope = 0.0;
         samplesRemaining = 0;
     }
-    
+
 
     ParameterRamper(float value) {
         setImmediate(value);
     }
-    
+
     void init() {
         /*
          Call this from the kernel init.
@@ -43,18 +43,18 @@ public:
          */
         setImmediate(_uiValue);
     }
-    
+
     void reset() {
         changeCounter = updateCounter = 0;
     }
-    
+
     void setUIValue(float value) {
         _uiValue = value;
         atomic_fetch_add(&changeCounter, 1);
     }
-    
+
     float getUIValue() const { return _uiValue; }
-    
+
     void dezipperCheck(AUAudioFrameCount rampDuration)
     {
         // check to see if the UI has changed and if so, start a ramp to dezipper it.
@@ -64,7 +64,7 @@ public:
             startRamp(_uiValue, rampDuration);
         }
     }
-    
+
     void startRamp(float newGoal, AUAudioFrameCount duration) {
         if (duration == 0) {
             setImmediate(newGoal);
@@ -79,7 +79,7 @@ public:
             _goal = _uiValue = newGoal;
         }
     }
-    
+
     float get() const {
         /*
          For long ramps, integrating a sum loses precision and does not reach
@@ -87,14 +87,14 @@ public:
          */
         return inverseSlope * float(samplesRemaining) + _goal;
     }
-    
+
     void step() {
         // Do this in each inner loop iteration after getting the value.
         if (samplesRemaining != 0) {
             --samplesRemaining;
         }
     }
-    
+
     float getAndStep() {
         // Combines get and step. Saves a multiply-add when not ramping.
         if (samplesRemaining != 0) {
@@ -106,7 +106,7 @@ public:
             return _goal;
         }
     }
-    
+
     void stepBy(AUAudioFrameCount n) {
         /*
          When a parameter does not participate in the current inner loop, you

@@ -45,9 +45,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(RhinoGuitarProcessor)
-    
+
     // Create a parameter object for the preGain.
     AUParameter *preGainAUParameter =
     [AUParameter parameter:@"preGain"
@@ -104,8 +104,8 @@ standardKernelPassthroughs()
                        min:1.0
                        max:20.0
                       unit:kAudioUnitParameterUnit_Generic];
-    
-    
+
+
     // Initialize the parameter values.
     preGainAUParameter.value = 5.0;
     postGainAUParameter.value = 0.7;
@@ -114,7 +114,7 @@ standardKernelPassthroughs()
     highGainAUParameter.value = 0.0;
     distTypeAUParameter.value = 1.0;
     distAmountAUParameter.value = 1.0;
-    
+
     _kernel.setParameter(preGainAddress,  preGainAUParameter.value);
     _kernel.setParameter(postGainAddress, postGainAUParameter.value);
     _kernel.setParameter(lowGainAddress,  lowGainAUParameter.value);
@@ -122,7 +122,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(highGainAddress, highGainAUParameter.value);
     _kernel.setParameter(distTypeAddress, distTypeAUParameter.value);
     _kernel.setParameter(distAmountAddress, distAmountAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              preGainAUParameter,
@@ -133,7 +133,7 @@ standardKernelPassthroughs()
                                              distTypeAUParameter,
                                              distAmountAUParameter
                                              ]];
-    
+
     parameterTreeBlock(RhinoGuitarProcessor)
 }
 

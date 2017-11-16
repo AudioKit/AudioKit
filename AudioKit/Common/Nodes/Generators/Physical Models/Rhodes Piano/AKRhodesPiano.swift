@@ -68,7 +68,7 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     ///                greater than that.
     ///   - amplitude: Amplitude
     ///
-    public init(
+    @objc public init(
         frequency: Double = 440,
         amplitude: Double = 0.5) {
 

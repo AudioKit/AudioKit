@@ -25,50 +25,47 @@
 
 namespace stk {
 
-Fir :: Fir()
-{
+Fir::Fir() {
   // The default constructor should setup for pass-through.
-  b_.push_back( 1.0 );
+  b_.push_back(1.0);
 
-  inputs_.resize( 1, 1, 0.0 );
+  inputs_.resize(1, 1, 0.0);
 }
 
-Fir :: Fir( std::vector<StkFloat> &coefficients )
-{
+Fir::Fir(std::vector<StkFloat> &coefficients) {
   // Check the arguments.
-  if ( coefficients.size() == 0 ) {
+  if (coefficients.size() == 0) {
     oStream_ << "Fir: coefficient vector must have size > 0!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
   gain_ = 1.0;
   b_ = coefficients;
 
-  inputs_.resize( b_.size(), 1, 0.0 );
+  inputs_.resize(b_.size(), 1, 0.0);
   this->clear();
 }
 
-Fir :: ~Fir()
-{
-}
+Fir::~Fir() {}
 
-void Fir :: setCoefficients( std::vector<StkFloat> &coefficients, bool clearState )
-{
+void Fir::setCoefficients(std::vector<StkFloat> &coefficients,
+                           bool clearState) {
   // Check the argument.
-  if ( coefficients.size() == 0 ) {
+  if (coefficients.size() == 0) {
     oStream_ << "Fir::setCoefficients: coefficient vector must have size > 0!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
-  if ( b_.size() != coefficients.size() ) {
+  if (b_.size() != coefficients.size()) {
     b_ = coefficients;
-    inputs_.resize( b_.size(), 1, 0.0 );
-  }
-  else {
-    for ( unsigned int i=0; i<b_.size(); i++ ) b_[i] = coefficients[i];
+    inputs_.resize(b_.size(), 1, 0.0);
+  } else {
+    for (unsigned int i = 0; i < b_.size(); i++)
+      b_[i] = coefficients[i];
   }
 
-  if ( clearState ) this->clear();
+  if (clearState)
+    this->clear();
 }
 
-} // stk namespace
+}

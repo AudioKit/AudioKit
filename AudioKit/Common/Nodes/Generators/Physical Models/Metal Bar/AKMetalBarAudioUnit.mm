@@ -49,9 +49,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(MetalBar)
-    
+
     // Create a parameter object for the leftBoundaryCondition.
     AUParameter *leftBoundaryConditionAUParameter = [AUParameter parameter:@"leftBoundaryCondition"
                                                                       name:@"Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free"
@@ -102,8 +102,8 @@ standardKernelPassthroughs()
                                                              min:0
                                                              max:1
                                                             unit:kAudioUnitParameterUnit_Generic];
-    
-    
+
+
     // Initialize the parameter values.
     leftBoundaryConditionAUParameter.value = 1;
     rightBoundaryConditionAUParameter.value = 1;
@@ -112,8 +112,8 @@ standardKernelPassthroughs()
     positionAUParameter.value = 0.2;
     strikeVelocityAUParameter.value = 500;
     strikeWidthAUParameter.value = 0.05;
-    
-    
+
+
     _kernel.setParameter(leftBoundaryConditionAddress,  leftBoundaryConditionAUParameter.value);
     _kernel.setParameter(rightBoundaryConditionAddress, rightBoundaryConditionAUParameter.value);
     _kernel.setParameter(decayDurationAddress,          decayDurationAUParameter.value);
@@ -121,7 +121,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(positionAddress,               positionAUParameter.value);
     _kernel.setParameter(strikeVelocityAddress,         strikeVelocityAUParameter.value);
     _kernel.setParameter(strikeWidthAddress,            strikeWidthAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
                                                                leftBoundaryConditionAUParameter,

@@ -176,13 +176,13 @@ open class AKSamplePlayer: AKNode, AKComponent {
     ///   - maximumSamples: Largest number of samples that will be loaded into the sample player
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///
-    public init(file: AVAudioFile,
-                startPoint: Sample = 0,
-                endPoint: Sample = 0,
-                rate: Double = 1,
-                volume: Double = 1,
-                maximumSamples: Int = 0,
-                completionHandler: @escaping AKCCallback = { }) {
+    @objc public init(file: AVAudioFile,
+                      startPoint: Sample = 0,
+                      endPoint: Sample = 0,
+                      rate: Double = 1,
+                      volume: Double = 1,
+                      maximumSamples: Int = 0,
+                      completionHandler: @escaping AKCCallback = { }) {
 
         self.startPoint = startPoint
         self.rate = rate

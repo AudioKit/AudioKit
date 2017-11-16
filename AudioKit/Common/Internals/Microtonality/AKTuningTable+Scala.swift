@@ -16,12 +16,12 @@ extension AKTuningTable {
                 AKLog("can't read filePath: \(filePath)")
                 return nil
         }
-        
+
         if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
             let npo = tuningTable(fromFrequencies: scalaFrequencies)
             return npo
         }
-        
+
         // error
         return nil
     }

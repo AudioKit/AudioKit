@@ -42,7 +42,7 @@ public func fourCC(_ string: String) -> UInt32 {
     return out
 }
 
-/// Wrapper for printing out status messages to the console, 
+/// Wrapper for printing out status messages to the console,
 /// eventually it could be expanded with log levels
 /// - parameter string: Message to print
 ///

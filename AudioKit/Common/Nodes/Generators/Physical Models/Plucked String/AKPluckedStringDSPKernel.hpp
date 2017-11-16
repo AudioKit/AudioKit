@@ -116,7 +116,7 @@ public:
                 } else {
                     *out = 0.0;
                 }
-                
+
             }
         }
         if (internalTrigger == 1) {
@@ -129,7 +129,7 @@ public:
 private:
 
     float internalTrigger = 0;
-    
+
     sp_pluck *pluck;
 
     float frequency = 110;

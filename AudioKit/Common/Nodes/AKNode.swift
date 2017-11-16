@@ -24,7 +24,7 @@ extension AVAudioConnectionPoint {
     }
 
     /// Initialize the node
-    public init(avAudioNode: AVAudioNode, attach: Bool = false) {
+    @objc public init(avAudioNode: AVAudioNode, attach: Bool = false) {
         self.avAudioNode = avAudioNode
         if attach {
             AudioKit.engine.attach(avAudioNode)

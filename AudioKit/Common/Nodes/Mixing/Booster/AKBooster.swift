@@ -113,7 +113,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         gain: Double = 1) {
 

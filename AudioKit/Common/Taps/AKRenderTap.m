@@ -45,12 +45,12 @@
 
 
 - (void)dealloc {
-    
+
     OSStatus status = AudioUnitRemoveRenderNotify(_audioUnit, renderNotify, (__bridge void *)_renderNotifyBlock);
     if (status) {
         printf("%s OSStatus %d %d\n",NSStringFromClass(self.class).UTF8String, (int)status, __LINE__);
     }
-    
+
     //Cleanup should happen after at least two render cycles so that nothing is deallocated mid-render
     double timeFromNow = 0.2;
     AKRenderNotifyBlock dBlock = _renderNotifyBlock;
@@ -66,7 +66,7 @@ static OSStatus renderNotify(void                        * inRefCon,
                              UInt32                       inBusNumber,
                              UInt32                       inNumberFrames,
                              AudioBufferList              * ioData) {
-    
+
     __unsafe_unretained AKRenderNotifyBlock notifyBlock = (__bridge AKRenderNotifyBlock)(inRefCon);
     if (notifyBlock) {
         notifyBlock(ioActionFlags, inTimeStamp, inBusNumber, inNumberFrames, ioData);

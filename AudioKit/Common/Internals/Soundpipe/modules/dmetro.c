@@ -22,14 +22,14 @@ int sp_dmetro_init(sp_data *sp, sp_dmetro *p)
 
 int sp_dmetro_compute(sp_data *sp, sp_dmetro *p, SPFLOAT *in, SPFLOAT *out)
 {
-    *out = 0; 
+    *out = 0;
 
     if(p->counter == 0) {
         *out = 1.0;
         p->counter = (int)(sp->sr * p->time) + 1;
     }
 
-    p->counter--; 
+    p->counter--;
 
     return SP_OK;
 }

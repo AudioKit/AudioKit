@@ -17,13 +17,6 @@ import Dispatch
 
 public typealias AKCallback = () -> Void
 
-/// Adding connection between nodes with default format
-extension AVAudioEngine {
-    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
-        connect(node1, to: node2, format: AudioKit.format)
-    }
-}
-
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
@@ -44,6 +37,7 @@ extension AVAudioEngine {
     /// An audio output operation that most applications will need to use last
     @objc open static var output: AKNode? {
         didSet {
+            updateSessionCategoryAndOptions()
             output?.connect(to: finalMixer)
             engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
         }
@@ -238,66 +232,8 @@ extension AVAudioEngine {
                         name: .AVAudioEngineConfigurationChange,
                         object: engine)
                 }
-
-            #endif
-            #if !os(macOS)
-                if AKSettings.audioInputEnabled {
-
-                #if os(iOS)
-
-                    var options: AVAudioSessionCategoryOptions = [.mixWithOthers]
-
-                    if #available(iOS 10.0, *) {
-                        // Blueooth Options
-                        // .allowBluetooth can only be set with the categories .playAndRecord and .record
-                        // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or
-                        // .playback. This option is cleared if the category is .record, or .multiRoute. If this
-                        // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
-                        // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
-                        // priority for routing.
-                        if AKSettings.bluetoothOptions.isNotEmpty {
-                            options = options.union(AKSettings.bluetoothOptions)
-                        } else if AKSettings.useBluetooth {
-                            // If bluetoothOptions aren't specified
-                            // but useBluetooth is then we will use these defaults
-                            options = options.union([.allowBluetooth,
-                                                     .allowBluetoothA2DP])
-                        }
-
-                        // AirPlay
-                        if AKSettings.allowAirPlay {
-                            options = options.union(.allowAirPlay)
-                        }
-                    } else if AKSettings.bluetoothOptions.isNotEmpty ||
-                              AKSettings.useBluetooth ||
-                              AKSettings.allowAirPlay {
-                        AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
-                    }
-
-                    // Default to Speaker
-                    if AKSettings.defaultToSpeaker {
-                        options = options.union(.defaultToSpeaker)
-                    }
-
-                    try AKSettings.setSession(category: .playAndRecord,
-                                              with: options)
-
-                #elseif os(tvOS)
-                    // tvOS
-                    try AKSettings.setSession(category: .playAndRecord)
-
-                #endif
-
-                } else if AKSettings.playbackWhileMuted {
-                    try AKSettings.setSession(category: .playback)
-                } else {
-                    try AKSettings.setSession(category: .ambient)
-                }
-
-                #if os(iOS)
-                    try AVAudioSession.sharedInstance().setActive(true)
-                #endif
-
+                updateSessionCategoryAndOptions()
+                try AVAudioSession.sharedInstance().setActive(true)
             #endif
 
             try engine.start()
@@ -306,6 +242,24 @@ extension AVAudioEngine {
         } catch {
             fatalError("AudioKit: Could not start engine. error: \(error).")
         }
+    }
+
+    @objc fileprivate static func updateSessionCategoryAndOptions() {
+        #if !os(macOS)
+            do {
+                let sessionCategory = AKSettings.computedSessionCategory()
+                let sessionOptions = AKSettings.computedSessionOptions()
+
+                #if os(iOS)
+                    try AKSettings.setSession(category: sessionCategory,
+                                              with: sessionOptions)
+                #elseif os(tvOS)
+                    try AKSettings.setSession(category: sessionCategory)
+                #endif
+            } catch {
+                fatalError("AudioKit: Could not update AVAudioSession category and options. error: \(error).")
+            }
+        #endif
     }
 
     /// Stop the audio engine
@@ -592,5 +546,74 @@ extension AudioKit {
         for node in nodes {
             engine.detach(node)
         }
+    }
+
+    /// Render output to an AVAudioFile for a duration.
+    ///     - Parameters
+    ///         - audioFile: An file initialized for writing
+    ///         - seconds: Duration to render
+    ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
+    ///
+    @available(iOS 11, macOS 10.13, tvOS 11, *)
+    @objc open static func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
+        try engine.renderToFile(audioFile, seconds: seconds, prerender: prerender)
+    }
+
+}
+
+
+extension AVAudioEngine {
+
+    /// Adding connection between nodes with default format
+    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
+        connect(node1, to: node2, format: AudioKit.format)
+    }
+
+    /// Render output to an AVAudioFile for a duration.
+    ///     - Parameters
+    ///         - audioFile: An file initialized for writing
+    ///         - seconds: Duration to render
+    ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
+    ///
+    @available(iOS 11.0, macOS 10.13, *)
+    public func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
+        guard seconds >= 0 else {
+            throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"Seconds needs to be a positive value"])
+        }
+        // Engine can't be running when switching to offline render mode.
+        if isRunning { stop() }
+        try enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4096)
+
+        // This resets the sampleTime of offline rendering to 0.
+        reset()
+
+        try start()
+
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat, frameCapacity: manualRenderingMaximumFrameCount) else {
+            throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"Couldn't creat buffer in renderToFile"])
+        }
+
+        // This is for users to prepare the nodes for playing, i.e player.play()
+        prerender?()
+
+        // Render until file contains >= target samples
+        let targetSamples = AVAudioFramePosition(seconds * manualRenderingFormat.sampleRate)
+        while audioFile.framePosition < targetSamples {
+            let framesToRender = min(buffer.frameCapacity, AVAudioFrameCount( targetSamples - audioFile.framePosition))
+            let status = try renderOffline(framesToRender, to: buffer)
+            switch status {
+            case .success:
+                try audioFile.write(from: buffer)
+            case .cannotDoInCurrentContext:
+                print("renderToFile cannotDoInCurrentContext")
+                continue
+            case .error, .insufficientDataFromInputNode:
+                throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"renderToFile render error"])
+            }
+        }
+
+        stop()
+        disableManualRenderingMode()
+
     }
 }

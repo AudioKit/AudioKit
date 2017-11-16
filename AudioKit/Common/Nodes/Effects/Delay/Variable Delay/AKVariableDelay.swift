@@ -72,7 +72,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - feedback: Feedback amount. Should be a value between 0-1.
     ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         time: Double = 1,
         feedback: Double = 0,

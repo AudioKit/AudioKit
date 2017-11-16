@@ -1,5 +1,4 @@
-#ifndef STK_FILELOOP_H
-#define STK_FILELOOP_H
+#pragma once
 
 #include "FileWvIn.h"
 
@@ -23,18 +22,19 @@ namespace stk {
 */
 /***************************************************/
 
-class FileLoop : protected FileWvIn
-{
- public:
+class FileLoop : protected FileWvIn {
+public:
   //! Default constructor.
-  FileLoop( unsigned long chunkThreshold = 1000000, unsigned long chunkSize = 1024 );
+  FileLoop(unsigned long chunkThreshold = 1000000,
+           unsigned long chunkSize = 1024);
 
   //! Class constructor that opens a specified file.
-  FileLoop( std::string fileName, bool raw = false, bool doNormalize = true,
-            unsigned long chunkThreshold = 1000000, unsigned long chunkSize = 1024 );
+  FileLoop(std::string fileName, bool raw = false, bool doNormalize = true,
+           unsigned long chunkThreshold = 1000000,
+           unsigned long chunkSize = 1024);
 
   //! Class destructor.
-  ~FileLoop( void );
+  ~FileLoop();
 
   //! Open the specified file and load its data.
   /*!
@@ -46,33 +46,34 @@ class FileLoop : protected FileWvIn
     limits.  If the data format is floating-point, no scaling is
     performed.
   */
-  void openFile( std::string fileName, bool raw = false, bool doNormalize = true );
+  void openFile(std::string fileName, bool raw = false,
+                bool doNormalize = true);
 
   //! Close a file if one is open.
-  void closeFile( void ) { FileWvIn::closeFile(); };
+  void closeFile() { FileWvIn::closeFile(); };
 
   //! Clear outputs and reset time (file) pointer to zero.
-  void reset( void ) { FileWvIn::reset(); };
+  void reset() { FileWvIn::reset(); };
 
   //! Return the number of audio channels in the data or stream.
-  unsigned int channelsOut( void ) const { return data_.channels(); };
+  unsigned int channelsOut(void) const { return data_.channels(); };
 
   //! Normalize data to a maximum of +-1.0.
   /*!
     This function has no effect when data is incrementally loaded
     from disk.
   */
-  void normalize( void ) { FileWvIn::normalize( 1.0 ); };
+  void normalize() { FileWvIn::normalize(1.0); };
 
   //! Normalize data to a maximum of \e +-peak.
   /*!
     This function has no effect when data is incrementally loaded
     from disk.
   */
-  void normalize( StkFloat peak ) { FileWvIn::normalize( peak ); };
+  void normalize(StkFloat peak) { FileWvIn::normalize(peak); };
 
   //! Return the file size in sample frames.
-  unsigned long getSize( void ) const { return data_.frames(); };
+  unsigned long getSize(void) const { return data_.frames(); };
 
   //! Return the input file sample rate in Hz (not the data read rate).
   /*!
@@ -80,13 +81,13 @@ class FileLoop : protected FileWvIn
     their headers.  STK RAW files have a sample rate of 22050 Hz
     by definition.  MAT-files are assumed to have a rate of 44100 Hz.
   */
-  StkFloat getFileRate( void ) const { return data_.dataRate(); };
+  StkFloat getFileRate(void) const { return data_.dataRate(); };
 
   //! Set the data read rate in samples.  The rate can be negative.
   /*!
     If the rate value is negative, the data is read in reverse order.
   */
-  void setRate( StkFloat rate );
+  void setRate(StkFloat rate);
 
   //! Set the data interpolation rate based on a looping frequency.
   /*!
@@ -95,18 +96,21 @@ class FileLoop : protected FileWvIn
     corresponds to file cycles per second.  The frequency can be
     negative, in which case the loop is read in reverse order.
   */
-  void setFrequency( StkFloat frequency ) { this->setRate( fileSize_ * frequency / Stk::sampleRate() ); };
+  void setFrequency(StkFloat frequency) {
+    this->setRate(fileSize_ * frequency / Stk::sampleRate());
+  };
 
   //! Increment the read pointer by \e time samples, modulo file size.
-  void addTime( StkFloat time );
+  void addTime(StkFloat time);
 
-  //! Increment current read pointer by \e angle, relative to a looping frequency.
+  //! Increment current read pointer by \e angle, relative to a looping
+  //! frequency.
   /*!
     This function increments the read pointer based on the file
     size and the current Stk::sampleRate.  The \e anAngle value
     is a multiple of file size.
   */
-  void addPhase( StkFloat angle );
+  void addPhase(StkFloat angle);
 
   //! Add a phase offset to the current read pointer.
   /*!
@@ -114,7 +118,7 @@ class FileLoop : protected FileWvIn
     size and the current Stk::sampleRate.  The \e angle value
     is a multiple of file size.
   */
-  void addPhaseOffset( StkFloat angle );
+  void addPhaseOffset(StkFloat angle);
 
   //! Return the specified channel value of the last computed frame.
   /*!
@@ -126,7 +130,9 @@ class FileLoop : protected FileWvIn
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  StkFloat lastOut( unsigned int channel = 0 ) { return FileWvIn::lastOut( channel ); };
+  StkFloat lastOut(unsigned int channel = 0) {
+    return FileWvIn::lastOut(channel);
+  };
 
   //! Compute a sample frame and return the specified \c channel value.
   /*!
@@ -138,9 +144,10 @@ class FileLoop : protected FileWvIn
     _STK_DEBUG_ is defined during compilation, in which case an
     out-of-range value will trigger an StkError exception.
   */
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
-  //! Fill the StkFrames object with computed sample frames, starting at the specified channel and return the same reference.
+  //! Fill the StkFrames object with computed sample frames, starting at the
+  //! specified channel and return the same reference.
   /*!
     The \c channel argument plus the number of output channels must
     be less than the number of channels in the StkFrames argument (the
@@ -148,15 +155,12 @@ class FileLoop : protected FileWvIn
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  virtual StkFrames& tick( StkFrames& frames,unsigned int channel = 0 );
+  virtual StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
+protected:
   StkFrames firstFrame_;
   StkFloat phaseOffset_;
-
 };
 
-} // stk namespace
+}
 
-#endif

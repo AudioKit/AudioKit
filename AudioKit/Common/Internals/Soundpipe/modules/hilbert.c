@@ -1,17 +1,17 @@
 /*
  * Foo
- * 
+ *
  * This is a dummy module. It doesn't do much.
  * Feel free to use this as a boilerplate template.
- * 
+ *
  */
 
 #include <stdlib.h>
 #include "soundpipe.h"
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	
-#endif 
+#define M_PI		3.14159265358979323846
+#endif
 
 int sp_hilbert_create(sp_hilbert **p)
 {
@@ -27,7 +27,7 @@ int sp_hilbert_destroy(sp_hilbert **p)
 
 int sp_hilbert_init(sp_data *sp, sp_hilbert *p)
 {
-    int j; 
+    int j;
     SPFLOAT onedsr = 1.0 / sp->sr;
     /* pole values taken from Bernie Hutchins, "Musical Engineer's Handbook" */
     SPFLOAT poles[12] = {0.3609, 2.7412, 11.1573, 44.7581, 179.6242, 798.4578,
@@ -49,7 +49,7 @@ int sp_hilbert_init(sp_data *sp, sp_hilbert *p)
 int sp_hilbert_compute(sp_data *sp, sp_hilbert *p, SPFLOAT *in, SPFLOAT *out1, SPFLOAT *out2)
 {
     SPFLOAT xn1 = 0;
-    SPFLOAT yn1 = 0; 
+    SPFLOAT yn1 = 0;
     SPFLOAT xn2 = 0;
     SPFLOAT yn2 = 0;
     SPFLOAT *coef;

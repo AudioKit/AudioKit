@@ -36,9 +36,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(DynamicRangeCompressor)
-    
+
     // Create a parameter object for the ratio.
     AUParameter *ratioAUParameter =
     [AUParameter parameter:@"ratio"
@@ -71,19 +71,19 @@ standardKernelPassthroughs()
                        min:0.0
                        max:1.0
                       unit:kAudioUnitParameterUnit_Seconds];
-    
-    
+
+
     // Initialize the parameter values.
     ratioAUParameter.value = 1;
     thresholdAUParameter.value = 0.0;
     attackTimeAUParameter.value = 0.1;
     releaseTimeAUParameter.value = 0.1;
-    
+
     _kernel.setParameter(ratioAddress,       ratioAUParameter.value);
     _kernel.setParameter(thresholdAddress,   thresholdAUParameter.value);
     _kernel.setParameter(attackTimeAddress,  attackTimeAUParameter.value);
     _kernel.setParameter(releaseTimeAddress, releaseTimeAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              ratioAUParameter,
@@ -91,7 +91,7 @@ standardKernelPassthroughs()
                                              attackTimeAUParameter,
                                              releaseTimeAUParameter
                                              ]];
-    
+
     parameterTreeBlock(DynamicRangeCompressor)
 }
 

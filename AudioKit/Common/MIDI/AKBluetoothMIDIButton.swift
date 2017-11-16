@@ -47,15 +47,15 @@ public class AKBluetoothMIDIButton: UIButton {
         let centerPopup = realSuperView != nil
         let displayView = realSuperView ?? self.superview
 
-        popC?.permittedArrowDirections =  centerPopup ? [] : .any
-        popC?.sourceRect =  centerPopup ? CGRect(x: displayView!.bounds.midX,
+        popC?.permittedArrowDirections = centerPopup ? [] : .any
+        popC?.sourceRect = centerPopup ? CGRect(x: displayView!.bounds.midX,
                                                  y: displayView!.bounds.midY,
                                                  width: 0,
                                                  height: 0) : self.frame
-        
+
         let controller = displayView!.next as? UIViewController
         controller?.present(navController, animated: true, completion: nil)
-        
+
         popC?.sourceView = controller?.view
         bluetoothMIDIViewController.uiViewController = controller
 

@@ -13,7 +13,7 @@ int sp_tevent_destroy(sp_tevent **te)
     return SP_NOT_OK;
 }
 
-int sp_tevent_init(sp_data *sp, sp_tevent *te, 
+int sp_tevent_init(sp_data *sp, sp_tevent *te,
         void (*reinit)(void*), void (*compute)(void *, SPFLOAT *out), void *ud)
 {
     te->reinit = reinit;

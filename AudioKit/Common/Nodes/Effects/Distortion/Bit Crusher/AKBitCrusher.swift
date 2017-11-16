@@ -70,7 +70,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     ///   - sampleRate: The sample rate of signal output.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         bitDepth: Double = 8,
         sampleRate: Double = 10_000) {

@@ -217,7 +217,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoDepth:       Vibrato size in semitones
     ///   - vibratoRate:        Frequency of vibrato in Hz
     ///
-    public init(
+    @objc public init(
         waveform: AKTable,
         carrierMultiplier: Double = 1,
         modulatingMultiplier: Double = 1,

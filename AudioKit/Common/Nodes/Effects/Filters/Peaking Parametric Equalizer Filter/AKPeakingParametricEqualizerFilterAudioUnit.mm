@@ -33,9 +33,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(PeakingParametricEqualizerFilter)
-    
+
     // Create a parameter object for the centerFrequency.
     AUParameter *centerFrequencyAUParameter = [AUParameter frequency:@"centerFrequency"
                                                                 name:@"Center Frequency (Hz)"
@@ -54,24 +54,24 @@ standardKernelPassthroughs()
                                                    min:0.0
                                                    max:2.0
                                                   unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 1000;
     gainAUParameter.value = 1.0;
     qAUParameter.value = 0.707;
-    
-    
+
+
     _kernel.setParameter(centerFrequencyAddress, centerFrequencyAUParameter.value);
     _kernel.setParameter(gainAddress,            gainAUParameter.value);
     _kernel.setParameter(qAddress,               qAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              centerFrequencyAUParameter,
                                              gainAUParameter,
                                              qAUParameter
                                              ]];
-    
+
     parameterTreeBlock(PeakingParametricEqualizerFilter)
 }
 

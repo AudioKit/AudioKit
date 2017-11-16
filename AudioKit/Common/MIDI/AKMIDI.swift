@@ -58,7 +58,7 @@ open class AKMIDI {
     // MARK: - Initialization
 
     /// Initialize the AKMIDI system
-    public init() {
+    @objc public init() {
 
         #if os(iOS)
             MIDINetworkSession.default().isEnabled = true
