@@ -2014,6 +2014,7 @@
 		551AAC291F61F42100A14C0D /* Synchronization */ = {
 			isa = PBXGroup;
 			children = (
+				55F29C081E90654C00A2151F /* AKScheduledAction.swift */,
 				551AAC2A1F61F48300A14C0D /* AKTiming.swift */,
 			);
 			path = Synchronization;
@@ -2407,7 +2408,6 @@
 				EA6949E11C59A9FC0035B5DF /* AKSettings.swift */,
 				C40C411D1C40E2E1009D870B /* AKTable.swift */,
 				C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */,
-				55F29C081E90654C00A2151F /* AKScheduledAction.swift */,
 				C49E9E001D2B491500E5E8BF /* Audio File */,
 				B19AE7721F30FC2600F9DC25 /* AudioUnit Host */,
 				C40C41221C40E344009D870B /* CoreAudio */,
