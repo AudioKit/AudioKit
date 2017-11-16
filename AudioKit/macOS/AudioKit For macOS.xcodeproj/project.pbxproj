@@ -148,7 +148,6 @@
 		C456669B1D448D7E00D26565 /* AKNodeRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */; };
 		C456669C1D448D7E00D26565 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B71D448D7D00D26565 /* AKNotifications.swift */; };
 		C456669D1D448D7E00D26565 /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B81D448D7D00D26565 /* AKSettings.swift */; };
-		C456669E1D448D7E00D26565 /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B91D448D7D00D26565 /* AKTable.swift */; };
 		C456669F1D448D7E00D26565 /* AKAudioFile+ConvenienceInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662BC1D448D7D00D26565 /* AKAudioFile+ConvenienceInitializers.swift */; };
 		C45666A11D448D7E00D26565 /* AKAudioFile+Peripherals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662BE1D448D7D00D26565 /* AKAudioFile+Peripherals.swift */; };
 		C45666A21D448D7E00D26565 /* AKAudioFile+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662BF1D448D7D00D26565 /* AKAudioFile+Processing.swift */; };
@@ -739,6 +738,7 @@
 		C47AC6171D5D49430005E485 /* AKBoosterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47AC6131D5D49430005E485 /* AKBoosterAudioUnit.mm */; };
 		C47AC6181D5D49430005E485 /* AKBoosterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47AC6141D5D49430005E485 /* AKBoosterDSPKernel.hpp */; };
 		C47B3F3A1FBD74B40097EC15 /* AKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F391FBD74B30097EC15 /* AKScheduledAction.swift */; };
+		C47B3F451FBE1FD00097EC15 /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F441FBE1FD00097EC15 /* AKTable.swift */; };
 		C47DDCCB1F7CEB4C002520B9 /* GainEffectDsp.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47DDCCA1F7CEB4B002520B9 /* GainEffectDsp.mm */; };
 		C483F63D1D666D7A00374B2A /* trackedAmplitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483F63C1D666D7A00374B2A /* trackedAmplitude.swift */; };
 		C486B3381DFE2A65009A25C4 /* gen_eval.c in Sources */ = {isa = PBXBuildFile; fileRef = C486B3371DFE2A65009A25C4 /* gen_eval.c */; };
@@ -1096,7 +1096,6 @@
 		C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeRecorder.swift; sourceTree = "<group>"; };
 		C45662B71D448D7D00D26565 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
 		C45662B81D448D7D00D26565 /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
-		C45662B91D448D7D00D26565 /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C45662BC1D448D7D00D26565 /* AKAudioFile+ConvenienceInitializers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+ConvenienceInitializers.swift"; sourceTree = "<group>"; };
 		C45662BE1D448D7D00D26565 /* AKAudioFile+Peripherals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Peripherals.swift"; sourceTree = "<group>"; };
 		C45662BF1D448D7D00D26565 /* AKAudioFile+Processing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Processing.swift"; sourceTree = "<group>"; };
@@ -1705,6 +1704,7 @@
 		C47AC6131D5D49430005E485 /* AKBoosterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterAudioUnit.mm; sourceTree = "<group>"; };
 		C47AC6141D5D49430005E485 /* AKBoosterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBoosterDSPKernel.hpp; sourceTree = "<group>"; };
 		C47B3F391FBD74B30097EC15 /* AKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKScheduledAction.swift; sourceTree = "<group>"; };
+		C47B3F441FBE1FD00097EC15 /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C47DDCCA1F7CEB4B002520B9 /* GainEffectDsp.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GainEffectDsp.mm; sourceTree = "<group>"; };
 		C483F63C1D666D7A00374B2A /* trackedAmplitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = trackedAmplitude.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C486B3371DFE2A65009A25C4 /* gen_eval.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gen_eval.c; sourceTree = "<group>"; };
@@ -2124,7 +2124,6 @@
 				C45662B71D448D7D00D26565 /* AKNotifications.swift */,
 				C43647801E9CB663009FBD85 /* AKPeriodicFunction.swift */,
 				C45662B81D448D7D00D26565 /* AKSettings.swift */,
-				C45662B91D448D7D00D26565 /* AKTable.swift */,
 				C45662C31D448D7D00D26565 /* AudioKit.h */,
 				EAFECED61F4EBE1300A2B046 /* AudioKitUI.h */,
 				C45662C41D448D7D00D26565 /* AudioKit.swift */,
@@ -2141,6 +2140,7 @@
 				C452105A1E7D0832007C38FE /* Sporth Custom Ugens */,
 				C45663EF1D448D7E00D26565 /* STK */,
 				555857DF1F62184100C73F59 /* Synchronization */,
+				C47B3F431FBE1FD00097EC15 /* Table */,
 				C45664D01D448D7E00D26565 /* Testing */,
 				558D807A1F4D2A3D001E7BC1 /* Utilities */,
 			);
@@ -4067,6 +4067,14 @@
 			path = "Tubular Bells";
 			sourceTree = "<group>";
 		};
+		C47B3F431FBE1FD00097EC15 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				C47B3F441FBE1FD00097EC15 /* AKTable.swift */,
+			);
+			path = Table;
+			sourceTree = "<group>";
+		};
 		C49390921E088F4C009FEAA1 /* Stereo Field Limiter */ = {
 			isa = PBXGroup;
 			children = (
@@ -4649,6 +4657,7 @@
 				C456694A1D448D7E00D26565 /* AKConvolutionAudioUnit.mm in Sources */,
 				C4F8CA241DCA9256001F38F2 /* slist.c in Sources */,
 				C45666E81D448D7E00D26565 /* butbp.c in Sources */,
+				C47B3F451FBE1FD00097EC15 /* AKTable.swift in Sources */,
 				C45667291D448D7E00D26565 /* revsc.c in Sources */,
 				C456694E1D448D7E00D26565 /* AKCostelloReverbAudioUnit.mm in Sources */,
 				C45668BD1D448D7E00D26565 /* AKFrequencyTracker.swift in Sources */,
@@ -4703,7 +4712,6 @@
 				C4F8CA191DCA9256001F38F2 /* reson.c in Sources */,
 				C45231041DCDC21900A4F0DC /* increment.swift in Sources */,
 				C43647811E9CB663009FBD85 /* AKPeriodicFunction.swift in Sources */,
-				C456669E1D448D7E00D26565 /* AKTable.swift in Sources */,
 				5551E7F11F5531E700757781 /* AKTimeline.c in Sources */,
 				C45F62751E8EE4FC00F82CD4 /* AKPhaserAudioUnit.mm in Sources */,
 				C4F8CA161DCA9256001F38F2 /* randi.c in Sources */,
