@@ -77,7 +77,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         gain: Double = 1) {
 
-        self.gain = gain
+        internalAU?.setParamImmediate(addr: GainEffectParam.gain, value: 1.0)
 
         _Self.register()
 
