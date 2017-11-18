@@ -14,6 +14,10 @@ public class GainAudioUnit2: AK4AudioUnitBase {
         setParameterWithAddress(AUParameterAddress(addr.rawValue), value: value)
     }
 
+    func setParamImmediate(addr: GainEffectParam, value: Float) {
+        setParamWithAddressImmediate(AUParameterAddress(addr.rawValue), value: value)
+    }
+
     var gain: Float = 1.0 {
         didSet { setParam(addr: GainEffectParam.gain, value: gain) }
     }

@@ -35,7 +35,7 @@ public:
     // Is this needed? Ramping should be rethought
     virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {}
 
-    virtual void setParameter(AUParameterAddress address, AUValue value) override {}
+    virtual void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {}
     virtual AUValue getParameter(AUParameterAddress address) override { return 0.0f; }
 
     void destroy() {
