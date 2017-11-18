@@ -448,6 +448,7 @@
 		C47AE4E61D39FA8E0091118F /* AKDrumSynths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AE4E51D39FA8E0091118F /* AKDrumSynths.swift */; };
 		C47AE4F11D3A09010091118F /* AKCallbackInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AE4F01D3A09010091118F /* AKCallbackInstrument.swift */; };
 		C47B3F3F1FBE1ED80097EC15 /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F3E1FBE1ED80097EC15 /* AKTable.swift */; };
+		C47B3F4E1FBFAD600097EC15 /* talkbox.c in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F4D1FBFAD5E0097EC15 /* talkbox.c */; };
 		C47DDCAD1F7CE270002520B9 /* AKChowningReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47DDCAA1F7CE26F002520B9 /* AKChowningReverb.swift */; };
 		C47DDCAE1F7CE270002520B9 /* AKChowningReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47DDCAC1F7CE270002520B9 /* AKChowningReverbAudioUnit.mm */; };
 		C47DDCAF1F7CE286002520B9 /* AKChowningReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C47DDCAB1F7CE26F002520B9 /* AKChowningReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1420,6 +1421,7 @@
 		C47AE4E51D39FA8E0091118F /* AKDrumSynths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDrumSynths.swift; sourceTree = "<group>"; };
 		C47AE4F01D3A09010091118F /* AKCallbackInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCallbackInstrument.swift; sourceTree = "<group>"; };
 		C47B3F3E1FBE1ED80097EC15 /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
+		C47B3F4D1FBFAD5E0097EC15 /* talkbox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = talkbox.c; sourceTree = "<group>"; };
 		C47DDCA91F7CE26F002520B9 /* AKChowningReverbDsp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKChowningReverbDsp.hpp; sourceTree = "<group>"; };
 		C47DDCAA1F7CE26F002520B9 /* AKChowningReverb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKChowningReverb.swift; sourceTree = "<group>"; };
 		C47DDCAB1F7CE26F002520B9 /* AKChowningReverbAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKChowningReverbAudioUnit.h; sourceTree = "<group>"; };
@@ -3576,6 +3578,7 @@
 				C48C6BAF1D3C15F1008EA51B /* switch.c */,
 				C48C6BB01D3C15F1008EA51B /* tabread.c */,
 				C48C6BB11D3C15F1008EA51B /* tadsr.c */,
+				C47B3F4D1FBFAD5E0097EC15 /* talkbox.c */,
 				C48C6BB21D3C15F1008EA51B /* tblrec.c */,
 				C48C6BB31D3C15F1008EA51B /* tbvcf.c */,
 				C48C6BB41D3C15F1008EA51B /* tdiv.c */,
@@ -4944,6 +4947,7 @@
 				C48C6CAB1D3C15F1008EA51B /* tblrec.c in Sources */,
 				C48C6C861D3C15F1008EA51B /* moogladder.c in Sources */,
 				C470481B1E7A61BE00D9906F /* rspline.c in Sources */,
+				C47B3F4E1FBFAD600097EC15 /* talkbox.c in Sources */,
 				C4F8C90C1DCA8CE4001F38F2 /* ref.c in Sources */,
 				C48C6C631D3C15F1008EA51B /* butlp.c in Sources */,
 				C48C6CBC1D3C15F1008EA51B /* waveset.c in Sources */,
