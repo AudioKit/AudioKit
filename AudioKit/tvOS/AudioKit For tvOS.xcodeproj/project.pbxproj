@@ -397,6 +397,7 @@
 		C47AE4E31D39CCC60091118F /* AKPhaseDistortionOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47AE4DB1D39CCC60091118F /* AKPhaseDistortionOscillatorBankDSPKernel.hpp */; };
 		C47B3F3C1FBD74CE0097EC15 /* AKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F3B1FBD74CD0097EC15 /* AKScheduledAction.swift */; };
 		C47B3F421FBE1EEF0097EC15 /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F411FBE1EEE0097EC15 /* AKTable.swift */; };
+		C47B3F501FBFADA50097EC15 /* talkbox.c in Sources */ = {isa = PBXBuildFile; fileRef = C47B3F4F1FBFADA40097EC15 /* talkbox.c */; };
 		C483F63F1D666DA200374B2A /* trackedAmplitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483F63E1D666DA200374B2A /* trackedAmplitude.swift */; };
 		C484438A1C311C4F007BE794 /* triggeredWithEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48443891C311C4F007BE794 /* triggeredWithEnvelope.swift */; };
 		C484438D1C311C59007BE794 /* AKParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C484438B1C311C59007BE794 /* AKParameter.swift */; };
@@ -1302,6 +1303,7 @@
 		C47AE4DB1D39CCC60091118F /* AKPhaseDistortionOscillatorBankDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPhaseDistortionOscillatorBankDSPKernel.hpp; sourceTree = "<group>"; };
 		C47B3F3B1FBD74CD0097EC15 /* AKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKScheduledAction.swift; sourceTree = "<group>"; };
 		C47B3F411FBE1EEE0097EC15 /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
+		C47B3F4F1FBFADA40097EC15 /* talkbox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = talkbox.c; path = ../../../../../../Soundpipe/modules/talkbox.c; sourceTree = "<group>"; };
 		C483F63E1D666DA200374B2A /* trackedAmplitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = trackedAmplitude.swift; sourceTree = "<group>"; };
 		C48443891C311C4F007BE794 /* triggeredWithEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triggeredWithEnvelope.swift; sourceTree = "<group>"; };
 		C484438B1C311C59007BE794 /* AKParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameter.swift; sourceTree = "<group>"; };
@@ -3109,6 +3111,7 @@
 				C48C69BA1D3C1574008EA51B /* switch.c */,
 				C48C69BB1D3C1574008EA51B /* tabread.c */,
 				C48C69BC1D3C1574008EA51B /* tadsr.c */,
+				C47B3F4F1FBFADA40097EC15 /* talkbox.c */,
 				C48C69BD1D3C1574008EA51B /* tblrec.c */,
 				C48C69BE1D3C1574008EA51B /* tbvcf.c */,
 				C48C69BF1D3C1574008EA51B /* tdiv.c */,
@@ -4843,6 +4846,7 @@
 				C4F8CB0E1DCA928B001F38F2 /* p.c in Sources */,
 				C4F8CB4B1DCA928B001F38F2 /* zeros.c in Sources */,
 				C4F8CAF41DCA928B001F38F2 /* gen_rand.c in Sources */,
+				C47B3F501FBFADA50097EC15 /* talkbox.c in Sources */,
 				C4146DFB1F3E4829001AAE11 /* RageProcessor.cpp in Sources */,
 				C45381A41C3A5CBD00A51738 /* AKDynamicsProcessor.swift in Sources */,
 				C4F8CB131DCA928B001F38F2 /* peaklim.c in Sources */,
