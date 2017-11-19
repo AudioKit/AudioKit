@@ -575,7 +575,7 @@ extension AVAudioEngine {
     ///         - seconds: Duration to render
     ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
     ///
-    @available(iOS 11.0, macOS 10.13, *)
+    @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
     public func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
         guard seconds >= 0 else {
             throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"Seconds needs to be a positive value"])
