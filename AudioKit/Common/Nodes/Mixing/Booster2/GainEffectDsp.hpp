@@ -34,29 +34,29 @@ void* createGainEffectDsp(int nChannels, double sampleRate);
  */
 
 struct AK4GainEffectDsp : AK4DspBase {
-    
+
 private:
     AK4LinearParamRamp gainRamp;
-    
+
 public:
-    
+
     AK4GainEffectDsp() {
         gainRamp.setTarget(1.0, 0);
         gainRamp.setDurationInSamples(10000);
     }
-    
+
     /** Uses the ParameterAddress as a key */
-    void setParameter(uint64_t address, float value) override {
+    void setParameter(uint64_t address, float value, bool immediate) override {
         switch (address) {
             case GainEffectParamGain:
-                gainRamp.setTarget(value, _now);
+                gainRamp.setTarget(value, _now, immediate);
                 break;
             case GainEffectParamRampTime:
                 gainRamp.setRampTime(value, _sampleRate);
                 break;
         }
     }
-    
+
     /** Uses the ParameterAddress as a key */
     float getParameter(uint64_t address) override {
         switch (address) {
@@ -67,12 +67,12 @@ public:
         }
         return 0;
     }
-    
+
     // Largely lifted from the example code, though this is simpler since the Apple code
     // implements a time varying filter
-    
+
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
-        
+
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
@@ -89,7 +89,7 @@ public:
             }
         }
     }
-    
+
 };
 
 #endif

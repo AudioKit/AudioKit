@@ -2,7 +2,7 @@
  * JCrev
  *
  * This code has been partially generated using Faust.
- * See the file "jcrev.dsp" to see the original faust code utilized. 
+ * See the file "jcrev.dsp" to see the original faust code utilized.
  *
  */
 

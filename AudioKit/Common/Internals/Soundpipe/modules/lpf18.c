@@ -1,10 +1,10 @@
 /*
- * LPF18 
- * 
+ * LPF18
+ *
  * This code has been extracted from the Csound opcode "lpf18".
  * It has been modified to work as a Soundpipe module.
- * 
- * Original Author(s): John ffitch, Josep Comajuncosas 
+ *
+ * Original Author(s): John ffitch, Josep Comajuncosas
  * Year: 2000
  * Location: Opcodes/pitch.c
  *

@@ -106,6 +106,7 @@ int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename);
 int sp_ftbl_loadspa(sp_data *sp, sp_ftbl **ft, const char *filename);
 int sp_gen_composite(sp_data *sp, sp_ftbl *ft, const char *argstring);
 int sp_gen_rand(sp_data *sp, sp_ftbl *ft, const char *argstring);
+int sp_gen_triangle(sp_data *sp, sp_ftbl *ft);
 typedef struct{
     void (*reinit)(void *);
     void (*compute)(void *, SPFLOAT *out);
@@ -1429,6 +1430,29 @@ int sp_tadsr_create(sp_tadsr **p);
 int sp_tadsr_destroy(sp_tadsr **p);
 int sp_tadsr_init(sp_data *sp, sp_tadsr *p);
 int sp_tadsr_compute(sp_data *sp, sp_tadsr *p, SPFLOAT *trig, SPFLOAT *out);
+
+#ifndef SP_TALKBOX_BUFMAX
+#define SP_TALKBOX_BUFMAX 1600
+#endif
+
+typedef struct {
+    SPFLOAT quality;
+    SPFLOAT d0, d1, d2, d3, d4;
+    SPFLOAT u0, u1, u2, u3, u4;
+    SPFLOAT FX;
+    SPFLOAT emphasis;
+    SPFLOAT car0[SP_TALKBOX_BUFMAX]; 
+    SPFLOAT car1[SP_TALKBOX_BUFMAX];
+    SPFLOAT window[SP_TALKBOX_BUFMAX];
+    SPFLOAT buf0[SP_TALKBOX_BUFMAX];
+    SPFLOAT buf1[SP_TALKBOX_BUFMAX];
+    uint32_t K, N, O, pos;
+} sp_talkbox;
+
+int sp_talkbox_create(sp_talkbox **p);
+int sp_talkbox_destroy(sp_talkbox **p);
+int sp_talkbox_init(sp_data *sp, sp_talkbox *p);
+int sp_talkbox_compute(sp_data *sp, sp_talkbox *p, SPFLOAT *src, SPFLOAT *exc, SPFLOAT *out);
 typedef struct {
     sp_ftbl *ft;
     uint32_t index;
@@ -1590,6 +1614,7 @@ int sp_vdelay_create(sp_vdelay **p);
 int sp_vdelay_destroy(sp_vdelay **p);
 int sp_vdelay_init(sp_data *sp, sp_vdelay *p, SPFLOAT maxdel);
 int sp_vdelay_compute(sp_data *sp, sp_vdelay *p, SPFLOAT *in, SPFLOAT *out);
+int sp_vdelay_reset(sp_data *sp, sp_vdelay *p);
 /*63:*/
 #line 21 "./header.w"
 

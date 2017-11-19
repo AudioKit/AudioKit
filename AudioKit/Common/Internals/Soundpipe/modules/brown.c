@@ -1,10 +1,10 @@
 /*
  * Brown
- * 
+ *
  * Brownian noise algorithm based on implementation found here:
  * http://vellocet.com/dsp/noise/VRand.h
- * 
- * 
+ *
+ *
  */
 
 #include <stdlib.h>

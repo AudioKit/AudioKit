@@ -25,7 +25,7 @@ int sporth_writecode(sporth_stack *stack, void *ud)
             }
             plumber_write_code(pd, fp);
             fclose(fp);
-            
+
             break;
 
         case PLUMBER_INIT:

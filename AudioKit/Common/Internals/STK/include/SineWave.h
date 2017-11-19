@@ -1,5 +1,4 @@
-#ifndef STK_SINEWAVE_H
-#define STK_SINEWAVE_H
+#pragma once
 
 const unsigned long TABLE_SIZE = 2048;
 
@@ -22,23 +21,22 @@ namespace stk {
 */
 /***************************************************/
 
-class SineWave : public Generator
-{
+class SineWave : public Generator {
 public:
   //! Default constructor.
-  SineWave( void );
+  SineWave();
 
   //! Class destructor.
-  ~SineWave( void );
+  ~SineWave();
 
   //! Clear output and reset time pointer to zero.
-  void reset( void );
+  void reset();
 
   //! Set the data read rate in samples.  The rate can be negative.
   /*!
     If the rate value is negative, the data is read in reverse order.
   */
-  void setRate( StkFloat rate ) { rate_ = rate; };
+  void setRate(StkFloat rate) { rate_ = rate; };
 
   //! Set the data interpolation rate based on a looping frequency.
   /*!
@@ -47,10 +45,10 @@ public:
     corresponds to file cycles per second.  The frequency can be
     negative, in which case the loop is read in reverse order.
    */
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Increment the read pointer by \e time in samples, modulo the table size.
-  void addTime( StkFloat time );
+  void addTime(StkFloat time);
 
   //! Increment the read pointer by a normalized \e phase value.
   /*!
@@ -58,20 +56,20 @@ public:
     value, such that \e phase = 1.0 corresponds to a 360 degree phase
     shift.  Positive or negative values are possible.
    */
-  void addPhase( StkFloat phase );
+  void addPhase(StkFloat phase);
 
   //! Add a normalized phase offset to the read pointer.
   /*!
     A \e phaseOffset = 1.0 corresponds to a 360 degree phase
     offset.  Positive or negative values are possible.
    */
-  void addPhaseOffset( StkFloat phaseOffset );
+  void addPhaseOffset(StkFloat phaseOffset);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Compute and return one output sample.
-  StkFloat tick( void );
+  StkFloat tick();
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -81,11 +79,10 @@ public:
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
 protected:
-
-  void sampleRateChanged( StkFloat newRate, StkFloat oldRate );
+  void sampleRateChanged(StkFloat newRate, StkFloat oldRate);
 
   static StkFrames table_;
   StkFloat time_;
@@ -93,22 +90,20 @@ protected:
   StkFloat phaseOffset_;
   unsigned int iIndex_;
   StkFloat alpha_;
-
 };
 
-inline StkFloat SineWave :: tick( void )
-{
+inline StkFloat SineWave::tick() {
   // Check limits of time address ... if necessary, recalculate modulo
   // TABLE_SIZE.
-  while ( time_ < 0.0 )
+  while (time_ < 0.0)
     time_ += TABLE_SIZE;
-  while ( time_ >= TABLE_SIZE )
+  while (time_ >= TABLE_SIZE)
     time_ -= TABLE_SIZE;
 
-  iIndex_ = (unsigned int) time_;
+  iIndex_ = (unsigned int)time_;
   alpha_ = time_ - iIndex_;
-  StkFloat tmp = table_[ iIndex_ ];
-  tmp += ( alpha_ * ( table_[ iIndex_ + 1 ] - tmp ) );
+  StkFloat tmp = table_[iIndex_];
+  tmp += (alpha_ * (table_[iIndex_ + 1] - tmp));
 
   // Increment time, which can be negative.
   time_ += rate_;
@@ -117,12 +112,12 @@ inline StkFloat SineWave :: tick( void )
   return lastFrame_[0];
 }
 
-inline StkFrames& SineWave :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &SineWave::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "SineWave::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_ << "SineWave::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
@@ -130,19 +125,19 @@ inline StkFrames& SineWave :: tick( StkFrames& frames, unsigned int channel )
   StkFloat tmp = 0.0;
 
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
 
     // Check limits of time address ... if necessary, recalculate modulo
     // TABLE_SIZE.
-    while ( time_ < 0.0 )
+    while (time_ < 0.0)
       time_ += TABLE_SIZE;
-    while ( time_ >= TABLE_SIZE )
+    while (time_ >= TABLE_SIZE)
       time_ -= TABLE_SIZE;
 
-    iIndex_ = (unsigned int) time_;
+    iIndex_ = (unsigned int)time_;
     alpha_ = time_ - iIndex_;
-    tmp = table_[ iIndex_ ];
-    tmp += ( alpha_ * ( table_[ iIndex_ + 1 ] - tmp ) );
+    tmp = table_[iIndex_];
+    tmp += (alpha_ * (table_[iIndex_ + 1] - tmp));
     *samples = tmp;
 
     // Increment time, which can be negative.
@@ -153,7 +148,5 @@ inline StkFrames& SineWave :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
-
-#endif
+}
 

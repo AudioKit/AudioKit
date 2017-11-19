@@ -17,7 +17,7 @@ int sp_in_destroy(sp_in **p)
 
 int sp_in_init(sp_data *sp, sp_in *p)
 {
-    p->fp = stdin; 
+    p->fp = stdin;
     return SP_OK;
 }
 

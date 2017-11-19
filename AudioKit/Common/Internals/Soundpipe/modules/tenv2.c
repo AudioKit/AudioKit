@@ -37,7 +37,7 @@ int sp_tenv2_compute(sp_data *sp, sp_tenv2 *p, SPFLOAT *in, SPFLOAT *out)
             p->timer = (uint32_t)(sp->sr * p->atk);
             p->totaltime = p->timer;
             p->slope = 1.0 / p->totaltime;
-        } else if (p->state == T_ON) { 
+        } else if (p->state == T_ON) {
             p->state = T_OFF;
             p->timer = (uint32_t)(sp->sr * p->rel);
             p->totaltime = p->timer;

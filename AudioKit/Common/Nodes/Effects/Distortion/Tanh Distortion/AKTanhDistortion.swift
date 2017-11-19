@@ -103,7 +103,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         pregain: Double = 2.0,
         postgain: Double = 0.5,

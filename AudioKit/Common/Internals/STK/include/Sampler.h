@@ -1,9 +1,9 @@
 #ifndef STK_SAMPLER_H
 #define STK_SAMPLER_H
 
-#include "Instrmnt.h"
 #include "ADSR.h"
 #include "FileLoop.h"
+#include "Instrmnt.h"
 #include "OnePole.h"
 
 namespace stk {
@@ -19,32 +19,32 @@ namespace stk {
 */
 /***************************************************/
 
-class Sampler : public Instrmnt
-{
- public:
+class Sampler : public Instrmnt {
+public:
   //! Default constructor.
-  Sampler( void );
+  Sampler(void);
 
   //! Class destructor.
-  virtual ~Sampler( void );
+  virtual ~Sampler(void);
 
   //! Set instrument parameters for a particular frequency.
-  virtual void setFrequency( StkFloat frequency ) = 0;
+  virtual void setFrequency(StkFloat frequency) = 0;
 
   //! Initiate the envelopes with a key-on event and reset the attack waves.
-  void keyOn( void );
+  void keyOn(void);
 
   //! Signal a key-off event to the envelopes.
-  void keyOff( void );
+  void keyOff(void);
 
   //! Stop a note with the given amplitude (speed of decay).
-  virtual void noteOff( StkFloat amplitude );
+  virtual void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  virtual void controlChange( int number, StkFloat value ) = 0;
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  virtual void controlChange(int number, StkFloat value) = 0;
 
   //! Compute and return one output sample.
-  virtual StkFloat tick( unsigned int channel = 0 ) = 0;
+  virtual StkFloat tick(unsigned int channel = 0) = 0;
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -54,10 +54,9 @@ class Sampler : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  virtual StkFrames& tick( StkFrames& frames, unsigned int channel = 0 ) = 0;
+  virtual StkFrames &tick(StkFrames &frames, unsigned int channel = 0) = 0;
 
- protected:
-
+protected:
   ADSR adsr_;
   std::vector<FileWvIn *> attacks_;
   std::vector<FileLoop *> loops_;
@@ -67,9 +66,8 @@ class Sampler : public Instrmnt
   std::vector<StkFloat> loopRatios_;
   StkFloat attackGain_;
   StkFloat loopGain_;
-
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

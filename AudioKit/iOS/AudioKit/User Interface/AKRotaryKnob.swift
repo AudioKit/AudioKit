@@ -19,7 +19,7 @@ public enum AKRotaryKnobStyle {
 /// Round control for a property
 @IBDesignable open class AKRotaryKnob: AKPropertyControl {
 
-    // Default margin size 
+    // Default margin size
     static var marginSize: CGFloat = 30.0
 
     // Indicator point radius

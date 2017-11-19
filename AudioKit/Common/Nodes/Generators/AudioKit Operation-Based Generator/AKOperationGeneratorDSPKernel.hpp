@@ -42,9 +42,9 @@ public:
             plumber_parse_string(&pd, sporthCode);
             plumber_compute(&pd, PLUMBER_INIT);
         }
-        
+
     }
-    
+
     void setSporth(char *sporth, int length) {
         if (sporthCode) {
             free(sporthCode);
@@ -63,11 +63,11 @@ public:
             plumber_ftmap_add_function(pd, info.name, info.func, info.userData);
         }
     }
-    
+
     void trigger(int trigger) {
         internalTriggers[trigger] = 1;
     }
-    
+
     void setParameters(float params[]) {
         for (int i = 0; i < 14; i++) {
             parameters[i] = params[i];
@@ -81,11 +81,11 @@ public:
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
-    
+
 
     void destroy() {
         plumber_clean(&pd);
@@ -94,7 +94,7 @@ public:
             free(sporthCode);
         }
     }
-    
+
     void reset() {
     }
 
@@ -120,7 +120,7 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            
+
             for (int i = 0; i < 14; i++) {
                 if (internalTriggers[i] == 1) {
                     pd.p[i] = 1.0;
@@ -142,7 +142,7 @@ public:
                 }
             }
         }
-        
+
         for (int i = 0; i < 14; i++) {
             if (internalTriggers[i] == 1) {
                 pd.p[i] = 0.0;

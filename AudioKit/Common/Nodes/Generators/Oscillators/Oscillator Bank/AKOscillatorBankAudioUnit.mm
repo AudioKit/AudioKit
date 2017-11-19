@@ -49,15 +49,15 @@ standardBankFunctions()
 }
 
 - (void)createParameters {
-    
+
     standardGeneratorSetup(OscillatorBank)
     standardBankParameters()
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
                                                                standardBankAUParameterList()
                                                                ]];
-    
+
     parameterTreeBlock(OscillatorBank)
 }
 

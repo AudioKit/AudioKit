@@ -11,11 +11,11 @@
 #import "AK4ParamRampBase.hpp"
 
 struct AK4LinearParamRamp : AK4ParamRampBase {
-    
+
     float computeValueAt(int64_t atSample) override {
         float fract = (float)(atSample - _startSample) / _duration;
         return _value = _value + (_target - _value) * fract;
     }
-    
+
 };
 

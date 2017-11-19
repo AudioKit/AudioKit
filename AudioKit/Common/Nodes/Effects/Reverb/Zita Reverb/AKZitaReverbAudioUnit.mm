@@ -54,9 +54,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(ZitaReverb)
-    
+
     // Create a parameter object for the predelay.
     AUParameter *predelayAUParameter =
     [AUParameter parameter:@"predelay"
@@ -137,8 +137,8 @@ standardKernelPassthroughs()
                        min:0.0
                        max:1.0
                       unit:kAudioUnitParameterUnit_Generic];
-    
-    
+
+
     // Initialize the parameter values.
     predelayAUParameter.value = 60.0;
     crossoverFrequencyAUParameter.value = 200.0;
@@ -150,7 +150,7 @@ standardKernelPassthroughs()
     equalizerFrequency2AUParameter.value = 1500.0;
     equalizerLevel2AUParameter.value = 0.0;
     dryWetMixAUParameter.value = 1.0;
-    
+
     _kernel.setParameter(predelayAddress,            predelayAUParameter.value);
     _kernel.setParameter(crossoverFrequencyAddress,  crossoverFrequencyAUParameter.value);
     _kernel.setParameter(lowReleaseTimeAddress,      lowReleaseTimeAUParameter.value);
@@ -161,7 +161,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(equalizerFrequency2Address, equalizerFrequency2AUParameter.value);
     _kernel.setParameter(equalizerLevel2Address,     equalizerLevel2AUParameter.value);
     _kernel.setParameter(dryWetMixAddress,           dryWetMixAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              predelayAUParameter,
@@ -175,7 +175,7 @@ standardKernelPassthroughs()
                                              equalizerLevel2AUParameter,
                                              dryWetMixAUParameter
                                              ]];
-    
+
     parameterTreeBlock(ZitaReverb)
 }
 

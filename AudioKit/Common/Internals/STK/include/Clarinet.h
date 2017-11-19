@@ -1,12 +1,11 @@
-#ifndef STK_CLARINET_H
-#define STK_CLARINET_H
+#pragma once
 
-#include "Instrmnt.h"
 #include "DelayL.h"
-#include "ReedTable.h"
-#include "OneZero.h"
 #include "Envelope.h"
+#include "Instrmnt.h"
 #include "Noise.h"
+#include "OneZero.h"
+#include "ReedTable.h"
 #include "SineWave.h"
 
 namespace stk {
@@ -24,7 +23,7 @@ namespace stk {
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Noise Gain = 4
        - Vibrato Frequency = 11
@@ -35,41 +34,42 @@ namespace stk {
 */
 /***************************************************/
 
-class Clarinet : public Instrmnt
-{
- public:
+class Clarinet : public Instrmnt {
+public:
   //! Class constructor, taking the lowest desired playing frequency.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  Clarinet( StkFloat lowestFrequency = 8.0 );
+  Clarinet(StkFloat lowestFrequency = 8.0);
 
   //! Class destructor.
-  ~Clarinet( void );
+  ~Clarinet();
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear();
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
-  //! Apply breath pressure to instrument with given amplitude and rate of increase.
-  void startBlowing( StkFloat amplitude, StkFloat rate );
+  //! Apply breath pressure to instrument with given amplitude and rate of
+  //! increase.
+  void startBlowing(StkFloat amplitude, StkFloat rate);
 
   //! Decrease breath pressure with given rate of decrease.
-  void stopBlowing( StkFloat rate );
+  void stopBlowing(StkFloat rate);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -79,10 +79,9 @@ class Clarinet : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
+protected:
   DelayL delayLine_;
   ReedTable reedTable_;
   OneZero filter_;
@@ -95,24 +94,24 @@ class Clarinet : public Instrmnt
   StkFloat vibratoGain_;
 };
 
-inline StkFloat Clarinet :: tick( unsigned int )
-{
+inline StkFloat Clarinet::tick(unsigned int) {
   StkFloat pressureDiff;
   StkFloat breathPressure;
 
   // Calculate the breath pressure (envelope + noise + vibrato)
-  breathPressure = envelope_.tick(); 
+  breathPressure = envelope_.tick();
   breathPressure += breathPressure * noiseGain_ * noise_.tick();
   breathPressure += breathPressure * vibratoGain_ * vibrato_.tick();
 
   // Perform commuted loss filtering.
-  pressureDiff = -0.95 * filter_.tick( delayLine_.lastOut() );
+  pressureDiff = -0.95 * filter_.tick(delayLine_.lastOut());
 
   // Calculate pressure difference of reflected and mouthpiece pressures.
   pressureDiff = pressureDiff - breathPressure;
 
   // Perform non-linear scattering using pressure difference in reed function.
-  lastFrame_[0] = delayLine_.tick(breathPressure + pressureDiff * reedTable_.tick(pressureDiff));
+  lastFrame_[0] = delayLine_.tick(breathPressure +
+                                  pressureDiff * reedTable_.tick(pressureDiff));
 
   // Apply output gain.
   lastFrame_[0] *= outputGain_;
@@ -120,26 +119,25 @@ inline StkFloat Clarinet :: tick( unsigned int )
   return lastFrame_[0];
 }
 
-inline StkFrames& Clarinet :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Clarinet::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "Clarinet::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "Clarinet::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -147,6 +145,5 @@ inline StkFrames& Clarinet :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+}
 
-#endif

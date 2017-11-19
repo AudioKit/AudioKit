@@ -25,7 +25,7 @@ open class AKSequencer {
     open var loopEnabled: Bool = false
 
     /// Sequencer Initialization
-    public init() {
+    @objc public init() {
         NewMusicSequence(&sequence)
         if let existingSequence = sequence {
             sequencePointer = UnsafeMutablePointer<MusicSequence>(existingSequence)

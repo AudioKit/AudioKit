@@ -25,30 +25,25 @@
 
 namespace stk {
 
-FileWvOut :: FileWvOut( unsigned int bufferFrames )
-  :bufferFrames_( bufferFrames )
-{
+FileWvOut ::FileWvOut(unsigned int bufferFrames)
+    : bufferFrames_(bufferFrames) {}
+
+FileWvOut::FileWvOut(std::string fileName, unsigned int nChannels,
+                     FileWrite::FILE_TYPE type, Stk::StkFormat format,
+                     unsigned int bufferFrames)
+    : bufferFrames_(bufferFrames) {
+  this->openFile(fileName, nChannels, type, format);
 }
 
-FileWvOut::FileWvOut( std::string fileName, unsigned int nChannels, FileWrite::FILE_TYPE type, Stk::StkFormat format, unsigned int bufferFrames )
-  :bufferFrames_( bufferFrames )
-{
-  this->openFile( fileName, nChannels, type, format );
-}
+FileWvOut ::~FileWvOut() { this->closeFile(); }
 
-FileWvOut :: ~FileWvOut()
-{
-  this->closeFile();
-}
-
-void FileWvOut :: closeFile( void )
-{
-  if ( file_.isOpen() ) {
+void FileWvOut ::closeFile(void) {
+  if (file_.isOpen()) {
 
     // Output any remaining samples in the buffer before closing.
-    if ( bufferIndex_ > 0 ) {
-      data_.resize( bufferIndex_, data_.channels() );
-      file_.write( data_ );
+    if (bufferIndex_ > 0) {
+      data_.resize(bufferIndex_, data_.channels());
+      file_.write(data_);
     }
 
     file_.close();
@@ -56,85 +51,81 @@ void FileWvOut :: closeFile( void )
   }
 }
 
-void FileWvOut :: openFile( std::string fileName,
-                            unsigned int nChannels,
-                            FileWrite::FILE_TYPE type,
-                            Stk::StkFormat format )
-{
+void FileWvOut ::openFile(std::string fileName, unsigned int nChannels,
+                          FileWrite::FILE_TYPE type, Stk::StkFormat format) {
   closeFile();
 
-  if ( nChannels < 1 ) {
-    oStream_ << "FileWvOut::openFile: the channels argument must be greater than zero!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (nChannels < 1) {
+    oStream_ << "FileWvOut::openFile: the channels argument must be greater "
+                "than zero!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
   // An StkError can be thrown by the FileWrite class here.
-  file_.open( fileName, nChannels, type, format );
+  file_.open(fileName, nChannels, type, format);
 
   // Allocate new memory if necessary.
-  data_.resize( bufferFrames_, nChannels );
+  data_.resize(bufferFrames_, nChannels);
 
   bufferIndex_ = 0;
   iData_ = 0;
 }
 
-void FileWvOut :: incrementFrame( void )
-{
+void FileWvOut ::incrementFrame(void) {
   frameCounter_++;
   bufferIndex_++;
 
-  if ( bufferIndex_ == bufferFrames_ ) {
-    file_.write( data_ );
+  if (bufferIndex_ == bufferFrames_) {
+    file_.write(data_);
     bufferIndex_ = 0;
     iData_ = 0;
   }
 }
 
-void FileWvOut :: tick( const StkFloat sample )
-{
+void FileWvOut ::tick(const StkFloat sample) {
 #if defined(_STK_DEBUG_)
-  if ( !file_.isOpen() ) {
+  if (!file_.isOpen()) {
     oStream_ << "FileWvOut::tick(): no file open!";
-    handleError( StkError::WARNING );
+    handleError(StkError::WARNING);
     return;
   }
 #endif
 
   unsigned int nChannels = data_.channels();
   StkFloat input = sample;
-  clipTest( input );
-  for ( unsigned int j=0; j<nChannels; j++ )
+  clipTest(input);
+  for (unsigned int j = 0; j < nChannels; j++)
     data_[iData_++] = input;
 
   this->incrementFrame();
 }
 
-void FileWvOut :: tick( const StkFrames& frames )
-{
+void FileWvOut ::tick(const StkFrames &frames) {
 #if defined(_STK_DEBUG_)
-  if ( !file_.isOpen() ) {
+  if (!file_.isOpen()) {
     oStream_ << "FileWvOut::tick(): no file open!";
-    handleError( StkError::WARNING );
+    handleError(StkError::WARNING);
     return;
   }
 
-  if ( data_.channels() != frames.channels() ) {
-    oStream_ << "FileWvOut::tick(): incompatible channel value in StkFrames argument!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (data_.channels() != frames.channels()) {
+    oStream_ << "FileWvOut::tick(): incompatible channel value in StkFrames "
+                "argument!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   unsigned int iFrames = 0;
   unsigned int j, nChannels = data_.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++ ) {
+  for (unsigned int i = 0; i < frames.frames(); i++) {
 
-    for ( j=0; j<nChannels; j++ ) {
+    for (j = 0; j < nChannels; j++) {
       data_[iData_] = frames[iFrames++];
-      clipTest( data_[iData_++] );
+      clipTest(data_[iData_++]);
     }
 
     this->incrementFrame();
   }
 }
 
-} // stk namespace
+} // namespace stk

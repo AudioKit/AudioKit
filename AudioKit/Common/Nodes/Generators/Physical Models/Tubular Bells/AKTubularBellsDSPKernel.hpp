@@ -28,11 +28,11 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
-        
+
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
         NSString *resourcePath = [frameworkBundle resourcePath];
         stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
-        
+
         stk::Stk::setSampleRate(sampleRate);
         tubularBells = new stk::TubeBell();
     }
@@ -138,7 +138,7 @@ private:
     float internalTrigger = 0;
 
     stk::TubeBell *tubularBells;
-    
+
     float frequency = 110;
     float amplitude = 0.5;
 

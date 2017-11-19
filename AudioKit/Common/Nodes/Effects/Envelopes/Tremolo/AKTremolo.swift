@@ -74,7 +74,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - depth: Depth
     ///   - waveform:  Shape of the tremolo (default to sine)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         frequency: Double = 10,
         depth: Double = 1.0,

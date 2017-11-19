@@ -1,9 +1,9 @@
 /*
  * ATone
- * 
+ *
  * This code has been extracted from the Csound opcode "atone".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Barry Vercoe, John FFitch, Gabriel Maldonado
  * Year: 1991
  * Location: OOps/ugens5.c
@@ -16,7 +16,7 @@
 
 #ifndef M_PI
 #define M_PI		3.14159265358979323846
-#endif 
+#endif
 
 int sp_atone_create(sp_atone **p)
 {

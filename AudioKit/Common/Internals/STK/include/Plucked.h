@@ -1,11 +1,11 @@
 #ifndef STK_PLUCKED_H
 #define STK_PLUCKED_H
 
-#include "Instrmnt.h"
 #include "DelayA.h"
-#include "OneZero.h"
-#include "OnePole.h"
+#include "Instrmnt.h"
 #include "Noise.h"
+#include "OnePole.h"
+#include "OneZero.h"
 
 namespace stk {
 
@@ -31,32 +31,31 @@ namespace stk {
 */
 /***************************************************/
 
-class Plucked : public Instrmnt
-{
- public:
+class Plucked : public Instrmnt {
+public:
   //! Class constructor, taking the lowest desired playing frequency.
-  Plucked( StkFloat lowestFrequency = 10.0 );
+  Plucked(StkFloat lowestFrequency = 10.0);
 
   //! Class destructor.
-  ~Plucked( void );
+  ~Plucked(void);
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear(void);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Pluck the string with the given amplitude using the current frequency.
-  void pluck( StkFloat amplitude );
+  void pluck(StkFloat amplitude);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -66,44 +65,42 @@ class Plucked : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:  
-
-  DelayA   delayLine_;
-  OneZero  loopFilter_;
-  OnePole  pickFilter_;
-  Noise    noise_;
+protected:
+  DelayA delayLine_;
+  OneZero loopFilter_;
+  OnePole pickFilter_;
+  Noise noise_;
 
   StkFloat loopGain_;
 };
 
-inline StkFloat Plucked :: tick( unsigned int )
-{
+inline StkFloat Plucked ::tick(unsigned int) {
   // Here's the whole inner loop of the instrument!!
-  return lastFrame_[0] = 3.0 * delayLine_.tick( loopFilter_.tick( delayLine_.lastOut() * loopGain_ ) ); 
+  return lastFrame_[0] = 3.0 * delayLine_.tick(loopFilter_.tick(
+                                   delayLine_.lastOut() * loopGain_));
 }
 
-inline StkFrames& Plucked :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Plucked ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "Plucked::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_
+        << "Plucked::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -111,7 +108,6 @@ inline StkFrames& Plucked :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif
-

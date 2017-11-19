@@ -16,35 +16,35 @@ namespace stk {
 */
 /***************************************************/
 
-class Instrmnt : public Stk
-{
- public:
+class Instrmnt : public Stk {
+public:
   //! Class constructor.
-  Instrmnt( void ) { lastFrame_.resize( 1, 1, 0.0 ); };
+  Instrmnt(void) { lastFrame_.resize(1, 1, 0.0); };
 
   //! Reset and clear all internal state (for subclasses).
   /*!
     Not all subclasses implement a clear() function.
   */
-  virtual void clear( void ) {};
+  virtual void clear(void){};
 
   //! Start a note with the given frequency and amplitude.
-  virtual void noteOn( StkFloat frequency, StkFloat amplitude ) = 0;
+  virtual void noteOn(StkFloat frequency, StkFloat amplitude) = 0;
 
   //! Stop a note with the given amplitude (speed of decay).
-  virtual void noteOff( StkFloat amplitude ) = 0;
+  virtual void noteOff(StkFloat amplitude) = 0;
 
   //! Set instrument parameters for a particular frequency.
-  virtual void setFrequency( StkFloat frequency );
+  virtual void setFrequency(StkFloat frequency);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
   virtual void controlChange(int number, StkFloat value);
 
   //! Return the number of output channels for the class.
-  unsigned int channelsOut( void ) const { return lastFrame_.channels(); };
+  unsigned int channelsOut(void) const { return lastFrame_.channels(); };
 
   //! Return an StkFrames reference to the last output sample frame.
-  const StkFrames& lastFrame( void ) const { return lastFrame_; };
+  const StkFrames &lastFrame(void) const { return lastFrame_; };
 
   //! Return the specified channel value of the last computed frame.
   /*!
@@ -55,15 +55,16 @@ class Instrmnt : public Stk
     which case an out-of-range value will trigger an StkError
     exception. \sa lastFrame()
   */
-  StkFloat lastOut( unsigned int channel = 0 );
+  StkFloat lastOut(unsigned int channel = 0);
 
   //! Compute one sample frame and return the specified \c channel value.
   /*!
     For monophonic instruments, the \c channel argument is ignored.
   */
-  virtual StkFloat tick( unsigned int channel = 0 ) = 0;
+  virtual StkFloat tick(unsigned int channel = 0) = 0;
 
-  //! Fill the StkFrames object with computed sample frames, starting at the specified channel.
+  //! Fill the StkFrames object with computed sample frames, starting at the
+  //! specified channel.
   /*!
     The \c channel argument plus the number of output channels must
     be less than the number of channels in the StkFrames argument (the
@@ -71,38 +72,33 @@ class Instrmnt : public Stk
     performed if _STK_DEBUG_ is defined during compilation, in which
     case an out-of-range value will trigger an StkError exception.
   */
-  virtual StkFrames& tick( StkFrames& frames, unsigned int channel = 0 ) = 0;
+  virtual StkFrames &tick(StkFrames &frames, unsigned int channel = 0) = 0;
 
- protected:
-
+protected:
   StkFrames lastFrame_;
-
 };
 
-inline void Instrmnt :: setFrequency( StkFloat frequency )
-{
+inline void Instrmnt ::setFrequency(StkFloat frequency) {
   oStream_ << "Instrmnt::setFrequency: virtual setFrequency function call!";
-  handleError( StkError::WARNING );
+  handleError(StkError::WARNING);
 }
 
-inline StkFloat Instrmnt :: lastOut( unsigned int channel )
-{
+inline StkFloat Instrmnt ::lastOut(unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= lastFrame_.channels() ) {
+  if (channel >= lastFrame_.channels()) {
     oStream_ << "Instrmnt::lastOut(): channel argument is invalid!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   return lastFrame_[channel];
 }
 
-inline void Instrmnt :: controlChange( int number, StkFloat value )
-{
+inline void Instrmnt ::controlChange(int number, StkFloat value) {
   oStream_ << "Instrmnt::controlChange: virtual function call!";
-  handleError( StkError::WARNING );
+  handleError(StkError::WARNING);
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

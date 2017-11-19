@@ -1,5 +1,5 @@
 //: ## MIDI Scale Quantizer
-//: This playground demonstrates how to use an AKMIDITransformer to force 
+//: This playground demonstrates how to use an AKMIDITransformer to force
 //: MIDI input to stay in a particular key
 import AudioKitPlaygrounds
 import AudioKit

@@ -29,7 +29,7 @@ int sporth_gen_eval(sporth_stack *stack, void *ud)
             sp_ftbl_create(pd->sp, &ft, size);
             plumber_ftmap_add(pd, ftname, ft);
 #ifdef DEBUG_MODE
-            plumber_print(pd, "gen_sporth: compiling file %s to table of size %d\n", 
+            plumber_print(pd, "gen_sporth: compiling file %s to table of size %d\n",
                     filename, size);
 #endif
             plumber_register(&my_pd);

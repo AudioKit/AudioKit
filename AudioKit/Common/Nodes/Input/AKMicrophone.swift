@@ -35,7 +35,7 @@ open class AKMicrophone: AKNode, AKToggleable {
         return volume != 0.0
     }
 
-    /// Initialize the microphone 
+    /// Initialize the microphone
     override public init() {
         super.init()
         #if !os(tvOS)

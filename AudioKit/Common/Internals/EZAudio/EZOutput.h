@@ -332,8 +332,8 @@ FOUNDATION_EXPORT Float64 const EZOutputDefaultSampleRate;
 ///-----------------------------------------------------------
 
 /**
- This method handles connecting the converter node to the mixer node within the AUGraph that is being used as the playback graph. Subclasses can override this method and insert their custom nodes to perform effects processing on the audio data being rendered. 
- 
+ This method handles connecting the converter node to the mixer node within the AUGraph that is being used as the playback graph. Subclasses can override this method and insert their custom nodes to perform effects processing on the audio data being rendered.
+
  This was inspired by Daniel Kennett's blog post on how to add a custom equalizer to a CocoaLibSpotify SPCoreAudioController's AUGraph. For more information see Daniel's post and example code here: http://ikennd.ac/blog/2012/04/augraph-basics-in-cocoalibspotify/.
  @param sourceNode              An AUNode representing the node the audio data is coming from.
  @param sourceNodeOutputBus     A UInt32 representing the output bus from the source node that should be connected into the next node's input bus.
@@ -367,7 +367,7 @@ FOUNDATION_EXPORT Float64 const EZOutputDefaultSampleRate;
 //------------------------------------------------------------------------------
 
 /**
- The default value used as the AudioUnit subtype when creating the hardware output component. By default this is kAudioUnitSubType_RemoteIO for iOS and kAudioUnitSubType_HALOutput for OSX. 
+ The default value used as the AudioUnit subtype when creating the hardware output component. By default this is kAudioUnitSubType_RemoteIO for iOS and kAudioUnitSubType_HALOutput for OSX.
  @warning If you change this to anything other than kAudioUnitSubType_HALOutput for OSX you will get a failed assertion because devices can only be set when using the HAL audio unit.
  @return An OSType that represents the AudioUnit subtype for the hardware output component.
  */

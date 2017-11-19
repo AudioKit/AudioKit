@@ -33,9 +33,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(PitchShifter)
-    
+
     // Create a parameter object for the shift.
     AUParameter *shiftAUParameter = [AUParameter parameter:@"shift"
                                                       name:@"Pitch shift (in semitones)"
@@ -61,19 +61,19 @@ standardKernelPassthroughs()
     shiftAUParameter.value = 0;
     windowSizeAUParameter.value = 1024;
     crossfadeAUParameter.value = 512;
-    
+
     _kernel.setParameter(shiftAddress,      shiftAUParameter.value);
     _kernel.setParameter(windowSizeAddress, windowSizeAUParameter.value);
     _kernel.setParameter(crossfadeAddress,  crossfadeAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              shiftAUParameter,
                                              windowSizeAUParameter,
                                              crossfadeAUParameter
                                              ]];
-    
-    
+
+
     parameterTreeBlock(PitchShifter)
 }
 

@@ -1,10 +1,10 @@
 /*
  * Biquad
- * 
+ *
  * This code has been extracted from the Csound opcode "biquad".
  * It has been modified to work as a Soundpipe module.
- * 
- * Original Author(s): Hans Mikelson 
+ *
+ * Original Author(s): Hans Mikelson
  * Year: 1998
  * Location: Opcodes/biquad.c
  *
@@ -16,8 +16,8 @@
 #include "soundpipe.h"
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	
-#endif 
+#define M_PI		3.14159265358979323846
+#endif
 
 int sp_biquad_create(sp_biquad **p)
 {
@@ -59,7 +59,7 @@ int sp_biquad_init(sp_data *sp, sp_biquad *p)
    if(p->reinit == 0.0){
       p->xnm1 = p->xnm2 = p->ynm1 = p->ynm2 = 0.0;
    }
-   return SP_OK; 
+   return SP_OK;
 }
 
 int sp_biquad_compute(sp_data *sp, sp_biquad *p, SPFLOAT *in, SPFLOAT *out)
@@ -77,7 +77,7 @@ int sp_biquad_compute(sp_data *sp, sp_biquad *p, SPFLOAT *in, SPFLOAT *out)
     ynm2 = ynm1;
     ynm1 = yn;
     *out = yn;
-    
+
     p->xnm1 = xnm1; p->xnm2 = xnm2; p->ynm1 = ynm1; p->ynm2 = ynm2;
     return SP_OK;
 }

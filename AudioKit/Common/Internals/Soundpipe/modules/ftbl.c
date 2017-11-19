@@ -374,3 +374,29 @@ int sp_gen_rand(sp_data *sp, sp_ftbl *ft, const char *argstring)
     sp_ftbl_destroy(&args);
     return SP_OK;
 }
+
+int sp_gen_triangle(sp_data *sp, sp_ftbl *ft)
+{
+    unsigned int i;
+    unsigned int counter;
+    SPFLOAT incr;
+    int step;
+
+    incr = 1.0f / (SPFLOAT)ft->size;
+    incr *= 2;
+
+    step = 1;
+
+    counter = 0;
+
+    for(i = 0; i < ft->size; i++) {
+        if(i == ft->size / 2) {
+            step = -1;
+        }
+        ft->tbl[i] = (2.f*(counter * incr) - 1.f);
+
+        counter += step;
+    }
+
+    return SP_OK;
+}

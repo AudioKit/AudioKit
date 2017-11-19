@@ -18,8 +18,8 @@ int sporth_prints(sporth_stack *stack, void *ud)
     sporth_print_d *prnt;
     const char *str;
     SPFLOAT val = 0;
-    const char *sval; 
-    sporth_stack_val *stackval; 
+    const char *sval;
+    sporth_stack_val *stackval;
     switch(pd->mode) {
         case PLUMBER_CREATE:
 
@@ -39,7 +39,7 @@ int sporth_prints(sporth_stack *stack, void *ud)
 
             if(prnt->type == SPORTH_FLOAT) {
                 val = sporth_stack_pop_float(stack);
-                prnt->pval = val; 
+                prnt->pval = val;
                 sporth_stack_push_float(stack, val);
             } else if(prnt->type == SPORTH_STRING) {
                 sval = sporth_stack_pop_string(stack);
@@ -49,7 +49,7 @@ int sporth_prints(sporth_stack *stack, void *ud)
                 plumber_print(pd, "Print: unknown type\n");
                 return PLUMBER_NOTOK;
             }
-            
+
             strncpy(prnt->label, str, 128);
             prnt->init = 1;
             break;
@@ -81,9 +81,9 @@ int sporth_prints(sporth_stack *stack, void *ud)
                 } else if(val != prnt->pval && prnt->init == 0) {
                     prnt->pval = val;
                     plumber_print(pd, "%s: \"%g\",\n", prnt->label, val);
-                } 
+                }
                 sporth_stack_push_float(stack, val);
-            } 
+            }
             break;
         case PLUMBER_DESTROY:
             prnt = pd->last->ud;

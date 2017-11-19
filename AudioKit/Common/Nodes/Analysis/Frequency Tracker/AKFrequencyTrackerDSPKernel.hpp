@@ -13,55 +13,55 @@
 class AKFrequencyTrackerDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
     // MARK: Member Functions
-    
+
     AKFrequencyTrackerDSPKernel() {}
-    
+
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_ptrack_create(&ptrack);
         sp_ptrack_init(sp, ptrack, hopSize, peakCount);
     }
-    
+
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
-    
+
     void destroy() {
         sp_ptrack_destroy(&ptrack);
         AKSoundpipeKernel::destroy();
     }
-    
+
     void reset() {
     }
-    
-    
+
+
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
         }
     }
-    
+
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             default: return 0.0f;
         }
     }
-    
+
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
         }
     }
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            
+
             int frameOffset = int(frameIndex + bufferOffset);
-            
-            
+
+
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float temp = *in;
@@ -76,16 +76,16 @@ public:
             }
         }
     }
-    
+
     // MARK: Member Variables
-    
+
 private:
-    
+
     int hopSize = 4096;
     int peakCount = 20;
-    
+
     sp_ptrack *ptrack = nullptr;
-    
+
 public:
     float trackedAmplitude = 0.0;
     float trackedFrequency = 0.0;

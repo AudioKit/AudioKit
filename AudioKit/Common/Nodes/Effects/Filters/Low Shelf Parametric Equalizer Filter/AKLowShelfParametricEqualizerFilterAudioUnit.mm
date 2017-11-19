@@ -33,9 +33,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(LowShelfParametricEqualizerFilter)
-    
+
     // Create a parameter object for the cornerFrequency.
     AUParameter *cornerFrequencyAUParameter = [AUParameter parameter:@"cornerFrequency"
                                                                 name:@"Corner Frequency (Hz)"
@@ -57,23 +57,23 @@ standardKernelPassthroughs()
                                                    min:0.0
                                                    max:2.0
                                                   unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     cornerFrequencyAUParameter.value = 1000;
     gainAUParameter.value = 1.0;
     qAUParameter.value = 0.707;
-    
+
     _kernel.setParameter(cornerFrequencyAddress, cornerFrequencyAUParameter.value);
     _kernel.setParameter(gainAddress,            gainAUParameter.value);
     _kernel.setParameter(qAddress,               qAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              cornerFrequencyAUParameter,
                                              gainAUParameter,
                                              qAUParameter
                                              ]];
-    
+
     parameterTreeBlock(LowShelfParametricEqualizerFilter)
 }
 

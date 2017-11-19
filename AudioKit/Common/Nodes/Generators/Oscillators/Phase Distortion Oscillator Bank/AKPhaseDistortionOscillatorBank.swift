@@ -174,7 +174,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoRate: Frequency of vibrato in Hz
 
     ///
-    public init(
+    @objc public init(
         waveform: AKTable,
         phaseDistortion: Double = 0.0,
         attackDuration: Double = 0.1,

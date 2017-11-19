@@ -16,7 +16,7 @@
 @implementation AKAmplitudeEnvelopeAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKAmplitudeEnvelopeDSPKernel _kernel;
-    
+
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
@@ -38,9 +38,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(AmplitudeEnvelope)
-    
+
     // Create a parameter object for the attackDuration.
     AUParameter *attackDurationAUParameter = [AUParameter parameter:@"attackDuration"
                                                                name:@"Attack time"
@@ -69,18 +69,18 @@ standardKernelPassthroughs()
                                                                  min:0
                                                                  max:99
                                                                 unit:kAudioUnitParameterUnit_Seconds];
-    
+
     // Initialize the parameter values.
     attackDurationAUParameter.value = 0.1;
     decayDurationAUParameter.value = 0.1;
     sustainLevelAUParameter.value = 1.0;
     releaseDurationAUParameter.value = 0.1;
-    
+
     _kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value);
     _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value);
     _kernel.setParameter(sustainLevelAddress,    sustainLevelAUParameter.value);
     _kernel.setParameter(releaseDurationAddress, releaseDurationAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              attackDurationAUParameter,
@@ -88,7 +88,7 @@ standardKernelPassthroughs()
                                              sustainLevelAUParameter,
                                              releaseDurationAUParameter
                                              ]];
-    
+
     parameterTreeBlock(AmplitudeEnvelope)
 }
 

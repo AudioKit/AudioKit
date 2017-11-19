@@ -103,7 +103,8 @@ public struct AKMIDIEvent {
         return internalData[2]
     }
 
-    var data: MIDIWord {
+    /// Representation of the MIDI data as a MIDI word 0-16383
+    public var wordData: MIDIWord {
         if internalData.count < 2 {
             return 0
         }
@@ -176,7 +177,7 @@ public struct AKMIDIEvent {
         if bluetoothData.count > 1 {
             var rawEvents: [[MIDIByte]] = []
             if bluetoothData[1] < 128 {
-                //continuation of sysex from previous packet - handle separately 
+                //continuation of sysex from previous packet - handle separately
                 //(probably needs a whole bluetooth MIDI class so we can see the previous packets)
             } else {
                 var rawEvent: [MIDIByte] = []
