@@ -59,8 +59,6 @@
 		A1FE77A31F64549E00A2E41C /* AK4AudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE779F1F64549E00A2E41C /* AK4AudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A1FE77A41F64549E00A2E41C /* AK4AudioUnitBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1FE77A01F64549E00A2E41C /* AK4AudioUnitBase.mm */; };
 		A1FE77AC1F6454E100A2E41C /* AKBooster2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FE77A91F6454E100A2E41C /* AKBooster2.swift */; };
-		A1FE77AD1F6454E100A2E41C /* GainAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = A1FE77AA1F6454E100A2E41C /* GainAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A1FE77AE1F6454E100A2E41C /* GainAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1FE77AB1F6454E100A2E41C /* GainAudioUnit.mm */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
 		B19AE76D1F30F58500F9DC25 /* AKAudioUnitInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */; };
 		B19AE76E1F30F58500F9DC25 /* AKAudioUnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76C1F30F58500F9DC25 /* AKAudioUnitManager.swift */; };
@@ -1005,8 +1003,6 @@
 		A1FE779F1F64549E00A2E41C /* AK4AudioUnitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AK4AudioUnitBase.h; sourceTree = "<group>"; };
 		A1FE77A01F64549E00A2E41C /* AK4AudioUnitBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AK4AudioUnitBase.mm; sourceTree = "<group>"; };
 		A1FE77A91F6454E100A2E41C /* AKBooster2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBooster2.swift; sourceTree = "<group>"; };
-		A1FE77AA1F6454E100A2E41C /* GainAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GainAudioUnit.h; sourceTree = "<group>"; };
-		A1FE77AB1F6454E100A2E41C /* GainAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GainAudioUnit.mm; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitInstrument.swift; path = "AudioUnit Host/AKAudioUnitInstrument.swift"; sourceTree = "<group>"; };
 		B19AE76C1F30F58500F9DC25 /* AKAudioUnitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitManager.swift; path = "AudioUnit Host/AKAudioUnitManager.swift"; sourceTree = "<group>"; };
@@ -1976,11 +1972,9 @@
 			isa = PBXGroup;
 			children = (
 				A1FE77A91F6454E100A2E41C /* AKBooster2.swift */,
-				A1FE77AA1F6454E100A2E41C /* GainAudioUnit.h */,
-				A1FE77AB1F6454E100A2E41C /* GainAudioUnit.mm */,
-				A1F13B8E1F76CDFC00DD119B /* GainEffectDsp.hpp */,
-				C47DDCCA1F7CEB4B002520B9 /* GainEffectDsp.mm */,
 				A1F13B921F77468700DD119B /* GainAudioUnit2.swift */,
+				C47DDCCA1F7CEB4B002520B9 /* GainEffectDsp.mm */,
+				A1F13B8E1F76CDFC00DD119B /* GainEffectDsp.hpp */,
 			);
 			path = Booster2;
 			sourceTree = "<group>";
@@ -4419,7 +4413,6 @@
 				C456699A1D448D7E00D26565 /* AKMandolinDSPKernel.hpp in Headers */,
 				C45669661D448D7E00D26565 /* AKFMOscillatorAudioUnit.h in Headers */,
 				C466152A1EEA31B90044A5FC /* growl.h in Headers */,
-				A1FE77AD1F6454E100A2E41C /* GainAudioUnit.h in Headers */,
 				C466152C1EEA31B90044A5FC /* vocwrapper.h in Headers */,
 				C4146D971F3E47F9001AAE11 /* FFTRealFixLenParam.h in Headers */,
 				C45668CC1D448D7E00D26565 /* AKBitCrusherAudioUnit.h in Headers */,
@@ -5180,7 +5173,6 @@
 				C45669F11D448D7E00D26565 /* AKFFTTap.swift in Sources */,
 				C456671F1D448D7E00D26565 /* progress.c in Sources */,
 				C4F8CA371DCA9256001F38F2 /* tone.c in Sources */,
-				A1FE77AE1F6454E100A2E41C /* GainAudioUnit.mm in Sources */,
 				C45F3F751ED1576100A75143 /* AKSamplePlayer.swift in Sources */,
 				C4F8CA2A1DCA9256001F38F2 /* tabread.c in Sources */,
 				C4F8C9DF1DCA9256001F38F2 /* f.c in Sources */,
