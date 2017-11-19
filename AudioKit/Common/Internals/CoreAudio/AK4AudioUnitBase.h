@@ -34,7 +34,7 @@
 
 - (float) getParameterWithAddress:(AUParameterAddress)address;
 - (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
-
+- (void) setParamWithAddressImmediate:(AUParameterAddress)address value:(AUValue)value;
 
 // Add for compatibility with AKAudioUnit
 

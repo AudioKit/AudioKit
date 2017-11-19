@@ -46,10 +46,10 @@ public:
     }
 
     /** Uses the ParameterAddress as a key */
-    void setParameter(uint64_t address, float value) override {
+    void setParameter(uint64_t address, float value, bool immediate) override {
         switch (address) {
             case GainEffectParamGain:
-                gainRamp.setTarget(value, _now);
+                gainRamp.setTarget(value, _now, immediate);
                 break;
             case GainEffectParamRampTime:
                 gainRamp.setRampTime(value, _sampleRate);
