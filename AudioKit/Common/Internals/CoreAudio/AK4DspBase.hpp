@@ -39,7 +39,7 @@ public:
     virtual void process(uint32_t frameCount, uint32_t bufferOffset) = 0;
 
     /** Uses the ParameterAddress as a key */
-    virtual void setParameter(uint64_t address, float value) {}
+    virtual void setParameter(uint64_t address, float value, bool immediate = false) {}
 
     /** Uses the ParameterAddress as a key */
     virtual float getParameter(uint64_t address) { return 0.0; }
