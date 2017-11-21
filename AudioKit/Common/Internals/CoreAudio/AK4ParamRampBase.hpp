@@ -23,9 +23,10 @@ public:
 
     virtual float computeValueAt(int64_t atSample) = 0;
 
-    void setTarget(float value, int64_t atSample) {
+    void setTarget(float value, int64_t atSample, bool immediate = false) {
         _target = value;
         _startSample = atSample;
+        if (immediate) _value = value;
     }
 
     void setDurationInSamples(int64_t duration) {

@@ -26,6 +26,10 @@
     _kernel->setParameter(address, value);
 }
 
+- (void) setParamWithAddressImmediate:(AUParameterAddress)address value:(AUValue)value {
+    _kernel->setParameter(address, value, true);
+}
+
 - (void)start { _kernel->start(); }
 - (void)stop { _kernel->stop(); }
 - (BOOL)isPlaying { return _kernel->isPlaying(); }
