@@ -28,7 +28,7 @@ int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size)
     sp_ftbl *ftp = *ft;
     ftp->tbl = malloc(sizeof(SPFLOAT) * (size + 1));
     memset(ftp->tbl, 0, sizeof(SPFLOAT) * (size + 1));
-
+   
     sp_ftbl_init(sp, ftp, size);
     return SP_OK;
 }
@@ -77,7 +77,7 @@ int sp_gen_vals(sp_data *sp, sp_ftbl *ft, const char *string)
     int size = (int)strlen(string);
     char *str = malloc(sizeof(char) * size + 1);
     strcpy(str, string);
-    char *out;
+    char *out; 
     char *ptr = str;
     int j = 0;
     while(size > 0) {
@@ -92,9 +92,9 @@ int sp_gen_vals(sp_data *sp, sp_ftbl *ft, const char *string)
         ft->tbl[j] = atof(out);
         j++;
     }
-
+  
     sp_ftbl_init(sp, ft, ft->size);
-    free(ptr);
+    free(ptr); 
     return SP_OK;
 }
 
@@ -331,7 +331,7 @@ int sp_gen_composite(sp_data *sp, sp_ftbl *ft, const char *argstring)
 {
     SPFLOAT phs, inc, amp, dc, tpdlen = 2 * M_PI/ (SPFLOAT) ft->size;
     int i, n;
-
+    
     sp_ftbl *args;
     sp_ftbl_create(sp, &args, 1);
     sp_gen_vals(sp, args, argstring);
@@ -372,5 +372,31 @@ int sp_gen_rand(sp_data *sp, sp_ftbl *ft, const char *argstring)
         ft->size = pos;
     }
     sp_ftbl_destroy(&args);
+    return SP_OK;
+}
+
+int sp_gen_triangle(sp_data *sp, sp_ftbl *ft)
+{
+    unsigned int i;
+    unsigned int counter;
+    SPFLOAT incr;
+    int step;
+
+    incr = 1.0f / (SPFLOAT)ft->size;
+    incr *= 2;
+
+    step = 1;
+
+    counter = 0;
+
+    for(i = 0; i < ft->size; i++) {
+        if(i == ft->size / 2) {
+            step = -1;
+        }
+        ft->tbl[i] = (2.f*(counter * incr) - 1.f);
+
+        counter += step;
+    }
+
     return SP_OK;
 }

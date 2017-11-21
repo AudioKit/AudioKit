@@ -96,3 +96,18 @@ int sp_vdelay_compute(sp_data *sp, sp_vdelay *p, SPFLOAT *in, SPFLOAT *out)
     p->left = indx;
     return SP_OK;
 }
+
+int sp_vdelay_reset(sp_data *sp, sp_vdelay *p)
+{
+    SPFLOAT *buf;
+    uint32_t n;
+    int32_t maxd;
+    
+    buf = (SPFLOAT *)p->buf.ptr;
+    p->left = 0;
+    maxd = (uint32_t) (p->maxdel * p->sr);
+
+    for(n = 0; n < maxd; n++) buf[n] = 0;
+
+    return SP_OK;
+}
