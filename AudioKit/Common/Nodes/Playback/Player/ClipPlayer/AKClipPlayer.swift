@@ -216,3 +216,8 @@ open class AKClipPlayer: AKNode, AKTiming {
         set { playerNode.pan = newValue }
     }
 }
+extension AKClipPlayer {
+    open func start(at audioTime: AVAudioTime? = nil) {
+        play(at: audioTime)
+    }
+}
