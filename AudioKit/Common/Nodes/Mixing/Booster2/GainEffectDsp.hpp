@@ -11,7 +11,8 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(int64_t, GainEffectParam) {
-    GainEffectParamGain,
+    GainEffectParamLeftGain,
+    GainEffectParamRightGain,
     GainEffectParamRampTime
 };
 
@@ -36,23 +37,30 @@ void* createGainEffectDsp(int nChannels, double sampleRate);
 struct AK4GainEffectDsp : AK4DspBase {
 
 private:
-    AK4LinearParamRamp gainRamp;
+    AK4LinearParamRamp leftGainRamp;
+    AK4LinearParamRamp rightGainRamp;
 
 public:
 
     AK4GainEffectDsp() {
-        gainRamp.setTarget(1.0, 0, true);
-        gainRamp.setDurationInSamples(10000);
+        leftGainRamp.setTarget(1.0, 0, true);
+        leftGainRamp.setDurationInSamples(10000);
+        rightGainRamp.setTarget(1.0, 0, true);
+        rightGainRamp.setDurationInSamples(10000);
     }
 
     /** Uses the ParameterAddress as a key */
     void setParameter(uint64_t address, float value, bool immediate) override {
         switch (address) {
-            case GainEffectParamGain:
-                gainRamp.setTarget(value, _now, immediate);
+            case GainEffectParamLeftGain:
+                leftGainRamp.setTarget(value, _now, immediate);
+                break;
+            case GainEffectParamRightGain:
+                rightGainRamp.setTarget(value, _now, immediate);
                 break;
             case GainEffectParamRampTime:
-                gainRamp.setRampTime(value, _sampleRate);
+                leftGainRamp.setRampTime(value, _sampleRate);
+                rightGainRamp.setRampTime(value, _sampleRate);
                 break;
         }
     }
@@ -60,10 +68,13 @@ public:
     /** Uses the ParameterAddress as a key */
     float getParameter(uint64_t address) override {
         switch (address) {
-            case GainEffectParamGain:
-                return gainRamp.getTarget();
+            case GainEffectParamLeftGain:
+                return leftGainRamp.getTarget();
+            case GainEffectParamRightGain:
+                return rightGainRamp.getTarget();
             case GainEffectParamRampTime:
-                return gainRamp.getRampTime(_sampleRate);
+                return leftGainRamp.getRampTime(_sampleRate);
+                return rightGainRamp.getRampTime(_sampleRate);
         }
         return 0;
     }
@@ -78,14 +89,19 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
             // do gain ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                gainRamp.advanceTo(_now + frameOffset);
+                leftGainRamp.advanceTo(_now + frameOffset);
+                rightGainRamp.advanceTo(_now + frameOffset);
             }
             // do actual signal processing
             // After all this scaffolding, the only thing we are doing is scaling the input
             for (int channel = 0; channel < _nChannels; ++channel) {
                 float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                *out = gainRamp.getValue() * *in;
+                if (channel == 0) {
+                    *out = *in * leftGainRamp.getValue();
+                } else {
+                    *out = *in * rightGainRamp.getValue();
+                }
             }
         }
     }
