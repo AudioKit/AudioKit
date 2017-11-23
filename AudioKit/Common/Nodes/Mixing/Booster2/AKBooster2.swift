@@ -67,8 +67,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            
-            internalAU?.leftGain = Float(newValue)
+            internalAU?.setParamImmediate(addr: GainEffectParam.leftGain, value: Float(gain))
         }
     }
     
@@ -85,9 +84,8 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            
-            internalAU?.rightGain = Float(newValue)
-        }
+            internalAU?.setParamImmediate(addr: GainEffectParam.rightGain, value: Float(gain))
+       }
     }
 
     /// Amplification Factor in db
@@ -117,8 +115,8 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         gain: Double = 1) {
 
-        internalAU?.setParamImmediate(addr: GainEffectParam.leftGain, value: Float(gain))
-        internalAU?.setParamImmediate(addr: GainEffectParam.rightGain, value: Float(gain))
+        self.leftGain = gain
+        self.rightGain = gain
 
         _Self.register()
 
@@ -150,8 +148,8 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.leftGain = Float(gain)
-        internalAU?.rightGain = Float(gain)
+        internalAU?.setParamImmediate(addr: GainEffectParam.leftGain, value: Float(gain))
+        internalAU?.setParamImmediate(addr: GainEffectParam.rightGain, value: Float(gain))
     }
 
     // MARK: - Control
