@@ -10,16 +10,16 @@ import AudioKit
 import XCTest
 
 class AKBoosterTests: AKTestCase {
-    
+
     func testDefault() {
         output = AKBooster(input)
         AKTestNoEffect()
     }
 
-//    func testDefault2() {
-//        output = AKBooster2(input)
-//        AKTestNoEffect()
-//    }
+    func testDefault2() {
+        output = AKBooster2(input)
+        AKTestNoEffect()
+    }
 
     func testParameters() {
         output = AKBooster(input, gain: 2.0)
