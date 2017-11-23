@@ -28,7 +28,7 @@ public typealias AKCallback = () -> Void
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    @objc open static let engine = AVAudioEngine()
+    @objc open static var engine = AVAudioEngine()
 
     @objc static var shouldBeRunning = false
 
@@ -377,6 +377,7 @@ public typealias AKCallback = () -> Void
                     #endif
 
                     try engine.start()
+                    dump(engine.outputNode.audioUnit)
 
                     // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
                     if AKSettings.notificationsEnabled {
@@ -561,7 +562,6 @@ extension AudioKit {
 
 }
 
-
 extension AVAudioEngine {
 
     /// Adding connection between nodes with default format
@@ -578,11 +578,11 @@ extension AVAudioEngine {
     @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
     public func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
         guard seconds >= 0 else {
-            throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"Seconds needs to be a positive value"])
+            throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
         }
         // Engine can't be running when switching to offline render mode.
         if isRunning { stop() }
-        try enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4096)
+        try enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4_096)
 
         // This resets the sampleTime of offline rendering to 0.
         reset()
@@ -590,7 +590,7 @@ extension AVAudioEngine {
         try start()
 
         guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat, frameCapacity: manualRenderingMaximumFrameCount) else {
-            throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"Couldn't creat buffer in renderToFile"])
+            throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "Couldn't creat buffer in renderToFile"])
         }
 
         // This is for users to prepare the nodes for playing, i.e player.play()
@@ -608,7 +608,7 @@ extension AVAudioEngine {
                 print("renderToFile cannotDoInCurrentContext")
                 continue
             case .error, .insufficientDataFromInputNode:
-                throw NSError.init(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey:"renderToFile render error"])
+                throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])
             }
         }
 
