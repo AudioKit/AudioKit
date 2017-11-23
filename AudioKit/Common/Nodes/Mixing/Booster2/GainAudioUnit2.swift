@@ -18,12 +18,16 @@ public class GainAudioUnit2: AK4AudioUnitBase {
         setParamWithAddressImmediate(AUParameterAddress(addr.rawValue), value: value)
     }
 
-    var gain: Float = 1.0 {
-        didSet { setParam(addr: GainEffectParam.gain, value: gain) }
+    var leftGain: Float = 1.0 {
+        didSet { setParam(addr: GainEffectParam.leftGain, value: leftGain) }
+    }
+
+    var rightGain: Float = 1.0 {
+        didSet { setParam(addr: GainEffectParam.rightGain, value: rightGain) }
     }
 
     var rampTime: Float = 0.0 {
-        didSet { setParam(addr: GainEffectParam.gain, value: gain) }
+        didSet { setParam(addr: GainEffectParam.rampTime, value: rampTime) }
     }
 
     public override func initDsp(withSampleRate sampleRate: Double,
