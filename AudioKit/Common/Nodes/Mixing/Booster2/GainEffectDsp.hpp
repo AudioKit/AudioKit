@@ -41,7 +41,7 @@ private:
 public:
 
     AK4GainEffectDsp() {
-        gainRamp.setTarget(1.0, 0);
+        gainRamp.setTarget(1.0, 0, true);
         gainRamp.setDurationInSamples(10000);
     }
 
