@@ -40,15 +40,23 @@ public class GainAudioUnit2: AK4AudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-        let gain = AUParameterTree.createParameter(withIdentifier: "gain",
-                                                   name: "Gain",
-                                                   address: AUParameterAddress(0),
-                                                   min: 0.0, max: 1.0,
-                                                   unit: .linearGain, unitName: nil,
-                                                   flags: flags,
-                                                   valueStrings: nil, dependentParameters: nil)
-        setParameterTree(AUParameterTree.createTree(withChildren: [gain]))
-        gain.value = 1.0
+        let leftGain = AUParameterTree.createParameter(withIdentifier: "leftGain",
+                                                       name: "Left Boosting Amount",
+                                                       address: AUParameterAddress(0),
+                                                       min: 0.0, max: 2.0,
+                                                       unit: .linearGain, unitName: nil,
+                                                       flags: flags,
+                                                       valueStrings: nil, dependentParameters: nil)
+        let rightGain = AUParameterTree.createParameter(withIdentifier: "rightGain",
+                                                        name: "Right Boosting Amount",
+                                                        address: AUParameterAddress(1),
+                                                        min: 0.0, max: 2.0,
+                                                        unit: .linearGain, unitName: nil,
+                                                        flags: flags,
+                                                        valueStrings: nil, dependentParameters: nil)
+        setParameterTree(AUParameterTree.createTree(withChildren: [leftGain, rightGain]))
+        leftGain.value = 1.0
+        rightGain.value = 1.0
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
