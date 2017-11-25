@@ -1,5 +1,5 @@
 //
-//  AK4DspBase.hpp
+//  AKDspBase.hpp
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/9/17.
@@ -19,7 +19,7 @@
  does not know the type of the subclass at compile time.
  */
 
-struct AK4DspBase {
+struct AKDspBase {
 
 protected:
 

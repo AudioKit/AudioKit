@@ -11,9 +11,9 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "AK4DspBase.hpp"
+#import "AKDspBase.hpp"
 
-@interface AK4AudioUnitBase : AUAudioUnit
+@interface AKAudioUnitBase : AUAudioUnit
 
 /**
  This method should be overridden by the specific AU code, because it knows how to set up
