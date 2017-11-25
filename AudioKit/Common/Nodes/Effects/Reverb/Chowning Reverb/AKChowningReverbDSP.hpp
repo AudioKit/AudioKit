@@ -8,17 +8,17 @@
 
 #pragma once
 
-#import "AKDspSoundPipe.hpp"
+#import "AKSoundpipeDSPBase.hpp"
 
-class AKChowningReverbDsp : public AKDspSoundpipeBase {
+class AKChowningReverbDSP : public AKSoundpipeDSPBase {
     sp_jcrev* _jcrev0;
     sp_jcrev* _jcrev1;
 
 public:
-    AKChowningReverbDsp() {}
+    AKChowningReverbDSP() {}
 
     void init(int _channels, double _sampleRate) override {
-        AKDspSoundpipeBase::init(_channels, _sampleRate);
+        AKSoundpipeDSPBase::init(_channels, _sampleRate);
         sp_jcrev_create(&_jcrev0);
         sp_jcrev_init(_sp, _jcrev0);
         sp_jcrev_create(&_jcrev1);
@@ -28,7 +28,7 @@ public:
     void destroy() {
         sp_jcrev_destroy(&_jcrev0);
         sp_jcrev_destroy(&_jcrev1);
-        AKDspSoundpipeBase::destroy();
+        AKSoundpipeDSPBase::destroy();
     }
 
     void processSample(int channel, float* in, float* out) override {
