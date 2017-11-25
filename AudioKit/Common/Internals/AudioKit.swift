@@ -31,8 +31,11 @@ public typealias AKCallback = () -> Void
     @objc open static var engine = AVAudioEngine()
     
     /// Reference to singleton MIDI
-    open static let midi = AKMIDI()
 
+    #if !os(tvOS)
+    open static let midi = AKMIDI()
+    #endif
+    
     @objc static var shouldBeRunning = false
 
     @objc static var finalMixer = AKMixer()
