@@ -11,7 +11,7 @@
 
 @implementation AKChowningReverbAudioUnit
 
--(void*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+-(void*)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
     AKChowningReverbDSP* kernel = new AKChowningReverbDSP();
     kernel->init(sampleRate, count);
     return (void*)kernel;

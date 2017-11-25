@@ -34,7 +34,7 @@ void* createBoosterDSP(int nChannels, double sampleRate);
  etc.
  */
 
-struct AKBoosterDSP : AKDspBase {
+struct AKBoosterDSP : AKDSPBase {
 
 private:
     AKLinearParameterRamp leftGainRamp;
