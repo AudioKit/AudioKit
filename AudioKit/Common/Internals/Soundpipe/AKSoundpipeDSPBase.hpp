@@ -1,5 +1,5 @@
 //
-//  AKSoundPipeKernel.hpp
+//  AKSoundpipeDSPBase.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/1/17.
@@ -14,7 +14,7 @@ extern "C" {
 #include "soundpipe.h"
 }
 
-class AKDspSoundpipeBase: public AKDspBase {
+class AKSoundpipeDSPBase: public AKDspBase {
 protected:
     sp_data* _sp = nullptr;
 public:
@@ -26,7 +26,7 @@ public:
         _sp->nchan = _channels;
     }
 
-    ~AKDspSoundpipeBase() {
+    ~AKSoundpipeDSPBase() {
         //printf("~AKSoundpipeKernel(), &sp is %p\n", (void *)sp);
         // releasing the memory in the destructor only
         sp_destroy(&_sp);

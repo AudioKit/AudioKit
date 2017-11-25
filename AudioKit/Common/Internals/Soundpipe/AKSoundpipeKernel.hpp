@@ -1,5 +1,5 @@
 //
-//  AKSoundPipeKernel.hpp
+//  AKSoundpipeKernel.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/1/17.
