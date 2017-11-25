@@ -29,6 +29,9 @@ public typealias AKCallback = () -> Void
 
     /// Reference to the AV Audio Engine
     @objc open static var engine = AVAudioEngine()
+    
+    /// Reference to singleton MIDI
+    open static let midi = AKMIDI()
 
     @objc static var shouldBeRunning = false
 
