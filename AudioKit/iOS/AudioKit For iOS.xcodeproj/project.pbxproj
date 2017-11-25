@@ -688,7 +688,7 @@
 		C4A929671D1343AE0095E429 /* mand8.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4A928651D1343AE0095E429 /* mand8.raw */; };
 		C4A929681D1343AE0095E429 /* mand9.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4A928661D1343AE0095E429 /* mand9.raw */; };
 		C4A929691D1343AE0095E429 /* mandpluk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4A928671D1343AE0095E429 /* mandpluk.raw */; };
-		C4AC0B391FC944E400EDA024 /* AKDspBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B361FC944E300EDA024 /* AKDspBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4AC0B391FC944E400EDA024 /* AKDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B361FC944E300EDA024 /* AKDSPBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B3A1FC944E400EDA024 /* AKAudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B371FC944E300EDA024 /* AKAudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B3B1FC944E400EDA024 /* AKAudioUnitBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B381FC944E300EDA024 /* AKAudioUnitBase.mm */; };
 		C4AC0B411FC944EA00EDA024 /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B3D1FC944EA00EDA024 /* ParameterRamper.hpp */; };
@@ -1665,7 +1665,7 @@
 		C4A928651D1343AE0095E429 /* mand8.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = mand8.raw; sourceTree = "<group>"; };
 		C4A928661D1343AE0095E429 /* mand9.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = mand9.raw; sourceTree = "<group>"; };
 		C4A928671D1343AE0095E429 /* mandpluk.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.raw; sourceTree = "<group>"; };
-		C4AC0B361FC944E300EDA024 /* AKDspBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDspBase.hpp; sourceTree = "<group>"; };
+		C4AC0B361FC944E300EDA024 /* AKDSPBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDSPBase.hpp; sourceTree = "<group>"; };
 		C4AC0B371FC944E300EDA024 /* AKAudioUnitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnitBase.h; sourceTree = "<group>"; };
 		C4AC0B381FC944E300EDA024 /* AKAudioUnitBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioUnitBase.mm; sourceTree = "<group>"; };
 		C4AC0B3D1FC944EA00EDA024 /* ParameterRamper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParameterRamper.hpp; sourceTree = "<group>"; };
@@ -4034,7 +4034,7 @@
 		C4AC0B351FC944E300EDA024 /* AK4 */ = {
 			isa = PBXGroup;
 			children = (
-				C4AC0B361FC944E300EDA024 /* AKDspBase.hpp */,
+				C4AC0B361FC944E300EDA024 /* AKDSPBase.hpp */,
 				C4AC0B371FC944E300EDA024 /* AKAudioUnitBase.h */,
 				C4AC0B381FC944E300EDA024 /* AKAudioUnitBase.mm */,
 			);
@@ -4476,7 +4476,7 @@
 				52145B4D1F3C5B1A0069C88B /* DelayAPF.h in Headers */,
 				C421DCE01D39650000E15879 /* AKPhaseDistortionOscillatorAudioUnit.h in Headers */,
 				C40718081D2119D500665C02 /* OnePole.h in Headers */,
-				C4AC0B391FC944E400EDA024 /* AKDspBase.hpp in Headers */,
+				C4AC0B391FC944E400EDA024 /* AKDSPBase.hpp in Headers */,
 				C49351FE1C3CB93300A28D7F /* AKPannerAudioUnit.h in Headers */,
 				C47DDCAF1F7CE286002520B9 /* AKChowningReverbAudioUnit.h in Headers */,
 				C40C41621C40E3A5009D870B /* EZAudioUtilities.h in Headers */,

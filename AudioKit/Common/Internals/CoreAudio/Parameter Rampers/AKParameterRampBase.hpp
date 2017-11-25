@@ -9,7 +9,7 @@
 #pragma once
 
 #import <AudioToolbox/AudioToolbox.h>
-#import "AKDspBase.hpp"
+#import "AKDSPBase.hpp"
 
 struct AKParameterRampBase {
 

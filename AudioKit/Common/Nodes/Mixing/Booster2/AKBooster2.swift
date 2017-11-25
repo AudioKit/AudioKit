@@ -49,8 +49,8 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
             }
             
             // this means it's direct inline
-            internalAU?.leftGain = Float(newValue)
-            internalAU?.rightGain = Float(newValue)
+            internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(newValue))
+            internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(newValue))
         }
     }
     
@@ -67,7 +67,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(gain))
+            internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(newValue))
         }
     }
     
@@ -84,7 +84,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(gain))
+            internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(newValue))
        }
     }
 

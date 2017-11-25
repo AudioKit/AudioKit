@@ -8,19 +8,19 @@
 
 #pragma once
 
-#import "AKDspBase.hpp"
+#import "AKDSPBase.hpp"
 
 extern "C" {
 #include "soundpipe.h"
 }
 
-class AKSoundpipeDSPBase: public AKDspBase {
+class AKSoundpipeDSPBase: public AKDSPBase {
 protected:
     sp_data* _sp = nullptr;
 public:
 
     void init(int _channels, double _sampleRate) override {
-        AKDspBase::init(_channels, _sampleRate);
+        AKDSPBase::init(_channels, _sampleRate);
         sp_create(&_sp);
         _sp->sr = _sampleRate;
         _sp->nchan = _channels;
