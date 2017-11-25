@@ -9,7 +9,7 @@
 /// Stereo Booster
 ///
 open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
-    public typealias AKAudioUnitType = GainAudioUnit2
+    public typealias AKAudioUnitType = AKBooster2AudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "gain")
 
@@ -67,7 +67,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            internalAU?.setParamImmediate(addr: GainEffectParam.leftGain, value: Float(gain))
+            internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(gain))
         }
     }
     
@@ -84,7 +84,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            internalAU?.setParamImmediate(addr: GainEffectParam.rightGain, value: Float(gain))
+            internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(gain))
        }
     }
 
@@ -148,8 +148,8 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.setParamImmediate(addr: GainEffectParam.leftGain, value: Float(gain))
-        internalAU?.setParamImmediate(addr: GainEffectParam.rightGain, value: Float(gain))
+        internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(gain))
+        internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(gain))
     }
 
     // MARK: - Control

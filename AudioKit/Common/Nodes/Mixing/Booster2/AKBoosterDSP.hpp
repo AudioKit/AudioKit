@@ -1,5 +1,5 @@
 //
-//  GainEffectDsp.hpp
+//  AKBoosterDSP.hpp
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/23/17.
@@ -10,22 +10,22 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(int64_t, GainEffectParam) {
-    GainEffectParamLeftGain,
-    GainEffectParamRightGain,
-    GainEffectParamRampTime
+typedef NS_ENUM(int64_t, AKBoosterParameter) {
+    AKBoosterParameterLeftGain,
+    AKBoosterParameterRightGain,
+    AKBoosterParameterRampTime
 };
 
 #ifndef __cplusplus
 
-void* createGainEffectDsp(int nChannels, double sampleRate);
+void* createBoosterDSP(int nChannels, double sampleRate);
 
 #else
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "AK4LinearParamRamp.hpp"
+#import "AKLinearParameterRamp.hpp"
 
 /**
  A butt simple DSP kernel. Most of the plumbing is in the base class. All the code at this
@@ -34,15 +34,15 @@ void* createGainEffectDsp(int nChannels, double sampleRate);
  etc.
  */
 
-struct AK4GainEffectDsp : AK4DspBase {
+struct AKBoosterDSP : AKDspBase {
 
 private:
-    AK4LinearParamRamp leftGainRamp;
-    AK4LinearParamRamp rightGainRamp;
+    AKLinearParameterRamp leftGainRamp;
+    AKLinearParameterRamp rightGainRamp;
 
 public:
 
-    AK4GainEffectDsp() {
+    AKBoosterDSP() {
         leftGainRamp.setTarget(1.0, 0, true);
         leftGainRamp.setDurationInSamples(10000);
         rightGainRamp.setTarget(1.0, 0, true);
@@ -52,13 +52,13 @@ public:
     /** Uses the ParameterAddress as a key */
     void setParameter(uint64_t address, float value, bool immediate) override {
         switch (address) {
-            case GainEffectParamLeftGain:
+            case AKBoosterParameterLeftGain:
                 leftGainRamp.setTarget(value, _now, immediate);
                 break;
-            case GainEffectParamRightGain:
+            case AKBoosterParameterRightGain:
                 rightGainRamp.setTarget(value, _now, immediate);
                 break;
-            case GainEffectParamRampTime:
+            case AKBoosterParameterRampTime:
                 leftGainRamp.setRampTime(value, _sampleRate);
                 rightGainRamp.setRampTime(value, _sampleRate);
                 break;
@@ -68,11 +68,11 @@ public:
     /** Uses the ParameterAddress as a key */
     float getParameter(uint64_t address) override {
         switch (address) {
-            case GainEffectParamLeftGain:
+            case AKBoosterParameterLeftGain:
                 return leftGainRamp.getTarget();
-            case GainEffectParamRightGain:
+            case AKBoosterParameterRightGain:
                 return rightGainRamp.getTarget();
-            case GainEffectParamRampTime:
+            case AKBoosterParameterRampTime:
                 return leftGainRamp.getRampTime(_sampleRate);
                 return rightGainRamp.getRampTime(_sampleRate);
         }

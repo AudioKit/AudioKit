@@ -1,5 +1,5 @@
 //
-//  GainAudioUnit2.swift
+//  AKBooster2AudioUnit.swift
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/23/17.
@@ -8,31 +8,31 @@
 
 import AVFoundation
 
-public class GainAudioUnit2: AK4AudioUnitBase {
+public class AKBooster2AudioUnit: AKAudioUnitBase {
 
-    func setParam(addr: GainEffectParam, value: Float) {
+    func setParam(addr: AKBoosterParameter, value: Float) {
         setParameterWithAddress(AUParameterAddress(addr.rawValue), value: value)
     }
 
-    func setParamImmediate(addr: GainEffectParam, value: Float) {
+    func setParamImmediate(addr: AKBoosterParameter, value: Float) {
         setParamWithAddressImmediate(AUParameterAddress(addr.rawValue), value: value)
     }
 
     var leftGain: Float = 1.0 {
-        didSet { setParam(addr: GainEffectParam.leftGain, value: leftGain) }
+        didSet { setParam(addr: AKBoosterParameter.leftGain, value: leftGain) }
     }
 
     var rightGain: Float = 1.0 {
-        didSet { setParam(addr: GainEffectParam.rightGain, value: rightGain) }
+        didSet { setParam(addr: AKBoosterParameter.rightGain, value: rightGain) }
     }
 
     var rampTime: Float = 0.0 {
-        didSet { setParam(addr: GainEffectParam.rampTime, value: rampTime) }
+        didSet { setParam(addr: AKBoosterParameter.rampTime, value: rampTime) }
     }
 
     public override func initDsp(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
-        return createGainEffectDsp(Int32(count), sampleRate)
+        return createBoosterDSP(Int32(count), sampleRate)
     }
 
     override init(componentDescription: AudioComponentDescription,
