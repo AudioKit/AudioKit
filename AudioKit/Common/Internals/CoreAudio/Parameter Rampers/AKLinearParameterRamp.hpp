@@ -1,5 +1,5 @@
 //
-//  AK4LinearParamRamp.hpp
+//  AKLinearParameterRamp.hpp
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/18/17.
@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import "AK4ParamRampBase.hpp"
+#import "AKParameterRampBase.hpp"
 
-struct AK4LinearParamRamp : AK4ParamRampBase {
+struct AKLinearParameterRamp : AKParameterRampBase {
 
     float computeValueAt(int64_t atSample) override {
         float fract = (float)(atSample - _startSample) / _duration;

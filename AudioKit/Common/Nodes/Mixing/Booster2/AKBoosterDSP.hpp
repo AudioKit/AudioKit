@@ -1,5 +1,5 @@
 //
-//  GainEffectDsp.hpp
+//  AKBoosterDSP.hpp
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/23/17.
@@ -10,21 +10,22 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(int64_t, GainEffectParam) {
-    GainEffectParamGain,
-    GainEffectParamRampTime
+typedef NS_ENUM(int64_t, AKBoosterParameter) {
+    AKBoosterParameterLeftGain,
+    AKBoosterParameterRightGain,
+    AKBoosterParameterRampTime
 };
 
 #ifndef __cplusplus
 
-void* createGainEffectDsp(int nChannels, double sampleRate);
+void* createBoosterDSP(int nChannels, double sampleRate);
 
 #else
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "AK4LinearParamRamp.hpp"
+#import "AKLinearParameterRamp.hpp"
 
 /**
  A butt simple DSP kernel. Most of the plumbing is in the base class. All the code at this
@@ -33,26 +34,33 @@ void* createGainEffectDsp(int nChannels, double sampleRate);
  etc.
  */
 
-struct AK4GainEffectDsp : AK4DspBase {
+struct AKBoosterDSP : AKDSPBase {
 
 private:
-    AK4LinearParamRamp gainRamp;
+    AKLinearParameterRamp leftGainRamp;
+    AKLinearParameterRamp rightGainRamp;
 
 public:
 
-    AK4GainEffectDsp() {
-        gainRamp.setTarget(1.0, 0);
-        gainRamp.setDurationInSamples(10000);
+    AKBoosterDSP() {
+        leftGainRamp.setTarget(1.0, 0, true);
+        leftGainRamp.setDurationInSamples(10000);
+        rightGainRamp.setTarget(1.0, 0, true);
+        rightGainRamp.setDurationInSamples(10000);
     }
 
     /** Uses the ParameterAddress as a key */
     void setParameter(uint64_t address, float value, bool immediate) override {
         switch (address) {
-            case GainEffectParamGain:
-                gainRamp.setTarget(value, _now, immediate);
+            case AKBoosterParameterLeftGain:
+                leftGainRamp.setTarget(value, _now, immediate);
                 break;
-            case GainEffectParamRampTime:
-                gainRamp.setRampTime(value, _sampleRate);
+            case AKBoosterParameterRightGain:
+                rightGainRamp.setTarget(value, _now, immediate);
+                break;
+            case AKBoosterParameterRampTime:
+                leftGainRamp.setRampTime(value, _sampleRate);
+                rightGainRamp.setRampTime(value, _sampleRate);
                 break;
         }
     }
@@ -60,10 +68,13 @@ public:
     /** Uses the ParameterAddress as a key */
     float getParameter(uint64_t address) override {
         switch (address) {
-            case GainEffectParamGain:
-                return gainRamp.getTarget();
-            case GainEffectParamRampTime:
-                return gainRamp.getRampTime(_sampleRate);
+            case AKBoosterParameterLeftGain:
+                return leftGainRamp.getTarget();
+            case AKBoosterParameterRightGain:
+                return rightGainRamp.getTarget();
+            case AKBoosterParameterRampTime:
+                return leftGainRamp.getRampTime(_sampleRate);
+                return rightGainRamp.getRampTime(_sampleRate);
         }
         return 0;
     }
@@ -78,14 +89,19 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
             // do gain ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                gainRamp.advanceTo(_now + frameOffset);
+                leftGainRamp.advanceTo(_now + frameOffset);
+                rightGainRamp.advanceTo(_now + frameOffset);
             }
             // do actual signal processing
             // After all this scaffolding, the only thing we are doing is scaling the input
             for (int channel = 0; channel < _nChannels; ++channel) {
                 float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                *out = gainRamp.getValue() * *in;
+                if (channel == 0) {
+                    *out = *in * leftGainRamp.getValue();
+                } else {
+                    *out = *in * rightGainRamp.getValue();
+                }
             }
         }
     }
