@@ -1,5 +1,5 @@
 //
-//  AKSoundPipeKernel.hpp
+//  AKSoundpipeDSPBase.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/1/17.
@@ -8,25 +8,25 @@
 
 #pragma once
 
-#import "AK4DspBase.hpp"
+#import "AKDSPBase.hpp"
 
 extern "C" {
 #include "soundpipe.h"
 }
 
-class AK4DspSoundpipeBase: public AK4DspBase {
+class AKSoundpipeDSPBase: public AKDSPBase {
 protected:
     sp_data* _sp = nullptr;
 public:
 
     void init(int _channels, double _sampleRate) override {
-        AK4DspBase::init(_channels, _sampleRate);
+        AKDSPBase::init(_channels, _sampleRate);
         sp_create(&_sp);
         _sp->sr = _sampleRate;
         _sp->nchan = _channels;
     }
 
-    ~AK4DspSoundpipeBase() {
+    ~AKSoundpipeDSPBase() {
         //printf("~AKSoundpipeKernel(), &sp is %p\n", (void *)sp);
         // releasing the memory in the destructor only
         sp_destroy(&_sp);

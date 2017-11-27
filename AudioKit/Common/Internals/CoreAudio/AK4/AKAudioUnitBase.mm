@@ -1,20 +1,20 @@
 
-#import "AK4AudioUnitBase.h"
+#import "AKAudioUnitBase.h"
 #import "BufferedAudioBus.hpp"
 
 
 #define kGain 0
 
-@interface AK4AudioUnitBase ()
+@interface AKAudioUnitBase ()
 
-@property AK4DspBase* kernel;
+@property AKDSPBase* kernel;
 
 @end
 
-@implementation AK4AudioUnitBase {
+@implementation AKAudioUnitBase {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     BufferedInputBus _inputBus;
-    AK4DspBase* _kernel;
+    AKDSPBase* _kernel;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -40,7 +40,7 @@
  DSP is invalid.
  */
 
-- (void*)initDspWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+- (void*)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
     return (void*)(_kernel = NULL);
 }
 
@@ -57,7 +57,7 @@
     _parameterTree = tree;
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AK4DspBase *kernel = _kernel;
+    __block AKDSPBase *kernel = _kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
@@ -93,7 +93,7 @@
     AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.0
                                                                                   channels:2];
 
-    _kernel = (AK4DspBase*)[self initDspWithSampleRate:defaultFormat.sampleRate
+    _kernel = (AKDSPBase*)[self initDSPWithSampleRate:defaultFormat.sampleRate
                              channelCount:defaultFormat.channelCount];
 
     // Create the input and output busses.
@@ -158,7 +158,7 @@
 - (AUInternalRenderBlock)internalRenderBlock {
     // Capture in locals to avoid ObjC member lookups.
     // Specify captured objects are mutable.
-    __block AK4DspBase *state = _kernel;
+    __block AKDSPBase *state = _kernel;
     __block BufferedInputBus *input = &_inputBus;
 
     return ^AUAudioUnitStatus(

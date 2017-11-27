@@ -1,5 +1,5 @@
 //
-//  AK4ParamRampBase.h
+//  AKParameterRampBase.h
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/18/17.
@@ -9,9 +9,9 @@
 #pragma once
 
 #import <AudioToolbox/AudioToolbox.h>
-#import "AK4DspBase.hpp"
+#import "AKDSPBase.hpp"
 
-struct AK4ParamRampBase {
+struct AKParameterRampBase {
 
 protected:
     float _target = 0;

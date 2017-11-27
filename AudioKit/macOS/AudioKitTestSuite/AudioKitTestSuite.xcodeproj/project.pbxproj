@@ -107,6 +107,7 @@
 		C464E9241FB030C10025629C /* AKFormantFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464E8C61FB030C10025629C /* AKFormantFilterTests.swift */; };
 		C464E9281FB0311F0025629C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C464E9251FB030FE0025629C /* AudioKit.framework */; };
 		C464E9291FB0311F0025629C /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C464E9251FB030FE0025629C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4E97D8D1FC6B4C4000916EC /* AKBooster2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E97D8C1FC6B4C4000916EC /* AKBooster2Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -238,6 +239,7 @@
 		C464E8C51FB030C10025629C /* AKFlatFrequencyResponseReverbTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKFlatFrequencyResponseReverbTests.swift; path = ../../../Common/Tests/AKFlatFrequencyResponseReverbTests.swift; sourceTree = "<group>"; };
 		C464E8C61FB030C10025629C /* AKFormantFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKFormantFilterTests.swift; path = ../../../Common/Tests/AKFormantFilterTests.swift; sourceTree = "<group>"; };
 		C464E9251FB030FE0025629C /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C4E97D8C1FC6B4C4000916EC /* AKBooster2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AKBooster2Tests.swift; path = ../../../Common/Tests/AKBooster2Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +301,7 @@
 				C464E8B51FB030BC0025629C /* AKBandRejectButterworthFilterTests.swift */,
 				C464E8901FB030B30025629C /* AKBitCrusherTests.swift */,
 				C45D66931FB043E000AB2E49 /* AKBoosterTests.swift */,
+				C4E97D8C1FC6B4C4000916EC /* AKBooster2Tests.swift */,
 				C464E8C01FB030C00025629C /* AKChowningReverbTests.swift */,
 				C464E87D1FB030AE0025629C /* AKClipperTests.swift */,
 				C464E8721FB030AC0025629C /* AKCompressorTests.swift */,
@@ -599,6 +602,7 @@
 				C464E8D11FB030C10025629C /* AKTanhDistortionTests.swift in Sources */,
 				C464E8F91FB030C10025629C /* AKEqualizerFilterTests.swift in Sources */,
 				C464E8DF1FB030C10025629C /* AKAmplitudeEnvelopeTests.swift in Sources */,
+				C4E97D8D1FC6B4C4000916EC /* AKBooster2Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
