@@ -13,9 +13,9 @@
 
 @interface EZAudioFileMarker : NSObject
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic) NSNumber *framePosition;
-@property (nonatomic, strong) NSNumber *markerID;
-@property (nonatomic, strong) NSNumber *type;
+@property (nonatomic, strong)  NSString * _Nullable name;
+@property (nonatomic) NSNumber * _Nonnull framePosition;
+@property (nonatomic, strong) NSNumber * _Nonnull markerID;
+@property (nonatomic, strong) NSNumber * _Nonnull type;
 
 @end
