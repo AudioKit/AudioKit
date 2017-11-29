@@ -1,0 +1,456 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C456E2D61FCF5184000E884E /* AKTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456E2D31FCF5184000E884E /* AKTestCase.swift */; };
+		C456E2D81FCF51A8000E884E /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456E2D71FCF51A8000E884E /* ExampleTests.swift */; };
+		C462DA261FCF4F060047ABA4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C462DA251FCF4F060047ABA4 /* main.swift */; };
+		C462DA361FCF4F2D0047ABA4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C462DA321FCF4F210047ABA4 /* AudioKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C462DA311FCF4F210047ABA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C462DA2C1FCF4F210047ABA4 /* AudioKit For macOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C42F36CC1C0582E6000E937C;
+			remoteInfo = AudioKit;
+		};
+		C462DA331FCF4F210047ABA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C462DA2C1FCF4F210047ABA4 /* AudioKit For macOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAFECEBD1F4EBBFE00A2B046;
+			remoteInfo = AudioKitUI;
+		};
+		C462DA431FCF4F6D0047ABA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C462DA1A1FCF4F060047ABA4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C462DA211FCF4F060047ABA4;
+			remoteInfo = macOSDevelopment;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C462DA201FCF4F060047ABA4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C456E2D31FCF5184000E884E /* AKTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKTestCase.swift; path = ../../../AudioKit/Common/Tests/AKTestCase.swift; sourceTree = "<group>"; };
+		C456E2D71FCF51A8000E884E /* ExampleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
+		C462DA221FCF4F060047ABA4 /* macOSDevelopment */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = macOSDevelopment; sourceTree = BUILT_PRODUCTS_DIR; };
+		C462DA251FCF4F060047ABA4 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C462DA2C1FCF4F210047ABA4 /* AudioKit For macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For macOS.xcodeproj"; path = "../../AudioKit/macOS/AudioKit For macOS.xcodeproj"; sourceTree = "<group>"; };
+		C462DA3B1FCF4F610047ABA4 /* macOSDevelopmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = macOSDevelopmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C462DA3F1FCF4F610047ABA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C462DA1F1FCF4F060047ABA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C462DA361FCF4F2D0047ABA4 /* AudioKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C462DA381FCF4F610047ABA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C462DA191FCF4F060047ABA4 = {
+			isa = PBXGroup;
+			children = (
+				C462DA2C1FCF4F210047ABA4 /* AudioKit For macOS.xcodeproj */,
+				C462DA241FCF4F060047ABA4 /* macOSDevelopment */,
+				C462DA3C1FCF4F610047ABA4 /* macOSDevelopmentTests */,
+				C462DA231FCF4F060047ABA4 /* Products */,
+				C462DA351FCF4F2D0047ABA4 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C462DA231FCF4F060047ABA4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C462DA221FCF4F060047ABA4 /* macOSDevelopment */,
+				C462DA3B1FCF4F610047ABA4 /* macOSDevelopmentTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C462DA241FCF4F060047ABA4 /* macOSDevelopment */ = {
+			isa = PBXGroup;
+			children = (
+				C462DA251FCF4F060047ABA4 /* main.swift */,
+			);
+			path = macOSDevelopment;
+			sourceTree = "<group>";
+		};
+		C462DA2D1FCF4F210047ABA4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C462DA321FCF4F210047ABA4 /* AudioKit.framework */,
+				C462DA341FCF4F210047ABA4 /* AudioKitUI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C462DA351FCF4F2D0047ABA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C462DA3C1FCF4F610047ABA4 /* macOSDevelopmentTests */ = {
+			isa = PBXGroup;
+			children = (
+				C456E2D31FCF5184000E884E /* AKTestCase.swift */,
+				C456E2D71FCF51A8000E884E /* ExampleTests.swift */,
+				C462DA3F1FCF4F610047ABA4 /* Info.plist */,
+			);
+			path = macOSDevelopmentTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C462DA211FCF4F060047ABA4 /* macOSDevelopment */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C462DA291FCF4F060047ABA4 /* Build configuration list for PBXNativeTarget "macOSDevelopment" */;
+			buildPhases = (
+				C462DA1E1FCF4F060047ABA4 /* Sources */,
+				C462DA1F1FCF4F060047ABA4 /* Frameworks */,
+				C462DA201FCF4F060047ABA4 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = macOSDevelopment;
+			productName = macOSDevelopment;
+			productReference = C462DA221FCF4F060047ABA4 /* macOSDevelopment */;
+			productType = "com.apple.product-type.tool";
+		};
+		C462DA3A1FCF4F610047ABA4 /* macOSDevelopmentTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C462DA401FCF4F610047ABA4 /* Build configuration list for PBXNativeTarget "macOSDevelopmentTests" */;
+			buildPhases = (
+				C462DA371FCF4F610047ABA4 /* Sources */,
+				C462DA381FCF4F610047ABA4 /* Frameworks */,
+				C462DA391FCF4F610047ABA4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C462DA441FCF4F6D0047ABA4 /* PBXTargetDependency */,
+			);
+			name = macOSDevelopmentTests;
+			productName = macOSDevelopmentTests;
+			productReference = C462DA3B1FCF4F610047ABA4 /* macOSDevelopmentTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C462DA1A1FCF4F060047ABA4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0910;
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = AudioKit;
+				TargetAttributes = {
+					C462DA211FCF4F060047ABA4 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					C462DA3A1FCF4F610047ABA4 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C462DA1D1FCF4F060047ABA4 /* Build configuration list for PBXProject "macOSDevelopment" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C462DA191FCF4F060047ABA4;
+			productRefGroup = C462DA231FCF4F060047ABA4 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C462DA2D1FCF4F210047ABA4 /* Products */;
+					ProjectRef = C462DA2C1FCF4F210047ABA4 /* AudioKit For macOS.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				C462DA211FCF4F060047ABA4 /* macOSDevelopment */,
+				C462DA3A1FCF4F610047ABA4 /* macOSDevelopmentTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C462DA321FCF4F210047ABA4 /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = C462DA311FCF4F210047ABA4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C462DA341FCF4F210047ABA4 /* AudioKitUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKitUI.framework;
+			remoteRef = C462DA331FCF4F210047ABA4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C462DA391FCF4F610047ABA4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C462DA1E1FCF4F060047ABA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C462DA261FCF4F060047ABA4 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C462DA371FCF4F610047ABA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C456E2D61FCF5184000E884E /* AKTestCase.swift in Sources */,
+				C456E2D81FCF51A8000E884E /* ExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C462DA441FCF4F6D0047ABA4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C462DA211FCF4F060047ABA4 /* macOSDevelopment */;
+			targetProxy = C462DA431FCF4F6D0047ABA4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C462DA271FCF4F060047ABA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C462DA281FCF4F060047ABA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		C462DA2A1FCF4F060047ABA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		C462DA2B1FCF4F060047ABA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		C462DA411FCF4F610047ABA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = macOSDevelopmentTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSDevelopmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		C462DA421FCF4F610047ABA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = macOSDevelopmentTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSDevelopmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C462DA1D1FCF4F060047ABA4 /* Build configuration list for PBXProject "macOSDevelopment" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C462DA271FCF4F060047ABA4 /* Debug */,
+				C462DA281FCF4F060047ABA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C462DA291FCF4F060047ABA4 /* Build configuration list for PBXNativeTarget "macOSDevelopment" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C462DA2A1FCF4F060047ABA4 /* Debug */,
+				C462DA2B1FCF4F060047ABA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C462DA401FCF4F610047ABA4 /* Build configuration list for PBXNativeTarget "macOSDevelopmentTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C462DA411FCF4F610047ABA4 /* Debug */,
+				C462DA421FCF4F610047ABA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C462DA1A1FCF4F060047ABA4 /* Project object */;
+}
