@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		C45D66941FB043E100AB2E49 /* AKBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45D66931FB043E000AB2E49 /* AKBoosterTests.swift */; };
 		C464E84E1FB0302A0025629C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464E84D1FB0302A0025629C /* AppDelegate.swift */; };
-		C464E8501FB0302A0025629C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C464E84F1FB0302A0025629C /* Assets.xcassets */; };
-		C464E8531FB0302A0025629C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C464E8511FB0302A0025629C /* MainMenu.xib */; };
 		C464E8C71FB030C10025629C /* AKTremoloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464E8691FB030AA0025629C /* AKTremoloTests.swift */; };
 		C464E8C81FB030C10025629C /* AKMorphingOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464E86A1FB030AB0025629C /* AKMorphingOscillatorTests.swift */; };
 		C464E8C91FB030C10025629C /* AKPeakingParametricEqualizerFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464E86B1FB030AB0025629C /* AKPeakingParametricEqualizerFilterTests.swift */; };
@@ -138,8 +136,6 @@
 		C45D66931FB043E000AB2E49 /* AKBoosterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKBoosterTests.swift; path = ../../../Common/Tests/AKBoosterTests.swift; sourceTree = "<group>"; };
 		C464E84A1FB0302A0025629C /* AudioKitTestSuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitTestSuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C464E84D1FB0302A0025629C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C464E84F1FB0302A0025629C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C464E8521FB0302A0025629C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C464E8541FB0302A0025629C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C464E8551FB0302A0025629C /* AudioKitTestSuite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AudioKitTestSuite.entitlements; sourceTree = "<group>"; };
 		C464E85A1FB0302A0025629C /* AudioKitTestSuiteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioKitTestSuiteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,8 +280,6 @@
 			isa = PBXGroup;
 			children = (
 				C464E84D1FB0302A0025629C /* AppDelegate.swift */,
-				C464E84F1FB0302A0025629C /* Assets.xcassets */,
-				C464E8511FB0302A0025629C /* MainMenu.xib */,
 				C464E8541FB0302A0025629C /* Info.plist */,
 				C464E8551FB0302A0025629C /* AudioKitTestSuite.entitlements */,
 			);
@@ -480,8 +474,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C464E8501FB0302A0025629C /* Assets.xcassets in Resources */,
-				C464E8531FB0302A0025629C /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,17 +607,6 @@
 			targetProxy = C464E85B1FB0302A0025629C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		C464E8511FB0302A0025629C /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C464E8521FB0302A0025629C /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C464E8611FB0302A0025629C /* Debug */ = {
