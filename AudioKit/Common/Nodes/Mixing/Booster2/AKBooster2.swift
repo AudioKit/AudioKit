@@ -20,7 +20,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
 
     fileprivate var leftGainParameter: AUParameter?
     fileprivate var rightGainParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -47,20 +47,20 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            
+
             // this means it's direct inline
             internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(newValue))
             internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(newValue))
         }
     }
-    
+
     /// Left Channel Amplification Factor
     @objc open dynamic var leftGain: Double = 1 {
         willSet {
             if leftGain == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp() ?? false {
                 if token != nil && leftGainParameter != nil {
                     leftGainParameter?.setValue(Float(newValue), originator: token!)
@@ -70,14 +70,14 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
             internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(newValue))
         }
     }
-    
+
     /// Right Channel Amplification Factor
     @objc open dynamic var rightGain: Double = 1 {
         willSet {
             if rightGain == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp() ?? false {
                 if token != nil && rightGainParameter != nil {
                     rightGainParameter?.setValue(Float(newValue), originator: token!)
@@ -162,11 +162,11 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
             rightGain = lastKnownRightGain
         }
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         AKLog("stop() \(isPlaying)")
-        
+
         if isPlaying {
             lastKnownLeftGain = leftGain
             lastKnownRightGain = rightGain
