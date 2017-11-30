@@ -143,6 +143,11 @@ open class AKSamplePlayer: AKNode, AKComponent {
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
     }
+    
+    /// originalSampleRate
+    open var originalSampleRate: Double {
+        return avAudiofile.sampleRate
+    }
 
     /// Position in the audio file from 0 - 1
     open var normalizedPosition: Double {
@@ -176,7 +181,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     ///   - maximumSamples: Largest number of samples that will be loaded into the sample player
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///
-    @objc public init(file: AVAudioFile,
+    @objc public init(file: AKAudioFile,
                       startPoint: Sample = 0,
                       endPoint: Sample = 0,
                       rate: Double = 1,
@@ -235,7 +240,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         if maximumSamples != 0 {
             internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
         }
-        load(file: self.avAudiofile)
+        loadSound(file: file)
     }
 
     // MARK: - Control
@@ -281,10 +286,27 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// Load a new audio file into memory
-    open func loadSound(file: AVAudioFile) {
-        load(file: file)
+    open func loadSound(file: AKAudioFile) {
+        //load(file: file)
+        print("loading akaudiofile")
+        let sizeToUse = UInt32(file.samplesCount * 2)
+        if maximumSamples == 0 {
+            maximumSamples = Int(sizeToUse)
+            internalAU?.setupAudioFileTable(sizeToUse)
+        }
+        let flatted = Array(file.floatChannelData!.joined())
+        
+        let ptr = UnsafeMutablePointer<Float>.allocate(capacity: Int(sizeToUse))
+        let data = UnsafeMutablePointer<Float>(mutating: flatted)
+        internalAU?.loadAudioData(data, size: UInt32(flatted.count))
+        
+        self.avAudiofile = file
+        self.startPoint = 0
+        self.endPoint = Sample(file.samplesCount)
+        self.loopStartPoint = 0
+        self.loopEndPoint = Sample(file.samplesCount)
     }
-
+    
     func load(file: AVAudioFile) {
         Exit: do {
             var err: OSStatus = noErr
@@ -313,7 +335,6 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 break Exit
             }
 
-            theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
             theOutputFormat.mBitsPerChannel = UInt32(MemoryLayout<Float>.stride) * 8
@@ -342,7 +363,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)")
                 break Exit
             }
-
+            
             // Read all the data into memory
             let dataSize = UInt32(theFileLengthInFrames) * theOutputFormat.mBytesPerFrame
             theData = UnsafeMutablePointer.allocate(capacity: Int(dataSize))
