@@ -51,7 +51,7 @@ public:
         phasor->freq = 1.0 / dur * rate;
         incr->min = 0;
         incr->max = ftbl_size;
-        incr->step = 1.0;
+        incr->step = sampleRateRatio();
         tabread1->mode = 0;
         tabread2->mode = 0;
         printf("started with size %i\n", ftbl_size);
@@ -76,7 +76,9 @@ public:
         }
     }
 
-    void loadAudioData(float *table, UInt32 size) {
+    void loadAudioData(float *table, UInt32 size, float sampleRate) {
+        sourceSampleRate = sampleRate;
+        printf("sourceSampleRate is %f sampleRatio is %f\n", sourceSampleRate, sampleRateRatio());
         current_size = fmin(size / 2, ftbl_size);
         for (int i = 0; i < current_size; i++) {
             ftbl1->tbl[i] = table[i];
@@ -237,53 +239,55 @@ public:
             float nextPosition = 2.0 * position - lastPosition;
             int nextSamplePosition = (int)(nextPosition * current_size);
 
-            if (started){
-                if (nextSamplePosition >= endPoint){
-                    mainPlayComplete = true;
-                }
-                if (loop){
-
-                    if (!inLoopPhase && nextSamplePosition >= loopEndPoint && mainPlayComplete){
-                        inLoopPhase = true;
-                        phasor->curphs = 0;
-                        incr->val = 0;
-                    }
-                    if (inLoopPhase){
-                        startPointToUse = loopStartPoint;
-                        endPointToUse = loopEndPoint;
-                    }
-                }
-
-                if (!loop && nextPosition > 1) {
-                    started = false;
-                    completionHandler();
-                } else {
-                    lastPosition = position;
-                }
-            }
+//            if (started){
+//                if (nextSamplePosition >= endPoint){
+//                    mainPlayComplete = true;
+//                }
+//                if (loop){
+//
+//                    if (!inLoopPhase && nextSamplePosition >= loopEndPoint && mainPlayComplete){
+//                        inLoopPhase = true;
+//                        phasor->curphs = 0;
+//                        incr->val = 0;
+//                    }
+//                    if (inLoopPhase){
+//                        startPointToUse = loopStartPoint;
+//                        endPointToUse = loopEndPoint;
+//                    }
+//                }
+//
+//                if (!loop && nextPosition > 1) {
+//                    started = false;
+//                    completionHandler();
+//                    printf("ended");
+//                } else {
+//                    lastPosition = position;
+//                }
+//            }
 
             int subsectionLength = endPointToUse - startPointToUse;
 
             float percentLen = (float)subsectionLength / (float)ftbl_size;
             float speedFactor = (float)current_size / (float)ftbl_size;
             phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
-            //fixme: figure incr rate
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        sp_phasor_compute(sp, phasor, NULL, &position);
+                        //sp_phasor_compute(sp, phasor, NULL, &position);
                         float trig = 1.0;
-                        sp_incr_compute(sp, incr, &trig, &positionIncr); //use negative for backwards
-                        double tabReadIndex = position * percentLen + startPointToUse / ftbl_size;
-                        double tabReadIndexIncr = positionIncr / ftbl_size;
-                        //printf("tabReadIndexIncr: %0.9f tabReadIndex: %0.9f\n", tabReadIndexIncr, tabReadIndex);
-//                        tabread1->index = tabReadIndex;
-//                        tabread2->index = tabReadIndex;
+                        //sp_incr_compute(sp, incr, &trig, &positionIncr); //use negative for backwards
+                        double diff = positionIncr - lastPositionIncr;
+                        if (diff != lastDiff){
+                            printf("diff is %0.10f - ratio is %0.10f\n", lastDiff, sampleRateRatio());
+                        }
+                        lastDiff = diff;
+                        lastPositionIncr = positionIncr;
                         tabread1->index = positionIncr;
                         tabread2->index = positionIncr;
                         sp_tabread_compute(sp, tabread1, NULL, out);
+                        positionIncr += (sampleRateRatio() * 2);
                     } else {
                         sp_tabread_compute(sp, tabread2, NULL, out);
                     }
@@ -294,7 +298,10 @@ public:
             }
         }
     }
-
+    
+    double sampleRateRatio(){
+        return sourceSampleRate / AKSettings.sampleRate;
+    }
     // MARK: Member Variables
 
 private:
@@ -316,6 +323,9 @@ private:
     bool loop = false;
     bool mainPlayComplete = false;  //has the sample played through once without looping
     bool inLoopPhase = false;       //has the main play completed and now we are in loop phase
+    float sourceSampleRate = 0.0;
+    double lastPositionIncr = 0;
+    double lastDiff = 0;
 
 public:
     bool started = false;
@@ -330,7 +340,7 @@ public:
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
     float position = 0.0;
-    float positionIncr = 0;
+    double positionIncr = 0;
 };
 
 
