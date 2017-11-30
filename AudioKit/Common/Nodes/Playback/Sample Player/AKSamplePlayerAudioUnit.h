@@ -22,7 +22,7 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) AKCCallback completionHandler;
 
 - (void)setupAudioFileTable:(UInt32)size;
-- (void)loadAudioData:(float *)data size:(UInt32)size;
+- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate;
 - (int)size;
 - (float)position;
 
