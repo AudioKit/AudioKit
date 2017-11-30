@@ -29,6 +29,7 @@ public:
 
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
+        sp_incr_create(&incr);
         sp_phasor_create(&phasor);
 
         startPointRamper.init();
@@ -43,13 +44,21 @@ public:
         sp_tabread_init(sp, tabread1, ftbl1, 1);
         sp_tabread_init(sp, tabread2, ftbl2, 1);
         sp_phasor_init(sp, phasor, 0.0);
+        sp_incr_init(sp, incr, 0.0);
 
         SPFLOAT dur;
         dur = (SPFLOAT)current_size / sp->sr;
         phasor->freq = 1.0 / dur * rate;
+        incr->min = 0;
+        incr->max = ftbl_size;
+        incr->step = 1.0;
+        tabread1->mode = 0;
+        tabread2->mode = 0;
+        printf("started with size %i\n", ftbl_size);
         lastPosition = 0.0;
         inLoopPhase = false;
         phasor->curphs = 0;
+        incr->val = 0;
         position = 0;
         mainPlayComplete = false;
     }
@@ -69,16 +78,11 @@ public:
 
     void loadAudioData(float *table, UInt32 size) {
         current_size = fmin(size / 2, ftbl_size);
-        int counter1 = 0;
-        int counter2 = 0;
-        for (int i = 0; i < 2 * current_size; i++) {
-            if (i % 2 == 0) {
-                ftbl1->tbl[counter1] = table[i];
-                counter1++;
-            } else {
-                ftbl2->tbl[counter2] = table[i];
-                counter2++;
-            }
+        for (int i = 0; i < current_size; i++) {
+            ftbl1->tbl[i] = table[i];
+        }
+        for (int i = 0; i < current_size; i++) {
+            ftbl2->tbl[i] = table[i + current_size];
         }
     }
 
@@ -208,7 +212,10 @@ public:
                 break;
         }
     }
-
+    
+    void resetIncr(){
+        incr->val = 0;
+    }
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -239,6 +246,7 @@ public:
                     if (!inLoopPhase && nextSamplePosition >= loopEndPoint && mainPlayComplete){
                         inLoopPhase = true;
                         phasor->curphs = 0;
+                        incr->val = 0;
                     }
                     if (inLoopPhase){
                         startPointToUse = loopStartPoint;
@@ -259,14 +267,22 @@ public:
             float percentLen = (float)subsectionLength / (float)ftbl_size;
             float speedFactor = (float)current_size / (float)ftbl_size;
             phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
-
+            //fixme: figure incr rate
+            
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &position);
-                        tabread1->index = position * percentLen + startPointToUse / ftbl_size;
-                        tabread2->index = position * percentLen + startPointToUse / ftbl_size;
+                        float trig = 1.0;
+                        sp_incr_compute(sp, incr, &trig, &positionIncr); //use negative for backwards
+                        double tabReadIndex = position * percentLen + startPointToUse / ftbl_size;
+                        double tabReadIndexIncr = positionIncr / ftbl_size;
+                        //printf("tabReadIndexIncr: %0.9f tabReadIndex: %0.9f\n", tabReadIndexIncr, tabReadIndex);
+//                        tabread1->index = tabReadIndex;
+//                        tabread2->index = tabReadIndex;
+                        tabread1->index = positionIncr;
+                        tabread2->index = positionIncr;
                         sp_tabread_compute(sp, tabread1, NULL, out);
                     } else {
                         sp_tabread_compute(sp, tabread2, NULL, out);
@@ -284,6 +300,7 @@ public:
 private:
 
     sp_phasor *phasor;
+    sp_incr *incr;
     sp_tabread *tabread1;
     sp_tabread *tabread2;
     sp_ftbl *ftbl1;
@@ -313,6 +330,7 @@ public:
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
     float position = 0.0;
+    float positionIncr = 0;
 };
 
 
