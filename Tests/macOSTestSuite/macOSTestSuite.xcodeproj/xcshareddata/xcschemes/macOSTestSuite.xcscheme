@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C464E8491FB0302A0025629C"
-               BuildableName = "AudioKitTestSuite.app"
-               BlueprintName = "AudioKitTestSuite"
-               ReferencedContainer = "container:AudioKitTestSuite.xcodeproj">
+               BuildableName = "macOSTestSuite.app"
+               BlueprintName = "macOSTestSuite"
+               ReferencedContainer = "container:macOSTestSuite.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C464E8591FB0302A0025629C"
-               BuildableName = "AudioKitTestSuiteTests.xctest"
-               BlueprintName = "AudioKitTestSuiteTests"
-               ReferencedContainer = "container:AudioKitTestSuite.xcodeproj">
+               BuildableName = "macOSTestSuiteTests.xctest"
+               BlueprintName = "macOSTestSuiteTests"
+               ReferencedContainer = "container:macOSTestSuite.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C464E8491FB0302A0025629C"
-            BuildableName = "AudioKitTestSuite.app"
-            BlueprintName = "AudioKitTestSuite"
-            ReferencedContainer = "container:AudioKitTestSuite.xcodeproj">
+            BuildableName = "macOSTestSuite.app"
+            BlueprintName = "macOSTestSuite"
+            ReferencedContainer = "container:macOSTestSuite.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,9 +68,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C464E8491FB0302A0025629C"
-            BuildableName = "AudioKitTestSuite.app"
-            BlueprintName = "AudioKitTestSuite"
-            ReferencedContainer = "container:AudioKitTestSuite.xcodeproj">
+            BuildableName = "macOSTestSuite.app"
+            BlueprintName = "macOSTestSuite"
+            ReferencedContainer = "container:macOSTestSuite.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -87,9 +87,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C464E8491FB0302A0025629C"
-            BuildableName = "AudioKitTestSuite.app"
-            BlueprintName = "AudioKitTestSuite"
-            ReferencedContainer = "container:AudioKitTestSuite.xcodeproj">
+            BuildableName = "macOSTestSuite.app"
+            BlueprintName = "macOSTestSuite"
+            ReferencedContainer = "container:macOSTestSuite.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
