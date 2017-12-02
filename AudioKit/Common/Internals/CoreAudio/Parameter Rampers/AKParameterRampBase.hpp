@@ -16,6 +16,7 @@ struct AKParameterRampBase {
 protected:
     float _target = 0;
     float _value = 0;
+    float _startValue = 0;
     int64_t _duration = 0;  // in samples
     int64_t _startSample = 0;
 
@@ -26,6 +27,7 @@ public:
     void setTarget(float value, int64_t atSample, bool immediate = false) {
         _target = value;
         _startSample = atSample;
+        _startValue = _value;
         if (immediate) _value = value;
     }
 
