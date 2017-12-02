@@ -43,18 +43,20 @@ class AKOscillatorBankTests: AKTestCase {
         AKTestMD5("3bbacd39af8272266b2e4a5a05257800")
     }
 
-// Known Failing Test (inconsistencies in iOS/macOS)
-//    func testParameters() {
-//        inputBank = AKOscillatorBank(waveform: AKTable(.square),
-//                                     attackDuration: 0.123,
-//                                     decayDuration: 0.234,
-//                                     sustainLevel: 0.345,
-//                                     pitchBend: 1,
-//                                     vibratoDepth: 1.1,
-//                                     vibratoRate: 1.2)
-//        output = inputBank
-//        AKTestMD5("93a8e6f26e3f3326202348855caa0051")
-//    }
+    // Known breakage on macOS
+    #if os(iOS)
+    func testParameters() {
+        inputBank = AKOscillatorBank(waveform: AKTable(.square),
+                                     attackDuration: 0.123,
+                                     decayDuration: 0.234,
+                                     sustainLevel: 0.345,
+                                     pitchBend: 1,
+                                     vibratoDepth: 1.1,
+                                     vibratoRate: 1.2)
+        output = inputBank
+        AKTestMD5("a5c13b5223afae0fd5d83ef0ea55c5b9")
+    }
+    #endif
 
     func testPitchBend() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square), pitchBend: 1.1)

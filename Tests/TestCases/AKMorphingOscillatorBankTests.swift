@@ -50,19 +50,21 @@ class AKMorphingOscillatorBankTests: AKTestCase {
         AKTestMD5("4cd9dfef4f3dc76944e9f9ce468b9c44")
     }
 
-// Known Failing Test (inconsistencies in iOS/macOS)
-//    func testParameters() {
-//        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms,
-//                                             index: 1.7,
-//                                             attackDuration: 0.123,
-//                                             decayDuration: 0.234,
-//                                             sustainLevel: 0.345,
-//                                             pitchBend: 1,
-//                                             vibratoDepth: 1.1,
-//                                             vibratoRate: 1.2)
-//        output = inputBank
-//        AKTestMD5("4fa33d14f8fbb5ef176a71e54267ea63")
-//    }
+    // Known breakage on macOS
+    #if os(iOS)
+    func testParameters() {
+        inputBank = AKMorphingOscillatorBank(waveformArray: waveforms,
+                                             index: 1.7,
+                                             attackDuration: 0.123,
+                                             decayDuration: 0.234,
+                                             sustainLevel: 0.345,
+                                             pitchBend: 1,
+                                             vibratoDepth: 1.1,
+                                             vibratoRate: 1.2)
+        output = inputBank
+        AKTestMD5("bd119378ec447cf498bac22b98815883")
+    }
+    #endif
 
     func testPitchBend() {
         inputBank = AKMorphingOscillatorBank(waveformArray: waveforms, pitchBend: 1.1)
