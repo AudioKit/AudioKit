@@ -25,4 +25,14 @@ class AKBooster2Tests: AKTestCase {
         output = AKBooster2(input, gain: 0.5)
         AKTestMD5("79972090508032a146d806185f9bc871")
     }
+
+  func testRamp() {
+    let booster = AKBooster2(input, gain: 0.0)
+    booster.rampTime = 1000
+    booster.leftGain = 1.0
+    output = booster
+
+    AKTestMD5("09fdb24adb3181f6985eba4b408d8c6d")
+  }
+
 }
