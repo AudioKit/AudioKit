@@ -44,7 +44,7 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
 @property (readonly) AKTimelineBlock _Nullable timelineCallback NS_SWIFT_UNAVAILABLE("No render code in Swift");
 
 /**
- Dictates if timelineCallback will be called pre-render or post-render, defaults to false (postRender).
+ Dictates if the timeline callback will be called pre-render or post-render, defaults to false (post-render).
 
  Pre-render is better for triggering MIDI as the sample offset is taken into consideration. Post-render
  is neccessary for ioData buffer manipulation as buffers' mData is NULL during pre-render.
@@ -57,7 +57,7 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
 @property (readonly) AKTimeline * _Nonnull timeline;
 
 /**
- Initializes a timelineTap, holds reference to audioUnit.
+ Initializes a timeline tap, holds reference to audioUnit.
 
  @param audioUnit The audioUnit that will the tap notify on.
  @param block The block tha will be called on render thread.
