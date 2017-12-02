@@ -51,6 +51,12 @@
       "idiom" : "ipad",
       "filename" : "Icon-83.5@2x.png",
       "scale" : "2x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "iTunesArtwork3_1024.png",
+      "scale" : "1x"
     }
   ],
   "info" : {

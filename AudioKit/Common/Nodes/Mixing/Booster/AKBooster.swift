@@ -11,7 +11,7 @@
 open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBoosterAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(effect: "gain")
+    public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
 
     // MARK: - Properties
 
