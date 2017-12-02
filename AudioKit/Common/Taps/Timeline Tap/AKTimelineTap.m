@@ -9,13 +9,13 @@
 #import "AKTimelineTap.h"
 #import <AudioKit/AudioKit.h>
 
-
 @implementation AKTimelineTap {
     AKRenderTap *renderTap;
     AudioStreamBasicDescription asbd;
     AKTimelineBlock _block;
     AudioUnitRenderActionFlags actionFlags;
 }
+
 -(instancetype _Nullable )initWithAudioUnit:(AudioUnit _Nonnull)audioUnit
                               timelineBlock:(AKTimelineBlock _Nullable )block {
     self = [super init];
@@ -38,6 +38,7 @@
     }
     return self;
 }
+
 -(AKRenderNotifyBlock)renderNotify {
 
     AKTimeline *timeline = &_timeline;
@@ -53,15 +54,19 @@
         }
     };
 }
+
 -(void)setPreRender:(BOOL)preRender {
     actionFlags = preRender ? kAudioUnitRenderAction_PreRender : kAudioUnitRenderAction_PostRender;
 }
+
 -(BOOL)preRender {
     return actionFlags == kAudioUnitRenderAction_PreRender;
 }
+
 -(AKTimeline *)timeline {
     return &_timeline;
 }
+
 -(instancetype _Nullable )initWithNode:(AVAudioNode * _Nonnull)node timelineBlock:(AKTimelineBlock _Nullable )block {
     AVAudioUnit *avAudioUnit = (AVAudioUnit *)node;
     if (![avAudioUnit respondsToSelector:@selector(audioUnit)]) {
