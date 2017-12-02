@@ -11,7 +11,6 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AKTimeline.h"
 
-
 @interface AKTimelineTap : NSObject {
 @public
     AKTimeline _timeline;
