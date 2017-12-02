@@ -25,7 +25,7 @@ class AKOscillatorTests: AKTestCase {
     func testFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400)
         output = input
-        AKTestMD5("8827c22f2ccd32e59f14de86f1f00706")
+        AKTestMD5("d3998b51af7f54f1c9088973b931e9af")
     }
 
     func testParametersSetAfterInit() {
@@ -33,13 +33,13 @@ class AKOscillatorTests: AKTestCase {
         input.frequency = 400
         input.amplitude = 0.5
         output = input
-        AKTestMD5("857cc2e5bd6ed2b8387966cadf44c9c1")
+        AKTestMD5("615e742bc1412c15237a453c5b49d5e0")
     }
 
     func testParameters() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         output = input
-        AKTestMD5("857cc2e5bd6ed2b8387966cadf44c9c1")
+        AKTestMD5("615e742bc1412c15237a453c5b49d5e0")
     }
 
 }
