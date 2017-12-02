@@ -28,13 +28,13 @@ class AKOscillatorBankTests: AKTestCase {
     func testAttackDuration() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square), attackDuration: 0.123)
         output = inputBank
-        AKTestMD5("dbe8924aa51c874c8785e4e2b43cad32")
+        AKTestMD5("b25c325f1d2091d33f2f0f036c5ded24")
     }
 
     func testDecayDuration() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square), decayDuration: 0.234)
         output = inputBank
-        AKTestMD5("9b1d91ec29a4042c7ad050e9b574802e")
+        AKTestMD5("419117345037b29da119b030a77a952a")
     }
 
     func testDefault() {
@@ -59,25 +59,25 @@ class AKOscillatorBankTests: AKTestCase {
     func testPitchBend() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square), pitchBend: 1.1)
         output = inputBank
-        AKTestMD5("db148878395ded60b26772e8f410fc6b")
+        AKTestMD5("922610b5edc76f0e5a624a5afe8a325b")
     }
 
     func testSustainLevel() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square), sustainLevel: 0.345)
         output = inputBank
-        AKTestMD5("f60e7eb749054f53d93f9dd0969a4f56")
+        AKTestMD5("c6cb18ff48d3e24111b552a997213e54")
     }
 
     func testVibrato() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square), vibratoDepth: 1, vibratoRate: 10)
         output = inputBank
-        AKTestMD5("ca6b355d0116190474476a66d9ddb31c")
+        AKTestMD5("ba258bbdcdc045967e8a3ade47b0ccbb")
     }
 
     func testWaveform() {
         inputBank = AKOscillatorBank(waveform: AKTable(.square))
         output = inputBank
-        AKTestMD5("bf088a9d8142cb119b05cdd31254b86e")
+        AKTestMD5("b9aad8bba7b07c628f89356ef9ba47ee")
     }
 
 }
