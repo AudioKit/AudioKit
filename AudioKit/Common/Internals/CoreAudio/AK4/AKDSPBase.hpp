@@ -70,8 +70,7 @@ public:
     void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                            AURenderEvent const *events) {
 
-        int64_t now = timestamp->mSampleTime;
-        int64_t frameStartTime = now;
+        _now = timestamp->mSampleTime;
         AUAudioFrameCount framesRemaining = frameCount;
         AURenderEvent const *event = events;
 
@@ -80,14 +79,13 @@ public:
             if (event == nullptr) {
                 AUAudioFrameCount const bufferOffset = frameCount - framesRemaining;
                 process(framesRemaining, bufferOffset);
-                _now = frameStartTime;
                 return;
             }
 
             // **** start late events late.
             auto timeZero = AUEventSampleTime(0);
             auto headEventTime = event->head.eventSampleTime;
-            AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - now));
+            AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - _now));
 
             // Compute everything before the next event.
             if (framesThisSegment > 0) {
@@ -97,11 +95,10 @@ public:
                 // Advance frames.
                 framesRemaining -= framesThisSegment;
                 // Advance time.
-                now += framesThisSegment;
+                _now += framesThisSegment;
             }
-            performAllSimultaneousEvents(now, event);
+            performAllSimultaneousEvents(_now, event);
         }
-        _now = frameStartTime;
     }
 
 private:
