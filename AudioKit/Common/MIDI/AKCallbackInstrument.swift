@@ -23,7 +23,7 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     ///
     public init(callback: AKMIDICallback? = nil) {
         super.init()
-        let midi = AKMIDI()
+        let midi = AudioKit.midi
         self.enableMIDI(midi.client, name: "callback midi in")
         self.callback = callback
         avAudioNode = AVAudioMixerNode()
