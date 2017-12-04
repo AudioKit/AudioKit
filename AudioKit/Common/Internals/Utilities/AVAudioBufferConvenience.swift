@@ -39,18 +39,18 @@ extension AVAudioPCMBuffer {
             )
         )
         let frameSize = Int(format.streamDescription.pointee.mBytesPerFrame)
-        if let src = floatChannelData,
-            let dst = buffer.floatChannelData {
+        if let src = buffer.floatChannelData,
+            let dst = floatChannelData {
             for channel in 0..<Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), count * frameSize)
             }
-        } else if let src = int16ChannelData,
-            let dst = buffer.int16ChannelData {
+        } else if let src = buffer.int16ChannelData,
+            let dst = int16ChannelData {
             for channel in 0..<Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), count * frameSize)
             }
-        } else if let src = int32ChannelData,
-            let dst = buffer.int32ChannelData {
+        } else if let src = buffer.int32ChannelData,
+            let dst = int32ChannelData {
             for channel in 0..<Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), count * frameSize)
             }
