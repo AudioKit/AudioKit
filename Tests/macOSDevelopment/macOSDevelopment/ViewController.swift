@@ -61,7 +61,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func slid2(_ sender: NSSlider) {
-        booster.rampTime = Double(slider2.floatValue) * 1000
+        booster.rampTime = Double(slider2.floatValue)
         updateText("booster ramp time = \(booster.rampTime)")
     }
     
