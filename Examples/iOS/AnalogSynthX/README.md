@@ -4,6 +4,8 @@ This is a full-featured iPad synthesizer app example by **Matthew Fecher** and *
 
 The complete source code is available now as MIT open source. Meaning, you can use it as a learning tool, or even create your own synth app from the code. There's no charge or fee to use the code. Use it as a starting point to create the synth of your dreams!
 
+<img style="float: right;" src="http://audiokit.io/examples/AnalogSynthX/analgsynthx.jpg">
+
 ## Synth Features   
 
 * 5-Voice Virtual Analog Synthesizer
