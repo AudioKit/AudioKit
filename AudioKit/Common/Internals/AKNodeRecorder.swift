@@ -1,9 +1,8 @@
 //
-//  AKAudioNodeRecorder.swift
+//  AKNodeRecorder.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Tweaked by Laurent Veliscek
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
