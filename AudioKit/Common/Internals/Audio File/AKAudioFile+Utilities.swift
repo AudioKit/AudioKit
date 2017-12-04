@@ -61,6 +61,9 @@ extension AKAudioFile {
 
                 // fill the block with frameLength samples
                 for i in 0 ..< block.count {
+                    if i + position >= pcmBuffer.frameLength {
+                        break
+                    }
                     block[i] = floatData[channel][i + position]
                 }
                 // scan the block
