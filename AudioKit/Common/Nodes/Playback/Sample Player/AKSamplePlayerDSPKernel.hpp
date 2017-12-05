@@ -230,7 +230,7 @@ public:
                     }
                 }
 
-                if (!loop && nextPosition > 1) {
+                if (!loop && calculateHasEnded(nextPosition)) {
                     started = false;
                     completionHandler();
                     printf("not looping but ended\n");
@@ -286,6 +286,12 @@ public:
         }else if (nextPosition < endPoint && playbackReversed()){
             mainPlayComplete = true;
         }
+    }
+    bool calculateHasEnded(double nextPosition){
+        if ((nextPosition > endPoint && !playbackReversed()) || (nextPosition < endPoint && playbackReversed())){
+            return true;
+        }
+        return false;
     }
     void calculateLoopPhase(double nextPosition){
         if (!inLoopPhase && mainPlayComplete){
