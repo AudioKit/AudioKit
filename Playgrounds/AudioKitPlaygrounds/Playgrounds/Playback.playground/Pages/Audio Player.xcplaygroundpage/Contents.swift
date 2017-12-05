@@ -20,11 +20,11 @@ import AudioKitUI
 class LiveView: AKLiveViewController {
 
     // UI Elements we'll need to be able to access
-    var inPositionSlider: AKSlider?
-    var outPositionSlider: AKSlider?
-    var playingPositionSlider: AKSlider?
-    var fadeInSlider: AKSlider?
-    var fadeOutSlider: AKSlider?
+    var inPositionSlider: AKSlider!
+    var outPositionSlider: AKSlider!
+    var playingPositionSlider: AKSlider!
+    var fadeInSlider: AKSlider!
+    var fadeOutSlider: AKSlider!
 
     override func viewDidLoad() {
 
