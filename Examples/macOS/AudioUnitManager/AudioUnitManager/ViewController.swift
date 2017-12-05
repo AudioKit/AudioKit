@@ -74,7 +74,7 @@ class ViewController: NSViewController {
     }
 
     private func initMIDI() {
-        midiManager = AKMIDI()
+        midiManager = AudioKit.midi
         midiManager?.addListener(self)
         initMIDIDevices()
     }

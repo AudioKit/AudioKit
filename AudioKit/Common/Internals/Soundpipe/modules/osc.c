@@ -37,19 +37,15 @@ int sp_osc_init(sp_data *sp, sp_osc *osc, sp_ftbl *ft, SPFLOAT iphs)
         osc->lphs = ((int32_t)(osc->iphs * SP_FT_MAXLEN)) & SP_FT_PHMASK;
     }
 
-    /* HACK: osc relies on ftables which one extra value. Set this to be
-     * the first value of the ftable for wrap-around.
-     */
-
-//    ft->tbl[ft->size] = ft->tbl[0];
     return SP_OK;
 }
 
 int sp_osc_compute(sp_data *sp, sp_osc *osc, SPFLOAT *in, SPFLOAT *out)
 {
     sp_ftbl *ftp;
-    SPFLOAT amp, cps, fract, v1, v2, *ftab, *ft;
+    SPFLOAT amp, cps, fract, v1, v2, *ft;
     int32_t phs, lobits;
+    int32_t pos;
     SPFLOAT sicvt = osc->tbl->sicvt;
 
     ftp = osc->tbl;
@@ -58,13 +54,13 @@ int sp_osc_compute(sp_data *sp, sp_osc *osc, SPFLOAT *in, SPFLOAT *out)
     cps = osc->freq;
     phs = osc->lphs;
     ft = osc->tbl->tbl;
-
+    
     osc->inc = (int32_t)lrintf(cps * sicvt);
 
     fract = ((phs) & ftp->lomask) * ftp->lodiv;
-    ftab = ft + (phs >> lobits);
-    v1 = ftab[0];
-    v2 = ftab[1];
+    pos = phs>>lobits;
+    v1 = *(ft + pos);
+    v2 = *(ft + ((pos + 1) % ftp->size));
     *out = (v1 + (v2 - v1) * fract) * amp;
     phs += osc->inc;
     phs &= SP_FT_PHMASK;

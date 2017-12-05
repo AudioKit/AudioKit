@@ -12,7 +12,7 @@ import Cocoa
 class ViewController: NSViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: NSTextView!
     @IBOutlet private var sourcePopUpButton: NSPopUpButton!
-    var midi = AKMIDI()
+    var midi = AudioKit.midi
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +73,7 @@ class ViewController: NSViewController, AKMIDIListener {
             updateText(newString)
         }
     }
+    
     func updateText(_ input: String) {
         DispatchQueue.main.async(execute: {
             self.outputTextView.string = "\(input)\n\(self.outputTextView.string)"

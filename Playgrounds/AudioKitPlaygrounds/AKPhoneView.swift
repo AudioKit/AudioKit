@@ -32,7 +32,7 @@ public class AKPhoneView: NSView {
         if busyCirclePath.contains(touchLocation) { currentKey = "BUSY" }
         if currentKey != "" {
             callback(currentKey, "down")
-            if currentKey.characters.count == 1 {
+            if currentKey.count == 1 {
                 last10Presses.removeFirst()
                 last10Presses.append(currentKey)
             }
