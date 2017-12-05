@@ -22,9 +22,12 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     open var name = "AKMIDIInstrument"
 
     /// Initialize the MIDI Instrument
-    public override init() {
+    ///
+    /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    ///
+    public init(midiOutputName: String? = nil) {
         super.init()
-        enableMIDI()
+        enableMIDI(name: midiOutputName ?? "Unnamed")
     }
 
     /// Enable MIDI input from a given MIDI client
@@ -33,7 +36,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - midiClient: A refernce to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AKMIDI().client,
+    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
                          name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
