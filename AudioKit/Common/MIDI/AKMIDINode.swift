@@ -28,12 +28,13 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     /// Initialize the MIDI node
     ///
     /// - parameter node: A polyphonic node that will be triggered via MIDI
+    /// - parameter midiOutputName: Name of the node's MIDI output.
     ///
-    @objc public init(node: AKPolyphonicNode) {
+    @objc public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init()
         avAudioNode = internalNode.avAudioNode
-        enableMIDI()
+      enableMIDI(name: midiOutputName ?? "Unnamed")
     }
 
     /// Enable MIDI input from a given MIDI client
