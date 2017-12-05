@@ -33,7 +33,7 @@ class AKBooster2Tests: AKTestCase {
     let audioFile = try! AKAudioFile(forWriting: url, settings: settings)
     let osc = AKOscillator()
     let booster = AKBooster2(osc, gain: 0.0)
-    booster.rampTime = 1000
+    booster.rampTime = 1
     booster.leftGain = 1.0
     booster.rightGain = 1.0
     osc.connect(to: booster)
