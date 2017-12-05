@@ -29,8 +29,6 @@ public:
 
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
-//        sp_incr_create(&incr);//deprecate
-//        sp_phasor_create(&phasor);//deprecate
 
         startPointRamper.init();
         endPointRamper.init();
@@ -45,18 +43,6 @@ public:
         sp_tabread_init(sp, tabread2, ftbl2, 1);
         tabread1->mode = 0;
         tabread2->mode = 0;
-
-//        sp_phasor_init(sp, phasor, 0.0); //dep
-//        sp_incr_init(sp, incr, 0.0); //dep
-        
-//        SPFLOAT dur;
-//        dur = (SPFLOAT)current_size / sp->sr;
-//        phasor->freq = 1.0 / dur * rate;
-//        incr->min = 0;
-//        incr->max = ftbl_size;
-//        incr->step = sampleRateRatio();
-//        phasor->curphs = 0;
-//        incr->val = 0;
         
         lastPosition = 0.0;
         inLoopPhase = false;
@@ -215,9 +201,6 @@ public:
         }
     }
     
-    void resetIncr(){
-        incr->val = 0;
-    }
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -231,10 +214,9 @@ public:
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
 
-            //length of playableSample vs actual
             float startPointToUse = startPoint;
             float endPointToUse = endPoint;
-            float nextPosition = position + sampleRateRatio() * rate;
+            double nextPosition = position + sampleRateRatio() * rate;
 
             if (started){
                 calculateMainPlayComplete(nextPosition);
@@ -327,8 +309,6 @@ public:
     }
 private:
 
-    sp_phasor *phasor;
-    sp_incr *incr;
     sp_tabread *tabread1;
     sp_tabread *tabread2;
     sp_ftbl *ftbl1;
