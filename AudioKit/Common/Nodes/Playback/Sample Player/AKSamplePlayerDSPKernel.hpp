@@ -46,7 +46,8 @@ public:
         
         lastPosition = 0.0;
         inLoopPhase = false;
-        position = startPoint;
+        position = startPointViaRate();
+        printf("starting From %0.3f\n", position);
         mainPlayComplete = false;
     }
 
@@ -112,7 +113,7 @@ public:
     }
 
     void setRate(float value) {
-        rate = clamp(value, 0.0f, 10.0f);
+        rate = clamp(value, -10.0f, 10.0f);
         rateRamper.setImmediate(rate);
     }
 
@@ -214,26 +215,26 @@ public:
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
 
-            float startPointToUse = startPoint;
-            float endPointToUse = endPoint;
+            float startPointToUse = startPointViaRate();
+            float endPointToUse = endPointViaRate();
             double nextPosition = position + sampleRateRatio() * rate;
 
             if (started){
+                //printf("nextPosition %0.3f\n",nextPosition);
                 calculateMainPlayComplete(nextPosition);
                 if (loop){
                     calculateLoopPhase(nextPosition);
                     if (inLoopPhase){
-                        startPointToUse = loopStartPoint;
-                        endPointToUse = loopEndPoint;
+                        startPointToUse = loopStartPointViaRate();
+                        endPointToUse = loopEndPointViaRate();
                         calculateShouldLoop(nextPosition);
-                        
                     }
                 }
 
                 if (!loop && calculateHasEnded(nextPosition)) {
                     started = false;
                     completionHandler();
-                    printf("not looping but ended\n");
+                    printf("ended\n");
                 } else {
                     lastPosition = position;
                 }
@@ -258,15 +259,31 @@ public:
         }
     }
     
+    float startPointViaRate(){
+        if (rate == 0) {return 0;}
+        return (rate > 0 ? startPoint : endPoint);
+    }
+    float endPointViaRate(){
+        if (rate == 0) {return 0;}
+        return (rate > 0 ? endPoint : startPoint);
+    }
+    float loopStartPointViaRate(){
+        if (rate == 0) {return 0;}
+        return (rate > 0 ? loopStartPoint : loopEndPoint);
+    }
+    float loopEndPointViaRate(){
+        if (rate == 0) {return 0;}
+        return (rate > 0 ? loopEndPoint : loopStartPoint);
+    }
     double sampleStep(){
         int reverseMultiplier = 1;
         if (inLoopPhase && loopReversed()){
             reverseMultiplier = -1;
         }
-        if (!inLoopPhase && playbackReversed()){
+        if (!inLoopPhase && startEndReversed()){
             reverseMultiplier = -1;
         }
-        return sampleRateRatio() * rate * reverseMultiplier;
+        return sampleRateRatio() * fabs(rate) * reverseMultiplier;
     }
     double sampleRateRatio(){
         return sourceSampleRate / AKSettings.sampleRate;
@@ -274,42 +291,57 @@ public:
     // MARK: Member Variables
     
     bool loopReversed(){
+        if (loopEndPoint < loopStartPoint && rate > 0){
+            return true;
+        }
+        if (loopEndPoint < loopStartPoint && rate < 0){
+            return false;
+        }
+        if (loopEndPoint > loopStartPoint && rate < 0){
+            return true;
+        }
+        if (loopEndPoint > loopStartPoint && rate > 0){
+            return false;
+        }
         return (loopEndPoint < loopStartPoint ? true : false);
     }
-    bool playbackReversed(){
-        return (endPoint < startPoint ? true : false);
+    bool startEndReversed(){
+        return (endPointViaRate() < startPointViaRate() ? true : false);
     }
+//    bool playbackReversed(){
+//        return false;
+//    }
     
     void calculateMainPlayComplete(double nextPosition){
-        if (nextPosition > endPoint && !playbackReversed()){
+        if (nextPosition > endPointViaRate() && !startEndReversed()){
             mainPlayComplete = true;
-        }else if (nextPosition < endPoint && playbackReversed()){
+        }else if (nextPosition < endPointViaRate() && startEndReversed()){
             mainPlayComplete = true;
         }
     }
     bool calculateHasEnded(double nextPosition){
-        if ((nextPosition > endPoint && !playbackReversed()) || (nextPosition < endPoint && playbackReversed())){
+        if ((nextPosition > endPointViaRate() && !startEndReversed()) || (nextPosition < endPointViaRate() && startEndReversed())){
             return true;
         }
         return false;
     }
     void calculateLoopPhase(double nextPosition){
         if (!inLoopPhase && mainPlayComplete){
-            if (nextPosition > endPoint && !playbackReversed()){
+            if (nextPosition > endPointViaRate() && !startEndReversed()){
                 inLoopPhase = true;
-                position = loopStartPoint;
-            }else if (nextPosition < endPoint && playbackReversed()){
+                position = loopStartPointViaRate();
+            }else if (nextPosition < endPointViaRate() && startEndReversed()){
                 inLoopPhase = true;
-                position = loopStartPoint;
+                position = loopStartPointViaRate();
             }
         }
     }
     void calculateShouldLoop(double nextPosition){
         if (mainPlayComplete){
-            if (nextPosition > loopEndPoint && !loopReversed()){
-                position = loopStartPoint;
-            }else if (nextPosition < loopEndPoint && loopReversed()){
-                position = loopStartPoint;
+            if (nextPosition > loopEndPointViaRate() && !loopReversed()){
+                position = loopStartPointViaRate();
+            }else if (nextPosition < loopEndPointViaRate() && loopReversed()){
+                position = loopStartPointViaRate();
             }
         }
     }
@@ -324,7 +356,6 @@ private:
     float endPoint = 1;
     float loopStartPoint = 0;
     float loopEndPoint = 1;
-    float rate = 1;
     float volume = 1;
     float lastPosition = 0.0;
     bool loop = false;
@@ -345,6 +376,7 @@ public:
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
     double position = 0.0;
+    float rate = 1;
 };
 
 

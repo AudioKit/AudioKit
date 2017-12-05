@@ -96,9 +96,9 @@ standardKernelPassthroughs()
 
     // Create a parameter object for the rate.
     AUParameter *rateAUParameter = [AUParameter parameter:@"rate"
-                                                     name:@"rate. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc."
+                                                     name:@"rate. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc."
                                                   address:rateAddress
-                                                      min:0
+                                                      min:-10
                                                       max:10
                                                      unit:kAudioUnitParameterUnit_Generic];
 
