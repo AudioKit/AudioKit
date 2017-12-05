@@ -23,9 +23,12 @@ open class AKMIDISampler: AKSampler {
     open var name = "MIDI Sampler"
 
     /// Initialize the MIDI Sampler
-    public override init() {
+    ///
+    /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    ///
+    public init(midiOutputName: String? = nil) {
         super.init()
-        enableMIDI()
+        enableMIDI(name: midiOutputName ?? name)
     }
 
     /// Enable MIDI input from a given MIDI client
