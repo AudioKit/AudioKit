@@ -40,9 +40,8 @@ int sp_oscmorph_compute(sp_data *sp, sp_oscmorph *osc, SPFLOAT *in, SPFLOAT *out
 {
     sp_ftbl *ftp1;
     SPFLOAT amp, cps, fract, v1, v2;
-    SPFLOAT *ftab1, *ftab2;
     SPFLOAT *ft1, *ft2;
-    int32_t phs, lobits;
+    int32_t phs, lobits, pos;
     SPFLOAT sicvt = osc->tbl[0]->sicvt;
 
     /* Use only the fractional part of the position or 1 */
@@ -65,15 +64,21 @@ int sp_oscmorph_compute(sp_data *sp, sp_oscmorph *osc, SPFLOAT *in, SPFLOAT *out
     } else {
         ft2 = osc->tbl[index + 1]->tbl;
     }
-
+    
     osc->inc = (int32_t)lrintf(cps * sicvt);
 
     fract = ((phs) & ftp1->lomask) * ftp1->lodiv;
-    ftab1 = ft1 + (phs >> lobits);
-    ftab2 = ft2 + (phs >> lobits);
 
-    v1 = (1 - wtfrac) * ftab1[0] + wtfrac * ftab2[0];
-    v2 = (1 - wtfrac) * ftab1[1] + wtfrac * ftab2[1];
+    pos = phs >> lobits;
+
+    v1 = (1 - wtfrac) * 
+        *(ft1 + pos) + 
+        wtfrac * 
+        *(ft2 + pos);
+    v2 = (1 - wtfrac) * 
+        *(ft1 + ((pos + 1) % ftp1->size))+ 
+        wtfrac * 
+        *(ft2 + ((pos + 1) % ftp1->size));
 
     *out = (v1 + (v2 - v1) * fract) * amp;
 

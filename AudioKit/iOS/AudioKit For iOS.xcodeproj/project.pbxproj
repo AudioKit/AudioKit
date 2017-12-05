@@ -71,17 +71,11 @@
 		558D808D1F4D2D9D001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D80891F4D2D9D001E7BC1 /* TPCircularBuffer+AudioBufferList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		558D808E1F4D2D9D001E7BC1 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 558D808A1F4D2D9D001E7BC1 /* TPCircularBuffer.c */; };
 		558D808F1F4D2D9D001E7BC1 /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D808B1F4D2D9D001E7BC1 /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		558D80921F4D2DC8001E7BC1 /* AKLazyTap.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D80901F4D2DC8001E7BC1 /* AKLazyTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		558D80931F4D2DC8001E7BC1 /* AKLazyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 558D80911F4D2DC8001E7BC1 /* AKLazyTap.m */; };
-		55E25CCC1F4E6C2F00F5AF08 /* AKRenderTap.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E25CCA1F4E6C2F00F5AF08 /* AKRenderTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55E25CCD1F4E6C2F00F5AF08 /* AKRenderTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E25CCB1F4E6C2F00F5AF08 /* AKRenderTap.m */; };
 		55E25CD91F4E8D5700F5AF08 /* TPCircularBuffer+Unit.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E25CD71F4E8D5700F5AF08 /* TPCircularBuffer+Unit.c */; };
 		55E25CDA1F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E25CD81F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F4F71F5776260088018A /* Skeleton.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 55E4F4F41F5776260088018A /* Skeleton.aupreset */; };
 		55E4F50E1F578BAC0088018A /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F50C1F578BAC0088018A /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F50F1F578BAC0088018A /* AKPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F50D1F578BAC0088018A /* AKPresetManager.m */; };
-		55E4F51D1F57CA6F0088018A /* AKTimelineTap.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F51B1F57CA6F0088018A /* AKTimelineTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55E4F51E1F57CA6F0088018A /* AKTimelineTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F51C1F57CA6F0088018A /* AKTimelineTap.m */; };
 		55E4F5211F57CB540088018A /* AKSamplerMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F51F1F57CB540088018A /* AKSamplerMetronome.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5221F57CB540088018A /* AKSamplerMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5201F57CB540088018A /* AKSamplerMetronome.m */; };
 		55F29C091E90654C00A2151F /* AKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F29C081E90654C00A2151F /* AKScheduledAction.swift */; };
@@ -92,6 +86,7 @@
 		8D6C6C531D421EBB008BFA4A /* AKAudioFile+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6C6C521D421EBB008BFA4A /* AKAudioFile+Utilities.swift */; };
 		B19AE7751F30FC4700F9DC25 /* AKAudioUnitInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE7731F30FC4700F9DC25 /* AKAudioUnitInstrument.swift */; };
 		B19AE7761F30FC4700F9DC25 /* AKAudioUnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE7741F30FC4700F9DC25 /* AKAudioUnitManager.swift */; };
+		B1DAFDDE1FCE0D7300511A43 /* AKConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DAFDDD1FCE0D7300511A43 /* AKConverter.swift */; };
 		B1F47ABB1DC54DCA00706A2F /* EZAudioFileMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F47AB91DC54DCA00706A2F /* EZAudioFileMarker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1F47ABC1DC54DCA00706A2F /* EZAudioFileMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F47ABA1DC54DCA00706A2F /* EZAudioFileMarker.m */; };
 		C40716381D21160C00665C02 /* ADSR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40716371D21160C00665C02 /* ADSR.cpp */; };
@@ -431,8 +426,6 @@
 		C47047AE1E76A2FD00D9906F /* TubeBell.h in Headers */ = {isa = PBXBuildFile; fileRef = C47047AD1E76A2FD00D9906F /* TubeBell.h */; };
 		C470481B1E7A61BE00D9906F /* rspline.c in Sources */ = {isa = PBXBuildFile; fileRef = C470481A1E7A61BE00D9906F /* rspline.c */; };
 		C47048211E7A660A00D9906F /* rspline.c in Sources */ = {isa = PBXBuildFile; fileRef = C47048201E7A660A00D9906F /* rspline.c */; };
-		C474B1651CE43A9D00EB8D8E /* AKAmplitudeTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B1631CE43A9D00EB8D8E /* AKAmplitudeTap.swift */; };
-		C474B1661CE43A9D00EB8D8E /* AKFFTTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B1641CE43A9D00EB8D8E /* AKFFTTap.swift */; };
 		C47AC61C1D5D53C40005E485 /* AKBoosterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C47AC6191D5D53C40005E485 /* AKBoosterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47AC61D1D5D53C40005E485 /* AKBoosterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47AC61A1D5D53C40005E485 /* AKBoosterAudioUnit.mm */; };
 		C47AC61E1D5D53C40005E485 /* AKBoosterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47AC61B1D5D53C40005E485 /* AKBoosterDSPKernel.hpp */; };
@@ -688,6 +681,14 @@
 		C4A929671D1343AE0095E429 /* mand8.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4A928651D1343AE0095E429 /* mand8.raw */; };
 		C4A929681D1343AE0095E429 /* mand9.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4A928661D1343AE0095E429 /* mand9.raw */; };
 		C4A929691D1343AE0095E429 /* mandpluk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4A928671D1343AE0095E429 /* mandpluk.raw */; };
+		C4AA7BFB1FD2A7C000040720 /* AKAmplitudeTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA7BEF1FD2A7BE00040720 /* AKAmplitudeTap.swift */; };
+		C4AA7BFC1FD2A7C000040720 /* AKRenderTap.h in Headers */ = {isa = PBXBuildFile; fileRef = C4AA7BF11FD2A7BE00040720 /* AKRenderTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4AA7BFD1FD2A7C000040720 /* AKRenderTap.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AA7BF21FD2A7BE00040720 /* AKRenderTap.m */; };
+		C4AA7BFE1FD2A7C000040720 /* AKFFTTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA7BF41FD2A7BF00040720 /* AKFFTTap.swift */; };
+		C4AA7BFF1FD2A7C000040720 /* AKTimelineTap.h in Headers */ = {isa = PBXBuildFile; fileRef = C4AA7BF61FD2A7BF00040720 /* AKTimelineTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4AA7C001FD2A7C000040720 /* AKTimelineTap.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AA7BF71FD2A7BF00040720 /* AKTimelineTap.m */; };
+		C4AA7C011FD2A7C000040720 /* AKLazyTap.h in Headers */ = {isa = PBXBuildFile; fileRef = C4AA7BF91FD2A7C000040720 /* AKLazyTap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4AA7C021FD2A7C000040720 /* AKLazyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AA7BFA1FD2A7C000040720 /* AKLazyTap.m */; };
 		C4AC0B391FC944E400EDA024 /* AKDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B361FC944E300EDA024 /* AKDSPBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B3A1FC944E400EDA024 /* AKAudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B371FC944E300EDA024 /* AKAudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B3B1FC944E400EDA024 /* AKAudioUnitBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B381FC944E300EDA024 /* AKAudioUnitBase.mm */; };
@@ -1021,17 +1022,11 @@
 		558D80891F4D2D9D001E7BC1 /* TPCircularBuffer+AudioBufferList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+AudioBufferList.h"; sourceTree = "<group>"; };
 		558D808A1F4D2D9D001E7BC1 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		558D808B1F4D2D9D001E7BC1 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
-		558D80901F4D2DC8001E7BC1 /* AKLazyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLazyTap.h; sourceTree = "<group>"; };
-		558D80911F4D2DC8001E7BC1 /* AKLazyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLazyTap.m; sourceTree = "<group>"; };
-		55E25CCA1F4E6C2F00F5AF08 /* AKRenderTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRenderTap.h; sourceTree = "<group>"; };
-		55E25CCB1F4E6C2F00F5AF08 /* AKRenderTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRenderTap.m; sourceTree = "<group>"; };
 		55E25CD71F4E8D5700F5AF08 /* TPCircularBuffer+Unit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+Unit.c"; sourceTree = "<group>"; };
 		55E25CD81F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+Unit.h"; sourceTree = "<group>"; };
 		55E4F4F41F5776260088018A /* Skeleton.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Skeleton.aupreset; sourceTree = "<group>"; };
 		55E4F50C1F578BAC0088018A /* AKPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPresetManager.h; sourceTree = "<group>"; };
 		55E4F50D1F578BAC0088018A /* AKPresetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPresetManager.m; sourceTree = "<group>"; };
-		55E4F51B1F57CA6F0088018A /* AKTimelineTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimelineTap.h; sourceTree = "<group>"; };
-		55E4F51C1F57CA6F0088018A /* AKTimelineTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTimelineTap.m; sourceTree = "<group>"; };
 		55E4F51F1F57CB540088018A /* AKSamplerMetronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSamplerMetronome.h; sourceTree = "<group>"; };
 		55E4F5201F57CB540088018A /* AKSamplerMetronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSamplerMetronome.m; sourceTree = "<group>"; };
 		55F29C081E90654C00A2151F /* AKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKScheduledAction.swift; sourceTree = "<group>"; };
@@ -1043,6 +1038,7 @@
 		8D6C6C521D421EBB008BFA4A /* AKAudioFile+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Utilities.swift"; sourceTree = "<group>"; };
 		B19AE7731F30FC4700F9DC25 /* AKAudioUnitInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitInstrument.swift; path = "AudioUnit Host/AKAudioUnitInstrument.swift"; sourceTree = "<group>"; };
 		B19AE7741F30FC4700F9DC25 /* AKAudioUnitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitManager.swift; path = "AudioUnit Host/AKAudioUnitManager.swift"; sourceTree = "<group>"; };
+		B1DAFDDD1FCE0D7300511A43 /* AKConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConverter.swift; sourceTree = "<group>"; };
 		B1F47AB91DC54DCA00706A2F /* EZAudioFileMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFileMarker.h; sourceTree = "<group>"; };
 		B1F47ABA1DC54DCA00706A2F /* EZAudioFileMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFileMarker.m; sourceTree = "<group>"; };
 		C40716371D21160C00665C02 /* ADSR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADSR.cpp; sourceTree = "<group>"; };
@@ -1401,8 +1397,6 @@
 		C47047AD1E76A2FD00D9906F /* TubeBell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TubeBell.h; sourceTree = "<group>"; };
 		C470481A1E7A61BE00D9906F /* rspline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rspline.c; sourceTree = "<group>"; };
 		C47048201E7A660A00D9906F /* rspline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rspline.c; sourceTree = "<group>"; };
-		C474B1631CE43A9D00EB8D8E /* AKAmplitudeTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAmplitudeTap.swift; sourceTree = "<group>"; };
-		C474B1641CE43A9D00EB8D8E /* AKFFTTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFFTTap.swift; sourceTree = "<group>"; };
 		C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
 		C47AC6191D5D53C40005E485 /* AKBoosterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBoosterAudioUnit.h; sourceTree = "<group>"; };
 		C47AC61A1D5D53C40005E485 /* AKBoosterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterAudioUnit.mm; sourceTree = "<group>"; };
@@ -1665,6 +1659,14 @@
 		C4A928651D1343AE0095E429 /* mand8.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = mand8.raw; sourceTree = "<group>"; };
 		C4A928661D1343AE0095E429 /* mand9.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = mand9.raw; sourceTree = "<group>"; };
 		C4A928671D1343AE0095E429 /* mandpluk.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = mandpluk.raw; sourceTree = "<group>"; };
+		C4AA7BEF1FD2A7BE00040720 /* AKAmplitudeTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAmplitudeTap.swift; sourceTree = "<group>"; };
+		C4AA7BF11FD2A7BE00040720 /* AKRenderTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRenderTap.h; sourceTree = "<group>"; };
+		C4AA7BF21FD2A7BE00040720 /* AKRenderTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRenderTap.m; sourceTree = "<group>"; };
+		C4AA7BF41FD2A7BF00040720 /* AKFFTTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFFTTap.swift; sourceTree = "<group>"; };
+		C4AA7BF61FD2A7BF00040720 /* AKTimelineTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimelineTap.h; sourceTree = "<group>"; };
+		C4AA7BF71FD2A7BF00040720 /* AKTimelineTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTimelineTap.m; sourceTree = "<group>"; };
+		C4AA7BF91FD2A7C000040720 /* AKLazyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLazyTap.h; sourceTree = "<group>"; };
+		C4AA7BFA1FD2A7C000040720 /* AKLazyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKLazyTap.m; sourceTree = "<group>"; };
 		C4AC0B361FC944E300EDA024 /* AKDSPBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDSPBase.hpp; sourceTree = "<group>"; };
 		C4AC0B371FC944E300EDA024 /* AKAudioUnitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnitBase.h; sourceTree = "<group>"; };
 		C4AC0B381FC944E300EDA024 /* AKAudioUnitBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioUnitBase.mm; sourceTree = "<group>"; };
@@ -2336,14 +2338,11 @@
 		C4299C491CE14002007A3CBB /* Taps */ = {
 			isa = PBXGroup;
 			children = (
-				C474B1631CE43A9D00EB8D8E /* AKAmplitudeTap.swift */,
-				C474B1641CE43A9D00EB8D8E /* AKFFTTap.swift */,
-				55E25CCA1F4E6C2F00F5AF08 /* AKRenderTap.h */,
-				55E25CCB1F4E6C2F00F5AF08 /* AKRenderTap.m */,
-				558D80901F4D2DC8001E7BC1 /* AKLazyTap.h */,
-				558D80911F4D2DC8001E7BC1 /* AKLazyTap.m */,
-				55E4F51B1F57CA6F0088018A /* AKTimelineTap.h */,
-				55E4F51C1F57CA6F0088018A /* AKTimelineTap.m */,
+				C4AA7BEE1FD2A7BE00040720 /* Amplitude Tap */,
+				C4AA7BF31FD2A7BF00040720 /* FFT Tap */,
+				C4AA7BF81FD2A7C000040720 /* Lazy Tap */,
+				C4AA7BF01FD2A7BE00040720 /* Render Tap */,
+				C4AA7BF51FD2A7BF00040720 /* Timeline Tap */,
 			);
 			name = Taps;
 			path = ../../Common/Taps;
@@ -2397,6 +2396,7 @@
 				EAF9C9861C69A3E500C10CCE /* AKDevice.swift */,
 				EA6949E11C59A9FC0035B5DF /* AKSettings.swift */,
 				C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */,
+				B1DAFDDD1FCE0D7300511A43 /* AKConverter.swift */,
 				C49E9E001D2B491500E5E8BF /* Audio File */,
 				B19AE7721F30FC2600F9DC25 /* AudioUnit Host */,
 				C40C41221C40E344009D870B /* CoreAudio */,
@@ -4031,6 +4031,49 @@
 			path = rawwaves;
 			sourceTree = "<group>";
 		};
+		C4AA7BEE1FD2A7BE00040720 /* Amplitude Tap */ = {
+			isa = PBXGroup;
+			children = (
+				C4AA7BEF1FD2A7BE00040720 /* AKAmplitudeTap.swift */,
+			);
+			path = "Amplitude Tap";
+			sourceTree = "<group>";
+		};
+		C4AA7BF01FD2A7BE00040720 /* Render Tap */ = {
+			isa = PBXGroup;
+			children = (
+				C4AA7BF11FD2A7BE00040720 /* AKRenderTap.h */,
+				C4AA7BF21FD2A7BE00040720 /* AKRenderTap.m */,
+			);
+			path = "Render Tap";
+			sourceTree = "<group>";
+		};
+		C4AA7BF31FD2A7BF00040720 /* FFT Tap */ = {
+			isa = PBXGroup;
+			children = (
+				C4AA7BF41FD2A7BF00040720 /* AKFFTTap.swift */,
+			);
+			path = "FFT Tap";
+			sourceTree = "<group>";
+		};
+		C4AA7BF51FD2A7BF00040720 /* Timeline Tap */ = {
+			isa = PBXGroup;
+			children = (
+				C4AA7BF61FD2A7BF00040720 /* AKTimelineTap.h */,
+				C4AA7BF71FD2A7BF00040720 /* AKTimelineTap.m */,
+			);
+			path = "Timeline Tap";
+			sourceTree = "<group>";
+		};
+		C4AA7BF81FD2A7C000040720 /* Lazy Tap */ = {
+			isa = PBXGroup;
+			children = (
+				C4AA7BF91FD2A7C000040720 /* AKLazyTap.h */,
+				C4AA7BFA1FD2A7C000040720 /* AKLazyTap.m */,
+			);
+			path = "Lazy Tap";
+			sourceTree = "<group>";
+		};
 		C4AC0B351FC944E300EDA024 /* AK4 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4255,11 +4298,8 @@
 				C47DDCC11F7CE2F4002520B9 /* AKBoosterDSP.hpp in Headers */,
 				55E4F5211F57CB540088018A /* AKSamplerMetronome.h in Headers */,
 				55E4F50E1F578BAC0088018A /* AKPresetManager.h in Headers */,
-				55E4F51D1F57CA6F0088018A /* AKTimelineTap.h in Headers */,
 				5551E7ED1F55316400757781 /* AKTimeline.h in Headers */,
-				558D80921F4D2DC8001E7BC1 /* AKLazyTap.h in Headers */,
 				55E25CDA1F4E8D5700F5AF08 /* TPCircularBuffer+Unit.h in Headers */,
-				55E25CCC1F4E6C2F00F5AF08 /* AKRenderTap.h in Headers */,
 				558D808D1F4D2D9D001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */,
 				558D808F1F4D2D9D001E7BC1 /* TPCircularBuffer.h in Headers */,
 				52145B621F3C5B1A0069C88B /* LPFCombFilter.h in Headers */,
@@ -4324,6 +4364,7 @@
 				C4537FD01C3A438D00A51738 /* AKLowPassButterworthFilterAudioUnit.h in Headers */,
 				C42859071E90B6BC009B737D /* AKZitaReverbDSPKernel.hpp in Headers */,
 				C4537FCC1C3A438D00A51738 /* AKHighShelfParametricEqualizerFilterAudioUnit.h in Headers */,
+				C4AA7BFC1FD2A7C000040720 /* AKRenderTap.h in Headers */,
 				C40C41541C40E3A5009D870B /* EZAudioFFT.h in Headers */,
 				C47047A81E76A25200D9906F /* AKTubularBellsAudioUnit.h in Headers */,
 				C40C415A1C40E3A5009D870B /* EZAudioFloatData.h in Headers */,
@@ -4449,6 +4490,7 @@
 				C4537FAF1C3A438D00A51738 /* AKBandPassButterworthFilterDSPKernel.hpp in Headers */,
 				52145B431F3C5B1A0069C88B /* Array.h in Headers */,
 				C46809701CEECB6900ADFC05 /* AKPitchShifterDSPKernel.hpp in Headers */,
+				C4AA7C011FD2A7C000040720 /* AKLazyTap.h in Headers */,
 				C4AC0B441FC944EA00EDA024 /* BufferedAudioBus.hpp in Headers */,
 				C4537FED1C3A438D00A51738 /* AKStringResonatorDSPKernel.hpp in Headers */,
 				52145B5C1F3C5B1A0069C88B /* FFTRealSelect.hpp in Headers */,
@@ -4465,6 +4507,7 @@
 				C49D695D1D1F1C6500BF018A /* AKPWMOscillatorBankDSPKernel.hpp in Headers */,
 				C40BB0831C4716E0004C138D /* AKCombFilterReverbDSPKernel.hpp in Headers */,
 				C4537FBC1C3A438D00A51738 /* AKDCBlockDSPKernel.hpp in Headers */,
+				C4AA7BFF1FD2A7C000040720 /* AKTimelineTap.h in Headers */,
 				C49D69781D1F1DE300BF018A /* AKOscillatorBankDSPKernel.hpp in Headers */,
 				C42858F31E90B647009B737D /* AKDynamicRangeCompressorAudioUnit.h in Headers */,
 				52145B171F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h in Headers */,
@@ -4646,6 +4689,7 @@
 				C40716461D21169E00665C02 /* DelayA.cpp in Sources */,
 				C4F8C8DD1DCA8CE4001F38F2 /* gen_sine.c in Sources */,
 				C4F8C8D41DCA8CE4001F38F2 /* fog.c in Sources */,
+				C4AA7BFB1FD2A7C000040720 /* AKAmplitudeTap.swift in Sources */,
 				B19AE7761F30FC4700F9DC25 /* AKAudioUnitManager.swift in Sources */,
 				C487B6121DD9237C00C56B59 /* Envelope.cpp in Sources */,
 				C407163E1D21166800665C02 /* SineWave.cpp in Sources */,
@@ -4693,7 +4737,6 @@
 				C4F8C9371DCA8CE4001F38F2 /* zeros.c in Sources */,
 				C4F8C9071DCA8CE4001F38F2 /* pshift.c in Sources */,
 				C47047921E76997200D9906F /* TwoZero.cpp in Sources */,
-				55E25CCD1F4E6C2F00F5AF08 /* AKRenderTap.m in Sources */,
 				C4F8C9231DCA8CE4001F38F2 /* tenv.c in Sources */,
 				F4CA85801EB666260066BE5C /* AKTuningTable+EqualTemperament.swift in Sources */,
 				C40C41591C40E3A5009D870B /* EZAudioFloatConverter.m in Sources */,
@@ -4725,6 +4768,7 @@
 				C4537FB31C3A438D00A51738 /* AKBandRejectButterworthFilterAudioUnit.mm in Sources */,
 				C4537FE41C3A438D00A51738 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C4F8C9291DCA8CE4001F38F2 /* timer.c in Sources */,
+				C4AA7C021FD2A7C000040720 /* AKLazyTap.m in Sources */,
 				C49A0A391D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.mm in Sources */,
 				C4F8C92C1DCA8CE4001F38F2 /* tone.c in Sources */,
 				C4537F2E1C39D2A300A51738 /* AKClipperAudioUnit.mm in Sources */,
@@ -4749,6 +4793,7 @@
 				C4537FBB1C3A438D00A51738 /* AKDCBlockAudioUnit.mm in Sources */,
 				52145B451F3C5B1A0069C88B /* CombFilter.cpp in Sources */,
 				F4CA857F1EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift in Sources */,
+				C4AA7BFD1FD2A7C000040720 /* AKRenderTap.m in Sources */,
 				C40C41D01C40E4EE009D870B /* AKTesterAudioUnit.mm in Sources */,
 				C453808F1C3A5C0C00A51738 /* AKPinkNoiseAudioUnit.mm in Sources */,
 				07C0F21B1F13EE1200F928C9 /* AKMIDITransformer.swift in Sources */,
@@ -4999,6 +5044,7 @@
 				C4BEAA131DEC3A9800186C50 /* AKAudioUnit.mm in Sources */,
 				C42899B21D55ACAA00B941B5 /* nsmp.c in Sources */,
 				C48C6C8A1D3C15F1008EA51B /* padsynth.c in Sources */,
+				B1DAFDDE1FCE0D7300511A43 /* AKConverter.swift in Sources */,
 				C48C6C9F1D3C15F1008EA51B /* reson.c in Sources */,
 				C4F8C8D31DCA8CE4001F38F2 /* fof.c in Sources */,
 				C48C6C7A1D3C15F1008EA51B /* ftbl.c in Sources */,
@@ -5022,6 +5068,7 @@
 				C4F8C8BC1DCA8CE4001F38F2 /* butbp.c in Sources */,
 				C48C6C771D3C15F1008EA51B /* fold.c in Sources */,
 				C4F8C8D71DCA8CE4001F38F2 /* gbuzz.c in Sources */,
+				C4AA7BFE1FD2A7C000040720 /* AKFFTTap.swift in Sources */,
 				C4198D5A1DCD9BB700D7C13F /* save.swift in Sources */,
 				C48C6C941D3C15F1008EA51B /* pluck.c in Sources */,
 				C48C6CB41D3C15F1008EA51B /* tin.c in Sources */,
@@ -5086,7 +5133,6 @@
 				C48C6CA41D3C15F1008EA51B /* samphold.c in Sources */,
 				C48C6C951D3C15F1008EA51B /* port.c in Sources */,
 				C4F8C8EF1DCA8CE4001F38F2 /* metro.c in Sources */,
-				55E4F51E1F57CA6F0088018A /* AKTimelineTap.m in Sources */,
 				C43ABE021E5BFD9A00165053 /* saturator.c in Sources */,
 				C48C6C781D3C15F1008EA51B /* foo.c in Sources */,
 				C4AC0B431FC944EA00EDA024 /* DSPKernel.mm in Sources */,
@@ -5094,7 +5140,6 @@
 				C48C6C6C1D3C15F1008EA51B /* dist.c in Sources */,
 				C48C6C491D3C15F1008EA51B /* ini.c in Sources */,
 				C4FE68791EC1C1E5000B09B2 /* AKMicrophoneTracker.swift in Sources */,
-				558D80931F4D2DC8001E7BC1 /* AKLazyTap.m in Sources */,
 				C4F8C8CE1DCA8CE4001F38F2 /* eqfil.c in Sources */,
 				C48C6C791D3C15F1008EA51B /* fosc.c in Sources */,
 				C4F8C8B91DCA8CE4001F38F2 /* blsquare.c in Sources */,
@@ -5129,7 +5174,6 @@
 				C40AD69A1C463B2600B638AF /* AKMIDIEvent.swift in Sources */,
 				C43ABDD61E5BCA1B00165053 /* saturator.c in Sources */,
 				C4B8A2F91E65696A006432FA /* AKSampler+SoundFont.swift in Sources */,
-				C474B1651CE43A9D00EB8D8E /* AKAmplitudeTap.swift in Sources */,
 				C47047A91E76A25200D9906F /* AKTubularBellsAudioUnit.mm in Sources */,
 				C463028C1C20E7A7009B44D9 /* phasor.swift in Sources */,
 				C470478E1E76995200D9906F /* FileLoop.cpp in Sources */,
@@ -5137,7 +5181,6 @@
 				52145B0E1F3C56EE0069C88B /* AKDynaRageCompressorAudioUnit.mm in Sources */,
 				C4A1073B1E6963C10018848C /* AKBrownianNoise.swift in Sources */,
 				C44DD5A31F3E45C800919962 /* AKOfflineRenderNode.swift in Sources */,
-				C474B1661CE43A9D00EB8D8E /* AKFFTTap.swift in Sources */,
 				5251477B1CC4AD7E00421C52 /* AKNotifications.swift in Sources */,
 				C4A916121C24ED23006C1A15 /* pluckedString.swift in Sources */,
 				C4E8ED0A1C4391C70041965F /* AKConvolution.swift in Sources */,
@@ -5274,6 +5317,7 @@
 				C4E751B01C23675A00688A1B /* modalResonanceFilter.swift in Sources */,
 				C4537FD91C3A438D00A51738 /* AKModalResonanceFilter.swift in Sources */,
 				C4F8C9201DCA8CE4001F38F2 /* tadsr.c in Sources */,
+				C4AA7C001FD2A7C000040720 /* AKTimelineTap.m in Sources */,
 				C4F8C8E71DCA8CE4001F38F2 /* load.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

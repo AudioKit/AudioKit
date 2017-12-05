@@ -649,8 +649,13 @@ typedef struct
         afm.framePosition = [[NSNumber alloc] initWithDouble:(markerList->mMarkers[i].mFramePosition)];
         afm.markerID = [[NSNumber alloc] initWithInt:(markerList->mMarkers[i].mMarkerID)];
         afm.type = [[NSNumber alloc] initWithInt:(markerList->mMarkers[i].mType)];
-        afm.name = (__bridge NSString *)(markerList->mMarkers[i].mName);
 
+        // create a default value in the case of missing names
+        afm.name = [NSString stringWithFormat:@"Marker %d", i+1];
+        
+        if (markerList->mMarkers[i].mName != NULL) {
+            afm.name = (__bridge NSString *)(markerList->mMarkers[i].mName);
+        }
         //NSLog(@"%@\n", afm.name );
         [array addObject:afm];
     }
