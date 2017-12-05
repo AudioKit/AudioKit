@@ -145,7 +145,7 @@ open class AKMIDI {
     return false
   }
 
-  /// Closes the virtual input port, if created one already.
+  /// Closes the virtual output port, if created one already.
   ///
   /// - Returns: Returns true if virtual output closed.
   @discardableResult open func destroyVirtualOutputPort() -> Bool {

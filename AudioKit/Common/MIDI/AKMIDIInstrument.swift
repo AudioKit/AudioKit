@@ -23,7 +23,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
 
     /// Initialize the MIDI Instrument
     ///
-    /// - Parameter midiOutputName: Name of the instrument's MIDI output.
+    /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    ///
     public init(midiOutputName: String? = nil) {
         super.init()
         enableMIDI(name: midiOutputName ?? "Unnamed")
