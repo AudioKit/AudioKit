@@ -48,6 +48,7 @@ public:
         inLoopPhase = false;
         position = startPointViaRate();
         printf("starting From %0.3f\n", position);
+        printf("rate %0.3f\n", rate);
         mainPlayComplete = false;
     }
 
@@ -141,7 +142,7 @@ public:
                 break;
 
             case rateAddress:
-                rateRamper.setUIValue(clamp(value, 0.0f, 10.0f));
+                rateRamper.setUIValue(clamp(value, -10.0f, 10.0f));
                 break;
 
             case volumeAddress:
@@ -193,7 +194,7 @@ public:
                 break;
 
             case rateAddress:
-                rateRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
+                rateRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
                 break;
 
             case volumeAddress:
