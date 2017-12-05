@@ -27,8 +27,8 @@ class AKBooster2Tests: AKTestCase {
     }
 
   func testRamp() {
-    let url = URL.init(fileURLWithPath: "/Users/Andy/OrkoBorko.aif")
-    let settings: [String : Any] = [AVSampleRateKey: 44100.0,
+    let url = URL(fileURLWithPath: "/Users/Andy/OrkoBorko.aif")
+    let settings: [String : Any] = [AVSampleRateKey: 44_100.0,
                                     AVNumberOfChannelsKey: 2]
     let audioFile = try! AKAudioFile(forWriting: url, settings: settings)
     let osc = AKOscillator()
