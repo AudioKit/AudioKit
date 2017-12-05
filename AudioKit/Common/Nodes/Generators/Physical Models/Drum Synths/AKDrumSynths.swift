@@ -13,7 +13,9 @@ open class AKSynthKick: AKMIDIInstrument {
     var filter: AKMoogLadder
 
     /// Create the synth kick voice
-    public override init() {
+    ///
+    /// - Parameter midiOutputName: Name of the instrument's MIDI output.
+    public override init(midiOutputName: String? = nil) {
 
         generator = AKOperationGenerator { _ in
             let frequency = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 120, end: 40, duration: 0.03)
@@ -25,7 +27,7 @@ open class AKSynthKick: AKMIDIInstrument {
         filter.cutoffFrequency = 666
         filter.resonance = 0.00
 
-        super.init()
+        super.init(midiOutputName: midiOutputName)
         avAudioNode = filter.avAudioNode
         generator.start()
     }

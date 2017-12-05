@@ -16,8 +16,8 @@ class ViewController: NSViewController {
     var oscillator2 = AKOscillator()
     var mixer = AKMixer()
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         mixer = AKMixer(oscillator1, oscillator2)
 
@@ -25,6 +25,7 @@ class ViewController: NSViewController {
         mixer.volume = 0.5
         AudioKit.output = mixer
         AudioKit.start()
+
     }
 
     @IBAction func toggleSound(_ sender: NSButton) {
