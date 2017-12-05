@@ -11,11 +11,12 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AKDSPBase.hpp"
 
-struct AKParameterRampBase {
+class AKParameterRampBase {
 
 protected:
     float _target = 0;
     float _value = 0;
+    float _startValue = 0;
     int64_t _duration = 0;  // in samples
     int64_t _startSample = 0;
 
@@ -26,6 +27,7 @@ public:
     void setTarget(float value, int64_t atSample, bool immediate = false) {
         _target = value;
         _startSample = atSample;
+        _startValue = _value;
         if (immediate) _value = value;
     }
 
@@ -35,12 +37,12 @@ public:
 
     float getDurationInSamples() { return _duration; }
 
-    void setRampTime(float mSec, int64_t sampleRate) {
-        _duration = mSec * sampleRate / 1000.0;
+    void setRampTime(float seconds, int64_t sampleRate) {
+        _duration = seconds * sampleRate;
     }
 
     float getRampTime(int64_t sampleRate) {
-        return (sampleRate == 0) ? 0 : _duration * 1000.0 / sampleRate;
+        return (sampleRate == 0) ? 0 : _duration / sampleRate;
     }
 
     float getValue() { return _value; }
