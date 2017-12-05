@@ -24,7 +24,8 @@ open class AKMIDISampler: AKSampler {
 
     /// Initialize the MIDI Sampler
     ///
-    /// - Parameter midiOutputName: Name of the instrument's MIDI output.
+    /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    ///
     public init(midiOutputName: String? = nil) {
         super.init()
         enableMIDI(name: midiOutputName ?? name)
