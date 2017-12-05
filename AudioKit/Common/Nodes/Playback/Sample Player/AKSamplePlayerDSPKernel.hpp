@@ -231,34 +231,20 @@ public:
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
 
-            SPFLOAT dur = (SPFLOAT)current_size / sp->sr;
-
             //length of playableSample vs actual
             float startPointToUse = startPoint;
             float endPointToUse = endPoint;
             float nextPosition = position + sampleRateRatio() * rate;
 
             if (started){
-                if (nextPosition >= endPoint){
-                    mainPlayComplete = true;
-                    printf("mainPlayComplete\n");
-                }
+                calculateMainPlayComplete(nextPosition);
                 if (loop){
-
-                    if (!inLoopPhase && nextPosition >= loopEndPoint && mainPlayComplete){
-                        inLoopPhase = true;
-//                        phasor->curphs = 0; //deprecate
-//                        incr->val = 0; //deprecate
-                        position = loopStartPoint;
-                        printf("looping now\n");
-                    }
+                    calculateLoopPhase(nextPosition);
                     if (inLoopPhase){
                         startPointToUse = loopStartPoint;
                         endPointToUse = loopEndPoint;
-                        if (nextPosition >= loopEndPoint && mainPlayComplete){
-                            position = loopStartPoint;
-                            printf("looping again\n");
-                        }
+                        calculateShouldLoop(nextPosition);
+                        
                     }
                 }
 
@@ -270,11 +256,6 @@ public:
                     lastPosition = position;
                 }
             }
-
-//            int subsectionLength = endPointToUse - startPointToUse; //deprecate
-
-//            float percentLen = (float)subsectionLength / (float)ftbl_size; //deprecate
-//            float speedFactor = (float)current_size / (float)ftbl_size; //deprecate
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -296,7 +277,14 @@ public:
     }
     
     double sampleStep(){
-        return sampleRateRatio() * rate;
+        int reverseMultiplier = 1;
+        if (inLoopPhase && loopReversed()){
+            reverseMultiplier = -1;
+        }
+        if (!inLoopPhase && playbackReversed()){
+            reverseMultiplier = -1;
+        }
+        return sampleRateRatio() * rate * reverseMultiplier;
     }
     double sampleRateRatio(){
         return sourceSampleRate / AKSettings.sampleRate;
@@ -309,7 +297,34 @@ public:
     bool playbackReversed(){
         return (endPoint < startPoint ? true : false);
     }
-
+    
+    void calculateMainPlayComplete(double nextPosition){
+        if (nextPosition > endPoint && !playbackReversed()){
+            mainPlayComplete = true;
+        }else if (nextPosition < endPoint && playbackReversed()){
+            mainPlayComplete = true;
+        }
+    }
+    void calculateLoopPhase(double nextPosition){
+        if (!inLoopPhase && mainPlayComplete){
+            if (nextPosition > endPoint && !playbackReversed()){
+                inLoopPhase = true;
+                position = loopStartPoint;
+            }else if (nextPosition < endPoint && playbackReversed()){
+                inLoopPhase = true;
+                position = loopStartPoint;
+            }
+        }
+    }
+    void calculateShouldLoop(double nextPosition){
+        if (mainPlayComplete){
+            if (nextPosition > loopEndPoint && !loopReversed()){
+                position = loopStartPoint;
+            }else if (nextPosition < loopEndPoint && loopReversed()){
+                position = loopStartPoint;
+            }
+        }
+    }
 private:
 
     sp_phasor *phasor;
