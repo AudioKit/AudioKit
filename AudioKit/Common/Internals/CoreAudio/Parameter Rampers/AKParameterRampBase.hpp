@@ -28,7 +28,7 @@ public:
         _target = value;
         _startSample = atSample;
         _startValue = _value;
-        if (immediate) _value = value;
+        if (immediate) _startValue = _value = value;
     }
 
     void setDurationInSamples(int64_t duration) {
