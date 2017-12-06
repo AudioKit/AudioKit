@@ -55,12 +55,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        frequencyAUParameter,
-        qualityFactorAUParameter
-    ]];
+                                             frequencyAUParameter,
+                                             qualityFactorAUParameter
+                                             ]];
 
 
-	parameterTreeBlock(ModalResonanceFilter)
+    parameterTreeBlock(ModalResonanceFilter)
 }
 
 AUAudioUnitOverrides(ModalResonanceFilter);

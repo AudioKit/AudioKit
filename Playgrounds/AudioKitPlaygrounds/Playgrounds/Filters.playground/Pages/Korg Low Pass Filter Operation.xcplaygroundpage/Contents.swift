@@ -1,4 +1,4 @@
-//: ## Low Pass Filter Operation
+//: ## Korg Low Pass Filter Operation
 //:
 import AudioKitPlaygrounds
 import AudioKit

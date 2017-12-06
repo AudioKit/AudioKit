@@ -92,6 +92,7 @@ typedef struct sp_ftbl{
 }sp_ftbl;
 
 int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size);
+int sp_ftbl_init(sp_data *sp, sp_ftbl *ft, size_t size);
 int sp_ftbl_bind(sp_data *sp, sp_ftbl **ft, SPFLOAT *tbl, size_t size);
 int sp_ftbl_destroy(sp_ftbl **ft);
 int sp_gen_vals(sp_data *sp, sp_ftbl *ft, const char *string);
@@ -105,6 +106,7 @@ int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename);
 int sp_ftbl_loadspa(sp_data *sp, sp_ftbl **ft, const char *filename);
 int sp_gen_composite(sp_data *sp, sp_ftbl *ft, const char *argstring);
 int sp_gen_rand(sp_data *sp, sp_ftbl *ft, const char *argstring);
+int sp_gen_triangle(sp_data *sp, sp_ftbl *ft);
 typedef struct{
     void (*reinit)(void *);
     void (*compute)(void *, SPFLOAT *out);
@@ -924,6 +926,7 @@ typedef struct {
     sp_auxdata m_hinv_buf;
     sp_auxdata m_buf;
     sp_auxdata m_output;
+    unsigned char wrap;
 } sp_paulstretch;
 
 int sp_paulstretch_create(sp_paulstretch **p);
@@ -1427,6 +1430,29 @@ int sp_tadsr_create(sp_tadsr **p);
 int sp_tadsr_destroy(sp_tadsr **p);
 int sp_tadsr_init(sp_data *sp, sp_tadsr *p);
 int sp_tadsr_compute(sp_data *sp, sp_tadsr *p, SPFLOAT *trig, SPFLOAT *out);
+
+#ifndef SP_TALKBOX_BUFMAX
+#define SP_TALKBOX_BUFMAX 1600
+#endif
+
+typedef struct {
+    SPFLOAT quality;
+    SPFLOAT d0, d1, d2, d3, d4;
+    SPFLOAT u0, u1, u2, u3, u4;
+    SPFLOAT FX;
+    SPFLOAT emphasis;
+    SPFLOAT car0[SP_TALKBOX_BUFMAX]; 
+    SPFLOAT car1[SP_TALKBOX_BUFMAX];
+    SPFLOAT window[SP_TALKBOX_BUFMAX];
+    SPFLOAT buf0[SP_TALKBOX_BUFMAX];
+    SPFLOAT buf1[SP_TALKBOX_BUFMAX];
+    uint32_t K, N, O, pos;
+} sp_talkbox;
+
+int sp_talkbox_create(sp_talkbox **p);
+int sp_talkbox_destroy(sp_talkbox **p);
+int sp_talkbox_init(sp_data *sp, sp_talkbox *p);
+int sp_talkbox_compute(sp_data *sp, sp_talkbox *p, SPFLOAT *src, SPFLOAT *exc, SPFLOAT *out);
 typedef struct {
     sp_ftbl *ft;
     uint32_t index;
@@ -1507,8 +1533,8 @@ int sp_tgate_destroy(sp_tgate **p);
 int sp_tgate_init(sp_data *sp, sp_tgate *p);
 int sp_tgate_compute(sp_data *sp, sp_tgate *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
-    int mode, init;
-    SPFLOAT prev, thresh;
+    int init;
+    SPFLOAT prev, thresh, mode;
 } sp_thresh;
 
 int sp_thresh_create(sp_thresh **p);
@@ -1588,6 +1614,7 @@ int sp_vdelay_create(sp_vdelay **p);
 int sp_vdelay_destroy(sp_vdelay **p);
 int sp_vdelay_init(sp_data *sp, sp_vdelay *p, SPFLOAT maxdel);
 int sp_vdelay_compute(sp_data *sp, sp_vdelay *p, SPFLOAT *in, SPFLOAT *out);
+int sp_vdelay_reset(sp_data *sp, sp_vdelay *p);
 /*63:*/
 #line 21 "./header.w"
 

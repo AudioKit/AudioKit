@@ -53,11 +53,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        cutoffFrequencyAUParameter,
-        resonanceAUParameter
-    ]];
+                                             cutoffFrequencyAUParameter,
+                                             resonanceAUParameter
+                                             ]];
 
-	parameterTreeBlock(MoogLadder)
+    parameterTreeBlock(MoogLadder)
 }
 
 AUAudioUnitOverrides(MoogLadder);

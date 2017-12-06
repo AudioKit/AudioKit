@@ -10,7 +10,7 @@
 #import "AKAudioUnit.h"
 
 @interface AKZitaReverbAudioUnit : AKAudioUnit
-@property (nonatomic) float delay;
+@property (nonatomic) float predelay;
 @property (nonatomic) float crossoverFrequency;
 @property (nonatomic) float lowReleaseTime;
 @property (nonatomic) float midReleaseTime;

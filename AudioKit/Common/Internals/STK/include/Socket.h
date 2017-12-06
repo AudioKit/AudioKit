@@ -5,18 +5,18 @@
 
 #if (defined(__OS_IRIX__) || defined(__OS_LINUX__) || defined(__OS_MACOSX__))
 
-  #include <sys/socket.h>
-  #include <sys/types.h>
-  #include <arpa/inet.h>
-  #include <netdb.h>
-  #include <unistd.h>
-  #include <fcntl.h>
-  #include <netinet/in.h>
-  #include <netinet/tcp.h>
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #elif defined(__OS_WINDOWS__)
 
-  #include <winsock.h>
+#include <winsock.h>
 
 #endif
 
@@ -35,14 +35,9 @@ namespace stk {
 */
 /***************************************************/
 
-class Socket : public Stk
-{
- public:
-
-  enum ProtocolType {
-    PROTO_TCP,
-    PROTO_UDP
-  };
+class Socket : public Stk {
+public:
+  enum ProtocolType { PROTO_TCP, PROTO_UDP };
 
   //! Class constructor
   Socket();
@@ -51,39 +46,44 @@ class Socket : public Stk
   virtual ~Socket();
 
   //! Close the socket.
-  static void close( int socket );
+  static void close(int socket);
 
   //! Return the socket descriptor.
-  int id( void ) const { return soket_; };
+  int id(void) const { return soket_; };
 
   //! Return the socket port number.
-  int port( void ) const { return port_; };
+  int port(void) const { return port_; };
 
   //! Returns true if the socket descriptor is valid.
-  static bool isValid( int socket ) { return socket != -1; };
+  static bool isValid(int socket) { return socket != -1; };
 
-  //! If enable = false, the socket is set to non-blocking mode.  When first created, sockets are by default in blocking mode.
-  static void setBlocking( int socket, bool enable );
+  //! If enable = false, the socket is set to non-blocking mode.  When first
+  //! created, sockets are by default in blocking mode.
+  static void setBlocking(int socket, bool enable);
 
-  //! Write a buffer over the socket connection.  Returns the number of bytes written or -1 if an error occurs.
-  virtual int writeBuffer(const void *buffer, long bufferSize, int flags = 0) = 0;
+  //! Write a buffer over the socket connection.  Returns the number of bytes
+  //! written or -1 if an error occurs.
+  virtual int writeBuffer(const void *buffer, long bufferSize,
+                          int flags = 0) = 0;
 
-  //! Read an input buffer, up to length \e bufferSize.  Returns the number of bytes read or -1 if an error occurs.
+  //! Read an input buffer, up to length \e bufferSize.  Returns the number of
+  //! bytes read or -1 if an error occurs.
   virtual int readBuffer(void *buffer, long bufferSize, int flags = 0) = 0;
 
-  //! Write a buffer via the specified socket.  Returns the number of bytes written or -1 if an error occurs.
-  static int writeBuffer(int socket, const void *buffer, long bufferSize, int flags );
+  //! Write a buffer via the specified socket.  Returns the number of bytes
+  //! written or -1 if an error occurs.
+  static int writeBuffer(int socket, const void *buffer, long bufferSize,
+                         int flags);
 
-  //! Read a buffer via the specified socket.  Returns the number of bytes read or -1 if an error occurs.
-  static int readBuffer(int socket, void *buffer, long bufferSize, int flags );
+  //! Read a buffer via the specified socket.  Returns the number of bytes read
+  //! or -1 if an error occurs.
+  static int readBuffer(int socket, void *buffer, long bufferSize, int flags);
 
- protected:
-
+protected:
   int soket_;
   int port_;
-
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

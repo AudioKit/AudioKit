@@ -53,11 +53,11 @@ standardKernelPassthroughs()
                                                           unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the gain.
     AUParameter *gainAUParameter = [AUParameter parameter:@"gain"
-                                                     name:@"Gain (%)"
+                                                     name:@"Gain"
                                                   address:gainAddress
-                                                      min:-100.0
-                                                      max:100.0
-                                                     unit:kAudioUnitParameterUnit_Percent];
+                                                      min:0.0
+                                                      max:1000.0
+                                                     unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     centerFrequencyAUParameter.value = 1000.0;
@@ -70,12 +70,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        centerFrequencyAUParameter,
-        bandwidthAUParameter,
-        gainAUParameter
-    ]];
+                                             centerFrequencyAUParameter,
+                                             bandwidthAUParameter,
+                                             gainAUParameter
+                                             ]];
 
-	parameterTreeBlock(EqualizerFilter)
+    parameterTreeBlock(EqualizerFilter)
 }
 
 AUAudioUnitOverrides(EqualizerFilter);

@@ -1,5 +1,4 @@
-#ifndef STK_FIR_H
-#define STK_FIR_H
+#pragma once
 
 #include "Filter.h"
 
@@ -27,21 +26,20 @@ namespace stk {
 */
 /***************************************************/
 
-class Fir : public Filter
-{
+class Fir : public Filter {
 public:
   //! Default constructor creates a zero-order pass-through "filter".
-  Fir( void );
+  Fir();
 
   //! Overloaded constructor which takes filter coefficients.
   /*!
     An StkError can be thrown if the coefficient vector size is
     zero.
   */
-  Fir( std::vector<StkFloat> &coefficients );
+  Fir(std::vector<StkFloat> &coefficients);
 
   //! Class destructor.
-  ~Fir( void );
+  ~Fir();
 
   //! Set filter coefficients.
   /*!
@@ -49,15 +47,17 @@ public:
     zero.  The internal state of the filter is not cleared unless the
     \e clearState flag is \c true.
   */
-  void setCoefficients( std::vector<StkFloat> &coefficients, bool clearState = false );
+  void setCoefficients(std::vector<StkFloat> &coefficients,
+                       bool clearState = false);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Input one sample to the filter and return one output.
-  StkFloat tick( StkFloat input );
+  StkFloat tick(StkFloat input);
 
-  //! Take a channel of the StkFrames object as inputs to the filter and replace with corresponding outputs.
+  //! Take a channel of the StkFrames object as inputs to the filter and replace
+  //! with corresponding outputs.
   /*!
     The StkFrames argument reference is returned.  The \c channel
     argument must be less than the number of channels in the
@@ -66,9 +66,10 @@ public:
     defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  //! Take a channel of the \c iFrames object as inputs to the filter and write outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the filter and write
+  //! outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  Each channel
     argument must be less than the number of channels in the
@@ -77,79 +78,79 @@ public:
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
+  StkFrames &tick(StkFrames &iFrames, StkFrames &oFrames,
+                  unsigned int iChannel = 0, unsigned int oChannel = 0);
 
 protected:
-
 };
 
-inline StkFloat Fir :: tick( StkFloat input )
-{
+inline StkFloat Fir::tick(StkFloat input) {
   lastFrame_[0] = 0.0;
   inputs_[0] = gain_ * input;
 
-  for ( unsigned int i=(unsigned int)(b_.size())-1; i>0; i-- ) {
+  for (unsigned int i = (unsigned int)(b_.size()) - 1; i > 0; i--) {
     lastFrame_[0] += b_[i] * inputs_[i];
-    inputs_[i] = inputs_[i-1];
+    inputs_[i] = inputs_[i - 1];
   }
   lastFrame_[0] += b_[0] * inputs_[0];
 
   return lastFrame_[0];
 }
 
-inline StkFrames& Fir :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Fir::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "Fir::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_
+        << "Fir::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int i, hop = frames.channels();
-  for ( unsigned int j=0; j<frames.frames(); j++, samples += hop ) {
+  for (unsigned int j = 0; j < frames.frames(); j++, samples += hop) {
     inputs_[0] = gain_ * *samples;
     *samples = 0.0;
 
-    for ( i=(unsigned int)b_.size()-1; i>0; i-- ) {
+    for (i = (unsigned int)b_.size() - 1; i > 0; i--) {
       *samples += b_[i] * inputs_[i];
-      inputs_[i] = inputs_[i-1];
+      inputs_[i] = inputs_[i - 1];
     }
     *samples += b_[0] * inputs_[0];
   }
 
-  lastFrame_[0] = *(samples-hop);
+  lastFrame_[0] = *(samples - hop);
   return frames;
 }
 
-inline StkFrames& Fir :: tick( StkFrames& iFrames, StkFrames& oFrames, unsigned int iChannel, unsigned int oChannel )
-{
+inline StkFrames &Fir::tick(StkFrames &iFrames, StkFrames &oFrames,
+                             unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
-  if ( iChannel >= iFrames.channels() || oChannel >= oFrames.channels() ) {
-    oStream_ << "Fir::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {
+    oStream_
+        << "Fir::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *iSamples = &iFrames[iChannel];
   StkFloat *oSamples = &oFrames[oChannel];
   unsigned int i, iHop = iFrames.channels(), oHop = oFrames.channels();
-  for ( unsigned int j=0; j<iFrames.frames(); j++, iSamples += iHop, oSamples += oHop ) {
+  for (unsigned int j = 0; j < iFrames.frames();
+       j++, iSamples += iHop, oSamples += oHop) {
     inputs_[0] = gain_ * *iSamples;
     *oSamples = 0.0;
 
-    for ( i=(unsigned int)b_.size()-1; i>0; i-- ) {
+    for (i = (unsigned int)b_.size() - 1; i > 0; i--) {
       *oSamples += b_[i] * inputs_[i];
-      inputs_[i] = inputs_[i-1];
+      inputs_[i] = inputs_[i - 1];
     }
     *oSamples += b_[0] * inputs_[0];
   }
 
-  lastFrame_[0] = *(oSamples-oHop);
+  lastFrame_[0] = *(oSamples - oHop);
   return iFrames;
 }
 
-} // stk namespace
+}
 
-#endif

@@ -116,7 +116,7 @@ public:
                 } else {
                     *out = 0.0;
                 }
-                
+
             }
         }
         if (internalTrigger == 1) {

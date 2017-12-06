@@ -43,6 +43,6 @@ int sp_vocwrapper_compute(sp_data *sp, sp_vocwrapper *p, SPFLOAT *in, SPFLOAT *o
     sp_voc_set_frequency(voc, p->freq);
     sp_voc_set_tenseness(voc, p->tenseness);
 
-    sp_voc_compute(sp, voc, out); 
+    sp_voc_compute(sp, voc, out);
     return SP_OK;
 }

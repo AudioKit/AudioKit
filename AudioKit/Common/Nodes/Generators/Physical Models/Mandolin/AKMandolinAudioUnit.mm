@@ -71,11 +71,11 @@
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        detuneAUParameter,
-        bodySizeAUParameter
-    ]];
+                                                               detuneAUParameter,
+                                                               bodySizeAUParameter
+                                                               ]];
 
-	parameterTreeBlock(Mandolin)
+    parameterTreeBlock(Mandolin)
 }
 
 AUAudioUnitGeneratorOverrides(Mandolin)

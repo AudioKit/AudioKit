@@ -21,14 +21,23 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     /// Name of the instrument
     open var name = "AKMIDIInstrument"
 
+    /// Initialize the MIDI Instrument
+    ///
+    /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    ///
+    public init(midiOutputName: String? = nil) {
+        super.init()
+        enableMIDI(name: midiOutputName ?? "Unnamed")
+    }
+
     /// Enable MIDI input from a given MIDI client
-    /// This is not in the init function because it must be called AFTER you start audiokit
     ///
     /// - Parameters:
     ///   - midiClient: A refernce to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
+    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
+                         name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)
@@ -82,9 +91,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - velocity:   Velocity at which to play the note (0 - 127)
     ///   - channel:    Channel on which to play the note
     ///
-    open func start(noteNumber: MIDINoteNumber,
-                    velocity: MIDIVelocity,
-                    channel: MIDIChannel) {
+    @objc open func start(noteNumber: MIDINoteNumber,
+                          velocity: MIDIVelocity,
+                          channel: MIDIChannel) {
         play(noteNumber: noteNumber, velocity: velocity)
     }
 
@@ -94,7 +103,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - noteNumber: Note number to stop
     ///   - channel:    Channel on which to stop the note
     ///
-    open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
+    @objc open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         // OVerride in subclass
     }
 

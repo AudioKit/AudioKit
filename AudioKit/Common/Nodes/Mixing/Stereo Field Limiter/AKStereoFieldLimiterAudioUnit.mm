@@ -47,8 +47,8 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        amountAUParameter
-    ]];
+                                             amountAUParameter
+                                             ]];
 
     parameterTreeBlock(StereoFieldLimiter)
 }

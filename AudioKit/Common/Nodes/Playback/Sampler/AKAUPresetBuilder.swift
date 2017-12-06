@@ -60,7 +60,7 @@ open class AKAUPresetBuilder {
     ///   - attack:         Attack time in seconds
     ///   - release:        Release time in seconds
     ///
-    static open func createAUPreset(dict: NSDictionary,
+    static open func createAUPreset(dict: [NSMutableDictionary],
                                     path: String,
                                     instrumentName: String,
                                     attack: Double? = 0,
@@ -79,9 +79,7 @@ open class AKAUPresetBuilder {
 
         //iterate over the sounds
         for i in 0 ..< dict.count {
-            guard let sound = dict.allValues[i] as? NSMutableDictionary else {
-                return
-            }
+            let sound = dict[i]
             var soundDict: NSMutableDictionary
             var alreadyLoaded = false
             var sampleNum = 0
@@ -91,11 +89,13 @@ open class AKAUPresetBuilder {
             for loadedSoundDict in loadSoundsArr {
                 guard let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as? String,
                     let newLoadingSound: String = soundDict.object(forKey: filenameKey) as? String else {
+                        AKLog("Unable to load new sound in PresetBuilder")
                         return
                 }
                 if alreadyLoadedSound == newLoadingSound {
                     alreadyLoaded = true
                     guard let temp = loadedSoundDict.object(forKey: "sampleNum") as? Int else {
+                        AKLog("No sampleNum provided in PresetBuilder")
                         return
                     }
                     sampleNum = temp
@@ -117,6 +117,7 @@ open class AKAUPresetBuilder {
             if ❗️alreadyLoaded { //if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
                 guard let samplePath = (sound as AnyObject).object(forKey: "filename") as? String else {
+                    AKLog("No filename provided in PresetBuilder")
                     return
                 }
                 let idXML = AKAUPresetBuilder.generateFileRef(wavRef: sampleNum, samplePath: samplePath)
@@ -149,16 +150,16 @@ open class AKAUPresetBuilder {
                                                                   release: existingRelease)
 
             switch triggerModeStr {
-                case SampleTriggerMode.Loop.rawValue?:
-                    triggerMode = SampleTriggerMode.Loop
-                case SampleTriggerMode.Trigger.rawValue?:
-                    triggerMode = SampleTriggerMode.Trigger
-                case SampleTriggerMode.Hold.rawValue?:
-                    triggerMode = SampleTriggerMode.Hold
-                case SampleTriggerMode.Repeat.rawValue?:
-                    triggerMode = SampleTriggerMode.Repeat
-                default:
-                    triggerMode = SampleTriggerMode.Trigger
+            case SampleTriggerMode.Loop.rawValue?:
+                triggerMode = SampleTriggerMode.Loop
+            case SampleTriggerMode.Trigger.rawValue?:
+                triggerMode = SampleTriggerMode.Trigger
+            case SampleTriggerMode.Hold.rawValue?:
+                triggerMode = SampleTriggerMode.Hold
+            case SampleTriggerMode.Repeat.rawValue?:
+                triggerMode = SampleTriggerMode.Repeat
+            default:
+                triggerMode = SampleTriggerMode.Trigger
             }
             switch triggerMode {
             case  .Hold:
@@ -231,7 +232,7 @@ open class AKAUPresetBuilder {
         }
     }
 
-    /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, 
+    /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array,
     /// and feed that into createAUPreset
     ///
     /// - Parameters:
@@ -1325,16 +1326,16 @@ open class AKAUPresetBuilder {
 
 /// Type of triggering to use
 public enum SampleTriggerMode: String {
-    /// Hold
+    /// Hold - play the sample on note on, and stop the sample on note-off
     case Hold = "hold"
 
-    /// Trigger
+    /// Trigger - play the sample on note on, ignore note-off
     case Trigger = "trigger"
 
-    /// Loop
+    /// Loop - play the sample on note on, loop the sample playback until note-off received
     case Loop = "loop"
 
-    /// Repeat
+    /// Repeat - useful for 'note-repeat' type applications. Works with a sequencer to repeat note at intervals
     case Repeat = "repeat"
 }
 /*
@@ -1343,15 +1344,15 @@ public enum SampleTriggerMode: String {
  destinations:
  1343225856 = amp gain
  818937856 = samplestart factor
- 
+
  816840704 = layer1pitch
  816840960 = layer2pitch (+256)
  816841216 = layer3pitch (+256)
- 
+
  1343225856 = layer1gain
  1343226112 = layer2gain (+256)
  1343226368 = layer3gain (+256)
- 
+
  sources:
  300 = keynumber
  301 = keyvelocity
@@ -1359,5 +1360,5 @@ public enum SampleTriggerMode: String {
  536871168 = layer2envelope (+256)536871424
  268435456 = layer1LFO1
  268435457 = layer1LFO2
- 
+
  */

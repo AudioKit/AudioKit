@@ -178,11 +178,11 @@ public:
             amplitude = double(amplitudeRamper.getAndStep());
             detuningOffset = double(detuningOffsetRamper.getAndStep());
             detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
-            
+
             oscmorph->freq = frequency * detuningMultiplier + detuningOffset;
             oscmorph->amp = amplitude;
             oscmorph->wtpos = indexRamper.getAndStep();
-            
+
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -204,7 +204,7 @@ public:
 private:
 
     sp_oscmorph *oscmorph;
-    
+
     sp_ftbl *ft_array[4];
     UInt32 tbl_size = 4096;
 

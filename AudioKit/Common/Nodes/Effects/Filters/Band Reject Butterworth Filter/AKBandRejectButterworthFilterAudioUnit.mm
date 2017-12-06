@@ -54,11 +54,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        centerFrequencyAUParameter,
-        bandwidthAUParameter
-    ]];
+                                             centerFrequencyAUParameter,
+                                             bandwidthAUParameter
+                                             ]];
 
-	parameterTreeBlock(BandRejectButterworthFilter)
+    parameterTreeBlock(BandRejectButterworthFilter)
 }
 
 AUAudioUnitOverrides(BandRejectButterworthFilter);

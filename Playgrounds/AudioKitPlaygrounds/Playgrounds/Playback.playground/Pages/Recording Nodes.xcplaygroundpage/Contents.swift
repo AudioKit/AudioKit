@@ -35,23 +35,24 @@ AudioKit.start()
 let recorder = try AKNodeRecorder(node: oscMixer, file: tape)
 
 //: Build our User interface
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var recordLabel: Label!
     var playLabel: Label!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Recording Nodes")
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addSubview(AKButton(title: "Record", color: AKColor.red) {
+        addView(AKButton(title: "Record", color: AKColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
                 self.recordLabel.text = "Stopped. (\(dur) recorded)"
                 recorder.stop()
-                return "Record"
+                button.title = "Record"
             } else {
                 self.recordLabel.text = "Recording..."
                 do {
@@ -59,35 +60,35 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 } catch {
                     AKLog("Couldn't record")
                 }
-                return "Stop"
+                button.title = "Stop"
             }
         })
 
-        addSubview(AKButton(title: "Save") {
+        addView(AKButton(title: "Save") { button in
             tape.exportAsynchronously(name: "test",
                                       baseDir: .documents,
-                                      exportFormat: .caf) { [weak self] exportedFile, error in
+                                      exportFormat: .caf) { [weak self] _, _ in
             }
-            return "Saved"
+            button.title = "Saved"
         })
 
-        addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
+        addView(AKButton(title: "Reset Recording") { button in
             self.recordLabel.text = "Tape Cleared!"
             do {
                 try recorder.reset()
             } catch {
                 AKLog("Couldn't reset.")
             }
-            return "Reset Recording"
+            button.title = "Reset Recording"
         })
 
         playLabel = addLabel("Press Play to playback...")
 
-        addSubview(AKButton(title: "Play") {
+        addView(AKButton(title: "Play") { button in
             if player.isPlaying {
                 self.playLabel.text = "Stopped playback!"
                 player.stop()
-                return "Play"
+                button.title = "Play"
             } else {
                 do {
                     try player.reloadFile()
@@ -102,13 +103,13 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 } else {
                     self.playLabel.text = "Tape is empty!..."
                 }
-                return "Stop"
+                button.title = "Stop"
             }
         })
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
-        self.addSubview(keyboard)
+        self.addView(keyboard)
     }
 
     func callback() {
@@ -139,4 +140,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

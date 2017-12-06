@@ -8,7 +8,7 @@
 
 extension AKOperation {
 
-    /// Morphing Oscillator 
+    /// Morphing Oscillator
     ///
     /// - Parameters:
     ///   - frequency: Frequency in cycles per second (Default: 440)
@@ -27,6 +27,6 @@ extension AKOperation {
 
         return AKOperation(module: "3 / 0 \"sine\" \"square\" \"sawtooth\" \"revsaw\" oscmorph4",
                            setup: "\(sine) \(square) \(sawtooth) \(revsaw)",
-                           inputs: frequency, amplitude, index)
+            inputs: frequency, amplitude, index)
     }
 }

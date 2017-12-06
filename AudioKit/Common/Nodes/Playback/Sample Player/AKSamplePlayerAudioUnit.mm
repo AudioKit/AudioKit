@@ -26,9 +26,17 @@
 - (void)setEndPoint:(float)endPoint {
     _kernel.setEndPoint(endPoint);
 }
-
+- (void)setLoopStartPoint:(float)startPoint {
+    _kernel.setLoopStartPoint(startPoint);
+}
+- (void)setLoopEndPoint:(float)endPoint {
+    _kernel.setLoopEndPoint(endPoint);
+}
 -(void)setCompletionHandler:(AKCCallback)handler {
     _kernel.completionHandler = handler;
+}
+- (void)setLoop:(BOOL)loopOnOff {
+    _kernel.setLoop(loopOnOff);
 }
 - (void)setRate:(float)rate {
     _kernel.setRate(rate);
@@ -36,12 +44,11 @@
 - (void)setVolume:(float)volume {
     _kernel.setVolume(volume);
 }
-- (void)setLoop:(BOOL)loopOnOff {
-    _kernel.setLoop(loopOnOff);
+- (void)setupAudioFileTable:(UInt32)size {
+    _kernel.setUpTable(size);
 }
-
-- (void)setupAudioFileTable:(float *)data size:(UInt32)size {
-    _kernel.setUpTable(data, size);
+- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate {
+    _kernel.loadAudioData(data, size, sampleRate);
 }
 - (int)size {
     return _kernel.ftbl_size;
@@ -54,7 +61,7 @@ standardKernelPassthroughs()
 - (void)createParameters {
 
     standardGeneratorSetup(SamplePlayer)
-    
+
     // Create a parameter object for the start.
     AUParameter *startPointAUParameter = [AUParameter parameter:@"startPoint"
                                                            name:@"startPoint"
@@ -62,20 +69,36 @@ standardKernelPassthroughs()
                                                             min:0
                                                             max:1
                                                            unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Create a parameter object for the endPoint.
     AUParameter *endPointAUParameter = [AUParameter parameter:@"endPoint"
-                                                           name:@"endPoint"
-                                                        address:endPointAddress
+                                                         name:@"endPoint"
+                                                      address:endPointAddress
+                                                          min:0
+                                                          max:1
+                                                         unit:kAudioUnitParameterUnit_Generic];
+
+    // Create a parameter object for the loop start.
+    AUParameter *loopStartPointAUParameter = [AUParameter parameter:@"loopStartPoint"
+                                                           name:@"loopStartPoint"
+                                                        address:loopStartPointAddress
                                                             min:0
                                                             max:1
                                                            unit:kAudioUnitParameterUnit_Generic];
-    
+
+    // Create a parameter object for the loop endPoint.
+    AUParameter *loopEndPointAUParameter = [AUParameter parameter:@"loopEndPoint"
+                                                         name:@"loopEndPoint"
+                                                      address:loopEndPointAddress
+                                                          min:0
+                                                          max:1
+                                                         unit:kAudioUnitParameterUnit_Generic];
+
     // Create a parameter object for the rate.
     AUParameter *rateAUParameter = [AUParameter parameter:@"rate"
-                                                     name:@"rate. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc."
+                                                     name:@"rate. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc."
                                                   address:rateAddress
-                                                      min:0
+                                                      min:-10
                                                       max:10
                                                      unit:kAudioUnitParameterUnit_Generic];
 
@@ -89,23 +112,29 @@ standardKernelPassthroughs()
     // Initialize the parameter values.
     startPointAUParameter.value = 0;
     endPointAUParameter.value = 1;
+    loopStartPointAUParameter.value = 0;
+    loopEndPointAUParameter.value = 1;
     rateAUParameter.value = 1;
     volumeAUParameter.value = 1;
 
     _kernel.setParameter(startPointAddress,   startPointAUParameter.value);
     _kernel.setParameter(endPointAddress,  endPointAUParameter.value);
+    _kernel.setParameter(loopStartPointAddress,   loopStartPointAUParameter.value);
+    _kernel.setParameter(loopEndPointAddress,  loopEndPointAUParameter.value);
     _kernel.setParameter(rateAddress, rateAUParameter.value);
     _kernel.setParameter(volumeAddress, volumeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        startPointAUParameter,
-        endPointAUParameter,
-        rateAUParameter,
-        volumeAUParameter
-    ]];
+                                             startPointAUParameter,
+                                             endPointAUParameter,
+                                             loopStartPointAUParameter,
+                                             loopEndPointAUParameter,
+                                             rateAUParameter,
+                                             volumeAUParameter
+                                             ]];
 
-	parameterTreeBlock(SamplePlayer)
+    parameterTreeBlock(SamplePlayer)
 }
 
 AUAudioUnitGeneratorOverrides(SamplePlayer)

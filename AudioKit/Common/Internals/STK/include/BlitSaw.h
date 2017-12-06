@@ -28,11 +28,10 @@ namespace stk {
 */
 /***************************************************/
 
-class BlitSaw: public Generator
-{
- public:
+class BlitSaw : public Generator {
+public:
   //! Class constructor.
-  BlitSaw( StkFloat frequency = 220.0 );
+  BlitSaw(StkFloat frequency = 220.0);
 
   //! Class destructor.
   ~BlitSaw();
@@ -41,7 +40,7 @@ class BlitSaw: public Generator
   void reset();
 
   //! Set the sawtooth oscillator rate in terms of a frequency in Hz.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Set the number of harmonics generated in the signal.
   /*!
@@ -56,13 +55,13 @@ class BlitSaw: public Generator
     of automatically modifying the M parameter, which can produce
     audible clicks in the signal.
   */
-  void setHarmonics( unsigned int nHarmonics = 0 );
+  void setHarmonics(unsigned int nHarmonics = 0);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Compute and return one output sample.
-  StkFloat tick( void );
+  StkFloat tick(void);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -72,11 +71,10 @@ class BlitSaw: public Generator
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
-  void updateHarmonics( void );
+protected:
+  void updateHarmonics(void);
 
   unsigned int nHarmonics_;
   unsigned int m_;
@@ -86,11 +84,9 @@ class BlitSaw: public Generator
   StkFloat C2_;
   StkFloat a_;
   StkFloat state_;
-
 };
 
-inline StkFloat BlitSaw :: tick( void )
-{
+inline StkFloat BlitSaw ::tick(void) {
   // The code below implements the BLIT algorithm of Stilson and
   // Smith, followed by a summation and filtering operation to produce
   // a sawtooth waveform.  After experimenting with various approaches
@@ -99,19 +95,19 @@ inline StkFloat BlitSaw :: tick( void )
   // most consistently.  A "leaky integrator" is then applied to the
   // difference of the BLIT output and C2_. (GPS - 1 October 2005)
 
-  // A fully  optimized version of this code would replace the two sin 
-  // calls with a pair of fast sin oscillators, for which stable fast 
+  // A fully  optimized version of this code would replace the two sin
+  // calls with a pair of fast sin oscillators, for which stable fast
   // two-multiply algorithms are well known. In the spirit of STK,
-  // which favors clarity over performance, the optimization has 
+  // which favors clarity over performance, the optimization has
   // not been made here.
 
-  // Avoid a divide by zero, or use of a denormalized divisor 
+  // Avoid a divide by zero, or use of a denormalized divisor
   // at the sinc peak, which has a limiting value of m_ / p_.
-  StkFloat tmp, denominator = sin( phase_ );
-  if ( fabs(denominator) <= std::numeric_limits<StkFloat>::epsilon() )
+  StkFloat tmp, denominator = sin(phase_);
+  if (fabs(denominator) <= std::numeric_limits<StkFloat>::epsilon())
     tmp = a_;
   else {
-    tmp =  sin( m_ * phase_ );
+    tmp = sin(m_ * phase_);
     tmp /= p_ * denominator;
   }
 
@@ -119,30 +115,30 @@ inline StkFloat BlitSaw :: tick( void )
   state_ = tmp * 0.995;
 
   phase_ += rate_;
-  if ( phase_ >= PI ) phase_ -= PI;
-    
+  if (phase_ >= PI)
+    phase_ -= PI;
+
   lastFrame_[0] = tmp;
-	return lastFrame_[0];
+  return lastFrame_[0];
 }
 
-inline StkFrames& BlitSaw :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &BlitSaw ::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "BlitSaw::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_
+        << "BlitSaw::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
-
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
     *samples = BlitSaw::tick();
 
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

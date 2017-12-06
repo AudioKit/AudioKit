@@ -1,9 +1,9 @@
 #ifndef STK_RTWVOUT_H
 #define STK_RTWVOUT_H
 
-#include "WvOut.h"
-#include "RtAudio.h"
 #include "Mutex.h"
+#include "RtAudio.h"
+#include "WvOut.h"
 
 namespace stk {
 
@@ -27,10 +27,8 @@ namespace stk {
 */
 /***************************************************/
 
-class RtWvOut : public WvOut
-{
- public:
-
+class RtWvOut : public WvOut {
+public:
   //! Default constructor.
   /*!
     The default \e device argument value (zero) will select the
@@ -39,8 +37,8 @@ class RtWvOut : public WvOut
     default buffer size of RT_BUFFER_SIZE is defined in Stk.h.  An
     StkError will be thrown if an error occurs duing instantiation.
   */
-  RtWvOut( unsigned int nChannels = 1, StkFloat sampleRate = Stk::sampleRate(),
-           int device = 0, int bufferFrames = RT_BUFFER_SIZE, int nBuffers = 20 );
+  RtWvOut(unsigned int nChannels = 1, StkFloat sampleRate = Stk::sampleRate(),
+          int device = 0, int bufferFrames = RT_BUFFER_SIZE, int nBuffers = 20);
 
   //! Class destructor.
   ~RtWvOut();
@@ -50,20 +48,20 @@ class RtWvOut : public WvOut
     The stream is started automatically, if necessary, when a
     tick() method is called.
   */
-  void start( void );
+  void start(void);
 
   //! Stop the audio output stream.
   /*!
     It may be necessary to use this method to avoid undesireable
     audio buffer cycling if you wish to temporarily stop audio output.
   */
-  void stop( void );
+  void stop(void);
 
   //! Output a single sample to all channels in a sample frame.
   /*!
     If the device is "stopped", it is "started".
   */
-  void tick( const StkFloat sample );
+  void tick(const StkFloat sample);
 
   //! Output the StkFrames data.
   /*!
@@ -73,14 +71,13 @@ class RtWvOut : public WvOut
     checked if _STK_DEBUG_ is defined during compilation, in which
     case an incompatibility will trigger an StkError exception.
   */
-  void tick( const StkFrames& frames );
+  void tick(const StkFrames &frames);
 
   // This function is not intended for general use but must be
   // public for access from the audio callback function.
-  int readBuffer( void *buffer, unsigned int frameCount );
+  int readBuffer(void *buffer, unsigned int frameCount);
 
- protected:
-
+protected:
   RtAudio dac_;
   Mutex mutex_;
   bool stopped_;
@@ -88,9 +85,8 @@ class RtWvOut : public WvOut
   unsigned int writeIndex_;
   long framesFilled_;
   unsigned int status_; // running = 0, emptying buffer = 1, finished = 2
-
 };
 
-} // stk namespace
+} // namespace stk
 
 #endif

@@ -50,7 +50,7 @@ standardKernelPassthroughs()
                                                       min:0.0
                                                       max:10.0
                                                      unit:kAudioUnitParameterUnit_Generic];
-  // Create a parameter object for the q.
+    // Create a parameter object for the q.
     AUParameter *qAUParameter = [AUParameter parameter:@"q"
                                                   name:@"Q"
                                                address:qAddress
@@ -69,12 +69,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        cornerFrequencyAUParameter,
-        gainAUParameter,
-        qAUParameter
-    ]];
+                                             cornerFrequencyAUParameter,
+                                             gainAUParameter,
+                                             qAUParameter
+                                             ]];
 
-	parameterTreeBlock(LowShelfParametricEqualizerFilter)
+    parameterTreeBlock(LowShelfParametricEqualizerFilter)
 }
 
 AUAudioUnitOverrides(LowShelfParametricEqualizerFilter);

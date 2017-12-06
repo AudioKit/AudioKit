@@ -27,7 +27,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
 }
 
 /// Helpful additions for using AVAudioFiles within AudioKit
-extension AVAudioFile {
+@objc extension AVAudioFile {
 
     // MARK: - Public Properties
 
@@ -214,6 +214,8 @@ extension AVAudioFile {
         AVURLAsset(url: URL(fileURLWithPath: self.url.path))
     }()
 
+    // MARK: - open vars
+
     /// Returns an AVAsset from the AKAudioFile
     open var avAsset: AVURLAsset {
         return internalAVAsset
@@ -258,16 +260,15 @@ extension AVAudioFile {
                                       frameCapacity: AVAudioFrameCount(self.length))
 
         do {
-            try self.read(into: buffer)
+            try self.read(into: buffer!)
         } catch let error as NSError {
             AKLog("error cannot readIntBuffer, Error: \(error)")
         }
 
-        return buffer
+        return buffer!
 
     }()
 
-    ///
     /// returns the peak level expressed in dB ( -> Float).
     open lazy var maxLevel: Float = {
         var maxLev: Float = 0

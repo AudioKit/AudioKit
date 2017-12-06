@@ -5,8 +5,6 @@
 //  Created by Laurent Veliscek on 7/4/16.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
-//
-//
 
 extension AKAudioFile {
 
@@ -26,7 +24,7 @@ extension AKAudioFile {
                               name: String = "") throws -> AKAudioFile {
 
         if samples < 0 {
-            AKLog( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count")
+            AKLog("ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
         } else if samples == 0 {
             let emptyFile = try AKAudioFile(writeIn: baseDir, name: name)
@@ -38,6 +36,65 @@ extension AKAudioFile {
         let silentFile = try AKAudioFile(createFileFromFloats: [zeros, zeros], baseDir: baseDir, name: name)
 
         return try AKAudioFile(forReading: silentFile.url)
+    }
+
+    /// Returns the time of the peak of the buffer
+    /// - Parameters:
+    ///   - pcmBuffer: A valid AVAudioPCMBuffer
+    /// - Returns: The time in seconds or 0 if it failed
+    static public func findPeak( pcmBuffer: AVAudioPCMBuffer ) -> Double {
+        guard pcmBuffer.frameLength > 0 else { return 0 }
+        guard let floatData = pcmBuffer.floatChannelData else { return 0 }
+
+        var framePosition = 0
+        var position = 0
+        var lastPeak: Float = -10_000.0
+        let frameLength = 512
+        let channelCount = Int(pcmBuffer.format.channelCount)
+
+        while true {
+            if position + frameLength >= pcmBuffer.frameLength {
+                break
+            }
+            for channel in 0 ..< channelCount {
+                var block = Array(repeating: Float(0), count: frameLength)
+
+                // fill the block with frameLength samples
+                for i in 0 ..< block.count {
+                    if i + position >= pcmBuffer.frameLength {
+                        break
+                    }
+                    block[i] = floatData[channel][i + position]
+                }
+                // scan the block
+                let peak = AKAudioFile.getPeak(from: block)
+
+                if peak > lastPeak {
+                    framePosition = position
+                    lastPeak = peak
+                }
+                position += block.count
+            }
+        }
+
+        let time = Double(framePosition / pcmBuffer.format.sampleRate)
+        return time
+    }
+
+    /// return the highest level in the given collection of floats
+    static private func getPeak(from buffer: [Float]) -> Float {
+        // create variable with very small value to hold the peak value
+        var peak: Float = -10_000.0
+
+        for i in 0 ..< buffer.count {
+            // store the absolute value of the sample
+            let absSample = abs(buffer[i])
+
+            if absSample > peak {
+                peak = absSample
+            }
+        }
+        return peak
     }
 
 }

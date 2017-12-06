@@ -61,10 +61,10 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        frequencyAUParameter,
-        amplitudeAUParameter
-    ]];
-	parameterTreeBlock(PluckedString)
+                                                               frequencyAUParameter,
+                                                               amplitudeAUParameter
+                                                               ]];
+    parameterTreeBlock(PluckedString)
 }
 
 AUAudioUnitGeneratorOverrides(PluckedString)

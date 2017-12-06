@@ -45,8 +45,8 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        panAUParameter
-    ]];
+                                             panAUParameter
+                                             ]];
 
     parameterTreeBlock(Panner)
 }

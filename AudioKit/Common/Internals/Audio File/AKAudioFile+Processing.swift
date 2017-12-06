@@ -39,7 +39,7 @@ extension AKAudioFile {
             return try AKAudioFile(forReading: outputFile.url)
         }
 
-        let gainFactor = Float( pow(10.0, newMaxLevel / 10.0) / pow(10.0, level / 10.0))
+        let gainFactor = Float( pow(10.0, newMaxLevel / 20.0) / pow(10.0, level / 20.0))
 
         let arrays = self.floatChannelData ?? [[]]
 
@@ -143,7 +143,7 @@ extension AKAudioFile {
                     value: "Couldn't match source file format with appended file format",
                     comment: "")
             ]
-            throw NSError(domain: "AKAudioFile ASync Process Unknown Error", code: 0, userInfo: userInfo)
+            throw NSError(domain: "AKAudioFile ASync Process Unknown Error", code: 0, userInfo: userInfo as? [String : Any])
         }
 
         let outputFile = try AKAudioFile (writeIn: baseDir, name: name)

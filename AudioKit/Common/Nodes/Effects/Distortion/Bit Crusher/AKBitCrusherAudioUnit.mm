@@ -57,11 +57,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        bitDepthAUParameter,
-        sampleRateAUParameter
-    ]];
+                                             bitDepthAUParameter,
+                                             sampleRateAUParameter
+                                             ]];
 
-	parameterTreeBlock(BitCrusher)
+    parameterTreeBlock(BitCrusher)
 }
 
 AUAudioUnitOverrides(BitCrusher);

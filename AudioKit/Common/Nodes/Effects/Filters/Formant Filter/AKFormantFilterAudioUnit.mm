@@ -32,7 +32,7 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(FormantFilter)
 
     AUParameter *xAUParameter = [AUParameter parameter:@"x"
@@ -58,9 +58,9 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        xAUParameter,
-        yAUParameter
-    ]];
+                                             xAUParameter,
+                                             yAUParameter
+                                             ]];
 
     parameterTreeBlock(FormantFilter)
 }

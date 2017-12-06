@@ -27,7 +27,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <TargetConditionals.h>
 #import "TPCircularBuffer.h"
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 #import <AVFoundation/AVFoundation.h>
 #elif TARGET_OS_MAC
 #endif
@@ -262,7 +262,7 @@ typedef NSRect EZRect;
 //------------------------------------------------------------------------------
 
 /**
- Checks an AudioStreamBasicDescription to see if it is a linear PCM format (uncompressed, 
+ Checks an AudioStreamBasicDescription to see if it is a linear PCM format (uncompressed,
  1 frame per packet)
  @param asbd A valid AudioStreamBasicDescription
  @return A BOOL indicating whether or not the AudioStreamBasicDescription is linear PCM.

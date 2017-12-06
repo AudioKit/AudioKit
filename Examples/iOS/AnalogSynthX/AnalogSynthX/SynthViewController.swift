@@ -7,6 +7,7 @@
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class SynthViewController: UIViewController {
@@ -17,25 +18,25 @@ class SynthViewController: UIViewController {
 
     @IBOutlet fileprivate weak var statusLabel: UILabel!
     @IBOutlet fileprivate weak var octavePositionLabel: UILabel!
-    @IBOutlet fileprivate weak var oscMixKnob: KnobMedium!
-    @IBOutlet fileprivate weak var osc1SemitonesKnob: KnobMedium!
-    @IBOutlet fileprivate weak var osc2SemitonesKnob: KnobMedium!
-    @IBOutlet fileprivate weak var osc2DetuneKnob: KnobMedium!
-    @IBOutlet fileprivate weak var lfoAmtKnob: KnobMedium!
-    @IBOutlet fileprivate weak var lfoRateKnob: KnobMedium!
-    @IBOutlet fileprivate weak var crushAmtKnob: KnobMedium!
-    @IBOutlet fileprivate weak var delayTimeKnob: KnobMedium!
-    @IBOutlet fileprivate weak var delayMixKnob: KnobMedium!
-    @IBOutlet fileprivate weak var reverbAmtKnob: KnobMedium!
-    @IBOutlet fileprivate weak var reverbMixKnob: KnobMedium!
-    @IBOutlet fileprivate weak var cutoffKnob: KnobLarge!
-    @IBOutlet fileprivate weak var rezKnob: KnobSmall!
-    @IBOutlet fileprivate weak var subMixKnob: KnobSmall!
-    @IBOutlet fileprivate weak var fmMixKnob: KnobSmall!
-    @IBOutlet fileprivate weak var fmModKnob: KnobSmall!
-    @IBOutlet fileprivate weak var noiseMixKnob: KnobSmall!
-    @IBOutlet fileprivate weak var morphKnob: KnobSmall!
-    @IBOutlet fileprivate weak var masterVolKnob: KnobSmall!
+    @IBOutlet fileprivate weak var oscMixKnob: Knob!
+    @IBOutlet fileprivate weak var osc1SemitonesKnob: Knob!
+    @IBOutlet fileprivate weak var osc2SemitonesKnob: Knob!
+    @IBOutlet fileprivate weak var osc2DetuneKnob: Knob!
+    @IBOutlet fileprivate weak var lfoAmtKnob: Knob!
+    @IBOutlet fileprivate weak var lfoRateKnob: Knob!
+    @IBOutlet fileprivate weak var crushAmtKnob: Knob!
+    @IBOutlet fileprivate weak var delayTimeKnob: Knob!
+    @IBOutlet fileprivate weak var delayMixKnob: Knob!
+    @IBOutlet fileprivate weak var reverbAmtKnob: Knob!
+    @IBOutlet fileprivate weak var reverbMixKnob: Knob!
+    @IBOutlet fileprivate weak var cutoffKnob: Knob!
+    @IBOutlet fileprivate weak var rezKnob: Knob!
+    @IBOutlet fileprivate weak var subMixKnob: Knob!
+    @IBOutlet fileprivate weak var fmMixKnob: Knob!
+    @IBOutlet fileprivate weak var fmModKnob: Knob!
+    @IBOutlet fileprivate weak var noiseMixKnob: Knob!
+    @IBOutlet fileprivate weak var morphKnob: Knob!
+    @IBOutlet fileprivate weak var masterVolKnob: Knob!
     @IBOutlet fileprivate weak var attackSlider: VerticalSlider!
     @IBOutlet fileprivate weak var decaySlider: VerticalSlider!
     @IBOutlet fileprivate weak var sustainSlider: VerticalSlider!
@@ -49,7 +50,7 @@ class SynthViewController: UIViewController {
     @IBOutlet fileprivate weak var fattenToggle: UIButton!
     @IBOutlet fileprivate weak var holdToggle: UIButton!
     @IBOutlet fileprivate weak var monoToggle: UIButton!
-    @IBOutlet fileprivate weak var audioPlot: AKOutputWaveformPlot!
+    @IBOutlet weak var audioPlot: AKNodeOutputPlot!
     @IBOutlet fileprivate weak var plotToggle: UIButton!
 
     enum ControlTag: Int {
@@ -118,9 +119,9 @@ class SynthViewController: UIViewController {
 
         // Set Preset Values
         conductor.masterVolume.volume = 1.0 // Master Volume
-        conductor.core.vco1.detuningOffset = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
-        conductor.core.vco2.detuningOffset = 0.0 // VCO2 Detune (Hz)
+        conductor.core.vco2.vibratoDepth = 0.0 // VCO2 Detune (Hz)
+        conductor.core.vco2.vibratoRate = 1.0 // VCO2 Detune (Hz)
         conductor.core.vcoBalancer.balance = 0.5 // VCO1/VCO2 Mix
         conductor.core.subOscMixer.volume = 0.0 // SubOsc Mix
         conductor.core.fmOscMixer.volume = 0.0 // FM Mix
@@ -168,9 +169,9 @@ class SynthViewController: UIViewController {
         osc2SemitonesKnob.maximum = 12
         osc2SemitonesKnob.value = Double(conductor.core.offset2)
 
-        osc2DetuneKnob.minimum = -4
-        osc2DetuneKnob.maximum = 4
-        osc2DetuneKnob.value = conductor.core.vco2.detuningOffset
+        osc2DetuneKnob.minimum = -0.25
+        osc2DetuneKnob.maximum = 0.25
+        osc2DetuneKnob.value = conductor.core.vco2.vibratoDepth
 
         subMixKnob.maximum = 1.0
         subMixKnob.value = conductor.core.subOscMixer.volume
@@ -387,6 +388,10 @@ class SynthViewController: UIViewController {
         openURL("http://audiokit.io/examples/AnalogSynthX")
     }
 
+    @IBAction func newAppPressed(_ sender: RoundedButton) {
+         openURL("https://audiokitpro.com/audiokit-synth-one/")
+    }
+
     //*****************************************************************
     // MARK: - 🎹 Key Presses
     //*****************************************************************
@@ -535,7 +540,7 @@ class SynthViewController: UIViewController {
 // MARK: - 🎛 Knob Delegates
 //*****************************************************************
 
-extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeDelegate {
+extension SynthViewController: KnobDelegate {
 
     func updateKnobValue(_ value: Double, tag: Int) {
 
@@ -554,7 +559,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
 
         case ControlTag.vco2Detune.rawValue:
             statusLabel.text = "Detune: \(value.decimalString) Hz"
-            conductor.core.vco2.detuningOffset = value
+            conductor.core.vco2.vibratoDepth = value
 
         case ControlTag.oscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalString)"

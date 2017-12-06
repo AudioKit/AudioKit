@@ -55,7 +55,7 @@ standardKernelPassthroughs()
                                                                min:0
                                                                max:99
                                                               unit:kAudioUnitParameterUnit_Seconds];
-  // Create a parameter object for the sustainLevel.
+    // Create a parameter object for the sustainLevel.
     AUParameter *sustainLevelAUParameter = [AUParameter parameter:@"sustainLevel"
                                                              name:@"Sustain Level"
                                                           address:sustainLevelAddress
@@ -83,13 +83,13 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter
-    ]];
+                                             attackDurationAUParameter,
+                                             decayDurationAUParameter,
+                                             sustainLevelAUParameter,
+                                             releaseDurationAUParameter
+                                             ]];
 
-	parameterTreeBlock(AmplitudeEnvelope)
+    parameterTreeBlock(AmplitudeEnvelope)
 }
 
 AUAudioUnitOverrides(AmplitudeEnvelope);

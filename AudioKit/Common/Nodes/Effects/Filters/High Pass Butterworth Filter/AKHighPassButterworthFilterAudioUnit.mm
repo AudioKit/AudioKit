@@ -45,10 +45,10 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        cutoffFrequencyAUParameter
-    ]];
+                                             cutoffFrequencyAUParameter
+                                             ]];
 
-	parameterTreeBlock(HighPassButterworthFilter)
+    parameterTreeBlock(HighPassButterworthFilter)
 }
 
 AUAudioUnitOverrides(HighPassButterworthFilter);

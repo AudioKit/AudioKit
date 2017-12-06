@@ -1,9 +1,9 @@
 /*
  * Foo
- * 
+ *
  * This is a dummy module. It doesn't do much.
  * Feel free to use this as a boilerplate template.
- * 
+ *
  */
 
 #include <stdlib.h>
@@ -36,6 +36,6 @@ int sp_clock_compute(sp_data *sp, sp_clock *p, SPFLOAT *in, SPFLOAT *out)
         *out = 1.0;
         p->counter = (int)(sp->sr * (60.0 / (p->bpm * p->subdiv))) + 1;
     }
-    p->counter--; 
+    p->counter--;
     return SP_OK;
 }

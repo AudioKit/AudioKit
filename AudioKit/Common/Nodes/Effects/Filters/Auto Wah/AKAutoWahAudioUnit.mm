@@ -73,10 +73,10 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        wahAUParameter,
-        mixAUParameter,
-        amplitudeAUParameter
-    ]];
+                                             wahAUParameter,
+                                             mixAUParameter,
+                                             amplitudeAUParameter
+                                             ]];
 
     parameterTreeBlock(AutoWah)
 }

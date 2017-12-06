@@ -122,7 +122,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     growl_compute(sp, growl, in, out);
                     *out = *in;
@@ -136,7 +136,7 @@ public:
     // MARK: Member Variables
 
 private:
-    
+
     growl_d *growl;
     float x = 0;
     float y = 0;

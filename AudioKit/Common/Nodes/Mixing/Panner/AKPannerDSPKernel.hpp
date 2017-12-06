@@ -90,12 +90,12 @@ public:
             pan = panRamper.getAndStep();
             panst->pan = (float)pan;
 
-            if (!started) {
+            if (!started || AKSettings.numberOfChannels != 2) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
                 outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
                 return;
             }
-            
+
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < channels; ++channel) {
@@ -107,7 +107,7 @@ public:
                 }
             }
             sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
-            
+
         }
     }
 
@@ -116,7 +116,7 @@ public:
 private:
 
     sp_panst *panst;
-    
+
     float pan = 0.0;
 
 public:

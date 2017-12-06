@@ -45,7 +45,7 @@
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-    
+
     parameterTreeBlock(FrequencyTracker)
 }
 

@@ -8,24 +8,14 @@
 
 #pragma once
 
-#import "AKAudioUnit.h"
+#import "AKBankAudioUnit.h"
 
-@interface AKPhaseDistortionOscillatorBankAudioUnit : AKAudioUnit
+@interface AKPhaseDistortionOscillatorBankAudioUnit : AKBankAudioUnit
 
 @property (nonatomic) float phaseDistortion;
 
-@property (nonatomic) float attackDuration;
-@property (nonatomic) float decayDuration;
-@property (nonatomic) float sustainLevel;
-@property (nonatomic) float releaseDuration;
-@property (nonatomic) float detuningOffset;
-@property (nonatomic) float detuningMultiplier;
-
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
-- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
-- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;
-- (void)stopNote:(uint8_t)note;
 
 @end
 

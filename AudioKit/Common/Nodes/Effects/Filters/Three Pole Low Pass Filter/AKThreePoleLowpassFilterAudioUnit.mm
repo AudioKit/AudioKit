@@ -69,12 +69,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        distortionAUParameter,
-        cutoffFrequencyAUParameter,
-        resonanceAUParameter
-    ]];
+                                             distortionAUParameter,
+                                             cutoffFrequencyAUParameter,
+                                             resonanceAUParameter
+                                             ]];
 
-	parameterTreeBlock(ThreePoleLowpassFilter)
+    parameterTreeBlock(ThreePoleLowpassFilter)
 }
 
 AUAudioUnitOverrides(ThreePoleLowpassFilter);

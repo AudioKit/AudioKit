@@ -68,13 +68,13 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        shiftAUParameter,
-        windowSizeAUParameter,
-        crossfadeAUParameter
-    ]];
+                                             shiftAUParameter,
+                                             windowSizeAUParameter,
+                                             crossfadeAUParameter
+                                             ]];
 
 
-	parameterTreeBlock(PitchShifter)
+    parameterTreeBlock(PitchShifter)
 }
 
 AUAudioUnitOverrides(PitchShifter);

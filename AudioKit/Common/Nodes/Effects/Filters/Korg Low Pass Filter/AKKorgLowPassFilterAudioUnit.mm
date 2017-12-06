@@ -37,12 +37,12 @@ standardKernelPassthroughs()
     standardSetup(KorgLowPassFilter)
 
     // Create a parameter object for the cutoffFrequency.
-  AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
-                                                              name:@"Filter cutoff"
-                                                           address:cutoffFrequencyAddress
-                                                               min:0.0
-                                                               max:22050.0
-                                                              unit:kAudioUnitParameterUnit_Hertz];
+    AUParameter *cutoffFrequencyAUParameter = [AUParameter parameter:@"cutoffFrequency"
+                                                                name:@"Filter cutoff"
+                                                             address:cutoffFrequencyAddress
+                                                                 min:0.0
+                                                                 max:22050.0
+                                                                unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the resonance.
     AUParameter *resonanceAUParameter = [AUParameter parameter:@"resonance"
                                                           name:@"Filter resonance (should be between 0-2)"
@@ -70,12 +70,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        cutoffFrequencyAUParameter,
-        resonanceAUParameter,
-        saturationAUParameter
-    ]];
+                                             cutoffFrequencyAUParameter,
+                                             resonanceAUParameter,
+                                             saturationAUParameter
+                                             ]];
 
-	parameterTreeBlock(KorgLowPassFilter)
+    parameterTreeBlock(KorgLowPassFilter)
 }
 
 AUAudioUnitOverrides(KorgLowPassFilter);

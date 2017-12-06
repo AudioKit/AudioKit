@@ -25,14 +25,14 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     fileprivate var pitchRatioParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    open dynamic var position: Double = 0 {
+    @objc open dynamic var position: Double = 0 {
         willSet {
             if position != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -47,7 +47,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     }
 
     /// Amplitude.
-    open dynamic var amplitude: Double = 1 {
+    @objc open dynamic var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -62,7 +62,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     }
 
     /// Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
-    open dynamic var pitchRatio: Double = 1 {
+    @objc open dynamic var pitchRatio: Double = 1 {
         willSet {
             if pitchRatio != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -77,7 +77,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -88,12 +88,12 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     /// Initialize this Phase-Locked Vocoder node
     ///
     /// - Parameters:
-    ///   - audioFileURL: Location of the audio file to use.
+    ///   - file: Location of the audio file to use.
     ///   - position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     ///   - amplitude: Amplitude.
     ///   - pitchRatio: Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     ///
-    public init(
+    @objc public init(
         file: AVAudioFile,
         position: Double = 0,
         amplitude: Double = 1,
@@ -115,6 +115,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -122,16 +123,15 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         amplitudeParameter = tree["amplitude"]
         pitchRatioParameter = tree["pitchRatio"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.positionParameter?.address {
-                    self?.position = Double(value)
-                } else if address == self?.amplitudeParameter?.address {
-                    self?.amplitude = Double(value)
-                } else if address == self?.pitchRatioParameter?.address {
-                    self?.pitchRatio = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.position = Float(position)
@@ -142,7 +142,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
@@ -232,7 +232,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

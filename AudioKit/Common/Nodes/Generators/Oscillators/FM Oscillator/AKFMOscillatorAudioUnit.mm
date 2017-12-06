@@ -98,14 +98,14 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        baseFrequencyAUParameter,
-        carrierMultiplierAUParameter,
-        modulatingMultiplierAUParameter,
-        modulationIndexAUParameter,
-        amplitudeAUParameter
-    ]];
+                                             baseFrequencyAUParameter,
+                                             carrierMultiplierAUParameter,
+                                             modulatingMultiplierAUParameter,
+                                             modulationIndexAUParameter,
+                                             amplitudeAUParameter
+                                             ]];
 
-	parameterTreeBlock(FMOscillator)
+    parameterTreeBlock(FMOscillator)
 }
 
 AUAudioUnitGeneratorOverrides(FMOscillator)

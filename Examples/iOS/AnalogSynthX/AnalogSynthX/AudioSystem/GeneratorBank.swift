@@ -23,10 +23,10 @@ class GeneratorBank: AKPolyphonicNode {
 
     var globalbend: Double = 1.0 {
         didSet {
-            vco1.detuningMultiplier = globalbend
-            vco2.detuningMultiplier = globalbend
-            subOsc.detuningMultiplier = globalbend
-            fmOsc.detuningMultiplier = globalbend
+            vco1.pitchBend = globalbend
+            vco2.pitchBend = globalbend
+            subOsc.pitchBend = globalbend
+            fmOsc.pitchBend = globalbend
         }
     }
 
@@ -139,7 +139,7 @@ class GeneratorBank: AKPolyphonicNode {
         let square = AKTable(.square)
         let sawtooth = AKTable(.sawtooth)
 
-        var squareWithHighPWM = AKTable()
+        let squareWithHighPWM = AKTable()
         let count = squareWithHighPWM.count
         for i in squareWithHighPWM.indices {
             if i < count / 8 {

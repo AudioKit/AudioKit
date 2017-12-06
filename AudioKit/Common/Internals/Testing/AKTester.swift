@@ -7,7 +7,7 @@
 //
 
 /// Testing node
-open class AKTester: AKNode, AKToggleable, AKComponent {
+open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKTesterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "tstr")
@@ -39,9 +39,9 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: AKNode to test
-    ///   - sample: Number of sample to product
+    ///   - samples: Number of samples to produce
     ///
-    public init(_ input: AKNode?, samples: Int) {
+    @objc public init(_ input: AKNode?, samples: Int) {
 
         testedNode = input as? AKToggleable
         totalSamples = samples
@@ -54,19 +54,19 @@ open class AKTester: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
             self?.internalAU?.samples = Int32(samples)
         }
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         testedNode?.start()
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

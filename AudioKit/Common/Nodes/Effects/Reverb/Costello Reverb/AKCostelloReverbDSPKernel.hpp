@@ -122,12 +122,12 @@ public:
                     tmpin[channel] = in;
                     tmpout[channel] = out;
                 }
+                if (!started) {
+                    *out = *in;
+                }
             }
             if (started) {
                 sp_revsc_compute(sp, revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
-            } else {
-                tmpout[0] = tmpin[0];
-                tmpout[1] = tmpin[1];
             }
         }
     }

@@ -57,11 +57,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        feedbackAUParameter,
-        cutoffFrequencyAUParameter
-    ]];
+                                             feedbackAUParameter,
+                                             cutoffFrequencyAUParameter
+                                             ]];
 
-	parameterTreeBlock(CostelloReverb)
+    parameterTreeBlock(CostelloReverb)
 }
 
 AUAudioUnitOverrides(CostelloReverb);

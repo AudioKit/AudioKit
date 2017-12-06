@@ -46,7 +46,7 @@ public:
             internalGate = 0;
             started = false;
         }
-        
+
     }
 
     void destroy() {
@@ -165,7 +165,7 @@ public:
             adsr->rel = (float)releaseDuration;
 
             sp_adsr_compute(sp, adsr, &internalGate, &amp);
-            
+
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;

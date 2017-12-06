@@ -97,14 +97,14 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        frequencyAUParameter,
-        amplitudeAUParameter,
-        phaseDistortionAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
-    ]];
+                                             frequencyAUParameter,
+                                             amplitudeAUParameter,
+                                             phaseDistortionAUParameter,
+                                             detuningOffsetAUParameter,
+                                             detuningMultiplierAUParameter
+                                             ]];
 
-	parameterTreeBlock(PhaseDistortionOscillator)
+    parameterTreeBlock(PhaseDistortionOscillator)
 }
 
 AUAudioUnitGeneratorOverrides(PhaseDistortionOscillator)

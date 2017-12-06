@@ -67,12 +67,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        centerFrequencyAUParameter,
-        gainAUParameter,
-        qAUParameter
-    ]];
+                                             centerFrequencyAUParameter,
+                                             gainAUParameter,
+                                             qAUParameter
+                                             ]];
 
-	parameterTreeBlock(PeakingParametricEqualizerFilter)
+    parameterTreeBlock(PeakingParametricEqualizerFilter)
 }
 
 AUAudioUnitOverrides(PeakingParametricEqualizerFilter);

@@ -15,7 +15,7 @@ int sp_tin_destroy(sp_tin **p)
 
 int sp_tin_init(sp_data *sp, sp_tin *p)
 {
-    p->fp = stdin; 
+    p->fp = stdin;
     p->val = 0;
     return SP_OK;
 }

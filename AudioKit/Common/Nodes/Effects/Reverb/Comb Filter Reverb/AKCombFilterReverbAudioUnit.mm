@@ -50,11 +50,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        reverbDurationAUParameter
-    ]];
+                                             reverbDurationAUParameter
+                                             ]];
 
 
-	parameterTreeBlock(CombFilterReverb)
+    parameterTreeBlock(CombFilterReverb)
 }
 
 AUAudioUnitOverrides(CombFilterReverb);

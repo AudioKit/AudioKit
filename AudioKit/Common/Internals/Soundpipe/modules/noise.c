@@ -16,7 +16,7 @@ int sp_noise_init(sp_data *sp, sp_noise *ns)
 
 int sp_noise_compute(sp_data *sp, sp_noise *ns, SPFLOAT *in, SPFLOAT *out)
 {
-    *out = ((sp_rand(sp) % RAND_MAX) / (SP_RANDMAX * 1.0));
+    *out = ((sp_rand(sp) % SP_RANDMAX) / (SP_RANDMAX * 1.0));
     *out = (*out * 2) - 1;
     *out *= ns->amp;
     return SP_OK;

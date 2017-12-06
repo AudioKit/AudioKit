@@ -37,12 +37,12 @@ standardKernelPassthroughs()
     standardSetup(HighShelfParametricEqualizerFilter)
 
     // Create a parameter object for the centerFrequency.
-  AUParameter *centerFrequencyAUParameter = [AUParameter parameter:@"centerFrequency"
-                                                              name:@"Corner Frequency (Hz)"
-                                                           address:centerFrequencyAddress
-                                                               min:12.0
-                                                               max:20000.0
-                                                              unit:kAudioUnitParameterUnit_Hertz];
+    AUParameter *centerFrequencyAUParameter = [AUParameter parameter:@"centerFrequency"
+                                                                name:@"Corner Frequency (Hz)"
+                                                             address:centerFrequencyAddress
+                                                                 min:12.0
+                                                                 max:20000.0
+                                                                unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the gain.
     AUParameter *gainAUParameter = [AUParameter parameter:@"gain"
                                                      name:@"Gain"
@@ -69,12 +69,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        centerFrequencyAUParameter,
-        gainAUParameter,
-        qAUParameter
-    ]];
+                                             centerFrequencyAUParameter,
+                                             gainAUParameter,
+                                             qAUParameter
+                                             ]];
 
-	parameterTreeBlock(HighShelfParametricEqualizerFilter)
+    parameterTreeBlock(HighShelfParametricEqualizerFilter)
 }
 
 AUAudioUnitOverrides(HighShelfParametricEqualizerFilter);

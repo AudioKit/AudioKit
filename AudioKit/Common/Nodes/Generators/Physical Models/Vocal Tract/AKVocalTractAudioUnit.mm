@@ -99,12 +99,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        frequencyAUParameter,
-        tonguePositionAUParameter,
-        tongueDiameterAUParameter,
-        tensenessAUParameter,
-        nasalityAUParameter
-    ]];
+                                             frequencyAUParameter,
+                                             tonguePositionAUParameter,
+                                             tongueDiameterAUParameter,
+                                             tensenessAUParameter,
+                                             nasalityAUParameter
+                                             ]];
 
     parameterTreeBlock(VocalTract)
 }

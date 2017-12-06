@@ -7,16 +7,16 @@
 //
 
 /// Helpful in reducing repetitive code in AudioKit
-public protocol Aliased {
+@objc public protocol Aliased {
     associatedtype _Self = Self
 }
 
 /// Helpful in reducing repetitive code in AudioKit
-public protocol AUComponent: class, Aliased {
+@objc public protocol AUComponent: class, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
-protocol AUEffect: AUComponent { }
+@objc protocol AUEffect: AUComponent { }
 
 extension AUEffect {
     static var effect: AVAudioUnitEffect {
@@ -84,7 +84,7 @@ extension AudioComponentDescription {
     public init(generator subType: String) {
         self.init(type: kAudioUnitType_Generator, subType: fourCC(subType))
     }
-    
+
     /// Initialize as an instrument with a sub-type string
     public init(instrument subType: String) {
         self.init(type: kAudioUnitType_MusicDevice, subType: fourCC(subType))
