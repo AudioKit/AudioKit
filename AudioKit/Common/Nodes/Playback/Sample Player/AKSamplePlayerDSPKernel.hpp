@@ -29,7 +29,6 @@ public:
 
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
-        sp_phasor_create(&phasor);
 
         startPointRamper.init();
         endPointRamper.init();
@@ -42,15 +41,14 @@ public:
 
         sp_tabread_init(sp, tabread1, ftbl1, 1);
         sp_tabread_init(sp, tabread2, ftbl2, 1);
-        sp_phasor_init(sp, phasor, 0.0);
-
-        SPFLOAT dur;
-        dur = (SPFLOAT)current_size / sp->sr;
-        phasor->freq = 1.0 / dur * rate;
+        tabread1->mode = 0;
+        tabread2->mode = 0;
+        
         lastPosition = 0.0;
         inLoopPhase = false;
-        phasor->curphs = 0;
-        position = 0;
+        position = startPointViaRate();
+        printf("starting From %0.3f\n", position);
+        printf("rate %0.3f\n", rate);
         mainPlayComplete = false;
     }
 
@@ -67,18 +65,14 @@ public:
         }
     }
 
-    void loadAudioData(float *table, UInt32 size) {
+    void loadAudioData(float *table, UInt32 size, float sampleRate) {
+        sourceSampleRate = sampleRate;
         current_size = fmin(size / 2, ftbl_size);
-        int counter1 = 0;
-        int counter2 = 0;
-        for (int i = 0; i < 2 * current_size; i++) {
-            if (i % 2 == 0) {
-                ftbl1->tbl[counter1] = table[i];
-                counter1++;
-            } else {
-                ftbl2->tbl[counter2] = table[i];
-                counter2++;
-            }
+        for (int i = 0; i < current_size; i++) {
+            ftbl1->tbl[i] = table[i];
+        }
+        for (int i = 0; i < current_size; i++) {
+            ftbl2->tbl[i] = table[i + current_size];
         }
     }
 
@@ -120,7 +114,7 @@ public:
     }
 
     void setRate(float value) {
-        rate = clamp(value, 0.0f, 10.0f);
+        rate = clamp(value, -10.0f, 10.0f);
         rateRamper.setImmediate(rate);
     }
 
@@ -148,7 +142,7 @@ public:
                 break;
 
             case rateAddress:
-                rateRamper.setUIValue(clamp(value, 0.0f, 10.0f));
+                rateRamper.setUIValue(clamp(value, -10.0f, 10.0f));
                 break;
 
             case volumeAddress:
@@ -200,7 +194,7 @@ public:
                 break;
 
             case rateAddress:
-                rateRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
+                rateRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
                 break;
 
             case volumeAddress:
@@ -208,7 +202,7 @@ public:
                 break;
         }
     }
-
+    
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -222,53 +216,39 @@ public:
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
 
-            SPFLOAT dur = (SPFLOAT)current_size / sp->sr;
-
-            //length of playableSample vs actual
-            float startPointToUse = startPoint;
-            float endPointToUse = endPoint;
-            float nextPosition = 2.0 * position - lastPosition;
-            int nextSamplePosition = (int)(nextPosition * current_size);
+            float startPointToUse = startPointViaRate();
+            float endPointToUse = endPointViaRate();
+            double nextPosition = position + sampleRateRatio() * rate;
 
             if (started){
-                if (nextSamplePosition >= endPoint){
-                    mainPlayComplete = true;
-                }
+                //printf("nextPosition %0.3f\n",nextPosition);
+                calculateMainPlayComplete(nextPosition);
                 if (loop){
-
-                    if (!inLoopPhase && nextSamplePosition >= loopEndPoint && mainPlayComplete){
-                        inLoopPhase = true;
-                        phasor->curphs = 0;
-                    }
+                    calculateLoopPhase(nextPosition);
                     if (inLoopPhase){
-                        startPointToUse = loopStartPoint;
-                        endPointToUse = loopEndPoint;
+                        startPointToUse = loopStartPointViaRate();
+                        endPointToUse = loopEndPointViaRate();
+                        calculateShouldLoop(nextPosition);
                     }
-                    playingBackwards = endPointToUse < startPointToUse;
                 }
 
-                if (!loop && nextPosition > 1) {
+                if (!loop && calculateHasEnded(nextPosition)) {
                     started = false;
                     completionHandler();
+                    printf("ended\n");
                 } else {
                     lastPosition = position;
                 }
             }
-
-            int subsectionLength = endPointToUse - startPointToUse;
-
-            float percentLen = (float)subsectionLength / (float)ftbl_size;
-            float speedFactor = (float)current_size / (float)ftbl_size;
-            phasor->freq = fabs(1.0 / dur  * rate / percentLen * speedFactor);
-
+            
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        sp_phasor_compute(sp, phasor, NULL, &position);
-                        tabread1->index = position * percentLen + startPointToUse / ftbl_size;
-                        tabread2->index = position * percentLen + startPointToUse / ftbl_size;
+                        tabread1->index = position;
+                        tabread2->index = position;
                         sp_tabread_compute(sp, tabread1, NULL, out);
+                        position += sampleStep();
                     } else {
                         sp_tabread_compute(sp, tabread2, NULL, out);
                     }
@@ -279,12 +259,95 @@ public:
             }
         }
     }
-
+    
+    float startPointViaRate(){
+        if (rate == 0) {return 0;}
+        return (rate > 0 ? startPoint : endPoint);
+    }
+    float endPointViaRate(){
+        if (rate == 0) {return 0;}
+        return (rate > 0 ? endPoint : startPoint);
+    }
+    float loopStartPointViaRate(){
+        if (rate == 0) {return 0;}
+        return (rate > 0 ? loopStartPoint : loopEndPoint);
+    }
+    float loopEndPointViaRate(){
+        if (rate == 0) {return 0;}
+        return (rate > 0 ? loopEndPoint : loopStartPoint);
+    }
+    double sampleStep(){
+        int reverseMultiplier = 1;
+        if (inLoopPhase && loopReversed()){
+            reverseMultiplier = -1;
+        }
+        if (!inLoopPhase && startEndReversed()){
+            reverseMultiplier = -1;
+        }
+        return sampleRateRatio() * fabs(rate) * reverseMultiplier;
+    }
+    double sampleRateRatio(){
+        return sourceSampleRate / AKSettings.sampleRate;
+    }
     // MARK: Member Variables
-
+    
+    bool loopReversed(){
+        if (loopEndPoint < loopStartPoint && rate > 0){
+            return true;
+        }
+        if (loopEndPoint < loopStartPoint && rate < 0){
+            return false;
+        }
+        if (loopEndPoint > loopStartPoint && rate < 0){
+            return true;
+        }
+        if (loopEndPoint > loopStartPoint && rate > 0){
+            return false;
+        }
+        return (loopEndPoint < loopStartPoint ? true : false);
+    }
+    bool startEndReversed(){
+        return (endPointViaRate() < startPointViaRate() ? true : false);
+    }
+//    bool playbackReversed(){
+//        return false;
+//    }
+    
+    void calculateMainPlayComplete(double nextPosition){
+        if (nextPosition > endPointViaRate() && !startEndReversed()){
+            mainPlayComplete = true;
+        }else if (nextPosition < endPointViaRate() && startEndReversed()){
+            mainPlayComplete = true;
+        }
+    }
+    bool calculateHasEnded(double nextPosition){
+        if ((nextPosition > endPointViaRate() && !startEndReversed()) || (nextPosition < endPointViaRate() && startEndReversed())){
+            return true;
+        }
+        return false;
+    }
+    void calculateLoopPhase(double nextPosition){
+        if (!inLoopPhase && mainPlayComplete){
+            if (nextPosition > endPointViaRate() && !startEndReversed()){
+                inLoopPhase = true;
+                position = loopStartPointViaRate();
+            }else if (nextPosition < endPointViaRate() && startEndReversed()){
+                inLoopPhase = true;
+                position = loopStartPointViaRate();
+            }
+        }
+    }
+    void calculateShouldLoop(double nextPosition){
+        if (mainPlayComplete){
+            if (nextPosition > loopEndPointViaRate() && !loopReversed()){
+                position = loopStartPointViaRate();
+            }else if (nextPosition < loopEndPointViaRate() && loopReversed()){
+                position = loopStartPointViaRate();
+            }
+        }
+    }
 private:
 
-    sp_phasor *phasor;
     sp_tabread *tabread1;
     sp_tabread *tabread2;
     sp_ftbl *ftbl1;
@@ -294,13 +357,12 @@ private:
     float endPoint = 1;
     float loopStartPoint = 0;
     float loopEndPoint = 1;
-    float rate = 1;
     float volume = 1;
     float lastPosition = 0.0;
     bool loop = false;
-    bool playingBackwards = false;  //is the sample playing backwards
     bool mainPlayComplete = false;  //has the sample played through once without looping
     bool inLoopPhase = false;       //has the main play completed and now we are in loop phase
+    float sourceSampleRate = 0.0;
 
 public:
     bool started = false;
@@ -314,7 +376,8 @@ public:
     AKCCallback completionHandler = nullptr;
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
-    float position = 0.0;
+    double position = 0.0;
+    float rate = 1;
 };
 
 

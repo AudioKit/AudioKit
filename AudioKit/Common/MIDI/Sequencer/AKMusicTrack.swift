@@ -52,7 +52,7 @@ open class AKMusicTrack {
 
     // MARK: - Initialization
 
-    @objc public init(name: String = "unnamed") {
+    @objc public init(name: String = "Unnamed") {
         self.name = name
         MusicSequenceNewTrack(sequencer.sequence!, &internalMusicTrack)
         MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
