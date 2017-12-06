@@ -57,7 +57,7 @@ standardKernelPassthroughs()
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[amplitudeAUParameter]];
 
-	parameterTreeBlock(Shaker)
+    parameterTreeBlock(Shaker)
 }
 
 AUAudioUnitGeneratorOverrides(Shaker)

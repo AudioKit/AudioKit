@@ -13,7 +13,7 @@
 enum {
     frequencyAddress = 0,
     depthAddress = 1
-    
+
 };
 
 class AKTremoloDSPKernel : public AKSoundpipeKernel, public AKBuffered {
@@ -64,7 +64,7 @@ public:
         frequency = clamp(value, 0.0f, 100.0f);
         frequencyRamper.setImmediate(frequency);
     }
-    
+
     void setDepth(float value) {
         depth = clamp(value, 0.0f, 2.0f);
         depthRamper.setImmediate(depth);
@@ -113,7 +113,7 @@ public:
 
             frequency = frequencyRamper.getAndStep();
             trem->freq = (float)frequency * 0.5; //Divide by two for stereo
-            
+
             depth = depthRamper.getAndStep();
             trem->amp = (float)depth;
 

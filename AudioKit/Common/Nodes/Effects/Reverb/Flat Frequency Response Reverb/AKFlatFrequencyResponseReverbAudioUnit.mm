@@ -49,10 +49,10 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        reverbDurationAUParameter
-    ]];
+                                             reverbDurationAUParameter
+                                             ]];
 
-	parameterTreeBlock(FlatFrequencyResponseReverb)
+    parameterTreeBlock(FlatFrequencyResponseReverb)
 }
 
 AUAudioUnitOverrides(FlatFrequencyResponseReverb);

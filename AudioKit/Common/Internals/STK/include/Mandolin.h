@@ -1,9 +1,8 @@
-#ifndef STK_MANDOLIN_H
-#define STK_MANDOLIN_H
+#pragma once
 
+#include "FileWvIn.h"
 #include "Instrmnt.h"
 #include "Twang.h"
-#include "FileWvIn.h"
 
 namespace stk {
 
@@ -24,7 +23,7 @@ namespace stk {
     University.  For information, contact the Office
     of Technology Licensing, Stanford University.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Body Size = 2
        - Pluck Position = 4
        - String Sustain = 11
@@ -35,47 +34,50 @@ namespace stk {
 */
 /***************************************************/
 
-class Mandolin : public Instrmnt
-{
- public:
+class Mandolin : public Instrmnt {
+public:
   //! Class constructor, taking the lowest desired playing frequency.
-  Mandolin( StkFloat lowestFrequency );
+  Mandolin(StkFloat lowestFrequency);
 
   //! Class destructor.
-  ~Mandolin( void );
+  ~Mandolin();
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear();
 
-  //! Detune the two strings by the given factor.  A value of 1.0 produces unison strings.
-  void setDetune( StkFloat detune );
+  //! Detune the two strings by the given factor.  A value of 1.0 produces
+  //! unison strings.
+  void setDetune(StkFloat detune);
 
   //! Set the body size (a value of 1.0 produces the "default" size).
-  void setBodySize( StkFloat size );
+  void setBodySize(StkFloat size);
 
   //! Set the pluck or "excitation" position along the string (0.0 - 1.0).
-  void setPluckPosition( StkFloat position );
+  void setPluckPosition(StkFloat position);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
-  //! Pluck the strings with the given amplitude (0.0 - 1.0) using the current frequency.
-  void pluck( StkFloat amplitude );
+  //! Pluck the strings with the given amplitude (0.0 - 1.0) using the current
+  //! frequency.
+  void pluck(StkFloat amplitude);
 
-  //! Pluck the strings with the given amplitude (0.0 - 1.0) and position (0.0 - 1.0).
-  void pluck( StkFloat amplitude,StkFloat position );
+  //! Pluck the strings with the given amplitude (0.0 - 1.0) and position (0.0
+  //! - 1.0).
+  void pluck(StkFloat amplitude, StkFloat position);
 
   //! Start a note with the given frequency and amplitude (0.0 - 1.0).
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -85,10 +87,9 @@ class Mandolin : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  protected:
-
+protected:
   Twang strings_[2];
   FileWvIn soundfile_[12];
 
@@ -98,39 +99,37 @@ class Mandolin : public Instrmnt
   StkFloat pluckAmplitude_;
 };
 
-inline StkFloat Mandolin :: tick( unsigned int )
-{
+inline StkFloat Mandolin::tick(unsigned int) {
   StkFloat temp = 0.0;
-  if ( !soundfile_[mic_].isFinished() )
+  if (!soundfile_[mic_].isFinished())
     temp = soundfile_[mic_].tick() * pluckAmplitude_;
 
-  lastFrame_[0] = strings_[0].tick( temp );
-  lastFrame_[0] += strings_[1].tick( temp );
+  lastFrame_[0] = strings_[0].tick(temp);
+  lastFrame_[0] += strings_[1].tick(temp);
   lastFrame_[0] *= 0.2;
 
   return lastFrame_[0];
 }
 
-inline StkFrames& Mandolin :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Mandolin::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "Mandolin::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "Mandolin::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -138,6 +137,5 @@ inline StkFrames& Mandolin :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+}
 
-#endif

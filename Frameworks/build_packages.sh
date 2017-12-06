@@ -23,6 +23,7 @@ fi
 if test "$SKIP_JAZZY" = ""; 
 then
 	jazzy -c --theme apple --source-directory ../AudioKit/iOS/ \
+		-x -target,AudioKitDocs \
 		--module-version $VERSION \
 		--github-file-prefix https://github.com/audiokit/AudioKit/tree/v$VERSION \
 	|| exit 1
@@ -36,7 +37,7 @@ create_package()
 	DIR="AudioKit-$1"
 	rm -f ${DIR}-${VERSION}.zip
 	mkdir -p "Carthage/$os"
-	cp -a "$DIR/AudioKit.framework" "Carthage/$os/"
+	cp -a "$DIR/AudioKit.framework" "$DIR/AudioKitUI.framework" "Carthage/$os/"
 	cd $DIR
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* Examples/
@@ -46,7 +47,7 @@ create_package()
 	find -d Examples -name Pods -exec rm -rf {} \;
 	find Examples -name Podfile.lock -exec rm -rf {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../README.md .
-	cp -a ../docs/docsets/AudioKit.docset .
+	test -d ../docs && cp -a ../docs/docsets/AudioKit.docset .
 	find . -name .DS_Store -exec rm -rf {} \;
 	find -d . -name build -exec rm -rf {} \;
 	find -d . -name xcuserdata -exec rm -rf {} \;
@@ -59,9 +60,8 @@ create_playgrounds()
 	echo "Packaging AudioKit Playgrounds version $VERSION ..."
 	cp -a ../Playgrounds AudioKitPlaygrounds
 	cd AudioKitPlaygrounds
-	cp -a ../AudioKit-macOS/AudioKit.framework AudioKitPlaygrounds/
-	gsed -i "s/\.\.\/\.\.\/Frameworks\/AudioKit-macOS/\./g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
-	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS//g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
+	cp -a ../AudioKit-macOS/AudioKit.framework ../AudioKit-macOS/AudioKitUI.framework AudioKitPlaygrounds/
+	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	cp ../../README.md ../../LICENSE .
 	find . -name .DS_Store -or -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..

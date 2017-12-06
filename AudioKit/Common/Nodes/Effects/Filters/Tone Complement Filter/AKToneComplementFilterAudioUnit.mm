@@ -46,11 +46,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        halfPowerPointAUParameter
-    ]];
+                                             halfPowerPointAUParameter
+                                             ]];
 
 
-	parameterTreeBlock(ToneComplementFilter)
+    parameterTreeBlock(ToneComplementFilter)
 }
 
 AUAudioUnitOverrides(ToneComplementFilter);

@@ -65,7 +65,7 @@ public:
     void setMaxDelayTime(float duration) {
         internalMaxDelay = duration;
     }
-    
+
     void setTime(float value) {
         time = clamp(value, 0.0f, 10.0f);
         timeRamper.setImmediate(time);
@@ -138,7 +138,7 @@ public:
             pd.p[1] = (float)feedback;
             pd.p[2] = (float)time;
             plumber_compute(&pd, PLUMBER_COMPUTE);
-            
+
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 *out = sporth_stack_pop_float(&pd.sporth.stack);
@@ -151,7 +151,7 @@ public:
 private:
 
     plumber_data pd;
-    
+
     float internalMaxDelay = 5.0;
 
     float time = 1;

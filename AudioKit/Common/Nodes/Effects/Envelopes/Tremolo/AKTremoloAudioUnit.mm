@@ -68,11 +68,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        frequencyAUParameter,
-        depthAUParameter
-    ]];
+                                             frequencyAUParameter,
+                                             depthAUParameter
+                                             ]];
 
-	parameterTreeBlock(Tremolo)
+    parameterTreeBlock(Tremolo)
 }
 
 AUAudioUnitOverrides(Tremolo);

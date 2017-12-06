@@ -100,14 +100,14 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        frequencyAUParameter,
-        amplitudeAUParameter,
-        indexAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
-    ]];
+                                             frequencyAUParameter,
+                                             amplitudeAUParameter,
+                                             indexAUParameter,
+                                             detuningOffsetAUParameter,
+                                             detuningMultiplierAUParameter
+                                             ]];
 
-	parameterTreeBlock(MorphingOscillator)
+    parameterTreeBlock(MorphingOscillator)
 }
 
 AUAudioUnitGeneratorOverrides(MorphingOscillator)

@@ -51,7 +51,7 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
             td = pd->last->ud;
             trig = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
-            
+
             sp_tblrec_compute(pd->sp, td, &in, &trig, &out);
             sporth_stack_push_float(stack, out);
 

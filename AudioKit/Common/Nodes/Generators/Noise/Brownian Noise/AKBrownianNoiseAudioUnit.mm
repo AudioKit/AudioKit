@@ -45,11 +45,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        amplitudeAUParameter
-    ]];
+                                             amplitudeAUParameter
+                                             ]];
 
 
-	parameterTreeBlock(BrownianNoise)
+    parameterTreeBlock(BrownianNoise)
 }
 
 AUAudioUnitGeneratorOverrides(BrownianNoise)

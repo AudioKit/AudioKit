@@ -45,11 +45,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        amplitudeAUParameter
-    ]];
+                                             amplitudeAUParameter
+                                             ]];
 
 
-	parameterTreeBlock(PinkNoise)
+    parameterTreeBlock(PinkNoise)
 }
 
 AUAudioUnitGeneratorOverrides(PinkNoise)

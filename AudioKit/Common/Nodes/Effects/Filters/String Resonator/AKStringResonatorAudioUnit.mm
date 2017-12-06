@@ -57,11 +57,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        fundamentalFrequencyAUParameter,
-        feedbackAUParameter
-    ]];
+                                             fundamentalFrequencyAUParameter,
+                                             feedbackAUParameter
+                                             ]];
 
-	parameterTreeBlock(StringResonator)
+    parameterTreeBlock(StringResonator)
 }
 
 AUAudioUnitOverrides(StringResonator);

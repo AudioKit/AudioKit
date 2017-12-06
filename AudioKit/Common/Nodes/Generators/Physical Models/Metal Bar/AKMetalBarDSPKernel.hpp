@@ -30,13 +30,13 @@ public:
         AKSoundpipeKernel::init(_channels, _sampleRate);
         sp_bar_create(&bar);
         sp_bar_init(sp, bar, 3, 0.0001);
-//        bar->bcL = 2;
-//        bar->bcR = 2;
-//        bar->T30 = 0.5;
-//        bar->scan = 0.2;
-//        bar->pos = 0.01;
-//        bar->vel = 1500;
-//        bar->wid = 0.02;
+        //        bar->bcL = 2;
+        //        bar->bcR = 2;
+        //        bar->T30 = 0.5;
+        //        bar->scan = 0.2;
+        //        bar->pos = 0.01;
+        //        bar->vel = 1500;
+        //        bar->wid = 0.02;
     }
 
     void start() {

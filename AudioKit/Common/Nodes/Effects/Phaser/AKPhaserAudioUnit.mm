@@ -151,16 +151,16 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        notchMinimumFrequencyAUParameter,
-        notchMaximumFrequencyAUParameter,
-        notchWidthAUParameter,
-        notchFrequencyAUParameter,
-        vibratoModeAUParameter,
-        depthAUParameter,
-        feedbackAUParameter,
-        invertedAUParameter,
-        lfoBPMAUParameter
-    ]];
+                                             notchMinimumFrequencyAUParameter,
+                                             notchMaximumFrequencyAUParameter,
+                                             notchWidthAUParameter,
+                                             notchFrequencyAUParameter,
+                                             vibratoModeAUParameter,
+                                             depthAUParameter,
+                                             feedbackAUParameter,
+                                             invertedAUParameter,
+                                             lfoBPMAUParameter
+                                             ]];
 
     parameterTreeBlock(Phaser)
 }

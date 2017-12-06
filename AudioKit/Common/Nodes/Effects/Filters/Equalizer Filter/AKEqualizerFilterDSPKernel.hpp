@@ -89,7 +89,7 @@ public:
                 break;
 
             case gainAddress:
-                gainRamper.setUIValue(clamp(value, -100.0f, 100.0f));
+                gainRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
 
         }
@@ -121,7 +121,7 @@ public:
                 break;
 
             case gainAddress:
-                gainRamper.startRamp(clamp(value, -100.0f, 100.0f), duration);
+                gainRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
 
         }

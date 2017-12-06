@@ -43,7 +43,7 @@ standardBankFunctions()
 
     standardGeneratorSetup(FMOscillatorBank)
     standardBankParameters()
-    
+
     // Create a parameter object for the carrier multiplier.
     AUParameter *carrierMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"carrierMultiplier"
@@ -56,7 +56,7 @@ standardBankFunctions()
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    
+
     // Create a parameter object for the modulating multiplier.
     AUParameter *modulatingMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulatingMultiplier"
@@ -69,7 +69,7 @@ standardBankFunctions()
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    
+
     // Create a parameter object for the modulation index.
     AUParameter *modulationIndexAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulationIndex"
@@ -82,7 +82,7 @@ standardBankFunctions()
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    
+
 
     // Initialize the parameter values.
     carrierMultiplierAUParameter.value = 1.0;
@@ -92,20 +92,15 @@ standardBankFunctions()
     _kernel.setParameter(carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
     _kernel.setParameter(modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
     _kernel.setParameter(modulationIndexAddress,      modulationIndexAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        carrierMultiplierAUParameter,
-        modulatingMultiplierAUParameter,
-        modulationIndexAUParameter,
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
-    ]];
-	parameterTreeBlock(FMOscillatorBank)
+                                                               standardBankAUParameterList(),
+                                                               carrierMultiplierAUParameter,
+                                                               modulatingMultiplierAUParameter,
+                                                               modulationIndexAUParameter
+                                                               ]];
+    parameterTreeBlock(FMOscillatorBank)
 }
 
 AUAudioUnitGeneratorOverrides(FMOscillatorBank)

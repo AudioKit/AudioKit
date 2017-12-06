@@ -81,7 +81,7 @@ public:
         detuningMultiplier = value;
         detuningMultiplierRamper.setImmediate(detuningMultiplier);
     }
-    
+
     void setPulseWidth(float value) {
         pulseWidth = clamp(value, 0.0f, 1.0f);
         pulseWidthRamper.setImmediate(pulseWidth);

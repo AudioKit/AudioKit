@@ -31,7 +31,7 @@ public:
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
         NSString *resourcePath = [frameworkBundle resourcePath];
         stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
-        
+
         stk::Stk::setSampleRate(sampleRate);
         shaker = new stk::Shakers(0);
     }
@@ -51,7 +51,7 @@ public:
     void reset() {
         resetted = true;
     }
-    
+
     void setType(UInt8 typ) {
         type = typ;
     }
@@ -67,7 +67,7 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-                
+
             case amplitudeAddress:
                 amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
                 break;
@@ -125,7 +125,7 @@ private:
     float internalTrigger = 0;
 
     stk::Shakers *shaker;
-    
+
     UInt8 type = 0;
     float amplitude = 0.5;
 

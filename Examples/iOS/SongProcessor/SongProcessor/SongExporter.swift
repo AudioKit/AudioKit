@@ -20,11 +20,12 @@ class SongExporter {
         self.exportPath = exportPath
     }
 
-    func exportSong(_ song: MPMediaItem) {
+    func exportSong(_ song: MPMediaItem, completion: ((Bool) -> Void)? = nil) {
 
         isReadyToPlay = false
 
         guard let url = song.value(forProperty: MPMediaItemPropertyAssetURL) as? URL else {
+            completion?(false)
             return
         }
         let songAsset = AVURLAsset(url: url, options: nil)
@@ -39,6 +40,7 @@ class SongExporter {
 
             if !assetReader.canAdd(assetReaderOutput) {
                 print("Can't add reader output...die!")
+                completion?(false)
             } else {
                 assetReader.add(assetReaderOutput)
             }
@@ -48,7 +50,9 @@ class SongExporter {
                 print("Deleting said file.")
                 do {
                     try FileManager.default.removeItem(atPath: exportPath)
-                } catch _ {
+                } catch {
+                    print(error)
+                    completion?(false)
                 }
             }
 
@@ -56,14 +60,16 @@ class SongExporter {
             let exportURL = URL(fileURLWithPath: exportPath)
             let assetWriter: AVAssetWriter!
             do {
-                assetWriter = try AVAssetWriter(outputURL: exportURL, fileType: AVFileTypeCoreAudioFormat)
+                assetWriter = try AVAssetWriter(outputURL: exportURL, fileType: AVFileType.caf)
             } catch let error as NSError {
                 assetError = error
                 assetWriter = nil
+                completion?(false)
             }
 
             if let error = assetError {
                 print("Error: \(error)")
+                completion?(false)
                 return
             }
 
@@ -80,7 +86,7 @@ class SongExporter {
             ]
 
             // Create a writer input to encode and write samples in this format.
-            let assetWriterInput = AVAssetWriterInput(mediaType: AVMediaTypeAudio,
+            let assetWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio,
                                                       outputSettings: outputSettings)
 
             // Add the input to the writer.
@@ -88,6 +94,7 @@ class SongExporter {
                 assetWriter.add(assetWriterInput)
             } else {
                 print("cant add asset writer input...die!")
+                completion?(false)
                 return
             }
 
@@ -129,6 +136,7 @@ class SongExporter {
                         assetWriterInput.markAsFinished()
                         assetWriter.finishWriting {
                             self.isReadyToPlay = true
+                            completion?(true)
                         }
                         assetReader.cancelReading()
                         break
@@ -140,6 +148,7 @@ class SongExporter {
 
         } catch let error as NSError {
             assetError = error
+            completion?(false)
             print("Initializing assetReader Failed")
         }
 

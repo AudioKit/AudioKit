@@ -61,11 +61,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        frequencyAUParameter,
-        amplitudeAUParameter
-    ]];
+                                                               frequencyAUParameter,
+                                                               amplitudeAUParameter
+                                                               ]];
 
-	parameterTreeBlock(TubularBells)
+    parameterTreeBlock(TubularBells)
 }
 
 AUAudioUnitGeneratorOverrides(TubularBells)

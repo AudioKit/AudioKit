@@ -6,9 +6,9 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// Faust-based pitch shfiter
+/// Faust-based pitch shifter
 ///
-open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
+open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
@@ -23,14 +23,14 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     fileprivate var crossfadeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// Pitch shift (in semitones)
-    open dynamic var shift: Double = 0 {
+    @objc open dynamic var shift: Double = 0 {
         willSet {
             if shift != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -44,7 +44,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Window size (in samples)
-    open dynamic var windowSize: Double = 1_024 {
+    @objc open dynamic var windowSize: Double = 1_024 {
         willSet {
             if windowSize != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -58,7 +58,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         }
     }
     /// Crossfade (in samples)
-    open dynamic var crossfade: Double = 512 {
+    @objc open dynamic var crossfade: Double = 512 {
         willSet {
             if crossfade != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -73,7 +73,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -87,8 +87,8 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     ///   - windowSize: Window size (in samples)
     ///   - crossfade: Crossfade (in samples)
     ///
-    public init(
-        _ input: AKNode?,
+    @objc public init(
+        _ input: AKNode? = nil,
         shift: Double = 0,
         windowSize: Double = 1_024,
         crossfade: Double = 512) {
@@ -105,10 +105,11 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -116,16 +117,15 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
         windowSizeParameter = tree["windowSize"]
         crossfadeParameter = tree["crossfade"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.shiftParameter?.address {
-                    self?.shift = Double(value)
-                } else if address == self?.windowSizeParameter?.address {
-                    self?.windowSize = Double(value)
-                } else if address == self?.crossfadeParameter?.address {
-                    self?.crossfade = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
@@ -137,12 +137,12 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

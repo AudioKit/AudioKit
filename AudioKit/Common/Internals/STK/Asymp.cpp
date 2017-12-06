@@ -28,85 +28,72 @@
 
 namespace stk {
 
-Asymp :: Asymp( void )
-{
+Asymp ::Asymp(void) {
   value_ = 0.0;
   target_ = 0.0;
   state_ = 0;
-  factor_ = exp( -1.0 / ( 0.3 * Stk::sampleRate() ) );
+  factor_ = exp(-1.0 / (0.3 * Stk::sampleRate()));
   constant_ = 0.0;
-  Stk::addSampleRateAlert( this );
+  Stk::addSampleRateAlert(this);
 }
 
-Asymp :: ~Asymp( void )
-{    
-  Stk::removeSampleRateAlert( this );
-}
+Asymp ::~Asymp(void) { Stk::removeSampleRateAlert(this); }
 
-void Asymp :: sampleRateChanged( StkFloat newRate, StkFloat oldRate )
-{
-  if ( !ignoreSampleRateChange_ ) {
-    StkFloat tau = -1.0 / ( std::log( factor_ ) * oldRate );
-    factor_ = std::exp( -1.0 / ( tau * newRate ) );
+void Asymp ::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
+  if (!ignoreSampleRateChange_) {
+    StkFloat tau = -1.0 / (std::log(factor_) * oldRate);
+    factor_ = std::exp(-1.0 / (tau * newRate));
   }
 }
 
-void Asymp :: keyOn( void )
-{
-  this->setTarget( 1.0 );
-}
+void Asymp ::keyOn(void) { this->setTarget(1.0); }
 
-void Asymp :: keyOff( void )
-{
-  this->setTarget( 0.0 );
-}
+void Asymp ::keyOff(void) { this->setTarget(0.0); }
 
-void Asymp :: setTau( StkFloat tau )
-{
-  if ( tau <= 0.0 ) {
+void Asymp ::setTau(StkFloat tau) {
+  if (tau <= 0.0) {
     oStream_ << "Asymp::setTau: negative or zero tau not allowed!";
-    handleError( StkError::WARNING ); return;
+    handleError(StkError::WARNING);
+    return;
   }
 
-  factor_ = std::exp( -1.0 / ( tau * Stk::sampleRate() ) );
-  constant_ = ( 1.0 - factor_ ) * target_;
+  factor_ = std::exp(-1.0 / (tau * Stk::sampleRate()));
+  constant_ = (1.0 - factor_) * target_;
 }
 
-void Asymp :: setTime( StkFloat time )
-{
-  if ( time <= 0.0 ) {
+void Asymp ::setTime(StkFloat time) {
+  if (time <= 0.0) {
     oStream_ << "Asymp::setTime: negative or zero times not allowed!";
-    handleError( StkError::WARNING ); return;
+    handleError(StkError::WARNING);
+    return;
   }
 
-  StkFloat tau = -time / std::log( TARGET_THRESHOLD );
-  factor_ = std::exp( -1.0 / ( tau * Stk::sampleRate() ) );
-  constant_ = ( 1.0 - factor_ ) * target_;
+  StkFloat tau = -time / std::log(TARGET_THRESHOLD);
+  factor_ = std::exp(-1.0 / (tau * Stk::sampleRate()));
+  constant_ = (1.0 - factor_) * target_;
 }
 
-void Asymp :: setT60( StkFloat t60 )
-{
-  if ( t60 <= 0.0 ) {
+void Asymp ::setT60(StkFloat t60) {
+  if (t60 <= 0.0) {
     oStream_ << "Asymp::setT60: negative or zero t60 not allowed!";
-    handleError( StkError::WARNING ); return;
+    handleError(StkError::WARNING);
+    return;
   }
 
-  setTau( t60 / 6.91 );
+  setTau(t60 / 6.91);
 }
 
-void Asymp :: setTarget( StkFloat target )
-{
+void Asymp ::setTarget(StkFloat target) {
   target_ = target;
-  if ( value_ != target_ ) state_ = 1;
-  constant_ = ( 1.0 - factor_ ) * target_;
+  if (value_ != target_)
+    state_ = 1;
+  constant_ = (1.0 - factor_) * target_;
 }
 
-void Asymp :: setValue( StkFloat value )
-{
+void Asymp ::setValue(StkFloat value) {
   state_ = 0;
   target_ = value;
   value_ = value;
 }
 
-} // stk namespace
-
+} // namespace stk

@@ -83,13 +83,13 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        pregainAUParameter,
-        postgainAUParameter,
-        postiveShapeParameterAUParameter,
-        negativeShapeParameterAUParameter
-    ]];
+                                             pregainAUParameter,
+                                             postgainAUParameter,
+                                             postiveShapeParameterAUParameter,
+                                             negativeShapeParameterAUParameter
+                                             ]];
 
-	parameterTreeBlock(TanhDistortion)
+    parameterTreeBlock(TanhDistortion)
 }
 
 AUAudioUnitOverrides(TanhDistortion);

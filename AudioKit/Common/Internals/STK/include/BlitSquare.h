@@ -39,11 +39,10 @@ namespace stk {
 */
 /***************************************************/
 
-class BlitSquare: public Generator
-{
- public:
+class BlitSquare : public Generator {
+public:
   //! Default constructor that initializes BLIT frequency to 220 Hz.
-  BlitSquare( StkFloat frequency = 220.0 );
+  BlitSquare(StkFloat frequency = 220.0);
 
   //! Class destructor.
   ~BlitSquare();
@@ -55,7 +54,7 @@ class BlitSquare: public Generator
   /*!
     Set the phase of the signal, in the range 0 to 1.
   */
-  void setPhase( StkFloat phase ) { phase_ = PI * phase; };
+  void setPhase(StkFloat phase) { phase_ = PI * phase; };
 
   //! Get the current phase of the signal.
   /*!
@@ -64,7 +63,7 @@ class BlitSquare: public Generator
   StkFloat getPhase() const { return phase_ / PI; };
 
   //! Set the impulse train rate in terms of a frequency in Hz.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
   //! Set the number of harmonics generated in the signal.
   /*!
@@ -79,13 +78,13 @@ class BlitSquare: public Generator
     of automatically modifying the M parameter, which can produce
     audible clicks in the signal.
   */
-  void setHarmonics( unsigned int nHarmonics = 0 );
+  void setHarmonics(unsigned int nHarmonics = 0);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Compute and return one output sample.
-  StkFloat tick( void );
+  StkFloat tick(void);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -95,11 +94,10 @@ class BlitSquare: public Generator
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
-  void updateHarmonics( void );
+protected:
+  void updateHarmonics(void);
 
   unsigned int nHarmonics_;
   unsigned int m_;
@@ -111,28 +109,27 @@ class BlitSquare: public Generator
   StkFloat dcbState_;
 };
 
-inline StkFloat BlitSquare :: tick( void )
-{
+inline StkFloat BlitSquare ::tick(void) {
   StkFloat temp = lastBlitOutput_;
 
   // A fully  optimized version of this would replace the two sin calls
-  // with a pair of fast sin oscillators, for which stable fast 
+  // with a pair of fast sin oscillators, for which stable fast
   // two-multiply algorithms are well known. In the spirit of STK,
-  // which favors clarity over performance, the optimization has 
+  // which favors clarity over performance, the optimization has
   // not been made here.
 
   // Avoid a divide by zero, or use of a denomralized divisor
   // at the sinc peak, which has a limiting value of 1.0.
-  StkFloat denominator = sin( phase_ );
-  if ( fabs( denominator )  < std::numeric_limits<StkFloat>::epsilon() ) {
-    // Inexact comparison safely distinguishes betwen *close to zero*, and *close to PI*.
-    if ( phase_ < 0.1f || phase_ > TWO_PI - 0.1f )
+  StkFloat denominator = sin(phase_);
+  if (fabs(denominator) < std::numeric_limits<StkFloat>::epsilon()) {
+    // Inexact comparison safely distinguishes betwen *close to zero*, and
+    // *close to PI*.
+    if (phase_ < 0.1f || phase_ > TWO_PI - 0.1f)
       lastBlitOutput_ = a_;
     else
       lastBlitOutput_ = -a_;
-  }
-  else {
-    lastBlitOutput_ =  sin( m_ * phase_ );
+  } else {
+    lastBlitOutput_ = sin(m_ * phase_);
     lastBlitOutput_ /= p_ * denominator;
   }
 
@@ -143,28 +140,29 @@ inline StkFloat BlitSquare :: tick( void )
   dcbState_ = lastBlitOutput_;
 
   phase_ += rate_;
-  if ( phase_ >= TWO_PI ) phase_ -= TWO_PI;
+  if (phase_ >= TWO_PI)
+    phase_ -= TWO_PI;
 
-	return lastFrame_[0];
+  return lastFrame_[0];
 }
 
-inline StkFrames& BlitSquare :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &BlitSquare ::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "BlitSquare::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_ << "BlitSquare::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
     *samples = BlitSquare::tick();
 
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

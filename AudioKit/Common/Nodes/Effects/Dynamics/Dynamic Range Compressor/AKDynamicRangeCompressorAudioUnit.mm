@@ -86,11 +86,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        ratioAUParameter,
-        thresholdAUParameter,
-        attackTimeAUParameter,
-        releaseTimeAUParameter
-    ]];
+                                             ratioAUParameter,
+                                             thresholdAUParameter,
+                                             attackTimeAUParameter,
+                                             releaseTimeAUParameter
+                                             ]];
 
     parameterTreeBlock(DynamicRangeCompressor)
 }

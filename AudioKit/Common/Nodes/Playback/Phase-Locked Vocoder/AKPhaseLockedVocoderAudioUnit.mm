@@ -74,12 +74,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        positionAUParameter,
-        amplitudeAUParameter,
-        pitchRatioAUParameter
-    ]];
+                                             positionAUParameter,
+                                             amplitudeAUParameter,
+                                             pitchRatioAUParameter
+                                             ]];
 
-	parameterTreeBlock(PhaseLockedVocoder)
+    parameterTreeBlock(PhaseLockedVocoder)
 }
 
 AUAudioUnitGeneratorOverrides(PhaseLockedVocoder)

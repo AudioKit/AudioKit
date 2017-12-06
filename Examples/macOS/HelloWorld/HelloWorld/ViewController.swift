@@ -7,35 +7,40 @@
 //
 
 import AudioKit
+import AudioKitUI
 import Cocoa
 
 class ViewController: NSViewController {
 
-    var oscillator = AKOscillator()
+    var oscillator1 = AKOscillator()
     var oscillator2 = AKOscillator()
-
-    @IBOutlet private var plot: AKOutputWaveformPlot!
+    var mixer = AKMixer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AudioKit.output = AKMixer(oscillator, oscillator2)
+        mixer = AKMixer(oscillator1, oscillator2)
+
+        // Cut the volume in half since we have two oscillators
+        mixer.volume = 0.5
+        AudioKit.output = mixer
         AudioKit.start()
+
     }
 
     @IBAction func toggleSound(_ sender: NSButton) {
-        if oscillator.isPlaying {
-            oscillator.stop()
+        if oscillator1.isPlaying {
+            oscillator1.stop()
             oscillator2.stop()
             sender.title = "Play Sine Waves"
         } else {
-            oscillator.amplitude = random(0.5, 1)
-            oscillator.frequency = random(220, 880)
-            oscillator.start()
-            oscillator2.amplitude = random(0.5, 1)
-            oscillator2.frequency = random(220, 880)
+            oscillator1.amplitude = random(in: 0.5 ... 1)
+            oscillator1.frequency = random(in: 220 ... 880)
+            oscillator1.start()
+            oscillator2.amplitude = random(in: 0.5 ... 1)
+            oscillator2.frequency = random(in: 220 ... 880)
             oscillator2.start()
-            sender.title = "Stop \(Int(oscillator.frequency))Hz & \(Int(oscillator2.frequency))Hz"
+            sender.title = "Stop \(Int(oscillator1.frequency))Hz & \(Int(oscillator2.frequency))Hz"
         }
         sender.setNeedsDisplay()
     }

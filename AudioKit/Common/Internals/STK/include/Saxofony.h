@@ -1,12 +1,12 @@
 #ifndef STK_SAXOFONY_H
 #define STK_SAXOFONY_H
 
-#include "Instrmnt.h"
 #include "DelayL.h"
-#include "ReedTable.h"
-#include "OneZero.h"
 #include "Envelope.h"
+#include "Instrmnt.h"
 #include "Noise.h"
+#include "OneZero.h"
+#include "ReedTable.h"
 #include "SineWave.h"
 
 namespace stk {
@@ -35,7 +35,7 @@ namespace stk {
     use possibly subject to patents held by Stanford
     University, Yamaha, and others.
 
-    Control Change Numbers: 
+    Control Change Numbers:
        - Reed Stiffness = 2
        - Reed Aperture = 26
        - Noise Gain = 4
@@ -48,44 +48,46 @@ namespace stk {
 */
 /***************************************************/
 
-class Saxofony : public Instrmnt
-{
- public:
+class Saxofony : public Instrmnt {
+public:
   //! Class constructor, taking the lowest desired playing frequency.
   /*!
     An StkError will be thrown if the rawwave path is incorrectly set.
   */
-  Saxofony( StkFloat lowestFrequency );
+  Saxofony(StkFloat lowestFrequency);
 
   //! Class destructor.
-  ~Saxofony( void );
+  ~Saxofony(void);
 
   //! Reset and clear all internal state.
-  void clear( void );
+  void clear(void);
 
   //! Set instrument parameters for a particular frequency.
-  void setFrequency( StkFloat frequency );
+  void setFrequency(StkFloat frequency);
 
-  //! Set the "blowing" position between the air column terminations (0.0 - 1.0).
-  void setBlowPosition( StkFloat aPosition );
+  //! Set the "blowing" position between the air column terminations (0.0
+  //! - 1.0).
+  void setBlowPosition(StkFloat aPosition);
 
-  //! Apply breath pressure to instrument with given amplitude and rate of increase.
-  void startBlowing( StkFloat amplitude, StkFloat rate );
+  //! Apply breath pressure to instrument with given amplitude and rate of
+  //! increase.
+  void startBlowing(StkFloat amplitude, StkFloat rate);
 
   //! Decrease breath pressure with given rate of decrease.
-  void stopBlowing( StkFloat rate );
+  void stopBlowing(StkFloat rate);
 
   //! Start a note with the given frequency and amplitude.
-  void noteOn( StkFloat frequency, StkFloat amplitude );
+  void noteOn(StkFloat frequency, StkFloat amplitude);
 
   //! Stop a note with the given amplitude (speed of decay).
-  void noteOff( StkFloat amplitude );
+  void noteOff(StkFloat amplitude);
 
-  //! Perform the control change specified by \e number and \e value (0.0 - 128.0).
-  void controlChange( int number, StkFloat value );
+  //! Perform the control change specified by \e number and \e value (0.0 -
+  //! 128.0).
+  void controlChange(int number, StkFloat value);
 
   //! Compute and return one output sample.
-  StkFloat tick( unsigned int channel = 0 );
+  StkFloat tick(unsigned int channel = 0);
 
   //! Fill a channel of the StkFrames object with computed outputs.
   /*!
@@ -95,65 +97,62 @@ class Saxofony : public Instrmnt
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
- protected:
-
-  DelayL    delays_[2];
+protected:
+  DelayL delays_[2];
   ReedTable reedTable_;
-  OneZero   filter_;
-  Envelope  envelope_;
-  Noise     noise_;
+  OneZero filter_;
+  Envelope envelope_;
+  Noise noise_;
   SineWave vibrato_;
 
   StkFloat outputGain_;
   StkFloat noiseGain_;
   StkFloat vibratoGain_;
   StkFloat position_;
-
 };
 
-inline StkFloat Saxofony :: tick( unsigned int )
-{
+inline StkFloat Saxofony ::tick(unsigned int) {
   StkFloat pressureDiff;
   StkFloat breathPressure;
   StkFloat temp;
 
   // Calculate the breath pressure (envelope + noise + vibrato)
-  breathPressure = envelope_.tick(); 
+  breathPressure = envelope_.tick();
   breathPressure += breathPressure * noiseGain_ * noise_.tick();
   breathPressure += breathPressure * vibratoGain_ * vibrato_.tick();
 
-  temp = -0.95 * filter_.tick( delays_[0].lastOut() );
+  temp = -0.95 * filter_.tick(delays_[0].lastOut());
   lastFrame_[0] = temp - delays_[1].lastOut();
   pressureDiff = breathPressure - lastFrame_[0];
-  delays_[1].tick( temp );
-  delays_[0].tick( breathPressure - (pressureDiff * reedTable_.tick(pressureDiff)) - temp );
+  delays_[1].tick(temp);
+  delays_[0].tick(breathPressure -
+                  (pressureDiff * reedTable_.tick(pressureDiff)) - temp);
 
   lastFrame_[0] *= outputGain_;
   return lastFrame_[0];
 }
 
-inline StkFrames& Saxofony :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &Saxofony ::tick(StkFrames &frames, unsigned int channel) {
   unsigned int nChannels = lastFrame_.channels();
 #if defined(_STK_DEBUG_)
-  if ( channel > frames.channels() - nChannels ) {
-    oStream_ << "Saxofony::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel > frames.channels() - nChannels) {
+    oStream_ << "Saxofony::tick(): channel and StkFrames arguments are "
+                "incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int j, hop = frames.channels() - nChannels;
-  if ( nChannels == 1 ) {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop )
+  if (nChannels == 1) {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop)
       *samples++ = tick();
-  }
-  else {
-    for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  } else {
+    for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
       *samples++ = tick();
-      for ( j=1; j<nChannels; j++ )
+      for (j = 1; j < nChannels; j++)
         *samples++ = lastFrame_[j];
     }
   }
@@ -161,6 +160,6 @@ inline StkFrames& Saxofony :: tick( StkFrames& frames, unsigned int channel )
   return frames;
 }
 
-} // stk namespace
+} // namespace stk
 
 #endif

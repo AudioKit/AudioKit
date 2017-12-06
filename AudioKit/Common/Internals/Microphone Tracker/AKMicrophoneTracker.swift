@@ -32,7 +32,7 @@ public class AKMicrophoneTracker {
     }
 
     /// Initialize the tracker
-    public init() {
+    @objc public init() {
         // Could automatically start the tracker here, but elected not to at BlackBox/Ryan McLeod's request
         // Subclass and change this if you like
     }

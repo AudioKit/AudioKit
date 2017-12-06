@@ -36,7 +36,7 @@ public:
     void stop() {
         started = false;
     }
-    
+
     void setUpTable(float *table, UInt32 size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
@@ -77,7 +77,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     if (channel == 0) {
                         sp_conv_compute(sp, conv0, in, out);
@@ -100,7 +100,7 @@ private:
 
     sp_conv *conv0;
     sp_conv *conv1;
-    
+
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
 

@@ -76,11 +76,11 @@ standardKernelPassthroughs()
     // Create a parameter object for the scanSpeed.
     AUParameter *scanSpeedAUParameter =
     [AUParameter parameter:@"scanSpeed"
-                                              name:@"Speed of scanning the output location."
-                                           address:scanSpeedAddress
-                                               min:0
-                                               max:100
-                                              unit:kAudioUnitParameterUnit_Hertz];
+                      name:@"Speed of scanning the output location."
+                   address:scanSpeedAddress
+                       min:0
+                       max:100
+                      unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the position.
     AUParameter *positionAUParameter = [AUParameter parameter:@"position"
                                                          name:@"Position along bar that strike occurs."
@@ -124,15 +124,15 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        leftBoundaryConditionAUParameter,
-        rightBoundaryConditionAUParameter,
-        decayDurationAUParameter,
-        scanSpeedAUParameter,
-        positionAUParameter,
-        strikeVelocityAUParameter,
-        strikeWidthAUParameter
-    ]];
-	parameterTreeBlock(MetalBar)
+                                                               leftBoundaryConditionAUParameter,
+                                                               rightBoundaryConditionAUParameter,
+                                                               decayDurationAUParameter,
+                                                               scanSpeedAUParameter,
+                                                               positionAUParameter,
+                                                               strikeVelocityAUParameter,
+                                                               strikeWidthAUParameter
+                                                               ]];
+    parameterTreeBlock(MetalBar)
 }
 
 AUAudioUnitGeneratorOverrides(MetalBar)

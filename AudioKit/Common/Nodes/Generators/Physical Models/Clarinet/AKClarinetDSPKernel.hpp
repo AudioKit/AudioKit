@@ -32,7 +32,7 @@ public:
         NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
         NSString *resourcePath = [frameworkBundle resourcePath];
         stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
-        
+
         stk::Stk::setSampleRate(sampleRate);
         clarinet = new stk::Clarinet(100);
     }
@@ -138,7 +138,7 @@ private:
     float internalTrigger = 0;
 
     stk::Clarinet *clarinet;
-    
+
     float frequency = 110;
     float amplitude = 0.5;
 

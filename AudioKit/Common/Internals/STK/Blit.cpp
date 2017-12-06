@@ -24,34 +24,31 @@
 #include "Blit.h"
 
 namespace stk {
- 
-Blit:: Blit( StkFloat frequency )
-{
-  if ( frequency <= 0.0 ) {
+
+Blit::Blit(StkFloat frequency) {
+  if (frequency <= 0.0) {
     oStream_ << "Blit::Blit: argument (" << frequency << ") must be positive!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
   nHarmonics_ = 0;
-  this->setFrequency( frequency );
+  this->setFrequency(frequency);
   this->reset();
 }
 
-Blit :: ~Blit()
-{
-}
+Blit ::~Blit() {}
 
-void Blit :: reset()
-{
+void Blit ::reset() {
   phase_ = 0.0;
   lastFrame_[0] = 0.0;
 }
 
-void Blit :: setFrequency( StkFloat frequency )
-{
-  if ( frequency <= 0.0 ) {
-    oStream_ << "Blit::setFrequency: argument (" << frequency << ") must be positive!";
-    handleError( StkError::WARNING ); return;
+void Blit ::setFrequency(StkFloat frequency) {
+  if (frequency <= 0.0) {
+    oStream_ << "Blit::setFrequency: argument (" << frequency
+             << ") must be positive!";
+    handleError(StkError::WARNING);
+    return;
   }
 
   p_ = Stk::sampleRate() / frequency;
@@ -59,20 +56,17 @@ void Blit :: setFrequency( StkFloat frequency )
   this->updateHarmonics();
 }
 
-void Blit :: setHarmonics( unsigned int nHarmonics )
-{
+void Blit ::setHarmonics(unsigned int nHarmonics) {
   nHarmonics_ = nHarmonics;
   this->updateHarmonics();
 }
 
-void Blit :: updateHarmonics( void )
-{
-  if ( nHarmonics_ <= 0 ) {
-    unsigned int maxHarmonics = (unsigned int) floor( 0.5 * p_ );
+void Blit ::updateHarmonics(void) {
+  if (nHarmonics_ <= 0) {
+    unsigned int maxHarmonics = (unsigned int)floor(0.5 * p_);
     m_ = 2 * maxHarmonics + 1;
-  }
-  else
+  } else
     m_ = 2 * nHarmonics_ + 1;
 }
 
-} // stk namespace
+} // namespace stk

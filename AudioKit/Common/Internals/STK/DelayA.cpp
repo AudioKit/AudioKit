@@ -22,96 +22,94 @@
 
 namespace stk {
 
-DelayA :: DelayA( StkFloat delay, unsigned long maxDelay )
-{
-  if ( delay < 0.5 ) {
+DelayA::DelayA(StkFloat delay, unsigned long maxDelay) {
+  if (delay < 0.5) {
     oStream_ << "DelayA::DelayA: delay must be >= 0.5!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
-  if ( delay > (StkFloat) maxDelay ) {
+  if (delay > (StkFloat)maxDelay) {
     oStream_ << "DelayA::DelayA: maxDelay must be > than delay argument!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 
-  // Writing before reading allows delays from 0 to length-1. 
-  if ( maxDelay + 1 > inputs_.size() )
-    inputs_.resize( maxDelay + 1, 1, 0.0 );
+  // Writing before reading allows delays from 0 to length-1.
+  if (maxDelay + 1 > inputs_.size())
+    inputs_.resize(maxDelay + 1, 1, 0.0);
 
   inPoint_ = 0;
-  this->setDelay( delay );
+  this->setDelay(delay);
   apInput_ = 0.0;
   doNextOut_ = true;
 }
 
-DelayA :: ~DelayA()
-{
-}
+DelayA::~DelayA() {}
 
-void DelayA :: clear()
-{
-  for ( unsigned int i=0; i<inputs_.size(); i++ )
+void DelayA::clear() {
+  for (unsigned int i = 0; i < inputs_.size(); i++)
     inputs_[i] = 0.0;
   lastFrame_[0] = 0.0;
   apInput_ = 0.0;
 }
 
-void DelayA :: setMaximumDelay( unsigned long delay )
-{
-  if ( delay < inputs_.size() ) return;
+void DelayA::setMaximumDelay(unsigned long delay) {
+  if (delay < inputs_.size())
+    return;
   inputs_.resize(delay + 1, 1, 0.0);
 }
 
-void DelayA :: setDelay( StkFloat delay )
-{
+void DelayA::setDelay(StkFloat delay) {
   unsigned long length = inputs_.size();
-  if ( delay + 1 > length ) { // The value is too big.
-    oStream_ << "DelayA::setDelay: argument (" << delay << ") greater than maximum!";
-    handleError( StkError::WARNING ); return;
+  if (delay + 1 > length) { // The value is too big.
+    oStream_ << "DelayA::setDelay: argument (" << delay
+             << ") greater than maximum!";
+    handleError(StkError::WARNING);
+    return;
   }
 
-  if ( delay < 0.5 ) {
-    oStream_ << "DelayA::setDelay: argument (" << delay << ") less than 0.5 not possible!";
-    handleError( StkError::WARNING );
+  if (delay < 0.5) {
+    oStream_ << "DelayA::setDelay: argument (" << delay
+             << ") less than 0.5 not possible!";
+    handleError(StkError::WARNING);
   }
 
-  StkFloat outPointer = inPoint_ - delay + 1.0;     // outPoint chases inpoint
+  StkFloat outPointer = inPoint_ - delay + 1.0; // outPoint chases inpoint
   delay_ = delay;
 
-  while ( outPointer < 0 )
-    outPointer += length;  // modulo maximum length
+  while (outPointer < 0)
+    outPointer += length; // modulo maximum length
 
-  outPoint_ = (long) outPointer;         // integer part
-  if ( outPoint_ == length ) outPoint_ = 0;
+  outPoint_ = (long)outPointer; // integer part
+  if (outPoint_ == length)
+    outPoint_ = 0;
   alpha_ = 1.0 + outPoint_ - outPointer; // fractional part
 
-  if ( alpha_ < 0.5 ) {
+  if (alpha_ < 0.5) {
     // The optimal range for alpha is about 0.5 - 1.5 in order to
     // achieve the flattest phase delay response.
     outPoint_ += 1;
-    if ( outPoint_ >= length ) outPoint_ -= length;
-    alpha_ += (StkFloat) 1.0;
+    if (outPoint_ >= length)
+      outPoint_ -= length;
+    alpha_ += (StkFloat)1.0;
   }
 
-  coeff_ = (1.0 - alpha_) / (1.0 + alpha_);  // coefficient for allpass
+  coeff_ = (1.0 - alpha_) / (1.0 + alpha_); // coefficient for allpass
 }
 
-StkFloat DelayA :: tapOut( unsigned long tapDelay )
-{
+StkFloat DelayA::tapOut(unsigned long tapDelay) {
   long tap = inPoint_ - tapDelay - 1;
-  while ( tap < 0 ) // Check for wraparound.
+  while (tap < 0) // Check for wraparound.
     tap += inputs_.size();
 
   return inputs_[tap];
 }
 
-void DelayA :: tapIn( StkFloat value, unsigned long tapDelay )
-{
+void DelayA::tapIn(StkFloat value, unsigned long tapDelay) {
   long tap = inPoint_ - tapDelay - 1;
-  while ( tap < 0 ) // Check for wraparound.
+  while (tap < 0) // Check for wraparound.
     tap += inputs_.size();
 
   inputs_[tap] = value;
 }
 
-} // stk namespace
+}

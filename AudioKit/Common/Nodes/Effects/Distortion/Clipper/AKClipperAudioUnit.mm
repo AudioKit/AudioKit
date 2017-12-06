@@ -45,10 +45,10 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        limitAUParameter
-    ]];
+                                             limitAUParameter
+                                             ]];
 
-	parameterTreeBlock(Clipper)
+    parameterTreeBlock(Clipper)
 }
 
 AUAudioUnitOverrides(Clipper);

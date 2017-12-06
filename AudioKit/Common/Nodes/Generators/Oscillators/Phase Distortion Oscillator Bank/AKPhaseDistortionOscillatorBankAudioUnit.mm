@@ -37,7 +37,7 @@ standardBankFunctions()
 
     standardGeneratorSetup(PhaseDistortionOscillatorBank)
     standardBankParameters()
-    
+
     // Create a parameter object for the phaseDistortion.
     AUParameter *phaseDistortionAUParameter = [AUParameter parameter:@"phaseDistortion"
                                                                 name:@"Phase Distortion"
@@ -48,20 +48,15 @@ standardBankFunctions()
 
     // Initialize the parameter values.
     phaseDistortionAUParameter.value = 0.0;
-    
+
     _kernel.setParameter(phaseDistortionAddress, phaseDistortionAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        phaseDistortionAUParameter,
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
-    ]];
-	parameterTreeBlock(PhaseDistortionOscillatorBank)
+                                                               standardBankAUParameterList(),
+                                                               phaseDistortionAUParameter
+                                                               ]];
+    parameterTreeBlock(PhaseDistortionOscillatorBank)
 }
 
 AUAudioUnitGeneratorOverrides(PhaseDistortionOscillatorBank)

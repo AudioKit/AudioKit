@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Daniel Clelland on 2/06/16.
-//  Updated for AudioKit 3 by Aurelius Prochazka.
+//  Updated for AudioKit by Aurelius Prochazka.
 //
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
@@ -101,7 +101,7 @@ class Audiobus {
 
         startObservingInterAppAudioConnections()
         startObservingAudiobusConnections()
-        
+
         controller.enableReceivingCoreMIDIBlock = { _ in return }
     }
 

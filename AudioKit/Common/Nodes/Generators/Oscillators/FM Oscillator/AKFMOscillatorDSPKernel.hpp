@@ -29,7 +29,7 @@ public:
 
         sp_fosc_create(&fosc);
         sp_fosc_init(sp, fosc, ftbl);
-        
+
         fosc->freq = 440;
         fosc->car = 1.0;
         fosc->mod = 1;

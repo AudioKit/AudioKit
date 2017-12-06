@@ -30,7 +30,7 @@ int sp_fold_init(sp_data *sp, sp_fold *p)
     p->incr = 1000;
     p->sample_index = 0;
     p->index = 0.0;
-    p->value = 0.0; 
+    p->value = 0.0;
     return SP_OK;
 }
 

@@ -38,7 +38,7 @@ public:
 
     void destroy() {
     }
-    
+
     void reset() {
         resetted = true;
         amountRamper.reset();
@@ -80,17 +80,17 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            
+
             int frameOffset = int(frameIndex + bufferOffset);
-            
+
             amount = amountRamper.getAndStep();
-            
+
             if (!started) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
                 outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
                 return;
             }
-            
+
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < channels; ++channel) {

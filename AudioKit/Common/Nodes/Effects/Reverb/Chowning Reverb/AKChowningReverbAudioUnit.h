@@ -8,7 +8,8 @@
 
 #pragma once
 
-#import "AKAudioUnit.h"
+#import "AKAudioUnitBase.h"
 
-@interface AKChowningReverbAudioUnit : AKAudioUnit
+@interface AKChowningReverbAudioUnit : AKAudioUnitBase
+
 @end

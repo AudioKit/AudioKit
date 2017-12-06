@@ -1,5 +1,4 @@
-#ifndef STK_DELAYA_H
-#define STK_DELAYA_H
+#pragma once
 
 #include "Filter.h"
 
@@ -25,27 +24,26 @@ namespace stk {
 */
 /***************************************************/
 
-class DelayA : public Filter
-{
+class DelayA : public Filter {
 public:
-
-  //! Default constructor creates a delay-line with maximum length of 4095 samples and delay = 0.5.
+  //! Default constructor creates a delay-line with maximum length of 4095
+  //! samples and delay = 0.5.
   /*!
     An StkError will be thrown if the delay parameter is less than
     zero, the maximum delay parameter is less than one, or the delay
     parameter is greater than the maxDelay value.
-   */  
-  DelayA( StkFloat delay = 0.5, unsigned long maxDelay = 4095 );
+   */
+  DelayA(StkFloat delay = 0.5, unsigned long maxDelay = 4095);
 
   //! Class destructor.
   ~DelayA();
 
   //! Clears all internal states of the delay line.
-  void clear( void );
+  void clear();
 
   //! Get the maximum delay-line length.
-  unsigned long getMaximumDelay( void ) { return inputs_.size() - 1; };
-  
+  unsigned long getMaximumDelay() { return inputs_.size() - 1; };
+
   //! Set the maximum delay-line length.
   /*!
     This method should generally only be used during initial setup
@@ -54,16 +52,16 @@ public:
     likely occur.  If the current maximum length is greater than the
     new length, no memory allocation change is made.
   */
-  void setMaximumDelay( unsigned long delay );
+  void setMaximumDelay(unsigned long delay);
 
   //! Set the delay-line length
   /*!
     The valid range for \e delay is from 0.5 to the maximum delay-line length.
   */
-  void setDelay( StkFloat delay );
+  void setDelay(StkFloat delay);
 
   //! Return the current delay-line length.
-  StkFloat getDelay( void ) const { return delay_; };
+  StkFloat getDelay(void) const { return delay_; };
 
   //! Return the value at \e tapDelay samples from the delay-line input.
   /*!
@@ -71,24 +69,25 @@ public:
     relative to the last input value (i.e., a tapDelay of zero returns
     the last input value).
   */
-  StkFloat tapOut( unsigned long tapDelay );
+  StkFloat tapOut(unsigned long tapDelay);
 
   //! Set the \e value at \e tapDelay samples from the delay-line input.
-  void tapIn( StkFloat value, unsigned long tapDelay );
+  void tapIn(StkFloat value, unsigned long tapDelay);
 
   //! Return the last computed output value.
-  StkFloat lastOut( void ) const { return lastFrame_[0]; };
+  StkFloat lastOut(void) const { return lastFrame_[0]; };
 
   //! Return the value which will be output by the next call to tick().
   /*!
     This method is valid only for delay settings greater than zero!
    */
-  StkFloat nextOut( void );
+  StkFloat nextOut();
 
   //! Input one sample to the filter and return one output.
-  StkFloat tick( StkFloat input );
+  StkFloat tick(StkFloat input);
 
-  //! Take a channel of the StkFrames object as inputs to the filter and replace with corresponding outputs.
+  //! Take a channel of the StkFrames object as inputs to the filter and replace
+  //! with corresponding outputs.
   /*!
     The StkFrames argument reference is returned.  The \c channel
     argument must be less than the number of channels in the
@@ -97,9 +96,10 @@ public:
     defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& frames, unsigned int channel = 0 );
+  StkFrames &tick(StkFrames &frames, unsigned int channel = 0);
 
-  //! Take a channel of the \c iFrames object as inputs to the filter and write outputs to the \c oFrames object.
+  //! Take a channel of the \c iFrames object as inputs to the filter and write
+  //! outputs to the \c oFrames object.
   /*!
     The \c iFrames object reference is returned.  Each channel
     argument must be less than the number of channels in the
@@ -108,10 +108,10 @@ public:
     is defined during compilation, in which case an out-of-range value
     will trigger an StkError exception.
   */
-  StkFrames& tick( StkFrames& iFrames, StkFrames &oFrames, unsigned int iChannel = 0, unsigned int oChannel = 0 );
+  StkFrames &tick(StkFrames &iFrames, StkFrames &oFrames,
+                  unsigned int iChannel = 0, unsigned int oChannel = 0);
 
-protected:  
-
+protected:
   unsigned long inPoint_;
   unsigned long outPoint_;
   StkFloat delay_;
@@ -122,24 +122,22 @@ protected:
   bool doNextOut_;
 };
 
-inline StkFloat DelayA :: nextOut( void )
-{
-  if ( doNextOut_ ) {
+inline StkFloat DelayA::nextOut() {
+  if (doNextOut_) {
     // Do allpass interpolation delay.
     nextOutput_ = -coeff_ * lastFrame_[0];
-    nextOutput_ += apInput_ + ( coeff_ * inputs_[outPoint_] );
+    nextOutput_ += apInput_ + (coeff_ * inputs_[outPoint_]);
     doNextOut_ = false;
   }
 
   return nextOutput_;
 }
 
-inline StkFloat DelayA :: tick( StkFloat input )
-{
+inline StkFloat DelayA::tick(StkFloat input) {
   inputs_[inPoint_++] = input * gain_;
 
   // Increment input pointer modulo length.
-  if ( inPoint_ == inputs_.size() )
+  if (inPoint_ == inputs_.size())
     inPoint_ = 0;
 
   lastFrame_[0] = nextOut();
@@ -147,61 +145,66 @@ inline StkFloat DelayA :: tick( StkFloat input )
 
   // Save the allpass input and increment modulo length.
   apInput_ = inputs_[outPoint_++];
-  if ( outPoint_ == inputs_.size() )
+  if (outPoint_ == inputs_.size())
     outPoint_ = 0;
 
   return lastFrame_[0];
 }
 
-inline StkFrames& DelayA :: tick( StkFrames& frames, unsigned int channel )
-{
+inline StkFrames &DelayA::tick(StkFrames &frames, unsigned int channel) {
 #if defined(_STK_DEBUG_)
-  if ( channel >= frames.channels() ) {
-    oStream_ << "DelayA::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (channel >= frames.channels()) {
+    oStream_
+        << "DelayA::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *samples = &frames[channel];
   unsigned int hop = frames.channels();
-  for ( unsigned int i=0; i<frames.frames(); i++, samples += hop ) {
+  for (unsigned int i = 0; i < frames.frames(); i++, samples += hop) {
     inputs_[inPoint_++] = *samples * gain_;
-    if ( inPoint_ == inputs_.size() ) inPoint_ = 0;
+    if (inPoint_ == inputs_.size())
+      inPoint_ = 0;
     *samples = nextOut();
     lastFrame_[0] = *samples;
     doNextOut_ = true;
     apInput_ = inputs_[outPoint_++];
-    if ( outPoint_ == inputs_.size() ) outPoint_ = 0;
+    if (outPoint_ == inputs_.size())
+      outPoint_ = 0;
   }
 
   return frames;
 }
 
-inline StkFrames& DelayA :: tick( StkFrames& iFrames, StkFrames& oFrames, unsigned int iChannel, unsigned int oChannel )
-{
+inline StkFrames &DelayA::tick(StkFrames &iFrames, StkFrames &oFrames,
+                                unsigned int iChannel, unsigned int oChannel) {
 #if defined(_STK_DEBUG_)
-  if ( iChannel >= iFrames.channels() || oChannel >= oFrames.channels() ) {
-    oStream_ << "DelayA::tick(): channel and StkFrames arguments are incompatible!";
-    handleError( StkError::FUNCTION_ARGUMENT );
+  if (iChannel >= iFrames.channels() || oChannel >= oFrames.channels()) {
+    oStream_
+        << "DelayA::tick(): channel and StkFrames arguments are incompatible!";
+    handleError(StkError::FUNCTION_ARGUMENT);
   }
 #endif
 
   StkFloat *iSamples = &iFrames[iChannel];
   StkFloat *oSamples = &oFrames[oChannel];
   unsigned int iHop = iFrames.channels(), oHop = oFrames.channels();
-  for ( unsigned int i=0; i<iFrames.frames(); i++, iSamples += iHop, oSamples += oHop ) {
+  for (unsigned int i = 0; i < iFrames.frames();
+       i++, iSamples += iHop, oSamples += oHop) {
     inputs_[inPoint_++] = *iSamples * gain_;
-    if ( inPoint_ == inputs_.size() ) inPoint_ = 0;
+    if (inPoint_ == inputs_.size())
+      inPoint_ = 0;
     *oSamples = nextOut();
     lastFrame_[0] = *oSamples;
     doNextOut_ = true;
     apInput_ = inputs_[outPoint_++];
-    if ( outPoint_ == inputs_.size() ) outPoint_ = 0;
+    if (outPoint_ == inputs_.size())
+      outPoint_ = 0;
   }
 
   return iFrames;
 }
 
-} // stk namespace
+}
 
-#endif

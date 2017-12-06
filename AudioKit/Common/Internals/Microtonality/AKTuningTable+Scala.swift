@@ -9,17 +9,21 @@
 extension AKTuningTable {
 
     /// Use a Scala file to write the tuning table
-    public func scalaFile(_ filePath: String) {
+    public func scalaFile(_ filePath: String) -> Int? {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
             let contentStr = String(data: contentData, encoding: .utf8) else {
                 AKLog("can't read filePath: \(filePath)")
-                return
+                return nil
         }
 
         if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
-            tuningTable(fromFrequencies: scalaFrequencies)
+            let npo = tuningTable(fromFrequencies: scalaFrequencies)
+            return npo
         }
+
+        // error
+        return nil
     }
 
     fileprivate func stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(_ inputString: String?) -> String? {
@@ -38,7 +42,7 @@ extension AKTuningTable {
             return nil
         }
 
-        let stringRange = NSRange(location: 0, length: string.characters.count)
+        let stringRange = NSRange(location: 0, length: string.count)
         let trimmedString = regex?.stringByReplacingMatches(in: string,
                                                             options: NSRegularExpression.MatchingOptions.reportProgress,
                                                             range: stringRange,
@@ -80,7 +84,7 @@ extension AKTuningTable {
         for rawLineStr in values {
             var lineStr = stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(rawLineStr) ?? rawLineStr
 
-            if lineStr.characters.isEmpty { continue }
+            if lineStr.isEmpty { continue }
 
             if lineStr.hasPrefix("!") {
                 if ❗️parsedFirstCommentLine {
@@ -130,7 +134,7 @@ extension AKTuningTable {
             let rangeOfFirstMatch = regex?.rangeOfFirstMatch(
                 in: lineStr,
                 options: NSRegularExpression.MatchingOptions.anchored,
-                range: NSRange(location: 0, length: lineStr.characters.count)) ?? NSRange(location: 0, length: 0)
+                range: NSRange(location: 0, length: lineStr.count)) ?? NSRange(location: 0, length: 0)
 
             if ❗️NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) {
                 let nsLineStr = lineStr as NSString?
@@ -149,8 +153,8 @@ extension AKTuningTable {
                         }
                     }
                 } else {
-                    if (substringForFirstMatch.range(of: "/").length) != 0 {
-                        if (substringForFirstMatch.range(of: "-").length) != 0 {
+                    if substringForFirstMatch.range(of: "/").length != 0 {
+                        if substringForFirstMatch.range(of: "-").length != 0 {
                             AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
                             parsedScala = false
                             break

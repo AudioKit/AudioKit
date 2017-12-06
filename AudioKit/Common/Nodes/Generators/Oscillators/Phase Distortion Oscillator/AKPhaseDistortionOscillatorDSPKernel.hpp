@@ -31,10 +31,10 @@ public:
         sp_tabread_create(&tab);
         sp_tabread_init(sp, tab, ftbl, 1);
         sp_phasor_create(&phs);
-        
+
         sp_pdhalf_init(sp, pdhalf);
         sp_phasor_init(sp, phs, 0);
-        
+
         phs->freq = 440;
         pdhalf->amount = 0.0;
 
@@ -44,16 +44,16 @@ public:
         detuningOffsetRamper.init();
         detuningMultiplierRamper.init();
     }
-    
+
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
-    
+
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
-    
+
     void start() {
         started = true;
     }
@@ -99,7 +99,7 @@ public:
         detuningMultiplier = value;
         detuningMultiplierRamper.setImmediate(detuningMultiplier);
     }
-    
+
     void setPhaseDistortion(float value) {
         phaseDistortion = clamp(value, -1.0f, 1.0f);
         phaseDistortionRamper.setImmediate(phaseDistortion);

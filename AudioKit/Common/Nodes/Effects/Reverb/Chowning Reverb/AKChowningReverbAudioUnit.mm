@@ -7,31 +7,15 @@
 //
 
 #import "AKChowningReverbAudioUnit.h"
-#import "AKChowningReverbDSPKernel.hpp"
+#import "AKChowningReverbDSP.hpp"
 
-#import "BufferedAudioBus.hpp"
+@implementation AKChowningReverbAudioUnit
 
-#import <AudioKit/AudioKit-Swift.h>
-
-@implementation AKChowningReverbAudioUnit {
-    // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKChowningReverbDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+-(void*)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+    AKChowningReverbDSP* kernel = new AKChowningReverbDSP();
+    kernel->init(sampleRate, count);
+    return (void*)kernel;
 }
-@synthesize parameterTree = _parameterTree;
-
-standardKernelPassthroughs()
-
-- (void)createParameters {
-
-    standardSetup(ChowningReverb)
-
-    // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-	parameterTreeBlock(ChowningReverb)
-}
-
-AUAudioUnitOverrides(ChowningReverb);
 
 @end
 

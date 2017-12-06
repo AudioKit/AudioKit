@@ -18,7 +18,7 @@ int sporth_loadfile(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_LOADFILE, NULL);
             if(sporth_check_args(stack, "ss") != SPORTH_OK) {
-                plumber_print(pd, "Init: not enough arguments for gen_line\n");
+                plumber_print(pd, "Init: not enough arguments for loadfile\n");
                 return PLUMBER_NOTOK;
             }
 

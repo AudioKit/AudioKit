@@ -29,7 +29,7 @@ standardBankFunctions()
 
     standardGeneratorSetup(PWMOscillatorBank)
     standardBankParameters()
-    
+
     // Create a parameter object for the pulseWidth.
     AUParameter *pulseWidthAUParameter = [AUParameter parameter:@"pulseWidth"
                                                            name:@"Pulse Width"
@@ -45,16 +45,11 @@ standardBankFunctions()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        pulseWidthAUParameter,
-        attackDurationAUParameter,
-        decayDurationAUParameter,
-        sustainLevelAUParameter,
-        releaseDurationAUParameter,
-        detuningOffsetAUParameter,
-        detuningMultiplierAUParameter
-    ]];
+                                                               standardBankAUParameterList(),
+                                                               pulseWidthAUParameter
+                                                               ]];
 
-	parameterTreeBlock(PWMOscillatorBank)
+    parameterTreeBlock(PWMOscillatorBank)
 }
 
 AUAudioUnitGeneratorOverrides(PWMOscillatorBank)

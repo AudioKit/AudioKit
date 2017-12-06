@@ -43,7 +43,7 @@ standardKernelPassthroughs()
     AUParameter *cutoffFrequencyAUParameter = [AUParameter frequency:@"cutoffFrequency"
                                                                 name:@"Cutoff Frequency (Hz)"
                                                              address:cutoffFrequencyAddress];
-  // Create a parameter object for the resonance.
+    // Create a parameter object for the resonance.
     AUParameter *resonanceAUParameter = [AUParameter parameter:@"resonance"
                                                           name:@"Resonance"
                                                        address:resonanceAddress
@@ -78,13 +78,13 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        cutoffFrequencyAUParameter,
-        resonanceAUParameter,
-        distortionAUParameter,
-        resonanceAsymmetryAUParameter
-    ]];
+                                             cutoffFrequencyAUParameter,
+                                             resonanceAUParameter,
+                                             distortionAUParameter,
+                                             resonanceAsymmetryAUParameter
+                                             ]];
 
-	parameterTreeBlock(RolandTB303Filter)
+    parameterTreeBlock(RolandTB303Filter)
 }
 
 AUAudioUnitOverrides(RolandTB303Filter);

@@ -1,6 +1,6 @@
 //
 //  AKDSPKernel.hpp
-//  AudioKit For macOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 7/1/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
@@ -17,15 +17,15 @@ protected:
 public:
     AKDSPKernel(int _channels, float _sampleRate):
     channels(_channels), sampleRate(_sampleRate) { }
-    
+
     AKDSPKernel(): AKDSPKernel(AKSettings.numberOfChannels, AKSettings.sampleRate) { }
-    
+
     virtual ~AKDSPKernel() { }
     //
     // todo: these should be constructors but the original samples
     // had init methods
     //
-    
+
     virtual void init(int _channels, double _sampleRate) {
         channels = _channels;
         sampleRate = _sampleRate;
@@ -35,13 +35,13 @@ public:
 class AKParametricKernel {
 protected:
     virtual ParameterRamper& getRamper(AUParameterAddress address) = 0;
-    
+
 public:
-    
+
     AUValue getParameter(AUParameterAddress address) {
         return getRamper(address).getUIValue();
     }
-    
+
     void setParameter(AUParameterAddress address, AUValue value) {
         return getRamper(address).setUIValue(value);
     }
@@ -59,6 +59,7 @@ public:
     }
 };
 
+
 class AKBuffered: public AKOutputBuffered {
 protected:
     AudioBufferList *inBufferListPtr = nullptr;
@@ -66,6 +67,18 @@ public:
     void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
         AKOutputBuffered::setBuffer(outBufferList);
         inBufferListPtr = inBufferList;
-        
+
     }
 };
+
+class AKDSPKernelWithParams : AKDSPKernel, AKParametricKernel {
+public:
+    void start() {}
+    void stop() {}
+    bool started;
+    bool resetted;
+
+};
+
+
+

@@ -21,11 +21,11 @@ public:
         sp_ptrack_create(&ptrack);
         sp_ptrack_init(sp, ptrack, hopSize, peakCount);
     }
-    
+
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
@@ -34,7 +34,7 @@ public:
         sp_ptrack_destroy(&ptrack);
         AKSoundpipeKernel::destroy();
     }
-    
+
     void reset() {
     }
 
@@ -80,7 +80,7 @@ public:
     // MARK: Member Variables
 
 private:
-    
+
     int hopSize = 4096;
     int peakCount = 20;
 

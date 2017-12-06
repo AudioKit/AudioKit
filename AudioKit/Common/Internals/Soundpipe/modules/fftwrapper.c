@@ -5,7 +5,7 @@
   De-classified and ported to C code by Paul Batchelor 2015
 
   License: Public Domain
-  
+
   This requires FFTW library (http://www.fftw.org) to compile and run.
 */
 
@@ -15,7 +15,7 @@
 #include "soundpipe.h"
 #include "kiss_fftr.h"
 
-void FFTwrapper_create(FFTwrapper **fw, int fftsize) 
+void FFTwrapper_create(FFTwrapper **fw, int fftsize)
 {
     *fw = malloc(sizeof(FFTwrapper));
     FFTwrapper *fwp = *fw;
@@ -23,12 +23,12 @@ void FFTwrapper_create(FFTwrapper **fw, int fftsize)
 
 #ifdef USE_FFTW3
     fftw_real *tf1 = malloc(fftsize * sizeof(fftw_real));
-    fftw_real *tf2 = malloc(fftsize * sizeof(fftw_real)); 
-    fwp->tmpfftdata1 = tf1; 
+    fftw_real *tf2 = malloc(fftsize * sizeof(fftw_real));
+    fwp->tmpfftdata1 = tf1;
     fwp->tmpfftdata2 = tf2;
-    fwp->planfftw = fftw_plan_r2r_1d(fftsize, fwp->tmpfftdata1, 
+    fwp->planfftw = fftw_plan_r2r_1d(fftsize, fwp->tmpfftdata1,
             fwp->tmpfftdata1, FFTW_R2HC, FFTW_ESTIMATE);
-    fwp->planfftw_inv = fftw_plan_r2r_1d(fftsize, fwp->tmpfftdata2, 
+    fwp->planfftw_inv = fftw_plan_r2r_1d(fftsize, fwp->tmpfftdata2,
             fwp->tmpfftdata2, FFTW_HC2R, FFTW_ESTIMATE);
 #else
     fwp->fft = kiss_fftr_alloc(fftsize, 0, NULL, NULL);
@@ -41,7 +41,7 @@ void FFTwrapper_create(FFTwrapper **fw, int fftsize)
 
 }
 
-void FFTwrapper_destroy(FFTwrapper **fw) 
+void FFTwrapper_destroy(FFTwrapper **fw)
 {
     FFTwrapper *fwp = *fw;
 #ifdef USE_FFTW3
@@ -60,7 +60,7 @@ void FFTwrapper_destroy(FFTwrapper **fw)
 
 /* do the Fast Fourier Transform */
 
-void smps2freqs(FFTwrapper *ft, SPFLOAT *smps, FFTFREQS *freqs) 
+void smps2freqs(FFTwrapper *ft, SPFLOAT *smps, FFTFREQS *freqs)
 {
     int i;
 
@@ -86,7 +86,7 @@ void smps2freqs(FFTwrapper *ft, SPFLOAT *smps, FFTFREQS *freqs)
 /*
  * do the Inverse Fast Fourier Transform
  */
-void freqs2smps(FFTwrapper *ft, FFTFREQS *freqs, SPFLOAT *smps) 
+void freqs2smps(FFTwrapper *ft, FFTFREQS *freqs, SPFLOAT *smps)
 {
 
     int i;

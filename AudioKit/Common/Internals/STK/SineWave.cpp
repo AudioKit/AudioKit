@@ -18,61 +18,50 @@
 
 namespace stk {
 
-StkFrames SineWave :: table_;
+StkFrames SineWave::table_;
 
-SineWave :: SineWave( void )
-  : time_(0.0), rate_(1.0), phaseOffset_(0.0)
-{
-  if ( table_.empty() ) {
-    table_.resize( TABLE_SIZE + 1, 1 );
+SineWave::SineWave(void) : time_(0.0), rate_(1.0), phaseOffset_(0.0) {
+  if (table_.empty()) {
+    table_.resize(TABLE_SIZE + 1, 1);
     StkFloat temp = 1.0 / TABLE_SIZE;
-    for ( unsigned long i=0; i<=TABLE_SIZE; i++ )
-      table_[i] = sin( TWO_PI * i * temp );
+    for (unsigned long i = 0; i <= TABLE_SIZE; i++)
+      table_[i] = sin(TWO_PI * i * temp);
   }
 
-  Stk::addSampleRateAlert( this );
+  Stk::addSampleRateAlert(this);
 }
 
-SineWave :: ~SineWave()
-{
-  Stk::removeSampleRateAlert( this );
+SineWave::~SineWave() { Stk::removeSampleRateAlert(this); }
+
+void SineWave::sampleRateChanged(StkFloat newRate, StkFloat oldRate) {
+  if (!ignoreSampleRateChange_)
+    this->setRate(oldRate * rate_ / newRate);
 }
 
-void SineWave :: sampleRateChanged( StkFloat newRate, StkFloat oldRate )
-{
-  if ( !ignoreSampleRateChange_ )
-    this->setRate( oldRate * rate_ / newRate );
-}
-
-void SineWave :: reset( void )
-{
+void SineWave::reset() {
   time_ = 0.0;
   lastFrame_[0] = 0;
 }
 
-void SineWave :: setFrequency( StkFloat frequency )
-{
+void SineWave::setFrequency(StkFloat frequency) {
   // This is a looping frequency.
-  this->setRate( TABLE_SIZE * frequency / Stk::sampleRate() );
+  this->setRate(TABLE_SIZE * frequency / Stk::sampleRate());
 }
 
-void SineWave :: addTime( StkFloat time )
-{
+void SineWave::addTime(StkFloat time) {
   // Add an absolute time in samples.
   time_ += time;
 }
 
-void SineWave :: addPhase( StkFloat phase )
-{
+void SineWave::addPhase(StkFloat phase) {
   // Add a time in cycles (one cycle = TABLE_SIZE).
   time_ += TABLE_SIZE * phase;
 }
 
-void SineWave :: addPhaseOffset( StkFloat phaseOffset )
-{
+void SineWave::addPhaseOffset(StkFloat phaseOffset) {
   // Add a phase offset relative to any previous offset value.
-  time_ += ( phaseOffset - phaseOffset_ ) * TABLE_SIZE;
+  time_ += (phaseOffset - phaseOffset_) * TABLE_SIZE;
   phaseOffset_ = phaseOffset;
 }
 
-} // stk namespace
+}

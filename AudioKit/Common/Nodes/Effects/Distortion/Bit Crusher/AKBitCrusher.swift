@@ -8,7 +8,7 @@
 
 /// This will digitally degrade a signal.
 ///
-open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
+open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBitCrusherAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
@@ -21,14 +21,14 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     fileprivate var sampleRateParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
         }
     }
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    open dynamic var bitDepth: Double = 8 {
+    @objc open dynamic var bitDepth: Double = 8 {
         willSet {
             if bitDepth != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -42,7 +42,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
         }
     }
     /// The sample rate of signal output.
-    open dynamic var sampleRate: Double = 10_000 {
+    @objc open dynamic var sampleRate: Double = 10_000 {
         willSet {
             if sampleRate != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -57,7 +57,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
@@ -70,8 +70,8 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     ///   - bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     ///   - sampleRate: The sample rate of signal output.
     ///
-    public init(
-        _ input: AKNode?,
+    @objc public init(
+        _ input: AKNode? = nil,
         bitDepth: Double = 8,
         sampleRate: Double = 10_000) {
 
@@ -87,24 +87,26 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
         bitDepthParameter = tree["bitDepth"]
         sampleRateParameter = tree["sampleRate"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.bitDepthParameter?.address {
-                    self?.bitDepth = Double(value)
-                } else if address == self?.sampleRateParameter?.address {
-                    self?.sampleRate = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
@@ -115,12 +117,12 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

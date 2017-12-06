@@ -126,17 +126,17 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        intensityAUParameter,
-        dampingFactorAUParameter,
-        energyReturnAUParameter,
-        mainResonantFrequencyAUParameter,
-        firstResonantFrequencyAUParameter,
-        secondResonantFrequencyAUParameter,
-        amplitudeAUParameter
-    ]];
+                                             intensityAUParameter,
+                                             dampingFactorAUParameter,
+                                             energyReturnAUParameter,
+                                             mainResonantFrequencyAUParameter,
+                                             firstResonantFrequencyAUParameter,
+                                             secondResonantFrequencyAUParameter,
+                                             amplitudeAUParameter
+                                             ]];
 
 
-	parameterTreeBlock(Drip)
+    parameterTreeBlock(Drip)
 }
 
 AUAudioUnitGeneratorOverrides(Drip);

@@ -124,7 +124,7 @@ int sporth_tblsize(sporth_stack *stack, void *ud)
 
     switch(pd->mode){
         case PLUMBER_CREATE:
-            tsize = malloc(sizeof(uint32_t));
+            tsize = malloc(sizeof(size_t));
             plumber_add_ugen(pd, SPORTH_TBLSIZE, tsize);
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
                plumber_print(pd,"Init: not enough arguments for tblsize\n");
@@ -238,7 +238,7 @@ int sporth_talias(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-           
+
             var = &ft->tbl[index];
 
             plumber_ftmap_delete(pd, 0);

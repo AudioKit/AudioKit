@@ -23,7 +23,7 @@ int sp_tseq_init(sp_data *sp, sp_tseq *p, sp_ftbl *ft)
 }
 
 int sp_tseq_compute(sp_data *sp, sp_tseq *p, SPFLOAT *trig, SPFLOAT *val)
-{    
+{
     if(*trig != 0){
         if(p->shuf) {
             p->pos = sp_rand(sp) % p->ft->size;

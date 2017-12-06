@@ -54,11 +54,11 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        frequencyAUParameter,
-        bandwidthAUParameter
-    ]];
+                                             frequencyAUParameter,
+                                             bandwidthAUParameter
+                                             ]];
 
-	parameterTreeBlock(ResonantFilter)
+    parameterTreeBlock(ResonantFilter)
 }
 
 AUAudioUnitOverrides(ResonantFilter);

@@ -23,7 +23,7 @@
 @synthesize parameterTree = _parameterTree;
 
 - (void)setSporth:(NSString *)sporth {
-    _kernel.setSporth((char*)[sporth UTF8String]);
+    _kernel.setSporth((char *)[sporth UTF8String], (int)sporth.length + 1);
 }
 
 - (void)trigger:(int)trigger {
@@ -68,7 +68,7 @@
     standardGeneratorSetup(OperationGenerator)
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
-	parameterTreeBlock(OperationGenerator)
+    parameterTreeBlock(OperationGenerator)
 }
 
 AUAudioUnitGeneratorOverrides(OperationGenerator)

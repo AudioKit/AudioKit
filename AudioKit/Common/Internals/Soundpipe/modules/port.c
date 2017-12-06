@@ -1,9 +1,9 @@
 /*
  * Port
- * 
+ *
  * This code has been extracted from the Csound opcode "portk".
  * It has been modified to work as a Soundpipe module.
- * 
+ *
  * Original Author(s): Robbin Whittle, John ffitch
  * Year: 1995, 1998
  * Location: Opcodes/biquad.c
@@ -17,8 +17,8 @@
 #define ROOT2 (1.4142135623730950488)
 
 #ifndef M_PI
-#define M_PI		3.14159265358979323846	
-#endif 
+#define M_PI		3.14159265358979323846
+#endif
 
 #include "soundpipe.h"
 

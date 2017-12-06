@@ -26,16 +26,16 @@ public:
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
-    
+
     void destroy() {
         sp_bal_destroy(&bal);
         AKSoundpipeKernel::destroy();
     }
-    
+
     void reset() {
     }
 
@@ -56,14 +56,14 @@ public:
     }
 
     void setBuffers(AudioBufferList* inBufferList, AudioBufferList *compBufferList, AudioBufferList* outBufferList) {
-        
+
         inBufferListPtr = inBufferList;
         compBufferListPtr = compBufferList;
         outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
@@ -72,7 +72,7 @@ public:
                 float *in   = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *comp = (float *)compBufferListPtr->mBuffers[channel].mData + frameOffset;
                 float *out  = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_bal_compute(sp, bal, in, comp, out);
                 } else {

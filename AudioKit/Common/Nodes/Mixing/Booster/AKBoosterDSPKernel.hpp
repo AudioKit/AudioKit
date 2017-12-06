@@ -40,7 +40,7 @@ public:
 
     void destroy() {
     }
-    
+
     void reset() {
         resetted = true;
         leftGainRamper.reset();
@@ -107,7 +107,7 @@ public:
                 outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
                 return;
             }
-            
+
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;

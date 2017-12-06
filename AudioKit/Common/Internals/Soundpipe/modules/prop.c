@@ -92,10 +92,10 @@ int sp_prop_compute(sp_data *sp, sp_prop *p, SPFLOAT *in, SPFLOAT *out)
         p->evt = prop_next(sp, p->prp);
         p->count = prop_time(p->prp, p->evt) * sp->sr;
         switch(p->evt.type) {
-            case PTYPE_ON: 
+            case PTYPE_ON:
                 *out = 1.0;
                 break;
-            case PTYPE_MAYBE: 
+            case PTYPE_MAYBE:
                 if( ((SPFLOAT) sp_rand(sp) / SP_RANDMAX) > 0.5) *out = 1.0;
                 else *out = 0.0;
                 break;
@@ -142,7 +142,7 @@ static void mode_insert_event(prop_data *pd, char type)
     } else {
         printf("mode_insert: PTYPE_OFF\n");
     }
-    printf("\tval/mul = %d, pos = %d, cons = %d, div = %d\n", 
+    printf("\tval/mul = %d, pos = %d, cons = %d, div = %d\n",
             pd->mul, pd->num, pd->cons_mul, pd->div);
 #endif
 
@@ -311,7 +311,7 @@ prop_val prop_list_iterate(prop_list *lst)
     prop_val val = lst->last->val;
     lst->last = lst->last->next;
     lst->pos++;
-    return val; 
+    return val;
 }
 
 static void back_to_top(prop_data *pd)
@@ -340,7 +340,7 @@ prop_event prop_next(sp_data *sp, prop_data *pd)
         pd->main = lst->top;
     }
 */
-    reset(pd); 
+    reset(pd);
     prop_list *lst = pd->main;
 
     prop_val val = lst->last->val;
@@ -352,7 +352,7 @@ prop_event prop_next(sp_data *sp, prop_data *pd)
             prop_slice *slice = (prop_slice *)val.ud;
 
             uint32_t pos = floor(
-                ((SPFLOAT)sp_rand(sp) / SP_RANDMAX) 
+                ((SPFLOAT)sp_rand(sp) / SP_RANDMAX)
                 * slice->size);
 
             pd->main = slice->ar[pos];
@@ -414,8 +414,8 @@ static int prop_slice_free(prop_slice *slice)
 {
     uint32_t i;
     for(i = 0; i < slice->size; i++) {
-        prop_list_destroy(slice->ar[i]);   
-        free(slice->ar[i]); 
+        prop_list_destroy(slice->ar[i]);
+        free(slice->ar[i]);
     }
     free(slice->ar);
     return PSTATUS_OK;
@@ -439,7 +439,7 @@ static int prop_val_free(prop_val val)
     return PSTATUS_OK;
 }
 
-static int prop_list_destroy(prop_list *lst) 
+static int prop_list_destroy(prop_list *lst)
 {
     prop_entry *entry = lst->root.next;
     prop_entry *next;
@@ -458,7 +458,7 @@ static void prop_list_reset(prop_list *lst)
 {
     lst->last = lst->root.next;
     lst->pos = 0;
-}   
+}
 
 static void mode_insert_slice(prop_data *pd)
 {
@@ -482,7 +482,7 @@ static void prop_slice_encap(prop_data *pd)
     new = malloc(sizeof(prop_list));
     new->lvl = pd->main->lvl;
     slice->size = 2;
-    slice->ar = 
+    slice->ar =
         (prop_list **)malloc(sizeof(prop_list *) * slice->size);
     slice->ar[0] = lst;
     /* reinit main list */
@@ -500,7 +500,7 @@ static void prop_slice_append(prop_data *pd)
 {
     prop_entry *entry = pd->main->top->last;
     prop_slice *slice = (prop_slice *)entry->val.ud;
-    
+
     prop_list *new = malloc(sizeof(prop_list));
     prop_list_init(new);
     slice->size++;

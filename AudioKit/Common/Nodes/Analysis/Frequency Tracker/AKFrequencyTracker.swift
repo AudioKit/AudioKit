@@ -8,7 +8,7 @@
 
 /// This is based on an algorithm originally created by Miller Puckette.
 ///
-open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
+open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKFrequencyTrackerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "ptrk")
@@ -18,17 +18,17 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     fileprivate var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying() ?? false
     }
 
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
-    open dynamic var amplitude: Double {
+    @objc open dynamic var amplitude: Double {
         return Double(internalAU?.amplitude ?? 0) / Double(AKSettings.numberOfChannels)
     }
 
     /// Detected frequency
-    open dynamic var frequency: Double {
+    @objc open dynamic var frequency: Double {
         return Double(internalAU?.frequency ?? 0) * Double(AKSettings.numberOfChannels)
     }
 
@@ -40,8 +40,8 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
     /// - parameter hopSize: Hop size.
     /// - parameter peakCount: Number of peaks.
     ///
-    public init(
-        _ input: AKNode?,
+    @objc public init(
+        _ input: AKNode? = nil,
         hopSize: Double = 512,
         peakCount: Double = 20) {
 
@@ -53,19 +53,19 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.addConnectionPoint(self!)
+            input?.connect(to: self!)
         }
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

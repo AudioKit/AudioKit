@@ -60,7 +60,7 @@ standardKernelPassthroughs()
     _parameterTree = [AUParameterTree tree:@[timeAUParameter,
                                              feedbackAUParameter]];
 
-	parameterTreeBlock(VariableDelay)
+    parameterTreeBlock(VariableDelay)
 }
 
 AUAudioUnitOverrides(VariableDelay);
