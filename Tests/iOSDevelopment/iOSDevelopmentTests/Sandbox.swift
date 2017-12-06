@@ -21,7 +21,6 @@ class Sandbox: AKTestCase {
     func testParameters() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400, amplitude: 0.5)
         output = input
-        AKTestMD5("857cc2e5bd6ed2b8387966cadf44c9c1")
+        AKTestMD5("615e742bc1412c15237a453c5b49d5e0")
     }
 }
-
