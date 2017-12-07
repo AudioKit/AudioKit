@@ -53,40 +53,40 @@ public class AKPlayer: AKNode, AKTiming {
     }
     
     public struct Loop {
-        var start: Double = 0
-        var end: Double = 0
+        public var start: Double = 0
+        public var end: Double = 0
     }
     
     public struct Fade {
-        static var defaultStartGain: Double = 0.001
+        public static var defaultStartGain: Double = 0.001
         
         var needsUpdate: Bool = false
         
-        var inTime: Double = 0 {
+        public var inTime: Double = 0 {
             willSet {
                 if newValue != inTime { needsUpdate = true }
             }
         }
         
-        var inStartGain: Double = defaultStartGain {
+        public var inStartGain: Double = defaultStartGain {
             willSet {
                 if newValue != inStartGain { needsUpdate = true }
             }
         }
         
-        var outTime: Double = 0 {
+        public var outTime: Double = 0 {
             willSet {
                 if newValue != outTime { needsUpdate = true }
             }
         }
         
-        var outStartGain: Double = 1 {
+        public var outStartGain: Double = 1 {
             willSet {
                 if newValue != outStartGain { needsUpdate = true }
             }
         }
         
-        var type: AKPlayer.FadeType = .exponential {
+        public var type: AKPlayer.FadeType = .exponential {
             willSet {
                 if newValue != type { needsUpdate = true }
             }
