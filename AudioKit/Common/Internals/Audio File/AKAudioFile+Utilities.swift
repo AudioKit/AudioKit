@@ -38,10 +38,8 @@ extension AKAudioFile {
         return try AKAudioFile(forReading: silentFile.url)
     }
 
-    @available(*, deprecated, renamed: "AKPlayer.findPeak(pcmBuffer:)")
+    //@available(*, deprecated, renamed: "AVAudioPCMBuffer.peak")
     static public func findPeak(pcmBuffer: AVAudioPCMBuffer) -> Double {
-        return AKPlayer.findPeak(pcmBuffer: pcmBuffer)
+        return pcmBuffer.peakTime
     }
-
-
 }
