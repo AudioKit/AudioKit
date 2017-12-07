@@ -19,6 +19,9 @@
 		B123121D1F1944E200888115 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B123121C1F1944E200888115 /* Extensions.swift */; };
 		B1535FB81F87E8000028CC26 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1535FB71F87E7FF0028CC26 /* MenuButton.swift */; };
 		B1535FBA1F87E8090028CC26 /* ClosureMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1535FB91F87E8090028CC26 /* ClosureMenuItem.swift */; };
+		B18484741FD9A13400F65DA6 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18484731FD9A13400F65DA6 /* AKWaveform.swift */; };
+		B18484771FD9A41E00F65DA6 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; };
+		B18484781FD9A41E00F65DA6 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B186CF551F884FC40063CDB9 /* ViewController - Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B186CF541F884FC40063CDB9 /* ViewController - Effects.swift */; };
 		B1FB61BF1F2E958400FF6DE7 /* InstrumentPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FB61BE1F2E958400FF6DE7 /* InstrumentPlayer.swift */; };
 		C4CC95441F66550800BABA8E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CC95421F6654FC00BABA8E /* AudioKit.framework */; };
@@ -32,6 +35,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B18484781FD9A41E00F65DA6 /* AudioKitUI.framework in Embed Frameworks */,
 				C4CC95451F66550800BABA8E /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -54,6 +58,8 @@
 		B123121C1F1944E200888115 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B1535FB71F87E7FF0028CC26 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		B1535FB91F87E8090028CC26 /* ClosureMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMenuItem.swift; sourceTree = "<group>"; };
+		B18484731FD9A13400F65DA6 /* AKWaveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKWaveform.swift; sourceTree = "<group>"; };
+		B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		B186CF541F884FC40063CDB9 /* ViewController - Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController - Effects.swift"; sourceTree = "<group>"; };
 		B1FB61BE1F2E958400FF6DE7 /* InstrumentPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstrumentPlayer.swift; sourceTree = "<group>"; };
 		C4CC95421F6654FC00BABA8E /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
@@ -64,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B18484771FD9A41E00F65DA6 /* AudioKitUI.framework in Frameworks */,
 				C4CC95441F66550800BABA8E /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				C4CC95421F6654FC00BABA8E /* AudioKit.framework */,
+				B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */,
 				B12311FD1F193EA100888115 /* AudioUnitManager */,
 				B12311FC1F193EA100888115 /* Products */,
 			);
@@ -130,6 +138,7 @@
 				B12312101F193F6100888115 /* AudioUnitGenericView.swift */,
 				B118AB381F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift */,
 				B118AB3D1F8AA268000E9AB1 /* AudioUnitToolbar.swift */,
+				B18484731FD9A13400F65DA6 /* AKWaveform.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -167,6 +176,7 @@
 				TargetAttributes = {
 					B12311FA1F193EA100888115 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = AL5THFEQGA;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -218,6 +228,7 @@
 				B12311FF1F193EA200888115 /* AppDelegate.swift in Sources */,
 				B12312131F193F6100888115 /* AudioUnitGenericView.swift in Sources */,
 				B1FB61BF1F2E958400FF6DE7 /* InstrumentPlayer.swift in Sources */,
+				B18484741FD9A13400F65DA6 /* AKWaveform.swift in Sources */,
 				B118AB3E1F8AA268000E9AB1 /* AudioUnitToolbar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,7 +360,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = AL5THFEQGA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -367,7 +378,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = AL5THFEQGA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

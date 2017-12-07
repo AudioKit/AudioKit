@@ -23,7 +23,7 @@ converter.start(completionHandler: { error in
 })
 ```
 */
-class AKConverter: NSObject {
+public class AKConverter: NSObject {
     /**
      AKConverterCallback is the callback format for start()
      -Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.

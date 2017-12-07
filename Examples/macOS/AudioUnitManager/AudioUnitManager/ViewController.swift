@@ -17,6 +17,7 @@ class ViewController: NSViewController {
     let windowPrefix = "FX"
 
     @IBOutlet weak var effectsContainer: NSView!
+    @IBOutlet weak var waveformContainer: NSView!
     @IBOutlet weak var playButton: NSButton!
     @IBOutlet weak var loopButton: NSButton!
     @IBOutlet weak var instrumentPlayButton: NSButton!
@@ -26,11 +27,13 @@ class ViewController: NSViewController {
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
     fileprivate var _lastMIDIEvent: Int = 0
-
+    fileprivate var audioTimer: Timer?
+    
     var openPanel: NSOpenPanel?
     var internalManager: AKAudioUnitManager?
     var midiManager: AKMIDI?
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
+    var waveform: AKWaveform?
     var fm: AKFMOscillator?
     var mixer: AKMixer?
     var auInstrument: AKAudioUnitInstrument? {
@@ -105,7 +108,6 @@ class ViewController: NSViewController {
         }
 
         openPanel!.beginSheetModal( for: window, completionHandler: { response in
-            //AKLog( "Response: \(response) \(self.openPanel!.url)" )
             if response.rawValue == NSFileHandlingPanelOKButton {
                 if let url = self.openPanel?.url {
                     self.open(url: url)
@@ -183,6 +185,8 @@ class ViewController: NSViewController {
                 AudioKit.stop()
                 internalManager?.reset()
             }
+            
+            stopAudioTimer()
 
         } else {
             if !AudioKit.engine.isRunning {
@@ -193,9 +197,25 @@ class ViewController: NSViewController {
                 internalManager!.connectEffects(firstNode: player, lastNode: mixer)
             }
             player.volume = 1
-            player.play()
+            player.play(from: waveform?.time ?? 0)
             playButton.title = "⏹"
+            startAudioTimer()
+            
         }
+    }
+    
+    // this just moves the Timeline bar in the waveform
+    private func startAudioTimer() {
+        audioTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(ViewController.updateWaveformDisplay), userInfo: nil, repeats: true)
+    }
+    
+    private func stopAudioTimer() {
+        audioTimer?.invalidate()
+    }
+    
+    @objc private func updateWaveformDisplay() {
+        guard player != nil else { return }
+        waveform?.time = player!.currentTime
     }
 
     @IBAction func handleInstrumentPlayButton(_ sender: NSButton) {
@@ -210,7 +230,7 @@ class ViewController: NSViewController {
             fm!.stop()
         }
 
-        if player != nil && player!.isStarted {
+        if player?.isPlaying ?? false {
             handlePlayButton(playButton)
         }
 
@@ -226,7 +246,7 @@ class ViewController: NSViewController {
     @IBAction func handleFMButton(_ sender: NSButton) {
         guard let fm = fm else { return }
 
-        if player != nil && player!.isStarted {
+        if player?.isPlaying ?? false {
             handlePlayButton(playButton)
         }
 
@@ -247,38 +267,50 @@ class ViewController: NSViewController {
     }
 
     func handleAudioComplete() {
+        if player?.isLooping ?? false {
+            return
+        }
+ 
         playButton.state = .off
         playButton.title = "▶️"
     }
 
     @IBAction func handleLoopButton(_ sender: NSButton) {
         let state = sender.state == .on
-
         sender.title = state ? "🔁" : "🔄"
-
-        if player != nil {
-            player!.looping = state
-        }
+        player?.isLooping = state
+        
     }
 
+    /// open an audio URL for playing
     func open(url: URL) {
         guard internalManager != nil else { return }
         guard mixer != nil else { return }
 
-        do {
-            let file = try AKAudioFile(forReading: url)
-            player = try AKAudioPlayer(file: file)
-            player!.completionHandler = handleAudioComplete
+        player = AKPlayer(url: url)
+        guard player != nil else { return }
+        
+        player!.completionHandler = handleAudioComplete
 
-            internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-            player!.looping = loopButton.state == .on
+        internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+        player!.isLooping = loopButton.state == .on
 
-            playButton.isEnabled = true
-            fileField.stringValue = "🔈 \(url.lastPathComponent)"
-
-        } catch {
-
+        playButton.isEnabled = true
+        fileField.stringValue = "🔈 \(url.lastPathComponent)"
+        
+        if waveform != nil {
+            waveform!.dispose()
         }
+        
+        // get the waveform
+        let darkRed = NSColor(calibratedRed: 0.79, green: 0.128, blue: 0.06, alpha: 1)
+        waveform = AKWaveform(url: url, color: darkRed)
+        guard waveform != nil else { return }
+
+        waveformContainer.addSubview(waveform!)
+        waveform?.frame = waveformContainer.frame
+        waveform?.fitToFrame()
+        waveform?.delegate = self
     }
 
     func initFM() {
@@ -387,6 +419,18 @@ extension ViewController: AKMIDIListener {
         }
     }
 }
+
+extension ViewController: AKWaveformDelegate {
+    func waveformSelected(source: AKWaveform, at time: Double) {
+        guard let player = player else { return }
+        
+        player.currentTime = time
+        
+    }
+    
+    
+}
+
 
 /// Handle Window Events
 extension ViewController: NSWindowDelegate {

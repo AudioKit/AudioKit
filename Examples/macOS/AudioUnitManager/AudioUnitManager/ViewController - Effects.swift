@@ -322,20 +322,20 @@ extension ViewController {
         if fm != nil && fm!.isStarted {
             internalManager!.connectEffects(firstNode: fm!, lastNode: mixer)
             return
-        } else if auInstrument != nil && !(player?.isStarted ?? false) {
+        } else if auInstrument != nil && !(player?.isPlaying ?? false) {
             internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
             return
         } else if player != nil {
-            let playing = player!.isStarted
+            let wasPlaying = player!.isPlaying
 
-            if playing {
+            if wasPlaying {
                 player!.stop()
             }
 
             internalManager!.connectEffects(firstNode: player, lastNode: mixer)
 
-            if playing {
-                player!.start()
+            if wasPlaying {
+                player!.play()
             }
         }
     }
