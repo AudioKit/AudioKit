@@ -289,7 +289,6 @@ class ViewController: NSViewController {
 
         player = AKPlayer(url: url)
         guard player != nil else { return }
-        
         player!.completionHandler = handleAudioComplete
 
         internalManager!.connectEffects(firstNode: player, lastNode: mixer)

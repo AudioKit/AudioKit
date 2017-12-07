@@ -8,6 +8,36 @@
 
 import AVFoundation
 
+/**
+ AKPlayer is meant to be a simple yet powerful audio player that just works. It supports
+ scheduling of sounds, looping, fading, and reversing. Players can be locked to a common
+ clock as well as video by using hostTime in the various play functions.
+ 
+ A locked video function would resemble:
+ ```
+ func videoPlay(at time: TimeInterval = 0, hostTime: UInt64 = 0 ) {
+     let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
+     let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
+     let futureTime = CMTimeAdd(cmHostTime, cmVTime)
+     videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
+ }
+ ```
+ 
+ Basic usage looks like:
+ ```
+    guard let player = AKPlayer(url: url) else { return }
+    player.completionHandler = { Swift.print("Done") }
+
+    // Loop Options
+    player.loop.start = 1
+    player.loop.end = 3
+    player.isLooping = true
+ 
+    player.play()
+ ```
+ 
+ Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
+ */
 public class AKPlayer: AKNode {
     
     /// How the player should handle audio. If buffering, it will load the audio data into
@@ -97,7 +127,7 @@ public class AKPlayer: AKNode {
         return audioFile?.duration ?? 0
     }
     
-    /// holds characteristics about the fade options
+    /// holds characteristics about the fade options. Using fades will set the player to buffering
     open var fade = Fade()
     
     /// holds characteristics about the looping options
@@ -151,10 +181,12 @@ public class AKPlayer: AKNode {
     
     //MARK:- public options
     
+    /// true if any fades have been set
     open var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
     }
     
+    /// true if the player is buffering audio rather than playing from disk
     open var isBuffered: Bool {
         if buffering == .never {
             return false
@@ -165,6 +197,7 @@ public class AKPlayer: AKNode {
     
     open var isLooping: Bool = false
     
+    /// setting this will set the player to buffering
     open var isReversed: Bool = false {
         didSet {
             
@@ -177,6 +210,7 @@ public class AKPlayer: AKNode {
     
     //MARK:- Initialization
     
+    /// Create a player from a URL
     public convenience init?(url: URL) {
         if !FileManager.default.fileExists(atPath: url.path) {
             return nil
@@ -191,6 +225,7 @@ public class AKPlayer: AKNode {
         return nil
     }
     
+    /// Create a player from an AVAudioFile
     public convenience init(audioFile: AVAudioFile) {
         self.init()
         self.audioFile = audioFile
@@ -245,6 +280,7 @@ public class AKPlayer: AKNode {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
     }
     
+    /// Play segments of a file
     public func play(from: Double, to: Double = 0) {
         var to = to
         if to == 0 {
@@ -253,14 +289,18 @@ public class AKPlayer: AKNode {
         play(from: from, to: to, at: nil, hostTime: nil)
     }
     
+    /// Play file using previously set startTime and endTime at some point in the future
     public func play(at audioTime: AVAudioTime?) {
         play(at: audioTime, hostTime: nil)
     }
     
+    /// Play file using previously set startTime and endTime at some point in the future with a hostTime reference
     public func play(at audioTime: AVAudioTime?, hostTime: UInt64?) {
         play(from: startTime, to: endTime, at: audioTime, hostTime: hostTime)
     }
-    
+
+    /// Play file using previously set startTime and endTime at some point in the future specified in seconds
+    /// with a hostTime reference
     public func play(when scheduledTime: Double, hostTime: UInt64?) {
         play(from: startTime, to: endTime, when: scheduledTime, hostTime: hostTime)
     }
@@ -271,7 +311,7 @@ public class AKPlayer: AKNode {
         play(from: from, to: to, at: avTime, hostTime: refTime)
     }
     
-    // Last in the convenience play chain, all play() commands will end up here
+    /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     public func play(from: Double, to: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         preroll(from: from, to: to)
         schedule(at: audioTime)
@@ -289,6 +329,7 @@ public class AKPlayer: AKNode {
         }
     }
     
+    /// Stop playback and cancel any pending scheduling or completion events
     public func stop() {
         playerNode.stop()
         completionTimer?.invalidate()
@@ -335,9 +376,6 @@ public class AKPlayer: AKNode {
                                   at: audioTime,
                                   options: [],
                                   completionHandler: nil) // these completionHandlers are inaccurate pre 10.13
-        
-        //timerCompletion ? nil : handleComplete
-        
         playerNode.prepare(withFrameCount: buffer.frameLength)
     }
     
@@ -403,7 +441,7 @@ public class AKPlayer: AKNode {
         let updateNeeded = (buffer == nil || startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate)
         
         if !updateNeeded {
-            Swift.print("updatePCMBuffer() no update needed.")
+            //Swift.print("updatePCMBuffer() no update needed.")
             return
         }
         self.startingFrame = startFrame
@@ -446,7 +484,7 @@ public class AKPlayer: AKNode {
                 fade.needsUpdate = false
             }
             
-            Swift.print("updatePCMBuffer() Done")
+            //Swift.print("updatePCMBuffer() Done")
             
         } else {
             AKLog("ERROR updatePCMBuffer: Could not set PCM buffer -> " +
@@ -455,7 +493,9 @@ public class AKPlayer: AKNode {
     }
     
     
-    /// Apply sample level fades to the internal buffer.
+    // Apply sample level fades to the internal buffer.
+    // TODO: add other fade curves or ditch this method in favor of Audio Unit based fading.
+    // That is appealing as it will work with file playback as well as buffer
     private func fadeBuffer() {
         if fade.inTime == 0 && fade.outTime == 0 {
             return
@@ -517,6 +557,7 @@ public class AKPlayer: AKNode {
         self.buffer?.frameLength = length
     }
     
+    // Read the buffer in backwards
     fileprivate func reverseBuffer() {
         if buffer == nil {
             updateBuffer()
@@ -554,10 +595,12 @@ public class AKPlayer: AKNode {
     
     // MARK: - Static Methods
     
+    /// convert an AVAudioTime object to seconds with a hostTime reference
     open class func audioTimeToSeconds(hostTime: UInt64, audioTime: AVAudioTime) -> Double {
         return AVAudioTime.seconds(forHostTime: audioTime.hostTime - hostTime)
     }
     
+    // convert seconds to AVAudioTime with a hostTime reference
     open class func secondsToAVAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()
@@ -565,6 +608,65 @@ public class AKPlayer: AKNode {
         let hostTimeToSecFactor = Double(timebaseInfo.numer) / Double(timebaseInfo.denom) / Double(NSEC_PER_SEC)
         let out = AVAudioTime(hostTime: hostTime + UInt64(time / hostTimeToSecFactor))
         return out
+    }
+    
+    /// Returns the time in seconds of the peak of the buffer
+    /// - Parameters:
+    ///   - pcmBuffer: A valid AVAudioPCMBuffer
+    /// - Returns: The time in seconds or 0 if it failed
+    open static func findPeak( pcmBuffer: AVAudioPCMBuffer ) -> Double {
+        guard pcmBuffer.frameLength > 0 else { return 0 }
+        guard let floatData = pcmBuffer.floatChannelData else { return 0 }
+        
+        var framePosition = 0
+        var position = 0
+        var lastPeak: Float = -10_000.0
+        let frameLength = 512
+        let channelCount = Int(pcmBuffer.format.channelCount)
+        
+        while true {
+            if position + frameLength >= pcmBuffer.frameLength {
+                break
+            }
+            for channel in 0 ..< channelCount {
+                var block = Array(repeating: Float(0), count: frameLength)
+                
+                // fill the block with frameLength samples
+                for i in 0 ..< block.count {
+                    if i + position >= pcmBuffer.frameLength {
+                        break
+                    }
+                    block[i] = floatData[channel][i + position]
+                }
+                // scan the block
+                let peak = AKPlayer.getPeak(from: block)
+                
+                if peak > lastPeak {
+                    framePosition = position
+                    lastPeak = peak
+                }
+                position += block.count
+            }
+        }
+        
+        let time = Double(framePosition / pcmBuffer.format.sampleRate)
+        return time
+    }
+    
+    /// return the highest level in the given collection of floats
+    static private func getPeak(from buffer: [Float]) -> Float {
+        // create variable with very small value to hold the peak value
+        var peak: Float = -10_000.0
+        
+        for i in 0 ..< buffer.count {
+            // store the absolute value of the sample
+            let absSample = abs(buffer[i])
+            
+            if absSample > peak {
+                peak = absSample
+            }
+        }
+        return peak
     }
     
 }
