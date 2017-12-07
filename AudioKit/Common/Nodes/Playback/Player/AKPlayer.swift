@@ -38,7 +38,7 @@ import AVFoundation
  
  Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
  */
-public class AKPlayer: AKNode {
+public class AKPlayer: AKNode, AKTiming {
     
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from ram. If not, it will play the file from disk.
@@ -149,9 +149,7 @@ public class AKPlayer: AKNode {
     /// If buffered it will preroll.
     public var startTime: Double = 0 {
         didSet {
-            if startTime < 0 {
-                startTime = 0
-            }
+            startTime = max(0, startTime)
             
             if isPlaying {
                 stop()
@@ -162,21 +160,14 @@ public class AKPlayer: AKNode {
     
     public var endTime: Double = 0 {
         didSet {
-            if endTime > duration {
-                endTime = duration
-            }
+            endTime = min(endTime, duration)
         }
     }
     
-    /// Current time of the player in seconds.
+    /// - Returns: Current time of the player in seconds.
+    /// Use setTime() or startTime to set the time
     open var currentTime: Double {
-        get {
-            return time(atAudioTime: nil)
-        }
-        
-        set {
-            startTime = newValue
-        }
+        return time(atAudioTime: nil)
     }
     
     //MARK:- public options
@@ -408,7 +399,7 @@ public class AKPlayer: AKNode {
     /// - parameter audioTime: A time in the audio render context.
     /// - Returns: Time in seconds in the context of the player's timeline.
     ///
-    private func time(atAudioTime audioTime: AVAudioTime?) -> Double {
+    public func time(atAudioTime audioTime: AVAudioTime?) -> Double {
         guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
             return startTime
         }
@@ -420,11 +411,15 @@ public class AKPlayer: AKNode {
     /// - Parameter time: Time in seconds in the context of the player's timeline.
     /// - Returns: A time in the audio render context.
     ///
-    private func audioTime(atTime time: Double) -> AVAudioTime? {
+    public func audioTime(atTime time: Double) -> AVAudioTime? {
         let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
         let sampleTime = (time - startTime) * sampleRate
         let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
         return playerNode.nodeTime(forPlayerTime: playerTime)
+    }
+    
+    public func setTime(_ time: Double) {
+        startTime = time
     }
     
     //MARK:- Buffering routines

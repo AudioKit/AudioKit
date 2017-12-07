@@ -423,7 +423,7 @@ extension ViewController: AKWaveformDelegate {
     func waveformSelected(source: AKWaveform, at time: Double) {
         guard let player = player else { return }
         
-        player.currentTime = time
+        player.setTime(time)
         
     }
     
