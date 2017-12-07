@@ -71,7 +71,7 @@ extension AVAudioPCMBuffer {
     }
     
     /// - Returns: The time in seconds of the peak of the buffer or 0 if it failed
-    open var peakTime: Double {
+    open func peakTime() -> Double {
         guard self.frameLength > 0 else { return 0 }
         guard let floatData = self.floatChannelData else { return 0 }
         
