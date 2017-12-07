@@ -99,8 +99,8 @@ public class AKPlayer: AKNode, AKTiming {
     private let playerNode = AVAudioPlayerNode()
     private var mixer = AVAudioMixerNode()
     private var buffer: AVAudioPCMBuffer?
-    private var startingFrame: AVAudioFramePosition = -1
-    private var endingFrame: AVAudioFramePosition = -1
+    private var startingFrame: AVAudioFramePosition?
+    private var endingFrame: AVAudioFramePosition?
     
     // these timers will go away when AudioKit is built for 10.13
     // in that case the real completion handlers of the scheduling can be used.
