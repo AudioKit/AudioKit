@@ -439,6 +439,7 @@ public class AKPlayer: AKNode, AKTiming {
             //Swift.print("updatePCMBuffer() no update needed.")
             return
         }
+        // these are only stored to check if the buffer needs to be updated in subsequent fills
         self.startingFrame = startFrame
         self.endingFrame = endFrame
         
