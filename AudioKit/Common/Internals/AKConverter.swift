@@ -411,7 +411,7 @@ class AKConverter: NSObject {
         }
         let bufferByteSize: UInt32 = 32_768
         var srcBuffer = [UInt8](repeating: 0, count: 32_768)
-        var sourceFrameOffset: ULONG = 0
+        var sourceFrameOffset: UInt32 = 0
 
         while (true) {
             var fillBufList = AudioBufferList(
