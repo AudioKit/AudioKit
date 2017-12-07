@@ -590,9 +590,7 @@ public class AKPlayer: AKNode {
         // set the buffer now to be the reverse one
         self.buffer = reversedBuffer
     }
-    
-    
-    
+
     // MARK: - Static Methods
     
     /// convert an AVAudioTime object to seconds with a hostTime reference
@@ -608,65 +606,6 @@ public class AKPlayer: AKNode {
         let hostTimeToSecFactor = Double(timebaseInfo.numer) / Double(timebaseInfo.denom) / Double(NSEC_PER_SEC)
         let out = AVAudioTime(hostTime: hostTime + UInt64(time / hostTimeToSecFactor))
         return out
-    }
-    
-    /// Returns the time in seconds of the peak of the buffer
-    /// - Parameters:
-    ///   - pcmBuffer: A valid AVAudioPCMBuffer
-    /// - Returns: The time in seconds or 0 if it failed
-    open static func findPeak( pcmBuffer: AVAudioPCMBuffer ) -> Double {
-        guard pcmBuffer.frameLength > 0 else { return 0 }
-        guard let floatData = pcmBuffer.floatChannelData else { return 0 }
-        
-        var framePosition = 0
-        var position = 0
-        var lastPeak: Float = -10_000.0
-        let frameLength = 512
-        let channelCount = Int(pcmBuffer.format.channelCount)
-        
-        while true {
-            if position + frameLength >= pcmBuffer.frameLength {
-                break
-            }
-            for channel in 0 ..< channelCount {
-                var block = Array(repeating: Float(0), count: frameLength)
-                
-                // fill the block with frameLength samples
-                for i in 0 ..< block.count {
-                    if i + position >= pcmBuffer.frameLength {
-                        break
-                    }
-                    block[i] = floatData[channel][i + position]
-                }
-                // scan the block
-                let peak = AKPlayer.getPeak(from: block)
-                
-                if peak > lastPeak {
-                    framePosition = position
-                    lastPeak = peak
-                }
-                position += block.count
-            }
-        }
-        
-        let time = Double(framePosition / pcmBuffer.format.sampleRate)
-        return time
-    }
-    
-    /// return the highest level in the given collection of floats
-    static private func getPeak(from buffer: [Float]) -> Float {
-        // create variable with very small value to hold the peak value
-        var peak: Float = -10_000.0
-        
-        for i in 0 ..< buffer.count {
-            // store the absolute value of the sample
-            let absSample = abs(buffer[i])
-            
-            if absSample > peak {
-                peak = absSample
-            }
-        }
-        return peak
     }
     
 }
