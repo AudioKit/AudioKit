@@ -150,7 +150,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// Seconds in the audio file to start playback at
+    /// Seconds into the audio file to start playback at
     @objc open dynamic var startTime: Double {
         get {
             return Double(startingFrame) / internalAudioFile.sampleRate
@@ -178,7 +178,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// Seconds in the audio file to stop playback
+    /// Seconds into the audio file to stop playback
     @objc open dynamic var endTime: Double {
         get {
             return Double(endingFrame) / internalAudioFile.sampleRate
