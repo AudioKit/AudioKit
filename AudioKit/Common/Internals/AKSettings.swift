@@ -286,11 +286,13 @@ extension AKSettings {
         return options
     }
 
-    /// Checks if headphones are plugged
-    /// Returns true if headPhones are plugged, otherwise return false
+    /// Checks if headphones are connected
+    /// Returns true if headPhones are connected, otherwise return false
     @objc static open var headPhonesPlugged: Bool {
         return session.currentRoute.outputs.contains {
-            $0.portType == AVAudioSessionPortHeadphones
+            [AVAudioSessionPortHeadphones,
+             AVAudioSessionPortBluetoothHFP,
+             AVAudioSessionPortBluetoothA2DP].contains($0.portType)
         }
     }
 
