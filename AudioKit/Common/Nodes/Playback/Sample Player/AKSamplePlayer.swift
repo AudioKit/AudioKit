@@ -81,7 +81,13 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var rate: Double = 1 {
         willSet {
             if rate != newValue {
-                internalAU?.rate = Float(safeSample(Sample(newValue)))
+                if internalAU?.isSetUp() ?? false {
+                    if let existingToken = token {
+                        rateParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.rate = Float(newValue)
+                }
             }
         }
     }
