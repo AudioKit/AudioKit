@@ -31,7 +31,7 @@ protected:
     // To support AKAudioUnit functions
     bool _initialized = true;
     bool _playing = true;
-    int64_t _now;  // current time in samples
+    int64_t _now = 0;  // current time in samples
 
 public:
 
