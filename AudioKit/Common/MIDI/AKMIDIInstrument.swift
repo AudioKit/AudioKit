@@ -22,9 +22,12 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     open var name = "AKMIDIInstrument"
 
     /// Initialize the MIDI Instrument
-    public override init() {
+    ///
+    /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    ///
+    public init(midiOutputName: String? = nil) {
         super.init()
-        enableMIDI()
+        enableMIDI(name: midiOutputName ?? "Unnamed")
     }
 
     /// Enable MIDI input from a given MIDI client
