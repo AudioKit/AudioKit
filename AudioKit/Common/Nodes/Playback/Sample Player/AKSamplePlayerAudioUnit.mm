@@ -53,7 +53,7 @@
 - (int)size {
     return _kernel.ftbl_size;
 }
-- (float)position {
+- (double)position {
     return _kernel.position;
 }
 standardKernelPassthroughs()

@@ -26,21 +26,20 @@ class AKBooster2Tests: AKTestCase {
         AKTestMD5("79972090508032a146d806185f9bc871")
     }
 
-  func testRamp() {
-    let url = URL(fileURLWithPath: "/Users/Andy/OrkoBorko.aif")
-    let settings: [String : Any] = [AVSampleRateKey: 44_100.0,
-                                    AVNumberOfChannelsKey: 2]
-    let audioFile = try! AKAudioFile(forWriting: url, settings: settings)
-    let osc = AKOscillator()
-    let booster = AKBooster2(osc, gain: 0.0)
-    booster.rampTime = 1
-    booster.leftGain = 1.0
-    booster.rightGain = 1.0
-    osc.connect(to: booster)
-    AudioKit.output = booster
-    try! AudioKit.renderToFile(audioFile, seconds: 4, prerender: {
-      osc.start()
-    })
-  }
+//  func testRamp() {
+//    let url = URL.init(fileURLWithPath: "/OrkoBorko.aif")
+//    let settings: [String : Any] = [AVSampleRateKey: 44100.0, AVNumberOfChannelsKey: 2]
+//    let audioFile = try! AKAudioFile(forWriting: url, settings: settings)
+//    let osc = AKOscillator()
+//    let booster = AKBooster2(osc, gain: 1.0)
+//    booster.rampTime = 1
+//    booster.leftGain = 0.0
+//    booster.rightGain = 0.0
+//    osc.connect(to: booster)
+//    AudioKit.output = booster
+//    try! AudioKit.renderToFile(audioFile, seconds: 4, prerender: {
+//      osc.start()
+//    })
+//  }
 
 }
