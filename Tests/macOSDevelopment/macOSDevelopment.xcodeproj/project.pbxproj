@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55D897351FDB864E00754292 /* AKTestTriggers.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D897341FDB864E00754292 /* AKTestTriggers.m */; };
 		C4A007E41FD4CCED004A91F4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A007E11FD4CCE4004A91F4 /* AudioKit.framework */; };
 		C4A007E51FD4CCED004A91F4 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4A007E11FD4CCE4004A91F4 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4A007E81FD4CCED004A91F4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A007E31FD4CCE4004A91F4 /* AudioKitUI.framework */; };
@@ -168,6 +169,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		55D897321FDB864D00754292 /* macOSDevelopment-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "macOSDevelopment-Bridging-Header.h"; sourceTree = "<group>"; };
+		55D897331FDB864E00754292 /* AKTestTriggers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKTestTriggers.h; path = ../../Common/AKTestTriggers.h; sourceTree = "<group>"; };
+		55D897341FDB864E00754292 /* AKTestTriggers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKTestTriggers.m; path = ../../Common/AKTestTriggers.m; sourceTree = "<group>"; };
 		C4A007DB1FD4CCE3004A91F4 /* AudioKit For macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For macOS.xcodeproj"; path = "../../AudioKit/macOS/AudioKit For macOS.xcodeproj"; sourceTree = "<group>"; };
 		C4A007F21FD4CE2F004A91F4 /* macOSDevelopmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = macOSDevelopmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A007F61FD4CE2F004A91F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -447,6 +451,9 @@
 				C4BDE7F01C12FAE600207DA9 /* Assets.xcassets */,
 				C4BDE7F21C12FAE600207DA9 /* Main.storyboard */,
 				C4BDE7F51C12FAE600207DA9 /* Info.plist */,
+				55D897331FDB864E00754292 /* AKTestTriggers.h */,
+				55D897341FDB864E00754292 /* AKTestTriggers.m */,
+				55D897321FDB864D00754292 /* macOSDevelopment-Bridging-Header.h */,
 			);
 			path = macOSDevelopment;
 			sourceTree = "<group>";
@@ -516,8 +523,7 @@
 					};
 					C4BDE7E81C12FAE600207DA9 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -693,6 +699,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4BDE7EF1C12FAE600207DA9 /* ViewController.swift in Sources */,
+				55D897351FDB864E00754292 /* AKTestTriggers.m in Sources */,
 				C4BDE7ED1C12FAE600207DA9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -878,16 +885,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = macOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "macOSDevelopment/macOSDevelopment-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -897,16 +907,18 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = macOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "macOSDevelopment/macOSDevelopment-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
