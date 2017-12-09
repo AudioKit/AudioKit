@@ -11,7 +11,7 @@ import AudioKitUI
 /// This is a demo of an Audio Region class. Not for production use... ;)
 public class AKWaveform: AKView {
     public var url: URL?
-    public var plot: EZAudioPlot?
+    public var plots = [EZAudioPlot?]()
     public var file: EZAudioFile?
     public var visualScaleFactor: Double = 30
     public var color = NSColor.black
@@ -66,6 +66,19 @@ public class AKWaveform: AKView {
         }
     }
 
+    public var isReversed: Bool = true {
+        didSet {
+            for plot in plots {
+                if isReversed {
+                    plot?.waveformLayer?.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0, 1, 0)
+                } else {
+                    //To flip back to normal
+                    plot?.waveformLayer?.transform = CATransform3DMakeRotation(0, 0, 1, 0)
+                }
+            }
+        }
+    }
+
     convenience init?(url: URL, color: NSColor = NSColor.black) {
         self.init()
         self.file = EZAudioFile(url: url)
@@ -78,10 +91,32 @@ public class AKWaveform: AKView {
         frame = NSRect(x: 0, y: 0, width: 200, height: 20)
 
         guard let file = file else { return }
-        guard let data = file.getWaveformData() else { return }
-        plot = EZAudioPlot()
+        guard let data = file.getWaveformData(withNumberOfPoints: 256) else { return }
+        guard let leftData = data.buffers?[0] else { return }
+        let leftPlot = createPlot(data: leftData, size: data.bufferSize)
+        addSubview( leftPlot )
+        leftPlot.redraw()
+        plots.insert(leftPlot, at: 0)
 
-        guard let plot = plot else { return }
+        // if the file is stereo add a second plot for the right channel
+        if file.fileFormat.mChannelsPerFrame > 1, let rightData = data.buffers?[1] {
+            let rightPlot = createPlot(data: rightData, size: data.bufferSize)
+            addSubview( rightPlot )
+            rightPlot.redraw()
+            plots.insert(rightPlot, at: 1)
+        }
+
+        ////////////
+        loopStartMarker.delegate = self
+        loopEndMarker.delegate = self
+        addSubview(loopStartMarker)
+        addSubview(loopEndMarker)
+
+        addSubview(timelineBar)
+    }
+
+    private func createPlot( data: UnsafeMutablePointer<Float>, size: UInt32 ) -> EZAudioPlot {
+        let plot = EZAudioPlot()
         plot.frame = NSRect(x: 0, y: 0, width: 200, height: 20)
         plot.plotType = EZPlotType.buffer
         plot.shouldFill = true
@@ -99,17 +134,8 @@ public class AKWaveform: AKView {
         plot.waveformLayer.shadowOpacity = 0.4
         plot.waveformLayer.shadowOffset = NSSize( width: 1, height: -1 )
         plot.waveformLayer.shadowRadius = 2.0
-        plot.updateBuffer( data.buffers[0], withBufferSize: data.bufferSize )
-        addSubview( plot )
-        plot.redraw()
-
-        ////////////
-        loopStartMarker.delegate = self
-        loopEndMarker.delegate = self
-        addSubview(loopStartMarker)
-        addSubview(loopEndMarker)
-
-        addSubview(timelineBar)
+        plot.updateBuffer( data, withBufferSize: size)
+        return plot
     }
 
     override public func draw(_ dirtyRect: NSRect) {
@@ -132,13 +158,26 @@ public class AKWaveform: AKView {
         let w = Double(frame.width)
         let scale = w / file!.duration
         visualScaleFactor = scale
-        loopEndMarker.frame.origin.x = frame.width - loopEndMarker.frame.width - 4
+        loopEndMarker.frame.origin.x = frame.width - loopEndMarker.frame.width - 3
     }
 
     override public func setFrameSize(_ newSize: NSSize) {
+        guard file != nil else { return }
         super.setFrameSize(newSize)
-        plot?.setFrameSize(newSize)
-        plot?.redraw()
+        guard plots.count > 0 else { return }
+
+        let count = CGFloat(file!.fileFormat.mChannelsPerFrame)
+
+        plots[0]?.frame = NSRect(x: 0,
+                                 y: count == 1 ? 0 : newSize.height/count,
+                                 width: newSize.width,
+                                 height: newSize.height/count)
+        plots[0]?.redraw()
+
+        if count > 1 {
+            plots[1]?.frame = NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height/count)
+            plots[1]?.redraw()
+        }
     }
 
     override public func mouseDown(with event: NSEvent) {
@@ -168,7 +207,7 @@ public class AKWaveform: AKView {
 
     public func dispose() {
         file = nil
-        plot = nil
+        plots.removeAll()
         removeFromSuperview()
     }
 
@@ -182,7 +221,7 @@ extension AKWaveform: LoopMarkerDelegate {
         } else if source.loopType == .end {
             source.frame.origin.x = max(loopStartMarker.frame.origin.x + loopStartMarker.frame.width,
                                         source.frame.origin.x)
-            source.frame.origin.x = min(source.frame.origin.x, frame.width - source.frame.width - 4)
+            source.frame.origin.x = min(source.frame.origin.x, frame.width - source.frame.width - 3)
         }
         needsDisplay = true
         delegate?.loopChanged(source: self)
@@ -250,7 +289,6 @@ class LoopMarker: AKView {
 
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
-
         mouseDownLocation = convert( event.locationInWindow, from: nil)
     }
 
@@ -269,6 +307,9 @@ class LoopMarker: AKView {
         delegate?.markerMoved(source: self)
     }
 
+    deinit {
+        AKLog("* deinit AKWaveform")
+    }
 }
 
 protocol LoopMarkerDelegate: class {

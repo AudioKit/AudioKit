@@ -1,5 +1,5 @@
 //
-//  AKPlayer.swift
+//  AKPlayerDev.swift
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
@@ -7,9 +7,10 @@
 //
 
 import AVFoundation
+import AudioKit
 
 /**
- AKPlayer is meant to be a simple yet powerful audio player that just works. It supports
+ AKPlayerDev is meant to be a simple yet powerful audio player that just works. It supports
  scheduling of sounds, looping, fading, and reversing. Players can be locked to a common
  clock as well as video by using hostTime in the various play functions.
 
@@ -25,7 +26,7 @@ import AVFoundation
 
  Basic usage looks like:
  ```
- guard let player = AKPlayer(url: url) else { return }
+ guard let player = AKPlayerDev(url: url) else { return }
  player.completionHandler = { Swift.print("Done") }
 
  // Loop Options
@@ -38,7 +39,7 @@ import AVFoundation
 
  Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
  */
-public class AKPlayer: AKNode { //AKTiming
+public class AKPlayerDev: AKNode { //AKTiming
 
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from ram. If not, it will play the file from disk.
@@ -86,7 +87,7 @@ public class AKPlayer: AKNode { //AKTiming
             }
         }
 
-        public var type: AKPlayer.FadeType = .exponential {
+        public var type: AKPlayerDev.FadeType = .exponential {
             willSet {
                 if newValue != type { needsUpdate = true }
             }
@@ -327,7 +328,7 @@ public class AKPlayer: AKNode { //AKTiming
                      when scheduledTime: Double,
                      hostTime: UInt64? = nil) {
         let refTime = hostTime != nil ? hostTime! : mach_absolute_time()
-        let avTime = AKPlayer.secondsToAVAudioTime(hostTime: refTime, time: scheduledTime)
+        let avTime = AKPlayerDev.secondsToAVAudioTime(hostTime: refTime, time: scheduledTime)
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
 
@@ -341,12 +342,12 @@ public class AKPlayer: AKNode { //AKTiming
         prerollTimer?.invalidate()
 
         let prerollTime = audioTime != nil ?
-            AKPlayer.audioTimeToSeconds(hostTime: hostTime!, audioTime: audioTime!) : 0
+            AKPlayerDev.audioTimeToSeconds(hostTime: hostTime!, audioTime: audioTime!) : 0
         if prerollTime > 0 {
             //Swift.print("prerollTime: \(prerollTime)")
             prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
                                                 target: self,
-                                                selector: #selector(AKPlayer.startCompletionTimer),
+                                                selector: #selector(AKPlayerDev.startCompletionTimer),
                                                 userInfo: nil,
                                                 repeats: false)
         } else {
@@ -373,7 +374,7 @@ public class AKPlayer: AKNode { //AKTiming
         }
         completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
                                                target: self,
-                                               selector: #selector(AKPlayer.handleComplete),
+                                               selector: #selector(AKPlayerDev.handleComplete),
                                                userInfo: nil,
                                                repeats: false)
     }
@@ -509,7 +510,7 @@ public class AKPlayer: AKNode { //AKTiming
             try audioFile.read(into: buffer!, frameCount: frameCount)
 
         } catch let err as NSError {
-            AKLog("ERROR AKPlayer: Couldn't read data into buffer. \(err)")
+            AKLog("ERROR AKPlayerDev: Couldn't read data into buffer. \(err)")
             return
         }
 
@@ -638,7 +639,7 @@ public class AKPlayer: AKNode { //AKTiming
     }
 
     deinit {
-        AKLog("* deinit AKPlayer")
+        AKLog("* deinit AKPlayerDev")
     }
 
     // MARK: - Static Methods
@@ -726,4 +727,3 @@ public class AKPlayer: AKNode { //AKTiming
         return out
     }
 }
-

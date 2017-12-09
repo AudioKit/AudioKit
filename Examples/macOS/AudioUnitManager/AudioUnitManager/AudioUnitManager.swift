@@ -18,8 +18,12 @@ class AudioUnitManager: NSViewController {
 
     @IBOutlet weak var effectsContainer: NSView!
     @IBOutlet weak var waveformContainer: NSView!
+    @IBOutlet weak var timeField: NSTextField!
     @IBOutlet weak var playButton: NSButton!
+    @IBOutlet weak var rewindButton: NSButton!
     @IBOutlet weak var loopButton: NSButton!
+    @IBOutlet weak var audioBufferedButton: NSButton!
+    @IBOutlet weak var audioReversedButton: NSButton!
     @IBOutlet weak var instrumentPlayButton: NSButton!
     @IBOutlet weak var fileField: NSTextField!
     @IBOutlet weak var fmButton: NSButton!
@@ -33,7 +37,7 @@ class AudioUnitManager: NSViewController {
     internal var openPanel: NSOpenPanel?
     internal var internalManager: AKAudioUnitManager?
     internal var midiManager: AKMIDI?
-    internal var player: AKPlayer?
+    internal var player: AKPlayerDev?
     internal var waveform: AKWaveform?
     internal var fmOscillator: AKFMOscillator?
     internal var mixer: AKMixer?
@@ -46,6 +50,16 @@ class AudioUnitManager: NSViewController {
     var testPlayer: InstrumentPlayer?
 
     fileprivate var fmTimer: Timer?
+
+    public var audioEnabled: Bool = false {
+        didSet {
+            audioBufferedButton.isEnabled = audioEnabled
+            audioReversedButton.isEnabled = audioEnabled
+            playButton.isEnabled = audioEnabled
+            rewindButton.isEnabled = audioEnabled
+            loopButton.isEnabled = audioEnabled
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,8 +84,7 @@ class AudioUnitManager: NSViewController {
         initManager()
         initMIDI()
         initUI()
-
-        AudioKit.start()
+        audioEnabled = false
     }
 
     private func initMIDI() {
@@ -81,11 +94,10 @@ class AudioUnitManager: NSViewController {
     }
 
     fileprivate func initMIDIDevices() {
-        let devices = midiManager!.inputNames
+        guard let devices = midiManager?.inputNames else { return }
 
         if devices.count > 0 {
             midiDeviceSelector.removeAllItems()
-
             midiManager?.openInput(devices[0])
 
             for device in devices {
@@ -94,6 +106,114 @@ class AudioUnitManager: NSViewController {
             }
         }
     }
+
+    internal func startEngine(completionHandler: AKCallback? = nil) {
+        AKLog("engine.isRunning: \(AudioKit.engine.isRunning)")
+        if !AudioKit.engine.isRunning {
+            AudioKit.start()
+
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                completionHandler?()
+//            }
+//            return
+        }
+        completionHandler?()
+    }
+
+    @IBAction func openDocument(_ sender: AnyObject) {
+        chooseAudio(sender)
+    }
+
+    @IBAction func closeDocument(_ sender: AnyObject) {
+        close()
+    }
+
+    @IBAction func handleLoopButton(_ sender: NSButton) {
+        let state = sender.state == .on
+        sender.title = state ? "🔄" : "➡️"
+        player?.isLooping = state
+        waveform?.isLooping = state
+    }
+
+    @IBAction func handleBufferedButton(_ sender: NSButton) {
+        player?.buffering = sender.state == .on ? .always : .dynamic
+    }
+
+    @IBAction func handleReversedButton(_ sender: NSButton) {
+        guard player != nil else { return }
+        guard waveform != nil else { return }
+        let wasPlaying = player!.isPlaying
+        if wasPlaying {
+            handlePlayButton(playButton)
+        }
+        player!.isReversed = sender.state == .on
+        waveform!.isReversed = sender.state == .on
+        audioBufferedButton.isEnabled = !waveform!.isReversed
+
+        if wasPlaying {
+            handlePlayButton(playButton)
+        }
+    }
+
+    //
+    @IBAction func handleRewindButton(_ sender: Any) {
+        player?.startTime = 0
+        waveform?.position = 0
+    }
+
+    @IBAction func handlePlayButton(_ sender: NSButton) {
+        guard let player = player else { return }
+
+        if fmOscillator != nil && fmOscillator!.isStarted {
+            fmButton!.state = .off
+            fmOscillator!.stop()
+        }
+
+        if auInstrument != nil {
+            instrumentPlayButton.title = "▶️"
+        }
+
+        if playButton.title == "⏹" {
+            player.stop()
+            sender.title = "▶️"
+
+            if AudioKit.engine.isRunning {
+                //AudioKit.stop()
+                internalManager?.reset()
+            }
+
+            stopAudioTimer()
+
+        } else {
+            if internalManager?.input != player {
+                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+            }
+            startEngine(completionHandler: {
+                player.volume = 1
+                player.play(from: self.waveform?.position ?? 0)
+                sender.title = "⏹"
+                self.startAudioTimer()
+            })
+        }
+    }
+
+    @IBAction func chooseAudio(_ sender: Any) {
+        guard let window = view.window else { return }
+        AKLog("chooseAudio()")
+        if openPanel == nil {
+            openPanel = NSOpenPanel()
+            openPanel!.message = "Open Audio File"
+            openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
+        }
+        openPanel!.beginSheetModal( for: window, completionHandler: { response in
+            if response.rawValue == NSFileHandlingPanelOKButton {
+                if let url = self.openPanel?.url {
+                    self.open(url: url)
+                }
+            }
+        })
+    }
+
 
     @IBAction func handleMidiDeviceSelected(_ sender: NSPopUpButton) {
         if let device = sender.titleOfSelectedItem {
@@ -147,26 +267,25 @@ class AudioUnitManager: NSViewController {
     @IBAction func handleInstrumentPlayButton(_ sender: NSButton) {
         guard auInstrument != nil else { return }
 
-        if !AudioKit.engine.isRunning {
-            AudioKit.start()
-        }
+        startEngine(completionHandler: {
+            if self.fmOscillator != nil && self.fmOscillator!.isStarted {
+                self.fmButton!.state = .off
+                self.fmOscillator!.stop()
+            }
 
-        if fmOscillator != nil && fmOscillator!.isStarted {
-            fmButton!.state = .off
-            fmOscillator!.stop()
-        }
+            if self.player?.isPlaying ?? false {
+                self.handlePlayButton(self.playButton)
+            }
 
-        if player?.isPlaying ?? false {
-            handlePlayButton(playButton)
-        }
+            if sender.title == "⏹" {
+                self.testAUInstrument(state: false)
+                sender.title = "▶️"
+            } else {
+                self.testAUInstrument(state: true)
+                sender.title = "⏹"
+            }
 
-        if sender.title == "⏹" {
-            testAUInstrument(state: false)
-            sender.title = "▶️"
-        } else {
-            testAUInstrument(state: true)
-            sender.title = "⏹"
-        }
+        })
     }
 
     @IBAction func handleFMButton(_ sender: NSButton) {
@@ -205,15 +324,14 @@ class AudioUnitManager: NSViewController {
             fmTimer!.invalidate()
         }
 
-        if !AudioKit.engine.isRunning {
-            AudioKit.start()
-        }
-        fm.start()
-        fmTimer = Timer.scheduledTimer(timeInterval: 0.2,
-                                       target: self,
-                                       selector: #selector(randomFM),
-                                       userInfo: nil,
-                                       repeats: true)
+        startEngine(completionHandler: {
+            fm.start()
+            self.fmTimer = Timer.scheduledTimer(timeInterval: 0.2,
+                                                target: self,
+                                                selector: #selector(self.randomFM),
+                                                userInfo: nil,
+                                                repeats: true)
+        })
     }
 
     @objc func randomFM() {
@@ -254,6 +372,7 @@ class AudioUnitManager: NSViewController {
             auInstrumentSelector.addItem(withTitle: component.name)
         }
     }
+
 }
 
 extension AudioUnitManager: AKMIDIListener {

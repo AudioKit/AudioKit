@@ -17,6 +17,7 @@
 		B12312131F193F6100888115 /* AudioUnitGenericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12312101F193F6100888115 /* AudioUnitGenericView.swift */; };
 		B12312141F193F6100888115 /* AudioUnitParamSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12312111F193F6100888115 /* AudioUnitParamSlider.swift */; };
 		B123121D1F1944E200888115 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B123121C1F1944E200888115 /* Extensions.swift */; };
+		B141BE931FDC71DA00354233 /* AKPlayerDev.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141BE921FDC71DA00354233 /* AKPlayerDev.swift */; };
 		B1535FB81F87E8000028CC26 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1535FB71F87E7FF0028CC26 /* MenuButton.swift */; };
 		B1535FBA1F87E8090028CC26 /* ClosureMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1535FB91F87E8090028CC26 /* ClosureMenuItem.swift */; };
 		B18484741FD9A13400F65DA6 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18484731FD9A13400F65DA6 /* AKWaveform.swift */; };
@@ -57,6 +58,7 @@
 		B12312101F193F6100888115 /* AudioUnitGenericView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnitGenericView.swift; sourceTree = "<group>"; };
 		B12312111F193F6100888115 /* AudioUnitParamSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnitParamSlider.swift; sourceTree = "<group>"; };
 		B123121C1F1944E200888115 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B141BE921FDC71DA00354233 /* AKPlayerDev.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlayerDev.swift; sourceTree = "<group>"; };
 		B1535FB71F87E7FF0028CC26 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		B1535FB91F87E8090028CC26 /* ClosureMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMenuItem.swift; sourceTree = "<group>"; };
 		B18484731FD9A13400F65DA6 /* AKWaveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKWaveform.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				B12312071F193EA200888115 /* Info.plist */,
 				B1535FB61F87E7C70028CC26 /* Controls */,
 				B12312151F193F6900888115 /* MIDI */,
+				B141BE921FDC71DA00354233 /* AKPlayerDev.swift */,
 			);
 			path = AudioUnitManager;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B141BE931FDC71DA00354233 /* AKPlayerDev.swift in Sources */,
 				B118AB3A1F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift in Sources */,
 				B123121D1F1944E200888115 /* Extensions.swift in Sources */,
 				B1535FBA1F87E8090028CC26 /* ClosureMenuItem.swift in Sources */,
