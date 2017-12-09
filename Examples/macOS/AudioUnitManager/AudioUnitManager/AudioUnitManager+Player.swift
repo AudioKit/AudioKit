@@ -25,7 +25,7 @@ extension AudioUnitManager {
         guard mixer != nil else { return }
 
         if player == nil {
-            player = AKPlayerDev(url: url)
+            player = AKPlayer(url: url)
         } else {
             do {
                 try player?.load(url: url)
@@ -83,7 +83,7 @@ extension AudioUnitManager {
     }
 
     internal func updateTimeDisplay(_ time: Double) {
-        timeField.stringValue = AKPlayerDev.formatSeconds(time)
+        timeField.stringValue = AKPlayer.formatSeconds(time)
     }
 
 }

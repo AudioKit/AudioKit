@@ -1,16 +1,16 @@
 //
-//  ViewController.swift
 //  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 7/14/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Cocoa
 import AVFoundation
 import AudioKit
 
-/// An Example of how to create an AudioUnit Host application
+/// An Example of how to create an AudioUnit Host application.
+/// This is also a demo for how to use AKPlayer.
 class AudioUnitManager: NSViewController {
 
     let akInternals = "AudioKit ★"
@@ -37,7 +37,7 @@ class AudioUnitManager: NSViewController {
     internal var openPanel: NSOpenPanel?
     internal var internalManager: AKAudioUnitManager?
     internal var midiManager: AKMIDI?
-    internal var player: AKPlayerDev?
+    internal var player: AKPlayer?
     internal var waveform: AKWaveform?
     internal var fmOscillator: AKFMOscillator?
     internal var mixer: AKMixer?
