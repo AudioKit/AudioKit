@@ -31,19 +31,16 @@ class AudioUnitGenericView: NSView {
 
         if opaqueBackground {
             backgroundColor.setFill()
-
-            let rect = NSMakeRect(0, 0, bounds.width, bounds.height)
-//            let rectanglePath = NSBezierPath(roundedRect: rect, xRadius: 0, yRadius: 0)
-//            let rectanglePath =
+            let rect = NSRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
             rect.fill()
         }
     }
 
-    convenience init(au: AVAudioUnit) {
+    convenience init(audioUnit: AVAudioUnit) {
         self.init()
         wantsLayer = true
 
-        if let cname = au.auAudioUnit.componentName {
+        if let cname = audioUnit.auAudioUnit.componentName {
             name = cname
         }
 
@@ -59,13 +56,13 @@ class AudioUnitGenericView: NSView {
         nameField.frame = NSRect(x: 0, y: 4, width: preferredWidth, height: 20)
         addSubview(nameField)
 
-        guard let tree = au.auAudioUnit.parameterTree else { return }
+        guard let tree = audioUnit.auAudioUnit.parameterTree else { return }
 
         var y = 5
         for param in tree.allParameters {
             y += 24
 
-            let slider = AudioUnitParamSlider(audioUnit: au, param: param )
+            let slider = AudioUnitParamSlider(audioUnit: audioUnit, param: param )
             slider.setFrameOrigin(NSPoint(x: 10, y: y))
 
             addSubview(slider)
