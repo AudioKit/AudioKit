@@ -688,11 +688,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="AudioUnitManager" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="fDK-yM-9Lr">
-                        <rect key="frame" x="0.0" y="0.0" width="533" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="598" height="295"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <box fixedFrame="YES" title="Audio Units" translatesAutoresizingMaskIntoConstraints="NO" id="G3U-RS-gct">
-                                <rect key="frame" x="397" y="53" width="126" height="173"/>
+                                <rect key="frame" x="455" y="59" width="126" height="173"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="ITC-cm-Fp0">
                                     <rect key="frame" x="2" y="2" width="122" height="157"/>
@@ -847,10 +847,10 @@
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
                             </box>
                             <box fixedFrame="YES" title="Audio File" translatesAutoresizingMaskIntoConstraints="NO" id="iXx-hi-UAn">
-                                <rect key="frame" x="5" y="205" width="349" height="50"/>
+                                <rect key="frame" x="5" y="230" width="386" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="NWS-wZ-nma">
-                                    <rect key="frame" x="2" y="2" width="345" height="34"/>
+                                    <rect key="frame" x="2" y="2" width="382" height="34"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DTh-Pv-wCa">
@@ -892,7 +892,7 @@ IA
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o1u-EC-Pe1">
-                                            <rect key="frame" x="140" y="7" width="181" height="17"/>
+                                            <rect key="frame" x="140" y="7" width="237" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" placeholderString="..." id="Wi3-AT-Q2i">
                                                 <font key="font" metaFont="miniSystemBold"/>
@@ -905,10 +905,10 @@ IA
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
                             </box>
                             <box fixedFrame="YES" title="Generators" translatesAutoresizingMaskIntoConstraints="NO" id="PPg-AV-CCd">
-                                <rect key="frame" x="5" y="103" width="349" height="50"/>
+                                <rect key="frame" x="5" y="104" width="386" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="mWb-ZF-7Lg">
-                                    <rect key="frame" x="2" y="2" width="345" height="34"/>
+                                    <rect key="frame" x="2" y="2" width="382" height="34"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdN-h6-Uup">
@@ -930,10 +930,10 @@ IA
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
                             </box>
                             <box fixedFrame="YES" title="AU Instruments" translatesAutoresizingMaskIntoConstraints="NO" id="pPW-uA-Bc5">
-                                <rect key="frame" x="5" y="16" width="349" height="80"/>
+                                <rect key="frame" x="5" y="16" width="385" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="Hr5-VY-jJB">
-                                    <rect key="frame" x="2" y="2" width="345" height="64"/>
+                                    <rect key="frame" x="2" y="2" width="381" height="64"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ivi-4Y-hNl" userLabel="auInstrumentSelector">
@@ -1001,8 +1001,17 @@ IA
                                 </view>
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
                             </box>
+                            <box fixedFrame="YES" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="U7K-qm-lLS">
+                                <rect key="frame" x="5" y="156" width="386" height="77"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="h1B-be-dUX">
+                                    <rect key="frame" x="2" y="2" width="382" height="73"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
+                            </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ag-Or-iFV">
-                                <rect key="frame" x="360" y="90" width="37" height="107"/>
+                                <rect key="frame" x="410" y="94" width="37" height="107"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="}" id="byn-tB-kZT">
                                     <font key="font" metaFont="systemMedium" size="80"/>
@@ -1010,15 +1019,6 @@ IA
                                     <color key="backgroundColor" red="0.93221745469999995" green="0.6752693192" blue="0.085963642899999998" alpha="0.65121588909999994" colorSpace="custom" customColorSpace="displayP3"/>
                                 </textFieldCell>
                             </textField>
-                            <box fixedFrame="YES" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="U7K-qm-lLS">
-                                <rect key="frame" x="5" y="159" width="349" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="h1B-be-dUX">
-                                    <rect key="frame" x="2" y="2" width="345" height="46"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
-                            </box>
                         </subviews>
                     </customView>
                     <connections>
@@ -1035,7 +1035,7 @@ IA
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-189.5" y="679"/>
+            <point key="canvasLocation" x="-157" y="691.5"/>
         </scene>
     </scenes>
     <resources>

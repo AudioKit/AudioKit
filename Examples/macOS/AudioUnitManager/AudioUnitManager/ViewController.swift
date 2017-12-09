@@ -27,8 +27,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
     fileprivate var _lastMIDIEvent: Int = 0
-    fileprivate var audioTimer: Timer?
-    fileprivate var audioPlaying: Bool = false
+    internal var audioTimer: Timer?
+    internal var audioPlaying: Bool = false
     
     var openPanel: NSOpenPanel?
     var internalManager: AKAudioUnitManager?
@@ -93,25 +93,6 @@ class ViewController: NSViewController {
         }
     }
 
-    @IBAction func chooseAudio(_ sender: Any) {
-
-        guard let window = view.window else { return }
-        AKLog("chooseAudio()")
-        if openPanel == nil {
-            openPanel = NSOpenPanel()
-            openPanel!.message = "Open Audio File"
-            openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
-        }
-
-        openPanel!.beginSheetModal( for: window, completionHandler: { response in
-            if response.rawValue == NSFileHandlingPanelOKButton {
-                if let url = self.openPanel?.url {
-                    self.open(url: url)
-                }
-            }
-        })
-    }
-
     @IBAction func handleMidiDeviceSelected(_ sender: NSPopUpButton) {
         if let device = sender.titleOfSelectedItem {
             midiManager?.openInput(device)
@@ -161,58 +142,7 @@ class ViewController: NSViewController {
         showEffect(at: auIndex, state: state)
     }
 
-    @IBAction func handlePlayButton(_ sender: Any) {
-        guard let player = player else { return }
 
-        if fm != nil && fm!.isStarted {
-            fmButton!.state = .off
-            fm!.stop()
-        }
-
-        if auInstrument != nil {
-            instrumentPlayButton.title = "▶️"
-        }
-
-        if playButton.title == "⏹" {
-            player.stop()
-            playButton.title = "▶️"
-
-            if AudioKit.engine.isRunning {
-                AudioKit.stop()
-                internalManager?.reset()
-            }
-            
-            stopAudioTimer()
-
-        } else {
-            if !AudioKit.engine.isRunning {
-                AudioKit.start()
-            }
-
-            if internalManager?.input != player {
-                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-            }
-            player.volume = 1
-            player.play(from: waveform?.position ?? 0)
-            playButton.title = "⏹"
-            startAudioTimer()
-            
-        }
-    }
-    
-    // this just moves the Timeline bar in the waveform
-    private func startAudioTimer() {
-        audioTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(ViewController.updateWaveformDisplay), userInfo: nil, repeats: true)
-    }
-    
-    private func stopAudioTimer() {
-        audioTimer?.invalidate()
-    }
-    
-    @objc private func updateWaveformDisplay() {
-        guard player != nil else { return }
-        waveform?.position = player!.currentTime
-    }
 
     @IBAction func handleInstrumentPlayButton(_ sender: NSButton) {
         guard auInstrument != nil else { return }
@@ -260,52 +190,6 @@ class ViewController: NSViewController {
                 fmTimer!.invalidate()
             }
         }
-    }
-
-    func handleAudioComplete() {
-        if player?.isLooping ?? false {
-            return
-        }
- 
-        playButton.state = .off
-        playButton.title = "▶️"
-    }
-
-    @IBAction func handleLoopButton(_ sender: NSButton) {
-        let state = sender.state == .on
-        sender.title = state ? "🔁" : "🔄"
-        player?.isLooping = state
-        
-    }
-
-    /// open an audio URL for playing
-    func open(url: URL) {
-        guard internalManager != nil else { return }
-        guard mixer != nil else { return }
-
-        player = AKPlayer(url: url)
-        guard player != nil else { return }
-        player!.completionHandler = handleAudioComplete
-
-        internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-        player!.isLooping = loopButton.state == .on
-
-        playButton.isEnabled = true
-        fileField.stringValue = "🔈 \(url.lastPathComponent)"
-        
-        if waveform != nil {
-            waveform!.dispose()
-        }
-        
-        // get the waveform
-        let darkRed = NSColor(calibratedRed: 0.79, green: 0.128, blue: 0.06, alpha: 1)
-        waveform = AKWaveform(url: url, color: darkRed)
-        guard waveform != nil else { return }
-
-        waveformContainer.addSubview(waveform!)
-        waveform?.frame = waveformContainer.frame
-        waveform?.fitToFrame()
-        waveform?.delegate = self
     }
 
     func initFM() {
@@ -415,31 +299,6 @@ extension ViewController: AKMIDIListener {
     }
 }
 
-extension ViewController: AKWaveformDelegate {
-    func waveformScrubbed(source: AKWaveform, at time: Double) {
-        //player?.startTime = time
-    }
-    
-    func waveformScrubComplete(source: AKWaveform, at time: Double) {
-
-        if audioPlaying {
-            startAudioTimer()
-            player?.play(from: time)
-        }
-        
-    }
-    
-    func waveformSelected(source: AKWaveform, at time: Double) {
-        audioPlaying = player?.isPlaying ?? false
-        stopAudioTimer()
-        player?.stop()
-        player?.startTime = time
-        
-        
-    }
-    
-    
-}
 
 
 /// Handle Window Events
