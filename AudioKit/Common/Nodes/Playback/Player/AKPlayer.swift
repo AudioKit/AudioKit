@@ -220,6 +220,7 @@ public class AKPlayer: AKNode { //AKTiming
     public convenience init(audioFile: AVAudioFile) {
         self.init()
         self.audioFile = audioFile
+        initialize()
     }
     
     public override init() {
@@ -227,7 +228,6 @@ public class AKPlayer: AKNode { //AKTiming
         AudioKit.engine.attach(mixer)
         AudioKit.engine.connect(playerNode, to: mixer)
         super.init(avAudioNode: mixer, attach: false)
-        initialize()
     }
     
     private func initialize() {
