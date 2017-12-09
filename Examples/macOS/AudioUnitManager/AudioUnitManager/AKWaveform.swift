@@ -16,13 +16,18 @@ public class AKWaveform: AKView {
     public var color = NSColor.black
     public weak var delegate: AKWaveformDelegate?
     
-    public var displayTimebar: Bool = true
+    public var displayTimebar: Bool = true {
+        didSet {
+            timelineBar.isHidden = !displayTimebar
+        }
+    }
     
     private var timelineBar = TimelineBar()
     
-    public var time: Double = 0 {
+    /// position in seconds of the bar
+    public var position: Double = 0 {
         didSet {
-            timelineBar.frame.origin.x = CGFloat(time * visualScaleFactor)
+            timelineBar.frame.origin.x = CGFloat(position * visualScaleFactor)
         }
     }
 
@@ -97,14 +102,26 @@ public class AKWaveform: AKView {
     
     override public func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
-        guard file != nil else { return }
-        
-        let loc = convert( event.locationInWindow, from: nil)
+        position = mousePositionToTime(with: event)
+        delegate?.waveformSelected(source: self, at: position)
 
+    }
+    
+    override public func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        delegate?.waveformScrubComplete(source: self, at: position)
+    }
+    
+    override public func mouseDragged(with event: NSEvent) {
+        position = mousePositionToTime(with: event)
+        delegate?.waveformScrubbed(source: self, at: position)
+    }
+    
+    private func mousePositionToTime(with event: NSEvent) -> Double {
+        guard file != nil else { return 0 }
+        let loc = convert( event.locationInWindow, from: nil)
         let mouseTime = Double(loc.x / frame.width) * file!.duration
-        delegate?.waveformSelected(source: self, at: mouseTime)
-        
-        self.time = mouseTime
+        return mouseTime
     }
     
     public func dispose() {
@@ -117,6 +134,8 @@ public class AKWaveform: AKView {
 
 public protocol AKWaveformDelegate: class {
     func waveformSelected(source: AKWaveform, at time: Double)
+    func waveformScrubbed(source: AKWaveform, at time: Double)
+    func waveformScrubComplete(source: AKWaveform, at time: Double)
 }
 
 

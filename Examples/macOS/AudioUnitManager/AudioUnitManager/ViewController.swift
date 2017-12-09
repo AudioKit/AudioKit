@@ -28,6 +28,7 @@ class ViewController: NSViewController {
 
     fileprivate var _lastMIDIEvent: Int = 0
     fileprivate var audioTimer: Timer?
+    fileprivate var audioPlaying: Bool = false
     
     var openPanel: NSOpenPanel?
     var internalManager: AKAudioUnitManager?
@@ -51,9 +52,6 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-    }
-
-    override func viewDidAppear() {
     }
 
     @objc func handleApplicationInit() {
@@ -197,7 +195,7 @@ class ViewController: NSViewController {
                 internalManager!.connectEffects(firstNode: player, lastNode: mixer)
             }
             player.volume = 1
-            player.play(from: waveform?.time ?? 0)
+            player.play(from: waveform?.position ?? 0)
             playButton.title = "⏹"
             startAudioTimer()
             
@@ -215,7 +213,7 @@ class ViewController: NSViewController {
     
     @objc private func updateWaveformDisplay() {
         guard player != nil else { return }
-        waveform?.time = player!.currentTime
+        waveform?.position = player!.currentTime
     }
 
     @IBAction func handleInstrumentPlayButton(_ sender: NSButton) {
@@ -420,10 +418,25 @@ extension ViewController: AKMIDIListener {
 }
 
 extension ViewController: AKWaveformDelegate {
-    func waveformSelected(source: AKWaveform, at time: Double) {
-        guard let player = player else { return }
+    func waveformScrubbed(source: AKWaveform, at time: Double) {
+        //player?.startTime = time
+    }
+    
+    func waveformScrubComplete(source: AKWaveform, at time: Double) {
+
+        if audioPlaying {
+            startAudioTimer()
+            player?.play(from: time)
+        }
         
-        player.setTime(time)
+    }
+    
+    func waveformSelected(source: AKWaveform, at time: Double) {
+        audioPlaying = player?.isPlaying ?? false
+        stopAudioTimer()
+        player?.stop()
+        player?.startTime = time
+        
         
     }
     
