@@ -682,16 +682,11 @@ public class AKPlayer: AKNode { //AKTiming
         //find out the fraction of milliseconds to be displayed.
         let mult = frameRate > 0 ? frameRate : 100
         let fraction = Int(t * mult)
-
-        //add the leading zero for minutes, seconds and frames and store them as string constants
-
         let strMinutes = String(format: "%02d", minutes)
         let strSeconds = String(format: "%02d", seconds)
         let strFraction = String(format: "%02d", fraction)
 
         let out = "\(preroll)\(strMinutes):\(strSeconds):\(strFraction)"
-
-        //concatenate minuets, seconds and milliseconds as assign it to the UILabel
         return out
     }
 
