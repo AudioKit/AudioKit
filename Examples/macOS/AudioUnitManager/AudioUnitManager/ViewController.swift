@@ -40,8 +40,6 @@ class ViewController: NSViewController {
     var auInstrument: AKAudioUnitInstrument? {
         didSet {
             guard auInstrument != nil else { return }
-            //testPlayer = InstrumentPlayer(audioUnit: auInstrument?.midiInstrument?.auAudioUnit)
-//            self.internalManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer )
         }
     }
 
