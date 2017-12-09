@@ -44,8 +44,7 @@ class AudioUnitToolbar: NSView {
 
         if let bgColor = backgroundColor {
             bgColor.setFill()
-            let rect = NSMakeRect(0, 0, bounds.width, bounds.height)
-            //let rectanglePath = NSBezierPath( roundedRect: rect, xRadius: 3, yRadius: 3)
+            let rect = NSRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
             rect.fill()
         }
     }

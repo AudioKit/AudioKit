@@ -11,7 +11,7 @@ import AVFoundation
 import AudioKit
 
 /// An Example of how to create an AudioUnit Host application
-class ViewController: NSViewController {
+class AudioUnitManager: NSViewController {
 
     let akInternals = "AudioKit ★"
     let windowPrefix = "FX"
@@ -26,18 +26,18 @@ class ViewController: NSViewController {
     @IBOutlet weak var auInstrumentSelector: NSPopUpButton!
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
-    fileprivate var _lastMIDIEvent: Int = 0
+    fileprivate var lastMIDIEvent: Int = 0
+
     internal var audioTimer: Timer?
     internal var audioPlaying: Bool = false
-    
-    var openPanel: NSOpenPanel?
-    var internalManager: AKAudioUnitManager?
-    var midiManager: AKMIDI?
-    var player: AKPlayer?
-    var waveform: AKWaveform?
-    var fm: AKFMOscillator?
-    var mixer: AKMixer?
-    var auInstrument: AKAudioUnitInstrument? {
+    internal var openPanel: NSOpenPanel?
+    internal var internalManager: AKAudioUnitManager?
+    internal var midiManager: AKMIDI?
+    internal var player: AKPlayer?
+    internal var waveform: AKWaveform?
+    internal var fmOscillator: AKFMOscillator?
+    internal var mixer: AKMixer?
+    internal var auInstrument: AKAudioUnitInstrument? {
         didSet {
             guard auInstrument != nil else { return }
         }
@@ -57,9 +57,11 @@ class ViewController: NSViewController {
     }
 
     func initialize() {
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.handleApplicationInit), name: Notification.Name("AudioUnitManager.handleApplicationInit"), object: nil)
-
-        fm = AKFMOscillator()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AudioUnitManager.handleApplicationInit),
+                                               name: Notification.Name("AudioUnitManager.handleApplicationInit"),
+                                               object: nil)
+        fmOscillator = AKFMOscillator()
         mixer = AKMixer()
         let mainOutput = AKMixer()
         mixer?.connect(to: mainOutput)
@@ -142,8 +144,6 @@ class ViewController: NSViewController {
         showEffect(at: auIndex, state: state)
     }
 
-
-
     @IBAction func handleInstrumentPlayButton(_ sender: NSButton) {
         guard auInstrument != nil else { return }
 
@@ -151,9 +151,9 @@ class ViewController: NSViewController {
             AudioKit.start()
         }
 
-        if fm != nil && fm!.isStarted {
+        if fmOscillator != nil && fmOscillator!.isStarted {
             fmButton!.state = .off
-            fm!.stop()
+            fmOscillator!.stop()
         }
 
         if player?.isPlaying ?? false {
@@ -170,7 +170,7 @@ class ViewController: NSViewController {
     }
 
     @IBAction func handleFMButton(_ sender: NSButton) {
-        guard let fm = fm else { return }
+        guard let fm = fmOscillator else { return }
 
         if player?.isPlaying ?? false {
             handlePlayButton(playButton)
@@ -195,7 +195,7 @@ class ViewController: NSViewController {
     func initFM() {
         guard internalManager != nil else { return }
         guard mixer != nil else { return }
-        guard let fm = fm else { return }
+        guard let fm = fmOscillator else { return }
 
         AKLog("initFM()")
 
@@ -209,15 +209,19 @@ class ViewController: NSViewController {
             AudioKit.start()
         }
         fm.start()
-        fmTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(randomFM), userInfo: nil, repeats: true)
+        fmTimer = Timer.scheduledTimer(timeInterval: 0.2,
+                                       target: self,
+                                       selector: #selector(randomFM),
+                                       userInfo: nil,
+                                       repeats: true)
     }
 
     @objc func randomFM() {
         let noteNumber = randomNumber(range: 0...127)
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: MIDINoteNumber(noteNumber))
-        fm!.baseFrequency = Double(frequency)
-        fm!.carrierMultiplier = Double(randomNumber(range: 10...100)) / 100
-        fm!.amplitude = Double(randomNumber(range: 10...100)) / 100
+        fmOscillator!.baseFrequency = Double(frequency)
+        fmOscillator!.carrierMultiplier = Double(randomNumber(range: 10...100)) / 100
+        fmOscillator!.amplitude = Double(randomNumber(range: 10...100)) / 100
         //AKLog("\(fm!.baseFrequency)")
     }
 
@@ -246,15 +250,13 @@ class ViewController: NSViewController {
         auInstrumentSelector.removeAllItems()
         auInstrumentSelector.addItem(withTitle: "-")
 
-        for component in audioUnits {
-            if component.name != "" {
-                auInstrumentSelector.addItem(withTitle: component.name)
-            }
+        for component in audioUnits where component.name != "" {
+            auInstrumentSelector.addItem(withTitle: component.name)
         }
     }
 }
 
-extension ViewController: AKMIDIListener {
+extension AudioUnitManager: AKMIDIListener {
     /// MIDI Setup has changed
     public func receivedMIDISetupChange() {
         initMIDIDevices()
@@ -264,7 +266,7 @@ extension ViewController: AKMIDIListener {
         let currentTime: Int = Int(mach_absolute_time())
 
         // AKMIDI is sending duplicate noteOn messages??, don't let them be sent too quickly
-        let sinceLastEvent = currentTime - _lastMIDIEvent
+        let sinceLastEvent = currentTime - lastMIDIEvent
         let isDupe = sinceLastEvent < 300_000
 
         if auInstrument != nil {
@@ -273,36 +275,34 @@ extension ViewController: AKMIDIListener {
             } else {
                 //AKLog("Duplicate noteOn message sent")
             }
-        } else if fm != nil {
-            if !fm!.isStarted {
-                fm!.start()
+        } else if fmOscillator != nil {
+            if !fmOscillator!.isStarted {
+                fmOscillator!.start()
             }
 
             if fmTimer != nil && fmTimer!.isValid {
                 fmTimer?.invalidate()
             }
             let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-            fm!.baseFrequency = frequency
+            fmOscillator!.baseFrequency = frequency
         }
-        _lastMIDIEvent = currentTime
+        lastMIDIEvent = currentTime
     }
 
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         if auInstrument != nil {
             auInstrument!.stop(noteNumber: noteNumber, channel: channel)
 
-        } else if fm != nil {
-            if fm!.isStarted {
-                fm!.stop()
+        } else if fmOscillator != nil {
+            if fmOscillator!.isStarted {
+                fmOscillator!.stop()
             }
         }
     }
 }
 
-
-
 /// Handle Window Events
-extension ViewController: NSWindowDelegate {
+extension AudioUnitManager: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         if let w = notification.object as? NSWindow {
             if w == view.window {

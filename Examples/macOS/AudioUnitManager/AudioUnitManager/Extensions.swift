@@ -19,7 +19,7 @@ extension String {
     }
 
     func indexOf(string: String) -> String.Index? {
-        return self.range( of:string, options: .literal, range: nil, locale: nil)?.lowerBound
+        return self.range( of: string, options: .literal, range: nil, locale: nil)?.lowerBound
     }
 
     func trim() -> String {
@@ -52,7 +52,7 @@ extension String {
 
     func startsWith(string: String) -> Bool {
 
-        guard let range = self.range( of: string, options:[.anchored, .caseInsensitive]) else {
+        guard let range = self.range( of: string, options: [.anchored, .caseInsensitive]) else {
             return false
         }
 
@@ -91,9 +91,13 @@ extension String.Index {
 }
 
 extension NSLayoutConstraint {
-    public static func simpleVisualConstraints( view: NSView, direction: NSString = "H", padding1: Int = 0, padding2: Int = 0 ) -> [NSLayoutConstraint] {
+    public static func simpleVisualConstraints( view: NSView,
+                                                direction: NSString = "H",
+                                                padding1: Int = 0,
+                                                padding2: Int = 0 ) -> [NSLayoutConstraint] {
         view.translatesAutoresizingMaskIntoConstraints = false
-        let constraint = NSLayoutConstraint.constraints(withVisualFormat: "\(direction):|-\(padding1)-[view]-\(padding2)-|",
+        let constraint = NSLayoutConstraint.constraints(
+            withVisualFormat: "\(direction):|-\(padding1)-[view]-\(padding2)-|",
             options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
             views: ["view": view])
@@ -122,12 +126,12 @@ extension NSView {
     func convertEventToSuperview( theEvent: NSEvent ) -> NSPoint {
         let localPoint = self.convert( theEvent.locationInWindow, from: nil)
         let svLocation = self.convert( localPoint, to: self.superview)
-        return svLocation;
+        return svLocation
     }
-    
+
     func convertToSuperview( localPoint: NSPoint ) -> NSPoint {
         let svLocation = self.convert( localPoint, to: self.superview)
         return svLocation
     }
-    
+
 }

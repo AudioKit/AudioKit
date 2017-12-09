@@ -16,34 +16,33 @@ public class AKWaveform: AKView {
     public var visualScaleFactor: Double = 30
     public var color = NSColor.black
     public weak var delegate: AKWaveformDelegate?
-    
     private var loopStartMarker = LoopMarker(.start)
     private var loopEndMarker = LoopMarker(.end)
-    
+
     public var displayTimebar: Bool = true {
         didSet {
             timelineBar.isHidden = !displayTimebar
         }
     }
-    
+
     private var timelineBar = TimelineBar()
-    
+
     /// position in seconds of the bar
     public var position: Double {
         get {
             return Double(timelineBar.frame.origin.x) / visualScaleFactor
         }
-        
+
         set {
             timelineBar.frame.origin.x = CGFloat(newValue * visualScaleFactor)
         }
     }
-    
+
     public var loopStart: Double {
         get {
             return Double(loopStartMarker.frame.origin.x) / visualScaleFactor
         }
-        
+
         set {
             loopStartMarker.frame.origin.x = CGFloat(newValue * visualScaleFactor)
         }
@@ -53,12 +52,12 @@ public class AKWaveform: AKView {
         get {
             return Double(loopEndMarker.frame.origin.x + loopEndMarker.frame.width) / visualScaleFactor
         }
-        
+
         set {
             loopEndMarker.frame.origin.x = CGFloat(newValue * visualScaleFactor) - loopEndMarker.frame.width
         }
     }
-    
+
     public var isLooping: Bool = true {
         didSet {
             loopStartMarker.isHidden = !isLooping
@@ -66,35 +65,31 @@ public class AKWaveform: AKView {
             needsDisplay = true
         }
     }
-    
+
     convenience init?(url: URL, color: NSColor = NSColor.black) {
         self.init()
         self.file = EZAudioFile(url: url)
         self.color = color
         if file == nil { return nil }
-        initialize()    
+        initialize()
     }
 
     private func initialize() {
-        frame = NSMakeRect(0, 0, 200, 20)
+        frame = NSRect(x: 0, y: 0, width: 200, height: 20)
 
         guard let file = file else { return }
-        
         guard let data = file.getWaveformData() else { return }
         plot = EZAudioPlot()
-        
+
         guard let plot = plot else { return }
-        
-        plot.frame = NSMakeRect(0, 0, 200, 20)
-        
+        plot.frame = NSRect(x: 0, y: 0, width: 200, height: 20)
         plot.plotType = EZPlotType.buffer
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.color = self.color
         plot.wantsLayer = true
-        
         plot.gain = 1.5 // just make it a bit more present looking
-        
+
         // customize the waveform
         plot.waveformLayer.fillColor = self.color.cgColor
         plot.waveformLayer.lineWidth = 0.1
@@ -104,88 +99,79 @@ public class AKWaveform: AKView {
         plot.waveformLayer.shadowOpacity = 0.4
         plot.waveformLayer.shadowOffset = NSSize( width: 1, height: -1 )
         plot.waveformLayer.shadowRadius = 2.0
-        
         plot.updateBuffer( data.buffers[0], withBufferSize: data.bufferSize )
-        
         addSubview( plot )
         plot.redraw()
-        
+
         ////////////
-        
         loopStartMarker.delegate = self
         loopEndMarker.delegate = self
-        
         addSubview(loopStartMarker)
         addSubview(loopEndMarker)
-        
-        addSubview(timelineBar)
 
+        addSubview(timelineBar)
     }
 
     override public func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        
+
         guard isLooping else { return }
-        
-        let loopShading = NSMakeRect(loopStartMarker.frame.origin.x, 0,
-                                     loopEndMarker.frame.origin.x - loopStartMarker.frame.origin.x + loopEndMarker.frame.width,
-                                     frame.height)
+        let loopShading = NSRect(x: loopStartMarker.frame.origin.x,
+                                 y: 0,
+                                 width: loopEndMarker.frame.origin.x - loopStartMarker.frame.origin.x +
+                                    loopEndMarker.frame.width,
+                                 height: frame.height)
         let rectanglePath = NSBezierPath(rect: loopShading)
-        
         let color = NSColor(calibratedRed: 0.975, green: 0.823, blue: 0.573, alpha: 0.328)
         color.setFill()
         rectanglePath.fill()
-        
     }
-    
+
     public func fitToFrame() {
         guard file != nil, file?.duration != 0 else { return }
-        
         let w = Double(frame.width)
         let scale = w / file!.duration
-        
         visualScaleFactor = scale
         loopEndMarker.frame.origin.x = frame.width - loopEndMarker.frame.width - 4
     }
-    
+
     override public func setFrameSize(_ newSize: NSSize) {
         super.setFrameSize(newSize)
         plot?.setFrameSize(newSize)
         plot?.redraw()
     }
-    
-    
+
     override public func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
         position = mousePositionToTime(with: event)
         delegate?.waveformSelected(source: self, at: position)
 
     }
-    
+
     override public func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
         delegate?.waveformScrubComplete(source: self, at: position)
     }
-    
+
     override public func mouseDragged(with event: NSEvent) {
         position = mousePositionToTime(with: event)
         delegate?.waveformScrubbed(source: self, at: position)
         needsDisplay = true
     }
-    
+
     private func mousePositionToTime(with event: NSEvent) -> Double {
         guard file != nil else { return 0 }
         let loc = convert( event.locationInWindow, from: nil)
         let mouseTime = Double(loc.x / frame.width) * file!.duration
         return mouseTime
     }
-    
+
     public func dispose() {
         file = nil
         plot = nil
         removeFromSuperview()
     }
-    
+
 }
 
 extension AKWaveform: LoopMarkerDelegate {
@@ -194,7 +180,8 @@ extension AKWaveform: LoopMarkerDelegate {
             source.frame.origin.x = max(0, source.frame.origin.x)
             source.frame.origin.x = min(source.frame.origin.x, loopEndMarker.frame.origin.x - loopEndMarker.frame.width)
         } else if source.loopType == .end {
-            source.frame.origin.x = max(loopStartMarker.frame.origin.x + loopStartMarker.frame.width, source.frame.origin.x)
+            source.frame.origin.x = max(loopStartMarker.frame.origin.x + loopStartMarker.frame.width,
+                                        source.frame.origin.x)
             source.frame.origin.x = min(source.frame.origin.x, frame.width - source.frame.width - 4)
         }
         needsDisplay = true
@@ -213,23 +200,22 @@ class LoopMarker: AKView {
     public enum MarkerType {
         case start, end
     }
-    
+
     public weak var delegate: LoopMarkerDelegate?
     public var loopType: MarkerType = .start
     private var mouseDownLocation: NSPoint?
-    
-    
+
     convenience init(_ loopType: MarkerType) {
         self.init(frame: NSRect(x: 0, y: 0, width: 5, height: 70) )
         self.loopType = loopType
     }
-    
+
     public func fitToFrame() {
         guard superview != nil else { return }
-        frame = NSMakeRect(0, 0, 6, superview!.frame.height)
+        frame = NSRect(x: 0, y: 0, width: 6, height: superview!.frame.height)
         needsDisplay = true
     }
-    
+
     override func draw(_ dirtyRect: NSRect) {
         if loopType == .start {
             drawStartRepeat()
@@ -237,53 +223,49 @@ class LoopMarker: AKView {
             drawEndRepeat()
         }
     }
- 
+
     fileprivate func drawStartRepeat() {
         NSColor.black.setFill()
-        let rectanglePath = NSBezierPath(rect: NSMakeRect(0, 0, 2, 70))
-        rectanglePath.fill()
-        
-        let rectangle2Path = NSBezierPath(rect: NSMakeRect(0, 69, 5, 2))
-        rectangle2Path.fill()
-        
-        let rectangle3Path = NSBezierPath(rect: NSMakeRect(0, 0, 5, 2))
-        rectangle3Path.fill()
-    }
-    
-    fileprivate func drawEndRepeat() {
-        NSColor.black.setFill()
-        let rectanglePath = NSBezierPath(rect: NSMakeRect(3, 0, 2, 70))
+        let rectanglePath = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 2, height: 70))
         rectanglePath.fill()
 
-        let rectangle2Path = NSBezierPath(rect: NSMakeRect(0, 69, 5, 2))
+        let rectangle2Path = NSBezierPath(rect: NSRect(x: 0, y: 69, width: 5, height: 2))
         rectangle2Path.fill()
-        
-        let rectangle3Path = NSBezierPath(rect: NSMakeRect(0, 0, 5, 2))
+
+        let rectangle3Path = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 5, height: 2))
         rectangle3Path.fill()
     }
-    
+
+    fileprivate func drawEndRepeat() {
+        NSColor.black.setFill()
+        let rectanglePath = NSBezierPath(rect: NSRect(x: 3, y: 0, width: 2, height: 70))
+        rectanglePath.fill()
+
+        let rectangle2Path = NSBezierPath(rect: NSRect(x: 0, y: 69, width: 5, height: 2))
+        rectangle2Path.fill()
+
+        let rectangle3Path = NSBezierPath(rect: NSRect(x: 0, y: 0, width: 5, height: 2))
+        rectangle3Path.fill()
+    }
+
     override func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
-    
+
         mouseDownLocation = convert( event.locationInWindow, from: nil)
     }
-    
+
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
         guard mouseDownLocation != nil else { return }
-        
+
         let svLocation = convertEventToSuperview( theEvent: event )
-        let pt = CGPoint(x:svLocation.x - mouseDownLocation!.x, y: 0)
+        let pt = CGPoint(x: svLocation.x - mouseDownLocation!.x, y: 0)
         setFrameOrigin( pt )
-        
-        
     }
-    
+
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
-        
         guard superview != nil else { return }
-        
         delegate?.markerMoved(source: self)
     }
 
@@ -294,29 +276,26 @@ protocol LoopMarkerDelegate: class {
 }
 
 class TimelineBar: AKView {
-    let red = NSColor( red: 0.6, green: 0.3, blue: 0.3, alpha: 0.5 )
+    private let red = NSColor( red: 0.6, green: 0.3, blue: 0.3, alpha: 0.5 )
+    private var rect = NSRect(x: 0, y: 0, width: 2, height: 70)
 
     convenience init() {
-        self.init(frame: NSRect(x:0, y:0, width:2, height:100) )
+        self.init(frame: NSRect(x: 0, y: 0, width: 2, height: 70) )
     }
 
-    func updateSize(height:CGFloat = 0) {
+    public func updateSize(height: CGFloat = 0) {
         guard self.superview != nil else { return }
-        
         let theHeight = height > 0 ? height : superview!.frame.height
-        
-        setFrameSize( NSSize( width:2, height:theHeight))
+        setFrameSize(NSSize( width: 2, height: theHeight))
+        rect = NSRect(x: 0, y: 0, width: 2, height: bounds.height)
         needsDisplay = true
     }
-    
+
     override func draw(_ dirtyRect: NSRect) {
         if let context = NSGraphicsContext.current {
             context.shouldAntialias = false
         }
         red.setFill()
-        NSMakeRect(0, 0, 2, self.bounds.height).fill()
+        rect.fill()
     }
 }
-
-
-

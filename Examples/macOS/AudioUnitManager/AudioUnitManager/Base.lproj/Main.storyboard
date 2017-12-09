@@ -683,10 +683,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Audio Unit Manager-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="AudioUnitManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="AudioUnitManager" customModule="AudioUnitManager" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="fDK-yM-9Lr">
                         <rect key="frame" x="0.0" y="0.0" width="598" height="295"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

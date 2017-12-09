@@ -151,6 +151,7 @@ public class AKPlayer: AKNode { //AKTiming
         didSet {
             startTime = max(0, startTime)
             
+            // Should playback restart automatically?
             if isPlaying {
                 stop()
                 play()
@@ -188,7 +189,7 @@ public class AKPlayer: AKNode { //AKTiming
     
     open var isLooping: Bool = false
     
-    /// setting this will set the player to buffering
+    /// Reversing the audio will set the player to buffering
     open var isReversed: Bool = false {
         didSet {
             
@@ -215,14 +216,14 @@ public class AKPlayer: AKNode { //AKTiming
         }
         return nil
     }
-    
+
     /// Create a player from an AVAudioFile
     public convenience init(audioFile: AVAudioFile) {
         self.init()
         self.audioFile = audioFile
         initialize()
     }
-    
+
     public override init() {
         AudioKit.engine.attach(playerNode)
         AudioKit.engine.attach(mixer)
