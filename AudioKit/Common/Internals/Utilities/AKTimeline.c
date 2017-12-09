@@ -178,7 +178,7 @@ int ABLSize(int bufferCount) {
     return sizeof(AudioBufferList) + sizeof(AudioBuffer) * (bufferCount - 1);
 }
 void ABLOffset(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
-    if (!frames) {
+    if (!bufferlist || !frames) {
         return;
     }
     int offset = frames * format.mBytesPerFrame;
@@ -187,13 +187,16 @@ void ABLOffset(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescript
     }
 }
 void ABLSetByteSize(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
+    if (!bufferlist) {
+        return;
+    }
     for (int i = 0; i < bufferlist->mNumberBuffers; i++) {
         bufferlist->mBuffers[i].mDataByteSize = frames * format.mBytesPerFrame;
     }
 }
 void AdvanceRenderState(AudioTimeStamp *timeStamp, AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
     if(timeStamp) *timeStamp = TimeStampOffset(*timeStamp, frames, format.mSampleRate);
-    if(bufferlist) ABLOffset(bufferlist, frames, format);
+    ABLOffset(bufferlist, frames, format);
 }
 void AKTimelineRender(AKTimeline            *timeline,
                       const AudioTimeStamp  *inTimeStamp,
@@ -241,9 +244,13 @@ void AKTimelineRender(AKTimeline            *timeline,
 
     UInt32 framesToRender = inNumberFrames;
 
-    char mem[ABLSize(ioData->mNumberBuffers)];
-    AudioBufferList *bufferlist = (AudioBufferList *)mem;
-    memcpy(bufferlist, ioData, sizeof(mem));
+    AudioBufferList *bufferlist = nil;
+    if (ioData) {
+        char mem[ABLSize(ioData->mNumberBuffers)];
+        AudioBufferList *bufferlist = (AudioBufferList *)mem;
+        memcpy(bufferlist, ioData, sizeof(mem));
+    }
+
 
     Float64 samplesBelowZero = playerTime.mSampleTime < startSample ? startSample - playerTime.mSampleTime : 0;
     if (samplesBelowZero) {
