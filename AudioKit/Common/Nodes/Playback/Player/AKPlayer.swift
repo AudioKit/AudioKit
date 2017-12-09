@@ -313,7 +313,7 @@ public class AKPlayer: AKNode { //AKTiming
         
         let prerollTime = audioTime != nil ? AKPlayer.audioTimeToSeconds(hostTime: hostTime!, audioTime: audioTime!) : 0
         if prerollTime > 0 {
-            Swift.print("prerollTime: \(prerollTime)")
+            //Swift.print("prerollTime: \(prerollTime)")
             prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime, target: self, selector: #selector(AKPlayer.startCompletionTimer), userInfo: nil, repeats: false)
         } else {
             startCompletionTimer()
@@ -338,7 +338,7 @@ public class AKPlayer: AKNode { //AKTiming
             segmentDuration = loop.end - startTime
         }
         completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration, target: self, selector: #selector(AKPlayer.handleComplete), userInfo: nil, repeats: false)
-        Swift.print("startCompletionTimer(), startTime: \(startTime), endTime: \(endTime), loop.start: \(loop.start), loop.end: \(loop.end), duration: \(duration), segmentDuration: \(segmentDuration)")
+        //Swift.print("startCompletionTimer(), startTime: \(startTime), endTime: \(endTime), loop.start: \(loop.start), loop.end: \(loop.end), duration: \(duration), segmentDuration: \(segmentDuration)")
     }
     
     // this will become the method in the scheduling completionHandler >= 10.13
@@ -390,8 +390,7 @@ public class AKPlayer: AKNode { //AKTiming
                                    completionHandler: nil) // these completionHandlers are inaccurate pre 10.13
         playerNode.prepare(withFrameCount: AVAudioFrameCount(frameCount))
         
-        Swift.print("** scheduleSegment() \(audioFile.fileNamePlusExtension), startFrame: \(startFrame), frameCount: \(frameCount)")
-        
+        //Swift.print("** scheduleSegment() \(audioFile.fileNamePlusExtension), startFrame: \(startFrame), frameCount: \(frameCount)")
     }
     
     /// Future AKTiming

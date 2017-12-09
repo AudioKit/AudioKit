@@ -8,6 +8,7 @@
 
 import AudioKitUI
 
+/// This is a demo of an Audio Region class. Not for production use... ;)
 public class AKWaveform: AKView {
     public var url: URL?
     public var plot: EZAudioPlot?
@@ -15,6 +16,9 @@ public class AKWaveform: AKView {
     public var visualScaleFactor: Double = 30
     public var color = NSColor.black
     public weak var delegate: AKWaveformDelegate?
+    
+    private var loopStartMarker = LoopMarker(.start)
+    private var loopEndMarker = LoopMarker(.end)
     
     public var displayTimebar: Bool = true {
         didSet {
@@ -25,20 +29,49 @@ public class AKWaveform: AKView {
     private var timelineBar = TimelineBar()
     
     /// position in seconds of the bar
-    public var position: Double = 0 {
-        didSet {
-            timelineBar.frame.origin.x = CGFloat(position * visualScaleFactor)
+    public var position: Double {
+        get {
+            return Double(timelineBar.frame.origin.x) / visualScaleFactor
+        }
+        
+        set {
+            timelineBar.frame.origin.x = CGFloat(newValue * visualScaleFactor)
+        }
+    }
+    
+    public var loopStart: Double {
+        get {
+            return Double(loopStartMarker.frame.origin.x) / visualScaleFactor
+        }
+        
+        set {
+            loopStartMarker.frame.origin.x = CGFloat(newValue * visualScaleFactor)
         }
     }
 
+    public var loopEnd: Double {
+        get {
+            return Double(loopEndMarker.frame.origin.x + loopEndMarker.frame.width) / visualScaleFactor
+        }
+        
+        set {
+            loopEndMarker.frame.origin.x = CGFloat(newValue * visualScaleFactor) - loopEndMarker.frame.width
+        }
+    }
+    
+    public var isLooping: Bool = true {
+        didSet {
+            loopStartMarker.isHidden = !isLooping
+            loopEndMarker.isHidden = !isLooping
+            needsDisplay = true
+        }
+    }
+    
     convenience init?(url: URL, color: NSColor = NSColor.black) {
         self.init()
-        
         self.file = EZAudioFile(url: url)
         self.color = color
-        
         if file == nil { return nil }
-        
         initialize()    
     }
 
@@ -79,7 +112,29 @@ public class AKWaveform: AKView {
         
         ////////////
         
+        loopStartMarker.delegate = self
+        loopEndMarker.delegate = self
+        
+        addSubview(loopStartMarker)
+        addSubview(loopEndMarker)
+        
         addSubview(timelineBar)
+
+    }
+
+    override public func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        
+        guard isLooping else { return }
+        
+        let loopShading = NSMakeRect(loopStartMarker.frame.origin.x, 0,
+                                     loopEndMarker.frame.origin.x - loopStartMarker.frame.origin.x + loopEndMarker.frame.width,
+                                     frame.height)
+        let rectanglePath = NSBezierPath(rect: loopShading)
+        
+        let color = NSColor(calibratedRed: 0.975, green: 0.823, blue: 0.573, alpha: 0.328)
+        color.setFill()
+        rectanglePath.fill()
         
     }
     
@@ -90,7 +145,7 @@ public class AKWaveform: AKView {
         let scale = w / file!.duration
         
         visualScaleFactor = scale
-        //handleScaleChanged()
+        loopEndMarker.frame.origin.x = frame.width - loopEndMarker.frame.width - 4
     }
     
     override public func setFrameSize(_ newSize: NSSize) {
@@ -115,6 +170,7 @@ public class AKWaveform: AKView {
     override public func mouseDragged(with event: NSEvent) {
         position = mousePositionToTime(with: event)
         delegate?.waveformScrubbed(source: self, at: position)
+        needsDisplay = true
     }
     
     private func mousePositionToTime(with event: NSEvent) -> Double {
@@ -132,12 +188,110 @@ public class AKWaveform: AKView {
     
 }
 
+extension AKWaveform: LoopMarkerDelegate {
+    func markerMoved(source: LoopMarker) {
+        if source.loopType == .start {
+            source.frame.origin.x = max(0, source.frame.origin.x)
+            source.frame.origin.x = min(source.frame.origin.x, loopEndMarker.frame.origin.x - loopEndMarker.frame.width)
+        } else if source.loopType == .end {
+            source.frame.origin.x = max(loopStartMarker.frame.origin.x + loopStartMarker.frame.width, source.frame.origin.x)
+            source.frame.origin.x = min(source.frame.origin.x, frame.width - source.frame.width - 4)
+        }
+        needsDisplay = true
+        delegate?.loopChanged(source: self)
+    }
+}
+
 public protocol AKWaveformDelegate: class {
     func waveformSelected(source: AKWaveform, at time: Double)
     func waveformScrubbed(source: AKWaveform, at time: Double)
     func waveformScrubComplete(source: AKWaveform, at time: Double)
+    func loopChanged(source: AKWaveform)
 }
 
+class LoopMarker: AKView {
+    public enum MarkerType {
+        case start, end
+    }
+    
+    public weak var delegate: LoopMarkerDelegate?
+    public var loopType: MarkerType = .start
+    private var mouseDownLocation: NSPoint?
+    
+    
+    convenience init(_ loopType: MarkerType) {
+        self.init(frame: NSRect(x: 0, y: 0, width: 5, height: 70) )
+        self.loopType = loopType
+    }
+    
+    public func fitToFrame() {
+        guard superview != nil else { return }
+        frame = NSMakeRect(0, 0, 6, superview!.frame.height)
+        needsDisplay = true
+    }
+    
+    override func draw(_ dirtyRect: NSRect) {
+        if loopType == .start {
+            drawStartRepeat()
+        } else if loopType == .end {
+            drawEndRepeat()
+        }
+    }
+ 
+    fileprivate func drawStartRepeat() {
+        NSColor.black.setFill()
+        let rectanglePath = NSBezierPath(rect: NSMakeRect(0, 0, 2, 70))
+        rectanglePath.fill()
+        
+        let rectangle2Path = NSBezierPath(rect: NSMakeRect(0, 69, 5, 2))
+        rectangle2Path.fill()
+        
+        let rectangle3Path = NSBezierPath(rect: NSMakeRect(0, 0, 5, 2))
+        rectangle3Path.fill()
+    }
+    
+    fileprivate func drawEndRepeat() {
+        NSColor.black.setFill()
+        let rectanglePath = NSBezierPath(rect: NSMakeRect(3, 0, 2, 70))
+        rectanglePath.fill()
+
+        let rectangle2Path = NSBezierPath(rect: NSMakeRect(0, 69, 5, 2))
+        rectangle2Path.fill()
+        
+        let rectangle3Path = NSBezierPath(rect: NSMakeRect(0, 0, 5, 2))
+        rectangle3Path.fill()
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+    
+        mouseDownLocation = convert( event.locationInWindow, from: nil)
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        super.mouseDragged(with: event)
+        guard mouseDownLocation != nil else { return }
+        
+        let svLocation = convertEventToSuperview( theEvent: event )
+        let pt = CGPoint(x:svLocation.x - mouseDownLocation!.x, y: 0)
+        setFrameOrigin( pt )
+        
+        
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        
+        guard superview != nil else { return }
+        
+        delegate?.markerMoved(source: self)
+    }
+
+}
+
+protocol LoopMarkerDelegate: class {
+    func markerMoved(source: LoopMarker)
+}
 
 class TimelineBar: AKView {
     let red = NSColor( red: 0.6, green: 0.3, blue: 0.3, alpha: 0.5 )

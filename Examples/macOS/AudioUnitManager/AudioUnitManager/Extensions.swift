@@ -117,3 +117,17 @@ extension NSLayoutConstraint {
     }
 
 }
+
+extension NSView {
+    func convertEventToSuperview( theEvent: NSEvent ) -> NSPoint {
+        let localPoint = self.convert( theEvent.locationInWindow, from: nil)
+        let svLocation = self.convert( localPoint, to: self.superview)
+        return svLocation;
+    }
+    
+    func convertToSuperview( localPoint: NSPoint ) -> NSPoint {
+        let svLocation = self.convert( localPoint, to: self.superview)
+        return svLocation
+    }
+    
+}
