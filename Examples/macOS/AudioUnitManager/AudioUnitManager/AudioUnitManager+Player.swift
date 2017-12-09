@@ -10,29 +10,6 @@ import Cocoa
 import AudioKit
 
 extension AudioUnitManager {
-    @IBAction func handleLoopButton(_ sender: NSButton) {
-        let state = sender.state == .on
-        sender.title = state ? "🔁" : "🔄"
-        player?.isLooping = state
-        waveform?.isLooping = state
-    }
-
-    @IBAction func chooseAudio(_ sender: Any) {
-        guard let window = view.window else { return }
-        AKLog("chooseAudio()")
-        if openPanel == nil {
-            openPanel = NSOpenPanel()
-            openPanel!.message = "Open Audio File"
-            openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
-        }
-        openPanel!.beginSheetModal( for: window, completionHandler: { response in
-            if response.rawValue == NSFileHandlingPanelOKButton {
-                if let url = self.openPanel?.url {
-                    self.open(url: url)
-                }
-            }
-        })
-    }
 
     func handleAudioComplete() {
         if player?.isLooping ?? false {
@@ -47,7 +24,13 @@ extension AudioUnitManager {
         guard internalManager != nil else { return }
         guard mixer != nil else { return }
 
-        player = AKPlayer(url: url)
+        if player == nil {
+            player = AKPlayerDev(url: url)
+        } else {
+            do {
+                try player?.load(url: url)
+            } catch {}
+        }
         guard player != nil else { return }
         player!.completionHandler = handleAudioComplete
         internalManager!.connectEffects(firstNode: player, lastNode: mixer)
@@ -63,67 +46,44 @@ extension AudioUnitManager {
         let darkRed = NSColor(calibratedRed: 0.79, green: 0.128, blue: 0.06, alpha: 1)
         waveform = AKWaveform(url: url, color: darkRed)
         guard waveform != nil else { return }
+
         waveformContainer.addSubview(waveform!)
         waveform?.frame = waveformContainer.frame
         waveform?.fitToFrame()
         waveform?.delegate = self
+
+        audioEnabled = true
     }
 
-    @IBAction func handlePlayButton(_ sender: Any) {
-        guard let player = player else { return }
-
-        if fmOscillator != nil && fmOscillator!.isStarted {
-            fmButton!.state = .off
-            fmOscillator!.stop()
-        }
-
-        if auInstrument != nil {
-            instrumentPlayButton.title = "▶️"
-        }
-
-        if playButton.title == "⏹" {
-            player.stop()
-            playButton.title = "▶️"
-
-            if AudioKit.engine.isRunning {
-                AudioKit.stop()
-                internalManager?.reset()
-            }
-
-            stopAudioTimer()
-
-        } else {
-            if !AudioKit.engine.isRunning {
-                AudioKit.start()
-            }
-
-            if internalManager?.input != player {
-                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-            }
-            player.volume = 1
-            player.play(from: waveform?.position ?? 0)
-            playButton.title = "⏹"
-            startAudioTimer()
-
-        }
+    func close() {
+        fileField.stringValue = ""
+        waveform?.dispose()
+        player?.disconnect()
+        player = nil
+        audioEnabled = false
     }
 
     // this just moves the Timeline bar in the waveform
-    private func startAudioTimer() {
-        audioTimer = Timer.scheduledTimer(timeInterval: 0.01,
+    internal func startAudioTimer() {
+        audioTimer = Timer.scheduledTimer(timeInterval: 0.05,
                                           target: self,
                                           selector: #selector(AudioUnitManager.updateWaveformDisplay),
                                           userInfo: nil,
                                           repeats: true)
     }
 
-    private func stopAudioTimer() {
+    internal func stopAudioTimer() {
         audioTimer?.invalidate()
     }
 
     @objc private func updateWaveformDisplay() {
         guard player != nil else { return }
         waveform?.position = player!.currentTime
+        updateTimeDisplay(player!.currentTime)
+    }
+
+    internal func updateTimeDisplay(_ time: Double) {
+        timeField.stringValue = AKPlayerDev.formatSeconds(time)
     }
 
 }
@@ -132,12 +92,12 @@ extension AudioUnitManager: AKWaveformDelegate {
     func loopChanged(source: AKWaveform) {
         player?.loop.start = source.loopStart
         player?.loop.end = source.loopEnd
-
         player?.endTime = source.loopEnd
         player?.startTime = source.loopStart
     }
 
     func waveformScrubbed(source: AKWaveform, at time: Double) {
+        updateTimeDisplay(time)
     }
 
     func waveformScrubComplete(source: AKWaveform, at time: Double) {
@@ -147,11 +107,13 @@ extension AudioUnitManager: AKWaveformDelegate {
         } else {
             player?.startTime = time
         }
+        updateTimeDisplay(time)
     }
 
     func waveformSelected(source: AKWaveform, at time: Double) {
         audioPlaying = player?.isPlaying ?? false
         stopAudioTimer()
         player?.stop()
+        updateTimeDisplay(time)
     }
 }
