@@ -20,10 +20,6 @@ AudioKit operations are another set of connectible audio structures that live in
 
 Taps use the data in the audio stream (at a specific point in the signal chain) as source material for processing separately.  AudioKit contains several different kinds of taps all of which are found here.
 
-## Tests
-
-AudioKit's tests can be cross-platform (though currently they are only used by the iOS-based AudioKit test suite) so they are kept here.
-
 ## User Interface
  
 User interface elements that work on all platforms including a variety of audio plot types.  Most user interface is not cross-platform and will be found in platform specific directories outside of this Common folder.
