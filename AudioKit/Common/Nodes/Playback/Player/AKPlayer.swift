@@ -325,7 +325,6 @@ public class AKPlayer: AKNode { //AKTiming
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
-
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime)
         playerNode.play()
