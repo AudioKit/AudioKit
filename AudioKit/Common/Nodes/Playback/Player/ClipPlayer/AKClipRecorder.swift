@@ -31,22 +31,22 @@ open class AKClipRecorder {
     }
 
     /// Starts the internal timeline.
-    open func play() {
-        play(at: nil)
+    open func start() {
+        start(at: nil)
     }
 
     /// Starts the internal timeline from audioTime.
     ///
     /// - Parameter audioTime: An time in the audio render context.
     ///
-    open func play(at audioTime: AVAudioTime?) {
-        if isPlaying {
+    open func start(at audioTime: AVAudioTime?) {
+        if isStarted {
             return
         }
         for clip in clips where clip.endTime <= timing.currentTime {
             finalize(clip: clip, error: ClipRecordingError.timingError)
         }
-        timing.play(at: audioTime)
+        timing.start(at: audioTime)
     }
 
     /// The current time of the internal timeline.  Setting will call stop().
@@ -62,7 +62,7 @@ open class AKClipRecorder {
     /// - Parameter completion: a closure that will be called after all clips have benn finalized.
     ///
     open func stop(_ completion: (() -> Void)? = nil) {
-        if !isPlaying {
+        if !isStarted {
             return
         }
         timing.stop()
@@ -109,11 +109,6 @@ open class AKClipRecorder {
             result(url, time, error)
             action()
         }
-    }
-
-    /// Is inner timeline playing.
-    open var isPlaying: Bool {
-        return timing.isPlaying
     }
 
     /// True if there are any clips recording.
@@ -186,10 +181,10 @@ open class AKClipRecorder {
 
     // Audio tap that is set on node.
     private func audioTap(buffer: AVAudioPCMBuffer, audioTime: AVAudioTime) {
-        if !timing.isPlaying {
+        if !timing.isStarted {
             return
         }
-        let timeIn = timing.time(atAudioTime: audioTime)
+        let timeIn = timing.position(at: audioTime)
         let timeOut = timeIn + Double(buffer.frameLength) / buffer.format.sampleRate
         for clip in clips {
             if clip.startTime < timeOut && clip.endTime > timeIn {
@@ -197,7 +192,7 @@ open class AKClipRecorder {
                 var adjustedAudioTme = audioTime
                 if clip.audioTimeStart == nil {
                     clip.startTime = max(clip.startTime, timeIn)
-                    guard let audioTimeStart = timing.audioTime(atTime: clip.startTime) else {
+                    guard let audioTimeStart = timing.audioTime(at: clip.startTime) else {
                         finalize(clip: clip, error: ClipRecordingError.timingError)
                         continue
                     }
@@ -230,6 +225,29 @@ open class AKClipRecorder {
         }
     }
 
+}
+
+extension AKClipRecorder: AKTiming {
+
+    public var isStarted: Bool {
+        return timing.isStarted
+    }
+
+    public func stop() {
+        stop(nil)
+    }
+
+    public func setPosition(_ position: Double) {
+        timing.setPosition(position)
+    }
+
+    public func position(at audioTime: AVAudioTime?) -> Double {
+        return timing.position(at: audioTime)
+    }
+
+    public func audioTime(at position: Double) -> AVAudioTime? {
+        return timing.audioTime(at: position)
+    }
 }
 
 public enum ClipRecordingError: Error, LocalizedError {
