@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -653,7 +652,7 @@ DQ
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hly-oS-skR">
                                             <rect key="frame" x="120" y="6" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" title="🔄" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="EEN-63-ujk">
+                                            <buttonCell key="cell" type="bevel" title="🔄" alternateTitle="🔁" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="EEN-63-ujk">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <string key="keyEquivalent">l</string>
@@ -664,7 +663,7 @@ DQ
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o1u-EC-Pe1">
-                                            <rect key="frame" x="148" y="7" width="229" height="17"/>
+                                            <rect key="frame" x="189" y="7" width="188" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" placeholderString="🔇" id="Wi3-AT-Q2i">
                                                 <font key="font" metaFont="miniSystemBold"/>
@@ -672,6 +671,19 @@ DQ
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L70-53-rOV">
+                                            <rect key="frame" x="144" y="6" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="bevel" title="➡️" alternateTitle="⬅️" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Og6-k0-KO2">
+                                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent">l</string>
+                                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="handleReversedButton:" target="XfG-lQ-9wD" id="n8P-tp-hR2"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
@@ -799,7 +811,7 @@ IA
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fC4-Re-xty">
-                                            <rect key="frame" x="7" y="7" width="63" height="22"/>
+                                            <rect key="frame" x="8" y="5" width="65" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Buffered" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="nwd-Q4-YKv">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -816,9 +828,6 @@ IA
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="miniSystem"/>
                                             </buttonCell>
-                                            <connections>
-                                                <action selector="handleReversedButton:" target="XfG-lQ-9wD" id="Re0-G6-2Jo"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>
@@ -851,7 +860,7 @@ IA
                     <connections>
                         <outlet property="auInstrumentSelector" destination="ivi-4Y-hNl" id="3F4-QS-hPK"/>
                         <outlet property="audioBufferedButton" destination="fC4-Re-xty" id="6lX-Kh-Okm"/>
-                        <outlet property="audioReversedButton" destination="hPy-Du-8QV" id="sCf-c1-3ZA"/>
+                        <outlet property="audioReversedButton" destination="L70-53-rOV" id="fyW-dB-eaN"/>
                         <outlet property="effectsContainer" destination="ITC-cm-Fp0" id="zca-Q1-X5c"/>
                         <outlet property="fileField" destination="o1u-EC-Pe1" id="xN7-mS-Zdi"/>
                         <outlet property="fmButton" destination="hdN-h6-Uup" id="IsR-BW-Cg9"/>

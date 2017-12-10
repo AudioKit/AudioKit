@@ -16,8 +16,11 @@ extension AudioUnitManager {
         Swift.print("handleAudioComplete()")
 
         if player.isLooping {
+            Swift.print("Hello?")
+            //player.play(from: player.loop.start)
             return
         } else {
+            player.startTime = 0
             handlePlayButton(playButton)
             handleRewindButton(rewindButton)
         }
@@ -29,16 +32,17 @@ extension AudioUnitManager {
         guard mixer != nil else { return }
 
         if player == nil {
-            player = AKPlayer(url: url)
+            player = AKPlayerDev(url: url)
         } else {
             do {
                 try player?.load(url: url)
             } catch {}
         }
-        guard player != nil else { return }
-        player!.completionHandler = handleAudioComplete
+        guard let player = player else { return }
+        player.completionHandler = handleAudioComplete
         internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-        player!.isLooping = loopButton.state == .on
+        player.isLooping = loopButton.state == .on
+
         playButton.isEnabled = true
         fileField.stringValue = "🔈 \(url.lastPathComponent)"
 
