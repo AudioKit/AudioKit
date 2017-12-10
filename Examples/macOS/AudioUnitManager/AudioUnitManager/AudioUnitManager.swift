@@ -10,7 +10,7 @@ import AVFoundation
 import AudioKit
 
 /// An Example of how to create an AudioUnit Host application.
-/// This is also a demo for how to use AKPlayerDev.
+/// This is also a demo for how to use AKPlayer.
 class AudioUnitManager: NSViewController {
     let akInternals = "AudioKit ★"
     let windowPrefix = "FX"
@@ -35,7 +35,7 @@ class AudioUnitManager: NSViewController {
     internal var openPanel: NSOpenPanel?
     internal var internalManager: AKAudioUnitManager?
     internal var midiManager: AKMIDI?
-    internal var player: AKPlayerDev?
+    internal var player: AKPlayer?
     internal var waveform: AKWaveform?
     internal var fmOscillator: AKFMOscillator?
     internal var mixer: AKMixer?

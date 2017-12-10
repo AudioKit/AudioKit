@@ -610,7 +610,7 @@
                                     <rect key="frame" x="2" y="2" width="382" height="34"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DTh-Pv-wCa">
+                                        <button toolTip="Choose an audio file" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DTh-Pv-wCa">
                                             <rect key="frame" x="5" y="3" width="70" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="Open..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Uhj-t2-xEY">
@@ -621,7 +621,7 @@
                                                 <action selector="chooseAudio:" target="XfG-lQ-9wD" id="au2-HA-yzd"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Vz-pw-YGK">
+                                        <button toolTip="Play" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Vz-pw-YGK">
                                             <rect key="frame" x="97" y="6" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="bevel" title="▶️" bezelStyle="rounded" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="NGe-2p-HsC">
@@ -635,7 +635,7 @@ IA
                                                 <action selector="handlePlayButton:" target="XfG-lQ-9wD" id="rvz-Ys-Caw"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIr-Uh-0Bt">
+                                        <button toolTip="Rewind" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIr-Uh-0Bt">
                                             <rect key="frame" x="75" y="6" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="bevel" title="⏮" bezelStyle="rounded" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="bob-8J-r89">
@@ -652,7 +652,7 @@ DQ
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hly-oS-skR">
                                             <rect key="frame" x="120" y="6" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" title="🔄" alternateTitle="🔁" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="EEN-63-ujk">
+                                            <buttonCell key="cell" type="bevel" title="🔄" alternateTitle="🔁" bezelStyle="rounded" alignment="center" state="on" toolTip="Looping" imageScaling="proportionallyDown" inset="2" id="EEN-63-ujk">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <string key="keyEquivalent">l</string>
@@ -671,7 +671,7 @@ DQ
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L70-53-rOV">
+                                        <button toolTip="Reversed" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L70-53-rOV">
                                             <rect key="frame" x="144" y="6" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="bevel" title="➡️" alternateTitle="⬅️" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Og6-k0-KO2">
