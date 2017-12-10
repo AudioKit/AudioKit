@@ -10,7 +10,7 @@ import AVFoundation
 import AudioKit
 
 /// An Example of how to create an AudioUnit Host application.
-/// This is also a demo for how to use AKPlayer.
+/// This is also a demo for how to use AKPlayerDev.
 class AudioUnitManager: NSViewController {
     let akInternals = "AudioKit ★"
     let windowPrefix = "FX"
@@ -35,7 +35,7 @@ class AudioUnitManager: NSViewController {
     internal var openPanel: NSOpenPanel?
     internal var internalManager: AKAudioUnitManager?
     internal var midiManager: AKMIDI?
-    internal var player: AKPlayer?
+    internal var player: AKPlayerDev?
     internal var waveform: AKWaveform?
     internal var fmOscillator: AKFMOscillator?
     internal var mixer: AKMixer?
@@ -46,10 +46,10 @@ class AudioUnitManager: NSViewController {
             guard auInstrument != nil else { return }
         }
     }
-    
+
     public var audioEnabled: Bool = false {
         didSet {
-            audioBufferedButton.isEnabled = audioEnabled
+            //audioBufferedButton.isEnabled = audioEnabled
             audioReversedButton.isEnabled = audioEnabled
             playButton.isEnabled = audioEnabled
             rewindButton.isEnabled = audioEnabled
@@ -82,6 +82,7 @@ class AudioUnitManager: NSViewController {
         initMIDI()
         initUI()
         audioEnabled = false
+        audioBufferedButton.state = .on // on since looping is on by default
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
@@ -108,15 +109,19 @@ class AudioUnitManager: NSViewController {
 
     @IBAction func handleLoopButton(_ sender: NSButton) {
         let state = sender.state == .on
-        sender.title = state ? "🔄" : "➡️"
+        //sender.title = state ? "🔄" : "🔁"
         guard let player = player else { return }
         guard let waveform = waveform else { return }
 
         let wasPlaying = player.isPlaying
-        player.stop()
+
+        if wasPlaying {
+            player.stop()
+        }
 
         player.isLooping = state
         waveform.isLooping = state
+        audioBufferedButton.state = player.isBuffered ? .on : .off
 
         if !state {
             player.startTime = 0
@@ -136,11 +141,12 @@ class AudioUnitManager: NSViewController {
         guard let player = player else { return }
         guard let waveform = waveform else { return }
 
+        Swift.print("handleReversedButton() \(sender.state == .on)")
         let wasPlaying = player.isPlaying
         player.stop()
         player.isReversed = sender.state == .on
         waveform.isReversed = sender.state == .on
-        audioBufferedButton.isEnabled = !waveform.isReversed
+        audioBufferedButton.state = player.isBuffered ? .on : .off
 
         if wasPlaying {
             player.play()
@@ -176,7 +182,7 @@ class AudioUnitManager: NSViewController {
             stopAudioTimer()
 
         } else {
-            if internalManager?.input != player {
+            if internalManager?.input != (player as AKNode) {
                 internalManager!.connectEffects(firstNode: player, lastNode: mixer)
             }
             startEngine(completionHandler: {
@@ -197,7 +203,7 @@ class AudioUnitManager: NSViewController {
             openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
         }
         openPanel!.beginSheetModal( for: window, completionHandler: { response in
-            if response.rawValue == NSFileHandlingPanelOKButton {
+            if response == NSApplication.ModalResponse.OK {
                 if let url = self.openPanel?.url {
                     self.open(url: url)
                 }
