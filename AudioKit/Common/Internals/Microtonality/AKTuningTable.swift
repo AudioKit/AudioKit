@@ -86,9 +86,7 @@
     
     /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
-    /// - parameter NN: The tuning table's Note Number
-    /// - parameter etNN: Note number of 12ET.  1 etNN = 100 cents (i.e., semitone)
-    /// - parameter pitchBend: on [0,16383]
+    /// - parameter nn: The tuning table's Note Number
     @objc public func etNNPitchBend(NN nn: MIDINoteNumber) -> AKTuningTableETNN? {
         return etNNDictionary[nn]
     }
