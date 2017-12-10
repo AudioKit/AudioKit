@@ -400,8 +400,8 @@ public class AKPlayer: AKNode {
             scheduleSegment(at: audioTime)
         }
 
-        if #available(OSX 10.13, *) {
-
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+            // nothing further is needed as the completion is specified in the scheduler
         } else {
             completionTimer?.invalidate()
             prerollTimer?.invalidate()
@@ -425,7 +425,7 @@ public class AKPlayer: AKNode {
         let bufferOptions: AVAudioPlayerNodeBufferOptions = isLooping ? [.loops, .interrupts] : [.interrupts]
 
         //Swift.print("Scheduling buffer...\(startTime) to \(endTime)")
-        if #available(OSX 10.13, *) {
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
                                       options: bufferOptions,
@@ -455,7 +455,7 @@ public class AKPlayer: AKNode {
 
         let frameCount = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
 
-        if #available(OSX 10.13, *) {
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleSegment(audioFile,
                                        startingFrame: startFrame,
                                        frameCount: AVAudioFrameCount(frameCount),
@@ -477,7 +477,7 @@ public class AKPlayer: AKNode {
     // MARK: - Completion Handlers
 
     // this will be the method in the scheduling completionHandler >= 10.13
-    @available(OSX 10.13, *)
+    @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc private func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
         DispatchQueue.main.async {
             self.completionHandler?()
