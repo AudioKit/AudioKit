@@ -74,6 +74,64 @@ extension String {
         return retVal
     }
 
+    public static func toClock( _ time: TimeInterval, frameRate: Float = 0 ) -> String {
+        if time.isNaN || time.isInfinite || time.isSignalingNaN {
+            return String("-")
+        }
+        var t = time
+        var preroll = ""
+        if time < 0 {
+            preroll = "-"
+        }
+        t = abs(t)
+
+        //calculate the minutes in elapsed time.
+        let minutes = Int(t / 60.0)
+        t -= (TimeInterval(minutes) * 60)
+
+        //calculate the seconds in elapsed time.
+        let seconds = Int(t)
+        t -= TimeInterval(seconds)
+
+        //find out the fraction of milliseconds to be displayed.
+        let mult = Double(frameRate > 0 ? frameRate : 100)
+        let fraction = Int(t * mult)
+        let strMinutes = String(format: "%02d", minutes)
+        let strSeconds = String(format: "%02d", seconds)
+        let strFraction = String(format: "%02d", fraction)
+        let out = "\(preroll)\(strMinutes):\(strSeconds):\(strFraction)"
+        return out
+    }
+
+    public static func toTimecode(frame: Int, fps: Float) -> String {
+        let ff = Int(Float(frame).truncatingRemainder(dividingBy: fps))
+        let seconds = Int(Float(frame - ff) / fps)
+        let ss = seconds % 60
+        let mm = (seconds % 3600) / 60
+        let timecode = [String(format: "%02d", mm), String(format: "%02d", ss), String(format: "%02d", ff)]
+        return timecode.joined(separator: ":")
+    }
+
+    public static func toSimpleClock( _ time: TimeInterval ) -> String {
+        var t = time
+        var preroll = ""
+        if time < 0 {
+            preroll = "-"
+        }
+        t = abs(t)
+
+        //calculate the minutes in elapsed time.
+        let minutes = Int(t / 60.0)
+        t -= (TimeInterval(minutes) * 60)
+
+        //calculate the seconds in elapsed time.
+        let seconds = Int(t)
+        t -= TimeInterval(seconds)
+        let strSeconds = String(format: "%02d", seconds)
+        let out = "\(preroll)\(minutes):\(strSeconds)"
+        return out
+    }
+
 }
 
 extension String.Index {

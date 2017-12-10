@@ -12,7 +12,6 @@ import AudioKit
 /// An Example of how to create an AudioUnit Host application.
 /// This is also a demo for how to use AKPlayer.
 class AudioUnitManager: NSViewController {
-
     let akInternals = "AudioKit ★"
     let windowPrefix = "FX"
 
@@ -30,8 +29,7 @@ class AudioUnitManager: NSViewController {
     @IBOutlet weak var auInstrumentSelector: NSPopUpButton!
     @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
 
-    fileprivate var lastMIDIEvent: Int = 0
-
+    internal var lastMIDIEvent: Int = 0
     internal var audioTimer: Timer?
     internal var audioPlaying: Bool = false
     internal var openPanel: NSOpenPanel?
@@ -41,16 +39,14 @@ class AudioUnitManager: NSViewController {
     internal var waveform: AKWaveform?
     internal var fmOscillator: AKFMOscillator?
     internal var mixer: AKMixer?
+    internal var testPlayer: InstrumentPlayer?
+    internal var fmTimer: Timer?
     internal var auInstrument: AKAudioUnitInstrument? {
         didSet {
             guard auInstrument != nil else { return }
         }
     }
-
-    var testPlayer: InstrumentPlayer?
-
-    fileprivate var fmTimer: Timer?
-
+    
     public var audioEnabled: Bool = false {
         didSet {
             audioBufferedButton.isEnabled = audioEnabled
@@ -61,6 +57,7 @@ class AudioUnitManager: NSViewController {
         }
     }
 
+    // MARK: - init
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
@@ -87,31 +84,10 @@ class AudioUnitManager: NSViewController {
         audioEnabled = false
     }
 
-    private func initMIDI() {
-        midiManager = AudioKit.midi
-        midiManager?.addListener(self)
-        initMIDIDevices()
-    }
-
-    fileprivate func initMIDIDevices() {
-        guard let devices = midiManager?.inputNames else { return }
-
-        if devices.count > 0 {
-            midiDeviceSelector.removeAllItems()
-            midiManager?.openInput(devices[0])
-
-            for device in devices {
-                AKLog("MIDI Device: \(device)")
-                midiDeviceSelector.addItem(withTitle: device)
-            }
-        }
-    }
-
     internal func startEngine(completionHandler: AKCallback? = nil) {
         AKLog("engine.isRunning: \(AudioKit.engine.isRunning)")
         if !AudioKit.engine.isRunning {
             AudioKit.start()
-
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 //                completionHandler?()
 //            }
@@ -119,6 +95,8 @@ class AudioUnitManager: NSViewController {
         }
         completionHandler?()
     }
+
+    // MARK: - Event Handlers
 
     @IBAction func openDocument(_ sender: AnyObject) {
         chooseAudio(sender)
@@ -131,8 +109,23 @@ class AudioUnitManager: NSViewController {
     @IBAction func handleLoopButton(_ sender: NSButton) {
         let state = sender.state == .on
         sender.title = state ? "🔄" : "➡️"
-        player?.isLooping = state
-        waveform?.isLooping = state
+        guard let player = player else { return }
+        guard let waveform = waveform else { return }
+
+        let wasPlaying = player.isPlaying
+        player.stop()
+
+        player.isLooping = state
+        waveform.isLooping = state
+
+        if !state {
+            player.startTime = 0
+            player.endTime = player.duration
+        }
+
+        if wasPlaying {
+            player.play()
+        }
     }
 
     @IBAction func handleBufferedButton(_ sender: NSButton) {
@@ -140,25 +133,24 @@ class AudioUnitManager: NSViewController {
     }
 
     @IBAction func handleReversedButton(_ sender: NSButton) {
-        guard player != nil else { return }
-        guard waveform != nil else { return }
-        let wasPlaying = player!.isPlaying
-        if wasPlaying {
-            handlePlayButton(playButton)
-        }
-        player!.isReversed = sender.state == .on
-        waveform!.isReversed = sender.state == .on
-        audioBufferedButton.isEnabled = !waveform!.isReversed
+        guard let player = player else { return }
+        guard let waveform = waveform else { return }
+
+        let wasPlaying = player.isPlaying
+        player.stop()
+        player.isReversed = sender.state == .on
+        waveform.isReversed = sender.state == .on
+        audioBufferedButton.isEnabled = !waveform.isReversed
 
         if wasPlaying {
-            handlePlayButton(playButton)
+            player.play()
         }
     }
 
-    //
     @IBAction func handleRewindButton(_ sender: Any) {
         player?.startTime = 0
         waveform?.position = 0
+        updateTimeDisplay(0)
     }
 
     @IBAction func handlePlayButton(_ sender: NSButton) {
@@ -178,7 +170,6 @@ class AudioUnitManager: NSViewController {
             sender.title = "▶️"
 
             if AudioKit.engine.isRunning {
-                //AudioKit.stop()
                 internalManager?.reset()
             }
 
@@ -213,7 +204,6 @@ class AudioUnitManager: NSViewController {
             }
         })
     }
-
 
     @IBAction func handleMidiDeviceSelected(_ sender: NSPopUpButton) {
         if let device = sender.titleOfSelectedItem {
@@ -305,119 +295,12 @@ class AudioUnitManager: NSViewController {
         } else if fm.isStarted {
             fm.stop()
 
-            if fmTimer != nil && fmTimer!.isValid {
-                fmTimer!.invalidate()
-            }
-        }
-    }
-
-    func initFM() {
-        guard internalManager != nil else { return }
-        guard mixer != nil else { return }
-        guard let fm = fmOscillator else { return }
-
-        AKLog("initFM()")
-
-        internalManager!.connectEffects(firstNode: fm, lastNode: mixer)
-
-        if fmTimer != nil && fmTimer!.isValid {
-            fmTimer!.invalidate()
-        }
-
-        startEngine(completionHandler: {
-            fm.start()
-            self.fmTimer = Timer.scheduledTimer(timeInterval: 0.2,
-                                                target: self,
-                                                selector: #selector(self.randomFM),
-                                                userInfo: nil,
-                                                repeats: true)
-        })
-    }
-
-    @objc func randomFM() {
-        let noteNumber = randomNumber(range: 0...127)
-        let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: MIDINoteNumber(noteNumber))
-        fmOscillator!.baseFrequency = Double(frequency)
-        fmOscillator!.carrierMultiplier = Double(randomNumber(range: 10...100)) / 100
-        fmOscillator!.amplitude = Double(randomNumber(range: 10...100)) / 100
-        //AKLog("\(fm!.baseFrequency)")
-    }
-
-    func randomNumber(range: ClosedRange<Int> = 100...500) -> Int {
-        let min = range.lowerBound
-        let max = range.upperBound
-        return Int(arc4random_uniform(UInt32(1 + max - min))) + min
-    }
-
-    open func testAUInstrument(state: Bool) {
-        AKLog("\(state)")
-        guard auInstrument != nil else { return }
-
-        if state {
-            internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
-            testPlayer = InstrumentPlayer(audioUnit: auInstrument!.midiInstrument?.auAudioUnit)
-            testPlayer?.play()
-        } else {
-            testPlayer?.stop()
-        }
-    }
-
-    internal func updateInstrumentsUI( audioUnits: [AVAudioUnitComponent] ) {
-        guard internalManager != nil else { return }
-
-        auInstrumentSelector.removeAllItems()
-        auInstrumentSelector.addItem(withTitle: "-")
-
-        for component in audioUnits where component.name != "" {
-            auInstrumentSelector.addItem(withTitle: component.name)
-        }
-    }
-
-}
-
-extension AudioUnitManager: AKMIDIListener {
-    /// MIDI Setup has changed
-    public func receivedMIDISetupChange() {
-        initMIDIDevices()
-    }
-
-    func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        let currentTime: Int = Int(mach_absolute_time())
-
-        // AKMIDI is sending duplicate noteOn messages??, don't let them be sent too quickly
-        let sinceLastEvent = currentTime - lastMIDIEvent
-        let isDupe = sinceLastEvent < 300_000
-
-        if auInstrument != nil {
-            if !isDupe {
-                auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
-            } else {
-                //AKLog("Duplicate noteOn message sent")
-            }
-        } else if fmOscillator != nil {
-            if !fmOscillator!.isStarted {
-                fmOscillator!.start()
-            }
-
-            if fmTimer != nil && fmTimer!.isValid {
+            if fmTimer?.isValid ?? false {
                 fmTimer?.invalidate()
             }
-            let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-            fmOscillator!.baseFrequency = frequency
-        }
-        lastMIDIEvent = currentTime
-    }
-
-    func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        if auInstrument != nil {
-            auInstrument!.stop(noteNumber: noteNumber, channel: channel)
-
-        } else if fmOscillator != nil {
-            if fmOscillator!.isStarted {
-                fmOscillator!.stop()
-            }
         }
     }
+
 }
 
 /// Handle Window Events

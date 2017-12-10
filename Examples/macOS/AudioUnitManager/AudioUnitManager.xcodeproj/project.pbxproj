@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1119DDD1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1119DDC1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift */; };
 		B118AB3A1F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B118AB381F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift */; };
 		B118AB3B1F8A85B0000E9AB1 /* AudioUnitGenericWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B118AB391F8A85B0000E9AB1 /* AudioUnitGenericWindow.xib */; };
 		B118AB3E1F8AA268000E9AB1 /* AudioUnitToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B118AB3D1F8AA268000E9AB1 /* AudioUnitToolbar.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B1119DDC1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitManager+MIDI.swift"; sourceTree = "<group>"; };
 		B118AB381F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitGenericWindow.swift; sourceTree = "<group>"; };
 		B118AB391F8A85B0000E9AB1 /* AudioUnitGenericWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitGenericWindow.xib; sourceTree = "<group>"; };
 		B118AB3D1F8AA268000E9AB1 /* AudioUnitToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitToolbar.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				B12312001F193EA200888115 /* AudioUnitManager.swift */,
 				B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */,
 				B186CF541F884FC40063CDB9 /* AudioUnitManager+Effects.swift */,
+				B1119DDC1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift */,
 				B12311FE1F193EA200888115 /* AppDelegate.swift */,
 				B123121C1F1944E200888115 /* Extensions.swift */,
 				B12312021F193EA200888115 /* Assets.xcassets */,
@@ -242,6 +245,7 @@
 				B1535FBA1F87E8090028CC26 /* ClosureMenuItem.swift in Sources */,
 				B12312011F193EA200888115 /* AudioUnitManager.swift in Sources */,
 				B1535FB81F87E8000028CC26 /* MenuButton.swift in Sources */,
+				B1119DDD1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift in Sources */,
 				B12312141F193F6100888115 /* AudioUnitParamSlider.swift in Sources */,
 				B186CF551F884FC40063CDB9 /* AudioUnitManager+Effects.swift in Sources */,
 				B1D2A7A61FDBB8400067DC39 /* AudioUnitManager+Player.swift in Sources */,
