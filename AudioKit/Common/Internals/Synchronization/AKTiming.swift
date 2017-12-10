@@ -72,6 +72,29 @@ extension AKTiming {
         return startTime
     }
 
+    /**
+     Starts playback with position syncronized to an already running node.
+     - Parameter other: An already started AKTiming that position will be synchronized with.
+     - Parameter audioTime: Future time in the audio render context that playback should begin.
+     */
+    func synchronizeWith(other: AKTiming, at audioTime: AVAudioTime? = nil) {
+        stop()
+        guard other.isStarted else {
+            return
+        }
+
+        // If audioTime is nil, start playback 2 render cycles in the future.
+        var startTime = audioTime
+        if startTime == nil {
+            let bufferDuration = AKSettings.ioBufferDuration
+            let referenceTime = AudioKit.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
+            startTime = referenceTime + bufferDuration
+        }
+
+        setPosition(other.position(at: startTime))
+        start(at: startTime)
+    }
+
 }
 
 /// An AKTiming implementation that uses a node for it's render time info.
