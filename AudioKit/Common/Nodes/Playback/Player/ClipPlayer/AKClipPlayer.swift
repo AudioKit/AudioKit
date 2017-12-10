@@ -7,7 +7,7 @@
 //
 
 /// Schedules multiple audio files to be played in a sequence.
-open class AKClipPlayer: AKNode, AKTiming {
+open class AKClipPlayer: AKNode {
 
     private var timeAtStart: Double = 0
 
@@ -17,40 +17,10 @@ open class AKClipPlayer: AKNode, AKTiming {
     private var scheduled = false
     private var _clips = [FileClip]()
 
-    /// Sets the current time in seconds.
-    open func setTime(_ time: Double) {
-        playerNode.stop()
-        timeAtStart = time
-    }
-
-    /// Time in seconds at a given audio time
-    ///
-    /// - parameter audioTime: A time in the audio render context.
-    /// - Returns: Time in seconds in the context of the player's timeline.
-    ///
-    open func time(atAudioTime audioTime: AVAudioTime?) -> Double {
-        guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
-            return timeAtStart
-        }
-        return timeAtStart + Double(playerTime.sampleTime) / playerTime.sampleRate
-    }
-
-    /// Audio time for a given time.
-    ///
-    /// - Parameter time: Time in seconds in the context of the player's timeline.
-    /// - Returns: A time in the audio render context.
-    ///
-    open func audioTime(atTime time: Double) -> AVAudioTime? {
-        let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
-        let sampleTime = (time - timeAtStart) * sampleRate
-        let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
-        return playerNode.nodeTime(forPlayerTime: playerTime)
-    }
-
     /// Current time of the player in seconds.
     open var currentTime: Double {
-        get { return time(atAudioTime: nil) }
-        set { setTime(newValue) }
+        get { return position(at: nil) }
+        set { setPosition(newValue) }
     }
 
     /// True is play, flase if not.
@@ -199,7 +169,7 @@ open class AKClipPlayer: AKNode, AKTiming {
 
     /// Stops playback.
     open func stop() {
-        timeAtStart = time(atAudioTime: nil)
+        timeAtStart = position(at: nil)
         playerNode.stop()
         scheduled = false
     }
@@ -216,8 +186,36 @@ open class AKClipPlayer: AKNode, AKTiming {
         set { playerNode.pan = newValue }
     }
 }
-extension AKClipPlayer {
+extension AKClipPlayer: AKTiming {
+
+    public var isStarted: Bool {
+        return isPlaying
+    }
+
     open func start(at audioTime: AVAudioTime? = nil) {
         play(at: audioTime)
+    }
+
+    open func setPosition(_ position: Double) {
+        playerNode.stop()
+        timeAtStart = position
+    }
+
+    open func position(at audioTime: AVAudioTime?) -> Double {
+        guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
+            return timeAtStart
+        }
+        return timeAtStart + Double(playerTime.sampleTime) / playerTime.sampleRate
+    }
+
+    open func audioTime(at time: Double) -> AVAudioTime? {
+        let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
+        let sampleTime = (time - timeAtStart) * sampleRate
+        let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
+        return playerNode.nodeTime(forPlayerTime: playerTime)
+    }
+
+    open func prepare() {
+        prepare(withFrameCount: 8192)
     }
 }
