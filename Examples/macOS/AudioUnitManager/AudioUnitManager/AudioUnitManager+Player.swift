@@ -12,11 +12,15 @@ import AudioKit
 extension AudioUnitManager {
 
     func handleAudioComplete() {
-        if player?.isLooping ?? false {
+        guard let player = player else { return }
+        Swift.print("handleAudioComplete()")
+
+        if player.isLooping {
             return
+        } else {
+            handlePlayButton(playButton)
+            handleRewindButton(rewindButton)
         }
-        playButton.state = .off
-        playButton.title = "▶️"
     }
 
     /// open an audio URL for playing
@@ -77,23 +81,30 @@ extension AudioUnitManager {
     }
 
     @objc private func updateWaveformDisplay() {
-        guard player != nil else { return }
-        waveform?.position = player!.currentTime
-        updateTimeDisplay(player!.currentTime)
+        guard let player = player else { return }
+        waveform?.position = player.currentTime
+        updateTimeDisplay(player.currentTime)
     }
 
     internal func updateTimeDisplay(_ time: Double) {
-        timeField.stringValue = AKPlayer.formatSeconds(time)
+        timeField.stringValue = String.toClock(time)
     }
-
 }
 
 extension AudioUnitManager: AKWaveformDelegate {
     func loopChanged(source: AKWaveform) {
-        player?.loop.start = source.loopStart
-        player?.loop.end = source.loopEnd
-        player?.endTime = source.loopEnd
-        player?.startTime = source.loopStart
+        guard let player = player else { return }
+        let wasPlaying = player.isPlaying
+        player.stop()
+
+        player.loop.start = source.loopStart
+        player.loop.end = source.loopEnd
+        player.endTime = source.loopEnd
+        player.startTime = source.loopStart
+
+        if wasPlaying {
+            player.play()
+        }
     }
 
     func waveformScrubbed(source: AKWaveform, at time: Double) {
@@ -111,9 +122,11 @@ extension AudioUnitManager: AKWaveformDelegate {
     }
 
     func waveformSelected(source: AKWaveform, at time: Double) {
-        audioPlaying = player?.isPlaying ?? false
+        guard let player = player else { return }
+
+        audioPlaying = player.isPlaying
         stopAudioTimer()
-        player?.stop()
+        player.stop()
         updateTimeDisplay(time)
     }
 }

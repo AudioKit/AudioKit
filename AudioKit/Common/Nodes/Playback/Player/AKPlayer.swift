@@ -154,10 +154,10 @@ public class AKPlayer: AKNode { //AKTiming
             startTime = max(0, startTime)
 
             // Should playback restart automatically?
-            if isPlaying {
-                stop()
-                play()
-            }
+//            if isPlaying {
+//                stop()
+//                play()
+//            }
         }
     }
 
@@ -242,7 +242,7 @@ public class AKPlayer: AKNode { //AKTiming
     }
 
     private func initialize() {
-        guard audioFile != nil else { return }
+        guard let audioFile = audioFile else { return }
 
         if playerNode.engine == nil {
             AudioKit.engine.attach(playerNode)
@@ -253,8 +253,8 @@ public class AKPlayer: AKNode { //AKTiming
 
         playerNode.disconnectOutput()
 
-        let format = AVAudioFormat(standardFormatWithSampleRate: audioFile!.sampleRate,
-                                   channels: audioFile!.channelCount)
+        let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.sampleRate,
+                                   channels: audioFile.channelCount)
 
         AudioKit.connect(playerNode, to: mixer, format: format)
 
@@ -283,8 +283,6 @@ public class AKPlayer: AKNode { //AKTiming
 
         startTime = from
         endTime = to
-
-        Swift.print("preroll from \(startTime) to \(endTime)")
 
         guard isBuffered else { return }
         updateBuffer()
@@ -326,13 +324,14 @@ public class AKPlayer: AKNode { //AKTiming
                      to endingTime: Double,
                      when scheduledTime: Double,
                      hostTime: UInt64? = nil) {
-        let refTime = hostTime != nil ? hostTime! : mach_absolute_time()
-        let avTime = AKPlayer.secondsToAVAudioTime(hostTime: refTime, time: scheduledTime)
+        let refTime = hostTime ?? mach_absolute_time()
+        let avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
+
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime)
         playerNode.play()
@@ -340,10 +339,8 @@ public class AKPlayer: AKNode { //AKTiming
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
 
-        let prerollTime = audioTime != nil ?
-            AKPlayer.audioTimeToSeconds(hostTime: hostTime!, audioTime: audioTime!) : 0
-        if prerollTime > 0 {
-            //Swift.print("prerollTime: \(prerollTime)")
+        if let audioTime = audioTime, let hostTime = hostTime {
+            let prerollTime = audioTime.toSeconds(hostTime: hostTime)
             prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
                                                 target: self,
                                                 selector: #selector(AKPlayer.startCompletionTimer),
@@ -380,12 +377,11 @@ public class AKPlayer: AKNode { //AKTiming
 
     // this will become the method in the scheduling completionHandler >= 10.13
     @objc private func handleComplete() {
-        //Swift.print("COMPLETE: \(audioFile?.url.lastPathComponent)")
-        completionHandler?()
-
+        stop()
         if isLooping {
-            startTime = loop.start
+            play(from: loop.start, to: loop.end)
         }
+        completionHandler?()
     }
 
     private func schedule(at audioTime: AVAudioTime?) {
@@ -486,9 +482,7 @@ public class AKPlayer: AKNode { //AKTiming
         }
 
         let updateNeeded = (buffer == nil || startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate)
-
         if !updateNeeded {
-            Swift.print("updateBuffer() no update needed.")
             return
         }
 
@@ -498,13 +492,15 @@ public class AKPlayer: AKNode { //AKTiming
             return
         }
         let frameCount = AVAudioFrameCount(endFrame - startFrame)
-        //let totalFrames = AVAudioFrameCount(audioFile.length)
-        buffer = AVAudioPCMBuffer(pcmFormat: processingFormat, frameCapacity: frameCount )
+
+        guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat, frameCapacity: frameCount) else { return }
 
         do {
             audioFile.framePosition = startFrame
             // read the requested frame count from the file
-            try audioFile.read(into: buffer!, frameCount: frameCount)
+            try audioFile.read(into: pcmBuffer, frameCount: frameCount)
+
+            buffer = pcmBuffer
 
         } catch let err as NSError {
             AKLog("ERROR AKPlayer: Couldn't read data into buffer. \(err)")
@@ -525,8 +521,6 @@ public class AKPlayer: AKNode { //AKTiming
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         self.startingFrame = startFrame
         self.endingFrame = endFrame
-
-        Swift.print("updateBuffer() read from \(startTime) to \(endTime)")
     }
 
     // Apply sample level fades to the internal buffer.
@@ -538,9 +532,13 @@ public class AKPlayer: AKNode { //AKTiming
         }
         AKLog("fadeBuffer() inTime: \(fade.inTime) outTime: \(fade.outTime)")
 
-        guard isBuffered, let buffer = self.buffer, let audioFile = self.audioFile else { return }
-
-        let fadedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity)
+        guard isBuffered,
+            let buffer = self.buffer,
+            let audioFile = self.audioFile,
+            let floatChannelData = buffer.floatChannelData,
+            let fadedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity) else {
+                return
+        }
         let length: AVAudioFrameCount = buffer.frameLength
 
         // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
@@ -582,8 +580,8 @@ public class AKPlayer: AKNode { //AKTiming
                     gain = 1
                 }
 
-                let sample = buffer.floatChannelData![n][i] * Float(gain)
-                fadedBuffer?.floatChannelData?[n][i] = sample
+                let sample = floatChannelData[n][i] * Float(gain)
+                fadedBuffer.floatChannelData?[n][i] = sample
             }
         }
 
@@ -595,9 +593,6 @@ public class AKPlayer: AKNode { //AKTiming
 
     // Read the buffer in backwards
     fileprivate func reverseBuffer() {
-        if buffer == nil {
-            //updateBuffer()
-        }
         guard isBuffered, let buffer = self.buffer else { return }
 
         let reversedBuffer = AVAudioPCMBuffer(
@@ -607,7 +602,6 @@ public class AKPlayer: AKNode { //AKTiming
 
         var j: Int = 0
         let length = buffer.frameLength
-        //AKLog("reverse() preparing \(length) frames")
 
         // i represents the normal buffer read in reverse
         for i in (0 ..< Int(length)).reversed() {
@@ -618,13 +612,10 @@ public class AKPlayer: AKNode { //AKTiming
             }
             j += 1
         }
-
         reversedBuffer?.frameLength = length
 
         // set the buffer now to be the reverse one
         self.buffer = reversedBuffer
-
-        AKLog("Buffer reversed: \(isReversed)")
     }
 
     // Disconnect the node
@@ -637,86 +628,6 @@ public class AKPlayer: AKNode { //AKTiming
 
     deinit {
         AKLog("* deinit AKPlayer")
-    }
-
-    // MARK: - Static Methods
-
-    /// convert an AVAudioTime object to seconds with a hostTime reference
-    open class func audioTimeToSeconds(hostTime: UInt64, audioTime: AVAudioTime) -> Double {
-        return AVAudioTime.seconds(forHostTime: audioTime.hostTime - hostTime)
-    }
-
-    // convert seconds to AVAudioTime with a hostTime reference
-    open class func secondsToAVAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
-        // Find the conversion factor from host ticks to seconds
-        var timebaseInfo = mach_timebase_info()
-        mach_timebase_info(&timebaseInfo)
-        let hostTimeToSecFactor = Double(timebaseInfo.numer) / Double(timebaseInfo.denom) / Double(NSEC_PER_SEC)
-        let out = AVAudioTime(hostTime: hostTime + UInt64(time / hostTimeToSecFactor))
-        return out
-    }
-
-    open class func formatSeconds( _ time: TimeInterval, frameRate: Float = 0 ) -> String {
-        if time.isNaN || time.isInfinite || time.isSignalingNaN {
-            return String("-")
-        }
-        var t = time
-
-        var preroll = ""
-        if time < 0 {
-            preroll = "-"
-        }
-
-        t = abs(t)
-
-        //calculate the minutes in elapsed time.
-        let minutes = Int(t / 60.0)
-        t -= (TimeInterval(minutes) * 60)
-
-        //calculate the seconds in elapsed time.
-        let seconds = Int(t)
-        t -= TimeInterval(seconds)
-
-        //find out the fraction of milliseconds to be displayed.
-        let mult = frameRate > 0 ? frameRate : 100
-        let fraction = Int(t * mult)
-        let strMinutes = String(format: "%02d", minutes)
-        let strSeconds = String(format: "%02d", seconds)
-        let strFraction = String(format: "%02d", fraction)
-
-        let out = "\(preroll)\(strMinutes):\(strSeconds):\(strFraction)"
-        return out
-    }
-
-    open class func formatTimecode(frame: Int, fps: Float) -> String {
-        let ff = Int(Float(frame).truncatingRemainder(dividingBy: fps))
-        let seconds = Int(Float(frame - ff) / fps)
-        let ss = seconds % 60
-        let mm = (seconds % 3600) / 60
-        let timecode = [String(format: "%02d", mm), String(format: "%02d", ss), String(format: "%02d", ff)];
-        return timecode.joined(separator: ":")
-    }
-
-    open class func simpleFormatSeconds( _ time: TimeInterval ) -> String {
-        var t = time
-
-        var preroll = ""
-        if time < 0 {
-            preroll = "-"
-        }
-
-        t = abs(t)
-
-        //calculate the minutes in elapsed time.
-        let minutes = Int(t / 60.0)
-        t -= (TimeInterval(minutes) * 60)
-
-        //calculate the seconds in elapsed time.
-        let seconds = Int(t)
-        t -= TimeInterval(seconds)
-        let strSeconds = String(format: "%02d", seconds)
-        let out = "\(preroll)\(minutes):\(strSeconds)"
-        return out
     }
 }
 

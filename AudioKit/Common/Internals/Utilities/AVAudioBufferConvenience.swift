@@ -121,7 +121,5 @@ extension AVAudioPCMBuffer {
             peak = max(peak, absSample)
         }
         return peak
-    }
-    
-    
+    } 
 }
