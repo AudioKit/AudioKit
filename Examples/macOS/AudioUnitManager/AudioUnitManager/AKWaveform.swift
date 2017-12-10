@@ -58,7 +58,7 @@ public class AKWaveform: AKView {
         }
     }
 
-    public var isLooping: Bool = true {
+    public var isLooping: Bool = false {
         didSet {
             loopStartMarker.isHidden = !isLooping
             loopEndMarker.isHidden = !isLooping
@@ -111,8 +111,8 @@ public class AKWaveform: AKView {
         loopEndMarker.delegate = self
         addSubview(loopStartMarker)
         addSubview(loopEndMarker)
-
         addSubview(timelineBar)
+        isLooping = false
     }
 
     private func createPlot( data: UnsafeMutablePointer<Float>, size: UInt32 ) -> EZAudioPlot {

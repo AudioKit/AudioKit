@@ -72,27 +72,38 @@ extension AudioUnitManager: AKMIDIListener {
         }
     }
 
-    internal func initFM() {
+    internal func playFM(state: Bool) {
         guard internalManager != nil else { return }
         guard mixer != nil else { return }
         guard let fm = fmOscillator else { return }
 
-        AKLog("initFM()")
+        AKLog("playFM() \(state)")
 
-        internalManager!.connectEffects(firstNode: fm, lastNode: mixer)
+        fmButton.state = state ? .on : .off
 
-        if fmTimer != nil && fmTimer!.isValid {
-            fmTimer!.invalidate()
+        if fmTimer?.isValid ?? false {
+            fmTimer?.invalidate()
         }
 
-        startEngine(completionHandler: {
-            fm.start()
-            self.fmTimer = Timer.scheduledTimer(timeInterval: 0.2,
-                                                target: self,
-                                                selector: #selector(self.randomFM),
-                                                userInfo: nil,
-                                                repeats: true)
-        })
+        if state {
+            if player?.isPlaying ?? false {
+                handlePlay(state: false)
+            }
+
+            internalManager!.connectEffects(firstNode: fm, lastNode: mixer)
+
+            startEngine(completionHandler: {
+                fm.start()
+                self.fmTimer = Timer.scheduledTimer(timeInterval: 0.2,
+                                                    target: self,
+                                                    selector: #selector(self.randomFM),
+                                                    userInfo: nil,
+                                                    repeats: true)
+            })
+        } else {
+            fm.stop()
+        }
+
     }
 
     @objc func randomFM() {
@@ -101,7 +112,6 @@ extension AudioUnitManager: AKMIDIListener {
         fmOscillator!.baseFrequency = Double(frequency)
         fmOscillator!.carrierMultiplier = Double(randomNumber(range: 10...100)) / 100
         fmOscillator!.amplitude = Double(randomNumber(range: 10...100)) / 100
-        //AKLog("\(fm!.baseFrequency)")
     }
 
     func randomNumber(range: ClosedRange<Int> = 100...500) -> Int {
@@ -114,7 +124,13 @@ extension AudioUnitManager: AKMIDIListener {
         AKLog("\(state)")
         guard auInstrument != nil else { return }
 
+        instrumentPlayButton.state = state ? .on : .off
+
         if state {
+            if player?.isPlaying ?? false {
+                handlePlay(state: false)
+            }
+            
             internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
             testPlayer = InstrumentPlayer(audioUnit: auInstrument!.midiInstrument?.auAudioUnit)
             testPlayer?.play()
