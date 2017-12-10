@@ -394,7 +394,6 @@ public class AKPlayer: AKNode { //AKTiming
         } else {
             scheduleSegment(at: audioTime)
         }
-
     }
 
     private func scheduleBuffer(at audioTime: AVAudioTime?) {
@@ -404,7 +403,6 @@ public class AKPlayer: AKNode { //AKTiming
             Swift.print("ERROR: Formats don't match: \(playerNode.outputFormat(forBus: 0)) vs \(buffer.format)")
             initialize()
         }
-
         playerNode.scheduleBuffer(buffer,
                                   at: audioTime,
                                   options: [.interrupts],
