@@ -152,12 +152,6 @@ public class AKPlayer: AKNode { //AKTiming
     public var startTime: Double = 0 {
         didSet {
             startTime = max(0, startTime)
-
-            // Should playback restart automatically?
-//            if isPlaying {
-//                stop()
-//                play()
-//            }
         }
     }
 
