@@ -188,6 +188,10 @@ open class AKClipPlayer: AKNode {
 }
 extension AKClipPlayer: AKTiming {
 
+    public var isStarted: Bool {
+        return isPlaying
+    }
+
     open func start(at audioTime: AVAudioTime? = nil) {
         play(at: audioTime)
     }
@@ -209,5 +213,9 @@ extension AKClipPlayer: AKTiming {
         let sampleTime = (time - timeAtStart) * sampleRate
         let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
         return playerNode.nodeTime(forPlayerTime: playerTime)
+    }
+
+    open func prepare() {
+        prepare(withFrameCount: 8192)
     }
 }
