@@ -31,22 +31,22 @@ open class AKClipRecorder {
     }
 
     /// Starts the internal timeline.
-    open func play() {
-        play(at: nil)
+    open func start() {
+        start(at: nil)
     }
 
     /// Starts the internal timeline from audioTime.
     ///
     /// - Parameter audioTime: An time in the audio render context.
     ///
-    open func play(at audioTime: AVAudioTime?) {
+    open func start(at audioTime: AVAudioTime?) {
         if isPlaying {
             return
         }
         for clip in clips where clip.endTime <= timing.currentTime {
             finalize(clip: clip, error: ClipRecordingError.timingError)
         }
-        timing.play(at: audioTime)
+        timing.start(at: audioTime)
     }
 
     /// The current time of the internal timeline.  Setting will call stop().
@@ -189,7 +189,7 @@ open class AKClipRecorder {
         if !timing.isPlaying {
             return
         }
-        let timeIn = timing.time(atAudioTime: audioTime)
+        let timeIn = timing.position(at: audioTime)
         let timeOut = timeIn + Double(buffer.frameLength) / buffer.format.sampleRate
         for clip in clips {
             if clip.startTime < timeOut && clip.endTime > timeIn {
@@ -197,7 +197,7 @@ open class AKClipRecorder {
                 var adjustedAudioTme = audioTime
                 if clip.audioTimeStart == nil {
                     clip.startTime = max(clip.startTime, timeIn)
-                    guard let audioTimeStart = timing.audioTime(atTime: clip.startTime) else {
+                    guard let audioTimeStart = timing.audioTime(at: clip.startTime) else {
                         finalize(clip: clip, error: ClipRecordingError.timingError)
                         continue
                     }
@@ -230,6 +230,24 @@ open class AKClipRecorder {
         }
     }
 
+}
+
+extension AKClipRecorder: AKTiming {
+    public func stop() {
+        stop(nil)
+    }
+
+    public func setPosition(_ position: Double) {
+        timing.setPosition(position)
+    }
+
+    public func position(at audioTime: AVAudioTime?) -> Double {
+        return timing.position(at: audioTime)
+    }
+
+    public func audioTime(at position: Double) -> AVAudioTime? {
+        return timing.audioTime(at: position)
+    }
 }
 
 public enum ClipRecordingError: Error, LocalizedError {
