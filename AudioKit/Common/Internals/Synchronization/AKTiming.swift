@@ -12,28 +12,27 @@
     /// Starts playback at a specific time.
     /// - Parameter audioTime: A time in the audio render context.
     ///
-    func play(at audioTime: AVAudioTime?)
+    func start(at audioTime: AVAudioTime?)
 
     /// Stops playback immediately.
     func stop()
 
-    /// Start playback immediately.
-    func play()
-
-    /// Set time in playback timeline (seconds).
-    func setTime(_ time: Double)
+    /// Set position in playback timeline (seconds).
+    func setPosition(_ position: Double)
 
     /// Timeline time at an audio time
     /// - Parameter audioTime: A time in the audio render context.
-    /// - Return: Time in the timeline context (seconds).
+    /// - Return: Position in the timeline context (seconds).
     ///
-    func time(atAudioTime audioTime: AVAudioTime?) -> Double
+    @objc(positionAtAudioTime:)
+    func position(at audioTime: AVAudioTime?) -> Double
 
     /// Audio time at timeline time
     /// - Parameter time: Time in the timeline context (seconds).
     /// - Return: A time in the audio render context.
     ///
-    func audioTime(atTime time: Double) -> AVAudioTime?
+    @objc(audioTimeAtPosition:)
+    func audioTime(at position: Double) -> AVAudioTime?
 
 }
 
@@ -52,21 +51,21 @@ open class AKNodeTiming: NSObject, AKTiming {
 
     /// The current time in the timeline (seconds).
     open var currentTime: Double {
-        get { return time(atAudioTime: nil) }
-        set { setTime(newValue) }
+        get { return position(at: nil) }
+        set { setPosition(newValue) }
     }
 
     /// Sets the current time in the timeline (seconds).
-    open func setTime(_ time: Double) {
+    open func setPosition(_ position: Double) {
         stop()
-        idleTime = time
+        idleTime = position
     }
 
     /// Timeline time at an audio time
     /// - Parameter audioTime: A time in the audio render context.
     /// - Return: Time in the timeline context (seconds).
     ///
-    open func time(atAudioTime audioTime: AVAudioTime?) -> Double {
+    open func position(at audioTime: AVAudioTime?) -> Double {
         guard let baseTime = baseTime else {
             return idleTime
         }
@@ -78,14 +77,14 @@ open class AKNodeTiming: NSObject, AKTiming {
     /// - Parameter time: Time in the timeline context (seconds).
     /// - Return: A time in the audio render context.
     ///
-    open func audioTime(atTime time: Double) -> AVAudioTime? {
-        return baseTime?.offset(seconds: time)
+    open func audioTime(at position: Double) -> AVAudioTime? {
+        return baseTime?.offset(seconds: position)
     }
 
     /// Starts playback at a specific time.
     /// - Parameter audioTime: A time in the audio render context.
     ///
-    open func play(at audioTime: AVAudioTime?) {
+    open func start(at audioTime: AVAudioTime?) {
         guard !isPlaying,
             let lastRenderTime = node?.outputNode.lastRenderTime else {
                 return
@@ -98,8 +97,8 @@ open class AKNodeTiming: NSObject, AKTiming {
     }
 
     /// Start playback immediately.
-    open func play() {
-        play(at: nil)
+    open func start() {
+        start(at: nil)
     }
 
     /// Stops playback immediately.
@@ -116,4 +115,6 @@ open class AKNodeTiming: NSObject, AKTiming {
     public init(node: AKOutput) {
         self.node = node
     }
+
 }
+
