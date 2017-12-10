@@ -11,15 +11,72 @@ import AudioKit
 
 extension AudioUnitManager {
 
+    internal func handlePlay(state: Bool) {
+        guard let player = player else { return }
+
+        if state {
+            //play
+            playButton.state = .on
+            if fmOscillator != nil && fmOscillator!.isStarted {
+                fmButton?.state = .off
+                fmOscillator!.stop()
+            }
+
+            if auInstrument != nil {
+                instrumentPlayButton.state = .off
+            }
+
+            if internalManager?.input != (player as AKNode) {
+                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+            }
+            startEngine(completionHandler: {
+                player.volume = 1
+                player.play(from: self.waveform?.position ?? 0)
+                self.startAudioTimer()
+            })
+        } else {
+            // stop
+            playButton.state = .off
+            player.stop()
+
+            if AudioKit.engine.isRunning {
+                // just turns off reverb tails or delay lines etc
+                internalManager?.reset()
+            }
+            stopAudioTimer()
+        }
+
+    }
+
+    func handleRewind() {
+        guard let player = player else { return }
+        let wasPlaying = player.isPlaying
+        if wasPlaying {
+            handlePlay(state: false)
+        }
+
+        player.startTime = 0
+        waveform?.position = 0
+        updateTimeDisplay(0)
+
+        if wasPlaying {
+            DispatchQueue.main.async {
+                self.handlePlay(state: true)
+            }
+        }
+    }
+
     func handleAudioComplete() {
         guard let player = player else { return }
-        Swift.print("handleAudioComplete()")
+        //Swift.print("handleAudioComplete()")
 
         if player.isLooping {
+            // this technically will never happen as looping players don't send completion events
+            // but you know. just in case.
             return
-        } else {
+        } else if player.isPlaying {
             player.startTime = 0
-            handlePlayButton(playButton)
+            handlePlay(state: false)
             handleRewindButton(rewindButton)
         }
     }
@@ -33,13 +90,14 @@ extension AudioUnitManager {
             player = AKPlayer(url: url)
         } else {
             do {
+                handlePlay(state: false)
                 try player?.load(url: url)
             } catch {}
         }
         guard let player = player else { return }
         player.completionHandler = handleAudioComplete
         internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-        player.isLooping = loopButton.state == .on
+        player.isLooping = isLooping
 
         playButton.isEnabled = true
         fileField.stringValue = "🔈 \(url.lastPathComponent)"
@@ -71,7 +129,8 @@ extension AudioUnitManager {
 
     // this just moves the Timeline bar in the waveform
     internal func startAudioTimer() {
-        audioTimer = Timer.scheduledTimer(timeInterval: 0.05,
+        stopAudioTimer()
+        audioTimer = Timer.scheduledTimer(timeInterval: 0.02,
                                           target: self,
                                           selector: #selector(AudioUnitManager.updateWaveformDisplay),
                                           userInfo: nil,
@@ -84,6 +143,7 @@ extension AudioUnitManager {
 
     @objc private func updateWaveformDisplay() {
         guard let player = player else { return }
+        //Swift.print("\(player.currentTime)")
         waveform?.position = player.currentTime
         updateTimeDisplay(player.currentTime)
     }
@@ -97,7 +157,9 @@ extension AudioUnitManager: AKWaveformDelegate {
     func loopChanged(source: AKWaveform) {
         guard let player = player else { return }
         let wasPlaying = player.isPlaying
-        player.stop()
+        if wasPlaying {
+            handlePlay(state: false)
+        }
 
         player.loop.start = source.loopStart
         player.loop.end = source.loopEnd
@@ -105,7 +167,7 @@ extension AudioUnitManager: AKWaveformDelegate {
         player.startTime = source.loopStart
 
         if wasPlaying {
-            player.play()
+            handlePlay(state: true)
         }
     }
 
@@ -115,8 +177,7 @@ extension AudioUnitManager: AKWaveformDelegate {
 
     func waveformScrubComplete(source: AKWaveform, at time: Double) {
         if audioPlaying {
-            startAudioTimer()
-            player?.play(from: time)
+            handlePlay(state: true)
         } else {
             player?.startTime = time
         }
@@ -127,8 +188,7 @@ extension AudioUnitManager: AKWaveformDelegate {
         guard let player = player else { return }
 
         audioPlaying = player.isPlaying
-        stopAudioTimer()
-        player.stop()
+        handlePlay(state: false)
         updateTimeDisplay(time)
     }
 }

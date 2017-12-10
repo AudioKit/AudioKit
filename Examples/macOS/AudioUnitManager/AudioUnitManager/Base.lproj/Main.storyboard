@@ -610,7 +610,7 @@
                                     <rect key="frame" x="2" y="2" width="382" height="34"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button toolTip="Choose an audio file" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DTh-Pv-wCa">
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DTh-Pv-wCa">
                                             <rect key="frame" x="5" y="3" width="70" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="Open..." bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Uhj-t2-xEY">
@@ -624,7 +624,7 @@
                                         <button toolTip="Play" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Vz-pw-YGK">
                                             <rect key="frame" x="97" y="6" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" title="▶️" bezelStyle="rounded" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="NGe-2p-HsC">
+                                            <buttonCell key="cell" type="bevel" title="▶️" alternateTitle="⏹" bezelStyle="rounded" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="NGe-2p-HsC">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <string key="keyEquivalent" base64-UTF8="YES">
@@ -649,10 +649,10 @@ DQ
                                                 <action selector="handleRewindButton:" target="XfG-lQ-9wD" id="0Fe-SL-l3Z"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hly-oS-skR">
+                                        <button toolTip="Looping" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hly-oS-skR">
                                             <rect key="frame" x="120" y="6" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" title="🔄" alternateTitle="🔁" bezelStyle="rounded" alignment="center" state="on" toolTip="Looping" imageScaling="proportionallyDown" inset="2" id="EEN-63-ujk">
+                                            <buttonCell key="cell" type="bevel" title="🔄" alternateTitle="🔁" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="EEN-63-ujk">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <string key="keyEquivalent">l</string>
@@ -773,7 +773,7 @@ IA
                                         <button toolTip="Test Input..." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2e-es-y0Y">
                                             <rect key="frame" x="176" y="8" width="24" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" title="▶️" bezelStyle="rounded" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="Vpd-ku-jlS">
+                                            <buttonCell key="cell" type="bevel" title="▶️" alternateTitle="⏹" bezelStyle="rounded" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="Vpd-ku-jlS">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -820,14 +820,6 @@ IA
                                             <connections>
                                                 <action selector="handleBufferedButton:" target="XfG-lQ-9wD" id="C9n-mX-ftq"/>
                                             </connections>
-                                        </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPy-Du-8QV">
-                                            <rect key="frame" x="77" y="7" width="63" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Reversed" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="DMx-0g-L4I">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                            </buttonCell>
                                         </button>
                                     </subviews>
                                 </view>

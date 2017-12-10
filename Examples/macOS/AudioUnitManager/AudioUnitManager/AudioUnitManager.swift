@@ -47,6 +47,10 @@ class AudioUnitManager: NSViewController {
         }
     }
 
+    public var isLooping: Bool {
+        return loopButton.state == .on
+    }
+
     public var audioEnabled: Bool = false {
         didSet {
             //audioBufferedButton.isEnabled = audioEnabled
@@ -82,17 +86,17 @@ class AudioUnitManager: NSViewController {
         initMIDI()
         initUI()
         audioEnabled = false
-        audioBufferedButton.state = .on // on since looping is on by default
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
-        AKLog("engine.isRunning: \(AudioKit.engine.isRunning)")
+        //AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
         if !AudioKit.engine.isRunning {
             AudioKit.start()
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                completionHandler?()
-//            }
-//            return
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                completionHandler?()
+                AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
+            }
+            return
         }
         completionHandler?()
     }
@@ -109,14 +113,13 @@ class AudioUnitManager: NSViewController {
 
     @IBAction func handleLoopButton(_ sender: NSButton) {
         let state = sender.state == .on
-        //sender.title = state ? "🔄" : "🔁"
         guard let player = player else { return }
         guard let waveform = waveform else { return }
 
         let wasPlaying = player.isPlaying
 
         if wasPlaying {
-            player.stop()
+            handlePlay(state: false)
         }
 
         player.isLooping = state
@@ -129,7 +132,9 @@ class AudioUnitManager: NSViewController {
         }
 
         if wasPlaying {
-            player.play()
+            DispatchQueue.main.async {
+                self.handlePlay(state: true)
+            }
         }
     }
 
@@ -143,55 +148,24 @@ class AudioUnitManager: NSViewController {
 
         Swift.print("handleReversedButton() \(sender.state == .on)")
         let wasPlaying = player.isPlaying
-        player.stop()
+        if wasPlaying {
+            handlePlay(state: false)
+        }
         player.isReversed = sender.state == .on
         waveform.isReversed = sender.state == .on
         audioBufferedButton.state = player.isBuffered ? .on : .off
 
         if wasPlaying {
-            player.play()
+            handlePlay(state: true)
         }
     }
 
     @IBAction func handleRewindButton(_ sender: Any) {
-        player?.startTime = 0
-        waveform?.position = 0
-        updateTimeDisplay(0)
+        handleRewind()
     }
 
     @IBAction func handlePlayButton(_ sender: NSButton) {
-        guard let player = player else { return }
-
-        if fmOscillator != nil && fmOscillator!.isStarted {
-            fmButton!.state = .off
-            fmOscillator!.stop()
-        }
-
-        if auInstrument != nil {
-            instrumentPlayButton.title = "▶️"
-        }
-
-        if playButton.title == "⏹" {
-            player.stop()
-            sender.title = "▶️"
-
-            if AudioKit.engine.isRunning {
-                internalManager?.reset()
-            }
-
-            stopAudioTimer()
-
-        } else {
-            if internalManager?.input != (player as AKNode) {
-                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-            }
-            startEngine(completionHandler: {
-                player.volume = 1
-                player.play(from: self.waveform?.position ?? 0)
-                sender.title = "⏹"
-                self.startAudioTimer()
-            })
-        }
+        handlePlay(state: sender.state == .on)
     }
 
     @IBAction func chooseAudio(_ sender: Any) {
@@ -270,15 +244,13 @@ class AudioUnitManager: NSViewController {
             }
 
             if self.player?.isPlaying ?? false {
-                self.handlePlayButton(self.playButton)
+                self.handlePlay(state: false)
             }
 
-            if sender.title == "⏹" {
+            if sender.state == .off {
                 self.testAUInstrument(state: false)
-                sender.title = "▶️"
             } else {
                 self.testAUInstrument(state: true)
-                sender.title = "⏹"
             }
 
         })
@@ -288,23 +260,14 @@ class AudioUnitManager: NSViewController {
         guard let fm = fmOscillator else { return }
 
         if player?.isPlaying ?? false {
-            handlePlayButton(playButton)
+            handlePlay(state: false)
         }
 
         if auInstrument != nil {
-            instrumentPlayButton.title = "▶️"
+            instrumentPlayButton.state = .off
         }
 
-        if sender.state == .on {
-            initFM()
-
-        } else if fm.isStarted {
-            fm.stop()
-
-            if fmTimer?.isValid ?? false {
-                fmTimer?.invalidate()
-            }
-        }
+        playFM(state: sender.state == .on)
     }
 
 }
