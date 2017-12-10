@@ -16,8 +16,6 @@ extension AudioUnitManager {
         Swift.print("handleAudioComplete()")
 
         if player.isLooping {
-            Swift.print("Hello?")
-            //player.play(from: player.loop.start)
             return
         } else {
             player.startTime = 0
@@ -32,7 +30,7 @@ extension AudioUnitManager {
         guard mixer != nil else { return }
 
         if player == nil {
-            player = AKPlayerDev(url: url)
+            player = AKPlayer(url: url)
         } else {
             do {
                 try player?.load(url: url)
