@@ -37,8 +37,8 @@ class AudioUnitManager: NSViewController {
     internal var midiManager: AKMIDI?
     internal var player: AKPlayer?
     internal var waveform: AKWaveform?
-    internal var fmOscillator: AKFMOscillator?
-    internal var mixer: AKMixer?
+    internal var fmOscillator = AKFMOscillator()
+    internal var mixer = AKMixer()
     internal var testPlayer: InstrumentPlayer?
     internal var fmTimer: Timer?
     internal var auInstrument: AKAudioUnitInstrument? {
@@ -76,10 +76,8 @@ class AudioUnitManager: NSViewController {
                                                selector: #selector(AudioUnitManager.handleApplicationInit),
                                                name: Notification.Name("AudioUnitManager.handleApplicationInit"),
                                                object: nil)
-        fmOscillator = AKFMOscillator()
-        mixer = AKMixer()
         let mainOutput = AKMixer()
-        mixer?.connect(to: mainOutput)
+        mixer.connect(to: mainOutput)
         AudioKit.output = mainOutput
 
         initManager()
@@ -238,9 +236,9 @@ class AudioUnitManager: NSViewController {
         guard auInstrument != nil else { return }
 
         startEngine(completionHandler: {
-            if self.fmOscillator != nil && self.fmOscillator!.isStarted {
+            if self.fmOscillator.isStarted {
                 self.fmButton!.state = .off
-                self.fmOscillator!.stop()
+                self.fmOscillator.stop()
             }
 
             if self.player?.isPlaying ?? false {
@@ -257,8 +255,6 @@ class AudioUnitManager: NSViewController {
     }
 
     @IBAction func handleFMButton(_ sender: NSButton) {
-        guard let fm = fmOscillator else { return }
-
         if player?.isPlaying ?? false {
             handlePlay(state: false)
         }

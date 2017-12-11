@@ -1,5 +1,5 @@
 //
-//  ViewControllerAudio.swift
+//  AudioUnitManager+Player.swift
 //  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 12/8/17.
@@ -17,15 +17,18 @@ extension AudioUnitManager {
         if state {
             //play
             playButton.state = .on
-            if fmOscillator != nil && fmOscillator!.isStarted {
+
+            // just turning off the synths if they are playing
+            if fmOscillator.isStarted {
                 fmButton?.state = .off
-                fmOscillator!.stop()
+                fmOscillator.stop()
             }
 
             if auInstrument != nil {
                 instrumentPlayButton.state = .off
             }
 
+            // then attach the effects chain if needed
             if internalManager?.input != (player as AKNode) {
                 internalManager!.connectEffects(firstNode: player, lastNode: mixer)
             }
@@ -83,8 +86,7 @@ extension AudioUnitManager {
 
     /// open an audio URL for playing
     func open(url: URL) {
-        guard internalManager != nil else { return }
-        guard mixer != nil else { return }
+        guard let internalManager = internalManager else { return }
 
         if player == nil {
             player = AKPlayer(url: url)
@@ -96,7 +98,7 @@ extension AudioUnitManager {
         }
         guard let player = player else { return }
         player.completionHandler = handleAudioComplete
-        internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+        internalManager.connectEffects(firstNode: player, lastNode: mixer)
         player.isLooping = isLooping
 
         playButton.isEnabled = true

@@ -1,5 +1,5 @@
 //
-//  ViewController - AudioUnits.swift
+//  AudioUnitManager+Effects.swift
 //  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 10/6/17.
@@ -133,8 +133,6 @@ extension AudioUnitManager {
 
     // MARK: - Build the effects menus
     fileprivate func updateEffectsUI( audioUnits: [AVAudioUnitComponent] ) {
-        guard internalManager != nil else { return }
-
         var manufacturers = [String]()
 
         for component in audioUnits {
@@ -314,24 +312,25 @@ extension AudioUnitManager {
     }
 
     fileprivate func reconnect() {
+        guard let internalManager = internalManager else { return }
+
         // is FM playing?
-        if fmOscillator != nil && fmOscillator!.isStarted {
-            internalManager!.connectEffects(firstNode: fmOscillator!, lastNode: mixer)
+        if fmOscillator.isStarted {
+            internalManager.connectEffects(firstNode: fmOscillator, lastNode: mixer)
             return
         } else if auInstrument != nil && !(player?.isPlaying ?? false) {
-            internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
+            internalManager.connectEffects(firstNode: auInstrument!, lastNode: mixer)
             return
-        } else if player != nil {
-            let wasPlaying = player!.isPlaying
+        } else if let player = player {
+            let wasPlaying = player.isPlaying
 
             if wasPlaying {
-                player!.stop()
+                player.stop()
             }
-
-            internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+            internalManager.connectEffects(firstNode: player, lastNode: mixer)
 
             if wasPlaying {
-                player!.play()
+                player.play()
             }
         }
     }
@@ -341,8 +340,6 @@ extension AudioUnitManager {
 extension AudioUnitManager: AKAudioUnitManagerDelegate {
 
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
-        guard internalManager != nil else { return }
-
         if type == AKAudioUnitManager.Notification.changed {
             updateEffectsUI( audioUnits: internalManager!.availableEffects )
         }
@@ -350,10 +347,6 @@ extension AudioUnitManager: AKAudioUnitManagerDelegate {
 
     func handleEffectAdded( at auIndex: Int ) {
         showEffect(at: auIndex, state: true)
-
-        guard internalManager != nil else { return }
-        guard mixer != nil else { return }
-
         reconnect()
     }
 
