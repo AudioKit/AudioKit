@@ -53,7 +53,6 @@ class AudioUnitManager: NSViewController {
 
     public var audioEnabled: Bool = false {
         didSet {
-            //audioBufferedButton.isEnabled = audioEnabled
             audioReversedButton.isEnabled = audioEnabled
             playButton.isEnabled = audioEnabled
             rewindButton.isEnabled = audioEnabled
@@ -265,7 +264,6 @@ class AudioUnitManager: NSViewController {
 
         playFM(state: sender.state == .on)
     }
-
 }
 
 /// Handle Window Events
