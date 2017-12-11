@@ -69,4 +69,57 @@ extension AVAudioPCMBuffer {
         }
         return buffer
     }
+    
+    /// - Returns: The time in seconds of the peak of the buffer or 0 if it failed
+    open func peakTime() -> Double {
+        guard self.frameLength > 0 else { return 0 }
+        guard let floatData = self.floatChannelData else { return 0 }
+        
+        var framePosition = 0
+        var position = 0
+        var lastPeak: Float = -10_000.0
+        let frameLength = 512
+        let channelCount = Int(self.format.channelCount)
+        
+        while true {
+            if position + frameLength >= self.frameLength {
+                break
+            }
+            for channel in 0 ..< channelCount {
+                var block = Array(repeating: Float(0), count: frameLength)
+                
+                // fill the block with frameLength samples
+                for i in 0 ..< block.count {
+                    if i + position >= self.frameLength {
+                        break
+                    }
+                    block[i] = floatData[channel][i + position]
+                }
+                // scan the block
+                let peak = getPeak(from: block)
+                
+                if peak > lastPeak {
+                    framePosition = position
+                    lastPeak = peak
+                }
+                position += block.count
+            }
+        }
+        
+        let time = Double(framePosition / self.format.sampleRate)
+        return time
+    }
+    
+    // return the highest level in the given array
+    private func getPeak(from buffer: [Float]) -> Float {
+        // create variable with very small value to hold the peak value
+        var peak: Float = -10_000.0
+        
+        for i in 0 ..< buffer.count {
+            // store the absolute value of the sample
+            let absSample = abs(buffer[i])
+            peak = max(peak, absSample)
+        }
+        return peak
+    } 
 }

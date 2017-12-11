@@ -83,6 +83,20 @@ extension AVAudioTime {
         return nil
     }
 
+    /// Convert an AVAudioTime object to seconds with a hostTime reference
+    open func toSeconds(hostTime: UInt64) -> Double {
+        return AVAudioTime.seconds(forHostTime: self.hostTime - hostTime)
+    }
+    
+    // Convert seconds to AVAudioTime with a hostTime reference
+    open class func secondsToAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
+        // Find the conversion factor from host ticks to seconds
+        var timebaseInfo = mach_timebase_info()
+        mach_timebase_info(&timebaseInfo)
+        let hostTimeToSecFactor = Double(timebaseInfo.numer) / Double(timebaseInfo.denom) / Double(NSEC_PER_SEC)
+        let out = AVAudioTime(hostTime: hostTime + UInt64(time / hostTimeToSecFactor))
+        return out
+    }
 }
 
 public func + (left: AVAudioTime, right: Double) -> AVAudioTime {
