@@ -1,10 +1,10 @@
 import Cocoa
 
 /**
- *	Subclassing NSMenuItem to be able to set their actions with nice closures... Has the additional upside of settings the targets correctly
+ Subclassing NSMenuItem to be able to set their actions with closures.
+ Has the additional upside of settings the targets correctly
  */
 class ClosureMenuItem: NSMenuItem {
-
     var actionClosure: () -> Void = {}
 
     init(title: String, closure: @escaping () -> Void, keyEquivalent: String = "") {
