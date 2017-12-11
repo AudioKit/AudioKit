@@ -216,6 +216,6 @@ extension AKClipPlayer: AKTiming {
     }
 
     open func prepare() {
-        prepare(withFrameCount: 8192)
+        prepare(withFrameCount: 8_192)
     }
 }
