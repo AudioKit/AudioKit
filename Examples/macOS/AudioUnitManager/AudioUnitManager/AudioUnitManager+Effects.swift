@@ -1,5 +1,5 @@
 //
-//  ViewController - AudioUnits.swift
+//  AudioUnitManager+Effects.swift
 //  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 10/6/17.
@@ -10,7 +10,7 @@ import Cocoa
 import AVFoundation
 import AudioKit
 
-extension ViewController {
+extension AudioUnitManager {
 
     internal func initManager() {
         internalManager = AKAudioUnitManager(inserts: 6)
@@ -133,8 +133,6 @@ extension ViewController {
 
     // MARK: - Build the effects menus
     fileprivate func updateEffectsUI( audioUnits: [AVAudioUnitComponent] ) {
-        guard internalManager != nil else { return }
-
         var manufacturers = [String]()
 
         for component in audioUnits {
@@ -152,63 +150,65 @@ extension ViewController {
         for sv in effectsContainer.subviews {
             guard let b = sv as? MenuButton else { continue }
 
-            if b.menu == nil {
-                let theMenu = NSMenu(title: "Effects")
-                theMenu.font = NSFont.systemFont(ofSize: 10)
-                b.menu = theMenu
-            }
-
-            b.menu?.removeAllItems()
-            b.title = "▼ Insert \(b.tag + 1)"
-
-            let blankItem = ClosureMenuItem(title: "-", closure: { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.handleEffectSelected("-", identifier: b.tag)
-            })
-
-            b.menu?.addItem(blankItem)
-
-            // first make a menu of manufacturers
-            for man in manufacturers {
-                let manItem = NSMenuItem()
-                manItem.title = man
-                manItem.submenu = NSMenu(title: man)
-                b.menu?.addItem(manItem)
-            }
-
-            // then add each AU into it's parent folder
-            for component in audioUnits {
-                let item = ClosureMenuItem(title: component.name, closure: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.handleEffectSelected(component.name, identifier: b.tag)
-                })
-
-                // manufacturer list
-                for man in b.menu!.items {
-                    if man.title == component.manufacturerName {
-                        man.submenu?.addItem(item)
-                    }
-                }
-            }
-
-            let internalSubmenu = b.menu?.items.filter { $0.title == akInternals }.first
-
-            for name in internalManager!.internalAudioUnits {
-                let item = ClosureMenuItem(title: name, closure: { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.handleEffectSelected(name, identifier: b.tag)
-                })
-                internalSubmenu?.submenu?.addItem(item)
-            }
+            fillAUMenu(button: b, manufacturers: manufacturers, audioUnits: audioUnits)
         }
     }
 
-    internal func getMenuFromIdentifier(_ id: Int ) -> MenuButton? {
+    private func fillAUMenu(button: MenuButton, manufacturers: [String], audioUnits: [AVAudioUnitComponent]) {
+        if button.menu == nil {
+            let theMenu = NSMenu(title: "Effects")
+            theMenu.font = NSFont.systemFont(ofSize: 10)
+            button.menu = theMenu
+        }
+
+        button.menu?.removeAllItems()
+        button.title = "▼ Insert \(button.tag + 1)"
+
+        let blankItem = ClosureMenuItem(title: "-", closure: { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.handleEffectSelected("-", identifier: button.tag)
+        })
+
+        button.menu?.addItem(blankItem)
+
+        // first make a menu of manufacturers
+        for man in manufacturers {
+            let manItem = NSMenuItem()
+            manItem.title = man
+            manItem.submenu = NSMenu(title: man)
+            button.menu?.addItem(manItem)
+        }
+
+        // then add each AU into it's parent folder
+        for component in audioUnits {
+            let item = ClosureMenuItem(title: component.name, closure: { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.handleEffectSelected(component.name, identifier: button.tag)
+            })
+
+            // manufacturer list
+            for man in button.menu!.items where man.title == component.manufacturerName {
+                man.submenu?.addItem(item)
+            }
+        }
+
+        let internalSubmenu = button.menu?.items.filter { $0.title == akInternals }.first
+
+        for name in internalManager!.internalAudioUnits {
+            let item = ClosureMenuItem(title: name, closure: { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.handleEffectSelected(name, identifier: button.tag)
+            })
+            internalSubmenu?.submenu?.addItem(item)
+        }
+    }
+
+    internal func getMenuFromIdentifier(_ tag: Int ) -> MenuButton? {
         guard effectsContainer != nil else { return nil }
 
         for sv in effectsContainer.subviews {
             guard let b = sv as? MenuButton else { continue }
-            if b.tag == id {
+            if b.tag == tag {
                 return b
             }
         }
@@ -218,22 +218,21 @@ extension ViewController {
     internal func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
         let identifier = windowPrefix + String(tag)
         guard let windows = self.view.window?.childWindows else { return nil }
-        for w in windows {
-            if w.identifier?.rawValue == identifier {
-                return w
-            }
+        for w in windows where w.identifier?.rawValue == identifier {
+            return w
         }
         return nil
     }
 
-    internal func getEffectsButtonFromIdentifier(_ id: Int ) -> NSButton? {
+    internal func getEffectsButtonFromIdentifier(_ buttonId: Int ) -> NSButton? {
         guard effectsContainer != nil else { return nil }
 
         for sv in effectsContainer.subviews {
-            if sv.isKind(of: NSButton.self) && !sv.isKind(of: NSPopUpButton.self) {
-                let b = sv as! NSButton
-                if b.tag == id {
-                    return b
+            if !sv.isKind(of: NSPopUpButton.self) {
+                if let b = sv as? NSButton {
+                    if b.tag == buttonId {
+                        return b
+                    }
                 }
             }
         }
@@ -241,112 +240,106 @@ extension ViewController {
     }
 
     public func showAudioUnit(_ audioUnit: AVAudioUnit, identifier: Int ) {
-
-        // first we ask the audio unit if it has a view controller
+        // first we ask the audio unit if it has a view controller inside it
         audioUnit.auAudioUnit.requestViewController { [weak self] viewController in
             var ui = viewController
-            guard let strongSelf = self else { return }
-            guard let auName = audioUnit.auAudioUnit.audioUnitName else { return }
 
             DispatchQueue.main.async {
-                // if it doesn't - then the host's job is to create one for it
+                // if it doesn't - then an Audio Unit host's job is to create one for it
                 if ui == nil {
                     //AKLog("No ViewController for \(audioUnit.name )")
                     ui = NSViewController()
-                    ui!.view = AudioUnitGenericView(au: audioUnit)
+                    ui!.view = AudioUnitGenericView(audioUnit: audioUnit)
                 }
-
                 guard ui != nil else { return }
-                let incomingFrame = ui!.view.frame
-                AKLog("Audio Unit incoming frame: \(incomingFrame)")
+                self?.createAUWindow(viewController: ui!, audioUnit: audioUnit, identifier: identifier)
+            }
+        }
+    }
 
-                guard let selfWindow = strongSelf.view.window else { return }
+    private func createAUWindow(viewController: NSViewController, audioUnit: AVAudioUnit, identifier: Int ) {
+        guard let auName = audioUnit.auAudioUnit.audioUnitName else { return }
 
-                //let unitWindow = NSWindow(contentViewController: ui!)
-                let unitWindowController = AudioUnitGenericWindow(audioUnit: audioUnit)
-                guard let unitWindow = unitWindowController.window else { return }
+        let incomingFrame = viewController.view.frame
+        guard let selfWindow = view.window else { return }
+        let unitWindowController = AudioUnitGenericWindow(audioUnit: audioUnit)
+        guard let unitWindow = unitWindowController.window else { return }
 
-                unitWindow.title = "\(auName)"
-                unitWindow.delegate = self
-                unitWindow.identifier = NSUserInterfaceItemIdentifier(strongSelf.windowPrefix + String(identifier))
+        unitWindow.title = "\(auName)"
+        unitWindow.delegate = self
+        unitWindow.identifier = NSUserInterfaceItemIdentifier(windowPrefix + String(identifier))
 
-                var windowColor = NSColor.darkGray
-                if let buttonColor = strongSelf.getMenuFromIdentifier(identifier)?.bgColor {
-                    windowColor = buttonColor
-                }
+        var windowColor = NSColor.darkGray
+        if let buttonColor = getMenuFromIdentifier(identifier)?.bgColor {
+            windowColor = buttonColor
+        }
 
-                unitWindowController.scrollView.documentView = ui!.view
-                NSLayoutConstraint.activateConstraintsEqualToSuperview(child: ui!.view)
-                unitWindowController.toolbar?.backgroundColor = windowColor.withAlphaComponent(0.9)
+        unitWindowController.scrollView.documentView = viewController.view
+        NSLayoutConstraint.activateConstraintsEqualToSuperview(child: viewController.view)
+        unitWindowController.toolbar?.backgroundColor = windowColor.withAlphaComponent(0.9)
 
-                if let gauv = ui?.view as? AudioUnitGenericView {
-                    gauv.backgroundColor = windowColor
-                }
+        if let gauv = viewController.view as? AudioUnitGenericView {
+            gauv.backgroundColor = windowColor
+        }
 
-                let toolbarHeight: CGFloat = 20
+        let toolbarHeight: CGFloat = 20
 
-                let f = NSMakeRect(unitWindow.frame.origin.x,
-                                   unitWindow.frame.origin.y,
-                                   ui!.view.frame.width,
-                                   ui!.view.frame.height + toolbarHeight + 20)
-                unitWindow.setFrame(f, display: true)
+        let f = NSRect(x: unitWindow.frame.origin.x,
+                       y: unitWindow.frame.origin.y,
+                       width: viewController.view.frame.width,
+                       height: viewController.view.frame.height + toolbarHeight + 20)
+        unitWindow.setFrame(f, display: true)
 
-                let uiFrame = NSMakeRect(0,
-                                   0,
-                                   incomingFrame.width,
-                                   incomingFrame.height + toolbarHeight)
-                ui!.view.frame = uiFrame
+        let uiFrame = NSRect(x: 0,
+                             y: 0,
+                             width: incomingFrame.width,
+                             height: incomingFrame.height + toolbarHeight)
+        viewController.view.frame = uiFrame
 
-//                    } else {
-//                       unitWindow.contentViewController = ui!
-//                    }
+        if let w = getWindowFromIndentifier(identifier) {
+            unitWindow.setFrameOrigin( w.frame.origin )
+            w.close()
+        }
 
-                if let w = strongSelf.getWindowFromIndentifier(identifier) {
-                    unitWindow.setFrameOrigin( w.frame.origin )
-                    w.close()
-                }
+        selfWindow.addChildWindow(unitWindow, ordered: NSWindow.OrderingMode.above)
+        let windowLoc = NSPoint(x: selfWindow.frame.origin.x,
+                                y: selfWindow.frame.origin.y - unitWindow.frame.height)
+        unitWindow.setFrameOrigin(windowLoc)
 
-                selfWindow.addChildWindow(unitWindow, ordered: NSWindow.OrderingMode.above)
-                unitWindow.setFrameOrigin(NSPoint(x:selfWindow.frame.origin.x, y:selfWindow.frame.origin.y - unitWindow.frame.height))
-
-                if let button = strongSelf.getEffectsButtonFromIdentifier(identifier) {
-                    button.state = .on
-                }
-
-            } //dispatch
+        if let button = getEffectsButtonFromIdentifier(identifier) {
+            button.state = .on
         }
     }
 
     fileprivate func reconnect() {
+        guard let internalManager = internalManager else { return }
+
         // is FM playing?
-        if fm != nil && fm!.isStarted {
-            internalManager!.connectEffects(firstNode: fm!, lastNode: mixer)
+        if fmOscillator.isStarted {
+            internalManager.connectEffects(firstNode: fmOscillator, lastNode: mixer)
             return
-        } else if auInstrument != nil && !(player?.isStarted ?? false) {
-            internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
+        } else if auInstrument != nil && !(player?.isPlaying ?? false) {
+            internalManager.connectEffects(firstNode: auInstrument!, lastNode: mixer)
             return
-        } else if player != nil {
-            let playing = player!.isStarted
+        } else if let player = player {
+            let wasPlaying = player.isPlaying
 
-            if playing {
-                player!.stop()
+            if wasPlaying {
+                player.stop()
             }
+            internalManager.connectEffects(firstNode: player, lastNode: mixer)
 
-            internalManager!.connectEffects(firstNode: player, lastNode: mixer)
-
-            if playing {
-                player!.start()
+            if wasPlaying {
+                player.play()
             }
         }
     }
 
 }
 
-extension ViewController:  AKAudioUnitManagerDelegate {
+extension AudioUnitManager: AKAudioUnitManagerDelegate {
 
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
-        guard internalManager != nil else { return }
-
         if type == AKAudioUnitManager.Notification.changed {
             updateEffectsUI( audioUnits: internalManager!.availableEffects )
         }
@@ -354,10 +347,6 @@ extension ViewController:  AKAudioUnitManagerDelegate {
 
     func handleEffectAdded( at auIndex: Int ) {
         showEffect(at: auIndex, state: true)
-
-        guard internalManager != nil else { return }
-        guard mixer != nil else { return }
-
         reconnect()
     }
 
