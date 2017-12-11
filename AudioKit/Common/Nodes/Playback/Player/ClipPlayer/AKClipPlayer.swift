@@ -23,7 +23,7 @@ open class AKClipPlayer: AKNode {
         set { setPosition(newValue) }
     }
 
-    /// True is play, flase if not.
+    /// True is play, false if not.
     open var isPlaying: Bool {
         return playerNode.isPlaying
     }
