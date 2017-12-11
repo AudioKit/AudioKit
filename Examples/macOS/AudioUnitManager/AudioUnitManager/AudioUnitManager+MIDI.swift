@@ -47,16 +47,16 @@ extension AudioUnitManager: AKMIDIListener {
             } else {
                 //AKLog("Duplicate noteOn message sent")
             }
-        } else if fmOscillator != nil {
-            if !fmOscillator!.isStarted {
-                fmOscillator!.start()
+        } else {
+            if !fmOscillator.isStarted {
+                fmOscillator.start()
             }
 
-            if fmTimer != nil && fmTimer!.isValid {
+            if fmTimer?.isValid ?? false {
                 fmTimer?.invalidate()
             }
             let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-            fmOscillator!.baseFrequency = frequency
+            fmOscillator.baseFrequency = frequency
         }
         lastMIDIEvent = currentTime
     }
@@ -65,17 +65,13 @@ extension AudioUnitManager: AKMIDIListener {
         if auInstrument != nil {
             auInstrument!.stop(noteNumber: noteNumber, channel: channel)
 
-        } else if fmOscillator != nil {
-            if fmOscillator!.isStarted {
-                fmOscillator!.stop()
-            }
+        } else if fmOscillator.isStarted {
+            fmOscillator.stop()
         }
     }
 
     internal func playFM(state: Bool) {
-        guard internalManager != nil else { return }
-        guard mixer != nil else { return }
-        guard let fm = fmOscillator else { return }
+        guard let internalManager = internalManager else { return }
 
         AKLog("playFM() \(state)")
 
@@ -89,11 +85,10 @@ extension AudioUnitManager: AKMIDIListener {
             if player?.isPlaying ?? false {
                 handlePlay(state: false)
             }
-
-            internalManager!.connectEffects(firstNode: fm, lastNode: mixer)
+            internalManager.connectEffects(firstNode: fmOscillator, lastNode: mixer)
 
             startEngine(completionHandler: {
-                fm.start()
+                self.fmOscillator.start()
                 self.fmTimer = Timer.scheduledTimer(timeInterval: 0.2,
                                                     target: self,
                                                     selector: #selector(self.randomFM),
@@ -101,7 +96,7 @@ extension AudioUnitManager: AKMIDIListener {
                                                     repeats: true)
             })
         } else {
-            fm.stop()
+            fmOscillator.stop()
         }
 
     }
@@ -109,9 +104,9 @@ extension AudioUnitManager: AKMIDIListener {
     @objc func randomFM() {
         let noteNumber = randomNumber(range: 0...127)
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: MIDINoteNumber(noteNumber))
-        fmOscillator!.baseFrequency = Double(frequency)
-        fmOscillator!.carrierMultiplier = Double(randomNumber(range: 10...100)) / 100
-        fmOscillator!.amplitude = Double(randomNumber(range: 10...100)) / 100
+        fmOscillator.baseFrequency = Double(frequency)
+        fmOscillator.carrierMultiplier = Double(randomNumber(range: 10...100)) / 100
+        fmOscillator.amplitude = Double(randomNumber(range: 10...100)) / 100
     }
 
     func randomNumber(range: ClosedRange<Int> = 100...500) -> Int {
@@ -130,7 +125,6 @@ extension AudioUnitManager: AKMIDIListener {
             if player?.isPlaying ?? false {
                 handlePlay(state: false)
             }
-            
             internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
             testPlayer = InstrumentPlayer(audioUnit: auInstrument!.midiInstrument?.auAudioUnit)
             testPlayer?.play()
