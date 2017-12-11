@@ -107,7 +107,7 @@ extension String {
         let ff = Int(Float(frame).truncatingRemainder(dividingBy: fps))
         let seconds = Int(Float(frame - ff) / fps)
         let ss = seconds % 60
-        let mm = (seconds % 3600) / 60
+        let mm = (seconds % 3_600) / 60
         let timecode = [String(format: "%02d", mm), String(format: "%02d", ss), String(format: "%02d", ff)]
         return timecode.joined(separator: ":")
     }
