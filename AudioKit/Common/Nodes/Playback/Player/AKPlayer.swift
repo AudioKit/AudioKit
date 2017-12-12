@@ -302,7 +302,8 @@ public class AKPlayer: AKNode {
 
         loop.start = 0
         loop.end = duration
-        preroll(from: 0, to: duration, forceBufferUpdate: isBuffered)
+        buffer = nil
+        preroll(from: 0, to: duration)
     }
 
     // MARK: - Loading
@@ -320,7 +321,7 @@ public class AKPlayer: AKNode {
 
     /// Mostly applicable to buffered players, this loads the buffer and gets it ready to play.
     /// Otherwise it just sets the startTime and endTime
-    public func preroll(from startingTime: Double = 0, to endingTime: Double = 0, forceBufferUpdate: Bool = false) {
+    public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
         var from = startingTime
         let to = endingTime
 
@@ -331,7 +332,7 @@ public class AKPlayer: AKNode {
         endTime = to
 
         guard isBuffered else { return }
-        updateBuffer(force: forceBufferUpdate)
+        updateBuffer()
     }
 
     // MARK: - Playback
