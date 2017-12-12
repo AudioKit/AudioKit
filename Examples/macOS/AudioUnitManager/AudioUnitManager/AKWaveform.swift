@@ -169,13 +169,13 @@ public class AKWaveform: AKView {
         let count = CGFloat(file!.fileFormat.mChannelsPerFrame)
 
         plots[0]?.frame = NSRect(x: 0,
-                                 y: count == 1 ? 0 : newSize.height/count,
+                                 y: count == 1 ? 0 : newSize.height / count,
                                  width: newSize.width,
-                                 height: newSize.height/count)
+                                 height: newSize.height / count)
         plots[0]?.redraw()
 
         if count > 1 {
-            plots[1]?.frame = NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height/count)
+            plots[1]?.frame = NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height / count)
             plots[1]?.redraw()
         }
     }

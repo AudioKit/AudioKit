@@ -143,7 +143,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     open var size: Sample {
         return Sample(avAudiofile.samplesCount)
     }
-    
+
     /// originalSampleRate
     open var originalSampleRate: Double {
         return avAudiofile.sampleRate
@@ -287,7 +287,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     /// Load a new audio file into memory
     open func load(file: AKAudioFile) {
-        if file.channelCount > 2 || file.channelCount < 1{
+        if file.channelCount > 2 || file.channelCount < 1 {
             AKLog("AKSamplePlayer currently only supports mono or stereo samples")
             return
         }
@@ -302,7 +302,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
         let data = UnsafeMutablePointer<Float>(mutating: flattened)
         internalAU?.loadAudioData(data, size: UInt32(flattened.count), sampleRate: Float(file.sampleRate))
-        
+
         self.avAudiofile = file
         self.startPoint = 0
         self.endPoint = Sample(file.samplesCount)
@@ -310,5 +310,5 @@ open class AKSamplePlayer: AKNode, AKComponent {
         self.loopEndPoint = Sample(file.samplesCount)
     }
     //todo open func loadSound()
-    
+
 }
