@@ -30,7 +30,7 @@ import AVFoundation
  Basic usage looks like:
  ```
  guard let player = AKPlayer(url: url) else { return }
- player.completionHandler = { Swift.print("Done") }
+ player.completionHandler = { AKLog("Done") }
 
  // Loop Options
  player.loop.start = 1
@@ -267,7 +267,7 @@ public class AKPlayer: AKNode {
             self.init(audioFile: avfile)
             return
         } catch {
-            Swift.print(error)
+            AKLog("ERROR loading \(url.path) \(error)")
         }
         return nil
     }
@@ -445,7 +445,7 @@ public class AKPlayer: AKNode {
 
         let bufferOptions: AVAudioPlayerNodeBufferOptions = isLooping ? [.loops, .interrupts] : [.interrupts]
 
-        //Swift.print("Scheduling buffer...\(startTime) to \(endTime)")
+        //AKLog("Scheduling buffer...\(startTime) to \(endTime)")
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
@@ -477,7 +477,7 @@ public class AKPlayer: AKNode {
         let totalFrames = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
         frameCount = AVAudioFrameCount(totalFrames)
 
-        Swift.print("startFrame: \(startFrame) frameCount: \(frameCount)")
+        //AKLog("startFrame: \(startFrame) frameCount: \(frameCount)")
 
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleSegment(audioFile,
@@ -503,7 +503,7 @@ public class AKPlayer: AKNode {
     // this will be the method in the scheduling completionHandler >= 10.13
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc private func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        Swift.print("handleCallbackComplete() playerTime.sampleTime: \(currentFrame) totalFrames: \(frameCount)")
+        //AKLog("handleCallbackComplete() playerTime.sampleTime: \(currentFrame) totalFrames: \(frameCount)")
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
         if currentFrame >= frameCount {
