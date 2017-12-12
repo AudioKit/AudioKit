@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		524B77BA1CC4B060001D82D1 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524B77B91CC4B060001D82D1 /* AKNotifications.swift */; };
-		5551E7F41F55320C00757781 /* AKTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 5551E7F21F55320C00757781 /* AKTimeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5551E7F51F55320C00757781 /* AKTimeline.c in Sources */ = {isa = PBXBuildFile; fileRef = 5551E7F31F55320C00757781 /* AKTimeline.c */; };
 		555857E41F62187600C73F59 /* AVAudioBufferConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857E21F62187500C73F59 /* AVAudioBufferConvenience.swift */; };
 		555857E51F62187600C73F59 /* AVAudioTimeShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857E31F62187500C73F59 /* AVAudioTimeShim.swift */; };
 		555857EB1F62189B00C73F59 /* AKClip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857E71F62189700C73F59 /* AKClip.swift */; };
@@ -17,12 +15,6 @@
 		555857ED1F6218A000C73F59 /* AKClipPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857E91F62189700C73F59 /* AKClipPlayer.swift */; };
 		555857EE1F6218A400C73F59 /* AKClipRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857EA1F62189700C73F59 /* AKClipRecorder.swift */; };
 		555857F11F6218C000C73F59 /* AKTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857F01F6218BB00C73F59 /* AKTiming.swift */; };
-		558D80991F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.c in Sources */ = {isa = PBXBuildFile; fileRef = 558D80951F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.c */; };
-		558D809A1F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D80961F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		558D809B1F4D3D5C001E7BC1 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 558D80971F4D3D5C001E7BC1 /* TPCircularBuffer.c */; };
-		558D809C1F4D3D5C001E7BC1 /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 558D80981F4D3D5C001E7BC1 /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55E25D651F4F3BA200F5AF08 /* TPCircularBuffer+Unit.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E25D631F4F3BA200F5AF08 /* TPCircularBuffer+Unit.c */; };
-		55E25D661F4F3BA200F5AF08 /* TPCircularBuffer+Unit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E25D641F4F3BA200F5AF08 /* TPCircularBuffer+Unit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5041F5778B60088018A /* Skeleton.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 55E4F5011F5778B60088018A /* Skeleton.aupreset */; };
 		55E4F5121F578BF30088018A /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F5101F578BF30088018A /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5131F578BF30088018A /* AKPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5111F578BF30088018A /* AKPresetManager.m */; };
@@ -165,6 +157,14 @@
 		C42FFBDB1C3D039C00823BD4 /* AKPannerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBCB1C3D039C00823BD4 /* AKPannerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42FFBDC1C3D039C00823BD4 /* AKPannerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBCC1C3D039C00823BD4 /* AKPannerAudioUnit.mm */; };
 		C42FFBDD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBCD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp */; };
+		C43323291FE05FC800330AEC /* AKTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = C43323201FE05FC700330AEC /* AKTimeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C433232A1FE05FC800330AEC /* AKTimeline.c in Sources */ = {isa = PBXBuildFile; fileRef = C43323211FE05FC700330AEC /* AKTimeline.c */; };
+		C433232B1FE05FC800330AEC /* TPCircularBuffer+Unit.c in Sources */ = {isa = PBXBuildFile; fileRef = C43323231FE05FC700330AEC /* TPCircularBuffer+Unit.c */; };
+		C433232C1FE05FC800330AEC /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C43323241FE05FC700330AEC /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C433232D1FE05FC800330AEC /* TPCircularBuffer+AudioBufferList.c in Sources */ = {isa = PBXBuildFile; fileRef = C43323251FE05FC700330AEC /* TPCircularBuffer+AudioBufferList.c */; };
+		C433232E1FE05FC800330AEC /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C43323261FE05FC700330AEC /* TPCircularBuffer.c */; };
+		C433232F1FE05FC800330AEC /* TPCircularBuffer+Unit.h in Headers */ = {isa = PBXBuildFile; fileRef = C43323271FE05FC700330AEC /* TPCircularBuffer+Unit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C43323301FE05FC800330AEC /* TPCircularBuffer+AudioBufferList.h in Headers */ = {isa = PBXBuildFile; fileRef = C43323281FE05FC700330AEC /* TPCircularBuffer+AudioBufferList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4362F141C2F5FCD00D17352 /* reverberateWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F131C2F5FCD00D17352 /* reverberateWithCostello.swift */; };
 		C4362F161C2F5FD500D17352 /* variableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F151C2F5FD500D17352 /* variableDelay.swift */; };
 		C43ABDEE1E5BCD0400165053 /* clock.c in Sources */ = {isa = PBXBuildFile; fileRef = C43ABDED1E5BCD0400165053 /* clock.c */; };
@@ -900,8 +900,6 @@
 
 /* Begin PBXFileReference section */
 		524B77B91CC4B060001D82D1 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
-		5551E7F21F55320C00757781 /* AKTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimeline.h; sourceTree = "<group>"; };
-		5551E7F31F55320C00757781 /* AKTimeline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AKTimeline.c; sourceTree = "<group>"; };
 		555857E21F62187500C73F59 /* AVAudioBufferConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioBufferConvenience.swift; sourceTree = "<group>"; };
 		555857E31F62187500C73F59 /* AVAudioTimeShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioTimeShim.swift; sourceTree = "<group>"; };
 		555857E71F62189700C73F59 /* AKClip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClip.swift; sourceTree = "<group>"; };
@@ -909,12 +907,6 @@
 		555857E91F62189700C73F59 /* AKClipPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClipPlayer.swift; sourceTree = "<group>"; };
 		555857EA1F62189700C73F59 /* AKClipRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKClipRecorder.swift; sourceTree = "<group>"; };
 		555857F01F6218BB00C73F59 /* AKTiming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTiming.swift; sourceTree = "<group>"; };
-		558D80951F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+AudioBufferList.c"; sourceTree = "<group>"; };
-		558D80961F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+AudioBufferList.h"; sourceTree = "<group>"; };
-		558D80971F4D3D5C001E7BC1 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
-		558D80981F4D3D5C001E7BC1 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
-		55E25D631F4F3BA200F5AF08 /* TPCircularBuffer+Unit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+Unit.c"; sourceTree = "<group>"; };
-		55E25D641F4F3BA200F5AF08 /* TPCircularBuffer+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+Unit.h"; sourceTree = "<group>"; };
 		55E4F5011F5778B60088018A /* Skeleton.aupreset */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Skeleton.aupreset; path = Sampler/Skeleton.aupreset; sourceTree = "<group>"; };
 		55E4F5101F578BF30088018A /* AKPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKPresetManager.h; path = Sampler/AKPresetManager.h; sourceTree = "<group>"; };
 		55E4F5111F578BF30088018A /* AKPresetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKPresetManager.m; path = Sampler/AKPresetManager.m; sourceTree = "<group>"; };
@@ -1067,6 +1059,14 @@
 		C42FFBCB1C3D039C00823BD4 /* AKPannerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPannerAudioUnit.h; sourceTree = "<group>"; };
 		C42FFBCC1C3D039C00823BD4 /* AKPannerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPannerAudioUnit.mm; sourceTree = "<group>"; };
 		C42FFBCD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPannerDSPKernel.hpp; sourceTree = "<group>"; };
+		C43323201FE05FC700330AEC /* AKTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimeline.h; sourceTree = "<group>"; };
+		C43323211FE05FC700330AEC /* AKTimeline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AKTimeline.c; sourceTree = "<group>"; };
+		C43323231FE05FC700330AEC /* TPCircularBuffer+Unit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+Unit.c"; sourceTree = "<group>"; };
+		C43323241FE05FC700330AEC /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		C43323251FE05FC700330AEC /* TPCircularBuffer+AudioBufferList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+AudioBufferList.c"; sourceTree = "<group>"; };
+		C43323261FE05FC700330AEC /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		C43323271FE05FC700330AEC /* TPCircularBuffer+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+Unit.h"; sourceTree = "<group>"; };
+		C43323281FE05FC700330AEC /* TPCircularBuffer+AudioBufferList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+AudioBufferList.h"; sourceTree = "<group>"; };
 		C4362F131C2F5FCD00D17352 /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
 		C4362F151C2F5FD500D17352 /* variableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = variableDelay.swift; sourceTree = "<group>"; };
 		C43ABDED1E5BCD0400165053 /* clock.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = clock.c; sourceTree = "<group>"; };
@@ -1828,14 +1828,8 @@
 		558D80941F4D3D5C001E7BC1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				558D80951F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.c */,
-				558D80961F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h */,
-				55E25D631F4F3BA200F5AF08 /* TPCircularBuffer+Unit.c */,
-				55E25D641F4F3BA200F5AF08 /* TPCircularBuffer+Unit.h */,
-				558D80971F4D3D5C001E7BC1 /* TPCircularBuffer.c */,
-				558D80981F4D3D5C001E7BC1 /* TPCircularBuffer.h */,
-				5551E7F21F55320C00757781 /* AKTimeline.h */,
-				5551E7F31F55320C00757781 /* AKTimeline.c */,
+				C43323221FE05FC700330AEC /* Circular Buffer */,
+				C433231F1FE05FC700330AEC /* Timeline */,
 				555857E21F62187500C73F59 /* AVAudioBufferConvenience.swift */,
 				555857E31F62187500C73F59 /* AVAudioTimeShim.swift */,
 			);
@@ -2138,6 +2132,28 @@
 				C42FFBCD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp */,
 			);
 			path = Panner;
+			sourceTree = "<group>";
+		};
+		C433231F1FE05FC700330AEC /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				C43323201FE05FC700330AEC /* AKTimeline.h */,
+				C43323211FE05FC700330AEC /* AKTimeline.c */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
+		C43323221FE05FC700330AEC /* Circular Buffer */ = {
+			isa = PBXGroup;
+			children = (
+				C43323241FE05FC700330AEC /* TPCircularBuffer.h */,
+				C43323261FE05FC700330AEC /* TPCircularBuffer.c */,
+				C43323281FE05FC700330AEC /* TPCircularBuffer+AudioBufferList.h */,
+				C43323251FE05FC700330AEC /* TPCircularBuffer+AudioBufferList.c */,
+				C43323271FE05FC700330AEC /* TPCircularBuffer+Unit.h */,
+				C43323231FE05FC700330AEC /* TPCircularBuffer+Unit.c */,
+			);
+			path = "Circular Buffer";
 			sourceTree = "<group>";
 		};
 		C43E429E1D066DD30066BF7A /* Environment */ = {
@@ -4039,10 +4055,6 @@
 				C4AC0B151FC9419900EDA024 /* AKDSPBase.hpp in Headers */,
 				55E4F5321F57DB2D0088018A /* AKSamplerMetronome.h in Headers */,
 				55E4F5121F578BF30088018A /* AKPresetManager.h in Headers */,
-				5551E7F41F55320C00757781 /* AKTimeline.h in Headers */,
-				558D809A1F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.h in Headers */,
-				55E25D661F4F3BA200F5AF08 /* TPCircularBuffer+Unit.h in Headers */,
-				558D809C1F4D3D5C001E7BC1 /* TPCircularBuffer.h in Headers */,
 				C45210711E7D0884007C38FE /* AKSporthStack+Internal.h in Headers */,
 				B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */,
 				C45382101C3A5CBD00A51738 /* AKWhiteNoiseAudioUnit.h in Headers */,
@@ -4099,6 +4111,7 @@
 				C4146D531F3E47B8001AAE11 /* AKRhinoGuitarProcessorAudioUnit.h in Headers */,
 				C47AC6241D5D53EA0005E485 /* AKBoosterDSPKernel.hpp in Headers */,
 				C4E376C81D1357D900FDB70D /* Flute.h in Headers */,
+				C433232F1FE05FC800330AEC /* TPCircularBuffer+Unit.h in Headers */,
 				C42859241E90B80A009B737D /* AKDynamicRangeCompressorDSPKernel.hpp in Headers */,
 				C4146DF91F3E4829001AAE11 /* pluginconstants.h in Headers */,
 				C47048081E78FDFA00D9906F /* AKRhodesPianoDSPKernel.hpp in Headers */,
@@ -4131,6 +4144,7 @@
 				C4AC0B1B1FC941FC00EDA024 /* AKLinearParameterRamp.hpp in Headers */,
 				C4AC0B2B1FC9427200EDA024 /* AKBankDSPKernel.hpp in Headers */,
 				C4ABF53A1C82AEC00078EE8E /* AKMetalBarDSPKernel.hpp in Headers */,
+				C433232C1FE05FC800330AEC /* TPCircularBuffer.h in Headers */,
 				C4146D581F3E47CB001AAE11 /* AKDynaRageCompressorAudioUnit.h in Headers */,
 				C4146DDA1F3E4829001AAE11 /* Compressor.h in Headers */,
 				C45382051C3A5CBD00A51738 /* AKFlatFrequencyResponseReverbDSPKernel.hpp in Headers */,
@@ -4244,6 +4258,7 @@
 				C4AC0B251FC9423A00EDA024 /* BufferedAudioBus.hpp in Headers */,
 				C4146D5A1F3E47D2001AAE11 /* AKDynaRageCompressorDSPKernel.hpp in Headers */,
 				C40718281D211AB400665C02 /* ADSR.h in Headers */,
+				C43323291FE05FC800330AEC /* AKTimeline.h in Headers */,
 				C47AE4DD1D39CCC60091118F /* AKPhaseDistortionOscillatorAudioUnit.h in Headers */,
 				C40C42221C40E5C2009D870B /* EZAudioFloatConverter.h in Headers */,
 				C42FFBDD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp in Headers */,
@@ -4275,6 +4290,7 @@
 				C40BB0951C4717C2004C138D /* AKCombFilterReverbDSPKernel.hpp in Headers */,
 				C4146DF61F3E4829001AAE11 /* OnePoleLPF.h in Headers */,
 				C40718331D211AB400665C02 /* Stk.h in Headers */,
+				C43323301FE05FC800330AEC /* TPCircularBuffer+AudioBufferList.h in Headers */,
 				C45381CC1C3A5CBD00A51738 /* AKHighShelfParametricEqualizerFilterDSPKernel.hpp in Headers */,
 				C49DCD601D2100BF00BF018A /* AKOscillatorBankDSPKernel.hpp in Headers */,
 				C4146DE41F3E4829001AAE11 /* FFTReal.h in Headers */,
@@ -4546,6 +4562,7 @@
 				555857ED1F6218A000C73F59 /* AKClipPlayer.swift in Sources */,
 				C40C42351C40E5C2009D870B /* EZRecorder.m in Sources */,
 				C4F8CAFD1DCA928B001F38F2 /* jitter.c in Sources */,
+				C433232A1FE05FC800330AEC /* AKTimeline.c in Sources */,
 				C48C6A981D3C1574008EA51B /* pareq.c in Sources */,
 				C48C6A781D3C1574008EA51B /* dmetro.c in Sources */,
 				C42859181E90B7E6009B737D /* AKPhaser.swift in Sources */,
@@ -4640,6 +4657,7 @@
 				55E4F5331F57DB2D0088018A /* AKSamplerMetronome.m in Sources */,
 				C47048051E78FDFA00D9906F /* AKRhodesPiano.swift in Sources */,
 				C4DA4BF01C248F3000AA3771 /* randomNumberPulse.swift in Sources */,
+				C433232D1FE05FC800330AEC /* TPCircularBuffer+AudioBufferList.c in Sources */,
 				C48C6AD51D3C1574008EA51B /* plumber.c in Sources */,
 				C484438E1C311C59007BE794 /* AKStereoOperation.swift in Sources */,
 				C45381C11C3A5CBD00A51738 /* AKFormantFilterAudioUnit.mm in Sources */,
@@ -4669,9 +4687,9 @@
 				C48C6A6C1D3C1574008EA51B /* butbr.c in Sources */,
 				C49A09E81D5099D9007D8ADB /* smoothdelay.c in Sources */,
 				C453820F1C3A5CBD00A51738 /* AKWhiteNoise.swift in Sources */,
+				C433232E1FE05FC800330AEC /* TPCircularBuffer.c in Sources */,
 				C4E752461C23888700688A1B /* pinkNoise.swift in Sources */,
 				C4AC0B2C1FC9427200EDA024 /* AKBankAudioUnit.mm in Sources */,
-				55E25D651F4F3BA200F5AF08 /* TPCircularBuffer+Unit.c in Sources */,
 				C4E375A31D13575C00FDB70D /* AKMandolinAudioUnit.mm in Sources */,
 				C48C6A631D3C1574008EA51B /* bar.c in Sources */,
 				C48C6A611D3C1574008EA51B /* autowah.c in Sources */,
@@ -4788,7 +4806,6 @@
 				C453818C1C3A5CBD00A51738 /* AKOperationEffect.swift in Sources */,
 				C4E7523A1C23888700688A1B /* distort.swift in Sources */,
 				C43FF29B1CBDA00600B3C05A /* AKFMOscillatorPresets.swift in Sources */,
-				5551E7F51F55320C00757781 /* AKTimeline.c in Sources */,
 				C47AE4E21D39CCC60091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm in Sources */,
 				C4E752391C23888700688A1B /* clip.swift in Sources */,
 				C42FFBDC1C3D039C00823BD4 /* AKPannerAudioUnit.mm in Sources */,
@@ -4804,6 +4821,7 @@
 				C4F8CB431DCA928B001F38F2 /* trand.c in Sources */,
 				C4F8CADA1DCA928A001F38F2 /* clip.c in Sources */,
 				C4D371501EEFA79E00B3DCA6 /* vocalTract.swift in Sources */,
+				C433232B1FE05FC800330AEC /* TPCircularBuffer+Unit.c in Sources */,
 				C48C6AB11D3C1574008EA51B /* sdelay.c in Sources */,
 				C47047E71E78FCC900D9906F /* Rhodey.cpp in Sources */,
 				C49A0A2B1D54295E007D8ADB /* reverberateWithCombFilter.swift in Sources */,
@@ -4843,7 +4861,6 @@
 				C40BB0921C4717C2004C138D /* AKCombFilterReverb.swift in Sources */,
 				C4F8CB301DCA928B001F38F2 /* srand.c in Sources */,
 				C48C6ABA1D3C1574008EA51B /* tenv2.c in Sources */,
-				558D809B1F4D3D5C001E7BC1 /* TPCircularBuffer.c in Sources */,
 				C48C6A951D3C1574008EA51B /* padsynth.c in Sources */,
 				C40101D91DED741E000C5765 /* AKAudioUnit.mm in Sources */,
 				C4AA7C281FD2A90D00040720 /* AKRenderTap.m in Sources */,
@@ -5008,7 +5025,6 @@
 				C45381D91C3A5CBD00A51738 /* AKModalResonanceFilterAudioUnit.mm in Sources */,
 				C4F8CB141DCA928B001F38F2 /* phaser.c in Sources */,
 				C48C6A641D3C1574008EA51B /* base.c in Sources */,
-				558D80991F4D3D5C001E7BC1 /* TPCircularBuffer+AudioBufferList.c in Sources */,
 				C48C6ACF1D3C1574008EA51B /* func.c in Sources */,
 				C48C6A7A1D3C1574008EA51B /* dtrig.c in Sources */,
 				C4F8CB121DCA928B001F38F2 /* pdhalf.c in Sources */,
