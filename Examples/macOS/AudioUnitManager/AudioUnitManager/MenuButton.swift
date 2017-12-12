@@ -16,9 +16,9 @@ class MenuButton: NSButton {
         if let textColor = textColor, let font = font {
             let style = NSMutableParagraphStyle()
             style.alignment = .center
-            let attributes: [NSAttributedStringKey: Any] = [ NSAttributedStringKey.foregroundColor: textColor,
-                                                              NSAttributedStringKey.font: font,
-                                                              NSAttributedStringKey.paragraphStyle: style]
+            let attributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor,
+                                                            NSAttributedStringKey.font: font,
+                                                            NSAttributedStringKey.paragraphStyle: style]
             let attributedTitle = NSAttributedString(string: title, attributes: attributes)
             self.attributedTitle = attributedTitle
             initialize()
@@ -29,7 +29,7 @@ class MenuButton: NSButton {
         if let bgColor = bgColor {
             bgColor.setFill()
             let rect = NSRect(origin: CGPoint(), size: bounds.size)
-            let rectanglePath = NSBezierPath( roundedRect: rect, xRadius: 3, yRadius: 3)
+            let rectanglePath = NSBezierPath(roundedRect: rect, xRadius: 3, yRadius: 3)
             rectanglePath.fill()
         }
         super.draw(dirtyRect)
@@ -47,8 +47,8 @@ class MenuButton: NSButton {
 
     private func initialize() {
         if let cell = self.cell as? NSButtonCell {
-            cell.isBordered = false //The background color is used only when drawing borderless buttons.
-            //cell.backgroundColor = bgColor //NSColor.gray.withAlphaComponent(0.5)
+            cell.isBordered = false // The background color is used only when drawing borderless buttons.
+            // cell.backgroundColor = bgColor //NSColor.gray.withAlphaComponent(0.5)
         }
     }
 
@@ -61,7 +61,7 @@ class MenuButton: NSButton {
         guard menu != nil else { return }
         guard superview != nil else { return }
         var adjustedLocation = convert(NSPoint(), to: nil)
-        adjustedLocation.y -= (self.frame.size.height + 5)
+        adjustedLocation.y -= (frame.size.height + 5)
         if let newEvent = NSEvent.mouseEvent(with: event.type,
                                              location: adjustedLocation,
                                              modifierFlags: event.modifierFlags,
