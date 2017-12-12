@@ -11,22 +11,26 @@ import AVFoundation
 /**
  AKPlayer is meant to be a simple yet powerful audio player that just works. It supports
  scheduling of sounds, looping, fading, and reversing. Players can be locked to a common
- clock as well as video by using hostTime in the various play functions.
+ clock as well as video by using hostTime in the various play functions. By default the
+ player will buffer audio as needed, otherwise it will play it from disk. Looping, reversing,
+ or applying fades will cause the file to buffer.
+
+ There are a few options for syncing to external objects.
 
  A locked video function would resemble:
  ```
  func videoPlay(at time: TimeInterval = 0, hostTime: UInt64 = 0 ) {
- let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
- let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
- let futureTime = CMTimeAdd(cmHostTime, cmVTime)
- videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
+    let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
+    let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
+    let futureTime = CMTimeAdd(cmHostTime, cmVTime)
+    videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
  }
  ```
 
  Basic usage looks like:
  ```
  guard let player = AKPlayer(url: url) else { return }
- player.completionHandler = { Swift.print("Done") }
+ player.completionHandler = { AKLog("Done") }
 
  // Loop Options
  player.loop.start = 1
@@ -125,6 +129,9 @@ public class AKPlayer: AKNode {
     private var _endTime: Double = 0
 
     // MARK: - Public Properties
+
+    /// Completion handler to be called when Audio is done playing. The handler won't be called if
+    /// stop() is called while playing or when looping.
     public var completionHandler: AKCallback?
 
     /// Sets if the player should buffer dynamically, always or never
@@ -138,17 +145,17 @@ public class AKPlayer: AKNode {
     }
 
     /// The internal audio file
-    public private (set) var audioFile: AVAudioFile?
+    public private(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
     public var duration: Double {
         return audioFile?.duration ?? 0
     }
 
-    /// holds characteristics about the fade options. Using fades will set the player to buffering
+    /// Holds characteristics about the fade options. Using fades will set the player to buffering
     public var fade = Fade()
 
-    /// holds characteristics about the looping options
+    /// Looping params
     public var loop = Loop()
 
     /// Volume 0.0 -> 1.0, default 1.0
@@ -163,15 +170,17 @@ public class AKPlayer: AKNode {
         set { playerNode.pan = newValue }
     }
 
-    /// Get or set the start time of the player. May be accessed from multiple threads.
+    /// Get or set the start time of the player.
     public var startTime: Double {
         get {
             var out: Double = 0
             startTimeQueue.sync {
                 out = self.isLooping ? self.loop.start : self._startTime
+                out = max(0, out)
             }
             return out
         }
+
         set {
             startTimeQueue.sync {
                 self._startTime = max(0, newValue)
@@ -179,7 +188,7 @@ public class AKPlayer: AKNode {
         }
     }
 
-    /// Get or set the end time of the player. May be accessed from multiple threads.
+    /// Get or set the end time of the player.
     public var endTime: Double {
         get {
             var out: Double = 0
@@ -200,7 +209,19 @@ public class AKPlayer: AKNode {
         }
     }
 
-    /// - Returns: Current time of the player in seconds.
+    /// - Returns: The total frame count that is being playing
+    public private(set) var frameCount: AVAudioFrameCount = 0
+
+    /// - Returns: The current frame while playing
+    public var currentFrame: AVAudioFramePosition {
+        if let nodeTime = playerNode.lastRenderTime,
+            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
+            return playerTime.sampleTime
+        }
+        return 0
+    }
+
+    /// - Returns: Current time of the player in seconds while playing.
     public var currentTime: Double {
         let current = startTime + playerTime.truncatingRemainder(dividingBy: (endTime - startTime))
         return current
@@ -246,7 +267,7 @@ public class AKPlayer: AKNode {
             self.init(audioFile: avfile)
             return
         } catch {
-            Swift.print(error)
+            AKLog("ERROR loading \(url.path) \(error)")
         }
         return nil
     }
@@ -288,7 +309,7 @@ public class AKPlayer: AKNode {
 
     /// Replace the contents of the player with this url
     public func load(url: URL) throws {
-        self.audioFile = try AVAudioFile(forReading: url)
+        audioFile = try AVAudioFile(forReading: url)
         initialize()
     }
 
@@ -367,8 +388,8 @@ public class AKPlayer: AKNode {
 
     // MARK: - Scheduling
 
-    // NOTE to maintainers: these timers should be removed when AudioKit is built for 10.13.
-    // in that case the real completion handlers of the scheduling can be used.
+    // NOTE to maintainers: these timers can be removed when AudioKit is built for 10.13.
+    // in that case the AVFoundation completion handlers of the scheduling can be used.
     // Pre 10.13, the completion handlers are inaccurate to the point of unusable.
 
     // if the file is scheduled, start a timer to determine when to start the completion timer
@@ -424,7 +445,7 @@ public class AKPlayer: AKNode {
 
         let bufferOptions: AVAudioPlayerNodeBufferOptions = isLooping ? [.loops, .interrupts] : [.interrupts]
 
-        //Swift.print("Scheduling buffer...\(startTime) to \(endTime)")
+        //AKLog("Scheduling buffer...\(startTime) to \(endTime)")
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
@@ -432,7 +453,7 @@ public class AKPlayer: AKNode {
                                       completionCallbackType: .dataPlayedBack,
                                       completionHandler: handleCallbackComplete)
         } else {
-            // Fallback on earlier versions
+            // Fallback on earlier version
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
                                       options: bufferOptions,
@@ -453,25 +474,28 @@ public class AKPlayer: AKNode {
             endFrame = audioFile.samplesCount
         }
 
-        let frameCount = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
+        let totalFrames = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
+        frameCount = AVAudioFrameCount(totalFrames)
+
+        //AKLog("startFrame: \(startFrame) frameCount: \(frameCount)")
 
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleSegment(audioFile,
                                        startingFrame: startFrame,
-                                       frameCount: AVAudioFrameCount(frameCount),
+                                       frameCount: frameCount,
                                        at: audioTime,
                                        completionCallbackType: .dataPlayedBack,
                                        completionHandler: handleCallbackComplete)
         } else {
-            // Fallback on earlier versions
+            // Fallback on earlier version
             playerNode.scheduleSegment(audioFile,
                                        startingFrame: startFrame,
-                                       frameCount: AVAudioFrameCount(frameCount),
+                                       frameCount: frameCount,
                                        at: audioTime,
                                        completionHandler: nil) // these completionHandlers are inaccurate pre 10.13
         }
 
-        playerNode.prepare(withFrameCount: AVAudioFrameCount(frameCount))
+        playerNode.prepare(withFrameCount: frameCount)
     }
 
     // MARK: - Completion Handlers
@@ -479,8 +503,14 @@ public class AKPlayer: AKNode {
     // this will be the method in the scheduling completionHandler >= 10.13
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc private func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        DispatchQueue.main.async {
-            self.completionHandler?()
+        //AKLog("handleCallbackComplete() playerTime.sampleTime: \(currentFrame) totalFrames: \(frameCount)")
+        // only forward the completion if is actually done playing.
+        // if the user calls stop() themselves then the currentFrame will be < frameCount
+        if currentFrame >= frameCount {
+            DispatchQueue.main.async {
+                self.stop()
+                self.completionHandler?()
+            }
         }
     }
 
@@ -492,7 +522,7 @@ public class AKPlayer: AKNode {
             play()
             return
         }
-        self.completionHandler?()
+        completionHandler?()
     }
 
     // MARK: - Buffering routines
@@ -525,13 +555,13 @@ public class AKPlayer: AKNode {
             return
         }
 
-        guard audioFile.samplesCount > 0  else {
+        guard audioFile.samplesCount > 0 else {
             AKLog("ERROR updateBuffer: Could not set PCM buffer -> " +
                 "\(audioFile.fileNamePlusExtension) samplesCount = 0.")
             return
         }
-        let frameCount = AVAudioFrameCount(endFrame - startFrame)
 
+        frameCount = AVAudioFrameCount(endFrame - startFrame)
         guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat, frameCapacity: frameCount) else { return }
 
         do {
@@ -558,8 +588,8 @@ public class AKPlayer: AKNode {
         }
 
         // these are only stored to check if the buffer needs to be updated in subsequent fills
-        self.startingFrame = startFrame
-        self.endingFrame = endFrame
+        startingFrame = startFrame
+        endingFrame = endFrame
     }
 
     // Apply sample level fades to the internal buffer.
@@ -576,7 +606,7 @@ public class AKPlayer: AKNode {
             let audioFile = self.audioFile,
             let floatChannelData = buffer.floatChannelData,
             let fadedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity) else {
-                return
+            return
         }
         let length: AVAudioFrameCount = buffer.frameLength
 
@@ -633,10 +663,8 @@ public class AKPlayer: AKNode {
     fileprivate func reverseBuffer() {
         guard isBuffered, let buffer = self.buffer else { return }
 
-        let reversedBuffer = AVAudioPCMBuffer(
-            pcmFormat: buffer.format,
-            frameCapacity: buffer.frameCapacity
-        )
+        let reversedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format,
+                                              frameCapacity: buffer.frameCapacity)
 
         var j: Int = 0
         let length = buffer.frameLength
@@ -657,7 +685,7 @@ public class AKPlayer: AKNode {
     }
 
     /// Disconnect the node and release resources
-    override public func disconnect() {
+    public override func disconnect() {
         stop()
         audioFile = nil
         buffer = nil

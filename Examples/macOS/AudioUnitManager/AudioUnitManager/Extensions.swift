@@ -19,7 +19,7 @@ extension String {
     }
 
     func indexOf(string: String) -> String.Index? {
-        return self.range( of: string, options: .literal, range: nil, locale: nil)?.lowerBound
+        return self.range(of: string, options: .literal, range: nil, locale: nil)?.lowerBound
     }
 
     func trim() -> String {
@@ -52,7 +52,7 @@ extension String {
 
     func startsWith(string: String) -> Bool {
 
-        guard let range = self.range( of: string, options: [.anchored, .caseInsensitive]) else {
+        guard let range = self.range(of: string, options: [.anchored, .caseInsensitive]) else {
             return false
         }
 
@@ -61,7 +61,7 @@ extension String {
 
     func removeSpecial() -> String {
         let okayChars = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-_"
-        return self.filter {okayChars.contains($0) }
+        return self.filter { okayChars.contains($0) }
     }
 
     func asciiValue() -> [UInt8] {
@@ -74,7 +74,7 @@ extension String {
         return retVal
     }
 
-    public static func toClock( _ time: TimeInterval, frameRate: Float = 0 ) -> String {
+    public static func toClock(_ time: TimeInterval, frameRate: Float = 0) -> String {
         if time.isNaN || time.isInfinite || time.isSignalingNaN {
             return String("-")
         }
@@ -85,15 +85,15 @@ extension String {
         }
         t = abs(t)
 
-        //calculate the minutes in elapsed time.
+        // calculate the minutes in elapsed time.
         let minutes = Int(t / 60.0)
         t -= (TimeInterval(minutes) * 60)
 
-        //calculate the seconds in elapsed time.
+        // calculate the seconds in elapsed time.
         let seconds = Int(t)
         t -= TimeInterval(seconds)
 
-        //find out the fraction of milliseconds to be displayed.
+        // find out the fraction of milliseconds to be displayed.
         let mult = Double(frameRate > 0 ? frameRate : 100)
         let fraction = Int(t * mult)
         let strMinutes = String(format: "%02d", minutes)
@@ -112,7 +112,7 @@ extension String {
         return timecode.joined(separator: ":")
     }
 
-    public static func toSimpleClock( _ time: TimeInterval ) -> String {
+    public static func toSimpleClock(_ time: TimeInterval) -> String {
         var t = time
         var preroll = ""
         if time < 0 {
@@ -120,11 +120,11 @@ extension String {
         }
         t = abs(t)
 
-        //calculate the minutes in elapsed time.
+        // calculate the minutes in elapsed time.
         let minutes = Int(t / 60.0)
         t -= (TimeInterval(minutes) * 60)
 
-        //calculate the seconds in elapsed time.
+        // calculate the seconds in elapsed time.
         let seconds = Int(t)
         t -= TimeInterval(seconds)
         let strSeconds = String(format: "%02d", seconds)
@@ -143,16 +143,16 @@ extension String.Index {
         return string.index(before: self)
     }
 
-    func advance(_ offset: Int, `for` string: String) -> String.Index {
+    func advance(_ offset: Int, for string: String) -> String.Index {
         return string.index(self, offsetBy: offset)
     }
 }
 
 extension NSLayoutConstraint {
-    public static func simpleVisualConstraints( view: NSView,
-                                                direction: NSString = "H",
-                                                padding1: Int = 0,
-                                                padding2: Int = 0 ) -> [NSLayoutConstraint] {
+    public static func simpleVisualConstraints(view: NSView,
+                                               direction: NSString = "H",
+                                               padding1: Int = 0,
+                                               padding2: Int = 0) -> [NSLayoutConstraint] {
         view.translatesAutoresizingMaskIntoConstraints = false
         let constraint = NSLayoutConstraint.constraints(
             withVisualFormat: "\(direction):|-\(padding1)-[view]-\(padding2)-|",
@@ -162,7 +162,7 @@ extension NSLayoutConstraint {
         return constraint
     }
 
-    public static func activateConstraintsEqualToSuperview( child: NSView ) {
+    public static func activateConstraintsEqualToSuperview(child: NSView) {
         if child.superview == nil {
             Swift.print("NSLayoutConstraint.fillSuperview() superview of child is nil")
             return
@@ -170,25 +170,25 @@ extension NSLayoutConstraint {
 
         child.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate( [
-            child.leadingAnchor.constraint( equalTo: child.superview!.leadingAnchor ),
-            child.trailingAnchor.constraint( equalTo: child.superview!.trailingAnchor ),
-            child.topAnchor.constraint( equalTo: child.superview!.topAnchor ),
-            child.bottomAnchor.constraint( equalTo: child.superview!.bottomAnchor )
-            ])
+        NSLayoutConstraint.activate([
+            child.leadingAnchor.constraint(equalTo: child.superview!.leadingAnchor),
+            child.trailingAnchor.constraint(equalTo: child.superview!.trailingAnchor),
+            child.topAnchor.constraint(equalTo: child.superview!.topAnchor),
+            child.bottomAnchor.constraint(equalTo: child.superview!.bottomAnchor)
+        ])
     }
 
 }
 
 extension NSView {
-    func convertEventToSuperview( theEvent: NSEvent ) -> NSPoint {
-        let localPoint = self.convert( theEvent.locationInWindow, from: nil)
-        let svLocation = self.convert( localPoint, to: self.superview)
+    func convertEventToSuperview(theEvent: NSEvent) -> NSPoint {
+        let localPoint = self.convert(theEvent.locationInWindow, from: nil)
+        let svLocation = self.convert(localPoint, to: self.superview)
         return svLocation
     }
 
-    func convertToSuperview( localPoint: NSPoint ) -> NSPoint {
-        let svLocation = self.convert( localPoint, to: self.superview)
+    func convertToSuperview(localPoint: NSPoint) -> NSPoint {
+        let svLocation = self.convert(localPoint, to: self.superview)
         return svLocation
     }
 

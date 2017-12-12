@@ -5,8 +5,8 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import Cocoa
 import AVFoundation
+import Cocoa
 
 /// Creates a simple list of parameters linked to sliders
 class AudioUnitGenericView: NSView {
@@ -62,7 +62,7 @@ class AudioUnitGenericView: NSView {
         for param in tree.allParameters {
             y += 24
 
-            let slider = AudioUnitParamSlider(audioUnit: audioUnit, param: param )
+            let slider = AudioUnitParamSlider(audioUnit: audioUnit, param: param)
             slider.setFrameOrigin(NSPoint(x: 10, y: y))
 
             addSubview(slider)
@@ -75,7 +75,7 @@ class AudioUnitGenericView: NSView {
     }
 
     func handleChange(_ sender: NSSlider) {
-        //Swift.print(sender.doubleValue)
+        // Swift.print(sender.doubleValue)
     }
 
 }

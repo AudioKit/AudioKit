@@ -5,8 +5,8 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import Cocoa
 import AVFoundation
+import Cocoa
 
 class AudioUnitParamSlider: NSView {
 
@@ -16,18 +16,18 @@ class AudioUnitParamSlider: NSView {
     private var slider = NSSlider()
     private var valueField: NSTextField?
 
-    convenience init( audioUnit: AVAudioUnit, param: AUParameter ) {
+    convenience init(audioUnit: AVAudioUnit, param: AUParameter) {
         self.init()
 
         self.audioUnit = audioUnit
-        self.key = param.address
+        key = param.address
 
         let titleField = createLabel(string: param.displayName)
         titleField.frame = NSRect(x: 0, y: 0, width: 120, height: 20)
         addSubview(titleField)
 
-        self.slider.action = #selector( self.handleAction(_:) )
-        self.slider.target = self
+        slider.action = #selector(handleAction(_:))
+        slider.target = self
         slider.frame = NSRect(x: 122, y: 2, width: 100, height: 20)
         addSubview(slider)
 
@@ -62,7 +62,7 @@ class AudioUnitParamSlider: NSView {
         return audioUnit?.auAudioUnit.parameterTree?.parameter(withAddress: theKey)
     }
 
-    private func createLabel( string: String ) -> NSTextField {
+    private func createLabel(string: String) -> NSTextField {
         let tf = NSTextField()
         tf.isSelectable = false
         tf.isBordered = false
@@ -83,7 +83,7 @@ class AudioUnitParamSlider: NSView {
         guard key != nil else { return }
 
         if let p = getParam(withAddress: key!) {
-            //Swift.print("p: \(p)")
+            // Swift.print("p: \(p)")
             p.value = slider.floatValue
             if let field = valueField {
                 field.stringValue = "\(round2(slider.floatValue, decimalPlaces: 3))"
