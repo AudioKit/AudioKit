@@ -6,17 +6,23 @@
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
-import Cocoa
 import AudioKit
+import Cocoa
 
 extension AudioUnitManager {
 
     internal func handlePlay(state: Bool) {
         guard let player = player else { return }
 
+        // stop
+        if player.isPlaying {
+            player.stop()
+        }
+
+        playButton.state = state ? .on : .off
+
         if state {
-            //play
-            playButton.state = .on
+            // play
 
             // just turning off the synths if they are playing
             if fmOscillator.isStarted {
@@ -38,9 +44,6 @@ extension AudioUnitManager {
                 self.startAudioTimer()
             })
         } else {
-            // stop
-            playButton.state = .off
-            player.stop()
 
             if AudioKit.engine.isRunning {
                 // just turns off reverb tails or delay lines etc
@@ -71,17 +74,11 @@ extension AudioUnitManager {
 
     func handleAudioComplete() {
         guard let player = player else { return }
-        //Swift.print("handleAudioComplete()")
+        // Swift.print("handleAudioComplete()")
 
-        if player.isLooping {
-            // this technically will never happen as looping players don't send completion events
-            // but you know. just in case.
-            return
-        } else if player.isPlaying {
-            player.startTime = 0
-            handlePlay(state: false)
-            handleRewindButton(rewindButton)
-        }
+        handlePlay(state: false)
+        player.startTime = 0
+        handleRewindButton(rewindButton)
     }
 
     /// open an audio URL for playing
@@ -140,12 +137,14 @@ extension AudioUnitManager {
     }
 
     internal func stopAudioTimer() {
-        audioTimer?.invalidate()
+        if audioTimer?.isValid ?? false {
+            audioTimer?.invalidate()
+        }
     }
 
     @objc private func updateWaveformDisplay() {
         guard let player = player else { return }
-        //Swift.print("\(player.currentTime)")
+        // Swift.print("\(player.currentTime)")
         waveform?.position = player.currentTime
         updateTimeDisplay(player.currentTime)
     }

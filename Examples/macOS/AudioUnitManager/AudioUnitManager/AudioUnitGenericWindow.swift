@@ -10,8 +10,8 @@ import AVFoundation
 import Cocoa
 
 class AudioUnitGenericWindow: NSWindowController {
-    @IBOutlet weak var scrollView: NSScrollView!
-    @IBOutlet weak var toolbar: AudioUnitToolbar!
+    @IBOutlet var scrollView: NSScrollView!
+    @IBOutlet var toolbar: AudioUnitToolbar!
 
     private var audioUnit: AVAudioUnit?
 

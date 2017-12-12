@@ -45,7 +45,7 @@ extension AudioUnitManager: AKMIDIListener {
             if !isDupe {
                 auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
             } else {
-                //AKLog("Duplicate noteOn message sent")
+                // AKLog("Duplicate noteOn message sent")
             }
         } else {
             if !fmOscillator.isStarted {
@@ -133,7 +133,7 @@ extension AudioUnitManager: AKMIDIListener {
         }
     }
 
-    internal func updateInstrumentsUI( audioUnits: [AVAudioUnitComponent] ) {
+    internal func updateInstrumentsUI(audioUnits: [AVAudioUnitComponent]) {
         guard internalManager != nil else { return }
 
         auInstrumentSelector.removeAllItems()
