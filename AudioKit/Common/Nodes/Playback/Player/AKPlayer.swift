@@ -113,6 +113,10 @@ public class AKPlayer: AKNode {
     private var prerollTimer: Timer?
     private var completionTimer: Timer?
 
+    // startTime and endTime may be accessed from multiple thread contexts
+    private let startTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.startTimeQueue")
+    private let endTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.endTimeQueue")
+
     private var playerTime: Double {
         if let nodeTime = playerNode.lastRenderTime,
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
@@ -169,20 +173,29 @@ public class AKPlayer: AKNode {
     /// Get or set the start time of the player.
     public var startTime: Double {
         get {
-            var out = isLooping ? loop.start : _startTime
-            out = max(0, out)
+            var out: Double = 0
+            startTimeQueue.sync {
+                out = self.isLooping ? self.loop.start : self._startTime
+                out = max(0, out)
+            }
             return out
         }
 
         set {
-            _startTime = max(0, newValue)
+            startTimeQueue.sync {
+                self._startTime = max(0, newValue)
+            }
         }
     }
 
     /// Get or set the end time of the player.
     public var endTime: Double {
         get {
-            return isLooping ? loop.end : _endTime
+            var out: Double = 0
+            endTimeQueue.sync {
+                out = self.isLooping ? self.loop.end : self._endTime
+            }
+            return out
         }
 
         set {
@@ -190,7 +203,9 @@ public class AKPlayer: AKNode {
             if newValue == 0 {
                 newValue = duration
             }
-            _endTime = min(newValue, duration)
+            endTimeQueue.sync {
+                self._endTime = min(newValue, duration)
+            }
         }
     }
 

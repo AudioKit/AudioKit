@@ -5,9 +5,9 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-import Cocoa
-import AVFoundation
 import AudioKit
+import AVFoundation
+import Cocoa
 
 /// An Example of how to create an AudioUnit Host application.
 /// This is also a demo for how to use AKPlayer.
@@ -15,19 +15,19 @@ class AudioUnitManager: NSViewController {
     let akInternals = "AudioKit ★"
     let windowPrefix = "FX"
 
-    @IBOutlet weak var effectsContainer: NSView!
-    @IBOutlet weak var waveformContainer: NSView!
-    @IBOutlet weak var timeField: NSTextField!
-    @IBOutlet weak var playButton: NSButton!
-    @IBOutlet weak var rewindButton: NSButton!
-    @IBOutlet weak var loopButton: NSButton!
-    @IBOutlet weak var audioBufferedButton: NSButton!
-    @IBOutlet weak var audioReversedButton: NSButton!
-    @IBOutlet weak var instrumentPlayButton: NSButton!
-    @IBOutlet weak var fileField: NSTextField!
-    @IBOutlet weak var fmButton: NSButton!
-    @IBOutlet weak var auInstrumentSelector: NSPopUpButton!
-    @IBOutlet weak var midiDeviceSelector: NSPopUpButton!
+    @IBOutlet var effectsContainer: NSView!
+    @IBOutlet var waveformContainer: NSView!
+    @IBOutlet var timeField: NSTextField!
+    @IBOutlet var playButton: NSButton!
+    @IBOutlet var rewindButton: NSButton!
+    @IBOutlet var loopButton: NSButton!
+    @IBOutlet var audioBufferedButton: NSButton!
+    @IBOutlet var audioReversedButton: NSButton!
+    @IBOutlet var instrumentPlayButton: NSButton!
+    @IBOutlet var fileField: NSTextField!
+    @IBOutlet var fmButton: NSButton!
+    @IBOutlet var auInstrumentSelector: NSPopUpButton!
+    @IBOutlet var midiDeviceSelector: NSPopUpButton!
 
     internal var lastMIDIEvent: Int = 0
     internal var audioTimer: Timer?
@@ -86,7 +86,7 @@ class AudioUnitManager: NSViewController {
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
-        //AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
+        // AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
         if !AudioKit.engine.isRunning {
             AudioKit.start()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -173,7 +173,7 @@ class AudioUnitManager: NSViewController {
             openPanel!.message = "Open Audio File"
             openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
         }
-        openPanel!.beginSheetModal( for: window, completionHandler: { response in
+        openPanel!.beginSheetModal(for: window, completionHandler: { response in
             if response == NSApplication.ModalResponse.OK {
                 if let url = self.openPanel?.url {
                     self.open(url: url)
@@ -208,7 +208,7 @@ class AudioUnitManager: NSViewController {
             if self.auInstrument == nil {
                 return
             }
-            self.internalManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer )
+            self.internalManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer)
             self.showAudioUnit(audioUnit, identifier: 6)
             DispatchQueue.main.async {
                 self.instrumentPlayButton.isEnabled = true

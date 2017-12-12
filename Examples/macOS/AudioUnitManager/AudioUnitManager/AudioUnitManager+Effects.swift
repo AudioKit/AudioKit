@@ -6,9 +6,9 @@
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
-import Cocoa
-import AVFoundation
 import AudioKit
+import AVFoundation
+import Cocoa
 
 extension AudioUnitManager {
 
@@ -57,7 +57,7 @@ extension AudioUnitManager {
 
     ////////////////////////////
 
-    func showEffect( at auIndex: Int, state: Bool ) {
+    func showEffect(at auIndex: Int, state: Bool) {
         if auIndex > internalManager!.effectsChain.count - 1 {
             AKLog("index is out of range")
             return
@@ -132,7 +132,7 @@ extension AudioUnitManager {
     }
 
     // MARK: - Build the effects menus
-    fileprivate func updateEffectsUI( audioUnits: [AVAudioUnitComponent] ) {
+    fileprivate func updateEffectsUI(audioUnits: [AVAudioUnitComponent]) {
         var manufacturers = [String]()
 
         for component in audioUnits {
@@ -143,7 +143,7 @@ extension AudioUnitManager {
         }
 
         // going to put internal AUs in here
-        manufacturers.append( akInternals )
+        manufacturers.append(akInternals)
         manufacturers.sort()
 
         // fill all the menus with the same list
@@ -203,7 +203,7 @@ extension AudioUnitManager {
         }
     }
 
-    internal func getMenuFromIdentifier(_ tag: Int ) -> MenuButton? {
+    internal func getMenuFromIdentifier(_ tag: Int) -> MenuButton? {
         guard effectsContainer != nil else { return nil }
 
         for sv in effectsContainer.subviews {
@@ -215,7 +215,7 @@ extension AudioUnitManager {
         return nil
     }
 
-    internal func getWindowFromIndentifier(_ tag: Int ) -> NSWindow? {
+    internal func getWindowFromIndentifier(_ tag: Int) -> NSWindow? {
         let identifier = windowPrefix + String(tag)
         guard let windows = self.view.window?.childWindows else { return nil }
         for w in windows where w.identifier?.rawValue == identifier {
@@ -224,7 +224,7 @@ extension AudioUnitManager {
         return nil
     }
 
-    internal func getEffectsButtonFromIdentifier(_ buttonId: Int ) -> NSButton? {
+    internal func getEffectsButtonFromIdentifier(_ buttonId: Int) -> NSButton? {
         guard effectsContainer != nil else { return nil }
 
         for sv in effectsContainer.subviews {
@@ -239,7 +239,7 @@ extension AudioUnitManager {
         return nil
     }
 
-    public func showAudioUnit(_ audioUnit: AVAudioUnit, identifier: Int ) {
+    public func showAudioUnit(_ audioUnit: AVAudioUnit, identifier: Int) {
         // first we ask the audio unit if it has a view controller inside it
         audioUnit.auAudioUnit.requestViewController { [weak self] viewController in
             var ui = viewController
@@ -247,7 +247,7 @@ extension AudioUnitManager {
             DispatchQueue.main.async {
                 // if it doesn't - then an Audio Unit host's job is to create one for it
                 if ui == nil {
-                    //AKLog("No ViewController for \(audioUnit.name )")
+                    // AKLog("No ViewController for \(audioUnit.name )")
                     ui = NSViewController()
                     ui!.view = AudioUnitGenericView(audioUnit: audioUnit)
                 }
@@ -257,7 +257,7 @@ extension AudioUnitManager {
         }
     }
 
-    private func createAUWindow(viewController: NSViewController, audioUnit: AVAudioUnit, identifier: Int ) {
+    private func createAUWindow(viewController: NSViewController, audioUnit: AVAudioUnit, identifier: Int) {
         guard let auName = audioUnit.auAudioUnit.audioUnitName else { return }
 
         let incomingFrame = viewController.view.frame
@@ -297,7 +297,7 @@ extension AudioUnitManager {
         viewController.view.frame = uiFrame
 
         if let w = getWindowFromIndentifier(identifier) {
-            unitWindow.setFrameOrigin( w.frame.origin )
+            unitWindow.setFrameOrigin(w.frame.origin)
             w.close()
         }
 
@@ -341,11 +341,11 @@ extension AudioUnitManager: AKAudioUnitManagerDelegate {
 
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
         if type == AKAudioUnitManager.Notification.changed {
-            updateEffectsUI( audioUnits: internalManager!.availableEffects )
+            updateEffectsUI(audioUnits: internalManager!.availableEffects)
         }
     }
 
-    func handleEffectAdded( at auIndex: Int ) {
+    func handleEffectAdded(at auIndex: Int) {
         showEffect(at: auIndex, state: true)
         reconnect()
     }
