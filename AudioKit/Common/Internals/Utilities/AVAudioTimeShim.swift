@@ -87,7 +87,7 @@ extension AVAudioTime {
     open func toSeconds(hostTime: UInt64) -> Double {
         return AVAudioTime.seconds(forHostTime: self.hostTime - hostTime)
     }
-    
+
     // Convert seconds to AVAudioTime with a hostTime reference
     open class func secondsToAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds

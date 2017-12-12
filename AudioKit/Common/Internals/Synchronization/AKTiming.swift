@@ -166,4 +166,3 @@ extension AKNodeTiming: AKTiming {
         idleTime = position
     }
 }
-
