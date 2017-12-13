@@ -302,14 +302,20 @@ public class AKPlayer: AKNode {
 
         loop.start = 0
         loop.end = duration
-        preroll(from: 0)
+        buffer = nil
+        preroll(from: 0, to: duration)
     }
 
     // MARK: - Loading
 
     /// Replace the contents of the player with this url
     public func load(url: URL) throws {
-        audioFile = try AVAudioFile(forReading: url)
+        let file = try AVAudioFile(forReading: url)
+        load(audioFile: file)
+    }
+
+    public func load(audioFile: AVAudioFile) {
+        self.audioFile = audioFile
         initialize()
     }
 
