@@ -380,8 +380,6 @@ public class AKPlayer: AKNode {
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
-
-        // startTimeRef = AVAudioTime.now()
         playerNode.play()
     }
 
