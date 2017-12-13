@@ -507,7 +507,7 @@ public class AKPlayer: AKNode {
     // this will be the method in the scheduling completionHandler >= 10.13
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc private func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        // AKLog("\(audioFile?.url.lastPathComponent ?? "Error") playerTime.sampleTime: \(currentFrame) totalFrames: \(frameCount)")
+        // AKLog("\(audioFile?.url.lastPathComponent ?? "Error") currentFrame:\(currentFrame) totalFrames:\(frameCount)")
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
 
@@ -547,7 +547,7 @@ public class AKPlayer: AKNode {
         // since the edit points would be reversed as well, we swap them here:
         if isReversed {
             let revEndTime = duration - startTime
-            let revStartTime = endTime > 0 ? duration - endTime : duration
+            let revStartTime = endTime > 0 ? duration - endTime: duration
 
             startFrame = AVAudioFramePosition(revStartTime * fileFormat.sampleRate)
             endFrame = AVAudioFramePosition(revEndTime * fileFormat.sampleRate)
@@ -610,7 +610,7 @@ public class AKPlayer: AKNode {
             let audioFile = self.audioFile,
             let floatChannelData = buffer.floatChannelData,
             let fadedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity) else {
-            return
+                return
         }
         let length: AVAudioFrameCount = buffer.frameLength
 
