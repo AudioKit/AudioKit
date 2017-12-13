@@ -7,6 +7,8 @@
 //
 
 /// Not so simple audio playback class
+
+//AURE: ? @available(*, deprecated, renamed: "AKPlayer")
 open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Private variables
