@@ -23,7 +23,7 @@ converter.start(completionHandler: { error in
 })
 ```
 */
-class AKConverter: NSObject {
+public class AKConverter: NSObject {
     /**
      AKConverterCallback is the callback format for start()
      -Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
@@ -99,17 +99,17 @@ class AKConverter: NSObject {
 
         // Format checks are necessary as AVAssetReader has opinions about compressed audio for some illogical reason
         if isCompressed(url: inputURL) && isCompressed(url: outputURL) {
-            AKLog("\(inputURL.lastPathComponent) \(outputURL.lastPathComponent) are both compressed so passing to convertCompressed...")
+            //AKLog("\(inputURL.lastPathComponent) \(outputURL.lastPathComponent) are both compressed so passing to convertCompressed...")
             convertCompressed(completionHandler: completionHandler)
             return
 
-        } else if isCompressed(url: inputURL) && !isCompressed(url: outputURL) {
-            AKLog("\(inputURL.lastPathComponent) is compressed so passing to core audio...")
+        } else if !isCompressed(url: outputURL) {
+            //AKLog("\(inputURL.lastPathComponent) is compressed so passing to core audio...")
             convertToPCM(completionHandler: completionHandler)
             return
         }
 
-        AKLog("Converting \(inputURL.lastPathComponent) to \(outputURL.path)...")
+        //AKLog("Converting \(inputURL.lastPathComponent) to \(outputURL.path)...")
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
@@ -258,9 +258,10 @@ class AKConverter: NSObject {
                     writerInput.markAsFinished()
                     writer.endSession(atSourceTime: asset.duration)
                     writer.finishWriting {
-                        Swift.print("DONE: \(self.reader!.asset)")
-
-                        completionHandler?(nil)
+                        //Swift.print("DONE: \(self.reader!.asset)")
+                        DispatchQueue.main.async {
+                            completionHandler?(nil)
+                        }
                     }
                 }
             }
