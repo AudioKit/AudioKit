@@ -20,10 +20,10 @@ import AVFoundation
  A locked video function would resemble:
  ```
  func videoPlay(at time: TimeInterval = 0, hostTime: UInt64 = 0 ) {
- let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
- let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
- let futureTime = CMTimeAdd(cmHostTime, cmVTime)
- videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
+     let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
+     let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
+     let futureTime = CMTimeAdd(cmHostTime, cmVTime)
+     videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
  }
  ```
 
@@ -509,7 +509,7 @@ public class AKPlayer: AKNode {
     // this will be the method in the scheduling completionHandler >= 10.13
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc private func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        //AKLog("\(audioFile?.url.lastPathComponent ?? "Error") playerTime.sampleTime: \(currentFrame) totalFrames: \(frameCount)")
+        // AKLog("\(audioFile?.url.lastPathComponent ?? "Error") playerTime.sampleTime: \(currentFrame) totalFrames: \(frameCount)")
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
 
@@ -605,7 +605,7 @@ public class AKPlayer: AKNode {
         if fade.inTime == 0 && fade.outTime == 0 {
             return
         }
-        //AKLog("fadeBuffer() inTime: \(fade.inTime) outTime: \(fade.outTime)")
+        // AKLog("fadeBuffer() inTime: \(fade.inTime) outTime: \(fade.outTime)")
 
         guard isBuffered,
             let buffer = self.buffer,
