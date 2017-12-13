@@ -10,7 +10,7 @@ public class AKPresetLoaderView: NSView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
     var presetOuterPath = NSBezierPath()
     var upOuterPath = NSBezierPath()
     var downOuterPath = NSBezierPath()
