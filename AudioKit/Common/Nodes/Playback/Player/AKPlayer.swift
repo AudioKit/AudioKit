@@ -20,10 +20,10 @@ import AVFoundation
  A locked video function would resemble:
  ```
  func videoPlay(at time: TimeInterval = 0, hostTime: UInt64 = 0 ) {
-    let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
-    let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
-    let futureTime = CMTimeAdd(cmHostTime, cmVTime)
-    videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
+ let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
+ let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
+ let futureTime = CMTimeAdd(cmHostTime, cmVTime)
+ videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
  }
  ```
 
@@ -52,9 +52,9 @@ public class AKPlayer: AKNode {
         case dynamic, always
     }
 
-    //TODO: allow for different exponential curve slopes, implement other types
+    // TODO: allow for different exponential curve slopes, implement other types
     public enum FadeType {
-        case exponential //, linear, logarithmic
+        case exponential // , linear, logarithmic
     }
 
     public struct Loop {
@@ -381,7 +381,7 @@ public class AKPlayer: AKNode {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
 
-        //startTimeRef = AVAudioTime.now()
+        // startTimeRef = AVAudioTime.now()
         playerNode.play()
     }
 
@@ -451,13 +451,13 @@ public class AKPlayer: AKNode {
 
         let bufferOptions: AVAudioPlayerNodeBufferOptions = isLooping ? [.loops, .interrupts] : [.interrupts]
 
-        //AKLog("Scheduling buffer...\(startTime) to \(endTime)")
+        // AKLog("Scheduling buffer...\(startTime) to \(endTime)")
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
                                       options: bufferOptions,
                                       completionCallbackType: .dataPlayedBack,
-                                      completionHandler: handleCallbackComplete)
+                                      completionHandler: completionHandler != nil ? handleCallbackComplete : nil)
         } else {
             // Fallback on earlier version
             playerNode.scheduleBuffer(buffer,
@@ -483,7 +483,7 @@ public class AKPlayer: AKNode {
         let totalFrames = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
         frameCount = AVAudioFrameCount(totalFrames)
 
-        //AKLog("startFrame: \(startFrame) frameCount: \(frameCount)")
+        // AKLog("startFrame: \(startFrame) frameCount: \(frameCount)")
 
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleSegment(audioFile,
@@ -491,7 +491,7 @@ public class AKPlayer: AKNode {
                                        frameCount: frameCount,
                                        at: audioTime,
                                        completionCallbackType: .dataPlayedBack,
-                                       completionHandler: handleCallbackComplete)
+                                       completionHandler: completionHandler != nil ? handleCallbackComplete : nil)
         } else {
             // Fallback on earlier version
             playerNode.scheduleSegment(audioFile,
@@ -509,12 +509,12 @@ public class AKPlayer: AKNode {
     // this will be the method in the scheduling completionHandler >= 10.13
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc private func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        //AKLog("handleCallbackComplete() playerTime.sampleTime: \(currentFrame) totalFrames: \(frameCount)")
+        //AKLog("\(audioFile?.url.lastPathComponent ?? "Error") playerTime.sampleTime: \(currentFrame) totalFrames: \(frameCount)")
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
+
         if currentFrame >= frameCount {
             DispatchQueue.main.async {
-                self.stop()
                 self.completionHandler?()
             }
         }
@@ -605,7 +605,7 @@ public class AKPlayer: AKNode {
         if fade.inTime == 0 && fade.outTime == 0 {
             return
         }
-        AKLog("fadeBuffer() inTime: \(fade.inTime) outTime: \(fade.outTime)")
+        //AKLog("fadeBuffer() inTime: \(fade.inTime) outTime: \(fade.outTime)")
 
         guard isBuffered,
             let buffer = self.buffer,
@@ -621,7 +621,7 @@ public class AKPlayer: AKNode {
 
         let sampleTime: Double = 1.0 / audioFile.sampleRate
 
-        //exponential fade type
+        // exponential fade type
 
         // from -20db?
         let fadeInPower: Double = exp(log(10) * sampleTime / fade.inTime)
@@ -650,7 +650,7 @@ public class AKPlayer: AKNode {
                     gain = 1.0
                 }
 
-                //sanity check
+                // sanity check
                 if gain > 1 {
                     gain = 1
                 }
@@ -699,7 +699,7 @@ public class AKPlayer: AKNode {
     }
 
     deinit {
-        AKLog("* deinit AKPlayer. Bye!")
+        AKLog("* deinit AKPlayer")
     }
 }
 
