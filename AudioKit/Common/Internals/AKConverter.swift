@@ -6,8 +6,6 @@
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
-import AVFoundation
-
 /**
  AKConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
  ```
@@ -23,7 +21,7 @@ import AVFoundation
  })
  ```
  */
-public class AKConverter: NSObject {
+open class AKConverter: NSObject {
     /**
      AKConverterCallback is the callback format for start()
      -Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
@@ -81,7 +79,7 @@ public class AKConverter: NSObject {
 
      - Parameter completionHandler: the callback that will be triggered when process has completed.
      */
-    public func start(completionHandler: AKConverterCallback? = nil) {
+    open func start(completionHandler: AKConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(createError(message: "Input file can't be nil."))
             return

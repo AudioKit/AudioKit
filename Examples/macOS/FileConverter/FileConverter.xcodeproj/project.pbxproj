@@ -15,7 +15,6 @@
 		B1D1ED861FE30BC800A07122 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B1D1ED821FE30BB300A07122 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B1D1ED871FE30BC800A07122 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D1ED811FE30BB300A07122 /* AudioKitUI.framework */; };
 		B1D1ED881FE30BC800A07122 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B1D1ED811FE30BB300A07122 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B1D1ED8A1FE30E3000A07122 /* AKConverterDev.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1ED891FE30E3000A07122 /* AKConverterDev.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,7 +42,6 @@
 		B1BF70371FE2F42B00110328 /* FileConverter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileConverter.entitlements; sourceTree = "<group>"; };
 		B1D1ED811FE30BB300A07122 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		B1D1ED821FE30BB300A07122 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
-		B1D1ED891FE30E3000A07122 /* AKConverterDev.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKConverterDev.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +85,6 @@
 				B1BF70331FE2F42B00110328 /* Main.storyboard */,
 				B1BF70361FE2F42B00110328 /* Info.plist */,
 				B1BF70371FE2F42B00110328 /* FileConverter.entitlements */,
-				B1D1ED891FE30E3000A07122 /* AKConverterDev.swift */,
 			);
 			path = FileConverter;
 			sourceTree = "<group>";
@@ -110,6 +107,7 @@
 				B1BF70271FE2F42B00110328 /* Frameworks */,
 				B1BF70281FE2F42B00110328 /* Resources */,
 				B1BF70451FE2F62400110328 /* Embed Frameworks */,
+				B1D1ED8B1FE31B1600A07122 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -166,6 +164,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B1D1ED8B1FE31B1600A07122 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B1BF70261FE2F42B00110328 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -173,7 +187,6 @@
 			files = (
 				B1BF70301FE2F42B00110328 /* FileConverter.swift in Sources */,
 				B1BF702E1FE2F42B00110328 /* AppDelegate.swift in Sources */,
-				B1D1ED8A1FE30E3000A07122 /* AKConverterDev.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +321,7 @@
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "../../../Frameworks/AudioKit-macOS";
 				INFOPLIST_FILE = FileConverter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FileConverter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -326,7 +339,7 @@
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "../../../Frameworks/AudioKit-macOS";
 				INFOPLIST_FILE = FileConverter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FileConverter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
