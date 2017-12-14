@@ -31,13 +31,14 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        plumber_register(&pd);
-        plumber_init(&pd);
-        pd.sp = sp;
-        NSString *sporth = [NSString stringWithFormat:@"0 p 1 p 2 p %f vdelay dup", internalMaxDelay];
-        char *sporthCode = (char *)[sporth UTF8String];
-        plumber_parse_string(&pd, sporthCode);
-        plumber_compute(&pd, PLUMBER_INIT);
+        sp_vdelay_create(&vdelay0);
+        sp_vdelay_create(&vdelay1);
+        sp_vdelay_init(sp, vdelay0, 10.0);
+        sp_vdelay_init(sp, vdelay1, 10.0);
+        vdelay0->del = 0.0;
+        vdelay0->feedback = 0.0;
+        vdelay1->del = 0.0;
+        vdelay1->feedback = 0.0;
 
         timeRamper.init();
         feedbackRamper.init();
@@ -52,12 +53,15 @@ public:
     }
 
     void destroy() {
-        plumber_clean(&pd);
+        sp_vdelay_destroy(&vdelay0);
+        sp_vdelay_destroy(&vdelay1);
         AKSoundpipeKernel::destroy();
     }
 
     void reset() {
         resetted = true;
+        sp_vdelay_reset(sp, vdelay0);
+        sp_vdelay_reset(sp, vdelay1);
         timeRamper.reset();
         feedbackRamper.reset();
     }
@@ -122,26 +126,25 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             time = timeRamper.getAndStep();
+            vdelay0->del = (float)time;
+            vdelay1->del = (float)time;
             feedback = feedbackRamper.getAndStep();
+            vdelay0->feedback = (float)feedback;
+            vdelay1->feedback = (float)feedback;
 
-            if (!started) {
-                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-                return;
-            }
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                if (channel < 2) {
-                    pd.p[channel] = *in;
-                }
-            }
-            pd.p[1] = (float)feedback;
-            pd.p[2] = (float)time;
-            plumber_compute(&pd, PLUMBER_COMPUTE);
-
-            for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                *out = sporth_stack_pop_float(&pd.sporth.stack);
+
+                if (started) {
+                    if (channel == 0) {
+                        sp_vdelay_compute(sp, vdelay0, in, out);
+                    } else {
+                        sp_vdelay_compute(sp, vdelay1, in, out);
+                    }
+                } else {
+                    *out = *in;
+                }
             }
         }
     }
@@ -150,17 +153,18 @@ public:
 
 private:
 
-    plumber_data pd;
+    sp_vdelay *vdelay0;
+    sp_vdelay *vdelay1;
 
-    float internalMaxDelay = 5.0;
+    float internalMaxDelay = 10.0;
 
-    float time = 1;
+    float time = 0;
     float feedback = 0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper timeRamper = 1;
+    ParameterRamper timeRamper = 0;
     ParameterRamper feedbackRamper = 0;
 };
 
