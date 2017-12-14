@@ -29,7 +29,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Delay time (in seconds) that can be changed at any point. This value must not exceed the maximum delay time.
-    @objc open dynamic var time: Double = 1 {
+    @objc open dynamic var time: Double = 0 {
         willSet {
             if time != newValue {
                 if internalAU?.isSetUp() ?? false {
@@ -74,7 +74,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        time: Double = 1,
+        time: Double = 0,
         feedback: Double = 0,
         maximumDelayTime: Double = 5) {
 
