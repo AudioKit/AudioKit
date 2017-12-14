@@ -40,16 +40,17 @@ public class AKConverter: NSObject {
      The conversion options, leave nil to adopt the value of the input file
      */
     public struct Options {
-        var format: String?
-        var sampleRate: Double?
+        public init() {}
+        public var format: String?
+        public var sampleRate: Double?
         /// used only with PCM data
-        var bitDepth: UInt32?
+        public var bitDepth: UInt32?
         /// used only when outputting compressed from PCM
-        var bitRate: UInt32 = 256_000
-        var channels: UInt32?
-        var isInterleaved: Bool?
+        public var bitRate: UInt32 = 256_000
+        public var channels: UInt32?
+        public var isInterleaved: Bool?
         /// overwrite existing files, set false if you want to handle this
-        var eraseFile: Bool = true
+        public var eraseFile: Bool = true
     }
 
     // MARK: - public properties
@@ -192,7 +193,7 @@ public class AKConverter: NSObject {
             format = .wav
             formatKey = kAudioFormatLinearPCM
         default:
-            AKLog("Unsupported output format: \(outputFormat)")
+            Swift.print("Unsupported output format: \(outputFormat)")
             return
         }
 
@@ -214,7 +215,7 @@ public class AKConverter: NSObject {
             isFloat = intDepth == 32
         }
 
-        let sampleRate = options.sampleRate ?? inputFile.fileFormat.sampleRate
+        var sampleRate = options.sampleRate ?? inputFile.fileFormat.sampleRate
         let channels = options.channels ?? inputFile.fileFormat.channelCount
 
         var outputSettings: [String: Any] = [
@@ -229,6 +230,11 @@ public class AKConverter: NSObject {
 
         // Note: AVAssetReaderOutput does not currently support compressed output
         if formatKey == kAudioFormatMPEG4AAC {
+
+            if sampleRate > 48_000 {
+                sampleRate = 44_100
+            }
+
             outputSettings = [
                 AVFormatIDKey: formatKey,
                 AVSampleRateKey: sampleRate,
@@ -251,7 +257,7 @@ public class AKConverter: NSObject {
         reader.add(readerOutput)
 
         if !writer.startWriting() {
-            // AKLog("Failed to start writing. Error: \(writer.error)")
+            // Swift.print("Failed to start writing. Error: \(writer.error)")
             completionHandler?(writer.error)
             return
         }
@@ -263,6 +269,12 @@ public class AKConverter: NSObject {
 
         writerInput.requestMediaDataWhenReady(on: queue, using: {
             while writerInput.isReadyForMoreMediaData {
+
+                if reader.status == AVAssetReaderStatus.failed {
+                    Swift.print("Conversion Failed")
+                    break
+                }
+
                 if let buffer = readerOutput.copyNextSampleBuffer() {
                     writerInput.append(buffer)
 
@@ -270,7 +282,7 @@ public class AKConverter: NSObject {
                     writerInput.markAsFinished()
                     writer.endSession(atSourceTime: asset.duration)
                     writer.finishWriting {
-                        // AKLog("DONE: \(self.reader!.asset)")
+                        // Swift.print("DONE: \(self.reader!.asset)")
                         DispatchQueue.main.async {
                             completionHandler?(nil)
                         }
@@ -321,7 +333,7 @@ public class AKConverter: NSObject {
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
-        AKLog("convertToPCM() to \(outputURL)")
+        Swift.print("convertToPCM() to \(outputURL)")
 
         var format: AudioFileTypeID
         let formatKey: AudioFormatID = kAudioFormatLinearPCM
@@ -397,8 +409,13 @@ public class AKConverter: NSObject {
             AudioFileFlags.eraseFile.rawValue, // overwrite old file if present
             &destinationFile)
 
-        guard let outputFile = destinationFile, error != noErr else {
+        if error != noErr {
             completionHandler?(createError(message: "Unable to create output file."))
+            return
+        }
+
+        guard let outputFile = destinationFile else {
+            completionHandler?(createError(message: "Unable to create output file (2)."))
             return
         }
 
@@ -407,7 +424,6 @@ public class AKConverter: NSObject {
                                         thePropertySize,
                                         &dstFormat)
         if error != noErr {
-            Swift.print("Error 2")
             completionHandler?(createError(message: "Unable to set data format on output file."))
             return
         }
