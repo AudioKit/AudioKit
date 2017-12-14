@@ -7,7 +7,6 @@
 
 import AudioKit
 import AudioKitUI
-import AVFoundation
 import Cocoa
 
 class FileConverter: NSViewController {
@@ -38,6 +37,7 @@ class FileConverter: NSViewController {
         savePanel.isExtensionHidden = false
 
         sampleRatePopUp.selectItem(withTitle: "44100")
+
     }
 
     @IBAction func openDocument(_ sender: Any) {

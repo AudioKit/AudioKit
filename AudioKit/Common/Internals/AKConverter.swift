@@ -29,10 +29,10 @@ open class AKConverter: NSObject {
     public typealias AKConverterCallback = (_ error: Error?) -> Void
 
     /** Formats that this class can write */
-    public static let outputFormats = ["wav", "aif", "caf", "m4a"]
+    open static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
     /** Formats that this class can read */
-    public static let inputFormats = AKConverter.outputFormats + ["mp3", "mp4", "snd", "au", "sd2", "aiff", "aifc", "aac"]
+    open static let inputFormats = AKConverter.outputFormats + ["mp3", "mp4", "snd", "au", "sd2", "aiff", "aifc", "aac"]
 
     /**
      The conversion options, leave nil to adopt the value of the input file
@@ -53,9 +53,9 @@ open class AKConverter: NSObject {
 
     // MARK: - public properties
 
-    public var inputURL: URL?
-    public var outputURL: URL?
-    public var options: Options?
+    open var inputURL: URL?
+    open var outputURL: URL?
+    open var options: Options?
 
     // MARK: - private properties
 
