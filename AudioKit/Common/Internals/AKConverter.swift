@@ -1,5 +1,5 @@
 //
-//  AKConverterDev.swift
+//  AKConverter.swift
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
@@ -9,21 +9,21 @@
 import AVFoundation
 
 /**
- AKConverterDev wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
+ AKConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
  ```
- let options = AKConverterDev.Options()
+ let options = AKConverter.Options()
  // any options left nil will assume the value of the input file
  options.format = "wav"
  options.sampleRate == 48000
  options.bitDepth = 24
 
- let converter = AKConverterDev(inputURL: oldURL, outputURL: newURL, options: options)
+ let converter = AKConverter(inputURL: oldURL, outputURL: newURL, options: options)
  converter.start(completionHandler: { error in
  // check to see if error isn't nil, otherwise you're good
  })
  ```
  */
-public class AKConverterDev: NSObject {
+public class AKConverter: NSObject {
     /**
      AKConverterCallback is the callback format for start()
      -Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
@@ -34,7 +34,7 @@ public class AKConverterDev: NSObject {
     public static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
     /** Formats that this class can read */
-    public static let inputFormats = AKConverterDev.outputFormats + ["mp3", "mp4", "snd", "au", "sd2", "aiff", "aifc", "aac"]
+    public static let inputFormats = AKConverter.outputFormats + ["mp3", "mp4", "snd", "au", "sd2", "aiff", "aifc", "aac"]
 
     /**
      The conversion options, leave nil to adopt the value of the input file
@@ -93,7 +93,7 @@ public class AKConverterDev: NSObject {
 
         let inputFormat = inputURL.pathExtension.lowercased()
         // verify inputFormat
-        guard AKConverterDev.inputFormats.contains(inputFormat) else {
+        guard AKConverter.inputFormats.contains(inputFormat) else {
             completionHandler?(createError(message: "The input file format isn't able to be processed."))
             return
         }
@@ -127,7 +127,7 @@ public class AKConverterDev: NSObject {
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
         // verify outputFormat
-        guard AKConverterDev.outputFormats.contains(outputFormat) else {
+        guard AKConverter.outputFormats.contains(outputFormat) else {
             completionHandler?(createError(message: "The output file format isn't able to be produced by this class."))
             return
         }
@@ -259,7 +259,7 @@ public class AKConverterDev: NSObject {
         writer.startSession(atSourceTime: kCMTimeZero)
         reader.startReading()
 
-        let queue = DispatchQueue(label: "io.audiokit.AKConverterDev.start", qos: .utility)
+        let queue = DispatchQueue(label: "io.audiokit.AKConverter.start", qos: .utility)
 
         writerInput.requestMediaDataWhenReady(on: queue, using: {
             while writerInput.isReadyForMoreMediaData {
@@ -481,6 +481,6 @@ public class AKConverterDev: NSObject {
 
     private func createError(message: String, code: Int = 1) -> NSError {
         let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
-        return NSError(domain: "io.audiokit.AKConverterDev.error", code: code, userInfo: userInfo)
+        return NSError(domain: "io.audiokit.AKConverter.error", code: code, userInfo: userInfo)
     }
 }
