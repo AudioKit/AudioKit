@@ -132,15 +132,12 @@ class ViewController: NSViewController {
                 drumPlayer.prepare(withFrameCount: 44_100)
                 guitarPlayer.prepare(withFrameCount: 44_100)
 
-                drumLooper.play()
-                guitarLooper.play()
-                ambientGuitar.play()
-
                 let twoRendersTime = AKSettings.ioBufferDuration * 2
                 let futureTime = AVAudioTime.now() + twoRendersTime
 
                 drumLooper.play(at: futureTime)
                 guitarLooper.play(at: futureTime)
+                ambientGuitar.play(at: futureTime)
 
                 let loopDur = drumFile.duration
                 drumPlayer.play(at: futureTime + loopDur)
