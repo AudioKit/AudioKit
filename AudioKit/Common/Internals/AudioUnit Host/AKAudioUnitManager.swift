@@ -7,6 +7,13 @@
 //
 import AVFoundation
 
+extension Notification.Name {
+    static let ComponentRegistrationsChanged = Notification.Name(rawValue: kAudioComponentRegistrationsChangedNotification as String)
+
+    static let ComponentInstanceInvalidation = Notification.Name(rawValue: kAudioComponentInstanceInvalidationNotification as String)
+
+}
+
 /// Audio Unit Manager
 open class AKAudioUnitManager: NSObject {
 
@@ -157,8 +164,7 @@ open class AKAudioUnitManager: NSObject {
         internalAudioUnits.sort()
 
         // Sign up for a notification when the list of available components changes.
-        var name = NSNotification.Name(rawValue: kAudioComponentRegistrationsChangedNotification as String)
-        NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged, object: nil, queue: nil) { [weak self] _ in
 
             guard let strongSelf = self else {
                 AKLog("Unable to create strong ref to self")
@@ -174,8 +180,8 @@ open class AKAudioUnitManager: NSObject {
 
         //TODO: This might not be working?
         // Sign up for a notification when an audio unit crashes. Note that we handle this on the main queue for thread-safety.
-        name = NSNotification.Name(String(kAudioComponentInstanceInvalidationNotification))
-        NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil) { [weak self] notification in
+
+        NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation, object: nil, queue: nil) { [weak self] notification in
             guard let strongSelf = self else {
                 AKLog("Unable to create strong ref to self")
                 return
