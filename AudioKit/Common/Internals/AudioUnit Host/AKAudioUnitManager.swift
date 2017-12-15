@@ -16,6 +16,7 @@ extension Notification.Name {
 
 /// Audio Unit Manager
 open class AKAudioUnitManager: NSObject {
+    static let ComponentDescription = AudioComponentDescription(type: kAudioUnitType_MusicDevice, subType: 0)
 
     /// All possible types of notifications this class may generate
     public enum Notification {
@@ -234,14 +235,9 @@ open class AKAudioUnitManager: NSObject {
 
              Make a component description matching any AU of the type.
              */
-            var componentDescription = AudioComponentDescription()
-            componentDescription.componentType = kAudioUnitType_MusicDevice
-            componentDescription.componentSubType = 0
-            componentDescription.componentManufacturer = 0
-            componentDescription.componentFlags = 0
-            componentDescription.componentFlagsMask = 0
 
-            self.availableInstruments = AVAudioUnitComponentManager.shared().components(matching: componentDescription)
+
+            self.availableInstruments = AVAudioUnitComponentManager.shared().components(matching: AKAudioUnitManager.ComponentDescription)
 
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
