@@ -83,6 +83,7 @@ class AudioUnitManager: NSViewController {
         initMIDI()
         initUI()
         audioEnabled = false
+
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
