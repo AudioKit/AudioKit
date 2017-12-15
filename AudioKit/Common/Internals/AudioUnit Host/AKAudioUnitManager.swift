@@ -83,10 +83,10 @@ open class AKAudioUnitManager: NSObject {
                     }
 
                     if let acd = newValue[i]?.audioComponentDescription {
-                        createEffectAudioUnit(acd, completionHandler: { au in
+                        createEffectAudioUnit(acd) { au in
                             unitsCreated += 1
                             self._effectsChain[i] = au
-                        })
+                        }
                     }
                 } else {
                     unitsCreated += 1
@@ -112,12 +112,9 @@ open class AKAudioUnitManager: NSObject {
     /// `availableEffects` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
     public var availableEffects: [AVAudioUnitComponent] {
         get {
-            var result: [AVAudioUnitComponent]!
-
-            availableEffectsAccessQueue.sync {
-                result = self._availableEffects
+            return availableEffectsAccessQueue.sync {
+                self._availableEffects
             }
-            return result
         }
 
         set {
@@ -130,12 +127,9 @@ open class AKAudioUnitManager: NSObject {
     /// `availableEffects` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
     public var availableInstruments: [AVAudioUnitComponent] {
         get {
-            var result: [AVAudioUnitComponent]!
-
-            availableInstrumentsAccessQueue.sync {
-                result = self._availableInstruments
+            return availableInstrumentsAccessQueue.sync {
+                 self._availableInstruments
             }
-            return result
         }
 
         set {
@@ -243,10 +237,10 @@ open class AKAudioUnitManager: NSObject {
             DispatchQueue.main.async {
                 // notify delegate
 
-                    self.delegate?.handleAudioUnitNotification(type: .instrumentsAvailable,
-                                                               object: self.availableInstruments)
+                self.delegate?.handleAudioUnitNotification(type: .instrumentsAvailable,
+                                                           object: self.availableInstruments)
 
-                    completionHandler?()
+                completionHandler?()
 
             } // dispatch main
         } //dispatch global
@@ -303,53 +297,43 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // Create the Audio Unit at the specified index of the chain
-    public func insertAudioUnit( name: String, at index: Int) {
-        if index < 0 || index > _effectsChain.count - 1 {
-            return
-        }
-        var auFound = false
+    public func insertAudioUnit(name: String, at index: Int) {
+        guard _effectsChain.indices.contains(index) else { return }
 
-        for component in availableEffects {
-            if component.name == name {
-                auFound = true
-                let acd = component.audioComponentDescription
+        if let component = (availableEffects.first { $0.name == name }) {
+            let acd = component.audioComponentDescription
 
-                AKLog("#\(index) \(name) -- \(acd)")
+            AKLog("#\(index) \(name) -- \(acd)")
 
-                createEffectAudioUnit(acd, completionHandler: { au in
-                    guard let audioUnit = au else {
-                        AKLog("Unable to create audioUnit")
-                        return
-                    }
+            createEffectAudioUnit(acd) { au in
+                guard let audioUnit = au else {
+                    AKLog("Unable to create audioUnit")
+                    return
+                }
 
-                    if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
-                        // Dialog.showInformation(title: "Mono Effects aren't supported",
-                        //                        text: "\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
-                        // return
-                        // TODO: handle this better
-                        //AKLog("Warning: \(audioUnit.name) is a Mono effect.")
-                    }
+                if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
+                    // Dialog.showInformation(title: "Mono Effects aren't supported",
+                    //                        text: "\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
+                    // return
+                    // TODO: handle this better
+                    //AKLog("Warning: \(audioUnit.name) is a Mono effect.")
+                }
 
-                    //Swift.print("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
+                //Swift.print("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
 
-                    self._effectsChain[index] = audioUnit
-                    self.connectEffects()
-                    self.delegate?.handleEffectAdded(at: index)
-                })
+                self._effectsChain[index] = audioUnit
+                self.connectEffects()
+                self.delegate?.handleEffectAdded(at: index)
             }
         }
 
         // if it didn't find it in the component list, see if it's an internal one
-        if !auFound {
-            if let avUnit = createInternalAU(name: name) {
-                self._effectsChain[index] = avUnit
-                self.connectEffects()
-                self.delegate?.handleEffectAdded(at: index)
-                return
-            }
-        }
+        else if let avUnit = createInternalAU(name: name) {
 
-        //otherwise it wasn't found
+            self._effectsChain[index] = avUnit
+            self.connectEffects()
+            self.delegate?.handleEffectAdded(at: index)
+        }
     }
 
     private func createInternalAU(name: String) -> AVAudioUnit? {
