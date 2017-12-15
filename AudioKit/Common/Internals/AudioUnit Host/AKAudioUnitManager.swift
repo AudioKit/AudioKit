@@ -23,20 +23,6 @@ open class AKAudioUnitManager: NSObject {
         case effectsAvailable, instrumentsAvailable, changed, crashed, added
     }
 
-    // not including the Apple ones, only the custom ones
-    public private (set) var internalAudioUnits = ["AKVariableDelay", "AKBitCrusher", "AKClipper",
-                                                   "AKDynamicRangeCompressor", "AKDynaRageCompressor", "AKAmplitudeEnvelope", "AKTremolo",
-                                                   "AKAutoWah", "AKBandPassButterworthFilter", "AKBandRejectButterworthFilter", "AKDCBlock",
-                                                   "AKEqualizerFilter", "AKFormantFilter", "AKHighPassButterworthFilter",
-                                                   "AKHighShelfParametricEqualizerFilter", "AKKorgLowPassFilter",
-                                                   "AKLowPassButterworthFilter", "AKLowShelfParametricEqualizerFilter", "AKModalResonanceFilter",
-                                                   "AKMoogLadder", "AKPeakingParametricEqualizerFilter", "AKResonantFilter", "AKRolandTB303Filter",
-                                                   "AKStringResonator", "AKThreePoleLowpassFilter", "AKToneComplementFilter", "AKToneFilter",
-                                                   "AKRhinoGuitarProcessor", "AKPhaser", "AKPitchShifter",
-                                                   "AKChowningReverb", "AKCombFilterReverb", "AKCostelloReverb",
-                                                   "AKFlatFrequencyResponseReverb", "AKZitaReverb", "AKBooster", "AKBooster2",
-                                                   "AKTanhDistortion"]    //"AKRingModulator",
-
     /// Delegate that will be sent notifications
     open weak var delegate: AKAudioUnitManagerDelegate?
 
@@ -149,8 +135,6 @@ open class AKAudioUnitManager: NSObject {
     override public init() {
         super.init()
 
-        internalAudioUnits.sort()
-
         // Sign up for a notification when the list of available components changes.
         NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged, object: nil, queue: nil) { [weak self] _ in
 
@@ -199,9 +183,7 @@ open class AKAudioUnitManager: NSObject {
             let predicate = NSPredicate(format: "typeName CONTAINS 'Effect'", argumentArray: [])
             self.availableEffects = AVAudioUnitComponentManager.shared().components(matching: predicate)
 
-            self.availableEffects = self.availableEffects.sorted {
-                return $0.name < $1.name
-            }
+            self.availableEffects = self.availableEffects.sorted { $0.name }
 
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
