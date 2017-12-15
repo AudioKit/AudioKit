@@ -52,6 +52,11 @@ public:
         started = false;
     }
 
+    void clear() {
+        sp_vdelay_reset(sp, vdelay0);
+        sp_vdelay_reset(sp, vdelay1);
+    }
+
     void destroy() {
         sp_vdelay_destroy(&vdelay0);
         sp_vdelay_destroy(&vdelay1);
