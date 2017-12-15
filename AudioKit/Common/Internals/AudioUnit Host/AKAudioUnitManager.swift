@@ -433,21 +433,14 @@ open class AKAudioUnitManager: NSObject {
 
     /// Create an instrument with a name and a completion handler
     public func createInstrument(name: String, completionHandler: ((AVAudioUnitMIDIInstrument?) -> Void)? = nil) {
-        for component in availableInstruments {
-            if component.name == name {
-                let acd = component.audioComponentDescription
-
-                //AKLog("\(name) -- \(acd)")
-
-                createInstrumentAudioUnit(acd) { au in
-                    guard let audioUnit = au else {
-                        AKLog("Unable to create audioUnit")
-                        return
-                    }
-
-                    completionHandler?(audioUnit)
-                }
+        guard let desc = (availableInstruments.first { $0.name == name })?.audioComponentDescription else { return }
+        createInstrumentAudioUnit(desc) { au in
+            guard let audioUnit = au else {
+                AKLog("Unable to create audioUnit")
+                return
             }
+
+            completionHandler?(audioUnit)
         }
     }
 
