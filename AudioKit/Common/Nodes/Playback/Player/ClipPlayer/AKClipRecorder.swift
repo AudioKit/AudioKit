@@ -310,9 +310,7 @@ private class AKClipRecording: Equatable {
                                         interleaved: buffer.format.isInterleaved)
         }
         try audioFile?.write(from: buffer)
-        if let tap = self.tap {
-            tap(buffer, audioTime)
-        }
+        tap?(buffer, audioTime)
     }
     static public func == (a: AKClipRecording, b: AKClipRecording) -> Bool {
         return a === b
