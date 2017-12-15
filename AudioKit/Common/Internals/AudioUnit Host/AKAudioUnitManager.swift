@@ -342,93 +342,96 @@ open class AKAudioUnitManager: NSObject {
         //        if let av = instance.init().avAudioNode as? AVAudioUnit {
         //            return av
         //        }
-        var avUnit: AVAudioUnit?
+        var node: AKNode?
 
         // in the meantime:
-        if name == "AKVariableDelay" {
-            avUnit = AKVariableDelay().avAudioNode as? AVAudioUnit
-        } else if name == "AKBitCrusher" {
-            avUnit = AKBitCrusher().avAudioNode as? AVAudioUnit
-        } else if name == "AKClipper" {
-            avUnit = AKClipper().avAudioNode as? AVAudioUnit
-        } else if name == "AKRingModulator" {
-            avUnit = AKRingModulator().avAudioNode as? AVAudioUnit
-        } else if name == "AKDynamicRangeCompressor" {
-            avUnit = AKDynamicRangeCompressor().avAudioNode as? AVAudioUnit
-        } else if name == "AKDynaRageCompressor" {
-            avUnit = AKDynaRageCompressor().avAudioNode as? AVAudioUnit
-        } else if name == "AKAmplitudeEnvelope" {
-            avUnit = AKAmplitudeEnvelope().avAudioNode as? AVAudioUnit
-        } else if name == "AKTremolo" {
-            avUnit = AKTremolo().avAudioNode as? AVAudioUnit
-        } else if name == "AKAutoWah" {
-            avUnit = AKAutoWah().avAudioNode as? AVAudioUnit
-        } else if name == "AKBandPassButterworthFilter" {
-            avUnit = AKBandPassButterworthFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKBandRejectButterworthFilter" {
-            avUnit = AKBandRejectButterworthFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKDCBlock" {
-            avUnit = AKDCBlock().avAudioNode as? AVAudioUnit
-        } else if name == "AKEqualizerFilter" {
-            avUnit = AKEqualizerFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKFormantFilter" {
-            avUnit = AKFormantFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKHighPassButterworthFilter" {
-            avUnit = AKHighPassButterworthFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKHighShelfParametricEqualizerFilter" {
-            avUnit = AKHighShelfParametricEqualizerFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKKorgLowPassFilter" {
-            avUnit = AKKorgLowPassFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKLowPassButterworthFilter" {
-            avUnit = AKLowPassButterworthFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKLowShelfParametricEqualizerFilter" {
-            avUnit = AKLowShelfParametricEqualizerFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKModalResonanceFilter" {
-            avUnit = AKModalResonanceFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKMoogLadder" {
-            avUnit = AKMoogLadder().avAudioNode as? AVAudioUnit
-        } else if name == "AKPeakingParametricEqualizerFilter" {
-            avUnit = AKPeakingParametricEqualizerFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKResonantFilter" {
-            avUnit = AKResonantFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKRolandTB303Filter" {
-            avUnit = AKRolandTB303Filter().avAudioNode as? AVAudioUnit
-        } else if name == "AKStringResonator" {
-            avUnit = AKStringResonator().avAudioNode as? AVAudioUnit
-        } else if name == "AKThreePoleLowpassFilter" {
-            avUnit = AKThreePoleLowpassFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKToneComplementFilter" {
-            avUnit = AKToneComplementFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKToneFilter" {
-            avUnit = AKToneFilter().avAudioNode as? AVAudioUnit
-        } else if name == "AKRhinoGuitarProcessor" {
-            avUnit = AKRhinoGuitarProcessor().avAudioNode as? AVAudioUnit
-        } else if name == "AKPhaser" {
-            avUnit = AKPhaser().avAudioNode as? AVAudioUnit
-        } else if name == "AKPitchShifter" {
-            avUnit = AKPitchShifter().avAudioNode as? AVAudioUnit
-        } else if name == "AKChowningReverb" {
-            avUnit = AKChowningReverb().avAudioNode as? AVAudioUnit
-        } else if name == "AKCombFilterReverb" {
-            avUnit = AKCombFilterReverb().avAudioNode as? AVAudioUnit
-        } else if name == "AKCostelloReverb" {
-            avUnit = AKCostelloReverb().avAudioNode as? AVAudioUnit
-        } else if name == "AKFlatFrequencyResponseReverb" {
-            avUnit = AKFlatFrequencyResponseReverb().avAudioNode as? AVAudioUnit
-        } else if name == "AKZitaReverb" {
-            avUnit = AKZitaReverb().avAudioNode as? AVAudioUnit
-        } else if name == "AKBooster" {
-            avUnit = AKBooster().avAudioNode as? AVAudioUnit
-        } else if name == "AKBooster2" {
-            avUnit = AKBooster().avAudioNode as? AVAudioUnit
-        } else if name == "AKTanhDistortion" {
-            avUnit = AKTanhDistortion().avAudioNode as? AVAudioUnit
+        switch name {
+        case "AKVariableDelay":
+            node = AKVariableDelay()
+        case "AKBitCrusher":
+            node = AKBitCrusher()
+        case "AKClipper":
+            node = AKClipper()
+        case "AKRingModulator":
+            node = AKRingModulator()
+        case "AKDynamicRangeCompressor":
+            node = AKDynamicRangeCompressor()
+        case "AKDynaRageCompressor":
+            node = AKDynaRageCompressor()
+        case "AKAmplitudeEnvelope":
+            node = AKAmplitudeEnvelope()
+        case "AKTremolo":
+            node = AKTremolo()
+        case "AKAutoWah":
+            node = AKAutoWah()
+        case "AKBandPassButterworthFilter":
+            node = AKBandPassButterworthFilter()
+        case "AKBandRejectButterworthFilter":
+            node = AKBandRejectButterworthFilter()
+        case "AKDCBlock":
+            node = AKDCBlock()
+        case "AKEqualizerFilter":
+            node = AKEqualizerFilter()
+        case "AKFormantFilter":
+            node = AKFormantFilter()
+        case "AKHighPassButterworthFilter":
+            node = AKHighPassButterworthFilter()
+        case "AKHighShelfParametricEqualizerFilter":
+            node = AKHighShelfParametricEqualizerFilter()
+        case "AKKorgLowPassFilter":
+            node = AKKorgLowPassFilter()
+        case "AKLowPassButterworthFilter":
+            node = AKLowPassButterworthFilter()
+        case "AKLowShelfParametricEqualizerFilter":
+            node = AKLowShelfParametricEqualizerFilter()
+        case "AKModalResonanceFilter":
+            node = AKModalResonanceFilter()
+        case "AKMoogLadder":
+            node = AKMoogLadder()
+        case "AKPeakingParametricEqualizerFilter":
+            node = AKPeakingParametricEqualizerFilter()
+        case "AKResonantFilter":
+            node = AKResonantFilter()
+        case "AKRolandTB303Filter":
+            node = AKRolandTB303Filter()
+        case "AKStringResonator":
+            node = AKStringResonator()
+        case "AKThreePoleLowpassFilter":
+            node = AKThreePoleLowpassFilter()
+        case "AKToneComplementFilter":
+            node = AKToneComplementFilter()
+        case "AKToneFilter":
+            node = AKToneFilter()
+        case "AKRhinoGuitarProcessor":
+            node = AKRhinoGuitarProcessor()
+        case "AKPhaser":
+            node = AKPhaser()
+        case "AKPitchShifter":
+            node = AKPitchShifter()
+        case "AKChowningReverb":
+            node = AKChowningReverb()
+        case "AKCombFilterReverb":
+            node = AKCombFilterReverb()
+        case "AKCostelloReverb":
+            node = AKCostelloReverb()
+        case "AKFlatFrequencyResponseReverb":
+            node = AKFlatFrequencyResponseReverb()
+        case "AKZitaReverb":
+            node = AKZitaReverb()
+        case "AKBooster":
+            node = AKBooster()
+        case "AKBooster2":
+            node = AKBooster()
+        case "AKTanhDistortion":
+            node = AKTanhDistortion()
+        default:
+            return nil
         }
         // requires an impulse response...
-        //            } else if name == "AKConvolution" {
-        //                avUnit = AKConvolution().avAudioNode as? AVAudioUnit
+        //            case "AKConvolution":
+        //                node = AKConvolution()
 
-        return avUnit
+        return node?.avAudioNode as? AVAudioUnit
     }
 
     /// Create an instrument with a name and a completion handler
