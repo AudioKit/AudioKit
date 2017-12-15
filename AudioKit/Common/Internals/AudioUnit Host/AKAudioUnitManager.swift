@@ -100,14 +100,7 @@ open class AKAudioUnitManager: NSObject {
 
     // just get a non nil list of Audio Units
     private var linkedEffects: [AVAudioUnit] {
-        var out = [AVAudioUnit]()
-
-        for fx in _effectsChain {
-            if fx != nil {
-                out.append(fx!)
-            }
-        }
-        return out
+        return _effectsChain.flatMap { $0 }
     }
 
     /// How many effects are active
@@ -173,9 +166,8 @@ open class AKAudioUnitManager: NSObject {
 
             AKLog("* Audio Units available changed *")
 
-            if strongSelf.delegate != nil {
-                strongSelf.delegate!.handleAudioUnitNotification(type: .changed, object: nil)
-            }
+            strongSelf.delegate?.handleAudioUnitNotification(type: .changed, object: nil)
+
         }
 
         //TODO: This might not be working?
@@ -192,19 +184,15 @@ open class AKAudioUnitManager: NSObject {
 
             AKLog("Audio Unit Crashed: \(crashedAU.debugDescription)")
 
-            if strongSelf.delegate != nil {
-                strongSelf.delegate!.handleAudioUnitNotification(type: .crashed, object: crashedAU)
-            }
+            strongSelf.delegate?.handleAudioUnitNotification(type: .crashed, object: crashedAU)
         }
     }
 
     /// request a list of Effects, will be returned async
     public func requestEffects(completionHandler: (([AVAudioUnitComponent]) -> Void)? = nil) {
-        updateEffectsList(completionHandler: {
-            if completionHandler != nil {
-                completionHandler!( self.availableEffects )
-            }
-        })
+        updateEffectsList {
+            completionHandler?(self.availableEffects)
+        }
     }
 
     private func updateEffectsList( completionHandler: (() -> Void)? = nil) {
@@ -233,11 +221,9 @@ open class AKAudioUnitManager: NSObject {
 
     /// request a list of Instruments, will be returned async
     public func requestInstruments(completionHandler: (([AVAudioUnitComponent]) -> Void)? = nil) {
-        updateInstrumentsList(completionHandler: {
-            if completionHandler != nil {
-                completionHandler!( self.availableInstruments )
-            }
-        })
+        updateInstrumentsList {
+            completionHandler?(self.availableInstruments)
+        }
     }
 
     private func updateInstrumentsList( completionHandler: (() -> Void)? = nil) {
@@ -260,14 +246,12 @@ open class AKAudioUnitManager: NSObject {
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
                 // notify delegate
-                if self.delegate != nil {
-                    self.delegate!.handleAudioUnitNotification(type: .instrumentsAvailable,
-                                                               object: self.availableInstruments)
-                }
 
-                if completionHandler != nil {
-                    completionHandler!()
-                }
+                    self.delegate?.handleAudioUnitNotification(type: .instrumentsAvailable,
+                                                               object: self.availableInstruments)
+
+                    completionHandler?()
+
             } // dispatch main
         } //dispatch global
     }
@@ -475,16 +459,14 @@ open class AKAudioUnitManager: NSObject {
 
                 //AKLog("\(name) -- \(acd)")
 
-                createInstrumentAudioUnit(acd, completionHandler: { au in
+                createInstrumentAudioUnit(acd) { au in
                     guard let audioUnit = au else {
                         AKLog("Unable to create audioUnit")
                         return
                     }
 
-                    if completionHandler != nil {
-                        completionHandler!( audioUnit )
-                    }
-                })
+                    completionHandler?(audioUnit)
+                }
             }
         }
     }
