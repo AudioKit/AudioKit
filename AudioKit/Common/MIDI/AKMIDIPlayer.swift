@@ -70,7 +70,7 @@ public class AKMIDIPlayer {
     public func enableLooping(_ loopLength: AKDuration) {
         for track in sequencer.tracks {
             track.isLoopingEnabled = true
-            track.loopRange = AVMakeBeatRange(0, self.length.beats)
+            track.loopRange = AVMakeBeatRange(0, loopLength.beats)
         }
         loopEnabled = true
     }
