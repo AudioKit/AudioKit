@@ -7,6 +7,7 @@ Hello World for audio is simply playing an oscillator based sound and displaying
 ## Examples for iOS and macOS
 
 * Audio Unit Manager - host audio units inside your application
+* File Converter - convert various file types
 * Microphone Analysis - frequency and amplitude information from the incoming audio stream
 * MIDI Utility - Basic MIDI implementation including MIDI monitoring
 * Random Clips - Demonstration of some of the new sample accurate functionality in AudioKit 4
