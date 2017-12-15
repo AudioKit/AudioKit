@@ -38,11 +38,11 @@ open class AKRollingOutputPlot: EZAudioPlot {
     func setupReconnection() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
-                                               name: NSNotification.Name(rawValue: "IAAConnected"),
+                                               name: .IAAConnected,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
-                                               name: NSNotification.Name(rawValue: "IAADisconnected"),
+                                               name: .IAADisconnected,
                                                object: nil)
     }
 
