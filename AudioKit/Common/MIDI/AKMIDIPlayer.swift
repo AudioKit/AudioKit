@@ -6,31 +6,51 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-/// Simple MIDI Player based on Apple's AVAudioSequencer which has limited capabilities
-public class AKMIDIPlayer {
-    public var sequencer = AVAudioSequencer()
-    public var tempo: Double = 120.0
+extension AVAudioSequencer : Collection {
+    public typealias Element = AVMusicTrack
+    public typealias Index = Int
 
-    /// Array of AudioKit Music Tracks
-    public var tracks: [AVMusicTrack] {
-        return sequencer.tracks
+    public var startIndex: Index {
+        return 0
     }
+
+    public var endIndex: Index {
+        return count
+    }
+
+    public subscript(index: Index) -> Element {
+        return tracks[index]
+    }
+
+    public func index(after index: Index) -> Index {
+        return index + 1
+    }
+
+    /// Rewind the sequence
+    public func rewind() {
+        currentPositionInBeats = 0
+    }
+}
+
+/// Simple MIDI Player based on Apple's AVAudioSequencer which has limited capabilities
+public class AKMIDIPlayer: AVAudioSequencer {
+
+    public var tempo: Double = 120.0
 
     /// Loop control
     public var loopEnabled: Bool = false
 
     /// Sequencer Initialization
-    public init() {
-        sequencer = AVAudioSequencer(audioEngine: AudioKit.engine)
+    public override init() {
+        super.init(audioEngine: AudioKit.engine)
     }
 
     /// Initialize the sequence with a MIDI file
     ///
     /// - parameter filename: Location of the MIDI File
     ///
-    public convenience init(filename: String) {
-        self.init()
-        sequencer = AVAudioSequencer(audioEngine: AudioKit.engine)
+    public init(filename: String) {
+        super.init(audioEngine: AudioKit.engine)
         loadMIDIFile(filename)
     }
 
@@ -38,11 +58,9 @@ public class AKMIDIPlayer {
     ///
     /// - parameter data: data to create sequence from
     ///
-    public func sequenceFromData(_ data: Data) {
-        let options = AVMusicSequenceLoadOptions()
-
+    public func sequence(from data: Data) {
         do {
-            try sequencer.load(from: data, options: options)
+            try load(from: data, options: [])
         } catch {
             AKLog("cannot load from data \(error)")
             return
@@ -56,7 +74,7 @@ public class AKMIDIPlayer {
 
     /// Enable looping for all tracks - loops entire sequence
     public func enableLooping() {
-        for track in sequencer.tracks {
+        for track in tracks {
             track.isLoopingEnabled = true
             track.loopRange = AVMakeBeatRange(0, self.length.beats)
         }
@@ -68,16 +86,16 @@ public class AKMIDIPlayer {
     /// - parameter loopLength: Loop length in beats
     ///
     public func enableLooping(_ loopLength: AKDuration) {
-        for track in sequencer.tracks {
+        for track in tracks {
             track.isLoopingEnabled = true
-            track.loopRange = AVMakeBeatRange(0, self.length.beats)
+            track.loopRange = AVMakeBeatRange(0, loopLength.beats)
         }
         loopEnabled = true
     }
 
     /// Disable looping for all tracks
     public func disableLooping() {
-        sequencer.tracks.forEach { track in track.isLoopingEnabled = false }
+        tracks.forEach { track in track.isLoopingEnabled = false }
         loopEnabled = false
     }
 
@@ -86,7 +104,7 @@ public class AKMIDIPlayer {
     /// - parameter length: Length of tracks in beats
     ///
     public func setLength(_ length: AKDuration) {
-        for track in sequencer.tracks {
+        for track in tracks {
             track.lengthInBeats = length.beats
             track.loopRange = AVMakeBeatRange(0, length.beats)
         }
@@ -98,57 +116,34 @@ public class AKMIDIPlayer {
         var length: MusicTimeStamp = 0
         var tmpLength: MusicTimeStamp = 0
 
-        for track in sequencer.tracks {
+        for track in tracks {
             tmpLength = track.lengthInBeats
             if tmpLength >= length { length = tmpLength }
         }
-        return  AKDuration(beats: length, tempo: tempo)
-    }
-
-    /// Rate relative to the default tempo (BPM) of the track
-    public var rate: Double {
-        set {
-            sequencer.rate = Float(rate)
-        }
-        get {
-            return Double(sequencer.rate)
-        }
+        return AKDuration(beats: length, tempo: tempo)
     }
 
     /// Play the sequence
     public func play() {
         do {
-            try sequencer.start()
+            try start()
         } catch _ {
             AKLog("Could not start the sequencer")
         }
     }
 
-    /// Stop the sequence
-    public func stop() {
-        sequencer.stop()
-    }
 
-    /// Rewind the sequence
-    public func rewind() {
-        sequencer.currentPositionInBeats = 0
-    }
 
     /// Set the Audio Unit output for all tracks - on hold while technology is still unstable
     public func setGlobalAVAudioUnitOutput(_ audioUnit: AVAudioUnit) {
-        for track in sequencer.tracks {
+        for track in tracks {
             track.destinationAudioUnit = audioUnit
         }
     }
 
-    /// Wheter or not the sequencer is currently playing
-    public var isPlaying: Bool {
-        return sequencer.isPlaying
-    }
-
     /// Current Time
     public var currentPosition: AKDuration {
-        return AKDuration(beats: sequencer.currentPositionInBeats)
+        return AKDuration(beats: currentPositionInBeats)
     }
 
     /// Current Time relative to sequencer length
@@ -156,21 +151,15 @@ public class AKMIDIPlayer {
         return currentPosition % length //can switch to modTime func when/if % is removed
     }
 
-    /// Track count
-    public var trackCount: Int {
-        return sequencer.tracks.count
-    }
-
     /// Load a MIDI file
     public func loadMIDIFile(_ filename: String) {
-        let bundle = Bundle.main
-        guard let file = bundle.path(forResource: filename, ofType: "mid") else {
+        guard let file = Bundle.main.path(forResource: filename, ofType: "mid") else {
             return
         }
         let fileURL = URL(fileURLWithPath: file)
 
         do {
-            try sequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
+            try load(from: fileURL, options: [])
         } catch _ {
             AKLog("failed to load MIDI into sequencer")
         }
@@ -178,7 +167,7 @@ public class AKMIDIPlayer {
 
     /// Set the midi output for all tracks
     public func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
-        for track in sequencer.tracks {
+        for track in tracks {
             track.destinationMIDIEndpoint = midiEndpoint
         }
     }
