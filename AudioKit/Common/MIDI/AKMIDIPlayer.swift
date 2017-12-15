@@ -38,11 +38,9 @@ public class AKMIDIPlayer {
     ///
     /// - parameter data: data to create sequence from
     ///
-    public func sequenceFromData(_ data: Data) {
-        let options = AVMusicSequenceLoadOptions()
-
+    public func sequence(from data: Data) {
         do {
-            try sequencer.load(from: data, options: options)
+            try sequencer.load(from: data, options: [])
         } catch {
             AKLog("cannot load from data \(error)")
             return
@@ -102,7 +100,7 @@ public class AKMIDIPlayer {
             tmpLength = track.lengthInBeats
             if tmpLength >= length { length = tmpLength }
         }
-        return  AKDuration(beats: length, tempo: tempo)
+        return AKDuration(beats: length, tempo: tempo)
     }
 
     /// Rate relative to the default tempo (BPM) of the track
@@ -163,14 +161,13 @@ public class AKMIDIPlayer {
 
     /// Load a MIDI file
     public func loadMIDIFile(_ filename: String) {
-        let bundle = Bundle.main
-        guard let file = bundle.path(forResource: filename, ofType: "mid") else {
+        guard let file = Bundle.main.path(forResource: filename, ofType: "mid") else {
             return
         }
         let fileURL = URL(fileURLWithPath: file)
 
         do {
-            try sequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())
+            try sequencer.load(from: fileURL, options: [])
         } catch _ {
             AKLog("failed to load MIDI into sequencer")
         }
