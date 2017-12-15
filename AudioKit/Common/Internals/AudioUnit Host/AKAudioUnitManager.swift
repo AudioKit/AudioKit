@@ -174,7 +174,7 @@ open class AKAudioUnitManager: NSObject {
             AKLog("* Audio Units available changed *")
 
             if strongSelf.delegate != nil {
-                strongSelf.delegate!.handleAudioUnitNotification(type: AKAudioUnitManager.Notification.changed, object: nil)
+                strongSelf.delegate!.handleAudioUnitNotification(type: .changed, object: nil)
             }
         }
 
@@ -193,7 +193,7 @@ open class AKAudioUnitManager: NSObject {
             AKLog("Audio Unit Crashed: \(crashedAU.debugDescription)")
 
             if strongSelf.delegate != nil {
-                strongSelf.delegate!.handleAudioUnitNotification(type: AKAudioUnitManager.Notification.crashed, object: crashedAU)
+                strongSelf.delegate!.handleAudioUnitNotification(type: .crashed, object: crashedAU)
             }
         }
     }
@@ -223,7 +223,7 @@ open class AKAudioUnitManager: NSObject {
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
                 // notify delegate
-                self.delegate?.handleAudioUnitNotification(type: AKAudioUnitManager.Notification.effectsAvailable,
+                self.delegate?.handleAudioUnitNotification(type: .effectsAvailable,
                                                            object: self.availableEffects)
                 completionHandler?()
 
@@ -261,7 +261,7 @@ open class AKAudioUnitManager: NSObject {
             DispatchQueue.main.async {
                 // notify delegate
                 if self.delegate != nil {
-                    self.delegate!.handleAudioUnitNotification(type: AKAudioUnitManager.Notification.instrumentsAvailable,
+                    self.delegate!.handleAudioUnitNotification(type: .instrumentsAvailable,
                                                                object: self.availableInstruments)
                 }
 
