@@ -24,18 +24,45 @@ open class AKAudioUnitManager: NSObject {
     }
 
     /// Internal audio units not including the Apple ones, only the custom ones
-    public private (set) var internalAudioUnits = ["AKVariableDelay", "AKBitCrusher", "AKClipper",
-                                                   "AKDynamicRangeCompressor", "AKDynaRageCompressor", "AKAmplitudeEnvelope", "AKTremolo",
-                                                   "AKAutoWah", "AKBandPassButterworthFilter", "AKBandRejectButterworthFilter", "AKDCBlock",
-                                                   "AKEqualizerFilter", "AKFormantFilter", "AKHighPassButterworthFilter",
-                                                   "AKHighShelfParametricEqualizerFilter", "AKKorgLowPassFilter",
-                                                   "AKLowPassButterworthFilter", "AKLowShelfParametricEqualizerFilter", "AKModalResonanceFilter",
-                                                   "AKMoogLadder", "AKPeakingParametricEqualizerFilter", "AKResonantFilter", "AKRolandTB303Filter",
-                                                   "AKStringResonator", "AKThreePoleLowpassFilter", "AKToneComplementFilter", "AKToneFilter",
-                                                   "AKRhinoGuitarProcessor", "AKPhaser", "AKPitchShifter",
-                                                   "AKChowningReverb", "AKCombFilterReverb", "AKCostelloReverb",
-                                                   "AKFlatFrequencyResponseReverb", "AKZitaReverb", "AKBooster", "AKBooster2",
-                                                   "AKTanhDistortion"]    //"AKRingModulator",
+    public private(set) var internalAudioUnits = ["AKVariableDelay",
+                                                  "AKBitCrusher",
+                                                  "AKClipper",
+                                                  "AKDynamicRangeCompressor",
+                                                  "AKDynaRageCompressor",
+                                                  "AKAmplitudeEnvelope",
+                                                  "AKTremolo",
+                                                  "AKAutoWah",
+                                                  "AKBandPassButterworthFilter",
+                                                  "AKBandRejectButterworthFilter",
+                                                  "AKDCBlock",
+                                                  "AKEqualizerFilter",
+                                                  "AKFormantFilter",
+                                                  "AKHighPassButterworthFilter",
+                                                  "AKHighShelfParametricEqualizerFilter",
+                                                  "AKKorgLowPassFilter",
+                                                  "AKLowPassButterworthFilter",
+                                                  "AKLowShelfParametricEqualizerFilter",
+                                                  "AKModalResonanceFilter",
+                                                  "AKMoogLadder",
+                                                  "AKPeakingParametricEqualizerFilter",
+                                                  "AKResonantFilter",
+                                                  "AKRolandTB303Filter",
+                                                  "AKStringResonator",
+                                                  "AKThreePoleLowpassFilter",
+                                                  "AKToneComplementFilter",
+                                                  "AKToneFilter",
+                                                  "AKRhinoGuitarProcessor",
+                                                  "AKPhaser",
+                                                  "AKPitchShifter",
+                                                  "AKChowningReverb",
+                                                  "AKCombFilterReverb",
+                                                  "AKCostelloReverb",
+                                                  "AKFlatFrequencyResponseReverb",
+                                                  "AKZitaReverb",
+                                                  "AKBooster",
+                                                  "AKBooster2",
+                                                  "AKTanhDistortion"]
+    // "AKRingModulator",
 
     /// Callback definitions
     public typealias AKComponentListCallback = ([AVAudioUnitComponent]) -> Void
@@ -134,7 +161,7 @@ open class AKAudioUnitManager: NSObject {
     public var availableInstruments: [AVAudioUnitComponent] {
         get {
             return availableInstrumentsAccessQueue.sync {
-                 self._availableInstruments
+                self._availableInstruments
             }
         }
 
@@ -170,7 +197,7 @@ open class AKAudioUnitManager: NSObject {
 
         }
 
-        //TODO: This might not be working?
+        // TODO: This might not be working?
         // Sign up for a notification when an audio unit crashes. Note that we handle this on the main queue for thread-safety.
 
         NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation, object: nil, queue: nil) { [weak self] notification in
@@ -268,11 +295,11 @@ open class AKAudioUnitManager: NSObject {
                                           completionHandler: @escaping AKInstrumentCallback) {
         AVAudioUnitMIDIInstrument.instantiate(with: componentDescription,
                                               options: .loadOutOfProcess) { avAudioUnit, _ in
-                                                guard let avAudioUnit = avAudioUnit else {
-                                                    completionHandler(nil)
-                                                    return
-                                                }
-                                                completionHandler(avAudioUnit as? AVAudioUnitMIDIInstrument)
+            guard let avAudioUnit = avAudioUnit else {
+                completionHandler(nil)
+                return
+            }
+            completionHandler(avAudioUnit as? AVAudioUnitMIDIInstrument)
         }
     }
 
@@ -316,7 +343,7 @@ open class AKAudioUnitManager: NSObject {
                     // Hmmmm
                 }
 
-                //Swift.print("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
+                // Swift.print("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
 
                 self._effectsChain[index] = audioUnit
                 self.connectEffects()
@@ -324,29 +351,27 @@ open class AKAudioUnitManager: NSObject {
                     self.delegate?.handleEffectAdded(at: index)
                 }
             }
-        }
+        } else if let avUnit = createInternalAU(name: name) {
 
-        // if it didn't find it in the component list, see if it's an internal one
-        else if let avUnit = createInternalAU(name: name) {
-
-            self._effectsChain[index] = avUnit
-            self.connectEffects()
+            _effectsChain[index] = avUnit
+            connectEffects()
             DispatchQueue.main.async {
                 self.delegate?.handleEffectAdded(at: index)
             }
         }
     }
 
-    // Create an instance of an AudioKit internal effect
+    //     Create an instance of an AudioKit internal effect
     private func createInternalAU(name: String) -> AVAudioUnit? {
-
-        // how does this crap work?
-        //        let instance = NSClassFromString(name) as! AKNode.Type
-        //        if let av = instance.init().avAudioNode as? AVAudioUnit {
-        //            return av
-        //        }
         var node: AKNode?
-        // in the meantime:
+
+        // this would be nice:
+        //    if let anyClass = NSClassFromString("AudioKit." + auname) {
+        //        if let aknode = anyClass as? AKNode.Type {
+        //            let instance = aknode.init()
+        //        }
+        //    }
+
         switch name {
         case "AKVariableDelay":
             node = AKVariableDelay()
@@ -429,9 +454,6 @@ open class AKAudioUnitManager: NSObject {
         default:
             return nil
         }
-        // requires an impulse response...
-        //            case "AKConvolution":
-        //                node = AKConvolution()
 
         return node?.avAudioNode as? AVAudioUnit
     }
@@ -524,7 +546,7 @@ open class AKAudioUnitManager: NSObject {
     }
 
     /// Testing
-    private func initAudioUnitFactoryPreset(_ au: AVAudioUnit ) {
+    private func initAudioUnitFactoryPreset(_ au: AVAudioUnit) {
         guard let presets = au.auAudioUnit.factoryPresets else { return }
         for p in presets {
             Swift.print("Factory Preset: \(p.name) \(p.number)")
