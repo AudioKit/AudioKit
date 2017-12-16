@@ -26,5 +26,4 @@ class AudioUnitGenericWindow: NSWindowController {
 
         toolbar?.audioUnit = audioUnit
     }
-
 }
