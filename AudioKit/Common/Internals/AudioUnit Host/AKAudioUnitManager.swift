@@ -230,11 +230,9 @@ open class AKAudioUnitManager: NSObject {
     private func updateInstrumentsList(completionHandler: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async {
 
-             /// Locating components can be a little slow, especially the first time.
-             /// Do this work on a separate dispatch thread.
-            ///
-            ///  Make a component description matching any AU of the type.
-
+            /// Locating components can be a little slow, especially the first time.
+            /// Do this work on a separate dispatch thread.
+            /// Make a component description matching any AU of the type.
             self.availableInstruments = AVAudioUnitComponentManager.shared().components(matching: AKAudioUnitManager.ComponentDescription)
 
             // Let the UI know that we have an updated list of units.
@@ -297,7 +295,7 @@ open class AKAudioUnitManager: NSObject {
         delegate?.handleEffectRemoved(at: index)
     }
 
-    // Create the Audio Unit at the specified index of the chain
+    /// Create the Audio Unit at the specified index of the chain
     public func insertAudioUnit(name: String, at index: Int) {
         guard _effectsChain.indices.contains(index) else { return }
 
@@ -322,7 +320,9 @@ open class AKAudioUnitManager: NSObject {
 
                 self._effectsChain[index] = audioUnit
                 self.connectEffects()
-                self.delegate?.handleEffectAdded(at: index)
+                DispatchQueue.main.async {
+                    self.delegate?.handleEffectAdded(at: index)
+                }
             }
         }
 
@@ -331,7 +331,9 @@ open class AKAudioUnitManager: NSObject {
 
             self._effectsChain[index] = avUnit
             self.connectEffects()
-            self.delegate?.handleEffectAdded(at: index)
+            DispatchQueue.main.async {
+                self.delegate?.handleEffectAdded(at: index)
+            }
         }
     }
 
