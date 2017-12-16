@@ -546,15 +546,15 @@ open class AKAudioUnitManager: NSObject {
     }
 
     /// Testing
-    private func initAudioUnitFactoryPreset(_ au: AVAudioUnit) {
-        guard let presets = au.auAudioUnit.factoryPresets else { return }
+    private func initAudioUnitFactoryPreset(_ audioUnit: AVAudioUnit) {
+        guard let presets = audioUnit.auAudioUnit.factoryPresets else { return }
         for p in presets {
             Swift.print("Factory Preset: \(p.name) \(p.number)")
         }
 
         presets.first.map {
             Swift.print("Setting Preset: \($0.name) \($0.number)")
-            au.auAudioUnit.currentPreset = $0
+            audioUnit.auAudioUnit.currentPreset = $0
         }
     }
 
