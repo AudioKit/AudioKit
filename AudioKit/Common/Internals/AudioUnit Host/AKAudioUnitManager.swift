@@ -23,6 +23,20 @@ open class AKAudioUnitManager: NSObject {
         case effectsAvailable, instrumentsAvailable, changed, crashed, added
     }
 
+    /// Internal audio units not including the Apple ones, only the custom ones
+    public private (set) var internalAudioUnits = ["AKVariableDelay", "AKBitCrusher", "AKClipper",
+                                                   "AKDynamicRangeCompressor", "AKDynaRageCompressor", "AKAmplitudeEnvelope", "AKTremolo",
+                                                   "AKAutoWah", "AKBandPassButterworthFilter", "AKBandRejectButterworthFilter", "AKDCBlock",
+                                                   "AKEqualizerFilter", "AKFormantFilter", "AKHighPassButterworthFilter",
+                                                   "AKHighShelfParametricEqualizerFilter", "AKKorgLowPassFilter",
+                                                   "AKLowPassButterworthFilter", "AKLowShelfParametricEqualizerFilter", "AKModalResonanceFilter",
+                                                   "AKMoogLadder", "AKPeakingParametricEqualizerFilter", "AKResonantFilter", "AKRolandTB303Filter",
+                                                   "AKStringResonator", "AKThreePoleLowpassFilter", "AKToneComplementFilter", "AKToneFilter",
+                                                   "AKRhinoGuitarProcessor", "AKPhaser", "AKPitchShifter",
+                                                   "AKChowningReverb", "AKCombFilterReverb", "AKCostelloReverb",
+                                                   "AKFlatFrequencyResponseReverb", "AKZitaReverb", "AKBooster", "AKBooster2",
+                                                   "AKTanhDistortion"]    //"AKRingModulator",
+
     /// Callback definitions
     public typealias AKComponentListCallback = ([AVAudioUnitComponent]) -> Void
     public typealias AKEffectCallback = (AVAudioUnit?) -> Void
