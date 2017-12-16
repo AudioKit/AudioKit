@@ -28,7 +28,6 @@ open class AKAudioUnitManager: NSObject {
     public typealias AKEffectCallback = (AVAudioUnit?) -> Void
     public typealias AKInstrumentCallback = (AVAudioUnitMIDIInstrument?) -> Void
 
-
     /// Delegate that will be sent notifications
     open weak var delegate: AKAudioUnitManagerDelegate?
 
@@ -284,7 +283,6 @@ open class AKAudioUnitManager: NSObject {
         delegate?.handleEffectRemoved(at: index)
     }
 
-
     // Create the Audio Unit at the specified index of the chain
     public func insertAudioUnit(name: String, at index: Int) {
         guard _effectsChain.indices.contains(index) else { return }
@@ -295,13 +293,11 @@ open class AKAudioUnitManager: NSObject {
 
             AKLog("#\(index) \(name) -- \(acd)")
 
-
             createEffectAudioUnit(acd) { au in
                 guard let audioUnit = au else {
                     AKLog("Unable to create audioUnit")
                     return
                 }
-
 
                 if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
                     // AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")

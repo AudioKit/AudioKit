@@ -48,7 +48,7 @@ class ViewController: NSViewController {
         ambientGuitar.fade.outTime = 1
 
         let timePitch = AKTimePitch()
-        timePitch.pitch = 1200
+        timePitch.pitch = 1_200
         timePitch.rate = 0.1
 
         let ambientDelay = AKDelay()
@@ -56,7 +56,6 @@ class ViewController: NSViewController {
         ambientDelay.feedback = 0.5
         ambientDelay.time = 3
         ambientGuitar >>> timePitch >>> ambientDelay
-
 
         [drumPlayer >>> highPass,
          guitarPlayer >>> guitarDelay >>> reverb,
@@ -76,7 +75,6 @@ class ViewController: NSViewController {
         guitarLooper.volume = 0.3
         drumPlayer.volume = 0.6
         ambientGuitar.volume = 0.3
-
 
         AudioKit.output = mixer
         AudioKit.start()

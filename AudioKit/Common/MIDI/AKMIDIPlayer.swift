@@ -132,8 +132,6 @@ public class AKMIDIPlayer: AVAudioSequencer {
         }
     }
 
-
-
     /// Set the Audio Unit output for all tracks - on hold while technology is still unstable
     public func setGlobalAVAudioUnitOutput(_ audioUnit: AVAudioUnit) {
         for track in tracks {

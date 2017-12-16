@@ -79,7 +79,7 @@ class FileConverter: NSViewController {
         }
         if let bitRate = bitRatePopUp.selectedItem?.title {
             let br = UInt32(bitRate) ?? 256
-            options.bitRate = br * 1000
+            options.bitRate = br * 1_000
         }
         if let channels = channelsPopUp.selectedItem?.title {
             options.channels = UInt32(channels)
