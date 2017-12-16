@@ -117,7 +117,8 @@ extension AudioUnitManager: AKMIDIListener {
 
     open func testAUInstrument(state: Bool) {
         AKLog("\(state)")
-        guard auInstrument != nil else { return }
+        guard let internalManager = internalManager else { return }
+        guard let auInstrument = auInstrument else { return }
 
         instrumentPlayButton.state = state ? .on : .off
 
@@ -125,8 +126,8 @@ extension AudioUnitManager: AKMIDIListener {
             if player?.isPlaying ?? false {
                 handlePlay(state: false)
             }
-            internalManager!.connectEffects(firstNode: auInstrument!, lastNode: mixer)
-            testPlayer = InstrumentPlayer(audioUnit: auInstrument!.midiInstrument?.auAudioUnit)
+            internalManager.connectEffects(firstNode: auInstrument, lastNode: mixer)
+            testPlayer = InstrumentPlayer(audioUnit: auInstrument.midiInstrument?.auAudioUnit)
             testPlayer?.play()
         } else {
             testPlayer?.stop()
@@ -134,8 +135,6 @@ extension AudioUnitManager: AKMIDIListener {
     }
 
     internal func updateInstrumentsUI(audioUnits: [AVAudioUnitComponent]) {
-        guard internalManager != nil else { return }
-
         auInstrumentSelector.removeAllItems()
         auInstrumentSelector.addItem(withTitle: "-")
 
