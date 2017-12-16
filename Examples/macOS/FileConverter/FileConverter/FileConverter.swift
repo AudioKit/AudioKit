@@ -9,17 +9,16 @@ import AudioKit
 import AudioKitUI
 import Cocoa
 
+/// Simple interface to show AKConverter
 class FileConverter: NSViewController {
-
     @IBOutlet var inputPathControl: NSPathControl!
-    let openPanel = NSOpenPanel()
-    let savePanel = NSSavePanel()
-
     @IBOutlet var formatPopUp: NSPopUpButton!
     @IBOutlet var sampleRatePopUp: NSPopUpButton!
     @IBOutlet var bitDepthPopUp: NSPopUpButton!
     @IBOutlet var bitRatePopUp: NSPopUpButton!
     @IBOutlet var channelsPopUp: NSPopUpButton!
+    let openPanel = NSOpenPanel()
+    let savePanel = NSSavePanel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +36,6 @@ class FileConverter: NSViewController {
         savePanel.isExtensionHidden = false
 
         sampleRatePopUp.selectItem(withTitle: "44100")
-
     }
 
     @IBAction func openDocument(_ sender: Any) {
@@ -99,20 +97,19 @@ class FileConverter: NSViewController {
                 }
             }
         })
-
     }
 
+    /// Do the conversion
     private func convert(inputURL: URL, outputURL: URL, options: AKConverter.Options) {
         let converter = AKConverter(inputURL: inputURL, outputURL: outputURL, options: options)
         converter.start(completionHandler: { error in
             if let error = error {
                 Swift.print("Error during convertion: \(error)")
             } else {
-                Swift.print("Done!")
+                Swift.print("Conversion Complete!")
             }
         })
     }
-
 }
 
 /// Handle Window Events
