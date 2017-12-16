@@ -47,7 +47,7 @@ open class AKConverter: NSObject {
         public var bitRate: UInt32 = 256_000
         public var channels: UInt32?
         public var isInterleaved: Bool?
-        /// overwrite existing files, set false if you want to handle this
+        /// overwrite existing files, set false if you want to handle this before you call start()
         public var eraseFile: Bool = true
     }
 
