@@ -11,7 +11,7 @@ player.looping = true
 var distortion = AKTanhDistortion(player)
 distortion.pregain = 1.0
 distortion.postgain = 1.0
-distortion.postiveShapeParameter = 1.0
+distortion.positiveShapeParameter = 1.0
 distortion.negativeShapeParameter = 1.0
 
 AudioKit.output = distortion
@@ -42,11 +42,11 @@ class LiveView: AKLiveViewController {
             distortion.postgain = sliderValue
         })
 
-        addView(AKSlider(property: "Postive Shape Parameter",
-                         value: distortion.postiveShapeParameter,
+        addView(AKSlider(property: "positive Shape Parameter",
+                         value: distortion.positiveShapeParameter,
                          range: -10 ... 10
         ) { sliderValue in
-            distortion.postiveShapeParameter = sliderValue
+            distortion.positiveShapeParameter = sliderValue
         })
 
         addView(AKSlider(property: "Negative Shape Parameter",
