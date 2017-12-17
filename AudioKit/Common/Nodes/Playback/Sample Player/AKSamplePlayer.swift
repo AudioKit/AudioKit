@@ -44,7 +44,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
@@ -60,7 +60,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
@@ -75,7 +75,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
             if loopStartPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         loopStartPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
@@ -90,7 +90,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         loopEndPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
                     }
@@ -105,7 +105,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var rate: Double = 1 {
         willSet {
             if rate != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         rateParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -120,7 +120,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var volume: Double = 1 {
         willSet {
             if volume != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         volumeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -162,7 +162,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     fileprivate var avAudiofile: AVAudioFile

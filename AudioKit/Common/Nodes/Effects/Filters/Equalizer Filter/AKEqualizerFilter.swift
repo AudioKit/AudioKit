@@ -36,7 +36,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var centerFrequency: Double = 1_000.0 {
         willSet {
             if centerFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -50,7 +50,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var bandwidth: Double = 100.0 {
         willSet {
             if bandwidth != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -64,7 +64,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var gain: Double = 10.0 {
         willSet {
             if gain != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         gainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -77,7 +77,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization

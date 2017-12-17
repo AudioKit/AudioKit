@@ -37,7 +37,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var fundamentalFrequency: Double = 100 {
         willSet {
             if fundamentalFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -52,7 +52,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var feedback: Double = 0.95 {
         willSet {
             if feedback != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -65,7 +65,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
