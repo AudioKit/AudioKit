@@ -100,7 +100,7 @@ Output parameters:
         - f: pointer on the destination array (frequencies).
                 f [0...length(x)/2] = real values,
                 f [length(x)/2+1...length(x)-1] = negative imaginary values of
-                coefficents 1...length(x)/2-1.
+                coefficients 1...length(x)/2-1.
 Throws: Nothing
 ==============================================================================
 */
@@ -151,7 +151,7 @@ post-scaled: IFFT (FFT (x)) = x * length (x). Input parameters:
         - f: pointer on the source array (frequencies).
                 f [0...length(x)/2] = real values
                 f [length(x)/2+1...length(x)-1] = negative imaginary values of
-                coefficents 1...length(x)/2-1.
+                coefficients 1...length(x)/2-1.
 Output parameters:
         - x: pointer on the destination array (time).
 Throws: Nothing
