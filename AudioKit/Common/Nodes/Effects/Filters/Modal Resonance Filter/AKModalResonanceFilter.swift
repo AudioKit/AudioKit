@@ -34,7 +34,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var frequency: Double = 500.0 {
         willSet {
             if frequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -48,7 +48,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var qualityFactor: Double = 50.0 {
         willSet {
             if qualityFactor != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         qualityFactorParameter?.setValue(Float(newValue), originator: existingToken)
                     }

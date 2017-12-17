@@ -37,7 +37,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var fundamentalFrequency: Double = 100 {
         willSet {
             if fundamentalFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -52,7 +52,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var feedback: Double = 0.95 {
         willSet {
             if feedback != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     }

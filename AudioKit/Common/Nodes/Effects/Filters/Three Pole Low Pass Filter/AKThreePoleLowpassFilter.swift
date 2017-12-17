@@ -34,7 +34,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var distortion: Double = 0.5 {
         willSet {
             if distortion != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         distortionParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -48,7 +48,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var cutoffFrequency: Double = 1_500 {
         willSet {
             if cutoffFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -63,7 +63,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         resonanceParameter?.setValue(Float(newValue), originator: existingToken)
                     }

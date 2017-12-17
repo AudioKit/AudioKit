@@ -33,7 +33,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     @objc open dynamic var centerFrequency: Double = 1_000 {
         willSet {
             if centerFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -47,7 +47,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     @objc open dynamic var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         gainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -61,7 +61,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     @objc open dynamic var q: Double = 0.707 {
         willSet {
             if q != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         qParameter?.setValue(Float(newValue), originator: existingToken)
                     }

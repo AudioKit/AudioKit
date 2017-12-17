@@ -23,7 +23,7 @@
 - (void)start;
 - (void)stop;
 @property (readonly) BOOL isPlaying;
-- (BOOL)isSetUp;
+@property (readonly) BOOL isSetUp;
 
 @property double rampTime;
 

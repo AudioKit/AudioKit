@@ -37,7 +37,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var baseFrequency: Double = 440 {
         willSet {
             if baseFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         baseFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -52,7 +52,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var carrierMultiplier: Double = 1.0 {
         willSet {
             if carrierMultiplier != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         carrierMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -67,7 +67,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var modulatingMultiplier: Double = 1 {
         willSet {
             if modulatingMultiplier != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         modulatingMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -82,7 +82,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var modulationIndex: Double = 1 {
         willSet {
             if modulationIndex != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         modulationIndexParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -97,7 +97,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     }

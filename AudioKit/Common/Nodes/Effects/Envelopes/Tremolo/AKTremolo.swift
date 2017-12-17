@@ -33,7 +33,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var frequency: Double = 10 {
         willSet {
             if frequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -48,7 +48,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var depth: Double = 1 {
         willSet {
             if depth != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         depthParameter?.setValue(Float(newValue), originator: existingToken)
                     }

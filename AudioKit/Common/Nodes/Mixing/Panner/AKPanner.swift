@@ -31,7 +31,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var pan: Double = 0 {
         willSet {
             if pan != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         panParameter?.setValue(Float(newValue), originator: existingToken)
                     }
