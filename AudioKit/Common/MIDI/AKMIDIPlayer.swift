@@ -74,11 +74,7 @@ public class AKMIDIPlayer: AVAudioSequencer {
 
     /// Enable looping for all tracks - loops entire sequence
     public func enableLooping() {
-        for track in tracks {
-            track.isLoopingEnabled = true
-            track.loopRange = AVMakeBeatRange(0, self.length.beats)
-        }
-        loopEnabled = true
+        enableLooping(length)
     }
 
     /// Enable looping for all tracks with specified length
@@ -86,41 +82,31 @@ public class AKMIDIPlayer: AVAudioSequencer {
     /// - parameter loopLength: Loop length in beats
     ///
     public func enableLooping(_ loopLength: AKDuration) {
-        for track in tracks {
-            track.isLoopingEnabled = true
-            track.loopRange = AVMakeBeatRange(0, loopLength.beats)
+        forEach {
+            $0.isLoopingEnabled = true
+            $0.loopRange = AVMakeBeatRange(0, loopLength.beats)
         }
         loopEnabled = true
     }
 
     /// Disable looping for all tracks
     public func disableLooping() {
-        tracks.forEach { track in track.isLoopingEnabled = false }
+        forEach { $0.isLoopingEnabled = false }
         loopEnabled = false
-    }
-
-    /// Set length of all tracks
-    ///
-    /// - parameter length: Length of tracks in beats
-    ///
-    public func setLength(_ length: AKDuration) {
-        for track in tracks {
-            track.lengthInBeats = length.beats
-            track.loopRange = AVMakeBeatRange(0, length.beats)
-        }
     }
 
     /// Length of longest track in the sequence
     public var length: AKDuration {
-
-        var length: MusicTimeStamp = 0
-        var tmpLength: MusicTimeStamp = 0
-
-        for track in tracks {
-            tmpLength = track.lengthInBeats
-            if tmpLength >= length { length = tmpLength }
+        get {
+            let l = lazy.map { $0.lengthInBeats }.max() ?? 0
+            return AKDuration(beats: l, tempo: tempo)
         }
-        return AKDuration(beats: length, tempo: tempo)
+        set {
+            forEach {
+                $0.lengthInBeats = newValue.beats
+                $0.loopRange = AVMakeBeatRange(0, newValue.beats)
+            }
+        }
     }
 
     /// Play the sequence
@@ -134,8 +120,8 @@ public class AKMIDIPlayer: AVAudioSequencer {
 
     /// Set the Audio Unit output for all tracks - on hold while technology is still unstable
     public func setGlobalAVAudioUnitOutput(_ audioUnit: AVAudioUnit) {
-        for track in tracks {
-            track.destinationAudioUnit = audioUnit
+        forEach {
+            $0.destinationAudioUnit = audioUnit
         }
     }
 
@@ -165,8 +151,8 @@ public class AKMIDIPlayer: AVAudioSequencer {
 
     /// Set the midi output for all tracks
     public func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
-        for track in tracks {
-            track.destinationMIDIEndpoint = midiEndpoint
+        forEach {
+            $0.destinationMIDIEndpoint = midiEndpoint
         }
     }
 }

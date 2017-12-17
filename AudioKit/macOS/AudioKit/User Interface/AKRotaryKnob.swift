@@ -180,7 +180,7 @@ public enum AKRotaryKnobStyle {
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
-            options: NSString.DrawingOptions.usesLineFragmentOrigin,
+            options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         context.saveGState()
 
@@ -281,7 +281,7 @@ public enum AKRotaryKnobStyle {
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
-                options: NSString.DrawingOptions.usesLineFragmentOrigin,
+                options: .usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes).size
 
             let bubbleSize = CGSize(width: valueLabelTextSize.width + AKRotaryKnob.bubblePadding.width,

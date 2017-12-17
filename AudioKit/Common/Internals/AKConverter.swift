@@ -241,7 +241,7 @@ open class AKConverter: NSObject {
             ]
         }
 
-        let writerInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: outputSettings)
+        let writerInput = AVAssetWriterInput(mediaType: .audio, outputSettings: outputSettings)
         writer.add(writerInput)
 
         let tracks = asset.tracks(withMediaType: .audio)
@@ -268,7 +268,7 @@ open class AKConverter: NSObject {
         writerInput.requestMediaDataWhenReady(on: queue, using: {
             while writerInput.isReadyForMoreMediaData {
 
-                if reader.status == AVAssetReaderStatus.failed {
+                if reader.status == .failed {
                     Swift.print("Conversion Failed")
                     break
                 }

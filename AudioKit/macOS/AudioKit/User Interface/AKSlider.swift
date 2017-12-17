@@ -179,7 +179,7 @@ public enum AKSliderStyle {
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
-            options: NSString.DrawingOptions.usesLineFragmentOrigin,
+            options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         context.saveGState()
 
@@ -264,7 +264,7 @@ public enum AKSliderStyle {
             let valueLabelInset: NSRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
-                options: NSString.DrawingOptions.usesLineFragmentOrigin,
+                options: .usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes).size
 
             let bubbleSize = CGSize(width: valueLabelTextSize.width + AKSlider.bubblePadding.width,
@@ -309,8 +309,8 @@ public enum AKSliderStyle {
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: sliderCornerRadius, dy: sliderOrigin * 2.0)
             let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRect(
-                with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
-                options: NSString.DrawingOptions.usesLineFragmentOrigin,
+                with: CGSize(width: valueLabelInset.width, height: .infinity),
+                options: .usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes).size.height
             context.saveGState()
             context.clip(to: valueLabelInset)

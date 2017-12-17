@@ -209,7 +209,7 @@ public enum AKButtonStyle {
         let labelInset: CGRect = rect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(
             with: CGSize(width: labelInset.width, height: CGFloat.infinity),
-            options: NSString.DrawingOptions.usesLineFragmentOrigin,
+            options: .usesLineFragmentOrigin,
             attributes: labelFontAttributes,
             context: nil).size.height
         NSString(string: title).draw(in: CGRect(x: labelInset.minX,

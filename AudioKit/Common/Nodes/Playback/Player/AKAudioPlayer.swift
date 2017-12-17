@@ -509,8 +509,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         if looping {
             // Looping is toggled on: schedule the buffer to loop at the next loop interval.
-            let options: AVAudioPlayerNodeBufferOptions = [.loops, .interruptsAtLoop]
-            scheduleBuffer(atTime: nil, options: options)
+
+            scheduleBuffer(atTime: nil, options: [.loops, .interruptsAtLoop])
         } else {
             // Looping is toggled off: schedule to stop at the end of the current loop.
             stopAtNextLoopEnd()
