@@ -40,7 +40,7 @@
 
 - (void)start;
 - (void)stop;
-- (BOOL)isPlaying;
+@property (readonly) BOOL isPlaying;
 - (BOOL)isSetUp;
 
 // These three properties are what are in the Apple example code.
