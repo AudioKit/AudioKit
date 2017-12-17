@@ -19,7 +19,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)

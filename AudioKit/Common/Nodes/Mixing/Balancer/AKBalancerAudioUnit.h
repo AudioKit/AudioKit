@@ -12,6 +12,6 @@
 @interface AKBalancerAudioUnit : AUAudioUnit
 - (void)start;
 - (void)stop;
-- (BOOL)isPlaying;
+@property (readonly) BOOL isPlaying;
 @end
 
