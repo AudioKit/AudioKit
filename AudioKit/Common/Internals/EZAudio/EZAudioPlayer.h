@@ -341,7 +341,7 @@ reachedEndOfAudioFile:(EZAudioFile *)audioFile;
 //------------------------------------------------------------------------------
 
 /**
- Provides the frame index (a.k.a the seek positon) within the audio file being used for playback. This can be helpful when seeking through the audio file.
+ Provides the frame index (a.k.a the seek position) within the audio file being used for playback. This can be helpful when seeking through the audio file.
  @return An SInt64 representing the current frame index within the audio file used for playback.
  */
 @property (readonly) SInt64 frameIndex;
