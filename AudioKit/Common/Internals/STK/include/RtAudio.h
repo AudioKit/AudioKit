@@ -927,7 +927,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   bool callbackEvent(AudioDeviceID deviceId,
                      const AudioBufferList *inBufferList,
                      const AudioBufferList *outBufferList);
@@ -961,7 +961,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   bool callbackEvent(unsigned long nframes);
 
 private:
@@ -992,7 +992,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   bool callbackEvent(long bufferIndex);
 
 private:
@@ -1028,7 +1028,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   void callbackEvent(void);
 
 private:
@@ -1099,7 +1099,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   void callbackEvent(void);
 
 private:
@@ -1130,7 +1130,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   void callbackEvent(void);
 
 private:
@@ -1162,7 +1162,7 @@ public:
   // This function is intended for internal use only.  It must be
   // public because it is called by the internal callback handler,
   // which is not a member of RtAudio.  External use of this function
-  // will most likely produce highly undesireable results!
+  // will most likely produce highly undesirable results!
   void callbackEvent(void);
 
 private:
