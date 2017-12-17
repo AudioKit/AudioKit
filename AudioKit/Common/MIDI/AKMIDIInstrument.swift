@@ -33,7 +33,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     /// Enable MIDI input from a given MIDI client
     ///
     /// - Parameters:
-    ///   - midiClient: A refernce to the midi client
+    ///   - midiClient: A reference to the midi client
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
