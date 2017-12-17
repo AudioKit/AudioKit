@@ -37,7 +37,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var frequency: Double = 440 {
         willSet {
             if frequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -52,7 +52,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = 1 {
         willSet {
             if amplitude != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -67,7 +67,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -82,7 +82,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
                     }

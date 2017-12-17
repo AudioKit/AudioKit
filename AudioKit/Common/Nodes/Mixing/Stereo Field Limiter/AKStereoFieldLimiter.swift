@@ -32,7 +32,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var amount: Double = 0 {
         willSet {
             if amount != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         amountParameter?.setValue(Float(newValue), originator: existingToken)
                     }

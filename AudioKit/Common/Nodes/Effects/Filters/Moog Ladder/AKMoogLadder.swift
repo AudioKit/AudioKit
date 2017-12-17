@@ -36,7 +36,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var cutoffFrequency: Double = 1_000 {
         willSet {
             if cutoffFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -51,7 +51,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var resonance: Double = 0.5 {
         willSet {
             if resonance != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         resonanceParameter?.setValue(Float(newValue), originator: existingToken)
                     }

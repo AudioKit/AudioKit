@@ -34,7 +34,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var x: Double = 0 {
         willSet {
             if x != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         xParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -48,7 +48,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var y: Double = 0 {
         willSet {
             if y != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         yParameter?.setValue(Float(newValue), originator: existingToken)
                     }

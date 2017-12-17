@@ -34,7 +34,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var pregain: Double = 2.0 {
         willSet {
             if pregain != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         pregainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -48,7 +48,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var postgain: Double = 0.5 {
         willSet {
             if postgain != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         postgainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -62,7 +62,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var postiveShapeParameter: Double = 0.0 {
         willSet {
             if postiveShapeParameter != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         postiveShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -76,7 +76,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var negativeShapeParameter: Double = 0.0 {
         willSet {
             if negativeShapeParameter != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         negativeShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
                     }

@@ -33,7 +33,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     @objc open dynamic var cornerFrequency: Double = 1_000 {
         willSet {
             if cornerFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         cornerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -47,7 +47,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     @objc open dynamic var gain: Double = 1.0 {
         willSet {
             if gain != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         gainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -61,7 +61,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     @objc open dynamic var q: Double = 0.707 {
         willSet {
             if q != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         qParameter?.setValue(Float(newValue), originator: existingToken)
                     }
