@@ -107,7 +107,7 @@ extension AKAudioFile {
     /// ```
     ///
     /// in this callback, you can check that process succeeded by testing processedFile value :
-    /// . if processedFile != nil, process succeded (and error is nil)
+    /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
     /// Notice that completionCallBack will be triggered from a
@@ -146,7 +146,7 @@ extension AKAudioFile {
     /// ```
     ///
     /// in this callback, you can check that process succeeded by testing processedFile value :
-    /// . if processedFile != nil, process succeded (and error is nil)
+    /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
     /// Notice that completionCallBack will be triggered from a
@@ -184,7 +184,7 @@ extension AKAudioFile {
     /// ```
     ///
     /// in this callback, you can check that process succeeded by testing processedFile value :
-    /// . if processedFile != nil, process succeded (and error is nil)
+    /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
     /// Notice that completionCallBack will be triggered from a
@@ -228,7 +228,7 @@ extension AKAudioFile {
     /// ```
     ///
     /// in this callback, you can check that process succeeded by testing processedFile value :
-    /// . if processedFile != nil, process succeded (and error is nil)
+    /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
     /// Notice that completionCallBack will be triggered from a
