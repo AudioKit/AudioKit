@@ -495,19 +495,10 @@ extension AudioKit {
     //
     private static func addDummyOnEmptyMixer(_ node: AVAudioNode) -> AVAudioNode? {
 
-        func mixerHasInputs(_ mixer: AVAudioMixerNode) -> Bool {
-            for i in 0..<mixer.numberOfInputs {
-                if engine.inputConnectionPoint(for: mixer, inputBus: i) != nil {
-                    return true
-                }
-            }
-            return false
-        }
-
         // Only an issue if engine is running, node is a mixer, and mixer has no inputs
         guard let mixer = node as? AVAudioMixerNode,
             engine.isRunning,
-            !mixerHasInputs(mixer) else {
+            !engine.mixerHasInputs(mixer: mixer) else {
             return nil
         }
 
@@ -621,5 +612,13 @@ extension AVAudioEngine {
         stop()
         disableManualRenderingMode()
 
+    }
+}
+
+extension AVAudioEngine {
+    fileprivate func mixerHasInputs(mixer: AVAudioMixerNode) -> Bool {
+        return (0..<mixer.numberOfInputs).contains {
+            self.inputConnectionPoint(for: mixer, inputBus: $0) != nil
+        }
     }
 }

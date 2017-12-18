@@ -93,7 +93,7 @@ open class AKMIDI {
   /// Create a virtual MIDI input port
   open func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
     destroyVirtualInputPort()
-    let virtualPortname = ((name != nil) ? name! : String(clientName))
+    let virtualPortname = name ?? String(clientName)
 
     let result = MIDIDestinationCreateWithBlock(client,
                                                 virtualPortname as CFString,
@@ -116,7 +116,7 @@ open class AKMIDI {
   /// Create a virtual MIDI output port
   open func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
     destroyVirtualOutputPort()
-    let virtualPortname = ((name != nil) ? name! : String(clientName))
+    let virtualPortname = name ?? String(clientName)
 
     let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
     if result == noErr {

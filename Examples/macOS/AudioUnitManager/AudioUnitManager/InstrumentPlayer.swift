@@ -1,10 +1,10 @@
 // MARK: - Instrument Player
 /*
-	This class implements a basic player for our instrument sample au,
+ This class implements a basic player for our instrument sample au,
  sending a whole tone scale on a concurrent thread until stopped.
  */
-import Cocoa
 import AVFoundation
+import Cocoa
 
 public class InstrumentPlayer: NSObject {
     private let playingQueue = DispatchQueue(label: "InstrumentPlayer.playingQueue")
@@ -23,7 +23,7 @@ public class InstrumentPlayer: NSObject {
         }
 
         set {
-            playingQueue.sync {
+            self.playingQueue.sync {
                 self._isPlaying = newValue
             }
         }
@@ -33,13 +33,13 @@ public class InstrumentPlayer: NSObject {
         guard audioUnit != nil else { return nil }
         guard let theNoteBlock = audioUnit!.scheduleMIDIEventBlock else { return nil }
 
-        noteBlock = theNoteBlock
+        self.noteBlock = theNoteBlock
         super.init()
     }
 
     internal func play() {
-        if !isPlaying {
-            scheduleInstrumentLoop()
+        if !self.isPlaying {
+            self.scheduleInstrumentLoop()
         }
     }
 
@@ -48,7 +48,7 @@ public class InstrumentPlayer: NSObject {
     }
 
     private func scheduleInstrumentLoop() {
-        isPlaying = true
+        self.isPlaying = true
 
         let cbytes = UnsafeMutablePointer<UInt8>.allocate(capacity: 3)
 
@@ -76,7 +76,7 @@ public class InstrumentPlayer: NSObject {
 
                 usleep(useconds_t(0.2 * 1e6))
 
-                cbytes[2] = 0    // note off
+                cbytes[2] = 0 // note off
                 self.noteBlock(AUEventSampleTimeImmediate, 0, 3, cbytes)
 
                 i += 2

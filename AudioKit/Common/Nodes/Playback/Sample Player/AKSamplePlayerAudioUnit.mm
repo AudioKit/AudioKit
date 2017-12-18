@@ -47,13 +47,13 @@
 - (void)setupAudioFileTable:(UInt32)size {
     _kernel.setUpTable(size);
 }
-- (void)loadAudioData:(float *)data size:(UInt32)size {
-    _kernel.loadAudioData(data, size);
+- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate {
+    _kernel.loadAudioData(data, size, sampleRate);
 }
 - (int)size {
     return _kernel.ftbl_size;
 }
-- (float)position {
+- (double)position {
     return _kernel.position;
 }
 standardKernelPassthroughs()
@@ -96,9 +96,9 @@ standardKernelPassthroughs()
 
     // Create a parameter object for the rate.
     AUParameter *rateAUParameter = [AUParameter parameter:@"rate"
-                                                     name:@"rate. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc."
+                                                     name:@"rate. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc."
                                                   address:rateAddress
-                                                      min:0
+                                                      min:-10
                                                       max:10
                                                      unit:kAudioUnitParameterUnit_Generic];
 

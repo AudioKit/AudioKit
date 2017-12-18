@@ -14,21 +14,28 @@
 class AKParameterRampBase {
 
 protected:
+    float _paramValue = 0;  // set by UI thread
     float _target = 0;
     float _value = 0;
     float _startValue = 0;
     int64_t _duration = 0;  // in samples
     int64_t _startSample = 0;
 
+    void updateTarget(int64_t atSample) {
+        _target = _paramValue;
+        _startSample = atSample;
+        _startValue = _value;
+    }
+
 public:
 
     virtual float computeValueAt(int64_t atSample) = 0;
 
-    void setTarget(float value, int64_t atSample, bool immediate = false) {
-        _target = value;
-        _startSample = atSample;
-        _startValue = _value;
-        if (immediate) _value = value;
+
+
+    void setTarget(float value, bool immediate = false) {
+        if (immediate) { _startValue = _paramValue = _value = _target = value; }
+        else { _paramValue = value; }
     }
 
     void setDurationInSamples(int64_t duration) {
@@ -49,6 +56,7 @@ public:
     float getTarget() { return _target; }
 
     float advanceTo(int64_t atSample) {
+        if (_paramValue != _target) { updateTarget(atSample); }
         if (_value == _target) return _value;
         int64_t deltaSamples = atSample - _startSample;
         if (deltaSamples >= _duration || deltaSamples < 0) {

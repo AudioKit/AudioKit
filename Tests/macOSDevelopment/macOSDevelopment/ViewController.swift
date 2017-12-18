@@ -13,67 +13,136 @@ import Cocoa
 class ViewController: NSViewController {
 
     // Default controls
-    
-    @IBOutlet weak var button1: NSButton!
+    @IBOutlet weak var playButton: NSButton!
     @IBOutlet weak var sliderLabel1: NSTextField!
     @IBOutlet weak var slider1: NSSlider!
     @IBOutlet weak var sliderLabel2: NSTextField!
     @IBOutlet weak var slider2: NSSlider!
-    @IBOutlet private var outputTextView: NSTextView!
-    
-    // Define components
+    @IBOutlet weak var slider1Value: NSTextField!
+    @IBOutlet weak var slider2Value: NSTextField!
+    @IBOutlet weak var inputSource: NSPopUpButton!
+    @IBOutlet weak var chooseAudioButton: NSButton!
+    @IBOutlet weak var inputSourceInfo: NSTextField!
+
+    var openPanel: NSOpenPanel?
+
+    var audioTitle: String {
+        guard let av = player?.audioFile else { return "" }
+        return av.url.lastPathComponent
+    }
+
+    // Define components ⏦ ⏚ ⎍ ⍾ ⚙︎
     var oscillator = AKOscillator()
     var booster = AKBooster()
+    var player: AKPlayer?
+    var node: AKNode? {
+        didSet {
+            chooseAudioButton.isEnabled = node == player
+            inputSourceInfo.stringValue = node == player ? "🔊 \(audioTitle)" : "🔊 ⏦ \(oscillator.frequency) hz"
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        sliderLabel1.stringValue = "Gain"
-        sliderLabel2.stringValue = "Ramp Time"
-        button1.stringValue = "Start"
-    }
-    
-    @IBAction func start(_ sender: NSButton) {
-        
-        oscillator >>> booster
-        booster.gain = 0
-        
+        booster.gain = slider1.doubleValue
         AudioKit.output = booster
         AudioKit.start()
-        sender.isEnabled = false
-        
+        initOscillator()
+        handleUpdateParam(slider1)
+        handleUpdateParam(slider2)
     }
-    
-    
-    @IBAction func button1(_ sender: NSButton) {
-        if oscillator.isPlaying {
-            oscillator.stop()
-            button1.stringValue = "Start"
-            updateText("Stopped")
-        } else {
-            oscillator.start()
-            button1.stringValue = "Stop"
-            updateText("Playing \(Int(oscillator.frequency))Hz")
+
+    private func initOscillator() {
+        guard node != oscillator else { return }
+        booster.disconnectInput()
+        oscillator >>> booster
+        node = oscillator
+    }
+
+    private func initPlayer() {
+        if player == nil {
+            chooseAudio(chooseAudioButton)
+            return
+        }
+        guard node != player else { return }
+        guard let player = player else { return }
+
+        booster.disconnectInput()
+        player >>> booster
+        node = player
+    }
+
+    @IBAction func changeInput(_ sender: NSPopUpButton) {
+        guard let title = sender.selectedItem?.title else { return }
+        if title == "Oscillator" {
+            initOscillator()
+        } else if title == "Player" {
+            initPlayer()
         }
     }
-    @IBAction func slid1(_ sender: NSSlider) {
-        booster.gain = Double(slider1.floatValue)
-        updateText("booster gain = \(booster.gain)")
+
+    @IBAction func chooseOscillator(_ sender: Any) {
+        initOscillator()
     }
-    
-    @IBAction func slid2(_ sender: NSSlider) {
-        booster.rampTime = Double(slider2.floatValue)
-        updateText("booster ramp time = \(booster.rampTime)")
-    }
-    
-    func updateText(_ input: String) {
-        DispatchQueue.main.async(execute: {
-            self.outputTextView.string = "\(input)\n\(self.outputTextView.string)"
+
+    @IBAction func chooseAudio(_ sender: Any) {
+        guard let window = view.window else { return }
+        if openPanel == nil {
+            openPanel = NSOpenPanel()
+            openPanel!.message = "Open Audio File"
+            openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
+        }
+        guard let openPanel = openPanel else { return }
+        openPanel.beginSheetModal( for: window, completionHandler: { response in
+            if response == NSApplication.ModalResponse.OK {
+                if let url = openPanel.url {
+                    self.open(url: url)
+                }
+            }
         })
     }
-    
-    @IBAction func clearText(_ sender: Any) {
-        DispatchQueue.main.async(execute: {
-            self.outputTextView.string = ""
-        })
+
+    /// open an audio URL for playing
+    func open(url: URL) {
+        if player == nil {
+            player = AKPlayer(url: url)
+            player?.completionHandler = handleAudioComplete
+        } else {
+            do {
+                try player?.load(url: url)
+            } catch {}
+        }
+        initPlayer()
+
+        Swift.print("Opened \(url.lastPathComponent)")
     }
+
+    @IBAction func handlePlay(_ sender: NSButton) {
+        let state = sender.state == .on
+        if node == oscillator {
+            state ? oscillator.start() : oscillator.stop()
+        } else if node == player {
+            state ? player?.play() : player?.stop()
+        }
+    }
+
+    private func handleAudioComplete() {
+        playButton?.state = .off
+    }
+
+    @IBAction func handleUpdateParam(_ sender: NSSlider) {
+        if sender == slider1 {
+            booster.gain = slider1.doubleValue
+            slider1Value.stringValue = String(describing: roundTo(booster.gain, decimalPlaces: 3))
+        } else if sender == slider2 {
+            booster.rampTime = slider2.doubleValue
+            slider2Value.stringValue = String(describing: roundTo(booster.rampTime, decimalPlaces: 3))
+        }
+    }
+
+    private func roundTo(_ value: Double, decimalPlaces: Int) -> Double {
+        let decimalValue = pow(10.0, Double(decimalPlaces))
+        return round(value * decimalValue) / decimalValue
+    }
+
 }

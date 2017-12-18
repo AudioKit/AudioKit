@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55D897301FDB857C00754292 /* AKTestTriggers.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8972F1FDB857C00754292 /* AKTestTriggers.m */; };
+		C497FA721FDCB91800BB63C5 /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C497FA711FDCB91700BB63C5 /* Sandbox.swift */; };
 		C4A008CD1FD4DEBF004A91F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A008CC1FD4DEBF004A91F4 /* AppDelegate.swift */; };
 		C4A008CF1FD4DEBF004A91F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A008CE1FD4DEBF004A91F4 /* ViewController.swift */; };
 		C4A008D21FD4DEBF004A91F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4A008D01FD4DEBF004A91F4 /* Main.storyboard */; };
 		C4A008D41FD4DEBF004A91F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A008D31FD4DEBF004A91F4 /* Assets.xcassets */; };
 		C4A008D71FD4DEBF004A91F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4A008D51FD4DEBF004A91F4 /* LaunchScreen.storyboard */; };
-		C4A008ED1FD4DF18004A91F4 /* Sandbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A008EC1FD4DF18004A91F4 /* Sandbox.swift */; };
 		C4A0094F1FD4DF1F004A91F4 /* AKDCBlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A008EF1FD4DF1F004A91F4 /* AKDCBlockTests.swift */; };
 		C4A009501FD4DF1F004A91F4 /* smoothDelayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A008F01FD4DF1F004A91F4 /* smoothDelayTests.swift */; };
 		C4A009511FD4DF1F004A91F4 /* AKBandPassButterworthFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A008F11FD4DF1F004A91F4 /* AKBandPassButterworthFilterTests.swift */; };
@@ -169,6 +170,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		55D8972D1FDB857C00754292 /* iOSDevelopment-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSDevelopment-Bridging-Header.h"; sourceTree = "<group>"; };
+		55D8972E1FDB857C00754292 /* AKTestTriggers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKTestTriggers.h; path = ../../Common/AKTestTriggers.h; sourceTree = "<group>"; };
+		55D8972F1FDB857C00754292 /* AKTestTriggers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKTestTriggers.m; path = ../../Common/AKTestTriggers.m; sourceTree = "<group>"; };
+		C497FA711FDCB91700BB63C5 /* Sandbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sandbox.swift; path = ../../Common/Sandbox.swift; sourceTree = "<group>"; };
 		C4A008C91FD4DEBF004A91F4 /* iOSDevelopment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDevelopment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A008CC1FD4DEBF004A91F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4A008CE1FD4DEBF004A91F4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +183,6 @@
 		C4A008D81FD4DEBF004A91F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4A008DD1FD4DEC0004A91F4 /* iOSDevelopmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSDevelopmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A008E31FD4DEC0004A91F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4A008EC1FD4DF18004A91F4 /* Sandbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sandbox.swift; sourceTree = "<group>"; };
 		C4A008EF1FD4DF1F004A91F4 /* AKDCBlockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDCBlockTests.swift; sourceTree = "<group>"; };
 		C4A008F01FD4DF1F004A91F4 /* smoothDelayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = smoothDelayTests.swift; sourceTree = "<group>"; };
 		C4A008F11FD4DF1F004A91F4 /* AKBandPassButterworthFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBandPassButterworthFilterTests.swift; sourceTree = "<group>"; };
@@ -326,6 +330,9 @@
 				C4A008D31FD4DEBF004A91F4 /* Assets.xcassets */,
 				C4A008D51FD4DEBF004A91F4 /* LaunchScreen.storyboard */,
 				C4A008D81FD4DEBF004A91F4 /* Info.plist */,
+				55D8972E1FDB857C00754292 /* AKTestTriggers.h */,
+				55D8972F1FDB857C00754292 /* AKTestTriggers.m */,
+				55D8972D1FDB857C00754292 /* iOSDevelopment-Bridging-Header.h */,
 			);
 			path = iOSDevelopment;
 			sourceTree = "<group>";
@@ -333,7 +340,7 @@
 		C4A008E01FD4DEC0004A91F4 /* iOSDevelopmentTests */ = {
 			isa = PBXGroup;
 			children = (
-				C4A008EC1FD4DF18004A91F4 /* Sandbox.swift */,
+				C497FA711FDCB91700BB63C5 /* Sandbox.swift */,
 				C4A008E31FD4DEC0004A91F4 /* Info.plist */,
 				C4A008EE1FD4DF1F004A91F4 /* TestCases */,
 			);
@@ -506,6 +513,7 @@
 				TargetAttributes = {
 					C4A008C81FD4DEBF004A91F4 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					C4A008DC1FD4DEC0004A91F4 = {
@@ -583,6 +591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4A008CF1FD4DEBF004A91F4 /* ViewController.swift in Sources */,
+				55D897301FDB857C00754292 /* AKTestTriggers.m in Sources */,
 				C4A008CD1FD4DEBF004A91F4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -608,6 +617,7 @@
 				C4A009641FD4DF1F004A91F4 /* AKHighPassFilterTests.swift in Sources */,
 				C4A009A71FD4DF1F004A91F4 /* modalResonanceFilterTests.swift in Sources */,
 				C4A009791FD4DF1F004A91F4 /* AKVariableDelayTests.swift in Sources */,
+				C497FA721FDCB91800BB63C5 /* Sandbox.swift in Sources */,
 				C4A009A91FD4DF1F004A91F4 /* AKThreePoleLowpassFilterTests.swift in Sources */,
 				C4A0098A1FD4DF1F004A91F4 /* triangleTests.swift in Sources */,
 				C4A009841FD4DF1F004A91F4 /* resonantFilterTests.swift in Sources */,
@@ -640,7 +650,6 @@
 				C4A0097C1FD4DF1F004A91F4 /* AKToneComplementFilterTests.swift in Sources */,
 				C4A009561FD4DF1F004A91F4 /* AKToneFilterTests.swift in Sources */,
 				C4A0094F1FD4DF1F004A91F4 /* AKDCBlockTests.swift in Sources */,
-				C4A008ED1FD4DF18004A91F4 /* Sandbox.swift in Sources */,
 				C4A0099E1FD4DF1F004A91F4 /* AKAmplitudeEnvelopeTests.swift in Sources */,
 				C4A009731FD4DF1F004A91F4 /* korgLowPassFilterTests.swift in Sources */,
 				C4A009601FD4DF1F004A91F4 /* clipTests.swift in Sources */,
@@ -843,11 +852,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.iOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iOSDevelopment/iOSDevelopment-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -858,11 +870,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.iOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iOSDevelopment/iOSDevelopment-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

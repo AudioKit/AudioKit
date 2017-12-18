@@ -20,7 +20,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
 
     fileprivate var pregainParameter: AUParameter?
     fileprivate var postgainParameter: AUParameter?
-    fileprivate var postiveShapeParameterParameter: AUParameter?
+    fileprivate var positiveShapeParameterParameter: AUParameter?
     fileprivate var negativeShapeParameterParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
@@ -34,7 +34,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var pregain: Double = 2.0 {
         willSet {
             if pregain != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         pregainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -48,7 +48,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var postgain: Double = 0.5 {
         willSet {
             if postgain != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         postgainParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -59,15 +59,15 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    @objc open dynamic var postiveShapeParameter: Double = 0.0 {
+    @objc open dynamic var positiveShapeParameter: Double = 0.0 {
         willSet {
-            if postiveShapeParameter != newValue {
-                if internalAU?.isSetUp() ?? false {
+            if positiveShapeParameter != newValue {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
-                        postiveShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
+                        positiveShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.postiveShapeParameter = Float(newValue)
+                    internalAU?.positiveShapeParameter = Float(newValue)
                 }
             }
         }
@@ -76,7 +76,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var negativeShapeParameter: Double = 0.0 {
         willSet {
             if negativeShapeParameter != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         negativeShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -89,7 +89,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -100,19 +100,19 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - pregain: The amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     ///   - postgain: Gain applied after waveshaping
-    ///   - postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
+    ///   - positiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     @objc public init(
         _ input: AKNode? = nil,
         pregain: Double = 2.0,
         postgain: Double = 0.5,
-        postiveShapeParameter: Double = 0.0,
+        positiveShapeParameter: Double = 0.0,
         negativeShapeParameter: Double = 0.0) {
 
         self.pregain = pregain
         self.postgain = postgain
-        self.postiveShapeParameter = postiveShapeParameter
+        self.positiveShapeParameter = positiveShapeParameter
         self.negativeShapeParameter = negativeShapeParameter
 
         _Self.register()
@@ -133,7 +133,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
 
         pregainParameter = tree["pregain"]
         postgainParameter = tree["postgain"]
-        postiveShapeParameterParameter = tree["postiveShapeParameter"]
+        positiveShapeParameterParameter = tree["positiveShapeParameter"]
         negativeShapeParameterParameter = tree["negativeShapeParameter"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
@@ -150,7 +150,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
 
         internalAU?.pregain = Float(pregain)
         internalAU?.postgain = Float(postgain)
-        internalAU?.postiveShapeParameter = Float(postiveShapeParameter)
+        internalAU?.positiveShapeParameter = Float(positiveShapeParameter)
         internalAU?.negativeShapeParameter = Float(negativeShapeParameter)
     }
 
