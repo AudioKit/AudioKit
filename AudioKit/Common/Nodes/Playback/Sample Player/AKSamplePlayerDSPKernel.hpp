@@ -29,9 +29,7 @@ public:
 
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
-
-        startPointRamper.init();
-        endPointRamper.init();
+        
         rateRamper.init();
         volumeRamper.init();
     }
@@ -84,28 +82,22 @@ public:
 
     void reset() {
         resetted = true;
-        startPointRamper.reset();
-        endPointRamper.reset();
         rateRamper.reset();
         volumeRamper.reset();
     }
 
     void setStartPoint(float value) {
         startPoint = value;
-        startPointRamper.setImmediate(startPoint);
     }
 
     void setEndPoint(float value) {
         endPoint = value;
-        endPointRamper.setImmediate(endPoint);
     }
     void setLoopStartPoint(float value) {
         loopStartPoint = value;
-        loopStartPointRamper.setImmediate(loopStartPoint);
     }
     void setLoopEndPoint(float value) {
         loopEndPoint = value;
-        loopEndPointRamper.setImmediate(loopEndPoint);
     }
     void setLoop(bool value) {
         loop = value;
@@ -123,22 +115,6 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case startPointAddress:
-                startPointRamper.setUIValue(value);
-                break;
-
-            case endPointAddress:
-                endPointRamper.setUIValue(value);
-                break;
-
-            case loopStartPointAddress:
-                loopStartPointRamper.setUIValue(value);
-                break;
-
-            case loopEndPointAddress:
-                loopEndPointRamper.setUIValue(value);
-                break;
-
             case rateAddress:
                 rateRamper.setUIValue(clamp(value, -10.0f, 10.0f));
                 break;
@@ -151,18 +127,6 @@ public:
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case startPointAddress:
-                return startPointRamper.getUIValue();
-
-            case endPointAddress:
-                return endPointRamper.getUIValue();
-
-            case loopStartPointAddress:
-                return loopStartPointRamper.getUIValue();
-
-            case loopEndPointAddress:
-                return loopEndPointRamper.getUIValue();
-
             case rateAddress:
                 return rateRamper.getUIValue();
 
@@ -175,22 +139,6 @@ public:
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            case startPointAddress:
-                startPointRamper.startRamp(value, duration);
-                break;
-
-            case endPointAddress:
-                endPointRamper.startRamp(value, duration);
-                break;
-
-            case loopStartPointAddress:
-                loopStartPointRamper.startRamp(value, duration);
-                break;
-
-            case loopEndPointAddress:
-                loopEndPointRamper.startRamp(value, duration);
-                break;
-
             case rateAddress:
                 rateRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
                 break;
@@ -358,10 +306,6 @@ private:
 public:
     bool started = false;
     bool resetted = false;
-    ParameterRamper startPointRamper = 0;
-    ParameterRamper endPointRamper = 1;
-    ParameterRamper loopStartPointRamper = 0;
-    ParameterRamper loopEndPointRamper = 1;
     ParameterRamper rateRamper = 1;
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;
