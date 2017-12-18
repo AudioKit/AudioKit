@@ -35,7 +35,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var frequency: Double = 440 {
         willSet {
             if frequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -50,7 +50,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = 1.0 {
         willSet {
             if amplitude != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -65,7 +65,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var detuningOffset: Double = 0 {
         willSet {
             if detuningOffset != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -80,7 +80,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var detuningMultiplier: Double = 1 {
         willSet {
             if detuningMultiplier != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -95,7 +95,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var pulseWidth: Double = 0.5 {
         willSet {
             if pulseWidth != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         pulseWidthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -108,7 +108,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization

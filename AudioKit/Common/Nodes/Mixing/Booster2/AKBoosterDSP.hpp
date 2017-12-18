@@ -43,9 +43,9 @@ private:
 public:
 
     AKBoosterDSP() {
-        leftGainRamp.setTarget(1.0, 0, true);
+        leftGainRamp.setTarget(1.0, true);
         leftGainRamp.setDurationInSamples(10000);
-        rightGainRamp.setTarget(1.0, 0, true);
+        rightGainRamp.setTarget(1.0, true);
         rightGainRamp.setDurationInSamples(10000);
     }
 
@@ -53,10 +53,10 @@ public:
     void setParameter(uint64_t address, float value, bool immediate) override {
         switch (address) {
             case AKBoosterParameterLeftGain:
-                leftGainRamp.setTarget(value, _now, immediate);
+                leftGainRamp.setTarget(value, immediate);
                 break;
             case AKBoosterParameterRightGain:
-                rightGainRamp.setTarget(value, _now, immediate);
+                rightGainRamp.setTarget(value, immediate);
                 break;
             case AKBoosterParameterRampTime:
                 leftGainRamp.setRampTime(value, _sampleRate);

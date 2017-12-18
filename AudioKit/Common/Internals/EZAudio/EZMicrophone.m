@@ -71,7 +71,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [EZAudioUtilities checkResult:AudioUnitUninitialize(self.info->audioUnit)
-                        operation:"Failed to unintialize audio unit for microphone"];
+                        operation:"Failed to uninitialize audio unit for microphone"];
     [EZAudioUtilities freeBufferList:self.info->audioBufferList];
     [EZAudioUtilities freeFloatBuffers:self.info->floatData
                       numberOfChannels:self.info->streamFormat.mChannelsPerFrame];

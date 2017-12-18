@@ -27,6 +27,10 @@
     _kernel.setFeedback(feedback);
 }
 
+- (void)clear {
+    _kernel.clear();
+}
+
 standardKernelPassthroughs()
 
 - (void)createParameters {

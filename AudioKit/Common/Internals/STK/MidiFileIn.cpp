@@ -335,7 +335,7 @@ MidiFileIn ::getNextMidiEvent(std::vector<unsigned char> *midiEvent,
                               unsigned int track) {
   // Fill the user-provided vector with the next MIDI event in the
   // specified track (default = 0) and return the event delta time in
-  // ticks.  Meta-Events preceeding this event are skipped and ignored.
+  // ticks.  Meta-Events preceding this event are skipped and ignored.
   if (track >= nTracks_) {
     oStream_ << "MidiFileIn::getNextMidiEvent: invalid track argument ("
              << track << ").";

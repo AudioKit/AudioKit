@@ -1605,6 +1605,8 @@ int sp_tseq_init(sp_data *sp, sp_tseq *p, sp_ftbl *ft);
 int sp_tseq_compute(sp_data *sp, sp_tseq *p, SPFLOAT *trig, SPFLOAT *val);
 typedef struct sp_vdelay{
     SPFLOAT del, maxdel;
+    SPFLOAT feedback;
+    SPFLOAT prev;
     SPFLOAT sr;
     sp_auxdata buf;
     int32_t left;

@@ -31,7 +31,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var bitDepth: Double = 8 {
         willSet {
             if bitDepth != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         bitDepthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -45,7 +45,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var sampleRate: Double = 10_000 {
         willSet {
             if sampleRate != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         sampleRateParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -58,7 +58,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
