@@ -27,8 +27,8 @@
 - (void)setPostgain:(float)postgain {
     _kernel.setPostgain(postgain);
 }
-- (void)setpositiveShapeParameter:(float)positiveShapeParameter {
-    _kernel.setpositiveShapeParameter(positiveShapeParameter);
+- (void)setPositiveShapeParameter:(float)positiveShapeParameter {
+    _kernel.setPositiveShapeParameter(positiveShapeParameter);
 }
 - (void)setNegativeShapeParameter:(float)negativeShapeParameter {
     _kernel.setNegativeShapeParameter(negativeShapeParameter);
