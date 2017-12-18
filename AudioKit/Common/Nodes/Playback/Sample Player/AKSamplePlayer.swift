@@ -236,20 +236,25 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// Play from a certain sample
-    open func play(from: Sample = 0) {
+    open func play() {
+        start()
+    }
+    
+    /// Play from a certain sample
+    open func play(from: Sample) {
         startPoint = from
         start()
     }
 
     /// Play from a certain sample for a certain number of samples
-    open func play(from: Sample = 0, length: Sample = 0) {
+    open func play(from: Sample, length: Sample) {
         startPoint = from
         endPoint = startPoint + length
         start()
     }
 
     /// Play from a certain sample to an end sample
-    open func play(from: Sample = 0, to: Sample = 0) {
+    open func play(from: Sample, to: Sample) {
         startPoint = from
         endPoint = to
         start()
