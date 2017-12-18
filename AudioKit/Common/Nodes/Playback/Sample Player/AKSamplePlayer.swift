@@ -281,7 +281,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     func safeSample(_ point: Sample) -> Sample {
         if point > size { return size }
-        //if point < 0 { return 0 } doesnt work cause we're using uint32 for sample
+        //if point < 0 { return 0 } doesn't work cause we're using uint32 for sample
         return point
     }
 

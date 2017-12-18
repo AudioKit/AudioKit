@@ -52,7 +52,7 @@ public:
 
   //! Stop the audio output stream.
   /*!
-    It may be necessary to use this method to avoid undesireable
+    It may be necessary to use this method to avoid undesirable
     audio buffer cycling if you wish to temporarily stop audio output.
   */
   void stop(void);

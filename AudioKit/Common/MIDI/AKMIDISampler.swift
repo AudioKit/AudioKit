@@ -35,7 +35,7 @@ open class AKMIDISampler: AKSampler {
     /// This is not in the init function because it must be called AFTER you start AudioKit
     ///
     /// - Parameters:
-    ///   - midiClient: A refernce to the MIDI client
+    ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,

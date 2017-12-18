@@ -78,7 +78,7 @@ public:
   /*!
     An StkError will be thrown if an output error occurs.  An
     StkError will also be thrown if _STK_DEBUG_ is defined during
-    compilation and there is an incompatability between the number of
+    compilation and there is an incompatibility between the number of
     channels in the FileWvOut object and that in the StkFrames object.
   */
   void tick(const StkFrames &frames);
