@@ -44,17 +44,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
-<<<<<<< HEAD
                 internalAU?.startPoint = Float(safeSample(newValue))
-=======
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.startPoint = Float(safeSample(newValue))
-                }
->>>>>>> 5b08983e1fee8796bb72428c6fe01f963a6afbc3
             }
         }
     }
@@ -64,17 +54,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-<<<<<<< HEAD
                 internalAU?.endPoint = Float(safeSample(newValue))
-=======
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.endPoint = Float(safeSample(newValue))
-                }
->>>>>>> 5b08983e1fee8796bb72428c6fe01f963a6afbc3
             }
         }
     }
@@ -83,17 +63,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
             if loopStartPoint != newValue {
-<<<<<<< HEAD
                 internalAU?.loopStartPoint = Float(safeSample(newValue))
-=======
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        loopStartPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.loopStartPoint = Float(safeSample(newValue))
-                }
->>>>>>> 5b08983e1fee8796bb72428c6fe01f963a6afbc3
             }
         }
     }
@@ -102,17 +72,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-<<<<<<< HEAD
                 internalAU?.loopEndPoint = Float(safeSample(newValue))
-=======
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        loopEndPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.loopEndPoint = Float(safeSample(newValue))
-                }
->>>>>>> 5b08983e1fee8796bb72428c6fe01f963a6afbc3
             }
         }
     }
