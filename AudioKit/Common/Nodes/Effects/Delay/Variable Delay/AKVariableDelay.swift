@@ -29,10 +29,10 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Delay time (in seconds) that can be changed at any point. This value must not exceed the maximum delay time.
-    @objc open dynamic var time: Double = 1 {
+    @objc open dynamic var time: Double = 0 {
         willSet {
             if time != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         timeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -46,7 +46,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var feedback: Double = 0 {
         willSet {
             if feedback != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -59,7 +59,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -74,7 +74,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        time: Double = 1,
+        time: Double = 0,
         feedback: Double = 0,
         maximumDelayTime: Double = 5) {
 
@@ -124,5 +124,10 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()
+    }
+
+    /// Clear out the delay memory buffer
+    @objc open func clear() {
+        internalAU?.clear()
     }
 }

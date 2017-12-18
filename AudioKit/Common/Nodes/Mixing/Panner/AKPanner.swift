@@ -31,7 +31,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var pan: Double = 0 {
         willSet {
             if pan != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         panParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -44,7 +44,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization

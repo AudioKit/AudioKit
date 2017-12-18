@@ -58,14 +58,16 @@ extension AudioUnitManager {
     ////////////////////////////
 
     func showEffect(at auIndex: Int, state: Bool) {
-        if auIndex > internalManager!.effectsChain.count - 1 {
+        guard let internalManager = internalManager else { return }
+
+        if auIndex > internalManager.effectsChain.count - 1 {
             AKLog("index is out of range")
             return
         }
 
         if state {
             // get audio unit at the specified index
-            if let au = internalManager?.effectsChain[auIndex] {
+            if let au = internalManager.effectsChain[auIndex] {
                 showAudioUnit(au, identifier: auIndex)
 
             } else {
@@ -80,7 +82,7 @@ extension AudioUnitManager {
     }
 
     func handleEffectSelected(_ auname: String, identifier: Int) {
-        guard internalManager != nil else { return }
+        guard let internalManager = internalManager else { return }
         AKLog("\(identifier) \(auname)")
 
         if auname == "-" {
@@ -95,11 +97,11 @@ extension AudioUnitManager {
             if let win = getWindowFromIndentifier(identifier) {
                 win.close()
             }
-            internalManager!.removeEffect(at: identifier)
+            internalManager.removeEffect(at: identifier)
             return
         }
 
-        internalManager!.insertAudioUnit(name: auname, at: identifier)
+        internalManager.insertAudioUnit(name: auname, at: identifier)
 
         // select the item in the menu
         selectEffectInMenu(name: auname, identifier: identifier)
@@ -155,6 +157,8 @@ extension AudioUnitManager {
     }
 
     private func fillAUMenu(button: MenuButton, manufacturers: [String], audioUnits: [AVAudioUnitComponent]) {
+        guard let internalManager = internalManager else { return }
+
         if button.menu == nil {
             let theMenu = NSMenu(title: "Effects")
             theMenu.font = NSFont.systemFont(ofSize: 10)
@@ -186,15 +190,17 @@ extension AudioUnitManager {
                 strongSelf.handleEffectSelected(component.name, identifier: button.tag)
             })
 
+            guard let bmenu = button.menu else { continue }
+
             // manufacturer list
-            for man in button.menu!.items where man.title == component.manufacturerName {
+            for man in bmenu.items where man.title == component.manufacturerName {
                 man.submenu?.addItem(item)
             }
         }
 
         let internalSubmenu = button.menu?.items.filter { $0.title == akInternals }.first
 
-        for name in internalManager!.internalAudioUnits {
+        for name in internalManager.internalAudioUnits {
             let item = ClosureMenuItem(title: name, closure: { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.handleEffectSelected(name, identifier: button.tag)
@@ -341,7 +347,8 @@ extension AudioUnitManager: AKAudioUnitManagerDelegate {
 
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
         if type == AKAudioUnitManager.Notification.changed {
-            updateEffectsUI(audioUnits: internalManager!.availableEffects)
+            guard let internalManager = internalManager else { return }
+            updateEffectsUI(audioUnits: internalManager.availableEffects)
         }
     }
 

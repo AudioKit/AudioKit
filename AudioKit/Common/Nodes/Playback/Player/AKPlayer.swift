@@ -173,12 +173,9 @@ public class AKPlayer: AKNode {
     /// Get or set the start time of the player.
     public var startTime: Double {
         get {
-            var out: Double = 0
-            startTimeQueue.sync {
-                out = self.isLooping ? self.loop.start : self._startTime
-                out = max(0, out)
+            return startTimeQueue.sync {
+                max(0, self.isLooping ? self.loop.start : self._startTime)
             }
-            return out
         }
 
         set {
@@ -191,11 +188,9 @@ public class AKPlayer: AKNode {
     /// Get or set the end time of the player.
     public var endTime: Double {
         get {
-            var out: Double = 0
-            endTimeQueue.sync {
-                out = self.isLooping ? self.loop.end : self._endTime
+            return endTimeQueue.sync {
+                 self.isLooping ? self.loop.end : self._endTime
             }
-            return out
         }
 
         set {
@@ -413,7 +408,7 @@ public class AKPlayer: AKNode {
         }
         completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
                                                target: self,
-                                               selector: #selector(AKPlayer.handleComplete),
+                                               selector: #selector(handleComplete),
                                                userInfo: nil,
                                                repeats: false)
     }

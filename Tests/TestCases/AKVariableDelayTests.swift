@@ -18,12 +18,12 @@ class AKVariableDelayTests: AKTestCase {
 
     func testDefault() {
         output = AKVariableDelay(input)
-        AKTestMD5("4f6ff617850190542e120c2e27cdde54")
+        AKTestMD5("c70cd955bd783b4f84b497d00ed1b9f7")
     }
 
     func testFeedback() {
         output = AKVariableDelay(input, feedback: 0.95)
-        AKTestMD5("f041e3cf613921e41f8212fc7012ed6f")
+        AKTestMD5("58250ab52957d2aa3d9efca9ed10cf88")
     }
 
     func testParametersSetAfterInit() {

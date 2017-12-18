@@ -32,7 +32,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var limit: Double = 1.0 {
         willSet {
             if limit != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         limitParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -45,7 +45,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization

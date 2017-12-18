@@ -32,7 +32,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var wah: Double = 0.0 {
         willSet {
             if wah != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         wahParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -47,7 +47,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var mix: Double = 1.0 {
         willSet {
             if mix != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         mixParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -62,7 +62,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var amplitude: Double = 0.1 {
         willSet {
             if amplitude != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -75,7 +75,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization

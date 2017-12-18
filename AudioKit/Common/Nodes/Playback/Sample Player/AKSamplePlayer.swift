@@ -44,7 +44,17 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
+<<<<<<< HEAD
                 internalAU?.startPoint = Float(safeSample(newValue))
+=======
+                if internalAU?.isSetUp ?? false {
+                    if let existingToken = token {
+                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.startPoint = Float(safeSample(newValue))
+                }
+>>>>>>> 5b08983e1fee8796bb72428c6fe01f963a6afbc3
             }
         }
     }
@@ -54,7 +64,17 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
+<<<<<<< HEAD
                 internalAU?.endPoint = Float(safeSample(newValue))
+=======
+                if internalAU?.isSetUp ?? false {
+                    if let existingToken = token {
+                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.endPoint = Float(safeSample(newValue))
+                }
+>>>>>>> 5b08983e1fee8796bb72428c6fe01f963a6afbc3
             }
         }
     }
@@ -63,7 +83,17 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
             if loopStartPoint != newValue {
+<<<<<<< HEAD
                 internalAU?.loopStartPoint = Float(safeSample(newValue))
+=======
+                if internalAU?.isSetUp ?? false {
+                    if let existingToken = token {
+                        loopStartPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.loopStartPoint = Float(safeSample(newValue))
+                }
+>>>>>>> 5b08983e1fee8796bb72428c6fe01f963a6afbc3
             }
         }
     }
@@ -72,7 +102,17 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
+<<<<<<< HEAD
                 internalAU?.loopEndPoint = Float(safeSample(newValue))
+=======
+                if internalAU?.isSetUp ?? false {
+                    if let existingToken = token {
+                        loopEndPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.loopEndPoint = Float(safeSample(newValue))
+                }
+>>>>>>> 5b08983e1fee8796bb72428c6fe01f963a6afbc3
             }
         }
     }
@@ -81,7 +121,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var rate: Double = 1 {
         willSet {
             if rate != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         rateParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -96,7 +136,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var volume: Double = 1 {
         willSet {
             if volume != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         volumeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -138,7 +178,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     fileprivate var avAudiofile: AVAudioFile
@@ -257,7 +297,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     func safeSample(_ point: Sample) -> Sample {
         if point > size { return size }
-        //if point < 0 { return 0 } doesnt work cause we're using uint32 for sample
+        //if point < 0 { return 0 } doesn't work cause we're using uint32 for sample
         return point
     }
 

@@ -41,11 +41,7 @@ class AudioUnitManager: NSViewController {
     internal var mixer = AKMixer()
     internal var testPlayer: InstrumentPlayer?
     internal var fmTimer: Timer?
-    internal var auInstrument: AKAudioUnitInstrument? {
-        didSet {
-            guard auInstrument != nil else { return }
-        }
-    }
+    internal var auInstrument: AKAudioUnitInstrument?
 
     public var isLooping: Bool {
         return loopButton.state == .on
@@ -83,6 +79,7 @@ class AudioUnitManager: NSViewController {
         initMIDI()
         initUI()
         audioEnabled = false
+
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
@@ -170,10 +167,10 @@ class AudioUnitManager: NSViewController {
         AKLog("chooseAudio()")
         if openPanel == nil {
             openPanel = NSOpenPanel()
-            openPanel!.message = "Open Audio File"
-            openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
+            openPanel?.message = "Open Audio File"
+            openPanel?.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
         }
-        openPanel!.beginSheetModal(for: window, completionHandler: { response in
+        openPanel?.beginSheetModal(for: window, completionHandler: { response in
             if response == NSApplication.ModalResponse.OK {
                 if let url = self.openPanel?.url {
                     self.open(url: url)
@@ -189,7 +186,7 @@ class AudioUnitManager: NSViewController {
     }
 
     @IBAction func handleInstrumentSelected(_ sender: NSPopUpButton) {
-        guard internalManager != nil else { return }
+        guard let internalManager = internalManager else { return }
         guard let auname = sender.titleOfSelectedItem else { return }
 
         if auname == "-" {
@@ -198,7 +195,7 @@ class AudioUnitManager: NSViewController {
             return
         }
 
-        internalManager!.createInstrument(name: auname, completionHandler: { audioUnit in
+        internalManager.createInstrument(name: auname, completionHandler: { audioUnit in
             guard let audioUnit = audioUnit else { return }
 
             AKLog("* \(audioUnit.name) : Audio Unit created")
@@ -208,7 +205,7 @@ class AudioUnitManager: NSViewController {
             if self.auInstrument == nil {
                 return
             }
-            self.internalManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer)
+            internalManager.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer)
             self.showAudioUnit(audioUnit, identifier: 6)
             DispatchQueue.main.async {
                 self.instrumentPlayButton.isEnabled = true
@@ -224,7 +221,6 @@ class AudioUnitManager: NSViewController {
     }
 
     @IBAction func handleShowAudioUnit(_ sender: NSButton) {
-        guard internalManager != nil else { return }
         let auIndex = sender.tag
         AKLog("handleShowAudioUnit() \(auIndex)")
         let state = sender.state == .on
@@ -236,7 +232,7 @@ class AudioUnitManager: NSViewController {
 
         startEngine(completionHandler: {
             if self.fmOscillator.isStarted {
-                self.fmButton!.state = .off
+                self.fmButton.state = .off
                 self.fmOscillator.stop()
             }
 
