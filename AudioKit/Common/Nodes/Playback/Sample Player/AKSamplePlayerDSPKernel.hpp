@@ -206,11 +206,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
-
-            startPoint = double(startPointRamper.getAndStep());
-            endPoint = double(endPointRamper.getAndStep());
-            loopStartPoint = double(loopStartPointRamper.getAndStep());
-            loopEndPoint = double(loopEndPointRamper.getAndStep());
+            
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
 
@@ -228,7 +224,6 @@ public:
                         calculateShouldLoop(nextPosition);
                     }
                 }
-
                 if (!loop && calculateHasEnded(nextPosition)) {
                     started = false;
                     completionHandler();
