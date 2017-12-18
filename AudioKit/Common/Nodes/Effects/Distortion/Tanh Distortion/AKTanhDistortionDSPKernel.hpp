@@ -13,7 +13,7 @@
 enum {
     pregainAddress = 0,
     postgainAddress = 1,
-    postiveShapeParameterAddress = 2,
+    positiveShapeParameterAddress = 2,
     negativeShapeParameterAddress = 3
 };
 
@@ -41,7 +41,7 @@ public:
 
         pregainRamper.init();
         postgainRamper.init();
-        postiveShapeParameterRamper.init();
+        positiveShapeParameterRamper.init();
         negativeShapeParameterRamper.init();
     }
 
@@ -63,7 +63,7 @@ public:
         resetted = true;
         pregainRamper.reset();
         postgainRamper.reset();
-        postiveShapeParameterRamper.reset();
+        positiveShapeParameterRamper.reset();
         negativeShapeParameterRamper.reset();
     }
 
@@ -77,9 +77,9 @@ public:
         postgainRamper.setImmediate(postgain);
     }
 
-    void setPostiveShapeParameter(float value) {
-        postiveShapeParameter = clamp(value, -10.0f, 10.0f);
-        postiveShapeParameterRamper.setImmediate(postiveShapeParameter);
+    void setpositiveShapeParameter(float value) {
+        positiveShapeParameter = clamp(value, -10.0f, 10.0f);
+        positiveShapeParameterRamper.setImmediate(positiveShapeParameter);
     }
 
     void setNegativeShapeParameter(float value) {
@@ -98,8 +98,8 @@ public:
                 postgainRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
-            case postiveShapeParameterAddress:
-                postiveShapeParameterRamper.setUIValue(clamp(value, -10.0f, 10.0f));
+            case positiveShapeParameterAddress:
+                positiveShapeParameterRamper.setUIValue(clamp(value, -10.0f, 10.0f));
                 break;
 
             case negativeShapeParameterAddress:
@@ -117,8 +117,8 @@ public:
             case postgainAddress:
                 return postgainRamper.getUIValue();
 
-            case postiveShapeParameterAddress:
-                return postiveShapeParameterRamper.getUIValue();
+            case positiveShapeParameterAddress:
+                return positiveShapeParameterRamper.getUIValue();
 
             case negativeShapeParameterAddress:
                 return negativeShapeParameterRamper.getUIValue();
@@ -137,8 +137,8 @@ public:
                 postgainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
-            case postiveShapeParameterAddress:
-                postiveShapeParameterRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
+            case positiveShapeParameterAddress:
+                positiveShapeParameterRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
                 break;
 
             case negativeShapeParameterAddress:
@@ -160,9 +160,9 @@ public:
             postgain = postgainRamper.getAndStep();
             dist0->postgain = (float)postgain;
             dist1->postgain = (float)postgain;
-            postiveShapeParameter = postiveShapeParameterRamper.getAndStep();
-            dist0->shape1 = (float)postiveShapeParameter;
-            dist1->shape1 = (float)postiveShapeParameter;
+            positiveShapeParameter = positiveShapeParameterRamper.getAndStep();
+            dist0->shape1 = (float)positiveShapeParameter;
+            dist1->shape1 = (float)positiveShapeParameter;
             negativeShapeParameter = negativeShapeParameterRamper.getAndStep();
             dist0->shape2 = (float)negativeShapeParameter;
             dist1->shape2 = (float)negativeShapeParameter;
@@ -193,7 +193,7 @@ private:
 
     float pregain = 2.0;
     float postgain = 0.5;
-    float postiveShapeParameter = 0.0;
+    float positiveShapeParameter = 0.0;
     float negativeShapeParameter = 0.0;
 
 public:
@@ -201,6 +201,6 @@ public:
     bool resetted = false;
     ParameterRamper pregainRamper = 2.0;
     ParameterRamper postgainRamper = 0.5;
-    ParameterRamper postiveShapeParameterRamper = 0.0;
+    ParameterRamper positiveShapeParameterRamper = 0.0;
     ParameterRamper negativeShapeParameterRamper = 0.0;
 };

@@ -13,6 +13,7 @@ extension AudioUnitManager {
 
     internal func handlePlay(state: Bool) {
         guard let player = player else { return }
+        guard let internalManager = internalManager else { return }
 
         // stop
         if player.isPlaying {
@@ -35,8 +36,8 @@ extension AudioUnitManager {
             }
 
             // then attach the effects chain if needed
-            if internalManager?.input != (player as AKNode) {
-                internalManager!.connectEffects(firstNode: player, lastNode: mixer)
+            if internalManager.input != (player as AKNode) {
+                internalManager.connectEffects(firstNode: player, lastNode: mixer)
             }
             startEngine(completionHandler: {
                 player.volume = 1
@@ -47,7 +48,7 @@ extension AudioUnitManager {
 
             if AudioKit.engine.isRunning {
                 // just turns off reverb tails or delay lines etc
-                internalManager?.reset()
+                internalManager.reset()
             }
             stopAudioTimer()
         }

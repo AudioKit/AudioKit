@@ -38,7 +38,7 @@ open class AKMandolin: AKNode, AKComponent {
     @objc open dynamic var detune: Double = 1 {
         willSet {
             if detune != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         detuneParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -53,7 +53,7 @@ open class AKMandolin: AKNode, AKComponent {
     @objc open dynamic var bodySize: Double = 1 {
         willSet {
             if bodySize != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         bodySizeParameter?.setValue(Float(newValue), originator: existingToken)
                     }

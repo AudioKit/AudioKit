@@ -39,7 +39,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var frequency: Double = 160.0 {
         willSet {
             if frequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -54,7 +54,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var tonguePosition: Double = 0.5 {
         willSet {
             if tonguePosition != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         tonguePositionParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -69,7 +69,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var tongueDiameter: Double = 1.0 {
         willSet {
             if tongueDiameter != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         tongueDiameterParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -84,7 +84,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var tenseness: Double = 0.6 {
         willSet {
             if tenseness != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         tensenessParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -99,7 +99,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var nasality: Double = 0.0 {
         willSet {
             if nasality != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         nasalityParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -112,7 +112,7 @@ public class AKVocalTract: AKNode, AKToggleable, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization

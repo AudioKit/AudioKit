@@ -235,6 +235,7 @@ public protocol AKWaveformDelegate: class {
     func loopChanged(source: AKWaveform)
 }
 
+/// Class to show looping bounds on top of the waveform
 class LoopMarker: AKView {
     public enum MarkerType {
         case start, end
