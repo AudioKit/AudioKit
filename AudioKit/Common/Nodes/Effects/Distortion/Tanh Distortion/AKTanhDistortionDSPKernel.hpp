@@ -77,7 +77,7 @@ public:
         postgainRamper.setImmediate(postgain);
     }
 
-    void setpositiveShapeParameter(float value) {
+    void setPositiveShapeParameter(float value) {
         positiveShapeParameter = clamp(value, -10.0f, 10.0f);
         positiveShapeParameterRamper.setImmediate(positiveShapeParameter);
     }

@@ -114,6 +114,9 @@
 		C4A009BA1FD4DF4E004A91F4 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B61FD4DF44004A91F4 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4A009BD1FD4DF4E004A91F4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B81FD4DF44004A91F4 /* AudioKitUI.framework */; };
 		C4A009BE1FD4DF4E004A91F4 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B81FD4DF44004A91F4 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FE19A1761FE8731C003B5418 /* AKSamplePlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE19A1741FE87311003B5418 /* AKSamplePlayerTests.swift */; };
+		FE19A1781FE8742A003B5418 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE19A1771FE8742A003B5418 /* sinechirp.wav */; };
+		FE19A1791FE8742A003B5418 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE19A1771FE8742A003B5418 /* sinechirp.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +283,8 @@
 		C4A0094D1FD4DF1F004A91F4 /* AKResonantFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilterTests.swift; sourceTree = "<group>"; };
 		C4A0094E1FD4DF1F004A91F4 /* AKBoosterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterTests.swift; sourceTree = "<group>"; };
 		C4A009B01FD4DF43004A91F4 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
+		FE19A1741FE87311003B5418 /* AKSamplePlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKSamplePlayerTests.swift; sourceTree = "<group>"; };
+		FE19A1771FE8742A003B5418 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../Common/sinechirp.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +338,7 @@
 				55D8972E1FDB857C00754292 /* AKTestTriggers.h */,
 				55D8972F1FDB857C00754292 /* AKTestTriggers.m */,
 				55D8972D1FDB857C00754292 /* iOSDevelopment-Bridging-Header.h */,
+				FE19A1771FE8742A003B5418 /* sinechirp.wav */,
 			);
 			path = iOSDevelopment;
 			sourceTree = "<group>";
@@ -400,6 +406,7 @@
 				C4A0093A1FD4DF1F004A91F4 /* AKReverbTests.swift */,
 				C4A0091D1FD4DF1F004A91F4 /* AKRingModulatorTests.swift */,
 				C4A009361FD4DF1F004A91F4 /* AKRolandTB303FilterTests.swift */,
+				FE19A1741FE87311003B5418 /* AKSamplePlayerTests.swift */,
 				C4A009121FD4DF1F004A91F4 /* AKStringResonatorTests.swift */,
 				C4A009171FD4DF1F004A91F4 /* AKTableTests.swift */,
 				C4A009261FD4DF1F004A91F4 /* AKTanhDistortionTests.swift */,
@@ -572,6 +579,7 @@
 			files = (
 				C4A008D71FD4DEBF004A91F4 /* LaunchScreen.storyboard in Resources */,
 				C4A008D41FD4DEBF004A91F4 /* Assets.xcassets in Resources */,
+				FE19A1781FE8742A003B5418 /* sinechirp.wav in Resources */,
 				C4A008D21FD4DEBF004A91F4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -580,6 +588,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE19A1791FE8742A003B5418 /* sinechirp.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +625,7 @@
 				C4A0097A1FD4DF1F004A91F4 /* distortTests.swift in Sources */,
 				C4A009641FD4DF1F004A91F4 /* AKHighPassFilterTests.swift in Sources */,
 				C4A009A71FD4DF1F004A91F4 /* modalResonanceFilterTests.swift in Sources */,
+				FE19A1761FE8731C003B5418 /* AKSamplePlayerTests.swift in Sources */,
 				C4A009791FD4DF1F004A91F4 /* AKVariableDelayTests.swift in Sources */,
 				C497FA721FDCB91800BB63C5 /* Sandbox.swift in Sources */,
 				C4A009A91FD4DF1F004A91F4 /* AKThreePoleLowpassFilterTests.swift in Sources */,

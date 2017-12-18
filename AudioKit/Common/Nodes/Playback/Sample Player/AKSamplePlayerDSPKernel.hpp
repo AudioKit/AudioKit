@@ -47,8 +47,6 @@ public:
         lastPosition = 0.0;
         inLoopPhase = false;
         position = startPointViaRate();
-        printf("starting From %0.3f\n", position);
-        printf("rate %0.3f\n", rate);
         mainPlayComplete = false;
     }
 
@@ -221,7 +219,6 @@ public:
             double nextPosition = position + sampleRateRatio() * rate;
 
             if (started){
-                //printf("nextPosition %0.3f\n",nextPosition);
                 calculateMainPlayComplete(nextPosition);
                 if (loop){
                     calculateLoopPhase(nextPosition);
@@ -235,7 +232,6 @@ public:
                 if (!loop && calculateHasEnded(nextPosition)) {
                     started = false;
                     completionHandler();
-                    printf("ended\n");
                 } else {
                     lastPosition = position;
                 }
