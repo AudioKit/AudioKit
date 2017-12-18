@@ -44,13 +44,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.startPoint = Float(safeSample(newValue))
-                }
+                internalAU?.startPoint = Float(safeSample(newValue))
             }
         }
     }
@@ -60,13 +54,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.endPoint = Float(safeSample(newValue))
-                }
+                internalAU?.endPoint = Float(safeSample(newValue))
             }
         }
     }
@@ -75,13 +63,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
             if loopStartPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        loopStartPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.loopStartPoint = Float(safeSample(newValue))
-                }
+                internalAU?.loopStartPoint = Float(safeSample(newValue))
             }
         }
     }
@@ -90,13 +72,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        loopEndPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.loopEndPoint = Float(safeSample(newValue))
-                }
+                internalAU?.loopEndPoint = Float(safeSample(newValue))
             }
         }
     }
