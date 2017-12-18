@@ -44,6 +44,9 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    @IBAction func start(_ sender: Any) {
         booster.gain = slider1.doubleValue
         AudioKit.output = booster
         AudioKit.start()
