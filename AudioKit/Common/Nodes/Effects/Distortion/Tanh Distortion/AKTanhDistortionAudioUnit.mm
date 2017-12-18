@@ -27,8 +27,8 @@
 - (void)setPostgain:(float)postgain {
     _kernel.setPostgain(postgain);
 }
-- (void)setPostiveShapeParameter:(float)postiveShapeParameter {
-    _kernel.setPostiveShapeParameter(postiveShapeParameter);
+- (void)setpositiveShapeParameter:(float)positiveShapeParameter {
+    _kernel.setpositiveShapeParameter(positiveShapeParameter);
 }
 - (void)setNegativeShapeParameter:(float)negativeShapeParameter {
     _kernel.setNegativeShapeParameter(negativeShapeParameter);
@@ -55,10 +55,10 @@ standardKernelPassthroughs()
                                                           min:0.0
                                                           max:10.0
                                                          unit:kAudioUnitParameterUnit_Generic];
-    // Create a parameter object for the postiveShapeParameter.
-    AUParameter *postiveShapeParameterAUParameter = [AUParameter parameter:@"postiveShapeParameter"
+    // Create a parameter object for the positiveShapeParameter.
+    AUParameter *positiveShapeParameterAUParameter = [AUParameter parameter:@"positiveShapeParameter"
                                                                       name:@"Positive Shape Parameter"
-                                                                   address:postiveShapeParameterAddress
+                                                                   address:positiveShapeParameterAddress
                                                                        min:-10.0
                                                                        max:10.0
                                                                       unit:kAudioUnitParameterUnit_Generic];
@@ -73,19 +73,19 @@ standardKernelPassthroughs()
     // Initialize the parameter values.
     pregainAUParameter.value = 2.0;
     postgainAUParameter.value = 0.5;
-    postiveShapeParameterAUParameter.value = 0.0;
+    positiveShapeParameterAUParameter.value = 0.0;
     negativeShapeParameterAUParameter.value = 0.0;
 
     _kernel.setParameter(pregainAddress,                pregainAUParameter.value);
     _kernel.setParameter(postgainAddress,               postgainAUParameter.value);
-    _kernel.setParameter(postiveShapeParameterAddress,  postiveShapeParameterAUParameter.value);
+    _kernel.setParameter(positiveShapeParameterAddress,  positiveShapeParameterAUParameter.value);
     _kernel.setParameter(negativeShapeParameterAddress, negativeShapeParameterAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              pregainAUParameter,
                                              postgainAUParameter,
-                                             postiveShapeParameterAUParameter,
+                                             positiveShapeParameterAUParameter,
                                              negativeShapeParameterAUParameter
                                              ]];
 

@@ -33,7 +33,7 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
         // Replace the file being played
         try? player.replace(file: converted)
     } else {
-        // An error occured. So, print the Error
+        // An error occurred. So, print the Error
         print("Error: \(error?.localizedDescription)")
     }
 }
