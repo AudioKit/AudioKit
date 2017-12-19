@@ -18,7 +18,7 @@ extension AudioUnitManager: AKMIDIListener {
     internal func initMIDIDevices() {
         guard let devices = midiManager?.inputNames else { return }
 
-        if devices.count > 0 {
+        if !devices.isEmpty {
             midiDeviceSelector.removeAllItems()
             midiManager?.openInput(devices[0])
 
@@ -41,9 +41,9 @@ extension AudioUnitManager: AKMIDIListener {
         let sinceLastEvent = currentTime - lastMIDIEvent
         let isDupe = sinceLastEvent < 300_000
 
-        if auInstrument != nil {
+        if let auInstrument = auInstrument {
             if !isDupe {
-                auInstrument!.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
+                auInstrument.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
             } else {
                 // AKLog("Duplicate noteOn message sent")
             }
@@ -62,8 +62,8 @@ extension AudioUnitManager: AKMIDIListener {
     }
 
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        if auInstrument != nil {
-            auInstrument!.stop(noteNumber: noteNumber, channel: channel)
+        if let auInstrument = auInstrument {
+            auInstrument.stop(noteNumber: noteNumber, channel: channel)
 
         } else if fmOscillator.isStarted {
             fmOscillator.stop()
