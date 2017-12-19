@@ -14,6 +14,8 @@ typedef void (^AKCCallback)(void);
 @interface AKSamplePlayerAudioUnit : AKAudioUnit
 @property (nonatomic) float startPoint;
 @property (nonatomic) float endPoint;
+@property (nonatomic) float tempStartPoint;
+@property (nonatomic) float tempEndPoint;
 @property (nonatomic) float rate;
 @property (nonatomic) float volume;
 @property (nonatomic) BOOL loop;

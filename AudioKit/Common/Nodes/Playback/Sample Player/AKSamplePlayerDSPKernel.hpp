@@ -50,6 +50,8 @@ public:
 
     void stop() {
         started = false;
+        useTempStartPoint = false;
+        useTempEndPoint = false;
     }
 
     void setUpTable(UInt32 size) {
@@ -98,6 +100,14 @@ public:
     }
     void setLoopEndPoint(float value) {
         loopEndPoint = value;
+    }
+    void setTempStartPoint(float value) {
+        useTempStartPoint = true;
+        tempStartPoint = value;
+    }
+    void setTempEndPoint(float value) {
+        useTempEndPoint = true;
+        tempEndPoint = value;
     }
     void setLoop(bool value) {
         loop = value;
@@ -173,7 +183,7 @@ public:
                     }
                 }
                 if (!loop && calculateHasEnded(nextPosition)) {
-                    started = false;
+                    stop();
                     completionHandler();
                 } else {
                     lastPosition = position;
@@ -201,10 +211,16 @@ public:
     
     float startPointViaRate(){
         if (rate == 0) {return 0;}
+        if (useTempStartPoint){
+            return tempStartPoint;
+        }
         return (rate > 0 ? startPoint : endPoint);
     }
     float endPointViaRate(){
         if (rate == 0) {return 0;}
+        if (useTempEndPoint){
+            return tempEndPoint;
+        }
         return (rate > 0 ? endPoint : startPoint);
     }
     float loopStartPointViaRate(){
@@ -248,9 +264,6 @@ public:
     bool startEndReversed(){
         return (endPointViaRate() < startPointViaRate() ? true : false);
     }
-//    bool playbackReversed(){
-//        return false;
-//    }
     
     void calculateMainPlayComplete(double nextPosition){
         if (nextPosition > endPointViaRate() && !startEndReversed()){
@@ -294,6 +307,10 @@ private:
 
     float startPoint = 0;
     float endPoint = 1;
+    float tempStartPoint = 0;
+    float tempEndPoint = 1;
+    bool useTempStartPoint = false;
+    bool useTempEndPoint = false;
     float loopStartPoint = 0;
     float loopEndPoint = 1;
     float volume = 1;
