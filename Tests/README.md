@@ -361,7 +361,7 @@ AKTanhDistortionTests
     ✓ testNegativeShapeParameter
     ✓ testParameters
     ✓ testPostgain
-    ✓ testPostiveShapeParameter
+    ✓ testPositiveShapeParameter
     ✓ testPregain
 
 AKThreePoleLowpassFilterTests

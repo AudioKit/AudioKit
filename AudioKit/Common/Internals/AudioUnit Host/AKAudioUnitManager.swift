@@ -103,7 +103,7 @@ open class AKAudioUnitManager: NSObject {
 
         set {
             guard newValue.count == _effectsChain.count else {
-                AKLog("number of newValues doesnt match number of inserts")
+                AKLog("number of newValues doesn't match number of inserts")
                 return
             }
 

@@ -64,7 +64,7 @@ extension AVAudioTime {
         return self
     }
 
-    /// The time in seconds between reciever and otherTime.
+    /// The time in seconds between receiver and otherTime.
     open func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
         if isSampleTimeValid && otherTime.isSampleTimeValid {
             return Double(sampleTime - otherTime.sampleTime) / sampleRate

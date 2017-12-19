@@ -313,7 +313,7 @@ typedef NS_ENUM(NSInteger, EZRecorderFileType)
 //------------------------------------------------------------------------------
 
 /**
- Provides the frame index (a.k.a the write positon) within the audio file as SInt64. This can be helpful when seeking through the audio file.
+ Provides the frame index (a.k.a the write position) within the audio file as SInt64. This can be helpful when seeking through the audio file.
  @return The current frame index within the audio file as a SInt64.
  */
 @property (readonly) SInt64 frameIndex;
