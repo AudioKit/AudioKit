@@ -198,7 +198,7 @@ extension AudioUnitManager {
             }
         }
 
-        let internalSubmenu = button.menu?.items.filter { $0.title == akInternals }.first
+        let internalSubmenu = button.menu?.items.first(where: { $0.title == akInternals })
 
         for name in internalManager.internalAudioUnits {
             let item = ClosureMenuItem(title: name, closure: { [weak self] in
@@ -255,10 +255,10 @@ extension AudioUnitManager {
                 if ui == nil {
                     // AKLog("No ViewController for \(audioUnit.name )")
                     ui = NSViewController()
-                    ui!.view = AudioUnitGenericView(audioUnit: audioUnit)
+                    ui?.view = AudioUnitGenericView(audioUnit: audioUnit)
                 }
-                guard ui != nil else { return }
-                self?.createAUWindow(viewController: ui!, audioUnit: audioUnit, identifier: identifier)
+                guard let theUI = ui else { return }
+                self?.createAUWindow(viewController: theUI, audioUnit: audioUnit, identifier: identifier)
             }
         }
     }
@@ -324,8 +324,8 @@ extension AudioUnitManager {
         if fmOscillator.isStarted {
             internalManager.connectEffects(firstNode: fmOscillator, lastNode: mixer)
             return
-        } else if auInstrument != nil && !(player?.isPlaying ?? false) {
-            internalManager.connectEffects(firstNode: auInstrument!, lastNode: mixer)
+        } else if let auInstrument = auInstrument, !(player?.isPlaying ?? false) {
+            internalManager.connectEffects(firstNode: auInstrument, lastNode: mixer)
             return
         } else if let player = player {
             let wasPlaying = player.isPlaying

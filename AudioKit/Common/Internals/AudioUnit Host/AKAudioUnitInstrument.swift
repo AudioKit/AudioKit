@@ -32,11 +32,11 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///   - channel: MIDI channel to play the note on
     ///
     open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
-        guard self.midiInstrument != nil else {
+        guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
         }
-        self.midiInstrument!.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+        self.midiInstrument.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
     /// Send MIDI Note Off information to the audio unit
@@ -49,11 +49,11 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         self.stop(noteNumber: noteNumber, channel: 0)
     }
     open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        guard self.midiInstrument != nil else {
+        guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
         }
-        self.midiInstrument!.stopNote(noteNumber, onChannel: channel)
+        midiInstrument.stopNote(noteNumber, onChannel: channel)
     }
 
 }

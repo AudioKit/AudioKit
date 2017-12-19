@@ -60,6 +60,7 @@ class AudioUnitManager: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+
     }
 
     @objc func handleApplicationInit() {
