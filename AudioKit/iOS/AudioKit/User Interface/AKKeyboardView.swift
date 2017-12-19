@@ -21,7 +21,7 @@ public protocol AKKeyboardDelegate: class {
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
 
-    /// Lowest octave dispayed
+    /// Lowest octave displayed
     @IBInspectable open var firstOctave: Int = 4
 
     /// Relative measure of the height of the black keys

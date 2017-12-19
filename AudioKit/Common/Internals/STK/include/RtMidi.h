@@ -70,12 +70,12 @@ public:
     UNSPECIFIED,       /*!< The default, unspecified error type. */
     NO_DEVICES_FOUND,  /*!< No devices found on system. */
     INVALID_DEVICE,    /*!< An invalid device ID was specified. */
-    MEMORY_ERROR,      /*!< An error occured during memory allocation. */
+    MEMORY_ERROR,      /*!< An error occurred during memory allocation. */
     INVALID_PARAMETER, /*!< An invalid parameter was specified to a function. */
     INVALID_USE,       /*!< The function was called incorrectly. */
-    DRIVER_ERROR,      /*!< A system driver error occured. */
-    SYSTEM_ERROR,      /*!< A system error occured. */
-    THREAD_ERROR       /*!< A thread error occured. */
+    DRIVER_ERROR,      /*!< A system driver error occurred. */
+    SYSTEM_ERROR,      /*!< A system error occurred. */
+    THREAD_ERROR       /*!< A thread error occurred. */
   };
 
   //! The constructor.
@@ -162,9 +162,9 @@ public:
   //! Returns true if a port is open and false if not.
   virtual bool isPortOpen(void) const = 0;
 
-  //! Set an error callback function to be invoked when an error has occured.
+  //! Set an error callback function to be invoked when an error has occurred.
   /*!
-    The callback function will be called whenever an error has occured. It is
+    The callback function will be called whenever an error has occurred. It is
     best to set the error callback function before opening a port.
   */
   virtual void setErrorCallback(RtMidiErrorCallback errorCallback = NULL,
@@ -334,9 +334,9 @@ public:
   */
   double getMessage(std::vector<unsigned char> *message);
 
-  //! Set an error callback function to be invoked when an error has occured.
+  //! Set an error callback function to be invoked when an error has occurred.
   /*!
-    The callback function will be called whenever an error has occured. It is
+    The callback function will be called whenever an error has occurred. It is
     best to set the error callback function before opening a port.
   */
   virtual void setErrorCallback(RtMidiErrorCallback errorCallback = NULL,
@@ -427,9 +427,9 @@ public:
   */
   void sendMessage(std::vector<unsigned char> *message);
 
-  //! Set an error callback function to be invoked when an error has occured.
+  //! Set an error callback function to be invoked when an error has occurred.
   /*!
-    The callback function will be called whenever an error has occured. It is
+    The callback function will be called whenever an error has occurred. It is
     best to set the error callback function before opening a port.
   */
   virtual void setErrorCallback(RtMidiErrorCallback errorCallback = NULL,

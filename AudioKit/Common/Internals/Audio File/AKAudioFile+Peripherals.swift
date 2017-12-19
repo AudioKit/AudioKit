@@ -31,15 +31,8 @@ extension AKAudioFile {
     }
 
     /// Create an AKAudioPlayer to play the current AKAudioFile
-    public var player: AKAudioPlayer? {
-        var filePlayer: AKAudioPlayer?
-
-        do {
-            try filePlayer = AKAudioPlayer(file: self)
-        } catch let error as NSError {
-            AKLog("ERROR AKAudioFile: cannot create player: \(error)")
-        }
-        return filePlayer
+    public var player: AKPlayer {
+        return AKPlayer(audioFile: self)
     }
 
 }

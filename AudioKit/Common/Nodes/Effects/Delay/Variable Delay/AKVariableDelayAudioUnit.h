@@ -10,6 +10,7 @@
 #import "AKAudioUnit.h"
 
 @interface AKVariableDelayAudioUnit : AKAudioUnit
+- (void)clear;
 @property (nonatomic) float time;
 @property (nonatomic) float feedback;
 @end

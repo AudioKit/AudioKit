@@ -29,7 +29,7 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
     print("callback -> How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
     print("callback -> How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
-    // Now we handle the file (and the error if any occured.)
+    // Now we handle the file (and the error if any occurred.)
     if let successfulFile = processedFile {
         // We print its duration:
         print("callback -> processed: \(successfulFile.duration)")

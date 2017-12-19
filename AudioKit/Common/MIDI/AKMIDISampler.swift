@@ -23,19 +23,22 @@ open class AKMIDISampler: AKSampler {
     open var name = "MIDI Sampler"
 
     /// Initialize the MIDI Sampler
-    public override init() {
+    ///
+    /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    ///
+    public init(midiOutputName: String? = nil) {
         super.init()
-        enableMIDI()
+        enableMIDI(name: midiOutputName ?? name)
     }
 
     /// Enable MIDI input from a given MIDI client
     /// This is not in the init function because it must be called AFTER you start AudioKit
     ///
     /// - Parameters:
-    ///   - midiClient: A refernce to the MIDI client
+    ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AKMIDI().client,
+    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
                          name: String = "MIDI Sampler") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {

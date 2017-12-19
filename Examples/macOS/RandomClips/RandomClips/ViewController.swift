@@ -15,7 +15,7 @@ class ViewController: NSViewController {
     let drumPlayer = AKClipPlayer()
     let guitarPlayer = AKClipPlayer()
     let mixer = AKMixer()
-    var drumLooper: AKAudioPlayer?
+    var drumLooper: AKPlayer?
     let playButton = AKButton()
     let guitarDelay = AVAudioUnitDelay()
     let reverb = AKReverb()
@@ -29,18 +29,39 @@ class ViewController: NSViewController {
             let guitarLoopURL = Bundle.main.url(forResource: "guitarloop", withExtension: "wav"),
             let drumFile = try? AKAudioFile(forReading: drumURL),
             let guitarFile = try? AKAudioFile(forReading: guitarURL),
-            let guitarLoopFile = try? AKAudioFile(forReading: guitarLoopURL),
-            let drumLooper = try? AKAudioPlayer(file: drumFile, looping: true),
-            let guitarLooper = try? AKAudioPlayer(file: guitarLoopFile, looping: true)
+            let guitarLoopFile = try? AKAudioFile(forReading: guitarLoopURL)
 
             else {
                 print("missing resources!")
                 return
         }
+
+        let drumLooper = AKPlayer(audioFile: drumFile)
+        let guitarLooper = AKPlayer(audioFile: guitarFile)
+        let ambientGuitar = AKPlayer(audioFile: guitarFile)
+
+        drumLooper.isLooping = true
+        guitarLooper.isLooping = true
+        ambientGuitar.isLooping = true
+        ambientGuitar.isReversed = true
+        ambientGuitar.fade.inTime = 1
+        ambientGuitar.fade.outTime = 1
+
+        let timePitch = AKTimePitch()
+        timePitch.pitch = 1_200
+        timePitch.rate = 0.1
+
+        let ambientDelay = AKDelay()
+        ambientDelay.dryWetMix = 1
+        ambientDelay.feedback = 0.5
+        ambientDelay.time = 3
+        ambientGuitar >>> timePitch >>> ambientDelay
+
         [drumPlayer >>> highPass,
          guitarPlayer >>> guitarDelay >>> reverb,
          drumLooper,
-         guitarLooper] >>> mixer
+         guitarLooper,
+         ambientDelay] >>> mixer
 
         guitarDelay.delayTime = guitarFile.duration / 8
         guitarDelay.feedback = 1
@@ -53,6 +74,7 @@ class ViewController: NSViewController {
         guitarPlayer.volume = 0.6
         guitarLooper.volume = 0.3
         drumPlayer.volume = 0.6
+        ambientGuitar.volume = 0.3
 
         AudioKit.output = mixer
         AudioKit.start()
@@ -91,6 +113,7 @@ class ViewController: NSViewController {
                 drumPlayer.stop()
                 guitarPlayer.stop()
                 guitarLooper.stop()
+                ambientGuitar.stop()
                 drumLooper.stop()
                 button.title = drumPlayer.isPlaying ? "Stop" : "Play"
 
@@ -104,18 +127,15 @@ class ViewController: NSViewController {
 
                 drumPlayer.currentTime = 0
                 guitarPlayer.currentTime = 0
-
                 drumPlayer.prepare(withFrameCount: 44_100)
                 guitarPlayer.prepare(withFrameCount: 44_100)
-
-                drumLooper.schedule(from: 0, to: drumLooper.duration, avTime: nil)
-                guitarLooper.schedule(from: 0, to: guitarLooper.duration, avTime: nil)
 
                 let twoRendersTime = AKSettings.ioBufferDuration * 2
                 let futureTime = AVAudioTime.now() + twoRendersTime
 
                 drumLooper.play(at: futureTime)
                 guitarLooper.play(at: futureTime)
+                ambientGuitar.play(at: futureTime)
 
                 let loopDur = drumFile.duration
                 drumPlayer.play(at: futureTime + loopDur)

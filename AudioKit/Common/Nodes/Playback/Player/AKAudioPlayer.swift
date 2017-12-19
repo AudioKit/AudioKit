@@ -7,6 +7,8 @@
 //
 
 /// Not so simple audio playback class
+
+//AURE: ? @available(*, deprecated, renamed: "AKPlayer")
 open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Private variables
@@ -150,8 +152,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// sets the start time, If it is playing, player will
-    /// restart playing from the start time each time end time is set
+    /// Seconds into the audio file to start playback at
     @objc open dynamic var startTime: Double {
         get {
             return Double(startingFrame) / internalAudioFile.sampleRate
@@ -179,8 +180,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// sets the end time, If it is playing, player will
-    /// restart playing from the start time each time end time is set
+    /// Seconds into the audio file to stop playback
     @objc open dynamic var endTime: Double {
         get {
             return Double(endingFrame) / internalAudioFile.sampleRate
@@ -507,8 +507,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
         if looping {
             // Looping is toggled on: schedule the buffer to loop at the next loop interval.
-            let options: AVAudioPlayerNodeBufferOptions = [.loops, .interruptsAtLoop]
-            scheduleBuffer(atTime: nil, options: options)
+
+            scheduleBuffer(atTime: nil, options: [.loops, .interruptsAtLoop])
         } else {
             // Looping is toggled off: schedule to stop at the end of the current loop.
             stopAtNextLoopEnd()
