@@ -31,10 +31,11 @@ class AudioUnitParamSlider: NSView {
         slider.frame = NSRect(x: 122, y: 2, width: 100, height: 20)
         addSubview(slider)
 
-        valueField = createLabel(string: String(param.value))
-        valueField!.alignment = .left
-        valueField!.frame = NSRect(x: 224, y: 2, width: 28, height: 20)
-        addSubview(valueField!)
+        let field = createLabel(string: String(param.value))
+        field.alignment = .left
+        field.frame = NSRect(x: 224, y: 2, width: 28, height: 20)
+        addSubview(field)
+        valueField = field
 
         if let unitName = param.unitName {
             let unitsField = createLabel(string: unitName)
@@ -44,10 +45,11 @@ class AudioUnitParamSlider: NSView {
         }
         frame = NSRect(x: 0, y: 0, width: 352, height: 20)
 
-        guard key != nil else { return }
+        guard let key = key else { return }
+
         DispatchQueue.main.async {
             // need to refetch the param as it's dispatched later and the reference dies
-            if let p = self.getParam(withAddress: self.key!) {
+            if let p = self.getParam(withAddress: key) {
                 self.slider.floatValue = p.value
                 self.slider.maxValue = Double(p.maxValue)
                 self.slider.minValue = Double(p.minValue)
@@ -80,9 +82,9 @@ class AudioUnitParamSlider: NSView {
 
     @objc func handleAction(_ sender: NSSlider) {
         guard sender == slider else { return }
-        guard key != nil else { return }
+        guard let key = key else { return }
 
-        if let p = getParam(withAddress: key!) {
+        if let p = getParam(withAddress: key) {
             // Swift.print("p: \(p)")
             p.value = slider.floatValue
             if let field = valueField {
@@ -92,8 +94,8 @@ class AudioUnitParamSlider: NSView {
     }
 
     func updateValue() {
-        guard key != nil else { return }
-        if let p = getParam(withAddress: key!) {
+        guard let key = key else { return }
+        if let p = getParam(withAddress: key) {
             slider.floatValue = p.value
         }
     }
