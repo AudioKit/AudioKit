@@ -36,7 +36,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
             AKLog("no midiInstrument exists")
             return
         }
-        self.midiInstrument.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+        midiInstrument.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
     /// Send MIDI Note Off information to the audio unit
