@@ -5,7 +5,6 @@
 //  Created by Ryan Francesconi, revision history on Github.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
-import AudioKit
 
 extension Notification.Name {
     static let ComponentRegistrationsChanged = Notification.Name(rawValue:
