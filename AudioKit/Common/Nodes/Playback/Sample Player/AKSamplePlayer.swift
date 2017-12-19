@@ -48,7 +48,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             }
         }
     }
-
+    
     /// endPoint - this is where the sample will play to before stopping.
     /// A value less than the start point will play the sample backwards.
     @objc open dynamic var endPoint: Sample = 0 {
@@ -143,6 +143,12 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     fileprivate var avAudiofile: AVAudioFile
     fileprivate var maximumSamples: Int = 0
+    
+    open var completionHandler: AKCallback = {} {
+        willSet {
+            internalAU?.completionHandler = newValue
+        }
+    }
 
     // MARK: - Initialization
 
@@ -171,7 +177,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
         self.avAudiofile = file
         self.endPoint = Sample(avAudiofile.samplesCount)
         self.maximumSamples = maximumSamples
-
+        self.completionHandler = completionHandler
+        
         _Self.register()
 
         super.init()
@@ -242,21 +249,21 @@ open class AKSamplePlayer: AKNode, AKComponent {
     
     /// Play from a certain sample
     open func play(from: Sample) {
-        startPoint = from
+        internalAU?.tempStartPoint = Float(safeSample(from))
         start()
     }
 
     /// Play from a certain sample for a certain number of samples
     open func play(from: Sample, length: Sample) {
-        startPoint = from
-        endPoint = startPoint + length
+        internalAU?.tempStartPoint = Float(safeSample(from))
+        internalAU?.tempEndPoint = Float(safeSample(from + length))
         start()
     }
 
     /// Play from a certain sample to an end sample
     open func play(from: Sample, to: Sample) {
-        startPoint = from
-        endPoint = to
+        internalAU?.tempStartPoint = Float(safeSample(from))
+        internalAU?.tempEndPoint = Float(safeSample(to))
         start()
     }
 
