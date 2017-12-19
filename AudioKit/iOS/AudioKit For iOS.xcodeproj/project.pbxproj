@@ -4300,8 +4300,8 @@
 			isa = PBXGroup;
 			children = (
 				FED92BDF1ED1331D00E93264 /* AKSamplePlayer.swift */,
-				FED92BE11ED1331D00E93264 /* AKSamplePlayerAudioUnit.mm */,
 				FED92BE01ED1331D00E93264 /* AKSamplePlayerAudioUnit.h */,
+				FED92BE11ED1331D00E93264 /* AKSamplePlayerAudioUnit.mm */,
 				FED92BE21ED1331D00E93264 /* AKSamplePlayerDSPKernel.hpp */,
 			);
 			path = "Sample Player";

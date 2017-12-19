@@ -26,6 +26,12 @@
 - (void)setEndPoint:(float)endPoint {
     _kernel.setEndPoint(endPoint);
 }
+- (void)setTempStartPoint:(float)startPoint {
+    _kernel.setTempStartPoint(startPoint);
+}
+- (void)setTempEndPoint:(float)endPoint {
+    _kernel.setTempEndPoint(endPoint);
+}
 - (void)setLoopStartPoint:(float)startPoint {
     _kernel.setLoopStartPoint(startPoint);
 }
