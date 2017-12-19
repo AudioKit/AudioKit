@@ -29,11 +29,13 @@ class AKSamplePlayerTests: AKTestCase {
         AKTestMD5("4ff8bf4506289ce8b4f5f26f6d3c77ac")
     }
     
+    let startOffsetMD5 = "d06ca74db9d9e5ca6892a5c6b32b978c"
+    
     func testStartOffset(){
         afterStart = {
             self.sampler?.play(from: 2000)
         }
-        AKTestMD5("d06ca74db9d9e5ca6892a5c6b32b978c")
+        AKTestMD5(startOffsetMD5)
     }
     
     func testStartOffsetUsingPoints(){
@@ -41,23 +43,69 @@ class AKSamplePlayerTests: AKTestCase {
         afterStart = {
             self.sampler?.play()
         }
-        AKTestMD5("d06ca74db9d9e5ca6892a5c6b32b978c")
+        AKTestMD5(startOffsetMD5)
     }
+    
+    let endOffsetMD5 = "4fead31c7eb9c03698e8b94e286aa7ac"
     
     func testEndOffset(){
         afterStart = {
             self.sampler?.play(from: 0, to: 300)
         }
-        AKTestMD5("4fead31c7eb9c03698e8b94e286aa7ac")
+        AKTestMD5(endOffsetMD5)
     }
     
-    func testEndOffsetUsingPoints(){
+    func testEndOffsetUsingSamplePoints(){
         sampler?.startPoint = 0
         sampler?.endPoint = 300
         afterStart = {
             self.sampler?.play()
         }
-        AKTestMD5("4fead31c7eb9c03698e8b94e286aa7ac")
+        AKTestMD5(endOffsetMD5)
+    }
+    
+    let subsectionMD5 = "8ab03caca1d5011f73ad6e974ca6a9db"
+    
+    func testSampleSubsection(){
+        afterStart = {
+            self.sampler?.play(from: 300, to: 600)
+        }
+        AKTestMD5(subsectionMD5)
+    }
+    
+    func testSampleSubsectionUsingSamplePoints(){
+        sampler?.startPoint = 300
+        sampler?.endPoint = 600
+        afterStart = {
+            self.sampler?.play()
+        }
+        AKTestMD5(subsectionMD5)
+    }
+    
+    let subsectionResetMD5 = "aea154e169b0f37557c5d8f5a3380315"
+    
+    func testSampleSubsectionWithReset(){
+        sampler?.completionHandler = {
+            self.sampler?.play()
+        }
+        afterStart = {
+            self.sampler?.play(from: 300, to: 600)
+        }
+        AKTestMD5(subsectionResetMD5)
+    }
+    
+    func testSampleSubsectionWithResetUsingSamplePoints(){
+        sampler?.completionHandler = {
+            self.sampler?.startPoint = 0
+            self.sampler?.endPoint = self.sampler!.size
+            self.sampler?.play()
+        }
+        afterStart = {
+            self.sampler?.startPoint = 300
+            self.sampler?.endPoint = 600
+            self.sampler?.play()
+        }
+        AKTestMD5(subsectionResetMD5)
     }
     
     func testForwardLoop(){
