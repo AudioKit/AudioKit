@@ -18,7 +18,7 @@ This directory contains the "AudioKit for macOS.xcodeproj" which contains all th
 
 ## tvOS/
 
-The "AudioKit for tvOS.xcodeproj" contains the common elements that work on tvOS.  The most notable ommission from tvOS is any MIDI enabled components of AudioKit, since tvOS does not currenly support MIDI.
+The "AudioKit for tvOS.xcodeproj" contains the common elements that work on tvOS.  The most notable ommission from tvOS is any MIDI enabled components of AudioKit, since tvOS does not currently support MIDI.
 
 ## .jazzy.yaml
 
