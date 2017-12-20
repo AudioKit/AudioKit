@@ -102,19 +102,18 @@ extension AudioUnitManager {
         playButton.isEnabled = true
         fileField.stringValue = "🔈 \(url.lastPathComponent)"
 
-        if waveform != nil {
-            waveform!.dispose()
-        }
+        waveform?.dispose()
 
         // get the waveform
         let darkRed = NSColor(calibratedRed: 0.79, green: 0.128, blue: 0.06, alpha: 1)
         waveform = AKWaveform(url: url, color: darkRed)
-        guard waveform != nil else { return }
 
-        waveformContainer.addSubview(waveform!)
-        waveform?.frame = waveformContainer.frame
-        waveform?.fitToFrame()
-        waveform?.delegate = self
+        guard let waveform = waveform else { return }
+
+        waveformContainer.addSubview(waveform)
+        waveform.frame = waveformContainer.frame
+        waveform.fitToFrame()
+        waveform.delegate = self
 
         audioEnabled = true
     }

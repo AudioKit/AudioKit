@@ -5,13 +5,12 @@
 //  Created by Ryan Francesconi, revision history on Github.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
-import AVFoundation
 
 extension Notification.Name {
-    static let ComponentRegistrationsChanged = Notification.Name(rawValue: kAudioComponentRegistrationsChangedNotification as String)
-
-    static let ComponentInstanceInvalidation = Notification.Name(rawValue: kAudioComponentInstanceInvalidationNotification as String)
-
+    static let ComponentRegistrationsChanged = Notification.Name(rawValue:
+        kAudioComponentRegistrationsChangedNotification as String)
+    static let ComponentInstanceInvalidation = Notification.Name(rawValue:
+        kAudioComponentInstanceInvalidationNotification as String)
 }
 
 /// Audio Unit Manager
@@ -79,13 +78,15 @@ open class AKAudioUnitManager: NSObject {
     open var output: AKNode?
 
     // Serializes all access to `availableEffects`.
-    private let availableEffectsAccessQueue = DispatchQueue(label: "AKAudioUnitManager.availableEffectsAccessQueue")
+    private let availableEffectsAccessQueue = DispatchQueue(label:
+        "AKAudioUnitManager.availableEffectsAccessQueue")
 
     // List of available audio unit components.
     private var _availableEffects = [AVAudioUnitComponent]()
 
     // Serializes all access to `_availableInstruments`.
-    private let availableInstrumentsAccessQueue = DispatchQueue(label: "AKAudioUnitManager.availableInstrumentsAccessQueue")
+    private let availableInstrumentsAccessQueue = DispatchQueue(label:
+        "AKAudioUnitManager.availableInstrumentsAccessQueue")
 
     // List of available audio unit components.
     private var _availableInstruments = [AVAudioUnitComponent]()
@@ -185,7 +186,9 @@ open class AKAudioUnitManager: NSObject {
         super.init()
 
         // Sign up for a notification when the list of available components changes.
-        NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged, object: nil, queue: nil) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged,
+                                               object: nil,
+                                               queue: nil) { [weak self] _ in
 
             guard let strongSelf = self else {
                 AKLog("Unable to create strong ref to self")
@@ -198,9 +201,12 @@ open class AKAudioUnitManager: NSObject {
         }
 
         // TODO: This might not be working?
-        // Sign up for a notification when an audio unit crashes. Note that we handle this on the main queue for thread-safety.
+        // Sign up for a notification when an audio unit crashes. Note that we handle this on the
+        // main queue for thread-safety.
 
-        NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation, object: nil, queue: nil) { [weak self] notification in
+        NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation,
+                                               object: nil,
+                                               queue: nil) { [weak self] notification in
 
             guard let strongSelf = self else {
                 AKLog("Unable to create strong ref to self")
@@ -260,7 +266,8 @@ open class AKAudioUnitManager: NSObject {
             /// Locating components can be a little slow, especially the first time.
             /// Do this work on a separate dispatch thread.
             /// Make a component description matching any AU of the type.
-            self.availableInstruments = AVAudioUnitComponentManager.shared().components(matching: AKAudioUnitManager.ComponentDescription)
+            self.availableInstruments = AVAudioUnitComponentManager.shared().components(matching:
+                AKAudioUnitManager.ComponentDescription)
 
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
@@ -366,11 +373,11 @@ open class AKAudioUnitManager: NSObject {
         var node: AKNode?
 
         // this would be nice:
-        //    if let anyClass = NSClassFromString("AudioKit." + auname) {
-        //        if let aknode = anyClass as? AKNode.Type {
-        //            let instance = aknode.init()
+        //        if let anyClass = NSClassFromString("AudioKit." + auname) {
+        //            if let aknode = anyClass as? AKNode.Type {
+        //                let instance = aknode.init()
+        //            }
         //        }
-        //    }
 
         switch name {
         case "AKVariableDelay":
@@ -448,7 +455,7 @@ open class AKAudioUnitManager: NSObject {
         case "AKBooster":
             node = AKBooster()
         case "AKBooster2":
-            node = AKBooster()
+            node = AKBooster2()
         case "AKTanhDistortion":
             node = AKTanhDistortion()
         default:
