@@ -13,16 +13,16 @@ import Cocoa
 class ViewController: NSViewController {
 
     // Default controls
-    @IBOutlet weak var playButton: NSButton!
-    @IBOutlet weak var sliderLabel1: NSTextField!
-    @IBOutlet weak var slider1: NSSlider!
-    @IBOutlet weak var sliderLabel2: NSTextField!
-    @IBOutlet weak var slider2: NSSlider!
-    @IBOutlet weak var slider1Value: NSTextField!
-    @IBOutlet weak var slider2Value: NSTextField!
-    @IBOutlet weak var inputSource: NSPopUpButton!
-    @IBOutlet weak var chooseAudioButton: NSButton!
-    @IBOutlet weak var inputSourceInfo: NSTextField!
+    @IBOutlet var playButton: NSButton!
+    @IBOutlet var sliderLabel1: NSTextField!
+    @IBOutlet var slider1: NSSlider!
+    @IBOutlet var sliderLabel2: NSTextField!
+    @IBOutlet var slider2: NSSlider!
+    @IBOutlet var slider1Value: NSTextField!
+    @IBOutlet var slider2Value: NSTextField!
+    @IBOutlet var inputSource: NSPopUpButton!
+    @IBOutlet var chooseAudioButton: NSButton!
+    @IBOutlet var inputSourceInfo: NSTextField!
 
     var openPanel: NSOpenPanel?
 
@@ -96,7 +96,7 @@ class ViewController: NSViewController {
             openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
         }
         guard let openPanel = openPanel else { return }
-        openPanel.beginSheetModal( for: window, completionHandler: { response in
+        openPanel.beginSheetModal(for: window, completionHandler: { response in
             if response == NSApplication.ModalResponse.OK {
                 if let url = openPanel.url {
                     self.open(url: url)
