@@ -30,7 +30,7 @@
     func position(at audioTime: AVAudioTime?) -> Double
 
     /// Audio time at timeline time
-    /// - Parameter time: Time in the timeline context (seconds).
+    /// - Parameter position: Time in the timeline context (seconds).
     /// - Return: A time in the audio render context.
     ///
     @objc(audioTimeAtPosition:)
