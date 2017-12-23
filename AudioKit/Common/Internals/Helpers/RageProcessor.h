@@ -10,13 +10,13 @@
 
 class RageProcessor {
 public:
-  RageProcessor(int iSampleRate);
-  float doRage(float fCurrentSample, float fKhorne, float fNurgle);
-  MikeFilter filterToneZ;
-  void setNumStages(int theStages);
-
+    RageProcessor(int iSampleRate);
+    float doRage(float fCurrentSample, float fKhorne, float fNurgle);
+    MikeFilter filterToneZ;
+    void setNumStages(int theStages);
+    
 private:
-  int iSampleRate, iNumStages;
+    int iSampleRate, iNumStages;
 };
 
 
