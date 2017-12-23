@@ -36,7 +36,7 @@ class LiveView: AKLiveViewController {
         addView(AKSlider(property: "Pre Gain",
                          value: rhino.preGain,
                          range: 0.0 ... 10.0,
-                         format: "%0.2f dB"
+                         format: "%0.2f"
         ) { sliderValue in
             rhino.preGain = sliderValue
         })
