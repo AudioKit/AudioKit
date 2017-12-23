@@ -5,16 +5,10 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = try AKPlayer(audioFile: file)
+player.isLooping = true
 
 var effect = AKDynaRageCompressor(player)
-effect.threshold
-effect.ratio
-effect.attackTime
-effect.releaseTime
-effect.rageIsOn
-effect.rageAmount
 
 AudioKit.output = effect
 AudioKit.start()
