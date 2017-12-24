@@ -74,11 +74,7 @@
                 player?.stop()
                 let filename = titles[currentIndex]
                 if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
-                    do {
-                        try player?.replace(file: file)
-                    } catch {
-                        AKLog("Could not replace file")
-                    }
+                    player?.load(audioFile: file)
                 }
                 if isPlayerPlaying { player?.play() }
                 setNeedsDisplay()
