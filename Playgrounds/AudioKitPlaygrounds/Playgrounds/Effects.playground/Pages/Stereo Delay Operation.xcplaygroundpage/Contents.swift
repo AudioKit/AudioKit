@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let effect = AKOperationEffect(player, numberOfChannels: 2) { _, parameters in
     let leftDelay = AKOperation.leftInput.variableDelay(time: parameters[0], feedback: parameters[1])

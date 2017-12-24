@@ -28,12 +28,12 @@ class AudioEngine {
         // Set up a player to the loop the file's playback
         do {
             let file = try AKAudioFile(readFileName: "drumloop.wav")
-            player = try AKAudioPlayer(file: file)
         } catch {
             AKLog("File Not Found")
             return
         }
-        player.looping = true
+        player = AKPlayer(audioFile: file)
+        player.isLooping = true
 
         // Next we'll connect the audio player to a delay effect
         delay = AKDelay(player)

@@ -13,8 +13,8 @@ import AudioKitPlaygrounds
 import AudioKit
 //: This section prepares the players
 let file = try AKAudioFile(readFileName: "drumloop.wav")
-var drums = try AKAudioPlayer(file: file)
-drums.looping = true
+var drums = AKPlayer(audioFile: file)
+drums.isLooping = true
 
 //: Build an effects chain:
 
