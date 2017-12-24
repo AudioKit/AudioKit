@@ -270,7 +270,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         self.completionHandler = completionHandler
 
         super.init()
-        self.isLooping = looping
+        self.looping = looping
         AudioKit.engine.attach(internalPlayer)
         AudioKit.engine.attach(internalMixer)
         let format = AVAudioFormat(standardFormatWithSampleRate: internalAudioFile.sampleRate,
