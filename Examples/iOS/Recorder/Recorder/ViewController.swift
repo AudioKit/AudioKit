@@ -187,11 +187,11 @@ class ViewController: UIViewController {
 
     @IBAction func loopButtonTouched(sender: UIButton) {
 
-        if player.looping {
-            player.looping = false
+        if player.isLooping {
+            player.isLooping = false
             sender.setTitle("Loop is Off", for: .normal)
         } else {
-            player.looping = true
+            player.isLooping = true
             sender.setTitle("Loop is On", for: .normal)
 
         }
