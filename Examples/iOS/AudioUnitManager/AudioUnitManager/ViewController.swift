@@ -273,7 +273,7 @@ extension ViewController: AKAudioUnitManagerDelegate {
 
         if player!.isStarted {
             player!.stop()
-            player!.start()
+            player!.start(at: AVAudioTime.now())
         }
 
         if let au = auManager!.effectsChain[auIndex] {
