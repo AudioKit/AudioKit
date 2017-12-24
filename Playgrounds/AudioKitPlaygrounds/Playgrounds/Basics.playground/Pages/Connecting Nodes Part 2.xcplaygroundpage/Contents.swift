@@ -20,7 +20,7 @@ import AudioKit
 class AudioEngine {
 
     // Declare your nodes as instance variables
-    var player: AKAudioPlayer!
+    var player: AKPlayer!
     var delay: AKDelay!
     var reverb: AKReverb!
 
